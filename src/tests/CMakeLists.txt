@@ -29,3 +29,5 @@ add_executable(${TARGET}
 target_link_libraries(${TARGET} PRIVATE rpp Catch2WithMain)
 
 set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
+
+add_ctest(${TARGET})
