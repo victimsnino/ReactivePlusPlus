@@ -35,7 +35,7 @@ class observable
 {
 public:
 
-    static_assert(std::is_same_v<utils::function_argument_t<OnSubscribe>, subscriber<Type>>, "OnSubscribe should accept subscriber of the same type as observable");
+    static_assert(std::is_same_v<std::decay_t<utils::function_argument_t<OnSubscribe>>, subscriber<Type>>, "OnSubscribe should accept subscriber of the same type as observable");
 
     observable(OnSubscribe&& on_subscribe)
         : m_on_subscribe{std::move(on_subscribe)} {}

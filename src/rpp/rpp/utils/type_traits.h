@@ -35,6 +35,9 @@ struct extract_subscriber_type<subscriber<Type>>
     using type = Type;
 };
 
+template<typename Type>
+struct extract_subscriber_type : public extract_subscriber_type<std::decay_t<Type>>{};
+
 template<typename T>
 using extract_subscriber_type_t = typename extract_subscriber_type<T>::type;
 } // namespace rpp::utils

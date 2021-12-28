@@ -21,14 +21,10 @@
 // SOFTWARE.
 
 #include <catch2/catch_test_macros.hpp>
-#include <catch2/benchmark/catch_benchmark.hpp>
 
 #include <rpp/observable.h>
 #include <rpp/observer.h>
 #include <rpp/subscriber.h>
-
-#include <array>
-#include <iostream>
 
 SCENARIO("Observable should be subscribable")
 {
@@ -38,15 +34,16 @@ SCENARIO("Observable should be subscribable")
         auto observer = rpp::observer{[&](int val) { ++on_next_called_count; }};
 
         size_t on_subscribe_called_count = 0;
-        auto observable = rpp::observable{[&](rpp::subscriber<int> sub)
+        auto observable = rpp::observable{[&](const rpp::subscriber<int>& sub)
         {
             ++on_subscribe_called_count;
-            sub.on_next(1010101);
+            sub.on_next(123);
         }};
 
         WHEN("subscribe called for observble")
         {
             observable.subscribe(observer);
+
             THEN("OnSubscribe lambda called once")
             {
                 CHECK(on_subscribe_called_count == 1);
