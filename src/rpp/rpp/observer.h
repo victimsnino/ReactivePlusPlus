@@ -54,9 +54,10 @@ namespace detail
     public:
         template<typename OnNext, typename OnError, typename OnCompleted>
         observer_state(OnNext&& on_next, OnError&& on_error, OnCompleted&& on_completed)
-            : m_storage{std::make_shared<StorageType<OnNext, OnError, OnCompleted>>(std::forward<OnNext>(on_next),
-                std::forward<OnError>(on_error),
-                std::forward<OnCompleted>(on_completed))}
+            : m_storage{std::make_shared<StorageType<OnNext, OnError, OnCompleted>>(
+             std::forward<OnNext>(on_next),
+             std::forward<OnError>(on_error),
+             std::forward<OnCompleted>(on_completed))}
             , m_on_next{[](void* storage, Type val)
             {
                 ToStoragePtr<OnNext, OnError, OnCompleted>(storage)->on_next(std::forward<Type>(val));
@@ -82,32 +83,31 @@ namespace detail
         struct Storage
         {
             template<typename TOnNext, typename TOnError, typename TOnCompleted>
-            Storage(TOnNext on_next, TOnError on_error, TOnCompleted on_completed)
+            Storage(TOnNext&& on_next, TOnError&& on_error, TOnCompleted&& on_completed)
                 : on_next{std::forward<TOnNext>(on_next)}
                 , on_error{std::forward<TOnError>(on_error)}
                 , on_completed{std::forward<TOnCompleted>(on_completed)} {}
 
-            OnNext      on_next;
-            OnError     on_error;
-            OnCompleted on_completed;
+            const OnNext      on_next;
+            const OnError     on_error;
+            const OnCompleted on_completed;
         };
 
         template<typename OnNext, typename OnError, typename OnCompleted>
         using StorageType = Storage<std::decay_t<OnNext>, std::decay_t<OnError>, std::decay_t<OnCompleted>>;
 
-        using OnNextFn = void(*)(void*, Type);
-        using OnErrorFn = void(*)(void*, const error&);
-        using OnCompleted = void(*)(void*);
-
         template<typename OnNext, typename OnError, typename OnCompleted>
         static auto ToStoragePtr(void* ptr) { return static_cast<StorageType<OnNext, OnError, OnCompleted>*>(ptr); }
 
+        using OnNextFn = void(*)(void*, Type);
+        using OnErrorFn = void(*)(void*, const error&);
+        using OnCompleted = void(*)(void*);
     private:
-        std::shared_ptr<void> m_storage{};
+        std::shared_ptr<void> m_storage;
 
-        OnNextFn    m_on_next;
-        OnErrorFn   m_on_error;
-        OnCompleted m_on_completed;
+        const OnNextFn    m_on_next;
+        const OnErrorFn   m_on_error;
+        const OnCompleted m_on_completed;
     };
 } //namespace detail
 
