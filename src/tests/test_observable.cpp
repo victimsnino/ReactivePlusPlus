@@ -21,20 +21,23 @@
 // SOFTWARE.
 
 #include <catch2/catch_test_macros.hpp>
+#include <catch2/benchmark/catch_benchmark.hpp>
 
 #include <rpp/observable.h>
 #include <rpp/observer.h>
 #include <rpp/subscriber.h>
+
+#include <array>
 
 SCENARIO("Observable should be subscribable")
 {
     GIVEN("observer and observable of same type")
     {
         size_t on_next_called_count = 0;
-        auto observer = rpp::observer{[&](int val) { ++on_next_called_count; }};
+        auto   observer             = rpp::observer{[&](int val) { ++on_next_called_count; }};
 
         size_t on_subscribe_called_count = 0;
-        auto observable = rpp::observable{[&](const rpp::subscriber<int>& sub)
+        auto   observable                = rpp::observable{[&](const rpp::subscriber<int>& sub)
         {
             ++on_subscribe_called_count;
             sub.on_next(123);
@@ -54,6 +57,34 @@ SCENARIO("Observable should be subscribable")
             }
         }
     }
+}
+
+SCENARIO("Benchmark observer")
+{
+    auto make_observer_and_observable = []()
+    {
+        std::array<int, 100> v{};
+        auto                 observer   = rpp::observer{[v](int                           val) {}};
+        auto                 observable = rpp::observable{[v](const rpp::subscriber<int>& sub)
+        {
+            sub.on_next(123);
+        }};
+        return std::tuple{observer, observable};
+    };
+
+    BENCHMARK("Construction")
+    {
+        auto [observer, observable] = make_observer_and_observable();
+
+        observable.subscribe(observer);
+    };
+
+    auto [observer, observable] = make_observer_and_observable();
+
+    BENCHMARK("Subscribe")
+    {
+        observable.subscribe(observer);
+    };
 }
 
 //struct Base
