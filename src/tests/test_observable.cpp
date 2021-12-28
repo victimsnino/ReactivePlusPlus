@@ -33,11 +33,11 @@ SCENARIO("Observable should be subscribable")
 {
     GIVEN("observer and observable of same type")
     {
-        size_t on_next_called_count = 0;
-        auto   observer             = rpp::observer{[&](int val) { ++on_next_called_count; }};
+        size_t     on_next_called_count = 0;
+        const auto observer             = rpp::observer{[&](int) { ++on_next_called_count; }};
 
-        size_t on_subscribe_called_count = 0;
-        auto   observable                = rpp::observable{[&](const rpp::subscriber<int>& sub)
+        size_t     on_subscribe_called_count = 0;
+        const auto observable                = rpp::observable{[&](const rpp::subscriber<int>& sub)
         {
             ++on_subscribe_called_count;
             sub.on_next(123);
@@ -64,7 +64,7 @@ SCENARIO("Benchmark observer")
     auto make_observer_and_observable = []()
     {
         std::array<int, 100> v{};
-        auto                 observer   = rpp::observer{[v](int                           val) {}};
+        auto                 observer   = rpp::observer{[v](int) {}};
         auto                 observable = rpp::observable{[v](const rpp::subscriber<int>& sub)
         {
             sub.on_next(123);
@@ -86,92 +86,3 @@ SCENARIO("Benchmark observer")
         observable.subscribe(observer);
     };
 }
-
-//struct Base
-//{
-//    virtual     ~Base() {  }
-//    virtual int operator()(int) const = 0;
-//};
-//
-//template<typename F>
-//struct Derrived final : Base
-//{
-//    Derrived(const F& f)
-//        : m_f{f} {}
-//
-//    int operator()(int v) const final { return m_f(v); }
-//    F   m_f;
-//};
-//
-//TEST_CASE("Benchmark different approaches")
-//{
-//    std::array<int, 10> vec{};
-//    auto action = [vec](int val){return val+2;};
-//
-//    BENCHMARK("call lambda", i)
-//    {
-//        return action(i);
-//    };
-//
-//    std::function as_function = action;
-//    BENCHMARK("call lambda as function", i)
-//    {
-//        return as_function(i);
-//    };
-//
-//    Derrived der{action};
-//    BENCHMARK("call lambda from derrived", i)
-//    {
-//        return der.m_f(i);
-//    };
-//
-//    BENCHMARK("call lambda from derrived via operator()", i)
-//    {
-//        return der(i);
-//    };
-//
-//    Base* b = [&action](){return static_cast<Base*>(new Derrived<decltype(action)>(action));}();
-//    BENCHMARK("call lambda from base", i)
-//    {
-//        return (*b)(i);
-//    };
-//
-//    BENCHMARK("call lambda from base via cast", i)
-//    {
-//        return (*static_cast<decltype(der)*>(b)).m_f(i);
-//    };
-//
-//    BENCHMARK("call lambda from base via cast via operator()", i)
-//    {
-//        return (*static_cast<decltype(der)*>(b))(i);
-//    };
-//}
-//
-//TEST_CASE("Benchmark different with construction")
-//{
-//    std::array<int, 10> vec{};
-//    auto action = [vec](int val){return val+2;};
-//
-//
-//    BENCHMARK("create lambda as function", i)
-//    {
-//        return std::make_shared<std::function<int(int)>>(action);
-//    };
-//
-//    BENCHMARK("create lambda as  derrived share_ptr", i)
-//    {
-//        return std::make_shared<Derrived<decltype(action)>>(action);
-//    };
-//
-//    //BENCHMARK("call lambda from base via cast", i)
-//    //{
-//    //    std::shared_ptr<Base> b = std::make_shared<Derrived<decltype(action)>>(action);
-//    //    return std::static_pointer_cast<Derrived<decltype(action)>>(b)->m_f(i);
-//    //};
-//
-//    //BENCHMARK("call lambda from base via cast via operator()", i)
-//    //{
-//    //    std::shared_ptr<Base> b = std::make_shared<Derrived<decltype(action)>>(action);
-//    //    return (*std::static_pointer_cast<Derrived<decltype(action)>>(b))(i);
-//    //};
-//}

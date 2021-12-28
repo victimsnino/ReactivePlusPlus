@@ -43,7 +43,7 @@ public:
     observable(const OnSubscribe& on_subscribe)
         : m_on_subscribe{on_subscribe} {}
 
-    void subscribe(const subscriber<Type>& observer)
+    void subscribe(const subscriber<Type>& observer) const
     {
         m_on_subscribe(observer);
     }
