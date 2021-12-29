@@ -23,17 +23,14 @@ jobs:
            os: ubuntu-latest
            cc: "gcc"
            cxx: "g++"
-           results_action: EnricoMi/publish-unit-test-result-action@v1
         -  name: "Linux CLANG"
            os: ubuntu-latest
            cc: "clang" 
            cxx: "clang++"
-           results_action: EnricoMi/publish-unit-test-result-action@v1
         -  name: "Windows MSVC"
            os: windows-latest
            cc: "cl"
            cxx: "cl"
-           results_action: EnricoMi/publish-unit-test-result-action/composite@v1
 
     steps:
     - uses: actions/checkout@v2
