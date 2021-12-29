@@ -103,7 +103,7 @@ public:
                 m_on_next_ref(m_storage.get(), temp);
             }
         }
-        else if constexpr (std::is_same_v<Decayed&&, Type>) // T&&
+        else if constexpr (std::is_same_v<Decayed&&, Type> || std::is_same_v<const Decayed&&, Type>) // T&&
         {
             if constexpr (std::is_lvalue_reference_v<U>)
                 m_on_next_move(m_storage.get(), Decayed{val});
@@ -111,7 +111,7 @@ public:
                 m_on_next_move(m_storage.get(), std::forward<U>(val));
         }
         else
-            static_assert(false, "Can't select proper type");
+            throw std::logic_error("Some unsupported type detected!");
     }
 
     void on_error(const error& err) const { m_on_error(m_storage.get(), err); }
