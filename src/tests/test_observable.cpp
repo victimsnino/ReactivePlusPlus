@@ -22,8 +22,7 @@
 
 #include "copy_count_tracker.h"
 
-#include <catch2/catch_test_macros.hpp>
-#include <catch2/benchmark/catch_benchmark.hpp>
+#include <catch2/catch_all.hpp>
 #include <rpp/observable.h>
 #include <rpp/observer.h>
 #include <rpp/subscriber.h>
@@ -65,7 +64,7 @@ SCENARIO("Benchmark observer")
     auto make_observer_and_observable = []()
     {
         std::array<int, 100> v{};
-        auto                 observer   = rpp::observer{[v](int) {}};
+        auto                 observer   = rpp::observer{[v](int                           ) {}};
         auto                 observable = rpp::observable{[v](const rpp::subscriber<int>& sub)
         {
             sub.on_next(123);
@@ -80,7 +79,9 @@ SCENARIO("Benchmark observer")
         observable.subscribe(observer);
     };
 
-    auto [observer, observable] = make_observer_and_observable();
+    const auto tuple      = make_observer_and_observable();
+    const auto observer   = std::get<0>(tuple);
+    const auto observable = std::get<1>(tuple);
 
     BENCHMARK("Subscribe")
     {

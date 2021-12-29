@@ -22,6 +22,8 @@
 
 #pragma once
 
+#include "details/observer_state.h"
+
 #include <rpp/fwd.h>
 #include <rpp/details/observable_state.h>
 #include <rpp/utils/function_traits.h>
@@ -38,8 +40,9 @@ class observable
     using enable_if_is_callable_t = std::enable_if_t<std::is_invocable_v<T, const subscriber<Type>&>>;
 
 public:
-    template<typename OnSubscribe, typename = enable_if_is_callable_t<OnSubscribe>>
-    observable(OnSubscribe&& on_subscribe)
+    template<typename OnSubscribe = details::EmptyFunctor<const subscriber<Type>&>,
+             typename = enable_if_is_callable_t<OnSubscribe>>
+    observable(OnSubscribe&& on_subscribe = {})
         : m_state{std::forward<OnSubscribe>(on_subscribe)} {}
 
     void subscribe(const subscriber<Type>& observer) const
