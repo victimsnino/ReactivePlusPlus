@@ -36,12 +36,14 @@ namespace rpp
 template<typename Type>
 class observable
 {
+    static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");
+
     template<typename T>
-    using enable_if_is_callable_t = std::enable_if_t<std::is_invocable_v<T, const subscriber<Type>&>>;
+    using enable_if_callable_t = std::enable_if_t<std::is_invocable_v<T, const subscriber<Type>&>>;
 
 public:
     template<typename OnSubscribe = details::EmptyFunctor<const subscriber<Type>&>,
-             typename = enable_if_is_callable_t<OnSubscribe>>
+             typename Enable      = enable_if_callable_t<OnSubscribe>>
     observable(OnSubscribe&& on_subscribe = {})
         : m_state{std::forward<OnSubscribe>(on_subscribe)} {}
 

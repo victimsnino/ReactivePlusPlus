@@ -24,11 +24,6 @@
 
 #include <memory>
 
-namespace rpp
-{
-struct error;
-} // namespace rpp
-
 namespace rpp::details
 {
 template<typename ...Type>
@@ -44,11 +39,9 @@ class observer_state final
 public:
     template<typename OnNext, typename OnError, typename OnCompleted>
     observer_state(OnNext&& on_next, OnError&& on_error, OnCompleted&& on_completed)
-        : m_storage{std::make_shared<StorageType<OnNext, OnError, OnCompleted>>(
-                                                                                std::forward<OnNext>(on_next),
+        : m_storage{std::make_shared<StorageType<OnNext, OnError, OnCompleted>>(std::forward<OnNext>(on_next),
                                                                                 std::forward<OnError>(on_error),
-                                                                                std::forward<
-                                                                                    OnCompleted>(on_completed))}
+                                                                                std::forward<OnCompleted>(on_completed))}
         , m_on_next_ref{[](void* storage, Decayed& val)
         {
             if constexpr (!std::is_rvalue_reference_v<Type>)
@@ -60,7 +53,7 @@ public:
             if constexpr (!std::is_rvalue_reference_v<Type> && !std::is_same_v<Decayed&, Type>)
                 ToStoragePtr<OnNext, OnError, OnCompleted>(storage)->on_next(val);
             else
-                throw std::logic_error("Can't send lvalue reference to rvalue reference");
+                throw std::logic_error("Can't send const lvalue reference to rvalue reference");
         }}
         , m_on_next_move{[](void* storage, Decayed&& val)
         {
@@ -69,7 +62,7 @@ public:
             else
                 throw std::logic_error("Can't send rvalue reference to nonconst lvalue reference");
         }}
-        , m_on_error{[](void* storage, const error& err)
+        , m_on_error{[](void* storage, const std::exception_ptr& err)
         {
             ToStoragePtr<OnNext, OnError, OnCompleted>(storage)->on_error(err);
         }}
@@ -114,8 +107,15 @@ public:
             throw std::logic_error("Some unsupported type detected!");
     }
 
-    void on_error(const error& err) const { m_on_error(m_storage.get(), err); }
-    void on_completed() const { m_on_completed(m_storage.get()); }
+    void on_error(const std::exception_ptr& err) const
+    {
+        m_on_error(m_storage.get(), err);
+    }
+
+    void on_completed() const
+    {
+        m_on_completed(m_storage.get());
+    }
 
 private:
     template<typename OnNext, typename OnError, typename OnCompleted>
@@ -142,7 +142,7 @@ private:
     using OnNextConstRefFn = void(*)(void*, const Decayed&);
     using OnNextMoveFn = void(*)(void*, Decayed&&);
 
-    using OnErrorFn = void(*)(void*, const error&);
+    using OnErrorFn = void(*)(void*, const std::exception_ptr&);
     using OnCompleted = void(*)(void*);
 private:
     std::shared_ptr<void> m_storage;

@@ -31,23 +31,34 @@ namespace rpp
 template<typename Type>
 class subscriber final
 {
-    static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type should be decayed");
+    static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type should be decayed to match with decayed observable types");
+
+    template<typename TType>
+    using enable_if_same_type_t = std::enable_if_t<std::is_same_v<std::decay_t<TType>, Type>>;
 public:
-    template<typename TType, typename = std::enable_if_t<std::is_same_v<std::decay_t<TType>, Type>>>
+    template<typename TType, typename = enable_if_same_type_t<TType>>
     subscriber(const observer<TType>& observer)
         : m_observer{observer} { }
 
-    template<typename TType, typename = std::enable_if_t<std::is_same_v<std::decay_t<TType>, Type>>>
+    template<typename TType, typename = enable_if_same_type_t<TType>>
     subscriber(observer<TType>&& observer)
         : m_observer{std::move(observer)} { }
 
-    template<typename U, typename = std::enable_if_t<std::is_same_v<std::decay_t<U>, Type>>>
+    template<typename U, typename = enable_if_same_type_t<U>>
     void on_next(U&& val) const
     {
         std::visit([&](auto& obs) { obs.on_next(std::forward<U>(val)); }, m_observer);
     }
-    void on_error(const error& err) const { std::visit([&](auto& obs) { obs.on_error(err); }, m_observer); }
-    void on_completed() const { std::visit([&](auto& obs) { obs.on_completed(); }, m_observer); }
+
+    void on_error(const std::exception_ptr& err) const
+    {
+        std::visit([&](auto& obs) { obs.on_error(err); }, m_observer);
+    }
+
+    void on_completed() const
+    {
+        std::visit([&](auto& obs) { obs.on_completed(); }, m_observer);
+    }
 
 private:
     std::variant<observer<Type>,

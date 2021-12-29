@@ -24,20 +24,21 @@
 
 #include <rpp/details/observer_state.h>
 #include <rpp/utils/function_traits.h>
+
 #include <utility>
 
 namespace rpp
 {
-struct error;
-
 template<typename Type>
 class observer final
 {
 public:
     template<typename OnNext = details::EmptyFunctor<Type>,
-             typename OnError = details::EmptyFunctor<error>,
+             typename OnError = details::EmptyFunctor<std::exception_ptr>,
              typename OnCompleted = details::EmptyFunctor<>,
-             typename = std::enable_if_t<std::is_invocable_v<OnNext, Type>>>
+             typename Enabled = std::enable_if_t<std::is_invocable_v<OnNext, Type> && 
+                                                 std::is_invocable_v<OnError, std::exception_ptr> && 
+                                                 std::is_invocable_v<OnCompleted>>>
     observer(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
         : m_observer_state{std::forward<OnNext>(on_next),
                            std::forward<OnError>(on_error),
@@ -46,15 +47,26 @@ public:
     observer(const observer&)     = default;
     observer(observer&&) noexcept = default;
 
-    template<typename U>
-    void on_next(U&& val) const { m_observer_state.on_next(std::forward<U>(val)); }
-    void on_error(const error& err) const { m_observer_state.on_error(err); }
-    void on_completed() const { m_observer_state.on_completed(); }
+    template<typename U, typename = std::enable_if_t<std::is_same_v<std::decay_t<U>, std::decay_t<Type>>>>
+    void on_next(U&& val) const
+    {
+        m_observer_state.on_next(std::forward<U>(val));
+    }
+
+    void on_error(const std::exception_ptr& err) const
+    {
+        m_observer_state.on_error(err);
+    }
+
+    void on_completed() const
+    {
+        m_observer_state.on_completed();
+    }
 
 private:
     details::observer_state<Type> m_observer_state;
 };
 
-template<typename OnNext>
-observer(OnNext) -> observer<utils::function_argument_t<OnNext>>;
-}
+template<typename OnNext, typename ...Args>
+observer(OnNext, Args...) -> observer<utils::function_argument_t<OnNext>>;
+} // namespace rpp

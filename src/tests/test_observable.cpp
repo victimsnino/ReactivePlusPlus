@@ -59,6 +59,54 @@ SCENARIO("Observable should be subscribable")
     }
 }
 
+SCENARIO("on_next, on_error and on_completed can be called and obtained")
+{
+    GIVEN("ready observer")
+    {
+        size_t on_next_called_count = 0;
+        size_t on_error_called_count = 0;
+        size_t on_completed_called_count = 0;
+        const auto observer = rpp::observer{[&](int) { ++on_next_called_count; },
+                                            [&](const std::exception_ptr&) { ++on_error_called_count; },
+                                            [&]() { ++on_completed_called_count; }
+        };
+
+        WHEN("subscribe on observable with on_next")
+        {
+            rpp::observable{[](const rpp::subscriber<int>& sub){sub.on_next(1);}}.subscribe(observer);
+
+            THEN("on_next received once")
+            {
+                CHECK(on_next_called_count == 1);
+                CHECK(on_error_called_count == 0);
+                CHECK(on_completed_called_count == 0);
+            }
+        }
+        WHEN("subscribe on observable with on_error")
+        {
+            rpp::observable{[](const rpp::subscriber<int>& sub){sub.on_error(std::make_exception_ptr(std::exception{}));}}.subscribe(observer);
+
+            THEN("on_next received once")
+            {
+                CHECK(on_next_called_count == 0);
+                CHECK(on_error_called_count == 1);
+                CHECK(on_completed_called_count == 0);
+            }
+        }
+        WHEN("subscribe on observable with on_completed")
+        {
+            rpp::observable{[](const rpp::subscriber<int>& sub){sub.on_completed();}}.subscribe(observer);
+
+            THEN("on_next received once")
+            {
+                CHECK(on_next_called_count == 0);
+                CHECK(on_error_called_count == 0);
+                CHECK(on_completed_called_count == 1);
+            }
+        }
+    }
+}
+
 SCENARIO("Benchmark observer")
 {
     auto make_observer_and_observable = []()
@@ -91,7 +139,7 @@ SCENARIO("Benchmark observer")
 
 
 template<typename ObserverGetValue, bool is_move = false, bool is_const = false>
-static void TestObserverTypes(std::string then_description, int copy_count, int move_count)
+static void TestObserverTypes(const std::string then_description, int copy_count, int move_count)
 {
     GIVEN("observer and observable of same type")
     {
