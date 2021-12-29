@@ -19,21 +19,18 @@ jobs:
     strategy:
       matrix:
         config:
-        - {
-            name: "Linux GCC"
-            os: ubuntu-latest,
-            cc: "gcc", cxx: "g++"
-          }
-        - {
-            name: "Linux CLANG"
-            os: ubuntu-latest,
-            cc: "clang", cxx: "clang++"
-          }
-        - {
-            name: "Windows MSVC"
-            os: windows-latest,
-            cc: "cl", cxx: "cl"
-          }
+        -  name: "Linux GCC"
+           os: ubuntu-latest
+           cc: "gcc"
+           cxx: "g++"
+        -  name: "Linux CLANG"
+           os: ubuntu-latest
+           cc: "clang" 
+           cxx: "clang++"
+        -  name: "Windows MSVC"
+           os: windows-latest
+           cc: "cl"
+           cxx: "cl"         
 
     steps:
     - uses: actions/checkout@v2
