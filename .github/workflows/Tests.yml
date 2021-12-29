@@ -61,8 +61,6 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{env.BUILD_TYPE}}
       
-    - name: Set Path to variable as W/A
-      run: echo "workspace_path=" >> $GITHUB_ENV
       
     - name: Test Report ${{ matrix.config.name }}
       uses: dorny/test-reporter@v1
