@@ -23,6 +23,7 @@
 #pragma once
 
 #include <rpp/fwd.h>
+#include <rpp/details/observable_state.h>
 #include <rpp/utils/function_traits.h>
 #include <rpp/utils/type_traits.h>
 
@@ -30,28 +31,26 @@
 
 namespace rpp
 {
-template<typename Type, typename OnSubscribe>
+template<typename Type>
 class observable
 {
+    template<typename T>
+    using enable_if_is_callable_t = std::enable_if_t<std::is_invocable_v<T, const subscriber<Type>&>>;
+
 public:
-
-    static_assert(std::is_same_v<std::decay_t<utils::function_argument_t<OnSubscribe>>, subscriber<Type>>, "OnSubscribe should accept subscriber of the same type as observable");
-
+    template<typename OnSubscribe, typename = enable_if_is_callable_t<OnSubscribe>>
     observable(OnSubscribe&& on_subscribe)
-        : m_on_subscribe{std::move(on_subscribe)} {}
-
-    observable(const OnSubscribe& on_subscribe)
-        : m_on_subscribe{on_subscribe} {}
+        : m_state{std::forward<OnSubscribe>(on_subscribe)} {}
 
     void subscribe(const subscriber<Type>& observer) const
     {
-        m_on_subscribe(observer);
+        m_state.on_subscribe(observer);
     }
 
 private:
-    OnSubscribe m_on_subscribe;
+    details::observable_state<Type> m_state;
 };
 
-template<typename OnSubscribe>
-observable(OnSubscribe on_subscribe) -> observable<utils::extract_subscriber_type_t<utils::function_argument_t<OnSubscribe>>, OnSubscribe>;
+template<typename OnSub>
+observable(OnSub on_subscribe) -> observable<utils::extract_subscriber_type_t<utils::function_argument_t<OnSub>>>;
 } // namespace rpp
