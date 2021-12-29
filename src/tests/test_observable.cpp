@@ -65,7 +65,7 @@ SCENARIO("Benchmark observer")
     auto make_observer_and_observable = []()
     {
         std::array<int, 100> v{};
-        auto                 observer   = rpp::observer{[v](int) {}};
+        auto                 observer   = rpp::observer{[v](int                           ) {}};
         auto                 observable = rpp::observable{[v](const rpp::subscriber<int>& sub)
         {
             sub.on_next(123);
@@ -80,7 +80,9 @@ SCENARIO("Benchmark observer")
         observable.subscribe(observer);
     };
 
-    auto [observer, observable] = make_observer_and_observable();
+    const auto tuple      = make_observer_and_observable();
+    const auto observer   = std::get<0>(tuple);
+    const auto observable = std::get<1>(tuple);
 
     BENCHMARK("Subscribe")
     {
