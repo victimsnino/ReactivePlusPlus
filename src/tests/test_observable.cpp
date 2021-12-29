@@ -20,9 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include "copy_count_tracker.h"
+
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/benchmark/catch_benchmark.hpp>
-
 #include <rpp/observable.h>
 #include <rpp/observer.h>
 #include <rpp/subscriber.h>
@@ -85,4 +86,123 @@ SCENARIO("Benchmark observer")
     {
         observable.subscribe(observer);
     };
+}
+
+
+template<typename ObserverGetValue, bool is_move = false, bool is_const = false>
+static void TestObserverTypes(std::string then_description, int copy_count, int move_count)
+{
+    GIVEN("observer and observable of same type")
+    {
+        std::conditional_t<is_const, const copy_count_tracker, copy_count_tracker> tracker{};
+        const auto observer             = rpp::observer{[](ObserverGetValue) {  }};
+
+        const auto observable = rpp::observable{[&](const rpp::subscriber<copy_count_tracker>& sub)
+        {
+            if constexpr (is_move)
+                sub.on_next(std::move(tracker));
+            else
+                sub.on_next(tracker);
+        }};
+
+        WHEN("subscribe called for observble")
+        {
+            observable.subscribe(observer);
+
+            THEN(then_description)
+            {
+                CHECK(tracker.get_copy_count() == copy_count);
+                CHECK(tracker.get_move_count() == move_count);
+            }
+        }
+    }
+}
+
+SCENARIO("observable doesn't produce extra copies for lambda", "[track_copy]")
+{
+    GIVEN("observer and observable of same type")
+    {
+        copy_count_tracker tracker{};
+        const auto observer             = rpp::observer{[](int) {  }};
+
+        const auto observable = rpp::observable{[tracker](const rpp::subscriber<int>& sub)
+        {
+            sub.on_next(123);
+        }};
+
+        WHEN("subscribe called for observble")
+        {
+            observable.subscribe(observer);
+
+            THEN("One copy into lambda, one move of lambda into internal state")
+            {
+                CHECK(tracker.get_copy_count() == 1);
+                CHECK(tracker.get_move_count() == 1);
+            }
+        }
+    }
+}
+
+SCENARIO("Verify copy when observer take lvalue from lvalue&", "[track_copy]")
+{
+    TestObserverTypes<copy_count_tracker>("1 copy to final lambda", 1, 0);
+}
+
+SCENARIO("Verify copy when observer take const lvalue& from lvalue&", "[track_copy]")
+{
+    TestObserverTypes<const copy_count_tracker&>("no copies", 0, 0);
+}
+
+SCENARIO("Verify copy when observer take rvalue&& from lvalue&", "[track_copy]")
+{
+    TestObserverTypes<copy_count_tracker&&>("one copy to convert reference to temp", 1, 0);
+}
+
+SCENARIO("Verify copy when observer take lvalue& from lvalue&", "[track_copy]")
+{
+    TestObserverTypes<copy_count_tracker&>("no copies", 0, 0);
+}
+
+///
+
+SCENARIO("Verify copy when observer take lvalue from move", "[track_copy]")
+{
+    TestObserverTypes<copy_count_tracker, true>("1 move to final lambda", 0, 1);
+}
+
+SCENARIO("Verify copy when observer take const lvalue& from move", "[track_copy]")
+{
+    TestObserverTypes<const copy_count_tracker&, true>("no copies", 0, 0);
+}
+
+SCENARIO("Verify copy when observer take rvalue&& from move", "[track_copy]")
+{
+    TestObserverTypes<copy_count_tracker&&, true>("no copies", 0, 0);
+}
+
+SCENARIO("Verify copy when observer take lvalue& from move", "[track_copy]")
+{
+    TestObserverTypes<copy_count_tracker&, true>("no copies", 0, 0);
+}
+
+///
+
+SCENARIO("Verify copy when observer take lvalue from const lvalue&", "[track_copy]")
+{
+    TestObserverTypes<copy_count_tracker,false, true>("1 copy to final lambda", 1, 0);
+}
+
+SCENARIO("Verify copy when observer take const lvalue& from const lvalue&", "[track_copy]")
+{
+    TestObserverTypes<const copy_count_tracker&,false, true>("no copies", 0, 0);
+}
+
+SCENARIO("Verify copy when observer take rvalue&& from const lvalue&", "[track_copy]")
+{
+    TestObserverTypes<copy_count_tracker&&, false, true>("one copy to convert reference to temp", 1, 0);
+}
+
+SCENARIO("Verify copy when observer take lvalue& from const lvalue&", "[track_copy]")
+{
+    TestObserverTypes<copy_count_tracker&, false, true>("1 copy from const to temp", 1, 0);
 }

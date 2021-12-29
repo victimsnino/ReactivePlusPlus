@@ -24,7 +24,9 @@
 set(TARGET rpp-tests)
 
 add_executable(${TARGET} 
-    test_observable.cpp)
+    test_observable.cpp
+    copy_count_tracker.h
+)
 
 target_link_libraries(${TARGET} PRIVATE rpp Catch2WithMain)
 
