@@ -111,7 +111,7 @@ public:
                 m_on_next_move(m_storage.get(), std::forward<U>(val));
         }
         else
-            static_assert(false, "Can't select proper type");
+            static_assert(false, __PRETTY_NAME__);
     }
 
     void on_error(const error& err) const { m_on_error(m_storage.get(), err); }
