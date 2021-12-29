@@ -64,7 +64,10 @@ public:
         }}
         , m_on_next_move{[](void* storage, Decayed&& val)
         {
-            ToStoragePtr<OnNext, OnError, OnCompleted>(storage)->on_next(std::move(val));
+            if constexpr (!std::is_same_v<Type, Decayed&>)
+                ToStoragePtr<OnNext, OnError, OnCompleted>(storage)->on_next(std::move(val));
+            else
+                throw std::logic_error("Can't send rvalue reference to nonconst lvalue reference");
         }}
         , m_on_error{[](void* storage, const error& err)
         {
