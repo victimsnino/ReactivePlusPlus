@@ -84,7 +84,7 @@ public:
     template<typename U>
     void on_next(U&& val) const
     {
-        if constexpr (std::is_same_v<Decayed, Type>) // T
+        if constexpr (std::is_same_v<Decayed, Type> || std::is_same_v<const Decayed, Type>) // T || const T
         {
             if constexpr (std::is_lvalue_reference_v<U>)
                 m_on_next_const_ref(m_storage.get(), val);
@@ -103,7 +103,7 @@ public:
                 m_on_next_ref(m_storage.get(), temp);
             }
         }
-        else if constexpr (std::is_same_v<Decayed&&, Type> || std::is_same_v<const Decayed&&, Type>) // T&&
+        else if constexpr (std::is_same_v<Decayed&&, Type> || std::is_same_v<const Decayed&&, Type>) // T&& || const T&&
         {
             if constexpr (std::is_lvalue_reference_v<U>)
                 m_on_next_move(m_storage.get(), Decayed{val});
