@@ -22,27 +22,34 @@
 
 #pragma once
 
+#include "utils/shared_on_copy.h"
+
 #include <atomic>
-#include <memory>
 
 namespace rpp
 {
 class subscription
 {
 public:
-    subscription()
-        : m_state{std::make_shared<state>()} {}
+    subscription() = default;
 
-    [[nodiscard]] bool is_subscribed() const { return m_state->m_is_subscribed.load(); }
-    void               unsubscribe() const { m_state->m_is_subscribed.store(false); }
+    [[nodiscard]] bool is_subscribed() const
+    {
+        return m_state->is_subscribed.load();
+    }
+
+    void unsubscribe() const
+    {
+        m_state->is_subscribed.store(false);
+    }
 
 private:
     struct state
     {
-        std::atomic_bool m_is_subscribed{true};
+        std::atomic_bool is_subscribed{true};
     };
 
-    std::shared_ptr<state> m_state;
+    std::shared_ptr<state> m_state = std::make_shared<state>();
 };
 
 template<typename Subscription>
