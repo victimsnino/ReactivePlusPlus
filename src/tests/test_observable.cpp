@@ -136,6 +136,11 @@ SCENARIO("Benchmark observer")
     {
         observable.subscribe(observer);
     };
+
+    BENCHMARK("OnNext", i)
+    {
+        observer.on_next(i);
+    };
 }
 
 

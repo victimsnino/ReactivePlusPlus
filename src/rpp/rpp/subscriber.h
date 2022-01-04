@@ -22,6 +22,8 @@
 
 #pragma once
 
+#include "subscription.h"
+
 #include <rpp/observer.h>
 
 #include <variant>
@@ -31,7 +33,8 @@ namespace rpp
 template<typename Type>
 class subscriber final
 {
-    static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type should be decayed to match with decayed observable types");
+    static_assert(std::is_same_v<std::decay_t<Type>, Type>,
+        "Type should be decayed to match with decayed observable types");
 
     template<typename TType>
     using enable_if_same_type_t = std::enable_if_t<std::is_same_v<std::decay_t<TType>, Type>>;
@@ -47,23 +50,41 @@ public:
     template<typename U, typename = enable_if_same_type_t<U>>
     void on_next(U&& val) const
     {
+        if (!m_subscription.is_subscribed())
+            return;
+
         std::visit([&](auto& obs) { obs.on_next(std::forward<U>(val)); }, m_observer);
     }
 
     void on_error(const std::exception_ptr& err) const
     {
+        if (!m_subscription.is_subscribed())
+            return;
+
+        subscription_guard   guard{m_subscription};
         std::visit([&](auto& obs) { obs.on_error(err); }, m_observer);
     }
 
     void on_completed() const
     {
+        if (!m_subscription.is_subscribed())
+            return;
+
+        subscription_guard   guard{m_subscription};
         std::visit([&](auto& obs) { obs.on_completed(); }, m_observer);
     }
 
+    [[nodiscard]] bool is_subscribed() const { return m_subscription.is_subscribed(); }
+    void               unsubscribe() const { m_subscription.unsubscribe(); }
 private:
     std::variant<observer<Type>,
                  observer<Type&>,
                  observer<const Type&>,
                  observer<Type&&>> m_observer;
+
+    subscription m_subscription;
 };
+
+template<typename T>
+subscriber(observer<T> observer) -> subscriber<std::decay_t<T>>;
 } // namespace rpp
