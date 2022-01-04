@@ -33,23 +33,34 @@ class subscription
 public:
     subscription() = default;
 
+    subscription(const subscription& other)
+        : m_state{other.m_state.clone()} { }
+
+    subscription(subscription&& other) noexcept
+        : m_state{other.m_state.move()} { }
+
     [[nodiscard]] bool is_subscribed() const
     {
-        return m_state->is_subscribed.load();
+        return m_state.apply([](const state& state){return state.is_subscribed.load();});
     }
 
     void unsubscribe() const
     {
-        m_state->is_subscribed.store(false);
+        m_state.apply([](state& state){ state.is_subscribed.store(false);});
     }
 
 private:
     struct state
     {
+        state() = default;
+
+        state(state&& other) noexcept
+            : is_subscribed{other.is_subscribed.load()} {}
+
         std::atomic_bool is_subscribed{true};
     };
 
-    std::shared_ptr<state> m_state = std::make_shared<state>();
+    utils::shared_on_copy<state> m_state{};
 };
 
 template<typename Subscription>
