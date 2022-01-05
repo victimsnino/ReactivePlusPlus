@@ -1,6 +1,6 @@
 // MIT License
 // 
-// Copyright (c) 2021 Aleksey Loginov
+// Copyright (c) 2022 Aleksey Loginov
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,39 +22,11 @@
 
 #pragma once
 
-#include <rpp/fwd.h>
-#include <rpp/details/observable_state.h>
-#include <rpp/utils/function_traits.h>
-#include <rpp/utils/functors.h>
-#include <rpp/utils/type_traits.h>
-
-#include <utility>
-
-namespace rpp
+namespace rpp::utils
 {
-template<typename Type>
-class observable
+template<typename ...Type>
+struct empty_functor
 {
-    static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");
-
-    template<typename T>
-    using enable_if_callable_t = std::enable_if_t<std::is_invocable_v<T, const subscriber<Type>&>>;
-
-public:
-    template<typename OnSubscribe = utils::empty_functor<const subscriber<Type>&>,
-             typename Enable      = enable_if_callable_t<OnSubscribe>>
-    observable(OnSubscribe&& on_subscribe = {})
-        : m_state{std::forward<OnSubscribe>(on_subscribe)} {}
-
-    void subscribe(const subscriber<Type>& observer) const
-    {
-        m_state.on_subscribe(observer);
-    }
-
-private:
-    details::observable_state<Type> m_state;
+    void operator()(const Type&...) const {}
 };
-
-template<typename OnSub>
-observable(OnSub on_subscribe) -> observable<utils::extract_subscriber_type_t<utils::function_argument_t<OnSub>>>;
-} // namespace rpp
+} // namespace rpp::utils
