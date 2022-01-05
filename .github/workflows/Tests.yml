@@ -61,4 +61,15 @@ jobs:
         name: Test report ${{ matrix.config.name }} 
         path: ./build/test_results/*.xml
         reporter: java-junit
-  
+    - name: Store benchmark result
+      uses: benchmark-action/github-action-benchmark@v1
+      with:
+        name: Catch2 Benchmark ${{ matrix.config.name }}
+        tool: 'catch2'
+        output-file-path: ./build/test_results/rpp-tests.xml
+        github-token: ${{ secrets.TOKEN }}
+        auto-push: true
+        # Show alert with commit comment on detecting possible performance regression
+        alert-threshold: '200%'
+        comment-on-alert: true
+        fail-on-alert: true
