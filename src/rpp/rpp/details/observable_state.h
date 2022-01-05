@@ -28,6 +28,13 @@
 
 namespace rpp::details
 {
+template<typename SubscriberType>
+struct iobservable_storage
+{
+    virtual      ~iobservable_storage() = default;
+    virtual void on_subscribe(SubscriberType sub) const = 0;
+};
+
 template<typename Type>
 class observable_state
 {
@@ -39,40 +46,45 @@ class observable_state
 public:
     template<typename OnSubscribe, typename = enable_if_is_callable_t<OnSubscribe>>
     observable_state(OnSubscribe&& on_subscribe)
-        : m_storage{std::make_shared<StorageType<OnSubscribe>>(std::forward<OnSubscribe>(on_subscribe))}
-        , m_on_subscribe{[](void* storage, subscriber_type subscriber)
-        {
-            ToStoragePtr<OnSubscribe>(storage)->on_subscribe(subscriber);
-        }} {}
+        : m_storage{std::make_shared<storage<std::decay_t<OnSubscribe>>>(std::forward<OnSubscribe>(on_subscribe))} {}
 
-    observable_state(const observable_state&)     = default;
-    observable_state(observable_state&&) noexcept = default;
+    observable_state(const observable_state& other)     = default;
+    observable_state(observable_state&& other) noexcept = default;
+    ~observable_state()                                 = default;
+
+    observable_state& operator=(const observable_state& other)     = default;
+    observable_state& operator=(observable_state&& other) noexcept = default;
 
     void on_subscribe(const subscriber<Type>& subscriber) const
     {
-        m_on_subscribe(m_storage.get(), subscriber);
+        m_storage->on_subscribe(subscriber);
     }
 
 private:
     template<typename OnSubscribe>
-    struct Storage
+    class storage final : public iobservable_storage<subscriber_type>
     {
-        template<typename TOnSubscribe, typename = enable_if_is_callable_t<TOnSubscribe>>
-        Storage(TOnSubscribe&& on_subscribe)
-            : on_subscribe{std::forward<TOnSubscribe>(on_subscribe)} {}
+    public:
+        storage(OnSubscribe&& on_subscribe)
+            : m_on_subscribe{std::move(on_subscribe)} {}
 
-        const OnSubscribe on_subscribe;
+        storage(const OnSubscribe& on_subscribe)
+            : m_on_subscribe{on_subscribe} {}
+
+        storage(const storage& other)                = delete;
+        storage(storage&& other) noexcept            = delete;
+        storage& operator=(const storage& other)     = delete;
+        storage& operator=(storage&& other) noexcept = delete;
+
+        void on_subscribe(subscriber_type sub) const override
+        {
+            m_on_subscribe(sub);
+        }
+
+    private:
+        const OnSubscribe m_on_subscribe;
     };
 
-    template<typename OnSubscribe>
-    using StorageType = Storage<std::decay_t<OnSubscribe>>;
-
-    template<typename OnSubscribe>
-    static auto ToStoragePtr(void* ptr) { return static_cast<StorageType<OnSubscribe>*>(ptr); }
-
-    using OnSubscribeFn = void(*)(void*, subscriber_type);
-private:
-    std::shared_ptr<void> m_storage;
-    const OnSubscribeFn   m_on_subscribe;
+    std::shared_ptr<const iobservable_storage<subscriber_type>> m_storage;
 };
 } // namespace rpp::details
