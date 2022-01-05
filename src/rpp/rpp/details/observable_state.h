@@ -48,9 +48,10 @@ public:
     observable_state(OnSubscribe&& on_subscribe)
         : m_storage{std::make_shared<storage<std::decay_t<OnSubscribe>>>(std::forward<OnSubscribe>(on_subscribe))} {}
 
-    ~observable_state()                                            = default;
-    observable_state(const observable_state& other)                = default;
-    observable_state(observable_state&& other) noexcept            = default;
+    observable_state(const observable_state& other)     = default;
+    observable_state(observable_state&& other) noexcept = default;
+    ~observable_state()                                 = default;
+
     observable_state& operator=(const observable_state& other)     = default;
     observable_state& operator=(observable_state&& other) noexcept = default;
 
