@@ -1,3 +1,5 @@
+# ReactivePlusPlus [![Unit tests](https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/Tests.yml/badge.svg?branch=main)](https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/Tests.yml)
+
 ## Benchmark for observer:
 
 Observer has non-trivial way to store functions for callbacks. It used to increase perfomance and reduce amount of memory.
