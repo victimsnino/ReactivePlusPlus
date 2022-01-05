@@ -58,6 +58,23 @@ SCENARIO("Observable should be subscribable")
             }
         }
     }
+
+    GIVEN("observable with subscribier by non ref")
+    {
+        size_t     on_next_called_count = 0;
+        const auto observer             = rpp::observer{[&](int                   ) { ++on_next_called_count; }};
+        const auto observable           = rpp::observable{[](rpp::subscriber<int> sub) {sub.on_next(1);}};
+
+        WHEN("subscribe called for observble")
+        {
+            observable.subscribe(observer);
+
+            THEN("on_next lambda called once")
+            {
+                CHECK(on_next_called_count == 1);
+            }
+        }
+    }
 }
 
 SCENARIO("on_next, on_error and on_completed can be called and obtained")

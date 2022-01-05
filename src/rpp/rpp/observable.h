@@ -38,7 +38,7 @@ class observable
     static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");
 
     template<typename T>
-    using enable_if_callable_t = std::enable_if_t<std::is_invocable_v<T, const subscriber<Type>&>>;
+    using enable_if_callable_t = std::enable_if_t<std::is_invocable_v<T, subscriber<Type>>>;
 
 public:
     template<typename OnSubscribe = utils::empty_functor<const subscriber<Type>&>,

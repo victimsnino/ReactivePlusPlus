@@ -28,25 +28,47 @@
 
 namespace rpp::details
 {
-template<typename SubscriberType>
+template<typename Type>
 struct iobservable_storage
 {
     virtual      ~iobservable_storage() = default;
-    virtual void on_subscribe(SubscriberType sub) const = 0;
+    virtual void on_subscribe(const subscriber<Type>& sub) const = 0;
+};
+
+template<typename OnSubscribe, typename Type>
+class observable_storage final : public iobservable_storage<Type>
+{
+public:
+    observable_storage(OnSubscribe&& on_subscribe)
+        : m_on_subscribe{std::move(on_subscribe)} {}
+
+    observable_storage(const OnSubscribe& on_subscribe)
+        : m_on_subscribe{on_subscribe} {}
+
+    observable_storage(const observable_storage& other)                = delete;
+    observable_storage(observable_storage&& other) noexcept            = delete;
+    observable_storage& operator=(const observable_storage& other)     = delete;
+    observable_storage& operator=(observable_storage&& other) noexcept = delete;
+
+    void on_subscribe(const subscriber<Type>& sub) const override
+    {
+        m_on_subscribe(sub);
+    }
+
+private:
+    const OnSubscribe m_on_subscribe;
 };
 
 template<typename Type>
 class observable_state
 {
-    using subscriber_type = const subscriber<Type>&;
-
     template<typename T>
-    using enable_if_is_callable_t = std::enable_if_t<std::is_invocable_v<T, subscriber_type>>;
+    using enable_if_is_callable_t = std::enable_if_t<std::is_invocable_v<T, subscriber<Type>>>;
 
 public:
     template<typename OnSubscribe, typename = enable_if_is_callable_t<OnSubscribe>>
     observable_state(OnSubscribe&& on_subscribe)
-        : m_storage{std::make_shared<storage<std::decay_t<OnSubscribe>>>(std::forward<OnSubscribe>(on_subscribe))} {}
+        : m_storage{std::make_shared<observable_storage<std::decay_t<OnSubscribe>, Type>>(std::forward<OnSubscribe>(on_subscribe))} {}
 
     observable_state(const observable_state& other)     = default;
     observable_state(observable_state&& other) noexcept = default;
@@ -61,30 +83,6 @@ public:
     }
 
 private:
-    template<typename OnSubscribe>
-    class storage final : public iobservable_storage<subscriber_type>
-    {
-    public:
-        storage(OnSubscribe&& on_subscribe)
-            : m_on_subscribe{std::move(on_subscribe)} {}
-
-        storage(const OnSubscribe& on_subscribe)
-            : m_on_subscribe{on_subscribe} {}
-
-        storage(const storage& other)                = delete;
-        storage(storage&& other) noexcept            = delete;
-        storage& operator=(const storage& other)     = delete;
-        storage& operator=(storage&& other) noexcept = delete;
-
-        void on_subscribe(subscriber_type sub) const override
-        {
-            m_on_subscribe(sub);
-        }
-
-    private:
-        const OnSubscribe m_on_subscribe;
-    };
-
-    std::shared_ptr<const iobservable_storage<subscriber_type>> m_storage;
+    std::shared_ptr<const iobservable_storage<Type>> m_storage;
 };
 } // namespace rpp::details
