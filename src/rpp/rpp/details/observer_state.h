@@ -40,6 +40,62 @@ public:
     virtual void on_completed() const = 0;
 };
 
+template<typename Type, typename OnNext, typename OnError, typename OnCompleted>
+class observer_storage final : public iobserver_storage<std::decay_t<Type>>
+{
+    using Decayed = std::decay_t<Type>;
+public:
+    template<typename TOnNext, typename TOnError, typename TOnCompleted>
+    observer_storage(TOnNext&& on_next, TOnError&& on_error, TOnCompleted&& on_completed)
+        : m_on_next{std::forward<TOnNext>(on_next)}
+        , m_on_error{std::forward<TOnError>(on_error)}
+        , m_on_completed{std::forward<TOnCompleted>(on_completed)} {}
+
+    observer_storage(const observer_storage& other)                = delete;
+    observer_storage(observer_storage&& other) noexcept            = delete;
+    observer_storage& operator=(const observer_storage& other)     = delete;
+    observer_storage& operator=(observer_storage&& other) noexcept = delete;
+
+    void on_next(Decayed& val) const override
+    {
+        if constexpr (!std::is_rvalue_reference_v<Type>)
+            m_on_next(val);
+        else
+            throw std::logic_error("Can't convert lvalue reference to rvalue reference");
+    }
+
+    void on_next(const Decayed& val) const override
+    {
+        if constexpr (!std::is_rvalue_reference_v<Type> && !std::is_same_v<Decayed&, Type>)
+            m_on_next(val);
+        else
+            throw std::logic_error("Can't send const lvalue reference to rvalue or non-const lvalue reference");
+    }
+
+    void on_next(Decayed&& val) const override
+    {
+        if constexpr (!std::is_same_v<Type, Decayed&>)
+            m_on_next(std::move(val));
+        else
+            throw std::logic_error("Can't send rvalue reference to non-const lvalue reference");
+    }
+
+    void on_error(const std::exception_ptr& err) const override
+    {
+        m_on_error(err);
+    }
+
+    void on_completed() const override
+    {
+        m_on_completed();
+    }
+
+private:
+    const OnNext      m_on_next;
+    const OnError     m_on_error;
+    const OnCompleted m_on_completed;
+};
+
 template<typename Type>
 class observer_state
 {
@@ -50,9 +106,9 @@ class observer_state
 public:
     template<typename OnNext, typename OnError, typename OnCompleted>
     observer_state(OnNext&& on_next, OnError&& on_error, OnCompleted&& on_completed)
-        : m_storage{std::make_shared<storage<OnNext, OnError, OnCompleted>>(std::forward<OnNext>(on_next),
-                                                                            std::forward<OnError>(on_error),
-                                                                            std::forward<OnCompleted>(on_completed))} {}
+        : m_storage{std::make_shared<observer_storage<Type, OnNext, OnError, OnCompleted>>(std::forward<OnNext>(on_next),
+                                                                                           std::forward<OnError>(on_error),
+                                                                                           std::forward<OnCompleted>(on_completed))} {}
 
     observer_state(const observer_state& other)     = default;
     observer_state(observer_state&& other) noexcept = default;
@@ -64,11 +120,14 @@ public:
     template<typename U>
     void on_next(U&& val) const
     {
-        if constexpr (is_type_v<Decayed> || is_type_v<const Decayed> || is_type_v<const Decayed&>)
+        static constexpr bool s_is_forwardable = is_type_v<Decayed> || is_type_v<const Decayed> || is_type_v<const Decayed&>;
+        static constexpr bool s_is_ref = is_type_v<Decayed&>;
+        static constexpr bool s_is_rvalue = is_type_v<Decayed&&> || is_type_v<const Decayed&&>;
+        if constexpr (s_is_forwardable)
         {
             m_storage->on_next(std::forward<U>(val));
         }
-        else if constexpr (is_type_v<Decayed&>) // T&
+        else if constexpr (s_is_ref)
         {
             if constexpr (std::is_same_v<U, Decayed&> || std::is_same_v<U, Decayed>)
                 m_storage->on_next(val);
@@ -78,7 +137,7 @@ public:
                 m_storage->on_next(temp);
             }
         }
-        else if constexpr (is_type_v<Decayed&&> || is_type_v<const Decayed&&>) // T&& || const T&&
+        else if constexpr (s_is_rvalue)
         {
             if constexpr (std::is_lvalue_reference_v<U>)
                 m_storage->on_next(Decayed{val});
@@ -86,7 +145,7 @@ public:
                 m_storage->on_next(std::forward<U>(val));
         }
         else
-            throw std::logic_error("Some unsupported type detected!");
+            static_assert(!s_is_forwardable && !s_is_ref && !s_is_rvalue, "Some unsupported type detected!");
     }
 
     void on_error(const std::exception_ptr& err) const
@@ -100,61 +159,6 @@ public:
     }
 
 private:
-    template<typename OnNext, typename OnError, typename OnCompleted>
-    class storage final : public iobserver_storage<Decayed>
-    {
-    public:
-        template<typename TOnNext, typename TOnError, typename TOnCompleted>
-        storage(TOnNext&& on_next, TOnError&& on_error, TOnCompleted&& on_completed)
-            : m_on_next{std::forward<TOnNext>(on_next)}
-            , m_on_error{std::forward<TOnError>(on_error)}
-            , m_on_completed{std::forward<TOnCompleted>(on_completed)} {}
-
-        storage(const storage& other)                = delete;
-        storage(storage&& other) noexcept            = delete;
-        storage& operator=(const storage& other)     = delete;
-        storage& operator=(storage&& other) noexcept = delete;
-
-        void on_next(Decayed& val) const override
-        {
-            if constexpr (!std::is_rvalue_reference_v<Type>)
-                m_on_next(val);
-            else
-                throw std::logic_error("Can't convert lvalue reference to rvalue reference");
-        }
-
-        void on_next(const Decayed& val) const override
-        {
-            if constexpr (!std::is_rvalue_reference_v<Type> && !std::is_same_v<Decayed&, Type>)
-                m_on_next(val);
-            else
-                throw std::logic_error("Can't send const lvalue reference to rvalue reference or non-const lvalue reference");
-        }
-
-        void on_next(Decayed&& val) const override
-        {
-            if constexpr (!std::is_same_v<Type, Decayed&>)
-                m_on_next(std::move(val));
-            else
-                throw std::logic_error("Can't send rvalue reference to non-const lvalue reference");
-        }
-
-        void on_error(const std::exception_ptr& err) const override
-        {
-            m_on_error(err);
-        }
-
-        void on_completed() const override
-        {
-            m_on_completed();
-        }
-
-    private:
-        const OnNext      m_on_next;
-        const OnError     m_on_error;
-        const OnCompleted m_on_completed;
-    };
-
     std::shared_ptr<const iobserver_storage<Decayed>> m_storage;
 };
 } // namespace rpp::details
