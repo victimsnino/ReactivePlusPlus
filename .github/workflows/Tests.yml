@@ -12,21 +12,7 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  pre_job:
-    # continue-on-error: true # Uncomment once integration is finished
-    runs-on: ubuntu-latest
-    # Map a step output to a job output
-    outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
-    steps:
-      - id: skip_check
-        uses: fkirc/skip-duplicate-actions@master
-        with:
-          do_not_skip: '["pull_request"]'
   build:
-    needs: pre_job
-    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
-    
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
     
