@@ -61,4 +61,20 @@ jobs:
         name: Test report ${{ matrix.config.name }} 
         path: ./build/test_results/*.xml
         reporter: java-junit
+
+    - name: Test Report2 ${{ matrix.config.name }}
+      uses: dorny/test-reporter@v1
+      if: success() || failure()
+      with:
+        name: Test report ${{ matrix.config.name }} 
+        path: ./build/test_results/*.xml
+        reporter: jest-Junit
+
+    - name: Test Report3 ${{ matrix.config.name }}
+      uses: dorny/test-reporter@v1
+      if: success() || failure()
+      with:
+        name: Test report ${{ matrix.config.name }} 
+        path: ./build/test_results/*.xml
+        reporter: dotnet-trx
   

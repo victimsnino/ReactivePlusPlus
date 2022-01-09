@@ -41,7 +41,7 @@ set(TEST_RESULTS_DIR  ${CMAKE_BINARY_DIR}/test_results)
 enable_testing()
 
 macro (add_ctest target)
-  add_test(NAME ${target} COMMAND $<TARGET_FILE:${target}> -r junit -o ${TEST_RESULTS_DIR}/${target}.xml ~[benchmark])
+  add_test(NAME ${target} COMMAND $<TARGET_FILE:${target}> -r xml -o ${TEST_RESULTS_DIR}/${target}.xml ~[benchmark])
 endmacro (add_ctest)
 
 file(MAKE_DIRECTORY ${TEST_RESULTS_DIR})
