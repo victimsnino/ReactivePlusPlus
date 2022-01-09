@@ -26,6 +26,7 @@ set(TARGET rpp-tests)
 add_executable(${TARGET} 
     test_observable.cpp
     test_subscriber.cpp
+    benchmarks.cpp
     
     copy_count_tracker.h
 )
