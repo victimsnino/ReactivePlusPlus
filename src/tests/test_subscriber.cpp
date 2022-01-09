@@ -26,8 +26,6 @@
 #include <rpp/observer.h>
 #include <rpp/subscriber.h>
 
-#include <exception>
-
 SCENARIO("Subscriber unsubscribes when obtains on_error or on_completed", "[subscriber]")
 {
     GIVEN("observer")
@@ -152,7 +150,7 @@ SCENARIO("Subscriber obtains on_error when exception", "[subscriber]")
         auto observer = rpp::observer{[](const double&) {},
                                       [&](const std::exception_ptr& ) {++on_error_count;},
                                       [&]() {++on_completed_count;} };
-        auto observable = rpp::observable{[](const rpp::subscriber<double>& sub){throw std::exception("Test");}};
+        auto observable = rpp::observable{[](const rpp::subscriber<double>& sub){throw std::runtime_error("Test");}};
 
         WHEN("observer subscribes")
         {
