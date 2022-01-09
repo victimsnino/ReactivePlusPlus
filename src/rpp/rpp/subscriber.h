@@ -33,8 +33,7 @@ namespace rpp
 template<typename Type>
 class subscriber final
 {
-    static_assert(std::is_same_v<std::decay_t<Type>, Type>,
-        "Type should be decayed to match with decayed observable types");
+    static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type should be decayed to match with decayed observable types");
 
     template<typename TType>
     using enable_if_same_type_t = std::enable_if_t<std::is_same_v<std::decay_t<TType>, Type>>;

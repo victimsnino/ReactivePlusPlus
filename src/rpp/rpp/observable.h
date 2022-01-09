@@ -23,6 +23,7 @@
 #pragma once
 
 #include <rpp/fwd.h>
+#include <rpp/subscription.h>
 #include <rpp/details/observable_state.h>
 #include <rpp/utils/function_traits.h>
 #include <rpp/utils/functors.h>
@@ -46,9 +47,16 @@ public:
     observable(OnSubscribe&& on_subscribe = {})
         : m_state{std::forward<OnSubscribe>(on_subscribe)} {}
 
-    const subscription& subscribe(const subscriber<Type>& observer) const
+    subscription subscribe(const subscriber<Type>& observer) const
     {
-        m_state.on_subscribe(observer);
+        try
+        {
+            m_state.on_subscribe(observer);
+        }
+        catch (const std::exception& exc)
+        {
+            observer.on_error(std::make_exception_ptr(exc));
+        }
         return observer.get_subscription();
     }
 

@@ -31,15 +31,15 @@ class subscription
 public:
     subscription() : m_state{std::make_shared<state>()} {}
 
-
     [[nodiscard]] bool is_subscribed() const
     {
-        return m_state->is_subscribed.load();
+        return m_state && m_state->is_subscribed.load();
     }
 
     void unsubscribe() const
     {
-        m_state->is_subscribed.store(false);
+        if (m_state)
+            m_state->is_subscribed.store(false);
     }
 
 private:

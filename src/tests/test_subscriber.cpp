@@ -140,3 +140,27 @@ SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscri
         }
     }
 }
+
+SCENARIO("Subscriber obtains on_error when exception", "[subscriber]")
+{
+    GIVEN("observer and observable with exception")
+    {
+        size_t on_error_count = 0;
+        size_t on_completed_count = 0;
+        auto observer = rpp::observer{[](const double&) {},
+                                      [&](const std::exception_ptr& ) {++on_error_count;},
+                                      [&]() {++on_completed_count;} };
+        auto observable = rpp::observable{[](const rpp::subscriber<double>& sub){throw std::exception{"Test"};}};
+
+        WHEN("observer subscribes")
+        {
+            auto subscription = observable.subscribe(observer);
+            THEN("on_error called once only")
+            {
+                CHECK(on_error_count == 1);
+                CHECK(on_completed_count == 0);
+                CHECK(subscription.is_subscribed() == false);
+            }
+        }
+    }
+}
