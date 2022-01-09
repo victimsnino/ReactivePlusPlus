@@ -93,10 +93,11 @@ SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscri
                 }
             }
         }
+
         WHEN("Subscriber subscribes on observable with on_next")
         {
-            const auto obs = rpp::observable{[](const rpp::subscriber<int>& sub) { sub.on_next(1); }};
-            obs.subscribe(subscriber);
+            const auto obs          = rpp::observable{[](const rpp::subscriber<int>& sub) { sub.on_next(1); }};
+            auto       subscription = obs.subscribe(subscriber);
 
             THEN("Only one on_next call")
             {
@@ -117,6 +118,17 @@ SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscri
             AND_WHEN("The same subscriber unsubscribes and subscribes second time")
             {
                 subscriber.unsubscribe();
+                obs.subscribe(subscriber);
+                THEN("No any new calls")
+                {
+                    CHECK(on_next_called_count == 1);
+                    CHECK(on_error_called_count == 0);
+                    CHECK(on_completed_called_count == 0);
+                }
+            }
+            AND_WHEN("The subscription unsubscribes and subscriber subscribes second time")
+            {
+                subscription.unsubscribe();
                 obs.subscribe(subscriber);
                 THEN("No any new calls")
                 {

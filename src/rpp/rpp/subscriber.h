@@ -74,8 +74,21 @@ public:
         std::visit([&](auto& obs) { obs.on_completed(); }, m_observer);
     }
 
-    [[nodiscard]] bool is_subscribed() const { return m_subscription.is_subscribed(); }
-    void               unsubscribe() const { m_subscription.unsubscribe(); }
+    const subscription& get_subscription() const
+    {
+        return m_subscription;
+    }
+
+    [[nodiscard]] bool is_subscribed() const
+    {
+        return m_subscription.is_subscribed();
+    }
+
+    void unsubscribe() const
+    {
+        m_subscription.unsubscribe();
+    }
+
 private:
     std::variant<observer<Type>,
                  observer<Type&>,

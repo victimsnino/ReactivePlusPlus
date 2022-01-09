@@ -42,13 +42,14 @@ class observable
 
 public:
     template<typename OnSubscribe = utils::empty_functor<const subscriber<Type>&>,
-             typename Enable      = enable_if_callable_t<OnSubscribe>>
+             typename Enable = enable_if_callable_t<OnSubscribe>>
     observable(OnSubscribe&& on_subscribe = {})
         : m_state{std::forward<OnSubscribe>(on_subscribe)} {}
 
-    void subscribe(const subscriber<Type>& observer) const
+    const subscription& subscribe(const subscriber<Type>& observer) const
     {
         m_state.on_subscribe(observer);
+        return observer.get_subscription();
     }
 
 private:
