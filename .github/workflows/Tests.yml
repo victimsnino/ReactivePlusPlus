@@ -62,14 +62,14 @@ jobs:
         reporter: java-junit
 
     - name: Run benchmarks only
-      run: ${{github.workspace}}/build/bin/rpp_tests [benchmark] > ${{github.workspace}}/test_results/benchmark_result.txt
+      run: ${{github.workspace}}/build/bin/rpp_tests [benchmark] > ${{github.workspace}}/build/test_results/benchmark_result.txt
 
     - name: Store benchmark result
       uses: benchmark-action/github-action-benchmark@v1
       with:
         name: Catch2 Benchmark ${{ matrix.config.name }}
         tool: 'catch2'
-        output-file-path: ${{github.workspace}}/test_results/benchmark_result.txt
+        output-file-path: ${{github.workspace}}/build/test_results/benchmark_result.txt
         github-token: ${{ secrets.GITHUB_TOKEN }}
         auto-push: github.event_name != 'pull_request'
         # Show alert with commit comment on detecting possible performance regression
