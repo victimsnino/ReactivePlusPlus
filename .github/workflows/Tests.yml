@@ -62,7 +62,7 @@ jobs:
         reporter: java-junit
 
     - name: Run benchmarks only
-      run: ${{github.workspace}}/build/bin/rpp_tests [benchmark] | tee ${{github.workspace}}/test_results/benchmark_result.txt
+      run: ${{github.workspace}}/build/bin/rpp_tests [benchmark] > ${{github.workspace}}/test_results/benchmark_result.txt
 
     - name: Store benchmark result
       uses: benchmark-action/github-action-benchmark@v1
