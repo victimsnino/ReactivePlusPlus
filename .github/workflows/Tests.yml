@@ -53,7 +53,6 @@ jobs:
       working-directory: ${{github.workspace}}/build
       run: ctest -C ${{env.BUILD_TYPE}}
       
-      
     - name: Test Report ${{ matrix.config.name }}
       uses: dorny/test-reporter@v1
       if: success() || failure()
@@ -61,4 +60,21 @@ jobs:
         name: Test report ${{ matrix.config.name }} 
         path: ./build/test_results/*.xml
         reporter: java-junit
+    
+    - name: Run benchmarks only
+      run: ./build/bin/${{env.BUILD_TYPE}}/rpp_tests [benchmark] | tee ./test_results/benchmark_result.txt
+
+    - name: Store benchmark result
+      uses: benchmark-action/github-action-benchmark@v1
+      with:
+        name: Catch2 Benchmark ${{ matrix.config.name }}
+        tool: 'catch2'
+        output-file-path: ./test_results/benchmark_result.txt
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        auto-push: github.event_name != 'pull_request'
+        # Show alert with commit comment on detecting possible performance regression
+        alert-threshold: '200%'
+        comment-on-alert: true
+        comment-always: true
+        fail-on-alert: true
   
