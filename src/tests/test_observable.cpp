@@ -84,7 +84,7 @@ SCENARIO("on_next, on_error and on_completed can be called and obtained")
         size_t on_error_called_count = 0;
         size_t on_completed_called_count = 0;
         const auto observer = rpp::observer{[&](int) { ++on_next_called_count; },
-                                            [&](const std::exception_ptr&) { ++on_error_called_count; },
+                                            [&](std::exception_ptr) { ++on_error_called_count; },
                                             [&]() { ++on_completed_called_count; }
         };
 

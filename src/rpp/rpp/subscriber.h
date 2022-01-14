@@ -23,6 +23,7 @@
 #pragma once
 
 #include "subscription.h"
+#include "utils/type_traits.h"
 
 #include <rpp/observer.h>
 
@@ -46,6 +47,22 @@ public:
     subscriber(observer<TType>&& observer)
         : m_observer{std::move(observer)} { }
 
+    template<typename OnNext      = utils::empty_functor<Type>,
+             typename OnError     = utils::empty_functor<std::exception_ptr>,
+             typename OnCompleted = utils::empty_functor<>,
+             typename Enabled     = std::enable_if_t<utils::is_callable_v<OnNext> && std::is_invocable_v<OnError, std::exception_ptr>>>
+    subscriber(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
+        : m_observer{observer{std::forward<OnNext>(on_next),
+                              std::forward<OnError>(on_error),
+                              std::forward<OnCompleted>(on_completed)}} {}
+
+    template<typename OnNext,
+             typename OnCompleted,
+             typename Enabled     = std::enable_if_t<utils::is_callable_v<OnNext> && std::is_invocable_v<OnCompleted>>>
+    subscriber(OnNext&& on_next, OnCompleted&& on_completed)
+        : m_observer{observer{std::forward<OnNext>(on_next),
+                              std::forward<OnCompleted>(on_completed)}} {}
+
     template<typename U, typename = enable_if_same_type_t<U>>
     void on_next(U&& val) const
     {
@@ -55,7 +72,7 @@ public:
         std::visit([&](auto& obs) { obs.on_next(std::forward<U>(val)); }, m_observer);
     }
 
-    void on_error(const std::exception_ptr& err) const
+    void on_error(std::exception_ptr err) const
     {
         if (!m_subscription.is_subscribed())
             return;
@@ -99,4 +116,7 @@ private:
 
 template<typename T>
 subscriber(observer<T> observer) -> subscriber<std::decay_t<T>>;
+
+template<typename OnNext, typename ...Args, typename = std::enable_if_t<utils::is_callable_v<OnNext>>>
+subscriber(OnNext, Args...) -> subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;
 } // namespace rpp

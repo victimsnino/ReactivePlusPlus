@@ -36,7 +36,7 @@ public:
     virtual void on_next(Type&) const = 0;
     virtual void on_next(const Type&) const = 0;
     virtual void on_next(Type&&) const = 0;
-    virtual void on_error(const std::exception_ptr&) const = 0;
+    virtual void on_error(std::exception_ptr) const = 0;
     virtual void on_completed() const = 0;
 };
 
@@ -80,7 +80,7 @@ public:
             throw std::logic_error("Can't send rvalue reference to non-const lvalue reference");
     }
 
-    void on_error(const std::exception_ptr& err) const override
+    void on_error(std::exception_ptr err) const override
     {
         m_on_error(err);
     }
@@ -148,7 +148,7 @@ public:
             static_assert(!s_is_forwardable && !s_is_ref && !s_is_rvalue, "Some unsupported type detected!");
     }
 
-    void on_error(const std::exception_ptr& err) const
+    void on_error(std::exception_ptr err) const
     {
         m_storage->on_error(err);
     }

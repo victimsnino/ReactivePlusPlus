@@ -10,3 +10,9 @@ Approach           | Full construction | Subscribe only
 -------------------|-------------------|---------------
 std::function      | 248ns             | 102ns
 Storage with casts | 141ns             | 20ns
+
+
+## TODO:
+- [ ] Composite subscription
+- [ ] Operators
+- [ ] Schedulers

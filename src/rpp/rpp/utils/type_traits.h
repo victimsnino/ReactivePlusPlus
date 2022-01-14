@@ -40,4 +40,13 @@ struct extract_subscriber_type : public extract_subscriber_type<std::decay_t<Typ
 
 template<typename T>
 using extract_subscriber_type_t = typename extract_subscriber_type<T>::type;
+
+template<typename T>
+struct is_observer : std::false_type{};
+
+template<typename T>
+struct is_observer<rpp::observer<T>> : std::true_type{};
+
+template<typename T>
+constexpr bool is_observer_v = is_observer<T>::value;
 } // namespace rpp::utils

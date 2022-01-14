@@ -45,6 +45,15 @@ public:
                            std::forward<OnError>(on_error),
                            std::forward<OnCompleted>(on_completed)} {}
 
+    template<typename OnNext,
+             typename OnCompleted,
+             typename Enabled = std::enable_if_t<std::is_invocable_v<OnNext, Type> &&
+                                                 std::is_invocable_v<OnCompleted>>>
+    observer(OnNext&& on_next, OnCompleted&& on_completed)
+        : m_observer_state{std::forward<OnNext>(on_next),
+                           utils::empty_functor<std::exception_ptr>{},
+                           std::forward<OnCompleted>(on_completed)} {}
+
     observer(const observer&)     = default;
     observer(observer&&) noexcept = default;
 
@@ -54,7 +63,7 @@ public:
         m_observer_state.on_next(std::forward<U>(val));
     }
 
-    void on_error(const std::exception_ptr& err) const
+    void on_error(std::exception_ptr err) const
     {
         m_observer_state.on_error(err);
     }
