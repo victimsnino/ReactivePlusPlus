@@ -21,7 +21,7 @@
 # SOFTWARE.
 # 
 
-set(TARGET rpp-tests)
+set(TARGET rpp_tests)
 
 add_executable(${TARGET} 
     test_observable.cpp
