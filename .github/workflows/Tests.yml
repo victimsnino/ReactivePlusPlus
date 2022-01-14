@@ -60,20 +60,9 @@ jobs:
         name: Test report ${{ matrix.config.name }} 
         path: ./build/test_results/*.xml
         reporter: java-junit
-    - name: DEbug
-      run: "ls -la $GITHUB_WORKSPACE"
-
-    - name: DEbug2
-      run: "ls -la ./build"
-
-    - name: DEbug3
-      run: "ls -la ./build/bin"
-
-    - name: DEbug4
-      run: "ls -la ./build/bin/Release"
 
     - name: Run benchmarks only
-      run: ${{github.workspace}}/build/bin/${{env.BUILD_TYPE}}/rpp_tests [benchmark] | tee ${{github.workspace}}/test_results/benchmark_result.txt
+      run: ${{github.workspace}}/build/bin/rpp_tests [benchmark] | tee ${{github.workspace}}/test_results/benchmark_result.txt
 
     - name: Store benchmark result
       uses: benchmark-action/github-action-benchmark@v1
