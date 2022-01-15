@@ -23,17 +23,21 @@ jobs:
            os: ubuntu-latest
            cc: "gcc"
            cxx: "g++"
-           relative_path_bench: ""
+           relative_path_bench: "build/bin/rpp_tests"
+           run_bench: false
         -  name: "Linux CLANG"
            os: ubuntu-latest
            cc: "clang" 
            cxx: "clang++"
            relative_path_bench: "build/bin/rpp_tests"
+           run_bench: true
         -  name: "Windows MSVC"
            os: windows-latest
            cc: "cl"
            cxx: "cl"
-           relative_path_bench: ""
+           relative_path_bench: "build/bin/Release/rpp_tests"
+           run_bench: false
+
 
 
     steps:
@@ -66,12 +70,12 @@ jobs:
         reporter: java-junit
 
     - name: Run benchmarks only
-      if: ${{ matrix.config.relative_path_bench }} != ""
       run: ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] > ${{github.workspace}}/build/test_results/benchmark_result.txt
+      if: ${{ matrix.config.run_bench }} == 'true'
 
     - name: Store benchmark result
-      if: ${{ matrix.config.relative_path_bench }} != ""
       uses: benchmark-action/github-action-benchmark@v1
+      if: ${{ matrix.config.run_bench }} == 'true'
       with:
         name: Catch2 Benchmark ${{ matrix.config.name }}
         tool: 'catch2'
@@ -85,5 +89,5 @@ jobs:
         fail-on-alert: true
   
     - name: Push benchmark result
-      if: github.event_name != 'pull_request' && ${{ matrix.config.relative_path_bench }} != ""
+      if: github.event_name != 'pull_request' && ${{ matrix.config.run_bench }} == 'true'
       run: git push 'https://victimsnino:${{ secrets.GITHUB_TOKEN }}@github.com/victimsnino/ReactivePlusPlus.git' gh-pages:gh-pages
