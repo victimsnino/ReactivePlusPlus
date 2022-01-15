@@ -66,12 +66,12 @@ jobs:
         reporter: java-junit
 
     - name: Run benchmarks only
-      run: ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] > ${{github.workspace}}/build/test_results/benchmark_result.txt
       if: ${{ matrix.config.relative_path_bench }} != ""
+      run: ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] > ${{github.workspace}}/build/test_results/benchmark_result.txt
 
     - name: Store benchmark result
-      uses: benchmark-action/github-action-benchmark@v1
       if: ${{ matrix.config.relative_path_bench }} != ""
+      uses: benchmark-action/github-action-benchmark@v1
       with:
         name: Catch2 Benchmark ${{ matrix.config.name }}
         tool: 'catch2'
