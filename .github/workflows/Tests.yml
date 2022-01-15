@@ -66,11 +66,11 @@ jobs:
 
     - name: Run benchmarks only
       run: ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] > ${{github.workspace}}/build/test_results/benchmark_result.txt
-      if: matrix.config.relative_path_bench != ""
+      if: matrix.config.relative_path_bench != ''
 
     - name: Store benchmark result
       uses: benchmark-action/github-action-benchmark@v1
-      if: matrix.config.relative_path_bench  != ""
+      if: matrix.config.relative_path_bench  != ''
       with:
         name: Catch2 Benchmark ${{ matrix.config.name }}
         tool: 'catch2'
@@ -84,5 +84,5 @@ jobs:
         fail-on-alert: true
   
     - name: Push benchmark result
-      if: github.event_name != 'pull_request' &&  matrix.config.relative_path_bench != ""
+      if: github.event_name != 'pull_request' &&  matrix.config.relative_path_bench != ''
       run: git push 'https://victimsnino:${{ secrets.GITHUB_TOKEN }}@github.com/victimsnino/ReactivePlusPlus.git' gh-pages:gh-pages
