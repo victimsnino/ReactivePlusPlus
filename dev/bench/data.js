@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1642275416344,
+  "lastUpdate": 1642275473950,
   "repoUrl": "https://github.com/victimsnino/ReactivePlusPlus",
   "entries": {
     "Catch2 Benchmark Linux GCC": [
@@ -84,6 +84,49 @@ window.BENCHMARK_DATA = {
             "range": "± 0.0542917",
             "unit": "ns",
             "extra": "100 samples\n15832 iterations"
+          }
+        ]
+      }
+    ],
+    "Catch2 Benchmark Windows MSVC": [
+      {
+        "commit": {
+          "author": {
+            "name": "victimsnino",
+            "username": "victimsnino"
+          },
+          "committer": {
+            "name": "victimsnino",
+            "username": "victimsnino"
+          },
+          "id": "f6c13f5153ee7cdb2ff4bdbfbfccd47383af0127",
+          "message": "Debug bench",
+          "timestamp": "2022-01-14T20:51:51Z",
+          "url": "https://github.com/victimsnino/ReactivePlusPlus/pull/11/commits/f6c13f5153ee7cdb2ff4bdbfbfccd47383af0127"
+        },
+        "date": 1642275471676,
+        "tool": "catch2",
+        "benches": [
+          {
+            "name": "Construction",
+            "value": 295.571,
+            "range": "± 20.9544",
+            "unit": "ns",
+            "extra": "100 samples\n161 iterations"
+          },
+          {
+            "name": "Subscribe",
+            "value": 119.886,
+            "range": "± 21.6787",
+            "unit": "ns",
+            "extra": "100 samples\n498 iterations"
+          },
+          {
+            "name": "OnNext",
+            "value": 1.43464,
+            "range": "± 0.0927046",
+            "unit": "ns",
+            "extra": "100 samples\n34364 iterations"
           }
         ]
       }
