@@ -23,17 +23,17 @@ jobs:
            os: ubuntu-latest
            cc: "gcc"
            cxx: "g++"
-           run_benchmark: ${{github.workspace}}/build/bin/rpp_tests
+           relative_path_bench: "build/bin/rpp_tests"
         -  name: "Linux CLANG"
            os: ubuntu-latest
            cc: "clang" 
            cxx: "clang++"
-           run_benchmark: ${{github.workspace}}/build/bin/rpp_tests
+           relative_path_bench: "build/bin/rpp_tests"
         -  name: "Windows MSVC"
            os: windows-latest
            cc: "cl"
            cxx: "cl"
-           run_benchmark: ${{github.workspace}}/build/bin/Release/rpp_tests
+           relative_path_bench: "build/bin/Release/rpp_tests"
 
 
     steps:
@@ -66,7 +66,7 @@ jobs:
         reporter: java-junit
 
     - name: Run benchmarks only
-      run: ${{ matrix.config.run_benchmark }} [benchmark] > ${{github.workspace}}/build/test_results/benchmark_result.txt
+      run: ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] > ${{github.workspace}}/build/test_results/benchmark_result.txt
 
     - name: Store benchmark result
       uses: benchmark-action/github-action-benchmark@v1
