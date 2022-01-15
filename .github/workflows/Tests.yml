@@ -23,14 +23,17 @@ jobs:
            os: ubuntu-latest
            cc: "gcc"
            cxx: "g++"
+           relative_path_bench: "" # "build/bin/rpp_tests"
         -  name: "Linux CLANG"
            os: ubuntu-latest
            cc: "clang" 
            cxx: "clang++"
+           relative_path_bench: "build/bin/rpp_tests"
         -  name: "Windows MSVC"
            os: windows-latest
            cc: "cl"
            cxx: "cl"
+           relative_path_bench: "" # "build/bin/Release/rpp_tests"
 
     steps:
     - uses: actions/checkout@v2
@@ -60,21 +63,26 @@ jobs:
         name: Test report ${{ matrix.config.name }} 
         path: ./build/test_results/*.xml
         reporter: java-junit
-    
+
     - name: Run benchmarks only
-      run: ${{github.workspace}}/build/bin/${{env.BUILD_TYPE}}/rpp_tests [benchmark] | tee ${{github.workspace}}/test_results/benchmark_result.txt
+      run: ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] > ${{github.workspace}}/build/test_results/benchmark_result.txt
+      if: matrix.config.relative_path_bench != ''
 
     - name: Store benchmark result
       uses: benchmark-action/github-action-benchmark@v1
+      if: matrix.config.relative_path_bench  != ''
       with:
         name: Catch2 Benchmark ${{ matrix.config.name }}
         tool: 'catch2'
-        output-file-path: ${{github.workspace}}/test_results/benchmark_result.txt
+        output-file-path: ${{github.workspace}}/build/test_results/benchmark_result.txt
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        auto-push: github.event_name != 'pull_request'
+        auto-push: false
         # Show alert with commit comment on detecting possible performance regression
         alert-threshold: '200%'
         comment-on-alert: true
         comment-always: true
         fail-on-alert: true
   
+    - name: Push benchmark result
+      if: github.event_name != 'pull_request' &&  matrix.config.relative_path_bench != ''
+      run: git push 'https://victimsnino:${{ secrets.GITHUB_TOKEN }}@github.com/victimsnino/ReactivePlusPlus.git' gh-pages:gh-pages

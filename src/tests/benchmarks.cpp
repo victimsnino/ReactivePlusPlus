@@ -64,7 +64,7 @@ SCENARIO("Benchmark observer", "[benchmark]")
     };
 }
 
-SCENARIO("Misc benchmarks", "[benchmark]")
+SCENARIO("Misc benchmarks", "[misc_benchmark]")
 {
     std::array<int, 100> arr{1};
     auto                 empty_lambda = [arr](int i) { return i * arr[0]; };
