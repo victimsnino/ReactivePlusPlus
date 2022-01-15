@@ -23,7 +23,7 @@ jobs:
            os: ubuntu-latest
            cc: "gcc"
            cxx: "g++"
-           relative_path_bench: "build/bin/rpp_tests"
+           relative_path_bench: "" #"build/bin/rpp_tests"
         -  name: "Linux CLANG"
            os: ubuntu-latest
            cc: "clang" 
@@ -33,7 +33,7 @@ jobs:
            os: windows-latest
            cc: "cl"
            cxx: "cl"
-           relative_path_bench: "build/bin/Release/rpp_tests"
+           relative_path_bench: "" # "build/bin/Release/rpp_tests"
 
 
     steps:
@@ -64,6 +64,9 @@ jobs:
         name: Test report ${{ matrix.config.name }} 
         path: ./build/test_results/*.xml
         reporter: java-junit
+
+    - exit: success()
+      if: ${{ matrix.config.relative_path_bench }} == ""
 
     - name: Run benchmarks only
       run: ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] > ${{github.workspace}}/build/test_results/benchmark_result.txt
