@@ -24,7 +24,8 @@
 
 #include <rpp/fwd.h>
 #include <rpp/subscription.h>
-#include <rpp/details/observable_state.h>
+#include <rpp/observables/observable_interface.h>
+#include <rpp/observables/details/observable_state.h>
 #include <rpp/utils/function_traits.h>
 #include <rpp/utils/functors.h>
 #include <rpp/utils/type_traits.h>
@@ -34,20 +35,18 @@
 namespace rpp
 {
 template<typename Type>
-class observable
+class dynamic_observable final : public observable_interface<Type, dynamic_observable<Type>>
 {
-    static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");
-
     template<typename T>
     using enable_if_callable_t = std::enable_if_t<std::is_invocable_v<T, subscriber<Type>>>;
 
 public:
     template<typename OnSubscribe = utils::empty_functor<const subscriber<Type>&>,
              typename Enable = enable_if_callable_t<OnSubscribe>>
-    observable(OnSubscribe&& on_subscribe = {})
+    dynamic_observable(OnSubscribe&& on_subscribe = {})
         : m_state{std::forward<OnSubscribe>(on_subscribe)} {}
 
-    subscription subscribe(const subscriber<Type>& observer) const
+    subscription subscribe(const subscriber<Type>& observer) const override
     {
         try
         {
@@ -65,5 +64,5 @@ private:
 };
 
 template<typename OnSub>
-observable(OnSub on_subscribe) -> observable<utils::extract_subscriber_type_t<utils::function_argument_t<OnSub>>>;
+dynamic_observable(OnSub on_subscribe) -> dynamic_observable<utils::extract_subscriber_type_t<utils::function_argument_t<OnSub>>>;
 } // namespace rpp

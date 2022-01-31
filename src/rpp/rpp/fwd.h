@@ -24,8 +24,11 @@
 
 namespace rpp
 {
-template<typename Type>
+template<typename OnSubscribeFn>
 class observable;
+
+template<typename Type>
+class dynamic_observable;
 
 template<typename Type>
 class observer;

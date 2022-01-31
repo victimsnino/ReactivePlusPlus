@@ -1,6 +1,6 @@
 // MIT License
 // 
-// Copyright (c) 2021 Aleksey Loginov
+// Copyright (c) 2022 Aleksey Loginov
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,29 +24,17 @@
 
 #include <rpp/fwd.h>
 
-namespace rpp::utils
-{
-template<typename>
-struct extract_subscriber_type;
+#include <type_traits>
 
-template<typename Type>
-struct extract_subscriber_type<subscriber<Type>>
+namespace rpp
 {
-    using type = Type;
+template<typename Type, typename SpecificObservable>
+struct observable_interface
+{
+    static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");
+
+    virtual ~observable_interface() = default;
+
+    virtual subscription subscribe(const subscriber<Type>& observer) const = 0;
 };
-
-template<typename Type>
-struct extract_subscriber_type : public extract_subscriber_type<std::decay_t<Type>>{};
-
-template<typename T>
-using extract_subscriber_type_t = typename extract_subscriber_type<T>::type;
-
-template<typename T>
-struct is_observer : std::false_type{};
-
-template<typename T>
-struct is_observer<observer<T>> : std::true_type{};
-
-template<typename T>
-constexpr bool is_observer_v = is_observer<T>::value;
-} // namespace rpp::utils
+} // namespace rpp

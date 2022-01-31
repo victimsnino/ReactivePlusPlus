@@ -23,9 +23,10 @@
 #include "copy_count_tracker.h"
 
 #include <catch2/catch_test_macros.hpp>
-#include <rpp/observable.h>
+
 #include <rpp/observer.h>
 #include <rpp/subscriber.h>
+#include <rpp/observables/observable.h>
 
 #include <array>
 
