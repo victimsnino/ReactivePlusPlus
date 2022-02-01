@@ -35,21 +35,19 @@ namespace rpp
 /**
  * \brief observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is on stack (instead of allocating it somewhere).
  *
- * Is has better performance comparing to dynamic_observable. Use it if possible. But it has worse usability due to OnSubscribeFn template parameter.
+ * It has better performance comparing to rpp::dynamic_observable. Use it if possible. But it has worse usability due to OnSubscribeFn template parameter.
  * \tparam Type is type of value provided by this observable
  * \tparam OnSubscribeFn is type of function/functor/callable used during subscription on this observable
  */
 template<typename Type, typename OnSubscribeFn>
 class specific_observable final : public interface_observable<Type, specific_observable<Type, OnSubscribeFn>>
 {
-    template<typename T>
-    using enable_if_callable_t = std::enable_if_t<std::is_invocable_v<T, subscriber<Type>>>;
-
 public:
-    template<typename OnSubscribe,
-             typename Enable = enable_if_callable_t<OnSubscribe>>
-    specific_observable(OnSubscribe&& on_subscribe = {})
-        : m_state{std::forward<OnSubscribe>(on_subscribe)} {}
+    specific_observable(const OnSubscribeFn& on_subscribe)
+        : m_state{on_subscribe} {}
+
+    specific_observable(OnSubscribeFn&& on_subscribe)
+        : m_state{std::move(on_subscribe)} {}
 
     [[nodiscard]] dynamic_observable<Type> as_dynamic() const
     {

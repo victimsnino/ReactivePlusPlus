@@ -23,6 +23,6 @@
 
 file(GLOB_RECURSE FILES "*.h")
 
-add_library(rpp INTERFACE .)
+add_library(rpp INTERFACE ${FILES})
 target_sources(rpp INTERFACE ${FILES})
 target_include_directories(rpp INTERFACE .)

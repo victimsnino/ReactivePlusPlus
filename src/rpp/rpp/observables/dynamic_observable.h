@@ -30,9 +30,10 @@
 namespace rpp
 {
 /**
- * \brief type-erased alternative of observable (compating to specific_observable).
+ * \brief type-erased alternative of observable (comparing to rpp::specific_observable).
  *
- * It uses type-erasure mechanism to hide type of OnSubscribeFn. But it has higher cost in the terms of performance.Use it only when you need to store observable as member variable or something like this
+ * It uses type-erasure mechanism to hide type of OnSubscribeFn. But it has higher cost in the terms of performance due to usage of heap.
+ * Use it only when you need to store observable as member variable or something like this
  * \tparam Type is type of value provided by this observable
  */
 template<typename Type>
