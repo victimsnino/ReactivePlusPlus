@@ -29,7 +29,7 @@
 
 #include <array>
 
-SCENARIO("Benchmark specific_observable + observer", "[benchmark]")
+SCENARIO("Benchmark bservable + observer", "[benchmark]")
 {
     auto make_observer_and_observable = []()
     {
@@ -42,18 +42,32 @@ SCENARIO("Benchmark specific_observable + observer", "[benchmark]")
         return std::tuple{observer, observable};
     };
 
-    BENCHMARK("Construction")
+    BENCHMARK("Specific observable construction")
     {
         auto [observer, observable] = make_observer_and_observable();
 
         observable.subscribe(observer);
     };
 
-    const auto tuple      = make_observer_and_observable();
-    const auto observer   = std::get<0>(tuple);
-    const auto observable = std::get<1>(tuple);
+    BENCHMARK("Dynamic observable construction")
+    {
+        auto [observer, observable] = make_observer_and_observable();
 
-    BENCHMARK("Subscribe")
+        observable.as_dynamic().subscribe(observer);
+    };
+
+
+    const auto tuple              = make_observer_and_observable();
+    const auto observer           = std::get<0>(tuple);
+    const auto observable         = std::get<1>(tuple);
+    const auto dynamic_observable = observable.as_dynamic();
+
+    BENCHMARK("Specific observable subscribe")
+    {
+        observable.subscribe(observer);
+    };
+    
+    BENCHMARK("Dynamic observable subscribe")
     {
         observable.subscribe(observer);
     };
@@ -62,41 +76,7 @@ SCENARIO("Benchmark specific_observable + observer", "[benchmark]")
     {
         observer.on_next(i);
     };
-}
 
-SCENARIO("Benchmark dynamic_observable + observer", "[benchmark]")
-{
-    auto make_observer_and_observable = []()
-    {
-        std::array<int, 100> v{};
-        auto                 observer   = rpp::observer{[v](int                           ) {}};
-        auto                 observable = rpp::observable::create([v](const rpp::subscriber<int>& sub)
-        {
-            sub.on_next(123);
-        }).as_dynamic();
-        return std::tuple{observer, observable};
-    };
-
-    BENCHMARK("Construction")
-    {
-        auto [observer, observable] = make_observer_and_observable();
-
-        observable.subscribe(observer);
-    };
-
-    const auto tuple      = make_observer_and_observable();
-    const auto observer   = std::get<0>(tuple);
-    const auto observable = std::get<1>(tuple);
-
-    BENCHMARK("Subscribe")
-    {
-        observable.subscribe(observer);
-    };
-
-    BENCHMARK("OnNext", i)
-    {
-        observer.on_next(i);
-    };
 }
 
 SCENARIO("Misc benchmarks", "[misc_benchmark]")
