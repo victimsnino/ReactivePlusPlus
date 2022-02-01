@@ -1,6 +1,6 @@
 // MIT License
 // 
-// Copyright (c) 2021 Aleksey Loginov
+// Copyright (c) 2022 Aleksey Loginov
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,19 +22,19 @@
 
 #pragma once
 
-namespace rpp
+#include <rpp/observables/specific_observable.h>
+
+namespace rpp::observable
 {
 template<typename Type, typename OnSubscribeFn>
-class specific_observable;
+specific_observable<Type, std::remove_const_t<std::remove_reference_t<OnSubscribeFn>>> create(OnSubscribeFn&& on_subscribe)
+{
+    return {std::forward<OnSubscribeFn>(on_subscribe)};
+}
 
-template<typename Type>
-class dynamic_observable;
-
-template<typename Type>
-class observer;
-
-template<typename Type>
-class subscriber;
-
-class subscription;
-} // namespace rpp
+template<typename OnSubscribeFn>
+auto create(OnSubscribeFn&& on_subscribe)
+{
+    return create<utils::extract_subscriber_type_t<utils::function_argument_t<OnSubscribeFn>>, OnSubscribeFn>(std::forward<OnSubscribeFn>(on_subscribe));
+}
+} // namespace rpp::observable

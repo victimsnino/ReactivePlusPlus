@@ -26,7 +26,7 @@
 
 #include <rpp/observer.h>
 #include <rpp/subscriber.h>
-#include <rpp/observables/observable.h>
+#include <rpp/observable.h>
 
 #include <array>
 
@@ -38,11 +38,11 @@ SCENARIO("Observable should be subscribable")
         const auto observer             = rpp::observer{[&](int) { ++on_next_called_count; }};
 
         size_t     on_subscribe_called_count = 0;
-        const auto observable                = rpp::observable{[&](const rpp::subscriber<int>& sub)
+        const auto observable                = rpp::observable::create([&](const rpp::subscriber<int>& sub)
         {
             ++on_subscribe_called_count;
             sub.on_next(123);
-        }};
+        });
 
         WHEN("subscribe called for observble")
         {
@@ -63,7 +63,7 @@ SCENARIO("Observable should be subscribable")
     {
         size_t     on_next_called_count = 0;
         const auto observer             = rpp::observer{[&](int                   ) { ++on_next_called_count; }};
-        const auto observable           = rpp::observable{[](rpp::subscriber<int> sub) {sub.on_next(1);}};
+        const auto observable           = rpp::observable::create([](rpp::subscriber<int> sub) {sub.on_next(1);});
 
         WHEN("subscribe called for observble")
         {
@@ -91,7 +91,7 @@ SCENARIO("on_next, on_error and on_completed can be called and obtained")
 
         WHEN("subscribe on observable with on_next")
         {
-            rpp::observable{[](const rpp::subscriber<int>& sub){sub.on_next(1);}}.subscribe(observer);
+            rpp::observable::create([](const rpp::subscriber<int>& sub){sub.on_next(1);}).subscribe(observer);
 
             THEN("on_next received once")
             {
@@ -102,7 +102,7 @@ SCENARIO("on_next, on_error and on_completed can be called and obtained")
         }
         WHEN("subscribe on observable with on_error")
         {
-            rpp::observable{[](const rpp::subscriber<int>& sub){sub.on_error(std::make_exception_ptr(std::exception{}));}}.subscribe(observer);
+            rpp::observable::create([](const rpp::subscriber<int>& sub){sub.on_error(std::make_exception_ptr(std::exception{}));}).subscribe(observer);
 
             THEN("on_next received once")
             {
@@ -113,7 +113,7 @@ SCENARIO("on_next, on_error and on_completed can be called and obtained")
         }
         WHEN("subscribe on observable with on_completed")
         {
-            rpp::observable{[](const rpp::subscriber<int>& sub){sub.on_completed();}}.subscribe(observer);
+            rpp::observable::create([](const rpp::subscriber<int>& sub){sub.on_completed();}).subscribe(observer);
 
             THEN("on_next received once")
             {
@@ -121,6 +121,28 @@ SCENARIO("on_next, on_error and on_completed can be called and obtained")
                 CHECK(on_error_called_count == 0);
                 CHECK(on_completed_called_count == 1);
             }
+        }
+    }
+}
+
+SCENARIO("specific_observable castable to dynamic_observable")
+{
+    GIVEN("specific_observable")
+    {
+        const auto observable = rpp::observable::create([](const rpp::subscriber<int>&){});
+
+        WHEN("call as_dynamic")
+            THEN("can get dynamic_observable of same type")
+        {
+            auto dynamic_observable = observable.as_dynamic();
+            static_assert(std::is_same<decltype(dynamic_observable), rpp::dynamic_observable<int>>{}, "Type of dynamic observable should be same!");
+        }
+
+        WHEN("construct by constructor")
+            THEN("can get dynamic_observable of same type")
+        {
+            auto dynamic_observable = rpp::dynamic_observable{observable};
+            static_assert(std::is_same<decltype(dynamic_observable), rpp::dynamic_observable<int>>{}, "Type of dynamic observable should be same!");
         }
     }
 }
@@ -133,13 +155,13 @@ static void TestObserverTypes(const std::string then_description, int copy_count
         std::conditional_t<is_const, const copy_count_tracker, copy_count_tracker> tracker{};
         const auto observer             = rpp::observer{[](ObserverGetValue) {  }};
 
-        const auto observable = rpp::observable{[&](const rpp::subscriber<copy_count_tracker>& sub)
+        const auto observable = rpp::observable::create([&](const rpp::subscriber<copy_count_tracker>& sub)
         {
             if constexpr (is_move)
                 sub.on_next(std::move(tracker));
             else
                 sub.on_next(tracker);
-        }};
+        });
 
         WHEN("subscribe called for observble")
         {
@@ -154,17 +176,17 @@ static void TestObserverTypes(const std::string then_description, int copy_count
     }
 }
 
-SCENARIO("observable doesn't produce extra copies for lambda", "[track_copy]")
+SCENARIO("specific_observable doesn't produce extra copies for lambda", "[track_copy]")
 {
     GIVEN("observer and observable of same type")
     {
         copy_count_tracker tracker{};
         const auto observer             = rpp::observer{[](int) {  }};
 
-        const auto observable = rpp::observable{[tracker](const rpp::subscriber<int>& sub)
+        const auto observable = rpp::observable::create([tracker](const rpp::subscriber<int>& sub)
         {
             sub.on_next(123);
-        }};
+        });
 
         WHEN("subscribe called for observble")
         {

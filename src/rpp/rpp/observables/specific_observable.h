@@ -23,29 +23,39 @@
 #pragma once
 
 #include <rpp/subscription.h>
-#include <rpp/observables/observable_interface.h>
+#include <rpp/observables/dynamic_observable.h>
+#include <rpp/observables/interface_observable.h>
 #include <rpp/utils/function_traits.h>
-#include <rpp/utils/functors.h>
 #include <rpp/utils/type_traits.h>
 
 #include <utility>
 
 namespace rpp
 {
-template<typename OnSubscribeFn>
-class observable final : public observable_interface<utils::extract_subscriber_type_t<utils::function_argument_t<OnSubscribeFn>>, observable<OnSubscribeFn>>
+/**
+ * \brief observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is on stack (instead of allocating it somewhere).
+ *
+ * Is has better performance comparing to dynamic_observable. Use it if possible. But it has worse usability due to OnSubscribeFn template parameter.
+ * \tparam Type is type of value provided by this observable
+ * \tparam OnSubscribeFn is type of function/functor/callable used during subscription on this observable
+ */
+template<typename Type, typename OnSubscribeFn>
+class specific_observable final : public interface_observable<Type, specific_observable<Type, OnSubscribeFn>>
 {
-    using Type = utils::extract_subscriber_type_t<utils::function_argument_t<OnSubscribeFn>>;
-
     template<typename T>
     using enable_if_callable_t = std::enable_if_t<std::is_invocable_v<T, subscriber<Type>>>;
 
 public:
-    template<typename OnSubscribe = utils::empty_functor<const subscriber<Type>&>,
+    template<typename OnSubscribe,
              typename Enable = enable_if_callable_t<OnSubscribe>>
-    observable(OnSubscribe&& on_subscribe = {})
+    specific_observable(OnSubscribe&& on_subscribe = {})
         : m_state{std::forward<OnSubscribe>(on_subscribe)} {}
 
+    dynamic_observable<Type> as_dynamic() const
+    {
+        return *this;
+    }
+    
     subscription subscribe(const subscriber<Type>& observer) const override
     {
         try
@@ -64,5 +74,5 @@ private:
 };
 
 template<typename OnSub>
-observable(OnSub on_subscribe) -> observable<OnSub>;
+specific_observable(OnSub on_subscribe) -> specific_observable<utils::extract_subscriber_type_t<utils::function_argument_t<OnSub>>, OnSub>;
 } // namespace rpp

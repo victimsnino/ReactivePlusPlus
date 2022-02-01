@@ -23,22 +23,57 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/benchmark/catch_benchmark.hpp>
 
+#include <rpp/observable.h>
 #include <rpp/observer.h>
 #include <rpp/subscriber.h>
-#include <rpp/observables/observable.h>
 
 #include <array>
 
-SCENARIO("Benchmark observer", "[benchmark]")
+SCENARIO("Benchmark specific_observable + observer", "[benchmark]")
 {
     auto make_observer_and_observable = []()
     {
         std::array<int, 100> v{};
         auto                 observer   = rpp::observer{[v](int                           ) {}};
-        auto                 observable = rpp::observable{[v](const rpp::subscriber<int>& sub)
+        auto                 observable = rpp::observable::create([v](const rpp::subscriber<int>& sub)
         {
             sub.on_next(123);
-        }};
+        });
+        return std::tuple{observer, observable};
+    };
+
+    BENCHMARK("Construction")
+    {
+        auto [observer, observable] = make_observer_and_observable();
+
+        observable.subscribe(observer);
+    };
+
+    const auto tuple      = make_observer_and_observable();
+    const auto observer   = std::get<0>(tuple);
+    const auto observable = std::get<1>(tuple);
+
+    BENCHMARK("Subscribe")
+    {
+        observable.subscribe(observer);
+    };
+
+    BENCHMARK("OnNext", i)
+    {
+        observer.on_next(i);
+    };
+}
+
+SCENARIO("Benchmark dynamic_observable + observer", "[benchmark]")
+{
+    auto make_observer_and_observable = []()
+    {
+        std::array<int, 100> v{};
+        auto                 observer   = rpp::observer{[v](int                           ) {}};
+        auto                 observable = rpp::observable::create([v](const rpp::subscriber<int>& sub)
+        {
+            sub.on_next(123);
+        }).as_dynamic();
         return std::tuple{observer, observable};
     };
 

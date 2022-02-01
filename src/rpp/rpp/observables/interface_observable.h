@@ -28,13 +28,17 @@
 
 namespace rpp
 {
-template<typename Type, typename SpecificObservable>
-struct observable_interface
+template<typename Type>
+struct virtual_observable
 {
     static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");
 
-    virtual ~observable_interface() = default;
-
+    virtual              ~virtual_observable() { }
     virtual subscription subscribe(const subscriber<Type>& observer) const = 0;
+};
+
+template<typename Type, typename SpecificObservable>
+struct interface_observable : public virtual_observable<Type>
+{
 };
 } // namespace rpp

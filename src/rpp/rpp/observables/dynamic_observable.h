@@ -22,47 +22,37 @@
 
 #pragma once
 
-#include <rpp/fwd.h>
 #include <rpp/subscription.h>
-#include <rpp/observables/observable_interface.h>
-#include <rpp/observables/details/observable_state.h>
-#include <rpp/utils/function_traits.h>
-#include <rpp/utils/functors.h>
-#include <rpp/utils/type_traits.h>
+#include <rpp/observables/interface_observable.h>
 
-#include <utility>
+#include <memory>
 
 namespace rpp
 {
+/**
+ * \brief type-erased alternative of observable (compating to specific_observable).
+ *
+ * It uses type-erasure mechanism to hide type of OnSubscribeFn. But it has higher cost in the terms of performance.Use it only when you need to store observable as member variable or something like this
+ * \tparam Type is type of value provided by this observable
+ */
 template<typename Type>
-class dynamic_observable final : public observable_interface<Type, dynamic_observable<Type>>
+class dynamic_observable final : public interface_observable<Type, dynamic_observable<Type>>
 {
-    template<typename T>
-    using enable_if_callable_t = std::enable_if_t<std::is_invocable_v<T, subscriber<Type>>>;
-
 public:
-    template<typename OnSubscribe = utils::empty_functor<const subscriber<Type>&>,
-             typename Enable = enable_if_callable_t<OnSubscribe>>
-    dynamic_observable(OnSubscribe&& on_subscribe = {})
-        : m_state{std::forward<OnSubscribe>(on_subscribe)} {}
+    template<typename OnSubscribeFn>
+    dynamic_observable(const specific_observable<Type, OnSubscribeFn>& observable)
+        : m_observable{std::make_shared<specific_observable<Type, OnSubscribeFn>>(observable)} {}
+
+    template<typename OnSubscribeFn>
+    dynamic_observable(specific_observable<Type, OnSubscribeFn>&& observable)
+        : m_observable{std::make_shared<specific_observable<Type, OnSubscribeFn>>(std::move(observable))} {}
 
     subscription subscribe(const subscriber<Type>& observer) const override
     {
-        try
-        {
-            m_state.on_subscribe(observer);
-        }
-        catch (const std::exception& exc)
-        {
-            observer.on_error(std::make_exception_ptr(exc));
-        }
-        return observer.get_subscription();
+        return m_observable->subscribe(observer);
     }
 
 private:
-    details::observable_state<Type> m_state;
+    std::shared_ptr<virtual_observable<Type>> m_observable{};
 };
-
-template<typename OnSub>
-dynamic_observable(OnSub on_subscribe) -> dynamic_observable<utils::extract_subscriber_type_t<utils::function_argument_t<OnSub>>>;
 } // namespace rpp
