@@ -33,12 +33,10 @@ struct virtual_observable
 {
     static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");
 
-    virtual              ~virtual_observable() { }
+    virtual              ~virtual_observable() = default;
     virtual subscription subscribe(const subscriber<Type>& observer) const = 0;
 };
 
 template<typename Type, typename SpecificObservable>
-struct interface_observable : public virtual_observable<Type>
-{
-};
+struct interface_observable : public virtual_observable<Type> {};
 } // namespace rpp
