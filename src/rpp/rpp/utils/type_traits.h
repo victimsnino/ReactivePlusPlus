@@ -45,7 +45,7 @@ template<typename T>
 struct is_observer : std::false_type{};
 
 template<typename T>
-struct is_observer<rpp::observer<T>> : std::true_type{};
+struct is_observer<observer<T>> : std::true_type{};
 
 template<typename T>
 constexpr bool is_observer_v = is_observer<T>::value;

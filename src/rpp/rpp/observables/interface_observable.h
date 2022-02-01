@@ -1,6 +1,6 @@
 // MIT License
 // 
-// Copyright (c) 2021 Aleksey Loginov
+// Copyright (c) 2022 Aleksey Loginov
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,19 +22,21 @@
 
 #pragma once
 
+#include <rpp/fwd.h>
+
+#include <type_traits>
+
 namespace rpp
 {
-template<typename Type, typename OnSubscribeFn>
-class specific_observable;
-
 template<typename Type>
-class dynamic_observable;
+struct virtual_observable
+{
+    static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");
 
-template<typename Type>
-class observer;
+    virtual              ~virtual_observable() = default;
+    virtual subscription subscribe(const subscriber<Type>& observer) const = 0;
+};
 
-template<typename Type>
-class subscriber;
-
-class subscription;
+template<typename Type, typename SpecificObservable>
+struct interface_observable : public virtual_observable<Type> {};
 } // namespace rpp
