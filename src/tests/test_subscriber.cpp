@@ -40,13 +40,13 @@ SCENARIO("Subscriber unsubscribes when obtains on_error or on_completed", "[subs
 
         WHEN("Subscribe on observable with first on_error")
         {
-            rpp::observable{[](const rpp::subscriber<int>& sub)
+            rpp::observable::create([](const rpp::subscriber<int>& sub)
             {
                 sub.on_error(std::make_exception_ptr(std::exception{}));
 
                 sub.on_next(1);
                 sub.on_completed();
-            }}.subscribe(observer);
+            }).subscribe(observer);
 
             THEN("No calls after on_error")
             {
@@ -73,7 +73,7 @@ SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscri
 
         WHEN("Subscriber subscribes on observable with on_completed ")
         {
-            const auto obs = rpp::observable{[](const rpp::subscriber<int>& sub) { sub.on_completed(); }};
+            const auto obs = rpp::observable::create([](const rpp::subscriber<int>& sub) { sub.on_completed(); });
             obs.subscribe(subscriber);
 
             THEN("Only one on_completed call first time")
@@ -96,7 +96,7 @@ SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscri
 
         WHEN("Subscriber subscribes on observable with on_next")
         {
-            const auto obs          = rpp::observable{[](const rpp::subscriber<int>& sub) { sub.on_next(1); }};
+            const auto obs          = rpp::observable::create([](const rpp::subscriber<int>& sub) { sub.on_next(1); });
             auto       subscription = obs.subscribe(subscriber);
 
             THEN("Only one on_next call")
@@ -150,7 +150,7 @@ SCENARIO("Subscriber obtains on_error when exception", "[subscriber]")
         auto observer = rpp::observer{[](const double&) {},
                                       [&](std::exception_ptr ) {++on_error_count;},
                                       [&]() {++on_completed_count;} };
-        auto observable = rpp::observable{[](const rpp::subscriber<double>&){throw std::runtime_error("Test");}};
+        auto observable = rpp::observable::create([](const rpp::subscriber<double>&){throw std::runtime_error("Test");});
 
         WHEN("observer subscribes")
         {
