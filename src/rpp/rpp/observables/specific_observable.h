@@ -51,7 +51,7 @@ public:
     specific_observable(OnSubscribe&& on_subscribe = {})
         : m_state{std::forward<OnSubscribe>(on_subscribe)} {}
 
-    dynamic_observable<Type> as_dynamic() const
+    [[nodiscard]] dynamic_observable<Type> as_dynamic() const
     {
         return *this;
     }
