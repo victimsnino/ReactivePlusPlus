@@ -50,29 +50,34 @@ struct interface_observable : public virtual_observable<Type>
     }
 
     template<typename OperatorFn,
-             typename ArgumentType = utils::function_argument_t<OperatorFn>,
-             typename NewType = utils::extract_subscriber_type_t<ArgumentType>,
-             typename Enabled = std::enable_if_t<utils::is_subscriber_v<typename utils::function_traits<
-                 OperatorFn>::result>>>
+             typename SubscriberType = utils::function_argument_t<OperatorFn>,
+             typename NewType = utils::extract_subscriber_type_t<SubscriberType>>
     auto lift(OperatorFn&& op) &
     {
-        return specific_observable{[new_this = *static_cast<SpecificObservable*>(this), op = std::forward<OperatorFn>(op)](ArgumentType subscriber)
+        static_assert(utils::is_subscriber<typename utils::function_traits<OperatorFn>::result>{},
+            "OperatorFn should return subscriber of same type");
+
+        return specific_observable{[new_this = *CastThis(), op = std::forward<OperatorFn>(op)](SubscriberType subscriber)
         {
-            new_this.subscribe(op(std::forward<ArgumentType>(subscriber)));
+            new_this.subscribe(op(std::forward<SubscriberType>(subscriber)));
         }};
     }
 
     template<typename OperatorFn,
-             typename ArgumentType = utils::function_argument_t<OperatorFn>,
-             typename NewType = utils::extract_subscriber_type_t<ArgumentType>,
-             typename Enabled = std::enable_if_t<utils::is_subscriber_v<typename utils::function_traits<
-                 OperatorFn>::result>>>
+             typename SubscriberType = utils::function_argument_t<OperatorFn>,
+             typename NewType = utils::extract_subscriber_type_t<SubscriberType>>
     auto lift(OperatorFn&& op) &&
     {
-        return specific_observable{[new_this = std::move(*static_cast<SpecificObservable*>(this)), op = std::forward<OperatorFn>(op)] (ArgumentType subscriber)
+        static_assert(utils::is_subscriber<typename utils::function_traits<OperatorFn>::result>{},
+            "OperatorFn should return subscriber of same type");
+
+        return specific_observable{[new_this = std::move(*CastThis()),op = std::forward<OperatorFn>(op)](SubscriberType subscriber)
         {
-            new_this.subscribe(op(std::forward<ArgumentType>(subscriber)));
+            new_this.subscribe(op(std::forward<SubscriberType>(subscriber)));
         }};
     }
+
+private:
+    SpecificObservable* CastThis() {return static_cast<SpecificObservable*>(this);}
 };
 } // namespace rpp

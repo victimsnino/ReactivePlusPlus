@@ -22,7 +22,6 @@
 
 #pragma once
 
-#include <rpp/subscription.h>
 #include <rpp/observables/interface_observable.h>
 
 #include <memory>

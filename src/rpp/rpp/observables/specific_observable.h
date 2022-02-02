@@ -22,7 +22,6 @@
 
 #pragma once
 
-#include <rpp/subscription.h>
 #include <rpp/observables/dynamic_observable.h>
 #include <rpp/observables/interface_observable.h>
 #include <rpp/utils/function_traits.h>
