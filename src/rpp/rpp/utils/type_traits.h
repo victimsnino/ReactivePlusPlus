@@ -49,4 +49,13 @@ struct is_observer<observer<T>> : std::true_type{};
 
 template<typename T>
 constexpr bool is_observer_v = is_observer<T>::value;
+
+template<typename T>
+struct is_subscriber: std::false_type{};
+
+template<typename T>
+struct is_subscriber<subscriber<T>> : std::true_type{};
+
+template<typename T>
+constexpr bool is_subscriber_v = is_subscriber<T>::value;
 } // namespace rpp::utils

@@ -22,7 +22,10 @@
 
 #pragma once
 
+#include "rpp/utils/type_traits.h"
+
 #include <rpp/fwd.h>
+#include <rpp/subscriber.h>
 
 #include <type_traits>
 
@@ -33,10 +36,43 @@ struct virtual_observable
 {
     static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");
 
-    virtual              ~virtual_observable() = default;
-    virtual subscription subscribe(const subscriber<Type>& observer) const = 0;
+    virtual      ~virtual_observable() = default;
+    virtual void subscribe(const subscriber<Type>& subscriber) const = 0;
 };
 
 template<typename Type, typename SpecificObservable>
-struct interface_observable : public virtual_observable<Type> {};
+struct interface_observable : public virtual_observable<Type>
+{
+    [[nodiscard]] subscription subscribe_with_subscription(const subscriber<Type>& subscriber) const
+    {
+        subscribe(subscriber);
+        return subscriber.get_subscription();
+    }
+
+    template<typename OperatorFn,
+             typename ArgumentType = utils::function_argument_t<OperatorFn>,
+             typename NewType = utils::extract_subscriber_type_t<ArgumentType>,
+             typename Enabled = std::enable_if_t<utils::is_subscriber_v<typename utils::function_traits<
+                 OperatorFn>::result>>>
+    auto lift(OperatorFn&& op) &
+    {
+        return specific_observable{[new_this = *static_cast<SpecificObservable*>(this), op = std::forward<OperatorFn>(op)](ArgumentType subscriber)
+        {
+            new_this.subscribe(op(std::forward<ArgumentType>(subscriber)));
+        }};
+    }
+
+    template<typename OperatorFn,
+             typename ArgumentType = utils::function_argument_t<OperatorFn>,
+             typename NewType = utils::extract_subscriber_type_t<ArgumentType>,
+             typename Enabled = std::enable_if_t<utils::is_subscriber_v<typename utils::function_traits<
+                 OperatorFn>::result>>>
+    auto lift(OperatorFn&& op) &&
+    {
+        return specific_observable{[new_this = std::move(*static_cast<SpecificObservable*>(this)), op = std::forward<OperatorFn>(op)] (ArgumentType subscriber)
+        {
+            new_this.subscribe(op(std::forward<ArgumentType>(subscriber)));
+        }};
+    }
+};
 } // namespace rpp

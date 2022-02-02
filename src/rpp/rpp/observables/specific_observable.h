@@ -51,20 +51,18 @@ public:
 
     [[nodiscard]] dynamic_observable<Type> as_dynamic() const & { return *this;            }
     [[nodiscard]] dynamic_observable<Type> as_dynamic() &&      { return std::move(*this); }
-    
-    subscription subscribe(const subscriber<Type>& observer) const override
+
+    void subscribe(const subscriber<Type>& subscriber) const override
     {
         try
         {
-            m_state(observer);
+            m_state(subscriber);
         }
         catch (const std::exception& exc)
         {
-            observer.on_error(std::make_exception_ptr(exc));
-        }
-        return observer.get_subscription();
+            subscriber.on_error(std::make_exception_ptr(exc));
+        };
     }
-
 private:
     OnSubscribeFn m_state;
 };

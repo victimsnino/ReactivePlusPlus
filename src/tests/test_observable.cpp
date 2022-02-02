@@ -24,9 +24,9 @@
 
 #include <catch2/catch_test_macros.hpp>
 
+#include <rpp/observable.h>
 #include <rpp/observer.h>
 #include <rpp/subscriber.h>
-#include <rpp/observable.h>
 
 #include <array>
 

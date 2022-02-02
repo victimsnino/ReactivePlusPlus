@@ -97,7 +97,7 @@ SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscri
         WHEN("Subscriber subscribes on observable with on_next")
         {
             const auto obs          = rpp::observable::create([](const rpp::subscriber<int>& sub) { sub.on_next(1); });
-            auto       subscription = obs.subscribe(subscriber);
+            auto       subscription = obs.subscribe_with_subscription(subscriber);
 
             THEN("Only one on_next call")
             {
@@ -154,7 +154,7 @@ SCENARIO("Subscriber obtains on_error when exception", "[subscriber]")
 
         WHEN("observer subscribes")
         {
-            auto subscription = observable.subscribe(observer);
+            auto subscription = observable.subscribe_with_subscription(observer);
             THEN("on_error called once only")
             {
                 CHECK(on_error_count == 1);
