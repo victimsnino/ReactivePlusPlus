@@ -49,10 +49,8 @@ public:
     specific_observable(OnSubscribeFn&& on_subscribe)
         : m_state{std::move(on_subscribe)} {}
 
-    [[nodiscard]] dynamic_observable<Type> as_dynamic() const
-    {
-        return *this;
-    }
+    [[nodiscard]] dynamic_observable<Type> as_dynamic() const & { return *this;            }
+    [[nodiscard]] dynamic_observable<Type> as_dynamic() &&      { return std::move(*this); }
     
     subscription subscribe(const subscriber<Type>& observer) const override
     {

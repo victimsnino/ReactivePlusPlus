@@ -42,11 +42,11 @@ class dynamic_observable final : public interface_observable<Type, dynamic_obser
 public:
     template<typename OnSubscribeFn>
     dynamic_observable(const specific_observable<Type, OnSubscribeFn>& observable)
-        : m_observable{std::make_shared<specific_observable<Type, OnSubscribeFn>>(observable)} {}
+        : m_observable{ std::make_shared<specific_observable<Type, OnSubscribeFn>>(observable) } {}
 
     template<typename OnSubscribeFn>
     dynamic_observable(specific_observable<Type, OnSubscribeFn>&& observable)
-        : m_observable{std::make_shared<specific_observable<Type, OnSubscribeFn>>(std::move(observable))} {}
+        : m_observable{ std::make_shared<specific_observable<Type, OnSubscribeFn>>(std::move(observable)) } {}
 
     subscription subscribe(const subscriber<Type>& observer) const override
     {

@@ -197,7 +197,52 @@ SCENARIO("specific_observable doesn't produce extra copies for lambda", "[track_
                 CHECK(tracker.get_copy_count() == 1);
                 CHECK(tracker.get_move_count() == 1);
             }
+            AND_WHEN("Make copy of observable")
+            {
+                auto copy_of_observable = observable;
+                THEN("One more copy of lambda")
+                {
+                    CHECK(tracker.get_copy_count() == 2);
+                    CHECK(tracker.get_move_count() == 1);
+                }
+            }
         }
+
+    }
+}
+
+SCENARIO("dynamic_observable doesn't produce extra copies for lambda", "[track_copy]")
+{
+    GIVEN("observer and observable of same type")
+    {
+        copy_count_tracker tracker{};
+        const auto observer             = rpp::observer{[](int) {  }};
+
+        const auto observable = rpp::observable::create([tracker](const rpp::subscriber<int>& sub)
+        {
+            sub.on_next(123);
+        }).as_dynamic();
+
+        WHEN("subscribe called for observble")
+        {
+            observable.subscribe(observer);
+
+            THEN("One copy into lambda, one move of lambda into internal state and one move to dynamic observable")
+            {
+                CHECK(tracker.get_copy_count() == 1);
+                CHECK(tracker.get_move_count() == 2);
+            }
+            AND_WHEN("Make copy of observable")
+            {
+                auto copy_of_observable = observable;
+                THEN("No any new copy of lambda")
+                {
+                    CHECK(tracker.get_copy_count() == 1);
+                    CHECK(tracker.get_move_count() == 2);
+                }
+            }
+        }
+
     }
 }
 
