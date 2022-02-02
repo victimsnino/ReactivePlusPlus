@@ -45,7 +45,7 @@ struct interface_observable : public virtual_observable<Type>
 {
     [[nodiscard]] subscription subscribe_with_subscription(const subscriber<Type>& subscriber) const
     {
-        subscribe(subscriber);
+        this->subscribe(subscriber);
         return subscriber.get_subscription();
     }
 
