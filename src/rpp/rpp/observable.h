@@ -35,6 +35,6 @@ specific_observable<Type, std::remove_const_t<std::remove_reference_t<OnSubscrib
 template<typename OnSubscribeFn>
 auto create(OnSubscribeFn&& on_subscribe)
 {
-    return create<utils::extract_subscriber_type_t<utils::function_argument_t<OnSubscribeFn>>, OnSubscribeFn>(std::forward<OnSubscribeFn>(on_subscribe));
+    return create<utils::extract_subscriber_type_t<utils::function_argument_t<OnSubscribeFn>>>(std::forward<OnSubscribeFn>(on_subscribe));
 }
 } // namespace rpp::observable

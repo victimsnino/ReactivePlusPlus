@@ -51,7 +51,7 @@ public:
     [[nodiscard]] dynamic_observable<Type> as_dynamic() const & { return *this;            }
     [[nodiscard]] dynamic_observable<Type> as_dynamic() &&      { return std::move(*this); }
 
-    void subscribe(const subscriber<Type>& subscriber) const override
+    void subscribe(const subscriber<Type>& subscriber) const noexcept override
     {
         try
         {

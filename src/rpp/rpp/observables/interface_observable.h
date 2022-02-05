@@ -37,13 +37,13 @@ struct virtual_observable
     static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");
 
     virtual      ~virtual_observable() = default;
-    virtual void subscribe(const subscriber<Type>& subscriber) const = 0;
+    virtual void subscribe(const subscriber<Type>& subscriber) const noexcept = 0;
 };
 
 template<typename Type, typename SpecificObservable>
 struct interface_observable : public virtual_observable<Type>
 {
-    [[nodiscard]] subscription subscribe_with_subscription(const subscriber<Type>& subscriber) const
+    [[nodiscard]] subscription subscribe_with_subscription(const subscriber<Type>& subscriber) const noexcept
     {
         this->subscribe(subscriber);
         return subscriber.get_subscription();
