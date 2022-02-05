@@ -47,9 +47,9 @@ public:
     subscriber(observer<TType>&& observer)
         : m_observer{std::move(observer)} { }
 
-    template<typename OnNext      = utils::empty_functor<Type>,
-             typename OnError     = utils::empty_functor<std::exception_ptr>,
-             typename OnCompleted = utils::empty_functor<>,
+    template<typename OnNext      = utils::empty_function_t<Type>,
+             typename OnError     = utils::empty_function_t<std::exception_ptr>,
+             typename OnCompleted = utils::empty_function_t<>,
              typename Enabled     = std::enable_if_t<utils::is_callable_v<OnNext> && std::is_invocable_v<OnError, std::exception_ptr>>>
     subscriber(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
         : m_observer{observer{std::forward<OnNext>(on_next),

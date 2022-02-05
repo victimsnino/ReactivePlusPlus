@@ -24,9 +24,9 @@
 
 namespace rpp::utils
 {
-template<typename ...Type>
-struct empty_functor
-{
-    void operator()(const Type&...) const {}
-};
+template<typename ...Types>
+void empty_function(const Types&...) {}
+
+template<typename ...Types>
+using empty_function_t = decltype(&empty_function<Types...>);
 } // namespace rpp::utils
