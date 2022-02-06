@@ -28,8 +28,12 @@
 namespace rpp::details
 {
 template<typename Type>
-struct on_next_forwarder
+class on_next_forwarder
 {
+public:
+
+    using Decayed = std::decay_t<Type>;
+
     template<typename OriginalFn, typename = std::enable_if_t<std::is_invocable_v<OriginalFn, Type>>>
     on_next_forwarder(OriginalFn&& original)
     {
@@ -59,7 +63,6 @@ struct on_next_forwarder
         };
     }
 
-    using Decayed = std::decay_t<Type>;
     void call(Decayed& val) const
     {
         m_on_next_ref(m_original_on_next, val);
