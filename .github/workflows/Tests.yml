@@ -81,7 +81,7 @@ jobs:
         alert-threshold: '200%'
         comment-on-alert: true
         comment-always: true
-        fail-on-alert: true
+        fail-on-alert: false
   
     - name: Push benchmark result
       if: github.event_name != 'pull_request' &&  matrix.config.relative_path_bench != ''
