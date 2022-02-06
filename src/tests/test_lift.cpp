@@ -39,6 +39,34 @@ SCENARIO("Observable can be lifted")
             sub.on_next(5);
             sub.on_completed();
         });
+        WHEN("Call lift")
+        {
+            int calls_internal = 0;
+            auto new_observable = observable.lift([&](rpp::subscriber<int> sub)
+            {
+                return rpp::subscriber{sub, [&, sub](int val)
+                {
+                    ++calls_internal;
+                    sub.on_next(val);
+                }};
+            });
+
+            AND_WHEN("subscribe unsubscribed subscriber")
+            {
+                int calls_external = 0;
+
+                auto subscriber = rpp::subscriber{[&](int v){++calls_external;}};
+                subscriber.unsubscribe();
+
+                new_observable.subscribe(subscriber);
+
+                THEN("No any calls obtained")
+                {
+                    CHECK(calls_internal == 0);
+                    CHECK(calls_external == 0);
+                }
+            }
+        }
         WHEN("Call lift as lvalue")
         {
             auto initial_copy_count = verifier.get_copy_count();
@@ -46,7 +74,7 @@ SCENARIO("Observable can be lifted")
 
             auto new_observable = observable.lift([](rpp::subscriber<double> sub)
             {
-                return rpp::subscriber{[sub](int val)
+                return rpp::subscriber{sub, [sub](int val)
                 {
                     sub.on_next(static_cast<double>(val) / 2);
                 }};
@@ -71,7 +99,7 @@ SCENARIO("Observable can be lifted")
 
             auto new_observable = std::move(observable).lift([](rpp::subscriber<double> sub)
             {
-                return rpp::subscriber{[sub](int val)
+                return rpp::subscriber{sub, [sub](int val)
                 {
                     sub.on_next(static_cast<double>(val) / 2);
                 }};

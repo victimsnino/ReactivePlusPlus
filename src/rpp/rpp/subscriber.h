@@ -27,6 +27,7 @@
 
 #include <rpp/observer.h>
 
+#include <utility>
 #include <variant>
 
 namespace rpp
@@ -38,6 +39,12 @@ class subscriber final
 
     template<typename TType>
     using enable_if_same_type_t = std::enable_if_t<std::is_same_v<std::decay_t<TType>, Type>>;
+
+    template<typename ...Types>
+    static constexpr bool is_observer_constructible_v = (rpp::utils::is_callable_v<Types> && ...) && (std::is_constructible_v<observer<Type>, Types...> ||
+        std::is_constructible_v<observer<Type&>, Types...> ||
+        std::is_constructible_v<observer<const Type&>, Types...> ||
+        std::is_constructible_v<observer<Type&&>, Types...>);
 public:
     template<typename TType, typename = enable_if_same_type_t<TType>>
     subscriber(const observer<TType>& observer)
@@ -47,21 +54,22 @@ public:
     subscriber(observer<TType>&& observer)
         : m_observer{std::move(observer)} { }
 
-    template<typename OnNext      = utils::empty_function_t<Type>,
-             typename OnError     = utils::empty_function_t<std::exception_ptr>,
-             typename OnCompleted = utils::empty_function_t<>,
-             typename Enabled     = std::enable_if_t<utils::is_callable_v<OnNext> && std::is_invocable_v<OnError, std::exception_ptr>>>
-    subscriber(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
-        : m_observer{observer{std::forward<OnNext>(on_next),
-                              std::forward<OnError>(on_error),
-                              std::forward<OnCompleted>(on_completed)}} {}
+    template<typename ...Types,
+             typename Enabled = std::enable_if_t<is_observer_constructible_v<Types...>>>
+    subscriber(Types&&...vals)
+        : subscriber{subscription{}, std::forward<Types>(vals)...} {}
 
-    template<typename OnNext,
-             typename OnCompleted,
-             typename Enabled     = std::enable_if_t<utils::is_callable_v<OnNext> && std::is_invocable_v<OnCompleted>>>
-    subscriber(OnNext&& on_next, OnCompleted&& on_completed)
-        : m_observer{observer{std::forward<OnNext>(on_next),
-                              std::forward<OnCompleted>(on_completed)}} {}
+    template<typename TType,
+             typename ...Types,
+             typename Enabled = std::enable_if_t<is_observer_constructible_v<Types...>>>
+    subscriber(const subscriber<TType>& sub, Types&&...vals)
+        :subscriber{sub.get_subscription(), std::forward<Types>(vals)...} {}
+
+    template<typename ...Types,
+             typename Enabled = std::enable_if_t<is_observer_constructible_v<Types...>>>
+    subscriber(const subscription& sub, Types&&...vals)
+        : m_observer{observer{std::forward<Types>(vals)...}}
+        , m_subscription{sub} {}
 
     template<typename U, typename = enable_if_same_type_t<U>>
     void on_next(U&& val) const
@@ -116,6 +124,10 @@ private:
 
 template<typename T>
 subscriber(observer<T> observer) -> subscriber<std::decay_t<T>>;
+
+template<typename TSub, typename OnNext, typename ...Args, typename = std::enable_if_t<utils::is_callable_v<OnNext> && 
+                                                                                      (rpp::utils::is_subscriber_v<TSub> || std::is_same_v<TSub, subscription>)>>
+subscriber(TSub, OnNext, Args ...)->subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;
 
 template<typename OnNext, typename ...Args, typename = std::enable_if_t<utils::is_callable_v<OnNext>>>
 subscriber(OnNext, Args...) -> subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;
