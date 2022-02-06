@@ -46,17 +46,15 @@ SCENARIO("Benchmark bservable + observer", "[benchmark]")
     BENCHMARK("Specific observable construction")
     {
         auto [observer, observable] = make_observer_and_observable();
-
-        observable.subscribe(observer);
+        return observable;
     };
 
     BENCHMARK("Dynamic observable construction")
     {
         auto [observer, observable] = make_observer_and_observable();
 
-        observable.as_dynamic().subscribe(observer);
+        return observable.as_dynamic();
     };
-
 
     const auto tuple              = make_observer_and_observable();
     const auto observer           = std::get<0>(tuple);
