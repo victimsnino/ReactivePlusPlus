@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1644097191941,
+  "lastUpdate": 1644149271539,
   "repoUrl": "https://github.com/victimsnino/ReactivePlusPlus",
   "entries": {
     "Catch2 Benchmark Linux CLANG": [
@@ -295,6 +295,65 @@ window.BENCHMARK_DATA = {
             "range": "± 0.122601",
             "unit": "ns",
             "extra": "100 samples\n18131 iterations"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32845901+victimsnino@users.noreply.github.com",
+            "name": "Aleksey Loginov",
+            "username": "victimsnino"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2025ea96cb91c3eba5ed9d89c7e74a89189b3c56",
+          "message": "Update Tests.yml",
+          "timestamp": "2022-02-06T15:06:46+03:00",
+          "tree_id": "38ca65c1414f7d89643a26b0105e6de78a28f392",
+          "url": "https://github.com/victimsnino/ReactivePlusPlus/commit/2025ea96cb91c3eba5ed9d89c7e74a89189b3c56"
+        },
+        "date": 1644149271086,
+        "tool": "catch2",
+        "benches": [
+          {
+            "name": "Specific observable construction",
+            "value": 60.4894,
+            "range": "± 0.256969",
+            "unit": "ns",
+            "extra": "100 samples\n587 iterations"
+          },
+          {
+            "name": "Dynamic observable construction",
+            "value": 84.0265,
+            "range": "± 1.2745",
+            "unit": "ns",
+            "extra": "100 samples\n427 iterations"
+          },
+          {
+            "name": "Specific observable subscribe",
+            "value": 41.0407,
+            "range": "± 0.783754",
+            "unit": "ns",
+            "extra": "100 samples\n841 iterations"
+          },
+          {
+            "name": "Dynamic observable subscribe",
+            "value": 43.2537,
+            "range": "± 0.87101",
+            "unit": "ns",
+            "extra": "100 samples\n821 iterations"
+          },
+          {
+            "name": "OnNext",
+            "value": 5.22865,
+            "range": "± 0.0886571",
+            "unit": "ns",
+            "extra": "100 samples\n6802 iterations"
           }
         ]
       }
