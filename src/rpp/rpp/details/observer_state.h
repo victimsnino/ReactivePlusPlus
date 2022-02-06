@@ -22,10 +22,65 @@
 
 #pragma once
 
+#include <any>
 #include <functional>
 
 namespace rpp::details
 {
+template<typename Type>
+struct on_next_forwarder
+{
+    template<typename OriginalFn, typename = std::enable_if_t<std::is_invocable_v<OriginalFn, Type>>>
+    on_next_forwarder(OriginalFn&& original)
+    {
+        using OriginalFnType = std::decay_t<OriginalFn>;
+
+        m_original_on_next   = std::forward<OriginalFn>(original);
+        m_on_next_ref        = +[](std::any& c, Decayed& val)
+        {
+            if constexpr (!std::is_rvalue_reference_v<Type>)
+                std::any_cast<OriginalFnType>(c)(val);
+            else
+                throw std::logic_error("Can't convert lvalue reference to rvalue reference");
+        };
+        m_on_next_const_ref  = +[](std::any& c, const Decayed& val)
+        {
+            if constexpr (!std::is_rvalue_reference_v<Type> && !std::is_same_v<Decayed&, Type>)
+                std::any_cast<OriginalFnType>(c)(val);
+            else
+                throw std::logic_error("Can't send const lvalue reference to rvalue or non-const lvalue reference");
+        };
+        m_on_next_rvalue_ref = +[](std::any& c, Decayed&& val)
+        {
+            if constexpr (!std::is_same_v<Type, Decayed&>)
+                std::any_cast<OriginalFnType>(c)(std::move(val));
+            else
+                throw std::logic_error("Can't send rvalue reference to non-const lvalue reference");
+        };
+    }
+
+    using Decayed = std::decay_t<Type>;
+    void call(Decayed& val) const
+    {
+        m_on_next_ref(m_original_on_next, val);
+    }
+
+    void call(const Decayed& val) const
+    {
+        m_on_next_const_ref(m_original_on_next, val);
+    }
+
+    void call(Decayed&& val) const
+    {
+        m_on_next_rvalue_ref(m_original_on_next, std::move(val));
+    }
+
+private:
+    mutable std::any m_original_on_next;
+    void (*          m_on_next_ref)(std::any&, Decayed&){};
+    void (*          m_on_next_const_ref)(std::any&, const Decayed&){};
+    void (*          m_on_next_rvalue_ref)(std::any&, Decayed&&){};
+};
 template<typename Type>
 class observer_state
 {
@@ -49,24 +104,24 @@ public:
         static constexpr bool s_is_expect_rvalue_ref  = is_type_v<Decayed&&> || is_type_v<const Decayed&&>;
         if constexpr (s_is_expect_forwardable)
         {
-            m_on_next(std::forward<U>(val));
+            m_on_next.call(std::forward<U>(val));
         }
         else if constexpr (s_is_expect_ref)
         {
             if constexpr (std::is_same_v<U, Decayed&> || std::is_same_v<U, Decayed>)
-                m_on_next(val);
+                m_on_next.call(val);
             else
             {
                 Decayed temp{std::forward<U>(val)};
-                m_on_next(temp);
+                m_on_next.call(temp);
             }
         }
         else if constexpr (s_is_expect_rvalue_ref)
         {
             if constexpr (std::is_lvalue_reference_v<U>)
-                m_on_next(Decayed{val});
+                m_on_next.call(Decayed{val});
             else
-                m_on_next(std::forward<U>(val));
+                m_on_next.call(std::forward<U>(val));
         }
         else
             static_assert(!s_is_expect_forwardable && !s_is_expect_ref && !s_is_expect_rvalue_ref, "Some unsupported type detected!");
@@ -83,8 +138,9 @@ public:
     }
 
 private:
-    std::function<void(Type)>               m_on_next{}; // std::function makes extra move/copy sometimes.
-    std::function<void(std::exception_ptr)> m_on_err{};
-    std::function<void()>                   m_on_completed{};
+    // naive approach with std::function makes extra move/copy sometimes.
+    on_next_forwarder<Type>                 m_on_next;
+    std::function<void(std::exception_ptr)> m_on_err;
+    std::function<void()>                   m_on_completed;
 };
 } // namespace rpp::details
