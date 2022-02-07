@@ -154,8 +154,8 @@ class copyable_subscriber final : public subscriber_base<Type, details::Subscrib
 public:
     using subscriber_base<Type, details::SubscriberStrategy::Shared>::subscriber_base;
 
-    copyable_subscriber(const copyable_subscriber<Type>& o) : subscriber_base{o} {}
-    copyable_subscriber(copyable_subscriber<Type>&& o) noexcept : subscriber_base{std::move(o)} {}
+    copyable_subscriber(const copyable_subscriber<Type>& o) : subscriber_base<Type, details::SubscriberStrategy::Shared>{o} {}
+    copyable_subscriber(copyable_subscriber<Type>&& o) noexcept : subscriber_base<Type, details::SubscriberStrategy::Shared>{std::move(o)} {}
 };
 
 template<typename Type>
