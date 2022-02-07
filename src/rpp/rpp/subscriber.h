@@ -149,24 +149,37 @@ private:
 };
 
 template<typename Type>
-class local_subscriber final: public subscriber_base<Type, details::SubscriberStrategy::Local>
-{
-public:
-    using subscriber_base<Type, details::SubscriberStrategy::Local>::subscriber_base;
-
-    local_subscriber(const local_subscriber<Type>& o) = delete;
-
-};
-
-template<typename Type>
-class subscriber final : public subscriber_base<Type, details::SubscriberStrategy::Shared>
+class copyable_subscriber final : public subscriber_base<Type, details::SubscriberStrategy::Shared>
 {
 public:
     using subscriber_base<Type, details::SubscriberStrategy::Shared>::subscriber_base;
 
-    subscriber(const subscriber<Type>& o) : subscriber_base{o} {}
-    subscriber(subscriber<Type>&& o) noexcept : subscriber_base{std::move(o)} {}
+    copyable_subscriber(const copyable_subscriber<Type>& o) : subscriber_base{o} {}
+    copyable_subscriber(copyable_subscriber<Type>&& o) noexcept : subscriber_base{std::move(o)} {}
 };
+
+template<typename Type>
+class subscriber final : public subscriber_base<Type, details::SubscriberStrategy::Local>
+{
+public:
+    using subscriber_base<Type, details::SubscriberStrategy::Local>::subscriber_base;
+
+    subscriber(const subscriber<Type>& o) = delete;
+
+    copyable_subscriber<Type> as_copyable() const & { return *this; }
+    copyable_subscriber<Type> as_copyable() && { return std::move(*this); }
+};
+
+template<typename T>
+copyable_subscriber(observer<T> observer) -> copyable_subscriber<std::decay_t<T>>;
+
+template<typename TSub, typename OnNext, typename ...Args, typename = std::enable_if_t<utils::is_callable_v<OnNext> && 
+                                                                                      (rpp::utils::is_subscriber_v<TSub> || std::is_same_v<TSub, subscription>)>>
+copyable_subscriber(TSub, OnNext, Args ...)->copyable_subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;
+
+template<typename OnNext, typename ...Args, typename = std::enable_if_t<utils::is_callable_v<OnNext>>>
+copyable_subscriber(OnNext, Args...) -> copyable_subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;
+
 
 template<typename T>
 subscriber(observer<T> observer) -> subscriber<std::decay_t<T>>;
@@ -177,15 +190,4 @@ subscriber(TSub, OnNext, Args ...)->subscriber<std::decay_t<utils::function_argu
 
 template<typename OnNext, typename ...Args, typename = std::enable_if_t<utils::is_callable_v<OnNext>>>
 subscriber(OnNext, Args...) -> subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;
-
-
-template<typename T>
-local_subscriber(observer<T> observer) -> local_subscriber<std::decay_t<T>>;
-
-template<typename TSub, typename OnNext, typename ...Args, typename = std::enable_if_t<utils::is_callable_v<OnNext> && 
-                                                                                      (rpp::utils::is_subscriber_v<TSub> || std::is_same_v<TSub, subscription>)>>
-local_subscriber(TSub, OnNext, Args ...)->local_subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;
-
-template<typename OnNext, typename ...Args, typename = std::enable_if_t<utils::is_callable_v<OnNext>>>
-local_subscriber(OnNext, Args...) -> local_subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;
 } // namespace rpp

@@ -63,7 +63,7 @@ SCENARIO("Observable should be subscribable")
     {
         size_t     on_next_called_count = 0;
         const auto observer             = rpp::observer{[&](int                   ) { ++on_next_called_count; }};
-        const auto observable           = rpp::observable::create([](rpp::subscriber<int> sub) {sub.on_next(1);});
+        const auto observable           = rpp::observable::create([](const rpp::subscriber<int>& sub) {sub.on_next(1);});
 
         WHEN("subscribe called for observble")
         {

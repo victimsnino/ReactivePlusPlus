@@ -36,7 +36,7 @@ SCENARIO("Benchmark bservable + observer", "[benchmark]")
     auto make_observer_and_observable = [&]()
     {
         auto                 observer   = rpp::observer{[v](int                           ) {}};
-        auto                 observable = rpp::observable::create([v](const rpp::local_subscriber<int>& sub)
+        auto                 observable = rpp::observable::create([v](const rpp::subscriber<int>& sub)
         {
             sub.on_next(123);
         });

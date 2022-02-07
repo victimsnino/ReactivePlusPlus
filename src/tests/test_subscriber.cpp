@@ -69,7 +69,7 @@ SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscri
                                             [&](std::exception_ptr) { ++on_error_called_count; },
                                             [&]() { ++on_completed_called_count; }};
 
-        auto subscriber = rpp::subscriber{observer};
+        auto subscriber = rpp::copyable_subscriber{observer};
 
         WHEN("Subscriber subscribes on observable with on_completed ")
         {
@@ -82,7 +82,7 @@ SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscri
                 CHECK(on_error_called_count == 0);
                 CHECK(on_completed_called_count == 1);
             }
-            AND_WHEN("The same subscriber subscribes second time")
+            AND_WHEN("The same copyable_subscriber subscribes second time")
             {
                 obs.subscribe(subscriber);
                 THEN("No any new calls happens")
@@ -105,7 +105,7 @@ SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscri
                 CHECK(on_error_called_count == 0);
                 CHECK(on_completed_called_count == 0);
             }
-            AND_WHEN("The same subscriber subscribes second time")
+            AND_WHEN("The same copyable_subscriber subscribes second time")
             {
                 obs.subscribe(subscriber);
                 THEN("One more on_next call")
@@ -115,7 +115,7 @@ SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscri
                     CHECK(on_completed_called_count == 0);
                 }
             }
-            AND_WHEN("The same subscriber unsubscribes and subscribes second time")
+            AND_WHEN("The same copyable_subscriber unsubscribes and subscribes second time")
             {
                 subscriber.unsubscribe();
                 obs.subscribe(subscriber);
@@ -126,7 +126,7 @@ SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscri
                     CHECK(on_completed_called_count == 0);
                 }
             }
-            AND_WHEN("The subscription unsubscribes and subscriber subscribes second time")
+            AND_WHEN("The subscription unsubscribes and copyable_subscriber subscribes second time")
             {
                 subscription.unsubscribe();
                 obs.subscribe(subscriber);

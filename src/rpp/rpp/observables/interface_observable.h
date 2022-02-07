@@ -37,13 +37,13 @@ struct virtual_observable
     static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");
 
     virtual      ~virtual_observable() = default;
-    virtual void subscribe(local_subscriber<Type>&& subscriber) const noexcept = 0;
+    virtual void subscribe(subscriber<Type>&& subscriber) const noexcept = 0;
 };
 
 template<typename Type, typename SpecificObservable>
 struct interface_observable : public virtual_observable<Type>
 {
-    subscription subscribe_with_subscription(const subscriber<Type>& subscriber) const noexcept
+    subscription subscribe_with_subscription(const copyable_subscriber<Type>& subscriber) const noexcept
     {
         this->subscribe(subscriber);
         return subscriber.get_subscription();
@@ -69,7 +69,7 @@ struct interface_observable : public virtual_observable<Type>
     auto lift(OperatorFn&& op) &&
     {
         static_assert(utils::is_subscriber<typename utils::function_traits<OperatorFn>::result>{},
-            "OperatorFn should return subscriber of same type");
+            "OperatorFn should return copyable_subscriber of same type");
 
         return specific_observable{[new_this = std::move(*CastThis()),op = std::forward<OperatorFn>(op)](SubscriberType subscriber)
         {

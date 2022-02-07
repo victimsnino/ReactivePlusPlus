@@ -34,10 +34,10 @@ template<typename Type>
 class observer;
 
 template<typename Type>
-class subscriber;
+class copyable_subscriber;
 
 template<typename Type>
-class local_subscriber;
+class subscriber;
 
 class subscription;
 } // namespace rpp
