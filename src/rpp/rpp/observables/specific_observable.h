@@ -51,7 +51,7 @@ public:
     [[nodiscard]] dynamic_observable<Type> as_dynamic() const & { return *this;            }
     [[nodiscard]] dynamic_observable<Type> as_dynamic() &&      { return std::move(*this); }
 
-    subscription subscribe(const subscriber<Type>& subscriber) const noexcept override
+    void subscribe(local_subscriber<Type>&& subscriber) const noexcept override
     {
         try
         {
@@ -61,8 +61,8 @@ public:
         {
             subscriber.on_error(std::make_exception_ptr(exc));
         }
-        return subscriber.get_subscription();
     }
+
 private:
     OnSubscribeFn m_state;
 };

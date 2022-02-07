@@ -36,5 +36,8 @@ class observer;
 template<typename Type>
 class subscriber;
 
+template<typename Type>
+class local_subscriber;
+
 class subscription;
 } // namespace rpp

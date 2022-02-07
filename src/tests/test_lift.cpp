@@ -44,7 +44,7 @@ SCENARIO("Observable can be lifted")
             int calls_internal = 0;
             auto new_observable = observable.lift([&](rpp::subscriber<int> sub)
             {
-                return rpp::subscriber{sub, [&, sub](int val)
+                return rpp::subscriber{sub.get_subscription(), [&, sub](int val)
                 {
                     ++calls_internal;
                     sub.on_next(val);
@@ -74,7 +74,7 @@ SCENARIO("Observable can be lifted")
 
             auto new_observable = observable.lift([](rpp::subscriber<double> sub)
             {
-                return rpp::subscriber{sub, [sub](int val)
+                return rpp::subscriber{sub.get_subscription(), [sub](int val)
                 {
                     sub.on_next(static_cast<double>(val) / 2);
                 }};
@@ -99,7 +99,7 @@ SCENARIO("Observable can be lifted")
 
             auto new_observable = std::move(observable).lift([](rpp::subscriber<double> sub)
             {
-                return rpp::subscriber{sub, [sub](int val)
+                return rpp::subscriber{sub.get_subscription(), [sub](int val)
                 {
                     sub.on_next(static_cast<double>(val) / 2);
                 }};

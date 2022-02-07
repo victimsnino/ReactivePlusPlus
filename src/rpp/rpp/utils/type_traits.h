@@ -36,6 +36,12 @@ struct extract_subscriber_type<subscriber<Type>>
 };
 
 template<typename Type>
+struct extract_subscriber_type<local_subscriber<Type>>
+{
+    using type = Type;
+};
+
+template<typename Type>
 struct extract_subscriber_type : public extract_subscriber_type<std::decay_t<Type>>{};
 
 template<typename T>
