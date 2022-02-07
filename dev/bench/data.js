@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1644180739349,
+  "lastUpdate": 1644268442803,
   "repoUrl": "https://github.com/victimsnino/ReactivePlusPlus",
   "entries": {
     "Catch2 Benchmark Linux CLANG": [
@@ -472,6 +472,58 @@ window.BENCHMARK_DATA = {
             "range": "± 0.0583051",
             "unit": "ns",
             "extra": "100 samples\n7449 iterations"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "victimsnino@gmail.com",
+            "name": "Aleksey Loginov",
+            "username": "victimsnino"
+          },
+          "committer": {
+            "email": "victimsnino@gmail.com",
+            "name": "Aleksey Loginov",
+            "username": "victimsnino"
+          },
+          "distinct": true,
+          "id": "7540b25602aab337fe10100aff5fa52351db6edd",
+          "message": "Compile fix",
+          "timestamp": "2022-02-08T00:12:46+03:00",
+          "tree_id": "812e847cc9199b726a1353ec0de11a2bc0e2575b",
+          "url": "https://github.com/victimsnino/ReactivePlusPlus/commit/7540b25602aab337fe10100aff5fa52351db6edd"
+        },
+        "date": 1644268442313,
+        "tool": "catch2",
+        "benches": [
+          {
+            "name": "Specific observable construction",
+            "value": 17.0441,
+            "range": "± 3.49547",
+            "unit": "ns",
+            "extra": "100 samples\n1683 iterations"
+          },
+          {
+            "name": "Dynamic observable construction",
+            "value": 37.8421,
+            "range": "± 7.5076",
+            "unit": "ns",
+            "extra": "100 samples\n790 iterations"
+          },
+          {
+            "name": "Specific observable subscribe",
+            "value": 21.7012,
+            "range": "± 2.10681",
+            "unit": "ns",
+            "extra": "100 samples\n1204 iterations"
+          },
+          {
+            "name": "Dynamic observable subscribe",
+            "value": 22.4151,
+            "range": "± 3.72367",
+            "unit": "ns",
+            "extra": "100 samples\n1258 iterations"
           }
         ]
       }
