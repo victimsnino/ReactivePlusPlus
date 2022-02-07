@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1644268615303,
+  "lastUpdate": 1644268627002,
   "repoUrl": "https://github.com/victimsnino/ReactivePlusPlus",
   "entries": {
     "Catch2 Benchmark Linux CLANG": [
@@ -576,6 +576,60 @@ window.BENCHMARK_DATA = {
             "range": "± 0.402359",
             "unit": "ns",
             "extra": "100 samples\n1405 iterations"
+          }
+        ]
+      }
+    ],
+    "Catch2 Benchmark Linux GCC": [
+      {
+        "commit": {
+          "author": {
+            "email": "32845901+victimsnino@users.noreply.github.com",
+            "name": "Aleksey Loginov",
+            "username": "victimsnino"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f0a3a9dc389a8aaa5ec5fafed554e7f6316545ce",
+          "message": "Enable perfomance on gcc",
+          "timestamp": "2022-02-08T00:15:44+03:00",
+          "tree_id": "9b611c2eb05f5fb08a6c0e1ce3597287721b8b61",
+          "url": "https://github.com/victimsnino/ReactivePlusPlus/commit/f0a3a9dc389a8aaa5ec5fafed554e7f6316545ce"
+        },
+        "date": 1644268626105,
+        "tool": "catch2",
+        "benches": [
+          {
+            "name": "Specific observable construction",
+            "value": 21.1439,
+            "range": "± 19.159",
+            "unit": "ns",
+            "extra": "100 samples\n1760 iterations"
+          },
+          {
+            "name": "Dynamic observable construction",
+            "value": 40.5643,
+            "range": "± 4.14124",
+            "unit": "ns",
+            "extra": "100 samples\n741 iterations"
+          },
+          {
+            "name": "Specific observable subscribe",
+            "value": 24.3677,
+            "range": "± 7.10942",
+            "unit": "ns",
+            "extra": "100 samples\n1393 iterations"
+          },
+          {
+            "name": "Dynamic observable subscribe",
+            "value": 23.1594,
+            "range": "± 0.148767",
+            "unit": "ns",
+            "extra": "100 samples\n1305 iterations"
           }
         ]
       }
