@@ -54,6 +54,7 @@ class subscriber_base
         std::is_constructible_v<observer<const Type&>, Types...> ||
         std::is_constructible_v<observer<Type&&>, Types...>);
 public:
+    //********************* Construct by observer *********************//
     template<typename TType, typename = enable_if_same_type_t<TType>>
     subscriber_base(const observer<TType>& observer)
         : m_observer{observer}
@@ -64,11 +65,7 @@ public:
         : m_observer{std::move(observer)}
         , m_subscription{make_subscription()} { }
 
-    template<typename ...Types,
-             typename Enabled = std::enable_if_t<is_observer_constructible_v<Types...>>>
-    subscriber_base(Types&&...vals)
-        : subscriber_base{make_subscription(), std::forward<Types>(vals)...} {}
-
+    //********************* Construct by same subscriber  *********************//
     template<details::SubscriberStrategy strat>
     subscriber_base(const subscriber_base<Type, strat>& sub)
         : m_observer{ sub.m_observer }
@@ -78,6 +75,12 @@ public:
     subscriber_base(subscriber_base<Type, strat>&& sub)
         : m_observer{ std::move(sub.m_observer) }
         , m_subscription{ sub.get_subscription() } {}
+
+    //********************* Construct by lambdas *****************************//
+    template<typename ...Types,
+             typename Enabled = std::enable_if_t<is_observer_constructible_v<Types...>>>
+    subscriber_base(Types&&...vals)
+        : subscriber_base{make_subscription(), std::forward<Types>(vals)...} {}
 
     template<typename ...Types, typename = std::enable_if_t<is_observer_constructible_v<Types...>>>
     subscriber_base(const subscription& sub, Types&&...vals)

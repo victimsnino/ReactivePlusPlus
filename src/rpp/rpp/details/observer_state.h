@@ -30,9 +30,13 @@ namespace rpp::details
 template<typename Type>
 class on_next_forwarder
 {
-public:
-
+private:
     using Decayed = std::decay_t<Type>;
+
+    template<typename T>
+    static constexpr bool is_type_v = std::is_same_v<T, Type>;
+
+public:
 
     template<typename OriginalFn, typename = std::enable_if_t<std::is_invocable_v<OriginalFn, Type>>>
     on_next_forwarder(OriginalFn&& original)
@@ -63,6 +67,38 @@ public:
         };
     }
 
+    template<typename U>
+    void on_next(U&& val) const
+    {
+        static constexpr bool s_is_expect_forwardable = is_type_v<Decayed>   || is_type_v<const Decayed> || is_type_v<const Decayed&>;
+        static constexpr bool s_is_expect_ref         = is_type_v<Decayed&>;
+        static constexpr bool s_is_expect_rvalue_ref  = is_type_v<Decayed&&> || is_type_v<const Decayed&&>;
+        if constexpr (s_is_expect_forwardable)
+        {
+            call(std::forward<U>(val));
+        }
+        else if constexpr (s_is_expect_ref)
+        {
+            if constexpr (std::is_same_v<U, Decayed&> || std::is_same_v<U, Decayed>)
+                call(val);
+            else
+            {
+                Decayed temp{std::forward<U>(val)};
+                call(temp);
+            }
+        }
+        else if constexpr (s_is_expect_rvalue_ref)
+        {
+            if constexpr (std::is_lvalue_reference_v<U>)
+                call(Decayed{val});
+            else
+                call(std::forward<U>(val));
+        }
+        else
+            static_assert(!s_is_expect_forwardable && !s_is_expect_ref && !s_is_expect_rvalue_ref, "Some unsupported type detected!");
+    }
+
+private:
     void call(Decayed& val) const
     {
         m_on_next_ref(m_original_on_next, val);
@@ -87,11 +123,6 @@ private:
 template<typename Type>
 class observer_state
 {
-    using Decayed = std::decay_t<Type>;
-
-    template<typename T>
-    static constexpr bool is_type_v = std::is_same_v<T, Type>;
-
 public:
     template<typename OnNext, typename OnError, typename OnCompleted>
     observer_state(OnNext&& on_next, OnError&& on_error, OnCompleted&& on_completed)
@@ -102,32 +133,7 @@ public:
     template<typename U>
     void on_next(U&& val) const
     {
-        static constexpr bool s_is_expect_forwardable = is_type_v<Decayed>   || is_type_v<const Decayed> || is_type_v<const Decayed&>;
-        static constexpr bool s_is_expect_ref         = is_type_v<Decayed&>;
-        static constexpr bool s_is_expect_rvalue_ref  = is_type_v<Decayed&&> || is_type_v<const Decayed&&>;
-        if constexpr (s_is_expect_forwardable)
-        {
-            m_on_next.call(std::forward<U>(val));
-        }
-        else if constexpr (s_is_expect_ref)
-        {
-            if constexpr (std::is_same_v<U, Decayed&> || std::is_same_v<U, Decayed>)
-                m_on_next.call(val);
-            else
-            {
-                Decayed temp{std::forward<U>(val)};
-                m_on_next.call(temp);
-            }
-        }
-        else if constexpr (s_is_expect_rvalue_ref)
-        {
-            if constexpr (std::is_lvalue_reference_v<U>)
-                m_on_next.call(Decayed{val});
-            else
-                m_on_next.call(std::forward<U>(val));
-        }
-        else
-            static_assert(!s_is_expect_forwardable && !s_is_expect_ref && !s_is_expect_rvalue_ref, "Some unsupported type detected!");
+        m_on_next.on_next(std::forward<U>(val));
     }
 
     void on_error(const std::exception_ptr err) const
