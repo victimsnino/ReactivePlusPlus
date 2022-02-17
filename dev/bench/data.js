@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1644268627002,
+  "lastUpdate": 1645127007282,
   "repoUrl": "https://github.com/victimsnino/ReactivePlusPlus",
   "entries": {
     "Catch2 Benchmark Linux CLANG": [
@@ -630,6 +630,58 @@ window.BENCHMARK_DATA = {
             "range": "± 0.148767",
             "unit": "ns",
             "extra": "100 samples\n1305 iterations"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "victimsnino@gmail.com",
+            "name": "Aleksey Loginov",
+            "username": "victimsnino"
+          },
+          "committer": {
+            "email": "victimsnino@gmail.com",
+            "name": "Aleksey Loginov",
+            "username": "victimsnino"
+          },
+          "distinct": true,
+          "id": "17ca0316df5c19081827bb014e077617af5a72b0",
+          "message": "Merge branch 'main' of github.com:victimsnino/ReactivePlusPlus",
+          "timestamp": "2022-02-17T22:42:33+03:00",
+          "tree_id": "516dd18d3a50afe4998153400203a30c8017d41a",
+          "url": "https://github.com/victimsnino/ReactivePlusPlus/commit/17ca0316df5c19081827bb014e077617af5a72b0"
+        },
+        "date": 1645127006914,
+        "tool": "catch2",
+        "benches": [
+          {
+            "name": "Specific observable construction",
+            "value": 12.9229,
+            "range": "± 0.942577",
+            "unit": "ns",
+            "extra": "100 samples\n2045 iterations"
+          },
+          {
+            "name": "Dynamic observable construction",
+            "value": 30.1605,
+            "range": "± 1.71694",
+            "unit": "ns",
+            "extra": "100 samples\n862 iterations"
+          },
+          {
+            "name": "Specific observable subscribe",
+            "value": 16.0346,
+            "range": "± 1.45987",
+            "unit": "ns",
+            "extra": "100 samples\n1656 iterations"
+          },
+          {
+            "name": "Dynamic observable subscribe",
+            "value": 16.0531,
+            "range": "± 0.768246",
+            "unit": "ns",
+            "extra": "100 samples\n1587 iterations"
           }
         ]
       }
