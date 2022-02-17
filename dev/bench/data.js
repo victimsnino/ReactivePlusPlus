@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1645129139670,
+  "lastUpdate": 1645129384083,
   "repoUrl": "https://github.com/victimsnino/ReactivePlusPlus",
   "entries": {
     "Catch2 Benchmark Linux CLANG": [
@@ -911,6 +911,67 @@ window.BENCHMARK_DATA = {
             "range": "± 1.22526",
             "unit": "ns",
             "extra": "100 samples\n5852 iterations"
+          }
+        ]
+      }
+    ],
+    "Catch2 Benchmark Windows MSVC": [
+      {
+        "commit": {
+          "author": {
+            "email": "32845901+victimsnino@users.noreply.github.com",
+            "name": "Aleksey Loginov",
+            "username": "victimsnino"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "581bcefb77494b3cb741a20fe399ee4a50ff6223",
+          "message": "Try to enable perfomance tests on win (#13)",
+          "timestamp": "2022-02-17T23:17:47+03:00",
+          "tree_id": "48eded44490e83647eda8d81687af91a88a88051",
+          "url": "https://github.com/victimsnino/ReactivePlusPlus/commit/581bcefb77494b3cb741a20fe399ee4a50ff6223"
+        },
+        "date": 1645129376836,
+        "tool": "catch2",
+        "benches": [
+          {
+            "name": "Specific observable construction",
+            "value": 22.8036,
+            "range": "± 0.368645",
+            "unit": "ns",
+            "extra": "100 samples\n2251 iterations"
+          },
+          {
+            "name": "Dynamic observable construction",
+            "value": 92.7792,
+            "range": "± 1.84436",
+            "unit": "ns",
+            "extra": "100 samples\n548 iterations"
+          },
+          {
+            "name": "Specific observable subscribe",
+            "value": 97.2173,
+            "range": "± 1.56758",
+            "unit": "ns",
+            "extra": "100 samples\n474 iterations"
+          },
+          {
+            "name": "Dynamic observable subscribe",
+            "value": 97.5458,
+            "range": "± 1.55096",
+            "unit": "ns",
+            "extra": "100 samples\n535 iterations"
+          },
+          {
+            "name": "OnNext",
+            "value": 3.55168,
+            "range": "± 0.039725",
+            "unit": "ns",
+            "extra": "100 samples\n14619 iterations"
           }
         ]
       }
