@@ -42,16 +42,16 @@ SCENARIO("Observable can be lifted")
         WHEN("Call lift")
         {
             int calls_internal = 0;
-            auto new_observable = observable.lift([&](rpp::copyable_subscriber<int> sub)
+            auto new_observable = observable.lift([&](rpp::subscriber<int> sub)
             {
-                return rpp::copyable_subscriber{sub.get_subscription(), [&, sub](int val)
+                return rpp::subscriber{sub, [&, sub](int val)
                 {
                     ++calls_internal;
                     sub.on_next(val);
                 }};
             });
 
-            AND_WHEN("subscribe unsubscribed copyable_subscriber")
+            AND_WHEN("subscribe unsubscribed subscriber")
             {
                 int calls_external = 0;
 
@@ -72,9 +72,9 @@ SCENARIO("Observable can be lifted")
             auto initial_copy_count = verifier.get_copy_count();
             auto initial_move_count = verifier.get_move_count();
 
-            auto new_observable = observable.lift([](rpp::copyable_subscriber<double> sub)
+            auto new_observable = observable.lift([](rpp::subscriber<double> sub)
             {
-                return rpp::copyable_subscriber{sub.get_subscription(), [sub](int val)
+                return rpp::subscriber{sub, [sub](int val)
                 {
                     sub.on_next(static_cast<double>(val) / 2);
                 }};
@@ -97,9 +97,9 @@ SCENARIO("Observable can be lifted")
             auto initial_copy_count = verifier.get_copy_count();
             auto initial_move_count = verifier.get_move_count();
 
-            auto new_observable = std::move(observable).lift([](rpp::copyable_subscriber<double> sub)
+            auto new_observable = std::move(observable).lift([](rpp::subscriber<double> sub)
             {
-                return rpp::copyable_subscriber{sub.get_subscription(), [sub](int val)
+                return rpp::subscriber{sub, [sub](int val)
                 {
                     sub.on_next(static_cast<double>(val) / 2);
                 }};

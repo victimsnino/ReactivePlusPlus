@@ -30,12 +30,6 @@ template<typename>
 struct extract_subscriber_type;
 
 template<typename Type>
-struct extract_subscriber_type<copyable_subscriber<Type>>
-{
-    using type = Type;
-};
-
-template<typename Type>
 struct extract_subscriber_type<subscriber<Type>>
 {
     using type = Type;
@@ -60,7 +54,7 @@ template<typename T>
 struct is_subscriber: std::false_type{};
 
 template<typename T>
-struct is_subscriber<copyable_subscriber<T>> : std::true_type{};
+struct is_subscriber<subscriber<T>> : std::true_type{};
 
 template<typename T>
 constexpr bool is_subscriber_v = is_subscriber<T>::value;

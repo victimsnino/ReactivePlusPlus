@@ -36,19 +36,13 @@ struct virtual_observable
 {
     static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");
 
-    virtual      ~virtual_observable() = default;
-    virtual void subscribe(subscriber<Type>&& subscriber) const noexcept = 0;
+    virtual              ~virtual_observable() = default;
+    virtual subscription subscribe(const subscriber<Type>& subscriber) const noexcept = 0;
 };
 
 template<typename Type, typename SpecificObservable>
 struct interface_observable : public virtual_observable<Type>
 {
-    subscription subscribe_with_subscription(const copyable_subscriber<Type>& subscriber) const noexcept
-    {
-        this->subscribe(subscriber);
-        return subscriber.get_subscription();
-    }
-
     template<typename OperatorFn,
              typename SubscriberType = utils::function_argument_t<OperatorFn>,
              typename NewType = utils::extract_subscriber_type_t<SubscriberType>>

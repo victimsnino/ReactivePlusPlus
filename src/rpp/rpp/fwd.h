@@ -34,9 +34,6 @@ template<typename Type>
 class observer;
 
 template<typename Type>
-class copyable_subscriber;
-
-template<typename Type>
 class subscriber;
 
 class subscription;

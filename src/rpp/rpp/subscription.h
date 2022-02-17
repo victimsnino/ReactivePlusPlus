@@ -22,71 +22,34 @@
 
 #pragma once
 
-#include <rpp/utils/overloaded.h>
-
 #include <atomic>
 #include <memory>
-#include <variant>
 
 namespace rpp
 {
-namespace details
-{
-    struct subscription_state
-    {
-        subscription_state() = default;
-
-        subscription_state(const subscription_state& other)
-            : is_subscribed{other.is_subscribed.load()} {}
-
-        subscription_state(subscription_state&& other) noexcept
-            : is_subscribed{other.is_subscribed.load()} {}
-
-        std::atomic_bool is_subscribed{true};
-    };
-} // namespace details
 class subscription
 {
 public:
-    subscription(const details::subscription_state& state) : m_state{state} {}
-    subscription(const std::shared_ptr<details::subscription_state>& state) : m_state{state} {}
+    subscription() : m_state{std::make_shared<state>()} {}
 
     [[nodiscard]] bool is_subscribed() const
     {
-        return get_state().is_subscribed.load();
+        return m_state && m_state->is_subscribed.load();
     }
 
     void unsubscribe() const
     {
-        get_state().is_subscribed.store(false);
-    }
-
-    subscription as_shared() const
-    {
-        if (std::holds_alternative<std::shared_ptr<details::subscription_state>>(m_state))
-            return *this;
-        return std::make_shared<details::subscription_state>(std::get<details::subscription_state>(m_state));
+        if (m_state)
+            m_state->is_subscribed.store(false);
     }
 
 private:
-    details::subscription_state& get_state() const
+    struct state
     {
-        return std::visit(utils::overloaded
-                          {
-                              [](details::subscription_state& state) -> details::subscription_state&
-                              {
-                                  return state;
-                              },
-                              [](const std::shared_ptr<details::subscription_state>& state_ptr) ->details::subscription_state&
-                              {
-                                  return *state_ptr;
-                              }
-                          },
-                          m_state);
-    }
+        std::atomic_bool is_subscribed{true};
+    };
 
-private:
-    mutable std::variant<details::subscription_state, std::shared_ptr<details::subscription_state>> m_state{};
+    std::shared_ptr<state> m_state{};
 };
 
 template<typename Subscription>

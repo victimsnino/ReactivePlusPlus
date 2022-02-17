@@ -71,16 +71,6 @@ SCENARIO("Benchmark bservable + observer", "[benchmark]")
         observable.subscribe(observer);
     };
 
-    BENCHMARK("Specific observable subscribe with subscription")
-    {
-        return observable.subscribe_with_subscription(observer);
-    };
-    
-    BENCHMARK("Dynamic observable subscribe with subscription")
-    {
-        return observable.subscribe_with_subscription(observer);
-    };
-
     BENCHMARK("OnNext", i)
     {
         observer.on_next(i);
