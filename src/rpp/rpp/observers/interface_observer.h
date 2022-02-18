@@ -21,12 +21,19 @@
 // SOFTWARE.
 
 #pragma once
+#include <exception>
 
-namespace rpp::utils
+namespace rpp
 {
-template<typename ...Types>
-struct empty_function_t
+template<typename T>
+struct interface_observer
 {
-    void operator()(const Types&...) const noexcept {}
+    virtual ~interface_observer() = default;
+
+    virtual void on_next(const T& v) const = 0;
+    virtual void on_next(T&& v) const = 0;
+    virtual void on_error(const std::exception_ptr& err) const = 0;
+    virtual void on_completed() const = 0;
 };
-} // namespace rpp::utils
+
+} // namespace rpp

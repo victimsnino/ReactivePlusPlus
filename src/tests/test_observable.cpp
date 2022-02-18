@@ -35,7 +35,7 @@ SCENARIO("Observable should be subscribable")
     GIVEN("observer and observable of same type")
     {
         size_t     on_next_called_count = 0;
-        const auto observer             = rpp::observer{[&](int) { ++on_next_called_count; }};
+        const auto observer             = rpp::dynamic_observer{[&](int) { ++on_next_called_count; }};
 
         size_t     on_subscribe_called_count = 0;
         const auto observable                = rpp::observable::create([&](const rpp::subscriber<int>& sub)
@@ -62,7 +62,7 @@ SCENARIO("Observable should be subscribable")
     GIVEN("observable with subscribier by non ref")
     {
         size_t     on_next_called_count = 0;
-        const auto observer             = rpp::observer{[&](int                   ) { ++on_next_called_count; }};
+        const auto observer             = rpp::dynamic_observer{[&](int                   ) { ++on_next_called_count; }};
         const auto observable           = rpp::observable::create([](const rpp::subscriber<int>& sub) {sub.on_next(1);});
 
         WHEN("subscribe called for observble")
@@ -84,9 +84,9 @@ SCENARIO("on_next, on_error and on_completed can be called and obtained")
         size_t on_next_called_count = 0;
         size_t on_error_called_count = 0;
         size_t on_completed_called_count = 0;
-        const auto observer = rpp::observer{[&](int) { ++on_next_called_count; },
-                                            [&](std::exception_ptr) { ++on_error_called_count; },
-                                            [&]() { ++on_completed_called_count; }
+        const auto observer = rpp::dynamic_observer{[&](int) { ++on_next_called_count; },
+                                                    [&](std::exception_ptr) { ++on_error_called_count; },
+                                                    [&]() { ++on_completed_called_count; }
         };
 
         WHEN("subscribe on observable with on_next")
@@ -153,7 +153,7 @@ static void TestObserverTypes(const std::string then_description, int copy_count
     GIVEN("observer and observable of same type")
     {
         std::conditional_t<is_const, const copy_count_tracker, copy_count_tracker> tracker{};
-        const auto observer             = rpp::observer{[](ObserverGetValue) {  }};
+        const auto observer             = rpp::dynamic_observer{[](ObserverGetValue) {  }};
 
         const auto observable = rpp::observable::create([&](const rpp::subscriber<copy_count_tracker>& sub)
         {
@@ -181,7 +181,7 @@ SCENARIO("specific_observable doesn't produce extra copies for lambda", "[track_
     GIVEN("observer and observable of same type")
     {
         copy_count_tracker tracker{};
-        const auto observer             = rpp::observer{[](int) {  }};
+        const auto observer             = rpp::dynamic_observer{[](int) {  }};
 
         const auto observable = rpp::observable::create([tracker](const rpp::subscriber<int>& sub)
         {
@@ -216,7 +216,7 @@ SCENARIO("dynamic_observable doesn't produce extra copies for lambda", "[track_c
     GIVEN("observer and observable of same type")
     {
         copy_count_tracker tracker{};
-        const auto observer             = rpp::observer{[](int) {  }};
+        const auto observer             = rpp::dynamic_observer{[](int) {  }};
 
         const auto observable = rpp::observable::create([tracker](const rpp::subscriber<int>& sub)
         {
@@ -256,16 +256,6 @@ SCENARIO("Verify copy when observer take const lvalue& from lvalue&", "[track_co
     TestObserverTypes<const copy_count_tracker&>("no copies", 0, 0);
 }
 
-SCENARIO("Verify copy when observer take rvalue&& from lvalue&", "[track_copy]")
-{
-    TestObserverTypes<copy_count_tracker&&>("one copy to convert reference to temp", 1, 0);
-}
-
-SCENARIO("Verify copy when observer take lvalue& from lvalue&", "[track_copy]")
-{
-    TestObserverTypes<copy_count_tracker&>("no copies", 0, 0);
-}
-
 ///
 
 SCENARIO("Verify copy when observer take lvalue from move", "[track_copy]")
@@ -278,16 +268,6 @@ SCENARIO("Verify copy when observer take const lvalue& from move", "[track_copy]
     TestObserverTypes<const copy_count_tracker&, true>("no copies", 0, 0);
 }
 
-SCENARIO("Verify copy when observer take rvalue&& from move", "[track_copy]")
-{
-    TestObserverTypes<copy_count_tracker&&, true>("no copies", 0, 0);
-}
-
-SCENARIO("Verify copy when observer take lvalue& from move", "[track_copy]")
-{
-    TestObserverTypes<copy_count_tracker&, true>("no copies", 0, 0);
-}
-
 ///
 
 SCENARIO("Verify copy when observer take lvalue from const lvalue&", "[track_copy]")
@@ -298,14 +278,4 @@ SCENARIO("Verify copy when observer take lvalue from const lvalue&", "[track_cop
 SCENARIO("Verify copy when observer take const lvalue& from const lvalue&", "[track_copy]")
 {
     TestObserverTypes<const copy_count_tracker&,false, true>("no copies", 0, 0);
-}
-
-SCENARIO("Verify copy when observer take rvalue&& from const lvalue&", "[track_copy]")
-{
-    TestObserverTypes<copy_count_tracker&&, false, true>("one copy to convert reference to temp", 1, 0);
-}
-
-SCENARIO("Verify copy when observer take lvalue& from const lvalue&", "[track_copy]")
-{
-    TestObserverTypes<copy_count_tracker&, false, true>("1 copy from const to temp", 1, 0);
 }

@@ -32,70 +32,67 @@
 namespace rpp
 {
 template<typename Type>
-class subscriber final
+class subscriber final : public interface_observer<Type>
 {
     static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type should be decayed to match with decayed observable types");
 
-    template<typename TType>
-    using enable_if_same_type_t = std::enable_if_t<std::is_same_v<std::decay_t<TType>, Type>>;
-
-    template<typename ...Types>
-    static constexpr bool is_observer_constructible_v = (rpp::utils::is_callable_v<Types> && ...) && (std::is_constructible_v<observer<Type>, Types...> ||
-        std::is_constructible_v<observer<Type&>, Types...> ||
-        std::is_constructible_v<observer<const Type&>, Types...> ||
-        std::is_constructible_v<observer<Type&&>, Types...>);
 public:
     //********************* Construct by observer *********************//
-    template<typename TType, typename = enable_if_same_type_t<TType>>
-    subscriber(const observer<TType>& observer)
+    subscriber(const dynamic_observer<Type>& observer)
         : m_observer{observer} { }
 
-    template<typename TType, typename = enable_if_same_type_t<TType>>
-    subscriber(observer<TType>&& observer)
+    subscriber(dynamic_observer<Type>&& observer)
         : m_observer{std::move(observer)} { }
 
     template<typename ...Types,
-             typename Enabled = std::enable_if_t<is_observer_constructible_v<Types...>>>
+             typename Enabled = std::enable_if_t<utils::is_observer_constructible_v<Type, Types...>>>
     subscriber(Types&&...vals)
         : subscriber{subscription{}, std::forward<Types>(vals)...} {}
 
     template<typename TType,
              typename ...Types,
-             typename Enabled = std::enable_if_t<is_observer_constructible_v<Types...>>>
+             typename Enabled = std::enable_if_t<utils::is_observer_constructible_v<Type, Types...>>>
     subscriber(const subscriber<TType>& sub, Types&&...vals)
         :subscriber{sub.get_subscription(), std::forward<Types>(vals)...} {}
 
     template<typename ...Types,
-             typename Enabled = std::enable_if_t<is_observer_constructible_v<Types...>>>
+             typename Enabled = std::enable_if_t<utils::is_observer_constructible_v<Type, Types...>>>
     subscriber(const subscription& sub, Types&&...vals)
-        : m_observer{observer{std::forward<Types>(vals)...}}
+        : m_observer{std::forward<Types>(vals)...}
         , m_subscription{sub} {}
 
-    template<typename U, typename = enable_if_same_type_t<U>>
-    void on_next(U&& val) const
+    void on_next(const Type& val) const override
     {
         if (!m_subscription.is_subscribed())
             return;
 
-        std::visit([&](auto& obs) { obs.on_next(std::forward<U>(val)); }, m_observer);
+        m_observer.on_next(val);
     }
 
-    void on_error(std::exception_ptr err) const
+    void on_next(Type&& val) const override
+    {
+        if (!m_subscription.is_subscribed())
+            return;
+
+        m_observer.on_next(std::move(val));
+    }
+
+    void on_error(const std::exception_ptr& err) const override
     {
         if (!m_subscription.is_subscribed())
             return;
 
         subscription_guard   guard{m_subscription};
-        std::visit([&](auto& obs) { obs.on_error(err); }, m_observer);
+        m_observer.on_error(err);
     }
 
-    void on_completed() const
+    void on_completed() const override
     {
         if (!m_subscription.is_subscribed())
             return;
 
         subscription_guard   guard{m_subscription};
-        std::visit([&](auto& obs) { obs.on_completed(); }, m_observer);
+        m_observer.on_completed();
     }
 
     const subscription& get_subscription() const
@@ -114,16 +111,13 @@ public:
     }
 
 private:
-    std::variant<observer<Type>,
-                 observer<Type&>,
-                 observer<const Type&>,
-                 observer<Type&&>> m_observer;
+    dynamic_observer<Type> m_observer;
 
     subscription m_subscription;
 };
 
 template<typename T>
-subscriber(observer<T> observer) -> subscriber<std::decay_t<T>>;
+subscriber(dynamic_observer<T> observer) -> subscriber<T>;
 
 template<typename TSub, typename OnNext, typename ...Args, typename = std::enable_if_t<utils::is_callable_v<OnNext> && 
                                                                                       (rpp::utils::is_subscriber_v<TSub> || std::is_same_v<TSub, subscription>)>>

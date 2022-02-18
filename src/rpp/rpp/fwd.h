@@ -31,7 +31,7 @@ template<typename Type>
 class dynamic_observable;
 
 template<typename Type>
-class observer;
+class dynamic_observer;
 
 template<typename Type>
 class subscriber;
