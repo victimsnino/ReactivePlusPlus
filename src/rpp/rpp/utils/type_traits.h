@@ -63,26 +63,8 @@ struct is_observer<dynamic_observer<T>> : std::true_type{};
 template<typename T>
 constexpr bool is_observer_v = is_observer<T>::value;
 
-namespace details
-{
-    template<typename Type>
-    struct observer_construct_test
-    {
-        template<typename OnNext = empty_function_t<Type>,
-                 typename OnError = empty_function_t<std::exception_ptr>,
-                 typename OnCompleted = empty_function_t<>,
-                 typename Enabled = std::enable_if_t<std::is_invocable_v<OnNext, Type> &&
-                     std::is_invocable_v<OnError, std::exception_ptr> &&
-                     std::is_invocable_v<OnCompleted>>>
-        observer_construct_test(OnNext&& = {}, OnError&& = {}, OnCompleted&& = {}) {}
-
-        template<typename OnNext,
-                 typename OnCompleted,
-                 typename Enabled = std::enable_if_t<std::is_invocable_v<OnNext, Type> && std::is_invocable_v<OnCompleted>>>
-            observer_construct_test(OnNext&& on, OnCompleted&& oc)  {}
-    };
-} // namespace details
-
-template<typename Type, typename...Args>
-constexpr bool is_observer_constructible_v = std::is_constructible_v<details::observer_construct_test<Type>, Args...>;
+template<typename Type, typename Fn1, typename Fn2 = void, typename Fn3 = void>
+constexpr bool is_observer_constructible_v = std::is_invocable_v<Fn1, Type> &&
+(std::is_invocable_v<Fn2, std::exception_ptr> || (std::is_same_v<Fn2, void> || std::is_invocable_v<Fn2>) && std::is_same_v<Fn3, void>) && 
+(std::is_invocable_v<Fn3>  || std::is_same_v<Fn3, void>);
 } // namespace rpp::utils
