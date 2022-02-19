@@ -126,6 +126,9 @@ private:
 template<typename T>
 subscriber(dynamic_observer<T> observer) -> subscriber<T>;
 
+template<typename T, typename OnNext, typename OnError, typename OnCompleted>
+subscriber(specific_observer<T, OnNext, OnError, OnCompleted> observer) -> subscriber<T, specific_observer<T, OnNext, OnError, OnCompleted>>;
+
 template<typename TSub, typename OnNext, typename ...Args, typename = std::enable_if_t<utils::is_callable_v<OnNext> && 
                                                                                       (rpp::utils::is_subscriber_v<TSub> || std::is_same_v<TSub, subscription>)>>
 subscriber(TSub, OnNext, Args ...)->subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;
