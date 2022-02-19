@@ -63,12 +63,12 @@ SCENARIO("Benchmark bservable + observer", "[benchmark]")
 
     BENCHMARK("Specific observable subscribe")
     {
-        observable.subscribe(observer);
+        return observable.subscribe(observer);
     };
     
     BENCHMARK("Dynamic observable subscribe")
     {
-        dynamic_observable.subscribe(observer);
+        return dynamic_observable.subscribe(observer);
     };
 
     BENCHMARK("OnNext", i)
