@@ -27,6 +27,8 @@
 #include <rpp/utils/functors.h>
 #include <rpp/utils/type_traits.h>
 
+#include <memory>
+
 namespace rpp
 {
 template<typename T>
