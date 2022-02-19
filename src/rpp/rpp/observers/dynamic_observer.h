@@ -62,6 +62,9 @@ public:
     dynamic_observer(specific_observer<T, OnNext, OnError, OnCompleted>&& obs)
         : m_state{std::make_shared<specific_observer<T, OnNext, OnError, OnCompleted>>(std::move(obs))} {}
 
+    dynamic_observer(const dynamic_observer<T>&)     = default;
+    dynamic_observer(dynamic_observer<T>&&) noexcept = default;
+
     void on_next(const T& v) const override                     { m_state->on_next(v);              }
     void on_next(T&& v) const override                          { m_state->on_next(std::move(v));   }
     void on_error(const std::exception_ptr& err) const override { m_state->on_error(err);           }
