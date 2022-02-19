@@ -59,6 +59,9 @@ public:
         , m_on_err{utils::make_forwarding_on_error(obs)}
         , m_on_completed{utils::make_forwarding_on_completed(obs)} {}
 
+    specific_observer(const specific_observer<T, OnNext, OnError, OnCompleted>& other)     = default;
+    specific_observer(specific_observer<T, OnNext, OnError, OnCompleted>&& other) noexcept = default;
+
     void on_next(const T& v) const override { m_on_next(v); }
     void on_next(T&& v) const override { m_on_next(std::move(v)); }
     void on_error(const std::exception_ptr& err) const override { m_on_err(err); }
