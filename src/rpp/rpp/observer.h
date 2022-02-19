@@ -23,3 +23,4 @@
 #pragma once
 
 #include <rpp/observers/dynamic_observer.h>
+#include <rpp/observers/specific_observer.h>

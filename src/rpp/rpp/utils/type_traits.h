@@ -22,8 +22,6 @@
 
 #pragma once
 
-#include "functors.h"
-
 #include <rpp/fwd.h>
 
 namespace rpp::utils
@@ -32,8 +30,8 @@ namespace rpp::utils
 template<typename>
 struct extract_subscriber_type;
 
-template<typename Type>
-struct extract_subscriber_type<subscriber<Type>>
+template<typename Type, typename Obs>
+struct extract_subscriber_type<subscriber<Type, Obs>>
 {
     using type = Type;
 };
@@ -47,8 +45,8 @@ using extract_subscriber_type_t = typename extract_subscriber_type<T>::type;
 template<typename T>
 struct is_subscriber: std::false_type{};
 
-template<typename T>
-struct is_subscriber<subscriber<T>> : std::true_type{};
+template<typename T, typename Obs>
+struct is_subscriber<subscriber<T, Obs>> : std::true_type{};
 
 template<typename T>
 constexpr bool is_subscriber_v = is_subscriber<T>::value;

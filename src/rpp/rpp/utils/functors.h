@@ -29,4 +29,22 @@ struct empty_function_t
 {
     void operator()(const Types&...) const noexcept {}
 };
+
+template<typename Observer>
+auto make_forwarding_on_next(const Observer& obs)
+{
+    return [obs](auto&& v){obs.on_next(std::forward<decltype(v)>(v));};
+}
+
+template<typename Observer>
+auto make_forwarding_on_error(const Observer& obs)
+{
+    return [obs](const std::exception_ptr& err){obs.on_error(err);};
+}
+
+template<typename Observer>
+auto make_forwarding_on_completed(const Observer& obs)
+{
+    return [obs](){obs.on_completed();};
+}
 } // namespace rpp::utils

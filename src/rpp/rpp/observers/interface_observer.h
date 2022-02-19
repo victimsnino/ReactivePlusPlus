@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 #pragma once
+
 #include <exception>
 
 namespace rpp
