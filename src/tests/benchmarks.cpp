@@ -74,6 +74,7 @@ SCENARIO("Benchmark bservable + observer", "[benchmark]")
     BENCHMARK("OnNext", i)
     {
         observer.on_next(i);
+        return i;
     };
 
 }
