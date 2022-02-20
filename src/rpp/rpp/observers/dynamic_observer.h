@@ -22,6 +22,7 @@
 
 #pragma once
 
+#include <rpp/fwd.h>
 #include <rpp/observers/interface_observer.h>
 #include <rpp/utils/function_traits.h>
 #include <rpp/utils/functors.h>
@@ -53,37 +54,27 @@ public:
         : dynamic_observer{std::forward<OnNext>(on_next),
                            std::forward<OnCompleted>(on_completed)} {}
 
+    template<typename OnNext, typename OnError, typename OnCompleted>
+    dynamic_observer(const specific_observer<T, OnNext, OnError, OnCompleted>& obs)
+        : m_state{std::make_shared<specific_observer<T, OnNext, OnError, OnCompleted>>(obs)} {}
+
+    template<typename OnNext, typename OnError, typename OnCompleted>
+    dynamic_observer(specific_observer<T, OnNext, OnError, OnCompleted>&& obs)
+        : m_state{std::make_shared<specific_observer<T, OnNext, OnError, OnCompleted>>(std::move(obs))} {}
+
+    dynamic_observer(const dynamic_observer<T>&)     = default;
+    dynamic_observer(dynamic_observer<T>&&) noexcept = default;
+
     void on_next(const T& v) const override                     { m_state->on_next(v);              }
     void on_next(T&& v) const override                          { m_state->on_next(std::move(v));   }
     void on_error(const std::exception_ptr& err) const override { m_state->on_error(err);           }
     void on_completed() const override                          { m_state->on_completed();          }
 
 private:
-    template<typename OnNext, typename OnError, typename OnCompleted>
-    class observer_state final: public interface_observer<T>
-    {
-    public:
-        template<typename TOnNext, typename TOnError, typename TOnCompleted>
-        observer_state(TOnNext&& on_next, TOnError&& on_error, TOnCompleted&& on_completed)
-            : m_on_next{ std::forward<TOnNext>(on_next) }
-            , m_on_err{ std::forward<TOnError>(on_error) }
-            , m_on_completed{ std::forward<TOnCompleted>(on_completed) } {}
-
-        void on_next(const T& v) const override                     { m_on_next(v);             }
-        void on_next(T&& v) const override                          { m_on_next(std::move(v));  }
-        void on_error(const std::exception_ptr& err) const override { m_on_err(err);            }
-        void on_completed() const override                          { m_on_completed();         }
-    
-    private:
-        const OnNext      m_on_next;
-        const OnError     m_on_err;
-        const OnCompleted m_on_completed;
-    };
-
     template<typename ...Args>
     static auto make_shared_state(Args&&...args)
     {
-        return std::make_shared<observer_state<std::decay_t<Args>...>>(std::forward<Args>(args)...);
+        return std::make_shared<specific_observer<T, std::decay_t<Args>...>>(std::forward<Args>(args)...);
     }
     
     std::shared_ptr<interface_observer<T>> m_state;

@@ -53,6 +53,30 @@ public:
 
     subscription subscribe(const subscriber<Type>& subscriber) const noexcept override
     {
+        return subscribe_impl(subscriber);
+    }
+
+    template<typename Obs, typename = std::enable_if_t<!std::is_same_v<Obs, rpp::dynamic_observer<Type>>>>
+    subscription subscribe(const subscriber<Type, Obs>& subscriber) const noexcept
+    {
+        return subscribe_impl(subscriber);
+    }
+
+    template<typename OnNext, typename OnError, typename OnCompleted>
+    subscription subscribe(const specific_observer<Type, OnNext, OnError, OnCompleted>& observer) const noexcept
+    {
+        return subscribe_impl<specific_observer<Type, OnNext, OnError, OnCompleted>>(observer);
+    }
+
+    template<typename OnNext, typename OnError, typename OnCompleted>
+    subscription subscribe(specific_observer<Type, OnNext, OnError, OnCompleted>&& observer) const noexcept
+    {
+        return subscribe_impl<specific_observer<Type, OnNext, OnError, OnCompleted>>(std::move(observer));
+    }
+private:
+    template<typename Obs>
+    subscription subscribe_impl(const subscriber<Type, Obs>& subscriber) const noexcept
+    {
         try
         {
             m_state(subscriber);

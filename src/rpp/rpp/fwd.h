@@ -33,7 +33,13 @@ class dynamic_observable;
 template<typename Type>
 class dynamic_observer;
 
-template<typename Type>
+template<typename T,
+         typename OnNext,
+         typename OnError,
+         typename OnCompleted>
+class specific_observer;
+
+template<typename Type, typename Observer>
 class subscriber;
 
 class subscription;

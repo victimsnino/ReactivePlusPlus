@@ -52,7 +52,6 @@ struct function_traits<R (*)(Args ...)>
 template<typename T, size_t i = 0>
 using function_argument_t = typename function_traits<T>::template argument<i>;
 
-
 template<typename T, typename = void>
 struct is_callable : std::false_type{};
 

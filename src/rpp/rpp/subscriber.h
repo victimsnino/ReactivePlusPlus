@@ -31,7 +31,7 @@
 
 namespace rpp
 {
-template<typename Type>
+template<typename Type, typename Observer = rpp::dynamic_observer<Type>>
 class subscriber final : public interface_observer<Type>
 {
     static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type should be decayed to match with decayed observable types");
@@ -42,6 +42,14 @@ public:
         : m_observer{observer} { }
 
     subscriber(dynamic_observer<Type>&& observer)
+        : m_observer{std::move(observer)} { }
+
+    template<typename OnNext, typename OnError, typename OnCompleted>
+    subscriber(const specific_observer<Type, OnNext, OnError, OnCompleted>& observer)
+        : m_observer{observer} { }
+
+    template<typename OnNext, typename OnError, typename OnCompleted>
+    subscriber(specific_observer<Type, OnNext, OnError, OnCompleted>&& observer)
         : m_observer{std::move(observer)} { }
 
     template<typename ...Types,
@@ -111,13 +119,15 @@ public:
     }
 
 private:
-    dynamic_observer<Type> m_observer;
-
+    Observer     m_observer;
     subscription m_subscription;
 };
 
 template<typename T>
 subscriber(dynamic_observer<T> observer) -> subscriber<T>;
+
+template<typename T, typename OnNext, typename OnError, typename OnCompleted>
+subscriber(specific_observer<T, OnNext, OnError, OnCompleted> observer) -> subscriber<T, specific_observer<T, OnNext, OnError, OnCompleted>>;
 
 template<typename TSub, typename OnNext, typename ...Args, typename = std::enable_if_t<utils::is_callable_v<OnNext> && 
                                                                                       (rpp::utils::is_subscriber_v<TSub> || std::is_same_v<TSub, subscription>)>>
