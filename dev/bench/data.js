@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1645347452352,
+  "lastUpdate": 1645347468791,
   "repoUrl": "https://github.com/victimsnino/ReactivePlusPlus",
   "entries": {
     "Catch2 Benchmark Linux CLANG": [
@@ -746,6 +746,65 @@ window.BENCHMARK_DATA = {
             "range": "± 0.0623186",
             "unit": "ns",
             "extra": "100 samples\n18011 iterations"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32845901+victimsnino@users.noreply.github.com",
+            "name": "Aleksey Loginov",
+            "username": "victimsnino"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "912562b53fcab2938cb43d51869ec62bd7e9b774",
+          "message": "Split observers (#14)\n\n* Extract different types of observers\r\n\r\n* Modify observables\r\n\r\n* Try compile fix\r\n\r\n* One more\r\n\r\n* Fix optimize away\r\n\r\n* Try to fix\r\n\r\n* Compile\r\n\r\n* Temporarly disable logging\r\n\r\n* Try to avoid optimize\r\n\r\n* Revert \"Temporarly disable logging\"\r\n\r\nThis reverts commit 623006ec64e10596aee00c421d07a28f32b18710.",
+          "timestamp": "2022-02-20T11:56:34+03:00",
+          "tree_id": "29df1515f5da68e0f4f13613d49ebb0e75f48def",
+          "url": "https://github.com/victimsnino/ReactivePlusPlus/commit/912562b53fcab2938cb43d51869ec62bd7e9b774"
+        },
+        "date": 1645347467749,
+        "tool": "catch2",
+        "benches": [
+          {
+            "name": "Specific observable construction",
+            "value": 0.837013,
+            "range": "± 0.0148003",
+            "unit": "ns",
+            "extra": "100 samples\n26826 iterations"
+          },
+          {
+            "name": "Dynamic observable construction",
+            "value": 16.7472,
+            "range": "± 3.20064",
+            "unit": "ns",
+            "extra": "100 samples\n1469 iterations"
+          },
+          {
+            "name": "Specific observable subscribe",
+            "value": 16.8656,
+            "range": "± 1.11737",
+            "unit": "ns",
+            "extra": "100 samples\n1580 iterations"
+          },
+          {
+            "name": "Dynamic observable subscribe",
+            "value": 36.3905,
+            "range": "± 0.736538",
+            "unit": "ns",
+            "extra": "100 samples\n665 iterations"
+          },
+          {
+            "name": "OnNext",
+            "value": 0.6605,
+            "range": "± 0.216189",
+            "unit": "ns",
+            "extra": "100 samples\n41359 iterations"
           }
         ]
       }
