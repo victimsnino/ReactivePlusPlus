@@ -38,9 +38,9 @@ template<typename T,
 class specific_observer : public interface_observer<T>
 {
 public:
-    template<typename TOnNext = = utils::empty_function_t<T>,
-             typename TOnError = = utils::empty_function_t<std::exception_ptr>,
-             typename TOnCompleted = = utils::empty_function_t<>,
+    template<typename TOnNext = utils::empty_function_t<T>,
+             typename TOnError = utils::empty_function_t<std::exception_ptr>,
+             typename TOnCompleted = utils::empty_function_t<>,
              typename = std::enable_if_t<utils::is_observer_constructible_v<T, TOnNext, TOnError, TOnCompleted>>>
     specific_observer(TOnNext&& on_next = {}, TOnError&& on_error = {}, TOnCompleted&& on_completed = {})
         : m_on_next{std::forward<TOnNext>(on_next)}
