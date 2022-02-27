@@ -36,11 +36,8 @@ struct extract_subscriber_type<subscriber<Type, Obs>>
     using type = Type;
 };
 
-template<typename Type>
-struct extract_subscriber_type : public extract_subscriber_type<std::decay_t<Type>>{};
-
 template<typename T>
-using extract_subscriber_type_t = typename extract_subscriber_type<T>::type;
+using extract_subscriber_type_t = typename extract_subscriber_type<std::decay_t<T>>::type;
 
 template<typename T>
 struct is_subscriber: std::false_type{};
@@ -49,7 +46,7 @@ template<typename T, typename Obs>
 struct is_subscriber<subscriber<T, Obs>> : std::true_type{};
 
 template<typename T>
-constexpr bool is_subscriber_v = is_subscriber<T>::value;
+constexpr bool is_subscriber_v = is_subscriber<std::decay_t<T>>::value;
 
 // *************************** OBSERVER ************************//
 template<typename T>
@@ -58,8 +55,11 @@ struct is_observer : std::false_type{};
 template<typename T>
 struct is_observer<dynamic_observer<T>> : std::true_type{};
 
+template<typename T, typename ...Args>
+struct is_observer<specific_observer<T, Args...>> : std::true_type{};
+
 template<typename T>
-constexpr bool is_observer_v = is_observer<T>::value;
+constexpr bool is_observer_v = is_observer<std::decay_t<T>>::value;
 
 namespace details
 {

@@ -63,10 +63,10 @@ public:
     specific_observer(const specific_observer<T, OnNext, OnError, OnCompleted>& other)     = default;
     specific_observer(specific_observer<T, OnNext, OnError, OnCompleted>&& other) noexcept = default;
 
-    void on_next(const T& v) const override { m_on_next(v); }
-    void on_next(T&& v) const override { m_on_next(std::move(v)); }
-    void on_error(const std::exception_ptr& err) const override { m_on_err(err); }
-    void on_completed() const override { m_on_completed(); }
+    void on_next(const T& v) const override                     { m_on_next(v);             }
+    void on_next(T&& v) const override                          { m_on_next(std::move(v));  }
+    void on_error(const std::exception_ptr& err) const override { m_on_err(err);            }
+    void on_completed() const override                          { m_on_completed();         }
 
     [[nodiscard]] dynamic_observer<T> as_dynamic() const & { return *this; }
     [[nodiscard]] dynamic_observer<T> as_dynamic() &&      { return std::move(*this); }

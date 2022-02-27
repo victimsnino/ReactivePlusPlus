@@ -38,19 +38,11 @@ class subscriber final : public interface_observer<Type>
 
 public:
     //********************* Construct by observer *********************//
-    subscriber(const dynamic_observer<Type>& observer)
-        : m_observer{observer} { }
 
-    subscriber(dynamic_observer<Type>&& observer)
-        : m_observer{std::move(observer)} { }
-
-    template<typename ...Fns>
-    subscriber(const specific_observer<Type, Fns...>& observer)
-        : m_observer{observer} { }
-
-    template<typename ...Fns>
-    subscriber(specific_observer<Type, Fns...>&& observer)
-        : m_observer{std::move(observer)} { }
+    template<typename Obs,
+             typename = std::enable_if_t<utils::is_observer_v<std::decay_t<Obs>>>>
+    subscriber(Obs&& observer)
+        : m_observer{std::forward<Obs>(observer)} { }
 
     //********************* Construct by actions *********************//
     template<typename ...Types,
@@ -127,8 +119,8 @@ private:
 template<typename T>
 subscriber(dynamic_observer<T> observer) -> subscriber<T>;
 
-template<typename T, typename OnNext, typename OnError, typename OnCompleted>
-subscriber(specific_observer<T, OnNext, OnError, OnCompleted> observer) -> subscriber<T, specific_observer<T, OnNext, OnError, OnCompleted>>;
+template<typename T, typename ...Args>
+subscriber(specific_observer<T, Args...> observer) -> subscriber<T, specific_observer<T, Args...>>;
 
 template<typename TSub, typename OnNext, typename ...Args, typename = std::enable_if_t<utils::is_callable_v<OnNext> && 
                                                                                       (rpp::utils::is_subscriber_v<TSub> || std::is_same_v<TSub, subscription>)>>
