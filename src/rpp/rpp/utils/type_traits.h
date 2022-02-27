@@ -86,4 +86,7 @@ struct is_observer_constructible<Type, Fn1, Fn2, Fn3>
 
 template<typename Type, typename ...Args>
 constexpr bool is_observer_constructible_v = details::is_observer_constructible<Type, std::decay_t<Args>...>::value;
+
+template<typename Type, typename ...Args>
+using enable_if_observer_constructible_t = std::enable_if_t<is_observer_constructible_v<Type, std::decay_t<Args>...>>;
 } // namespace rpp::utils

@@ -44,27 +44,28 @@ public:
     subscriber(dynamic_observer<Type>&& observer)
         : m_observer{std::move(observer)} { }
 
-    template<typename OnNext, typename OnError, typename OnCompleted>
-    subscriber(const specific_observer<Type, OnNext, OnError, OnCompleted>& observer)
+    template<typename ...Fns>
+    subscriber(const specific_observer<Type, Fns...>& observer)
         : m_observer{observer} { }
 
-    template<typename OnNext, typename OnError, typename OnCompleted>
-    subscriber(specific_observer<Type, OnNext, OnError, OnCompleted>&& observer)
+    template<typename ...Fns>
+    subscriber(specific_observer<Type, Fns...>&& observer)
         : m_observer{std::move(observer)} { }
 
+    //********************* Construct by actions *********************//
     template<typename ...Types,
-             typename Enabled = std::enable_if_t<utils::is_observer_constructible_v<Type, Types...>>>
+             typename Enabled = utils::enable_if_observer_constructible_t<Type, Types...>>
     subscriber(Types&&...vals)
         : subscriber{subscription{}, std::forward<Types>(vals)...} {}
 
     template<typename TType,
              typename ...Types,
-             typename Enabled = std::enable_if_t<utils::is_observer_constructible_v<Type, Types...>>>
+             typename Enabled = utils::enable_if_observer_constructible_t<Type, Types...>>
     subscriber(const subscriber<TType>& sub, Types&&...vals)
         :subscriber{sub.get_subscription(), std::forward<Types>(vals)...} {}
 
     template<typename ...Types,
-             typename Enabled = std::enable_if_t<utils::is_observer_constructible_v<Type, Types...>>>
+             typename Enabled = utils::enable_if_observer_constructible_t<Type, Types...>>
     subscriber(const subscription& sub, Types&&...vals)
         : m_observer{std::forward<Types>(vals)...}
         , m_subscription{sub} {}

@@ -38,10 +38,10 @@ template<typename T,
 class specific_observer : public interface_observer<T>
 {
 public:
-    template<typename TOnNext = utils::empty_function_t<T>,
-             typename TOnError = utils::empty_function_t<std::exception_ptr>,
+    template<typename TOnNext      = utils::empty_function_t<T>,
+             typename TOnError     = utils::empty_function_t<std::exception_ptr>,
              typename TOnCompleted = utils::empty_function_t<>,
-             typename = std::enable_if_t<utils::is_observer_constructible_v<T, TOnNext, TOnError, TOnCompleted>>>
+             typename              = utils::enable_if_observer_constructible_t<T, TOnNext, TOnError, TOnCompleted>>
     specific_observer(TOnNext&& on_next = {}, TOnError&& on_error = {}, TOnCompleted&& on_completed = {})
         : m_on_next{std::forward<TOnNext>(on_next)}
         , m_on_err{std::forward<TOnError>(on_error)}
@@ -49,12 +49,13 @@ public:
 
     template<typename TOnNext,
              typename TOnCompleted,
-             typename = std::enable_if_t<utils::is_observer_constructible_v<T, TOnNext, utils::empty_function_t<std::exception_ptr>, TOnCompleted>>>
+             typename = utils::enable_if_observer_constructible_t<T, TOnNext, utils::empty_function_t<std::exception_ptr>, TOnCompleted>>
     specific_observer(TOnNext&& on_next, TOnCompleted&& on_completed)
         : specific_observer{std::forward<TOnNext>(on_next),
-                           std::forward<TOnCompleted>(on_completed)} {}
+                            utils::empty_function_t<std::exception_ptr>{},
+                            std::forward<TOnCompleted>(on_completed)} {}
 
-    specific_observer(const rpp::dynamic_observer<T>& obs)
+    specific_observer(const dynamic_observer<T>& obs)
         : m_on_next{utils::make_forwarding_on_next(obs)}
         , m_on_err{utils::make_forwarding_on_error(obs)}
         , m_on_completed{utils::make_forwarding_on_completed(obs)} {}

@@ -38,10 +38,10 @@ class dynamic_observer final : public interface_observer<T>
     static_assert(std::is_same_v<std::decay_t<T>, T>, "Type should be decayed to match with decayed observable types");
 
 public:
-    template<typename OnNext = utils::empty_function_t<T>,
-             typename OnError = utils::empty_function_t<std::exception_ptr>,
+    template<typename OnNext      = utils::empty_function_t<T>,
+             typename OnError     = utils::empty_function_t<std::exception_ptr>,
              typename OnCompleted = utils::empty_function_t<>,
-             typename = std::enable_if_t<utils::is_observer_constructible_v<T, OnNext, OnError, OnCompleted>>>
+             typename = utils::enable_if_observer_constructible_t<T, OnNext, OnError, OnCompleted>>
     dynamic_observer(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
         : m_state{make_shared_state(std::forward<OnNext>(on_next),
                                     std::forward<OnError>(on_error),
@@ -49,19 +49,19 @@ public:
 
     template<typename OnNext,
              typename OnCompleted,
-             typename = std::enable_if_t<utils::is_observer_constructible_v<T, OnNext, utils::empty_function_t<std::exception_ptr>, OnCompleted>>>
+             typename = utils::enable_if_observer_constructible_t<T, OnNext, utils::empty_function_t<std::exception_ptr>, OnCompleted>>
     dynamic_observer(OnNext&& on_next, OnCompleted&& on_completed)
         : dynamic_observer{std::forward<OnNext>(on_next),
                            utils::empty_function_t<std::exception_ptr>{},
                            std::forward<OnCompleted>(on_completed)} {}
 
-    template<typename OnNext, typename OnError, typename OnCompleted>
-    dynamic_observer(const specific_observer<T, OnNext, OnError, OnCompleted>& obs)
-        : m_state{std::make_shared<specific_observer<T, OnNext, OnError, OnCompleted>>(obs)} {}
+    template<typename ...Fns>
+    dynamic_observer(const specific_observer<T, Fns...>& obs)
+        : m_state{std::make_shared<specific_observer<T, Fns...>>(obs)} {}
 
-    template<typename OnNext, typename OnError, typename OnCompleted>
-    dynamic_observer(specific_observer<T, OnNext, OnError, OnCompleted>&& obs)
-        : m_state{std::make_shared<specific_observer<T, OnNext, OnError, OnCompleted>>(std::move(obs))} {}
+    template<typename ...Fns>
+    dynamic_observer(specific_observer<T, Fns...>&& obs)
+        : m_state{std::make_shared<specific_observer<T, Fns...>>(std::move(obs))} {}
 
     dynamic_observer(const dynamic_observer<T>&)     = default;
     dynamic_observer(dynamic_observer<T>&&) noexcept = default;
