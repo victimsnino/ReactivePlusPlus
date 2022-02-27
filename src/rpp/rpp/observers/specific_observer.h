@@ -72,9 +72,9 @@ public:
     [[nodiscard]] dynamic_observer<T> as_dynamic() &&      { return std::move(*this); }
 
 private:
-    const OnNext      m_on_next;
-    const OnError     m_on_err;
-    const OnCompleted m_on_completed;
+    OnNext      m_on_next;
+    OnError     m_on_err;
+    OnCompleted m_on_completed;
 };
 
 template<typename OnNext, typename ...Args, typename = std::enable_if_t<utils::is_callable_v<OnNext>>>
