@@ -61,8 +61,29 @@ struct is_observer<dynamic_observer<T>> : std::true_type{};
 template<typename T>
 constexpr bool is_observer_v = is_observer<T>::value;
 
-template<typename Type, typename Fn1, typename Fn2 = void, typename Fn3 = void>
-constexpr bool is_observer_constructible_v = std::is_invocable_v<Fn1, Type> &&
-(std::is_invocable_v<Fn2, std::exception_ptr> || (std::is_same_v<Fn2, void> || std::is_invocable_v<Fn2>) && std::is_same_v<Fn3, void>) && 
-(std::is_invocable_v<Fn3>  || std::is_same_v<Fn3, void>);
+namespace details
+{
+template<typename Type, typename ...Args>
+struct is_observer_constructible
+        : std::false_type {};
+
+template<typename Type, typename Fn1>
+struct is_observer_constructible<Type, Fn1>
+        : std::is_invocable<Fn1, Type> {};
+
+template<typename Type, typename Fn1, typename Fn2>
+struct is_observer_constructible<Type, Fn1, Fn2>
+        : std::conjunction<std::is_invocable<Fn1, Type>,
+                           std::disjunction<std::is_invocable<Fn2, std::exception_ptr>,
+                                            std::is_invocable<Fn2>>> {};
+
+template<typename Type, typename Fn1, typename Fn2, typename Fn3>
+struct is_observer_constructible<Type, Fn1, Fn2, Fn3>
+        : std::conjunction<std::is_invocable<Fn1, Type>,
+                           std::is_invocable<Fn2, std::exception_ptr>,
+                           std::is_invocable<Fn3>> {};
+} // namespace details
+
+template<typename Type, typename ...Args>
+constexpr bool is_observer_constructible_v = details::is_observer_constructible<Type, std::decay_t<Args>...>::value;
 } // namespace rpp::utils

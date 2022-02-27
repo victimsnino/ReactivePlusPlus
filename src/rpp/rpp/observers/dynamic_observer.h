@@ -52,6 +52,7 @@ public:
              typename = std::enable_if_t<utils::is_observer_constructible_v<T, OnNext, utils::empty_function_t<std::exception_ptr>, OnCompleted>>>
     dynamic_observer(OnNext&& on_next, OnCompleted&& on_completed)
         : dynamic_observer{std::forward<OnNext>(on_next),
+                           utils::empty_function_t<std::exception_ptr>{},
                            std::forward<OnCompleted>(on_completed)} {}
 
     template<typename OnNext, typename OnError, typename OnCompleted>
