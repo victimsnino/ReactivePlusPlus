@@ -38,7 +38,7 @@ SCENARIO("Observable should be subscribable")
         const auto observer             = rpp::dynamic_observer{[&](int) { ++on_next_called_count; }};
 
         size_t     on_subscribe_called_count = 0;
-        const auto observable                = rpp::observable::create([&](const rpp::subscriber<int>& sub)
+        const auto observable                = rpp::observable::create([&](const rpp::dynamic_subscriber<int>& sub)
         {
             ++on_subscribe_called_count;
             sub.on_next(123);
@@ -63,7 +63,7 @@ SCENARIO("Observable should be subscribable")
     {
         size_t     on_next_called_count = 0;
         const auto observer             = rpp::dynamic_observer{[&](int                   ) { ++on_next_called_count; }};
-        const auto observable           = rpp::observable::create([](const rpp::subscriber<int>& sub) {sub.on_next(1);});
+        const auto observable           = rpp::observable::create([](const rpp::dynamic_subscriber<int>& sub) {sub.on_next(1);});
 
         WHEN("subscribe called for observble")
         {
@@ -91,7 +91,7 @@ SCENARIO("on_next, on_error and on_completed can be called and obtained")
 
         WHEN("subscribe on observable with on_next")
         {
-            rpp::observable::create([](const rpp::subscriber<int>& sub){sub.on_next(1);}).subscribe(observer);
+            rpp::observable::create([](const rpp::dynamic_subscriber<int>& sub){sub.on_next(1);}).subscribe(observer);
 
             THEN("on_next received once")
             {
@@ -102,7 +102,7 @@ SCENARIO("on_next, on_error and on_completed can be called and obtained")
         }
         WHEN("subscribe on observable with on_error")
         {
-            rpp::observable::create([](const rpp::subscriber<int>& sub){sub.on_error(std::make_exception_ptr(std::exception{}));}).subscribe(observer);
+            rpp::observable::create([](const rpp::dynamic_subscriber<int>& sub){sub.on_error(std::make_exception_ptr(std::exception{}));}).subscribe(observer);
 
             THEN("on_next received once")
             {
@@ -113,7 +113,7 @@ SCENARIO("on_next, on_error and on_completed can be called and obtained")
         }
         WHEN("subscribe on observable with on_completed")
         {
-            rpp::observable::create([](const rpp::subscriber<int>& sub){sub.on_completed();}).subscribe(observer);
+            rpp::observable::create([](const rpp::dynamic_subscriber<int>& sub){sub.on_completed();}).subscribe(observer);
 
             THEN("on_next received once")
             {
@@ -129,7 +129,7 @@ SCENARIO("specific_observable castable to dynamic_observable")
 {
     GIVEN("specific_observable")
     {
-        const auto observable = rpp::observable::create([](const rpp::subscriber<int>&){});
+        const auto observable = rpp::observable::create([](const rpp::dynamic_subscriber<int>&){});
 
         WHEN("call as_dynamic")
             THEN("can get dynamic_observable of same type")
@@ -155,7 +155,7 @@ static void TestObserverTypes(const std::string then_description, int copy_count
         std::conditional_t<is_const, const copy_count_tracker, copy_count_tracker> tracker{};
         const auto observer             = rpp::dynamic_observer{[](ObserverGetValue) {  }};
 
-        const auto observable = rpp::observable::create([&](const rpp::subscriber<copy_count_tracker>& sub)
+        const auto observable = rpp::observable::create([&](const rpp::dynamic_subscriber<copy_count_tracker>& sub)
         {
             if constexpr (is_move)
                 sub.on_next(std::move(tracker));
@@ -183,7 +183,7 @@ SCENARIO("specific_observable doesn't produce extra copies for lambda", "[track_
         copy_count_tracker tracker{};
         const auto observer             = rpp::dynamic_observer{[](int) {  }};
 
-        const auto observable = rpp::observable::create([tracker](const rpp::subscriber<int>& sub)
+        const auto observable = rpp::observable::create([tracker](const rpp::dynamic_subscriber<int>& sub)
         {
             sub.on_next(123);
         });
@@ -218,7 +218,7 @@ SCENARIO("dynamic_observable doesn't produce extra copies for lambda", "[track_c
         copy_count_tracker tracker{};
         const auto observer             = rpp::dynamic_observer{[](int) {  }};
 
-        const auto observable = rpp::observable::create([tracker](const rpp::subscriber<int>& sub)
+        const auto observable = rpp::observable::create([tracker](const rpp::dynamic_subscriber<int>& sub)
         {
             sub.on_next(123);
         }).as_dynamic();

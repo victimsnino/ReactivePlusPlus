@@ -47,7 +47,15 @@ public:
     dynamic_observable(specific_observable<Type, OnSubscribeFn>&& observable)
         : m_observable{ std::make_shared<specific_observable<Type, OnSubscribeFn>>(std::move(observable)) } {}
 
-    subscription subscribe(const subscriber<Type>& subscriber) const noexcept override { return m_observable->subscribe(subscriber); }
+    subscription subscribe(const dynamic_subscriber<Type>& subscriber) const noexcept override
+    {
+        return m_observable->subscribe(subscriber);
+    }
+
+    subscription subscribe(const dynamic_observer<Type>& subscriber) const noexcept
+    {
+        return subscribe(dynamic_subscriber{subscriber});
+    }
 
 private:
     std::shared_ptr<virtual_observable<Type>> m_observable{};

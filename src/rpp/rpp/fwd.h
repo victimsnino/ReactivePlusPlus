@@ -40,7 +40,10 @@ template<typename T,
 class specific_observer;
 
 template<typename Type, typename Observer>
-class subscriber;
+class specific_subscriber;
+
+template<typename Type>
+class dynamic_subscriber;
 
 class subscription;
 } // namespace rpp

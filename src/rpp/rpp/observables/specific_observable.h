@@ -41,6 +41,8 @@ namespace rpp
 template<typename Type, typename OnSubscribeFn>
 class specific_observable final : public interface_observable<Type, specific_observable<Type, OnSubscribeFn>>
 {
+    static_assert(std::is_same_v<std::decay_t<OnSubscribeFn>, OnSubscribeFn>, "OnSubscribeFn of specific_observable should be decayed");
+
 public:
     specific_observable(const OnSubscribeFn& on_subscribe)
         : m_state{on_subscribe} {}
@@ -51,31 +53,31 @@ public:
     [[nodiscard]] dynamic_observable<Type> as_dynamic() const & { return *this;            }
     [[nodiscard]] dynamic_observable<Type> as_dynamic() &&      { return std::move(*this); }
 
-    subscription subscribe(const subscriber<Type>& subscriber) const noexcept override
+    subscription subscribe(const dynamic_subscriber<Type>& subscriber) const noexcept override
     {
         return subscribe_impl(subscriber);
     }
 
-    template<typename Obs, typename = std::enable_if_t<!std::is_same_v<Obs, dynamic_observer<Type>>>>
-    subscription subscribe(const subscriber<Type, Obs>& subscriber) const noexcept
+    template<typename Obs>
+    subscription subscribe(const specific_subscriber<Type, Obs>& subscriber) const noexcept
     {
         return subscribe_impl(subscriber);
     }
 
-    template<typename OnNext, typename OnError, typename OnCompleted>
-    subscription subscribe(const specific_observer<Type, OnNext, OnError, OnCompleted>& observer) const noexcept
+    template<typename  ...Fns>
+    subscription subscribe(const specific_observer<Type, Fns...>& observer) const noexcept
     {
-        return subscribe_impl<specific_observer<Type, OnNext, OnError, OnCompleted>>(observer);
+        return subscribe_impl<specific_observer<Type, Fns...>>(observer);
     }
 
-    template<typename OnNext, typename OnError, typename OnCompleted>
-    subscription subscribe(specific_observer<Type, OnNext, OnError, OnCompleted>&& observer) const noexcept
+    template<typename ...Fns>
+    subscription subscribe(specific_observer<Type, Fns...>&& observer) const noexcept
     {
-        return subscribe_impl<specific_observer<Type, OnNext, OnError, OnCompleted>>(std::move(observer));
+        return subscribe_impl<specific_observer<Type, Fns...>>(std::move(observer));
     }
 private:
     template<typename Obs>
-    subscription subscribe_impl(const subscriber<Type, Obs>& subscriber) const noexcept
+    subscription subscribe_impl(const specific_subscriber<Type, Obs>& subscriber) const noexcept
     {
         try
         {
