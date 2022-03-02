@@ -31,7 +31,7 @@
 
 namespace rpp
 {
-template<typename Type, typename Observer = rpp::dynamic_observer<Type>>
+template<typename Type, typename Observer = dynamic_observer<Type>>
 class subscriber final : public interface_observer<Type>
 {
     static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type should be decayed to match with decayed observable types");

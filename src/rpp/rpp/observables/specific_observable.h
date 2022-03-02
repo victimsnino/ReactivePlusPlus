@@ -56,7 +56,7 @@ public:
         return subscribe_impl(subscriber);
     }
 
-    template<typename Obs, typename = std::enable_if_t<!std::is_same_v<Obs, rpp::dynamic_observer<Type>>>>
+    template<typename Obs, typename = std::enable_if_t<!std::is_same_v<Obs, dynamic_observer<Type>>>>
     subscription subscribe(const subscriber<Type, Obs>& subscriber) const noexcept
     {
         return subscribe_impl(subscriber);

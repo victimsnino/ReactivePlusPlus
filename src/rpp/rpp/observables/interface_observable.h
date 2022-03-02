@@ -22,10 +22,9 @@
 
 #pragma once
 
-#include "rpp/utils/type_traits.h"
-
 #include <rpp/fwd.h>
 #include <rpp/subscriber.h>
+#include <rpp/utils/type_traits.h>
 
 #include <type_traits>
 
