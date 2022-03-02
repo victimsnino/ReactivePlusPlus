@@ -33,7 +33,7 @@ SCENARIO("Observable can be lifted")
     GIVEN("Observable")
     {
         auto verifier   = copy_count_tracker{};
-        auto observable = rpp::observable::create([verifier](const rpp::subscriber<int>& sub)
+        auto observable = rpp::observable::create([verifier](const rpp::dynamic_subscriber<int>& sub)
         {
             sub.on_next(10);
             sub.on_next(5);
@@ -42,9 +42,9 @@ SCENARIO("Observable can be lifted")
         WHEN("Call lift")
         {
             int calls_internal = 0;
-            auto new_observable = observable.lift([&](rpp::subscriber<int> sub)
+            auto new_observable = observable.lift([&](rpp::dynamic_subscriber<int> sub)
             {
-                return rpp::subscriber{sub, [&, sub](int val)
+                return rpp::specific_subscriber{sub.get_subscription(), [&, sub](int val)
                 {
                     ++calls_internal;
                     sub.on_next(val);
@@ -55,10 +55,10 @@ SCENARIO("Observable can be lifted")
             {
                 int calls_external = 0;
 
-                auto subscriber = rpp::subscriber{[&](int v){++calls_external;}};
+                auto subscriber = rpp::specific_subscriber{[&](int v){++calls_external;}};
                 subscriber.unsubscribe();
 
-                new_observable.subscribe(std::move(subscriber));
+                new_observable.subscribe(subscriber);
 
                 THEN("No any calls obtained")
                 {
@@ -72,9 +72,9 @@ SCENARIO("Observable can be lifted")
             auto initial_copy_count = verifier.get_copy_count();
             auto initial_move_count = verifier.get_move_count();
 
-            auto new_observable = observable.lift([](rpp::subscriber<double> sub)
+            auto new_observable = observable.lift([](rpp::dynamic_subscriber<double> sub)
             {
-                return rpp::subscriber{sub, [sub](int val)
+                return rpp::dynamic_subscriber{sub.get_subscription(), [sub](int val)
                 {
                     sub.on_next(static_cast<double>(val) / 2);
                 }};
@@ -97,9 +97,9 @@ SCENARIO("Observable can be lifted")
             auto initial_copy_count = verifier.get_copy_count();
             auto initial_move_count = verifier.get_move_count();
 
-            auto new_observable = std::move(observable).lift([](rpp::subscriber<double> sub)
+            auto new_observable = std::move(observable).lift([](rpp::dynamic_subscriber<double> sub)
             {
-                return rpp::subscriber{sub, [sub](int val)
+                return rpp::specific_subscriber{sub.get_subscription(), [sub](int val)
                 {
                     sub.on_next(static_cast<double>(val) / 2);
                 }};

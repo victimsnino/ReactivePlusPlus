@@ -36,7 +36,7 @@ struct virtual_observable
     static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");
 
     virtual              ~virtual_observable() = default;
-    virtual subscription subscribe(const subscriber<Type>& subscriber) const noexcept = 0;
+    virtual subscription subscribe(const dynamic_subscriber<Type>& subscriber) const noexcept = 0;
 };
 
 template<typename Type, typename SpecificObservable>

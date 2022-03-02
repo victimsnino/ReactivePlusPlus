@@ -31,7 +31,13 @@ template<typename>
 struct extract_subscriber_type;
 
 template<typename Type, typename Obs>
-struct extract_subscriber_type<subscriber<Type, Obs>>
+struct extract_subscriber_type<specific_subscriber<Type, Obs>>
+{
+    using type = Type;
+};
+
+template<typename Type>
+struct extract_subscriber_type<dynamic_subscriber<Type>>
 {
     using type = Type;
 };
@@ -43,7 +49,10 @@ template<typename T>
 struct is_subscriber: std::false_type{};
 
 template<typename T, typename Obs>
-struct is_subscriber<subscriber<T, Obs>> : std::true_type{};
+struct is_subscriber<specific_subscriber<T, Obs>> : std::true_type{};
+
+template<typename T>
+struct is_subscriber<dynamic_subscriber<T>> : std::true_type{};
 
 template<typename T>
 constexpr bool is_subscriber_v = is_subscriber<std::decay_t<T>>::value;
