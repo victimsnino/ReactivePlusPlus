@@ -40,7 +40,13 @@ jobs:
       with:
         submodules: true
         token: ${{ secrets.TOKEN }}
-    
+        
+    - name: Cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          ${{github.workspace}}/build
+        key: ${{ matrix.config.name }}    
     
     - name: Configure CMake
       env:
