@@ -46,7 +46,6 @@ jobs:
       with:
         ccache_options: |
           cache_dir=${{github.workspace}}/.ccache
-        windows_compile_environment: msys2  # this field is required
           
     - name: Prepare ccache timestamp
       id: ccache_cache_timestamp
