@@ -45,7 +45,6 @@ jobs:
       uses: Chocobo1/setup-ccache-action@v1
       with:
         ccache_options: |
-          base_dir=${{github.workspace}}
           cache_dir=${{github.workspace}}/.ccache
       
     - name: Prepare ccache timestamp
