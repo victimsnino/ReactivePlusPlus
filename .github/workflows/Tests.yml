@@ -10,7 +10,6 @@ on:
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-  CCACHE_VERSION: 4.4
 
 jobs:
   build:
@@ -44,6 +43,10 @@ jobs:
         
     - name: Setup ccache
       uses: Chocobo1/setup-ccache-action@v1
+      with:
+        ccache_options: |
+          base_dir=${{github.workspace}}
+          cache_dir=${{github.workspace}}/.ccache
       
     - name: Prepare ccache timestamp
       id: ccache_cache_timestamp
@@ -55,7 +58,7 @@ jobs:
     - name: ccache cache files
       uses: actions/cache@v1.1.0
       with:
-        path: .ccache
+        path: ${{github.workspace}}/.ccache
         key: ${{ matrix.config.name }}-ccache-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
         restore-keys: |
           ${{ matrix.config.name }}-ccache-
@@ -65,19 +68,6 @@ jobs:
         CC: ${{ matrix.config.cc }}
         CXX: ${{ matrix.config.cxx }}
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache
-      
-    - name: Configure CCache
-      shell: cmake -P {0}
-      run: |
-        file(TO_CMAKE_PATH "$ENV{GITHUB_WORKSPACE}" ccache_basedir)
-        set(ENV{CCACHE_BASEDIR} "${ccache_basedir}")
-        set(ENV{CCACHE_DIR} "${ccache_basedir}/.ccache")
-        set(ENV{CCACHE_COMPRESS} "true")
-        set(ENV{CCACHE_COMPRESSLEVEL} "6")
-        set(ENV{CCACHE_MAXSIZE} "400M")
-        if ("${{ matrix.config.cxx }}" STREQUAL "cl")
-          set(ENV{CCACHE_MAXSIZE} "600M")
-        endif()
         
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 2
