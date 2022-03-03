@@ -42,8 +42,8 @@ jobs:
         submodules: true
         token: ${{ secrets.TOKEN }}
         
-    - name: Download ccache
-      run: sudo apt install -y ccache
+    - name: Setup ccache
+      uses: Chocobo1/setup-ccache-action@v1
       
     - name: Prepare ccache timestamp
       id: ccache_cache_timestamp
