@@ -21,5 +21,5 @@
 # SOFTWARE.
 # 
 
-add_subdirectory(rpp)
+add_subdirectory(include)
 add_subdirectory(tests)
