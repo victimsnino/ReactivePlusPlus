@@ -23,6 +23,8 @@
 #pragma once
 
 #include <rpp/observables/interface_observable.h>
+#include <rpp/utils/function_traits.h>
+#include <rpp/utils/type_traits.h>
 
 #include <memory>
 
@@ -39,6 +41,10 @@ template<typename Type>
 class dynamic_observable final : public interface_observable<Type, dynamic_observable<Type>>
 {
 public:
+    template<typename OnSubscribeFn, typename = std::enable_if_t<std::is_invocable_v<OnSubscribeFn, dynamic_subscriber<Type>>>>
+    dynamic_observable(OnSubscribeFn&& on_subscribe)
+        : m_observable{std::make_shared<specific_observable<Type, std::decay_t<OnSubscribeFn>>>(on_subscribe)} {}
+
     template<typename OnSubscribeFn>
     dynamic_observable(const specific_observable<Type, OnSubscribeFn>& observable)
         : m_observable{ std::make_shared<specific_observable<Type, OnSubscribeFn>>(observable) } {}
@@ -57,7 +63,15 @@ public:
         return subscribe(dynamic_subscriber{subscriber});
     }
 
+    dynamic_observable<Type> as_dynamic() const { return *this; }
+
 private:
     std::shared_ptr<virtual_observable<Type>> m_observable{};
 };
+
+template<typename Type, typename OnSubscribeFn>
+dynamic_observable(specific_observable<Type, OnSubscribeFn> on_subscribe) -> dynamic_observable<Type>;
+
+template<typename OnSub>
+dynamic_observable(OnSub on_subscribe) -> dynamic_observable<utils::extract_subscriber_type_t<utils::function_argument_t<OnSub>>>;
 } // namespace rpp

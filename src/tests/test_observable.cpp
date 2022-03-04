@@ -30,120 +30,39 @@
 
 #include <array>
 
-SCENARIO("Observable should be subscribable")
+SCENARIO("Any observable can be casted to dynamic_observable")
 {
-    GIVEN("observer and observable of same type")
+    auto validate_observable =[](const auto& observable)
     {
-        size_t     on_next_called_count = 0;
-        const auto observer             = rpp::dynamic_observer{[&](int) { ++on_next_called_count; }};
-
-        size_t     on_subscribe_called_count = 0;
-        const auto observable                = rpp::observable::create([&](const rpp::dynamic_subscriber<int>& sub)
-        {
-            ++on_subscribe_called_count;
-            sub.on_next(123);
-        });
-
-        WHEN("subscribe called for observble")
-        {
-            observable.subscribe(observer);
-
-            THEN("OnSubscribe lambda called once")
-            {
-                CHECK(on_subscribe_called_count == 1);
-            }
-            AND_THEN("on_next lambda called once")
-            {
-                CHECK(on_next_called_count == 1);
-            }
-        }
-    }
-
-    GIVEN("observable with subscribier by non ref")
-    {
-        size_t     on_next_called_count = 0;
-        const auto observer             = rpp::dynamic_observer{[&](int                   ) { ++on_next_called_count; }};
-        const auto observable           = rpp::observable::create([](const rpp::dynamic_subscriber<int>& sub) {sub.on_next(1);});
-
-        WHEN("subscribe called for observble")
-        {
-            observable.subscribe(observer);
-
-            THEN("on_next lambda called once")
-            {
-                CHECK(on_next_called_count == 1);
-            }
-        }
-    }
-}
-
-SCENARIO("on_next, on_error and on_completed can be called and obtained")
-{
-    GIVEN("ready observer")
-    {
-        size_t on_next_called_count = 0;
-        size_t on_error_called_count = 0;
-        size_t on_completed_called_count = 0;
-        const auto observer = rpp::dynamic_observer{[&](int) { ++on_next_called_count; },
-                                                    [&](std::exception_ptr) { ++on_error_called_count; },
-                                                    [&]() { ++on_completed_called_count; }
-        };
-
-        WHEN("subscribe on observable with on_next")
-        {
-            rpp::observable::create([](const rpp::dynamic_subscriber<int>& sub){sub.on_next(1);}).subscribe(observer);
-
-            THEN("on_next received once")
-            {
-                CHECK(on_next_called_count == 1);
-                CHECK(on_error_called_count == 0);
-                CHECK(on_completed_called_count == 0);
-            }
-        }
-        WHEN("subscribe on observable with on_error")
-        {
-            rpp::observable::create([](const rpp::dynamic_subscriber<int>& sub){sub.on_error(std::make_exception_ptr(std::exception{}));}).subscribe(observer);
-
-            THEN("on_next received once")
-            {
-                CHECK(on_next_called_count == 0);
-                CHECK(on_error_called_count == 1);
-                CHECK(on_completed_called_count == 0);
-            }
-        }
-        WHEN("subscribe on observable with on_completed")
-        {
-            rpp::observable::create([](const rpp::dynamic_subscriber<int>& sub){sub.on_completed();}).subscribe(observer);
-
-            THEN("on_next received once")
-            {
-                CHECK(on_next_called_count == 0);
-                CHECK(on_error_called_count == 0);
-                CHECK(on_completed_called_count == 1);
-            }
-        }
-    }
-}
-
-SCENARIO("specific_observable castable to dynamic_observable")
-{
-    GIVEN("specific_observable")
-    {
-        const auto observable = rpp::observable::create([](const rpp::dynamic_subscriber<int>&){});
-
-        WHEN("call as_dynamic")
-            THEN("can get dynamic_observable of same type")
+        WHEN("Call as_dynamic function")
         {
             auto dynamic_observable = observable.as_dynamic();
-            static_assert(std::is_same<decltype(dynamic_observable), rpp::dynamic_observable<int>>{}, "Type of dynamic observable should be same!");
+
+            THEN("Obtain dynamic_observable of same type")
+            {
+                static_assert(std::is_same<decltype(dynamic_observable), rpp::dynamic_observable<int>>{}, "Type of dynamic observable should be same!");
+            }
         }
 
-        WHEN("construct by constructor")
-            THEN("can get dynamic_observable of same type")
+        WHEN("Construct dynamic_observable by constructor")
         {
             auto dynamic_observable = rpp::dynamic_observable{observable};
-            static_assert(std::is_same<decltype(dynamic_observable), rpp::dynamic_observable<int>>{}, "Type of dynamic observable should be same!");
+
+            THEN("Obtain dynamic_observable of same type")
+            {
+                static_assert(std::is_same<decltype(dynamic_observable), rpp::dynamic_observable<int>>{}, "Type of dynamic observable should be same!");
+            }
         }
+    };
+
+    GIVEN("specific_observable")
+    {
+        validate_observable(rpp::specific_observable([](const rpp::dynamic_subscriber<int>&) {}));
+    }
+
+    GIVEN("dynamic_observable")
+    {
+        validate_observable(rpp::dynamic_observable([](const rpp::dynamic_subscriber<int>&) {}));
     }
 }
 
@@ -178,7 +97,7 @@ static void TestObserverTypes(const std::string then_description, int copy_count
 
 SCENARIO("specific_observable doesn't produce extra copies for lambda", "[track_copy]")
 {
-    GIVEN("observer and observable of same type")
+    GIVEN("observer and specific_observable of same type")
     {
         copy_count_tracker tracker{};
         const auto observer             = rpp::dynamic_observer{[](int) {  }};
@@ -192,7 +111,7 @@ SCENARIO("specific_observable doesn't produce extra copies for lambda", "[track_
         {
             observable.subscribe(observer);
 
-            THEN("One copy into lambda, one move of lambda into internal state")
+            THEN("One copy of tracker into lambda, one move of lambda into internal state")
             {
                 CHECK(tracker.get_copy_count() == 1);
                 CHECK(tracker.get_move_count() == 1);
@@ -213,7 +132,7 @@ SCENARIO("specific_observable doesn't produce extra copies for lambda", "[track_
 
 SCENARIO("dynamic_observable doesn't produce extra copies for lambda", "[track_copy]")
 {
-    GIVEN("observer and observable of same type")
+    GIVEN("observer and dynamic_observable of same type")
     {
         copy_count_tracker tracker{};
         const auto observer             = rpp::dynamic_observer{[](int) {  }};
@@ -227,7 +146,7 @@ SCENARIO("dynamic_observable doesn't produce extra copies for lambda", "[track_c
         {
             observable.subscribe(observer);
 
-            THEN("One copy into lambda, one move of lambda into internal state and one move to dynamic observable")
+            THEN("One copy of tracker into lambda, one move of lambda into internal state and one move to dynamic observable")
             {
                 CHECK(tracker.get_copy_count() == 1);
                 CHECK(tracker.get_move_count() == 2);
@@ -235,7 +154,7 @@ SCENARIO("dynamic_observable doesn't produce extra copies for lambda", "[track_c
             AND_WHEN("Make copy of observable")
             {
                 auto copy_of_observable = observable;
-                THEN("No any new copy of lambda")
+                THEN("No any new copies of lambda")
                 {
                     CHECK(tracker.get_copy_count() == 1);
                     CHECK(tracker.get_move_count() == 2);
@@ -251,28 +170,24 @@ SCENARIO("Verify copy when observer take lvalue from lvalue&", "[track_copy]")
     TestObserverTypes<copy_count_tracker>("1 copy to final lambda", 1, 0);
 }
 
-SCENARIO("Verify copy when observer take const lvalue& from lvalue&", "[track_copy]")
-{
-    TestObserverTypes<const copy_count_tracker&>("no copies", 0, 0);
-}
-
-///
-
 SCENARIO("Verify copy when observer take lvalue from move", "[track_copy]")
 {
     TestObserverTypes<copy_count_tracker, true>("1 move to final lambda", 0, 1);
 }
 
-SCENARIO("Verify copy when observer take const lvalue& from move", "[track_copy]")
-{
-    TestObserverTypes<const copy_count_tracker&, true>("no copies", 0, 0);
-}
-
-///
-
 SCENARIO("Verify copy when observer take lvalue from const lvalue&", "[track_copy]")
 {
     TestObserverTypes<copy_count_tracker,false, true>("1 copy to final lambda", 1, 0);
+}
+
+SCENARIO("Verify copy when observer take const lvalue& from lvalue&", "[track_copy]")
+{
+    TestObserverTypes<const copy_count_tracker&>("no copies", 0, 0);
+}
+
+SCENARIO("Verify copy when observer take const lvalue& from move", "[track_copy]")
+{
+    TestObserverTypes<const copy_count_tracker&, true>("no copies", 0, 0);
 }
 
 SCENARIO("Verify copy when observer take const lvalue& from const lvalue&", "[track_copy]")

@@ -26,8 +26,26 @@
 
 namespace rpp::utils
 {
+template<typename T, typename = void>
+struct is_callable : std::false_type{};
+
+template<typename T>
+struct is_callable<T, std::void_t<decltype(&T::operator())>> : std::true_type{};
+
+template<class T, class R, class... Args>
+struct is_callable<R (T::*)(Args ...) const> : std::true_type{};
+
+template<class T, class R, class... Args>
+struct is_callable<R (T::*)(Args ...)> : std::true_type{};
+
+template<class R, class... Args>
+struct is_callable<R (*)(Args ...)> : std::true_type{};
+
+template<typename T>
+constexpr bool is_callable_v = is_callable<T>::value;
+
 // Lambda
-template<class T>
+template<class T, typename = std::enable_if_t<is_callable_v<T>>>
 struct function_traits : function_traits<decltype(&T::operator())> {};
 
 // Operator of lambda
@@ -52,21 +70,5 @@ struct function_traits<R (*)(Args ...)>
 template<typename T, size_t i = 0>
 using function_argument_t = typename function_traits<T>::template argument<i>;
 
-template<typename T, typename = void>
-struct is_callable : std::false_type{};
 
-template<typename T>
-struct is_callable<T, std::void_t<decltype(&T::operator())>> : std::true_type{};
-
-template<class T, class R, class... Args>
-struct is_callable<R (T::*)(Args ...) const> : std::true_type{};
-
-template<class T, class R, class... Args>
-struct is_callable<R (T::*)(Args ...)> : std::true_type{};
-
-template<class R, class... Args>
-struct is_callable<R (*)(Args ...)> : std::true_type{};
-
-template<typename T>
-constexpr bool is_callable_v = is_callable<T>::value;
 } // namespace rpp::utils

@@ -22,33 +22,28 @@
 
 #pragma once
 
-#include <rpp/subscribers/specific_subscriber.h>
+#include <rpp/observers/interface_observer.h>
 
-namespace rpp
-{
-template<typename T>
-class dynamic_subscriber : public specific_subscriber<T, dynamic_observer<T>>
+template<typename Type>
+class mock_observer : public rpp::interface_observer<Type>
 {
 public:
-    using specific_subscriber<T, dynamic_observer<T>>::specific_subscriber;
+    mock_observer() = default;
 
-    template<typename Obs>
-    dynamic_subscriber(const specific_subscriber<T, Obs>& subscriber)
-        : specific_subscriber<T, dynamic_observer<T>>{subscriber.get_subscription(), subscriber.get_observer()} {}
+    void on_next(const Type & v) const override { ++m_on_next_const_ref_count; }
+    void on_next(Type && v) const override { ++m_on_next_move_count; }
+    void on_error(const std::exception_ptr & err) const override { ++m_on_error_count; }
+    void on_completed() const override { ++m_on_completed_count; }
+
+    size_t get_total_on_next_count() const { return m_on_next_const_ref_count + m_on_next_move_count; }
+    size_t get_on_next_const_ref_count() const { return m_on_next_const_ref_count; }
+    size_t get_on_next_move_count() const { return m_on_next_move_count; }
+    size_t get_on_error_count() const { return m_on_error_count; }
+    size_t get_on_completed_count() const { return m_on_completed_count; }
+
+private:
+    mutable size_t m_on_next_const_ref_count = 0;
+    mutable size_t m_on_next_move_count = 0;
+    mutable size_t m_on_error_count = 0;
+    mutable size_t m_on_completed_count = 0;
 };
-
-template<typename T>
-dynamic_subscriber(dynamic_observer<T> observer) -> dynamic_subscriber<T>;
-
-template<typename T, typename ...Args>
-dynamic_subscriber(specific_observer<T, Args...> observer) -> dynamic_subscriber<T>;
-
-template<typename T, typename Obs>
-dynamic_subscriber(specific_subscriber<T, Obs>) -> dynamic_subscriber<T>;
-
-template<typename OnNext, typename ...Args>
-dynamic_subscriber(subscription, OnNext, Args ...) -> dynamic_subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;
-
-template<typename OnNext, typename ...Args>
-dynamic_subscriber(OnNext, Args ...) -> dynamic_subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;
-} // namespace rpp

@@ -103,16 +103,13 @@ specific_subscriber(dynamic_observer<T> observer) -> specific_subscriber<T, dyna
 template<typename T, typename ...Args>
 specific_subscriber(specific_observer<T, Args...> observer) -> specific_subscriber<T, specific_observer<T, Args...>>;
 
-template<typename TSub,
-         typename OnNext,
+template<typename OnNext,
          typename ...Args,
-         typename = std::enable_if_t<utils::is_callable_v<OnNext> && std::is_same_v<TSub, subscription>>,
          typename Type = std::decay_t<utils::function_argument_t<OnNext>>>
-specific_subscriber(TSub, OnNext, Args ...) -> specific_subscriber<Type, specific_observer<Type, OnNext, Args...>>;
+specific_subscriber(subscription, OnNext, Args ...) -> specific_subscriber<Type, specific_observer<Type, OnNext, Args...>>;
 
 template<typename OnNext,
          typename ...Args,
-         typename = std::enable_if_t<utils::is_callable_v<OnNext>>,
          typename Type = std::decay_t<utils::function_argument_t<OnNext>>>
 specific_subscriber(OnNext, Args ...) -> specific_subscriber<Type, specific_observer<Type, OnNext, Args...>>;
 

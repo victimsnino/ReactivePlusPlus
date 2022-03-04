@@ -77,7 +77,7 @@ private:
     OnCompleted m_on_completed;
 };
 
-template<typename OnNext, typename ...Args, typename = std::enable_if_t<utils::is_callable_v<OnNext>>>
+template<typename OnNext, typename ...Args>
 specific_observer(OnNext, Args...) -> specific_observer<std::decay_t<utils::function_argument_t<OnNext>>, OnNext, Args...>;
 
 template<typename T>

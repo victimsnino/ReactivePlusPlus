@@ -71,6 +71,8 @@ public:
     void on_error(const std::exception_ptr& err) const override { m_state->on_error(err);           }
     void on_completed() const override                          { m_state->on_completed();          }
 
+    dynamic_observer<T> as_dynamic() const { return *this; }
+
 private:
     template<typename ...Args>
     static auto make_shared_state(Args&&...args)
@@ -80,6 +82,9 @@ private:
     
     std::shared_ptr<interface_observer<T>> m_state;
 };
+
+template<typename T, typename ...Args>
+dynamic_observer(specific_observer<T, Args...>) -> dynamic_observer<T>;
 
 template<typename OnNext, typename ...Args>
 dynamic_observer(OnNext, Args...) -> dynamic_observer<std::decay_t<utils::function_argument_t<OnNext>>>;
