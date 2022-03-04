@@ -57,7 +57,9 @@ jobs:
     - name: ccache cache files
       uses: actions/cache@v1.1.0
       with:
-        path: ${{github.workspace}}/.ccache
+        path: |
+          ${{github.workspace}}/.ccache
+          ${{github.workspace}}/build
         key: ${{ matrix.config.name }}-ccache-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
         restore-keys: |
           ${{ matrix.config.name }}-ccache-
