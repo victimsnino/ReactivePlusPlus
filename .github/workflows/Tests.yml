@@ -59,7 +59,6 @@ jobs:
       with:
         path: |
           ${{github.workspace}}/.ccache
-          ${{github.workspace}}/build
         key: ${{ matrix.config.name }}-ccache-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
         restore-keys: |
           ${{ matrix.config.name }}-ccache-
