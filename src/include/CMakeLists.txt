@@ -31,9 +31,7 @@ foreach(FILE ${FILES})
   get_filename_component(PARENT_DIR "${FILE}" PATH)
   file(RELATIVE_PATH REL_PARENT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/rpp" ${PARENT_DIR})
   set(REL_PARENT_DIR "Header Files\\${REL_PARENT_DIR}")
-  
-  string(REPLACE "/" "\\" GROUP ${REL_PARENT_DIR})
-  MESSAGE(${GROUP})
 
+  string(REPLACE "/" "\\" GROUP ${REL_PARENT_DIR})
   source_group("${GROUP}" FILES "${FILE}")
 endforeach()

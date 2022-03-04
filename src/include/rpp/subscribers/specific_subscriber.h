@@ -69,6 +69,9 @@ public:
     {
         return m_observer;
     }
+
+    auto as_dynamic() const & { return dynamic_subscriber<Type>{*this};            }
+    auto as_dynamic() &&      { return dynamic_subscriber<Type>{std::move(*this)}; }
 protected:
     void on_next_impl(const Type& val) const final
     {

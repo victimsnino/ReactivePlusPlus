@@ -77,6 +77,23 @@ SCENARIO("Benchmark bservable + observer", "[benchmark]")
         return i;
     };
 
+    BENCHMARK("Make subsriber")
+    {
+        return rpp::specific_subscriber{[](const int&){}};
+    };
+
+    auto sub = rpp::specific_subscriber{[v](const int&){}};
+
+    BENCHMARK("Make copy of subscriber")
+    {
+        auto second = sub;
+        return second;
+    };
+
+    BENCHMARK("Transform subsriber to dynamic")
+    {
+        return sub.as_dynamic();
+    };
 }
 
 SCENARIO("Misc benchmarks", "[misc_benchmark]")
@@ -93,4 +110,5 @@ SCENARIO("Misc benchmarks", "[misc_benchmark]")
     BENCHMARK("Copy  std::function") { return as_function; };
 
     BENCHMARK("Make shared  copy of lambda"){return std::make_shared<std::remove_reference_t<decltype(empty_lambda)>>(empty_lambda); };
+
 }
