@@ -55,13 +55,11 @@ public:
                            utils::empty_function_t<std::exception_ptr>{},
                            std::forward<OnCompleted>(on_completed)} {}
 
-    template<typename ...Fns>
-    dynamic_observer(const specific_observer<T, Fns...>& obs)
-        : m_state{std::make_shared<specific_observer<T, Fns...>>(obs)} {}
+    template<typename TObserver,
+            typename = std::enable_if_t<utils::is_observer_v<TObserver> && !std::is_same_v<std::decay_t<TObserver>, dynamic_observer<T>>>>
+    dynamic_observer(TObserver&& obs)
+        : m_state{std::make_shared<std::decay_t<TObserver>>(std::forward<TObserver>(obs))} {}
 
-    template<typename ...Fns>
-    dynamic_observer(specific_observer<T, Fns...>&& obs)
-        : m_state{std::make_shared<specific_observer<T, Fns...>>(std::move(obs))} {}
 
     dynamic_observer(const dynamic_observer<T>&)     = default;
     dynamic_observer(dynamic_observer<T>&&) noexcept = default;
@@ -83,8 +81,8 @@ private:
     std::shared_ptr<interface_observer<T>> m_state;
 };
 
-template<typename T, typename ...Args>
-dynamic_observer(specific_observer<T, Args...>) -> dynamic_observer<T>;
+template<typename TObserver, typename = std::enable_if_t<utils::is_observer_v<TObserver>>>
+dynamic_observer(TObserver) -> dynamic_observer<utils::extract_observer_type_t<TObserver>>;
 
 template<typename OnNext, typename ...Args>
 dynamic_observer(OnNext, Args...) -> dynamic_observer<std::decay_t<utils::function_argument_t<OnNext>>>;

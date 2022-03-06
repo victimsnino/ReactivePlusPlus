@@ -22,6 +22,8 @@
 
 #pragma once
 
+#include "rpp/observers/specific_observer.h"
+
 #include <rpp/fwd.h>
 #include <rpp/subscribers/subscriber_base.h>
 #include <rpp/utils/function_traits.h>
@@ -97,20 +99,17 @@ private:
     Observer m_observer;
 };
 
-template<typename T>
-specific_subscriber(dynamic_observer<T> observer) -> specific_subscriber<T, dynamic_observer<T>>;
-
-template<typename T, typename ...Args>
-specific_subscriber(specific_observer<T, Args...> observer) -> specific_subscriber<T, specific_observer<T, Args...>>;
+template<template<typename...> typename TObs, typename ...Args, typename = std::enable_if_t<utils::is_observer_v<TObs<Args...>>>>
+specific_subscriber(TObs<Args...> observer) -> specific_subscriber<utils::extract_observer_type_t<TObs<Args...>>, TObs<Args...>>;
 
 template<typename OnNext,
          typename ...Args,
          typename Type = std::decay_t<utils::function_argument_t<OnNext>>>
-specific_subscriber(subscription, OnNext, Args ...) -> specific_subscriber<Type, specific_observer<Type, OnNext, Args...>>;
+specific_subscriber(subscription, OnNext, Args ...) -> specific_subscriber<Type, details::deduce_specific_observer_type_t<OnNext, Args...>>;
 
 template<typename OnNext,
          typename ...Args,
          typename Type = std::decay_t<utils::function_argument_t<OnNext>>>
-specific_subscriber(OnNext, Args ...) -> specific_subscriber<Type, specific_observer<Type, OnNext, Args...>>;
+specific_subscriber(OnNext, Args ...) -> specific_subscriber<Type, details::deduce_specific_observer_type_t<OnNext, Args...>>;
 
 } // namespace rpp

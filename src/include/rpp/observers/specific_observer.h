@@ -77,8 +77,14 @@ private:
     OnCompleted m_on_completed;
 };
 
-template<typename OnNext, typename ...Args>
-specific_observer(OnNext, Args...) -> specific_observer<std::decay_t<utils::function_argument_t<OnNext>>, OnNext, Args...>;
+template<typename OnNext>
+specific_observer(OnNext) -> specific_observer<std::decay_t<utils::function_argument_t<OnNext>>, OnNext>;
+
+template<typename OnNext, typename OnError, typename ...Args, typename = std::enable_if_t<std::is_invocable_v<OnError, std::exception_ptr>>>
+specific_observer(OnNext, OnError, Args...) -> specific_observer<std::decay_t<utils::function_argument_t<OnNext>>, OnNext, OnError, Args...>;
+
+template<typename OnNext, typename OnCompleted, typename = std::enable_if_t<std::is_invocable_v<OnCompleted>>>
+specific_observer(OnNext, OnCompleted) -> specific_observer<std::decay_t<utils::function_argument_t<OnNext>>, OnNext, utils::empty_function_t<std::exception_ptr>, OnCompleted>;
 
 template<typename T>
 specific_observer(
@@ -86,4 +92,14 @@ specific_observer(
     std::invoke_result_t<decltype(utils::make_forwarding_on_next<dynamic_observer<T>>), dynamic_observer<T>>,
     std::invoke_result_t<decltype(utils::make_forwarding_on_error<dynamic_observer<T>>), dynamic_observer<T>>,
     std::invoke_result_t<decltype(utils::make_forwarding_on_completed<dynamic_observer<T>>), dynamic_observer<T>>>;
+
+namespace details
+{
+    template<typename ...Args>
+    auto deduce_specific_observer_type(const Args&...vals) { return specific_observer{vals...}; }
+
+    template<typename ...Args>
+    using deduce_specific_observer_type_t = decltype(deduce_specific_observer_type(std::declval<Args>()...));
+
+} // namespace details
 } // namespace rpp

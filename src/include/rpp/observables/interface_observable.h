@@ -47,8 +47,7 @@ struct interface_observable : public virtual_observable<Type>
              typename NewType = utils::extract_subscriber_type_t<SubscriberType>>
     auto lift(OperatorFn&& op) &
     {
-        static_assert(utils::is_subscriber<typename utils::function_traits<OperatorFn>::result>{},
-            "OperatorFn should return subscriber of same type");
+        static_assert(utils::is_subscriber_v<typename utils::function_traits<OperatorFn>::result>, "OperatorFn should return subscriber of same type");
 
         return specific_observable{[new_this = *CastThis(), op = std::forward<OperatorFn>(op)](SubscriberType subscriber)
         {
@@ -61,8 +60,7 @@ struct interface_observable : public virtual_observable<Type>
              typename NewType = utils::extract_subscriber_type_t<SubscriberType>>
     auto lift(OperatorFn&& op) &&
     {
-        static_assert(utils::is_subscriber<typename utils::function_traits<OperatorFn>::result>{},
-            "OperatorFn should return copyable_subscriber of same type");
+        static_assert(utils::is_subscriber_v<typename utils::function_traits<OperatorFn>::result>, "OperatorFn should return copyable_subscriber of same type");
 
         return specific_observable{[new_this = std::move(*CastThis()),op = std::forward<OperatorFn>(op)](SubscriberType subscriber)
         {

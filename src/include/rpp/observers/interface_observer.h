@@ -26,8 +26,13 @@
 
 namespace rpp
 {
+namespace details
+{
+struct observer_tag {};
+} // namespace details
+
 template<typename T>
-struct interface_observer
+struct interface_observer : public details::observer_tag
 {
     virtual ~interface_observer() = default;
 

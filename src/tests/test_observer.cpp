@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include "mock_observer.h"
+
 #include <catch2/catch_test_macros.hpp>
 
 #include <rpp/observer.h>
@@ -114,5 +116,10 @@ SCENARIO("Any observer can be casted to dynamic_observer")
     GIVEN("dynamic_observer")
     {
         validate_observer(rpp::dynamic_observer([](const int&) {}));
+    }
+
+    GIVEN("mock_observer")
+    {
+        validate_observer(mock_observer<int>{});
     }
 }

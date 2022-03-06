@@ -64,17 +64,12 @@ public:
         return subscribe_impl(subscriber);
     }
 
-    template<typename  ...Fns>
-    subscription subscribe(const specific_observer<Type, Fns...>& observer) const noexcept
+    template<typename TObserver, typename = std::enable_if_t<rpp::utils::is_observer_v<TObserver>>>
+    subscription subscribe(TObserver&& observer) const noexcept
     {
-        return subscribe_impl<specific_observer<Type, Fns...>>(observer);
+        return subscribe_impl<std::decay_t<TObserver>>(std::forward<TObserver>(observer));
     }
 
-    template<typename ...Fns>
-    subscription subscribe(specific_observer<Type, Fns...>&& observer) const noexcept
-    {
-        return subscribe_impl<specific_observer<Type, Fns...>>(std::move(observer));
-    }
 private:
     template<typename Obs>
     subscription subscribe_impl(const specific_subscriber<Type, Obs>& subscriber) const noexcept

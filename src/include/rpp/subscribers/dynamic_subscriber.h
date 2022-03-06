@@ -37,11 +37,8 @@ public:
         : specific_subscriber<T, dynamic_observer<T>>{subscriber.get_subscription(), subscriber.get_observer()} {}
 };
 
-template<typename T>
-dynamic_subscriber(dynamic_observer<T> observer) -> dynamic_subscriber<T>;
-
-template<typename T, typename ...Args>
-dynamic_subscriber(specific_observer<T, Args...> observer) -> dynamic_subscriber<T>;
+template<template<typename...> typename TObs, typename ...Args, typename = std::enable_if_t<utils::is_observer_v<TObs<Args...>>>>
+dynamic_subscriber(TObs<Args...> observer) -> dynamic_subscriber<utils::extract_observer_type_t<TObs<Args...>>>;
 
 template<typename T, typename Obs>
 dynamic_subscriber(specific_subscriber<T, Obs>) -> dynamic_subscriber<T>;

@@ -27,48 +27,29 @@
 namespace rpp::utils
 {
 // *************************** SUBSCRIBER ************************//
-template<typename>
-struct extract_subscriber_type;
-
-template<typename Type, typename Obs>
-struct extract_subscriber_type<specific_subscriber<Type, Obs>>
+namespace details
 {
-    using type = Type;
-};
-
-template<typename Type>
-struct extract_subscriber_type<dynamic_subscriber<Type>>
-{
-    using type = Type;
-};
+    template<typename T>
+    T extract_subscriber_type(const rpp::details::subscriber_base<T>&);
+} // namespace details
 
 template<typename T>
-using extract_subscriber_type_t = typename extract_subscriber_type<std::decay_t<T>>::type;
+using extract_subscriber_type_t = decltype(details::extract_subscriber_type(std::declval<std::decay_t<T>>()));
 
 template<typename T>
-struct is_subscriber: std::false_type{};
-
-template<typename T, typename Obs>
-struct is_subscriber<specific_subscriber<T, Obs>> : std::true_type{};
-
-template<typename T>
-struct is_subscriber<dynamic_subscriber<T>> : std::true_type{};
-
-template<typename T>
-constexpr bool is_subscriber_v = is_subscriber<std::decay_t<T>>::value;
+constexpr bool is_subscriber_v = std::is_base_of_v<rpp::details::subscriber_tag, std::decay_t<T>>;
 
 // *************************** OBSERVER ************************//
+namespace details
+{
+    template<typename T>
+    T extract_observer_type(const interface_observer<T>&);
+} // namespace details
 template<typename T>
-struct is_observer : std::false_type{};
+using extract_observer_type_t = decltype(details::extract_observer_type(std::declval<std::decay_t<T>>()));
 
 template<typename T>
-struct is_observer<dynamic_observer<T>> : std::true_type{};
-
-template<typename T, typename ...Args>
-struct is_observer<specific_observer<T, Args...>> : std::true_type{};
-
-template<typename T>
-constexpr bool is_observer_v = is_observer<std::decay_t<T>>::value;
+constexpr bool is_observer_v = std::is_base_of_v<rpp::details::observer_tag, std::decay_t<T>> && !is_subscriber_v<std::decay_t<T>>;
 
 namespace details
 {

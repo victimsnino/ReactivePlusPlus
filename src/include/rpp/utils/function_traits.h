@@ -56,6 +56,13 @@ struct function_traits<R (T::*)(Args ...) const> : function_traits<R(*)(Args ...
 template<class T, class R, class... Args>
 struct function_traits<R (T::*)(Args ...)> : function_traits<R(*)(Args ...)> {};
 
+// Classical global function no args
+template<class R>
+struct function_traits<R (*)()>
+{
+    using result = R;
+};
+
 // Classical global function
 template<class R, class... Args>
 struct function_traits<R (*)(Args ...)>

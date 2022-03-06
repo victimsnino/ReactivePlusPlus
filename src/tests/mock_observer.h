@@ -22,28 +22,38 @@
 
 #pragma once
 
+#include <rpp/observers/dynamic_observer.h>
+
 #include <rpp/observers/interface_observer.h>
 
 template<typename Type>
 class mock_observer : public rpp::interface_observer<Type>
 {
 public:
-    mock_observer() = default;
+    mock_observer() : m_state{std::make_shared<State>()} {}
 
-    void on_next(const Type & v) const override { ++m_on_next_const_ref_count; }
-    void on_next(Type && v) const override { ++m_on_next_move_count; }
-    void on_error(const std::exception_ptr & err) const override { ++m_on_error_count; }
-    void on_completed() const override { ++m_on_completed_count; }
+    void on_next(const Type & v) const override { ++m_state->m_on_next_const_ref_count; }
+    void on_next(Type && v) const override { ++m_state->m_on_next_move_count; }
+    void on_error(const std::exception_ptr & err) const override { ++m_state->m_on_error_count; }
+    void on_completed() const override { ++m_state->m_on_completed_count; }
 
-    size_t get_total_on_next_count() const { return m_on_next_const_ref_count + m_on_next_move_count; }
-    size_t get_on_next_const_ref_count() const { return m_on_next_const_ref_count; }
-    size_t get_on_next_move_count() const { return m_on_next_move_count; }
-    size_t get_on_error_count() const { return m_on_error_count; }
-    size_t get_on_completed_count() const { return m_on_completed_count; }
+    size_t get_total_on_next_count() const { return m_state->m_on_next_const_ref_count + m_state->m_on_next_move_count; }
+    size_t get_on_next_const_ref_count() const { return m_state->m_on_next_const_ref_count; }
+    size_t get_on_next_move_count() const { return m_state->m_on_next_move_count; }
+    size_t get_on_error_count() const { return m_state->m_on_error_count; }
+    size_t get_on_completed_count() const { return m_state->m_on_completed_count; }
+
+    auto as_dynamic() const {return rpp::dynamic_observer<Type>{*this};}
 
 private:
-    mutable size_t m_on_next_const_ref_count = 0;
-    mutable size_t m_on_next_move_count = 0;
-    mutable size_t m_on_error_count = 0;
-    mutable size_t m_on_completed_count = 0;
+    struct State
+    {
+        ;
+        size_t m_on_next_const_ref_count = 0;
+        size_t m_on_next_move_count      = 0;
+        size_t m_on_error_count          = 0;
+        size_t m_on_completed_count      = 0;
+    };
+
+    std::shared_ptr<State> m_state{};
 };

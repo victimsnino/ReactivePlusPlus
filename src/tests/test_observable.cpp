@@ -30,7 +30,7 @@
 
 #include <array>
 
-SCENARIO("Any observable can be casted to dynamic_observable")
+SCENARIO("Any observable can be casted to dynamic_observable", "[observable]")
 {
     auto validate_observable =[](const auto& observable)
     {
@@ -95,7 +95,7 @@ static void TestObserverTypes(const std::string then_description, int copy_count
     }
 }
 
-SCENARIO("specific_observable doesn't produce extra copies for lambda", "[track_copy]")
+SCENARIO("specific_observable doesn't produce extra copies for lambda", "[observable][track_copy]")
 {
     GIVEN("observer and specific_observable of same type")
     {
@@ -130,7 +130,7 @@ SCENARIO("specific_observable doesn't produce extra copies for lambda", "[track_
     }
 }
 
-SCENARIO("dynamic_observable doesn't produce extra copies for lambda", "[track_copy]")
+SCENARIO("dynamic_observable doesn't produce extra copies for lambda", "[observable][track_copy]")
 {
     GIVEN("observer and dynamic_observable of same type")
     {
@@ -165,32 +165,32 @@ SCENARIO("dynamic_observable doesn't produce extra copies for lambda", "[track_c
     }
 }
 
-SCENARIO("Verify copy when observer take lvalue from lvalue&", "[track_copy]")
+SCENARIO("Verify copy when observer take lvalue from lvalue&", "[observable][track_copy]")
 {
     TestObserverTypes<copy_count_tracker>("1 copy to final lambda", 1, 0);
 }
 
-SCENARIO("Verify copy when observer take lvalue from move", "[track_copy]")
+SCENARIO("Verify copy when observer take lvalue from move", "[observable][track_copy]")
 {
     TestObserverTypes<copy_count_tracker, true>("1 move to final lambda", 0, 1);
 }
 
-SCENARIO("Verify copy when observer take lvalue from const lvalue&", "[track_copy]")
+SCENARIO("Verify copy when observer take lvalue from const lvalue&", "[observable][track_copy]")
 {
     TestObserverTypes<copy_count_tracker,false, true>("1 copy to final lambda", 1, 0);
 }
 
-SCENARIO("Verify copy when observer take const lvalue& from lvalue&", "[track_copy]")
+SCENARIO("Verify copy when observer take const lvalue& from lvalue&", "[observable][track_copy]")
 {
     TestObserverTypes<const copy_count_tracker&>("no copies", 0, 0);
 }
 
-SCENARIO("Verify copy when observer take const lvalue& from move", "[track_copy]")
+SCENARIO("Verify copy when observer take const lvalue& from move", "[observable][track_copy]")
 {
     TestObserverTypes<const copy_count_tracker&, true>("no copies", 0, 0);
 }
 
-SCENARIO("Verify copy when observer take const lvalue& from const lvalue&", "[track_copy]")
+SCENARIO("Verify copy when observer take const lvalue& from const lvalue&", "[observable][track_copy]")
 {
     TestObserverTypes<const copy_count_tracker&,false, true>("no copies", 0, 0);
 }

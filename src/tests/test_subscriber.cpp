@@ -20,23 +20,106 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include "mock_observer.h"
+
 #include <catch2/catch_test_macros.hpp>
 
 #include <rpp/observable.h>
 #include <rpp/observer.h>
 #include <rpp/subscriber.h>
 
+SCENARIO("Any type of observer can be passed to any type of subscriber", "[subscriber]")
+{
+    auto validate_observer = [](auto observer)
+    {
+        WHEN("passed to specific subscriber")
+        {
+            auto sub = rpp::specific_subscriber{observer};
+            THEN("Obtained subscriber of the same type")
+            {
+                using ObsType = std::remove_cv_t<decltype(observer)>;
+                using ObsValueType = rpp::utils::extract_observer_type_t<ObsType>;
+
+                static_assert(std::is_same_v<ObsValueType, rpp::utils::extract_subscriber_type_t<decltype(sub)>>);
+                static_assert(std::is_same_v<rpp::specific_subscriber<ObsValueType, ObsType>, decltype(sub)>);
+            }
+        }
+        WHEN("passed to dynamic subscriber")
+        {
+            auto sub = rpp::dynamic_subscriber{observer};
+            THEN("Obtained subscriber of the same type")
+            {
+                using ObsType = std::remove_cv_t<decltype(observer)>;
+                using ObsValueType = rpp::utils::extract_observer_type_t<ObsType>;
+
+                static_assert(std::is_same_v<ObsValueType, rpp::utils::extract_subscriber_type_t<decltype(sub)>>);
+                static_assert(std::is_same_v<rpp::dynamic_subscriber<ObsValueType>, decltype(sub)>);
+            }
+        }
+    };
+
+    GIVEN("dynamic observer")
+        validate_observer(rpp::dynamic_observer{[](const int& ) {}});
+
+    GIVEN("specific observer")
+        validate_observer(rpp::specific_observer{[](const int&) {}});
+
+    GIVEN("mock observer")
+        validate_observer(mock_observer<int>{});
+}
+
+SCENARIO("Each type of call can be forwarded to observer via subscriber", "[subscriber]")
+{
+    GIVEN("observer")
+    {
+        auto observer = mock_observer<int>{};
+
+        auto validate_subscriber = [&](auto sub)
+        {
+            AND_WHEN("Called on_next")
+            {
+                sub.on_next(1);
+                THEN("Observer obtain on_next")
+                {
+                    CHECK(observer.get_total_on_next_count() == 1);
+                    CHECK(observer.get_on_error_count() == 0);
+                    CHECK(observer.get_on_completed_count() == 0);
+                }
+            }
+            AND_WHEN("Called on_error")
+            {
+                sub.on_error(std::make_exception_ptr(std::exception{}));
+                THEN("Observer obtain on_error")
+                {
+                    CHECK(observer.get_total_on_next_count() == 0);
+                    CHECK(observer.get_on_error_count() == 1);
+                    CHECK(observer.get_on_completed_count() == 0);
+                }
+            }
+            AND_WHEN("Called on_completed")
+            {
+                sub.on_completed();
+                THEN("Observer obtain on_completed")
+                {
+                    CHECK(observer.get_total_on_next_count() == 0);
+                    CHECK(observer.get_on_error_count() == 0);
+                    CHECK(observer.get_on_completed_count() == 1);
+                }
+            }
+        };
+
+        WHEN("passed to specific subscriber")
+            validate_subscriber(rpp::specific_subscriber{observer});
+        WHEN("passed to dynamic subscriber")
+            validate_subscriber(rpp::dynamic_subscriber{observer});
+    }
+}
+
 SCENARIO("Subscriber unsubscribes when obtains on_error or on_completed", "[subscriber]")
 {
     GIVEN("observer")
     {
-        size_t on_next_called_count = 0;
-        size_t on_error_called_count = 0;
-        size_t on_completed_called_count = 0;
-        const auto observer = rpp::dynamic_observer{[&](int) { ++on_next_called_count; },
-                                                    [&](std::exception_ptr) { ++on_error_called_count; },
-                                                    [&]() { ++on_completed_called_count; }
-        };
+        const auto observer = mock_observer<int>();
 
         WHEN("Subscribe on observable with first on_error")
         {
@@ -50,9 +133,9 @@ SCENARIO("Subscriber unsubscribes when obtains on_error or on_completed", "[subs
 
             THEN("No calls after on_error")
             {
-                CHECK(on_next_called_count == 0);
-                CHECK(on_error_called_count == 1);
-                CHECK(on_completed_called_count == 0);
+                CHECK(observer.get_total_on_next_count() == 0);
+                CHECK(observer.get_on_error_count() == 1);
+                CHECK(observer.get_on_completed_count() == 0);
             }
         }
     }
@@ -62,13 +145,7 @@ SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscri
 {
     GIVEN("observer")
     {
-        size_t on_next_called_count = 0;
-        size_t on_error_called_count = 0;
-        size_t on_completed_called_count = 0;
-        const auto observer = rpp::dynamic_observer{[&](int) { ++on_next_called_count; },
-                                                    [&](std::exception_ptr) { ++on_error_called_count; },
-                                                    [&]() { ++on_completed_called_count; }};
-
+        const auto observer = mock_observer<int>();
         auto subscriber = rpp::dynamic_subscriber{observer};
 
         WHEN("Subscriber subscribes on observable with on_completed ")
@@ -78,18 +155,18 @@ SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscri
 
             THEN("Only one on_completed call first time")
             {
-                CHECK(on_next_called_count == 0);
-                CHECK(on_error_called_count == 0);
-                CHECK(on_completed_called_count == 1);
+                CHECK(observer.get_total_on_next_count() == 0);
+                CHECK(observer.get_on_error_count() == 0);
+                CHECK(observer.get_on_completed_count() == 1);
             }
             AND_WHEN("The same subscriber subscribes second time")
             {
                 obs.subscribe(subscriber);
                 THEN("No any new calls happens")
                 {
-                    CHECK(on_next_called_count == 0);
-                    CHECK(on_error_called_count == 0);
-                    CHECK(on_completed_called_count == 1);
+                    CHECK(observer.get_total_on_next_count() == 0);
+                    CHECK(observer.get_on_error_count() == 0);
+                    CHECK(observer.get_on_completed_count() == 1);
                 }
             }
         }
@@ -101,18 +178,18 @@ SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscri
 
             THEN("Only one on_next call")
             {
-                CHECK(on_next_called_count == 1);
-                CHECK(on_error_called_count == 0);
-                CHECK(on_completed_called_count == 0);
+                CHECK(observer.get_total_on_next_count() == 1);
+                CHECK(observer.get_on_error_count() == 0);
+                CHECK(observer.get_on_completed_count() == 0);
             }
             AND_WHEN("The same subscriber subscribes second time")
             {
                 obs.subscribe(subscriber);
                 THEN("One more on_next call")
                 {
-                    CHECK(on_next_called_count == 2);
-                    CHECK(on_error_called_count == 0);
-                    CHECK(on_completed_called_count == 0);
+                    CHECK(observer.get_total_on_next_count() == 2);
+                    CHECK(observer.get_on_error_count() == 0);
+                    CHECK(observer.get_on_completed_count() == 0);
                 }
             }
             AND_WHEN("The same subscriber unsubscribes and subscribes second time")
@@ -121,9 +198,9 @@ SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscri
                 obs.subscribe(subscriber);
                 THEN("No any new calls")
                 {
-                    CHECK(on_next_called_count == 1);
-                    CHECK(on_error_called_count == 0);
-                    CHECK(on_completed_called_count == 0);
+                    CHECK(observer.get_total_on_next_count() == 1);
+                    CHECK(observer.get_on_error_count() == 0);
+                    CHECK(observer.get_on_completed_count() == 0);
                 }
             }
             AND_WHEN("The subscription unsubscribes and subscriber subscribes second time")
@@ -132,9 +209,9 @@ SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscri
                 obs.subscribe(subscriber);
                 THEN("No any new calls")
                 {
-                    CHECK(on_next_called_count == 1);
-                    CHECK(on_error_called_count == 0);
-                    CHECK(on_completed_called_count == 0);
+                    CHECK(observer.get_total_on_next_count() == 1);
+                    CHECK(observer.get_on_error_count() == 0);
+                    CHECK(observer.get_on_completed_count() == 0);
                 }
             }
         }
@@ -145,11 +222,7 @@ SCENARIO("Subscriber obtains on_error when exception", "[subscriber]")
 {
     GIVEN("observer and observable with exception")
     {
-        size_t on_error_count = 0;
-        size_t on_completed_count = 0;
-        auto observer = rpp::dynamic_observer{[](const double&) {},
-                                              [&](std::exception_ptr ) {++on_error_count;},
-                                              [&]() {++on_completed_count;} };
+        auto observer = mock_observer<double>{};
         auto observable = rpp::observable::create([](const rpp::dynamic_subscriber<double>&){throw std::runtime_error("Test");});
 
         WHEN("observer subscribes")
@@ -157,8 +230,9 @@ SCENARIO("Subscriber obtains on_error when exception", "[subscriber]")
             auto subscription = observable.subscribe(observer);
             THEN("on_error called once only")
             {
-                CHECK(on_error_count == 1);
-                CHECK(on_completed_count == 0);
+                CHECK(observer.get_total_on_next_count() == 0);
+                CHECK(observer.get_on_error_count() == 1);
+                CHECK(observer.get_on_completed_count() == 0);
                 CHECK(subscription.is_subscribed() == false);
             }
         }
@@ -167,10 +241,20 @@ SCENARIO("Subscriber obtains on_error when exception", "[subscriber]")
 
 SCENARIO("Subscriber can be generated by lambdas", "[subscriber]")
 {
-    auto temp_1 = rpp::dynamic_subscriber{[](int       ) {}};
-    auto temp_2 = rpp::dynamic_subscriber{[](const int&) {}, [](std::exception_ptr) {}};
-    auto temp_3 = rpp::dynamic_subscriber{[](const int&) {}, [](std::exception_ptr) {}, [](){}};
-    auto temp_4 = rpp::dynamic_subscriber{[](const int&) {}, [](){}};
+    {
+        auto temp_1 = rpp::dynamic_subscriber{[](int       ) {}};
+        auto temp_2 = rpp::dynamic_subscriber{[](const int&) {}, [](std::exception_ptr) {}};
+        auto temp_3 = rpp::dynamic_subscriber{[](const int&) {}, [](std::exception_ptr) {}, []() {}};
+        auto temp_4 = rpp::dynamic_subscriber{[](const int&) {}, []() {}};
+    }
+
+    {
+        auto temp_1 = rpp::specific_subscriber{[](int       ) {}};
+        auto temp_2 = rpp::specific_subscriber{[](const int&) {}, [](std::exception_ptr) {}};
+        auto temp_3 = rpp::specific_subscriber{[](const int&) {}, [](std::exception_ptr) {}, []() {}};
+        auto temp_4 = rpp::specific_subscriber{[](const int&) {}, []() {}};
+    }
+
 
     auto on_next      = [](const int&               ) {};
     auto on_error     = [](const std::exception_ptr&) {};

@@ -27,8 +27,10 @@
 
 namespace rpp::details
 {
+struct subscriber_tag{};
+
 template<typename Type>
-class subscriber_base : public interface_observer<Type>
+class subscriber_base : public interface_observer<Type>, public subscriber_tag
 {
     static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type should be decayed to match with decayed observable types");
 public:

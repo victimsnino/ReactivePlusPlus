@@ -30,6 +30,11 @@ class specific_observable;
 template<typename Type>
 class dynamic_observable;
 
+namespace details
+{
+struct observer_tag;
+} // namespace details
+
 template<typename Type>
 class dynamic_observer;
 
@@ -38,6 +43,15 @@ template<typename T,
          typename OnError,
          typename OnCompleted>
 class specific_observer;
+
+
+namespace details
+{
+    struct subscriber_tag;
+
+    template<typename Type>
+    class subscriber_base;
+} // namespace details
 
 template<typename Type, typename Observer>
 class specific_subscriber;
