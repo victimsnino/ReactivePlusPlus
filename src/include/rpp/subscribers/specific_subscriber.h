@@ -22,9 +22,8 @@
 
 #pragma once
 
-#include "rpp/observers/specific_observer.h"
-
 #include <rpp/fwd.h>
+#include <rpp/observers/specific_observer.h>
 #include <rpp/subscribers/subscriber_base.h>
 #include <rpp/utils/function_traits.h>
 #include <rpp/utils/type_traits.h>
