@@ -43,6 +43,8 @@ jobs:
         
     - uses: msys2/setup-msys2@v2
       if: matrix.config.os == 'windows-latest'
+      with:
+        release: false
         
     - name: Setup ccache
       uses: Chocobo1/setup-ccache-action@v1
