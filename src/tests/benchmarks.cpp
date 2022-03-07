@@ -39,7 +39,7 @@ SCENARIO("Benchmark bservable + observer", "[benchmark]")
         }};
         auto                 observable = rpp::observable::create<int>([v](const auto& sub)
         {
-            sub.on_next(v.size());
+            sub.on_next(static_cast<int>(v.size()));
         });
         return std::tuple{observer, observable};
     };
