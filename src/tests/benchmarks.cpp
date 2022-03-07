@@ -22,10 +22,8 @@
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/benchmark/catch_benchmark.hpp>
-
 #include <rpp/observable.h>
-#include <rpp/observer.h>
-#include <rpp/subscriber.h>
+#include <rpp/observers/specific_observer.h>
 
 #include <array>
 
@@ -35,10 +33,13 @@ SCENARIO("Benchmark bservable + observer", "[benchmark]")
 
     auto make_observer_and_observable = [&]()
     {
-        auto                 observer   = rpp::specific_observer{[v](int                           ) {}};
+        auto                 observer   = rpp::specific_observer{[v](int)
+        {
+            [[maybe_unused]] const auto& t = v;
+        }};
         auto                 observable = rpp::observable::create<int>([v](const auto& sub)
         {
-            sub.on_next(123);
+            sub.on_next(v.size());
         });
         return std::tuple{observer, observable};
     };
