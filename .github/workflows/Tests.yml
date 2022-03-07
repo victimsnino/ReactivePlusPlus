@@ -42,7 +42,7 @@ jobs:
         token: ${{ secrets.TOKEN }}
         
     - uses: msys2/setup-msys2@v2
-      if: matrix.os == 'windows-latest'
+      if: matrix.config.os == 'windows-latest'
         
     - name: Setup ccache
       uses: Chocobo1/setup-ccache-action@v1
