@@ -238,13 +238,13 @@ SCENARIO("Subscriber obtains on_error when exception", "[subscriber]")
             throw std::runtime_error("Test");
         });
 
-        auto observer = mock_observer<double>{};
+        auto observer = mock_observer<int>{};
 
         auto validate = [&](auto sub)
         {
             WHEN("observer subscribes")
             {
-                auto subscription = observable.subscribe(observer);
+                auto subscription = observable.subscribe(sub);
                 THEN("on_error called once only")
                 {
                     CHECK(observer.get_total_on_next_count() == 0);
