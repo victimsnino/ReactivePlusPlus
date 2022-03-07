@@ -41,3 +41,9 @@ target_link_libraries(${TARGET} PRIVATE rpp Catch2WithMain)
 set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 
 add_ctest(${TARGET})
+
+if(MSVC)
+  target_compile_options(${TARGET} PRIVATE /W4 /WX)
+else()
+  target_compile_options(${TARGET} PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
