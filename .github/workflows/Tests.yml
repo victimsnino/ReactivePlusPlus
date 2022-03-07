@@ -41,11 +41,15 @@ jobs:
         submodules: true
         token: ${{ secrets.TOKEN }}
         
+    - uses: msys2/setup-msys2@v2
+      if: matrix.os == 'windows-latest'
+        
     - name: Setup ccache
       uses: Chocobo1/setup-ccache-action@v1
       with:
         ccache_options: |
           cache_dir=${{github.workspace}}/.ccache
+        windows_compile_environment: msys2
           
     - name: Prepare ccache timestamp
       id: ccache_cache_timestamp
