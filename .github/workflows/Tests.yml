@@ -45,6 +45,7 @@ jobs:
       if: matrix.config.os == 'windows-latest'
       with:
         release: false
+        msystem: UCRT64
         
     - name: Setup ccache
       uses: Chocobo1/setup-ccache-action@v1
