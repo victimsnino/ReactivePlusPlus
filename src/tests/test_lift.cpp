@@ -55,7 +55,7 @@ SCENARIO("Observable can be lifted")
             {
                 int calls_external = 0;
 
-                auto subscriber = rpp::specific_subscriber{[&](int v){++calls_external;}};
+                auto subscriber = rpp::specific_subscriber{[&](int){++calls_external;}};
                 subscriber.unsubscribe();
 
                 new_observable.subscribe(subscriber);

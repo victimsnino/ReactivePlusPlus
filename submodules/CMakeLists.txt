@@ -25,3 +25,6 @@ add_subdirectory(Catch2)
 
 set_target_properties(Catch2      PROPERTIES FOLDER "Submodules/Catch2")
 set_target_properties(Catch2WithMain PROPERTIES FOLDER "Submodules/Catch2")
+
+set_target_properties(Catch2 PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:Catch2,INTERFACE_INCLUDE_DIRECTORIES>)
+set_target_properties(Catch2WithMain PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:Catch2WithMain,INTERFACE_INCLUDE_DIRECTORIES>)

@@ -37,6 +37,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 set(TEST_RESULTS_DIR  ${CMAKE_BINARY_DIR}/test_results)
 
+set(BUILD_TESTS ON CACHE BOOL "Enable unit tests building" FORCE)
+
+
 # ================== TESTS ==================
 enable_testing()
 
