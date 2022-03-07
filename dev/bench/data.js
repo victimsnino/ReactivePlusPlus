@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1646684898024,
+  "lastUpdate": 1646687950391,
   "repoUrl": "https://github.com/victimsnino/ReactivePlusPlus",
   "entries": {
     "Catch2 Benchmark Linux CLANG": [
@@ -3169,6 +3169,86 @@ window.BENCHMARK_DATA = {
             "range": "± 5.32974",
             "unit": "ns",
             "extra": "100 samples\n1417 iterations"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "victimsnino@gmail.com",
+            "name": "Aleksey Loginov",
+            "username": "victimsnino"
+          },
+          "committer": {
+            "email": "victimsnino@gmail.com",
+            "name": "Aleksey Loginov",
+            "username": "victimsnino"
+          },
+          "distinct": true,
+          "id": "54ea769481bc2ba8194591c18eeac2809b1b1765",
+          "message": "compile fix",
+          "timestamp": "2022-03-08T00:17:53+03:00",
+          "tree_id": "464a80007f2f75c0cd3e4d77034f37242aba1703",
+          "url": "https://github.com/victimsnino/ReactivePlusPlus/commit/54ea769481bc2ba8194591c18eeac2809b1b1765"
+        },
+        "date": 1646687949725,
+        "tool": "catch2",
+        "benches": [
+          {
+            "name": "Specific observable construction",
+            "value": 1.60905,
+            "range": "± 0.0357479",
+            "unit": "ns",
+            "extra": "100 samples\n21779 iterations"
+          },
+          {
+            "name": "Dynamic observable construction",
+            "value": 22.5743,
+            "range": "± 0.453875",
+            "unit": "ns",
+            "extra": "100 samples\n1547 iterations"
+          },
+          {
+            "name": "Specific observable subscribe",
+            "value": 26.5146,
+            "range": "± 0.496768",
+            "unit": "ns",
+            "extra": "100 samples\n1334 iterations"
+          },
+          {
+            "name": "Dynamic observable subscribe",
+            "value": 60.4032,
+            "range": "± 1.77034",
+            "unit": "ns",
+            "extra": "100 samples\n579 iterations"
+          },
+          {
+            "name": "OnNext",
+            "value": 0.403124,
+            "range": "± 0.00890759",
+            "unit": "ns",
+            "extra": "100 samples\n87076 iterations"
+          },
+          {
+            "name": "Make subsriber",
+            "value": 26.704,
+            "range": "± 0.562447",
+            "unit": "ns",
+            "extra": "100 samples\n1326 iterations"
+          },
+          {
+            "name": "Make copy of subscriber",
+            "value": 4.75299,
+            "range": "± 0.12507",
+            "unit": "ns",
+            "extra": "100 samples\n7419 iterations"
+          },
+          {
+            "name": "Transform subsriber to dynamic",
+            "value": 28.4765,
+            "range": "± 1.46221",
+            "unit": "ns",
+            "extra": "100 samples\n1239 iterations"
           }
         ]
       }
