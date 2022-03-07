@@ -83,7 +83,10 @@ SCENARIO("Benchmark bservable + observer", "[benchmark]")
         return rpp::specific_subscriber{[](const int&){}};
     };
 
-    auto sub = rpp::specific_subscriber{[v](const int&){}};
+    auto sub = rpp::specific_subscriber{[v](const int&)
+    {
+        [[maybe_unused]] const auto& t = v;
+    }};
 
     BENCHMARK("Make copy of subscriber")
     {
