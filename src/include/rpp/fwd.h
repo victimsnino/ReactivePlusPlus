@@ -27,6 +27,9 @@ namespace rpp
 template<typename Type, typename OnSubscribeFn>
 class specific_observable;
 
+template<typename Type, typename OnSub>
+auto make_specific_observable(OnSub&& call);
+
 template<typename Type>
 class dynamic_observable;
 
@@ -43,7 +46,6 @@ template<typename T,
          typename OnError,
          typename OnCompleted>
 class specific_observer;
-
 
 namespace details
 {

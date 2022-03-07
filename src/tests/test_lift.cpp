@@ -25,7 +25,6 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include <rpp/observable.h>
-#include <rpp/observer.h>
 #include <rpp/subscriber.h>
 
 SCENARIO("Observable can be lifted")
@@ -33,7 +32,7 @@ SCENARIO("Observable can be lifted")
     GIVEN("Observable")
     {
         auto verifier   = copy_count_tracker{};
-        auto observable = rpp::observable::create([verifier](const rpp::dynamic_subscriber<int>& sub)
+        auto observable = rpp::observable::create<int>([verifier](const auto& sub)
         {
             sub.on_next(10);
             sub.on_next(5);
@@ -42,7 +41,7 @@ SCENARIO("Observable can be lifted")
         WHEN("Call lift")
         {
             int calls_internal = 0;
-            auto new_observable = observable.lift([&](rpp::dynamic_subscriber<int> sub)
+            auto new_observable = observable.lift<int>([&](auto sub)
             {
                 return rpp::specific_subscriber{sub.get_subscription(), [&, sub](int val)
                 {

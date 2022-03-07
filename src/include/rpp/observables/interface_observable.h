@@ -42,17 +42,31 @@ struct virtual_observable
 template<typename Type, typename SpecificObservable>
 struct interface_observable : public virtual_observable<Type>
 {
+private:
+    template<typename NewType,
+             typename OperatorFn>
+    static constexpr bool is_callable_returns_subscriber_of_same_type_v = std::is_same_v<Type, utils::extract_subscriber_type_t<std::invoke_result_t<OperatorFn, dynamic_subscriber<NewType>>>>;
+public:
+    template<typename NewType,
+             typename OperatorFn>
+    auto lift(OperatorFn&& op) const &
+    {
+        return lift_impl<NewType>(std::forward<OperatorFn>(op), CastThis());
+    }
+
+    template<typename NewType,
+             typename OperatorFn>
+    auto lift(OperatorFn&& op) &&
+    {
+        return lift_impl<NewType>(std::forward<OperatorFn>(op), MoveThis());
+    }
+
     template<typename OperatorFn,
              typename SubscriberType = utils::function_argument_t<OperatorFn>,
              typename NewType = utils::extract_subscriber_type_t<SubscriberType>>
-    auto lift(OperatorFn&& op) &
+    auto lift(OperatorFn&& op) const &
     {
-        static_assert(utils::is_subscriber_v<typename utils::function_traits<OperatorFn>::result>, "OperatorFn should return subscriber of same type");
-
-        return specific_observable{[new_this = *CastThis(), op = std::forward<OperatorFn>(op)](SubscriberType subscriber)
-        {
-            new_this.subscribe(op(std::forward<SubscriberType>(subscriber)));
-        }};
+        return lift_impl<NewType>(std::forward<OperatorFn>(op), CastThis());
     }
 
     template<typename OperatorFn,
@@ -60,15 +74,31 @@ struct interface_observable : public virtual_observable<Type>
              typename NewType = utils::extract_subscriber_type_t<SubscriberType>>
     auto lift(OperatorFn&& op) &&
     {
-        static_assert(utils::is_subscriber_v<typename utils::function_traits<OperatorFn>::result>, "OperatorFn should return copyable_subscriber of same type");
-
-        return specific_observable{[new_this = std::move(*CastThis()),op = std::forward<OperatorFn>(op)](SubscriberType subscriber)
-        {
-            new_this.subscribe(op(std::forward<SubscriberType>(subscriber)));
-        }};
+        return lift_impl<NewType>(std::forward<OperatorFn>(op), MoveThis());
     }
 
 private:
-    SpecificObservable* CastThis() {return static_cast<SpecificObservable*>(this);}
+    const SpecificObservable& CastThis() const
+    {
+        return *static_cast<const SpecificObservable*>(this);
+    }
+
+    SpecificObservable&& MoveThis()
+    {
+        return std::move(*static_cast<SpecificObservable*>(this));
+    }
+
+    template<typename NewType,
+             typename OperatorFn,
+             typename FwdThis>
+    static auto lift_impl(OperatorFn&& op, FwdThis&& _this)
+    {
+        static_assert(is_callable_returns_subscriber_of_same_type_v<NewType, OperatorFn>, "OperatorFn should return subscriber");
+
+        return rpp::make_specific_observable<NewType>([new_this = std::forward<FwdThis>(_this), op = std::forward<OperatorFn>(op)](auto&& subscriber)
+        {
+            new_this.subscribe(op(std::forward<decltype(subscriber)>(subscriber)));
+        });
+    }
 };
 } // namespace rpp

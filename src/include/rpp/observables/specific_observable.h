@@ -90,4 +90,10 @@ private:
 
 template<typename OnSub>
 specific_observable(OnSub on_subscribe) -> specific_observable<utils::extract_subscriber_type_t<utils::function_argument_t<OnSub>>, OnSub>;
+
+template<typename Type, typename OnSub>
+auto make_specific_observable(OnSub&& call)
+{
+    return specific_observable<Type, std::decay_t<OnSub>>{std::forward<OnSub>(call)};
+}
 } // namespace rpp
