@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1646772765717,
+  "lastUpdate": 1646772903518,
   "repoUrl": "https://github.com/victimsnino/ReactivePlusPlus",
   "entries": {
     "Catch2 Benchmark Linux GCC": [
@@ -194,6 +194,44 @@ window.BENCHMARK_DATA = {
             "range": "± 3.01188",
             "unit": "ns",
             "extra": "100 samples\n357 iterations"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "victimsnino@gmail.com",
+            "name": "Aleksey Loginov",
+            "username": "victimsnino"
+          },
+          "committer": {
+            "email": "victimsnino@gmail.com",
+            "name": "Aleksey Loginov",
+            "username": "victimsnino"
+          },
+          "distinct": true,
+          "id": "07843341e253018b877bb5c8d0bbe03cd5329818",
+          "message": "fixes",
+          "timestamp": "2022-03-08T23:50:23+03:00",
+          "tree_id": "c770a8a30d87698f1ee329faaaf23daef1401ba4",
+          "url": "https://github.com/victimsnino/ReactivePlusPlus/commit/07843341e253018b877bb5c8d0bbe03cd5329818"
+        },
+        "date": 1646772886555,
+        "tool": "catch2",
+        "benches": [
+          {
+            "name": "Specific observable construction",
+            "value": 0.672167,
+            "range": "± 0.0215967",
+            "unit": "ns",
+            "extra": "100 samples\n38056 iterations"
+          },
+          {
+            "name": "Dynamic observable construction",
+            "value": 82.2006,
+            "range": "± 3.83078",
+            "unit": "ns",
+            "extra": "100 samples\n309 iterations"
           }
         ]
       }
