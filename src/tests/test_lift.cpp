@@ -80,7 +80,7 @@ SCENARIO("Observable can be lifted")
                 std::vector<double>                 obtained_values{};
                 new_observable.subscribe([&](double v) { obtained_values.push_back(v); });
 
-                CHECK(obtained_values == std::vector{5, 2.5});
+                CHECK(obtained_values == std::vector{5.0, 2.5});
             }
             if constexpr (!std::is_same_v<decltype(observable), rpp::dynamic_observable<int>>)
             {
@@ -109,7 +109,7 @@ SCENARIO("Observable can be lifted")
                 std::vector<double>                 obtained_values{};
                 new_observable.subscribe([&](double v) { obtained_values.push_back(v); });
 
-                CHECK(obtained_values == std::vector{5, 2.5});
+                CHECK(obtained_values == std::vector{5.0, 2.5});
             }
             if constexpr (!std::is_same_v<decltype(observable), rpp::dynamic_observable<int>>)
             {
