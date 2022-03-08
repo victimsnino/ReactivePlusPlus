@@ -27,66 +27,91 @@
 
 #include <array>
 
-SCENARIO("Benchmark bservable + observer", "[benchmark]")
+template<template<typename...> typename TObserver>
+auto MakeObserver()
 {
     std::array<int, 1> v{};
 
-    auto make_observer_and_observable = [&]()
+    return TObserver{[v](int)
     {
-        auto                 observer   = rpp::specific_observer{[v](int)
-        {
-            [[maybe_unused]] const auto& t = v;
-        }};
-        auto                 observable = rpp::observable::create<int>([v](const auto& sub)
-        {
-            sub.on_next(static_cast<int>(v.size()));
-        });
-        return std::tuple{observer, observable};
-    };
+        [[maybe_unused]] const auto& t = v;
+    }};
+}
 
+auto MakeSpecificObservable()
+{
+    std::array<int, 1> v{};
+
+    return rpp::make_specific_observable<int>([v](const auto& sub)
+    {
+        sub.on_next(static_cast<int>(v.size()));
+    });
+}
+
+auto MakeDynamicObservable()
+{
+    std::array<int, 1> v{};
+
+    return rpp::dynamic_observable<int>{[v](const auto& sub)
+    {
+        sub.on_next(static_cast<int>(v.size()));
+    }};
+}
+
+SCENARIO("Base benchmarks", "[benchmark]")
+{
     BENCHMARK("Specific observable construction")
     {
-        auto [observer, observable] = make_observer_and_observable();
-        return observable;
+        return MakeSpecificObservable();
     };
 
     BENCHMARK("Dynamic observable construction")
     {
-        auto [observer, observable] = make_observer_and_observable();
-
-        return observable.as_dynamic();
+        return MakeDynamicObservable();
     };
 
-    const auto tuple              = make_observer_and_observable();
-    const auto observer           = std::get<0>(tuple);
-    const auto observable         = std::get<1>(tuple);
-    const auto dynamic_observable = observable.as_dynamic();
-
-    BENCHMARK("Specific observable subscribe")
+    BENCHMARK("Specific observable construction + as_dynamic")
     {
-        return observable.subscribe(observer);
-    };
-    
-    BENCHMARK("Dynamic observable subscribe")
-    {
-        return dynamic_observable.subscribe(observer);
+        return MakeSpecificObservable().as_dynamic();
     };
 
-    BENCHMARK("OnNext", i)
+    BENCHMARK("Specific observer construction")
     {
-        observer.on_next(i);
+        return MakeObserver<rpp::specific_observer>();
+    };
+
+    BENCHMARK("Dynamic observer construction")
+    {
+        return MakeObserver<rpp::dynamic_observer>();
+    };
+
+    BENCHMARK("Specific observer construction + as_dynamic")
+    {
+        return MakeObserver<rpp::specific_observer>().as_dynamic();
+    };
+
+    auto specific_observer = MakeObserver<rpp::specific_observer>();
+    auto dynamic_observer  = MakeObserver<rpp::dynamic_observer>();
+
+    BENCHMARK("Specific observer OnNext", i)
+    {
+        specific_observer.on_next(i);
         return i;
     };
 
+    BENCHMARK("Dynamic observer OnNext", i)
+    {
+        dynamic_observer.on_next(i);
+        return i;
+    };
+
+    
     BENCHMARK("Make subsriber")
     {
         return rpp::specific_subscriber{[](const int&){}};
     };
 
-    auto sub = rpp::specific_subscriber{[v](const int&)
-    {
-        [[maybe_unused]] const auto& t = v;
-    }};
+    auto sub = rpp::specific_subscriber{ [](const int&) {} };
 
     BENCHMARK("Make copy of subscriber")
     {
@@ -98,6 +123,27 @@ SCENARIO("Benchmark bservable + observer", "[benchmark]")
     {
         return sub.as_dynamic();
     };
+
+     auto validate_observable = [](auto observable, const std::string& observable_prefix)
+    {
+        auto validate_with_observer = [&](const auto& observer, const std::string& observer_prefix)
+        {
+            BENCHMARK(observable_prefix+ " observable subscribe " + observer_prefix +" observer")
+            {
+                return observable.subscribe(observer);
+            };
+            BENCHMARK(observable_prefix + " observable lift " + observer_prefix +" observer")
+            {
+                auto res_observable = observable.template lift<int>([](const auto& v) { return v; });
+                return res_observable.subscribe(observer);
+            };
+        };
+        validate_with_observer(MakeObserver<rpp::specific_observer>(), "specific");
+        validate_with_observer(MakeObserver<rpp::dynamic_observer>(), "dynamic");
+    };
+
+    validate_observable(MakeSpecificObservable(), "Specific");
+    validate_observable(MakeDynamicObservable(), "Dynamic");
 }
 
 SCENARIO("Misc benchmarks", "[misc_benchmark]")
@@ -114,5 +160,4 @@ SCENARIO("Misc benchmarks", "[misc_benchmark]")
     BENCHMARK("Copy  std::function") { return as_function; };
 
     BENCHMARK("Make shared  copy of lambda"){return std::make_shared<std::remove_reference_t<decltype(empty_lambda)>>(empty_lambda); };
-
 }
