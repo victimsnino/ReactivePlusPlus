@@ -70,10 +70,10 @@ SCENARIO("Base benchmarks", "[benchmark]")
         return MakeDynamicObservable();
     };
 
-    //BENCHMARK("Specific observable construction as_dynamic")
-    //{
-    //    return MakeSpecificObservable().as_dynamic();
-    //};
+    BENCHMARK("Specific observable construction as_dynamic")
+    {
+        return MakeSpecificObservable().as_dynamic();
+    };
 
     BENCHMARK("Specific observer construction")
     {
