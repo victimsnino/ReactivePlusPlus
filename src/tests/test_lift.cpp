@@ -23,9 +23,9 @@
 #include "copy_count_tracker.h"
 
 #include <catch2/catch_test_macros.hpp>
-
 #include <rpp/observable.h>
 #include <rpp/subscriber.h>
+#include <rpp/observers/state_observer.h>
 
 SCENARIO("Observable can be lifted")
 {
@@ -35,14 +35,19 @@ SCENARIO("Observable can be lifted")
         WHEN("Call lift")
         {
             int  calls_internal = 0;
-            auto lift_action = [&](const auto& sub)
+            auto lift_action    = [&](const auto& sub)
             {
-                return rpp::specific_subscriber{ sub.get_subscription(),
-                                                [&calls_internal, sub](int val)
-                                                {
-                                                    ++calls_internal;
-                                                    sub.on_next(val);
-                                                } };
+                return rpp::specific_subscriber{sub.get_subscription(),
+                                                rpp::details::state_observer{sub,
+                                                                             [&calls_internal](int                  val,
+                                                                                               const decltype(sub)& sub)
+                                                                             {
+                                                                                 ++calls_internal;
+                                                                                 sub.on_next(val);
+                                                                             },
+                                                                             [](const std::exception_ptr&,
+                                                                                const auto&              ) {},
+                                                                             [](const auto&              ) {}}};
             };
             auto new_observable = observable.template lift<int>(lift_action);
 

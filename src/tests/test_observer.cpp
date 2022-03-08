@@ -20,7 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include "copy_count_tracker.h"
 #include "mock_observer.h"
+#include "rpp/observers/state_observer.h"
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -121,5 +123,46 @@ SCENARIO("Any observer can be casted to dynamic_observer")
     GIVEN("mock_observer")
     {
         validate_observer(mock_observer<int>{});
+    }
+}
+
+SCENARIO("State observer")
+{
+    GIVEN("state")
+    {
+        auto state = copy_count_tracker{};
+        auto make_observer = [](auto&& state)
+        {
+              auto observer = rpp::details::state_observer{std::forward<decltype(state)>(state),
+                                                         [](int, const copy_count_tracker&) {},
+                                                         [](const std::exception_ptr&, const copy_count_tracker&) {},
+                                                         [](const copy_count_tracker&) {}};
+            static_assert(std::is_same_v<rpp::utils::extract_observer_type_t<decltype(observer)>, int>);
+
+            observer.on_next(1);
+            observer.on_error(std::make_exception_ptr(std::exception{}));
+            observer.on_completed();
+        };
+
+        WHEN("pass it to state_observer")
+        {
+            make_observer(state);
+
+            THEN("no extra copies")
+            {
+                CHECK(state.get_copy_count() == 1);
+                CHECK(state.get_move_count() == 0);
+            }
+        }
+        WHEN("move it to state_observer")
+        {
+            make_observer(std::move(state));
+
+            THEN("no extra copies")
+            {
+                CHECK(state.get_copy_count() == 0);
+                CHECK(state.get_move_count() == 1);
+            }
+        }
     }
 }

@@ -35,7 +35,7 @@ template<typename T,
          typename OnNext = utils::empty_function_t<T>,
          typename OnError = utils::empty_function_t<std::exception_ptr>,
          typename OnCompleted = utils::empty_function_t<>>
-class specific_observer : public interface_observer<T>
+class specific_observer final : public interface_observer<T>
 {
 public:
     template<typename TOnNext      = utils::empty_function_t<T>,

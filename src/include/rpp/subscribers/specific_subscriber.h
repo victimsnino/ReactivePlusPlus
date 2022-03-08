@@ -101,6 +101,9 @@ private:
 template<template<typename...> typename TObs, typename ...Args, typename = std::enable_if_t<utils::is_observer_v<TObs<Args...>>>>
 specific_subscriber(TObs<Args...> observer) -> specific_subscriber<utils::extract_observer_type_t<TObs<Args...>>, TObs<Args...>>;
 
+template<template<typename...> typename TObs, typename ...Args, typename = std::enable_if_t<utils::is_observer_v<TObs<Args...>>>>
+specific_subscriber(subscription, TObs<Args...> observer) -> specific_subscriber<utils::extract_observer_type_t<TObs<Args...>>, TObs<Args...>>;
+
 template<typename OnNext,
          typename ...Args,
          typename Type = std::decay_t<utils::function_argument_t<OnNext>>>

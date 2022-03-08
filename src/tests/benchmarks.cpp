@@ -105,7 +105,6 @@ SCENARIO("Base benchmarks", "[benchmark]")
         return i;
     };
 
-    
     BENCHMARK("Make subsriber")
     {
         return rpp::specific_subscriber{[](const int&){}};
@@ -124,7 +123,7 @@ SCENARIO("Base benchmarks", "[benchmark]")
         return sub.as_dynamic();
     };
 
-     auto validate_observable = [](auto observable, const std::string& observable_prefix)
+    auto validate_observable = [](auto observable, const std::string& observable_prefix)
     {
         auto validate_with_observer = [&](const auto& observer, const std::string& observer_prefix)
         {
