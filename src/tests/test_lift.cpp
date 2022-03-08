@@ -29,32 +29,27 @@
 
 SCENARIO("Observable can be lifted")
 {
-    GIVEN("Observable")
+    auto verifier = copy_count_tracker{};
+    auto validate = [&](auto observable)
     {
-        auto verifier   = copy_count_tracker{};
-        auto observable = rpp::observable::create<int>([verifier](const auto& sub)
-        {
-            sub.on_next(10);
-            sub.on_next(5);
-            sub.on_completed();
-        });
         WHEN("Call lift")
         {
-            int calls_internal = 0;
+            int  calls_internal = 0;
             auto new_observable = observable.lift<int>([&](auto sub)
             {
-                return rpp::specific_subscriber{sub.get_subscription(), [&, sub](int val)
-                {
-                    ++calls_internal;
-                    sub.on_next(val);
-                }};
+                return rpp::specific_subscriber{sub.get_subscription(),
+                                                [&calls_internal, sub](int val)
+                                                {
+                                                    ++calls_internal;
+                                                    sub.on_next(val);
+                                                }};
             });
 
             AND_WHEN("subscribe unsubscribed subscriber")
             {
                 int calls_external = 0;
 
-                auto subscriber = rpp::specific_subscriber{[&](int){++calls_external;}};
+                auto subscriber = rpp::specific_subscriber{[&](int) { ++calls_external; }};
                 subscriber.unsubscribe();
 
                 new_observable.subscribe(subscriber);
@@ -73,22 +68,26 @@ SCENARIO("Observable can be lifted")
 
             auto new_observable = observable.lift([](rpp::dynamic_subscriber<double> sub)
             {
-                return rpp::dynamic_subscriber{sub.get_subscription(), [sub](int val)
-                {
-                    sub.on_next(static_cast<double>(val) / 2);
-                }};
+                return rpp::dynamic_subscriber{sub.get_subscription(),
+                                               [sub](int val)
+                                               {
+                                                   sub.on_next(static_cast<double>(val) / 2);
+                                               }};
             });
             THEN("On subscribe obtain modified values")
             {
-                std::vector<double> obtained_values{};
-                new_observable.subscribe([&](double v) { obtained_values.push_back(v);});
+                std::vector<double>                 obtained_values{};
+                new_observable.subscribe([&](double v) { obtained_values.push_back(v); });
 
                 CHECK(obtained_values == std::vector{5, 2.5});
             }
-            AND_THEN("One copy to lambda + one move to new observable")
+            if constexpr (!std::is_same_v<decltype(observable), rpp::dynamic_observable<int>>)
             {
-                CHECK(verifier.get_copy_count() == initial_copy_count +1);
-                CHECK(verifier.get_move_count() == initial_move_count +1);
+                AND_THEN("One copy to lambda + one move to new observable")
+                {
+                    CHECK(verifier.get_copy_count() == initial_copy_count +1);
+                    CHECK(verifier.get_move_count() == initial_move_count +1);
+                }
             }
         }
         WHEN("Call lift as rvalue")
@@ -98,23 +97,41 @@ SCENARIO("Observable can be lifted")
 
             auto new_observable = std::move(observable).lift([](rpp::dynamic_subscriber<double> sub)
             {
-                return rpp::specific_subscriber{sub.get_subscription(), [sub](int val)
-                {
-                    sub.on_next(static_cast<double>(val) / 2);
-                }};
+                return rpp::specific_subscriber{sub.get_subscription(),
+                                                [sub](int val)
+                                                {
+                                                    sub.on_next(static_cast<double>(val) / 2);
+                                                }};
             });
             THEN("On subscribe obtain modified values")
             {
-                std::vector<double> obtained_values{};
-                new_observable.subscribe([&](double v) { obtained_values.push_back(v);});
+                std::vector<double>                 obtained_values{};
+                new_observable.subscribe([&](double v) { obtained_values.push_back(v); });
 
                 CHECK(obtained_values == std::vector{5, 2.5});
             }
-            AND_THEN("One move to lambda + one move to new observable")
+            if constexpr (!std::is_same_v<decltype(observable), rpp::dynamic_observable<int>>)
             {
-                CHECK(verifier.get_copy_count() == initial_copy_count);
-                CHECK(verifier.get_move_count() == initial_move_count +2);
+                AND_THEN("One move to lambda + one move to new observable")
+                {
+                    CHECK(verifier.get_copy_count() == initial_copy_count);
+                    CHECK(verifier.get_move_count() == initial_move_count +2);
+                }
             }
         }
-    }
+    };
+
+
+    auto observable = rpp::observable::create<int>([verifier](const auto& sub)
+    {
+        sub.on_next(10);
+        sub.on_next(5);
+        sub.on_completed();
+    });
+
+    GIVEN("Observable")
+        validate(observable);
+
+    GIVEN("DynamicObservable")
+        validate(observable.as_dynamic());
 }
