@@ -22,6 +22,8 @@
 
 #pragma once
 
+#include <rpp/observers/state_observer.h>
+
 #include <rpp/fwd.h>
 #include <rpp/subscriber.h>
 #include <rpp/utils/type_traits.h>
@@ -29,7 +31,31 @@
 #include <type_traits>
 
 namespace rpp
-{
+{namespace details {
+    template<typename NewType, typename OnNext, typename OnError, typename OnCompleted>
+    static auto make_lift_action_by_callbacks(OnNext&& on_next, OnError&& on_error, OnCompleted&& on_completed)
+    {
+        return [on_next = std::forward<OnNext>(on_next),
+                on_error = std::forward<OnError>(on_error),
+                on_completed = std::forward<OnCompleted>(on_completed)](auto&& subscriber)
+        {
+            using SubType = decltype(subscriber);
+            auto subscription = subscriber.get_subscription();
+            return specific_subscriber
+            {
+                subscription,
+                rpp::details::state_observer<std::decay_t<NewType>, std::decay_t<SubType>, std::decay_t<OnNext>, std::decay_t<OnError>, std::decay_t<OnCompleted>>
+                {
+                    std::forward<SubType>(subscriber),
+                    on_next,
+                    on_error,
+                    on_completed
+                }
+            };
+        };
+    }
+}
+
 template<typename Type>
 struct virtual_observable
 {
@@ -48,14 +74,16 @@ private:
     static constexpr bool is_callable_returns_subscriber_of_same_type_v = std::is_same_v<Type, utils::extract_subscriber_type_t<std::invoke_result_t<OperatorFn, dynamic_subscriber<NewType>>>>;
 public:
     template<typename NewType,
-             typename OperatorFn>
+             typename OperatorFn,
+             typename = std::enable_if_t<std::is_invocable_v<OperatorFn, dynamic_subscriber<NewType>>>>
     auto lift(OperatorFn&& op) const &
     {
         return lift_impl<NewType>(std::forward<OperatorFn>(op), CastThis());
     }
 
     template<typename NewType,
-             typename OperatorFn>
+             typename OperatorFn,
+             typename = std::enable_if_t<std::is_invocable_v<OperatorFn, dynamic_subscriber<NewType>>>>
     auto lift(OperatorFn&& op) &&
     {
         return lift_impl<NewType>(std::forward<OperatorFn>(op), MoveThis());
@@ -63,7 +91,8 @@ public:
 
     template<typename OperatorFn,
              typename SubscriberType = utils::function_argument_t<OperatorFn>,
-             typename NewType = utils::extract_subscriber_type_t<SubscriberType>>
+             typename NewType = utils::extract_subscriber_type_t<SubscriberType>,
+             typename = std::enable_if_t<std::is_invocable_v<OperatorFn, dynamic_subscriber<NewType>>>>
     auto lift(OperatorFn&& op) const &
     {
         return lift_impl<NewType>(std::forward<OperatorFn>(op), CastThis());
@@ -71,13 +100,67 @@ public:
 
     template<typename OperatorFn,
              typename SubscriberType = utils::function_argument_t<OperatorFn>,
-             typename NewType = utils::extract_subscriber_type_t<SubscriberType>>
+             typename NewType = utils::extract_subscriber_type_t<SubscriberType>,
+             typename = std::enable_if_t<std::is_invocable_v<OperatorFn, dynamic_subscriber<NewType>>>>
     auto lift(OperatorFn&& op) &&
     {
         return lift_impl<NewType>(std::forward<OperatorFn>(op), MoveThis());
     }
 
+    template<typename OnNext,
+             typename OnError = details::forwarding_on_error,
+             typename OnCompleted = details::forwarding_on_completed,
+             typename NewType = std::decay_t<utils::function_argument_t<OnNext>>,
+             typename = std::enable_if_t<std::is_invocable_v<OnNext, NewType, dynamic_subscriber<Type>>>>
+    auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const &
+    {
+        return lift<NewType>(std::forward<OnNext>(on_next),
+                             std::forward<OnError>(on_error),
+                             std::forward<OnCompleted>(on_completed));
+    }
+
+    template<typename OnNext,
+             typename OnError = details::forwarding_on_error,
+             typename OnCompleted = details::forwarding_on_completed,
+             typename NewType = std::decay_t<utils::function_argument_t<OnNext>>,
+             typename = std::enable_if_t<std::is_invocable_v<OnNext, NewType, dynamic_subscriber<Type>>>>
+        auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) &&
+    {
+        return std::move(*this).template lift<NewType>(std::forward<OnNext>(on_next),
+                                                       std::forward<OnError>(on_error),
+                                                       std::forward<OnCompleted>(on_completed));
+    }
+
+    template<typename NewType,
+             typename OnNext,
+             typename OnError = details::forwarding_on_error,
+             typename OnCompleted = details::forwarding_on_completed,
+             typename = std::enable_if_t<std::is_invocable_v<OnNext, NewType, dynamic_subscriber<Type>>>>
+    auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const &
+    {
+        return lift_impl<NewType>(details::make_lift_action_by_callbacks<NewType>(std::forward<OnNext>(on_next),
+                                                                                  std::forward<OnError>(on_error),
+                                                                                  std::forward<
+                                                                                      OnCompleted>(on_completed)),
+                                  CastThis());
+    }
+
+    template<typename NewType,
+             typename OnNext,
+             typename OnError = details::forwarding_on_error,
+             typename OnCompleted = details::forwarding_on_completed,
+             typename = std::enable_if_t<std::is_invocable_v<OnNext, NewType, dynamic_subscriber<Type>>>>
+    auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) &&
+    {
+        return lift_impl<NewType>(details::make_lift_action_by_callbacks<NewType>(std::forward<OnNext>(on_next),
+                                                                                  std::forward<OnError>(on_error),
+                                                                                  std::forward<
+                                                                                      OnCompleted>(on_completed)),
+                                  MoveThis());
+    }
+    
 private:
+
     const SpecificObservable& CastThis() const
     {
         return *static_cast<const SpecificObservable*>(this);

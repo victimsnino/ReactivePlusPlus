@@ -31,20 +31,32 @@
 
 namespace rpp::details
 {
+struct forwarding_on_error
+{
+    template<typename TSub>
+    void operator()(const std::exception_ptr& err, TSub&& sub) const {sub.on_error(err);};
+};
+
+struct forwarding_on_completed
+{
+    template<typename TSub>
+    void operator()(TSub&& sub) const {sub.on_completed();};
+};
+
 template<typename T,
          typename State,
-         typename OnNext = utils::empty_function_t<T, State>,
-         typename OnError = utils::empty_function_t<std::exception_ptr, State>,
-         typename OnCompleted = utils::empty_function_t<State>>
+         typename OnNext,
+         typename OnError = forwarding_on_error,
+         typename OnCompleted = forwarding_on_completed>
 class state_observer final : public interface_observer<T>
 {
 public:
     template<typename TState,
-             typename TOnNext = utils::empty_function_t<T, State>,
-             typename TOnError = utils::empty_function_t<std::exception_ptr, State>,
-             typename TOnCompleted = utils::empty_function_t<State>,
+             typename TOnNext,
+             typename TOnError = forwarding_on_error,
+             typename TOnCompleted = forwarding_on_completed,
              typename = std::enable_if_t<std::is_invocable_v<TOnNext, T, State> && std::is_invocable_v<TOnError, std::exception_ptr, State> && std::is_invocable_v<TOnCompleted, State>>>
-    state_observer(TState&& state, TOnNext&& on_next = {}, TOnError&& on_error = {}, TOnCompleted&& on_completed = {})
+    state_observer(TState&& state, TOnNext&& on_next, TOnError&& on_error = {}, TOnCompleted&& on_completed = {})
         : m_state{std::forward<TState>(state)}
         , m_on_next{std::forward<TOnNext>(on_next)}
         , m_on_err{std::forward<TOnError>(on_error)}
