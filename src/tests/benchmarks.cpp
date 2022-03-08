@@ -137,7 +137,8 @@ SCENARIO("Observable + observer becnhmarks", "[benchmark]")
             };
             BENCHMARK(observable_prefix + " observable lift " + observer_prefix +" observer")
             {
-                return observable.lift<int>([](const auto& v) { return v; }).subscribe(observer);
+                auto res_observable = observable.template lift<int>([](const auto& v) { return v; });
+                return res_observable.subscribe(observer);
             };
         };
         validate_with_observer(MakeObserver<rpp::specific_observer>(), "specific");

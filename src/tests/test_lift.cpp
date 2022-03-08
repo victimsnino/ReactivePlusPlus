@@ -35,15 +35,16 @@ SCENARIO("Observable can be lifted")
         WHEN("Call lift")
         {
             int  calls_internal = 0;
-            auto new_observable = observable.lift<int>([&](auto sub)
+            auto lift_action = [&](const auto& sub)
             {
-                return rpp::specific_subscriber{sub.get_subscription(),
+                return rpp::specific_subscriber{ sub.get_subscription(),
                                                 [&calls_internal, sub](int val)
                                                 {
                                                     ++calls_internal;
                                                     sub.on_next(val);
-                                                }};
-            });
+                                                } };
+            };
+            auto new_observable = observable.template lift<int>(lift_action);
 
             AND_WHEN("subscribe unsubscribed subscriber")
             {
