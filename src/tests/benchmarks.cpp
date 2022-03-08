@@ -123,11 +123,8 @@ SCENARIO("Base benchmarks", "[benchmark]")
     {
         return sub.as_dynamic();
     };
-}
 
-SCENARIO("Observable + observer becnhmarks", "[benchmark]")
-{
-    auto validate_observable = [](auto observable, const std::string& observable_prefix)
+     auto validate_observable = [](auto observable, const std::string& observable_prefix)
     {
         auto validate_with_observer = [&](const auto& observer, const std::string& observer_prefix)
         {
