@@ -73,6 +73,7 @@ private:
              typename OperatorFn>
     static constexpr bool is_callable_returns_subscriber_of_same_type_v = std::is_same_v<Type, utils::extract_subscriber_type_t<std::invoke_result_t<OperatorFn, dynamic_subscriber<NewType>>>>;
 public:
+    // ********************************* LIFT DIRECT TYPE + OPERATOR: SUBSCRIBER -> SUBSCRIBER ******************//
     template<typename NewType,
              typename OperatorFn,
              typename = std::enable_if_t<std::is_invocable_v<OperatorFn, dynamic_subscriber<NewType>>>>
@@ -89,13 +90,14 @@ public:
         return lift_impl<NewType>(std::forward<OperatorFn>(op), MoveThis());
     }
 
+    // ********************************* LIFT OPERATOR: SUBSCRIBER -> SUBSCRIBER ******************//
     template<typename OperatorFn,
              typename SubscriberType = utils::function_argument_t<OperatorFn>,
              typename NewType = utils::extract_subscriber_type_t<SubscriberType>,
              typename = std::enable_if_t<std::is_invocable_v<OperatorFn, dynamic_subscriber<NewType>>>>
     auto lift(OperatorFn&& op) const &
     {
-        return lift_impl<NewType>(std::forward<OperatorFn>(op), CastThis());
+        return lift<NewType>(std::forward<OperatorFn>(op));
     }
 
     template<typename OperatorFn,
@@ -104,9 +106,10 @@ public:
              typename = std::enable_if_t<std::is_invocable_v<OperatorFn, dynamic_subscriber<NewType>>>>
     auto lift(OperatorFn&& op) &&
     {
-        return lift_impl<NewType>(std::forward<OperatorFn>(op), MoveThis());
+        return std::move(*this).template lift<NewType>(std::forward<OperatorFn>(op));
     }
 
+    // ********************************* LIFT OnNext, Onerror, OnCompleted ******************//
     template<typename OnNext,
              typename OnError = details::forwarding_on_error,
              typename OnCompleted = details::forwarding_on_completed,
@@ -131,6 +134,8 @@ public:
                                                        std::forward<OnCompleted>(on_completed));
     }
 
+    // ********************************* LIFT Direct type + OnNext, Onerror, OnCompleted ******************//
+
     template<typename NewType,
              typename OnNext,
              typename OnError = details::forwarding_on_error,
@@ -140,8 +145,7 @@ public:
     {
         return lift_impl<NewType>(details::make_lift_action_by_callbacks<NewType>(std::forward<OnNext>(on_next),
                                                                                   std::forward<OnError>(on_error),
-                                                                                  std::forward<
-                                                                                      OnCompleted>(on_completed)),
+                                                                                  std::forward<OnCompleted>(on_completed)),
                                   CastThis());
     }
 
@@ -154,8 +158,7 @@ public:
     {
         return lift_impl<NewType>(details::make_lift_action_by_callbacks<NewType>(std::forward<OnNext>(on_next),
                                                                                   std::forward<OnError>(on_error),
-                                                                                  std::forward<
-                                                                                      OnCompleted>(on_completed)),
+                                                                                  std::forward<OnCompleted>(on_completed)),
                                   MoveThis());
     }
     

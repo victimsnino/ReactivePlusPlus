@@ -34,13 +34,13 @@ namespace rpp::details
 struct forwarding_on_error
 {
     template<typename TSub>
-    void operator()(const std::exception_ptr& err, TSub&& sub) const {sub.on_error(err);};
+    void operator()(const std::exception_ptr& err, TSub&& sub) const {sub.on_error(err);}
 };
 
 struct forwarding_on_completed
 {
     template<typename TSub>
-    void operator()(TSub&& sub) const {sub.on_completed();};
+    void operator()(TSub&& sub) const {sub.on_completed();}
 };
 
 template<typename T,
