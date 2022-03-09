@@ -92,10 +92,10 @@ jobs:
       run: python ${{github.workspace}}/ci/parse_benchmark_to_json.py ${{github.workspace}}/build/test_results/benchmark_result.txt
 
     - name: Print the final result
-        shell: bash
-        run: |
-          value=`cat parsed.json`
-          echo The result is $value
+      shell: bash
+      run: |
+        value=`cat parsed.json`
+        echo The result is $value
 
     - name: Upload parsed results
       uses: actions/upload-artifact@v3
