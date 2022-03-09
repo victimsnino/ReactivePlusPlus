@@ -59,6 +59,7 @@ jobs:
       with:
         path: |
           ${{github.workspace}}/.ccache
+          ${{github.workspace}}/build
         key: ${{ matrix.config.name }}-ccache-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
         restore-keys: |
           ${{ matrix.config.name }}-ccache-
@@ -121,7 +122,7 @@ jobs:
       run: pip3 install plotly
 
     - name: Process benchmarks
-      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py $(git rev-parse --short "$GITHUB_SHA") ${{ github.event.head_commit.url }}
+      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${{ github.event.head_commit.id }} ${{ github.event.head_commit.url }}
 
     - name: Create html
       run: python3 ${{github.workspace}}/ci/create_graphs_for_benchmark_data.py
