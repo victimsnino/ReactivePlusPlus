@@ -21,14 +21,14 @@ with open("./gh-pages/results.json", 'r') as f:
     results = json.load(f)  
 
 for name, tests in results.items():
-    fig = make_subplots(rows=len(tests), cols=1, shared_xaxes=True, vertical_spacing=0.01)
+    fig = make_subplots(rows=len(tests), cols=1, shared_xaxes=True, subplot_titles=tests.keys())
 
     for test_name, data in tests.items():
         x = [v["hash"] for v in data]
         y = [v["val"] for v in data]
         fig.add_trace(go.Scatter(x=x, y=y, name=test_name), row=3, col=1,)
 
-    fig.update_layout(title_text="name", title_x=0.5)
+    fig.update_layout(title_text=name, title_x=0.5, showlegend=False)
     fig.update_xaxes(title_text='Commit')
     fig.update_yaxes(title_text='Duration')
     dump_plot(fig)
