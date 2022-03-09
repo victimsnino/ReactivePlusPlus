@@ -3,7 +3,7 @@ import json
 import sys
 
 git_commit     = sys.argv[1] 
-# git_commit_url = sys.argv[2] 
+git_commit_message = sys.argv[2] if len(sys.argv) == 2 else "Current PR"
 
 print(git_commit)
 
@@ -22,7 +22,7 @@ for name, vals in new_results.items():
     old_results.setdefault(name, {})
     for test_name, val in vals.items():
         old_results[name].setdefault(test_name, [])
-        old_results[name][test_name].append({"hash" : git_commit, "url" : "zero", "val" :val})
+        old_results[name][test_name].append({"hash" : git_commit, "val" :val, "commit_message" : git_commit_message})
         
 with open("./gh-pages/results.json", 'w') as f:
     json.dump(old_results, f)

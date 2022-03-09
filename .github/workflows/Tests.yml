@@ -123,13 +123,13 @@ jobs:
       run: ls -R
 
     - name: Process benchmarks
-      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${GITHUB_SHA::8}
+      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${GITHUB_SHA::8} ${{github.event.head_commit.message}}
 
     - name: Install deps
       run: pip3 install plotly
 
     - name: Create html
-      run: python3 ${{github.workspace}}/ci/create_graphs_for_benchmark_data.py
+      run: python3 ${{github.workspace}}/ci/create_graphs_for_benchmark_data.py 
 
     - name: Upload html
       uses: actions/upload-artifact@v3
