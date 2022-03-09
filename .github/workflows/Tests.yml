@@ -126,12 +126,19 @@ jobs:
       run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${GITHUB_SHA::8} ${{github.event.head_commit.message}}
 
     - name: Compare results
-      run: python3 ${{github.workspace}}/ci/compare_results.py > temp.txt
-
+      run: |
+        python3 ${{github.workspace}}/ci/compare_results.py > comment-body.txt
+        body=$(cat comment-body.txt)
+        body="${body//'%'/'%25'}"
+        body="${body//$'\n'/'%0A'}"
+        body="${body//$'\r'/'%0D'}" 
+        echo ::set-output name=body::$body
+      id: results
+      
     - name: Create commit comment
       uses: peter-evans/commit-comment@v1
       with:
-        body: $(cat temp.txt)
+        body: ${{ steps.results.outputs.body }}
 
     - name: Install deps
       run: pip3 install plotly
