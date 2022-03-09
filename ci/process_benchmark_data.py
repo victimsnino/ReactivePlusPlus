@@ -14,8 +14,9 @@ for file in os.listdir(os.fsencode("./artifacts")):
         new_results[folder_with_results] = json.load(f)
 
 old_results = {}
-with open("./gh-pages/results.json", 'r') as f:
-    old_results = json.load(f)   
+if os.path.exists("./gh-pages/results.json"):
+    with open("./gh-pages/results.json", 'r') as f:
+        old_results = json.load(f)   
 
 for name, vals in new_results.items():
     old_results.setdefault(name, {})
