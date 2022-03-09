@@ -21,7 +21,7 @@ with open("./gh-pages/results.json", 'r') as f:
     results = json.load(f)  
 
 for name, tests in results.items():
-    fig = make_subplots(rows=len(tests), cols=1, shared_xaxes=True, subplot_titles=tests.keys())
+    fig = make_subplots(rows=len(tests), cols=1, shared_xaxes=True, subplot_titles=list(tests.keys()))
 
     for test_name, data in tests.items():
         x = [v["hash"] for v in data]
