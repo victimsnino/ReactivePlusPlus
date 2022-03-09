@@ -24,16 +24,19 @@ jobs:
            cc: "gcc"
            cxx: "g++"
            relative_path_bench: "build/bin/rpp_tests"
+           path_to_cache: ".ccache"
         -  name: "Linux CLANG"
            os: ubuntu-latest
            cc: "clang" 
            cxx: "clang++"
            relative_path_bench: "build/bin/rpp_tests"
+           path_to_cache: ".ccache"
         -  name: "Windows MSVC"
            os: windows-latest
            cc: "cl"
            cxx: "cl"
            relative_path_bench: "build/bin/Release/rpp_tests"
+           path_to_cache: "build"
 
     steps:
     - uses: actions/checkout@v2
@@ -58,8 +61,7 @@ jobs:
       uses: actions/cache@v1.1.0
       with:
         path: |
-          ${{github.workspace}}/.ccache
-          ${{github.workspace}}/build
+          ${{github.workspace}}/${{ matrix.config.path_to_cache }}
         key: ${{ matrix.config.name }}-ccache-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
         restore-keys: |
           ${{ matrix.config.name }}-ccache-
@@ -122,7 +124,7 @@ jobs:
       run: pip3 install plotly
 
     - name: Process benchmarks
-      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${{ github.event.head_commit.id }} ${{ github.event.head_commit.url }}
+      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${{github.event.head_commit.id}} ${{github.event.head_commit.url}}
 
     - name: Create html
       run: python3 ${{github.workspace}}/ci/create_graphs_for_benchmark_data.py
