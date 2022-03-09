@@ -70,7 +70,7 @@ SCENARIO("Base benchmarks", "[benchmark]")
         return MakeDynamicObservable();
     };
 
-    BENCHMARK("Specific observable construction as_dynamic")
+    BENCHMARK("Specific observable construction + as_dynamic")
     {
         return MakeSpecificObservable().as_dynamic();
     };
@@ -85,7 +85,7 @@ SCENARIO("Base benchmarks", "[benchmark]")
         return MakeObserver<rpp::dynamic_observer>();
     };
 
-    BENCHMARK("Specific observer construction as_dynamic")
+    BENCHMARK("Specific observer construction + as_dynamic")
     {
         return MakeObserver<rpp::specific_observer>().as_dynamic();
     };
