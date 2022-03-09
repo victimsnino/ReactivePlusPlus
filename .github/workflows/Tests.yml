@@ -144,3 +144,9 @@ jobs:
       with:
         github_token: ${{ secrets.TOKEN }}
         publish_dir: ./gh-pages
+    
+    - name: Create commit comment
+      uses: peter-evans/commit-comment@v1
+      with:
+        body: |
+          Hello! **BOLD** TEXT!
