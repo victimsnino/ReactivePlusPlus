@@ -126,17 +126,18 @@ jobs:
       run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${GITHUB_SHA::8} ${{github.event.head_commit.message}}
 
     - name: Compare results
-      run: echo "DIFF_RESULT=$(git status)" >> $GITHUB_ENV
+      run: |
+        echo "::set-output name=RESULT::$(python3 ${{github.workspace}}/ci/compare_results.py)"
+      id: compare_results
 
     - name: Create commit comment
       uses: peter-evans/commit-comment@v1
       with:
-        body: ${{env.DIFF_RESULT}}
+        body:${{ steps.compare_results.outputs.RESULT }}
 
     - name: Install deps
       run: pip3 install plotly
       if: github.event_name != 'pull_request'
-
 
     - name: Create html
       run: python3 ${{github.workspace}}/ci/create_graphs_for_benchmark_data.py 
