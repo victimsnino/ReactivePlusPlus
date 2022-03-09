@@ -120,11 +120,11 @@ jobs:
         token: ${{ secrets.TOKEN }}
         path: gh-pages
 
-    - name: Install deps
-      run: pip3 install plotly
-
     - name: Process benchmarks
       run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${GITHUB_SHA::8}
+
+    - name: Install deps
+      run: pip3 install plotly
 
     - name: Create html
       run: python3 ${{github.workspace}}/ci/create_graphs_for_benchmark_data.py

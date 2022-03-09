@@ -5,10 +5,12 @@ import sys
 git_commit     = sys.argv[1] 
 # git_commit_url = sys.argv[2] 
 
+print(git_commit)
+
 new_results = {}
 for file in os.listdir(os.fsencode("./artifacts")):
      folder_with_results = os.fsdecode(file)
-     with open(f'./{folder_with_results}/results.json', 'r') as f:
+     with open(f'./artifacts/{folder_with_results}/results.json', 'r') as f:
         new_results[folder_with_results] = json.load(f)
 
 old_results = {}
