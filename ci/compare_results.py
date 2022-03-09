@@ -8,9 +8,9 @@ for name, tests in results.items():
     print("Test Name | Current, ns | Prev, ns | Ratio")
     print("--- | --- | ---")
     for test_name, data in tests.items():
-        new_value = data[-1]['val']
-        old_value = data[-2]['val'] if len(data)> 1 else '-'
-        ration = new_value/old_value if old_value != '-' else '-'
-        print(f"{test_name} | { data[-1]['val'] } | { data[-2]['val'] if len(data)> 1 else '-' }")
+        new_value = f"{data[-1]['val']}ns"
+        old_value = f"{data[-2]['val']}ns" if len(data)> 1 else '-'
+        ratio     = data[-1]['val']/data[-2]['val'] if len(data)> 1 else '-'
+        print(f"{test_name} | { new_value } | { old_value } | {ratio}")
     
     print("")
