@@ -135,12 +135,17 @@ jobs:
 
     - name: Install deps
       run: pip3 install plotly
+      if: github.event_name != 'pull_request'
+
 
     - name: Create html
       run: python3 ${{github.workspace}}/ci/create_graphs_for_benchmark_data.py 
+      if: github.event_name != 'pull_request'
+
 
     - name: Upload html
       uses: actions/upload-artifact@v3
+      if: github.event_name != 'pull_request'
       with:
         name: benchmark.html
         path: ./gh-pages/benchmark.html
