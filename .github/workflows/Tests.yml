@@ -127,7 +127,7 @@ jobs:
 
     - name: Compare results
       run: |
-        echo "::set-output name=RESULT::$(python3 ${{github.workspace}}/ci/compare_results.py)"
+        echo "::set-output name=RESULT::\"$(python3 ${{github.workspace}}/ci/compare_results.py)\""
       id: compare_results
 
     - name: Create commit comment
