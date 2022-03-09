@@ -24,8 +24,8 @@ for name, tests in results.items():
     fig = make_subplots(rows=len(tests), cols=1, shared_xaxes=True, subplot_titles=list(tests.keys()))
 
     for test_name, data in tests.items():
-        x = [v["hash"] for v in data, "t"]
-        y = [v["val"] for v in data, 10]
+        x = [v["hash"] for v in data] + ["t"]
+        y = [v["val"] for v in data] + [10]
         fig.add_trace(go.Scatter(x=x, y=y, name=test_name), row=3, col=1,)
 
     fig.update_layout(title_text=name, title_x=0.5, showlegend=False)
