@@ -10,6 +10,7 @@ on:
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
+  CMAKE_BUILD_PARALLEL_LEVEL: 2
 
 jobs:
   build:
@@ -97,7 +98,7 @@ jobs:
     - name: Upload parsed results
       uses: actions/upload-artifact@v3
       with:
-        name: parsed-results-${{ matrix.config.name }}
+        name: ${{ matrix.config.name }}
         path: parsed.json
 
   process:
@@ -119,6 +120,8 @@ jobs:
         ref: gh-pages
         token: ${{ secrets.TOKEN }}
         path: gh-pages
+    - name: Log
+      run: ls -R
 
     - name: Process benchmarks
       run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${GITHUB_SHA::8}
