@@ -8,7 +8,7 @@ for name, tests in results.items():
     print("<details>")
     print("<summary>Table</summary>")
     print("Test Name | Current, ns | Prev, ns | Ratio")
-    print("--- | --- | ---")
+    print("--- | --- | --- | ---")
     for test_name, data in tests.items():
         new_value = f"{data[-1]['val']}ns"
         old_value = f"{data[-2]['val']}ns" if len(data)> 1 else '-'
