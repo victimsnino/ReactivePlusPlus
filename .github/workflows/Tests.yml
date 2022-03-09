@@ -103,9 +103,9 @@ jobs:
         name: parsed-results-${{ matrix.config.name }}
         path: parsed.json
 
-  build:
+  process:
     name: Process benchmark results
-    needs: job_1
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Download all workflow run artifacts
