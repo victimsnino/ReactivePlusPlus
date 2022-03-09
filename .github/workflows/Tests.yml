@@ -121,4 +121,4 @@ jobs:
       run: pip3 install plotly
 
     - name: Process benchmarks
-      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py $(git rev-parse --short "$GITHUB_SHA")
+      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py $(git rev-parse --short "$GITHUB_SHA") $(github.event.commits[0][url])
