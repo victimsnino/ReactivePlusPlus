@@ -121,4 +121,13 @@ jobs:
       run: pip3 install plotly
 
     - name: Process benchmarks
-      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py $(git rev-parse --short "$GITHUB_SHA") $(github.event.commits[0][url])
+      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py $(git rev-parse --short "$GITHUB_SHA") ${{ github.event.head_commit.url }}
+
+    - name: Create html
+      run: python3 ${{github.workspace}}/ci/create_graphs_for_benchmark_data.py
+
+    - name: Upload html
+      uses: actions/upload-artifact@v3
+      with:
+        name: benchmark.html
+        path: ./gh-pages/benchmark.html
