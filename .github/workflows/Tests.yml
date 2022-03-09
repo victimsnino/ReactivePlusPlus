@@ -40,7 +40,8 @@ jobs:
 
     steps:
     - name: Temp
-      run: echo ${{github.event.head_commit.id}}
+      run: echo "${{github.event.head_commit.id}}"
+
     - uses: actions/checkout@v2
       with:
         submodules: true
