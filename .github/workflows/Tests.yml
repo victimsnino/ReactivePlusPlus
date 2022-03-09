@@ -39,14 +39,15 @@ jobs:
            path_to_cache: "build"
 
     steps:
-    - name: Temp
-      run: echo "$(git rev-parse --short "$GITHUB_SHA")"
-
     - uses: actions/checkout@v2
       with:
         submodules: true
         token: ${{ secrets.TOKEN }}
         
+      
+    - name: Temp
+      run: echo "$(git rev-parse --short "$GITHUB_SHA")"
+
     - name: Setup ccache
       uses: Chocobo1/setup-ccache-action@v1
       with:
@@ -127,7 +128,7 @@ jobs:
       run: pip3 install plotly
 
     - name: Process benchmarks
-      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${{github.event.head_commit.id}} ${{github.event.head_commit.url}}
+      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py $(git rev-parse --short "$GITHUB_SHA")
 
     - name: Create html
       run: python3 ${{github.workspace}}/ci/create_graphs_for_benchmark_data.py
