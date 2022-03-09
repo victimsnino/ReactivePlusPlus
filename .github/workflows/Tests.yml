@@ -108,10 +108,10 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Download all workflow run artifacts
+    - name: Download all workflow run artifacts
       uses: actions/download-artifact@v3
 
-      - name: Print the final result
+    - name: Print the final result
       shell: bash
       run: |
         value=`ls`
