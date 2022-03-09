@@ -85,24 +85,34 @@ jobs:
         reporter: java-junit
 
     - name: Run benchmarks only
-      run: ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] > ${{github.workspace}}/build/test_results/benchmark_result.txt
+      run: ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] -r xml -o ${{github.workspace}}/build/test_results/benchmark_result.txt
       if: matrix.config.relative_path_bench != ''
 
-    - name: Store benchmark result
-      uses: benchmark-action/github-action-benchmark@v1
-      if: matrix.config.relative_path_bench  != ''
+    - name: Process results
+      run: python ${{github.workspace}}/ci/parse_benchmark_to_json.py ${{github.workspace}}/build/test_results/benchmark_result.txt
+
+    - name: Print the final result
+        shell: bash
+        run: |
+          value=`cat parsed.json`
+          echo The result is $value
+
+    - name: Upload parsed results
+      uses: actions/upload-artifact@v3
       with:
-        name: Catch2 Benchmark ${{ matrix.config.name }}
-        tool: 'catch2'
-        output-file-path: ${{github.workspace}}/build/test_results/benchmark_result.txt
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        auto-push: false
-        # Show alert with commit comment on detecting possible performance regression
-        alert-threshold: '200%'
-        comment-on-alert: true
-        comment-always: true
-        fail-on-alert: false
-  
-    - name: Push benchmark result
-      if: github.event_name != 'pull_request' &&  matrix.config.relative_path_bench != ''
-      run: git push 'https://victimsnino:${{ secrets.GITHUB_TOKEN }}@github.com/victimsnino/ReactivePlusPlus.git' gh-pages:gh-pages
+        name: parsed-results-${{ matrix.config.name }}
+        path: parsed.json
+
+  build:
+    name: Process benchmark results
+    needs: job_1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v3
+
+      - name: Print the final result
+      shell: bash
+      run: |
+        value=`ls`
+        echo The result is $value
