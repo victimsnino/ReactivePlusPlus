@@ -91,12 +91,6 @@ jobs:
     - name: Process results
       run: python ${{github.workspace}}/ci/parse_benchmark_to_json.py ${{github.workspace}}/build/test_results/benchmark_result.txt
 
-    - name: Print the final result
-      shell: bash
-      run: |
-        value=`cat parsed.json`
-        echo The result is $value
-
     - name: Upload parsed results
       uses: actions/upload-artifact@v3
       with:
@@ -108,11 +102,23 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.TOKEN }}
+
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v3
+      with:
+        path: artifacts
+    
+    - uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        token: ${{ secrets.TOKEN }}
+        path: gh-pages
 
-    - name: Print the final result
-      shell: bash
-      run: |
-        value=`ls`
-        echo The result is $value
+    - name: Install deps
+      run: pip3 install plotly
+
+    - name: Process benchmarks
+      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py
