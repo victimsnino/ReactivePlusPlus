@@ -40,7 +40,7 @@ jobs:
 
     steps:
     - name: Temp
-      run: echo "${{github.event.head_commit.id}}"
+      run: echo "${{toJSON(github.event)}}"
 
     - uses: actions/checkout@v2
       with:
