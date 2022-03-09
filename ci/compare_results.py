@@ -5,6 +5,8 @@ with open("./gh-pages/results.json", 'r') as f:
 
 for name, tests in results.items():
     print(f"# {name}")
+    print("<details>")
+    print("<summary>Table</summary>")
     print("Test Name | Current, ns | Prev, ns | Ratio")
     print("--- | --- | ---")
     for test_name, data in tests.items():
@@ -12,5 +14,5 @@ for name, tests in results.items():
         old_value = f"{data[-2]['val']}ns" if len(data)> 1 else '-'
         ratio     = data[-1]['val']/data[-2]['val'] if len(data)> 1 else '-'
         print(f"{test_name} | { new_value } | { old_value } | {ratio}")
-    
+    print("</details>")
     print("")
