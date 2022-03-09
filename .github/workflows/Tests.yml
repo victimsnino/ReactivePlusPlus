@@ -126,14 +126,12 @@ jobs:
       run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${GITHUB_SHA::8} ${{github.event.head_commit.message}}
 
     - name: Compare results
-      run: |
-        echo "::set-output name=RESULT::\"$(python3 ${{github.workspace}}/ci/compare_results.py)\""
-      id: compare_results
+      run: python3 ${{github.workspace}}/ci/compare_results.py > temp.txt
 
     - name: Create commit comment
       uses: peter-evans/commit-comment@v1
       with:
-        body:${{ steps.compare_results.outputs.RESULT }}
+        body: $(cat temp.txt)
 
     - name: Install deps
       run: pip3 install plotly
