@@ -24,23 +24,26 @@ jobs:
            cc: "gcc"
            cxx: "g++"
            relative_path_bench: "build/bin/rpp_tests"
+           path_to_cache: ".ccache"
         -  name: "Linux CLANG"
            os: ubuntu-latest
            cc: "clang" 
            cxx: "clang++"
            relative_path_bench: "build/bin/rpp_tests"
+           path_to_cache: ".ccache"
         -  name: "Windows MSVC"
            os: windows-latest
            cc: "cl"
            cxx: "cl"
            relative_path_bench: "build/bin/Release/rpp_tests"
+           path_to_cache: "build"
 
     steps:
     - uses: actions/checkout@v2
       with:
         submodules: true
         token: ${{ secrets.TOKEN }}
-        
+
     - name: Setup ccache
       uses: Chocobo1/setup-ccache-action@v1
       with:
@@ -58,7 +61,7 @@ jobs:
       uses: actions/cache@v1.1.0
       with:
         path: |
-          ${{github.workspace}}/.ccache
+          ${{github.workspace}}/${{ matrix.config.path_to_cache }}
         key: ${{ matrix.config.name }}-ccache-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
         restore-keys: |
           ${{ matrix.config.name }}-ccache-
@@ -70,7 +73,7 @@ jobs:
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache
         
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 2
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 4
 
     - name: Test
       working-directory: ${{github.workspace}}/build
@@ -85,24 +88,77 @@ jobs:
         reporter: java-junit
 
     - name: Run benchmarks only
-      run: ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] > ${{github.workspace}}/build/test_results/benchmark_result.txt
+      run: ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] -r xml -o ${{github.workspace}}/build/test_results/benchmark_result.txt
       if: matrix.config.relative_path_bench != ''
 
-    - name: Store benchmark result
-      uses: benchmark-action/github-action-benchmark@v1
-      if: matrix.config.relative_path_bench  != ''
+    - name: Process results
+      run: python ${{github.workspace}}/ci/parse_benchmark_to_json.py ${{github.workspace}}/build/test_results/benchmark_result.txt
+
+    - name: Upload parsed results
+      uses: actions/upload-artifact@v3
       with:
-        name: Catch2 Benchmark ${{ matrix.config.name }}
-        tool: 'catch2'
-        output-file-path: ${{github.workspace}}/build/test_results/benchmark_result.txt
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        auto-push: false
-        # Show alert with commit comment on detecting possible performance regression
-        alert-threshold: '200%'
-        comment-on-alert: true
-        comment-always: true
-        fail-on-alert: false
-  
-    - name: Push benchmark result
-      if: github.event_name != 'pull_request' &&  matrix.config.relative_path_bench != ''
-      run: git push 'https://victimsnino:${{ secrets.GITHUB_TOKEN }}@github.com/victimsnino/ReactivePlusPlus.git' gh-pages:gh-pages
+        name: ${{ matrix.config.name }}
+        path: parsed.json
+
+  process:
+    name: Process benchmark results
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.TOKEN }}
+
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v3
+      with:
+        path: artifacts
+    
+    - uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        token: ${{ secrets.TOKEN }}
+        path: gh-pages
+    - name: Log
+      run: ls -R
+
+    - name: Process benchmarks
+      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${GITHUB_SHA::8} ${{github.event.head_commit.message}}
+
+    - name: Compare results
+      run: |
+        python3 ${{github.workspace}}/ci/compare_results.py > comment-body.txt
+        body=$(cat comment-body.txt)
+        body="${body//'%'/'%25'}"
+        body="${body//$'\n'/'%0A'}"
+        body="${body//$'\r'/'%0D'}" 
+        echo ::set-output name=body::$body
+      id: results
+      
+    - name: Create commit comment
+      uses: peter-evans/commit-comment@v1
+      with:
+        body: ${{ steps.results.outputs.body }}
+
+    - name: Install deps
+      run: pip3 install plotly
+      if: github.event_name != 'pull_request'
+
+    - name: Create html
+      run: python3 ${{github.workspace}}/ci/create_graphs_for_benchmark_data.py 
+      if: github.event_name != 'pull_request'
+
+
+    - name: Upload html
+      uses: actions/upload-artifact@v3
+      if: github.event_name != 'pull_request'
+      with:
+        name: benchmark.html
+        path: ./gh-pages/benchmark.html
+
+    - name: Deploy to github pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.event_name != 'pull_request'
+      with:
+        github_token: ${{ secrets.TOKEN }}
+        publish_dir: ./gh-pages
