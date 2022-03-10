@@ -43,6 +43,7 @@ jobs:
 
     - name: Setup cache
       uses: mikehardy/buildcache-action@v1
+      if: matrix.config.os != 'windows-latest'
       with:
         cache_key: ${{ matrix.config.name }}
       
