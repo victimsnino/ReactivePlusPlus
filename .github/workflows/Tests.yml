@@ -24,19 +24,16 @@ jobs:
            cc: "gcc"
            cxx: "g++"
            relative_path_bench: "build/bin/rpp_tests"
-           path_to_cache: ".ccache"
         -  name: "Linux CLANG"
            os: ubuntu-latest
            cc: "clang" 
            cxx: "clang++"
            relative_path_bench: "build/bin/rpp_tests"
-           path_to_cache: ".ccache"
         -  name: "Windows MSVC"
            os: windows-latest
            cc: "cl"
            cxx: "cl"
            relative_path_bench: "build/bin/Release/rpp_tests"
-           path_to_cache: "build"
 
     steps:
     - uses: actions/checkout@v2
