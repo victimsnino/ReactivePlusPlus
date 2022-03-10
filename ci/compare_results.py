@@ -14,7 +14,7 @@ for name, tests in results.items():
         new_value = f"{data[-1]['val']}ns"
         old_value = f"{data[-2]['val']}ns" if len(data)> 1 else '.'
         ratio     = float(data[-1]['val'])/float(data[-2]['val']) if len(data)> 1 else '.'
-        print(f"{test_name} | { new_value } | { old_value } | {ratio}")
+        print(f"{test_name} | { new_value:.2f } | { old_value:.2f } | {ratio:.2f}")
     print("")
     print("</details>")
     print("")
