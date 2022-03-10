@@ -93,7 +93,7 @@ TEST_CASE("Observer construction", "[benchmark]")
     {
         return MakeObserver<rpp::specific_observer>().as_dynamic();
     };
-};
+}
 
 TEST_CASE("OnNext", "[benchmark]")
 {
@@ -113,6 +113,7 @@ TEST_CASE("OnNext", "[benchmark]")
     };
 
 }
+
 TEST_CASE("Subscriber construction", "[benchmark]")
 {
     BENCHMARK("Make subsriber")
