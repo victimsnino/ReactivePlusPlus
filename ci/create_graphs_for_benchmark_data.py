@@ -27,7 +27,7 @@ for name, tests in results.items():
         x = [v["hash"] for v in data]
         y = [v["val"] for v in data]
         commit_message = [v["commit_message"] for v in data]
-        fig.add_trace(go.Scatter(x=x, y=y, commit_message=commit_message, name=test_name, hovertemplate='<br>commit:%{x}<br>value:%{y}<br>commit_message:%{commit_message}'), row=i+1, col=1)
+        fig.add_trace(go.Scatter(x=x, y=y, customdata=commit_message, name=test_name, hovertemplate='<br>commit:%{x}<br>value:%{y}<br>commit_message:%{customdata}'), row=i+1, col=1)
 
     fig.update_layout(title_text=name, title_x=0.5, showlegend=False, height=180*len(tests))
     fig.update_xaxes(title_text='Commit')
