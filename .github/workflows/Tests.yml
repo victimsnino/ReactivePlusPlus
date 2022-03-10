@@ -46,6 +46,8 @@ jobs:
 
     - name: Setup cache
       uses: mikehardy/buildcache-action@v1
+      with:
+        cache_key: ${{ matrix.config.name }}
       
     - name: Configure CMake
       env:
