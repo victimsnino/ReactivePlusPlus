@@ -1,14 +1,18 @@
 import xml.etree.ElementTree as ET
 import json
 import sys
+import pandas as pd
 
 results = sys.argv[1]
 
 root = ET.parse(results).getroot()
 
-results = {}
-for result in root.findall("TestCase/BenchmarkResults"):
-    results[result.get('name')] = result.find('mean').get('value')
+results = pd.DataFrame()
 
-with open('parsed.json', 'w') as r:
-    json.dump(results, r, indent=4)
+for test_case in root.findall("TestCase"):
+    for result in test_case.findall("BenchmarkResults"):
+        data = {"benchmark_name" : test_case.get("name"), "test_case" : result.get("name"), **{k:v for k, v in result.find('mean').items()}}
+        results = pd.concat([results, pd.DataFrame(data=data, index=[0])]).reset_index(drop=True)
+
+results.index.name = "id"
+results.to_csv("parsed.csv")

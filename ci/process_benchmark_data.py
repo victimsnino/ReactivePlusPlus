@@ -1,31 +1,23 @@
 import os
 import json
 import sys
+import pandas as pd
 
-git_commit     = sys.argv[1] 
-git_commit_message = sys.argv[2].split("\n")[0] if len(sys.argv) > 2 else "Current PR"
+git_commit     = str(sys.argv[1]) 
+commit_message = sys.argv[2].split("\n")[0] if len(sys.argv) > 2 else "Current PRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"
 
-print(git_commit)
-
-new_results = {}
+new_results = pd.DataFrame()
 for file in os.listdir(os.fsencode("./artifacts")):
-     folder_with_results = os.fsdecode(file)
-     with open(f'./artifacts/{folder_with_results}/parsed.json', 'r') as f:
-        new_results[folder_with_results] = json.load(f)
+    folder_with_results = os.fsdecode(file)
+    new_data = pd.read_csv(f'./artifacts/{folder_with_results}/parsed.csv', index_col="id")
+    new_data["platform"] = [folder_with_results]*len(new_data)
+    new_data["commit"] = [f"{commit_message[:20]}{"..." if len(commit_message)> 20 else ""} ({git_commit})"]*len(new_data)
+    new_results = pd.concat([new_results, new_data]).reset_index(drop=True)
 
-old_results = {}
-if os.path.exists("./gh-pages/results.json"):
-    with open("./gh-pages/results.json", 'r') as f:
-        old_results = json.load(f)   
+old_results = pd.DataFrame()
+if os.path.exists("./gh-pages/results.csv"):
+    old_results = pd.read_csv("./gh-pages/results.csv", index_col="id")
 
-for name, vals in new_results.items():
-    old_results.setdefault(name, {})
-    for test_name, val in vals.items():
-        old_results[name].setdefault(test_name, [])
-        old_results[name][test_name].append({"hash" : git_commit, "val" :val, "commit_message" : git_commit_message})
-        
-with open("./gh-pages/results.json", 'w') as f:
-    json.dump(old_results, f)
-
-print(old_results)
-
+results = pd.concat([old_results, new_results]).reset_index(drop=True)
+results.index.name = "id"
+results.to_csv("./gh-pages/results.csv")

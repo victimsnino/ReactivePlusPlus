@@ -74,8 +74,11 @@ jobs:
       run: ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] -r xml -o ${{github.workspace}}/build/test_results/benchmark_result.txt
       if: matrix.config.relative_path_bench != ''
 
+    - name: Install deps
+      run: pip3 install pandas
+
     - name: Process results
-      run: python ${{github.workspace}}/ci/parse_benchmark_to_json.py ${{github.workspace}}/build/test_results/benchmark_result.txt
+      run: python3 ${{github.workspace}}/ci/parse_benchmark_to_json.py ${{github.workspace}}/build/test_results/benchmark_result.txt
 
     - name: Upload parsed results
       uses: actions/upload-artifact@v3
@@ -104,6 +107,9 @@ jobs:
         path: gh-pages
     - name: Log
       run: ls -R
+
+    - name: Install deps
+      run: pip3 install pandas
 
     - name: Process benchmarks
       run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${GITHUB_SHA::8} "${{github.event.head_commit.message}}"

@@ -58,7 +58,7 @@ auto MakeDynamicObservable()
     }};
 }
 
-SCENARIO("Base benchmarks", "[benchmark]")
+TEST_CASE("Observable construction", "[benchmark]")
 {
     BENCHMARK("Specific observable construction")
     {
@@ -75,6 +75,10 @@ SCENARIO("Base benchmarks", "[benchmark]")
         return MakeSpecificObservable().as_dynamic();
     };
 
+}
+
+TEST_CASE("Observer construction", "[benchmark]")
+{
     BENCHMARK("Specific observer construction")
     {
         return MakeObserver<rpp::specific_observer>();
@@ -89,7 +93,10 @@ SCENARIO("Base benchmarks", "[benchmark]")
     {
         return MakeObserver<rpp::specific_observer>().as_dynamic();
     };
+};
 
+TEST_CASE("OnNext", "[benchmark]")
+{
     auto specific_observer = MakeObserver<rpp::specific_observer>();
     auto dynamic_observer  = MakeObserver<rpp::dynamic_observer>();
 
@@ -105,6 +112,9 @@ SCENARIO("Base benchmarks", "[benchmark]")
         return i;
     };
 
+}
+TEST_CASE("Subscriber construction", "[benchmark]")
+{
     BENCHMARK("Make subsriber")
     {
         return rpp::specific_subscriber{[](const int&){}};
@@ -122,7 +132,10 @@ SCENARIO("Base benchmarks", "[benchmark]")
     {
         return sub.as_dynamic();
     };
+}
 
+TEST_CASE("Observable subscribe", "[benchmark]")
+{
     auto validate_observable = [](auto observable, const std::string& observable_prefix)
     {
         auto validate_with_observer = [&](const auto& observer, const std::string& observer_prefix)
@@ -131,6 +144,21 @@ SCENARIO("Base benchmarks", "[benchmark]")
             {
                 return observable.subscribe(observer);
             };
+        };
+        validate_with_observer(MakeObserver<rpp::specific_observer>(), "specific");
+        validate_with_observer(MakeObserver<rpp::dynamic_observer>(), "dynamic");
+    };
+
+    validate_observable(MakeSpecificObservable(), "Specific");
+    validate_observable(MakeDynamicObservable(), "Dynamic");
+}
+
+TEST_CASE("Observable lift", "[benchmark]")
+{
+    auto validate_observable = [](auto observable, const std::string& observable_prefix)
+    {
+        auto validate_with_observer = [&](const auto& observer, const std::string& observer_prefix)
+        {
             BENCHMARK(observable_prefix + " observable lift " + observer_prefix +" observer")
             {
                 auto res_observable = observable.template lift<int>([](const auto& v) { return v; });
@@ -144,6 +172,8 @@ SCENARIO("Base benchmarks", "[benchmark]")
     validate_observable(MakeSpecificObservable(), "Specific");
     validate_observable(MakeDynamicObservable(), "Dynamic");
 }
+
+
 
 SCENARIO("Misc benchmarks", "[misc_benchmark]")
 {

@@ -1,7 +1,7 @@
 import plotly.offline as pyo
-import plotly.graph_objects as go
+import plotly.express as px
 from plotly.subplots import make_subplots
-import json
+import pandas as pd
 
 
 
@@ -17,22 +17,17 @@ def dump_plot(fig):
     add_js = False
 
 
-with open("./gh-pages/results.json", 'r') as f:
-    results = json.load(f)  
+results = pd.read_csv("./gh-pages/results.csv", index_col="id")
 
-for name, tests in results.items():
-    fig = make_subplots(rows=len(tests), cols=1, shared_xaxes=True, subplot_titles=list(tests.keys()))
+for platform, data in results.groupby("platform"):
+    dashboard.write(f"<h2>{platform} </h2>")
+    for i, (name, bench_data) in enumerate(data.groupby("benchmark_name")):
+        hover_data = {"commit": False}
+        fig = px.line(bench_data, x="commit", y="value", color="test_case", markers=True, hover_data=hover_data, title=name, height=500)
+        fig.update_layout(hovermode="x")
+        fig.update_xaxes(tickangle=-45)
+        dump_plot(fig)
 
-    for i, (test_name, data) in enumerate(tests.items()):
-        x = [v["hash"] for v in data]
-        y = [v["val"] for v in data]
-        commit_message = [v["commit_message"] for v in data]
-        fig.add_trace(go.Scatter(x=x, y=y, customdata=commit_message, name=test_name, hovertemplate='<br>value:%{y}<br>commit:%{customdata}'), row=i+1, col=1)
-
-    fig.update_layout(title_text=name, title_x=0.5, showlegend=False, height=180*len(tests))
-    fig.update_xaxes(title_text='Commit')
-    fig.update_yaxes(title_text='ns/iter')
-    dump_plot(fig)
 
 dashboard.write("</body></html>" + "\n")
 dashboard.close()
