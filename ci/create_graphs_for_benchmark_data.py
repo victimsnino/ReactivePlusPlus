@@ -26,7 +26,12 @@ for platform, data in results.groupby("platform", sort=False, as_index=False):
     dashboard.write(f"<h2>{platform} </h2>")
     for i, (name, bench_data) in enumerate(data.groupby("benchmark_name", sort=False, as_index=False)):
         hover_data = {"commit": False, "min" : bench_data["lowerBound"], "max": bench_data["upperBound"]}
-        fig = px.line(bench_data, x="commit", y="value", color="test_case", line_shape='spline', markers=True, hover_data=hover_data, title=name, height=500)
+        labels={
+                     "value": "ns/iter",
+                     "commit": "Commit",
+                     "test_case" : "Benchmark"
+                 }
+        fig = px.line(bench_data, x="commit", y="value", color="test_case", line_shape='spline', markers=True, hover_data=hover_data, title=name, height=500, labels=labels)
         copy_data = fig["data"]
         for v in copy_data:
             d = bench_data[bench_data['test_case']==v['legendgroup']]
@@ -42,7 +47,7 @@ for platform, data in results.groupby("platform", sort=False, as_index=False):
                                      line_shape='spline'
                                 ))
         fig.update_layout(hovermode="x")
-        fig.update_xaxes(tickangle=-45)
+        fig.update_xaxes(tickangle=-35)
         dump_plot(fig)
 
 
