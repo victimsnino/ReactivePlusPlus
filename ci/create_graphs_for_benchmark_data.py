@@ -19,9 +19,12 @@ def dump_plot(fig):
 
 results = pd.read_csv("./gh-pages/results.csv", index_col="id")
 
-for platform, data in results.groupby("platform"):
+# duplicate last row to fix issue with splines
+results = pd.concat([results, results[results['commit'] == results["commit"].unique()[-1]]]).reset_index(drop=True)
+
+for platform, data in results.groupby("platform", sort=False, as_index=False):
     dashboard.write(f"<h2>{platform} </h2>")
-    for i, (name, bench_data) in enumerate(data.groupby("benchmark_name")):
+    for i, (name, bench_data) in enumerate(data.groupby("benchmark_name", sort=False, as_index=False)):
         hover_data = {"commit": False, "min" : bench_data["lowerBound"], "max": bench_data["upperBound"]}
         fig = px.line(bench_data, x="commit", y="value", color="test_case", line_shape='spline', markers=True, hover_data=hover_data, title=name, height=500)
         copy_data = fig["data"]
@@ -35,7 +38,8 @@ for platform, data in results.groupby("platform"):
                                      line_color=v['line']['color'],
                                      hoverinfo='skip',
                                      mode="lines",
-                                     opacity=0.3
+                                     opacity=0.3,
+                                     line_shape='spline'
                                 ))
         fig.update_layout(hovermode="x")
         fig.update_xaxes(tickangle=-45)
