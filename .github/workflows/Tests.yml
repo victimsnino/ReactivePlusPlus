@@ -44,33 +44,14 @@ jobs:
         submodules: true
         token: ${{ secrets.TOKEN }}
 
-    - name: Setup ccache
-      uses: Chocobo1/setup-ccache-action@v1
-      with:
-        ccache_options: |
-          cache_dir=${{github.workspace}}/.ccache
-          
-    - name: Prepare ccache timestamp
-      id: ccache_cache_timestamp
-      shell: cmake -P {0}
-      run: |
-        string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
-        message("::set-output name=timestamp::${current_date}")
-        
-    - name: ccache cache files
-      uses: actions/cache@v2
-      with:
-        path: |
-          ${{github.workspace}}/${{ matrix.config.path_to_cache }}
-        key: ${{ matrix.config.name }}-ccache-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
-        restore-keys: |
-          ${{ matrix.config.name }}-ccache-
+    - name: Setup cache
+      uses: mikehardy/buildcache-action@v1
       
     - name: Configure CMake
       env:
         CC: ${{ matrix.config.cc }}
         CXX: ${{ matrix.config.cxx }}
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -D CMAKE_C_COMPILER_LAUNCHER=buildcache -D CMAKE_CXX_COMPILER_LAUNCHER=buildcache
         
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 4
