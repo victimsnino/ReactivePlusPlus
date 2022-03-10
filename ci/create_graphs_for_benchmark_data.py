@@ -23,7 +23,7 @@ for platform, data in results.groupby("platform"):
     dashboard.write(f"<h2>{platform} </h2>")
     for i, (name, bench_data) in enumerate(data.groupby("benchmark_name")):
         hover_data = {"commit": False, "min" : bench_data["lowerBound"], "max": bench_data["upperBound"]}
-        fig = px.line(bench_data, x="commit", y="value", color="test_case", markers=True, hover_data=hover_data, title=name, height=500)
+        fig = px.line(bench_data, x="commit", y="value", color="test_case", line_shape='spline', markers=True, hover_data=hover_data, title=name, height=500)
         copy_data = fig["data"]
         for v in copy_data:
             d = bench_data[bench_data['test_case']==v['legendgroup']]
