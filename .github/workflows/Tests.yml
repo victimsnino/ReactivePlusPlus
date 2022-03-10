@@ -74,17 +74,11 @@ jobs:
       run: ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] -r xml -o ${{github.workspace}}/build/test_results/benchmark_result.txt
       if: matrix.config.relative_path_bench != ''
 
-    - name: Install deps
-      run: pip3 install pandas
-
-    - name: Process results
-      run: python3 ${{github.workspace}}/ci/parse_benchmark_to_json.py ${{github.workspace}}/build/test_results/benchmark_result.txt
-
     - name: Upload parsed results
       uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.config.name }}
-        path: parsed.json
+        path: ${{github.workspace}}/build/test_results/benchmark_result.txt
 
   process:
     name: Process benchmark results
