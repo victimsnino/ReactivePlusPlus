@@ -123,7 +123,7 @@ jobs:
       run: ls -R
 
     - name: Process benchmarks
-      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${GITHUB_SHA::8} ${{github.event.head_commit.message}}
+      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${GITHUB_SHA::8} "${{github.event.head_commit.message}}"
 
     - name: Compare results
       run: |

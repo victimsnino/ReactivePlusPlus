@@ -3,7 +3,7 @@ import json
 import sys
 
 git_commit     = sys.argv[1] 
-git_commit_message = sys.argv[2] if len(sys.argv) > 2 else "Current PR"
+git_commit_message = sys.argv[2].split("\n")[0] if len(sys.argv) > 2 else "Current PR"
 
 print(git_commit)
 
