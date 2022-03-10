@@ -46,7 +46,7 @@ for platform, data in results.groupby("platform", sort=False, as_index=False):
                                      opacity=0.3,
                                      line_shape='spline'
                                 ))
-        fig.update_layout(hovermode="x")
+        fig.update_layout(hovermode="x", title_x=0.5)
         fig.update_xaxes(tickangle=-35)
         dump_plot(fig)
 
