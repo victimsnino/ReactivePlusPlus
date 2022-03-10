@@ -2,7 +2,7 @@ import plotly.offline as pyo
 import plotly.express as px
 from plotly.subplots import make_subplots
 import pandas as pd
-
+import plotly.graph_objects as go
 
 
 dashboard = open("./gh-pages/benchmark.html", 'w')
@@ -24,6 +24,17 @@ for platform, data in results.groupby("platform"):
     for i, (name, bench_data) in enumerate(data.groupby("benchmark_name")):
         hover_data = {"commit": False}
         fig = px.line(bench_data, x="commit", y="value", color="test_case", markers=True, hover_data=hover_data, title=name, height=500)
+        copy_data = fig["data"]
+        for v in copy_data:
+            d = bench_data[bench_data['test_case']==v['legendgroup']]
+            fig.add_trace(go.Scatter(x=pd.concat([d['commit'], d['commit'][::-1]]),
+                                     y=pd.concat([d['lowerBound'], d['upperBound'][::-1]]),
+                                     fill='toself',
+                                     showlegend=False,
+                                     name = v['legendgroup'],
+                                     line_color=v['line']['color'],
+                                     hoverinfo='skip'
+                                ))
         fig.update_layout(hovermode="x")
         fig.update_xaxes(tickangle=-45)
         dump_plot(fig)
