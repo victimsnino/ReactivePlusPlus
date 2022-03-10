@@ -13,7 +13,7 @@ for name, tests in results.items():
     for test_name, data in tests.items():
         new_value = f"{data[-1]['val']}ns"
         old_value = f"{data[-2]['val']}ns" if len(data)> 1 else '.'
-        ratio     = data[-1]['val']/data[-2]['val'] if len(data)> 1 else '.'
+        ratio     = float(data[-1]['val'])/float(data[-2]['val']) if len(data)> 1 else '.'
         print(f"{test_name} | { new_value } | { old_value } | {ratio}")
     print("")
     print("</details>")
