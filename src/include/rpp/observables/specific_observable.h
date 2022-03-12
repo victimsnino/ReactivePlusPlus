@@ -64,7 +64,7 @@ public:
         return subscribe_impl(subscriber);
     }
 
-    template<typename TObserver, typename = std::enable_if_t<rpp::utils::is_observer_v<TObserver>>>
+    template<typename TObserver, typename = std::enable_if_t<rpp::utils::is_observer_v<TObserver> && std::is_same_v<utils::extract_observer_type_t<TObserver>, Type>>>
     subscription subscribe(TObserver&& observer) const noexcept
     {
         return subscribe_impl<std::decay_t<TObserver>>(std::forward<TObserver>(observer));

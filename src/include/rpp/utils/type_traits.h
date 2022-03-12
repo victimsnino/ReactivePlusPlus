@@ -79,4 +79,16 @@ constexpr bool is_observer_constructible_v = details::is_observer_constructible<
 
 template<typename Type, typename ...Args>
 using enable_if_observer_constructible_t = std::enable_if_t<is_observer_constructible_v<Type, std::decay_t<Args>...>>;
+
+// ************************ OBSERVABLE *********************** //
+namespace details
+{
+    template<typename T>
+    T extract_observable_type(const virtual_observable<T>&);
+} // namespace details
+template<typename T>
+using extract_observable_type_t = decltype(details::extract_observable_type(std::declval<std::decay_t<T>>()));
+
+template<typename T>
+constexpr bool is_observable_v = std::is_base_of_v<rpp::details::observable_tag, std::decay_t<T>>;
 } // namespace rpp::utils
