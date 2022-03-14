@@ -31,7 +31,8 @@
 #include <type_traits>
 
 namespace rpp
-{namespace details {
+{
+namespace details {
     template<typename NewType, typename OnNext, typename OnError, typename OnCompleted>
     static auto make_lift_action_by_callbacks(OnNext&& on_next, OnError&& on_error, OnCompleted&& on_completed)
     {
@@ -54,10 +55,14 @@ namespace rpp
             };
         };
     }
-}
+
+struct observable_tag{};
+
+} // namespace details
+
 
 template<typename Type>
-struct virtual_observable
+struct virtual_observable : public details::observable_tag
 {
     static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");
 
@@ -114,7 +119,7 @@ public:
              typename OnError = details::forwarding_on_error,
              typename OnCompleted = details::forwarding_on_completed,
              typename NewType = std::decay_t<utils::function_argument_t<OnNext>>,
-             typename = std::enable_if_t<std::is_invocable_v<OnNext, NewType, dynamic_subscriber<Type>>>>
+             typename = std::enable_if_t<std::is_invocable_v<OnNext, Type, dynamic_subscriber<NewType>>>>
     auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const &
     {
         return lift<NewType>(std::forward<OnNext>(on_next),
@@ -126,7 +131,7 @@ public:
              typename OnError = details::forwarding_on_error,
              typename OnCompleted = details::forwarding_on_completed,
              typename NewType = std::decay_t<utils::function_argument_t<OnNext>>,
-             typename = std::enable_if_t<std::is_invocable_v<OnNext, NewType, dynamic_subscriber<Type>>>>
+             typename = std::enable_if_t<std::is_invocable_v<OnNext, Type, dynamic_subscriber<NewType>>>>
         auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) &&
     {
         return std::move(*this).template lift<NewType>(std::forward<OnNext>(on_next),
@@ -140,12 +145,12 @@ public:
              typename OnNext,
              typename OnError = details::forwarding_on_error,
              typename OnCompleted = details::forwarding_on_completed,
-             typename = std::enable_if_t<std::is_invocable_v<OnNext, NewType, dynamic_subscriber<Type>>>>
+             typename = std::enable_if_t<std::is_invocable_v<OnNext, Type, dynamic_subscriber<NewType>>>>
     auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const &
     {
-        return lift_impl<NewType>(details::make_lift_action_by_callbacks<NewType>(std::forward<OnNext>(on_next),
-                                                                                  std::forward<OnError>(on_error),
-                                                                                  std::forward<OnCompleted>(on_completed)),
+        return lift_impl<NewType>(details::make_lift_action_by_callbacks<Type>(std::forward<OnNext>(on_next),
+                                                                               std::forward<OnError>(on_error),
+                                                                               std::forward<OnCompleted>(on_completed)),
                                   CastThis());
     }
 
@@ -153,12 +158,12 @@ public:
              typename OnNext,
              typename OnError = details::forwarding_on_error,
              typename OnCompleted = details::forwarding_on_completed,
-             typename = std::enable_if_t<std::is_invocable_v<OnNext, NewType, dynamic_subscriber<Type>>>>
+             typename = std::enable_if_t<std::is_invocable_v<OnNext, Type, dynamic_subscriber<NewType>>>>
     auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) &&
     {
-        return lift_impl<NewType>(details::make_lift_action_by_callbacks<NewType>(std::forward<OnNext>(on_next),
-                                                                                  std::forward<OnError>(on_error),
-                                                                                  std::forward<OnCompleted>(on_completed)),
+        return lift_impl<NewType>(details::make_lift_action_by_callbacks<Type>(std::forward<OnNext>(on_next),
+                                                                               std::forward<OnError>(on_error),
+                                                                               std::forward<OnCompleted>(on_completed)),
                                   MoveThis());
     }
     
@@ -187,4 +192,12 @@ private:
         });
     }
 };
+
+template<typename Observable,
+         typename Operator,
+         typename = std::enable_if_t<utils::is_observable_v<std::decay_t<Observable>>>>
+auto operator |(Observable&& observable, Operator&& op)
+{
+    return std::forward<Operator>(op)(std::forward<Observable>(observable));
+}
 } // namespace rpp

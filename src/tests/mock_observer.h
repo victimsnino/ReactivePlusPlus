@@ -26,15 +26,27 @@
 
 #include <rpp/observers/interface_observer.h>
 
+#include <vector>
+
 template<typename Type>
 class mock_observer : public rpp::interface_observer<Type>
 {
 public:
     mock_observer() : m_state{std::make_shared<State>()} {}
 
-    void on_next(const Type &) const override { ++m_state->m_on_next_const_ref_count; }
-    void on_next(Type &&) const override { ++m_state->m_on_next_move_count; }
-    void on_error(const std::exception_ptr &) const override { ++m_state->m_on_error_count; }
+    void on_next(const Type& v) const override
+    {
+        ++m_state->m_on_next_const_ref_count;
+        m_state->vals.push_back(v);
+    }
+
+    void on_next(Type&& v) const override
+    {
+        ++m_state->m_on_next_move_count;
+        m_state->vals.push_back(std::move(v));
+    }
+
+    void on_error(const std::exception_ptr&) const override { ++m_state->m_on_error_count; }
     void on_completed() const override { ++m_state->m_on_completed_count; }
 
     size_t get_total_on_next_count() const { return m_state->m_on_next_const_ref_count + m_state->m_on_next_move_count; }
@@ -42,6 +54,8 @@ public:
     size_t get_on_next_move_count() const { return m_state->m_on_next_move_count; }
     size_t get_on_error_count() const { return m_state->m_on_error_count; }
     size_t get_on_completed_count() const { return m_state->m_on_completed_count; }
+
+    std::vector<Type> get_received_values() const {return m_state->vals; }
 
     auto as_dynamic() const {return rpp::dynamic_observer<Type>{*this};}
 
@@ -52,6 +66,8 @@ private:
         size_t m_on_next_move_count      = 0;
         size_t m_on_error_count          = 0;
         size_t m_on_completed_count      = 0;
+
+        std::vector<Type> vals{};
     };
 
     std::shared_ptr<State> m_state{};

@@ -1,6 +1,6 @@
 // MIT License
 // 
-// Copyright (c) 2021 Aleksey Loginov
+// Copyright (c) 2022 Aleksey Loginov
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,48 +22,23 @@
 
 #pragma once
 
-namespace rpp
+#include <utility>
+
+namespace rpp::operators
 {
-namespace details
+template<typename Callable>
+auto map(Callable&& callable)
 {
-struct observable_tag;
-struct observer_tag;
-struct subscriber_tag;
-} // namespace details
-
-template<typename Type>
-struct virtual_observable;
-
-template<typename Type, typename OnSubscribeFn>
-class specific_observable;
-
-template<typename Type, typename OnSub>
-auto make_specific_observable(OnSub&& call);
-
-template<typename Type>
-class dynamic_observable;
-
-
-template<typename Type>
-class dynamic_observer;
-
-template<typename T,
-         typename OnNext,
-         typename OnError,
-         typename OnCompleted>
-class specific_observer;
-
-namespace details
-{
-    template<typename Type>
-    class subscriber_base;
-} // namespace details
-
-template<typename Type, typename Observer>
-class specific_subscriber;
-
-template<typename Type>
-class dynamic_subscriber;
-
-class subscription;
-} // namespace rpp
+    return [callable = std::forward<Callable>(callable)](auto&& observable)
+    {
+        using TObservable = decltype(observable);
+        using ObservableType = utils::extract_observable_type_t<TObservable>;
+        using NewType = std::invoke_result_t<Callable, ObservableType>;
+        return std::forward<TObservable>(observable).template lift<NewType>([callable](auto&&      value,
+                                                                                       const auto& subscriber)
+        {
+            subscriber.on_next(callable(std::forward<decltype(value)>(value)));
+        });
+    };
+}
+} // namespace rpp::operators
