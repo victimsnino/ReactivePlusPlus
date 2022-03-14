@@ -1,5 +1,8 @@
 # ReactivePlusPlus [![Unit tests](https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/Tests.yml/badge.svg?branch=main)](https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/Tests.yml)
 
+## Documentation
+
+Repository contains doxygen documentation which generated per commit and placed on [github pages](https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html)
 
 ## Benchmarks
 Perfomance is really **important**! It is **doubly important** when we speak about **realtime applications and libraries**! **ReactivePlusPlus** targets as a realtime library to process and handle a tremendous volumes of data. 
