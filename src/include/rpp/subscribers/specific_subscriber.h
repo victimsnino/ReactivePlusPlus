@@ -30,6 +30,11 @@
 
 namespace rpp
 {
+/**
+ * \brief specific version of subscriber which stores type of observer used inside to prevent extra allocations
+ * \tparam Type type of values expected by this subscriber
+ * \tparam Observer observer which was wrapped by this subscriber
+ */
 template<typename Type, typename Observer>
 class specific_subscriber : public details::subscriber_base<Type>
 {

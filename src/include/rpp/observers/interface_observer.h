@@ -31,6 +31,10 @@ namespace details
 struct observer_tag {};
 } // namespace details
 
+/**
+ * \brief Interface of any observer type. Describes base callbacks
+ * \tparam T is type of value expected by this observer
+ */
 template<typename T>
 struct interface_observer : public details::observer_tag
 {

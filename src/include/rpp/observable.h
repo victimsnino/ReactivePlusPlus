@@ -26,12 +26,24 @@
 
 namespace rpp::observable
 {
+/**
+ * \brief Creates specific_observable with passed action as OnSubscribe
+ * \tparam Type manually specified typed of values provided by this observable
+ * \tparam OnSubscribeFn action called after subscription on this observable
+ * \return specific_observable with passed action
+ */
 template<typename Type, typename OnSubscribeFn>
 specific_observable<Type, std::remove_const_t<std::remove_reference_t<OnSubscribeFn>>> create(OnSubscribeFn&& on_subscribe)
 {
     return {std::forward<OnSubscribeFn>(on_subscribe)};
 }
 
+/**
+ * \brief Creates specific_observable with passed action as OnSubscribe
+ * \tparam OnSubscribeFn action called after subscription on this observable
+ * \tparam Type of values for observable deduced by argument of passed action (argument -> subscriber of some type -> type)
+ * \return specific_observable with passed action
+ */
 template<typename OnSubscribeFn, typename Type = utils::extract_subscriber_type_t<utils::function_argument_t<OnSubscribeFn>>>
 auto create(OnSubscribeFn&& on_subscribe)
 {

@@ -32,7 +32,8 @@
 
 namespace rpp
 {
-namespace details {
+namespace details
+{
     template<typename NewType, typename OnNext, typename OnError, typename OnCompleted>
     static auto make_lift_action_by_callbacks(OnNext&& on_next, OnError&& on_error, OnCompleted&& on_completed)
     {
@@ -61,24 +62,43 @@ struct observable_tag{};
 } // namespace details
 
 
+/**
+ * \brief Interface of observable
+ * \tparam Type type provided by this observable
+ */
 template<typename Type>
 struct virtual_observable : public details::observable_tag
 {
     static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");
 
     virtual              ~virtual_observable() = default;
+
+    /**
+     * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
+     * \return subscription on this observable which can be used to unsubscribe
+     */
     virtual subscription subscribe(const dynamic_subscriber<Type>& subscriber) const noexcept = 0;
 };
 
+/**
+ * \brief Base part of observable. Mostly used to provide some interface functions used by all observables
+ * \tparam Type type provided by this observable 
+ * \tparam SpecificObservable final type of observable inherited from this observable to successfully copy/move it
+ */
 template<typename Type, typename SpecificObservable>
 struct interface_observable : public virtual_observable<Type>
 {
 private:
-    template<typename NewType,
-             typename OperatorFn>
+    template<typename NewType, typename OperatorFn>
     static constexpr bool is_callable_returns_subscriber_of_same_type_v = std::is_same_v<Type, utils::extract_subscriber_type_t<std::invoke_result_t<OperatorFn, dynamic_subscriber<NewType>>>>;
 public:
     // ********************************* LIFT DIRECT TYPE + OPERATOR: SUBSCRIBER -> SUBSCRIBER ******************//
+    /**
+     * \brief Lift provided function to make new observable based on this one
+     * \tparam NewType manually specified new type of observable after lift
+     * \tparam OperatorFn type of function applied to observable
+     * \return new specific_observable of NewType
+     */
     template<typename NewType,
              typename OperatorFn,
              typename = std::enable_if_t<std::is_invocable_v<OperatorFn, dynamic_subscriber<NewType>>>>
@@ -87,6 +107,12 @@ public:
         return lift_impl<NewType>(std::forward<OperatorFn>(op), CastThis());
     }
 
+     /**
+     * \brief Lift provided function to make new observable based on this one
+     * \tparam NewType manually specified new type of observable after lift
+     * \tparam OperatorFn type of function applied to observable
+     * \return new specific_observable of NewType
+     */
     template<typename NewType,
              typename OperatorFn,
              typename = std::enable_if_t<std::is_invocable_v<OperatorFn, dynamic_subscriber<NewType>>>>
@@ -96,6 +122,12 @@ public:
     }
 
     // ********************************* LIFT OPERATOR: SUBSCRIBER -> SUBSCRIBER ******************//
+    /**
+     * \brief Lift provided function to make new observable based on this one
+     * \tparam OperatorFn type of function applied to observable
+     * \tparam NewType deduced from argument of Operator of subscriber
+     * \return new specific_observable of NewType
+     */
     template<typename OperatorFn,
              typename SubscriberType = utils::function_argument_t<OperatorFn>,
              typename NewType = utils::extract_subscriber_type_t<SubscriberType>,
@@ -105,6 +137,12 @@ public:
         return lift<NewType>(std::forward<OperatorFn>(op));
     }
 
+     /**
+     * \brief Lift provided function to make new observable based on this one
+     * \tparam OperatorFn type of function applied to observable
+     * \tparam NewType deduced from argument of Operator of subscriber
+     * \return new specific_observable of NewType
+     */
     template<typename OperatorFn,
              typename SubscriberType = utils::function_argument_t<OperatorFn>,
              typename NewType = utils::extract_subscriber_type_t<SubscriberType>,
@@ -115,6 +153,15 @@ public:
     }
 
     // ********************************* LIFT OnNext, Onerror, OnCompleted ******************//
+
+    /**
+     * \brief Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks
+     * \tparam OnNext on_next of new subscriber
+     * \tparam OnError on_error of new subscriber
+     * \tparam OnCompleted on_completed of new subscriber
+     * \tparam NewType type of new observable deduced by type of value used inside OnNext
+     * \return new specific_observable of NewType
+     */
     template<typename OnNext,
              typename OnError = details::forwarding_on_error,
              typename OnCompleted = details::forwarding_on_completed,
@@ -127,6 +174,14 @@ public:
                              std::forward<OnCompleted>(on_completed));
     }
 
+    /**
+     * \brief Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks
+     * \tparam OnNext on_next of new subscriber
+     * \tparam OnError on_error of new subscriber
+     * \tparam OnCompleted on_completed of new subscriber
+     * \tparam NewType type of new observable deduced by type of value used inside OnNext
+     * \return new specific_observable of NewType
+     */
     template<typename OnNext,
              typename OnError = details::forwarding_on_error,
              typename OnCompleted = details::forwarding_on_completed,
@@ -141,6 +196,14 @@ public:
 
     // ********************************* LIFT Direct type + OnNext, Onerror, OnCompleted ******************//
 
+    /**
+     * \brief Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks
+     * \tparam NewType manually specified new type of observable after lift
+     * \tparam OnNext on_next of new subscriber
+     * \tparam OnError on_error of new subscriber
+     * \tparam OnCompleted on_completed of new subscriber
+     * \return new specific_observable of NewType
+     */
     template<typename NewType,
              typename OnNext,
              typename OnError = details::forwarding_on_error,
@@ -154,6 +217,14 @@ public:
                                   CastThis());
     }
 
+    /**
+     * \brief Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks
+     * \tparam NewType manually specified new type of observable after lift
+     * \tparam OnNext on_next of new subscriber
+     * \tparam OnError on_error of new subscriber
+     * \tparam OnCompleted on_completed of new subscriber
+     * \return new specific_observable of NewType
+     */
     template<typename NewType,
              typename OnNext,
              typename OnError = details::forwarding_on_error,
@@ -179,9 +250,7 @@ private:
         return std::move(*static_cast<SpecificObservable*>(this));
     }
 
-    template<typename NewType,
-             typename OperatorFn,
-             typename FwdThis>
+    template<typename NewType, typename OperatorFn, typename FwdThis>
     static auto lift_impl(OperatorFn&& op, FwdThis&& _this)
     {
         static_assert(is_callable_returns_subscriber_of_same_type_v<NewType, OperatorFn>, "OperatorFn should return subscriber");

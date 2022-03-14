@@ -43,6 +43,9 @@ struct forwarding_on_completed
     void operator()(TSub&& sub) const {sub.on_completed();}
 };
 
+/**
+ * \brief Special type of specific_observer which has some state which this observer stores and pass to each callback. Used for storing subscriber without extra copies
+ */
 template<typename T,
          typename State,
          typename OnNext,

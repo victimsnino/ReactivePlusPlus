@@ -52,15 +52,17 @@ private:
     std::shared_ptr<state> m_state{};
 };
 
-template<typename Subscription>
+/**
+ * \brief guard over subscription to auto-unsubscribe during destructor
+ */
 class subscription_guard
 {
 public:
-    subscription_guard(const Subscription& sub)
-        : m_sub{sub} {}
+    subscription_guard(const subscription& sub)
+        : m_sub{ sub } {}
 
     ~subscription_guard() { m_sub.unsubscribe(); }
 private:
-    const Subscription& m_sub;
+    subscription m_sub;
 };
 } // namespace rpp

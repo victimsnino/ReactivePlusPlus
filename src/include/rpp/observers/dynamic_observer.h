@@ -32,6 +32,13 @@
 
 namespace rpp
 {
+/**
+ * \brief Dynamic (type-erased) version of observer (comparing to specific_observer)
+ *
+ * It uses type-erasure mechanism to hide types of OnNext, OnError and OnCompleted callbacks. But it has higher cost in the terms of performance due to usage of heap.
+ * Use it only when you need to store observer as member variable or something like this
+ * \tparam T is type of value expected by this observer
+ */
 template<typename T>
 class dynamic_observer final : public interface_observer<T>
 {

@@ -26,6 +26,23 @@
 
 namespace rpp::operators
 {
+/**
+ * \brief map operator describes how to map/transform values of original type to another value.
+ *
+ * It can change either change type of original value (for example, from double to string) or keep same type but with modified value.
+ *
+ * Usage example:
+ * \code
+ * observable
+ *      .map([](const int& val)
+ *      {
+ *          return std::to_string(val) + " data";
+ *      });
+ * \endcode
+ *
+ * \tparam Callable type of callable used to provide this transformation
+ * \return new specific_observable with map operator as last operator in chain.
+ */
 template<typename Callable>
 auto map(Callable&& callable)
 {

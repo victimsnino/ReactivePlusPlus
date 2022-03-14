@@ -29,8 +29,14 @@ namespace rpp::details
 {
 struct subscriber_tag{};
 
+/**
+ * \brief base implementation of subscriber with possibility to obtain observer's callbacks, query subscription state, unsubscribe and etc. Each observer's callback checks for actual subscription
+ * \tparam Type type of values expected by this subscriber
+ */
 template<typename Type>
-class subscriber_base : public interface_observer<Type>, public subscriber_tag
+class subscriber_base
+        : public interface_observer<Type>
+        , public subscriber_tag
 {
     static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type should be decayed to match with decayed observable types");
 public:

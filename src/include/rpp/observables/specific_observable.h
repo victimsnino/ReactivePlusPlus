@@ -53,17 +53,32 @@ public:
     [[nodiscard]] dynamic_observable<Type> as_dynamic() const & { return *this;            }
     [[nodiscard]] dynamic_observable<Type> as_dynamic() &&      { return std::move(*this); }
 
+     /**
+     * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
+     * \details this overloading accepts dynamic_subscriber as most common and base type
+     * \return subscription on this observable which can be used to unsubscribe
+     */
     subscription subscribe(const dynamic_subscriber<Type>& subscriber) const noexcept override
     {
         return subscribe_impl(subscriber);
     }
 
+    /**
+     * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
+     * \details this overloading accepts specific_subscriber to avoid construction of dynamic_subscriber
+     * \return subscription on this observable which can be used to unsubscribe
+     */
     template<typename Obs>
     subscription subscribe(const specific_subscriber<Type, Obs>& subscriber) const noexcept
     {
         return subscribe_impl(subscriber);
     }
 
+     /**
+     * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
+     * \details this overloading accepts observer to construct specific_subscriber without extra overheads
+     * \return subscription on this observable which can be used to unsubscribe
+     */
     template<typename TObserver, typename = std::enable_if_t<rpp::utils::is_observer_v<TObserver> && std::is_same_v<utils::extract_observer_type_t<TObserver>, Type>>>
     subscription subscribe(TObserver&& observer) const noexcept
     {

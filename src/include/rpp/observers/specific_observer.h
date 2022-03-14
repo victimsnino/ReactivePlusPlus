@@ -31,6 +31,15 @@
 
 namespace rpp
 {
+/**
+ * \brief Observer specific with types of callbacks to avoid extra heap usage.
+ *
+ * It has better performance comparing to rpp::dynamic_observer. Use it if possible. But it has worse usability due to OnNext/OnError/OnCompleted template parameters.
+ * \tparam T is type of value provided by this observable
+ * \tparam OnNext type of on_next callback
+ * \tparam OnError type of on_error callback
+ * \tparam OnCompleted type of on_completed callback
+ */
 template<typename T,
          typename OnNext = utils::empty_function_t<T>,
          typename OnError = utils::empty_function_t<std::exception_ptr>,

@@ -26,6 +26,10 @@
 
 namespace rpp
 {
+/**
+ * \brief subscriber which uses dynamic_observer<T> to hide original callbacks
+ * \tparam T type of values expected by this subscriber
+ */
 template<typename T>
 class dynamic_subscriber final : public specific_subscriber<T, dynamic_observer<T>>
 {
