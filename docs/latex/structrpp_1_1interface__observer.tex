@@ -1,0 +1,49 @@
+\hypertarget{structrpp_1_1interface__observer}{}\doxysection{rpp\+::interface\+\_\+observer\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Struct Template Reference}
+\label{structrpp_1_1interface__observer}\index{rpp::interface\_observer$<$ T $>$@{rpp::interface\_observer$<$ T $>$}}
+
+
+Interface of any observer type. Describes base callbacks.  
+
+
+
+
+{\ttfamily \#include $<$interface\+\_\+observer.\+h$>$}
+
+Inheritance diagram for rpp\+::interface\+\_\+observer\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.299304cm]{structrpp_1_1interface__observer}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structrpp_1_1interface__observer_aa434bd87b9be8e727ef38dcac14e7e27}\label{structrpp_1_1interface__observer_aa434bd87b9be8e727ef38dcac14e7e27}} 
+virtual void {\bfseries on\+\_\+next} (const T \&v) const =0
+\item 
+\mbox{\Hypertarget{structrpp_1_1interface__observer_a3780d41600d3dacd8ae6536fb65614d6}\label{structrpp_1_1interface__observer_a3780d41600d3dacd8ae6536fb65614d6}} 
+virtual void {\bfseries on\+\_\+next} (T \&\&v) const =0
+\item 
+\mbox{\Hypertarget{structrpp_1_1interface__observer_a75f46a05b81cdc26b9d7d52efede9cf0}\label{structrpp_1_1interface__observer_a75f46a05b81cdc26b9d7d52efede9cf0}} 
+virtual void {\bfseries on\+\_\+error} (const std\+::exception\+\_\+ptr \&err) const =0
+\item 
+\mbox{\Hypertarget{structrpp_1_1interface__observer_a33ab3fa364e11b58e4225afd9c071ad1}\label{structrpp_1_1interface__observer_a33ab3fa364e11b58e4225afd9c071ad1}} 
+virtual void {\bfseries on\+\_\+completed} () const =0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+struct rpp\+::interface\+\_\+observer$<$ T $>$}
+Interface of any observer type. Describes base callbacks. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & is type of value expected by this observer \\
+\hline
+\end{DoxyTemplParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/include/rpp/observers/interface\+\_\+observer.\+h\end{DoxyCompactItemize}

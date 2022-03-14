@@ -1,0 +1,109 @@
+\hypertarget{classrpp_1_1specific__observable}{}\doxysection{rpp\+::specific\+\_\+observable\texorpdfstring{$<$}{<} Type, On\+Subscribe\+Fn \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classrpp_1_1specific__observable}\index{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}}
+
+
+observable specified with specific type of On\+Subscribe\+Fn. Used to store On\+Subscribe\+Fn function as is on stack (instead of allocating it somewhere).  
+
+
+
+
+{\ttfamily \#include $<$specific\+\_\+observable.\+h$>$}
+
+Inheritance diagram for rpp\+::specific\+\_\+observable\texorpdfstring{$<$}{<} Type, On\+Subscribe\+Fn \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classrpp_1_1specific__observable}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_a814e14b2540f49ac234d0f5b1d9f1666}\label{classrpp_1_1specific__observable_a814e14b2540f49ac234d0f5b1d9f1666}} 
+{\bfseries specific\+\_\+observable} (const On\+Subscribe\+Fn \&on\+\_\+subscribe)
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_a39664b7292eeb3a845bca3e518f04870}\label{classrpp_1_1specific__observable_a39664b7292eeb3a845bca3e518f04870}} 
+{\bfseries specific\+\_\+observable} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_a5dd6d3943b5da651ea9cea267055d606}\label{classrpp_1_1specific__observable_a5dd6d3943b5da651ea9cea267055d606}} 
+\mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\+\_\+observable}}$<$ Type $>$ {\bfseries as\+\_\+dynamic} () const \&
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_ac67883f5e3acef5e86d32ef3c820f1ca}\label{classrpp_1_1specific__observable_ac67883f5e3acef5e86d32ef3c820f1ca}} 
+\mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\+\_\+observable}}$<$ Type $>$ {\bfseries as\+\_\+dynamic} () \&\&
+\item 
+\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable_ae64437bfee3b2b62219c0be2ec08aab4}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ Type $>$ \&subscriber) const noexcept override
+\begin{DoxyCompactList}\small\item\em Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Obs $>$ }\\\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable_adce968b7914e8036e29b46603298182c}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\+\_\+subscriber}}$<$ Type, Obs $>$ \&subscriber) const noexcept
+\begin{DoxyCompactList}\small\item\em Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename TObserver , typename  = std\+::enable\+\_\+if\+\_\+t$<$rpp\+::utils\+::is\+\_\+observer\+\_\+v$<$\+TObserver$>$ \&\& std\+::is\+\_\+same\+\_\+v$<$utils\+::extract\+\_\+observer\+\_\+type\+\_\+t$<$\+TObserver$>$, Type$>$$>$$>$ }\\\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable_aa69b11f5f94dda83a273e6f10b459a70}{subscribe}} (TObserver \&\&observer) const noexcept
+\begin{DoxyCompactList}\small\item\em Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Type, typename On\+Subscribe\+Fn$>$\newline
+class rpp\+::specific\+\_\+observable$<$ Type, On\+Subscribe\+Fn $>$}
+observable specified with specific type of On\+Subscribe\+Fn. Used to store On\+Subscribe\+Fn function as is on stack (instead of allocating it somewhere). 
+
+It has better performance comparing to \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable}}. Use it if possible. But it has worse usability due to On\+Subscribe\+Fn template parameter. 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & is type of value provided by this observable \\
+\hline
+{\em On\+Subscribe\+Fn} & is type of function/functor/callable used during subscription on this observable \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrpp_1_1specific__observable_ae64437bfee3b2b62219c0be2ec08aab4}\label{classrpp_1_1specific__observable_ae64437bfee3b2b62219c0be2ec08aab4}} 
+\index{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}}
+\doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename Type , typename On\+Subscribe\+Fn $>$ \\
+\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}$<$ Type, On\+Subscribe\+Fn $>$\+::subscribe (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ Type $>$ \&}]{subscriber }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. 
+
+this overloading accepts \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}} as most common and base type \begin{DoxyReturn}{Returns}
+subscription on this observable which can be used to unsubscribe 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{structrpp_1_1virtual__observable_aef0abc01731e70ece3c2814e1ef2ca5b}{rpp\+::virtual\+\_\+observable$<$ Type $>$}}.
+
+\mbox{\Hypertarget{classrpp_1_1specific__observable_adce968b7914e8036e29b46603298182c}\label{classrpp_1_1specific__observable_adce968b7914e8036e29b46603298182c}} 
+\index{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}}
+\doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename Type , typename On\+Subscribe\+Fn $>$ \\
+template$<$typename Obs $>$ \\
+\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}$<$ Type, On\+Subscribe\+Fn $>$\+::subscribe (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\+\_\+subscriber}}$<$ Type, Obs $>$ \&}]{subscriber }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. 
+
+this overloading accepts \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\+\_\+subscriber}} to avoid construction of \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}} \begin{DoxyReturn}{Returns}
+subscription on this observable which can be used to unsubscribe 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classrpp_1_1specific__observable_aa69b11f5f94dda83a273e6f10b459a70}\label{classrpp_1_1specific__observable_aa69b11f5f94dda83a273e6f10b459a70}} 
+\index{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}}
+\doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename Type , typename On\+Subscribe\+Fn $>$ \\
+template$<$typename TObserver , typename  = std\+::enable\+\_\+if\+\_\+t$<$rpp\+::utils\+::is\+\_\+observer\+\_\+v$<$\+TObserver$>$ \&\& std\+::is\+\_\+same\+\_\+v$<$utils\+::extract\+\_\+observer\+\_\+type\+\_\+t$<$\+TObserver$>$, Type$>$$>$$>$ \\
+\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}$<$ Type, On\+Subscribe\+Fn $>$\+::subscribe (\begin{DoxyParamCaption}\item[{TObserver \&\&}]{observer }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. 
+
+this overloading accepts observer to construct \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\+\_\+subscriber}} without extra overheads \begin{DoxyReturn}{Returns}
+subscription on this observable which can be used to unsubscribe 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/include/rpp/fwd.\+h\item 
+src/include/rpp/observables/specific\+\_\+observable.\+h\end{DoxyCompactItemize}

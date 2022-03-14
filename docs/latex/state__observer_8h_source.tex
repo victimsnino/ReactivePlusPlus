@@ -1,0 +1,88 @@
+\hypertarget{state__observer_8h_source}{}\doxysection{state\+\_\+observer.\+h}
+\label{state__observer_8h_source}\index{src/include/rpp/observers/state\_observer.h@{src/include/rpp/observers/state\_observer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// MIT License}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (c) 2022 Aleksey Loginov}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// Permission is hereby granted, free of charge, to any person obtaining a copy}}
+\DoxyCodeLine{6 \textcolor{comment}{// of this software and associated documentation files (the "{}Software"{}), to deal}}
+\DoxyCodeLine{7 \textcolor{comment}{// in the Software without restriction, including without limitation the rights}}
+\DoxyCodeLine{8 \textcolor{comment}{// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}}
+\DoxyCodeLine{9 \textcolor{comment}{// copies of the Software, and to permit persons to whom the Software is}}
+\DoxyCodeLine{10 \textcolor{comment}{// furnished to do so, subject to the following conditions:}}
+\DoxyCodeLine{11 \textcolor{comment}{// }}
+\DoxyCodeLine{12 \textcolor{comment}{// The above copyright notice and this permission notice shall be included in all}}
+\DoxyCodeLine{13 \textcolor{comment}{// copies or substantial portions of the Software.}}
+\DoxyCodeLine{14 \textcolor{comment}{// }}
+\DoxyCodeLine{15 \textcolor{comment}{// THE SOFTWARE IS PROVIDED "{}AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}}
+\DoxyCodeLine{16 \textcolor{comment}{// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}}
+\DoxyCodeLine{17 \textcolor{comment}{// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}}
+\DoxyCodeLine{18 \textcolor{comment}{// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}}
+\DoxyCodeLine{19 \textcolor{comment}{// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}}
+\DoxyCodeLine{20 \textcolor{comment}{// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}}
+\DoxyCodeLine{21 \textcolor{comment}{// SOFTWARE.}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include "{}rpp/utils/function\_traits.h"{}}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <rpp/observers/interface\_observer.h>}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <rpp/utils/functors.h>}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <exception>}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__error}{forwarding\_on\_error}}}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36     \textcolor{keyword}{template}<\textcolor{keyword}{typename} TSub>}
+\DoxyCodeLine{37     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} std::exception\_ptr\& err, TSub\&\& sub)\textcolor{keyword}{ const }\{sub.on\_error(err);\}}
+\DoxyCodeLine{38 \};}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__completed}{forwarding\_on\_completed}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42     \textcolor{keyword}{template}<\textcolor{keyword}{typename} TSub>}
+\DoxyCodeLine{43     \textcolor{keywordtype}{void} operator()(TSub\&\& sub)\textcolor{keyword}{ const }\{sub.on\_completed();\}}
+\DoxyCodeLine{44 \};}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{49 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,}
+\DoxyCodeLine{50          \textcolor{keyword}{typename} State,}
+\DoxyCodeLine{51          \textcolor{keyword}{typename} OnNext,}
+\DoxyCodeLine{52          \textcolor{keyword}{typename} OnError = \mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__error}{forwarding\_on\_error}},}
+\DoxyCodeLine{53          \textcolor{keyword}{typename} OnCompleted = \mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__completed}{forwarding\_on\_completed}}>}
+\DoxyCodeLine{54 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\_observer}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1interface__observer}{interface\_observer}}<T>}
+\DoxyCodeLine{55 \{}
+\DoxyCodeLine{56 \textcolor{keyword}{public}:}
+\DoxyCodeLine{57     \textcolor{keyword}{template}<\textcolor{keyword}{typename} TState,}
+\DoxyCodeLine{58              \textcolor{keyword}{typename} TOnNext,}
+\DoxyCodeLine{59              \textcolor{keyword}{typename} TOnError = \mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__error}{forwarding\_on\_error}},}
+\DoxyCodeLine{60              \textcolor{keyword}{typename} TOnCompleted = \mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__completed}{forwarding\_on\_completed}},}
+\DoxyCodeLine{61              \textcolor{keyword}{typename} = std::enable\_if\_t<std::is\_invocable\_v<TOnNext, T, State> \&\& std::is\_invocable\_v<TOnError, std::exception\_ptr, State> \&\& std::is\_invocable\_v<TOnCompleted, State>>>}
+\DoxyCodeLine{62     \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\_observer}}(TState\&\& state, TOnNext\&\& on\_next, TOnError\&\& on\_error = \{\}, TOnCompleted\&\& on\_completed = \{\})}
+\DoxyCodeLine{63         : m\_state\{std::forward<TState>(state)\}}
+\DoxyCodeLine{64         , m\_on\_next\{std::forward<TOnNext>(on\_next)\}}
+\DoxyCodeLine{65         , m\_on\_err\{std::forward<TOnError>(on\_error)\}}
+\DoxyCodeLine{66         , m\_on\_completed\{std::forward<TOnCompleted>(on\_completed)\} \{\}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68     \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\_observer}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\_observer<T, State, OnNext, OnError, OnCompleted>}}\& other)     = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{69     \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\_observer}}(\mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\_observer<T, State, OnNext, OnError, OnCompleted>}}\&\& other) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71     \textcolor{keywordtype}{void} on\_next(\textcolor{keyword}{const} T\& v)\textcolor{keyword}{ const override                     }\{ m\_on\_next(v, m\_state);             \}}
+\DoxyCodeLine{72     \textcolor{keywordtype}{void} on\_next(T\&\& v)\textcolor{keyword}{ const override                          }\{ m\_on\_next(std::move(v), m\_state);  \}}
+\DoxyCodeLine{73     \textcolor{keywordtype}{void} on\_error(\textcolor{keyword}{const} std::exception\_ptr\& err)\textcolor{keyword}{ const override }\{ m\_on\_err(err, m\_state);            \}}
+\DoxyCodeLine{74     \textcolor{keywordtype}{void} on\_completed()\textcolor{keyword}{ const override                          }\{ m\_on\_completed(m\_state);         \}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76 \textcolor{keyword}{private}:}
+\DoxyCodeLine{77     State       m\_state;}
+\DoxyCodeLine{78     OnNext      m\_on\_next;}
+\DoxyCodeLine{79     OnError     m\_on\_err;}
+\DoxyCodeLine{80     OnCompleted m\_on\_completed;}
+\DoxyCodeLine{81 \};}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 \textcolor{keyword}{template}<\textcolor{keyword}{typename} TState, \textcolor{keyword}{typename} TOnNext, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{84 \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\_observer}}(TState, TOnNext, Args...) -\/> \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\_observer<std::decay\_t<utils::function\_argument\_t<TOnNext>}}>, TState, TOnNext, Args...>;}
+\DoxyCodeLine{85 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

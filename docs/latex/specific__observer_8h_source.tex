@@ -1,0 +1,111 @@
+\hypertarget{specific__observer_8h_source}{}\doxysection{specific\+\_\+observer.\+h}
+\label{specific__observer_8h_source}\index{src/include/rpp/observers/specific\_observer.h@{src/include/rpp/observers/specific\_observer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// MIT License}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (c) 2022 Aleksey Loginov}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// Permission is hereby granted, free of charge, to any person obtaining a copy}}
+\DoxyCodeLine{6 \textcolor{comment}{// of this software and associated documentation files (the "{}Software"{}), to deal}}
+\DoxyCodeLine{7 \textcolor{comment}{// in the Software without restriction, including without limitation the rights}}
+\DoxyCodeLine{8 \textcolor{comment}{// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}}
+\DoxyCodeLine{9 \textcolor{comment}{// copies of the Software, and to permit persons to whom the Software is}}
+\DoxyCodeLine{10 \textcolor{comment}{// furnished to do so, subject to the following conditions:}}
+\DoxyCodeLine{11 \textcolor{comment}{// }}
+\DoxyCodeLine{12 \textcolor{comment}{// The above copyright notice and this permission notice shall be included in all}}
+\DoxyCodeLine{13 \textcolor{comment}{// copies or substantial portions of the Software.}}
+\DoxyCodeLine{14 \textcolor{comment}{// }}
+\DoxyCodeLine{15 \textcolor{comment}{// THE SOFTWARE IS PROVIDED "{}AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}}
+\DoxyCodeLine{16 \textcolor{comment}{// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}}
+\DoxyCodeLine{17 \textcolor{comment}{// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}}
+\DoxyCodeLine{18 \textcolor{comment}{// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}}
+\DoxyCodeLine{19 \textcolor{comment}{// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}}
+\DoxyCodeLine{20 \textcolor{comment}{// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}}
+\DoxyCodeLine{21 \textcolor{comment}{// SOFTWARE.}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/fwd.h>}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <rpp/observers/dynamic\_observer.h>}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <rpp/observers/interface\_observer.h>}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <rpp/utils/function\_traits.h>}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <rpp/utils/functors.h>}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <rpp/utils/type\_traits.h>}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{keyword}{namespace }rpp}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{43 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,}
+\DoxyCodeLine{44          \textcolor{keyword}{typename} OnNext = utils::empty\_function\_t<T>,}
+\DoxyCodeLine{45          \textcolor{keyword}{typename} OnError = utils::empty\_function\_t<std::exception\_ptr>,}
+\DoxyCodeLine{46          \textcolor{keyword}{typename} OnCompleted = utils::empty\_function\_t<>>}
+\DoxyCodeLine{47 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1interface__observer}{interface\_observer}}<T>}
+\DoxyCodeLine{48 \{}
+\DoxyCodeLine{49 \textcolor{keyword}{public}:}
+\DoxyCodeLine{50     \textcolor{keyword}{template}<\textcolor{keyword}{typename} TOnNext      = utils::empty\_function\_t<T>,}
+\DoxyCodeLine{51              \textcolor{keyword}{typename} TOnError     = utils::empty\_function\_t<std::exception\_ptr>,}
+\DoxyCodeLine{52              \textcolor{keyword}{typename} TOnCompleted = utils::empty\_function\_t<>,}
+\DoxyCodeLine{53              \textcolor{keyword}{typename}              = utils::enable\_if\_observer\_constructible\_t<T, TOnNext, TOnError, TOnCompleted>>}
+\DoxyCodeLine{54     \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}(TOnNext\&\& on\_next = \{\}, TOnError\&\& on\_error = \{\}, TOnCompleted\&\& on\_completed = \{\})}
+\DoxyCodeLine{55         : m\_on\_next\{std::forward<TOnNext>(on\_next)\}}
+\DoxyCodeLine{56         , m\_on\_err\{std::forward<TOnError>(on\_error)\}}
+\DoxyCodeLine{57         , m\_on\_completed\{std::forward<TOnCompleted>(on\_completed)\} \{\}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59     \textcolor{keyword}{template}<\textcolor{keyword}{typename} TOnNext,}
+\DoxyCodeLine{60              \textcolor{keyword}{typename} TOnCompleted,}
+\DoxyCodeLine{61              \textcolor{keyword}{typename} = utils::enable\_if\_observer\_constructible\_t<T, TOnNext, utils::empty\_function\_t<std::exception\_ptr>, TOnCompleted>>}
+\DoxyCodeLine{62     \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}(TOnNext\&\& on\_next, TOnCompleted\&\& on\_completed)}
+\DoxyCodeLine{63         : \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}\{std::forward<TOnNext>(on\_next),}
+\DoxyCodeLine{64                             utils::empty\_function\_t<std::exception\_ptr>\{\},}
+\DoxyCodeLine{65                             std::forward<TOnCompleted>(on\_completed)\} \{\}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67     \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}}\& obs)}
+\DoxyCodeLine{68         : m\_on\_next\{utils::make\_forwarding\_on\_next(obs)\}}
+\DoxyCodeLine{69         , m\_on\_err\{utils::make\_forwarding\_on\_error(obs)\}}
+\DoxyCodeLine{70         , m\_on\_completed\{utils::make\_forwarding\_on\_completed(obs)\} \{\}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72     \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer<T, OnNext, OnError, OnCompleted>}}\& other)     = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{73     \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}(\mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer<T, OnNext, OnError, OnCompleted>}}\&\& other) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75     \textcolor{keywordtype}{void} on\_next(\textcolor{keyword}{const} T\& v)\textcolor{keyword}{ const override                     }\{ m\_on\_next(v);             \}}
+\DoxyCodeLine{76     \textcolor{keywordtype}{void} on\_next(T\&\& v)\textcolor{keyword}{ const override                          }\{ m\_on\_next(std::move(v));  \}}
+\DoxyCodeLine{77     \textcolor{keywordtype}{void} on\_error(\textcolor{keyword}{const} std::exception\_ptr\& err)\textcolor{keyword}{ const override }\{ m\_on\_err(err);            \}}
+\DoxyCodeLine{78     \textcolor{keywordtype}{void} on\_completed()\textcolor{keyword}{ const override                          }\{ m\_on\_completed();         \}}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80     [[nodiscard]] \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}} as\_dynamic() \textcolor{keyword}{const} \& \{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
+\DoxyCodeLine{81     [[nodiscard]] \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}} as\_dynamic() \&\&      \{ \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{this}); \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 \textcolor{keyword}{private}:}
+\DoxyCodeLine{84     OnNext      m\_on\_next;}
+\DoxyCodeLine{85     OnError     m\_on\_err;}
+\DoxyCodeLine{86     OnCompleted m\_on\_completed;}
+\DoxyCodeLine{87 \};}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext>}
+\DoxyCodeLine{90 \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}(OnNext) -\/> \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer<std::decay\_t<utils::function\_argument\_t<OnNext>}}>, OnNext>;}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext, \textcolor{keyword}{typename} OnError, \textcolor{keyword}{typename} ...Args, \textcolor{keyword}{typename} = std::enable\_if\_t<std::is\_invocable\_v<OnError, std::exception\_ptr>>>}
+\DoxyCodeLine{93 \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}(OnNext, OnError, Args...) -\/> \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer<std::decay\_t<utils::function\_argument\_t<OnNext>}}>, OnNext, OnError, Args...>;}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext, \textcolor{keyword}{typename} OnCompleted, \textcolor{keyword}{typename} = std::enable\_if\_t<std::is\_invocable\_v<OnCompleted>>>}
+\DoxyCodeLine{96 \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}(OnNext, OnCompleted) -\/> \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer<std::decay\_t<utils::function\_argument\_t<OnNext>}}>, OnNext, utils::empty\_function\_t<std::exception\_ptr>, OnCompleted>;}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{99 \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}(}
+\DoxyCodeLine{100     \textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}}\&)-\/>specific\_observer<T,}
+\DoxyCodeLine{101     std::invoke\_result\_t<\textcolor{keyword}{decltype}(utils::make\_forwarding\_on\_next<dynamic\_observer<T>>), \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}}>,}
+\DoxyCodeLine{102     std::invoke\_result\_t<\textcolor{keyword}{decltype}(utils::make\_forwarding\_on\_error<\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}}>), \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}}>,}
+\DoxyCodeLine{103     std::invoke\_result\_t<\textcolor{keyword}{decltype}(utils::make\_forwarding\_on\_completed<dynamic\_observer<T>>), \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}}>>;}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105 \textcolor{keyword}{namespace }details}
+\DoxyCodeLine{106 \{}
+\DoxyCodeLine{107     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{108     \textcolor{keyword}{auto} deduce\_specific\_observer\_type(\textcolor{keyword}{const} Args\&...vals) \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}\{vals...\}; \}}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{111     \textcolor{keyword}{using} deduce\_specific\_observer\_type\_t = \textcolor{keyword}{decltype}(deduce\_specific\_observer\_type(std::declval<Args>()...));}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113 \} \textcolor{comment}{// namespace details}}
+\DoxyCodeLine{114 \} \textcolor{comment}{// namespace rpp}}
+
+\end{DoxyCode}

@@ -1,0 +1,112 @@
+\hypertarget{subscriber__base_8h_source}{}\doxysection{subscriber\+\_\+base.\+h}
+\label{subscriber__base_8h_source}\index{src/include/rpp/subscribers/subscriber\_base.h@{src/include/rpp/subscribers/subscriber\_base.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// MIT License}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (c) 2022 Aleksey Loginov}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// Permission is hereby granted, free of charge, to any person obtaining a copy}}
+\DoxyCodeLine{6 \textcolor{comment}{// of this software and associated documentation files (the "{}Software"{}), to deal}}
+\DoxyCodeLine{7 \textcolor{comment}{// in the Software without restriction, including without limitation the rights}}
+\DoxyCodeLine{8 \textcolor{comment}{// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}}
+\DoxyCodeLine{9 \textcolor{comment}{// copies of the Software, and to permit persons to whom the Software is}}
+\DoxyCodeLine{10 \textcolor{comment}{// furnished to do so, subject to the following conditions:}}
+\DoxyCodeLine{11 \textcolor{comment}{// }}
+\DoxyCodeLine{12 \textcolor{comment}{// The above copyright notice and this permission notice shall be included in all}}
+\DoxyCodeLine{13 \textcolor{comment}{// copies or substantial portions of the Software.}}
+\DoxyCodeLine{14 \textcolor{comment}{// }}
+\DoxyCodeLine{15 \textcolor{comment}{// THE SOFTWARE IS PROVIDED "{}AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}}
+\DoxyCodeLine{16 \textcolor{comment}{// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}}
+\DoxyCodeLine{17 \textcolor{comment}{// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}}
+\DoxyCodeLine{18 \textcolor{comment}{// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}}
+\DoxyCodeLine{19 \textcolor{comment}{// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}}
+\DoxyCodeLine{20 \textcolor{comment}{// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}}
+\DoxyCodeLine{21 \textcolor{comment}{// SOFTWARE.}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/subscription.h>}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <rpp/observers/interface\_observer.h>}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1subscriber__tag}{subscriber\_tag}}\{\};}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{36 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
+\DoxyCodeLine{37 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}}
+\DoxyCodeLine{38         : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1interface__observer}{interface\_observer}}<Type>}
+\DoxyCodeLine{39         , \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1details_1_1subscriber__tag}{subscriber\_tag}}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41     \textcolor{keyword}{static\_assert}(std::is\_same\_v<std::decay\_t<Type>, Type>, \textcolor{stringliteral}{"{}Type should be decayed to match with decayed observable types"{}});}
+\DoxyCodeLine{42 \textcolor{keyword}{public}:}
+\DoxyCodeLine{43     \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription}{subscription}}\& \mbox{\hyperlink{classrpp_1_1subscription}{subscription}})}
+\DoxyCodeLine{44         : m\_subscription\{\mbox{\hyperlink{classrpp_1_1subscription}{subscription}}\} \{\}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46     \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}(\mbox{\hyperlink{classrpp_1_1subscription}{subscription}}\&\& \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} = \{\})}
+\DoxyCodeLine{47         : m\_subscription\{std::move(\mbox{\hyperlink{classrpp_1_1subscription}{subscription}})\} \{\}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49     \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}\&)     = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{50     \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}(\mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}\&\&) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52     \textcolor{keywordtype}{void} on\_next(\textcolor{keyword}{const} Type\& val) \textcolor{keyword}{const} \textcolor{keyword}{final}}
+\DoxyCodeLine{53     \{}
+\DoxyCodeLine{54         \textcolor{keywordflow}{if} (!m\_subscription.is\_subscribed())}
+\DoxyCodeLine{55             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57         on\_next\_impl(val);}
+\DoxyCodeLine{58     \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     \textcolor{keywordtype}{void} on\_next(Type\&\& val) \textcolor{keyword}{const} \textcolor{keyword}{final}}
+\DoxyCodeLine{61     \{}
+\DoxyCodeLine{62         \textcolor{keywordflow}{if} (!m\_subscription.is\_subscribed())}
+\DoxyCodeLine{63             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65         on\_next\_impl(std::move(val));}
+\DoxyCodeLine{66     \}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68     \textcolor{keywordtype}{void} on\_error(\textcolor{keyword}{const} std::exception\_ptr\& err) \textcolor{keyword}{const} \textcolor{keyword}{final}}
+\DoxyCodeLine{69     \{}
+\DoxyCodeLine{70         \textcolor{keywordflow}{if} (!m\_subscription.is\_subscribed())}
+\DoxyCodeLine{71             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73         \mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}} guard\{m\_subscription\};}
+\DoxyCodeLine{74         on\_error\_impl(err);}
+\DoxyCodeLine{75     \}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77     \textcolor{keywordtype}{void} on\_completed() \textcolor{keyword}{const} \textcolor{keyword}{final}}
+\DoxyCodeLine{78     \{}
+\DoxyCodeLine{79         \textcolor{keywordflow}{if} (!m\_subscription.is\_subscribed())}
+\DoxyCodeLine{80             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82         \mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}} guard\{m\_subscription\};}
+\DoxyCodeLine{83         on\_completed\_impl();}
+\DoxyCodeLine{84     \}}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86     \textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription}{subscription}}\& get\_subscription()\textcolor{keyword}{ const}}
+\DoxyCodeLine{87 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{88         \textcolor{keywordflow}{return} m\_subscription;}
+\DoxyCodeLine{89     \}}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91     [[nodiscard]] \textcolor{keywordtype}{bool} is\_subscribed()\textcolor{keyword}{ const}}
+\DoxyCodeLine{92 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{93         \textcolor{keywordflow}{return} m\_subscription.is\_subscribed();}
+\DoxyCodeLine{94     \}}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96     \textcolor{keywordtype}{void} unsubscribe()\textcolor{keyword}{ const}}
+\DoxyCodeLine{97 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{98         m\_subscription.unsubscribe();}
+\DoxyCodeLine{99     \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{102     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_next\_impl(\textcolor{keyword}{const} Type\& v) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{103     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_next\_impl(Type\&\& v) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{104     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_error\_impl(\textcolor{keyword}{const} std::exception\_ptr\& err) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{105     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_completed\_impl() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107 \textcolor{keyword}{private}:}
+\DoxyCodeLine{108     \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} m\_subscription;}
+\DoxyCodeLine{109 \};}
+\DoxyCodeLine{110 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

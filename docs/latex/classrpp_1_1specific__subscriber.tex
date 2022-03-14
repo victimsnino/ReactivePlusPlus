@@ -1,0 +1,131 @@
+\hypertarget{classrpp_1_1specific__subscriber}{}\doxysection{rpp\+::specific\+\_\+subscriber\texorpdfstring{$<$}{<} Type, Observer \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classrpp_1_1specific__subscriber}\index{rpp::specific\_subscriber$<$ Type, Observer $>$@{rpp::specific\_subscriber$<$ Type, Observer $>$}}
+
+
+specific version of subscriber which stores type of observer used inside to prevent extra allocations  
+
+
+
+
+{\ttfamily \#include $<$specific\+\_\+subscriber.\+h$>$}
+
+Inheritance diagram for rpp\+::specific\+\_\+subscriber\texorpdfstring{$<$}{<} Type, Observer \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classrpp_1_1specific__subscriber}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_aa791ce450aab0a492fb46d5f68b3681f}\label{classrpp_1_1specific__subscriber_aa791ce450aab0a492fb46d5f68b3681f}} 
+{\bfseries specific\+\_\+subscriber} (const Observer \&observer)
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_aa0169a96313b8daff090639eb0f7d5f6}\label{classrpp_1_1specific__subscriber_aa0169a96313b8daff090639eb0f7d5f6}} 
+{\bfseries specific\+\_\+subscriber} (Observer \&\&observer)
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a0ed62298f534e77db0a5b1caa5891d93}\label{classrpp_1_1specific__subscriber_a0ed62298f534e77db0a5b1caa5891d93}} 
+{\bfseries specific\+\_\+subscriber} (const \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \&sub, const Observer \&observer)
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a10e27d98e60ccb6b830ebe22e01480d5}\label{classrpp_1_1specific__subscriber_a10e27d98e60ccb6b830ebe22e01480d5}} 
+{\bfseries specific\+\_\+subscriber} (const \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \&sub, Observer \&\&observer)
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_adb175c4b15292e265bda23903225b957}\label{classrpp_1_1specific__subscriber_adb175c4b15292e265bda23903225b957}} 
+{\footnotesize template$<$typename ... Types, typename Enabled  = utils\+::enable\+\_\+if\+\_\+observer\+\_\+constructible\+\_\+t$<$\+Type, Types...$>$$>$ }\\{\bfseries specific\+\_\+subscriber} (Types \&\&...vals)
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a4385ebb26d7f4a35aaf34ec26b036d4d}\label{classrpp_1_1specific__subscriber_a4385ebb26d7f4a35aaf34ec26b036d4d}} 
+{\footnotesize template$<$typename ... Types, typename Enabled  = utils\+::enable\+\_\+if\+\_\+observer\+\_\+constructible\+\_\+t$<$\+Type, Types...$>$$>$ }\\{\bfseries specific\+\_\+subscriber} (const \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \&sub, Types \&\&...vals)
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a21e776b2239b3ad3f2e88d2f6fddb26c}\label{classrpp_1_1specific__subscriber_a21e776b2239b3ad3f2e88d2f6fddb26c}} 
+{\bfseries specific\+\_\+subscriber} (const \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\+\_\+subscriber}} \&)=default
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_ab8a550401de39767b542ae00747348d5}\label{classrpp_1_1specific__subscriber_ab8a550401de39767b542ae00747348d5}} 
+{\bfseries specific\+\_\+subscriber} (\mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\+\_\+subscriber}} \&\&) noexcept=default
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_abd27c7963b74c374276fb352d544fccd}\label{classrpp_1_1specific__subscriber_abd27c7963b74c374276fb352d544fccd}} 
+const Observer \& {\bfseries get\+\_\+observer} () const
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a4829de9237a909ad3df3f5392ac89dad}\label{classrpp_1_1specific__subscriber_a4829de9237a909ad3df3f5392ac89dad}} 
+auto {\bfseries as\+\_\+dynamic} () const \&
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a68ae9a88277c2a707d71cbc2942c77b4}\label{classrpp_1_1specific__subscriber_a68ae9a88277c2a707d71cbc2942c77b4}} 
+auto {\bfseries as\+\_\+dynamic} () \&\&
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classrpp_1_1specific__subscriber_a2939eb190689d992f3d62fc723f2fd72}{on\+\_\+next\+\_\+impl}} (const Type \&val) const final
+\item 
+void \mbox{\hyperlink{classrpp_1_1specific__subscriber_a9283587cc920b70c8a6c2011755d6df1}{on\+\_\+next\+\_\+impl}} (Type \&\&val) const final
+\item 
+void \mbox{\hyperlink{classrpp_1_1specific__subscriber_a5626085e6f482bf9bd1b2b7accf53774}{on\+\_\+error\+\_\+impl}} (const std\+::exception\+\_\+ptr \&err) const final
+\item 
+void \mbox{\hyperlink{classrpp_1_1specific__subscriber_a71eb686df33cd01a5fc27cfa349c1632}{on\+\_\+completed\+\_\+impl}} () const final
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Type, typename Observer$>$\newline
+class rpp\+::specific\+\_\+subscriber$<$ Type, Observer $>$}
+specific version of subscriber which stores type of observer used inside to prevent extra allocations 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & type of values expected by this subscriber \\
+\hline
+{\em Observer} & observer which was wrapped by this subscriber \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a71eb686df33cd01a5fc27cfa349c1632}\label{classrpp_1_1specific__subscriber_a71eb686df33cd01a5fc27cfa349c1632}} 
+\index{rpp::specific\_subscriber$<$ Type, Observer $>$@{rpp::specific\_subscriber$<$ Type, Observer $>$}!on\_completed\_impl@{on\_completed\_impl}}
+\index{on\_completed\_impl@{on\_completed\_impl}!rpp::specific\_subscriber$<$ Type, Observer $>$@{rpp::specific\_subscriber$<$ Type, Observer $>$}}
+\doxysubsubsection{\texorpdfstring{on\_completed\_impl()}{on\_completed\_impl()}}
+{\footnotesize\ttfamily template$<$typename Type , typename Observer $>$ \\
+void \mbox{\hyperlink{classrpp_1_1specific__subscriber}{rpp\+::specific\+\_\+subscriber}}$<$ Type, Observer $>$\+::on\+\_\+completed\+\_\+impl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{rpp\+::details\+::subscriber\+\_\+base$<$ Type $>$}}.
+
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a5626085e6f482bf9bd1b2b7accf53774}\label{classrpp_1_1specific__subscriber_a5626085e6f482bf9bd1b2b7accf53774}} 
+\index{rpp::specific\_subscriber$<$ Type, Observer $>$@{rpp::specific\_subscriber$<$ Type, Observer $>$}!on\_error\_impl@{on\_error\_impl}}
+\index{on\_error\_impl@{on\_error\_impl}!rpp::specific\_subscriber$<$ Type, Observer $>$@{rpp::specific\_subscriber$<$ Type, Observer $>$}}
+\doxysubsubsection{\texorpdfstring{on\_error\_impl()}{on\_error\_impl()}}
+{\footnotesize\ttfamily template$<$typename Type , typename Observer $>$ \\
+void \mbox{\hyperlink{classrpp_1_1specific__subscriber}{rpp\+::specific\+\_\+subscriber}}$<$ Type, Observer $>$\+::on\+\_\+error\+\_\+impl (\begin{DoxyParamCaption}\item[{const std\+::exception\+\_\+ptr \&}]{err }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{rpp\+::details\+::subscriber\+\_\+base$<$ Type $>$}}.
+
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a2939eb190689d992f3d62fc723f2fd72}\label{classrpp_1_1specific__subscriber_a2939eb190689d992f3d62fc723f2fd72}} 
+\index{rpp::specific\_subscriber$<$ Type, Observer $>$@{rpp::specific\_subscriber$<$ Type, Observer $>$}!on\_next\_impl@{on\_next\_impl}}
+\index{on\_next\_impl@{on\_next\_impl}!rpp::specific\_subscriber$<$ Type, Observer $>$@{rpp::specific\_subscriber$<$ Type, Observer $>$}}
+\doxysubsubsection{\texorpdfstring{on\_next\_impl()}{on\_next\_impl()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Type , typename Observer $>$ \\
+void \mbox{\hyperlink{classrpp_1_1specific__subscriber}{rpp\+::specific\+\_\+subscriber}}$<$ Type, Observer $>$\+::on\+\_\+next\+\_\+impl (\begin{DoxyParamCaption}\item[{const Type \&}]{val }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{rpp\+::details\+::subscriber\+\_\+base$<$ Type $>$}}.
+
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a9283587cc920b70c8a6c2011755d6df1}\label{classrpp_1_1specific__subscriber_a9283587cc920b70c8a6c2011755d6df1}} 
+\index{rpp::specific\_subscriber$<$ Type, Observer $>$@{rpp::specific\_subscriber$<$ Type, Observer $>$}!on\_next\_impl@{on\_next\_impl}}
+\index{on\_next\_impl@{on\_next\_impl}!rpp::specific\_subscriber$<$ Type, Observer $>$@{rpp::specific\_subscriber$<$ Type, Observer $>$}}
+\doxysubsubsection{\texorpdfstring{on\_next\_impl()}{on\_next\_impl()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Type , typename Observer $>$ \\
+void \mbox{\hyperlink{classrpp_1_1specific__subscriber}{rpp\+::specific\+\_\+subscriber}}$<$ Type, Observer $>$\+::on\+\_\+next\+\_\+impl (\begin{DoxyParamCaption}\item[{Type \&\&}]{val }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{rpp\+::details\+::subscriber\+\_\+base$<$ Type $>$}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/include/rpp/fwd.\+h\item 
+src/include/rpp/subscribers/specific\+\_\+subscriber.\+h\end{DoxyCompactItemize}

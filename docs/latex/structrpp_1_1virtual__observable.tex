@@ -1,0 +1,61 @@
+\hypertarget{structrpp_1_1virtual__observable}{}\doxysection{rpp\+::virtual\+\_\+observable\texorpdfstring{$<$}{<} Type \texorpdfstring{$>$}{>} Struct Template Reference}
+\label{structrpp_1_1virtual__observable}\index{rpp::virtual\_observable$<$ Type $>$@{rpp::virtual\_observable$<$ Type $>$}}
+
+
+Interface of observable.  
+
+
+
+
+{\ttfamily \#include $<$interface\+\_\+observable.\+h$>$}
+
+Inheritance diagram for rpp\+::virtual\+\_\+observable\texorpdfstring{$<$}{<} Type \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.523810cm]{structrpp_1_1virtual__observable}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{structrpp_1_1virtual__observable_aef0abc01731e70ece3c2814e1ef2ca5b}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ Type $>$ \&subscriber) const noexcept=0
+\begin{DoxyCompactList}\small\item\em Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Type$>$\newline
+struct rpp\+::virtual\+\_\+observable$<$ Type $>$}
+Interface of observable. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & type provided by this observable \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structrpp_1_1virtual__observable_aef0abc01731e70ece3c2814e1ef2ca5b}\label{structrpp_1_1virtual__observable_aef0abc01731e70ece3c2814e1ef2ca5b}} 
+\index{rpp::virtual\_observable$<$ Type $>$@{rpp::virtual\_observable$<$ Type $>$}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!rpp::virtual\_observable$<$ Type $>$@{rpp::virtual\_observable$<$ Type $>$}}
+\doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}}
+{\footnotesize\ttfamily template$<$typename Type $>$ \\
+virtual \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{structrpp_1_1virtual__observable}{rpp\+::virtual\+\_\+observable}}$<$ Type $>$\+::subscribe (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ Type $>$ \&}]{subscriber }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. 
+
+\begin{DoxyReturn}{Returns}
+subscription on this observable which can be used to unsubscribe 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classrpp_1_1dynamic__observable_a43dfe979f5a6f05a7a546f5bb724422a}{rpp\+::dynamic\+\_\+observable$<$ Type $>$}}, and \mbox{\hyperlink{classrpp_1_1specific__observable_ae64437bfee3b2b62219c0be2ec08aab4}{rpp\+::specific\+\_\+observable$<$ Type, On\+Subscribe\+Fn $>$}}.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/include/rpp/fwd.\+h\item 
+src/include/rpp/observables/interface\+\_\+observable.\+h\end{DoxyCompactItemize}

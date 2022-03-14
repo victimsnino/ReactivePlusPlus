@@ -1,0 +1,98 @@
+\hypertarget{specific__observable_8h_source}{}\doxysection{specific\+\_\+observable.\+h}
+\label{specific__observable_8h_source}\index{src/include/rpp/observables/specific\_observable.h@{src/include/rpp/observables/specific\_observable.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// MIT License}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (c) 2021 Aleksey Loginov}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// Permission is hereby granted, free of charge, to any person obtaining a copy}}
+\DoxyCodeLine{6 \textcolor{comment}{// of this software and associated documentation files (the "{}Software"{}), to deal}}
+\DoxyCodeLine{7 \textcolor{comment}{// in the Software without restriction, including without limitation the rights}}
+\DoxyCodeLine{8 \textcolor{comment}{// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}}
+\DoxyCodeLine{9 \textcolor{comment}{// copies of the Software, and to permit persons to whom the Software is}}
+\DoxyCodeLine{10 \textcolor{comment}{// furnished to do so, subject to the following conditions:}}
+\DoxyCodeLine{11 \textcolor{comment}{// }}
+\DoxyCodeLine{12 \textcolor{comment}{// The above copyright notice and this permission notice shall be included in all}}
+\DoxyCodeLine{13 \textcolor{comment}{// copies or substantial portions of the Software.}}
+\DoxyCodeLine{14 \textcolor{comment}{// }}
+\DoxyCodeLine{15 \textcolor{comment}{// THE SOFTWARE IS PROVIDED "{}AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}}
+\DoxyCodeLine{16 \textcolor{comment}{// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}}
+\DoxyCodeLine{17 \textcolor{comment}{// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}}
+\DoxyCodeLine{18 \textcolor{comment}{// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}}
+\DoxyCodeLine{19 \textcolor{comment}{// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}}
+\DoxyCodeLine{20 \textcolor{comment}{// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}}
+\DoxyCodeLine{21 \textcolor{comment}{// SOFTWARE.}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/observables/dynamic\_observable.h>}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <rpp/observables/interface\_observable.h>}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <rpp/utils/function\_traits.h>}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <rpp/utils/type\_traits.h>}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{keyword}{namespace }rpp}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} OnSubscribeFn>}
+\DoxyCodeLine{42 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1interface__observable}{interface\_observable}}<Type, specific\_observable<Type, OnSubscribeFn>>}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44     \textcolor{keyword}{static\_assert}(std::is\_same\_v<std::decay\_t<OnSubscribeFn>, OnSubscribeFn>, \textcolor{stringliteral}{"{}OnSubscribeFn of specific\_observable should be decayed"{}});}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{keyword}{public}:}
+\DoxyCodeLine{47     \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}(\textcolor{keyword}{const} OnSubscribeFn\& on\_subscribe)}
+\DoxyCodeLine{48         : m\_state\{on\_subscribe\} \{\}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50     \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}(OnSubscribeFn\&\& on\_subscribe)}
+\DoxyCodeLine{51         : m\_state\{std::move(on\_subscribe)\} \{\}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53     [[nodiscard]] \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable<Type>}} as\_dynamic() \textcolor{keyword}{const} \& \{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this};            \}}
+\DoxyCodeLine{54     [[nodiscard]] \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable<Type>}} as\_dynamic() \&\&      \{ \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{this}); \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{61     \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable_ae64437bfee3b2b62219c0be2ec08aab4}{subscribe}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<Type>}}\& subscriber) \textcolor{keyword}{const} \textcolor{keyword}{noexcept} \textcolor{keyword}{override}}
+\DoxyCodeLine{62     \{}
+\DoxyCodeLine{63         \textcolor{keywordflow}{return} subscribe\_impl(subscriber);}
+\DoxyCodeLine{64     \}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{71     \textcolor{keyword}{template}<\textcolor{keyword}{typename} Obs>}
+\DoxyCodeLine{72     \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable_adce968b7914e8036e29b46603298182c}{subscribe}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber<Type, Obs>}}\& subscriber) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{73     \{}
+\DoxyCodeLine{74         \textcolor{keywordflow}{return} subscribe\_impl(subscriber);}
+\DoxyCodeLine{75     \}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{82     \textcolor{keyword}{template}<\textcolor{keyword}{typename} TObserver, \textcolor{keyword}{typename} = std::enable\_if\_t<rpp::utils::is\_observer\_v<TObserver> \&\& std::is\_same\_v<utils::extract\_observer\_type\_t<TObserver>, Type>>>}
+\DoxyCodeLine{83     \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable_aa69b11f5f94dda83a273e6f10b459a70}{subscribe}}(TObserver\&\& observer) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{84     \{}
+\DoxyCodeLine{85         \textcolor{keywordflow}{return} subscribe\_impl<std::decay\_t<TObserver>>(std::forward<TObserver>(observer));}
+\DoxyCodeLine{86     \}}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88 \textcolor{keyword}{private}:}
+\DoxyCodeLine{89     \textcolor{keyword}{template}<\textcolor{keyword}{typename} Obs>}
+\DoxyCodeLine{90     \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} subscribe\_impl(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber<Type, Obs>}}\& subscriber) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{91     \{}
+\DoxyCodeLine{92         \textcolor{keywordflow}{try}}
+\DoxyCodeLine{93         \{}
+\DoxyCodeLine{94             m\_state(subscriber);}
+\DoxyCodeLine{95         \}}
+\DoxyCodeLine{96         \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} std::exception\& exc)}
+\DoxyCodeLine{97         \{}
+\DoxyCodeLine{98             subscriber.on\_error(std::make\_exception\_ptr(exc));}
+\DoxyCodeLine{99         \}}
+\DoxyCodeLine{100         \textcolor{keywordflow}{return} subscriber.get\_subscription();}
+\DoxyCodeLine{101     \}}
+\DoxyCodeLine{102 \textcolor{keyword}{private}:}
+\DoxyCodeLine{103     OnSubscribeFn m\_state;}
+\DoxyCodeLine{104 \};}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnSub>}
+\DoxyCodeLine{107 specific\_observable(OnSub on\_subscribe) -\/> specific\_observable<utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OnSub>>, OnSub>;}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{109 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} OnSub>}
+\DoxyCodeLine{110 \textcolor{keyword}{auto} make\_specific\_observable(OnSub\&\& call)}
+\DoxyCodeLine{111 \{}
+\DoxyCodeLine{112     \textcolor{keywordflow}{return} specific\_observable<Type, std::decay\_t<OnSub>>\{std::forward<OnSub>(call)\};}
+\DoxyCodeLine{113 \}}
+\DoxyCodeLine{114 \} \textcolor{comment}{// namespace rpp}}
+
+\end{DoxyCode}
