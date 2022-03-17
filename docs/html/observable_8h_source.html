@@ -69,7 +69,7 @@ $(function() {
   <div class="headertitle"><div class="title">observable.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// MIT License</span></div>
+<a href="observable_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// MIT License</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// </span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">// Copyright (c) 2022 Aleksey Loginov</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// </span></div>
@@ -93,22 +93,24 @@ $(function() {
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;rpp/observables/specific_observable.h&gt;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">namespace </span>rpp::observable</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>{</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type, <span class="keyword">typename</span> OnSubscribeFn&gt;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>specific_observable&lt;Type, std::remove_const_t&lt;std::remove_reference_t&lt;OnSubscribeFn&gt;&gt;&gt; create(OnSubscribeFn&amp;&amp; on_subscribe)</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>{</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">return</span> {std::forward&lt;OnSubscribeFn&gt;(on_subscribe)};</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> OnSubscribeFn, <span class="keyword">typename</span> Type = utils::extract_subscriber_type_t&lt;utils::function_argument_t&lt;OnSubscribeFn&gt;&gt;&gt;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">auto</span> create(OnSubscribeFn&amp;&amp; on_subscribe)</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>{</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">return</span> create&lt;Type&gt;(std::forward&lt;OnSubscribeFn&gt;(on_subscribe));</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>} <span class="comment">// namespace rpp::observable</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#include &lt;rpp/observables/specific_observable.h&gt;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">namespace </span>rpp::observable</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>{</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type, <span class="keyword">typename</span> OnSubscribeFn&gt;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="observable_8h.html#a689e92a5caa43b06ef86440b2efa94fb">   44</a></span><a class="code hl_class" href="classrpp_1_1specific__observable.html">specific_observable&lt;Type, std::remove_const_t&lt;std::remove_reference_t&lt;OnSubscribeFn&gt;</a>&gt;&gt; <a class="code hl_function" href="observable_8h.html#a689e92a5caa43b06ef86440b2efa94fb">create</a>(OnSubscribeFn&amp;&amp; on_subscribe)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>{</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">return</span> {std::forward&lt;OnSubscribeFn&gt;(on_subscribe)};</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> OnSubscribeFn, <span class="keyword">typename</span> Type = utils::extract_subscriber_type_t&lt;utils::function_argument_t&lt;OnSubscribeFn&gt;&gt;&gt;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="observable_8h.html#aa70991953a96a64c95d7566ff7069f6b">   56</a></span><span class="keyword">auto</span> <a class="code hl_function" href="observable_8h.html#a689e92a5caa43b06ef86440b2efa94fb">create</a>(OnSubscribeFn&amp;&amp; on_subscribe)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>{</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">return</span> create&lt;Type&gt;(std::forward&lt;OnSubscribeFn&gt;(on_subscribe));</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <span class="comment">// namespace rpp::observable</span></div>
+<div class="ttc" id="aclassrpp_1_1specific__observable_html"><div class="ttname"><a href="classrpp_1_1specific__observable.html">rpp::specific_observable</a></div><div class="ttdoc">observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...</div><div class="ttdef"><b>Definition:</b> specific_observable.h:44</div></div>
+<div class="ttc" id="aobservable_8h_html_a689e92a5caa43b06ef86440b2efa94fb"><div class="ttname"><a href="observable_8h.html#a689e92a5caa43b06ef86440b2efa94fb">rpp::observable::create</a></div><div class="ttdeci">specific_observable&lt; Type, std::remove_const_t&lt; std::remove_reference_t&lt; OnSubscribeFn &gt; &gt; &gt; create(OnSubscribeFn &amp;&amp;on_subscribe)</div><div class="ttdoc">Creates specific_observable with passed action as OnSubscribe.</div><div class="ttdef"><b>Definition:</b> observable.h:44</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

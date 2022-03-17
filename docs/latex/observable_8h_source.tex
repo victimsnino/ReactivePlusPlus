@@ -1,6 +1,6 @@
 \hypertarget{observable_8h_source}{}\doxysection{observable.\+h}
 \label{observable_8h_source}\index{src/include/rpp/observable.h@{src/include/rpp/observable.h}}
-
+\mbox{\hyperlink{observable_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// MIT License}}
 \DoxyCodeLine{2 \textcolor{comment}{// }}
@@ -26,21 +26,21 @@
 \DoxyCodeLine{22 }
 \DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/observables/specific\_observable.h>}}
-\DoxyCodeLine{26 }
-\DoxyCodeLine{27 \textcolor{keyword}{namespace }rpp::observable}
-\DoxyCodeLine{28 \{}
-\DoxyCodeLine{35 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} OnSubscribeFn>}
-\DoxyCodeLine{36 specific\_observable<Type, std::remove\_const\_t<std::remove\_reference\_t<OnSubscribeFn>>> create(OnSubscribeFn\&\& on\_subscribe)}
-\DoxyCodeLine{37 \{}
-\DoxyCodeLine{38     \textcolor{keywordflow}{return} \{std::forward<OnSubscribeFn>(on\_subscribe)\};}
-\DoxyCodeLine{39 \}}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{47 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnSubscribeFn, \textcolor{keyword}{typename} Type = utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OnSubscribeFn>>>}
-\DoxyCodeLine{48 \textcolor{keyword}{auto} create(OnSubscribeFn\&\& on\_subscribe)}
-\DoxyCodeLine{49 \{}
-\DoxyCodeLine{50     \textcolor{keywordflow}{return} create<Type>(std::forward<OnSubscribeFn>(on\_subscribe));}
-\DoxyCodeLine{51 \}}
-\DoxyCodeLine{52 \} \textcolor{comment}{// namespace rpp::observable}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <rpp/observables/specific\_observable.h>}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{namespace }rpp::observable}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{43 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} OnSubscribeFn>}
+\DoxyCodeLine{44 \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable<Type, std::remove\_const\_t<std::remove\_reference\_t<OnSubscribeFn>}}>> \mbox{\hyperlink{observable_8h_a689e92a5caa43b06ef86440b2efa94fb}{create}}(OnSubscribeFn\&\& on\_subscribe)}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46     \textcolor{keywordflow}{return} \{std::forward<OnSubscribeFn>(on\_subscribe)\};}
+\DoxyCodeLine{47 \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{55 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnSubscribeFn, \textcolor{keyword}{typename} Type = utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OnSubscribeFn>>>}
+\DoxyCodeLine{56 \textcolor{keyword}{auto} \mbox{\hyperlink{observable_8h_a689e92a5caa43b06ef86440b2efa94fb}{create}}(OnSubscribeFn\&\& on\_subscribe)}
+\DoxyCodeLine{57 \{}
+\DoxyCodeLine{58     \textcolor{keywordflow}{return} create<Type>(std::forward<OnSubscribeFn>(on\_subscribe));}
+\DoxyCodeLine{59 \}}
+\DoxyCodeLine{60 \} \textcolor{comment}{// namespace rpp::observable}}
 
 \end{DoxyCode}

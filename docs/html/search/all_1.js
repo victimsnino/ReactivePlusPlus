@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['dynamic_5fobservable_0',['dynamic_observable',['../classrpp_1_1dynamic__observable.html',1,'rpp']]],
-  ['dynamic_5fobserver_1',['dynamic_observer',['../classrpp_1_1dynamic__observer.html',1,'rpp']]],
-  ['dynamic_5fsubscriber_2',['dynamic_subscriber',['../classrpp_1_1dynamic__subscriber.html',1,'rpp']]]
+  ['create_0',['create',['../observable_8h.html#a689e92a5caa43b06ef86440b2efa94fb',1,'rpp::observable::create(OnSubscribeFn &amp;&amp;on_subscribe)'],['../observable_8h.html#aa70991953a96a64c95d7566ff7069f6b',1,'rpp::observable::create(OnSubscribeFn &amp;&amp;on_subscribe)']]]
 ];

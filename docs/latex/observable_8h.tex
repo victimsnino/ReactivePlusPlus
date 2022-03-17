@@ -1,0 +1,65 @@
+\hypertarget{observable_8h}{}\doxysection{src/include/rpp/observable.h File Reference}
+\label{observable_8h}\index{src/include/rpp/observable.h@{src/include/rpp/observable.h}}
+
+
+This file contains implementation of different function for creation of observables from scratch (sources of streams)  
+
+
+{\ttfamily \#include $<$rpp/observables/specific\+\_\+observable.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Type , typename On\+Subscribe\+Fn $>$ }\\specific\+\_\+observable$<$ Type, std\+::remove\+\_\+const\+\_\+t$<$ std\+::remove\+\_\+reference\+\_\+t$<$ On\+Subscribe\+Fn $>$ $>$ $>$ \mbox{\hyperlink{observable_8h_a689e92a5caa43b06ef86440b2efa94fb}{rpp\+::observable\+::create}} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with passed action as On\+Subscribe. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename On\+Subscribe\+Fn , typename Type  = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Subscribe\+Fn$>$$>$$>$ }\\auto \mbox{\hyperlink{observable_8h_aa70991953a96a64c95d7566ff7069f6b}{rpp\+::observable\+::create}} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with passed action as On\+Subscribe. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains implementation of different function for creation of observables from scratch (sources of streams) 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{observable_8h_a689e92a5caa43b06ef86440b2efa94fb}\label{observable_8h_a689e92a5caa43b06ef86440b2efa94fb}} 
+\index{observable.h@{observable.h}!create@{create}}
+\index{create@{create}!observable.h@{observable.h}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Type , typename On\+Subscribe\+Fn $>$ \\
+specific\+\_\+observable$<$ Type, std\+::remove\+\_\+const\+\_\+t$<$ std\+::remove\+\_\+reference\+\_\+t$<$ On\+Subscribe\+Fn $>$ $>$ $>$ rpp\+::observable\+::create (\begin{DoxyParamCaption}\item[{On\+Subscribe\+Fn \&\&}]{on\+\_\+subscribe }\end{DoxyParamCaption})}
+
+
+
+Creates specific\+\_\+observable with passed action as On\+Subscribe. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & manually specified typed of values provided by this observable \\
+\hline
+{\em On\+Subscribe\+Fn} & action called after subscription on this observable \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+specific\+\_\+observable with passed action 
+\end{DoxyReturn}
+\mbox{\Hypertarget{observable_8h_aa70991953a96a64c95d7566ff7069f6b}\label{observable_8h_aa70991953a96a64c95d7566ff7069f6b}} 
+\index{observable.h@{observable.h}!create@{create}}
+\index{create@{create}!observable.h@{observable.h}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename On\+Subscribe\+Fn , typename Type  = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Subscribe\+Fn$>$$>$$>$ \\
+auto rpp\+::observable\+::create (\begin{DoxyParamCaption}\item[{On\+Subscribe\+Fn \&\&}]{on\+\_\+subscribe }\end{DoxyParamCaption})}
+
+
+
+Creates specific\+\_\+observable with passed action as On\+Subscribe. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em On\+Subscribe\+Fn} & action called after subscription on this observable \\
+\hline
+{\em Type} & of values for observable deduced by argument of passed action (argument -\/\texorpdfstring{$>$}{>} subscriber of some type -\/\texorpdfstring{$>$}{>} type) \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+specific\+\_\+observable with passed action 
+\end{DoxyReturn}
