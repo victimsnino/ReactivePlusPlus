@@ -43,23 +43,23 @@ struct interface_observer : public details::observer_tag
     virtual ~interface_observer() = default;
 
     /**
-     * \defgroup on_next
-     * Observable calls this methods to notify observer about new value. on_next has two overloadings to eliminate extra copies/moves
-     * \{
-     * \brief on_next obtaining value by const-reference to original object.
+     * \brief Observable calls this methods to notify observer about new value.
+     *
+     * \note obtains value by const-reference to original object.
      */
     virtual void on_next(const T& v) const = 0;
 
     /**
-     * \brief on_next obtaining value by rvalue-reference to original object
+     * \brief Observable calls this methods to notify observer about new value.
+     *
+     * \note obtains value by rvalue-reference to original object
      */
     virtual void on_next(T&& v) const = 0;
-    /** \} **/
 
 
     /**
      * \brief Observable calls this method to notify observer about some error during generation next data.
-     * \warn Obtaining this call means no any further on_next or on_completed calls
+     * \warning Obtaining this call means no any further on_next or on_completed calls
      * \param err details of error
      */
     virtual void on_error(const std::exception_ptr& err) const = 0;
@@ -67,7 +67,7 @@ struct interface_observer : public details::observer_tag
 
     /**
      * \brief Observable calls this method to notify observer about finish of work.
-     * \warn Obtaining this call means no any further on_next calls
+     * \warning Obtaining this call means no any further on_next calls
      */
     virtual void on_completed() const = 0;
 };

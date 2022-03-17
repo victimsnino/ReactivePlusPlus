@@ -43,11 +43,10 @@ namespace rpp::operators
  *
  * Example:
  * \code
- * observable
- *      .map([](const int& val)
- *      {
- *          return std::to_string(val) + " data";
- *      });
+ * observable | map([](const int& val)
+ *              {
+ *                  return std::to_string(val) + " data";
+ *              });
  * \endcode
  *
  * \see https://reactivex.io/documentation/operators/map.html
