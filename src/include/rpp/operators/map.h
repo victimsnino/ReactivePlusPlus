@@ -22,16 +22,26 @@
 
 #pragma once
 
+/**
+ * \file
+ *
+ * \brief This file contains implementation of operator "map"
+ */
+
+#include <rpp/utils/constraints.h>
+
 #include <utility>
 
 namespace rpp::operators
 {
 /**
- * \brief map operator describes how to map/transform values of original type to another value.
+ * \brief transform the items emitted by an Observable by applying a function to each item
  *
- * It can change either change type of original value (for example, from double to string) or keep same type but with modified value.
+ * \details The Map operator applies a function of your choosing to each item emitted by the source Observable, and returns an Observable that emits the results of these function applications.
  *
- * Usage example:
+ * The Map operator can keep same type of value or change it to some another type.
+ *
+ * Example:
  * \code
  * observable
  *      .map([](const int& val)
@@ -40,22 +50,23 @@ namespace rpp::operators
  *      });
  * \endcode
  *
+ * \see https://reactivex.io/documentation/operators/map.html
+ *
  * \tparam Callable type of callable used to provide this transformation
- * \return new specific_observable with map operator as last operator in chain.
+ * \return new specific_observable with the Map operator as most recent operator.
  */
 template<typename Callable>
 auto map(Callable&& callable)
 {
-    return [callable = std::forward<Callable>(callable)](auto&& observable)
+    return [callable = std::forward<Callable>(callable)]<constraint::observable TObservable>(TObservable&& observable)
     {
-        using TObservable = decltype(observable);
         using ObservableType = utils::extract_observable_type_t<TObservable>;
         using NewType = std::invoke_result_t<Callable, ObservableType>;
-        return std::forward<TObservable>(observable).template lift<NewType>([callable](auto&&      value,
-                                                                                       const auto& subscriber)
-        {
-            subscriber.on_next(callable(std::forward<decltype(value)>(value)));
-        });
+        return std::forward<TObservable>(observable)
+                .template lift<NewType>([callable](auto&& value, const constraint::subscriber auto& subscriber)
+                {
+                    subscriber.on_next(callable(std::forward<decltype(value)>(value)));
+                });
     };
 }
 } // namespace rpp::operators
