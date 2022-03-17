@@ -36,6 +36,7 @@ namespace rpp
  * It uses type-erasure mechanism to hide type of OnSubscribeFn. But it has higher cost in the terms of performance due to usage of heap.
  * Use it only when you need to store observable as member variable or something like this
  * \tparam Type is type of value provided by this observable
+ * \ingroup observables
  */
 template<typename Type>
 class dynamic_observable final : public interface_observable<Type, dynamic_observable<Type>>

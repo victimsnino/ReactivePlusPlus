@@ -37,6 +37,7 @@ namespace rpp
  * It has better performance comparing to rpp::dynamic_observable. Use it if possible. But it has worse usability due to OnSubscribeFn template parameter.
  * \tparam Type is type of value provided by this observable
  * \tparam OnSubscribeFn is type of function/functor/callable used during subscription on this observable
+ * \ingroup observables
  */
 template<typename Type, typename OnSubscribeFn>
 class specific_observable final : public interface_observable<Type, specific_observable<Type, OnSubscribeFn>>
