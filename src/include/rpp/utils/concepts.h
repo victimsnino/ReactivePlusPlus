@@ -1,6 +1,6 @@
 // MIT License
 // 
-// Copyright (c) 2021 Aleksey Loginov
+// Copyright (c) 2022 Aleksey Loginov
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,50 +22,17 @@
 
 #pragma once
 
-#include <rpp/utils/concepts.h>
+#include <exception>
+#include <concepts>
 
-namespace rpp
+namespace rpp::details
 {
-namespace details
-{
-struct observable_tag;
-struct observer_tag;
-struct subscriber_tag;
-} // namespace details
+template<typename Fn, typename Type>
+concept on_next_fn = std::invocable<std::decay_t<Fn>, Type>;
 
-template<typename Type>
-struct virtual_observable;
+template<typename Fn>
+concept on_error_fn = std::invocable<std::decay_t<Fn>, std::exception_ptr>;
 
-template<typename Type, typename OnSubscribeFn>
-class specific_observable;
-
-template<typename Type, typename OnSub>
-auto make_specific_observable(OnSub&& call);
-
-template<typename Type>
-class dynamic_observable;
-
-
-template<typename Type>
-class dynamic_observer;
-
-template<typename T,
-    details::on_next_fn<T>   OnNext,
-    details::on_error_fn     OnError,
-    details::on_completed_fn OnCompleted>
-class specific_observer;
-
-namespace details
-{
-    template<typename Type>
-    class subscriber_base;
-} // namespace details
-
-template<typename Type, typename Observer>
-class specific_subscriber;
-
-template<typename Type>
-class dynamic_subscriber;
-
-class subscription;
-} // namespace rpp
+template<typename Fn>
+concept on_completed_fn = std::invocable<std::decay_t<Fn>>;
+} // namespace rpp::details
