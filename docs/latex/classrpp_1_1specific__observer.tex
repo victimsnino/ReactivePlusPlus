@@ -18,11 +18,11 @@ Inheritance diagram for rpp\+::specific\+\_\+observer\texorpdfstring{$<$}{<} T, 
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrpp_1_1specific__observer_ad766699f07cc9444315ed683ae72f6e9}\label{classrpp_1_1specific__observer_ad766699f07cc9444315ed683ae72f6e9}} 
-{\footnotesize template$<$typename TOn\+Next  = utils\+::empty\+\_\+function\+\_\+t$<$\+T$>$, typename TOn\+Error  = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, typename TOn\+Completed  = utils\+::empty\+\_\+function\+\_\+t$<$$>$, typename  = utils\+::enable\+\_\+if\+\_\+observer\+\_\+constructible\+\_\+t$<$\+T, TOn\+Next, TOn\+Error, TOn\+Completed$>$$>$ }\\{\bfseries specific\+\_\+observer} (TOn\+Next \&\&on\+\_\+next=\{\}, TOn\+Error \&\&on\+\_\+error=\{\}, TOn\+Completed \&\&on\+\_\+completed=\{\})
+\mbox{\Hypertarget{classrpp_1_1specific__observer_ab2733a8e82d4e9db909ed24f2faded22}\label{classrpp_1_1specific__observer_ab2733a8e82d4e9db909ed24f2faded22}} 
+{\footnotesize template$<$details\+::on\+\_\+next\+\_\+fn$<$ T $>$ TOn\+Next = utils\+::empty\+\_\+function\+\_\+t$<$\+T$>$, details\+::on\+\_\+error\+\_\+fn TOn\+Error = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, details\+::on\+\_\+completed\+\_\+fn TOn\+Completed = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\{\bfseries specific\+\_\+observer} (TOn\+Next \&\&on\+\_\+next=\{\}, TOn\+Error \&\&on\+\_\+error=\{\}, TOn\+Completed \&\&on\+\_\+completed=\{\})
 \item 
-\mbox{\Hypertarget{classrpp_1_1specific__observer_a28a488508345f3139ccb1395ac9888f5}\label{classrpp_1_1specific__observer_a28a488508345f3139ccb1395ac9888f5}} 
-{\footnotesize template$<$typename TOn\+Next , typename TOn\+Completed , typename  = utils\+::enable\+\_\+if\+\_\+observer\+\_\+constructible\+\_\+t$<$\+T, TOn\+Next, utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, TOn\+Completed$>$$>$ }\\{\bfseries specific\+\_\+observer} (TOn\+Next \&\&on\+\_\+next, TOn\+Completed \&\&on\+\_\+completed)
+\mbox{\Hypertarget{classrpp_1_1specific__observer_a4b57220cf74dd5b1e607c15e46dd6379}\label{classrpp_1_1specific__observer_a4b57220cf74dd5b1e607c15e46dd6379}} 
+{\bfseries specific\+\_\+observer} (details\+::on\+\_\+next\+\_\+fn$<$ T $>$ auto \&\&on\+\_\+next, details\+::on\+\_\+completed\+\_\+fn auto \&\&on\+\_\+completed)
 \item 
 \mbox{\Hypertarget{classrpp_1_1specific__observer_a4a3faaeee2f90014a632d3dcfd330b78}\label{classrpp_1_1specific__observer_a4a3faaeee2f90014a632d3dcfd330b78}} 
 {\bfseries specific\+\_\+observer} (const \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ T $>$ \&obs)
@@ -50,7 +50,7 @@ void \mbox{\hyperlink{classrpp_1_1specific__observer_a6e81d90a6985ee8b9161564c71
 
 
 \doxysubsection{Detailed Description}
-\subsubsection*{template$<$typename T, typename On\+Next = utils\+::empty\+\_\+function\+\_\+t$<$\+T$>$, typename On\+Error = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, typename On\+Completed = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$\newline
+\subsubsection*{template$<$typename T, details\+::on\+\_\+next\+\_\+fn$<$ T $>$ On\+Next = utils\+::empty\+\_\+function\+\_\+t$<$\+T$>$, details\+::on\+\_\+error\+\_\+fn On\+Error = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, details\+::on\+\_\+completed\+\_\+fn On\+Completed = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$\newline
 class rpp\+::specific\+\_\+observer$<$ T, On\+Next, On\+Error, On\+Completed $>$}
 Observer specific with types of callbacks to avoid extra heap usage. 
 
@@ -72,7 +72,7 @@ It has better performance comparing to \mbox{\hyperlink{classrpp_1_1dynamic__obs
 \index{rpp::specific\_observer$<$ T, OnNext, OnError, OnCompleted $>$@{rpp::specific\_observer$<$ T, OnNext, OnError, OnCompleted $>$}!on\_completed@{on\_completed}}
 \index{on\_completed@{on\_completed}!rpp::specific\_observer$<$ T, OnNext, OnError, OnCompleted $>$@{rpp::specific\_observer$<$ T, OnNext, OnError, OnCompleted $>$}}
 \doxysubsubsection{\texorpdfstring{on\_completed()}{on\_completed()}}
-{\footnotesize\ttfamily template$<$typename T , typename On\+Next  = utils\+::empty\+\_\+function\+\_\+t$<$\+T$>$, typename On\+Error  = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, typename On\+Completed  = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
+{\footnotesize\ttfamily template$<$typename T , details\+::on\+\_\+next\+\_\+fn$<$ T $>$ On\+Next = utils\+::empty\+\_\+function\+\_\+t$<$\+T$>$, details\+::on\+\_\+error\+\_\+fn On\+Error = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, details\+::on\+\_\+completed\+\_\+fn On\+Completed = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
 void \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp\+::specific\+\_\+observer}}$<$ T, On\+Next, On\+Error, On\+Completed $>$\+::on\+\_\+completed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
@@ -83,7 +83,7 @@ Implements \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface\+
 \index{rpp::specific\_observer$<$ T, OnNext, OnError, OnCompleted $>$@{rpp::specific\_observer$<$ T, OnNext, OnError, OnCompleted $>$}!on\_error@{on\_error}}
 \index{on\_error@{on\_error}!rpp::specific\_observer$<$ T, OnNext, OnError, OnCompleted $>$@{rpp::specific\_observer$<$ T, OnNext, OnError, OnCompleted $>$}}
 \doxysubsubsection{\texorpdfstring{on\_error()}{on\_error()}}
-{\footnotesize\ttfamily template$<$typename T , typename On\+Next  = utils\+::empty\+\_\+function\+\_\+t$<$\+T$>$, typename On\+Error  = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, typename On\+Completed  = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
+{\footnotesize\ttfamily template$<$typename T , details\+::on\+\_\+next\+\_\+fn$<$ T $>$ On\+Next = utils\+::empty\+\_\+function\+\_\+t$<$\+T$>$, details\+::on\+\_\+error\+\_\+fn On\+Error = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, details\+::on\+\_\+completed\+\_\+fn On\+Completed = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
 void \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp\+::specific\+\_\+observer}}$<$ T, On\+Next, On\+Error, On\+Completed $>$\+::on\+\_\+error (\begin{DoxyParamCaption}\item[{const std\+::exception\+\_\+ptr \&}]{err }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
@@ -94,7 +94,7 @@ Implements \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface\+
 \index{rpp::specific\_observer$<$ T, OnNext, OnError, OnCompleted $>$@{rpp::specific\_observer$<$ T, OnNext, OnError, OnCompleted $>$}!on\_next@{on\_next}}
 \index{on\_next@{on\_next}!rpp::specific\_observer$<$ T, OnNext, OnError, OnCompleted $>$@{rpp::specific\_observer$<$ T, OnNext, OnError, OnCompleted $>$}}
 \doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$typename T , typename On\+Next  = utils\+::empty\+\_\+function\+\_\+t$<$\+T$>$, typename On\+Error  = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, typename On\+Completed  = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
+{\footnotesize\ttfamily template$<$typename T , details\+::on\+\_\+next\+\_\+fn$<$ T $>$ On\+Next = utils\+::empty\+\_\+function\+\_\+t$<$\+T$>$, details\+::on\+\_\+error\+\_\+fn On\+Error = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, details\+::on\+\_\+completed\+\_\+fn On\+Completed = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
 void \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp\+::specific\+\_\+observer}}$<$ T, On\+Next, On\+Error, On\+Completed $>$\+::on\+\_\+next (\begin{DoxyParamCaption}\item[{const T \&}]{v }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
@@ -105,7 +105,7 @@ Implements \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface\+
 \index{rpp::specific\_observer$<$ T, OnNext, OnError, OnCompleted $>$@{rpp::specific\_observer$<$ T, OnNext, OnError, OnCompleted $>$}!on\_next@{on\_next}}
 \index{on\_next@{on\_next}!rpp::specific\_observer$<$ T, OnNext, OnError, OnCompleted $>$@{rpp::specific\_observer$<$ T, OnNext, OnError, OnCompleted $>$}}
 \doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$typename T , typename On\+Next  = utils\+::empty\+\_\+function\+\_\+t$<$\+T$>$, typename On\+Error  = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, typename On\+Completed  = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
+{\footnotesize\ttfamily template$<$typename T , details\+::on\+\_\+next\+\_\+fn$<$ T $>$ On\+Next = utils\+::empty\+\_\+function\+\_\+t$<$\+T$>$, details\+::on\+\_\+error\+\_\+fn On\+Error = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, details\+::on\+\_\+completed\+\_\+fn On\+Completed = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
 void \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp\+::specific\+\_\+observer}}$<$ T, On\+Next, On\+Error, On\+Completed $>$\+::on\+\_\+next (\begin{DoxyParamCaption}\item[{T \&\&}]{v }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 

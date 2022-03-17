@@ -90,14 +90,13 @@ Inheritance diagram for rpp::specific_observer&lt; T, OnNext, OnError, OnComplet
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad766699f07cc9444315ed683ae72f6e9"><td class="memTemplParams" colspan="2"><a id="ad766699f07cc9444315ed683ae72f6e9" name="ad766699f07cc9444315ed683ae72f6e9"></a>
-template&lt;typename TOnNext  = utils::empty_function_t&lt;T&gt;, typename TOnError  = utils::empty_function_t&lt;std::exception_ptr&gt;, typename TOnCompleted  = utils::empty_function_t&lt;&gt;, typename  = utils::enable_if_observer_constructible_t&lt;T, TOnNext, TOnError, TOnCompleted&gt;&gt; </td></tr>
-<tr class="memitem:ad766699f07cc9444315ed683ae72f6e9"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>specific_observer</b> (TOnNext &amp;&amp;on_next={}, TOnError &amp;&amp;on_error={}, TOnCompleted &amp;&amp;on_completed={})</td></tr>
-<tr class="separator:ad766699f07cc9444315ed683ae72f6e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28a488508345f3139ccb1395ac9888f5"><td class="memTemplParams" colspan="2"><a id="a28a488508345f3139ccb1395ac9888f5" name="a28a488508345f3139ccb1395ac9888f5"></a>
-template&lt;typename TOnNext , typename TOnCompleted , typename  = utils::enable_if_observer_constructible_t&lt;T, TOnNext, utils::empty_function_t&lt;std::exception_ptr&gt;, TOnCompleted&gt;&gt; </td></tr>
-<tr class="memitem:a28a488508345f3139ccb1395ac9888f5"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>specific_observer</b> (TOnNext &amp;&amp;on_next, TOnCompleted &amp;&amp;on_completed)</td></tr>
-<tr class="separator:a28a488508345f3139ccb1395ac9888f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2733a8e82d4e9db909ed24f2faded22"><td class="memTemplParams" colspan="2"><a id="ab2733a8e82d4e9db909ed24f2faded22" name="ab2733a8e82d4e9db909ed24f2faded22"></a>
+template&lt;details::on_next_fn&lt; T &gt; TOnNext = utils::empty_function_t&lt;T&gt;, details::on_error_fn TOnError = utils::empty_function_t&lt;std::exception_ptr&gt;, details::on_completed_fn TOnCompleted = utils::empty_function_t&lt;&gt;&gt; </td></tr>
+<tr class="memitem:ab2733a8e82d4e9db909ed24f2faded22"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>specific_observer</b> (TOnNext &amp;&amp;on_next={}, TOnError &amp;&amp;on_error={}, TOnCompleted &amp;&amp;on_completed={})</td></tr>
+<tr class="separator:ab2733a8e82d4e9db909ed24f2faded22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b57220cf74dd5b1e607c15e46dd6379"><td class="memItemLeft" align="right" valign="top"><a id="a4b57220cf74dd5b1e607c15e46dd6379" name="a4b57220cf74dd5b1e607c15e46dd6379"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>specific_observer</b> (details::on_next_fn&lt; T &gt; auto &amp;&amp;on_next, details::on_completed_fn auto &amp;&amp;on_completed)</td></tr>
+<tr class="separator:a4b57220cf74dd5b1e607c15e46dd6379"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a3faaeee2f90014a632d3dcfd330b78"><td class="memItemLeft" align="right" valign="top"><a id="a4a3faaeee2f90014a632d3dcfd330b78" name="a4a3faaeee2f90014a632d3dcfd330b78"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>specific_observer</b> (const <a class="el" href="classrpp_1_1dynamic__observer.html">dynamic_observer</a>&lt; T &gt; &amp;obs)</td></tr>
 <tr class="separator:a4a3faaeee2f90014a632d3dcfd330b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,7 +122,7 @@ template&lt;typename TOnNext , typename TOnCompleted , typename  = utils::enable
 <tr class="separator:a9168437f4c5c775d87808f362c413762"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename T, typename OnNext = utils::empty_function_t&lt;T&gt;, typename OnError = utils::empty_function_t&lt;std::exception_ptr&gt;, typename OnCompleted = utils::empty_function_t&lt;&gt;&gt;<br />
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T, details::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, details::on_error_fn OnError = utils::empty_function_t&lt;std::exception_ptr&gt;, details::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt;<br />
 class rpp::specific_observer&lt; T, OnNext, OnError, OnCompleted &gt;</div><p >Observer specific with types of callbacks to avoid extra heap usage. </p>
 <p >It has better performance comparing to <a class="el" href="classrpp_1_1dynamic__observer.html" title="Dynamic (type-erased) version of observer (comparing to specific_observer)">rpp::dynamic_observer</a>. Use it if possible. But it has worse usability due to OnNext/OnError/OnCompleted template parameters. </p><dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
@@ -141,7 +140,7 @@ class rpp::specific_observer&lt; T, OnNext, OnError, OnCompleted &gt;</div><p >O
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename OnNext  = utils::empty_function_t&lt;T&gt;, typename OnError  = utils::empty_function_t&lt;std::exception_ptr&gt;, typename OnCompleted  = utils::empty_function_t&lt;&gt;&gt; </div>
+template&lt;typename T , details::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, details::on_error_fn OnError = utils::empty_function_t&lt;std::exception_ptr&gt;, details::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -170,7 +169,7 @@ template&lt;typename T , typename OnNext  = utils::empty_function_t&lt;T&gt;, ty
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename OnNext  = utils::empty_function_t&lt;T&gt;, typename OnError  = utils::empty_function_t&lt;std::exception_ptr&gt;, typename OnCompleted  = utils::empty_function_t&lt;&gt;&gt; </div>
+template&lt;typename T , details::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, details::on_error_fn OnError = utils::empty_function_t&lt;std::exception_ptr&gt;, details::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -200,7 +199,7 @@ template&lt;typename T , typename OnNext  = utils::empty_function_t&lt;T&gt;, ty
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename OnNext  = utils::empty_function_t&lt;T&gt;, typename OnError  = utils::empty_function_t&lt;std::exception_ptr&gt;, typename OnCompleted  = utils::empty_function_t&lt;&gt;&gt; </div>
+template&lt;typename T , details::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, details::on_error_fn OnError = utils::empty_function_t&lt;std::exception_ptr&gt;, details::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -230,7 +229,7 @@ template&lt;typename T , typename OnNext  = utils::empty_function_t&lt;T&gt;, ty
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename OnNext  = utils::empty_function_t&lt;T&gt;, typename OnError  = utils::empty_function_t&lt;std::exception_ptr&gt;, typename OnCompleted  = utils::empty_function_t&lt;&gt;&gt; </div>
+template&lt;typename T , details::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, details::on_error_fn OnError = utils::empty_function_t&lt;std::exception_ptr&gt;, details::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">

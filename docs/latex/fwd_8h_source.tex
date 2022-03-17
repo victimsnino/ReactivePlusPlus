@@ -26,50 +26,52 @@
 \DoxyCodeLine{22 }
 \DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{keyword}{namespace }rpp}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27 \textcolor{keyword}{namespace }details}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/utils/concepts.h>}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{keyword}{namespace }rpp}
 \DoxyCodeLine{28 \{}
-\DoxyCodeLine{29 \textcolor{keyword}{struct }observable\_tag;}
-\DoxyCodeLine{30 \textcolor{keyword}{struct }observer\_tag;}
-\DoxyCodeLine{31 \textcolor{keyword}{struct }subscriber\_tag;}
-\DoxyCodeLine{32 \} \textcolor{comment}{// namespace details}}
-\DoxyCodeLine{33 }
-\DoxyCodeLine{34 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
-\DoxyCodeLine{35 \textcolor{keyword}{struct }virtual\_observable;}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} OnSubscribeFn>}
-\DoxyCodeLine{38 \textcolor{keyword}{class }specific\_observable;}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{40 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} OnSub>}
-\DoxyCodeLine{41 \textcolor{keyword}{auto} make\_specific\_observable(OnSub\&\& call);}
-\DoxyCodeLine{42 }
-\DoxyCodeLine{43 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
-\DoxyCodeLine{44 \textcolor{keyword}{class }dynamic\_observable;}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{46 }
-\DoxyCodeLine{47 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
-\DoxyCodeLine{48 \textcolor{keyword}{class }dynamic\_observer;}
-\DoxyCodeLine{49 }
-\DoxyCodeLine{50 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,}
-\DoxyCodeLine{51          \textcolor{keyword}{typename} OnNext,}
-\DoxyCodeLine{52          \textcolor{keyword}{typename} OnError,}
-\DoxyCodeLine{53          \textcolor{keyword}{typename} OnCompleted>}
-\DoxyCodeLine{54 \textcolor{keyword}{class }specific\_observer;}
-\DoxyCodeLine{55 }
-\DoxyCodeLine{56 \textcolor{keyword}{namespace }details}
-\DoxyCodeLine{57 \{}
-\DoxyCodeLine{58     \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
-\DoxyCodeLine{59     \textcolor{keyword}{class }subscriber\_base;}
-\DoxyCodeLine{60 \} \textcolor{comment}{// namespace details}}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{62 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} Observer>}
-\DoxyCodeLine{63 \textcolor{keyword}{class }specific\_subscriber;}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{65 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
-\DoxyCodeLine{66 \textcolor{keyword}{class }dynamic\_subscriber;}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{68 \textcolor{keyword}{class }subscription;}
-\DoxyCodeLine{69 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{29 \textcolor{keyword}{namespace }details}
+\DoxyCodeLine{30 \{}
+\DoxyCodeLine{31 \textcolor{keyword}{struct }observable\_tag;}
+\DoxyCodeLine{32 \textcolor{keyword}{struct }observer\_tag;}
+\DoxyCodeLine{33 \textcolor{keyword}{struct }subscriber\_tag;}
+\DoxyCodeLine{34 \} \textcolor{comment}{// namespace details}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
+\DoxyCodeLine{37 \textcolor{keyword}{struct }virtual\_observable;}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} OnSubscribeFn>}
+\DoxyCodeLine{40 \textcolor{keyword}{class }specific\_observable;}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} OnSub>}
+\DoxyCodeLine{43 \textcolor{keyword}{auto} make\_specific\_observable(OnSub\&\& call);}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
+\DoxyCodeLine{46 \textcolor{keyword}{class }dynamic\_observable;}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
+\DoxyCodeLine{50 \textcolor{keyword}{class }dynamic\_observer;}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,}
+\DoxyCodeLine{53     details::on\_next\_fn<T>   OnNext,}
+\DoxyCodeLine{54     details::on\_error\_fn     OnError,}
+\DoxyCodeLine{55     details::on\_completed\_fn OnCompleted>}
+\DoxyCodeLine{56 \textcolor{keyword}{class }specific\_observer;}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{keyword}{namespace }details}
+\DoxyCodeLine{59 \{}
+\DoxyCodeLine{60     \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
+\DoxyCodeLine{61     \textcolor{keyword}{class }subscriber\_base;}
+\DoxyCodeLine{62 \} \textcolor{comment}{// namespace details}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} Observer>}
+\DoxyCodeLine{65 \textcolor{keyword}{class }specific\_subscriber;}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
+\DoxyCodeLine{68 \textcolor{keyword}{class }dynamic\_subscriber;}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70 \textcolor{keyword}{class }subscription;}
+\DoxyCodeLine{71 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}
