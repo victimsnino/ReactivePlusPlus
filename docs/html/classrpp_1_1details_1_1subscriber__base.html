@@ -110,10 +110,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8de1e104568abb9461825241d8bce9f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1details_1_1subscriber__base.html#a8de1e104568abb9461825241d8bce9f9">on_next</a> (const Type &amp;val) const final</td></tr>
 <tr class="separator:a8de1e104568abb9461825241d8bce9f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec89d8ba3d43d80d4c6e8ba27d680d3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1details_1_1subscriber__base.html#aec89d8ba3d43d80d4c6e8ba27d680d3c">on_next</a> (Type &amp;&amp;val) const final</td></tr>
+<tr class="memdesc:aec89d8ba3d43d80d4c6e8ba27d680d3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">on_next obtaining value by rvalue-reference to original object  <a href="classrpp_1_1details_1_1subscriber__base.html#aec89d8ba3d43d80d4c6e8ba27d680d3c">More...</a><br /></td></tr>
 <tr class="separator:aec89d8ba3d43d80d4c6e8ba27d680d3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9532294156f8acf86d1cf39d4c1cc15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1details_1_1subscriber__base.html#ae9532294156f8acf86d1cf39d4c1cc15">on_error</a> (const std::exception_ptr &amp;err) const final</td></tr>
+<tr class="memdesc:ae9532294156f8acf86d1cf39d4c1cc15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this method to notify observer about some error during generation next data. \warn Obtaining this call means no any further on_next or on_completed calls.  <a href="classrpp_1_1details_1_1subscriber__base.html#ae9532294156f8acf86d1cf39d4c1cc15">More...</a><br /></td></tr>
 <tr class="separator:ae9532294156f8acf86d1cf39d4c1cc15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85ef4e79f7f9d82d5899dc2524a7289a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1details_1_1subscriber__base.html#a85ef4e79f7f9d82d5899dc2524a7289a">on_completed</a> () const final</td></tr>
+<tr class="memdesc:a85ef4e79f7f9d82d5899dc2524a7289a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this method to notify observer about finish of work. \warn Obtaining this call means no any further on_next calls.  <a href="classrpp_1_1details_1_1subscriber__base.html#a85ef4e79f7f9d82d5899dc2524a7289a">More...</a><br /></td></tr>
 <tr class="separator:a85ef4e79f7f9d82d5899dc2524a7289a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae91682c51a30326e3fc09f89271290c8"><td class="memItemLeft" align="right" valign="top"><a id="ae91682c51a30326e3fc09f89271290c8" name="ae91682c51a30326e3fc09f89271290c8"></a>
 const <a class="el" href="classrpp_1_1subscription.html">subscription</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_subscription</b> () const</td></tr>
@@ -175,7 +178,9 @@ template&lt;typename Type &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="structrpp_1_1interface__observer.html">rpp::interface_observer&lt; Type &gt;</a>.</p>
+<p>Observable calls this method to notify observer about finish of work. \warn Obtaining this call means no any further on_next calls. </p>
+
+<p>Implements <a class="el" href="structrpp_1_1interface__observer.html#a33ab3fa364e11b58e4225afd9c071ad1">rpp::interface_observer&lt; Type &gt;</a>.</p>
 
 </div>
 </div>
@@ -205,7 +210,15 @@ template&lt;typename Type &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="structrpp_1_1interface__observer.html">rpp::interface_observer&lt; Type &gt;</a>.</p>
+<p>Observable calls this method to notify observer about some error during generation next data. \warn Obtaining this call means no any further on_next or on_completed calls. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">err</td><td>details of error </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="structrpp_1_1interface__observer.html#a75f46a05b81cdc26b9d7d52efede9cf0">rpp::interface_observer&lt; Type &gt;</a>.</p>
 
 </div>
 </div>
@@ -254,7 +267,7 @@ template&lt;typename Type &gt; </div>
           <td class="memname">void <a class="el" href="classrpp_1_1details_1_1subscriber__base.html">rpp::details::subscriber_base</a>&lt; Type &gt;::on_next </td>
           <td>(</td>
           <td class="paramtype">Type &amp;&amp;&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -265,7 +278,9 @@ template&lt;typename Type &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="structrpp_1_1interface__observer.html">rpp::interface_observer&lt; Type &gt;</a>.</p>
+<p>on_next obtaining value by rvalue-reference to original object </p>
+
+<p>Implements <a class="el" href="group__on__next.html#ga3780d41600d3dacd8ae6536fb65614d6">rpp::interface_observer&lt; Type &gt;</a>.</p>
 
 </div>
 </div>

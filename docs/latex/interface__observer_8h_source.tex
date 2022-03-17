@@ -38,14 +38,19 @@
 \DoxyCodeLine{38 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
 \DoxyCodeLine{39 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1interface__observer}{interface\_observer}} : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1details_1_1observer__tag}{details::observer\_tag}}}
 \DoxyCodeLine{40 \{}
-\DoxyCodeLine{41     \textcolor{keyword}{virtual} \mbox{\hyperlink{structrpp_1_1interface__observer}{\string~interface\_observer}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{41     \textcolor{keyword}{static\_assert}(std::is\_same\_v<std::decay\_t<T>, T>, \textcolor{stringliteral}{"{}Type should be decayed to match with decayed observable types"{}});}
 \DoxyCodeLine{42 }
-\DoxyCodeLine{43     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_next(\textcolor{keyword}{const} T\& v) \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{44     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_next(T\&\& v) \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{45     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_error(\textcolor{keyword}{const} std::exception\_ptr\& err) \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{46     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_completed() \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{47 \};}
-\DoxyCodeLine{48 }
-\DoxyCodeLine{49 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{43     \textcolor{keyword}{virtual} \mbox{\hyperlink{structrpp_1_1interface__observer}{\string~interface\_observer}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{51     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_next(\textcolor{keyword}{const} T\& v) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{56     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__on__next_ga3780d41600d3dacd8ae6536fb65614d6}{on\_next}}(T\&\& v) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{65     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structrpp_1_1interface__observer_a75f46a05b81cdc26b9d7d52efede9cf0}{on\_error}}(\textcolor{keyword}{const} std::exception\_ptr\& err) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 }
+\DoxyCodeLine{72     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structrpp_1_1interface__observer_a33ab3fa364e11b58e4225afd9c071ad1}{on\_completed}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{73 \};}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

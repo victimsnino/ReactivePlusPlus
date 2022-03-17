@@ -1,21 +1,27 @@
 var indexSectionsWithContent =
 {
-  0: "dfilosv",
+  0: "adfilmosv",
   1: "dfiosv",
-  2: "ls"
+  2: "m",
+  3: "almos",
+  4: "o"
 };
 
 var indexSectionNames =
 {
   0: "all",
   1: "classes",
-  2: "functions"
+  2: "files",
+  3: "functions",
+  4: "groups"
 };
 
 var indexSectionLabels =
 {
   0: "All",
   1: "Classes",
-  2: "Functions"
+  2: "Files",
+  3: "Functions",
+  4: "Modules"
 };
 

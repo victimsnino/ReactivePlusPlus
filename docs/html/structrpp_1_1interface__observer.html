@@ -73,7 +73,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Interface of any observer type. Describes base callbacks.  
+<p>Interface of any observer type. Describes base interface in terms of Reactive Programming.  
  <a href="structrpp_1_1interface__observer.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="interface__observer_8h_source.html">interface_observer.h</a>&gt;</code></p>
@@ -86,35 +86,105 @@ Inheritance diagram for rpp::interface_observer&lt; T &gt;:</div>
 <area href="structrpp_1_1details_1_1observer__tag.html" alt="rpp::details::observer_tag" shape="rect" coords="433,0,856,24"/>
 <area href="classrpp_1_1details_1_1state__observer.html" title="Special type of specific_observer which has some state which this observer stores and pass to each ca..." alt="rpp::details::state_observer&lt; T, State, OnNext, OnError, OnCompleted &gt;" shape="rect" coords="0,112,423,136"/>
 <area href="classrpp_1_1dynamic__observer.html" title="Dynamic (type-erased) version of observer (comparing to specific_observer)" alt="rpp::dynamic_observer&lt; T &gt;" shape="rect" coords="433,112,856,136"/>
-<area href="classrpp_1_1specific__observer.html" title="Observer specific with types of callbacks to avoid extra heap usage." alt="rpp::specific_observer&lt; T, OnNext, OnError, OnCompleted &gt;" shape="rect" coords="866,112,1289,136"/>
+<area href="classrpp_1_1specific__observer.html" title="Observer specified with specific template types of callbacks to avoid extra heap usage." alt="rpp::specific_observer&lt; T, OnNext, OnError, OnCompleted &gt;" shape="rect" coords="866,112,1289,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa434bd87b9be8e727ef38dcac14e7e27"><td class="memItemLeft" align="right" valign="top"><a id="aa434bd87b9be8e727ef38dcac14e7e27" name="aa434bd87b9be8e727ef38dcac14e7e27"></a>
+<tr class="memitem:gaa434bd87b9be8e727ef38dcac14e7e27"><td class="memItemLeft" align="right" valign="top">
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>on_next</b> (const T &amp;v) const =0</td></tr>
-<tr class="separator:aa434bd87b9be8e727ef38dcac14e7e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3780d41600d3dacd8ae6536fb65614d6"><td class="memItemLeft" align="right" valign="top"><a id="a3780d41600d3dacd8ae6536fb65614d6" name="a3780d41600d3dacd8ae6536fb65614d6"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>on_next</b> (T &amp;&amp;v) const =0</td></tr>
-<tr class="separator:a3780d41600d3dacd8ae6536fb65614d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75f46a05b81cdc26b9d7d52efede9cf0"><td class="memItemLeft" align="right" valign="top"><a id="a75f46a05b81cdc26b9d7d52efede9cf0" name="a75f46a05b81cdc26b9d7d52efede9cf0"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>on_error</b> (const std::exception_ptr &amp;err) const =0</td></tr>
+<tr class="separator:gaa434bd87b9be8e727ef38dcac14e7e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3780d41600d3dacd8ae6536fb65614d6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__on__next.html#ga3780d41600d3dacd8ae6536fb65614d6">on_next</a> (T &amp;&amp;v) const =0</td></tr>
+<tr class="memdesc:ga3780d41600d3dacd8ae6536fb65614d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">on_next obtaining value by rvalue-reference to original object  <a href="group__on__next.html#ga3780d41600d3dacd8ae6536fb65614d6">More...</a><br /></td></tr>
+<tr class="separator:ga3780d41600d3dacd8ae6536fb65614d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75f46a05b81cdc26b9d7d52efede9cf0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observer.html#a75f46a05b81cdc26b9d7d52efede9cf0">on_error</a> (const std::exception_ptr &amp;err) const =0</td></tr>
+<tr class="memdesc:a75f46a05b81cdc26b9d7d52efede9cf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this method to notify observer about some error during generation next data. \warn Obtaining this call means no any further on_next or on_completed calls.  <a href="structrpp_1_1interface__observer.html#a75f46a05b81cdc26b9d7d52efede9cf0">More...</a><br /></td></tr>
 <tr class="separator:a75f46a05b81cdc26b9d7d52efede9cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33ab3fa364e11b58e4225afd9c071ad1"><td class="memItemLeft" align="right" valign="top"><a id="a33ab3fa364e11b58e4225afd9c071ad1" name="a33ab3fa364e11b58e4225afd9c071ad1"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>on_completed</b> () const =0</td></tr>
+<tr class="memitem:a33ab3fa364e11b58e4225afd9c071ad1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observer.html#a33ab3fa364e11b58e4225afd9c071ad1">on_completed</a> () const =0</td></tr>
+<tr class="memdesc:a33ab3fa364e11b58e4225afd9c071ad1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this method to notify observer about finish of work. \warn Obtaining this call means no any further on_next calls.  <a href="structrpp_1_1interface__observer.html#a33ab3fa364e11b58e4225afd9c071ad1">More...</a><br /></td></tr>
 <tr class="separator:a33ab3fa364e11b58e4225afd9c071ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
-struct rpp::interface_observer&lt; T &gt;</div><p >Interface of any observer type. Describes base callbacks. </p>
+struct rpp::interface_observer&lt; T &gt;</div><p >Interface of any observer type. Describes base interface in terms of Reactive Programming. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>is type of value expected by this observer </td></tr>
+    <tr><td class="paramname">T</td><td>is type of value handled by this observer </td></tr>
   </table>
   </dd>
 </dl>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a33ab3fa364e11b58e4225afd9c071ad1" name="a33ab3fa364e11b58e4225afd9c071ad1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33ab3fa364e11b58e4225afd9c071ad1">&#9670;&nbsp;</a></span>on_completed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="structrpp_1_1interface__observer.html">rpp::interface_observer</a>&lt; T &gt;::on_completed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Observable calls this method to notify observer about finish of work. \warn Obtaining this call means no any further on_next calls. </p>
+
+<p>Implemented in <a class="el" href="classrpp_1_1details_1_1subscriber__base.html#a85ef4e79f7f9d82d5899dc2524a7289a">rpp::details::subscriber_base&lt; Type &gt;</a>, <a class="el" href="classrpp_1_1dynamic__observer.html#aebd2d9f021a23ce98a2eac7d49d8f254">rpp::dynamic_observer&lt; T &gt;</a>, <a class="el" href="classrpp_1_1specific__observer.html#a6e81d90a6985ee8b9161564c71f713e1">rpp::specific_observer&lt; T, OnNext, OnError, OnCompleted &gt;</a>, and <a class="el" href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">rpp::details::state_observer&lt; T, State, OnNext, OnError, OnCompleted &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a75f46a05b81cdc26b9d7d52efede9cf0" name="a75f46a05b81cdc26b9d7d52efede9cf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75f46a05b81cdc26b9d7d52efede9cf0">&#9670;&nbsp;</a></span>on_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="structrpp_1_1interface__observer.html">rpp::interface_observer</a>&lt; T &gt;::on_error </td>
+          <td>(</td>
+          <td class="paramtype">const std::exception_ptr &amp;&#160;</td>
+          <td class="paramname"><em>err</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Observable calls this method to notify observer about some error during generation next data. \warn Obtaining this call means no any further on_next or on_completed calls. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">err</td><td>details of error </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classrpp_1_1details_1_1subscriber__base.html#ae9532294156f8acf86d1cf39d4c1cc15">rpp::details::subscriber_base&lt; Type &gt;</a>, <a class="el" href="classrpp_1_1dynamic__observer.html#a1e8abba013fb85e23518ee93a3524e0c">rpp::dynamic_observer&lt; T &gt;</a>, <a class="el" href="classrpp_1_1specific__observer.html#a337db92fb5f059a4bea5019248d70e30">rpp::specific_observer&lt; T, OnNext, OnError, OnCompleted &gt;</a>, and <a class="el" href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">rpp::details::state_observer&lt; T, State, OnNext, OnError, OnCompleted &gt;</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/include/rpp/observers/<a class="el" href="interface__observer_8h_source.html">interface_observer.h</a></li>
 </ul>
 </div><!-- contents -->

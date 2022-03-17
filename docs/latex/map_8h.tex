@@ -1,0 +1,59 @@
+\hypertarget{map_8h}{}\doxysection{src/include/rpp/operators/map.h File Reference}
+\label{map_8h}\index{src/include/rpp/operators/map.h@{src/include/rpp/operators/map.h}}
+
+
+This file contains implementation of operator \char`\"{}map\char`\"{}.  
+
+
+{\ttfamily \#include $<$rpp/utils/constraints.\+h$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Callable $>$ }\\auto \mbox{\hyperlink{map_8h_a79ef0bff4448df7b7c07b3d5f1191806}{rpp\+::operators\+::map}} (Callable \&\&callable)
+\begin{DoxyCompactList}\small\item\em transform the items emitted by an Observable by applying a function to each item \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains implementation of operator \char`\"{}map\char`\"{}. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{map_8h_a79ef0bff4448df7b7c07b3d5f1191806}\label{map_8h_a79ef0bff4448df7b7c07b3d5f1191806}} 
+\index{map.h@{map.h}!map@{map}}
+\index{map@{map}!map.h@{map.h}}
+\doxysubsubsection{\texorpdfstring{map()}{map()}}
+{\footnotesize\ttfamily template$<$typename Callable $>$ \\
+auto rpp\+::operators\+::map (\begin{DoxyParamCaption}\item[{Callable \&\&}]{callable }\end{DoxyParamCaption})}
+
+
+
+transform the items emitted by an Observable by applying a function to each item 
+
+The Map operator applies a function of your choosing to each item emitted by the source Observable, and returns an Observable that emits the results of these function applications.
+
+The Map operator can keep same type of value or change it to some another type.
+
+Example\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{observable}
+\DoxyCodeLine{     .map([](\textcolor{keyword}{const} \textcolor{keywordtype}{int}\& val)}
+\DoxyCodeLine{     \{}
+\DoxyCodeLine{         \textcolor{keywordflow}{return} std::to\_string(val) + \textcolor{stringliteral}{"{} data"{}};}
+\DoxyCodeLine{     \});}
+
+\end{DoxyCode}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/map.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/map.\+html}}
+\end{DoxySeeAlso}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Callable} & type of callable used to provide this transformation \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+new specific\+\_\+observable with the Map operator as most recent operator. 
+\end{DoxyReturn}

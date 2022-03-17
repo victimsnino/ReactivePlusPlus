@@ -33,11 +33,11 @@ Inheritance diagram for rpp\+::details\+::subscriber\+\_\+base\texorpdfstring{$<
 void \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_a8de1e104568abb9461825241d8bce9f9}{on\+\_\+next}} (const Type \&val) const final
 \item 
 void \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_aec89d8ba3d43d80d4c6e8ba27d680d3c}{on\+\_\+next}} (Type \&\&val) const final
-\item 
+\begin{DoxyCompactList}\small\item\em on\+\_\+next obtaining value by rvalue-\/reference to original object \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_ae9532294156f8acf86d1cf39d4c1cc15}{on\+\_\+error}} (const std\+::exception\+\_\+ptr \&err) const final
-\item 
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about some error during generation next data. \textbackslash{}warn Obtaining this call means no any further on\+\_\+next or on\+\_\+completed calls. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_a85ef4e79f7f9d82d5899dc2524a7289a}{on\+\_\+completed}} () const final
-\item 
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about finish of work. \textbackslash{}warn Obtaining this call means no any further on\+\_\+next calls. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrpp_1_1details_1_1subscriber__base_ae91682c51a30326e3fc09f89271290c8}\label{classrpp_1_1details_1_1subscriber__base_ae91682c51a30326e3fc09f89271290c8}} 
 const \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \& {\bfseries get\+\_\+subscription} () const
 \item 
@@ -86,7 +86,11 @@ void \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{rpp\+::details\+:
 
 
 
-Implements \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface\+\_\+observer$<$ Type $>$}}.
+Observable calls this method to notify observer about finish of work. \textbackslash{}warn Obtaining this call means no any further on\+\_\+next calls. 
+
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__observer_a33ab3fa364e11b58e4225afd9c071ad1}{rpp\+::interface\+\_\+observer$<$ Type $>$}}.
 
 \mbox{\Hypertarget{classrpp_1_1details_1_1subscriber__base_ae9532294156f8acf86d1cf39d4c1cc15}\label{classrpp_1_1details_1_1subscriber__base_ae9532294156f8acf86d1cf39d4c1cc15}} 
 \index{rpp::details::subscriber\_base$<$ Type $>$@{rpp::details::subscriber\_base$<$ Type $>$}!on\_error@{on\_error}}
@@ -97,7 +101,16 @@ void \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{rpp\+::details\+:
 
 
 
-Implements \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface\+\_\+observer$<$ Type $>$}}.
+Observable calls this method to notify observer about some error during generation next data. \textbackslash{}warn Obtaining this call means no any further on\+\_\+next or on\+\_\+completed calls. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em err} & details of error \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__observer_a75f46a05b81cdc26b9d7d52efede9cf0}{rpp\+::interface\+\_\+observer$<$ Type $>$}}.
 
 \mbox{\Hypertarget{classrpp_1_1details_1_1subscriber__base_a8de1e104568abb9461825241d8bce9f9}\label{classrpp_1_1details_1_1subscriber__base_a8de1e104568abb9461825241d8bce9f9}} 
 \index{rpp::details::subscriber\_base$<$ Type $>$@{rpp::details::subscriber\_base$<$ Type $>$}!on\_next@{on\_next}}
@@ -115,11 +128,15 @@ Implements \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface\+
 \index{on\_next@{on\_next}!rpp::details::subscriber\_base$<$ Type $>$@{rpp::details::subscriber\_base$<$ Type $>$}}
 \doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$typename Type $>$ \\
-void \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{rpp\+::details\+::subscriber\+\_\+base}}$<$ Type $>$\+::on\+\_\+next (\begin{DoxyParamCaption}\item[{Type \&\&}]{val }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
+void \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{rpp\+::details\+::subscriber\+\_\+base}}$<$ Type $>$\+::on\+\_\+next (\begin{DoxyParamCaption}\item[{Type \&\&}]{v }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
 
 
 
-Implements \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface\+\_\+observer$<$ Type $>$}}.
+on\+\_\+next obtaining value by rvalue-\/reference to original object 
+
+
+
+Implements \mbox{\hyperlink{group__on__next_ga3780d41600d3dacd8ae6536fb65614d6}{rpp\+::interface\+\_\+observer$<$ Type $>$}}.
 
 
 

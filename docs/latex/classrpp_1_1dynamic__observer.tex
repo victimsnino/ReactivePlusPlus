@@ -18,17 +18,11 @@ Inheritance diagram for rpp\+::dynamic\+\_\+observer\texorpdfstring{$<$}{<} T \t
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrpp_1_1dynamic__observer_a7d74e342c02da2549f836f571aa2cf1a}\label{classrpp_1_1dynamic__observer_a7d74e342c02da2549f836f571aa2cf1a}} 
-{\footnotesize template$<$typename On\+Next  = utils\+::empty\+\_\+function\+\_\+t$<$\+T$>$, typename On\+Error  = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, typename On\+Completed  = utils\+::empty\+\_\+function\+\_\+t$<$$>$, typename  = utils\+::enable\+\_\+if\+\_\+observer\+\_\+constructible\+\_\+t$<$\+T, On\+Next, On\+Error, On\+Completed$>$$>$ }\\{\bfseries dynamic\+\_\+observer} (On\+Next \&\&on\+\_\+next=\{\}, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\})
+\mbox{\Hypertarget{classrpp_1_1dynamic__observer_a11111862f641a4915528aa42e8ff58e2}\label{classrpp_1_1dynamic__observer_a11111862f641a4915528aa42e8ff58e2}} 
+{\footnotesize template$<$constraint\+::on\+\_\+next\+\_\+fn$<$ T $>$ On\+Next = utils\+::empty\+\_\+function\+\_\+t$<$\+T$>$, constraint\+::on\+\_\+error\+\_\+fn On\+Error = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, constraint\+::on\+\_\+completed\+\_\+fn On\+Completed = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\{\bfseries dynamic\+\_\+observer} (On\+Next \&\&on\+\_\+next=\{\}, On\+Error \&\&\mbox{\hyperlink{classrpp_1_1dynamic__observer_a1e8abba013fb85e23518ee93a3524e0c}{on\+\_\+error}}=\{\}, On\+Completed \&\&\mbox{\hyperlink{classrpp_1_1dynamic__observer_aebd2d9f021a23ce98a2eac7d49d8f254}{on\+\_\+completed}}=\{\})
 \item 
-\mbox{\Hypertarget{classrpp_1_1dynamic__observer_a0e4664e9d7d479975e6fde1d8cef33f0}\label{classrpp_1_1dynamic__observer_a0e4664e9d7d479975e6fde1d8cef33f0}} 
-{\footnotesize template$<$typename On\+Next , typename On\+Completed , typename  = utils\+::enable\+\_\+if\+\_\+observer\+\_\+constructible\+\_\+t$<$\+T, On\+Next, utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, On\+Completed$>$$>$ }\\{\bfseries dynamic\+\_\+observer} (On\+Next \&\&on\+\_\+next, On\+Completed \&\&on\+\_\+completed)
-\item 
-\mbox{\Hypertarget{classrpp_1_1dynamic__observer_a50cbbcefea9f5322273f6b5c4c51b8ca}\label{classrpp_1_1dynamic__observer_a50cbbcefea9f5322273f6b5c4c51b8ca}} 
-{\footnotesize template$<$typename TObserver , typename  = std\+::enable\+\_\+if\+\_\+t$<$utils\+::is\+\_\+observer\+\_\+v$<$\+TObserver$>$ \&\& !std\+::is\+\_\+same\+\_\+v$<$std\+::decay\+\_\+t$<$\+TObserver$>$, dynamic\+\_\+observer$<$\+T$>$$>$$>$$>$ }\\{\bfseries dynamic\+\_\+observer} (TObserver \&\&obs)
-\item 
-\mbox{\Hypertarget{classrpp_1_1dynamic__observer_a796c65fe0f071d022e666cbe4025aced}\label{classrpp_1_1dynamic__observer_a796c65fe0f071d022e666cbe4025aced}} 
-{\bfseries dynamic\+\_\+observer} (const \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ T $>$ \&)=default
+\mbox{\Hypertarget{classrpp_1_1dynamic__observer_ab4fbedf196de14a420561903b2fc2ab3}\label{classrpp_1_1dynamic__observer_ab4fbedf196de14a420561903b2fc2ab3}} 
+{\bfseries dynamic\+\_\+observer} (constraint\+::on\+\_\+next\+\_\+fn$<$ T $>$ auto \&\&on\+\_\+next, constraint\+::on\+\_\+completed\+\_\+fn auto \&\&\mbox{\hyperlink{classrpp_1_1dynamic__observer_aebd2d9f021a23ce98a2eac7d49d8f254}{on\+\_\+completed}})
 \item 
 \mbox{\Hypertarget{classrpp_1_1dynamic__observer_a92d4a51095f0a825e59f1797a8470a66}\label{classrpp_1_1dynamic__observer_a92d4a51095f0a825e59f1797a8470a66}} 
 {\bfseries dynamic\+\_\+observer} (\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ T $>$ \&\&) noexcept=default
@@ -36,13 +30,19 @@ Inheritance diagram for rpp\+::dynamic\+\_\+observer\texorpdfstring{$<$}{<} T \t
 void \mbox{\hyperlink{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}{on\+\_\+next}} (const T \&v) const override
 \item 
 void \mbox{\hyperlink{classrpp_1_1dynamic__observer_a16f5d34af9d7c4096b1c4535a866dab2}{on\+\_\+next}} (T \&\&v) const override
-\item 
+\begin{DoxyCompactList}\small\item\em on\+\_\+next obtaining value by rvalue-\/reference to original object \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrpp_1_1dynamic__observer_a1e8abba013fb85e23518ee93a3524e0c}{on\+\_\+error}} (const std\+::exception\+\_\+ptr \&err) const override
-\item 
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about some error during generation next data. \textbackslash{}warn Obtaining this call means no any further on\+\_\+next or on\+\_\+completed calls. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrpp_1_1dynamic__observer_aebd2d9f021a23ce98a2eac7d49d8f254}{on\+\_\+completed}} () const override
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about finish of work. \textbackslash{}warn Obtaining this call means no any further on\+\_\+next calls. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrpp_1_1dynamic__observer_add7053ccfed71413c07b74cc34a564f8}\label{classrpp_1_1dynamic__observer_add7053ccfed71413c07b74cc34a564f8}} 
+const \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ T $>$ \& {\bfseries as\+\_\+dynamic} () const
+\begin{DoxyCompactList}\small\item\em Do nothing for \mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp\+::dynamic\+\_\+observer}}. Created only for unification of interfaces with \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp\+::specific\+\_\+observer}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrpp_1_1dynamic__observer_a2962b8c84566c8946d8beb01124ebb30}\label{classrpp_1_1dynamic__observer_a2962b8c84566c8946d8beb01124ebb30}} 
-\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ T $>$ {\bfseries as\+\_\+dynamic} () const
+\mbox{\Hypertarget{classrpp_1_1dynamic__observer_a0dcdc8978ea72bf4b7ecec8518e24e7f}\label{classrpp_1_1dynamic__observer_a0dcdc8978ea72bf4b7ecec8518e24e7f}} 
+{\footnotesize template$<$constraint\+::observer TObserver$>$ }\\{\bfseries \+\_\+\+\_\+pad0\+\_\+\+\_\+}\+: m\+\_\+state\{std\+::make\+\_\+shared$<$std\+::decay\+\_\+t$<$TObserver$>$$>$(std\+::forward$<$TObserver$>$(obs))\} \{\} \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}(const \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$T$>$\&) = default
 \end{DoxyCompactItemize}
 
 
@@ -51,9 +51,9 @@ void \mbox{\hyperlink{classrpp_1_1dynamic__observer_aebd2d9f021a23ce98a2eac7d49d
 class rpp\+::dynamic\+\_\+observer$<$ T $>$}
 Dynamic (type-\/erased) version of observer (comparing to \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\+\_\+observer}}) 
 
-It uses type-\/erasure mechanism to hide types of On\+Next, On\+Error and On\+Completed callbacks. But it has higher cost in the terms of performance due to usage of heap. Use it only when you need to store observer as member variable or something like this 
+It uses type-\/erasure mechanism to hide types of On\+Next, On\+Error and On\+Completed callbacks. But it has higher cost in the terms of performance due to usage of heap. Use it only when you need to store observer as member variable or something like this. In other cases prefer using \char`\"{}auto\char`\"{} to avoid converting to \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}} 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em T} & is type of value expected by this observer \\
+{\em T} & is type of value handled by this observer \\
 \hline
 \end{DoxyTemplParams}
 
@@ -68,7 +68,11 @@ void \mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp\+::dynamic\+\_\+observe
 
 
 
-Implements \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface\+\_\+observer$<$ T $>$}}.
+Observable calls this method to notify observer about finish of work. \textbackslash{}warn Obtaining this call means no any further on\+\_\+next calls. 
+
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__observer_a33ab3fa364e11b58e4225afd9c071ad1}{rpp\+::interface\+\_\+observer$<$ T $>$}}.
 
 \mbox{\Hypertarget{classrpp_1_1dynamic__observer_a1e8abba013fb85e23518ee93a3524e0c}\label{classrpp_1_1dynamic__observer_a1e8abba013fb85e23518ee93a3524e0c}} 
 \index{rpp::dynamic\_observer$<$ T $>$@{rpp::dynamic\_observer$<$ T $>$}!on\_error@{on\_error}}
@@ -79,7 +83,16 @@ void \mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp\+::dynamic\+\_\+observe
 
 
 
-Implements \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface\+\_\+observer$<$ T $>$}}.
+Observable calls this method to notify observer about some error during generation next data. \textbackslash{}warn Obtaining this call means no any further on\+\_\+next or on\+\_\+completed calls. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em err} & details of error \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__observer_a75f46a05b81cdc26b9d7d52efede9cf0}{rpp\+::interface\+\_\+observer$<$ T $>$}}.
 
 \mbox{\Hypertarget{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}\label{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}} 
 \index{rpp::dynamic\_observer$<$ T $>$@{rpp::dynamic\_observer$<$ T $>$}!on\_next@{on\_next}}
@@ -101,7 +114,11 @@ void \mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp\+::dynamic\+\_\+observe
 
 
 
-Implements \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface\+\_\+observer$<$ T $>$}}.
+on\+\_\+next obtaining value by rvalue-\/reference to original object 
+
+
+
+Implements \mbox{\hyperlink{group__on__next_ga3780d41600d3dacd8ae6536fb65614d6}{rpp\+::interface\+\_\+observer$<$ T $>$}}.
 
 
 
