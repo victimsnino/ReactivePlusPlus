@@ -52,13 +52,13 @@
 \DoxyCodeLine{58      \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_next\_fn<T>   TOnNext      = utils::empty\_function\_t<T>,}
 \DoxyCodeLine{59               constra\textcolor{keywordtype}{int}::on\_error\_fn     TOnError     = utils::empty\_function\_t<std::exception\_ptr>,}
 \DoxyCodeLine{60               constra\textcolor{keywordtype}{int}::on\_completed\_fn TOnCompleted = utils::empty\_function\_t<>>}
-\DoxyCodeLine{61      \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}(TOnNext\&\& on\_next = \{\}, TOnError\&\& \mbox{\hyperlink{classrpp_1_1specific__observer_a337db92fb5f059a4bea5019248d70e30}{on\_error}} = \{\}, TOnCompleted\&\& \mbox{\hyperlink{classrpp_1_1specific__observer_a6e81d90a6985ee8b9161564c71f713e1}{on\_completed}} = \{\})}
-\DoxyCodeLine{62         : m\_on\_next\{std::forward<TOnNext>(on\_next)\}}
+\DoxyCodeLine{61      \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}(TOnNext\&\& \mbox{\hyperlink{classrpp_1_1specific__observer_a00ef0f5cdd0c45d58c0e019479cadd35}{on\_next}} = \{\}, TOnError\&\& \mbox{\hyperlink{classrpp_1_1specific__observer_a337db92fb5f059a4bea5019248d70e30}{on\_error}} = \{\}, TOnCompleted\&\& \mbox{\hyperlink{classrpp_1_1specific__observer_a6e81d90a6985ee8b9161564c71f713e1}{on\_completed}} = \{\})}
+\DoxyCodeLine{62         : m\_on\_next\{std::forward<TOnNext>(\mbox{\hyperlink{classrpp_1_1specific__observer_a00ef0f5cdd0c45d58c0e019479cadd35}{on\_next}})\}}
 \DoxyCodeLine{63         , m\_on\_err\{std::forward<TOnError>(\mbox{\hyperlink{classrpp_1_1specific__observer_a337db92fb5f059a4bea5019248d70e30}{on\_error}})\}}
 \DoxyCodeLine{64         , m\_on\_completed\{std::forward<TOnCompleted>(\mbox{\hyperlink{classrpp_1_1specific__observer_a6e81d90a6985ee8b9161564c71f713e1}{on\_completed}})\} \{\}}
 \DoxyCodeLine{65 }
-\DoxyCodeLine{66      \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}(constraint::on\_next\_fn<T> \textcolor{keyword}{auto}\&\& on\_next, constraint::on\_completed\_fn \textcolor{keyword}{auto}\&\& \mbox{\hyperlink{classrpp_1_1specific__observer_a6e81d90a6985ee8b9161564c71f713e1}{on\_completed}})}
-\DoxyCodeLine{67          : \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}\{std::forward<decltype(on\_next)>(on\_next),}
+\DoxyCodeLine{66      \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}(constraint::on\_next\_fn<T> \textcolor{keyword}{auto}\&\& \mbox{\hyperlink{classrpp_1_1specific__observer_a00ef0f5cdd0c45d58c0e019479cadd35}{on\_next}}, constraint::on\_completed\_fn \textcolor{keyword}{auto}\&\& \mbox{\hyperlink{classrpp_1_1specific__observer_a6e81d90a6985ee8b9161564c71f713e1}{on\_completed}})}
+\DoxyCodeLine{67          : \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}\{std::forward<decltype(on\_next)>(\mbox{\hyperlink{classrpp_1_1specific__observer_a00ef0f5cdd0c45d58c0e019479cadd35}{on\_next}}),}
 \DoxyCodeLine{68                              utils::empty\_function\_t<std::exception\_ptr>\{\},}
 \DoxyCodeLine{69                              std::forward<decltype(on\_completed)>(\mbox{\hyperlink{classrpp_1_1specific__observer_a6e81d90a6985ee8b9161564c71f713e1}{on\_completed}})\} \{\}}
 \DoxyCodeLine{70 }
@@ -72,7 +72,7 @@
 \DoxyCodeLine{78     \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer<T, OnNext, OnError, OnCompleted>}}\& other)     = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{79     \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}(\mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer<T, OnNext, OnError, OnCompleted>}}\&\& other) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{80 }
-\DoxyCodeLine{81     \textcolor{keywordtype}{void} on\_next(\textcolor{keyword}{const} T\& v)\textcolor{keyword}{ const override                     }\{ m\_on\_next(v);             \}}
+\DoxyCodeLine{81     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1specific__observer_a00ef0f5cdd0c45d58c0e019479cadd35}{on\_next}}(\textcolor{keyword}{const} T\& v)\textcolor{keyword}{ const override                     }\{ m\_on\_next(v);             \}}
 \DoxyCodeLine{82     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1specific__observer_af96eb0933f734772dda7d273ea4d1c27}{on\_next}}(T\&\& v)\textcolor{keyword}{ const override                          }\{ m\_on\_next(std::move(v));  \}}
 \DoxyCodeLine{83     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1specific__observer_a337db92fb5f059a4bea5019248d70e30}{on\_error}}(\textcolor{keyword}{const} std::exception\_ptr\& err)\textcolor{keyword}{ const override }\{ m\_on\_err(err);            \}}
 \DoxyCodeLine{84     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1specific__observer_a6e81d90a6985ee8b9161564c71f713e1}{on\_completed}}()\textcolor{keyword}{ const override                          }\{ m\_on\_completed();         \}}

@@ -92,7 +92,7 @@ Inheritance diagram for rpp::details::state_observer&lt; T, State, OnNext, OnErr
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a55f4877323f484d0219ccd4ad1362428"><td class="memTemplParams" colspan="2"><a id="a55f4877323f484d0219ccd4ad1362428" name="a55f4877323f484d0219ccd4ad1362428"></a>
 template&lt;typename TState , typename TOnNext , typename TOnError  = forwarding_on_error, typename TOnCompleted  = forwarding_on_completed, typename  = std::enable_if_t&lt;std::is_invocable_v&lt;TOnNext, T, State&gt; &amp;&amp; std::is_invocable_v&lt;TOnError, std::exception_ptr, State&gt; &amp;&amp; std::is_invocable_v&lt;TOnCompleted, State&gt;&gt;&gt; </td></tr>
-<tr class="memitem:a55f4877323f484d0219ccd4ad1362428"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>state_observer</b> (TState &amp;&amp;state, TOnNext &amp;&amp;on_next, TOnError &amp;&amp;<a class="el" href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">on_error</a>={}, TOnCompleted &amp;&amp;<a class="el" href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">on_completed</a>={})</td></tr>
+<tr class="memitem:a55f4877323f484d0219ccd4ad1362428"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>state_observer</b> (TState &amp;&amp;state, TOnNext &amp;&amp;<a class="el" href="classrpp_1_1details_1_1state__observer.html#a0e00117dd1c6fc7e1cf296c3b42a86ee">on_next</a>, TOnError &amp;&amp;<a class="el" href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">on_error</a>={}, TOnCompleted &amp;&amp;<a class="el" href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">on_completed</a>={})</td></tr>
 <tr class="separator:a55f4877323f484d0219ccd4ad1362428"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c34c587ff110e6fdc3eb8dbf56f5f53"><td class="memItemLeft" align="right" valign="top"><a id="a0c34c587ff110e6fdc3eb8dbf56f5f53" name="a0c34c587ff110e6fdc3eb8dbf56f5f53"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>state_observer</b> (const <a class="el" href="classrpp_1_1details_1_1state__observer.html">state_observer</a>&lt; T, State, OnNext, OnError, OnCompleted &gt; &amp;other)=default</td></tr>
@@ -101,15 +101,16 @@ template&lt;typename TState , typename TOnNext , typename TOnError  = forwarding
 &#160;</td><td class="memItemRight" valign="bottom"><b>state_observer</b> (<a class="el" href="classrpp_1_1details_1_1state__observer.html">state_observer</a>&lt; T, State, OnNext, OnError, OnCompleted &gt; &amp;&amp;other) noexcept=default</td></tr>
 <tr class="separator:a7a3bdd42bb778f3abc5aa9bbc8b39644"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e00117dd1c6fc7e1cf296c3b42a86ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1details_1_1state__observer.html#a0e00117dd1c6fc7e1cf296c3b42a86ee">on_next</a> (const T &amp;v) const override</td></tr>
+<tr class="memdesc:a0e00117dd1c6fc7e1cf296c3b42a86ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this methods to notify observer about new value.  <a href="classrpp_1_1details_1_1state__observer.html#a0e00117dd1c6fc7e1cf296c3b42a86ee">More...</a><br /></td></tr>
 <tr class="separator:a0e00117dd1c6fc7e1cf296c3b42a86ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb292b8b8b42cbd39aaad8ed1db5e645"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1details_1_1state__observer.html#aeb292b8b8b42cbd39aaad8ed1db5e645">on_next</a> (T &amp;&amp;v) const override</td></tr>
-<tr class="memdesc:aeb292b8b8b42cbd39aaad8ed1db5e645"><td class="mdescLeft">&#160;</td><td class="mdescRight">on_next obtaining value by rvalue-reference to original object  <a href="classrpp_1_1details_1_1state__observer.html#aeb292b8b8b42cbd39aaad8ed1db5e645">More...</a><br /></td></tr>
+<tr class="memdesc:aeb292b8b8b42cbd39aaad8ed1db5e645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this methods to notify observer about new value.  <a href="classrpp_1_1details_1_1state__observer.html#aeb292b8b8b42cbd39aaad8ed1db5e645">More...</a><br /></td></tr>
 <tr class="separator:aeb292b8b8b42cbd39aaad8ed1db5e645"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96d063f55c73076809134f706a8d19dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">on_error</a> (const std::exception_ptr &amp;err) const override</td></tr>
-<tr class="memdesc:a96d063f55c73076809134f706a8d19dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this method to notify observer about some error during generation next data. \warn Obtaining this call means no any further on_next or on_completed calls.  <a href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">More...</a><br /></td></tr>
+<tr class="memdesc:a96d063f55c73076809134f706a8d19dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this method to notify observer about some error during generation next data.  <a href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">More...</a><br /></td></tr>
 <tr class="separator:a96d063f55c73076809134f706a8d19dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d24b5c70f82c0a4c1f756caf54df267"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">on_completed</a> () const override</td></tr>
-<tr class="memdesc:a7d24b5c70f82c0a4c1f756caf54df267"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this method to notify observer about finish of work. \warn Obtaining this call means no any further on_next calls.  <a href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">More...</a><br /></td></tr>
+<tr class="memdesc:a7d24b5c70f82c0a4c1f756caf54df267"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this method to notify observer about finish of work.  <a href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">More...</a><br /></td></tr>
 <tr class="separator:a7d24b5c70f82c0a4c1f756caf54df267"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -141,7 +142,8 @@ template&lt;typename T , typename State , typename OnNext , typename OnError  = 
 </table>
 </div><div class="memdoc">
 
-<p>Observable calls this method to notify observer about finish of work. \warn Obtaining this call means no any further on_next calls. </p>
+<p>Observable calls this method to notify observer about finish of work. </p>
+<dl class="section warning"><dt>Warning</dt><dd>Obtaining this call means no any further on_next calls </dd></dl>
 
 <p>Implements <a class="el" href="structrpp_1_1interface__observer.html#a33ab3fa364e11b58e4225afd9c071ad1">rpp::interface_observer&lt; T &gt;</a>.</p>
 
@@ -173,7 +175,8 @@ template&lt;typename T , typename State , typename OnNext , typename OnError  = 
 </table>
 </div><div class="memdoc">
 
-<p>Observable calls this method to notify observer about some error during generation next data. \warn Obtaining this call means no any further on_next or on_completed calls. </p>
+<p>Observable calls this method to notify observer about some error during generation next data. </p>
+<dl class="section warning"><dt>Warning</dt><dd>Obtaining this call means no any further on_next or on_completed calls </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">err</td><td>details of error </td></tr>
@@ -211,7 +214,10 @@ template&lt;typename T , typename State , typename OnNext , typename OnError  = 
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="structrpp_1_1interface__observer.html">rpp::interface_observer&lt; T &gt;</a>.</p>
+<p>Observable calls this methods to notify observer about new value. </p>
+<dl class="section note"><dt>Note</dt><dd>obtains value by const-reference to original object. </dd></dl>
+
+<p>Implements <a class="el" href="structrpp_1_1interface__observer.html#aa434bd87b9be8e727ef38dcac14e7e27">rpp::interface_observer&lt; T &gt;</a>.</p>
 
 </div>
 </div>
@@ -241,9 +247,10 @@ template&lt;typename T , typename State , typename OnNext , typename OnError  = 
 </table>
 </div><div class="memdoc">
 
-<p>on_next obtaining value by rvalue-reference to original object </p>
+<p>Observable calls this methods to notify observer about new value. </p>
+<dl class="section note"><dt>Note</dt><dd>obtains value by rvalue-reference to original object </dd></dl>
 
-<p>Implements <a class="el" href="group__on__next.html#ga3780d41600d3dacd8ae6536fb65614d6">rpp::interface_observer&lt; T &gt;</a>.</p>
+<p>Implements <a class="el" href="structrpp_1_1interface__observer.html#a3780d41600d3dacd8ae6536fb65614d6">rpp::interface_observer&lt; T &gt;</a>.</p>
 
 </div>
 </div>

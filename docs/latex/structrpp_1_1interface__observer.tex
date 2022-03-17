@@ -18,14 +18,14 @@ Inheritance diagram for rpp\+::interface\+\_\+observer\texorpdfstring{$<$}{<} T 
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-virtual void {\bfseries on\+\_\+next} (const T \&v) const =0
-\item 
-virtual void \mbox{\hyperlink{group__on__next_ga3780d41600d3dacd8ae6536fb65614d6}{on\+\_\+next}} (T \&\&v) const =0
-\begin{DoxyCompactList}\small\item\em on\+\_\+next obtaining value by rvalue-\/reference to original object \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{structrpp_1_1interface__observer_aa434bd87b9be8e727ef38dcac14e7e27}{on\+\_\+next}} (const T \&v) const =0
+\begin{DoxyCompactList}\small\item\em Observable calls this methods to notify observer about new value. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{structrpp_1_1interface__observer_a3780d41600d3dacd8ae6536fb65614d6}{on\+\_\+next}} (T \&\&v) const =0
+\begin{DoxyCompactList}\small\item\em Observable calls this methods to notify observer about new value. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{structrpp_1_1interface__observer_a75f46a05b81cdc26b9d7d52efede9cf0}{on\+\_\+error}} (const std\+::exception\+\_\+ptr \&err) const =0
-\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about some error during generation next data. \textbackslash{}warn Obtaining this call means no any further on\+\_\+next or on\+\_\+completed calls. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about some error during generation next data. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{structrpp_1_1interface__observer_a33ab3fa364e11b58e4225afd9c071ad1}{on\+\_\+completed}} () const =0
-\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about finish of work. \textbackslash{}warn Obtaining this call means no any further on\+\_\+next calls. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about finish of work. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -50,8 +50,11 @@ virtual void \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface
 
 
 
-Observable calls this method to notify observer about finish of work. \textbackslash{}warn Obtaining this call means no any further on\+\_\+next calls. 
+Observable calls this method to notify observer about finish of work. 
 
+\begin{DoxyWarning}{Warning}
+Obtaining this call means no any further on\+\_\+next calls 
+\end{DoxyWarning}
 
 
 Implemented in \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_a85ef4e79f7f9d82d5899dc2524a7289a}{rpp\+::details\+::subscriber\+\_\+base$<$ Type $>$}}, \mbox{\hyperlink{classrpp_1_1dynamic__observer_aebd2d9f021a23ce98a2eac7d49d8f254}{rpp\+::dynamic\+\_\+observer$<$ T $>$}}, \mbox{\hyperlink{classrpp_1_1specific__observer_a6e81d90a6985ee8b9161564c71f713e1}{rpp\+::specific\+\_\+observer$<$ T, On\+Next, On\+Error, On\+Completed $>$}}, and \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a7d24b5c70f82c0a4c1f756caf54df267}{rpp\+::details\+::state\+\_\+observer$<$ T, State, On\+Next, On\+Error, On\+Completed $>$}}.
@@ -65,8 +68,11 @@ virtual void \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface
 
 
 
-Observable calls this method to notify observer about some error during generation next data. \textbackslash{}warn Obtaining this call means no any further on\+\_\+next or on\+\_\+completed calls. 
+Observable calls this method to notify observer about some error during generation next data. 
 
+\begin{DoxyWarning}{Warning}
+Obtaining this call means no any further on\+\_\+next or on\+\_\+completed calls 
+\end{DoxyWarning}
 
 \begin{DoxyParams}{Parameters}
 {\em err} & details of error \\
@@ -75,6 +81,42 @@ Observable calls this method to notify observer about some error during generati
 
 
 Implemented in \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_ae9532294156f8acf86d1cf39d4c1cc15}{rpp\+::details\+::subscriber\+\_\+base$<$ Type $>$}}, \mbox{\hyperlink{classrpp_1_1dynamic__observer_a1e8abba013fb85e23518ee93a3524e0c}{rpp\+::dynamic\+\_\+observer$<$ T $>$}}, \mbox{\hyperlink{classrpp_1_1specific__observer_a337db92fb5f059a4bea5019248d70e30}{rpp\+::specific\+\_\+observer$<$ T, On\+Next, On\+Error, On\+Completed $>$}}, and \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a96d063f55c73076809134f706a8d19dd}{rpp\+::details\+::state\+\_\+observer$<$ T, State, On\+Next, On\+Error, On\+Completed $>$}}.
+
+\mbox{\Hypertarget{structrpp_1_1interface__observer_aa434bd87b9be8e727ef38dcac14e7e27}\label{structrpp_1_1interface__observer_aa434bd87b9be8e727ef38dcac14e7e27}} 
+\index{rpp::interface\_observer$<$ T $>$@{rpp::interface\_observer$<$ T $>$}!on\_next@{on\_next}}
+\index{on\_next@{on\_next}!rpp::interface\_observer$<$ T $>$@{rpp::interface\_observer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual void \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface\+\_\+observer}}$<$ T $>$\+::on\+\_\+next (\begin{DoxyParamCaption}\item[{const T \&}]{v }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Observable calls this methods to notify observer about new value. 
+
+\begin{DoxyNote}{Note}
+obtains value by const-\/reference to original object. 
+\end{DoxyNote}
+
+
+Implemented in \mbox{\hyperlink{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}{rpp\+::dynamic\+\_\+observer$<$ T $>$}}, \mbox{\hyperlink{classrpp_1_1specific__observer_a00ef0f5cdd0c45d58c0e019479cadd35}{rpp\+::specific\+\_\+observer$<$ T, On\+Next, On\+Error, On\+Completed $>$}}, \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a0e00117dd1c6fc7e1cf296c3b42a86ee}{rpp\+::details\+::state\+\_\+observer$<$ T, State, On\+Next, On\+Error, On\+Completed $>$}}, and \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_a8de1e104568abb9461825241d8bce9f9}{rpp\+::details\+::subscriber\+\_\+base$<$ Type $>$}}.
+
+\mbox{\Hypertarget{structrpp_1_1interface__observer_a3780d41600d3dacd8ae6536fb65614d6}\label{structrpp_1_1interface__observer_a3780d41600d3dacd8ae6536fb65614d6}} 
+\index{rpp::interface\_observer$<$ T $>$@{rpp::interface\_observer$<$ T $>$}!on\_next@{on\_next}}
+\index{on\_next@{on\_next}!rpp::interface\_observer$<$ T $>$@{rpp::interface\_observer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual void \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface\+\_\+observer}}$<$ T $>$\+::on\+\_\+next (\begin{DoxyParamCaption}\item[{T \&\&}]{v }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Observable calls this methods to notify observer about new value. 
+
+\begin{DoxyNote}{Note}
+obtains value by rvalue-\/reference to original object 
+\end{DoxyNote}
+
+
+Implemented in \mbox{\hyperlink{classrpp_1_1dynamic__observer_a16f5d34af9d7c4096b1c4535a866dab2}{rpp\+::dynamic\+\_\+observer$<$ T $>$}}, \mbox{\hyperlink{classrpp_1_1specific__observer_af96eb0933f734772dda7d273ea4d1c27}{rpp\+::specific\+\_\+observer$<$ T, On\+Next, On\+Error, On\+Completed $>$}}, \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_aeb292b8b8b42cbd39aaad8ed1db5e645}{rpp\+::details\+::state\+\_\+observer$<$ T, State, On\+Next, On\+Error, On\+Completed $>$}}, and \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_aec89d8ba3d43d80d4c6e8ba27d680d3c}{rpp\+::details\+::subscriber\+\_\+base$<$ Type $>$}}.
 
 
 

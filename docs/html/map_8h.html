@@ -110,11 +110,11 @@ template&lt;typename Callable &gt; </div>
 <p>transform the items emitted by an Observable by applying a function to each item </p>
 <p >The Map operator applies a function of your choosing to each item emitted by the source Observable, and returns an Observable that emits the results of these function applications.</p>
 <p >The Map operator can keep same type of value or change it to some another type.</p>
-<p >Example: </p><div class="fragment"><div class="line">observable</div>
-<div class="line">     .map([](<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; val)</div>
-<div class="line">     {</div>
-<div class="line">         <span class="keywordflow">return</span> std::to_string(val) + <span class="stringliteral">&quot; data&quot;</span>;</div>
-<div class="line">     });</div>
+<p >Example: </p><div class="fragment"><div class="line">observable | <a class="code hl_function" href="map_8h.html#a79ef0bff4448df7b7c07b3d5f1191806">map</a>([](<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; val)</div>
+<div class="line">             {</div>
+<div class="line">                 <span class="keywordflow">return</span> std::to_string(val) + <span class="stringliteral">&quot; data&quot;</span>;</div>
+<div class="line">             });</div>
+<div class="ttc" id="amap_8h_html_a79ef0bff4448df7b7c07b3d5f1191806"><div class="ttname"><a href="map_8h.html#a79ef0bff4448df7b7c07b3d5f1191806">rpp::operators::map</a></div><div class="ttdeci">auto map(Callable &amp;&amp;callable)</div><div class="ttdoc">transform the items emitted by an Observable by applying a function to each item</div><div class="ttdef"><b>Definition:</b> map.h:58</div></div>
 </div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/map.html">https://reactivex.io/documentation/operators/map.html</a></dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">

@@ -3,8 +3,7 @@ var indexSectionsWithContent =
   0: "adfilmosv",
   1: "dfiosv",
   2: "m",
-  3: "almos",
-  4: "o"
+  3: "almos"
 };
 
 var indexSectionNames =
@@ -12,8 +11,7 @@ var indexSectionNames =
   0: "all",
   1: "classes",
   2: "files",
-  3: "functions",
-  4: "groups"
+  3: "functions"
 };
 
 var indexSectionLabels =
@@ -21,7 +19,6 @@ var indexSectionLabels =
   0: "All",
   1: "Classes",
   2: "Files",
-  3: "Functions",
-  4: "Modules"
+  3: "Functions"
 };
 
