@@ -90,38 +90,42 @@ Inheritance diagram for rpp::interface_observable&lt; Type, SpecificObservable &
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a560c69e97c6b562f6bdeb82239bb0c03"><td class="memTemplParams" colspan="2">template&lt;typename NewType , typename OperatorFn , typename  = std::enable_if_t&lt;std::is_invocable_v&lt;OperatorFn, dynamic_subscriber&lt;NewType&gt;&gt;&gt;&gt; </td></tr>
-<tr class="memitem:a560c69e97c6b562f6bdeb82239bb0c03"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observable.html#a560c69e97c6b562f6bdeb82239bb0c03">lift</a> (OperatorFn &amp;&amp;op) const &amp;</td></tr>
-<tr class="memdesc:a560c69e97c6b562f6bdeb82239bb0c03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lift provided function to make new observable based on this one.  <a href="structrpp_1_1interface__observable.html#a560c69e97c6b562f6bdeb82239bb0c03">More...</a><br /></td></tr>
-<tr class="separator:a560c69e97c6b562f6bdeb82239bb0c03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a685bd8d335010e60c1b5093c252a49c2"><td class="memTemplParams" colspan="2">template&lt;typename NewType , typename OperatorFn , typename  = std::enable_if_t&lt;std::is_invocable_v&lt;OperatorFn, dynamic_subscriber&lt;NewType&gt;&gt;&gt;&gt; </td></tr>
-<tr class="memitem:a685bd8d335010e60c1b5093c252a49c2"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observable.html#a685bd8d335010e60c1b5093c252a49c2">lift</a> (OperatorFn &amp;&amp;op) &amp;&amp;</td></tr>
-<tr class="memdesc:a685bd8d335010e60c1b5093c252a49c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lift provided function to make new observable based on this one.  <a href="structrpp_1_1interface__observable.html#a685bd8d335010e60c1b5093c252a49c2">More...</a><br /></td></tr>
-<tr class="separator:a685bd8d335010e60c1b5093c252a49c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70645cddc15502b6a1020fde997cafa0"><td class="memTemplParams" colspan="2">template&lt;typename OperatorFn , typename SubscriberType  = utils::function_argument_t&lt;OperatorFn&gt;, typename NewType  = utils::extract_subscriber_type_t&lt;SubscriberType&gt;, typename  = std::enable_if_t&lt;std::is_invocable_v&lt;OperatorFn, dynamic_subscriber&lt;NewType&gt;&gt;&gt;&gt; </td></tr>
-<tr class="memitem:a70645cddc15502b6a1020fde997cafa0"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observable.html#a70645cddc15502b6a1020fde997cafa0">lift</a> (OperatorFn &amp;&amp;op) const &amp;</td></tr>
-<tr class="memdesc:a70645cddc15502b6a1020fde997cafa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lift provided function to make new observable based on this one.  <a href="structrpp_1_1interface__observable.html#a70645cddc15502b6a1020fde997cafa0">More...</a><br /></td></tr>
-<tr class="separator:a70645cddc15502b6a1020fde997cafa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac05e054a112b0d0867ae17c792c55b3d"><td class="memTemplParams" colspan="2">template&lt;typename OperatorFn , typename SubscriberType  = utils::function_argument_t&lt;OperatorFn&gt;, typename NewType  = utils::extract_subscriber_type_t&lt;SubscriberType&gt;, typename  = std::enable_if_t&lt;std::is_invocable_v&lt;OperatorFn, dynamic_subscriber&lt;NewType&gt;&gt;&gt;&gt; </td></tr>
-<tr class="memitem:ac05e054a112b0d0867ae17c792c55b3d"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observable.html#ac05e054a112b0d0867ae17c792c55b3d">lift</a> (OperatorFn &amp;&amp;op) &amp;&amp;</td></tr>
-<tr class="memdesc:ac05e054a112b0d0867ae17c792c55b3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lift provided function to make new observable based on this one.  <a href="structrpp_1_1interface__observable.html#ac05e054a112b0d0867ae17c792c55b3d">More...</a><br /></td></tr>
-<tr class="separator:ac05e054a112b0d0867ae17c792c55b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a618072d59cab488b1cb69b4ce8979d66"><td class="memTemplParams" colspan="2">template&lt;typename OnNext , typename OnError  = details::forwarding_on_error, typename OnCompleted  = details::forwarding_on_completed, typename NewType  = std::decay_t&lt;utils::function_argument_t&lt;OnNext&gt;&gt;, typename  = std::enable_if_t&lt;std::is_invocable_v&lt;OnNext, Type, dynamic_subscriber&lt;NewType&gt;&gt;&gt;&gt; </td></tr>
-<tr class="memitem:a618072d59cab488b1cb69b4ce8979d66"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observable.html#a618072d59cab488b1cb69b4ce8979d66">lift</a> (OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const &amp;</td></tr>
-<tr class="memdesc:a618072d59cab488b1cb69b4ce8979d66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks.  <a href="structrpp_1_1interface__observable.html#a618072d59cab488b1cb69b4ce8979d66">More...</a><br /></td></tr>
-<tr class="separator:a618072d59cab488b1cb69b4ce8979d66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3b1add8e5793e3aecc10111598afba9"><td class="memTemplParams" colspan="2">template&lt;typename OnNext , typename OnError  = details::forwarding_on_error, typename OnCompleted  = details::forwarding_on_completed, typename NewType  = std::decay_t&lt;utils::function_argument_t&lt;OnNext&gt;&gt;, typename  = std::enable_if_t&lt;std::is_invocable_v&lt;OnNext, Type, dynamic_subscriber&lt;NewType&gt;&gt;&gt;&gt; </td></tr>
-<tr class="memitem:af3b1add8e5793e3aecc10111598afba9"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observable.html#af3b1add8e5793e3aecc10111598afba9">lift</a> (OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) &amp;&amp;</td></tr>
-<tr class="memdesc:af3b1add8e5793e3aecc10111598afba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks.  <a href="structrpp_1_1interface__observable.html#af3b1add8e5793e3aecc10111598afba9">More...</a><br /></td></tr>
-<tr class="separator:af3b1add8e5793e3aecc10111598afba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a618072d59cab488b1cb69b4ce8979d66"><td class="memTemplParams" colspan="2">template&lt;typename NewType , typename OnNext , typename OnError  = details::forwarding_on_error, typename OnCompleted  = details::forwarding_on_completed, typename  = std::enable_if_t&lt;std::is_invocable_v&lt;OnNext, Type, dynamic_subscriber&lt;NewType&gt;&gt;&gt;&gt; </td></tr>
-<tr class="memitem:a618072d59cab488b1cb69b4ce8979d66"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observable.html#a618072d59cab488b1cb69b4ce8979d66">lift</a> (OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const &amp;</td></tr>
-<tr class="memdesc:a618072d59cab488b1cb69b4ce8979d66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks.  <a href="structrpp_1_1interface__observable.html#a618072d59cab488b1cb69b4ce8979d66">More...</a><br /></td></tr>
-<tr class="separator:a618072d59cab488b1cb69b4ce8979d66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3b1add8e5793e3aecc10111598afba9"><td class="memTemplParams" colspan="2">template&lt;typename NewType , typename OnNext , typename OnError  = details::forwarding_on_error, typename OnCompleted  = details::forwarding_on_completed, typename  = std::enable_if_t&lt;std::is_invocable_v&lt;OnNext, Type, dynamic_subscriber&lt;NewType&gt;&gt;&gt;&gt; </td></tr>
-<tr class="memitem:af3b1add8e5793e3aecc10111598afba9"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observable.html#af3b1add8e5793e3aecc10111598afba9">lift</a> (OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) &amp;&amp;</td></tr>
-<tr class="memdesc:af3b1add8e5793e3aecc10111598afba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks.  <a href="structrpp_1_1interface__observable.html#af3b1add8e5793e3aecc10111598afba9">More...</a><br /></td></tr>
-<tr class="separator:af3b1add8e5793e3aecc10111598afba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6c66ddf2ceb4d398044a17e53db13eb"><td class="memTemplParams" colspan="2">template&lt;typename NewType &gt; </td></tr>
+<tr class="memitem:ac6c66ddf2ceb4d398044a17e53db13eb"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observable.html#ac6c66ddf2ceb4d398044a17e53db13eb">lift</a> (details::lift_fn&lt; NewType &gt; auto &amp;&amp;op) const &amp;</td></tr>
+<tr class="memdesc:ac6c66ddf2ceb4d398044a17e53db13eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lift provides function to make new observable based on this one.  <a href="structrpp_1_1interface__observable.html#ac6c66ddf2ceb4d398044a17e53db13eb">More...</a><br /></td></tr>
+<tr class="separator:ac6c66ddf2ceb4d398044a17e53db13eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b13aeff7243c8da94f8afb37b40c3af"><td class="memTemplParams" colspan="2">template&lt;typename NewType &gt; </td></tr>
+<tr class="memitem:a2b13aeff7243c8da94f8afb37b40c3af"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observable.html#a2b13aeff7243c8da94f8afb37b40c3af">lift</a> (details::lift_fn&lt; NewType &gt; auto &amp;&amp;op) &amp;&amp;</td></tr>
+<tr class="memdesc:a2b13aeff7243c8da94f8afb37b40c3af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lift provides function to make new observable based on this one.  <a href="structrpp_1_1interface__observable.html#a2b13aeff7243c8da94f8afb37b40c3af">More...</a><br /></td></tr>
+<tr class="separator:a2b13aeff7243c8da94f8afb37b40c3af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a447c33fec6ac48f26e6b2d887eef3a99"><td class="memTemplParams" colspan="2">template&lt;typename OperatorFn , typename SubscriberType  = utils::function_argument_t&lt;OperatorFn&gt;, typename NewType  = utils::extract_subscriber_type_t&lt;SubscriberType&gt;&gt; <br />
+requires details::lift_fn&lt;OperatorFn, NewType&gt;</td></tr>
+<tr class="memitem:a447c33fec6ac48f26e6b2d887eef3a99"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observable.html#a447c33fec6ac48f26e6b2d887eef3a99">lift</a> (OperatorFn &amp;&amp;op) const &amp;</td></tr>
+<tr class="memdesc:a447c33fec6ac48f26e6b2d887eef3a99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lift provides function to make new observable based on this one.  <a href="structrpp_1_1interface__observable.html#a447c33fec6ac48f26e6b2d887eef3a99">More...</a><br /></td></tr>
+<tr class="separator:a447c33fec6ac48f26e6b2d887eef3a99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab02193743943baaf7d27b8e8f4b1cbbf"><td class="memTemplParams" colspan="2">template&lt;typename OperatorFn , typename SubscriberType  = utils::function_argument_t&lt;OperatorFn&gt;, typename NewType  = utils::extract_subscriber_type_t&lt;SubscriberType&gt;&gt; <br />
+requires details::lift_fn&lt;OperatorFn, NewType&gt;</td></tr>
+<tr class="memitem:ab02193743943baaf7d27b8e8f4b1cbbf"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observable.html#ab02193743943baaf7d27b8e8f4b1cbbf">lift</a> (OperatorFn &amp;&amp;op) &amp;&amp;</td></tr>
+<tr class="memdesc:ab02193743943baaf7d27b8e8f4b1cbbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lift provides function to make new observable based on this one.  <a href="structrpp_1_1interface__observable.html#ab02193743943baaf7d27b8e8f4b1cbbf">More...</a><br /></td></tr>
+<tr class="separator:ab02193743943baaf7d27b8e8f4b1cbbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a250a7502f252453f3144b72ffedbb8fa"><td class="memTemplParams" colspan="2">template&lt;typename NewType , std::invocable&lt; Type, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnNext, std::invocable&lt; std::exception_ptr, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnError = details::forwarding_on_error, std::invocable&lt; <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnCompleted = details::forwarding_on_completed&gt; </td></tr>
+<tr class="memitem:a250a7502f252453f3144b72ffedbb8fa"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observable.html#a250a7502f252453f3144b72ffedbb8fa">lift</a> (OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const &amp;</td></tr>
+<tr class="memdesc:a250a7502f252453f3144b72ffedbb8fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks.  <a href="structrpp_1_1interface__observable.html#a250a7502f252453f3144b72ffedbb8fa">More...</a><br /></td></tr>
+<tr class="separator:a250a7502f252453f3144b72ffedbb8fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2b99979183025051efdb7e19233f9f6"><td class="memTemplParams" colspan="2">template&lt;typename NewType , std::invocable&lt; Type, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnNext, std::invocable&lt; std::exception_ptr, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnError = details::forwarding_on_error, std::invocable&lt; <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnCompleted = details::forwarding_on_completed&gt; </td></tr>
+<tr class="memitem:ae2b99979183025051efdb7e19233f9f6"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observable.html#ae2b99979183025051efdb7e19233f9f6">lift</a> (OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) &amp;&amp;</td></tr>
+<tr class="memdesc:ae2b99979183025051efdb7e19233f9f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks.  <a href="structrpp_1_1interface__observable.html#ae2b99979183025051efdb7e19233f9f6">More...</a><br /></td></tr>
+<tr class="separator:ae2b99979183025051efdb7e19233f9f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ee6c24a01ba0d4c6c79f36c403fb6ff"><td class="memTemplParams" colspan="2">template&lt;typename OnNext , typename OnError  = details::forwarding_on_error, typename OnCompleted  = details::forwarding_on_completed, typename NewType  = std::decay_t&lt;utils::function_argument_t&lt;OnNext&gt;&gt;&gt; <br />
+requires std::invocable&lt;OnNext, Type, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;NewType&gt;&gt; &amp;&amp; std::invocable&lt;OnError, std::exception_ptr, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;NewType&gt;&gt; &amp;&amp; std::invocable&lt;OnCompleted, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;NewType&gt;&gt;</td></tr>
+<tr class="memitem:a0ee6c24a01ba0d4c6c79f36c403fb6ff"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observable.html#a0ee6c24a01ba0d4c6c79f36c403fb6ff">lift</a> (OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const &amp;</td></tr>
+<tr class="memdesc:a0ee6c24a01ba0d4c6c79f36c403fb6ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks.  <a href="structrpp_1_1interface__observable.html#a0ee6c24a01ba0d4c6c79f36c403fb6ff">More...</a><br /></td></tr>
+<tr class="separator:a0ee6c24a01ba0d4c6c79f36c403fb6ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1b0d0a7000fa365eccfaea1ec723997"><td class="memTemplParams" colspan="2">template&lt;typename OnNext , typename OnError  = details::forwarding_on_error, typename OnCompleted  = details::forwarding_on_completed, typename NewType  = std::decay_t&lt;utils::function_argument_t&lt;OnNext&gt;&gt;&gt; <br />
+requires std::invocable&lt;OnNext, Type, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;NewType&gt;&gt; &amp;&amp; std::invocable&lt;OnError, std::exception_ptr, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;NewType&gt;&gt; &amp;&amp; std::invocable&lt;OnCompleted, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;NewType&gt;&gt;</td></tr>
+<tr class="memitem:af1b0d0a7000fa365eccfaea1ec723997"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__observable.html#af1b0d0a7000fa365eccfaea1ec723997">lift</a> (OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) &amp;&amp;</td></tr>
+<tr class="memdesc:af1b0d0a7000fa365eccfaea1ec723997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks.  <a href="structrpp_1_1interface__observable.html#af1b0d0a7000fa365eccfaea1ec723997">More...</a><br /></td></tr>
+<tr class="separator:af1b0d0a7000fa365eccfaea1ec723997"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_structrpp_1_1virtual__observable"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_structrpp_1_1virtual__observable')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="structrpp_1_1virtual__observable.html">rpp::virtual_observable&lt; Type &gt;</a></td></tr>
 <tr class="memitem:aef0abc01731e70ece3c2814e1ef2ca5b inherit pub_methods_structrpp_1_1virtual__observable"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classrpp_1_1subscription.html">subscription</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrpp_1_1virtual__observable.html#aef0abc01731e70ece3c2814e1ef2ca5b">subscribe</a> (const <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; Type &gt; &amp;subscriber) const noexcept=0</td></tr>
 <tr class="memdesc:aef0abc01731e70ece3c2814e1ef2ca5b inherit pub_methods_structrpp_1_1virtual__observable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="structrpp_1_1virtual__observable.html#aef0abc01731e70ece3c2814e1ef2ca5b">More...</a><br /></td></tr>
@@ -138,15 +142,164 @@ struct rpp::interface_observable&lt; Type, SpecificObservable &gt;</div><p >Base
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="af3b1add8e5793e3aecc10111598afba9" name="af3b1add8e5793e3aecc10111598afba9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3b1add8e5793e3aecc10111598afba9">&#9670;&nbsp;</a></span>lift() <span class="overload">[1/8]</span></h2>
+<a id="a2b13aeff7243c8da94f8afb37b40c3af" name="a2b13aeff7243c8da94f8afb37b40c3af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b13aeff7243c8da94f8afb37b40c3af">&#9670;&nbsp;</a></span>lift() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Type , typename SpecificObservable &gt; </div>
 <div class="memtemplate">
-template&lt;typename OnNext , typename OnError  = details::forwarding_on_error, typename OnCompleted  = details::forwarding_on_completed, typename NewType  = std::decay_t&lt;utils::function_argument_t&lt;OnNext&gt;&gt;, typename  = std::enable_if_t&lt;std::is_invocable_v&lt;OnNext, Type, dynamic_subscriber&lt;NewType&gt;&gt;&gt;&gt; </div>
+template&lt;typename NewType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1interface__observable.html">rpp::interface_observable</a>&lt; Type, SpecificObservable &gt;::lift </td>
+          <td>(</td>
+          <td class="paramtype">details::lift_fn&lt; NewType &gt; auto &amp;&amp;&#160;</td>
+          <td class="paramname"><em>op</em></td><td>)</td>
+          <td> &amp;&amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lift provides function to make new observable based on this one. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">NewType</td><td>manually specified new type of observable after lift </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">op</td><td>function applied to observable </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> of NewType </dd></dl>
+
+</div>
+</div>
+<a id="ac6c66ddf2ceb4d398044a17e53db13eb" name="ac6c66ddf2ceb4d398044a17e53db13eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6c66ddf2ceb4d398044a17e53db13eb">&#9670;&nbsp;</a></span>lift() <span class="overload">[2/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Type , typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename NewType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1interface__observable.html">rpp::interface_observable</a>&lt; Type, SpecificObservable &gt;::lift </td>
+          <td>(</td>
+          <td class="paramtype">details::lift_fn&lt; NewType &gt; auto &amp;&amp;&#160;</td>
+          <td class="paramname"><em>op</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lift provides function to make new observable based on this one. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">NewType</td><td>manually specified new type of observable after lift </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">op</td><td>function applied to observable </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> of NewType </dd></dl>
+
+</div>
+</div>
+<a id="ae2b99979183025051efdb7e19233f9f6" name="ae2b99979183025051efdb7e19233f9f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2b99979183025051efdb7e19233f9f6">&#9670;&nbsp;</a></span>lift() <span class="overload">[3/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Type , typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename NewType , std::invocable&lt; Type, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnNext, std::invocable&lt; std::exception_ptr, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnError = details::forwarding_on_error, std::invocable&lt; <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnCompleted = details::forwarding_on_completed&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1interface__observable.html">rpp::interface_observable</a>&lt; Type, SpecificObservable &gt;::lift </td>
+          <td>(</td>
+          <td class="paramtype">OnNext &amp;&amp;&#160;</td>
+          <td class="paramname"><em>on_next</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">OnError &amp;&amp;&#160;</td>
+          <td class="paramname"><em>on_error</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">OnCompleted &amp;&amp;&#160;</td>
+          <td class="paramname"><em>on_completed</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> &amp;&amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">NewType</td><td>manually specified new type of observable after lift </td></tr>
+    <tr><td class="paramname">OnNext</td><td>on_next of new subscriber </td></tr>
+    <tr><td class="paramname">OnError</td><td>on_error of new subscriber </td></tr>
+    <tr><td class="paramname">OnCompleted</td><td>on_completed of new subscriber </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> of NewType </dd></dl>
+
+</div>
+</div>
+<a id="af1b0d0a7000fa365eccfaea1ec723997" name="af1b0d0a7000fa365eccfaea1ec723997"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1b0d0a7000fa365eccfaea1ec723997">&#9670;&nbsp;</a></span>lift() <span class="overload">[4/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Type , typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename OnNext , typename OnError  = details::forwarding_on_error, typename OnCompleted  = details::forwarding_on_completed, typename NewType  = std::decay_t&lt;utils::function_argument_t&lt;OnNext&gt;&gt;&gt; <br />
+requires std::invocable&lt;OnNext, Type, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;NewType&gt;&gt; &amp;&amp; std::invocable&lt;OnError, std::exception_ptr, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;NewType&gt;&gt; &amp;&amp; std::invocable&lt;OnCompleted, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;NewType&gt;&gt;</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -196,15 +349,15 @@ template&lt;typename OnNext , typename OnError  = details::forwarding_on_error, 
 
 </div>
 </div>
-<a id="af3b1add8e5793e3aecc10111598afba9" name="af3b1add8e5793e3aecc10111598afba9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3b1add8e5793e3aecc10111598afba9">&#9670;&nbsp;</a></span>lift() <span class="overload">[2/8]</span></h2>
+<a id="a250a7502f252453f3144b72ffedbb8fa" name="a250a7502f252453f3144b72ffedbb8fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a250a7502f252453f3144b72ffedbb8fa">&#9670;&nbsp;</a></span>lift() <span class="overload">[5/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Type , typename SpecificObservable &gt; </div>
 <div class="memtemplate">
-template&lt;typename NewType , typename OnNext , typename OnError  = details::forwarding_on_error, typename OnCompleted  = details::forwarding_on_completed, typename  = std::enable_if_t&lt;std::is_invocable_v&lt;OnNext, Type, dynamic_subscriber&lt;NewType&gt;&gt;&gt;&gt; </div>
+template&lt;typename NewType , std::invocable&lt; Type, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnNext, std::invocable&lt; std::exception_ptr, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnError = details::forwarding_on_error, std::invocable&lt; <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnCompleted = details::forwarding_on_completed&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -230,7 +383,7 @@ template&lt;typename NewType , typename OnNext , typename OnError  = details::fo
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> &amp;&amp;</td>
+          <td></td><td> const &amp;</td>
         </tr>
       </table>
   </td>
@@ -254,15 +407,16 @@ template&lt;typename NewType , typename OnNext , typename OnError  = details::fo
 
 </div>
 </div>
-<a id="a618072d59cab488b1cb69b4ce8979d66" name="a618072d59cab488b1cb69b4ce8979d66"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a618072d59cab488b1cb69b4ce8979d66">&#9670;&nbsp;</a></span>lift() <span class="overload">[3/8]</span></h2>
+<a id="a0ee6c24a01ba0d4c6c79f36c403fb6ff" name="a0ee6c24a01ba0d4c6c79f36c403fb6ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ee6c24a01ba0d4c6c79f36c403fb6ff">&#9670;&nbsp;</a></span>lift() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Type , typename SpecificObservable &gt; </div>
 <div class="memtemplate">
-template&lt;typename OnNext , typename OnError  = details::forwarding_on_error, typename OnCompleted  = details::forwarding_on_completed, typename NewType  = std::decay_t&lt;utils::function_argument_t&lt;OnNext&gt;&gt;, typename  = std::enable_if_t&lt;std::is_invocable_v&lt;OnNext, Type, dynamic_subscriber&lt;NewType&gt;&gt;&gt;&gt; </div>
+template&lt;typename OnNext , typename OnError  = details::forwarding_on_error, typename OnCompleted  = details::forwarding_on_completed, typename NewType  = std::decay_t&lt;utils::function_argument_t&lt;OnNext&gt;&gt;&gt; <br />
+requires std::invocable&lt;OnNext, Type, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;NewType&gt;&gt; &amp;&amp; std::invocable&lt;OnError, std::exception_ptr, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;NewType&gt;&gt; &amp;&amp; std::invocable&lt;OnCompleted, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;NewType&gt;&gt;</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -312,73 +466,16 @@ template&lt;typename OnNext , typename OnError  = details::forwarding_on_error, 
 
 </div>
 </div>
-<a id="a618072d59cab488b1cb69b4ce8979d66" name="a618072d59cab488b1cb69b4ce8979d66"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a618072d59cab488b1cb69b4ce8979d66">&#9670;&nbsp;</a></span>lift() <span class="overload">[4/8]</span></h2>
+<a id="ab02193743943baaf7d27b8e8f4b1cbbf" name="ab02193743943baaf7d27b8e8f4b1cbbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab02193743943baaf7d27b8e8f4b1cbbf">&#9670;&nbsp;</a></span>lift() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Type , typename SpecificObservable &gt; </div>
 <div class="memtemplate">
-template&lt;typename NewType , typename OnNext , typename OnError  = details::forwarding_on_error, typename OnCompleted  = details::forwarding_on_completed, typename  = std::enable_if_t&lt;std::is_invocable_v&lt;OnNext, Type, dynamic_subscriber&lt;NewType&gt;&gt;&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto <a class="el" href="structrpp_1_1interface__observable.html">rpp::interface_observable</a>&lt; Type, SpecificObservable &gt;::lift </td>
-          <td>(</td>
-          <td class="paramtype">OnNext &amp;&amp;&#160;</td>
-          <td class="paramname"><em>on_next</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">OnError &amp;&amp;&#160;</td>
-          <td class="paramname"><em>on_error</em> = <code>{}</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">OnCompleted &amp;&amp;&#160;</td>
-          <td class="paramname"><em>on_completed</em> = <code>{}</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const &amp;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">NewType</td><td>manually specified new type of observable after lift </td></tr>
-    <tr><td class="paramname">OnNext</td><td>on_next of new subscriber </td></tr>
-    <tr><td class="paramname">OnError</td><td>on_error of new subscriber </td></tr>
-    <tr><td class="paramname">OnCompleted</td><td>on_completed of new subscriber </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> of NewType </dd></dl>
-
-</div>
-</div>
-<a id="a685bd8d335010e60c1b5093c252a49c2" name="a685bd8d335010e60c1b5093c252a49c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a685bd8d335010e60c1b5093c252a49c2">&#9670;&nbsp;</a></span>lift() <span class="overload">[5/8]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Type , typename SpecificObservable &gt; </div>
-<div class="memtemplate">
-template&lt;typename NewType , typename OperatorFn , typename  = std::enable_if_t&lt;std::is_invocable_v&lt;OperatorFn, dynamic_subscriber&lt;NewType&gt;&gt;&gt;&gt; </div>
+template&lt;typename OperatorFn , typename SubscriberType  = utils::function_argument_t&lt;OperatorFn&gt;, typename NewType  = utils::extract_subscriber_type_t&lt;SubscriberType&gt;&gt; <br />
+requires details::lift_fn&lt;OperatorFn, NewType&gt;</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -398,47 +495,7 @@ template&lt;typename NewType , typename OperatorFn , typename  = std::enable_if_
 </table>
 </div><div class="memdoc">
 
-<p>Lift provided function to make new observable based on this one. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">NewType</td><td>manually specified new type of observable after lift </td></tr>
-    <tr><td class="paramname">OperatorFn</td><td>type of function applied to observable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> of NewType </dd></dl>
-
-</div>
-</div>
-<a id="ac05e054a112b0d0867ae17c792c55b3d" name="ac05e054a112b0d0867ae17c792c55b3d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac05e054a112b0d0867ae17c792c55b3d">&#9670;&nbsp;</a></span>lift() <span class="overload">[6/8]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Type , typename SpecificObservable &gt; </div>
-<div class="memtemplate">
-template&lt;typename OperatorFn , typename SubscriberType  = utils::function_argument_t&lt;OperatorFn&gt;, typename NewType  = utils::extract_subscriber_type_t&lt;SubscriberType&gt;, typename  = std::enable_if_t&lt;std::is_invocable_v&lt;OperatorFn, dynamic_subscriber&lt;NewType&gt;&gt;&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto <a class="el" href="structrpp_1_1interface__observable.html">rpp::interface_observable</a>&lt; Type, SpecificObservable &gt;::lift </td>
-          <td>(</td>
-          <td class="paramtype">OperatorFn &amp;&amp;&#160;</td>
-          <td class="paramname"><em>op</em></td><td>)</td>
-          <td> &amp;&amp;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Lift provided function to make new observable based on this one. </p>
+<p>Lift provides function to make new observable based on this one. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">OperatorFn</td><td>type of function applied to observable </td></tr>
@@ -450,15 +507,16 @@ template&lt;typename OperatorFn , typename SubscriberType  = utils::function_arg
 
 </div>
 </div>
-<a id="a560c69e97c6b562f6bdeb82239bb0c03" name="a560c69e97c6b562f6bdeb82239bb0c03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a560c69e97c6b562f6bdeb82239bb0c03">&#9670;&nbsp;</a></span>lift() <span class="overload">[7/8]</span></h2>
+<a id="a447c33fec6ac48f26e6b2d887eef3a99" name="a447c33fec6ac48f26e6b2d887eef3a99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a447c33fec6ac48f26e6b2d887eef3a99">&#9670;&nbsp;</a></span>lift() <span class="overload">[8/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Type , typename SpecificObservable &gt; </div>
 <div class="memtemplate">
-template&lt;typename NewType , typename OperatorFn , typename  = std::enable_if_t&lt;std::is_invocable_v&lt;OperatorFn, dynamic_subscriber&lt;NewType&gt;&gt;&gt;&gt; </div>
+template&lt;typename OperatorFn , typename SubscriberType  = utils::function_argument_t&lt;OperatorFn&gt;, typename NewType  = utils::extract_subscriber_type_t&lt;SubscriberType&gt;&gt; <br />
+requires details::lift_fn&lt;OperatorFn, NewType&gt;</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -478,47 +536,7 @@ template&lt;typename NewType , typename OperatorFn , typename  = std::enable_if_
 </table>
 </div><div class="memdoc">
 
-<p>Lift provided function to make new observable based on this one. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">NewType</td><td>manually specified new type of observable after lift </td></tr>
-    <tr><td class="paramname">OperatorFn</td><td>type of function applied to observable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> of NewType </dd></dl>
-
-</div>
-</div>
-<a id="a70645cddc15502b6a1020fde997cafa0" name="a70645cddc15502b6a1020fde997cafa0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70645cddc15502b6a1020fde997cafa0">&#9670;&nbsp;</a></span>lift() <span class="overload">[8/8]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Type , typename SpecificObservable &gt; </div>
-<div class="memtemplate">
-template&lt;typename OperatorFn , typename SubscriberType  = utils::function_argument_t&lt;OperatorFn&gt;, typename NewType  = utils::extract_subscriber_type_t&lt;SubscriberType&gt;, typename  = std::enable_if_t&lt;std::is_invocable_v&lt;OperatorFn, dynamic_subscriber&lt;NewType&gt;&gt;&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto <a class="el" href="structrpp_1_1interface__observable.html">rpp::interface_observable</a>&lt; Type, SpecificObservable &gt;::lift </td>
-          <td>(</td>
-          <td class="paramtype">OperatorFn &amp;&amp;&#160;</td>
-          <td class="paramname"><em>op</em></td><td>)</td>
-          <td> const &amp;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Lift provided function to make new observable based on this one. </p>
+<p>Lift provides function to make new observable based on this one. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">OperatorFn</td><td>type of function applied to observable </td></tr>

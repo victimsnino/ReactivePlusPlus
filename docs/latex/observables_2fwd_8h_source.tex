@@ -26,21 +26,23 @@
 \DoxyCodeLine{22 }
 \DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27 \textcolor{keyword}{struct }observable\_tag;}
-\DoxyCodeLine{28 \} \textcolor{comment}{// namespace rpp::details}}
-\DoxyCodeLine{29 }
-\DoxyCodeLine{30 \textcolor{keyword}{namespace }rpp}
-\DoxyCodeLine{31 \{}
-\DoxyCodeLine{32 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
-\DoxyCodeLine{33 \textcolor{keyword}{struct }virtual\_observable;}
-\DoxyCodeLine{34 }
-\DoxyCodeLine{35 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} OnSubscribeFn>}
-\DoxyCodeLine{36 \textcolor{keyword}{class }specific\_observable;}
-\DoxyCodeLine{37 }
-\DoxyCodeLine{38 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
-\DoxyCodeLine{39 \textcolor{keyword}{class }dynamic\_observable;}
-\DoxyCodeLine{40 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/utils/constraints.h>}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29 \textcolor{keyword}{struct }observable\_tag;}
+\DoxyCodeLine{30 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{keyword}{namespace }rpp}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
+\DoxyCodeLine{35 \textcolor{keyword}{struct }virtual\_observable;}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, constra\textcolor{keywordtype}{int}::on\_subscribe\_fn<Type> OnSubscribeFn>}
+\DoxyCodeLine{38 \textcolor{keyword}{class }specific\_observable;}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
+\DoxyCodeLine{41 \textcolor{keyword}{class }dynamic\_observable;}
+\DoxyCodeLine{42 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

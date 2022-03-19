@@ -40,7 +40,7 @@
 \DoxyCodeLine{36 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1is__specific__observer}{is\_specific\_observer}} : std::false\_type \{\};}
 \DoxyCodeLine{37 }
 \DoxyCodeLine{38 \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...An>}
-\DoxyCodeLine{39 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1is__specific__observer}{is\_specific\_observer}}<rpp::\mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}<An...>> : std::true\_type \{\};}
+\DoxyCodeLine{39 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1is__specific__observer}{is\_specific\_observer}}<\mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}<An...>> : std::true\_type \{\};}
 \DoxyCodeLine{40 \} \textcolor{comment}{// namespace details}}
 \DoxyCodeLine{51 \textcolor{comment}{}\textcolor{keyword}{template}<\textcolor{keyword}{typename} T,}
 \DoxyCodeLine{52          constraint::on\_next\_fn<T>   OnNext      = utils::empty\_function\_t<T>,}
@@ -102,14 +102,20 @@
 \DoxyCodeLine{119                                            \textcolor{keyword}{decltype}(utils::make\_forwarding\_on\_error(std::declval<TObs>())),}
 \DoxyCodeLine{120                                            \textcolor{keyword}{decltype}(utils::make\_forwarding\_on\_completed(std::declval<TObs>()))>;}
 \DoxyCodeLine{121 }
-\DoxyCodeLine{122 \textcolor{keyword}{namespace }details}
-\DoxyCodeLine{123 \{}
-\DoxyCodeLine{124     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{125     \textcolor{keyword}{auto} deduce\_specific\_observer\_type(\textcolor{keyword}{const} Args\&...vals) \{ \textcolor{keywordflow}{return} specific\_observer\{vals...\}; \}}
-\DoxyCodeLine{126 }
-\DoxyCodeLine{127     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{128     \textcolor{keyword}{using} deduce\_specific\_observer\_type\_t = \textcolor{keyword}{decltype}(deduce\_specific\_observer\_type(std::declval<Args>()...));}
-\DoxyCodeLine{129 \} \textcolor{comment}{// namespace details}}
-\DoxyCodeLine{130 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{126 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{127 \textcolor{keyword}{auto} make\_specific\_observer(Args\&\&...args) -\/> \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer<Type, std::decay\_t<Args>}}...>}
+\DoxyCodeLine{128 \{}
+\DoxyCodeLine{129     \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer<Type, std::decay\_t<Args>}}...>(std::forward<Args>(args)...);}
+\DoxyCodeLine{130 \}}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132 \textcolor{keyword}{namespace }details}
+\DoxyCodeLine{133 \{}
+\DoxyCodeLine{134     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{135     \textcolor{keyword}{auto} deduce\_specific\_observer\_type(\textcolor{keyword}{const} Args\&...vals) \{ \textcolor{keywordflow}{return} specific\_observer\{vals...\}; \}}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{137     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{138     \textcolor{keyword}{using} deduce\_specific\_observer\_type\_t = \textcolor{keyword}{decltype}(deduce\_specific\_observer\_type(std::declval<Args>()...));}
+\DoxyCodeLine{139 \} \textcolor{comment}{// namespace details}}
+\DoxyCodeLine{140 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

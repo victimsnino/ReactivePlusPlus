@@ -40,8 +40,8 @@
 \DoxyCodeLine{42 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1interface__observer}{interface\_observer}}<T>}
 \DoxyCodeLine{43 \{}
 \DoxyCodeLine{44 \textcolor{keyword}{public}:}
-\DoxyCodeLine{45     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_next\_fn<T> OnNext      = utils::empty\_function\_t<T>,}
-\DoxyCodeLine{46              constra\textcolor{keywordtype}{int}::on\_error\_fn OnError     = utils::empty\_function\_t<std::exception\_ptr>,}
+\DoxyCodeLine{45     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_next\_fn<T>   OnNext      = utils::empty\_function\_t<T>,}
+\DoxyCodeLine{46              constra\textcolor{keywordtype}{int}::on\_error\_fn     OnError     = utils::empty\_function\_t<std::exception\_ptr>,}
 \DoxyCodeLine{47              constra\textcolor{keywordtype}{int}::on\_completed\_fn OnCompleted = utils::empty\_function\_t<>>}
 \DoxyCodeLine{48     \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}(OnNext\&\& \mbox{\hyperlink{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}{on\_next}} = \{\}, OnError\&\& \mbox{\hyperlink{classrpp_1_1dynamic__observer_a1e8abba013fb85e23518ee93a3524e0c}{on\_error}} = \{\}, OnCompleted\&\& \mbox{\hyperlink{classrpp_1_1dynamic__observer_aebd2d9f021a23ce98a2eac7d49d8f254}{on\_completed}} = \{\})}
 \DoxyCodeLine{49         : m\_state\{make\_shared\_state(std::forward<OnNext>(\mbox{\hyperlink{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}{on\_next}}),}

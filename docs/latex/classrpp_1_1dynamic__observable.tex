@@ -18,14 +18,11 @@ Inheritance diagram for rpp\+::dynamic\+\_\+observable\texorpdfstring{$<$}{<} Ty
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrpp_1_1dynamic__observable_a38767cf7aeeb5fec337f22094af18102}\label{classrpp_1_1dynamic__observable_a38767cf7aeeb5fec337f22094af18102}} 
-{\footnotesize template$<$typename On\+Subscribe\+Fn , typename  = std\+::enable\+\_\+if\+\_\+t$<$std\+::is\+\_\+invocable\+\_\+v$<$\+On\+Subscribe\+Fn, dynamic\+\_\+subscriber$<$\+Type$>$$>$$>$$>$ }\\{\bfseries dynamic\+\_\+observable} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
+\mbox{\Hypertarget{classrpp_1_1dynamic__observable_a57042a897691c18c79a74ab8c86394e6}\label{classrpp_1_1dynamic__observable_a57042a897691c18c79a74ab8c86394e6}} 
+{\footnotesize template$<$constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ }\\{\bfseries dynamic\+\_\+observable} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
 \item 
-\mbox{\Hypertarget{classrpp_1_1dynamic__observable_a8389acb430d4b7d9295252ac2ac5764e}\label{classrpp_1_1dynamic__observable_a8389acb430d4b7d9295252ac2ac5764e}} 
-{\footnotesize template$<$typename On\+Subscribe\+Fn $>$ }\\{\bfseries dynamic\+\_\+observable} (const \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}}$<$ Type, On\+Subscribe\+Fn $>$ \&observable)
-\item 
-\mbox{\Hypertarget{classrpp_1_1dynamic__observable_ae6fd09af69c7fe8d6a4f285267a6e007}\label{classrpp_1_1dynamic__observable_ae6fd09af69c7fe8d6a4f285267a6e007}} 
-{\footnotesize template$<$typename On\+Subscribe\+Fn $>$ }\\{\bfseries dynamic\+\_\+observable} (\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}}$<$ Type, On\+Subscribe\+Fn $>$ \&\&observable)
+\mbox{\Hypertarget{classrpp_1_1dynamic__observable_a2a2874e4fbeb7aeba94d371aceaef1de}\label{classrpp_1_1dynamic__observable_a2a2874e4fbeb7aeba94d371aceaef1de}} 
+{\bfseries dynamic\+\_\+observable} (\mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\+\_\+observable}}$<$ Type $>$ \&\&) noexcept=default
 \item 
 \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable_a43dfe979f5a6f05a7a546f5bb724422a}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ Type $>$ \&subscriber) const noexcept override
 \begin{DoxyCompactList}\small\item\em Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. \end{DoxyCompactList}\item 
@@ -34,6 +31,12 @@ Inheritance diagram for rpp\+::dynamic\+\_\+observable\texorpdfstring{$<$}{<} Ty
 \item 
 \mbox{\Hypertarget{classrpp_1_1dynamic__observable_aacc483df829262ee822b58a53bbc349e}\label{classrpp_1_1dynamic__observable_aacc483df829262ee822b58a53bbc349e}} 
 \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\+\_\+observable}}$<$ Type $>$ {\bfseries as\+\_\+dynamic} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1dynamic__observable_a786d5714877b45d89c11dd8e68ea32f6}\label{classrpp_1_1dynamic__observable_a786d5714877b45d89c11dd8e68ea32f6}} 
+{\footnotesize template$<$constraint\+::observable TObs$>$ }\\{\bfseries \+\_\+\+\_\+pad0\+\_\+\+\_\+}\+: m\+\_\+observable\{ std\+::make\+\_\+shared$<$std\+::decay\+\_\+t$<$TObs$>$$>$(std\+::forward$<$TObs$>$(observable)) \} \{\} \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\+\_\+observable}}(const \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\+\_\+observable}}$<$Type$>$\&) = default
 \end{DoxyCompactItemize}
 
 
