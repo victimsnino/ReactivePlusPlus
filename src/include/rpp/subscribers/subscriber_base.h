@@ -27,7 +27,7 @@
 
 namespace rpp::details
 {
-struct subscriber_tag{};
+struct subscriber_tag {};
 
 /**
  * \brief base implementation of subscriber with possibility to obtain observer's callbacks, query subscription state, unsubscribe and etc. Each observer's callback checks for actual subscription
@@ -36,9 +36,10 @@ struct subscriber_tag{};
 template<typename Type>
 class subscriber_base
         : public interface_observer<Type>
-        , public subscriber_tag
+          , public subscriber_tag
 {
-    static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type should be decayed to match with decayed observable types");
+    static_assert(std::is_same_v<std::decay_t<Type>, Type>,
+        "Type should be decayed to match with decayed observable types");
 public:
     subscriber_base(const subscription& subscription)
         : m_subscription{subscription} {}
@@ -54,7 +55,14 @@ public:
         if (!m_subscription.is_subscribed())
             return;
 
-        on_next_impl(val);
+        try
+        {
+            on_next_impl(val);
+        }
+        catch (std::exception_ptr err)
+        {
+            on_error(std::make_exception_ptr(std::move(err)));
+        }
     }
 
     void on_next(Type&& val) const final
@@ -62,7 +70,14 @@ public:
         if (!m_subscription.is_subscribed())
             return;
 
-        on_next_impl(std::move(val));
+        try
+        {
+            on_next_impl(std::move(val));
+        }
+        catch (std::exception_ptr err)
+        {
+            on_error(std::make_exception_ptr(std::move(err)));
+        }
     }
 
     void on_error(const std::exception_ptr& err) const final

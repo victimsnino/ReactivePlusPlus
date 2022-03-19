@@ -24,6 +24,7 @@
 #include <catch2/benchmark/catch_benchmark.hpp>
 #include <rpp/observable.h>
 #include <rpp/observers/specific_observer.h>
+#include <rpp/operators/map.h>
 
 #include <array>
 
@@ -174,7 +175,28 @@ TEST_CASE("Observable lift", "[benchmark]")
     validate_observable(MakeDynamicObservable(), "Dynamic");
 }
 
+SCENARIO("Operators", "[benchmark]")
+{
+    auto obs = rpp::observable::create<int>([](const auto& sub)
+                {
+                    sub.on_next(1);
+                });
+    BENCHMARK("map construction from observable")
+    {
+        return obs | rpp::operators::map([](const auto& v)
+        {
+            return v * 100;
+        });
+    };
 
+    BENCHMARK("map construction + subscribe")
+    {
+        return (obs | rpp::operators::map([](const auto& v)
+        {
+            return v * 100;
+        })).subscribe([](const int& v) { return v; });
+    };
+}
 
 SCENARIO("Misc benchmarks", "[misc_benchmark]")
 {
@@ -191,3 +213,4 @@ SCENARIO("Misc benchmarks", "[misc_benchmark]")
 
     BENCHMARK("Make shared  copy of lambda"){return std::make_shared<std::remove_reference_t<decltype(empty_lambda)>>(empty_lambda); };
 }
+
