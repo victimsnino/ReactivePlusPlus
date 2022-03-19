@@ -118,6 +118,28 @@
 \DoxyCodeLine{119          \textcolor{keyword}{typename} Type = std::decay\_t<utils::function\_argument\_t<OnNext>>>}
 \DoxyCodeLine{120 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(OnNext, Args ...) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}<Type, details::deduce\_specific\_observer\_type\_t<OnNext, Args...>>;}
 \DoxyCodeLine{121 }
-\DoxyCodeLine{122 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{126 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{127 \textcolor{keyword}{auto} make\_specific\_subscriber(Args\&\& ...args)}
+\DoxyCodeLine{128 \{}
+\DoxyCodeLine{129     \textcolor{keyword}{auto} observer = rpp::make\_specific\_observer<Type>(std::forward<Args>(args)...);}
+\DoxyCodeLine{130     \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1specific__subscriber}{rpp::specific\_subscriber<Type, decltype(observer)>}}(std::move(observer));}
+\DoxyCodeLine{131 \}}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{133 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{134 \textcolor{keyword}{auto} make\_specific\_subscriber(\textcolor{keyword}{const} subscription\& sub, Args\&\& ...args)}
+\DoxyCodeLine{135 \{}
+\DoxyCodeLine{136     \textcolor{keyword}{auto} observer = rpp::make\_specific\_observer<Type>(std::forward<Args>(args)...);}
+\DoxyCodeLine{137     \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1specific__subscriber}{rpp::specific\_subscriber<Type, decltype(observer)>}}(sub, std::move(observer));}
+\DoxyCodeLine{138 \}}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{140 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{141 \textcolor{keyword}{auto} make\_specific\_subscriber(subscription\&\& sub, Args\&\& ...args)}
+\DoxyCodeLine{142 \{}
+\DoxyCodeLine{143     \textcolor{keyword}{auto} observer = rpp::make\_specific\_observer<Type>(std::forward<Args>(args)...);}
+\DoxyCodeLine{144     \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1specific__subscriber}{rpp::specific\_subscriber<Type, decltype(observer)>}}(std::move(sub), std::move(observer));}
+\DoxyCodeLine{145 \}}
+\DoxyCodeLine{146 }
+\DoxyCodeLine{147 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

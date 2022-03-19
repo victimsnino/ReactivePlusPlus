@@ -105,13 +105,11 @@ template&lt;constraint::on_subscribe_fn&lt; Type &gt; OnSubscribeFn&gt; </td></t
 <tr class="memitem:ae94175d544d1ffa362a39da46409eb41"><td class="memItemLeft" align="right" valign="top"><a id="ae94175d544d1ffa362a39da46409eb41" name="ae94175d544d1ffa362a39da46409eb41"></a>
 <a class="el" href="classrpp_1_1subscription.html">subscription</a>&#160;</td><td class="memItemRight" valign="bottom"><b>subscribe</b> (const <a class="el" href="classrpp_1_1dynamic__observer.html">dynamic_observer</a>&lt; Type &gt; &amp;subscriber) const noexcept</td></tr>
 <tr class="separator:ae94175d544d1ffa362a39da46409eb41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e9a5c6d99f3cd5e6736b0f3dc4a65d8"><td class="memTemplParams" colspan="2">template&lt;constraint::on_next_fn&lt; Type &gt; TOnNext = utils::empty_function_t&lt;Type&gt;, constraint::on_error_fn TOnError = utils::empty_function_t&lt;std::exception_ptr&gt;, constraint::on_completed_fn TOnCompleted = utils::empty_function_t&lt;&gt;&gt; </td></tr>
-<tr class="memitem:a1e9a5c6d99f3cd5e6736b0f3dc4a65d8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1subscription.html">subscription</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1dynamic__observable.html#a1e9a5c6d99f3cd5e6736b0f3dc4a65d8">subscribe</a> (TOnNext &amp;&amp;on_next={}, TOnError &amp;&amp;on_error={}, TOnCompleted &amp;&amp;on_completed={}) const noexcept</td></tr>
-<tr class="memdesc:a1e9a5c6d99f3cd5e6736b0f3dc4a65d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="classrpp_1_1dynamic__observable.html#a1e9a5c6d99f3cd5e6736b0f3dc4a65d8">More...</a><br /></td></tr>
-<tr class="separator:a1e9a5c6d99f3cd5e6736b0f3dc4a65d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fa9837868464e1eaf69facf63c87c3f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1subscription.html">subscription</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1dynamic__observable.html#a9fa9837868464e1eaf69facf63c87c3f">subscribe</a> (constraint::on_next_fn&lt; Type &gt; auto &amp;&amp;on_next, constraint::on_completed_fn auto &amp;&amp;on_completed) const noexcept</td></tr>
-<tr class="memdesc:a9fa9837868464e1eaf69facf63c87c3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="classrpp_1_1dynamic__observable.html#a9fa9837868464e1eaf69facf63c87c3f">More...</a><br /></td></tr>
-<tr class="separator:a9fa9837868464e1eaf69facf63c87c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e038f0be28874827fb34d3fbb130ae7"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; <br />
+requires std::is_constructible_v&lt;<a class="el" href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber</a>&lt;Type&gt;, std::decay_t&lt;Args&gt;...&gt;</td></tr>
+<tr class="memitem:a5e038f0be28874827fb34d3fbb130ae7"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1subscription.html">subscription</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1dynamic__observable.html#a5e038f0be28874827fb34d3fbb130ae7">subscribe</a> (Args &amp;&amp;...args) const noexcept</td></tr>
+<tr class="memdesc:a5e038f0be28874827fb34d3fbb130ae7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="classrpp_1_1dynamic__observable.html#a5e038f0be28874827fb34d3fbb130ae7">More...</a><br /></td></tr>
+<tr class="separator:a5e038f0be28874827fb34d3fbb130ae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aacc483df829262ee822b58a53bbc349e"><td class="memItemLeft" align="right" valign="top"><a id="aacc483df829262ee822b58a53bbc349e" name="aacc483df829262ee822b58a53bbc349e"></a>
 <a class="el" href="classrpp_1_1dynamic__observable.html">dynamic_observable</a>&lt; Type &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>as_dynamic</b> () const</td></tr>
 <tr class="separator:aacc483df829262ee822b58a53bbc349e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,8 +156,42 @@ class rpp::dynamic_observable&lt; Type &gt;</div><p >type-erased alternative of 
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5e038f0be28874827fb34d3fbb130ae7" name="a5e038f0be28874827fb34d3fbb130ae7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e038f0be28874827fb34d3fbb130ae7">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Type &gt; </div>
+<div class="memtemplate">
+template&lt;typename ... Args&gt; <br />
+requires std::is_constructible_v&lt;<a class="el" href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber</a>&lt;Type&gt;, std::decay_t&lt;Args&gt;...&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrpp_1_1subscription.html">subscription</a> <a class="el" href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable</a>&lt; Type &gt;::subscribe </td>
+          <td>(</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function. </p>
+<p >this overloading accepts raw functions to construct specific subscriber with specific observer </p><dl class="section return"><dt>Returns</dt><dd>subscription on this observable which can be used to unsubscribe </dd></dl>
+
+</div>
+</div>
 <a id="a43dfe979f5a6f05a7a546f5bb724422a" name="a43dfe979f5a6f05a7a546f5bb724422a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43dfe979f5a6f05a7a546f5bb724422a">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a43dfe979f5a6f05a7a546f5bb724422a">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -188,96 +220,6 @@ template&lt;typename Type &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>subscription on this observable which can be used to unsubscribe </dd></dl>
 
 <p>Implements <a class="el" href="structrpp_1_1virtual__observable.html#aef0abc01731e70ece3c2814e1ef2ca5b">rpp::virtual_observable&lt; Type &gt;</a>.</p>
-
-</div>
-</div>
-<a id="a9fa9837868464e1eaf69facf63c87c3f" name="a9fa9837868464e1eaf69facf63c87c3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fa9837868464e1eaf69facf63c87c3f">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Type &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classrpp_1_1subscription.html">subscription</a> <a class="el" href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable</a>&lt; Type &gt;::subscribe </td>
-          <td>(</td>
-          <td class="paramtype">constraint::on_next_fn&lt; Type &gt; auto &amp;&amp;&#160;</td>
-          <td class="paramname"><em>on_next</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">constraint::on_completed_fn auto &amp;&amp;&#160;</td>
-          <td class="paramname"><em>on_completed</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function. </p>
-<p >this overloading accepts raw functions to construct specific subscriber with specific observer </p><dl class="section return"><dt>Returns</dt><dd>subscription on this observable which can be used to unsubscribe </dd></dl>
-
-</div>
-</div>
-<a id="a1e9a5c6d99f3cd5e6736b0f3dc4a65d8" name="a1e9a5c6d99f3cd5e6736b0f3dc4a65d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e9a5c6d99f3cd5e6736b0f3dc4a65d8">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Type &gt; </div>
-<div class="memtemplate">
-template&lt;constraint::on_next_fn&lt; Type &gt; TOnNext = utils::empty_function_t&lt;Type&gt;, constraint::on_error_fn TOnError = utils::empty_function_t&lt;std::exception_ptr&gt;, constraint::on_completed_fn TOnCompleted = utils::empty_function_t&lt;&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classrpp_1_1subscription.html">subscription</a> <a class="el" href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable</a>&lt; Type &gt;::subscribe </td>
-          <td>(</td>
-          <td class="paramtype">TOnNext &amp;&amp;&#160;</td>
-          <td class="paramname"><em>on_next</em> = <code>{}</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TOnError &amp;&amp;&#160;</td>
-          <td class="paramname"><em>on_error</em> = <code>{}</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TOnCompleted &amp;&amp;&#160;</td>
-          <td class="paramname"><em>on_completed</em> = <code>{}</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function. </p>
-<p >this overloading accepts raw functions to construct specific subscriber with specific observer </p><dl class="section return"><dt>Returns</dt><dd>subscription on this observable which can be used to unsubscribe </dd></dl>
 
 </div>
 </div>
