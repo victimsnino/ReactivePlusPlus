@@ -41,17 +41,17 @@ public:
         : specific_subscriber<T, dynamic_observer<T>>{subscriber.get_subscription(), subscriber.get_observer()} {}
 };
 
-template<template<typename...> typename TObs, typename ...Args, typename = std::enable_if_t<utils::is_observer_v<TObs<Args...>>>>
-dynamic_subscriber(TObs<Args...> observer) -> dynamic_subscriber<utils::extract_observer_type_t<TObs<Args...>>>;
+template<constraint::observer TObs>
+dynamic_subscriber(TObs observer) -> dynamic_subscriber<utils::extract_observer_type_t<TObs>>;
 
-template<template<typename...> typename TObs, typename ...Args, typename = std::enable_if_t<utils::is_observer_v<TObs<Args...>>>>
-dynamic_subscriber(subscription, TObs<Args...> observer) -> dynamic_subscriber<utils::extract_observer_type_t<TObs<Args...>>>;
+template<constraint::observer TObs>
+dynamic_subscriber(subscription, TObs observer) -> dynamic_subscriber<utils::extract_observer_type_t<TObs>>;
 
 template<typename T, typename Obs>
 dynamic_subscriber(specific_subscriber<T, Obs>) -> dynamic_subscriber<T>;
 
 template<typename OnNext, typename ...Args>
-dynamic_subscriber(subscription, OnNext, Args ...) -> dynamic_subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;
+dynamic_subscriber(subscription, OnNext, Args...) -> dynamic_subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;
 
 template<typename OnNext, typename ...Args>
 dynamic_subscriber(OnNext, Args ...) -> dynamic_subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;

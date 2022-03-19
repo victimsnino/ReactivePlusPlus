@@ -56,13 +56,13 @@ public:
         , m_observer{std::move(observer)} { }
 
     //********************* Construct by actions *********************//
-    template<typename ...Types,
-             typename Enabled = utils::enable_if_observer_constructible_t<Type, Types...>>
+    template<typename ...Types>
+        requires utils::is_observer_constructible_v<Type, Types...>
     specific_subscriber(Types&&...vals)
         : specific_subscriber{subscription{}, std::forward<Types>(vals)...} {}
 
-    template<typename ...Types,
-             typename Enabled = utils::enable_if_observer_constructible_t<Type, Types...>>
+    template<typename ...Types>
+        requires utils::is_observer_constructible_v<Type, Types...>
     specific_subscriber(const subscription& sub, Types&&...vals)
         : details::subscriber_base<Type>{sub}
         , m_observer{std::forward<Types>(vals)...} {}
@@ -103,11 +103,11 @@ private:
     Observer m_observer;
 };
 
-template<template<typename...> typename TObs, typename ...Args, typename = std::enable_if_t<utils::is_observer_v<TObs<Args...>>>>
-specific_subscriber(TObs<Args...> observer) -> specific_subscriber<utils::extract_observer_type_t<TObs<Args...>>, TObs<Args...>>;
+template<constraint::observer TObs>
+specific_subscriber(TObs observer) -> specific_subscriber<utils::extract_observer_type_t<TObs>, TObs>;
 
-template<template<typename...> typename TObs, typename ...Args, typename = std::enable_if_t<utils::is_observer_v<TObs<Args...>>>>
-specific_subscriber(subscription, TObs<Args...> observer) -> specific_subscriber<utils::extract_observer_type_t<TObs<Args...>>, TObs<Args...>>;
+template<constraint::observer TObs>
+specific_subscriber(subscription, TObs observer) -> specific_subscriber<utils::extract_observer_type_t<TObs>, TObs>;
 
 template<typename OnNext,
          typename ...Args,

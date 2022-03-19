@@ -44,7 +44,7 @@ namespace rpp::observable
  *
  * \see https://reactivex.io/documentation/operators/create.html
  */
-template<typename Type, typename OnSubscribeFn>
+template<typename Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
 auto create(OnSubscribeFn&& on_subscribe)
 {
     return specific_observable<Type, std::decay_t<OnSubscribeFn>>{std::forward<OnSubscribeFn>(on_subscribe)};
@@ -52,7 +52,7 @@ auto create(OnSubscribeFn&& on_subscribe)
 
 /**
  * \ingroup observables
- * \brief Creates specific_observable with passed action as OnSubscribe
+ * \brief Creates specific_observable with passed action as OnSubscribe and deduce type of observable by this function
  * \tparam OnSubscribeFn action called after subscription on this observable
  * \return specific_observable with passed action
  *

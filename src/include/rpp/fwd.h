@@ -26,6 +26,7 @@
 #include <rpp/observers/fwd.h>
 #include <rpp/sources/fwd.h>
 #include <rpp/subscribers/fwd.h>
+#include <rpp/operators/fwd.h>
 
 namespace rpp
 {

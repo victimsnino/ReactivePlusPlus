@@ -26,7 +26,7 @@
 
 namespace rpp::observable
 {
-template<typename Type, typename OnSubscribeFn>
+template<typename Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
 auto create(OnSubscribeFn&& on_subscribe);
 
 template<typename OnSubscribeFn>
