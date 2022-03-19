@@ -31,82 +31,97 @@
 \DoxyCodeLine{27 }
 \DoxyCodeLine{28 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{29 \{}
-\DoxyCodeLine{30 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1subscriber__tag}{subscriber\_tag}}\{\};}
+\DoxyCodeLine{30 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1subscriber__tag}{subscriber\_tag}} \{\};}
 \DoxyCodeLine{31 }
 \DoxyCodeLine{36 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
 \DoxyCodeLine{37 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}}
 \DoxyCodeLine{38         : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1interface__observer}{interface\_observer}}<Type>}
-\DoxyCodeLine{39         , \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1details_1_1subscriber__tag}{subscriber\_tag}}}
+\DoxyCodeLine{39           , \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1details_1_1subscriber__tag}{subscriber\_tag}}}
 \DoxyCodeLine{40 \{}
-\DoxyCodeLine{41     \textcolor{keyword}{static\_assert}(std::is\_same\_v<std::decay\_t<Type>, Type>, \textcolor{stringliteral}{"{}Type should be decayed to match with decayed observable types"{}});}
-\DoxyCodeLine{42 \textcolor{keyword}{public}:}
-\DoxyCodeLine{43     \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription}{subscription}}\& \mbox{\hyperlink{classrpp_1_1subscription}{subscription}})}
-\DoxyCodeLine{44         : m\_subscription\{\mbox{\hyperlink{classrpp_1_1subscription}{subscription}}\} \{\}}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{46     \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}(\mbox{\hyperlink{classrpp_1_1subscription}{subscription}}\&\& \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} = \{\})}
-\DoxyCodeLine{47         : m\_subscription\{std::move(\mbox{\hyperlink{classrpp_1_1subscription}{subscription}})\} \{\}}
-\DoxyCodeLine{48 }
-\DoxyCodeLine{49     \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}\&)     = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{50     \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}(\mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}\&\&) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{52     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_a8de1e104568abb9461825241d8bce9f9}{on\_next}}(\textcolor{keyword}{const} Type\& val) \textcolor{keyword}{const} \textcolor{keyword}{final}}
-\DoxyCodeLine{53     \{}
-\DoxyCodeLine{54         \textcolor{keywordflow}{if} (!m\_subscription.is\_subscribed())}
-\DoxyCodeLine{55             \textcolor{keywordflow}{return};}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{57         on\_next\_impl(val);}
-\DoxyCodeLine{58     \}}
-\DoxyCodeLine{59 }
-\DoxyCodeLine{60     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_aec89d8ba3d43d80d4c6e8ba27d680d3c}{on\_next}}(Type\&\& val) \textcolor{keyword}{const} \textcolor{keyword}{final}}
-\DoxyCodeLine{61     \{}
-\DoxyCodeLine{62         \textcolor{keywordflow}{if} (!m\_subscription.is\_subscribed())}
-\DoxyCodeLine{63             \textcolor{keywordflow}{return};}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{65         on\_next\_impl(std::move(val));}
+\DoxyCodeLine{41     \textcolor{keyword}{static\_assert}(std::is\_same\_v<std::decay\_t<Type>, Type>,}
+\DoxyCodeLine{42         \textcolor{stringliteral}{"{}Type should be decayed to match with decayed observable types"{}});}
+\DoxyCodeLine{43 \textcolor{keyword}{public}:}
+\DoxyCodeLine{44     \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription}{subscription}}\& \mbox{\hyperlink{classrpp_1_1subscription}{subscription}})}
+\DoxyCodeLine{45         : m\_subscription\{\mbox{\hyperlink{classrpp_1_1subscription}{subscription}}\} \{\}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}(\mbox{\hyperlink{classrpp_1_1subscription}{subscription}}\&\& \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} = \{\})}
+\DoxyCodeLine{48         : m\_subscription\{std::move(\mbox{\hyperlink{classrpp_1_1subscription}{subscription}})\} \{\}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50     \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}\&)     = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{51     \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}(\mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\_base}}\&\&) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_a8de1e104568abb9461825241d8bce9f9}{on\_next}}(\textcolor{keyword}{const} Type\& val) \textcolor{keyword}{const} \textcolor{keyword}{final}}
+\DoxyCodeLine{54     \{}
+\DoxyCodeLine{55         \textcolor{keywordflow}{if} (!m\_subscription.is\_subscribed())}
+\DoxyCodeLine{56             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58         \textcolor{keywordflow}{try}}
+\DoxyCodeLine{59         \{}
+\DoxyCodeLine{60             on\_next\_impl(val);}
+\DoxyCodeLine{61         \}}
+\DoxyCodeLine{62         \textcolor{keywordflow}{catch} (std::exception\_ptr err)}
+\DoxyCodeLine{63         \{}
+\DoxyCodeLine{64             \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_ae9532294156f8acf86d1cf39d4c1cc15}{on\_error}}(std::make\_exception\_ptr(std::move(err)));}
+\DoxyCodeLine{65         \}}
 \DoxyCodeLine{66     \}}
 \DoxyCodeLine{67 }
-\DoxyCodeLine{68     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_ae9532294156f8acf86d1cf39d4c1cc15}{on\_error}}(\textcolor{keyword}{const} std::exception\_ptr\& err) \textcolor{keyword}{const} \textcolor{keyword}{final}}
+\DoxyCodeLine{68     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_aec89d8ba3d43d80d4c6e8ba27d680d3c}{on\_next}}(Type\&\& val) \textcolor{keyword}{const} \textcolor{keyword}{final}}
 \DoxyCodeLine{69     \{}
 \DoxyCodeLine{70         \textcolor{keywordflow}{if} (!m\_subscription.is\_subscribed())}
 \DoxyCodeLine{71             \textcolor{keywordflow}{return};}
 \DoxyCodeLine{72 }
-\DoxyCodeLine{73         \mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}} guard\{m\_subscription\};}
-\DoxyCodeLine{74         on\_error\_impl(err);}
-\DoxyCodeLine{75     \}}
-\DoxyCodeLine{76 }
-\DoxyCodeLine{77     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_a85ef4e79f7f9d82d5899dc2524a7289a}{on\_completed}}() const final}
-\DoxyCodeLine{78     \{}
-\DoxyCodeLine{79         \textcolor{keywordflow}{if} (!m\_subscription.is\_subscribed())}
-\DoxyCodeLine{80             \textcolor{keywordflow}{return};}
-\DoxyCodeLine{81 }
-\DoxyCodeLine{82         \mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}} guard\{m\_subscription\};}
-\DoxyCodeLine{83         on\_completed\_impl();}
-\DoxyCodeLine{84     \}}
-\DoxyCodeLine{85 }
-\DoxyCodeLine{86     \textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription}{subscription}}\& get\_subscription()\textcolor{keyword}{ const}}
-\DoxyCodeLine{87 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{88         \textcolor{keywordflow}{return} m\_subscription;}
-\DoxyCodeLine{89     \}}
-\DoxyCodeLine{90 }
-\DoxyCodeLine{91     [[nodiscard]] \textcolor{keywordtype}{bool} is\_subscribed()\textcolor{keyword}{ const}}
-\DoxyCodeLine{92 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{93         \textcolor{keywordflow}{return} m\_subscription.is\_subscribed();}
-\DoxyCodeLine{94     \}}
-\DoxyCodeLine{95 }
-\DoxyCodeLine{96     \textcolor{keywordtype}{void} unsubscribe()\textcolor{keyword}{ const}}
-\DoxyCodeLine{97 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{98         m\_subscription.unsubscribe();}
+\DoxyCodeLine{73         \textcolor{keywordflow}{try}}
+\DoxyCodeLine{74         \{}
+\DoxyCodeLine{75             on\_next\_impl(std::move(val));}
+\DoxyCodeLine{76         \}}
+\DoxyCodeLine{77         \textcolor{keywordflow}{catch} (std::exception\_ptr err)}
+\DoxyCodeLine{78         \{}
+\DoxyCodeLine{79             \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_ae9532294156f8acf86d1cf39d4c1cc15}{on\_error}}(std::make\_exception\_ptr(std::move(err)));}
+\DoxyCodeLine{80         \}}
+\DoxyCodeLine{81     \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_ae9532294156f8acf86d1cf39d4c1cc15}{on\_error}}(\textcolor{keyword}{const} std::exception\_ptr\& err) \textcolor{keyword}{const} \textcolor{keyword}{final}}
+\DoxyCodeLine{84     \{}
+\DoxyCodeLine{85         \textcolor{keywordflow}{if} (!m\_subscription.is\_subscribed())}
+\DoxyCodeLine{86             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88         \mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}} guard\{m\_subscription\};}
+\DoxyCodeLine{89         on\_error\_impl(err);}
+\DoxyCodeLine{90     \}}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_a85ef4e79f7f9d82d5899dc2524a7289a}{on\_completed}}() const final}
+\DoxyCodeLine{93     \{}
+\DoxyCodeLine{94         \textcolor{keywordflow}{if} (!m\_subscription.is\_subscribed())}
+\DoxyCodeLine{95             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97         \mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}} guard\{m\_subscription\};}
+\DoxyCodeLine{98         on\_completed\_impl();}
 \DoxyCodeLine{99     \}}
 \DoxyCodeLine{100 }
-\DoxyCodeLine{101 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{102     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_next\_impl(\textcolor{keyword}{const} Type\& v) \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{103     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_next\_impl(Type\&\& v) \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{104     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_error\_impl(\textcolor{keyword}{const} std::exception\_ptr\& err) \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{105     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_completed\_impl() \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{106 }
-\DoxyCodeLine{107 \textcolor{keyword}{private}:}
-\DoxyCodeLine{108     subscription m\_subscription;}
-\DoxyCodeLine{109 \};}
-\DoxyCodeLine{110 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{101     \textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription}{subscription}}\& get\_subscription()\textcolor{keyword}{ const}}
+\DoxyCodeLine{102 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{103         \textcolor{keywordflow}{return} m\_subscription;}
+\DoxyCodeLine{104     \}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106     [[nodiscard]] \textcolor{keywordtype}{bool} is\_subscribed()\textcolor{keyword}{ const}}
+\DoxyCodeLine{107 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{108         \textcolor{keywordflow}{return} m\_subscription.is\_subscribed();}
+\DoxyCodeLine{109     \}}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111     \textcolor{keywordtype}{void} unsubscribe()\textcolor{keyword}{ const}}
+\DoxyCodeLine{112 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{113         m\_subscription.unsubscribe();}
+\DoxyCodeLine{114     \}}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{117     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_next\_impl(\textcolor{keyword}{const} Type\& v) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{118     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_next\_impl(Type\&\& v) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{119     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_error\_impl(\textcolor{keyword}{const} std::exception\_ptr\& err) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{120     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_completed\_impl() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122 \textcolor{keyword}{private}:}
+\DoxyCodeLine{123     subscription m\_subscription;}
+\DoxyCodeLine{124 \};}
+\DoxyCodeLine{125 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}
