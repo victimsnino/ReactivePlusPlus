@@ -64,6 +64,35 @@ public:
         return subscribe(dynamic_subscriber{subscriber});
     }
 
+        /**
+     * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
+     * \details this overloading accepts raw functions to construct specific subscriber with specific observer
+     * \return subscription on this observable which can be used to unsubscribe
+     */
+    template<constraint::on_next_fn<Type> TOnNext      = utils::empty_function_t<Type>,
+             constraint::on_error_fn      TOnError     = utils::empty_function_t<std::exception_ptr>,
+             constraint::on_completed_fn  TOnCompleted = utils::empty_function_t<>>
+        subscription subscribe(TOnNext&& on_next = {}, TOnError&& on_error = {}, TOnCompleted&& on_completed = {}) const noexcept
+    {
+        return subscribe(dynamic_subscriber<Type>{rpp::make_specific_observer<Type>(std::forward<TOnNext>(on_next),
+                                                                                    std::forward<TOnError>(on_error),
+                                                                                    std::forward<TOnCompleted>(on_completed))});
+    }
+
+    /**
+     * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
+     * \details this overloading accepts raw functions to construct specific subscriber with specific observer
+     * \return subscription on this observable which can be used to unsubscribe
+     */
+    subscription subscribe(constraint::on_next_fn<Type> auto&& on_next,
+                           constraint::on_completed_fn auto&&  on_completed) const noexcept
+    {
+        return subscribe(dynamic_subscriber<Type>{
+                                  rpp::make_specific_observer<Type>(std::forward<decltype(on_next)>(on_next),
+                                                                    rpp::utils::empty_function_t<std::exception_ptr>{},
+                                                                    std::forward<decltype(on_completed)>(on_completed))});
+    }
+
     dynamic_observable<Type> as_dynamic() const { return *this; }
 
 private:

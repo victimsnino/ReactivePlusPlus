@@ -78,6 +78,43 @@ TEST_CASE("Observable construction", "[benchmark]")
 
 }
 
+TEST_CASE("Observable subscribe #2", "[benchmark]")
+{
+    auto specific = MakeSpecificObservable();
+    BENCHMARK("Specific observable subscribe lambda")
+    {
+        return specific.subscribe([](const auto&) {});
+    };
+
+    auto dynamic = MakeDynamicObservable();
+    BENCHMARK("Dynamic observable subscribe lambda")
+    {
+        return dynamic.subscribe([](const auto&) {});
+    };
+
+    auto observer = rpp::specific_subscriber([](const int&){});
+    BENCHMARK("Specific observable subscribe specific subscriber")
+    {
+        return specific.subscribe(observer);
+    };
+
+    BENCHMARK("Dynamic observable subscribe specific subscriber")
+    {
+        return dynamic.subscribe(observer);
+    };
+
+    auto dynamic_observer = rpp::dynamic_subscriber([](const int&){});
+    BENCHMARK("Specific observable subscribe dynamic observer")
+    {
+        return specific.subscribe(dynamic_observer);
+    };
+
+    BENCHMARK("Dynamic observable subscribe dynamic observer")
+    {
+        return dynamic.subscribe(dynamic_observer);
+    };
+}
+
 TEST_CASE("Observer construction", "[benchmark]")
 {
     BENCHMARK("Specific observer construction")
