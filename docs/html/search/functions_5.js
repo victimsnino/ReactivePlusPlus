@@ -1,4 +1,0 @@
-var searchData=
-[
-  ['subscribe_0',['subscribe',['../classrpp_1_1dynamic__observable.html#a43dfe979f5a6f05a7a546f5bb724422a',1,'rpp::dynamic_observable::subscribe()'],['../structrpp_1_1virtual__observable.html#aef0abc01731e70ece3c2814e1ef2ca5b',1,'rpp::virtual_observable::subscribe()'],['../classrpp_1_1specific__observable.html#ae64437bfee3b2b62219c0be2ec08aab4',1,'rpp::specific_observable::subscribe(const dynamic_subscriber&lt; Type &gt; &amp;subscriber) const noexcept override'],['../classrpp_1_1specific__observable.html#adce968b7914e8036e29b46603298182c',1,'rpp::specific_observable::subscribe(const specific_subscriber&lt; Type, Obs &gt; &amp;subscriber) const noexcept'],['../classrpp_1_1specific__observable.html#a28f1cfdb1ecdc6bc253289725f387b67',1,'rpp::specific_observable::subscribe(TObserver &amp;&amp;observer) const noexcept']]]
-];

@@ -100,7 +100,7 @@ $(function() {
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">namespace </span>rpp::operators</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>{</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Callable&gt;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="map_8h.html#a79ef0bff4448df7b7c07b3d5f1191806">   58</a></span><span class="keyword">auto</span> <a class="code hl_function" href="map_8h.html#a79ef0bff4448df7b7c07b3d5f1191806">map</a>(Callable&amp;&amp; callable)</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">auto</span> map(Callable&amp;&amp; callable)</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>{</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">return</span> [callable = std::forward&lt;Callable&gt;(callable)]&lt;constraint::observable TObservable&gt;(TObservable&amp;&amp; observable)</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    {</div>
@@ -114,7 +114,6 @@ $(function() {
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    };</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>} <span class="comment">// namespace rpp::operators</span></div>
-<div class="ttc" id="amap_8h_html_a79ef0bff4448df7b7c07b3d5f1191806"><div class="ttname"><a href="map_8h.html#a79ef0bff4448df7b7c07b3d5f1191806">rpp::operators::map</a></div><div class="ttdeci">auto map(Callable &amp;&amp;callable)</div><div class="ttdoc">transform the items emitted by an Observable by applying a function to each item</div><div class="ttdef"><b>Definition:</b> map.h:58</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

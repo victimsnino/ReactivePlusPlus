@@ -55,13 +55,13 @@
 \DoxyCodeLine{56         , m\_observer\{std::move(observer)\} \{ \}}
 \DoxyCodeLine{57 }
 \DoxyCodeLine{58     \textcolor{comment}{//********************* Construct by actions *********************//}}
-\DoxyCodeLine{59     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Types,}
-\DoxyCodeLine{60              \textcolor{keyword}{typename} Enabled = utils::enable\_if\_observer\_constructible\_t<Type, Types...>>}
+\DoxyCodeLine{59     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Types>}
+\DoxyCodeLine{60         \textcolor{keyword}{requires} utils::is\_observer\_constructible\_v<Type, Types...>}
 \DoxyCodeLine{61     \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(Types\&\&...vals)}
 \DoxyCodeLine{62         : \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}\{\mbox{\hyperlink{classrpp_1_1subscription}{subscription}}\{\}, std::forward<Types>(vals)...\} \{\}}
 \DoxyCodeLine{63 }
-\DoxyCodeLine{64     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Types,}
-\DoxyCodeLine{65              \textcolor{keyword}{typename} Enabled = utils::enable\_if\_observer\_constructible\_t<Type, Types...>>}
+\DoxyCodeLine{64     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Types>}
+\DoxyCodeLine{65         \textcolor{keyword}{requires} utils::is\_observer\_constructible\_v<Type, Types...>}
 \DoxyCodeLine{66     \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription}{subscription}}\& sub, Types\&\&...vals)}
 \DoxyCodeLine{67         : \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{details::subscriber\_base<Type>}}\{sub\}}
 \DoxyCodeLine{68         , m\_observer\{std::forward<Types>(vals)...\} \{\}}
@@ -102,11 +102,11 @@
 \DoxyCodeLine{103     Observer m\_observer;}
 \DoxyCodeLine{104 \};}
 \DoxyCodeLine{105 }
-\DoxyCodeLine{106 \textcolor{keyword}{template}<\textcolor{keyword}{template}<\textcolor{keyword}{typename}...> \textcolor{keyword}{typename} TObs, \textcolor{keyword}{typename} ...Args, \textcolor{keyword}{typename} = std::enable\_if\_t<utils::is\_observer\_v<TObs<Args...>>>>}
-\DoxyCodeLine{107 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(TObs<Args...> observer) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}<utils::extract\_observer\_type\_t<TObs<Args...>>, TObs<Args...>>;}
+\DoxyCodeLine{106 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer TObs>}
+\DoxyCodeLine{107 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(TObs observer) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber<utils::extract\_observer\_type\_t<TObs>}}, TObs>;}
 \DoxyCodeLine{108 }
-\DoxyCodeLine{109 \textcolor{keyword}{template}<\textcolor{keyword}{template}<\textcolor{keyword}{typename}...> \textcolor{keyword}{typename} TObs, \textcolor{keyword}{typename} ...Args, \textcolor{keyword}{typename} = std::enable\_if\_t<utils::is\_observer\_v<TObs<Args...>>>>}
-\DoxyCodeLine{110 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(\mbox{\hyperlink{classrpp_1_1subscription}{subscription}}, TObs<Args...> observer) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}<utils::extract\_observer\_type\_t<TObs<Args...>>, TObs<Args...>>;}
+\DoxyCodeLine{109 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer TObs>}
+\DoxyCodeLine{110 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(\mbox{\hyperlink{classrpp_1_1subscription}{subscription}}, TObs observer) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber<utils::extract\_observer\_type\_t<TObs>}}, TObs>;}
 \DoxyCodeLine{111 }
 \DoxyCodeLine{112 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext,}
 \DoxyCodeLine{113          \textcolor{keyword}{typename} ...Args,}

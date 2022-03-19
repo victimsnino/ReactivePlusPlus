@@ -15,10 +15,10 @@ class \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+ob
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename Type , typename On\+Subscribe\+Fn $>$ }\\auto \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{rpp\+::observable\+::create}} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
+{\footnotesize template$<$typename Type , constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ }\\auto \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{rpp\+::observable\+::create}} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} with passed action as On\+Subscribe. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename On\+Subscribe\+Fn $>$ }\\auto \mbox{\hyperlink{group__observables_ga7c355ad67fb60d523e6d05604638bae2}{rpp\+::observable\+::create}} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
-\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with passed action as On\+Subscribe. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with passed action as On\+Subscribe and deduce type of observable by this function. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -34,7 +34,7 @@ Observable is the source of any Reactive Stream. Observable provides ability to 
 \index{Observables@{Observables}!create@{create}}
 \index{create@{create}!Observables@{Observables}}
 \doxysubsubsection{\texorpdfstring{create()}{create()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$typename Type , typename On\+Subscribe\+Fn $>$ \\
+{\footnotesize\ttfamily template$<$typename Type , constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ \\
 auto rpp\+::observable\+::create (\begin{DoxyParamCaption}\item[{On\+Subscribe\+Fn \&\&}]{on\+\_\+subscribe }\end{DoxyParamCaption})}
 
 
@@ -63,7 +63,7 @@ auto rpp\+::observable\+::create (\begin{DoxyParamCaption}\item[{On\+Subscribe\+
 
 
 
-Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with passed action as On\+Subscribe. 
+Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with passed action as On\+Subscribe and deduce type of observable by this function. 
 
 
 \begin{DoxyTemplParams}{Template Parameters}

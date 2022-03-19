@@ -10,7 +10,7 @@ This file contains implementation of operator \char`\"{}map\char`\"{}.
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename Callable $>$ }\\auto \mbox{\hyperlink{map_8h_a79ef0bff4448df7b7c07b3d5f1191806}{rpp\+::operators\+::map}} (Callable \&\&callable)
+{\footnotesize template$<$typename Callable $>$ }\\auto \mbox{\hyperlink{operators_2fwd_8h_a79ef0bff4448df7b7c07b3d5f1191806}{rpp\+::operators\+::map}} (Callable \&\&callable)
 \begin{DoxyCompactList}\small\item\em transform the items emitted by an Observable by applying a function to each item \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -20,7 +20,7 @@ This file contains implementation of operator \char`\"{}map\char`\"{}.
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{map_8h_a79ef0bff4448df7b7c07b3d5f1191806}\label{map_8h_a79ef0bff4448df7b7c07b3d5f1191806}} 
+\mbox{\Hypertarget{operators_2fwd_8h_a79ef0bff4448df7b7c07b3d5f1191806}\label{operators_2fwd_8h_a79ef0bff4448df7b7c07b3d5f1191806}} 
 \index{map.h@{map.h}!map@{map}}
 \index{map@{map}!map.h@{map.h}}
 \doxysubsubsection{\texorpdfstring{map()}{map()}}
@@ -37,7 +37,7 @@ The Map operator can keep same type of value or change it to some another type.
 
 Example\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{observable | \mbox{\hyperlink{map_8h_a79ef0bff4448df7b7c07b3d5f1191806}{map}}([](\textcolor{keyword}{const} \textcolor{keywordtype}{int}\& val)}
+\DoxyCodeLine{observable | map([](\textcolor{keyword}{const} \textcolor{keywordtype}{int}\& val)}
 \DoxyCodeLine{             \{}
 \DoxyCodeLine{                 \textcolor{keywordflow}{return} std::to\_string(val) + \textcolor{stringliteral}{"{} data"{}};}
 \DoxyCodeLine{             \});}

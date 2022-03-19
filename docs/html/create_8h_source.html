@@ -99,7 +99,7 @@ $(function() {
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">namespace </span>rpp::observable</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>{</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type, <span class="keyword">typename</span> OnSubscribeFn&gt;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type, constra<span class="keywordtype">int</span>::on_subscribe_fn&lt;Type&gt; OnSubscribeFn&gt;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="group__observables.html#gaa70991953a96a64c95d7566ff7069f6b">   48</a></span><span class="keyword">auto</span> <a class="code hl_function" href="group__observables.html#ga7c355ad67fb60d523e6d05604638bae2">create</a>(OnSubscribeFn&amp;&amp; on_subscribe)</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>{</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1specific__observable.html">specific_observable&lt;Type, std::decay_t&lt;OnSubscribeFn&gt;</a>&gt;{std::forward&lt;OnSubscribeFn&gt;(on_subscribe)};</div>
@@ -112,7 +112,7 @@ $(function() {
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>} <span class="comment">// namespace rpp::observable</span></div>
 <div class="ttc" id="aclassrpp_1_1specific__observable_html"><div class="ttname"><a href="classrpp_1_1specific__observable.html">rpp::specific_observable</a></div><div class="ttdoc">observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...</div><div class="ttdef"><b>Definition:</b> specific_observable.h:44</div></div>
-<div class="ttc" id="agroup__observables_html_ga7c355ad67fb60d523e6d05604638bae2"><div class="ttname"><a href="group__observables.html#ga7c355ad67fb60d523e6d05604638bae2">rpp::observable::create</a></div><div class="ttdeci">auto create(OnSubscribeFn &amp;&amp;on_subscribe)</div><div class="ttdoc">Creates specific_observable with passed action as OnSubscribe.</div><div class="ttdef"><b>Definition:</b> create.h:62</div></div>
+<div class="ttc" id="agroup__observables_html_ga7c355ad67fb60d523e6d05604638bae2"><div class="ttname"><a href="group__observables.html#ga7c355ad67fb60d523e6d05604638bae2">rpp::observable::create</a></div><div class="ttdeci">auto create(OnSubscribeFn &amp;&amp;on_subscribe)</div><div class="ttdoc">Creates specific_observable with passed action as OnSubscribe and deduce type of observable by this f...</div><div class="ttdef"><b>Definition:</b> create.h:62</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
