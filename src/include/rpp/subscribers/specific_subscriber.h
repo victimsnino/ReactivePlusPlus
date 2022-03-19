@@ -119,4 +119,29 @@ template<typename OnNext,
          typename Type = std::decay_t<utils::function_argument_t<OnNext>>>
 specific_subscriber(OnNext, Args ...) -> specific_subscriber<Type, details::deduce_specific_observer_type_t<OnNext, Args...>>;
 
+
+/**
+ * \brief Creation of rpp::specific_subscriber with manual providing of type of subscriber. In case of ability to determine type of subscriber by function -> use constructor
+ */
+template<typename Type, typename ...Args>
+auto make_specific_subscriber(Args&& ...args)
+{
+    auto observer = rpp::make_specific_observer<Type>(std::forward<Args>(args)...);
+    return rpp::specific_subscriber<Type, decltype(observer)>(std::move(observer));
+}
+
+template<typename Type, typename ...Args>
+auto make_specific_subscriber(const subscription& sub, Args&& ...args)
+{
+    auto observer = rpp::make_specific_observer<Type>(std::forward<Args>(args)...);
+    return rpp::specific_subscriber<Type, decltype(observer)>(sub, std::move(observer));
+}
+
+template<typename Type, typename ...Args>
+auto make_specific_subscriber(subscription&& sub, Args&& ...args)
+{
+    auto observer = rpp::make_specific_observer<Type>(std::forward<Args>(args)...);
+    return rpp::specific_subscriber<Type, decltype(observer)>(std::move(sub), std::move(observer));
+}
+
 } // namespace rpp

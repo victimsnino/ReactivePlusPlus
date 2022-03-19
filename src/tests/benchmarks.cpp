@@ -218,20 +218,13 @@ SCENARIO("Operators", "[benchmark]")
                 {
                     sub.on_next(1);
                 });
-    BENCHMARK("map construction from observable")
-    {
-        return obs | rpp::operators::map([](const auto& v)
-        {
-            return v * 100;
-        });
-    };
-
-    BENCHMARK("map construction + subscribe")
+    auto sub = rpp::specific_subscriber{[](const int&){}};
+    BENCHMARK("map construction from observable + subscribe")
     {
         return (obs | rpp::operators::map([](const auto& v)
         {
             return v * 100;
-        })).subscribe([](const int& v) { return v; });
+        })).subscribe(sub);
     };
 }
 

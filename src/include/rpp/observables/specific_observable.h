@@ -93,28 +93,11 @@ public:
      * \details this overloading accepts raw functions to construct specific subscriber with specific observer
      * \return subscription on this observable which can be used to unsubscribe
      */
-    template<constraint::on_next_fn<Type> TOnNext      = utils::empty_function_t<Type>,
-             constraint::on_error_fn      TOnError     = utils::empty_function_t<std::exception_ptr>,
-             constraint::on_completed_fn  TOnCompleted = utils::empty_function_t<>>
-        subscription subscribe(TOnNext&& on_next = {}, TOnError&& on_error = {}, TOnCompleted&& on_completed = {}) const noexcept
+    template<typename ...Args>
+        requires std::is_constructible_v<rpp::dynamic_subscriber<Type>, std::decay_t<Args>...>
+    subscription subscribe(Args&&...args) const noexcept
     {
-        return subscribe_impl(specific_subscriber{rpp::make_specific_observer<Type>(std::forward<TOnNext>(on_next),
-                                                                                    std::forward<TOnError>(on_error),
-                                                                                    std::forward<TOnCompleted>(on_completed))});
-    }
-
-    /**
-     * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
-     * \details this overloading accepts raw functions to construct specific subscriber with specific observer
-     * \return subscription on this observable which can be used to unsubscribe
-     */
-    subscription subscribe(constraint::on_next_fn<Type> auto&& on_next,
-                           constraint::on_completed_fn auto&&  on_completed) const noexcept
-    {
-        return subscribe_impl(specific_subscriber{
-                                  rpp::make_specific_observer<Type>(std::forward<decltype(on_next)>(on_next),
-                                                                    rpp::utils::empty_function_t<std::exception_ptr>{},
-                                                                    std::forward<decltype(on_completed)>(on_completed))});
+        return subscribe_impl(rpp::make_specific_subscriber<Type>(std::forward<Args>(args)...));
     }
 
 private:
