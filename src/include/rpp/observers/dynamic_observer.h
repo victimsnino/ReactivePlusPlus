@@ -42,8 +42,8 @@ template<typename T>
 class dynamic_observer final : public interface_observer<T>
 {
 public:
-    template<constraint::on_next_fn<T> OnNext      = utils::empty_function_t<T>,
-             constraint::on_error_fn OnError     = utils::empty_function_t<std::exception_ptr>,
+    template<constraint::on_next_fn<T>   OnNext      = utils::empty_function_t<T>,
+             constraint::on_error_fn     OnError     = utils::empty_function_t<std::exception_ptr>,
              constraint::on_completed_fn OnCompleted = utils::empty_function_t<>>
     dynamic_observer(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
         : m_state{make_shared_state(std::forward<OnNext>(on_next),

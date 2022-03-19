@@ -22,9 +22,10 @@
 
 #pragma once
 
-#include "rpp/utils/function_traits.h"
+#include "rpp/utils/constraints.h"
 
 #include <rpp/observers/interface_observer.h>
+#include <rpp/utils/function_traits.h>
 #include <rpp/utils/functors.h>
 
 #include <exception>
@@ -33,13 +34,13 @@ namespace rpp::details
 {
 struct forwarding_on_error
 {
-    template<typename TSub>
+    template<constraint::subscriber TSub>
     void operator()(const std::exception_ptr& err, TSub&& sub) const {sub.on_error(err);}
 };
 
 struct forwarding_on_completed
 {
-    template<typename TSub>
+    template<constraint::subscriber TSub>
     void operator()(TSub&& sub) const {sub.on_completed();}
 };
 

@@ -42,17 +42,17 @@ template<typename Type>
 class dynamic_observable final : public interface_observable<Type, dynamic_observable<Type>>
 {
 public:
-    template<typename OnSubscribeFn, typename = std::enable_if_t<std::is_invocable_v<OnSubscribeFn, dynamic_subscriber<Type>>>>
+    template<constraint::on_subscribe_fn<Type> OnSubscribeFn>
     dynamic_observable(OnSubscribeFn&& on_subscribe)
         : m_observable{std::make_shared<specific_observable<Type, std::decay_t<OnSubscribeFn>>>(on_subscribe)} {}
 
-    template<typename OnSubscribeFn>
-    dynamic_observable(const specific_observable<Type, OnSubscribeFn>& observable)
-        : m_observable{ std::make_shared<specific_observable<Type, OnSubscribeFn>>(observable) } {}
+    template<constraint::observable TObs>
+        requires (!std::is_same_v<std::decay_t<TObs>, dynamic_observable<Type>>)
+    dynamic_observable(TObs&& observable)
+        : m_observable{ std::make_shared<std::decay_t<TObs>>(std::forward<TObs>(observable)) } {}
 
-    template<typename OnSubscribeFn>
-    dynamic_observable(specific_observable<Type, OnSubscribeFn>&& observable)
-        : m_observable{ std::make_shared<specific_observable<Type, OnSubscribeFn>>(std::move(observable)) } {}
+    dynamic_observable(const dynamic_observable<Type>&)     = default;
+    dynamic_observable(dynamic_observable<Type>&&) noexcept = default;
 
     subscription subscribe(const dynamic_subscriber<Type>& subscriber) const noexcept override
     {
@@ -70,8 +70,8 @@ private:
     std::shared_ptr<virtual_observable<Type>> m_observable{};
 };
 
-template<typename Type, typename OnSubscribeFn>
-dynamic_observable(specific_observable<Type, OnSubscribeFn> on_subscribe) -> dynamic_observable<Type>;
+template<constraint::observable TObs>
+dynamic_observable(TObs obs) -> dynamic_observable<utils::extract_observable_type_t<TObs>>;
 
 template<typename OnSub>
 dynamic_observable(OnSub on_subscribe) -> dynamic_observable<utils::extract_subscriber_type_t<utils::function_argument_t<OnSub>>>;

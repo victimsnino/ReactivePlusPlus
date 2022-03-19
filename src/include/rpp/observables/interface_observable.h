@@ -59,6 +59,10 @@ namespace details
 
 struct observable_tag{};
 
+
+template<typename T, typename NewType>
+concept lift_fn = constraint::subscriber<std::invoke_result_t<T, dynamic_subscriber<NewType>>>;
+
 } // namespace details
 
 
@@ -94,62 +98,100 @@ private:
 public:
     // ********************************* LIFT DIRECT TYPE + OPERATOR: SUBSCRIBER -> SUBSCRIBER ******************//
     /**
-     * \brief Lift provided function to make new observable based on this one
+     * \brief Lift provides function to make new observable based on this one
      * \tparam NewType manually specified new type of observable after lift
-     * \tparam OperatorFn type of function applied to observable
+     * \param op function applied to observable
      * \return new specific_observable of NewType
      */
-    template<typename NewType,
-             typename OperatorFn,
-             typename = std::enable_if_t<std::is_invocable_v<OperatorFn, dynamic_subscriber<NewType>>>>
-    auto lift(OperatorFn&& op) const &
+    template<typename NewType>
+    auto lift(details::lift_fn<NewType> auto&& op) const &
     {
-        return lift_impl<NewType>(std::forward<OperatorFn>(op), CastThis());
+        return lift_impl<NewType>(std::forward<decltype(op)>(op), CastThis());
     }
 
-     /**
-     * \brief Lift provided function to make new observable based on this one
-     * \tparam NewType manually specified new type of observable after lift
-     * \tparam OperatorFn type of function applied to observable
-     * \return new specific_observable of NewType
-     */
-    template<typename NewType,
-             typename OperatorFn,
-             typename = std::enable_if_t<std::is_invocable_v<OperatorFn, dynamic_subscriber<NewType>>>>
-    auto lift(OperatorFn&& op) &&
+    /**
+    * \brief Lift provides function to make new observable based on this one
+    * \tparam NewType manually specified new type of observable after lift
+    * \param op function applied to observable
+    * \return new specific_observable of NewType
+    */
+    template<typename NewType>
+    auto lift(details::lift_fn<NewType> auto&& op) &&
     {
-        return lift_impl<NewType>(std::forward<OperatorFn>(op), MoveThis());
+        return lift_impl<NewType>(std::forward<decltype(op)>(op), MoveThis());
     }
 
     // ********************************* LIFT OPERATOR: SUBSCRIBER -> SUBSCRIBER ******************//
     /**
-     * \brief Lift provided function to make new observable based on this one
+     * \brief Lift provides function to make new observable based on this one
      * \tparam OperatorFn type of function applied to observable
      * \tparam NewType deduced from argument of Operator of subscriber
      * \return new specific_observable of NewType
      */
     template<typename OperatorFn,
              typename SubscriberType = utils::function_argument_t<OperatorFn>,
-             typename NewType = utils::extract_subscriber_type_t<SubscriberType>,
-             typename = std::enable_if_t<std::is_invocable_v<OperatorFn, dynamic_subscriber<NewType>>>>
+             typename NewType = utils::extract_subscriber_type_t<SubscriberType>>
+        requires details::lift_fn<OperatorFn, NewType>
     auto lift(OperatorFn&& op) const &
     {
         return lift<NewType>(std::forward<OperatorFn>(op));
     }
 
      /**
-     * \brief Lift provided function to make new observable based on this one
+     * \brief Lift provides function to make new observable based on this one
      * \tparam OperatorFn type of function applied to observable
      * \tparam NewType deduced from argument of Operator of subscriber
      * \return new specific_observable of NewType
      */
     template<typename OperatorFn,
              typename SubscriberType = utils::function_argument_t<OperatorFn>,
-             typename NewType = utils::extract_subscriber_type_t<SubscriberType>,
-             typename = std::enable_if_t<std::is_invocable_v<OperatorFn, dynamic_subscriber<NewType>>>>
+             typename NewType = utils::extract_subscriber_type_t<SubscriberType>>
+        requires details::lift_fn<OperatorFn, NewType>
     auto lift(OperatorFn&& op) &&
     {
         return std::move(*this).template lift<NewType>(std::forward<OperatorFn>(op));
+    }
+
+        // ********************************* LIFT Direct type + OnNext, Onerror, OnCompleted ******************//
+
+    /**
+     * \brief Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks
+     * \tparam NewType manually specified new type of observable after lift
+     * \tparam OnNext on_next of new subscriber
+     * \tparam OnError on_error of new subscriber
+     * \tparam OnCompleted on_completed of new subscriber
+     * \return new specific_observable of NewType
+     */
+    template<typename                                                        NewType,
+             std::invocable<Type, dynamic_subscriber<NewType>>               OnNext,
+             std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError = details::forwarding_on_error,
+             std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = details::forwarding_on_completed>
+    auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const &
+    {
+        return lift_impl<NewType>(details::make_lift_action_by_callbacks<Type>(std::forward<OnNext>(on_next),
+                                                                               std::forward<OnError>(on_error),
+                                                                               std::forward<OnCompleted>(on_completed)),
+                                  CastThis());
+    }
+
+    /**
+     * \brief Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks
+     * \tparam NewType manually specified new type of observable after lift
+     * \tparam OnNext on_next of new subscriber
+     * \tparam OnError on_error of new subscriber
+     * \tparam OnCompleted on_completed of new subscriber
+     * \return new specific_observable of NewType
+     */
+        template<typename                                                    NewType,
+             std::invocable<Type, dynamic_subscriber<NewType>>               OnNext,
+             std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError = details::forwarding_on_error,
+             std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = details::forwarding_on_completed>
+    auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) &&
+    {
+        return lift_impl<NewType>(details::make_lift_action_by_callbacks<Type>(std::forward<OnNext>(on_next),
+                                                                               std::forward<OnError>(on_error),
+                                                                               std::forward<OnCompleted>(on_completed)),
+                                  MoveThis());
     }
 
     // ********************************* LIFT OnNext, Onerror, OnCompleted ******************//
@@ -165,8 +207,10 @@ public:
     template<typename OnNext,
              typename OnError = details::forwarding_on_error,
              typename OnCompleted = details::forwarding_on_completed,
-             typename NewType = std::decay_t<utils::function_argument_t<OnNext>>,
-             typename = std::enable_if_t<std::is_invocable_v<OnNext, Type, dynamic_subscriber<NewType>>>>
+             typename NewType = std::decay_t<utils::function_argument_t<OnNext>>>
+        requires std::invocable<OnNext, Type, dynamic_subscriber<NewType>> &&
+                 std::invocable<OnError, std::exception_ptr, dynamic_subscriber<NewType>> &&
+                 std::invocable<OnCompleted, dynamic_subscriber<NewType>>
     auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const &
     {
         return lift<NewType>(std::forward<OnNext>(on_next),
@@ -185,57 +229,15 @@ public:
     template<typename OnNext,
              typename OnError = details::forwarding_on_error,
              typename OnCompleted = details::forwarding_on_completed,
-             typename NewType = std::decay_t<utils::function_argument_t<OnNext>>,
-             typename = std::enable_if_t<std::is_invocable_v<OnNext, Type, dynamic_subscriber<NewType>>>>
-        auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) &&
+             typename NewType = std::decay_t<utils::function_argument_t<OnNext>>>
+        requires std::invocable<OnNext, Type, dynamic_subscriber<NewType>> &&
+                 std::invocable<OnError, std::exception_ptr, dynamic_subscriber<NewType>> &&
+                 std::invocable<OnCompleted, dynamic_subscriber<NewType>>
+    auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) &&
     {
         return std::move(*this).template lift<NewType>(std::forward<OnNext>(on_next),
                                                        std::forward<OnError>(on_error),
                                                        std::forward<OnCompleted>(on_completed));
-    }
-
-    // ********************************* LIFT Direct type + OnNext, Onerror, OnCompleted ******************//
-
-    /**
-     * \brief Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks
-     * \tparam NewType manually specified new type of observable after lift
-     * \tparam OnNext on_next of new subscriber
-     * \tparam OnError on_error of new subscriber
-     * \tparam OnCompleted on_completed of new subscriber
-     * \return new specific_observable of NewType
-     */
-    template<typename NewType,
-             typename OnNext,
-             typename OnError = details::forwarding_on_error,
-             typename OnCompleted = details::forwarding_on_completed,
-             typename = std::enable_if_t<std::is_invocable_v<OnNext, Type, dynamic_subscriber<NewType>>>>
-    auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const &
-    {
-        return lift_impl<NewType>(details::make_lift_action_by_callbacks<Type>(std::forward<OnNext>(on_next),
-                                                                               std::forward<OnError>(on_error),
-                                                                               std::forward<OnCompleted>(on_completed)),
-                                  CastThis());
-    }
-
-    /**
-     * \brief Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks
-     * \tparam NewType manually specified new type of observable after lift
-     * \tparam OnNext on_next of new subscriber
-     * \tparam OnError on_error of new subscriber
-     * \tparam OnCompleted on_completed of new subscriber
-     * \return new specific_observable of NewType
-     */
-    template<typename NewType,
-             typename OnNext,
-             typename OnError = details::forwarding_on_error,
-             typename OnCompleted = details::forwarding_on_completed,
-             typename = std::enable_if_t<std::is_invocable_v<OnNext, Type, dynamic_subscriber<NewType>>>>
-    auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) &&
-    {
-        return lift_impl<NewType>(details::make_lift_action_by_callbacks<Type>(std::forward<OnNext>(on_next),
-                                                                               std::forward<OnError>(on_error),
-                                                                               std::forward<OnCompleted>(on_completed)),
-                                  MoveThis());
     }
     
 private:
@@ -262,9 +264,8 @@ private:
     }
 };
 
-template<typename Observable,
-         typename Operator,
-         typename = std::enable_if_t<utils::is_observable_v<std::decay_t<Observable>>>>
+template<constraint::observable                  Observable,
+        std::invocable<std::decay_t<Observable>> Operator>
 auto operator |(Observable&& observable, Operator&& op)
 {
     return std::forward<Operator>(op)(std::forward<Observable>(observable));

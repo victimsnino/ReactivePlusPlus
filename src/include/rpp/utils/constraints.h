@@ -25,6 +25,8 @@
 #include <concepts>
 #include <exception>
 
+#include <rpp/subscribers/fwd.h>
+
 namespace rpp::details
 {
 struct observer_tag;
@@ -41,4 +43,6 @@ template<typename Fn>                concept on_completed_fn = std::invocable<st
 template<typename T> concept subscriber = std::is_base_of_v<details::subscriber_tag, std::decay_t<T>>;
 template<typename T> concept observer   = std::is_base_of_v<details::observer_tag, std::decay_t<T>> && !subscriber<std::decay_t<T>>;
 template<typename T> concept observable = std::is_base_of_v<details::observable_tag, std::decay_t<T>>;
+
+template<typename Fn, typename T> concept on_subscribe_fn = std::invocable<std::decay_t<Fn>, dynamic_subscriber<T>>;
 } // namespace rpp::constraint

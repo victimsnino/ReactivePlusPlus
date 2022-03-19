@@ -22,6 +22,8 @@
 
 #pragma once
 
+#include <rpp/utils/constraints.h>
+
 namespace rpp::details
 {
 struct observable_tag;
@@ -32,7 +34,7 @@ namespace rpp
 template<typename Type>
 struct virtual_observable;
 
-template<typename Type, typename OnSubscribeFn>
+template<typename Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
 class specific_observable;
 
 template<typename Type>

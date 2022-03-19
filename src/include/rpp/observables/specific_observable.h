@@ -39,7 +39,7 @@ namespace rpp
  * \tparam OnSubscribeFn is type of function/functor/callable used during subscription on this observable
  * \ingroup observables
  */
-template<typename Type, typename OnSubscribeFn>
+template<typename Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
 class specific_observable final : public interface_observable<Type, specific_observable<Type, OnSubscribeFn>>
 {
     static_assert(std::is_same_v<std::decay_t<OnSubscribeFn>, OnSubscribeFn>, "OnSubscribeFn of specific_observable should be decayed");
@@ -80,7 +80,8 @@ public:
      * \details this overloading accepts observer to construct specific_subscriber without extra overheads
      * \return subscription on this observable which can be used to unsubscribe
      */
-    template<typename TObserver, typename = std::enable_if_t<rpp::utils::is_observer_v<TObserver> && std::is_same_v<utils::extract_observer_type_t<TObserver>, Type>>>
+    template<constraint::observer TObserver>
+        requires std::is_same_v<utils::extract_observer_type_t<TObserver>, Type>
     subscription subscribe(TObserver&& observer) const noexcept
     {
         return subscribe_impl<std::decay_t<TObserver>>(std::forward<TObserver>(observer));

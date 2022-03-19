@@ -36,7 +36,7 @@ template<typename T>
 struct is_specific_observer : std::false_type {};
 
 template<typename ...An>
-struct is_specific_observer<rpp::specific_observer<An...>> : std::true_type {};
+struct is_specific_observer<specific_observer<An...>> : std::true_type {};
 } // namespace details
 /**
  * \brief Observer specified with specific template types of callbacks to avoid extra heap usage.
@@ -118,6 +118,16 @@ specific_observer(TObs)->specific_observer<utils::extract_observer_type_t<TObs>,
                                            decltype(utils::make_forwarding_on_next(std::declval<TObs>())),
                                            decltype(utils::make_forwarding_on_error(std::declval<TObs>())),
                                            decltype(utils::make_forwarding_on_completed(std::declval<TObs>()))>;
+
+/**
+ * \brief Create specific_observer with manually specified Type. In case of type can be deduced from argument of OnNext use direct constructor of rpp::specific_observer
+ * \tparam Type manually specific type of observer
+ */
+template<typename Type, typename ...Args>
+auto make_specific_observer(Args&&...args) -> rpp::specific_observer<Type, std::decay_t<Args>...>
+{
+    return rpp::specific_observer<Type, std::decay_t<Args>...>(std::forward<Args>(args)...);
+}
 
 namespace details
 {
