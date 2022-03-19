@@ -27,8 +27,8 @@
 
 namespace rpp::details
 {
-struct observable_tag;
 struct observer_tag;
+struct observable_tag;
 struct subscriber_tag;
 } // namespace rpp::details
 

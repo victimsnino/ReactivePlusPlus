@@ -42,7 +42,7 @@ auto MakeSpecificObservable()
 {
     std::array<int, 1> v{};
 
-    return rpp::make_specific_observable<int>([v](const auto& sub)
+    return rpp::observable::create<int>([v](const auto& sub)
     {
         sub.on_next(static_cast<int>(v.size()));
     });

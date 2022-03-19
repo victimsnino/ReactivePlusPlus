@@ -255,7 +255,7 @@ private:
     {
         static_assert(is_callable_returns_subscriber_of_same_type_v<NewType, OperatorFn>, "OperatorFn should return subscriber");
 
-        return rpp::make_specific_observable<NewType>([new_this = std::forward<FwdThis>(_this), op = std::forward<OperatorFn>(op)](auto&& subscriber)
+        return rpp::observable::create<NewType>([new_this = std::forward<FwdThis>(_this), op = std::forward<OperatorFn>(op)](auto&& subscriber)
         {
             new_this.subscribe(op(std::forward<decltype(subscriber)>(subscriber)));
         });

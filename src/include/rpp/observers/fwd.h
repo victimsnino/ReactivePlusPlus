@@ -22,13 +22,21 @@
 
 #pragma once
 
-/** \file
- *
- *  \defgroup observables Observables
- *  \brief Observable is the source of any Reactive Stream. Observable provides ability to subscribe observer on some events.
- *  \see https://reactivex.io/documentation/observable.html
- **/
+#include <rpp/utils/constraints.h>
 
-#include <rpp/observables/specific_observable.h>
+namespace rpp::details
+{
+struct observer_tag;
+} // namespace rpp::details
 
-#include <rpp/sources/create.h>
+namespace rpp
+{
+template<typename Type>
+class dynamic_observer;
+
+template<typename T,
+         constraint::on_next_fn<T> OnNext,
+         constraint::on_error_fn OnError,
+         constraint::on_completed_fn OnCompleted>
+class specific_observer;
+} // namespace rpp
