@@ -15,8 +15,10 @@ class \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+ob
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename Type , typename On\+Subscribe\+Fn $>$ }\\\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}}$<$ Type, std\+::remove\+\_\+const\+\_\+t$<$ std\+::remove\+\_\+reference\+\_\+t$<$ On\+Subscribe\+Fn $>$ $>$ $>$ \mbox{\hyperlink{group__observables_ga689e92a5caa43b06ef86440b2efa94fb}{rpp\+::observable\+::create}} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
-\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} with passed action as On\+Subscribe. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$typename Type , typename On\+Subscribe\+Fn $>$ }\\auto \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{rpp\+::observable\+::create}} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} with passed action as On\+Subscribe. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename On\+Subscribe\+Fn $>$ }\\auto \mbox{\hyperlink{group__observables_ga7c355ad67fb60d523e6d05604638bae2}{rpp\+::observable\+::create}} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with passed action as On\+Subscribe. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -28,12 +30,12 @@ Observable is the source of any Reactive Stream. Observable provides ability to 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{group__observables_ga689e92a5caa43b06ef86440b2efa94fb}\label{group__observables_ga689e92a5caa43b06ef86440b2efa94fb}} 
+\mbox{\Hypertarget{group__observables_gaa70991953a96a64c95d7566ff7069f6b}\label{group__observables_gaa70991953a96a64c95d7566ff7069f6b}} 
 \index{Observables@{Observables}!create@{create}}
 \index{create@{create}!Observables@{Observables}}
-\doxysubsubsection{\texorpdfstring{create()}{create()}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$typename Type , typename On\+Subscribe\+Fn $>$ \\
-\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}}$<$ Type, std\+::remove\+\_\+const\+\_\+t$<$ std\+::remove\+\_\+reference\+\_\+t$<$ On\+Subscribe\+Fn $>$ $>$ $>$ rpp\+::observable\+::create (\begin{DoxyParamCaption}\item[{On\+Subscribe\+Fn \&\&}]{on\+\_\+subscribe }\end{DoxyParamCaption})}
+auto rpp\+::observable\+::create (\begin{DoxyParamCaption}\item[{On\+Subscribe\+Fn \&\&}]{on\+\_\+subscribe }\end{DoxyParamCaption})}
 
 
 
@@ -48,6 +50,28 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \end{DoxyTemplParams}
 \begin{DoxyReturn}{Returns}
 \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} with passed action
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__observables_ga7c355ad67fb60d523e6d05604638bae2}\label{group__observables_ga7c355ad67fb60d523e6d05604638bae2}} 
+\index{Observables@{Observables}!create@{create}}
+\index{create@{create}!Observables@{Observables}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename On\+Subscribe\+Fn $>$ \\
+auto rpp\+::observable\+::create (\begin{DoxyParamCaption}\item[{On\+Subscribe\+Fn \&\&}]{on\+\_\+subscribe }\end{DoxyParamCaption})}
+
+
+
+Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with passed action as On\+Subscribe. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em On\+Subscribe\+Fn} & action called after subscription on this observable \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with passed action
 \end{DoxyReturn}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}} 
