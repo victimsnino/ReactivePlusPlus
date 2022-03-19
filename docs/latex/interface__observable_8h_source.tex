@@ -190,7 +190,7 @@
 \DoxyCodeLine{255     \{}
 \DoxyCodeLine{256         \textcolor{keyword}{static\_assert}(is\_callable\_returns\_subscriber\_of\_same\_type\_v<NewType, OperatorFn>, \textcolor{stringliteral}{"{}OperatorFn should return subscriber"{}});}
 \DoxyCodeLine{257 }
-\DoxyCodeLine{258         \textcolor{keywordflow}{return} rpp::make\_specific\_observable<NewType>([new\_this = std::forward<FwdThis>(\_this), op = std::forward<OperatorFn>(op)](\textcolor{keyword}{auto}\&\& subscriber)}
+\DoxyCodeLine{258         \textcolor{keywordflow}{return} rpp::observable::create<NewType>([new\_this = std::forward<FwdThis>(\_this), op = std::forward<OperatorFn>(op)](\textcolor{keyword}{auto}\&\& subscriber)}
 \DoxyCodeLine{259         \{}
 \DoxyCodeLine{260             new\_this.subscribe(op(std::forward<\textcolor{keyword}{decltype}(subscriber)>(subscriber)));}
 \DoxyCodeLine{261         \});}

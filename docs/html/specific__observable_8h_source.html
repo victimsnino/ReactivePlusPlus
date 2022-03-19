@@ -154,13 +154,7 @@ $(function() {
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> OnSub&gt;</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>specific_observable(OnSub on_subscribe) -&gt; specific_observable&lt;utils::extract_subscriber_type_t&lt;utils::function_argument_t&lt;OnSub&gt;&gt;, OnSub&gt;;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type, <span class="keyword">typename</span> OnSub&gt;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="keyword">auto</span> make_specific_observable(OnSub&amp;&amp; call)</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>{</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordflow">return</span> specific_observable&lt;Type, std::decay_t&lt;OnSub&gt;&gt;{std::forward&lt;OnSub&gt;(call)};</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>} <span class="comment">// namespace rpp</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>} <span class="comment">// namespace rpp</span></div>
 <div class="ttc" id="aclassrpp_1_1dynamic__observable_html"><div class="ttname"><a href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable</a></div><div class="ttdoc">type-erased alternative of observable (comparing to rpp::specific_observable).</div><div class="ttdef"><b>Definition:</b> dynamic_observable.h:43</div></div>
 <div class="ttc" id="aclassrpp_1_1dynamic__subscriber_html"><div class="ttname"><a href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber</a></div><div class="ttdoc">subscriber which uses dynamic_observer&lt;T&gt; to hide original callbacks</div><div class="ttdef"><b>Definition:</b> dynamic_subscriber.h:35</div></div>
 <div class="ttc" id="aclassrpp_1_1specific__observable_html"><div class="ttname"><a href="classrpp_1_1specific__observable.html">rpp::specific_observable</a></div><div class="ttdoc">observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...</div><div class="ttdef"><b>Definition:</b> specific_observable.h:44</div></div>

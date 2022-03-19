@@ -257,7 +257,7 @@ $(function() {
 <div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    {</div>
 <div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>        <span class="keyword">static_assert</span>(is_callable_returns_subscriber_of_same_type_v&lt;NewType, OperatorFn&gt;, <span class="stringliteral">&quot;OperatorFn should return subscriber&quot;</span>);</div>
 <div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <span class="keywordflow">return</span> rpp::make_specific_observable&lt;NewType&gt;([new_this = std::forward&lt;FwdThis&gt;(_this), op = std::forward&lt;OperatorFn&gt;(op)](<span class="keyword">auto</span>&amp;&amp; subscriber)</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <span class="keywordflow">return</span> rpp::observable::create&lt;NewType&gt;([new_this = std::forward&lt;FwdThis&gt;(_this), op = std::forward&lt;OperatorFn&gt;(op)](<span class="keyword">auto</span>&amp;&amp; subscriber)</div>
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        {</div>
 <div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            new_this.subscribe(op(std::forward&lt;<span class="keyword">decltype</span>(subscriber)&gt;(subscriber)));</div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        });</div>

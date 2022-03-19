@@ -87,12 +87,6 @@
 \DoxyCodeLine{106 }
 \DoxyCodeLine{107 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnSub>}
 \DoxyCodeLine{108 specific\_observable(OnSub on\_subscribe) -\/> specific\_observable<utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OnSub>>, OnSub>;}
-\DoxyCodeLine{109 }
-\DoxyCodeLine{110 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} OnSub>}
-\DoxyCodeLine{111 \textcolor{keyword}{auto} make\_specific\_observable(OnSub\&\& call)}
-\DoxyCodeLine{112 \{}
-\DoxyCodeLine{113     \textcolor{keywordflow}{return} specific\_observable<Type, std::decay\_t<OnSub>>\{std::forward<OnSub>(call)\};}
-\DoxyCodeLine{114 \}}
-\DoxyCodeLine{115 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{109 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

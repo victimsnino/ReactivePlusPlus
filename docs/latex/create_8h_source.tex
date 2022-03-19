@@ -1,10 +1,10 @@
-\hypertarget{fwd_8h_source}{}\doxysection{fwd.\+h}
-\label{fwd_8h_source}\index{src/include/rpp/fwd.h@{src/include/rpp/fwd.h}}
-
+\hypertarget{create_8h_source}{}\doxysection{create.\+h}
+\label{create_8h_source}\index{src/include/rpp/sources/create.h@{src/include/rpp/sources/create.h}}
+\mbox{\hyperlink{create_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// MIT License}}
 \DoxyCodeLine{2 \textcolor{comment}{// }}
-\DoxyCodeLine{3 \textcolor{comment}{// Copyright (c) 2021 Aleksey Loginov}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (c) 2022 Aleksey Loginov}}
 \DoxyCodeLine{4 \textcolor{comment}{// }}
 \DoxyCodeLine{5 \textcolor{comment}{// Permission is hereby granted, free of charge, to any person obtaining a copy}}
 \DoxyCodeLine{6 \textcolor{comment}{// of this software and associated documentation files (the "{}Software"{}), to deal}}
@@ -26,14 +26,23 @@
 \DoxyCodeLine{22 }
 \DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/observables/fwd.h>}}
-\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <rpp/observers/fwd.h>}}
-\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <rpp/sources/fwd.h>}}
-\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <rpp/subscribers/fwd.h>}}
-\DoxyCodeLine{29 }
-\DoxyCodeLine{30 \textcolor{keyword}{namespace }rpp}
-\DoxyCodeLine{31 \{}
-\DoxyCodeLine{32 \textcolor{keyword}{class }subscription;}
-\DoxyCodeLine{33 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <rpp/observables/specific\_observable.h>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <rpp/utils/type\_traits.h>}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }rpp::observable}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{47 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} OnSubscribeFn>}
+\DoxyCodeLine{48 \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable<Type, std::remove\_const\_t<std::remove\_reference\_t<OnSubscribeFn>}}>> \mbox{\hyperlink{group__observables_ga689e92a5caa43b06ef86440b2efa94fb}{create}}(OnSubscribeFn\&\& on\_subscribe)}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{50     \textcolor{keywordflow}{return} \{std::forward<OnSubscribeFn>(on\_subscribe)\};}
+\DoxyCodeLine{51 \}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{62 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnSubscribeFn, \textcolor{keyword}{typename} Type = utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OnSubscribeFn>>>}
+\DoxyCodeLine{63 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga689e92a5caa43b06ef86440b2efa94fb}{create}}(OnSubscribeFn\&\& on\_subscribe)}
+\DoxyCodeLine{64 \{}
+\DoxyCodeLine{65     \textcolor{keywordflow}{return} create<Type>(std::forward<OnSubscribeFn>(on\_subscribe));}
+\DoxyCodeLine{66 \}}
+\DoxyCodeLine{67 \} \textcolor{comment}{// namespace rpp::observable}}
 
 \end{DoxyCode}
