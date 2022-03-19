@@ -45,23 +45,22 @@ namespace rpp::observable
  * \see https://reactivex.io/documentation/operators/create.html
  */
 template<typename Type, typename OnSubscribeFn>
-specific_observable<Type, std::remove_const_t<std::remove_reference_t<OnSubscribeFn>>> create(OnSubscribeFn&& on_subscribe)
+auto create(OnSubscribeFn&& on_subscribe)
 {
-    return {std::forward<OnSubscribeFn>(on_subscribe)};
+    return specific_observable<Type, std::decay_t<OnSubscribeFn>>{std::forward<OnSubscribeFn>(on_subscribe)};
 }
 
 /**
  * \ingroup observables
  * \brief Creates specific_observable with passed action as OnSubscribe
  * \tparam OnSubscribeFn action called after subscription on this observable
- * \tparam Type of values for observable deduced by argument of passed action (argument -> subscriber of some type -> type)
  * \return specific_observable with passed action
  *
  * \see https://reactivex.io/documentation/operators/create.html
  */
-template<typename OnSubscribeFn, typename Type = utils::extract_subscriber_type_t<utils::function_argument_t<OnSubscribeFn>>>
+template<typename OnSubscribeFn>
 auto create(OnSubscribeFn&& on_subscribe)
 {
-    return create<Type>(std::forward<OnSubscribeFn>(on_subscribe));
+    return create<utils::extract_subscriber_type_t<utils::function_argument_t<OnSubscribeFn>>>(std::forward<OnSubscribeFn>(on_subscribe));
 }
 } // namespace rpp::observable

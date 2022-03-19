@@ -27,8 +27,8 @@
 namespace rpp::observable
 {
 template<typename Type, typename OnSubscribeFn>
-specific_observable<Type, std::remove_const_t<std::remove_reference_t<OnSubscribeFn>>> create(OnSubscribeFn&& on_subscribe);
+auto create(OnSubscribeFn&& on_subscribe);
 
-template<typename OnSubscribeFn, typename Type>
+template<typename OnSubscribeFn>
 auto create(OnSubscribeFn&& on_subscribe);
 } // namespace rpp::observable
