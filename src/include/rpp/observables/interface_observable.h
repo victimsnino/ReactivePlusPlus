@@ -33,7 +33,7 @@ namespace rpp
 {
 namespace details
 {
-    template<typename NewType, typename OnNext, typename OnError, typename OnCompleted>
+    template<constraint::decayed_type NewType, typename OnNext, typename OnError, typename OnCompleted>
     static auto make_lift_action_by_callbacks(OnNext&& on_next, OnError&& on_error, OnCompleted&& on_completed)
     {
         return [on_next = std::forward<OnNext>(on_next),
@@ -69,7 +69,7 @@ concept lift_fn = constraint::subscriber<std::invoke_result_t<T, dynamic_subscri
  * \brief Interface of observable
  * \tparam Type type provided by this observable
  */
-template<typename Type>
+template<constraint::decayed_type Type>
 struct virtual_observable : public details::observable_tag
 {
     static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");

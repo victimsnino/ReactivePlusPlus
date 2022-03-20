@@ -39,7 +39,7 @@ namespace rpp
  * \tparam OnSubscribeFn is type of function/functor/callable used during subscription on this observable
  * \ingroup observables
  */
-template<typename Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
+template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
 class specific_observable final : public interface_observable<Type, specific_observable<Type, OnSubscribeFn>>
 {
     static_assert(std::is_same_v<std::decay_t<OnSubscribeFn>, OnSubscribeFn>, "OnSubscribeFn of specific_observable should be decayed");

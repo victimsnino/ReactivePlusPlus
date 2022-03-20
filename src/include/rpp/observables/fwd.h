@@ -22,6 +22,7 @@
 
 #pragma once
 
+#include <rpp/subscribers/fwd.h>
 #include <rpp/utils/constraints.h>
 
 namespace rpp::details
@@ -29,14 +30,21 @@ namespace rpp::details
 struct observable_tag;
 } // namespace rpp::details
 
+namespace rpp::constraint
+{
+template<typename Fn, typename T> concept on_subscribe_fn = std::invocable<std::decay_t<Fn>, dynamic_subscriber<T>>;
+
+template<typename T> concept observable = std::is_base_of_v<details::observable_tag, std::decay_t<T>>;
+} // namespace rpp::constraint
+
 namespace rpp
 {
-template<typename Type>
+template<constraint::decayed_type Type>
 struct virtual_observable;
 
-template<typename Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
+template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
 class specific_observable;
 
-template<typename Type>
+template<constraint::decayed_type Type>
 class dynamic_observable;
 } // namespace rpp

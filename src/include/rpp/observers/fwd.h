@@ -27,7 +27,17 @@
 namespace rpp::details
 {
 struct observer_tag;
+struct subscriber_tag;
 } // namespace rpp::details
+
+namespace rpp::constraint
+{
+template<typename Fn, typename Type> concept on_next_fn      = std::invocable<std::decay_t<Fn>, Type>;
+template<typename Fn>                concept on_error_fn     = std::invocable<std::decay_t<Fn>, std::exception_ptr>;
+template<typename Fn>                concept on_completed_fn = std::invocable<std::decay_t<Fn>>;
+
+template<typename T> concept observer   = std::is_base_of_v<details::observer_tag, std::decay_t<T>> && !std::is_base_of_v<details::subscriber_tag, std::decay_t<T>>;
+} // namespace rpp::constraint
 
 namespace rpp
 {

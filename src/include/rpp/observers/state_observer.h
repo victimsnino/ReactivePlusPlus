@@ -22,11 +22,9 @@
 
 #pragma once
 
-#include "rpp/utils/constraints.h"
-
 #include <rpp/observers/interface_observer.h>
+#include <rpp/utils/constraints.h>
 #include <rpp/utils/function_traits.h>
-#include <rpp/utils/functors.h>
 
 #include <exception>
 
@@ -47,10 +45,10 @@ struct forwarding_on_completed
 /**
  * \brief Special type of specific_observer which has some state which this observer stores and pass to each callback. Used for storing subscriber without extra copies
  */
-template<typename T,
+template<constraint::decayed_type T,
          typename State,
          typename OnNext,
-         typename OnError = forwarding_on_error,
+         typename OnError     = forwarding_on_error,
          typename OnCompleted = forwarding_on_completed>
 class state_observer final : public interface_observer<T>
 {

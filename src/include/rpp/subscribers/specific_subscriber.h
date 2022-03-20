@@ -35,7 +35,7 @@ namespace rpp
  * \tparam Type type of values expected by this subscriber
  * \tparam Observer observer which was wrapped by this subscriber
  */
-template<typename Type, typename Observer>
+template<constraint::decayed_type Type, constraint::decayed_observer Observer>
 class specific_subscriber : public details::subscriber_base<Type>
 {
     static_assert(std::is_same_v<std::decay_t<Observer>, Observer>, "Observer should be decayed");

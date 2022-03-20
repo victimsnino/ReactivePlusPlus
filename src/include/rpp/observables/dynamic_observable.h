@@ -38,7 +38,7 @@ namespace rpp
  * \tparam Type is type of value provided by this observable
  * \ingroup observables
  */
-template<typename Type>
+template<constraint::decayed_type Type>
 class dynamic_observable final : public interface_observable<Type, dynamic_observable<Type>>
 {
 public:
