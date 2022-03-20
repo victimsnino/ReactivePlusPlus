@@ -34,7 +34,7 @@
 \DoxyCodeLine{30 }
 \DoxyCodeLine{31 \textcolor{keyword}{namespace }rpp}
 \DoxyCodeLine{32 \{}
-\DoxyCodeLine{41 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type>}
+\DoxyCodeLine{41 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
 \DoxyCodeLine{42 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1interface__observable}{interface\_observable}}<Type, dynamic\_observable<Type>>}
 \DoxyCodeLine{43 \{}
 \DoxyCodeLine{44 \textcolor{keyword}{public}:}
@@ -55,29 +55,24 @@
 \DoxyCodeLine{59         \textcolor{keywordflow}{return} m\_observable-\/>subscribe(subscriber);}
 \DoxyCodeLine{60     \}}
 \DoxyCodeLine{61 }
-\DoxyCodeLine{62     \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable_a43dfe979f5a6f05a7a546f5bb724422a}{subscribe}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<Type>}}\& subscriber) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{63     \{}
-\DoxyCodeLine{64         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1dynamic__observable_a43dfe979f5a6f05a7a546f5bb724422a}{subscribe}}(\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber}}\{subscriber\});}
-\DoxyCodeLine{65     \}}
-\DoxyCodeLine{66 }
-\DoxyCodeLine{72     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{73         \textcolor{keyword}{requires} std::is\_constructible\_v<rpp::dynamic\_subscriber<Type>, std::decay\_t<Args>...>}
-\DoxyCodeLine{74         \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable_a5e038f0be28874827fb34d3fbb130ae7}{subscribe}}(Args\&\&...args) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{75     \{}
-\DoxyCodeLine{76         \textcolor{keywordflow}{return} m\_observable-\/>subscribe(\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<Type>}}\{std::forward<Args>(args)...\});}
-\DoxyCodeLine{77     \}}
-\DoxyCodeLine{78 }
-\DoxyCodeLine{79     \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable<Type>}} as\_dynamic()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
-\DoxyCodeLine{80 }
-\DoxyCodeLine{81 \textcolor{keyword}{private}:}
-\DoxyCodeLine{82     std::shared\_ptr<virtual\_observable<Type>> m\_observable\{\};}
-\DoxyCodeLine{83 \};}
-\DoxyCodeLine{84 }
-\DoxyCodeLine{85 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs>}
-\DoxyCodeLine{86 dynamic\_observable(TObs obs) -\/> dynamic\_observable<utils::extract\_observable\_type\_t<TObs>>;}
-\DoxyCodeLine{87 }
-\DoxyCodeLine{88 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnSub>}
-\DoxyCodeLine{89 dynamic\_observable(OnSub on\_subscribe) -\/> dynamic\_observable<utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OnSub>>>;}
-\DoxyCodeLine{90 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{67     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{68         \textcolor{keyword}{requires} std::is\_constructible\_v<dynamic\_subscriber<Type>, std::decay\_t<Args>...>}
+\DoxyCodeLine{69         \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable_aa610256805b1a2e16f1da4e07adeebd9}{subscribe}}(Args\&\&...args) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{70     \{}
+\DoxyCodeLine{71         \textcolor{keywordflow}{return} m\_observable-\/>subscribe(\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<Type>}}\{std::forward<Args>(args)...\});}
+\DoxyCodeLine{72     \}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74     \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable<Type>}} as\_dynamic()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76 \textcolor{keyword}{private}:}
+\DoxyCodeLine{77     std::shared\_ptr<virtual\_observable<Type>> m\_observable\{\};}
+\DoxyCodeLine{78 \};}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs>}
+\DoxyCodeLine{81 dynamic\_observable(TObs obs) -\/> dynamic\_observable<utils::extract\_observable\_type\_t<TObs>>;}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnSub>}
+\DoxyCodeLine{84 dynamic\_observable(OnSub on\_subscribe) -\/> dynamic\_observable<utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OnSub>>>;}
+\DoxyCodeLine{85 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

@@ -26,11 +26,8 @@ Inheritance diagram for rpp\+::dynamic\+\_\+observable\texorpdfstring{$<$}{<} Ty
 \item 
 \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable_a43dfe979f5a6f05a7a546f5bb724422a}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ Type $>$ \&subscriber) const noexcept override
 \begin{DoxyCompactList}\small\item\em Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrpp_1_1dynamic__observable_ae94175d544d1ffa362a39da46409eb41}\label{classrpp_1_1dynamic__observable_ae94175d544d1ffa362a39da46409eb41}} 
-\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} {\bfseries subscribe} (const \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ Type $>$ \&subscriber) const noexcept
-\item 
 {\footnotesize template$<$typename ... Args$>$ \newline
-requires std\+::is\+\_\+constructible\+\_\+v$<$\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp\+::dynamic\+\_\+subscriber}}$<$Type$>$, std\+::decay\+\_\+t$<$Args$>$...$>$}\\\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable_a5e038f0be28874827fb34d3fbb130ae7}{subscribe}} (Args \&\&...args) const noexcept
+requires std\+::is\+\_\+constructible\+\_\+v$<$\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$Type$>$, std\+::decay\+\_\+t$<$Args$>$...$>$}\\\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable_aa610256805b1a2e16f1da4e07adeebd9}{subscribe}} (Args \&\&...args) const noexcept
 \begin{DoxyCompactList}\small\item\em Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrpp_1_1dynamic__observable_aacc483df829262ee822b58a53bbc349e}\label{classrpp_1_1dynamic__observable_aacc483df829262ee822b58a53bbc349e}} 
 \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\+\_\+observable}}$<$ Type $>$ {\bfseries as\+\_\+dynamic} () const
@@ -44,7 +41,7 @@ requires std\+::is\+\_\+constructible\+\_\+v$<$\mbox{\hyperlink{classrpp_1_1dyna
 
 
 \doxysubsection{Detailed Description}
-\subsubsection*{template$<$typename Type$>$\newline
+\subsubsection*{template$<$constraint\+::decayed\+\_\+type Type$>$\newline
 class rpp\+::dynamic\+\_\+observable$<$ Type $>$}
 type-\/erased alternative of observable (comparing to \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}). 
 
@@ -56,13 +53,13 @@ It uses type-\/erasure mechanism to hide type of On\+Subscribe\+Fn. But it has h
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classrpp_1_1dynamic__observable_a5e038f0be28874827fb34d3fbb130ae7}\label{classrpp_1_1dynamic__observable_a5e038f0be28874827fb34d3fbb130ae7}} 
+\mbox{\Hypertarget{classrpp_1_1dynamic__observable_aa610256805b1a2e16f1da4e07adeebd9}\label{classrpp_1_1dynamic__observable_aa610256805b1a2e16f1da4e07adeebd9}} 
 \index{rpp::dynamic\_observable$<$ Type $>$@{rpp::dynamic\_observable$<$ Type $>$}!subscribe@{subscribe}}
 \index{subscribe@{subscribe}!rpp::dynamic\_observable$<$ Type $>$@{rpp::dynamic\_observable$<$ Type $>$}}
 \doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$typename Type $>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
 template$<$typename ... Args$>$ \newline
-requires std\+::is\+\_\+constructible\+\_\+v$<$\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp\+::dynamic\+\_\+subscriber}}$<$Type$>$, std\+::decay\+\_\+t$<$Args$>$...$>$\\
+requires std\+::is\+\_\+constructible\+\_\+v$<$\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$Type$>$, std\+::decay\+\_\+t$<$Args$>$...$>$\\
 \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable}}$<$ Type $>$\+::subscribe (\begin{DoxyParamCaption}\item[{Args \&\&...}]{args }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
 
 
@@ -76,7 +73,7 @@ subscription on this observable which can be used to unsubscribe
 \index{rpp::dynamic\_observable$<$ Type $>$@{rpp::dynamic\_observable$<$ Type $>$}!subscribe@{subscribe}}
 \index{subscribe@{subscribe}!rpp::dynamic\_observable$<$ Type $>$@{rpp::dynamic\_observable$<$ Type $>$}}
 \doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$typename Type $>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
 \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable}}$<$ Type $>$\+::subscribe (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ Type $>$ \&}]{subscriber }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
 
 

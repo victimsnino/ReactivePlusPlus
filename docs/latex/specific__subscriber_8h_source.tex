@@ -34,7 +34,7 @@
 \DoxyCodeLine{30 }
 \DoxyCodeLine{31 \textcolor{keyword}{namespace }rpp}
 \DoxyCodeLine{32 \{}
-\DoxyCodeLine{38 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} Observer>}
+\DoxyCodeLine{38 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::decayed\_observer Observer>}
 \DoxyCodeLine{39 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}} : \textcolor{keyword}{public} \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{details::subscriber\_base}}<Type>}
 \DoxyCodeLine{40 \{}
 \DoxyCodeLine{41     \textcolor{keyword}{static\_assert}(std::is\_same\_v<std::decay\_t<Observer>, Observer>, \textcolor{stringliteral}{"{}Observer should be decayed"{}});}
@@ -111,12 +111,12 @@
 \DoxyCodeLine{112 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext,}
 \DoxyCodeLine{113          \textcolor{keyword}{typename} ...Args,}
 \DoxyCodeLine{114          \textcolor{keyword}{typename} Type = std::decay\_t<utils::function\_argument\_t<OnNext>>>}
-\DoxyCodeLine{115 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(\mbox{\hyperlink{classrpp_1_1subscription}{subscription}}, OnNext, Args ...) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}<Type, details::deduce\_specific\_observer\_type\_t<OnNext, Args...>>;}
+\DoxyCodeLine{115 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(\mbox{\hyperlink{classrpp_1_1subscription}{subscription}}, OnNext, Args ...) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}<Type, details::deduce\_specific\_observer\_type\_t<Type, OnNext, Args...>>;}
 \DoxyCodeLine{116 }
 \DoxyCodeLine{117 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext,}
 \DoxyCodeLine{118          \textcolor{keyword}{typename} ...Args,}
 \DoxyCodeLine{119          \textcolor{keyword}{typename} Type = std::decay\_t<utils::function\_argument\_t<OnNext>>>}
-\DoxyCodeLine{120 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(OnNext, Args ...) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}<Type, details::deduce\_specific\_observer\_type\_t<OnNext, Args...>>;}
+\DoxyCodeLine{120 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(OnNext, Args ...) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}<Type, details::deduce\_specific\_observer\_type\_t<Type, OnNext, Args...>>;}
 \DoxyCodeLine{121 }
 \DoxyCodeLine{122 }
 \DoxyCodeLine{126 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} ...Args>}

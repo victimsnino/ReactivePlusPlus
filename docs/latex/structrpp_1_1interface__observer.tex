@@ -29,7 +29,7 @@ virtual void \mbox{\hyperlink{structrpp_1_1interface__observer_a33ab3fa364e11b58
 
 
 \doxysubsection{Detailed Description}
-\subsubsection*{template$<$typename T$>$\newline
+\subsubsection*{template$<$constraint\+::decayed\+\_\+type T$>$\newline
 struct rpp\+::interface\+\_\+observer$<$ T $>$}
 Interface of any observer type. Describes base interface in terms of Reactive Programming. 
 
@@ -45,7 +45,7 @@ Interface of any observer type. Describes base interface in terms of Reactive Pr
 \index{rpp::interface\_observer$<$ T $>$@{rpp::interface\_observer$<$ T $>$}!on\_completed@{on\_completed}}
 \index{on\_completed@{on\_completed}!rpp::interface\_observer$<$ T $>$@{rpp::interface\_observer$<$ T $>$}}
 \doxysubsubsection{\texorpdfstring{on\_completed()}{on\_completed()}}
-{\footnotesize\ttfamily template$<$typename T $>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type T$>$ \\
 virtual void \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface\+\_\+observer}}$<$ T $>$\+::on\+\_\+completed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
@@ -63,7 +63,7 @@ Implemented in \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_a85ef4e7
 \index{rpp::interface\_observer$<$ T $>$@{rpp::interface\_observer$<$ T $>$}!on\_error@{on\_error}}
 \index{on\_error@{on\_error}!rpp::interface\_observer$<$ T $>$@{rpp::interface\_observer$<$ T $>$}}
 \doxysubsubsection{\texorpdfstring{on\_error()}{on\_error()}}
-{\footnotesize\ttfamily template$<$typename T $>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type T$>$ \\
 virtual void \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface\+\_\+observer}}$<$ T $>$\+::on\+\_\+error (\begin{DoxyParamCaption}\item[{const std\+::exception\+\_\+ptr \&}]{err }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
@@ -86,7 +86,7 @@ Implemented in \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_ae953229
 \index{rpp::interface\_observer$<$ T $>$@{rpp::interface\_observer$<$ T $>$}!on\_next@{on\_next}}
 \index{on\_next@{on\_next}!rpp::interface\_observer$<$ T $>$@{rpp::interface\_observer$<$ T $>$}}
 \doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$typename T $>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type T$>$ \\
 virtual void \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface\+\_\+observer}}$<$ T $>$\+::on\+\_\+next (\begin{DoxyParamCaption}\item[{const T \&}]{v }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
@@ -98,13 +98,13 @@ obtains value by const-\/reference to original object.
 \end{DoxyNote}
 
 
-Implemented in \mbox{\hyperlink{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}{rpp\+::dynamic\+\_\+observer$<$ T $>$}}, \mbox{\hyperlink{classrpp_1_1specific__observer_a00ef0f5cdd0c45d58c0e019479cadd35}{rpp\+::specific\+\_\+observer$<$ T, On\+Next, On\+Error, On\+Completed $>$}}, \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a0e00117dd1c6fc7e1cf296c3b42a86ee}{rpp\+::details\+::state\+\_\+observer$<$ T, State, On\+Next, On\+Error, On\+Completed $>$}}, and \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_a8de1e104568abb9461825241d8bce9f9}{rpp\+::details\+::subscriber\+\_\+base$<$ Type $>$}}.
+Implemented in \mbox{\hyperlink{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}{rpp\+::dynamic\+\_\+observer$<$ T $>$}}, \mbox{\hyperlink{classrpp_1_1specific__observer_a00ef0f5cdd0c45d58c0e019479cadd35}{rpp\+::specific\+\_\+observer$<$ T, On\+Next, On\+Error, On\+Completed $>$}}, and \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a0e00117dd1c6fc7e1cf296c3b42a86ee}{rpp\+::details\+::state\+\_\+observer$<$ T, State, On\+Next, On\+Error, On\+Completed $>$}}.
 
 \mbox{\Hypertarget{structrpp_1_1interface__observer_a3780d41600d3dacd8ae6536fb65614d6}\label{structrpp_1_1interface__observer_a3780d41600d3dacd8ae6536fb65614d6}} 
 \index{rpp::interface\_observer$<$ T $>$@{rpp::interface\_observer$<$ T $>$}!on\_next@{on\_next}}
 \index{on\_next@{on\_next}!rpp::interface\_observer$<$ T $>$@{rpp::interface\_observer$<$ T $>$}}
 \doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$typename T $>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type T$>$ \\
 virtual void \mbox{\hyperlink{structrpp_1_1interface__observer}{rpp\+::interface\+\_\+observer}}$<$ T $>$\+::on\+\_\+next (\begin{DoxyParamCaption}\item[{T \&\&}]{v }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
@@ -116,7 +116,7 @@ obtains value by rvalue-\/reference to original object
 \end{DoxyNote}
 
 
-Implemented in \mbox{\hyperlink{classrpp_1_1dynamic__observer_a16f5d34af9d7c4096b1c4535a866dab2}{rpp\+::dynamic\+\_\+observer$<$ T $>$}}, \mbox{\hyperlink{classrpp_1_1specific__observer_af96eb0933f734772dda7d273ea4d1c27}{rpp\+::specific\+\_\+observer$<$ T, On\+Next, On\+Error, On\+Completed $>$}}, \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_aeb292b8b8b42cbd39aaad8ed1db5e645}{rpp\+::details\+::state\+\_\+observer$<$ T, State, On\+Next, On\+Error, On\+Completed $>$}}, and \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_aec89d8ba3d43d80d4c6e8ba27d680d3c}{rpp\+::details\+::subscriber\+\_\+base$<$ Type $>$}}.
+Implemented in \mbox{\hyperlink{classrpp_1_1dynamic__observer_a16f5d34af9d7c4096b1c4535a866dab2}{rpp\+::dynamic\+\_\+observer$<$ T $>$}}, \mbox{\hyperlink{classrpp_1_1specific__observer_af96eb0933f734772dda7d273ea4d1c27}{rpp\+::specific\+\_\+observer$<$ T, On\+Next, On\+Error, On\+Completed $>$}}, and \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_aeb292b8b8b42cbd39aaad8ed1db5e645}{rpp\+::details\+::state\+\_\+observer$<$ T, State, On\+Next, On\+Error, On\+Completed $>$}}.
 
 
 

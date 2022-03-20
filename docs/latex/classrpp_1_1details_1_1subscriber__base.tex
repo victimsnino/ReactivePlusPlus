@@ -30,10 +30,12 @@ Inheritance diagram for rpp\+::details\+::subscriber\+\_\+base\texorpdfstring{$<
 \mbox{\Hypertarget{classrpp_1_1details_1_1subscriber__base_ab9b610fd1b55c0ccb65830a21e380c87}\label{classrpp_1_1details_1_1subscriber__base_ab9b610fd1b55c0ccb65830a21e380c87}} 
 {\bfseries subscriber\+\_\+base} (\mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{subscriber\+\_\+base}} \&\&) noexcept=default
 \item 
-void \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_a8de1e104568abb9461825241d8bce9f9}{on\+\_\+next}} (const Type \&val) const final
-\begin{DoxyCompactList}\small\item\em Observable calls this methods to notify observer about new value. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_aec89d8ba3d43d80d4c6e8ba27d680d3c}{on\+\_\+next}} (Type \&\&val) const final
-\begin{DoxyCompactList}\small\item\em Observable calls this methods to notify observer about new value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrpp_1_1details_1_1subscriber__base_a8de1e104568abb9461825241d8bce9f9}\label{classrpp_1_1details_1_1subscriber__base_a8de1e104568abb9461825241d8bce9f9}} 
+void {\bfseries on\+\_\+next} (const Type \&val) const final
+\item 
+\mbox{\Hypertarget{classrpp_1_1details_1_1subscriber__base_aec89d8ba3d43d80d4c6e8ba27d680d3c}\label{classrpp_1_1details_1_1subscriber__base_aec89d8ba3d43d80d4c6e8ba27d680d3c}} 
+void {\bfseries on\+\_\+next} (Type \&\&val) const final
+\item 
 void \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_ae9532294156f8acf86d1cf39d4c1cc15}{on\+\_\+error}} (const std\+::exception\+\_\+ptr \&err) const final
 \begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about some error during generation next data. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_a85ef4e79f7f9d82d5899dc2524a7289a}{on\+\_\+completed}} () const final
@@ -65,7 +67,7 @@ virtual void {\bfseries on\+\_\+completed\+\_\+impl} () const =0
 
 
 \doxysubsection{Detailed Description}
-\subsubsection*{template$<$typename Type$>$\newline
+\subsubsection*{template$<$constraint\+::decayed\+\_\+type Type$>$\newline
 class rpp\+::details\+::subscriber\+\_\+base$<$ Type $>$}
 base implementation of subscriber with possibility to obtain observer\textquotesingle{}s callbacks, query subscription state, unsubscribe and etc. Each observer\textquotesingle{}s callback checks for actual subscription 
 
@@ -81,7 +83,7 @@ base implementation of subscriber with possibility to obtain observer\textquotes
 \index{rpp::details::subscriber\_base$<$ Type $>$@{rpp::details::subscriber\_base$<$ Type $>$}!on\_completed@{on\_completed}}
 \index{on\_completed@{on\_completed}!rpp::details::subscriber\_base$<$ Type $>$@{rpp::details::subscriber\_base$<$ Type $>$}}
 \doxysubsubsection{\texorpdfstring{on\_completed()}{on\_completed()}}
-{\footnotesize\ttfamily template$<$typename Type $>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
 void \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{rpp\+::details\+::subscriber\+\_\+base}}$<$ Type $>$\+::on\+\_\+completed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
 
 
@@ -99,7 +101,7 @@ Implements \mbox{\hyperlink{structrpp_1_1interface__observer_a33ab3fa364e11b58e4
 \index{rpp::details::subscriber\_base$<$ Type $>$@{rpp::details::subscriber\_base$<$ Type $>$}!on\_error@{on\_error}}
 \index{on\_error@{on\_error}!rpp::details::subscriber\_base$<$ Type $>$@{rpp::details::subscriber\_base$<$ Type $>$}}
 \doxysubsubsection{\texorpdfstring{on\_error()}{on\_error()}}
-{\footnotesize\ttfamily template$<$typename Type $>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
 void \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{rpp\+::details\+::subscriber\+\_\+base}}$<$ Type $>$\+::on\+\_\+error (\begin{DoxyParamCaption}\item[{const std\+::exception\+\_\+ptr \&}]{err }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
 
 
@@ -117,42 +119,6 @@ Obtaining this call means no any further on\+\_\+next or on\+\_\+completed calls
 
 
 Implements \mbox{\hyperlink{structrpp_1_1interface__observer_a75f46a05b81cdc26b9d7d52efede9cf0}{rpp\+::interface\+\_\+observer$<$ Type $>$}}.
-
-\mbox{\Hypertarget{classrpp_1_1details_1_1subscriber__base_a8de1e104568abb9461825241d8bce9f9}\label{classrpp_1_1details_1_1subscriber__base_a8de1e104568abb9461825241d8bce9f9}} 
-\index{rpp::details::subscriber\_base$<$ Type $>$@{rpp::details::subscriber\_base$<$ Type $>$}!on\_next@{on\_next}}
-\index{on\_next@{on\_next}!rpp::details::subscriber\_base$<$ Type $>$@{rpp::details::subscriber\_base$<$ Type $>$}}
-\doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$typename Type $>$ \\
-void \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{rpp\+::details\+::subscriber\+\_\+base}}$<$ Type $>$\+::on\+\_\+next (\begin{DoxyParamCaption}\item[{const Type \&}]{v }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
-
-
-
-Observable calls this methods to notify observer about new value. 
-
-\begin{DoxyNote}{Note}
-obtains value by const-\/reference to original object. 
-\end{DoxyNote}
-
-
-Implements \mbox{\hyperlink{structrpp_1_1interface__observer_aa434bd87b9be8e727ef38dcac14e7e27}{rpp\+::interface\+\_\+observer$<$ Type $>$}}.
-
-\mbox{\Hypertarget{classrpp_1_1details_1_1subscriber__base_aec89d8ba3d43d80d4c6e8ba27d680d3c}\label{classrpp_1_1details_1_1subscriber__base_aec89d8ba3d43d80d4c6e8ba27d680d3c}} 
-\index{rpp::details::subscriber\_base$<$ Type $>$@{rpp::details::subscriber\_base$<$ Type $>$}!on\_next@{on\_next}}
-\index{on\_next@{on\_next}!rpp::details::subscriber\_base$<$ Type $>$@{rpp::details::subscriber\_base$<$ Type $>$}}
-\doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$typename Type $>$ \\
-void \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{rpp\+::details\+::subscriber\+\_\+base}}$<$ Type $>$\+::on\+\_\+next (\begin{DoxyParamCaption}\item[{Type \&\&}]{v }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
-
-
-
-Observable calls this methods to notify observer about new value. 
-
-\begin{DoxyNote}{Note}
-obtains value by rvalue-\/reference to original object 
-\end{DoxyNote}
-
-
-Implements \mbox{\hyperlink{structrpp_1_1interface__observer_a3780d41600d3dacd8ae6536fb65614d6}{rpp\+::interface\+\_\+observer$<$ Type $>$}}.
 
 
 

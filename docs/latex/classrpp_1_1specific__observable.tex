@@ -44,7 +44,7 @@ requires std\+::is\+\_\+constructible\+\_\+v$<$\mbox{\hyperlink{classrpp_1_1dyna
 
 
 \doxysubsection{Detailed Description}
-\subsubsection*{template$<$typename Type, constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$\newline
+\subsubsection*{template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$\newline
 class rpp\+::specific\+\_\+observable$<$ Type, On\+Subscribe\+Fn $>$}
 observable specified with specific type of On\+Subscribe\+Fn. Used to store On\+Subscribe\+Fn function as is on stack (instead of allocating it somewhere). 
 
@@ -62,7 +62,7 @@ It has better performance comparing to \mbox{\hyperlink{classrpp_1_1dynamic__obs
 \index{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}!subscribe@{subscribe}}
 \index{subscribe@{subscribe}!rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}}
 \doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily template$<$typename Type , constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ \\
 template$<$typename ... Args$>$ \newline
 requires std\+::is\+\_\+constructible\+\_\+v$<$\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp\+::dynamic\+\_\+subscriber}}$<$Type$>$, std\+::decay\+\_\+t$<$Args$>$...$>$\\
 \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}$<$ Type, On\+Subscribe\+Fn $>$\+::subscribe (\begin{DoxyParamCaption}\item[{Args \&\&...}]{args }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
@@ -78,7 +78,7 @@ subscription on this observable which can be used to unsubscribe
 \index{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}!subscribe@{subscribe}}
 \index{subscribe@{subscribe}!rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}}
 \doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily template$<$typename Type , constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ \\
 \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}$<$ Type, On\+Subscribe\+Fn $>$\+::subscribe (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ Type $>$ \&}]{subscriber }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
 
 
@@ -96,7 +96,7 @@ Implements \mbox{\hyperlink{structrpp_1_1virtual__observable_aef0abc01731e70ece3
 \index{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}!subscribe@{subscribe}}
 \index{subscribe@{subscribe}!rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}}
 \doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
-{\footnotesize\ttfamily template$<$typename Type , constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ \\
 template$<$constraint\+::observer TObserver$>$ \newline
 requires std\+::is\+\_\+same\+\_\+v$<$utils\+::extract\+\_\+observer\+\_\+type\+\_\+t$<$TObserver$>$, Type$>$\\
 \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}$<$ Type, On\+Subscribe\+Fn $>$\+::subscribe (\begin{DoxyParamCaption}\item[{TObserver \&\&}]{observer }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
@@ -112,7 +112,7 @@ subscription on this observable which can be used to unsubscribe
 \index{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}!subscribe@{subscribe}}
 \index{subscribe@{subscribe}!rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}}
 \doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
-{\footnotesize\ttfamily template$<$typename Type , constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ \\
 template$<$constraint\+::subscriber TSub$>$ \newline
 requires std\+::is\+\_\+same\+\_\+v$<$utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$TSub$>$, Type$>$\\
 \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}$<$ Type, On\+Subscribe\+Fn $>$\+::subscribe (\begin{DoxyParamCaption}\item[{TSub \&\&}]{subscriber }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}

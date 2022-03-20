@@ -35,7 +35,7 @@
 \DoxyCodeLine{31 }
 \DoxyCodeLine{32 \textcolor{keyword}{namespace }rpp}
 \DoxyCodeLine{33 \{}
-\DoxyCodeLine{42 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, constra\textcolor{keywordtype}{int}::on\_subscribe\_fn<Type> OnSubscribeFn>}
+\DoxyCodeLine{42 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::on\_subscribe\_fn<Type> OnSubscribeFn>}
 \DoxyCodeLine{43 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1interface__observable}{interface\_observable}}<Type, specific\_observable<Type, OnSubscribeFn>>}
 \DoxyCodeLine{44 \{}
 \DoxyCodeLine{45     \textcolor{keyword}{static\_assert}(std::is\_same\_v<std::decay\_t<OnSubscribeFn>, OnSubscribeFn>, \textcolor{stringliteral}{"{}OnSubscribeFn of specific\_observable should be decayed"{}});}

@@ -93,20 +93,20 @@ $(function() {
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;exception&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;rpp/utils/constraints.h&gt;</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">namespace </span>rpp</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>{</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">namespace </span>details</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;exception&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">namespace </span>rpp</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>{</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1observer__tag.html">   31</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1observer__tag.html">observer_tag</a> {};</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>} <span class="comment">// namespace details</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structrpp_1_1interface__observer.html">   39</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1interface__observer.html">interface_observer</a> : <span class="keyword">public</span> <a class="code hl_struct" href="structrpp_1_1details_1_1observer__tag.html">details::observer_tag</a></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>{</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">static_assert</span>(std::is_same_v&lt;std::decay_t&lt;T&gt;, T&gt;, <span class="stringliteral">&quot;Type should be decayed to match with decayed observable types&quot;</span>);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">namespace </span>details</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>{</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1observer__tag.html">   33</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1observer__tag.html">observer_tag</a> {};</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>} <span class="comment">// namespace details</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="structrpp_1_1interface__observer.html">   41</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1interface__observer.html">interface_observer</a> : <span class="keyword">public</span> <a class="code hl_struct" href="structrpp_1_1details_1_1observer__tag.html">details::observer_tag</a></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>{</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">virtual</span> <a class="code hl_struct" href="structrpp_1_1interface__observer.html">~interface_observer</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="structrpp_1_1interface__observer.html#aa434bd87b9be8e727ef38dcac14e7e27">   50</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="structrpp_1_1interface__observer.html#aa434bd87b9be8e727ef38dcac14e7e27">on_next</a>(<span class="keyword">const</span> T&amp; v) <span class="keyword">const</span> = 0;</div>
@@ -121,8 +121,8 @@ $(function() {
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>};</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>} <span class="comment">// namespace rpp</span></div>
-<div class="ttc" id="astructrpp_1_1details_1_1observer__tag_html"><div class="ttname"><a href="structrpp_1_1details_1_1observer__tag.html">rpp::details::observer_tag</a></div><div class="ttdef"><b>Definition:</b> interface_observer.h:31</div></div>
-<div class="ttc" id="astructrpp_1_1interface__observer_html"><div class="ttname"><a href="structrpp_1_1interface__observer.html">rpp::interface_observer</a></div><div class="ttdoc">Interface of any observer type. Describes base interface in terms of Reactive Programming.</div><div class="ttdef"><b>Definition:</b> interface_observer.h:40</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1observer__tag_html"><div class="ttname"><a href="structrpp_1_1details_1_1observer__tag.html">rpp::details::observer_tag</a></div><div class="ttdef"><b>Definition:</b> interface_observer.h:33</div></div>
+<div class="ttc" id="astructrpp_1_1interface__observer_html"><div class="ttname"><a href="structrpp_1_1interface__observer.html">rpp::interface_observer</a></div><div class="ttdoc">Interface of any observer type. Describes base interface in terms of Reactive Programming.</div><div class="ttdef"><b>Definition:</b> interface_observer.h:42</div></div>
 <div class="ttc" id="astructrpp_1_1interface__observer_html_a33ab3fa364e11b58e4225afd9c071ad1"><div class="ttname"><a href="structrpp_1_1interface__observer.html#a33ab3fa364e11b58e4225afd9c071ad1">rpp::interface_observer::on_completed</a></div><div class="ttdeci">virtual void on_completed() const =0</div><div class="ttdoc">Observable calls this method to notify observer about finish of work.</div></div>
 <div class="ttc" id="astructrpp_1_1interface__observer_html_a3780d41600d3dacd8ae6536fb65614d6"><div class="ttname"><a href="structrpp_1_1interface__observer.html#a3780d41600d3dacd8ae6536fb65614d6">rpp::interface_observer::on_next</a></div><div class="ttdeci">virtual void on_next(T &amp;&amp;v) const =0</div><div class="ttdoc">Observable calls this methods to notify observer about new value.</div></div>
 <div class="ttc" id="astructrpp_1_1interface__observer_html_a75f46a05b81cdc26b9d7d52efede9cf0"><div class="ttname"><a href="structrpp_1_1interface__observer.html#a75f46a05b81cdc26b9d7d52efede9cf0">rpp::interface_observer::on_error</a></div><div class="ttdeci">virtual void on_error(const std::exception_ptr &amp;err) const =0</div><div class="ttdoc">Observable calls this method to notify observer about some error during generation next data.</div></div>
