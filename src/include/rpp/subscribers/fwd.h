@@ -22,7 +22,7 @@
 
 #pragma once
 
-#include <rpp/observers/fwd.h>
+#include <rpp/observers/constraints.h>
 #include <rpp/utils/constraints.h>
 
 namespace rpp::details
@@ -32,11 +32,6 @@ struct subscriber_tag;
 template<constraint::decayed_type Type>
 class subscriber_base;
 } // namespace rpp::details
-
-namespace rpp::constraint
-{
-template<typename T> concept decayed_observer = observer<T> && decayed_type<T>;
-} // namespace rpp::constraint
 
 namespace rpp
 {

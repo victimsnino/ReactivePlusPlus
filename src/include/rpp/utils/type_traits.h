@@ -26,18 +26,6 @@
 
 namespace rpp::utils
 {
-// *************************** SUBSCRIBER ************************//
-
-
-template<typename T>
-constexpr bool is_subscriber_v = std::is_base_of_v<rpp::details::subscriber_tag, std::decay_t<T>>;
-
-// *************************** OBSERVER ************************//
-
-
-template<typename T>
-constexpr bool is_observer_v = std::is_base_of_v<rpp::details::observer_tag, std::decay_t<T>> && !is_subscriber_v<std::decay_t<T>>;
-
 namespace details
 {
 template<typename Type, typename ...Args>
