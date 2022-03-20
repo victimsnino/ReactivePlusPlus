@@ -26,7 +26,7 @@
 \DoxyCodeLine{22 }
 \DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/observers/fwd.h>}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/observers/constraints.h>}}
 \DoxyCodeLine{26 \textcolor{preprocessor}{\#include <rpp/utils/constraints.h>}}
 \DoxyCodeLine{27 }
 \DoxyCodeLine{28 \textcolor{keyword}{namespace }rpp::details}
@@ -37,18 +37,13 @@
 \DoxyCodeLine{33 \textcolor{keyword}{class }subscriber\_base;}
 \DoxyCodeLine{34 \} \textcolor{comment}{// namespace rpp::details}}
 \DoxyCodeLine{35 }
-\DoxyCodeLine{36 \textcolor{keyword}{namespace }rpp::constraint}
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }rpp}
 \DoxyCodeLine{37 \{}
-\DoxyCodeLine{38 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }decayed\_observer = observer<T> \&\& decayed\_type<T>;}
-\DoxyCodeLine{39 \} \textcolor{comment}{// namespace rpp::constraint}}
+\DoxyCodeLine{38 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::decayed\_observer Observer>}
+\DoxyCodeLine{39 \textcolor{keyword}{class }specific\_subscriber;}
 \DoxyCodeLine{40 }
-\DoxyCodeLine{41 \textcolor{keyword}{namespace }rpp}
-\DoxyCodeLine{42 \{}
-\DoxyCodeLine{43 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::decayed\_observer Observer>}
-\DoxyCodeLine{44 \textcolor{keyword}{class }specific\_subscriber;}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{46 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{47 \textcolor{keyword}{class }dynamic\_subscriber;}
-\DoxyCodeLine{48 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{41 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{42 \textcolor{keyword}{class }dynamic\_subscriber;}
+\DoxyCodeLine{43 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}
