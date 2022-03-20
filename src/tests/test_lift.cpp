@@ -25,6 +25,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <rpp/observable.h>
 #include <rpp/subscriber.h>
+#include <rpp/observables/dynamic_observable.h>
 #include <rpp/observers/state_observer.h>
 
 SCENARIO("Observable can be lifted")
