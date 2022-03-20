@@ -124,24 +124,17 @@ specific_subscriber(OnNext, Args ...) -> specific_subscriber<Type, details::dedu
  * \brief Creation of rpp::specific_subscriber with manual providing of type of subscriber. In case of ability to determine type of subscriber by function -> use constructor
  */
 template<typename Type, typename ...Args>
-auto make_specific_subscriber(Args&& ...args)
+auto make_specific_subscriber(Args&& ...args) requires utils::is_observer_constructible_v<Type, std::decay_t<Args>...>
 {
     auto observer = rpp::make_specific_observer<Type>(std::forward<Args>(args)...);
     return rpp::specific_subscriber<Type, decltype(observer)>(std::move(observer));
 }
 
 template<typename Type, typename ...Args>
-auto make_specific_subscriber(const subscription& sub, Args&& ...args)
+auto make_specific_subscriber(constraint::decayed_same_as<subscription> auto&& sub, Args&& ...args) requires utils::is_observer_constructible_v<Type, std::decay_t<Args>...>
 {
     auto observer = rpp::make_specific_observer<Type>(std::forward<Args>(args)...);
-    return rpp::specific_subscriber<Type, decltype(observer)>(sub, std::move(observer));
-}
-
-template<typename Type, typename ...Args>
-auto make_specific_subscriber(subscription&& sub, Args&& ...args)
-{
-    auto observer = rpp::make_specific_observer<Type>(std::forward<Args>(args)...);
-    return rpp::specific_subscriber<Type, decltype(observer)>(std::move(sub), std::move(observer));
+    return rpp::specific_subscriber<Type, decltype(observer)>(std::forward<decltype(sub)>(sub), std::move(observer));
 }
 
 } // namespace rpp

@@ -36,6 +36,9 @@ struct subscriber_tag;
 
 namespace rpp::constraint
 {
+template<typename T, typename Type> concept decayed_same_as      = std::same_as<std::decay_t<T>, std::decay_t<Type>>;
+
+
 template<typename Fn, typename Type> concept on_next_fn      = std::invocable<std::decay_t<Fn>, Type>;
 template<typename Fn>                concept on_error_fn     = std::invocable<std::decay_t<Fn>, std::exception_ptr>;
 template<typename Fn>                concept on_completed_fn = std::invocable<std::decay_t<Fn>>;
