@@ -27,26 +27,13 @@
 namespace rpp::utils
 {
 // *************************** SUBSCRIBER ************************//
-namespace details
-{
-    template<typename T>
-    T extract_subscriber_type(const rpp::details::subscriber_base<T>&);
-} // namespace details
 
-template<typename T>
-using extract_subscriber_type_t = decltype(details::extract_subscriber_type(std::declval<std::decay_t<T>>()));
 
 template<typename T>
 constexpr bool is_subscriber_v = std::is_base_of_v<rpp::details::subscriber_tag, std::decay_t<T>>;
 
 // *************************** OBSERVER ************************//
-namespace details
-{
-    template<typename T>
-    T extract_observer_type(const interface_observer<T>&);
-} // namespace details
-template<typename T>
-using extract_observer_type_t = decltype(details::extract_observer_type(std::declval<std::decay_t<T>>()));
+
 
 template<typename T>
 constexpr bool is_observer_v = std::is_base_of_v<rpp::details::observer_tag, std::decay_t<T>> && !is_subscriber_v<std::decay_t<T>>;

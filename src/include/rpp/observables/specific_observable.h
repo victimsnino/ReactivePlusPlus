@@ -22,10 +22,12 @@
 
 #pragma once
 
-#include <rpp/observables/dynamic_observable.h>
+#include <rpp/observables/fwd.h>
 #include <rpp/observables/interface_observable.h>
+#include <rpp/observers/constraints.h>
+#include <rpp/subscribers/constraints.h>
+#include <rpp/subscribers/type_traits.h>
 #include <rpp/utils/function_traits.h>
-#include <rpp/utils/type_traits.h>
 
 #include <utility>
 
@@ -42,23 +44,26 @@ namespace rpp
 template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
 class specific_observable final : public interface_observable<Type, specific_observable<Type, OnSubscribeFn>>
 {
-    static_assert(std::is_same_v<std::decay_t<OnSubscribeFn>, OnSubscribeFn>, "OnSubscribeFn of specific_observable should be decayed");
-
 public:
-    specific_observable(const OnSubscribeFn& on_subscribe)
-        : m_state{on_subscribe} {}
+    specific_observable(constraint::decayed_same_as<OnSubscribeFn> auto&& on_subscribe)
+        : m_state{std::forward<decltype(on_subscribe)>(on_subscribe)} {}
 
-    specific_observable(OnSubscribeFn&& on_subscribe)
-        : m_state{std::move(on_subscribe)} {}
-
-    [[nodiscard]] dynamic_observable<Type> as_dynamic() const & { return *this;            }
-    [[nodiscard]] dynamic_observable<Type> as_dynamic() &&      { return std::move(*this); }
-
-     /**
-     * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
-     * \details this overloading accepts dynamic_subscriber as most common and base type
-     * \return subscription on this observable which can be used to unsubscribe
+    /**
+     * \brief Converts rpp::specific_observable to rpp::dynamic_observable via type-erasure mechanism.
      */
+    [[nodiscard]] auto as_dynamic() const &
+    {
+        return rpp::dynamic_observable<Type>{*this};
+    }
+
+    /**
+     * \brief Converts rpp::specific_observable to rpp::dynamic_observable via type-erasure mechanism.
+     */
+    [[nodiscard]] auto as_dynamic() &&
+    {
+        return rpp::dynamic_observable<Type>{std::move(*this)};
+    }
+
     subscription subscribe(const dynamic_subscriber<Type>& subscriber) const noexcept override
     {
         return subscribe_impl(subscriber);
@@ -69,8 +74,7 @@ public:
      * \details this overloading accepts subscriber as is to avoid construction of dynamic_subscriber
      * \return subscription on this observable which can be used to unsubscribe
      */
-    template<constraint::subscriber TSub>
-        requires std::is_same_v<utils::extract_subscriber_type_t<TSub>, Type>
+    template<constraint::subscriber_of_type<Type> TSub>
     subscription subscribe(TSub&& subscriber) const noexcept
     {
         return subscribe_impl(std::forward<TSub>(subscriber));
@@ -81,8 +85,7 @@ public:
      * \details this overloading accepts observer to construct specific_subscriber without extra overheads
      * \return subscription on this observable which can be used to unsubscribe
      */
-    template<constraint::observer TObserver>
-        requires std::is_same_v<utils::extract_observer_type_t<TObserver>, Type>
+    template<constraint::observer_of_type<Type> TObserver>
     subscription subscribe(TObserver&& observer) const noexcept
     {
         return subscribe_impl<std::decay_t<TObserver>>(std::forward<TObserver>(observer));
@@ -94,7 +97,7 @@ public:
      * \return subscription on this observable which can be used to unsubscribe
      */
     template<typename ...Args>
-        requires std::is_constructible_v<rpp::dynamic_subscriber<Type>, std::decay_t<Args>...>
+        requires std::is_constructible_v<dynamic_subscriber<Type>, std::decay_t<Args>...>
     subscription subscribe(Args&&...args) const noexcept
     {
         return subscribe_impl(rpp::make_specific_subscriber<Type>(std::forward<Args>(args)...));

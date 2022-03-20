@@ -23,10 +23,11 @@
 #pragma once
 
 #include <rpp/fwd.h>
+#include <rpp/observers/constraints.h>
 #include <rpp/observers/interface_observer.h>
+#include <rpp/observers/type_traits.h>
 #include <rpp/utils/function_traits.h>
 #include <rpp/utils/functors.h>
-#include <rpp/utils/type_traits.h>
 
 #include <memory>
 
@@ -87,5 +88,5 @@ template<constraint::observer TObserver>
 dynamic_observer(TObserver) -> dynamic_observer<utils::extract_observer_type_t<TObserver>>;
 
 template<typename OnNext, typename ...Args>
-dynamic_observer(OnNext, Args...) -> dynamic_observer<std::decay_t<utils::function_argument_t<OnNext>>>;
+dynamic_observer(OnNext, Args...) -> dynamic_observer<utils::decayed_function_argument_t<OnNext>>;
 } // namespace rpp

@@ -23,26 +23,13 @@
 #pragma once
 
 #include <rpp/observers/fwd.h>
-#include <rpp/utils/constraints.h>
+#include <rpp/observers/type_traits.h>
 
-namespace rpp::details
-{
-struct subscriber_tag;
-
-template<constraint::decayed_type Type>
-class subscriber_base;
-} // namespace rpp::details
+#include <type_traits>
 
 namespace rpp::constraint
 {
-template<typename T> concept decayed_observer = observer<T> && decayed_type<T>;
+template<typename T> concept observer   = std::is_base_of_v<details::observer_tag, std::decay_t<T>> && !std::is_base_of_v<details::subscriber_tag, std::decay_t<T>>;
+
+template<typename T, typename Type> concept observer_of_type   = observer<T> && std::is_same_v<utils::extract_observer_type_t<T>, Type>;
 } // namespace rpp::constraint
-
-namespace rpp
-{
-template<constraint::decayed_type Type, constraint::decayed_observer Observer>
-class specific_subscriber;
-
-template<constraint::decayed_type Type>
-class dynamic_subscriber;
-} // namespace rpp

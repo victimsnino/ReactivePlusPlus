@@ -26,6 +26,8 @@
 #include <rpp/utils/constraints.h>
 #include <rpp/utils/function_traits.h>
 
+#include <rpp/subscribers/constraints.h>
+
 #include <exception>
 
 namespace rpp::details
