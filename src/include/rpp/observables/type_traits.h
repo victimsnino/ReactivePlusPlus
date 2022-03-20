@@ -22,28 +22,18 @@
 
 #pragma once
 
-#include <rpp/subscribers/fwd.h>
-#include <rpp/utils/constraints.h>
+#include <rpp/observables/fwd.h>
 
-namespace rpp::details
+#include <type_traits>
+
+namespace rpp::utils
 {
-struct observable_tag;
-} // namespace rpp::details
-
-namespace rpp::constraint
+namespace details
 {
-template<typename Fn, typename T> concept on_subscribe_fn = std::invocable<std::decay_t<Fn>, dynamic_subscriber<T>>;
+    template<typename T>
+    T extract_observable_type(const virtual_observable<T>&);
+} // namespace details
 
-} // namespace rpp::constraint
-
-namespace rpp
-{
-template<constraint::decayed_type Type>
-struct virtual_observable;
-
-template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
-class specific_observable;
-
-template<constraint::decayed_type Type>
-class dynamic_observable;
-} // namespace rpp
+template<typename T>
+using extract_observable_type_t = decltype(details::extract_observable_type(std::declval<std::decay_t<T>>()));
+} // namespace rpp::utils

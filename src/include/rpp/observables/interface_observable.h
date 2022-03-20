@@ -24,6 +24,7 @@
 
 #include <rpp/fwd.h>
 #include <rpp/subscriber.h>
+#include <rpp/observables/constraints.h>
 #include <rpp/observers/state_observer.h>
 #include <rpp/utils/type_traits.h>
 

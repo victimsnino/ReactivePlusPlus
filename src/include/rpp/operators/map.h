@@ -28,7 +28,8 @@
  * \brief This file contains implementation of operator "map"
  */
 
-#include <rpp/utils/constraints.h>
+#include <rpp/observables/constraints.h>
+#include <rpp/observables/type_traits.h>
 
 #include <utility>
 

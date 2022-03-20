@@ -22,9 +22,10 @@
 
 #pragma once
 
+#include <rpp/observables/constraints.h>
 #include <rpp/observables/interface_observable.h>
+#include <rpp/observables/type_traits.h>
 #include <rpp/utils/function_traits.h>
-#include <rpp/utils/type_traits.h>
 
 #include <memory>
 
