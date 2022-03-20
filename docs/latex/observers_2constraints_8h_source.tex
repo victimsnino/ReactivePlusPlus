@@ -1,5 +1,5 @@
-\hypertarget{subscribers_2fwd_8h_source}{}\doxysection{fwd.\+h}
-\label{subscribers_2fwd_8h_source}\index{src/include/rpp/subscribers/fwd.h@{src/include/rpp/subscribers/fwd.h}}
+\hypertarget{observers_2constraints_8h_source}{}\doxysection{constraints.\+h}
+\label{observers_2constraints_8h_source}\index{src/include/rpp/observers/constraints.h@{src/include/rpp/observers/constraints.h}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// MIT License}}
@@ -27,28 +27,15 @@
 \DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{24 }
 \DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/observers/fwd.h>}}
-\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <rpp/utils/constraints.h>}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <rpp/observers/type\_traits.h>}}
 \DoxyCodeLine{27 }
-\DoxyCodeLine{28 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{29 \{}
-\DoxyCodeLine{30 \textcolor{keyword}{struct }subscriber\_tag;}
-\DoxyCodeLine{31 }
-\DoxyCodeLine{32 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{33 \textcolor{keyword}{class }subscriber\_base;}
-\DoxyCodeLine{34 \} \textcolor{comment}{// namespace rpp::details}}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{36 \textcolor{keyword}{namespace }rpp::constraint}
-\DoxyCodeLine{37 \{}
-\DoxyCodeLine{38 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }decayed\_observer = observer<T> \&\& decayed\_type<T>;}
-\DoxyCodeLine{39 \} \textcolor{comment}{// namespace rpp::constraint}}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{41 \textcolor{keyword}{namespace }rpp}
-\DoxyCodeLine{42 \{}
-\DoxyCodeLine{43 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::decayed\_observer Observer>}
-\DoxyCodeLine{44 \textcolor{keyword}{class }specific\_subscriber;}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{46 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{47 \textcolor{keyword}{class }dynamic\_subscriber;}
-\DoxyCodeLine{48 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{keyword}{namespace }rpp::constraint}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{32 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }observer   = std::is\_base\_of\_v<details::observer\_tag, std::decay\_t<T>> \&\& !std::is\_base\_of\_v<details::subscriber\_tag, std::decay\_t<T>>;}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Type> \textcolor{keyword}{concept }observer\_of\_type   = observer<T> \&\& std::is\_same\_v<utils::extract\_observer\_type\_t<T>, Type>;}
+\DoxyCodeLine{35 \} \textcolor{comment}{// namespace rpp::constraint}}
 
 \end{DoxyCode}

@@ -40,19 +40,21 @@
 \DoxyCodeLine{36 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn>                \textcolor{keyword}{concept }on\_error\_fn     = std::invocable<std::decay\_t<Fn>, std::exception\_ptr>;}
 \DoxyCodeLine{37 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn>                \textcolor{keyword}{concept }on\_completed\_fn = std::invocable<std::decay\_t<Fn>>;}
 \DoxyCodeLine{38 }
-\DoxyCodeLine{39 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }observer   = std::is\_base\_of\_v<details::observer\_tag, std::decay\_t<T>> \&\& !std::is\_base\_of\_v<details::subscriber\_tag, std::decay\_t<T>>;}
-\DoxyCodeLine{40 \} \textcolor{comment}{// namespace rpp::constraint}}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42 \textcolor{keyword}{namespace }rpp}
-\DoxyCodeLine{43 \{}
-\DoxyCodeLine{44 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{45 \textcolor{keyword}{class }dynamic\_observer;}
-\DoxyCodeLine{46 }
-\DoxyCodeLine{47 \textcolor{keyword}{template}<constraint::decayed\_type T,}
-\DoxyCodeLine{48          constraint::on\_next\_fn<T>   OnNext,}
-\DoxyCodeLine{49          constraint::on\_error\_fn     OnError,}
-\DoxyCodeLine{50          constraint::on\_completed\_fn OnCompleted>}
-\DoxyCodeLine{51 \textcolor{keyword}{class }specific\_observer;}
-\DoxyCodeLine{52 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{39 \} \textcolor{comment}{// namespace rpp::constraint}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{keyword}{namespace }rpp}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{44 \textcolor{keyword}{struct }interface\_observer;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{47 \textcolor{keyword}{class }dynamic\_observer;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \textcolor{keyword}{template}<constraint::decayed\_type T,}
+\DoxyCodeLine{50          constraint::on\_next\_fn<T>   OnNext,}
+\DoxyCodeLine{51          constraint::on\_error\_fn     OnError,}
+\DoxyCodeLine{52          constraint::on\_completed\_fn OnCompleted>}
+\DoxyCodeLine{53 \textcolor{keyword}{class }specific\_observer;}
+\DoxyCodeLine{54 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

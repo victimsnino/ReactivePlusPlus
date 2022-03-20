@@ -1,5 +1,5 @@
-\hypertarget{subscribers_2fwd_8h_source}{}\doxysection{fwd.\+h}
-\label{subscribers_2fwd_8h_source}\index{src/include/rpp/subscribers/fwd.h@{src/include/rpp/subscribers/fwd.h}}
+\hypertarget{subscribers_2type__traits_8h_source}{}\doxysection{type\+\_\+traits.\+h}
+\label{subscribers_2type__traits_8h_source}\index{src/include/rpp/subscribers/type\_traits.h@{src/include/rpp/subscribers/type\_traits.h}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// MIT License}}
@@ -26,29 +26,20 @@
 \DoxyCodeLine{22 }
 \DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/observers/fwd.h>}}
-\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <rpp/utils/constraints.h>}}
-\DoxyCodeLine{27 }
-\DoxyCodeLine{28 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{29 \{}
-\DoxyCodeLine{30 \textcolor{keyword}{struct }subscriber\_tag;}
-\DoxyCodeLine{31 }
-\DoxyCodeLine{32 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{33 \textcolor{keyword}{class }subscriber\_base;}
-\DoxyCodeLine{34 \} \textcolor{comment}{// namespace rpp::details}}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{36 \textcolor{keyword}{namespace }rpp::constraint}
-\DoxyCodeLine{37 \{}
-\DoxyCodeLine{38 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }decayed\_observer = observer<T> \&\& decayed\_type<T>;}
-\DoxyCodeLine{39 \} \textcolor{comment}{// namespace rpp::constraint}}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{41 \textcolor{keyword}{namespace }rpp}
-\DoxyCodeLine{42 \{}
-\DoxyCodeLine{43 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::decayed\_observer Observer>}
-\DoxyCodeLine{44 \textcolor{keyword}{class }specific\_subscriber;}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{46 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{47 \textcolor{keyword}{class }dynamic\_subscriber;}
-\DoxyCodeLine{48 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/subscribers/fwd.h>}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{keyword}{namespace }rpp::utils}
+\DoxyCodeLine{30 \{}
+\DoxyCodeLine{31 \textcolor{keyword}{namespace }details}
+\DoxyCodeLine{32 \{}
+\DoxyCodeLine{33     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{34     T extract\_subscriber\_type(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{rpp::details::subscriber\_base<T>}}\&);}
+\DoxyCodeLine{35 \} \textcolor{comment}{// namespace details}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{38 \textcolor{keyword}{using} extract\_subscriber\_type\_t = \textcolor{keyword}{decltype}(details::extract\_subscriber\_type(std::declval<std::decay\_t<T>>()));}
+\DoxyCodeLine{39 \} \textcolor{comment}{// namespace rpp::utils}}
 
 \end{DoxyCode}
