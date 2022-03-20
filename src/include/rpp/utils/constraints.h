@@ -38,6 +38,8 @@ namespace rpp::constraint
 {
 template<typename T, typename Type> concept decayed_same_as      = std::same_as<std::decay_t<T>, std::decay_t<Type>>;
 
+template<typename T> concept decayed_type = std::same_as<std::decay_t<T>, T>;
+
 
 template<typename Fn, typename Type> concept on_next_fn      = std::invocable<std::decay_t<Fn>, Type>;
 template<typename Fn>                concept on_error_fn     = std::invocable<std::decay_t<Fn>, std::exception_ptr>;

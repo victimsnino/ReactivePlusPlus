@@ -31,12 +31,12 @@ struct observer_tag;
 
 namespace rpp
 {
-template<typename Type>
+template<constraint::decayed_type Type>
 class dynamic_observer;
 
-template<typename T,
-         constraint::on_next_fn<T> OnNext,
-         constraint::on_error_fn OnError,
+template<constraint::decayed_type T,
+         constraint::on_next_fn<T>   OnNext,
+         constraint::on_error_fn     OnError,
          constraint::on_completed_fn OnCompleted>
 class specific_observer;
 } // namespace rpp

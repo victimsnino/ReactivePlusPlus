@@ -38,7 +38,7 @@ namespace rpp
  * Use it only when you need to store observer as member variable or something like this. In other cases prefer using "auto" to avoid converting to dynamic_observer
  * \tparam T is type of value handled by this observer
  */
-template<typename T>
+template<constraint::decayed_type T>
 class dynamic_observer final : public interface_observer<T>
 {
 public:

@@ -59,18 +59,13 @@ public:
         return m_observable->subscribe(subscriber);
     }
 
-    subscription subscribe(const dynamic_observer<Type>& subscriber) const noexcept
-    {
-        return subscribe(dynamic_subscriber{subscriber});
-    }
-
-        /**
+    /**
      * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
      * \details this overloading accepts raw functions to construct specific subscriber with specific observer
      * \return subscription on this observable which can be used to unsubscribe
      */
     template<typename ...Args>
-        requires std::is_constructible_v<rpp::dynamic_subscriber<Type>, std::decay_t<Args>...>
+        requires std::is_constructible_v<dynamic_subscriber<Type>, std::decay_t<Args>...>
         subscription subscribe(Args&&...args) const noexcept
     {
         return m_observable->subscribe(dynamic_subscriber<Type>{std::forward<Args>(args)...});

@@ -78,4 +78,7 @@ template<typename T, size_t i = 0>
 using function_argument_t = typename function_traits<T>::template argument<i>;
 
 
+template<typename T, size_t i = 0>
+using decayed_function_argument_t = std::decay_t<function_argument_t<T, i>>;
+
 } // namespace rpp::utils

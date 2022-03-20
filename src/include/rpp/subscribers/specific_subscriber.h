@@ -112,12 +112,12 @@ specific_subscriber(subscription, TObs observer) -> specific_subscriber<utils::e
 template<typename OnNext,
          typename ...Args,
          typename Type = std::decay_t<utils::function_argument_t<OnNext>>>
-specific_subscriber(subscription, OnNext, Args ...) -> specific_subscriber<Type, details::deduce_specific_observer_type_t<OnNext, Args...>>;
+specific_subscriber(subscription, OnNext, Args ...) -> specific_subscriber<Type, details::deduce_specific_observer_type_t<Type, OnNext, Args...>>;
 
 template<typename OnNext,
          typename ...Args,
          typename Type = std::decay_t<utils::function_argument_t<OnNext>>>
-specific_subscriber(OnNext, Args ...) -> specific_subscriber<Type, details::deduce_specific_observer_type_t<OnNext, Args...>>;
+specific_subscriber(OnNext, Args ...) -> specific_subscriber<Type, details::deduce_specific_observer_type_t<Type, OnNext, Args...>>;
 
 
 /**

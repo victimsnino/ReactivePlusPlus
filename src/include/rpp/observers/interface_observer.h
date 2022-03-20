@@ -22,6 +22,8 @@
 
 #pragma once
 
+#include <rpp/utils/constraints.h>
+
 #include <exception>
 
 namespace rpp
@@ -35,11 +37,9 @@ struct observer_tag {};
  * \brief Interface of any observer type. Describes base interface in terms of Reactive Programming
  * \tparam T is type of value handled by this observer
  */
-template<typename T>
+template<constraint::decayed_type T>
 struct interface_observer : public details::observer_tag
 {
-    static_assert(std::is_same_v<std::decay_t<T>, T>, "Type should be decayed to match with decayed observable types");
-
     virtual ~interface_observer() = default;
 
     /**
