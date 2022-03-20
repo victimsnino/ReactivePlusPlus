@@ -132,7 +132,7 @@ template<typename Type>
 auto make_specific_observer() -> decayed_specific_observer<Type>
 {
     return {};
-};
+}
 
 /**
  * \brief Create specific_observer with manually specified Type. In case of type can be deduced from argument of OnNext use direct constructor of rpp::specific_observer
