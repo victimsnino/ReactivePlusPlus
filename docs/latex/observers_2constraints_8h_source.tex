@@ -31,12 +31,17 @@
 \DoxyCodeLine{27 }
 \DoxyCodeLine{28 \textcolor{preprocessor}{\#include <type\_traits>}}
 \DoxyCodeLine{29 }
-\DoxyCodeLine{30 \textcolor{keyword}{namespace }rpp::constraint}
+\DoxyCodeLine{30 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{31 \{}
-\DoxyCodeLine{32 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }observer   = std::is\_base\_of\_v<details::observer\_tag, std::decay\_t<T>> \&\& !std::is\_base\_of\_v<details::subscriber\_tag, std::decay\_t<T>>;}
-\DoxyCodeLine{33 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }decayed\_observer = observer<T> \&\& decayed\_type<T>;}
+\DoxyCodeLine{32 \textcolor{keyword}{struct }subscriber\_tag;}
+\DoxyCodeLine{33 \} \textcolor{comment}{// namespace rpp::details}}
 \DoxyCodeLine{34 }
-\DoxyCodeLine{35 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Type> \textcolor{keyword}{concept }observer\_of\_type   = observer<T> \&\& std::is\_same\_v<utils::extract\_observer\_type\_t<T>, Type>;}
-\DoxyCodeLine{36 \} \textcolor{comment}{// namespace rpp::constraint}}
+\DoxyCodeLine{35 \textcolor{keyword}{namespace }rpp::constraint}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{37 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }observer = std::is\_base\_of\_v<details::observer\_tag, std::decay\_t<T>> \&\& !std::is\_base\_of\_v<details::subscriber\_tag, std::decay\_t<T>>;}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }decayed\_observer                = observer<T> \&\& decayed\_type<T>;}
+\DoxyCodeLine{40 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Type> \textcolor{keyword}{concept }observer\_of\_type = observer<T> \&\& std::is\_same\_v<utils::extract\_observer\_type\_t<T>, Type>;}
+\DoxyCodeLine{41 \} \textcolor{comment}{// namespace rpp::constraint}}
 
 \end{DoxyCode}
