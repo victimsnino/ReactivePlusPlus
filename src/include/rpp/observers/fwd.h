@@ -27,7 +27,6 @@
 namespace rpp::details
 {
 struct observer_tag;
-struct subscriber_tag;
 } // namespace rpp::details
 
 namespace rpp::constraint
@@ -35,7 +34,6 @@ namespace rpp::constraint
 template<typename Fn, typename Type> concept on_next_fn      = std::invocable<std::decay_t<Fn>, Type>;
 template<typename Fn>                concept on_error_fn     = std::invocable<std::decay_t<Fn>, std::exception_ptr>;
 template<typename Fn>                concept on_completed_fn = std::invocable<std::decay_t<Fn>>;
-
 } // namespace rpp::constraint
 
 namespace rpp

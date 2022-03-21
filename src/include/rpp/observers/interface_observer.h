@@ -22,7 +22,7 @@
 
 #pragma once
 
-#include <rpp/utils/constraints.h>
+#include <rpp/observers/fwd.h>
 
 #include <exception>
 
