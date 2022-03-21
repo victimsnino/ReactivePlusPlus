@@ -73,7 +73,7 @@ class dynamic_observer final : public details::base_observer<T, details::dynamic
 {
 public:
     using parent = details::base_observer<T, details::dynamic_observer_callables<T>>;
-    using parent::parent;
+    using parent::base_observer;
 
     template<constraint::observer TObserver>
         requires (!std::is_same_v<std::decay_t<TObserver>, dynamic_observer<T>>)
