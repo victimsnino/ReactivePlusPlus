@@ -83,13 +83,10 @@ Inheritance diagram for rpp::interface_observer&lt; T &gt;:</div>
  <div class="center">
   <img src="structrpp_1_1interface__observer.png" usemap="#rpp::interface_5Fobserver_3C_20T_20_3E_map" alt=""/>
   <map id="rpp::interface_5Fobserver_3C_20T_20_3E_map" name="rpp::interface_5Fobserver_3C_20T_20_3E_map">
-<area href="structrpp_1_1details_1_1observer__tag.html" alt="rpp::details::observer_tag" shape="rect" coords="1402,0,2327,24"/>
-<area href="classrpp_1_1details_1_1base__observer.html" alt="rpp::details::base_observer&lt; T, details::dynamic_observer_callables&lt; T &gt; &gt;" shape="rect" coords="0,112,925,136"/>
-<area href="classrpp_1_1details_1_1base__observer.html" alt="rpp::details::base_observer&lt; T, details::specific_callables&lt; utils::empty_function_t&lt; T &gt;, utils::empty_function_t&lt; std::exception_ptr &gt;, utils::empty_function_t&lt;&gt; &gt; &gt;" shape="rect" coords="935,112,1860,136"/>
-<area href="classrpp_1_1details_1_1base__observer.html" alt="rpp::details::base_observer&lt; T, Callables &gt;" shape="rect" coords="1870,112,2795,136"/>
-<area href="classrpp_1_1details_1_1state__observer.html" title="Special type of specific_observer which has some state which this observer stores and pass to each ca..." alt="rpp::details::state_observer&lt; T, State, OnNext, OnError, OnCompleted &gt;" shape="rect" coords="2805,112,3730,136"/>
-<area href="classrpp_1_1dynamic__observer.html" title="Dynamic (type-erased) version of observer (comparing to specific_observer)" alt="rpp::dynamic_observer&lt; T &gt;" shape="rect" coords="0,168,925,192"/>
-<area href="classrpp_1_1specific__observer.html" title="Observer specified with specific template types of callbacks to avoid extra heap usage." alt="rpp::specific_observer&lt; T, OnNext, OnError, OnCompleted &gt;" shape="rect" coords="935,168,1860,192"/>
+<area href="structrpp_1_1details_1_1observer__tag.html" alt="rpp::details::observer_tag" shape="rect" coords="433,0,856,24"/>
+<area href="classrpp_1_1details_1_1state__observer.html" title="Special type of specific_observer which has some state which this observer stores and pass to each ca..." alt="rpp::details::state_observer&lt; T, State, OnNext, OnError, OnCompleted &gt;" shape="rect" coords="0,112,423,136"/>
+<area href="classrpp_1_1dynamic__observer.html" title="Dynamic (type-erased) version of observer (comparing to specific_observer)" alt="rpp::dynamic_observer&lt; T &gt;" shape="rect" coords="433,112,856,136"/>
+<area href="classrpp_1_1specific__observer.html" title="Observer specified with specific template types of callbacks to avoid extra heap usage." alt="rpp::specific_observer&lt; T, OnNext, OnError, OnCompleted &gt;" shape="rect" coords="866,112,1289,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -146,7 +143,7 @@ template&lt;constraint::decayed_type T&gt; </div>
 <p>Observable calls this method to notify observer about finish of work. </p>
 <dl class="section warning"><dt>Warning</dt><dd>Obtaining this call means no any further on_next calls </dd></dl>
 
-<p>Implemented in <a class="el" href="classrpp_1_1details_1_1base__observer.html#a24bdd0e8e4b0b65c09de7e35eac9f583">rpp::details::base_observer&lt; T, Callables &gt;</a>, <a class="el" href="classrpp_1_1details_1_1base__observer.html#a24bdd0e8e4b0b65c09de7e35eac9f583">rpp::details::base_observer&lt; T, details::dynamic_observer_callables&lt; T &gt; &gt;</a>, <a class="el" href="classrpp_1_1details_1_1base__observer.html#a24bdd0e8e4b0b65c09de7e35eac9f583">rpp::details::base_observer&lt; T, details::specific_callables&lt; utils::empty_function_t&lt; T &gt;, utils::empty_function_t&lt; std::exception_ptr &gt;, utils::empty_function_t&lt;&gt; &gt; &gt;</a>, <a class="el" href="classrpp_1_1details_1_1subscriber__base.html#a85ef4e79f7f9d82d5899dc2524a7289a">rpp::details::subscriber_base&lt; Type &gt;</a>, and <a class="el" href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">rpp::details::state_observer&lt; T, State, OnNext, OnError, OnCompleted &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classrpp_1_1details_1_1subscriber__base.html#a85ef4e79f7f9d82d5899dc2524a7289a">rpp::details::subscriber_base&lt; Type &gt;</a>, <a class="el" href="classrpp_1_1dynamic__observer.html#aebd2d9f021a23ce98a2eac7d49d8f254">rpp::dynamic_observer&lt; T &gt;</a>, <a class="el" href="classrpp_1_1specific__observer.html#a6e81d90a6985ee8b9161564c71f713e1">rpp::specific_observer&lt; T, OnNext, OnError, OnCompleted &gt;</a>, and <a class="el" href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">rpp::details::state_observer&lt; T, State, OnNext, OnError, OnCompleted &gt;</a>.</p>
 
 </div>
 </div>
@@ -185,7 +182,7 @@ template&lt;constraint::decayed_type T&gt; </div>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classrpp_1_1details_1_1base__observer.html#af98c723509119063a02a1c697e2c0509">rpp::details::base_observer&lt; T, Callables &gt;</a>, <a class="el" href="classrpp_1_1details_1_1base__observer.html#af98c723509119063a02a1c697e2c0509">rpp::details::base_observer&lt; T, details::dynamic_observer_callables&lt; T &gt; &gt;</a>, <a class="el" href="classrpp_1_1details_1_1base__observer.html#af98c723509119063a02a1c697e2c0509">rpp::details::base_observer&lt; T, details::specific_callables&lt; utils::empty_function_t&lt; T &gt;, utils::empty_function_t&lt; std::exception_ptr &gt;, utils::empty_function_t&lt;&gt; &gt; &gt;</a>, <a class="el" href="classrpp_1_1details_1_1subscriber__base.html#ae9532294156f8acf86d1cf39d4c1cc15">rpp::details::subscriber_base&lt; Type &gt;</a>, and <a class="el" href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">rpp::details::state_observer&lt; T, State, OnNext, OnError, OnCompleted &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classrpp_1_1details_1_1subscriber__base.html#ae9532294156f8acf86d1cf39d4c1cc15">rpp::details::subscriber_base&lt; Type &gt;</a>, <a class="el" href="classrpp_1_1dynamic__observer.html#a1e8abba013fb85e23518ee93a3524e0c">rpp::dynamic_observer&lt; T &gt;</a>, <a class="el" href="classrpp_1_1specific__observer.html#a337db92fb5f059a4bea5019248d70e30">rpp::specific_observer&lt; T, OnNext, OnError, OnCompleted &gt;</a>, and <a class="el" href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">rpp::details::state_observer&lt; T, State, OnNext, OnError, OnCompleted &gt;</a>.</p>
 
 </div>
 </div>
@@ -218,7 +215,7 @@ template&lt;constraint::decayed_type T&gt; </div>
 <p>Observable calls this methods to notify observer about new value. </p>
 <dl class="section note"><dt>Note</dt><dd>obtains value by const-reference to original object. </dd></dl>
 
-<p>Implemented in <a class="el" href="classrpp_1_1details_1_1base__observer.html#a213df3d7da712a909d48eea50eb2f79a">rpp::details::base_observer&lt; T, Callables &gt;</a>, <a class="el" href="classrpp_1_1details_1_1base__observer.html#a213df3d7da712a909d48eea50eb2f79a">rpp::details::base_observer&lt; T, details::dynamic_observer_callables&lt; T &gt; &gt;</a>, <a class="el" href="classrpp_1_1details_1_1base__observer.html#a213df3d7da712a909d48eea50eb2f79a">rpp::details::base_observer&lt; T, details::specific_callables&lt; utils::empty_function_t&lt; T &gt;, utils::empty_function_t&lt; std::exception_ptr &gt;, utils::empty_function_t&lt;&gt; &gt; &gt;</a>, and <a class="el" href="classrpp_1_1details_1_1state__observer.html#a0e00117dd1c6fc7e1cf296c3b42a86ee">rpp::details::state_observer&lt; T, State, OnNext, OnError, OnCompleted &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classrpp_1_1dynamic__observer.html#a96f78e9685e54bccb428fbacf068a6fc">rpp::dynamic_observer&lt; T &gt;</a>, <a class="el" href="classrpp_1_1specific__observer.html#a00ef0f5cdd0c45d58c0e019479cadd35">rpp::specific_observer&lt; T, OnNext, OnError, OnCompleted &gt;</a>, and <a class="el" href="classrpp_1_1details_1_1state__observer.html#a0e00117dd1c6fc7e1cf296c3b42a86ee">rpp::details::state_observer&lt; T, State, OnNext, OnError, OnCompleted &gt;</a>.</p>
 
 </div>
 </div>
@@ -251,7 +248,7 @@ template&lt;constraint::decayed_type T&gt; </div>
 <p>Observable calls this methods to notify observer about new value. </p>
 <dl class="section note"><dt>Note</dt><dd>obtains value by rvalue-reference to original object </dd></dl>
 
-<p>Implemented in <a class="el" href="classrpp_1_1details_1_1base__observer.html#a82f54d8f857c02bca2c2d5257e04a82b">rpp::details::base_observer&lt; T, Callables &gt;</a>, <a class="el" href="classrpp_1_1details_1_1base__observer.html#a82f54d8f857c02bca2c2d5257e04a82b">rpp::details::base_observer&lt; T, details::dynamic_observer_callables&lt; T &gt; &gt;</a>, <a class="el" href="classrpp_1_1details_1_1base__observer.html#a82f54d8f857c02bca2c2d5257e04a82b">rpp::details::base_observer&lt; T, details::specific_callables&lt; utils::empty_function_t&lt; T &gt;, utils::empty_function_t&lt; std::exception_ptr &gt;, utils::empty_function_t&lt;&gt; &gt; &gt;</a>, and <a class="el" href="classrpp_1_1details_1_1state__observer.html#aeb292b8b8b42cbd39aaad8ed1db5e645">rpp::details::state_observer&lt; T, State, OnNext, OnError, OnCompleted &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classrpp_1_1dynamic__observer.html#a16f5d34af9d7c4096b1c4535a866dab2">rpp::dynamic_observer&lt; T &gt;</a>, <a class="el" href="classrpp_1_1specific__observer.html#af96eb0933f734772dda7d273ea4d1c27">rpp::specific_observer&lt; T, OnNext, OnError, OnCompleted &gt;</a>, and <a class="el" href="classrpp_1_1details_1_1state__observer.html#aeb292b8b8b42cbd39aaad8ed1db5e645">rpp::details::state_observer&lt; T, State, OnNext, OnError, OnCompleted &gt;</a>.</p>
 
 </div>
 </div>

@@ -35,9 +35,9 @@
 \DoxyCodeLine{31 }
 \DoxyCodeLine{32 \textcolor{keyword}{namespace }rpp::constraint}
 \DoxyCodeLine{33 \{}
-\DoxyCodeLine{34 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn, \textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} ...States> \textcolor{keyword}{concept }on\_next\_fn      = std::invocable<std::decay\_t<Fn>, Type, States...>;}
-\DoxyCodeLine{35 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn, \textcolor{keyword}{typename} ...States>                \textcolor{keyword}{concept }on\_error\_fn     = std::invocable<std::decay\_t<Fn>, std::exception\_ptr, States...>;}
-\DoxyCodeLine{36 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn, \textcolor{keyword}{typename} ...States>                \textcolor{keyword}{concept }on\_completed\_fn = std::invocable<std::decay\_t<Fn>, States...>;}
+\DoxyCodeLine{34 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn, \textcolor{keyword}{typename} Type> \textcolor{keyword}{concept }on\_next\_fn      = std::invocable<std::decay\_t<Fn>, Type>;}
+\DoxyCodeLine{35 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn>                \textcolor{keyword}{concept }on\_error\_fn     = std::invocable<std::decay\_t<Fn>, std::exception\_ptr>;}
+\DoxyCodeLine{36 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn>                \textcolor{keyword}{concept }on\_completed\_fn = std::invocable<std::decay\_t<Fn>>;}
 \DoxyCodeLine{37 \} \textcolor{comment}{// namespace rpp::constraint}}
 \DoxyCodeLine{38 }
 \DoxyCodeLine{39 \textcolor{keyword}{namespace }rpp}
