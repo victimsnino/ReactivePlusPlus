@@ -22,7 +22,6 @@
 
 #pragma once
 
-#include <rpp/observers/dynamic_observer.h>
 #include <rpp/subscribers/specific_subscriber.h>
 
 namespace rpp

@@ -54,7 +54,6 @@ template<constraint::decayed_type T,
          typename OnCompleted = forwarding_on_completed>
 class state_observer final : public interface_observer<T>
 {
-    // TODO: move state_observer to base_observer after fix of issue in MSVC with variadics and autos
 public:
     template<typename TState,
              typename TOnNext,
