@@ -1,0 +1,102 @@
+\hypertarget{base__observer_8h_source}{}\doxysection{base\+\_\+observer.\+h}
+\label{base__observer_8h_source}\index{src/include/rpp/observers/details/base\_observer.h@{src/include/rpp/observers/details/base\_observer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// MIT License}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (c) 2022 Aleksey Loginov}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// Permission is hereby granted, free of charge, to any person obtaining a copy}}
+\DoxyCodeLine{6 \textcolor{comment}{// of this software and associated documentation files (the "{}Software"{}), to deal}}
+\DoxyCodeLine{7 \textcolor{comment}{// in the Software without restriction, including without limitation the rights}}
+\DoxyCodeLine{8 \textcolor{comment}{// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}}
+\DoxyCodeLine{9 \textcolor{comment}{// copies of the Software, and to permit persons to whom the Software is}}
+\DoxyCodeLine{10 \textcolor{comment}{// furnished to do so, subject to the following conditions:}}
+\DoxyCodeLine{11 \textcolor{comment}{// }}
+\DoxyCodeLine{12 \textcolor{comment}{// The above copyright notice and this permission notice shall be included in all}}
+\DoxyCodeLine{13 \textcolor{comment}{// copies or substantial portions of the Software.}}
+\DoxyCodeLine{14 \textcolor{comment}{// }}
+\DoxyCodeLine{15 \textcolor{comment}{// THE SOFTWARE IS PROVIDED "{}AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}}
+\DoxyCodeLine{16 \textcolor{comment}{// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}}
+\DoxyCodeLine{17 \textcolor{comment}{// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}}
+\DoxyCodeLine{18 \textcolor{comment}{// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}}
+\DoxyCodeLine{19 \textcolor{comment}{// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}}
+\DoxyCodeLine{20 \textcolor{comment}{// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}}
+\DoxyCodeLine{21 \textcolor{comment}{// SOFTWARE.}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/utils/constraints.h>}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <rpp/observers/constraints.h>}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <rpp/observers/interface\_observer.h>}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tuple>}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{32 \{}
+\DoxyCodeLine{33 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext, \textcolor{keyword}{typename} OnError, \textcolor{keyword}{typename} OnCompleted>}
+\DoxyCodeLine{34 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1specific__callables}{specific\_callables}}}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36     \textcolor{keyword}{const} \mbox{\hyperlink{structrpp_1_1details_1_1specific__callables}{specific\_callables}}* operator-\/>()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{keyword}{this}; \}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38     OnNext      on\_next\{\};}
+\DoxyCodeLine{39     OnError     on\_error\{\};}
+\DoxyCodeLine{40     OnCompleted on\_completed\{\};}
+\DoxyCodeLine{41 \};}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type T, \textcolor{keyword}{typename} Callables>}
+\DoxyCodeLine{44 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1details_1_1base__observer}{base\_observer}} : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1interface__observer}{interface\_observer}}<T>}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46 \textcolor{keyword}{public}:}
+\DoxyCodeLine{47     \mbox{\hyperlink{classrpp_1_1details_1_1base__observer}{base\_observer}}(constraint::on\_next\_fn<T> \textcolor{keyword}{auto}\&\& \mbox{\hyperlink{classrpp_1_1details_1_1base__observer_a213df3d7da712a909d48eea50eb2f79a}{on\_next}})}
+\DoxyCodeLine{48         : m\_callables\{std::forward<decltype(on\_next)>(\mbox{\hyperlink{classrpp_1_1details_1_1base__observer_a213df3d7da712a909d48eea50eb2f79a}{on\_next}})\} \{\}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50     \mbox{\hyperlink{classrpp_1_1details_1_1base__observer}{base\_observer}}(constraint::on\_next\_fn<T> \textcolor{keyword}{auto}\&\&   \mbox{\hyperlink{classrpp_1_1details_1_1base__observer_a213df3d7da712a909d48eea50eb2f79a}{on\_next}},}
+\DoxyCodeLine{51                   constraint::on\_completed\_fn \textcolor{keyword}{auto}\&\& \mbox{\hyperlink{classrpp_1_1details_1_1base__observer_a24bdd0e8e4b0b65c09de7e35eac9f583}{on\_completed}})}
+\DoxyCodeLine{52         : m\_callables\{std::forward<decltype(on\_next)>(\mbox{\hyperlink{classrpp_1_1details_1_1base__observer_a213df3d7da712a909d48eea50eb2f79a}{on\_next}}),}
+\DoxyCodeLine{53                       \{\},}
+\DoxyCodeLine{54                       std::forward<decltype(on\_completed)>(\mbox{\hyperlink{classrpp_1_1details_1_1base__observer_a24bdd0e8e4b0b65c09de7e35eac9f583}{on\_completed}})\} \{\}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56     \mbox{\hyperlink{classrpp_1_1details_1_1base__observer}{base\_observer}}(constraint::on\_next\_fn<T> \textcolor{keyword}{auto}\&\& \mbox{\hyperlink{classrpp_1_1details_1_1base__observer_a213df3d7da712a909d48eea50eb2f79a}{on\_next}},}
+\DoxyCodeLine{57                   constraint::on\_error\_fn \textcolor{keyword}{auto}\&\&   \mbox{\hyperlink{classrpp_1_1details_1_1base__observer_af98c723509119063a02a1c697e2c0509}{on\_error}})}
+\DoxyCodeLine{58         : m\_callables\{std::forward<decltype(on\_next)>(\mbox{\hyperlink{classrpp_1_1details_1_1base__observer_a213df3d7da712a909d48eea50eb2f79a}{on\_next}}), std::forward<decltype(on\_error)>(\mbox{\hyperlink{classrpp_1_1details_1_1base__observer_af98c723509119063a02a1c697e2c0509}{on\_error}})\} \{\}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     \mbox{\hyperlink{classrpp_1_1details_1_1base__observer}{base\_observer}}(constraint::on\_next\_fn<T> \textcolor{keyword}{auto}\&\&   \mbox{\hyperlink{classrpp_1_1details_1_1base__observer_a213df3d7da712a909d48eea50eb2f79a}{on\_next}},}
+\DoxyCodeLine{61                   constraint::on\_error\_fn \textcolor{keyword}{auto}\&\&     \mbox{\hyperlink{classrpp_1_1details_1_1base__observer_af98c723509119063a02a1c697e2c0509}{on\_error}},}
+\DoxyCodeLine{62                   constraint::on\_completed\_fn \textcolor{keyword}{auto}\&\& \mbox{\hyperlink{classrpp_1_1details_1_1base__observer_a24bdd0e8e4b0b65c09de7e35eac9f583}{on\_completed}})}
+\DoxyCodeLine{63         : m\_callables\{std::forward<decltype(on\_next)>(\mbox{\hyperlink{classrpp_1_1details_1_1base__observer_a213df3d7da712a909d48eea50eb2f79a}{on\_next}}),}
+\DoxyCodeLine{64                       std::forward<decltype(on\_error)>(\mbox{\hyperlink{classrpp_1_1details_1_1base__observer_af98c723509119063a02a1c697e2c0509}{on\_error}}),}
+\DoxyCodeLine{65                       std::forward<decltype(on\_completed)>(\mbox{\hyperlink{classrpp_1_1details_1_1base__observer_a24bdd0e8e4b0b65c09de7e35eac9f583}{on\_completed}})\} \{\}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67     \mbox{\hyperlink{classrpp_1_1details_1_1base__observer}{base\_observer}}(std::same\_as<Callables> \textcolor{keyword}{auto}\&\& callables)}
+\DoxyCodeLine{68         : m\_callables\{std::forward<decltype(callables)>(callables)\} \{\}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70     \mbox{\hyperlink{classrpp_1_1details_1_1base__observer}{base\_observer}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1details_1_1base__observer}{base\_observer<T, Callables>}}\& other)     = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{71     \mbox{\hyperlink{classrpp_1_1details_1_1base__observer}{base\_observer}}(\mbox{\hyperlink{classrpp_1_1details_1_1base__observer}{base\_observer<T, Callables>}}\&\& other) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1base__observer_a213df3d7da712a909d48eea50eb2f79a}{on\_next}}(\textcolor{keyword}{const} T\& v) \textcolor{keyword}{const} \textcolor{keyword}{final}}
+\DoxyCodeLine{74     \{}
+\DoxyCodeLine{75         m\_callables-\/>on\_next(v);}
+\DoxyCodeLine{76     \}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1base__observer_a82f54d8f857c02bca2c2d5257e04a82b}{on\_next}}(T\&\& v) \textcolor{keyword}{const} \textcolor{keyword}{final}}
+\DoxyCodeLine{79     \{}
+\DoxyCodeLine{80         m\_callables-\/>on\_next(std::move(v));}
+\DoxyCodeLine{81     \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1base__observer_af98c723509119063a02a1c697e2c0509}{on\_error}}(\textcolor{keyword}{const} std::exception\_ptr\& err) \textcolor{keyword}{const} \textcolor{keyword}{final}}
+\DoxyCodeLine{84     \{}
+\DoxyCodeLine{85         m\_callables-\/>on\_error(err);}
+\DoxyCodeLine{86     \}}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1base__observer_a24bdd0e8e4b0b65c09de7e35eac9f583}{on\_completed}}() const final}
+\DoxyCodeLine{89     \{}
+\DoxyCodeLine{90         m\_callables-\/>on\_completed();}
+\DoxyCodeLine{91     \}}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93 \textcolor{keyword}{private}:}
+\DoxyCodeLine{94     Callables m\_callables\{\};}
+\DoxyCodeLine{95 \};}
+\DoxyCodeLine{96 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}
