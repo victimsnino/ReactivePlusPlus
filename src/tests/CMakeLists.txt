@@ -37,7 +37,7 @@ add_executable(${TARGET}
     copy_count_tracker.h
 )
 
-target_link_libraries(${TARGET} PRIVATE rpp Catch2WithMain)
+target_link_libraries(${TARGET} PRIVATE rpp Catch2WithMain coverage_config)
 
 set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 

@@ -38,16 +38,23 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set(TEST_RESULTS_DIR  ${CMAKE_BINARY_DIR}/test_results)
 set(BUILD_TESTS ON CACHE BOOL "Enable unit tests building" FORCE)
 
-# if (AUTOTESTS AND MSVC)
-#   # PDB debug information is not supported by buildcache.
-#   # Store debug info in the object files.
-#   string(REPLACE "/Zi" "/Z7" CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}")
-#   string(REPLACE "/Zi" "/Z7" CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
-#   string(REPLACE "/Zi" "/Z7" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
-#   string(REPLACE "/Zi" "/Z7" CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE}")
-#   string(REPLACE "/Zi" "/Z7" CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO}")
-#   string(REPLACE "/Zi" "/Z7" CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
-# endif()
+# Code Coverage Configuration
+add_library(coverage_config INTERFACE)
+
+option(CODE_COVERAGE "Enable coverage reporting" OFF)
+if(CODE_COVERAGE)
+  # Add required flags (GCC & LLVM/Clang)
+  target_compile_options(coverage_config INTERFACE
+    -O0        # no optimization
+    -g         # generate debug info
+    --coverage # sets all required flags
+  )
+  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
+    target_link_options(coverage_config INTERFACE --coverage)
+  else()
+    target_link_libraries(coverage_config INTERFACE --coverage)
+  endif()
+endif(CODE_COVERAGE)
 
 
 # ================== TESTS ==================
