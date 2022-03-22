@@ -1,0 +1,62 @@
+name: Build Status
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Debug
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+        token: ${{ secrets.TOKEN }}
+    
+    - name: Update apt-get
+      run: sudo apt-get update
+
+    # LCOV
+    - name: Install lcov
+      run: sudo apt-get install lcov
+    
+    # CODECOV
+    - name: Install codecov
+      shell: bash
+      run: sudo pip install codecov
+
+    - name: Setup cache
+      uses: mikehardy/buildcache-action@v1
+      if: matrix.config.os != 'windows-latest'
+      with:
+        cache_key: codecov
+    
+    - name: Configure CMake
+      env:
+        CC: gcc
+        CXX: g++
+      run: cmake -B ${{github.workspace}}/build -DAUTOTESTS=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache
+        
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 4
+
+    # CODE COVERAGE
+    - name: Code coverage - Capture coverage info
+      working-directory: ${{runner.workspace}}
+      run: lcov --directory . --capture --output-file coverage.info 
+    - name: Code coverage - Filter out system, external, and unit test source files
+      working-directory: ${{runner.workspace}}
+      run: lcov --remove coverage.info '/Library/*' '/usr/*' "${HOME}"'/.cache/*' '*/tests/*' '*/submodules/*' --output-file coverage.info
+    - name: Code coverage - Output coverage data for debugging
+      working-directory: ${{runner.workspace}}
+      run: lcov --list coverage.info
+    - name: Code coverage - Upload to CodeCov
+      working-directory: ${{runner.workspace}}
+      run:  bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
