@@ -26,9 +26,9 @@ Inheritance diagram for rpp\+::dynamic\+\_\+observable\texorpdfstring{$<$}{<} Ty
 \item 
 \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable_a43dfe979f5a6f05a7a546f5bb724422a}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ Type $>$ \&subscriber) const noexcept override
 \begin{DoxyCompactList}\small\item\em Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrpp_1_1dynamic__observable_aa610256805b1a2e16f1da4e07adeebd9}\label{classrpp_1_1dynamic__observable_aa610256805b1a2e16f1da4e07adeebd9}} 
+\mbox{\Hypertarget{classrpp_1_1dynamic__observable_a54307abdcb8e84d5735bdee2e12d71e2}\label{classrpp_1_1dynamic__observable_a54307abdcb8e84d5735bdee2e12d71e2}} 
 {\footnotesize template$<$typename ... Args$>$ \newline
-requires std\+::is\+\_\+constructible\+\_\+v$<$\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$Type$>$, std\+::decay\+\_\+t$<$Args$>$...$>$}\\\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} {\bfseries subscribe} (Args \&\&...args) const noexcept
+requires (std\+::is\+\_\+constructible\+\_\+v$<$\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$Type$>$, Args...$>$ \&\& !constraint\+::variadic\+\_\+is\+\_\+same\+\_\+type$<$\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$Type$>$, Args...$>$)}\\\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} {\bfseries subscribe} (Args \&\&...args) const noexcept
 \item 
 \mbox{\Hypertarget{classrpp_1_1dynamic__observable_aacc483df829262ee822b58a53bbc349e}\label{classrpp_1_1dynamic__observable_aacc483df829262ee822b58a53bbc349e}} 
 \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\+\_\+observable}}$<$ Type $>$ {\bfseries as\+\_\+dynamic} () const

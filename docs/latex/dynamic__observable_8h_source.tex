@@ -56,7 +56,7 @@
 \DoxyCodeLine{60     \}}
 \DoxyCodeLine{61 }
 \DoxyCodeLine{62     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{63         \textcolor{keyword}{requires} std::is\_constructible\_v<dynamic\_subscriber<Type>, std::decay\_t<Args>...>}
+\DoxyCodeLine{63         \textcolor{keyword}{requires} (std::is\_constructible\_v<dynamic\_subscriber<Type>, Args...> \&\& !constraint::variadic\_is\_same\_type<dynamic\_subscriber<Type>, Args...>)}
 \DoxyCodeLine{64     \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable_a43dfe979f5a6f05a7a546f5bb724422a}{subscribe}}(Args\&\&...args) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
 \DoxyCodeLine{65     \{}
 \DoxyCodeLine{66         \textcolor{keywordflow}{return} m\_observable-\/>subscribe(\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<Type>}}\{std::forward<Args>(args)...\});}
