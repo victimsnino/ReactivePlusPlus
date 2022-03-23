@@ -41,17 +41,17 @@ jobs:
         submodules: true
         token: ${{ secrets.TOKEN }}
 
-    - name: Setup cache
-      uses: mikehardy/buildcache-action@v1
-      if: matrix.config.os != 'windows-latest'
+    - name: ccache
+      uses: hendrikmuhs/ccache-action@v1
       with:
-        cache_key: ${{ matrix.config.name }}
+        variant: sccache
+        key:  ${{ matrix.config.name }}
       
     - name: Configure CMake
       env:
         CC: ${{ matrix.config.cc }}
         CXX: ${{ matrix.config.cxx }}
-      run: cmake -B ${{github.workspace}}/build -DAUTOTESTS=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache
+      run: cmake -B ${{github.workspace}}/build -DAUTOTESTS=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
         
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 4
