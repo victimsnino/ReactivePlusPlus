@@ -123,8 +123,15 @@ jobs:
         issue-number: ${{ github.event.pull_request.number }}
         comment-author: 'github-actions[bot]'
         
-    - name: Create commit comment
+    - name: Create comment
+      if: steps.fc.outputs.comment-id == ''
+      uses: peter-evans/commit-comment@v1
+      with:
+        body: ${{ steps.results.outputs.body }}
+        
+    - name: Update comment
       uses: peter-evans/create-or-update-comment@v2
+      if: steps.fc.outputs.comment-id != ''
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         body: ${{ steps.results.outputs.body }}
