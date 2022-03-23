@@ -43,21 +43,14 @@ jobs:
 
     - name: Setup cache
       uses: mikehardy/buildcache-action@v1
-      
       with:
         cache_key: ${{ matrix.config.name }}
-        
-    - name: Update env
-      if: matrix.config.os == 'windows-latest'
-      run: |
-        echo "BUILDCACHE_IMPERSONATE=cl.exe" >> $GITHUB_ENV
-        echo "CLToolExe=buildcache.exe" >> $GITHUB_ENV
-        echo "BUILDCACHE_DIR=C:\ProgramData\buildcache" >> $GITHUB_ENV
       
     - name: Configure CMake
       env:
         CC: ${{ matrix.config.cc }}
         CXX: ${{ matrix.config.cxx }}
+        CLToolExe: buildcache.exe
       run: cmake -B ${{github.workspace}}/build -DAUTOTESTS=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache
         
     - name: Build
