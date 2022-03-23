@@ -65,7 +65,7 @@ public:
      * \return subscription on this observable which can be used to unsubscribe
      */
     template<constraint::subscriber_of_type<Type> TSub>
-        requires !constraint::decayed_same_as<TSub, dynamic_subscriber<Type>>
+        requires (!constraint::decayed_same_as<TSub, dynamic_subscriber<Type>>)
     subscription subscribe(TSub&& subscriber) const noexcept
     {
         return subscribe_impl(std::forward<TSub>(subscriber));
