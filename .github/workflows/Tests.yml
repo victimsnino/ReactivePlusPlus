@@ -135,6 +135,7 @@ jobs:
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         body: ${{ steps.results.outputs.body }}
+        edit-mode: replace
 
     - name: Install deps
       run: pip3 install plotly
