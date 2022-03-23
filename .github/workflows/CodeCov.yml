@@ -47,7 +47,7 @@ jobs:
       working-directory: ${{github.workspace}}/build
       run: ctest -C ${{env.BUILD_TYPE}}
       
-    - run: ls -r . > files.txt
+    - run: ls -R . > files.txt
     
     - name: Upload parsed results
       uses: actions/upload-artifact@v3
@@ -55,11 +55,9 @@ jobs:
         name: files.txt
         path: files.txt
     
-    # CODE COVERAGE
-    - run: cd build
-    
+   
     - name: Code coverage - Capture coverage info
-      run: lcov --gcov-tool /usr/bin/gcov-10 --directory . --capture --output-file coverage.info 
+      run: lcov --gcov-tool /usr/bin/gcov-10 --directory build --capture --output-file coverage.info -b .
     - name: Code coverage - Filter out system, external, and unit test source files
       run: lcov --gcov-tool /usr/bin/gcov-10 --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' '*/tests/*' '*/submodules/*' --output-file coverage.info
     - name: Code coverage - Output coverage data for debugging
