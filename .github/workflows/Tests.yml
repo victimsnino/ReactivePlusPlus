@@ -86,6 +86,7 @@ jobs:
     
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
+      if: matrix.config.name == 'Linux CLANG'
 
   process:
     name: Process benchmark results
