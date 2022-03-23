@@ -24,16 +24,19 @@ jobs:
            cc: "gcc-10"
            cxx: "g++-10"
            relative_path_bench: "build/bin/rpp_tests"
+           cache_tool: ccache
         -  name: "Linux CLANG"
            os: ubuntu-latest
            cc: "clang" 
            cxx: "clang++"
            relative_path_bench: "build/bin/rpp_tests"
+           cache_tool: ccache
         -  name: "Windows MSVC"
            os: windows-latest
            cc: "cl"
            cxx: "cl"
            relative_path_bench: "build/bin/Release/rpp_tests"
+           cache_tool: sccache
 
     steps:
     - uses: actions/checkout@v2
@@ -44,14 +47,14 @@ jobs:
     - name: ccache
       uses: hendrikmuhs/ccache-action@v1
       with:
-        variant: sccache
+        variant:  ${{ matrix.config.cache_tool }}
         key:  ${{ matrix.config.name }}
       
     - name: Configure CMake
       env:
         CC: ${{ matrix.config.cc }}
         CXX: ${{ matrix.config.cxx }}
-      run: cmake -B ${{github.workspace}}/build -DAUTOTESTS=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
+      run: cmake -B ${{github.workspace}}/build -DAUTOTESTS=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER_LAUNCHER=${{ matrix.config.cache_tool }} -DCMAKE_CXX_COMPILER_LAUNCHER=${{ matrix.config.cache_tool }}
         
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 4
