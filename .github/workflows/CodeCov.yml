@@ -33,7 +33,6 @@ jobs:
       shell: bash
       run: sudo pip install codecov
 
-    
     - name: Configure CMake
       env:
         CC: gcc-10
@@ -46,16 +45,7 @@ jobs:
     - name: Test
       working-directory: ${{github.workspace}}/build
       run: ctest -C ${{env.BUILD_TYPE}}
-      
-    - run: ls -R . > files.txt
-    
-    - name: Upload parsed results
-      uses: actions/upload-artifact@v3
-      with:
-        name: files.txt
-        path: files.txt
-    
-   
+             
     - name: Code coverage - Capture coverage info
       run: lcov --gcov-tool /usr/bin/gcov-10 --directory build --capture --output-file coverage.info -b .
     - name: Code coverage - Filter out system, external, and unit test source files
@@ -64,10 +54,3 @@ jobs:
       run: lcov --gcov-tool /usr/bin/gcov-10  --list coverage.info
     - name: Upload
       run:  bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
-      
-    - name: Upload parsed results
-      uses: actions/upload-artifact@v3
-      with:
-        name: coverage.info 
-        path: coverage.info 
-
