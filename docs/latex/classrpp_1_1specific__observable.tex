@@ -33,6 +33,9 @@ auto {\bfseries as\+\_\+dynamic} () \&\&
 \begin{DoxyCompactList}\small\item\em Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::observer\+\_\+of\+\_\+type$<$ Type $>$ TObserver$>$ }\\\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable_ac62caaee93bf6cb84cbb5575a7ec636c}{subscribe}} (TObserver \&\&observer) const noexcept
 \begin{DoxyCompactList}\small\item\em Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_af99f80e36ad16e6499bda310b9e1d8db}\label{classrpp_1_1specific__observable_af99f80e36ad16e6499bda310b9e1d8db}} 
+{\footnotesize template$<$constraint\+::observer\+\_\+of\+\_\+type$<$ Type $>$ TObserver$>$ }\\\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} {\bfseries subscribe} (constraint\+::decayed\+\_\+same\+\_\+as$<$ \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} $>$ auto \&\&sub, TObserver \&\&observer) const noexcept
+\item 
 {\footnotesize template$<$typename ... Args$>$ \newline
 requires std\+::is\+\_\+constructible\+\_\+v$<$\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$Type$>$, std\+::decay\+\_\+t$<$Args$>$...$>$}\\\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable_ad2f734e827b38159bf6f5cd3be3b8e9b}{subscribe}} (Args \&\&...args) const noexcept
 \begin{DoxyCompactList}\small\item\em Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. \end{DoxyCompactList}\end{DoxyCompactItemize}
