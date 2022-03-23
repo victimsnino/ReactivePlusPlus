@@ -58,6 +58,10 @@ if(CODE_COVERAGE)
     target_link_libraries(coverage_config INTERFACE --coverage)
   endif()
   target_link_libraries(coverage_config INTERFACE gcov)
+  
+  SET(CMAKE_CXX_FLAGS "-g -O0 --coverage -fprofile-arcs -ftest-coverage")
+  SET(CMAKE_C_FLAGS "-g -O0 --coverage -fprofile-arcs -ftest-coverage")
+
 endif(CODE_COVERAGE)
 
 
