@@ -64,4 +64,7 @@ jobs:
       run: lcov --gcov-tool /usr/bin/gcov-10  --list coverage.info
     - name: Code coverage - Upload to CodeCov
       working-directory: ${{runner.workspace}}
-      run:  bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
+      run:  |
+        curl -Os https://uploader.codecov.io/latest/linux/codecov
+        chmod +x codecov
+        ./codecov
