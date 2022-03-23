@@ -29,7 +29,8 @@ auto {\bfseries as\+\_\+dynamic} () \&\&
 \item 
 \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable_ae64437bfee3b2b62219c0be2ec08aab4}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ Type $>$ \&subscriber) const noexcept override
 \begin{DoxyCompactList}\small\item\em Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::subscriber\+\_\+of\+\_\+type$<$ Type $>$ TSub$>$ }\\!constraint \+::decayed\+\_\+same\+\_\+as$<$ TSub, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ Type $>$ $>$ \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable_aac84b10240a5915f047f7a079880fb81}{subscribe}} (TSub \&\&subscriber) const noexcept
+{\footnotesize template$<$constraint\+::subscriber\+\_\+of\+\_\+type$<$ Type $>$ TSub$>$ \newline
+requires (!constraint\+::decayed\+\_\+same\+\_\+as$<$TSub, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$Type$>$$>$)}\\\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable_ae415a2cde6a58b3e1833ac66adf12a58}{subscribe}} (TSub \&\&subscriber) const noexcept
 \begin{DoxyCompactList}\small\item\em Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::observer\+\_\+of\+\_\+type$<$ Type $>$ TObserver$>$ }\\\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable_ac62caaee93bf6cb84cbb5575a7ec636c}{subscribe}} (TObserver \&\&observer) const noexcept
 \begin{DoxyCompactList}\small\item\em Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. \end{DoxyCompactList}\item 
@@ -105,13 +106,14 @@ Main function of observable. Initiates subscription for provided subscriber and 
 this overloading accepts observer to construct \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\+\_\+subscriber}} without extra overheads \begin{DoxyReturn}{Returns}
 subscription on this observable which can be used to unsubscribe 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classrpp_1_1specific__observable_aac84b10240a5915f047f7a079880fb81}\label{classrpp_1_1specific__observable_aac84b10240a5915f047f7a079880fb81}} 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_ae415a2cde6a58b3e1833ac66adf12a58}\label{classrpp_1_1specific__observable_ae415a2cde6a58b3e1833ac66adf12a58}} 
 \index{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}!subscribe@{subscribe}}
 \index{subscribe@{subscribe}!rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}}
 \doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ \\
-template$<$constraint\+::subscriber\+\_\+of\+\_\+type$<$ Type $>$ TSub$>$ \\
-!constraint \+::decayed\+\_\+same\+\_\+as$<$ TSub, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ Type $>$ $>$ \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}$<$ Type, On\+Subscribe\+Fn $>$\+::subscribe (\begin{DoxyParamCaption}\item[{TSub \&\&}]{subscriber }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+template$<$constraint\+::subscriber\+\_\+of\+\_\+type$<$ Type $>$ TSub$>$ \newline
+requires (!constraint\+::decayed\+\_\+same\+\_\+as$<$TSub, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$Type$>$$>$)\\
+\mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}$<$ Type, On\+Subscribe\+Fn $>$\+::subscribe (\begin{DoxyParamCaption}\item[{TSub \&\&}]{subscriber }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
 
 
 

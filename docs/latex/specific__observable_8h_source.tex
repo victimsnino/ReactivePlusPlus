@@ -53,8 +53,8 @@
 \DoxyCodeLine{60     \}}
 \DoxyCodeLine{61 }
 \DoxyCodeLine{67     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type> TSub>}
-\DoxyCodeLine{68         \textcolor{keyword}{requires} !constraint::decayed\_same\_as<TSub, dynamic\_subscriber<Type>>}
-\DoxyCodeLine{69     \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable_aac84b10240a5915f047f7a079880fb81}{subscribe}}(TSub\&\& subscriber) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{68         \textcolor{keyword}{requires} (!constraint::decayed\_same\_as<TSub, dynamic\_subscriber<Type>>)}
+\DoxyCodeLine{69     \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1specific__observable_ae415a2cde6a58b3e1833ac66adf12a58}{subscribe}}(TSub\&\& subscriber) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
 \DoxyCodeLine{70     \{}
 \DoxyCodeLine{71         \textcolor{keywordflow}{return} subscribe\_impl(std::forward<TSub>(subscriber));}
 \DoxyCodeLine{72     \}}

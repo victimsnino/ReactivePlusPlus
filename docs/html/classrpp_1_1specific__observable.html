@@ -104,10 +104,11 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>as_dynamic</b> () &am
 <tr class="memitem:ae64437bfee3b2b62219c0be2ec08aab4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1subscription.html">subscription</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1specific__observable.html#ae64437bfee3b2b62219c0be2ec08aab4">subscribe</a> (const <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; Type &gt; &amp;subscriber) const noexcept override</td></tr>
 <tr class="memdesc:ae64437bfee3b2b62219c0be2ec08aab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="classrpp_1_1specific__observable.html#ae64437bfee3b2b62219c0be2ec08aab4">More...</a><br /></td></tr>
 <tr class="separator:ae64437bfee3b2b62219c0be2ec08aab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac84b10240a5915f047f7a079880fb81"><td class="memTemplParams" colspan="2">template&lt;constraint::subscriber_of_type&lt; Type &gt; TSub&gt; </td></tr>
-<tr class="memitem:aac84b10240a5915f047f7a079880fb81"><td class="memTemplItemLeft" align="right" valign="top">!constraint ::decayed_same_as&lt; TSub, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; Type &gt; &gt; <a class="el" href="classrpp_1_1subscription.html">subscription</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1specific__observable.html#aac84b10240a5915f047f7a079880fb81">subscribe</a> (TSub &amp;&amp;subscriber) const noexcept</td></tr>
-<tr class="memdesc:aac84b10240a5915f047f7a079880fb81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="classrpp_1_1specific__observable.html#aac84b10240a5915f047f7a079880fb81">More...</a><br /></td></tr>
-<tr class="separator:aac84b10240a5915f047f7a079880fb81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae415a2cde6a58b3e1833ac66adf12a58"><td class="memTemplParams" colspan="2">template&lt;constraint::subscriber_of_type&lt; Type &gt; TSub&gt; <br />
+requires (!constraint::decayed_same_as&lt;TSub, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;Type&gt;&gt;)</td></tr>
+<tr class="memitem:ae415a2cde6a58b3e1833ac66adf12a58"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1subscription.html">subscription</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1specific__observable.html#ae415a2cde6a58b3e1833ac66adf12a58">subscribe</a> (TSub &amp;&amp;subscriber) const noexcept</td></tr>
+<tr class="memdesc:ae415a2cde6a58b3e1833ac66adf12a58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="classrpp_1_1specific__observable.html#ae415a2cde6a58b3e1833ac66adf12a58">More...</a><br /></td></tr>
+<tr class="separator:ae415a2cde6a58b3e1833ac66adf12a58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac62caaee93bf6cb84cbb5575a7ec636c"><td class="memTemplParams" colspan="2">template&lt;constraint::observer_of_type&lt; Type &gt; TObserver&gt; </td></tr>
 <tr class="memitem:ac62caaee93bf6cb84cbb5575a7ec636c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1subscription.html">subscription</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1specific__observable.html#ac62caaee93bf6cb84cbb5575a7ec636c">subscribe</a> (TObserver &amp;&amp;observer) const noexcept</td></tr>
 <tr class="memdesc:ac62caaee93bf6cb84cbb5575a7ec636c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="classrpp_1_1specific__observable.html#ac62caaee93bf6cb84cbb5575a7ec636c">More...</a><br /></td></tr>
@@ -258,21 +259,22 @@ template&lt;constraint::observer_of_type&lt; Type &gt; TObserver&gt; </div>
 
 </div>
 </div>
-<a id="aac84b10240a5915f047f7a079880fb81" name="aac84b10240a5915f047f7a079880fb81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac84b10240a5915f047f7a079880fb81">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[4/4]</span></h2>
+<a id="ae415a2cde6a58b3e1833ac66adf12a58" name="ae415a2cde6a58b3e1833ac66adf12a58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae415a2cde6a58b3e1833ac66adf12a58">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;constraint::decayed_type Type, constraint::on_subscribe_fn&lt; Type &gt; OnSubscribeFn&gt; </div>
 <div class="memtemplate">
-template&lt;constraint::subscriber_of_type&lt; Type &gt; TSub&gt; </div>
+template&lt;constraint::subscriber_of_type&lt; Type &gt; TSub&gt; <br />
+requires (!constraint::decayed_same_as&lt;TSub, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;Type&gt;&gt;)</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">!constraint ::decayed_same_as&lt; TSub, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; Type &gt; &gt; <a class="el" href="classrpp_1_1subscription.html">subscription</a> <a class="el" href="classrpp_1_1specific__observable.html">rpp::specific_observable</a>&lt; Type, OnSubscribeFn &gt;::subscribe </td>
+          <td class="memname"><a class="el" href="classrpp_1_1subscription.html">subscription</a> <a class="el" href="classrpp_1_1specific__observable.html">rpp::specific_observable</a>&lt; Type, OnSubscribeFn &gt;::subscribe </td>
           <td>(</td>
           <td class="paramtype">TSub &amp;&amp;&#160;</td>
           <td class="paramname"><em>subscriber</em></td><td>)</td>
