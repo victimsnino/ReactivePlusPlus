@@ -51,6 +51,7 @@ jobs:
         CC: ${{ matrix.config.cc }}
         CXX: ${{ matrix.config.cxx }}
         CLToolExe: buildcache.exe
+        CLToolPath: ${{env.BUILDCACHE_DIR}}
       run: cmake -B ${{github.workspace}}/build -DAUTOTESTS=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache
         
     - name: Build
