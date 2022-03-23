@@ -33,7 +33,6 @@ struct observable_tag;
 namespace rpp::constraint
 {
 template<typename Fn, typename T> concept on_subscribe_fn = std::invocable<std::decay_t<Fn>, dynamic_subscriber<T>>;
-
 } // namespace rpp::constraint
 
 namespace rpp

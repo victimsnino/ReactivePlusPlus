@@ -41,6 +41,9 @@ class specific_subscriber : public details::subscriber_base<Type>
     static_assert(std::is_same_v<std::decay_t<Observer>, Observer>, "Observer should be decayed");
 public:
     //********************* Construct by observer *********************//
+    specific_subscriber()
+        : details::subscriber_base<Type>{} { }
+
     specific_subscriber(const Observer& observer)
         : specific_subscriber{subscription{}, observer} { }
 
@@ -100,7 +103,7 @@ protected:
     }
 
 private:
-    Observer m_observer;
+    Observer m_observer{};
 };
 
 template<constraint::observer TObs>
@@ -124,14 +127,14 @@ specific_subscriber(OnNext, Args ...) -> specific_subscriber<Type, details::dedu
  * \brief Creation of rpp::specific_subscriber with manual providing of type of subscriber. In case of ability to determine type of subscriber by function -> use constructor
  */
 template<typename Type, typename ...Args>
-auto make_specific_subscriber(Args&& ...args) requires utils::is_observer_constructible_v<Type, std::decay_t<Args>...>
+auto make_specific_subscriber(Args&& ...args) -> specific_subscriber<Type, decltype(rpp::make_specific_observer<Type>(std::declval<Args>()...))>
 {
     auto observer = rpp::make_specific_observer<Type>(std::forward<Args>(args)...);
     return rpp::specific_subscriber<Type, decltype(observer)>(std::move(observer));
 }
 
 template<typename Type, typename ...Args>
-auto make_specific_subscriber(constraint::decayed_same_as<subscription> auto&& sub, Args&& ...args) requires utils::is_observer_constructible_v<Type, std::decay_t<Args>...>
+auto make_specific_subscriber(constraint::decayed_same_as<subscription> auto&& sub, Args&& ...args)  -> specific_subscriber<Type, decltype(rpp::make_specific_observer<Type>(std::declval<Args>()...))>
 {
     auto observer = rpp::make_specific_observer<Type>(std::forward<Args>(args)...);
     return rpp::specific_subscriber<Type, decltype(observer)>(std::forward<decltype(sub)>(sub), std::move(observer));

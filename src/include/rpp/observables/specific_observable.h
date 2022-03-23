@@ -28,6 +28,7 @@
 #include <rpp/subscribers/constraints.h>
 #include <rpp/subscribers/type_traits.h>
 #include <rpp/utils/function_traits.h>
+#include <rpp/utils/constraints.h>
 
 #include <utility>
 
@@ -91,6 +92,12 @@ public:
         return subscribe_impl<std::decay_t<TObserver>>(std::forward<TObserver>(observer));
     }
 
+    template<constraint::observer_of_type<Type> TObserver>
+    subscription subscribe(constraint::decayed_same_as<subscription> auto&& sub, TObserver&& observer) const noexcept
+    {
+        return subscribe_impl(specific_subscriber<Type, std::decay_t<TObserver>>{std::forward<decltype(sub)>(sub), std::forward<TObserver>(observer)});
+    }
+
     /**
      * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
      * \details this overloading accepts raw functions to construct specific subscriber with specific observer
@@ -104,7 +111,7 @@ public:
     }
 
 private:
-    template<typename Obs>
+    template<constraint::observer_of_type<Type> Obs>
     subscription subscribe_impl(const specific_subscriber<Type, Obs>& subscriber) const noexcept
     {
         try

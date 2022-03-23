@@ -40,9 +40,7 @@ SCENARIO("Any observable can be casted to dynamic_observable", "[observable]")
             auto dynamic_observable = observable.as_dynamic();
 
             THEN("Obtain dynamic_observable of same type")
-            {
                 static_assert(std::is_same<decltype(dynamic_observable), rpp::dynamic_observable<int>>{}, "Type of dynamic observable should be same!");
-            }
         }
 
         WHEN("Construct dynamic_observable by constructor")
@@ -50,21 +48,61 @@ SCENARIO("Any observable can be casted to dynamic_observable", "[observable]")
             auto dynamic_observable = rpp::dynamic_observable{observable};
 
             THEN("Obtain dynamic_observable of same type")
-            {
                 static_assert(std::is_same<decltype(dynamic_observable), rpp::dynamic_observable<int>>{}, "Type of dynamic observable should be same!");
-            }
         }
     };
 
     GIVEN("specific_observable")
-    {
         validate_observable(rpp::specific_observable([](const rpp::dynamic_subscriber<int>&) {}));
-    }
 
     GIVEN("dynamic_observable")
-    {
         validate_observable(rpp::dynamic_observable([](const rpp::dynamic_subscriber<int>&) {}));
-    }
+}
+
+SCENARIO("Any observable can be subscribed from any type of subscription", "[observable]")
+{
+    int  subscribe_count     = 0;
+    auto validate_observable = [&](const auto& observable)
+    {
+        auto validate_subscribe = [&](auto&&...args)
+        {
+            observable.subscribe(std::forward<decltype(args)>(args)...);
+            THEN("subscribe called")
+                REQUIRE(subscribe_count == 1);
+        };
+        WHEN("subscribe with no arguments")
+            validate_subscribe();
+        WHEN("subscribe with lambda with specified type")
+            validate_subscribe([](const int&){});
+        WHEN("subscribe with lambda with specified type + error")
+            validate_subscribe([](const int&){}, [](const std::exception_ptr&){});
+        WHEN("subscribe with lambda with specified type + error + on_completed")
+            validate_subscribe([](const int&){}, [](const std::exception_ptr&){}, [](){});
+        WHEN("subscribe with lambda with specified type + on_completed")
+            validate_subscribe([](const int&){}, [](const std::exception_ptr&){}, [](){});
+        WHEN("subscribe with generic lambda ")
+            validate_subscribe([](const auto&){});
+        WHEN("subscribe with specific_observer")
+            validate_subscribe(rpp::specific_observer<int>{});
+        WHEN("subscribe with dynamic_observer")
+            validate_subscribe(rpp::specific_observer<int>{});
+        WHEN("subscribe with specific_subscriber")
+            validate_subscribe(rpp::specific_subscriber{rpp::specific_observer<int>{}});
+        WHEN("subscribe with dynamic_subscriber")
+            validate_subscribe(rpp::dynamic_subscriber<int>{});
+        WHEN("subscribe with subscription + specific_observer")
+            validate_subscribe(rpp::subscription{}, rpp::specific_observer<int>{});
+        WHEN("subscribe with subscription + dynamic_observer")
+            validate_subscribe(rpp::subscription{}, rpp::specific_observer<int>{});
+        WHEN("subscribe with subscription + lambda")
+            validate_subscribe(rpp::subscription{}, [](const int&){});
+    };
+
+    GIVEN("specific_observable")
+        validate_observable(rpp::specific_observable([&](const rpp::dynamic_subscriber<int>&) {++subscribe_count;}));
+
+    GIVEN("dynamic_observable")
+        validate_observable(rpp::dynamic_observable([&](const rpp::dynamic_subscriber<int>&) {++subscribe_count;}));
 }
 
 template<typename ObserverGetValue, bool is_move = false, bool is_const = false>

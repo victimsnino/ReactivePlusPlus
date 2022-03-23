@@ -118,6 +118,6 @@ protected:
     virtual void on_completed_impl() const = 0;
 
 private:
-    subscription m_subscription;
+    subscription m_subscription{};
 };
 } // namespace rpp::details

@@ -43,9 +43,8 @@ template<constraint::decayed_type Type>
 class dynamic_observable final : public interface_observable<Type, dynamic_observable<Type>>
 {
 public:
-    template<constraint::on_subscribe_fn<Type> OnSubscribeFn>
-    dynamic_observable(OnSubscribeFn&& on_subscribe)
-        : m_observable{std::make_shared<specific_observable<Type, std::decay_t<OnSubscribeFn>>>(on_subscribe)} {}
+    dynamic_observable(constraint::on_subscribe_fn<Type> auto&& on_subscribe)
+        : m_observable{std::make_shared<specific_observable<Type, std::decay_t<decltype(on_subscribe)>>>(on_subscribe)} {}
 
     template<constraint::observable TObs>
         requires (!std::is_same_v<std::decay_t<TObs>, dynamic_observable<Type>>)
@@ -60,14 +59,9 @@ public:
         return m_observable->subscribe(subscriber);
     }
 
-    /**
-     * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
-     * \details this overloading accepts raw functions to construct specific subscriber with specific observer
-     * \return subscription on this observable which can be used to unsubscribe
-     */
     template<typename ...Args>
         requires std::is_constructible_v<dynamic_subscriber<Type>, std::decay_t<Args>...>
-        subscription subscribe(Args&&...args) const noexcept
+    subscription subscribe(Args&&...args) const noexcept
     {
         return m_observable->subscribe(dynamic_subscriber<Type>{std::forward<Args>(args)...});
     }
