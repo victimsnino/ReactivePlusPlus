@@ -46,6 +46,12 @@ jobs:
       if: matrix.config.os != 'windows-latest'
       with:
         cache_key: ${{ matrix.config.name }}
+        
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      if: matrix.config.name == 'Linux CLANG'
+      with:
+        languages: cpp
       
     - name: Configure CMake
       env:
@@ -77,6 +83,10 @@ jobs:
       with:
         name: ${{ matrix.config.name }}
         path: ${{github.workspace}}/build/test_results/benchmark_result.txt
+    
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
+      if: matrix.config.name == 'Linux CLANG'
 
   process:
     name: Process benchmark results
