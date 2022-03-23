@@ -137,7 +137,7 @@ jobs:
         
     - name: Create comment
       if: github.event_name != 'pull_request'
-      uses: peter-evans/commit-comment@v1
+      uses: peter-evans/commit-comment@v2
       with:
         body: ${{ steps.results.outputs.body }}
         
