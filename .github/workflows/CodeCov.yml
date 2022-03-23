@@ -62,9 +62,6 @@ jobs:
     - name: Code coverage - Output coverage data for debugging
       working-directory: ${{runner.workspace}}
       run: lcov --gcov-tool /usr/bin/gcov-10  --list coverage.info
-    - name: Code coverage - Upload to CodeCov
-      working-directory: ${{runner.workspace}}
-      run:  |
-        curl -Os https://uploader.codecov.io/latest/linux/codecov
-        chmod +x codecov
-        ./codecov
+    - name: Upload
+      uses: codecov/codecov-action@v2.1.0
+
