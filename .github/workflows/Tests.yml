@@ -52,6 +52,7 @@ jobs:
       run: |
         echo "BUILDCACHE_IMPERSONATE=cl.exe" >> $GITHUB_ENV
         echo "CLToolExe=buildcache.exe" >> $GITHUB_ENV
+        echo "BUILDCACHE_DIR=C:\ProgramData\buildcache" >> $GITHUB_ENV
       
     - name: Configure CMake
       env:
