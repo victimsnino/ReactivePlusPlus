@@ -119,22 +119,24 @@ jobs:
     - name: Find Comment
       uses: peter-evans/find-comment@v2
       id: fc
+      if: github.event_name == 'pull_request'
       with:
         issue-number: ${{ github.event.pull_request.number }}
         comment-author: 'github-actions[bot]'
         body-includes: GCC
         
     - name: Create comment
-      if: steps.fc.outputs.comment-id == ''
+      if: github.event_name != 'pull_request'
       uses: peter-evans/commit-comment@v1
       with:
         body: ${{ steps.results.outputs.body }}
         
     - name: Update comment
       uses: peter-evans/create-or-update-comment@v2
-      if: steps.fc.outputs.comment-id != ''
+      if: github.event_name == 'pull_request'
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
+        issue-number: ${{ github.event.pull_request.number }}
         body: ${{ steps.results.outputs.body }}
         edit-mode: replace
 
