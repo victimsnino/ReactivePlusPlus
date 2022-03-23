@@ -41,8 +41,8 @@ jobs:
     
     - name: Configure CMake
       env:
-        CC: clang
-        CXX: clang++
+        CC: gcc-10
+        CXX: g++-10
       run: cmake -B ${{github.workspace}}/build -DAUTOTESTS=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache -DCODE_COVERAGE=1
         
     - name: Build
@@ -51,17 +51,18 @@ jobs:
     - name: Test
       working-directory: ${{github.workspace}}/build
       run: ctest -C ${{env.BUILD_TYPE}}
-
+    - name: log gcov versions
+      run: ls -r /usr/bin
     # CODE COVERAGE
     - name: Code coverage - Capture coverage info
       working-directory: ${{runner.workspace}}
-      run: lcov --directory ${{github.workspace}} --capture --output-file coverage.info 
+      run: lcov --gcov-tool /usr/bin/gcov-10.3 --directory ${{github.workspace}} --capture --output-file coverage.info 
     - name: Code coverage - Filter out system, external, and unit test source files
       working-directory: ${{runner.workspace}}
-      run: lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' '*/tests/*' '*/submodules/*' --output-file coverage.info
+      run: lcov --gcov-tool /usr/bin/gcov-10.3 --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' '*/tests/*' '*/submodules/*' --output-file coverage.info
     - name: Code coverage - Output coverage data for debugging
       working-directory: ${{runner.workspace}}
-      run: lcov --list coverage.info
+      run: lcov --gcov-tool /usr/bin/gcov-10.3  --list coverage.info
     - name: Code coverage - Upload to CodeCov
       working-directory: ${{runner.workspace}}
       run:  bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
