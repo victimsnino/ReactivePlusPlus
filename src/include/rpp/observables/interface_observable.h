@@ -67,6 +67,11 @@ concept lift_fn = constraint::subscriber<std::invoke_result_t<T, dynamic_subscri
 
 
 /**
+ * \defgroup observables Observables
+ * \brief Observable is the source of any Reactive Stream. Observable provides ability to subscribe observer on some events.
+ * \see https://reactivex.io/documentation/observable.html
+ * 
+ * 
  * \brief Interface of observable
  * \tparam Type type provided by this observable
  */
