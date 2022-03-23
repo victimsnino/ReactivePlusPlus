@@ -22,13 +22,12 @@
 
 #pragma once
 
-#include <rpp/observables/fwd.h>
 #include <rpp/observables/interface_observable.h>
 #include <rpp/observers/constraints.h>
 #include <rpp/subscribers/constraints.h>
 #include <rpp/subscribers/type_traits.h>
-#include <rpp/utils/function_traits.h>
 #include <rpp/utils/constraints.h>
+#include <rpp/utils/function_traits.h>
 
 #include <utility>
 
@@ -52,18 +51,8 @@ public:
     /**
      * \brief Converts rpp::specific_observable to rpp::dynamic_observable via type-erasure mechanism.
      */
-    [[nodiscard]] auto as_dynamic() const &
-    {
-        return rpp::dynamic_observable<Type>{*this};
-    }
-
-    /**
-     * \brief Converts rpp::specific_observable to rpp::dynamic_observable via type-erasure mechanism.
-     */
-    [[nodiscard]] auto as_dynamic() &&
-    {
-        return rpp::dynamic_observable<Type>{std::move(*this)};
-    }
+    [[nodiscard]] auto as_dynamic() const & { return rpp::dynamic_observable<Type>{*this};            }
+    [[nodiscard]] auto as_dynamic() &&      { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
     subscription subscribe(const dynamic_subscriber<Type>& subscriber) const noexcept override
     {
@@ -76,6 +65,7 @@ public:
      * \return subscription on this observable which can be used to unsubscribe
      */
     template<constraint::subscriber_of_type<Type> TSub>
+        requires !constraint::decayed_same_as<TSub, dynamic_subscriber<Type>>
     subscription subscribe(TSub&& subscriber) const noexcept
     {
         return subscribe_impl(std::forward<TSub>(subscriber));
@@ -104,7 +94,7 @@ public:
      * \return subscription on this observable which can be used to unsubscribe
      */
     template<typename ...Args>
-        requires std::is_constructible_v<dynamic_subscriber<Type>, std::decay_t<Args>...>
+        requires (std::is_constructible_v<dynamic_subscriber<Type>, std::decay_t<Args>...> && !constraint::variadic_is_same_type<dynamic_subscriber<Type>, Args...>)
     subscription subscribe(Args&&...args) const noexcept
     {
         return subscribe_impl(rpp::make_specific_subscriber<Type>(std::forward<Args>(args)...));

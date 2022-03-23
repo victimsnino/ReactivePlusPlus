@@ -60,7 +60,7 @@ public:
     }
 
     template<typename ...Args>
-        requires std::is_constructible_v<dynamic_subscriber<Type>, std::decay_t<Args>...>
+        requires (std::is_constructible_v<dynamic_subscriber<Type>, Args...> && !constraint::variadic_is_same_type<dynamic_subscriber<Type>, Args...>)
     subscription subscribe(Args&&...args) const noexcept
     {
         return m_observable->subscribe(dynamic_subscriber<Type>{std::forward<Args>(args)...});
