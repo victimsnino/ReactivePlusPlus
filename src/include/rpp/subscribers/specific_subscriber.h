@@ -59,7 +59,7 @@ public:
 
     //********************* Construct by actions *********************//
     template<typename ...Types>
-    specific_subscriber(Types&&...vals) 
+    specific_subscriber(Types&&...vals) requires std::constructible_from<Observer, Types...>
         : specific_subscriber{subscription{}, std::forward<Types>(vals)...} {}
 
     template<typename ...Types>
