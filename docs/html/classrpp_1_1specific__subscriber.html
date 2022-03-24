@@ -105,10 +105,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a10e27d98e60ccb6b830ebe22e01480d5"><td class="memItemLeft" align="right" valign="top"><a id="a10e27d98e60ccb6b830ebe22e01480d5" name="a10e27d98e60ccb6b830ebe22e01480d5"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>specific_subscriber</b> (const <a class="el" href="classrpp_1_1subscription.html">subscription</a> &amp;sub, Observer &amp;&amp;observer)</td></tr>
 <tr class="separator:a10e27d98e60ccb6b830ebe22e01480d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9dcb082a413fef4a7b97026d58f069f5"><td class="memTemplParams" colspan="2"><a id="a9dcb082a413fef4a7b97026d58f069f5" name="a9dcb082a413fef4a7b97026d58f069f5"></a>
-template&lt;typename ... Types&gt; </td></tr>
-<tr class="memitem:a9dcb082a413fef4a7b97026d58f069f5"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>specific_subscriber</b> (Types &amp;&amp;...vals)</td></tr>
-<tr class="separator:a9dcb082a413fef4a7b97026d58f069f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8884336aff1194b8bc024b9ef48d2c0e"><td class="memTemplParams" colspan="2"><a id="a8884336aff1194b8bc024b9ef48d2c0e" name="a8884336aff1194b8bc024b9ef48d2c0e"></a>
+template&lt;typename ... Types&gt; <br />
+requires std::constructible_from&lt;Observer, Types...&gt;</td></tr>
+<tr class="memitem:a8884336aff1194b8bc024b9ef48d2c0e"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>specific_subscriber</b> (Types &amp;&amp;...vals)</td></tr>
+<tr class="separator:a8884336aff1194b8bc024b9ef48d2c0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4436d883a75d233b9e343bd2120f265"><td class="memTemplParams" colspan="2"><a id="ad4436d883a75d233b9e343bd2120f265" name="ad4436d883a75d233b9e343bd2120f265"></a>
 template&lt;typename ... Types&gt; <br />
 requires std::constructible_from&lt;Observer, Types...&gt;</td></tr>

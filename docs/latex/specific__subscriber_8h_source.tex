@@ -58,7 +58,7 @@
 \DoxyCodeLine{59 }
 \DoxyCodeLine{60     \textcolor{comment}{//********************* Construct by actions *********************//}}
 \DoxyCodeLine{61     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Types>}
-\DoxyCodeLine{62     \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(Types\&\&...vals) }
+\DoxyCodeLine{62     \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(Types\&\&...vals) \textcolor{keyword}{requires} std::constructible\_from<Observer, Types...>}
 \DoxyCodeLine{63         : \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}\{\mbox{\hyperlink{classrpp_1_1subscription}{subscription}}\{\}, std::forward<Types>(vals)...\} \{\}}
 \DoxyCodeLine{64 }
 \DoxyCodeLine{65     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Types>}

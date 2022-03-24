@@ -30,8 +30,9 @@ Inheritance diagram for rpp\+::specific\+\_\+subscriber\texorpdfstring{$<$}{<} T
 \mbox{\Hypertarget{classrpp_1_1specific__subscriber_a10e27d98e60ccb6b830ebe22e01480d5}\label{classrpp_1_1specific__subscriber_a10e27d98e60ccb6b830ebe22e01480d5}} 
 {\bfseries specific\+\_\+subscriber} (const \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \&sub, Observer \&\&observer)
 \item 
-\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a9dcb082a413fef4a7b97026d58f069f5}\label{classrpp_1_1specific__subscriber_a9dcb082a413fef4a7b97026d58f069f5}} 
-{\footnotesize template$<$typename ... Types$>$ }\\{\bfseries specific\+\_\+subscriber} (Types \&\&...vals)
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a8884336aff1194b8bc024b9ef48d2c0e}\label{classrpp_1_1specific__subscriber_a8884336aff1194b8bc024b9ef48d2c0e}} 
+{\footnotesize template$<$typename ... Types$>$ \newline
+requires std\+::constructible\+\_\+from$<$Observer, Types...$>$}\\{\bfseries specific\+\_\+subscriber} (Types \&\&...vals)
 \item 
 \mbox{\Hypertarget{classrpp_1_1specific__subscriber_ad4436d883a75d233b9e343bd2120f265}\label{classrpp_1_1specific__subscriber_ad4436d883a75d233b9e343bd2120f265}} 
 {\footnotesize template$<$typename ... Types$>$ \newline
