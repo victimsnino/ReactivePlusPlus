@@ -18,26 +18,32 @@ Inheritance diagram for rpp\+::interface\+\_\+observable\texorpdfstring{$<$}{<} 
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename New\+Type $>$ }\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_ac6c66ddf2ceb4d398044a17e53db13eb}{lift}} (details\+::lift\+\_\+fn$<$ New\+Type $>$ auto \&\&op) const \&
-\begin{DoxyCompactList}\small\item\em Lift provides function to make new observable based on this one. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename New\+Type $>$ }\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_a2b13aeff7243c8da94f8afb37b40c3af}{lift}} (details\+::lift\+\_\+fn$<$ New\+Type $>$ auto \&\&op) \&\&
-\begin{DoxyCompactList}\small\item\em Lift provides function to make new observable based on this one. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Operator\+Fn , typename Subscriber\+Type  = utils\+::function\+\_\+argument\+\_\+t$<$\+Operator\+Fn$>$, typename New\+Type  = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$\+Subscriber\+Type$>$$>$ \newline
-requires details\+::lift\+\_\+fn$<$Operator\+Fn, New\+Type$>$}\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_a447c33fec6ac48f26e6b2d887eef3a99}{lift}} (Operator\+Fn \&\&op) const \&
-\begin{DoxyCompactList}\small\item\em Lift provides function to make new observable based on this one. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Operator\+Fn , typename Subscriber\+Type  = utils\+::function\+\_\+argument\+\_\+t$<$\+Operator\+Fn$>$, typename New\+Type  = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$\+Subscriber\+Type$>$$>$ \newline
-requires details\+::lift\+\_\+fn$<$Operator\+Fn, New\+Type$>$}\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_ab02193743943baaf7d27b8e8f4b1cbbf}{lift}} (Operator\+Fn \&\&op) \&\&
-\begin{DoxyCompactList}\small\item\em Lift provides function to make new observable based on this one. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename New\+Type , std\+::invocable$<$ Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Error = details\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Completed = details\+::forwarding\+\_\+on\+\_\+completed$>$ }\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_a250a7502f252453f3144b72ffedbb8fa}{lift}} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) const \&
-\begin{DoxyCompactList}\small\item\em Lift observable via creation of new proxy subscriber with provided On\+Next/\+On\+Error/\+On\+Completed callbacks. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename New\+Type , std\+::invocable$<$ Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Error = details\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Completed = details\+::forwarding\+\_\+on\+\_\+completed$>$ }\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_ae2b99979183025051efdb7e19233f9f6}{lift}} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) \&\&
-\begin{DoxyCompactList}\small\item\em Lift observable via creation of new proxy subscriber with provided On\+Next/\+On\+Error/\+On\+Completed callbacks. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename On\+Next , typename On\+Error  = details\+::forwarding\+\_\+on\+\_\+error, typename On\+Completed  = details\+::forwarding\+\_\+on\+\_\+completed, typename New\+Type  = std\+::decay\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Next$>$$>$$>$ \newline
+{\footnotesize template$<$constraint\+::decayed\+\_\+type New\+Type$>$ }\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_ac6c66ddf2ceb4d398044a17e53db13eb}{lift}} (details\+::lift\+\_\+fn$<$ New\+Type $>$ auto \&\&op) const \&
+\begin{DoxyCompactList}\small\item\em The lift operator provides ability to create your own operator and apply it to observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::decayed\+\_\+type New\+Type$>$ }\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_a2b13aeff7243c8da94f8afb37b40c3af}{lift}} (details\+::lift\+\_\+fn$<$ New\+Type $>$ auto \&\&op) \&\&
+\begin{DoxyCompactList}\small\item\em The lift operator provides ability to create your own operator and apply it to observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Operator\+Fn , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+Operator\+Fn$>$$>$$>$ \newline
+requires details\+::lift\+\_\+fn$<$Operator\+Fn, New\+Type$>$}\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_a89b275a1f555886633d2389c61b97103}{lift}} (Operator\+Fn \&\&op) const \&
+\begin{DoxyCompactList}\small\item\em The lift operator provides ability to create your own operator and apply it to observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Operator\+Fn , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+Operator\+Fn$>$$>$$>$ \newline
+requires details\+::lift\+\_\+fn$<$Operator\+Fn, New\+Type$>$}\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_a375d92792b094214edadfc52032bf21b}{lift}} (Operator\+Fn \&\&op) \&\&
+\begin{DoxyCompactList}\small\item\em The lift operator provides ability to create your own operator and apply it to observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::decayed\+\_\+type New\+Type, std\+::invocable$<$ Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Error = details\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Completed = details\+::forwarding\+\_\+on\+\_\+completed$>$ }\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_a250a7502f252453f3144b72ffedbb8fa}{lift}} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) const \&
+\begin{DoxyCompactList}\small\item\em The lift operator provides ability to create your own operator and apply it to observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::decayed\+\_\+type New\+Type, std\+::invocable$<$ Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Error = details\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Completed = details\+::forwarding\+\_\+on\+\_\+completed$>$ }\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_ae2b99979183025051efdb7e19233f9f6}{lift}} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) \&\&
+\begin{DoxyCompactList}\small\item\em The lift operator provides ability to create your own operator and apply it to observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename On\+Next , typename On\+Error  = details\+::forwarding\+\_\+on\+\_\+error, typename On\+Completed  = details\+::forwarding\+\_\+on\+\_\+completed, constraint\+::decayed\+\_\+type New\+Type = std\+::decay\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Next$>$$>$$>$ \newline
 requires std\+::invocable$<$On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$$>$ \&\& std\+::invocable$<$On\+Error, std\+::exception\+\_\+ptr, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$$>$ \&\& std\+::invocable$<$On\+Completed, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$$>$}\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_a0ee6c24a01ba0d4c6c79f36c403fb6ff}{lift}} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) const \&
-\begin{DoxyCompactList}\small\item\em Lift observable via creation of new proxy subscriber with provided On\+Next/\+On\+Error/\+On\+Completed callbacks. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename On\+Next , typename On\+Error  = details\+::forwarding\+\_\+on\+\_\+error, typename On\+Completed  = details\+::forwarding\+\_\+on\+\_\+completed, typename New\+Type  = std\+::decay\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Next$>$$>$$>$ \newline
+\begin{DoxyCompactList}\small\item\em The lift operator provides ability to create your own operator and apply it to observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename On\+Next , typename On\+Error  = details\+::forwarding\+\_\+on\+\_\+error, typename On\+Completed  = details\+::forwarding\+\_\+on\+\_\+completed, constraint\+::decayed\+\_\+type New\+Type = std\+::decay\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Next$>$$>$$>$ \newline
 requires std\+::invocable$<$On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$$>$ \&\& std\+::invocable$<$On\+Error, std\+::exception\+\_\+ptr, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$$>$ \&\& std\+::invocable$<$On\+Completed, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$$>$}\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_af1b0d0a7000fa365eccfaea1ec723997}{lift}} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) \&\&
-\begin{DoxyCompactList}\small\item\em Lift observable via creation of new proxy subscriber with provided On\+Next/\+On\+Error/\+On\+Completed callbacks. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The lift operator provides ability to create your own operator and apply it to observable. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structrpp_1_1interface__observable_a381218c46daf100859858d88743d058d}\label{structrpp_1_1interface__observable_a381218c46daf100859858d88743d058d}} 
+{\footnotesize template$<$std\+::invocable$<$ Specific\+Observable $>$ Operator\+Fn$>$ }\\auto {\bfseries op} (Operator\+Fn \&\&fn) const \&
+\item 
+\mbox{\Hypertarget{structrpp_1_1interface__observable_a51887f2fc4620f9ab9b45a28628ed85f}\label{structrpp_1_1interface__observable_a51887f2fc4620f9ab9b45a28628ed85f}} 
+{\footnotesize template$<$std\+::invocable$<$ Specific\+Observable $>$ Operator\+Fn$>$ }\\auto {\bfseries op} (Operator\+Fn \&\&fn) \&\&
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -60,21 +66,21 @@ Base part of observable. Mostly used to provide some interface functions used by
 \index{lift@{lift}!rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}}
 \doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [1/8]}}
 {\footnotesize\ttfamily template$<$typename Type , typename Specific\+Observable $>$ \\
-template$<$typename New\+Type $>$ \\
+template$<$constraint\+::decayed\+\_\+type New\+Type$>$ \\
 auto \mbox{\hyperlink{structrpp_1_1interface__observable}{rpp\+::interface\+\_\+observable}}$<$ Type, Specific\+Observable $>$\+::lift (\begin{DoxyParamCaption}\item[{details\+::lift\+\_\+fn$<$ New\+Type $>$ auto \&\&}]{op }\end{DoxyParamCaption}) \&\&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Lift provides function to make new observable based on this one. 
+The lift operator provides ability to create your own operator and apply it to observable. 
 
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em New\+Type} & manually specified new type of observable after lift \\
+{\em New\+Type} & manually specified new type of observable after applying of fn \\
 \hline
 \end{DoxyTemplParams}
 
 \begin{DoxyParams}{Parameters}
-{\em op} & function applied to observable \\
+{\em fn} & represents operator logic in the form\+: accepts NEW subscriber and returns OLD subscriber \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -85,21 +91,21 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \index{lift@{lift}!rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}}
 \doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [2/8]}}
 {\footnotesize\ttfamily template$<$typename Type , typename Specific\+Observable $>$ \\
-template$<$typename New\+Type $>$ \\
+template$<$constraint\+::decayed\+\_\+type New\+Type$>$ \\
 auto \mbox{\hyperlink{structrpp_1_1interface__observable}{rpp\+::interface\+\_\+observable}}$<$ Type, Specific\+Observable $>$\+::lift (\begin{DoxyParamCaption}\item[{details\+::lift\+\_\+fn$<$ New\+Type $>$ auto \&\&}]{op }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Lift provides function to make new observable based on this one. 
+The lift operator provides ability to create your own operator and apply it to observable. 
 
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em New\+Type} & manually specified new type of observable after lift \\
+{\em New\+Type} & manually specified new type of observable after applying of fn \\
 \hline
 \end{DoxyTemplParams}
 
 \begin{DoxyParams}{Parameters}
-{\em op} & function applied to observable \\
+{\em fn} & represents operator logic in the form\+: accepts NEW subscriber and returns OLD subscriber \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -110,22 +116,22 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \index{lift@{lift}!rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}}
 \doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [3/8]}}
 {\footnotesize\ttfamily template$<$typename Type , typename Specific\+Observable $>$ \\
-template$<$typename New\+Type , std\+::invocable$<$ Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Error = details\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Completed = details\+::forwarding\+\_\+on\+\_\+completed$>$ \\
+template$<$constraint\+::decayed\+\_\+type New\+Type, std\+::invocable$<$ Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Error = details\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Completed = details\+::forwarding\+\_\+on\+\_\+completed$>$ \\
 auto \mbox{\hyperlink{structrpp_1_1interface__observable}{rpp\+::interface\+\_\+observable}}$<$ Type, Specific\+Observable $>$\+::lift (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Error \&\&}]{on\+\_\+error = {\ttfamily \{\}},  }\item[{On\+Completed \&\&}]{on\+\_\+completed = {\ttfamily \{\}} }\end{DoxyParamCaption}) \&\&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Lift observable via creation of new proxy subscriber with provided On\+Next/\+On\+Error/\+On\+Completed callbacks. 
+The lift operator provides ability to create your own operator and apply it to observable. 
 
-
+This overload provides this ability via providing on\+\_\+next, on\+\_\+eror and on\+\_\+completed with 2 params\+: old type of value + new subscriber 
 \begin{DoxyTemplParams}{Template Parameters}
 {\em New\+Type} & manually specified new type of observable after lift \\
 \hline
-{\em On\+Next} & on\+\_\+next of new subscriber \\
+{\em On\+Next} & on\+\_\+next of new subscriber accepting old value + new subscriber (logic how to transfer old value to new subscriber) \\
 \hline
-{\em On\+Error} & on\+\_\+error of new subscriber \\
+{\em On\+Error} & on\+\_\+error of new subscriber accepting exception + new subscriber \\
 \hline
-{\em On\+Completed} & on\+\_\+completed of new subscriber \\
+{\em On\+Completed} & on\+\_\+completed of new subscriber accepting new subscriber \\
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyReturn}{Returns}
@@ -136,23 +142,21 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \index{lift@{lift}!rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}}
 \doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [4/8]}}
 {\footnotesize\ttfamily template$<$typename Type , typename Specific\+Observable $>$ \\
-template$<$typename On\+Next , typename On\+Error  = details\+::forwarding\+\_\+on\+\_\+error, typename On\+Completed  = details\+::forwarding\+\_\+on\+\_\+completed, typename New\+Type  = std\+::decay\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Next$>$$>$$>$ \newline
+template$<$typename On\+Next , typename On\+Error  = details\+::forwarding\+\_\+on\+\_\+error, typename On\+Completed  = details\+::forwarding\+\_\+on\+\_\+completed, constraint\+::decayed\+\_\+type New\+Type = std\+::decay\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Next$>$$>$$>$ \newline
 requires std\+::invocable$<$On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$$>$ \&\& std\+::invocable$<$On\+Error, std\+::exception\+\_\+ptr, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$$>$ \&\& std\+::invocable$<$On\+Completed, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$$>$\\
 auto \mbox{\hyperlink{structrpp_1_1interface__observable}{rpp\+::interface\+\_\+observable}}$<$ Type, Specific\+Observable $>$\+::lift (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Error \&\&}]{on\+\_\+error = {\ttfamily \{\}},  }\item[{On\+Completed \&\&}]{on\+\_\+completed = {\ttfamily \{\}} }\end{DoxyParamCaption}) \&\&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Lift observable via creation of new proxy subscriber with provided On\+Next/\+On\+Error/\+On\+Completed callbacks. 
+The lift operator provides ability to create your own operator and apply it to observable. 
 
-
+This overload provides this ability via providing on\+\_\+next, on\+\_\+eror and on\+\_\+completed with 2 params\+: old type of value + new subscriber 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em On\+Next} & on\+\_\+next of new subscriber \\
+{\em On\+Next} & on\+\_\+next of new subscriber accepting old value + new subscriber \\
 \hline
-{\em On\+Error} & on\+\_\+error of new subscriber \\
+{\em On\+Error} & on\+\_\+error of new subscriber accepting exception + new subscriber \\
 \hline
-{\em On\+Completed} & on\+\_\+completed of new subscriber \\
-\hline
-{\em New\+Type} & type of new observable deduced by type of value used inside On\+Next \\
+{\em On\+Completed} & on\+\_\+completed of new subscriber accepting new subscriber \\
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyReturn}{Returns}
@@ -163,22 +167,22 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \index{lift@{lift}!rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}}
 \doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [5/8]}}
 {\footnotesize\ttfamily template$<$typename Type , typename Specific\+Observable $>$ \\
-template$<$typename New\+Type , std\+::invocable$<$ Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Error = details\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Completed = details\+::forwarding\+\_\+on\+\_\+completed$>$ \\
+template$<$constraint\+::decayed\+\_\+type New\+Type, std\+::invocable$<$ Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Error = details\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Completed = details\+::forwarding\+\_\+on\+\_\+completed$>$ \\
 auto \mbox{\hyperlink{structrpp_1_1interface__observable}{rpp\+::interface\+\_\+observable}}$<$ Type, Specific\+Observable $>$\+::lift (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Error \&\&}]{on\+\_\+error = {\ttfamily \{\}},  }\item[{On\+Completed \&\&}]{on\+\_\+completed = {\ttfamily \{\}} }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Lift observable via creation of new proxy subscriber with provided On\+Next/\+On\+Error/\+On\+Completed callbacks. 
+The lift operator provides ability to create your own operator and apply it to observable. 
 
-
+This overload provides this ability via providing on\+\_\+next, on\+\_\+eror and on\+\_\+completed with 2 params\+: old type of value + new subscriber 
 \begin{DoxyTemplParams}{Template Parameters}
 {\em New\+Type} & manually specified new type of observable after lift \\
 \hline
-{\em On\+Next} & on\+\_\+next of new subscriber \\
+{\em On\+Next} & on\+\_\+next of new subscriber accepting old value + new subscriber (logic how to transfer old value to new subscriber) \\
 \hline
-{\em On\+Error} & on\+\_\+error of new subscriber \\
+{\em On\+Error} & on\+\_\+error of new subscriber accepting exception + new subscriber \\
 \hline
-{\em On\+Completed} & on\+\_\+completed of new subscriber \\
+{\em On\+Completed} & on\+\_\+completed of new subscriber accepting new subscriber \\
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyReturn}{Returns}
@@ -189,71 +193,79 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \index{lift@{lift}!rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}}
 \doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [6/8]}}
 {\footnotesize\ttfamily template$<$typename Type , typename Specific\+Observable $>$ \\
-template$<$typename On\+Next , typename On\+Error  = details\+::forwarding\+\_\+on\+\_\+error, typename On\+Completed  = details\+::forwarding\+\_\+on\+\_\+completed, typename New\+Type  = std\+::decay\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Next$>$$>$$>$ \newline
+template$<$typename On\+Next , typename On\+Error  = details\+::forwarding\+\_\+on\+\_\+error, typename On\+Completed  = details\+::forwarding\+\_\+on\+\_\+completed, constraint\+::decayed\+\_\+type New\+Type = std\+::decay\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Next$>$$>$$>$ \newline
 requires std\+::invocable$<$On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$$>$ \&\& std\+::invocable$<$On\+Error, std\+::exception\+\_\+ptr, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$$>$ \&\& std\+::invocable$<$On\+Completed, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$$>$\\
 auto \mbox{\hyperlink{structrpp_1_1interface__observable}{rpp\+::interface\+\_\+observable}}$<$ Type, Specific\+Observable $>$\+::lift (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Error \&\&}]{on\+\_\+error = {\ttfamily \{\}},  }\item[{On\+Completed \&\&}]{on\+\_\+completed = {\ttfamily \{\}} }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Lift observable via creation of new proxy subscriber with provided On\+Next/\+On\+Error/\+On\+Completed callbacks. 
+The lift operator provides ability to create your own operator and apply it to observable. 
 
-
+This overload provides this ability via providing on\+\_\+next, on\+\_\+eror and on\+\_\+completed with 2 params\+: old type of value + new subscriber 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em On\+Next} & on\+\_\+next of new subscriber \\
+{\em On\+Next} & on\+\_\+next of new subscriber accepting old value + new subscriber \\
 \hline
-{\em On\+Error} & on\+\_\+error of new subscriber \\
+{\em On\+Error} & on\+\_\+error of new subscriber accepting exception + new subscriber \\
 \hline
-{\em On\+Completed} & on\+\_\+completed of new subscriber \\
-\hline
-{\em New\+Type} & type of new observable deduced by type of value used inside On\+Next \\
+{\em On\+Completed} & on\+\_\+completed of new subscriber accepting new subscriber \\
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyReturn}{Returns}
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} of New\+Type 
 \end{DoxyReturn}
-\mbox{\Hypertarget{structrpp_1_1interface__observable_ab02193743943baaf7d27b8e8f4b1cbbf}\label{structrpp_1_1interface__observable_ab02193743943baaf7d27b8e8f4b1cbbf}} 
+\mbox{\Hypertarget{structrpp_1_1interface__observable_a375d92792b094214edadfc52032bf21b}\label{structrpp_1_1interface__observable_a375d92792b094214edadfc52032bf21b}} 
 \index{rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}!lift@{lift}}
 \index{lift@{lift}!rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}}
 \doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [7/8]}}
 {\footnotesize\ttfamily template$<$typename Type , typename Specific\+Observable $>$ \\
-template$<$typename Operator\+Fn , typename Subscriber\+Type  = utils\+::function\+\_\+argument\+\_\+t$<$\+Operator\+Fn$>$, typename New\+Type  = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$\+Subscriber\+Type$>$$>$ \newline
+template$<$typename Operator\+Fn , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+Operator\+Fn$>$$>$$>$ \newline
 requires details\+::lift\+\_\+fn$<$Operator\+Fn, New\+Type$>$\\
 auto \mbox{\hyperlink{structrpp_1_1interface__observable}{rpp\+::interface\+\_\+observable}}$<$ Type, Specific\+Observable $>$\+::lift (\begin{DoxyParamCaption}\item[{Operator\+Fn \&\&}]{op }\end{DoxyParamCaption}) \&\&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Lift provides function to make new observable based on this one. 
+The lift operator provides ability to create your own operator and apply it to observable. 
 
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em Operator\+Fn} & type of function applied to observable \\
+{\em Operator\+Fn} & type of your custom functor \\
 \hline
-{\em New\+Type} & deduced from argument of Operator of subscriber \\
+{\em New\+Type} & auto-\/deduced type of observable after applying of fn \\
 \hline
 \end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em fn} & represents operator logic in the form\+: accepts NEW subscriber and returns OLD subscriber \\
+\hline
+\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} of New\+Type 
 \end{DoxyReturn}
-\mbox{\Hypertarget{structrpp_1_1interface__observable_a447c33fec6ac48f26e6b2d887eef3a99}\label{structrpp_1_1interface__observable_a447c33fec6ac48f26e6b2d887eef3a99}} 
+\mbox{\Hypertarget{structrpp_1_1interface__observable_a89b275a1f555886633d2389c61b97103}\label{structrpp_1_1interface__observable_a89b275a1f555886633d2389c61b97103}} 
 \index{rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}!lift@{lift}}
 \index{lift@{lift}!rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}}
 \doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [8/8]}}
 {\footnotesize\ttfamily template$<$typename Type , typename Specific\+Observable $>$ \\
-template$<$typename Operator\+Fn , typename Subscriber\+Type  = utils\+::function\+\_\+argument\+\_\+t$<$\+Operator\+Fn$>$, typename New\+Type  = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$\+Subscriber\+Type$>$$>$ \newline
+template$<$typename Operator\+Fn , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+Operator\+Fn$>$$>$$>$ \newline
 requires details\+::lift\+\_\+fn$<$Operator\+Fn, New\+Type$>$\\
 auto \mbox{\hyperlink{structrpp_1_1interface__observable}{rpp\+::interface\+\_\+observable}}$<$ Type, Specific\+Observable $>$\+::lift (\begin{DoxyParamCaption}\item[{Operator\+Fn \&\&}]{op }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Lift provides function to make new observable based on this one. 
+The lift operator provides ability to create your own operator and apply it to observable. 
 
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em Operator\+Fn} & type of function applied to observable \\
+{\em Operator\+Fn} & type of your custom functor \\
 \hline
-{\em New\+Type} & deduced from argument of Operator of subscriber \\
+{\em New\+Type} & auto-\/deduced type of observable after applying of fn \\
 \hline
 \end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em fn} & represents operator logic in the form\+: accepts NEW subscriber and returns OLD subscriber \\
+\hline
+\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} of New\+Type 
 \end{DoxyReturn}

@@ -2,7 +2,7 @@ var indexSectionsWithContent =
 {
   0: "acdfilmosv",
   1: "dfiosv",
-  2: "cmo",
+  2: "cm",
   3: "aclos",
   4: "o"
 };
