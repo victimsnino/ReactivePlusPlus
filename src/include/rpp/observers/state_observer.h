@@ -23,10 +23,9 @@
 #pragma once
 
 #include <rpp/observers/interface_observer.h>
+#include <rpp/subscribers/constraints.h>
 #include <rpp/utils/constraints.h>
 #include <rpp/utils/function_traits.h>
-
-#include <rpp/subscribers/constraints.h>
 
 #include <exception>
 
@@ -48,23 +47,21 @@ struct forwarding_on_completed
  * \brief Special type of specific_observer which has some state which this observer stores and pass to each callback. Used for storing subscriber without extra copies
  */
 template<constraint::decayed_type T,
-         typename State,
-         typename OnNext,
-         typename OnError     = forwarding_on_error,
-         typename OnCompleted = forwarding_on_completed>
+         constraint::decayed_type State,
+         std::invocable<T, State>                  OnNext,
+         std::invocable<std::exception_ptr, State> OnError,
+         std::invocable<State>                     OnCompleted>
 class state_observer final : public interface_observer<T>
 {
 public:
-    template<typename TState,
-             typename TOnNext,
-             typename TOnError = forwarding_on_error,
-             typename TOnCompleted = forwarding_on_completed,
-             typename = std::enable_if_t<std::is_invocable_v<TOnNext, T, State> && std::is_invocable_v<TOnError, std::exception_ptr, State> && std::is_invocable_v<TOnCompleted, State>>>
-    state_observer(TState&& state, TOnNext&& on_next, TOnError&& on_error = {}, TOnCompleted&& on_completed = {})
-        : m_state{std::forward<TState>(state)}
-        , m_on_next{std::forward<TOnNext>(on_next)}
-        , m_on_err{std::forward<TOnError>(on_error)}
-        , m_on_completed{std::forward<TOnCompleted>(on_completed)} {}
+    state_observer(constraint::decayed_same_as<State> auto&&        state,
+                   std::invocable<T, State> auto&&                  on_next,
+                   std::invocable<std::exception_ptr, State> auto&& on_error,
+                   std::invocable<State> auto&&                     on_completed)
+        : m_state{std::forward<decltype(state)>(state)}
+        , m_on_next{std::forward<decltype(on_next)>(on_next)}
+        , m_on_err{std::forward<decltype(on_error)>(on_error)}
+        , m_on_completed{std::forward<decltype(on_completed)>(on_completed)} {}
 
     state_observer(const state_observer<T, State, OnNext, OnError, OnCompleted>& other)     = default;
     state_observer(state_observer<T, State, OnNext, OnError, OnCompleted>&& other) noexcept = default;
