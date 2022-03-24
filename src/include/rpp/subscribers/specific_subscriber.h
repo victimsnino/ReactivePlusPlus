@@ -38,7 +38,6 @@ namespace rpp
 template<constraint::decayed_type Type, constraint::decayed_observer Observer>
 class specific_subscriber : public details::subscriber_base<Type>
 {
-    static_assert(std::is_same_v<std::decay_t<Observer>, Observer>, "Observer should be decayed");
 public:
     //********************* Construct by observer *********************//
     specific_subscriber()
@@ -60,13 +59,11 @@ public:
 
     //********************* Construct by actions *********************//
     template<typename ...Types>
-        requires utils::is_observer_constructible_v<Type, Types...>
-    specific_subscriber(Types&&...vals)
+    specific_subscriber(Types&&...vals) 
         : specific_subscriber{subscription{}, std::forward<Types>(vals)...} {}
 
     template<typename ...Types>
-        requires utils::is_observer_constructible_v<Type, Types...>
-    specific_subscriber(const subscription& sub, Types&&...vals)
+    specific_subscriber(const subscription& sub, Types&&...vals) requires std::constructible_from<Observer, Types...>
         : details::subscriber_base<Type>{sub}
         , m_observer{std::forward<Types>(vals)...} {}
 

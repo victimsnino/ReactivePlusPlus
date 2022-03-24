@@ -26,46 +26,43 @@
 #include <rpp/subscriber.h>
 #include <rpp/observables/constraints.h>
 #include <rpp/observers/state_observer.h>
-#include <rpp/utils/type_traits.h>
 
 #include <type_traits>
 
-namespace rpp
+namespace rpp::details
 {
-namespace details
+template<constraint::decayed_type Type, typename OnNext, typename OnError, typename OnCompleted>
+static auto make_lift_action_by_callbacks(OnNext&& on_next, OnError&& on_error, OnCompleted&& on_completed)
 {
-    template<constraint::decayed_type NewType, typename OnNext, typename OnError, typename OnCompleted>
-    static auto make_lift_action_by_callbacks(OnNext&& on_next, OnError&& on_error, OnCompleted&& on_completed)
+    return [on_next = std::forward<OnNext>(on_next),
+            on_error = std::forward<OnError>(on_error),
+            on_completed = std::forward<OnCompleted>(on_completed)]<constraint::subscriber TSub>(TSub&& subscriber)
     {
-        return [on_next = std::forward<OnNext>(on_next),
-                on_error = std::forward<OnError>(on_error),
-                on_completed = std::forward<OnCompleted>(on_completed)](auto&& subscriber)
+        auto subscription = subscriber.get_subscription();
+        return specific_subscriber<Type, state_observer<Type,
+                                                        std::decay_t<TSub>,
+                                                        std::decay_t<OnNext>,
+                                                        std::decay_t<OnError>,
+                                                        std::decay_t<OnCompleted>>>
         {
-            using SubType = decltype(subscriber);
-            auto subscription = subscriber.get_subscription();
-            return specific_subscriber
-            {
-                subscription,
-                rpp::details::state_observer<std::decay_t<NewType>, std::decay_t<SubType>, std::decay_t<OnNext>, std::decay_t<OnError>, std::decay_t<OnCompleted>>
-                {
-                    std::forward<SubType>(subscriber),
-                    on_next,
-                    on_error,
-                    on_completed
-                }
-            };
+            subscription,
+            std::forward<TSub>(subscriber),
+            on_next,
+            on_error,
+            on_completed
         };
-    }
+    };
+}
 
-struct observable_tag{};
+struct observable_tag {};
 
 
 template<typename T, typename NewType>
 concept lift_fn = constraint::subscriber<std::invoke_result_t<T, dynamic_subscriber<NewType>>>;
+} // namespace rpp::details
 
-} // namespace details
-
-
+namespace rpp
+{
 /**
  * \defgroup observables Observables
  * \brief Observable is the source of any Reactive Stream. Observable provides ability to subscribe observer on some events.
@@ -103,24 +100,24 @@ private:
 public:
     // ********************************* LIFT DIRECT TYPE + OPERATOR: SUBSCRIBER -> SUBSCRIBER ******************//
     /**
-     * \brief Lift provides function to make new observable based on this one
-     * \tparam NewType manually specified new type of observable after lift
-     * \param op function applied to observable
-     * \return new specific_observable of NewType
-     */
-    template<typename NewType>
+    * \brief The lift operator provides ability to create your own operator and apply it to observable
+    * \tparam NewType manually specified new type of observable after applying of fn
+    * \param fn represents operator logic in the form: accepts NEW subscriber and returns OLD subscriber
+    * \return new specific_observable of NewType
+    */
+    template<constraint::decayed_type NewType>
     auto lift(details::lift_fn<NewType> auto&& op) const &
     {
         return lift_impl<NewType>(std::forward<decltype(op)>(op), CastThis());
     }
 
     /**
-    * \brief Lift provides function to make new observable based on this one
-    * \tparam NewType manually specified new type of observable after lift
-    * \param op function applied to observable
+    * \brief The lift operator provides ability to create your own operator and apply it to observable
+    * \tparam NewType manually specified new type of observable after applying of fn
+    * \param fn represents operator logic in the form: accepts NEW subscriber and returns OLD subscriber
     * \return new specific_observable of NewType
     */
-    template<typename NewType>
+    template<constraint::decayed_type NewType>
     auto lift(details::lift_fn<NewType> auto&& op) &&
     {
         return lift_impl<NewType>(std::forward<decltype(op)>(op), MoveThis());
@@ -128,31 +125,29 @@ public:
 
     // ********************************* LIFT OPERATOR: SUBSCRIBER -> SUBSCRIBER ******************//
     /**
-     * \brief Lift provides function to make new observable based on this one
-     * \tparam OperatorFn type of function applied to observable
-     * \tparam NewType deduced from argument of Operator of subscriber
-     * \return new specific_observable of NewType
-     */
+    * \brief The lift operator provides ability to create your own operator and apply it to observable
+    * \tparam OperatorFn type of your custom functor
+    * \tparam NewType auto-deduced type of observable after applying of fn
+    * \param fn represents operator logic in the form: accepts NEW subscriber and returns OLD subscriber
+    * \return new specific_observable of NewType
+	*/
     template<typename OperatorFn,
-             typename SubscriberType = utils::function_argument_t<OperatorFn>,
-             typename NewType = utils::extract_subscriber_type_t<SubscriberType>>
-        requires details::lift_fn<OperatorFn, NewType>
-    auto lift(OperatorFn&& op) const &
+             constraint::decayed_type NewType = utils::extract_subscriber_type_t<utils::function_argument_t<OperatorFn>>>
+    auto lift(OperatorFn&& op) const & requires details::lift_fn<OperatorFn, NewType>
     {
         return lift<NewType>(std::forward<OperatorFn>(op));
     }
 
-     /**
-     * \brief Lift provides function to make new observable based on this one
-     * \tparam OperatorFn type of function applied to observable
-     * \tparam NewType deduced from argument of Operator of subscriber
-     * \return new specific_observable of NewType
-     */
+    /**
+    * \brief The lift operator provides ability to create your own operator and apply it to observable
+    * \tparam OperatorFn type of your custom functor
+    * \tparam NewType auto-deduced type of observable after applying of fn
+    * \param fn represents operator logic in the form: accepts NEW subscriber and returns OLD subscriber
+    * \return new specific_observable of NewType
+	*/
     template<typename OperatorFn,
-             typename SubscriberType = utils::function_argument_t<OperatorFn>,
-             typename NewType = utils::extract_subscriber_type_t<SubscriberType>>
-        requires details::lift_fn<OperatorFn, NewType>
-    auto lift(OperatorFn&& op) &&
+             constraint::decayed_type NewType = utils::extract_subscriber_type_t<utils::function_argument_t<OperatorFn>>>
+    auto lift(OperatorFn&& op) && requires details::lift_fn<OperatorFn, NewType>
     {
         return std::move(*this).template lift<NewType>(std::forward<OperatorFn>(op));
     }
@@ -160,14 +155,15 @@ public:
         // ********************************* LIFT Direct type + OnNext, Onerror, OnCompleted ******************//
 
     /**
-     * \brief Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks
-     * \tparam NewType manually specified new type of observable after lift
-     * \tparam OnNext on_next of new subscriber
-     * \tparam OnError on_error of new subscriber
-     * \tparam OnCompleted on_completed of new subscriber
-     * \return new specific_observable of NewType
-     */
-    template<typename                                                        NewType,
+    * \brief The lift operator provides ability to create your own operator and apply it to observable.
+    * \details This overload provides this ability via providing on_next, on_eror and on_completed with 2 params: old type of value + new subscriber
+    * \tparam NewType manually specified new type of observable after lift
+    * \tparam OnNext on_next of new subscriber accepting old value + new subscriber (logic how to transfer old value to new subscriber)
+    * \tparam OnError on_error of new subscriber accepting exception  + new subscriber
+    * \tparam OnCompleted on_completed of new subscriber accepting new subscriber
+    * \return new specific_observable of NewType
+    */
+    template<constraint::decayed_type                                        NewType,
              std::invocable<Type, dynamic_subscriber<NewType>>               OnNext,
              std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError = details::forwarding_on_error,
              std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = details::forwarding_on_completed>
@@ -180,14 +176,15 @@ public:
     }
 
     /**
-     * \brief Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks
-     * \tparam NewType manually specified new type of observable after lift
-     * \tparam OnNext on_next of new subscriber
-     * \tparam OnError on_error of new subscriber
-     * \tparam OnCompleted on_completed of new subscriber
-     * \return new specific_observable of NewType
-     */
-        template<typename                                                    NewType,
+    * \brief The lift operator provides ability to create your own operator and apply it to observable.
+    * \details This overload provides this ability via providing on_next, on_eror and on_completed with 2 params: old type of value + new subscriber
+    * \tparam NewType manually specified new type of observable after lift
+    * \tparam OnNext on_next of new subscriber accepting old value + new subscriber (logic how to transfer old value to new subscriber)
+    * \tparam OnError on_error of new subscriber accepting exception  + new subscriber
+    * \tparam OnCompleted on_completed of new subscriber accepting new subscriber
+    * \return new specific_observable of NewType
+    */
+    template<constraint::decayed_type                                        NewType,
              std::invocable<Type, dynamic_subscriber<NewType>>               OnNext,
              std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError = details::forwarding_on_error,
              std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = details::forwarding_on_completed>
@@ -202,17 +199,17 @@ public:
     // ********************************* LIFT OnNext, Onerror, OnCompleted ******************//
 
     /**
-     * \brief Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks
-     * \tparam OnNext on_next of new subscriber
-     * \tparam OnError on_error of new subscriber
-     * \tparam OnCompleted on_completed of new subscriber
-     * \tparam NewType type of new observable deduced by type of value used inside OnNext
-     * \return new specific_observable of NewType
-     */
+    * \brief The lift operator provides ability to create your own operator and apply it to observable.
+    * \details This overload provides this ability via providing on_next, on_eror and on_completed with 2 params: old type of value + new subscriber
+    * \tparam OnNext on_next of new subscriber accepting old value + new subscriber
+    * \tparam OnError on_error of new subscriber accepting exception  + new subscriber
+    * \tparam OnCompleted on_completed of new subscriber accepting new subscriber
+    * \return new specific_observable of NewType
+    */
     template<typename OnNext,
-             typename OnError = details::forwarding_on_error,
-             typename OnCompleted = details::forwarding_on_completed,
-             typename NewType = std::decay_t<utils::function_argument_t<OnNext>>>
+             typename OnError                 = details::forwarding_on_error,
+             typename OnCompleted             = details::forwarding_on_completed,
+             constraint::decayed_type NewType = std::decay_t<utils::function_argument_t<OnNext>>>
         requires std::invocable<OnNext, Type, dynamic_subscriber<NewType>> &&
                  std::invocable<OnError, std::exception_ptr, dynamic_subscriber<NewType>> &&
                  std::invocable<OnCompleted, dynamic_subscriber<NewType>>
@@ -224,17 +221,17 @@ public:
     }
 
     /**
-     * \brief Lift observable via creation of new proxy subscriber with provided OnNext/OnError/OnCompleted callbacks
-     * \tparam OnNext on_next of new subscriber
-     * \tparam OnError on_error of new subscriber
-     * \tparam OnCompleted on_completed of new subscriber
-     * \tparam NewType type of new observable deduced by type of value used inside OnNext
-     * \return new specific_observable of NewType
-     */
+    * \brief The lift operator provides ability to create your own operator and apply it to observable.
+    * \details This overload provides this ability via providing on_next, on_eror and on_completed with 2 params: old type of value + new subscriber
+    * \tparam OnNext on_next of new subscriber accepting old value + new subscriber
+    * \tparam OnError on_error of new subscriber accepting exception  + new subscriber
+    * \tparam OnCompleted on_completed of new subscriber accepting new subscriber
+    * \return new specific_observable of NewType
+    */
     template<typename OnNext,
-             typename OnError = details::forwarding_on_error,
-             typename OnCompleted = details::forwarding_on_completed,
-             typename NewType = std::decay_t<utils::function_argument_t<OnNext>>>
+             typename OnError                 = details::forwarding_on_error,
+             typename OnCompleted             = details::forwarding_on_completed,
+             constraint::decayed_type NewType = std::decay_t<utils::function_argument_t<OnNext>>>
         requires std::invocable<OnNext, Type, dynamic_subscriber<NewType>> &&
                  std::invocable<OnError, std::exception_ptr, dynamic_subscriber<NewType>> &&
                  std::invocable<OnCompleted, dynamic_subscriber<NewType>>
@@ -243,6 +240,18 @@ public:
         return std::move(*this).template lift<NewType>(std::forward<OnNext>(on_next),
                                                        std::forward<OnError>(on_error),
                                                        std::forward<OnCompleted>(on_completed));
+    }
+
+    template<std::invocable<SpecificObservable> OperatorFn>
+    auto op(OperatorFn&& fn) const &
+    {
+        return fn(CastThis());
+    }
+
+    template<std::invocable<SpecificObservable> OperatorFn>
+    auto op(OperatorFn&& fn) &&
+    {
+        return fn(MoveThis());
     }
     
 private:
@@ -257,22 +266,20 @@ private:
         return std::move(*static_cast<SpecificObservable*>(this));
     }
 
-    template<typename NewType, typename OperatorFn, typename FwdThis>
+    template<constraint::decayed_type NewType, details::lift_fn<NewType> OperatorFn, typename FwdThis>
     static auto lift_impl(OperatorFn&& op, FwdThis&& _this)
     {
-        static_assert(is_callable_returns_subscriber_of_same_type_v<NewType, OperatorFn>, "OperatorFn should return subscriber");
-
-        return rpp::observable::create<NewType>([new_this = std::forward<FwdThis>(_this), op = std::forward<OperatorFn>(op)](auto&& subscriber)
+        return observable::create<NewType>([new_this = std::forward<FwdThis>(_this), op = std::forward<OperatorFn>(op)](auto&& subscriber)
         {
             new_this.subscribe(op(std::forward<decltype(subscriber)>(subscriber)));
         });
     }
 };
 
-template<constraint::observable                  Observable,
-        std::invocable<std::decay_t<Observable>> Operator>
+template<constraint::observable              Observable,
+    std::invocable<std::decay_t<Observable>> Operator>
 auto operator |(Observable&& observable, Operator&& op)
 {
-    return std::forward<Operator>(op)(std::forward<Observable>(observable));
+    return std::forward<Observable>(observable).op(std::forward<Operator>(op));
 }
 } // namespace rpp
