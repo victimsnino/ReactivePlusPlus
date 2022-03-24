@@ -4,27 +4,29 @@
 
 ReactivePlusPlus is [ReactiveX](https://reactivex.io/) library for C++ language inspired by "official implementation" ([RxCpp](https://github.com/ReactiveX/RxCpp)) 
 
-## Why one more Reactive Extension library for C++?
+## What about existing Reactive Extension libraries for C++?
 
 Reactive programming is excelent programming paradigm and approach for creation of multi-threading and real-time programs which reacts on some events. Unfortunately, there is only one stable and fully-implemented library at the moment of creation of ReactivePlusPlus - [RxCpp](https://github.com/ReactiveX/RxCpp). 
 
-[RxCpp](https://github.com/ReactiveX/RxCpp) is great and awesome library and perfect implementation of ReactiveX approach. However RxCpp has some disadvantages comparing to ReactivePlusPlus:
-- It is a bit **"old" library written in C++11**. Some parts of this library written in the **pre-C++11 style**. It means, that some parts of implementation looks like mess of old-style classes and wrappers. 
-- RxCpp contains **issue** with **template parameters**:  `rxcpp::observable` contains **full chain of operators** as second template parameter... where each operator has a lot of template parameters itself. It forces **IDEs** works **slower** while parsing resulting type of observable. Also it forces to generate** heavier binaries and debug symbols and slower build time**.
+[RxCpp](https://github.com/ReactiveX/RxCpp) is great and awesome library and perfect implementation of ReactiveX approach. However RxCpp has some disadvantages:
+- It is a bit **"old" library written in C++11** with some parts written in the **pre-C++11 style** (mess of old-style classes and wrappers)
+- **Issue** with **template parameters**:  `rxcpp::observable` contains **full chain of operators** as second template parameter... where each operator has a bunch of another template parameters itself. It forces **IDEs** works **slower** while parsing resulting type of observable. Also it forces to generate **heavier binaries and debug symbols and slower build time**.
 
-At the middle of creation of ReactivePlusPlus i've found another approach: [another-rxcpp](https://github.com/CODIANZ/another-rxcpp). Looks like it solves issues partly via **eliminating of template parameter**  with help of** type-erasing** and making each callback as `std::function`. But this approach also has disadvantages and causes runtime issues instead of compile-time. For example, resulting size of observers/observables becomes greater due to heavy `std::function` class, usage of heap for storing everything causes perfomance issues and etc.
+Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ/another-rxcpp). It partly solves issues of RxCpp via **eliminating of template parameter**  with help of **type-erasing** and making each callback as `std::function`. As a result issue with templates resvoled, but this approach has disadvantages related to runtime: resulting size of observers/observables becomes greater due to heavy `std::function` object, usage of heap for storing everything causes perfomance issues, implementation is just pretty simple and provides a lot of copies of passed objects.
 
-ReactivePlusPlus tries to solve all of this issues:
-- ReactivePlusPlus written in **Modern C++ (C++20)** using all required modern features to make code simpler like concept, variadic and everything in `std`
-- ReactivePlusPlus provides more flexible and predictable way of using types and type-erasing mechanism. Also it has more predictable way in understanding where heap is used or not, which actions causes runtime while others cause compile-time and etc. Read about this in [Perfomance vs Flexibility]()
-- ReactivePlusPlus written with the care about perfomance in mind.
+## Why ReactivePlusPlus?
+
+ReactivePlusPlus tries to solve all mentioned issues:
+- ReactivePlusPlus written in **Modern C++ (C++20)** with concepts which makes code-base a lot of understandable and clean.
+- ReactivePlusPlus keeps balance between perfomance and type-erasing mechanism: user can easily understand and choose where creation of object is expensive (via type-erasure mechanism) and how to avoid it if needed. Read about this in [Perfomance vs Flexibility, Specific vs Dynamic]()
+- ReactivePlusPlus is fast: every part of code written with perfomance in mind. Starting from tests over amoun of copies/move and finishing to Continous Benchmarking
+
+
 ## Documentation
 
-Repository contains doxygen documentation which generated per commit and placed on [github pages](https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html)
+Doxygen documentation generated per each commit can be found [here](https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html)
 
 ## Perfomance
 Perfomance is really **important**! It is **doubly important** when we speak about **realtime applications and libraries**! **ReactivePlusPlus** targets as a realtime library to process and handle a tremendous volumes of data. 
 
-This repository uses continous benchmarking! Every commit and pull request measured and diff per each benchmark provided. 
-
-History and actual values of each operation can be viewed on [github pages](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
+This repository uses continous benchmarking: every commit and pull request measured and diff per each benchmark provided. Graphs over benchmark results can be found [here](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
