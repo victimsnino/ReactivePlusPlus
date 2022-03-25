@@ -67,6 +67,14 @@ jobs:
       working-directory: ${{github.workspace}}/build
       run: ctest -C ${{env.BUILD_TYPE}}
       
+    - name: Test Report ${{ matrix.config.name }}
+      uses: dorny/test-reporter@v1
+      if: (success() || failure()) && ${{ github.actor != 'dependabot[bot]' }}
+      with:
+        name: Test report ${{ matrix.config.name }} 
+        path: ./build/test_results/*.xml
+        reporter: java-junit
+
     - name: Run benchmarks only
       run: ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] -r xml -o ${{github.workspace}}/build/test_results/benchmark_result.txt
       if: matrix.config.relative_path_bench != ''
@@ -75,7 +83,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.config.name }}
-        path: ./build/test_results/*
+        path: ${{github.workspace}}/build/test_results/benchmark_result.txt
     
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
@@ -95,14 +103,6 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         path: artifacts
-    
-    - name: Test Report ${{ matrix.config.name }}
-      uses: dorny/test-reporter@v1
-      if: success() || failure()
-      with:
-        name: Test report ${{ matrix.config.name }} 
-        path: ./artifacts/*/*.xml
-        reporter: java-junit
     
     - uses: actions/checkout@v2
       with:
