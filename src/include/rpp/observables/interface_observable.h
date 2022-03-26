@@ -59,6 +59,9 @@ struct observable_tag {};
 
 template<typename T, typename NewType>
 concept lift_fn = constraint::subscriber<std::invoke_result_t<T, dynamic_subscriber<NewType>>>;
+
+template<typename T, typename TObservable>
+concept op_fn = constraint::observable<std::invoke_result_t<T, TObservable>>;
 } // namespace rpp::details
 
 namespace rpp
@@ -75,8 +78,6 @@ namespace rpp
 template<constraint::decayed_type Type>
 struct virtual_observable : public details::observable_tag
 {
-    static_assert(std::is_same_v<std::decay_t<Type>, Type>, "Type of observable should be decayed");
-
     virtual              ~virtual_observable() = default;
 
     /**
@@ -94,9 +95,6 @@ struct virtual_observable : public details::observable_tag
 template<typename Type, typename SpecificObservable>
 struct interface_observable : public virtual_observable<Type>
 {
-private:
-    template<typename NewType, typename OperatorFn>
-    static constexpr bool is_callable_returns_subscriber_of_same_type_v = std::is_same_v<Type, utils::extract_subscriber_type_t<std::invoke_result_t<OperatorFn, dynamic_subscriber<NewType>>>>;
 public:
     // ********************************* LIFT DIRECT TYPE + OPERATOR: SUBSCRIBER -> SUBSCRIBER ******************//
     /**
@@ -111,12 +109,6 @@ public:
         return lift_impl<NewType>(std::forward<decltype(op)>(op), CastThis());
     }
 
-    /**
-    * \brief The lift operator provides ability to create your own operator and apply it to observable
-    * \tparam NewType manually specified new type of observable after applying of fn
-    * \param fn represents operator logic in the form: accepts NEW subscriber and returns OLD subscriber
-    * \return new specific_observable of NewType
-    */
     template<constraint::decayed_type NewType>
     auto lift(details::lift_fn<NewType> auto&& op) &&
     {
@@ -137,14 +129,6 @@ public:
     {
         return lift<NewType>(std::forward<OperatorFn>(op));
     }
-
-    /**
-    * \brief The lift operator provides ability to create your own operator and apply it to observable
-    * \tparam OperatorFn type of your custom functor
-    * \tparam NewType auto-deduced type of observable after applying of fn
-    * \param fn represents operator logic in the form: accepts NEW subscriber and returns OLD subscriber
-    * \return new specific_observable of NewType
-	*/
     template<typename OperatorFn,
              constraint::decayed_type NewType = utils::extract_subscriber_type_t<utils::function_argument_t<OperatorFn>>>
     auto lift(OperatorFn&& op) && requires details::lift_fn<OperatorFn, NewType>
@@ -175,15 +159,6 @@ public:
                                   CastThis());
     }
 
-    /**
-    * \brief The lift operator provides ability to create your own operator and apply it to observable.
-    * \details This overload provides this ability via providing on_next, on_eror and on_completed with 2 params: old type of value + new subscriber
-    * \tparam NewType manually specified new type of observable after lift
-    * \tparam OnNext on_next of new subscriber accepting old value + new subscriber (logic how to transfer old value to new subscriber)
-    * \tparam OnError on_error of new subscriber accepting exception  + new subscriber
-    * \tparam OnCompleted on_completed of new subscriber accepting new subscriber
-    * \return new specific_observable of NewType
-    */
     template<constraint::decayed_type                                        NewType,
              std::invocable<Type, dynamic_subscriber<NewType>>               OnNext,
              std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError = details::forwarding_on_error,
@@ -206,13 +181,11 @@ public:
     * \tparam OnCompleted on_completed of new subscriber accepting new subscriber
     * \return new specific_observable of NewType
     */
-    template<typename OnNext,
-             typename OnError                 = details::forwarding_on_error,
-             typename OnCompleted             = details::forwarding_on_completed,
-             constraint::decayed_type NewType = std::decay_t<utils::function_argument_t<OnNext>>>
-        requires std::invocable<OnNext, Type, dynamic_subscriber<NewType>> &&
-                 std::invocable<OnError, std::exception_ptr, dynamic_subscriber<NewType>> &&
-                 std::invocable<OnCompleted, dynamic_subscriber<NewType>>
+    template<typename                                                        OnNext,
+             constraint::decayed_type                                        NewType = std::decay_t<utils::function_argument_t<OnNext>>,
+             std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError = details::forwarding_on_error,
+             std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = details::forwarding_on_completed>
+        requires std::invocable<OnNext, Type, dynamic_subscriber<NewType>>
     auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const &
     {
         return lift<NewType>(std::forward<OnNext>(on_next),
@@ -220,21 +193,11 @@ public:
                              std::forward<OnCompleted>(on_completed));
     }
 
-    /**
-    * \brief The lift operator provides ability to create your own operator and apply it to observable.
-    * \details This overload provides this ability via providing on_next, on_eror and on_completed with 2 params: old type of value + new subscriber
-    * \tparam OnNext on_next of new subscriber accepting old value + new subscriber
-    * \tparam OnError on_error of new subscriber accepting exception  + new subscriber
-    * \tparam OnCompleted on_completed of new subscriber accepting new subscriber
-    * \return new specific_observable of NewType
-    */
-    template<typename OnNext,
-             typename OnError                 = details::forwarding_on_error,
-             typename OnCompleted             = details::forwarding_on_completed,
-             constraint::decayed_type NewType = std::decay_t<utils::function_argument_t<OnNext>>>
-        requires std::invocable<OnNext, Type, dynamic_subscriber<NewType>> &&
-                 std::invocable<OnError, std::exception_ptr, dynamic_subscriber<NewType>> &&
-                 std::invocable<OnCompleted, dynamic_subscriber<NewType>>
+    template<typename                                                        OnNext,
+             constraint::decayed_type                                        NewType = std::decay_t<utils::function_argument_t<OnNext>>,
+             std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError = details::forwarding_on_error,
+             std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = details::forwarding_on_completed>
+        requires std::invocable<OnNext, Type, dynamic_subscriber<NewType>>
     auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) &&
     {
         return std::move(*this).template lift<NewType>(std::forward<OnNext>(on_next),
@@ -242,13 +205,18 @@ public:
                                                        std::forward<OnCompleted>(on_completed));
     }
 
-    template<std::invocable<SpecificObservable> OperatorFn>
+    /**
+    * \brief The apply function to observable which returns observable of another type
+    * \tparam OperatorFn type of function which applies to this observable
+    * \return new specific_observable of NewType
+    */
+    template<details::op_fn<SpecificObservable> OperatorFn>
     auto op(OperatorFn&& fn) const &
     {
         return fn(CastThis());
     }
 
-    template<std::invocable<SpecificObservable> OperatorFn>
+    template<details::op_fn<SpecificObservable> OperatorFn>
     auto op(OperatorFn&& fn) &&
     {
         return fn(MoveThis());
@@ -277,7 +245,7 @@ private:
 };
 
 template<constraint::observable              Observable,
-    std::invocable<std::decay_t<Observable>> Operator>
+    details::op_fn<Observable> Operator>
 auto operator |(Observable&& observable, Operator&& op)
 {
     return std::forward<Observable>(observable).op(std::forward<Operator>(op));

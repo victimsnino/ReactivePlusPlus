@@ -66,7 +66,7 @@ public:
         return m_observable->subscribe(dynamic_subscriber<Type>{std::forward<Args>(args)...});
     }
 
-    dynamic_observable<Type> as_dynamic() const { return *this; }
+    const dynamic_observable<Type>& as_dynamic() const { return *this; }
 
 private:
     std::shared_ptr<virtual_observable<Type>> m_observable{};
