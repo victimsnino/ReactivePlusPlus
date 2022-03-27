@@ -31,6 +31,7 @@
 
 namespace rpp::details
 {
+
 struct forwarding_on_error
 {
     template<constraint::subscriber TSub>
@@ -49,8 +50,8 @@ struct forwarding_on_completed
 template<constraint::decayed_type T,
          constraint::decayed_type State,
          std::invocable<T, State>                  OnNext,
-         std::invocable<std::exception_ptr, State> OnError,
-         std::invocable<State>                     OnCompleted>
+         std::invocable<std::exception_ptr, State> OnError = forwarding_on_error,
+         std::invocable<State>                     OnCompleted= forwarding_on_completed>
 class state_observer final : public interface_observer<T>
 {
 public:

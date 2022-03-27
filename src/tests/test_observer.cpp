@@ -22,11 +22,11 @@
 
 #include "copy_count_tracker.h"
 #include "mock_observer.h"
-#include "rpp/observers/state_observer.h"
 
 #include <catch2/catch_test_macros.hpp>
-
 #include <rpp/observers.h>
+#include <rpp/observers/state_observer.h>
+#include <rpp/subscribers/dynamic_subscriber.h>
 
 SCENARIO("on_next, on_error and on_completed can be obtained")
 {
@@ -126,7 +126,7 @@ SCENARIO("Any observer can be casted to dynamic_observer")
     }
 }
 
-SCENARIO("State observer")
+SCENARIO("State observer copy-count for state")
 {
     GIVEN("state")
     {
@@ -163,6 +163,41 @@ SCENARIO("State observer")
                 CHECK(state.get_copy_count() == 0);
                 CHECK(state.get_move_count() == 1);
             }
+        }
+    }
+}
+
+SCENARIO("State proxy calls to subscriber")
+{
+    auto observer = mock_observer<int>{};
+    auto subscriber = rpp::dynamic_subscriber{ observer };
+
+    GIVEN("state_observer")
+    {
+        auto state_observer = rpp::details::state_observer{subscriber,
+                                                           [](int v, rpp::dynamic_subscriber<int> sub)
+                                                           {
+                                                               sub.on_next(v);
+                                                           },
+                                                           rpp::details::forwarding_on_error{},
+                                                           rpp::details::forwarding_on_completed{}};
+        WHEN("call on_next")
+        {
+            state_observer.on_next(1);
+            THEN("original observer obtains on_next")
+                CHECK(observer.get_total_on_next_count() == 1);
+        }
+        WHEN("call on_error")
+        {
+            state_observer.on_error(std::exception_ptr{});
+            THEN("original observer obtains on_error")
+                CHECK(observer.get_on_error_count() == 1);
+        }
+        WHEN("call on_completed")
+        {
+            state_observer.on_completed();
+            THEN("original observer obtains on_error")
+                CHECK(observer.get_on_completed_count() == 1);
         }
     }
 }
