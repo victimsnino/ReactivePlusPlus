@@ -70,6 +70,22 @@ SCENARIO("Any type of observer can be passed to any type of subscriber", "[subsc
         validate_observer(mock_observer<int>{});
 }
 
+SCENARIO("Specific subscriber can be converted to dynamic_subscriber", "[subscriber]")
+{
+    GIVEN("specific subscriber")
+    {
+        auto sub = rpp::specific_subscriber{ [](int) {} };
+        WHEN("call as_dynamic")
+        {
+            auto new_sub = sub.as_dynamic();
+            THEN("new dynamic_subscriber")
+            {
+                static_assert(std::is_same_v<decltype(new_sub), rpp::dynamic_subscriber<int>>);
+            }
+        }
+    }
+}
+
 SCENARIO("Each type of call can be forwarded to observer via subscriber", "[subscriber]")
 {
     GIVEN("observer")
@@ -128,6 +144,7 @@ SCENARIO("Subscriber reacts on on_error or on_completed", "[subscriber]")
             sub.on_error(std::make_exception_ptr(std::exception{}));
 
             sub.on_next(1);
+            sub.on_error(std::make_exception_ptr(std::exception{}));
             sub.on_completed();
 
             THEN("observer doesn't obtain calls after on_error")
@@ -135,6 +152,21 @@ SCENARIO("Subscriber reacts on on_error or on_completed", "[subscriber]")
                 CHECK(observer.get_total_on_next_count() == 0);
                 CHECK(observer.get_on_error_count() == 1);
                 CHECK(observer.get_on_completed_count() == 0);
+            }
+        }
+        WHEN("subscriber calls first on_completed and some calls after")
+        {
+            sub.on_completed();
+
+            sub.on_next(1);
+            sub.on_error(std::make_exception_ptr(std::exception{}));
+            sub.on_completed();
+
+            THEN("observer doesn't obtain calls after on_error")
+            {
+                CHECK(observer.get_total_on_next_count() == 0);
+                CHECK(observer.get_on_error_count() == 0);
+                CHECK(observer.get_on_completed_count() == 1);
             }
         }
     };
@@ -145,6 +177,43 @@ SCENARIO("Subscriber reacts on on_error or on_completed", "[subscriber]")
     GIVEN("specific_subscriber")
         validate(rpp::specific_subscriber{observer});
 }
+
+SCENARIO("Subscriber reacts on exception", "[subscriber]")
+{
+    size_t on_err_count = 0;
+    auto   validate     = [&](auto sub)
+    {
+        WHEN("subscriber calls on_next with exception")
+        {
+            sub.on_next(1);
+            THEN("on_error obtained")
+            {
+                CHECK(on_err_count == 1);
+            }
+        }
+    };
+
+    GIVEN("dynamic_subscriber")
+        validate(rpp::dynamic_subscriber{[](int)
+                                         {
+                                             throw std::runtime_error{""};
+                                         },
+                                         [&](const std::exception_ptr&)
+                                         {
+                                             ++on_err_count;
+                                         }});
+
+    GIVEN("specific_subscriber")
+        validate(rpp::specific_subscriber{[](int)
+                                          {
+                                              throw std::runtime_error{""};
+                                          },
+                                          [&](const std::exception_ptr&)
+                                          {
+                                              ++on_err_count;
+                                          }});
+}
+
 
 SCENARIO("Subscriber is not active after on_completed or unsubscribe", "[subscriber]")
 {
@@ -262,6 +331,40 @@ SCENARIO("Subscriber obtains on_error when exception", "[subscriber]")
 
         AND_GIVEN("specific_subscriber")
             validate(rpp::specific_subscriber{observer});
+    }
+
+    GIVEN("observable and lift with exception")
+    {
+        auto observable = rpp::observable::create<int>([](const auto& sub)
+        {
+            sub.on_next(1);
+        }).lift([](int, rpp::dynamic_subscriber<std::string>)
+        {
+            throw std::runtime_error("Test");
+        });
+
+        auto observer = mock_observer<std::string>{};
+
+        auto validate = [&](auto sub)
+        {
+            WHEN("observer subscribes")
+            {
+                auto subscription = observable.subscribe(sub);
+                THEN("on_error called once only")
+                {
+                    CHECK(observer.get_total_on_next_count() == 0);
+                    CHECK(observer.get_on_error_count() == 1);
+                    CHECK(observer.get_on_completed_count() == 0);
+                    CHECK(subscription.is_subscribed() == false);
+                }
+            }
+        };
+
+        AND_GIVEN("dynamic_subscriber")
+            validate(rpp::dynamic_subscriber{ observer });
+
+        AND_GIVEN("specific_subscriber")
+            validate(rpp::specific_subscriber{ observer });
     }
 }
 

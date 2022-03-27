@@ -184,7 +184,7 @@ public:
     * \return new specific_observable of NewType
     */
     template<typename                                                        OnNext,
-             constraint::decayed_type                                        NewType = std::decay_t<utils::function_argument_t<OnNext>>,
+             constraint::decayed_type                                        NewType = utils::extract_subscriber_type_t<std::decay_t<utils::function_argument_t<OnNext, 1>>>,
              std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError = details::forwarding_on_error,
              std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = details::forwarding_on_completed>
         requires std::invocable<OnNext, Type, dynamic_subscriber<NewType>>
@@ -196,7 +196,7 @@ public:
     }
 
     template<typename                                                        OnNext,
-             constraint::decayed_type                                        NewType = std::decay_t<utils::function_argument_t<OnNext>>,
+             constraint::decayed_type                                        NewType = utils::extract_subscriber_type_t<std::decay_t<utils::function_argument_t<OnNext, 1>>>,
              std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError = details::forwarding_on_error,
              std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = details::forwarding_on_completed>
         requires std::invocable<OnNext, Type, dynamic_subscriber<NewType>>

@@ -71,6 +71,7 @@ struct function_traits<R (*)(Args ...)>
     using arguments = std::tuple<Args...>;
 
     template<size_t i = 0>
+        requires (sizeof...(Args) > i)
     using argument = std::tuple_element_t<i, arguments>;
 };
 

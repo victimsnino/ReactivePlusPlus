@@ -57,9 +57,9 @@ public:
         {
             on_next_impl(val);
         }
-        catch (std::exception_ptr err)
+        catch (const std::exception& err)
         {
-            on_error(std::make_exception_ptr(std::move(err)));
+            on_error(std::make_exception_ptr(err));
         }
     }
 
@@ -72,9 +72,9 @@ public:
         {
             on_next_impl(std::move(val));
         }
-        catch (std::exception_ptr err)
+        catch (const std::exception& err)
         {
-            on_error(std::make_exception_ptr(std::move(err)));
+            on_error(std::make_exception_ptr(err));
         }
     }
 
