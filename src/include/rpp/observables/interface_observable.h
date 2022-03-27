@@ -22,10 +22,12 @@
 
 #pragma once
 
-#include <rpp/fwd.h>
-#include <rpp/subscriber.h>
-#include <rpp/observables/constraints.h>
-#include <rpp/observers/state_observer.h>
+#include <rpp/observables/constraints.h>        // own constraints
+#include <rpp/observables/fwd.h>                // own declarations
+#include <rpp/observers/state_observer.h>       // for make_lift_action_by_callbacks
+#include <rpp/subscribers/constraints.h>        // for lift
+#include <rpp/subscribers/specific_subscriber.h>// for make_lift_action_by_callbacks
+#include <rpp/utils/constraints.h>              // general constraints
 
 #include <type_traits>
 
@@ -92,7 +94,7 @@ struct virtual_observable : public details::observable_tag
  * \tparam Type type provided by this observable 
  * \tparam SpecificObservable final type of observable inherited from this observable to successfully copy/move it
  */
-template<typename Type, typename SpecificObservable>
+template<constraint::decayed_type Type, typename SpecificObservable>
 struct interface_observable : public virtual_observable<Type>
 {
 public:
@@ -237,10 +239,12 @@ private:
     template<constraint::decayed_type NewType, details::lift_fn<NewType> OperatorFn, typename FwdThis>
     static auto lift_impl(OperatorFn&& op, FwdThis&& _this)
     {
-        return observable::create<NewType>([new_this = std::forward<FwdThis>(_this), op = std::forward<OperatorFn>(op)](auto&& subscriber)
+        auto action = [new_this = std::forward<FwdThis>(_this), op = std::forward<OperatorFn>(op)](auto&& subscriber)
         {
             new_this.subscribe(op(std::forward<decltype(subscriber)>(subscriber)));
-        });
+        };
+
+        return specific_observable<NewType, decltype(action)>(std::move(action));
     }
 };
 

@@ -26,7 +26,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <rpp/observer.h>
+#include <rpp/observers.h>
 
 SCENARIO("on_next, on_error and on_completed can be obtained")
 {

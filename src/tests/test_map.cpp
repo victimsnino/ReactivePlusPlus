@@ -23,8 +23,11 @@
 #include "copy_count_tracker.h"
 #include "mock_observer.h"
 
+#include <rpp/sources/create.h>
+
+
 #include <catch2/catch_test_macros.hpp>
-#include <rpp/observable.h>
+#include <rpp/observables.h>
 #include <rpp/operators/map.h>
 
 using namespace std::string_literals;

@@ -22,12 +22,9 @@
 
 #pragma once
 
-#include <rpp/observables/interface_observable.h>
-#include <rpp/observers/constraints.h>
-#include <rpp/subscribers/constraints.h>
-#include <rpp/subscribers/type_traits.h>
-#include <rpp/utils/constraints.h>
-#include <rpp/utils/function_traits.h>
+#include <rpp/subscribers.h>                       // subscribe with all types
+#include <rpp/observables/interface_observable.h> // base_class
+
 
 #include <utility>
 

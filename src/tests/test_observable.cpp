@@ -24,9 +24,11 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <rpp/observable.h>
-#include <rpp/observer.h>
-#include <rpp/subscriber.h>
+#include <rpp/sources/create.h>
+
+#include <rpp/observables.h>
+#include <rpp/observers.h>
+#include <rpp/subscribers.h>
 #include <rpp/observables/dynamic_observable.h>
 
 #include <array>

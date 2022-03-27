@@ -23,8 +23,8 @@
 #pragma once
 
 #include <rpp/observers/constraints.h>
-#include <rpp/observers/fwd.h>
 #include <rpp/observers/interface_observer.h>
+#include <rpp/observers/specific_observer.h>
 #include <rpp/observers/type_traits.h>
 #include <rpp/utils/function_traits.h>
 #include <rpp/utils/functors.h>
