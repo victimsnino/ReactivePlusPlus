@@ -143,7 +143,9 @@ SCENARIO("Subscriber reacts on on_error or on_completed", "[subscriber]")
         {
             sub.on_error(std::make_exception_ptr(std::exception{}));
 
-            sub.on_next(1);
+            int v{};
+            sub.on_next(v);
+            sub.on_next(std::move(v));
             sub.on_error(std::make_exception_ptr(std::exception{}));
             sub.on_completed();
 
@@ -158,7 +160,9 @@ SCENARIO("Subscriber reacts on on_error or on_completed", "[subscriber]")
         {
             sub.on_completed();
 
-            sub.on_next(1);
+            int v{};
+            sub.on_next(v);
+            sub.on_next(std::move(v));
             sub.on_error(std::make_exception_ptr(std::exception{}));
             sub.on_completed();
 
@@ -183,9 +187,18 @@ SCENARIO("Subscriber reacts on exception", "[subscriber]")
     size_t on_err_count = 0;
     auto   validate     = [&](auto sub)
     {
+        int v{};
         WHEN("subscriber calls on_next with exception")
         {
-            sub.on_next(1);
+            sub.on_next(v);
+            THEN("on_error obtained")
+            {
+                CHECK(on_err_count == 1);
+            }
+        }
+        WHEN("subscriber calls on_next by move with exception")
+        {
+            sub.on_next(std::move(v));
             THEN("on_error obtained")
             {
                 CHECK(on_err_count == 1);
