@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: src/include/rpp/operators/map.h File Reference</title>
+<title>ReactivePlusPlus: Observers</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -46,6 +46,7 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,36 +61,34 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b0856f6b0d80ccb263b2f415c91f9e17.html">include</a></li><li class="navelem"><a class="el" href="dir_a0ebbe362f10a27da1664c4cb43bfc1a.html">rpp</a></li><li class="navelem"><a class="el" href="dir_2f8a5d9b550c8058be8c453e9150c12a.html">operators</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">map.h File Reference</div></div>
+<a href="#nested-classes">Classes</a>  </div>
+  <div class="headertitle"><div class="title">Observers</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This file contains implementation of operator "map".  
+<p>Observer subscribe on observable and obtains values provided by observable.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;rpp/observables/constraints.h&gt;</code><br />
-<code>#include &lt;rpp/observables/type_traits.h&gt;</code><br />
-<code>#include &lt;utility&gt;</code><br />
-</div>
-<p><a href="map_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ga79ef0bff4448df7b7c07b3d5f1191806"><td class="memTemplParams" colspan="2">template&lt;typename Callable &gt; </td></tr>
-<tr class="memitem:ga79ef0bff4448df7b7c07b3d5f1191806"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga79ef0bff4448df7b7c07b3d5f1191806">rpp::operators::map</a> (Callable &amp;&amp;callable)</td></tr>
-<tr class="memdesc:ga79ef0bff4448df7b7c07b3d5f1191806"><td class="mdescLeft">&#160;</td><td class="mdescRight">transform the items emitted by an Observable by applying a function to each item  <a href="group__operators.html#ga79ef0bff4448df7b7c07b3d5f1191806">More...</a><br /></td></tr>
-<tr class="separator:ga79ef0bff4448df7b7c07b3d5f1191806"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1dynamic__observer.html">rpp::dynamic_observer&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dynamic (type-erased) version of observer (comparing to <a class="el" href="classrpp_1_1specific__observer.html" title="Observer specified with specific template types of callbacks to avoid extra heap usage.">specific_observer</a>)  <a href="classrpp_1_1dynamic__observer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1specific__observer.html">rpp::specific_observer&lt; T, OnNext, OnError, OnCompleted &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observer specified with specific template types of callbacks to avoid extra heap usage.  <a href="classrpp_1_1specific__observer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >This file contains implementation of operator "map". </p>
-</div></div><!-- contents -->
+<p >Observer subscribe on observable and obtains values provided by observable. </p>
+<p >Interface of any observer type. Describes base interface in terms of Reactive Programming </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>is type of value handled by this observer </td></tr>
+  </table>
+  </dd>
+</dl>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2

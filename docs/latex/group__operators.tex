@@ -1,0 +1,67 @@
+\hypertarget{group__operators}{}\doxysection{Operators}
+\label{group__operators}\index{Operators@{Operators}}
+
+
+Operators is way to modify observables and extend with some extra custom logic.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Callable $>$ }\\auto \mbox{\hyperlink{group__operators_ga79ef0bff4448df7b7c07b3d5f1191806}{rpp\+::operators\+::map}} (Callable \&\&callable)
+\begin{DoxyCompactList}\small\item\em transform the items emitted by an Observable by applying a function to each item \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Operators is way to modify observables and extend with some extra custom logic. 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators.html}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html}}
+\end{DoxySeeAlso}
+The apply function to observable which returns observable of another type 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Operator\+Fn} & type of function which applies to this observable \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} of New\+Type 
+\end{DoxyReturn}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__operators_ga79ef0bff4448df7b7c07b3d5f1191806}\label{group__operators_ga79ef0bff4448df7b7c07b3d5f1191806}} 
+\index{Operators@{Operators}!map@{map}}
+\index{map@{map}!Operators@{Operators}}
+\doxysubsubsection{\texorpdfstring{map()}{map()}}
+{\footnotesize\ttfamily template$<$typename Callable $>$ \\
+auto rpp\+::operators\+::map (\begin{DoxyParamCaption}\item[{Callable \&\&}]{callable }\end{DoxyParamCaption})}
+
+
+
+transform the items emitted by an Observable by applying a function to each item 
+
+The Map operator applies a function of your choosing to each item emitted by the source Observable, and returns an Observable that emits the results of these function applications.
+
+The Map operator can keep same type of value or change it to some another type.
+
+Example\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{observable | \mbox{\hyperlink{group__operators_ga79ef0bff4448df7b7c07b3d5f1191806}{map}}([](\textcolor{keyword}{const} \textcolor{keywordtype}{int}\& val)}
+\DoxyCodeLine{             \{}
+\DoxyCodeLine{                 \textcolor{keywordflow}{return} std::to\_string(val) + \textcolor{stringliteral}{"{} data"{}};}
+\DoxyCodeLine{             \});}
+
+\end{DoxyCode}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/map.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/map.\+html}}
+\end{DoxySeeAlso}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Callable} & type of callable used to provide this transformation \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the Map operator as most recent operator. 
+\end{DoxyReturn}
