@@ -140,7 +140,7 @@
 \DoxyCodeLine{176     \textcolor{comment}{// ********************************* LIFT OnNext, Onerror, OnCompleted ******************//}}
 \DoxyCodeLine{177 }
 \DoxyCodeLine{186     \textcolor{keyword}{template}<\textcolor{keyword}{typename}                                                        OnNext,}
-\DoxyCodeLine{187              constraint::decayed\_type                                        NewType = std::decay\_t<utils::function\_argument\_t<OnNext>>,}
+\DoxyCodeLine{187              constraint::decayed\_type                                        NewType = utils::extract\_subscriber\_type\_t<std::decay\_t<utils::function\_argument\_t<OnNext, 1>>>,}
 \DoxyCodeLine{188              std::invocable<std::exception\_ptr, dynamic\_subscriber<NewType>> OnError = details::forwarding\_on\_error,}
 \DoxyCodeLine{189              std::invocable<dynamic\_subscriber<NewType>>                     OnCompleted = details::forwarding\_on\_completed>}
 \DoxyCodeLine{190         \textcolor{keyword}{requires} std::invocable<OnNext, Type, dynamic\_subscriber<NewType>>}
@@ -152,7 +152,7 @@
 \DoxyCodeLine{196     \}}
 \DoxyCodeLine{197 }
 \DoxyCodeLine{198     \textcolor{keyword}{template}<\textcolor{keyword}{typename}                                                        OnNext,}
-\DoxyCodeLine{199              constraint::decayed\_type                                        NewType = std::decay\_t<utils::function\_argument\_t<OnNext>>,}
+\DoxyCodeLine{199              constraint::decayed\_type                                        NewType = utils::extract\_subscriber\_type\_t<std::decay\_t<utils::function\_argument\_t<OnNext, 1>>>,}
 \DoxyCodeLine{200              std::invocable<std::exception\_ptr, dynamic\_subscriber<NewType>> OnError = details::forwarding\_on\_error,}
 \DoxyCodeLine{201              std::invocable<dynamic\_subscriber<NewType>>                     OnCompleted = details::forwarding\_on\_completed>}
 \DoxyCodeLine{202         \textcolor{keyword}{requires} std::invocable<OnNext, Type, dynamic\_subscriber<NewType>>}

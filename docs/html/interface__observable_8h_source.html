@@ -207,7 +207,7 @@ $(function() {
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="comment">// ********************************* LIFT OnNext, Onerror, OnCompleted ******************//</span></div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>                                                        OnNext,</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>             constraint::decayed_type                                        NewType = std::decay_t&lt;utils::function_argument_t&lt;OnNext&gt;&gt;,</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>             constraint::decayed_type                                        NewType = utils::extract_subscriber_type_t&lt;std::decay_t&lt;utils::function_argument_t&lt;OnNext, 1&gt;&gt;&gt;,</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>             std::invocable&lt;std::exception_ptr, dynamic_subscriber&lt;NewType&gt;&gt; OnError = details::forwarding_on_error,</div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>             std::invocable&lt;dynamic_subscriber&lt;NewType&gt;&gt;                     OnCompleted = details::forwarding_on_completed&gt;</div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        <span class="keyword">requires</span> std::invocable&lt;OnNext, Type, dynamic_subscriber&lt;NewType&gt;&gt;</div>
@@ -219,7 +219,7 @@ $(function() {
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    }</div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>                                                        OnNext,</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>             constraint::decayed_type                                        NewType = std::decay_t&lt;utils::function_argument_t&lt;OnNext&gt;&gt;,</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>             constraint::decayed_type                                        NewType = utils::extract_subscriber_type_t&lt;std::decay_t&lt;utils::function_argument_t&lt;OnNext, 1&gt;&gt;&gt;,</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>             std::invocable&lt;std::exception_ptr, dynamic_subscriber&lt;NewType&gt;&gt; OnError = details::forwarding_on_error,</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>             std::invocable&lt;dynamic_subscriber&lt;NewType&gt;&gt;                     OnCompleted = details::forwarding_on_completed&gt;</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        <span class="keyword">requires</span> std::invocable&lt;OnNext, Type, dynamic_subscriber&lt;NewType&gt;&gt;</div>
