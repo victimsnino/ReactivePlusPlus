@@ -140,7 +140,7 @@ template&lt;details::op_fn&lt; SpecificObservable &gt; OperatorFn&gt; </td></tr>
 <tr class="separator:aef0abc01731e70ece3c2814e1ef2ca5b inherit pub_methods_structrpp_1_1virtual__observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename Type, typename SpecificObservable&gt;<br />
+<div class="textblock"><div class="compoundTemplParams">template&lt;constraint::decayed_type Type, typename SpecificObservable&gt;<br />
 struct rpp::interface_observable&lt; Type, SpecificObservable &gt;</div><p >Base part of observable. Mostly used to provide some interface functions used by all observables. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
@@ -156,7 +156,7 @@ struct rpp::interface_observable&lt; Type, SpecificObservable &gt;</div><p >Base
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Type , typename SpecificObservable &gt; </div>
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
 <div class="memtemplate">
 template&lt;constraint::decayed_type NewType&gt; </div>
 <table class="mlabels">
@@ -201,7 +201,7 @@ template&lt;constraint::decayed_type NewType&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Type , typename SpecificObservable &gt; </div>
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
 <div class="memtemplate">
 template&lt;constraint::decayed_type NewType, std::invocable&lt; Type, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnNext, std::invocable&lt; std::exception_ptr, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnError = details::forwarding_on_error, std::invocable&lt; <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnCompleted = details::forwarding_on_completed&gt; </div>
 <table class="mlabels">
@@ -259,7 +259,7 @@ template&lt;constraint::decayed_type NewType, std::invocable&lt; Type, <a class=
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Type , typename SpecificObservable &gt; </div>
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
 <div class="memtemplate">
 template&lt;typename OnNext , constraint::decayed_type NewType = std::decay_t&lt;utils::function_argument_t&lt;OnNext&gt;&gt;, std::invocable&lt; std::exception_ptr, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnError = details::forwarding_on_error, std::invocable&lt; <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; NewType &gt; &gt; OnCompleted = details::forwarding_on_completed&gt; <br />
 requires std::invocable&lt;OnNext, Type, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;NewType&gt;&gt;</div>
@@ -317,7 +317,7 @@ requires std::invocable&lt;OnNext, Type, <a class="el" href="classrpp_1_1dynamic
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Type , typename SpecificObservable &gt; </div>
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
 <div class="memtemplate">
 template&lt;typename OperatorFn , constraint::decayed_type NewType = utils::extract_subscriber_type_t&lt;utils::function_argument_t&lt;OperatorFn&gt;&gt;&gt; <br />
 requires details::lift_fn&lt;OperatorFn, NewType&gt;</div>
@@ -364,7 +364,7 @@ requires details::lift_fn&lt;OperatorFn, NewType&gt;</div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Type , typename SpecificObservable &gt; </div>
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
 <div class="memtemplate">
 template&lt;details::op_fn&lt; SpecificObservable &gt; OperatorFn&gt; </div>
 <table class="mlabels">

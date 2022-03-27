@@ -50,7 +50,7 @@ requires std\+::invocable$<$On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic
 
 
 \doxysubsection{Detailed Description}
-\subsubsection*{template$<$typename Type, typename Specific\+Observable$>$\newline
+\subsubsection*{template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable$>$\newline
 struct rpp\+::interface\+\_\+observable$<$ Type, Specific\+Observable $>$}
 Base part of observable. Mostly used to provide some interface functions used by all observables. 
 
@@ -68,7 +68,7 @@ Base part of observable. Mostly used to provide some interface functions used by
 \index{rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}!lift@{lift}}
 \index{lift@{lift}!rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}}
 \doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily template$<$typename Type , typename Specific\+Observable $>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
 template$<$constraint\+::decayed\+\_\+type New\+Type$>$ \\
 auto \mbox{\hyperlink{structrpp_1_1interface__observable}{rpp\+::interface\+\_\+observable}}$<$ Type, Specific\+Observable $>$\+::lift (\begin{DoxyParamCaption}\item[{details\+::lift\+\_\+fn$<$ New\+Type $>$ auto \&\&}]{op }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
@@ -93,7 +93,7 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \index{rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}!lift@{lift}}
 \index{lift@{lift}!rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}}
 \doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily template$<$typename Type , typename Specific\+Observable $>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
 template$<$constraint\+::decayed\+\_\+type New\+Type, std\+::invocable$<$ Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Error = details\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Completed = details\+::forwarding\+\_\+on\+\_\+completed$>$ \\
 auto \mbox{\hyperlink{structrpp_1_1interface__observable}{rpp\+::interface\+\_\+observable}}$<$ Type, Specific\+Observable $>$\+::lift (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Error \&\&}]{on\+\_\+error = {\ttfamily \{\}},  }\item[{On\+Completed \&\&}]{on\+\_\+completed = {\ttfamily \{\}} }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
@@ -119,7 +119,7 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \index{rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}!lift@{lift}}
 \index{lift@{lift}!rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}}
 \doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
-{\footnotesize\ttfamily template$<$typename Type , typename Specific\+Observable $>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
 template$<$typename On\+Next , constraint\+::decayed\+\_\+type New\+Type = std\+::decay\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Next$>$$>$, std\+::invocable$<$ std\+::exception\+\_\+ptr, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Error = details\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Completed = details\+::forwarding\+\_\+on\+\_\+completed$>$ \newline
 requires std\+::invocable$<$On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$$>$\\
 auto \mbox{\hyperlink{structrpp_1_1interface__observable}{rpp\+::interface\+\_\+observable}}$<$ Type, Specific\+Observable $>$\+::lift (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Error \&\&}]{on\+\_\+error = {\ttfamily \{\}},  }\item[{On\+Completed \&\&}]{on\+\_\+completed = {\ttfamily \{\}} }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
@@ -144,7 +144,7 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \index{rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}!lift@{lift}}
 \index{lift@{lift}!rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}}
 \doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
-{\footnotesize\ttfamily template$<$typename Type , typename Specific\+Observable $>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
 template$<$typename Operator\+Fn , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+Operator\+Fn$>$$>$$>$ \newline
 requires details\+::lift\+\_\+fn$<$Operator\+Fn, New\+Type$>$\\
 auto \mbox{\hyperlink{structrpp_1_1interface__observable}{rpp\+::interface\+\_\+observable}}$<$ Type, Specific\+Observable $>$\+::lift (\begin{DoxyParamCaption}\item[{Operator\+Fn \&\&}]{op }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
@@ -172,7 +172,7 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \index{rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}!op@{op}}
 \index{op@{op}!rpp::interface\_observable$<$ Type, SpecificObservable $>$@{rpp::interface\_observable$<$ Type, SpecificObservable $>$}}
 \doxysubsubsection{\texorpdfstring{op()}{op()}}
-{\footnotesize\ttfamily template$<$typename Type , typename Specific\+Observable $>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
 template$<$details\+::op\+\_\+fn$<$ Specific\+Observable $>$ Operator\+Fn$>$ \\
 auto \mbox{\hyperlink{structrpp_1_1interface__observable}{rpp\+::interface\+\_\+observable}}$<$ Type, Specific\+Observable $>$\+::op (\begin{DoxyParamCaption}\item[{Operator\+Fn \&\&}]{fn }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
