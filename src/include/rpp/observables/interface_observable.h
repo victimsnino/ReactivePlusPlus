@@ -208,9 +208,16 @@ public:
     }
 
     /**
+    * \defgroup operators Operators
+    * \brief Operators is way to modify observables and extend with some extra custom logic
+    * \see https://reactivex.io/documentation/operators.html
+    * 
+    * 
     * \brief The apply function to observable which returns observable of another type
     * \tparam OperatorFn type of function which applies to this observable
     * \return new specific_observable of NewType
+    * \ingroup operators
+    * 
     */
     template<details::op_fn<SpecificObservable> OperatorFn>
     auto op(OperatorFn&& fn) const &

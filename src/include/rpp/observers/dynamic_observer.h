@@ -38,6 +38,7 @@ namespace rpp
  * \details It uses type-erasure mechanism to hide types of OnNext, OnError and OnCompleted callbacks. But it has higher cost in the terms of performance due to usage of heap.
  * Use it only when you need to store observer as member variable or something like this. In other cases prefer using "auto" to avoid converting to dynamic_observer
  * \tparam T is type of value handled by this observer
+ * \ingroup observers
  */
 template<constraint::decayed_type T>
 class dynamic_observer final : public interface_observer<T>

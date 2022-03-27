@@ -37,6 +37,7 @@ namespace rpp
  * \tparam OnNext type of on_next callback
  * \tparam OnError type of on_error callback
  * \tparam OnCompleted type of on_completed callback
+ * \ingroup observers
  */
 template<constraint::decayed_type T,
          constraint::on_next_fn<T>   OnNext      = utils::empty_function_t<T>,

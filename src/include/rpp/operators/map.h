@@ -54,6 +54,7 @@ namespace rpp::operators
  *
  * \tparam Callable type of callable used to provide this transformation
  * \return new specific_observable with the Map operator as most recent operator.
+ * \ingroup operators
  */
 template<typename Callable>
 auto map(Callable&& callable)

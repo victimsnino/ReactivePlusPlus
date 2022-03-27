@@ -34,6 +34,10 @@ struct observer_tag {};
 } // namespace details
 
 /**
+ * \defgroup observers Observers
+ * \brief Observer subscribe on observable and obtains values provided by observable.
+ *
+ *
  * \brief Interface of any observer type. Describes base interface in terms of Reactive Programming
  * \tparam T is type of value handled by this observer
  */
