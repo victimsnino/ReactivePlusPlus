@@ -8,6 +8,8 @@ Operators is way to modify observables and extend with some extra custom logic.
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+{\footnotesize template$<$details\+::op\+\_\+fn$<$ Specific\+Observable $>$ Operator\+Fn$>$ }\\auto \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{rpp\+::interface\+\_\+observable$<$ Type, Specific\+Observable $>$\+::op}} (Operator\+Fn \&\&fn) const \&
+\begin{DoxyCompactList}\small\item\em The apply function to observable which returns observable of another type. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Callable $>$ }\\auto \mbox{\hyperlink{group__operators_ga79ef0bff4448df7b7c07b3d5f1191806}{rpp\+::operators\+::map}} (Callable \&\&callable)
 \begin{DoxyCompactList}\small\item\em transform the items emitted by an Observable by applying a function to each item \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -16,16 +18,8 @@ Operators is way to modify observables and extend with some extra custom logic.
 Operators is way to modify observables and extend with some extra custom logic. 
 
 \begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators.html}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html}}
+\href{https://reactivex.io/documentation/operators.html}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html}} 
 \end{DoxySeeAlso}
-The apply function to observable which returns observable of another type 
-\begin{DoxyTemplParams}{Template Parameters}
-{\em Operator\+Fn} & type of function which applies to this observable \\
-\hline
-\end{DoxyTemplParams}
-\begin{DoxyReturn}{Returns}
-new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} of New\+Type 
-\end{DoxyReturn}
 
 
 \doxysubsection{Function Documentation}
@@ -64,4 +58,24 @@ Example\+:
 \end{DoxyTemplParams}
 \begin{DoxyReturn}{Returns}
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the Map operator as most recent operator. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__operators_ga381218c46daf100859858d88743d058d}\label{group__operators_ga381218c46daf100859858d88743d058d}} 
+\index{Operators@{Operators}!op@{op}}
+\index{op@{op}!Operators@{Operators}}
+\doxysubsubsection{\texorpdfstring{op()}{op()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$details\+::op\+\_\+fn$<$ Specific\+Observable $>$ Operator\+Fn$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1interface__observable}{rpp\+::interface\+\_\+observable}}$<$ Type, Specific\+Observable $>$\+::op (\begin{DoxyParamCaption}\item[{Operator\+Fn \&\&}]{fn }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The apply function to observable which returns observable of another type. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Operator\+Fn} & type of function which applies to this observable \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} of New\+Type 
 \end{DoxyReturn}

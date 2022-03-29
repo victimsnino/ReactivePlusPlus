@@ -18,17 +18,17 @@ Inheritance diagram for rpp\+::interface\+\_\+observable\texorpdfstring{$<$}{<} 
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$constraint\+::decayed\+\_\+type New\+Type$>$ }\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_ac6c66ddf2ceb4d398044a17e53db13eb}{lift}} (details\+::lift\+\_\+fn$<$ New\+Type $>$ auto \&\&op) const \&
+{\footnotesize template$<$constraint\+::decayed\+\_\+type New\+Type$>$ }\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_ac6c66ddf2ceb4d398044a17e53db13eb}{lift}} (details\+::lift\+\_\+fn$<$ New\+Type $>$ auto \&\&\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}) const \&
 \begin{DoxyCompactList}\small\item\em The lift operator provides ability to create your own operator and apply it to observable. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structrpp_1_1interface__observable_a2b13aeff7243c8da94f8afb37b40c3af}\label{structrpp_1_1interface__observable_a2b13aeff7243c8da94f8afb37b40c3af}} 
-{\footnotesize template$<$constraint\+::decayed\+\_\+type New\+Type$>$ }\\auto {\bfseries lift} (details\+::lift\+\_\+fn$<$ New\+Type $>$ auto \&\&op) \&\&
+{\footnotesize template$<$constraint\+::decayed\+\_\+type New\+Type$>$ }\\auto {\bfseries lift} (details\+::lift\+\_\+fn$<$ New\+Type $>$ auto \&\&\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}) \&\&
 \item 
 {\footnotesize template$<$typename Operator\+Fn , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+Operator\+Fn$>$$>$$>$ \newline
-requires details\+::lift\+\_\+fn$<$Operator\+Fn, New\+Type$>$}\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_a89b275a1f555886633d2389c61b97103}{lift}} (Operator\+Fn \&\&op) const \&
+requires details\+::lift\+\_\+fn$<$Operator\+Fn, New\+Type$>$}\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_a89b275a1f555886633d2389c61b97103}{lift}} (Operator\+Fn \&\&\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}) const \&
 \begin{DoxyCompactList}\small\item\em The lift operator provides ability to create your own operator and apply it to observable. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structrpp_1_1interface__observable_a375d92792b094214edadfc52032bf21b}\label{structrpp_1_1interface__observable_a375d92792b094214edadfc52032bf21b}} 
 {\footnotesize template$<$typename Operator\+Fn , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+Operator\+Fn$>$$>$$>$ \newline
-requires details\+::lift\+\_\+fn$<$Operator\+Fn, New\+Type$>$}\\auto {\bfseries lift} (Operator\+Fn \&\&op) \&\&
+requires details\+::lift\+\_\+fn$<$Operator\+Fn, New\+Type$>$}\\auto {\bfseries lift} (Operator\+Fn \&\&\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}) \&\&
 \item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type New\+Type, std\+::invocable$<$ Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Error = details\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Completed = details\+::forwarding\+\_\+on\+\_\+completed$>$ }\\auto \mbox{\hyperlink{structrpp_1_1interface__observable_a250a7502f252453f3144b72ffedbb8fa}{lift}} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) const \&
 \begin{DoxyCompactList}\small\item\em The lift operator provides ability to create your own operator and apply it to observable. \end{DoxyCompactList}\item 
@@ -42,9 +42,8 @@ requires std\+::invocable$<$On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic
 {\footnotesize template$<$typename On\+Next , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$std\+::decay\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Next, 1$>$$>$$>$, std\+::invocable$<$ std\+::exception\+\_\+ptr, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Error = details\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ On\+Completed = details\+::forwarding\+\_\+on\+\_\+completed$>$ \newline
 requires std\+::invocable$<$On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$$>$}\\auto {\bfseries lift} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) \&\&
 \item 
-\mbox{\Hypertarget{structrpp_1_1interface__observable_a381218c46daf100859858d88743d058d}\label{structrpp_1_1interface__observable_a381218c46daf100859858d88743d058d}} 
-{\footnotesize template$<$details\+::op\+\_\+fn$<$ Specific\+Observable $>$ Operator\+Fn$>$ }\\auto {\bfseries op} (Operator\+Fn \&\&fn) const \&
-\item 
+{\footnotesize template$<$details\+::op\+\_\+fn$<$ Specific\+Observable $>$ Operator\+Fn$>$ }\\auto \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}} (Operator\+Fn \&\&fn) const \&
+\begin{DoxyCompactList}\small\item\em The apply function to observable which returns observable of another type. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structrpp_1_1interface__observable_a51887f2fc4620f9ab9b45a28628ed85f}\label{structrpp_1_1interface__observable_a51887f2fc4620f9ab9b45a28628ed85f}} 
 {\footnotesize template$<$details\+::op\+\_\+fn$<$ Specific\+Observable $>$ Operator\+Fn$>$ }\\auto {\bfseries op} (Operator\+Fn \&\&fn) \&\&
 \end{DoxyCompactItemize}

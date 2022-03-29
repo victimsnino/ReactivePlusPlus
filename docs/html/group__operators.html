@@ -73,6 +73,10 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga381218c46daf100859858d88743d058d"><td class="memTemplParams" colspan="2">template&lt;details::op_fn&lt; SpecificObservable &gt; OperatorFn&gt; </td></tr>
+<tr class="memitem:ga381218c46daf100859858d88743d058d"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga381218c46daf100859858d88743d058d">rpp::interface_observable&lt; Type, SpecificObservable &gt;::op</a> (OperatorFn &amp;&amp;fn) const &amp;</td></tr>
+<tr class="memdesc:ga381218c46daf100859858d88743d058d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The apply function to observable which returns observable of another type.  <a href="group__operators.html#ga381218c46daf100859858d88743d058d">More...</a><br /></td></tr>
+<tr class="separator:ga381218c46daf100859858d88743d058d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga79ef0bff4448df7b7c07b3d5f1191806"><td class="memTemplParams" colspan="2">template&lt;typename Callable &gt; </td></tr>
 <tr class="memitem:ga79ef0bff4448df7b7c07b3d5f1191806"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga79ef0bff4448df7b7c07b3d5f1191806">rpp::operators::map</a> (Callable &amp;&amp;callable)</td></tr>
 <tr class="memdesc:ga79ef0bff4448df7b7c07b3d5f1191806"><td class="mdescLeft">&#160;</td><td class="mdescRight">transform the items emitted by an Observable by applying a function to each item  <a href="group__operators.html#ga79ef0bff4448df7b7c07b3d5f1191806">More...</a><br /></td></tr>
@@ -80,14 +84,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p >Operators is way to modify observables and extend with some extra custom logic. </p>
-<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html">https://reactivex.io/documentation/operators.html</a></dd></dl>
-<p>The apply function to observable which returns observable of another type </p><dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">OperatorFn</td><td>type of function which applies to this observable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> of NewType </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html">https://reactivex.io/documentation/operators.html</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga79ef0bff4448df7b7c07b3d5f1191806" name="ga79ef0bff4448df7b7c07b3d5f1191806"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga79ef0bff4448df7b7c07b3d5f1191806">&#9670;&nbsp;</a></span>map()</h2>
@@ -123,6 +120,45 @@ template&lt;typename Callable &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the Map operator as most recent operator. </dd></dl>
+
+</div>
+</div>
+<a id="ga381218c46daf100859858d88743d058d" name="ga381218c46daf100859858d88743d058d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga381218c46daf100859858d88743d058d">&#9670;&nbsp;</a></span>op()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;details::op_fn&lt; SpecificObservable &gt; OperatorFn&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1interface__observable.html">rpp::interface_observable</a>&lt; Type, SpecificObservable &gt;::op </td>
+          <td>(</td>
+          <td class="paramtype">OperatorFn &amp;&amp;&#160;</td>
+          <td class="paramname"><em>fn</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The apply function to observable which returns observable of another type. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">OperatorFn</td><td>type of function which applies to this observable </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> of NewType </dd></dl>
 
 </div>
 </div>

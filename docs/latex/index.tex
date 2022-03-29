@@ -1,0 +1,99 @@
+\label{index_md_Index}%
+\Hypertarget{index_md_Index}%
+ Reactive\+Plus\+Plus is \href{https://reactivex.io/}{\texttt{ ReactiveX}} library for C++ language inspired by \char`\"{}official implementation\char`\"{} (\href{https://github.com/ReactiveX/RxCpp}{\texttt{ Rx\+Cpp}})\hypertarget{index_autotoc_md1}{}\doxysection{Performance vs Flexibility\+: Specific vs Dynamic}\label{index_autotoc_md1}
+In general Reactive Extensions can be split into three main parts from the objects perspective\+:
+\begin{DoxyItemize}
+\item observable
+\item observer
+\item subscriber
+\end{DoxyItemize}
+
+Each of this objects obtains user-\/defined callbacks to call when some event happens (on\+\_\+subscribe, on\+\_\+next/on\+\_\+error/on\+\_\+completed and etc). To store it in C++ we have two ways with its own prons and cons\+:
+\begin{DoxyItemize}
+\item store it explicitly via template type
+\begin{DoxyItemize}
+\item \mbox{[}+\mbox{]} No heap allocations
+\item \mbox{[}+\mbox{]} Fast invoking (with possible inlining)
+\item \mbox{[}-\/\mbox{]} Template parameter makes each instance \char`\"{}uniq\char`\"{}
+\item \mbox{[}-\/\mbox{]} No way to store it somehow in containers/class members without pain
+\end{DoxyItemize}
+\item use type-\/erasure mechanism
+\begin{DoxyItemize}
+\item \mbox{[}+\mbox{]} Avoiding of template parameters
+\item \mbox{[}+\mbox{]} Easy to store in containers/class members/input arguments of functions
+\item \mbox{[}-\/\mbox{]} In most cases heap allocation during constrution
+\item \mbox{[}-\/\mbox{]} More usage of memory even for cheap objects (std\+::function or pointer to allocated type)
+\item \mbox{[}-\/\mbox{]} Indirect invoking (most probably via pointer or virtual functions)
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+Reactive\+Plus\+Plus provides ability to use both of this ways to make usage experience optimal! Each of mentioned above core parts has two different specifications\+: {\ttfamily specific\+\_\+} and {\ttfamily dynamic\+\_\+}.
+
+{\ttfamily specific\+\_\+} is default specialization which uses fully template approach to have best performance and memory consumption\+: each callback/used type specific as template parameter of this class {\ttfamily dynamic\+\_\+} specialization uses type-\/erasure mechanism with all resulting peformance and memory hits, but this specialization is useful if you want to store type as class member or place it inside containers and etc.
+
+There detailed list with explanations\+:
+\begin{DoxyItemize}
+\item observables\+:
+\begin{DoxyItemize}
+\item \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1specific__observable.html}{\texttt{ rpp\+::specific\+\_\+observable$<$\+T, On\+Subscribe\+Fn$>$}} -\/ Stores type of {\ttfamily on\+\_\+subscribe} callback explicitly via {\ttfamily On\+Subscribe} template type. Due to explicit type of callback such an observable can obtains ANY specialization of subscriber and ANY specialization of observers without construction of {\ttfamily dynamic\+\_\+} specializations
+\item \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observable.html}{\texttt{ rpp\+::dynamic\+\_\+observable$<$\+T$>$}} -\/ stores callback as shared\+\_\+ptr to base class of {\ttfamily \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}} and calling callback via virtual function. Due to this limitation this observable can obtain only {\ttfamily dynamic\+\_\+observer} and {\ttfamily dynamic\+\_\+subscriber}
+\end{DoxyItemize}
+\item observers
+\begin{DoxyItemize}
+\item \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1specific__observer.html}{\texttt{ rpp\+::specific\+\_\+observer$<$\+T, On\+Next, On\+Error, On\+Completed$>$}} -\/ Stores types of {\ttfamily on\+\_\+next, on\+\_\+error and on\+\_\+completed} callbacks explicitly via {\ttfamily On\+Next, On\+Error, On\+Completed} template types.
+\item \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observer.html}{\texttt{ rpp\+::dynamic\+\_\+observer$<$\+T$>$}} -\/ stores callbacks as shared\+\_\+ptr to base class of {\ttfamily \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp\+::specific\+\_\+observer}}} and calling callbacks via virtual functions.
+\end{DoxyItemize}
+\item subscribers\+:
+\begin{DoxyItemize}
+\item \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1specific__subscriber.html}{\texttt{ rpp\+::specific\+\_\+subscriber$<$\+T, Observer$>$}} -\/ stores explicit underlying type of observer as {\ttfamily Observer} template type to avoid construction of \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observer.html}{\texttt{ rpp\+::dynamic\+\_\+observer}}.
+\item \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__subscriber.html}{\texttt{ rpp\+::dynamic\+\_\+subscriber$<$\+T$>$}} -\/ uses \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observer.html}{\texttt{ rpp\+::dynamic\+\_\+observer}} type as underlying type for observer.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+So, to achieve best performance avoid usage of {\ttfamily dynamic\+\_\+} specialization till you really need it. For example, 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{auto} observable = rpp::observable::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    subscriber.on\_next(1);}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{auto} observer = \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer}}\{[](\textcolor{keywordtype}{int} v)\{ std::cout << v;\}\};}
+\DoxyCodeLine{observable.subscribe(observer);}
+\DoxyCodeLine{\textcolor{comment}{// OR observable.subscribe([](int v)\{ std::cout << v;\});}}
+
+\end{DoxyCode}
+ uses only {\bfseries{ONE heap allocation}} for {\ttfamily \mbox{\hyperlink{classrpp_1_1subscription}{rpp\+::subscription}}} inside subscriber to store subscription state and no any other allocation happens. On the other hand 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//1 dynamic\_subscriber in observable}}
+\DoxyCodeLine{\textcolor{keyword}{auto} observable = rpp::observable::create<int>([](\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp::dynamic\_subscriber<int>}}\& subscriber)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    subscriber.on\_next(1);}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{observable.subscribe(\mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer}}\{[](\textcolor{keywordtype}{int} v)\{ std::cout << v;\}\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//2 dynamic\_observable}}
+\DoxyCodeLine{\mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp::dynamic\_observable}} observable = rpp::observable::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    subscriber.on\_next(1);}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{observable.\mbox{\hyperlink{classrpp_1_1dynamic__observable_a43dfe979f5a6f05a7a546f5bb724422a}{subscribe}}(\mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer}}\{[](\textcolor{keywordtype}{int} v)\{ std::cout << v;\}\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//3 dynamic\_observer}}
+\DoxyCodeLine{\textcolor{keyword}{auto} observable = rpp::observable::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    subscriber.on\_next(1);}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{observable.\mbox{\hyperlink{classrpp_1_1dynamic__observable_a43dfe979f5a6f05a7a546f5bb724422a}{subscribe}}(\mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp::dynamic\_observer}}\{[](\textcolor{keywordtype}{int} v)\{ std::cout << v;\}\});}
+
+\end{DoxyCode}
+
+
+all this samples uses extra heap allocations\+:
+\begin{DoxyEnumerate}
+\item explicitly specify type of subscriber inside observable as {\ttfamily dynamic\+\_\+} -\/\texorpdfstring{$>$}{>} {\ttfamily dynamic\+\_\+subscriber} created during {\ttfamily subscribe(...)} call which creates {\ttfamily dynamic\+\_\+observer} underhood -\/\texorpdfstring{$>$}{>} heap used to construct {\ttfamily dynamic\+\_\+observer}
+\item {\ttfamily dynamic\+\_\+observable} constructed via heap allocation. This specizalization can obtain only {\ttfamily dynamic\+\_\+subscriber} -\/\texorpdfstring{$>$}{>} same as prev. example
+\item {\ttfamily dynamic\+\_\+observer} constructed via heap allocation. 
+\end{DoxyEnumerate}
