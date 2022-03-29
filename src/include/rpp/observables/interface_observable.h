@@ -31,6 +31,18 @@
 
 #include <type_traits>
 
+/**
+ * \defgroup observables Observables
+ * \brief Observable is the source of any Reactive Stream. Observable provides ability to subscribe observer on some events.
+ * \see https://reactivex.io/documentation/observable.html
+ */
+
+/**
+* \defgroup operators Operators
+* \brief Operators is way to modify observables and extend with some extra custom logic
+* \see https://reactivex.io/documentation/operators.html 
+*/
+
 namespace rpp::details
 {
 template<constraint::decayed_type Type, typename OnNext, typename OnError, typename OnCompleted>
@@ -68,12 +80,7 @@ concept op_fn = constraint::observable<std::invoke_result_t<T, TObservable>>;
 
 namespace rpp
 {
-/**
- * \defgroup observables Observables
- * \brief Observable is the source of any Reactive Stream. Observable provides ability to subscribe observer on some events.
- * \see https://reactivex.io/documentation/observable.html
- * 
- * 
+/** 
  * \brief Interface of observable
  * \tparam Type type provided by this observable
  */
@@ -208,11 +215,6 @@ public:
     }
 
     /**
-    * \defgroup operators Operators
-    * \brief Operators is way to modify observables and extend with some extra custom logic
-    * \see https://reactivex.io/documentation/operators.html
-    * 
-    * 
     * \brief The apply function to observable which returns observable of another type
     * \tparam OperatorFn type of function which applies to this observable
     * \return new specific_observable of NewType
