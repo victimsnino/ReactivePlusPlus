@@ -4,6 +4,8 @@
 
 ReactivePlusPlus is [ReactiveX](https://reactivex.io/) library for C++ language inspired by "official implementation" ([RxCpp](https://github.com/ReactiveX/RxCpp)) 
 
+Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. As a result it is fast, readable, easy to use and well-documented.
+
 ## What about existing Reactive Extension libraries for C++?
 
 Reactive programming is excelent programming paradigm and approach for creation of multi-threading and real-time programs which reacts on some events. Unfortunately, there is only one stable and fully-implemented library at the moment of creation of ReactivePlusPlus - [RxCpp](https://github.com/ReactiveX/RxCpp). 
@@ -17,10 +19,10 @@ Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ
 
 ## Why ReactivePlusPlus?
 
-ReactivePlusPlus tries to solve all mentioned issues:
-- ReactivePlusPlus written in **Modern C++ (C++20)** with concepts which makes code-base a lot of understandable and clean.
-- ReactivePlusPlus keeps balance between perfomance and type-erasing mechanism: user can easily understand and choose where creation of object is expensive (via type-erasure mechanism) and how to avoid it if needed. Read about this in [Perfomance vs Flexibility, Specific vs Dynamic]()
-- ReactivePlusPlus is fast: every part of code written with perfomance in mind. Starting from tests over amoun of copies/move and finishing to Continous Benchmarking
+**ReactivePlusPlus** tries to solve all mentioned issues:
+- **ReactivePlusPlus** written in **Modern C++ (C++20)** with concepts which makes code-base a lot more understandable and clean.
+- **ReactivePlusPlus** keeps balance between performance and type-erasing mechanism: Read about it in  **"Performance vs Flexibility: Specific vs Dynamic"** on [documentation page](https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html)
+- **ReactivePlusPlus** is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking
 
 
 ## Documentation
@@ -28,6 +30,6 @@ ReactivePlusPlus tries to solve all mentioned issues:
 Doxygen documentation generated per each commit can be found [here](https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html)
 
 ## Perfomance
-Perfomance is really **important**! It is **doubly important** when we speak about **realtime applications and libraries**! **ReactivePlusPlus** targets as a realtime library to process and handle a tremendous volumes of data. 
+Performance is really **important**! It is **doubly important** when we speak about **realtime applications and libraries**! **ReactivePlusPlus** targets as a realtime library to process and handle a tremendous volumes of data. 
 
 This repository uses continous benchmarking: every commit and pull request measured and diff per each benchmark provided. Graphs over benchmark results can be found [here](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
