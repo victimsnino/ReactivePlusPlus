@@ -14,7 +14,7 @@ for file in os.listdir(os.fsencode("./artifacts")):
         new_data = parse(f'./artifacts/{folder_with_results}/{file_name}.txt')
         new_data["platform"] = [folder_with_results]*len(new_data)
         new_data["commit"] = [f"{commit_message[:20]}{'...' if len(commit_message)> 20 else ''} ({git_commit})"]*len(new_data)
-        new_data["is_rxcpp"] = str("rxcpp" in file_name)
+        new_data["is_rxcpp"] = str("rxcpp" in file_name)*len(new_data)
         new_results = pd.concat([new_results, new_data]).reset_index(drop=True)
 
 old_results = pd.DataFrame()
