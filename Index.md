@@ -82,4 +82,4 @@ all this samples uses extra heap allocations:
 2. `dynamic_observable` constructed via heap allocation. This specizalization can obtain only `dynamic_subscriber` -> same as prev. example
 3. `dynamic_observer` constructed via heap allocation.
 
-For detailed comparison of performance of different operations for `specific_` and `dynamic_` you can find in [Continous Performance](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
+For detailed comparison of performance of different operations for `specific_` and `dynamic_` you can find in [Continuous Benchmarking](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
