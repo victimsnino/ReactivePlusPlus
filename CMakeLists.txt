@@ -64,6 +64,18 @@ if(CODE_COVERAGE)
 
 endif(CODE_COVERAGE)
 
+if (AUTOTESTS)
+  Include(FetchContent)
+
+  FetchContent_Declare(
+    RxCpp
+    GIT_REPOSITORY https://github.com/ReactiveX/RxCpp.git
+    GIT_TAG        origin/main
+  )
+
+  FetchContent_MakeAvailable(RxCpp)
+endif()
+
 
 # ================== TESTS ==================
 enable_testing()

@@ -48,3 +48,15 @@ if(MSVC)
 else()
   target_compile_options(${TARGET} PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion)
 endif()
+
+
+if (AUTOTESTS)
+  set(TARGET rxcpp_benchmark)
+
+  add_executable(${TARGET} 
+      rxcpp_benchmark.cpp
+  )
+
+  target_link_libraries(${TARGET} PRIVATE rxcpp Catch2WithMain)
+  set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
+endif()

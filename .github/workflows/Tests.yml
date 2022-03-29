@@ -25,16 +25,19 @@ jobs:
            cc: "gcc-10"
            cxx: "g++-10"
            relative_path_bench: "build/bin/rpp_tests"
+           relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
         -  name: "Linux CLANG"
            os: ubuntu-latest
            cc: "clang" 
            cxx: "clang++"
            relative_path_bench: "build/bin/rpp_tests"
+           relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
         -  name: "Windows MSVC"
            os: windows-latest
            cc: "cl"
            cxx: "cl"
            relative_path_bench: "build/bin/Release/rpp_tests"
+           relative_path_rxcpp_bench: "build/bin/Release/rxcpp_benchmark"
 
     steps:
     - uses: actions/checkout@v2
@@ -79,11 +82,17 @@ jobs:
       run: ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] -r xml -o ${{github.workspace}}/build/test_results/benchmark_result.txt
       if: matrix.config.relative_path_bench != ''
 
+    - name: Run RxCpp benchmarks only
+      run: ${{github.workspace}}/${{ matrix.config.relative_path_rxcpp_bench }} [benchmark] -r xml -o ${{github.workspace}}/build/test_results/rxcpp_benchmark_result.txt
+      if: matrix.config.relative_path_bench != ''
+
     - name: Upload parsed results
       uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.config.name }}
-        path: ${{github.workspace}}/build/test_results/benchmark_result.txt
+        path: | 
+          ${{github.workspace}}/build/test_results/benchmark_result.txt
+          ${{github.workspace}}/build/test_results/rxcpp_benchmark_result.txt
     
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
