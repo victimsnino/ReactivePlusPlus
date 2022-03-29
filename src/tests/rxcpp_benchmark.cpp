@@ -41,7 +41,7 @@ auto MakeDynamicObservable()
     return MakeSpecificObservable().as_dynamic();
 }
 
-TEST_CASE("RxCpp Observable construction", "[benchmark]")
+TEST_CASE("Observable construction RxCpp", "[benchmark]")
 {
     BENCHMARK("Specific observable construction")
     {
@@ -55,7 +55,7 @@ TEST_CASE("RxCpp Observable construction", "[benchmark]")
 
 }
 
-TEST_CASE("RxCpp Observable subscribe #2", "[benchmark]")
+TEST_CASE("Observable subscribe #2 RxCpp", "[benchmark]")
 {
     rxcpp::composite_subscription subscription{};
     auto specific = MakeSpecificObservable();
@@ -93,7 +93,7 @@ TEST_CASE("RxCpp Observable subscribe #2", "[benchmark]")
     };
 }
 
-TEST_CASE("RxCpp Observer construction", "[benchmark]")
+TEST_CASE("Observer construction RxCpp", "[benchmark]")
 {
     BENCHMARK("Specific observer construction")
     {
@@ -111,7 +111,7 @@ TEST_CASE("RxCpp Observer construction", "[benchmark]")
     };
 }
 
-TEST_CASE("RxCpp OnNext", "[benchmark]")
+TEST_CASE("OnNext RxCpp", "[benchmark]")
 {
     auto specific_observer = MakeSpecificObserver();
     auto dynamic_observer = MakeDynamicObserver();
@@ -130,7 +130,7 @@ TEST_CASE("RxCpp OnNext", "[benchmark]")
 
 }
 
-TEST_CASE("RxCpp Subscriber construction", "[benchmark]")
+TEST_CASE("Subscriber construction RxCpp", "[benchmark]")
 {
     BENCHMARK("Make subsriber")
     {
@@ -151,7 +151,7 @@ TEST_CASE("RxCpp Subscriber construction", "[benchmark]")
     };
 }
 
-TEST_CASE("RxCpp Observable subscribe", "[benchmark]")
+TEST_CASE("Observable subscribe RxCpp", "[benchmark]")
 {
     auto validate_observable = [](auto observable, const std::string& observable_prefix)
     {
@@ -170,7 +170,7 @@ TEST_CASE("RxCpp Observable subscribe", "[benchmark]")
     validate_observable(MakeDynamicObservable(), "Dynamic");
 }
 
-TEST_CASE("RxCpp Observable lift", "[benchmark]")
+TEST_CASE("Observable lift RxCpp", "[benchmark]")
 {
     auto validate_observable = [](auto observable, const std::string& observable_prefix)
     {
@@ -190,7 +190,7 @@ TEST_CASE("RxCpp Observable lift", "[benchmark]")
     validate_observable(MakeDynamicObservable(), "Dynamic");
 }
 
-TEST_CASE("RxCpp Operators", "[benchmark]")
+TEST_CASE("Operators RxCpp", "[benchmark]")
 {
     auto obs = rxcpp::observable<>::create<int>([](const auto& sub)
         {
