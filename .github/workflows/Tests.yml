@@ -84,7 +84,7 @@ jobs:
 
     - name: Run RxCpp benchmarks only
       run: ${{github.workspace}}/${{ matrix.config.relative_path_rxcpp_bench }} [benchmark] -r xml -o ${{github.workspace}}/build/test_results/rxcpp_benchmark_result.txt
-      if: matrix.config.relative_path_bench != ''
+      if: matrix.config.relative_path_rxcpp_bench != ''
 
     - name: Upload parsed results
       uses: actions/upload-artifact@v3
