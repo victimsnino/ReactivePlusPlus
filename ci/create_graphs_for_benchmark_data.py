@@ -31,9 +31,12 @@ for platform, data in results.groupby("platform", sort=False, as_index=False):
                      "commit": "Commit",
                      "test_case" : "Benchmark"
                  }
-        fig = px.line(bench_data, x="commit", y="value", color="test_case", line_shape='spline', markers=True, hover_data=hover_data, title=name, height=500, labels=labels)
+        line_dash = bench_data['is_rxcpp'].map({'True': 'dashed', 'False' : 'solid'})
+        fig = px.line(bench_data, x="commit", y="value", color="test_case", line_shape='spline', markers=True, hover_data=hover_data, title=name, height=500, labels=labels, line_dash=line_dash)
         copy_data = fig["data"]
         for v in copy_data:
+            if 'RxCpp' in v['legendgroup']:
+                continue
             d = bench_data[bench_data['test_case']==v['legendgroup']]
             fig.add_trace(go.Scatter(x=pd.concat([d['commit'], d['commit'][::-1]]),
                                      y=pd.concat([d['lowerBound'], d['upperBound'][::-1]]),
