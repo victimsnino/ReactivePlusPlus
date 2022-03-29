@@ -215,7 +215,7 @@ TEST_CASE("Observable lift", "[benchmark]")
     validate_observable(MakeDynamicObservable(), "Dynamic");
 }
 
-SCENARIO("Operators", "[benchmark]")
+TEST_CASE("Operators", "[benchmark]")
 {
     auto obs = rpp::observable::create<int>([](const auto& sub)
                 {

@@ -190,7 +190,7 @@ TEST_CASE("RxCpp Observable lift", "[benchmark]")
     validate_observable(MakeDynamicObservable(), "Dynamic");
 }
 
-SCENARIO("RxCpp Operators", "[benchmark]")
+TEST_CASE("RxCpp Operators", "[benchmark]")
 {
     auto obs = rxcpp::observable<>::create<int>([](const auto& sub)
         {
