@@ -81,3 +81,5 @@ all this samples uses extra heap allocations:
 1. explicitly specify type of subscriber inside observable as `dynamic_`  -> `dynamic_subscriber` created during `subscribe(...)` call which creates `dynamic_observer` underhood -> heap used to construct `dynamic_observer`
 2. `dynamic_observable` constructed via heap allocation. This specizalization can obtain only `dynamic_subscriber` -> same as prev. example
 3. `dynamic_observer` constructed via heap allocation.
+
+For detailed comparison of performance of different operations for `specific_` and `dynamic_` you can find in [Continous Performance](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
