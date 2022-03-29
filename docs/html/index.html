@@ -148,8 +148,9 @@ Performance vs Flexibility: Specific vs Dynamic</h1>
 </div><!-- fragment --><p >all this samples uses extra heap allocations:</p><ol type="1">
 <li>explicitly specify type of subscriber inside observable as <code>dynamic_</code> -&gt; <code>dynamic_subscriber</code> created during <code>subscribe(...)</code> call which creates <code>dynamic_observer</code> underhood -&gt; heap used to construct <code>dynamic_observer</code></li>
 <li><code>dynamic_observable</code> constructed via heap allocation. This specizalization can obtain only <code>dynamic_subscriber</code> -&gt; same as prev. example</li>
-<li><code>dynamic_observer</code> constructed via heap allocation. </li>
+<li><code>dynamic_observer</code> constructed via heap allocation.</li>
 </ol>
+<p >For detailed comparison of performance of different operations for <code>specific_</code> and <code>dynamic_</code> you can find in <a href="https://victimsnino.github.io/ReactivePlusPlus/benchmark">Continous Performance</a> </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
