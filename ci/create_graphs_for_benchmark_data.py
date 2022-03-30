@@ -4,7 +4,9 @@ from plotly.subplots import make_subplots
 import pandas as pd
 import plotly.graph_objects as go
 
-
+def rindex(lst, value):
+    return len(lst) - lst[::-1].index(value) - 1
+    
 dashboard = open("./gh-pages/benchmark.html", 'w')
 dashboard.write("<html><head></head><body>" + "\n")
 add_js = True
@@ -31,19 +33,22 @@ for platform, data in results.groupby("platform", sort=False, as_index=False):
                      "commit": "Commit",
                      "test_case" : "Benchmark"
                  }
-        line_dash = bench_data['is_rxcpp'].map({'True': 'dashed', 'False' : 'solid'})
-        fig = px.line(bench_data, x="commit", y="value", color="test_case", line_shape='spline', markers=True, hover_data=hover_data, title=name, height=500, labels=labels, line_dash=line_dash)
+        fig = px.line(bench_data, x="commit", y="value", color="test_case", line_shape='spline', markers=True, hover_data=hover_data, title=name, height=500, labels=labels, line_dash='source')
         copy_data = fig["data"]
         for v in copy_data:
-            if 'RxCpp' in v['legendgroup']:
+            index_of_comma = rindex(v['legendgroup'], ',')
+            text = v['legendgroup'][:index_of_comma]
+            source = v['legendgroup'][index_of_comma+2:]
+            if source != 'rpp':
                 continue
-            d = bench_data[bench_data['test_case']==v['legendgroup']]
+            d = bench_data[(bench_data['test_case']==text) & (bench_data['source']==source)]
             fig.add_trace(go.Scatter(x=pd.concat([d['commit'], d['commit'][::-1]]),
                                      y=pd.concat([d['lowerBound'], d['upperBound'][::-1]]),
                                      fill='toself',
                                      showlegend=False,
                                      name = v['legendgroup'],
                                      line_color=v['line']['color'],
+                                     line_dash=v['line']['dash'],
                                      hoverinfo='skip',
                                      mode="lines",
                                      opacity=0.3,

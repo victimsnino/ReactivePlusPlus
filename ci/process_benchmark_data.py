@@ -10,18 +10,22 @@ commit_message = sys.argv[2].split("\n")[0] if len(sys.argv) > 2 else "Current P
 new_results = pd.DataFrame()
 for file in os.listdir(os.fsencode("./artifacts")):
     folder_with_results = os.fsdecode(file)
-    for file_name in ['benchmark_result', 'rxcpp_benchmark_result']:
-        new_data = parse(f'./artifacts/{folder_with_results}/{file_name}.txt')
+    for source in ['rpp', 'rxcpp']:
+        new_data = parse(f'./artifacts/{folder_with_results}/{source}_benchmark_result.txt')
         new_data["platform"] = [folder_with_results]*len(new_data)
         new_data["commit"] = [f"{commit_message[:20]}{'...' if len(commit_message)> 20 else ''} ({git_commit})"]*len(new_data)
-        new_data["is_rxcpp"] = [str("rxcpp" in file_name)]*len(new_data)
+        new_data["source"] = [source]*len(new_data)
         new_results = pd.concat([new_results, new_data]).reset_index(drop=True)
 
 old_results = pd.DataFrame()
 if os.path.exists("./gh-pages/results.csv"):
     old_results = pd.read_csv("./gh-pages/results.csv", index_col="id")
-    if 'line_dash' not in old_results:
-        old_results['is_rxcpp'] = ['False']*len(old_results)
+    if 'source' not in old_results:
+        old_results['source'] = ['rpp']*len(old_results)
+    if 'is_rxcpp' in old_results:
+        old_results = old_results.drop(columns=['is_rxcpp'])
+    if 'line_dash' in old_results:
+        old_results = old_results.drop(columns=['line_dash'])
 
 results = pd.concat([old_results, new_results]).reset_index(drop=True)
 results.index.name = "id"
