@@ -39,7 +39,7 @@ There detailed list with explanations:
   - [rpp::specific_subscriber<T, Observer>](https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1specific__subscriber.html) - stores explicit underlying type of observer as `Observer` template type to avoid construction of [rpp::dynamic_observer](https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observer.html). 
   - [rpp::dynamic_subscriber<T>](https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__subscriber.html) - uses [rpp::dynamic_observer](https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observer.html) type as underlying type for observer.
 
-So, to achieve best performance avoid usage of `dynamic_` specialization till you really need it. For example, 
+So, to achieve best performance avoid usage of `dynamic_` specialization till you really need it or you want to avoid extra copies/moves of original objects captured inside callbacks and prefer one-time `shared_ptr` allication instead. For example, 
 ```cpp
 auto observable = rpp::observable::create<int>([](const auto& subscriber)
 {
