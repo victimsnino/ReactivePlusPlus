@@ -50,7 +50,7 @@ There detailed list with explanations\+:
 \end{DoxyItemize}
 \end{DoxyItemize}
 
-So, to achieve best performance avoid usage of {\ttfamily dynamic\+\_\+} specialization till you really need it. For example, 
+So, to achieve best performance avoid usage of {\ttfamily dynamic\+\_\+} specialization till you really need it or you want to avoid extra copies/moves of original objects captured inside callbacks and prefer one-\/time {\ttfamily shared\+\_\+ptr} allication instead. For example, 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{auto} observable = rpp::observable::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber)}
 \DoxyCodeLine{\{}

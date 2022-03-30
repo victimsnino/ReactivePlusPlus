@@ -109,7 +109,7 @@ Performance vs Flexibility: Specific vs Dynamic</h1>
 </ul>
 </li>
 </ul>
-<p >So, to achieve best performance avoid usage of <code>dynamic_</code> specialization till you really need it. For example, </p><div class="fragment"><div class="line"><span class="keyword">auto</span> observable = rpp::observable::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; subscriber)</div>
+<p >So, to achieve best performance avoid usage of <code>dynamic_</code> specialization till you really need it or you want to avoid extra copies/moves of original objects captured inside callbacks and prefer one-time <code>shared_ptr</code> allication instead. For example, </p><div class="fragment"><div class="line"><span class="keyword">auto</span> observable = rpp::observable::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; subscriber)</div>
 <div class="line">{</div>
 <div class="line">    subscriber.on_next(1);</div>
 <div class="line">});</div>
