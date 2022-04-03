@@ -28,6 +28,7 @@ add_executable(${TARGET}
     test_observer.cpp
     test_subscriber.cpp
     test_map.cpp
+    test_schedulers.cpp
     
     test_lift.cpp
 

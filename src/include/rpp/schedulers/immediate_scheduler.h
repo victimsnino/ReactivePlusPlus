@@ -22,4 +22,42 @@
 
 #pragma once
 
-#include <rpp/operators/map.h>
+#include <rpp/schedulers/fwd.h>
+#include <rpp/schedulers/constraints.h>
+
+#include <chrono>
+#include <concepts>
+#include <thread>
+
+namespace rpp::schedulers
+{
+class immediate_worker
+{
+public:
+    void schedule(const constraint::schedulable_fn auto& fn)
+    {
+        schedule(std::chrono::high_resolution_clock::now(), fn);
+    }
+
+    void schedule(time_point time_point, const constraint::schedulable_fn auto& fn)
+    {
+        while(1)
+        {
+            std::this_thread::sleep_until(time_point);
+            auto duration = fn();
+            if (!duration.has_value())
+                return;
+            time_point += duration.value();
+        }
+    }
+};
+
+class immediate_scheduler final : public details::scheduler_tag
+{
+public:
+    static immediate_worker create_worker()
+    {
+        return immediate_worker{};
+    }
+};
+} // namespace rpp::schedulers
