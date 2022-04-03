@@ -27,7 +27,7 @@ SCENARIO("Immediate scheduler schedule task immediately")
 {
     GIVEN("immediate_scheduler")
     {
-        auto scheduler = rpp::schedulers::immediate_scheduler{};
+        auto scheduler = rpp::schedulers::immediate{};
 
         auto worker = scheduler.create_worker();
         WHEN("scheduler without time and resheduling")
@@ -89,4 +89,47 @@ SCENARIO("Immediate scheduler schedule task immediately")
             }
         }
 	}
+}
+
+
+SCENARIO("Immediate scheduler depends on subscription")
+{
+    GIVEN("immediate_scheduler")
+    {
+        auto scheduler = rpp::schedulers::immediate{};
+        WHEN("pass unsubscribed subscription")
+        {
+            rpp::subscription sub{};
+            sub.unsubscribe();
+            auto worker = scheduler.create_worker(sub);
+
+            size_t call_count{};
+            worker.schedule([&call_count]() -> rpp::schedulers::optional_duration
+            {
+                ++call_count;
+                return {{}};
+            });
+            THEN("no any calls/schedules")
+            {
+                CHECK(call_count == 0);
+            }
+        }
+        WHEN("unsubscribe during function")
+        {
+            rpp::subscription sub{};
+            auto worker = scheduler.create_worker(sub);
+
+            size_t call_count{};
+            worker.schedule([&call_count, sub]() -> rpp::schedulers::optional_duration
+                {
+                    if (++call_count > 1)
+                        sub.unsubscribe();
+                    return { {} };
+                });
+            THEN("no any calls/schedules after unsubscribe")
+            {
+                CHECK(call_count == 2);
+            }
+        }
+    }
 }

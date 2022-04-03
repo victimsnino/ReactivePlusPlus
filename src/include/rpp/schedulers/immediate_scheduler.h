@@ -22,6 +22,8 @@
 
 #pragma once
 
+#include "rpp/subscription.h"
+
 #include <rpp/schedulers/fwd.h>
 #include <rpp/schedulers/constraints.h>
 
@@ -31,33 +33,38 @@
 
 namespace rpp::schedulers
 {
-class immediate_worker
+class immediate final : public details::scheduler_tag
 {
 public:
-    void schedule(const constraint::schedulable_fn auto& fn)
+    class worker
     {
-        schedule(std::chrono::high_resolution_clock::now(), fn);
-    }
+    public:
+        worker(rpp::subscription sub)
+            : m_sub{std::move(sub)} {}
 
-    void schedule(time_point time_point, const constraint::schedulable_fn auto& fn)
-    {
-        while(1)
+        void schedule(const constraint::schedulable_fn auto& fn)
         {
-            std::this_thread::sleep_until(time_point);
-            auto duration = fn();
-            if (!duration.has_value())
-                return;
-            time_point += duration.value();
+            schedule(std::chrono::high_resolution_clock::now(), fn);
         }
-    }
-};
 
-class immediate_scheduler final : public details::scheduler_tag
-{
-public:
-    static immediate_worker create_worker()
+        void schedule(time_point time_point, const constraint::schedulable_fn auto& fn)
+        {
+            while (m_sub.is_subscribed())
+            {
+                std::this_thread::sleep_until(time_point);
+                auto duration = fn();
+                if (!duration.has_value())
+                    return;
+                time_point += duration.value();
+            }
+        }
+    private:
+        rpp::subscription m_sub;
+    };
+
+    static worker create_worker(rpp::subscription sub = {})
     {
-        return immediate_worker{};
+        return worker{ sub };
     }
 };
 } // namespace rpp::schedulers
