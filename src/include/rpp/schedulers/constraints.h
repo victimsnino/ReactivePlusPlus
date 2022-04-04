@@ -30,5 +30,5 @@ namespace rpp::schedulers::constraint
 {
 // returns nullopt in case of don't need to reshedule scheulable or some duration which will be added to "now" and resheduled
 template<typename T>
-concept schedulable_fn = std::is_invocable_r_v<std::optional<duration>, T>;
+concept schedulable_fn = std::is_invocable_r_v<optional_duration, T>;
 } // namespace rpp::schedulers::constraint

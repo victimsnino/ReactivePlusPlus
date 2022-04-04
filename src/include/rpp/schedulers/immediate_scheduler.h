@@ -22,13 +22,11 @@
 
 #pragma once
 
-#include "rpp/subscription.h"
-
-#include <rpp/schedulers/fwd.h>
+#include <rpp/subscription.h>
 #include <rpp/schedulers/constraints.h>
+#include <rpp/schedulers/fwd.h>
 
 #include <chrono>
-#include <concepts>
 #include <thread>
 
 namespace rpp::schedulers
@@ -42,12 +40,12 @@ public:
         worker(rpp::subscription sub)
             : m_sub{std::move(sub)} {}
 
-        void schedule(const constraint::schedulable_fn auto& fn)
+        void schedule(const constraint::schedulable_fn auto& fn) const
         {
             schedule(std::chrono::high_resolution_clock::now(), fn);
         }
 
-        void schedule(time_point time_point, const constraint::schedulable_fn auto& fn)
+        void schedule(time_point time_point, const constraint::schedulable_fn auto& fn) const
         {
             while (m_sub.is_subscribed())
             {
@@ -58,6 +56,9 @@ public:
                 time_point += duration.value();
             }
         }
+
+        worker*       operator->() { return this; }
+        const worker* operator->() const { return this; }
     private:
         rpp::subscription m_sub;
     };

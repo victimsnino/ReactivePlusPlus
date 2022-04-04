@@ -22,6 +22,9 @@
 
 #include <catch2/catch_test_macros.hpp>
 #include <rpp/schedulers/immediate_scheduler.h>
+#include <rpp/schedulers/new_thread_scheduler.h>
+
+#include <future>
 
 SCENARIO("Immediate scheduler schedule task immediately")
 {
@@ -33,7 +36,7 @@ SCENARIO("Immediate scheduler schedule task immediately")
         WHEN("scheduler without time and resheduling")
         {
             size_t call_count{};
-            worker.schedule([&call_count]() -> rpp::schedulers::optional_duration {++call_count; return {}; });
+            worker->schedule([&call_count]() -> rpp::schedulers::optional_duration {++call_count; return {}; });
             THEN("called once immediately")
             {
                 CHECK(call_count == 1);
@@ -42,7 +45,7 @@ SCENARIO("Immediate scheduler schedule task immediately")
         WHEN("scheduler without time with scheduling")
         {
             size_t call_count{};
-            worker.schedule([&call_count]() -> rpp::schedulers::optional_duration
+            worker->schedule([&call_count]() -> rpp::schedulers::optional_duration
             {
                 if (++call_count <= 1)
                     return {{}};
@@ -58,7 +61,7 @@ SCENARIO("Immediate scheduler schedule task immediately")
 			size_t call_count{};
             auto now = rpp::schedulers::clock_type::now();
             rpp::schedulers::time_point execute_time{};
-			worker.schedule(rpp::schedulers::clock_type::now() + std::chrono::seconds{ 2 },
+			worker->schedule(rpp::schedulers::clock_type::now() + std::chrono::seconds{ 2 },
 				[&call_count, &execute_time]() -> rpp::schedulers::optional_duration
 				{
 					++call_count;
@@ -75,7 +78,7 @@ SCENARIO("Immediate scheduler schedule task immediately")
         {
             size_t                                   call_count{};
             std::vector<rpp::schedulers::time_point> executions{};
-            worker.schedule([&call_count, &executions]() -> rpp::schedulers::optional_duration
+            worker->schedule([&call_count, &executions]() -> rpp::schedulers::optional_duration
                 {
                     executions.push_back(rpp::schedulers::clock_type::now());
                     if (++call_count <= 1)
@@ -91,7 +94,6 @@ SCENARIO("Immediate scheduler schedule task immediately")
 	}
 }
 
-
 SCENARIO("Immediate scheduler depends on subscription")
 {
     GIVEN("immediate_scheduler")
@@ -104,7 +106,7 @@ SCENARIO("Immediate scheduler depends on subscription")
             auto worker = scheduler.create_worker(sub);
 
             size_t call_count{};
-            worker.schedule([&call_count]() -> rpp::schedulers::optional_duration
+            worker->schedule([&call_count]() -> rpp::schedulers::optional_duration
             {
                 ++call_count;
                 return {{}};
@@ -120,7 +122,7 @@ SCENARIO("Immediate scheduler depends on subscription")
             auto worker = scheduler.create_worker(sub);
 
             size_t call_count{};
-            worker.schedule([&call_count, sub]() -> rpp::schedulers::optional_duration
+            worker->schedule([&call_count, sub]() -> rpp::schedulers::optional_duration
                 {
                     if (++call_count > 1)
                         sub.unsubscribe();
@@ -129,6 +131,62 @@ SCENARIO("Immediate scheduler depends on subscription")
             THEN("no any calls/schedules after unsubscribe")
             {
                 CHECK(call_count == 2);
+            }
+        }
+    }
+}
+
+SCENARIO("New thread scheduler schedules tasks into separate thread")
+{
+    GIVEN("NewThread scheduler")
+    {
+        auto scheduler = rpp::schedulers::new_thread{};
+        auto worker = scheduler.create_worker();
+        WHEN("schedules job to worker")
+        {
+            std::promise< std::thread::id> promise{};
+            auto                           future = promise.get_future();
+            worker->schedule([&]() -> rpp::schedulers::optional_duration
+            {
+                promise.set_value(std::this_thread::get_id());
+                return {};
+            });
+
+            future.wait_for(std::chrono::seconds{5});
+
+            THEN("job executed in another thread")
+            {
+                REQUIRE(future.valid());
+                REQUIRE(future.get() != std::this_thread::get_id());
+            }
+        }
+        WHEN("schedules jobs to worker with some delay")
+        {
+            std::promise< rpp::schedulers::time_point> promise_1{};
+            std::promise< rpp::schedulers::time_point> promise_2{};
+            auto                           future_1 = promise_1.get_future();
+            auto                           future_2 = promise_2.get_future();
+            auto now = rpp::schedulers::clock_type::now();
+            worker->schedule(now + std::chrono::seconds{ 3 }, [&]() -> rpp::schedulers::optional_duration
+            {
+                promise_2.set_value(rpp::schedulers::clock_type::now());
+                return {};
+            });
+
+            worker->schedule(now + std::chrono::seconds{ 1}, [&]() -> rpp::schedulers::optional_duration
+            {
+                promise_1.set_value(rpp::schedulers::clock_type::now());
+                return {};
+            });
+
+            future_1.wait_for(std::chrono::seconds{ 2 });
+            future_2.wait_for(std::chrono::seconds{ 3 });
+
+            THEN("first job executed later")
+            {
+                REQUIRE(future_1.valid());
+                REQUIRE(future_2.valid());
+                REQUIRE(future_1.get() < future_2.get());
             }
         }
     }
