@@ -31,6 +31,9 @@
 
 namespace rpp
 {
+/**
+ * \brief rpp::subscription_base with ability to add some dependent subscriptions as a part of this one: in case of initiation of unsubscribe of this subscription, then any dependent subscriptions will be unsubscribed too
+ */
 class composite_subscription final : public subscription_base
 {
 public:
@@ -38,12 +41,18 @@ public:
     explicit composite_subscription(const Subs&...subs)
         : subscription_base{std::make_shared<state>(std::vector<subscription_base>{subs...})} {}
 
+    /**
+     * \brief Add any other subscription to this as dependent
+     */
     subscription_base add(const subscription_base& sub) const
     {
         static_cast<state&>(get_state()).add(sub);
         return sub;
     }
 
+    /**
+     * \brief Add callback/function subscription to this as dependent
+     */
     subscription_base add(const callback_subscription& sub) const
     {
         return add(static_cast<const subscription_base&>(sub));

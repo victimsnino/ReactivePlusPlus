@@ -30,6 +30,9 @@
 
 namespace rpp
 {
+/**
+ * \brief Subscription which invoke callbable during unsubscribe
+ */
 class callback_subscription final : public subscription_base
 {
 public:

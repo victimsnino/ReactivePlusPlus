@@ -26,6 +26,10 @@
 
 namespace rpp::details
 {
+/**
+ * \brief Base implementation of subscription state used under-hood for rpp::subscription_base and its childs
+ * \details subscription_state uses atomic_bool to track current state of the subscription and where unsubscribe should be called or not. Used as base implementation for more complicated states
+ */
 class subscription_state
 {
 public:

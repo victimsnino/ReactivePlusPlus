@@ -29,6 +29,9 @@
 
 namespace rpp
 {
+/**
+ * \brief Base subscription implementation used as base class/interface and core implementation for derrived subscriptions
+ */
 class subscription_base
 {
 protected:
@@ -42,11 +45,17 @@ public:
 
     virtual ~subscription_base() = default;
 
+    /**
+     * \brief indicates current status of subscription
+     */
     [[nodiscard]] bool is_subscribed() const
     {
         return m_state->is_subscribed();
     }
 
+    /**
+     * \brief initiates unsubscription process (if subscribed)
+     */
     void unsubscribe() const
     {
         m_state->unsubscribe();
