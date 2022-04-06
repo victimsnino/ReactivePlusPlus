@@ -102,9 +102,6 @@ private:
                     m_deps.clear();
                     return;
                 }
-
-                if (expected == DepsState::Unsubscribed)
-                    return;
             }
         }
 

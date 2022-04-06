@@ -46,10 +46,8 @@ public:
 
     void unsubscribe()
     {
-        if (!m_is_subscribed.exchange(false))
-            return;
-
-        on_unsubscribe();
+        if (m_is_subscribed.exchange(false))
+            on_unsubscribe();
     }
 
 protected:
