@@ -24,6 +24,7 @@
 
 #include <rpp/subscriptions/subscription_base.h>
 #include <rpp/subscriptions/callback_subscription.h>
+#include <rpp/utils/constraints.h>
 
 #include <algorithm>
 #include <mutex>
@@ -38,8 +39,11 @@ class composite_subscription final : public subscription_base
 {
 public:
     template<std::convertible_to<subscription_base> ...Subs>
-    explicit composite_subscription(const Subs&...subs)
+    explicit composite_subscription(const Subs&...subs) requires (!rpp::constraint::variadic_is_same_type< composite_subscription>)
         : subscription_base{std::make_shared<state>(std::vector<subscription_base>{subs...})} {}
+
+    composite_subscription(const composite_subscription&)     = default;
+    composite_subscription(composite_subscription&&) noexcept = default;
 
     /**
      * \brief Add any other subscription to this as dependent
