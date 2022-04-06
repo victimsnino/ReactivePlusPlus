@@ -96,4 +96,4 @@ file(MAKE_DIRECTORY ${TEST_RESULTS_DIR})
 # ================== SOURCES =============
 
 add_subdirectory(submodules)
-add_subdirectory(src)
+add_subdirectory(_src)
