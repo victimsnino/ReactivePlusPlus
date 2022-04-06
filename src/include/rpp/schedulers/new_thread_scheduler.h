@@ -101,24 +101,19 @@ public:
     private:
         void data_thread(std::stop_token token)
         {
-            auto condition = [&]() { return !m_queue.empty() && m_queue.top().GetTimePoint() <= clock_type::now(); };
             std::function<optional_duration()> fn{};
             time_point time_point{};
             while (!token.stop_requested())
             {
                 {
                     std::unique_lock lock{m_mutex};
-                    if (m_queue.empty())
-                    {
-                        if (!m_cv.wait(lock, token, condition))
-                            continue;
-                    }
-                    else
-                    {
-                        if (!m_cv.wait_until(lock, token, m_queue.top().GetTimePoint(), condition))
-                            continue;
-                    }
 
+                    if (!m_cv.wait(lock, token, [&]{ return !m_queue.empty();}))
+                        continue;
+
+                    if (!m_cv.wait_until(lock, token, m_queue.top().GetTimePoint(), [&]{ return !m_queue.empty() && m_queue.top().GetTimePoint() <= clock_type::now();}))
+                        continue;
+                    
                     if (token.stop_requested())
                         return;
 

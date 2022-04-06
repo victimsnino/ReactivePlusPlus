@@ -117,28 +117,30 @@ SCENARIO("Immediate scheduler depends on subscription")
 
         WHEN("pass unsubscribed subscription")
         {
-            sub.unsubscribe();
-
-            worker->schedule([&call_count]() -> rpp::schedulers::optional_duration
-            {
-                ++call_count;
-                return rpp::schedulers::duration{};
-            });
             THEN("no any calls/schedules")
             {
+                sub.unsubscribe();
+
+                worker->schedule([&call_count]() -> rpp::schedulers::optional_duration
+                {
+                    ++call_count;
+                    return rpp::schedulers::duration{};
+                });
+
                 CHECK(call_count == 0);
             }
         }
         WHEN("unsubscribe during function")
         {
-            worker->schedule([&call_count, sub]() -> rpp::schedulers::optional_duration
-            {
-                if (++call_count > 1)
-                    sub.unsubscribe();
-                return rpp::schedulers::duration{};
-            });
             THEN("no any calls/schedules after unsubscribe")
             {
+                worker->schedule([&call_count, sub]() -> rpp::schedulers::optional_duration
+                {
+                    if (++call_count > 1)
+                        sub.unsubscribe();
+                    return rpp::schedulers::duration{};
+                });
+
                 CHECK(call_count == 2);
             }
         }
@@ -153,39 +155,40 @@ SCENARIO("New thread scheduler schedules tasks into separate thread")
         auto worker    = scheduler.create_worker();
         WHEN("schedules job to worker")
         {
-            std::promise<std::thread::id> promise{};
-            auto                          future = promise.get_future();
-            worker->schedule([&]() -> rpp::schedulers::optional_duration
-            {
-                promise.set_value(std::this_thread::get_id());
-                return {};
-            });
-
-            future.wait_for(std::chrono::seconds{5});
-
             THEN("job executed in another thread")
             {
+                std::promise<std::thread::id> promise{};
+                auto                          future = promise.get_future();
+                worker->schedule([&]() -> rpp::schedulers::optional_duration
+                {
+                    promise.set_value(std::this_thread::get_id());
+                    return {};
+                });
+
+                future.wait_for(std::chrono::seconds{5});
+
                 REQUIRE(future.valid());
                 REQUIRE(future.get() != std::this_thread::get_id());
             }
         }
         WHEN("schedules jobs to worker with some delay")
         {
-            std::promise<rpp::schedulers::time_point> promise_1{};
-            std::promise<rpp::schedulers::time_point> promise_2{};
-            auto future_1 = promise_1.get_future();
-            auto future_2 = promise_2.get_future();
-            auto now = rpp::schedulers::clock_type::now();
-            auto set_promise = [](std::promise<rpp::schedulers::time_point>& promise)
-            {
-                return [&]() -> rpp::schedulers::optional_duration
-                {
-                    promise.set_value(rpp::schedulers::clock_type::now());
-                    return {};
-                };
-            };
             THEN("first job executed later")
             {
+                std::promise<rpp::schedulers::time_point> promise_1{};
+                std::promise<rpp::schedulers::time_point> promise_2{};
+                auto future_1 = promise_1.get_future();
+                auto future_2 = promise_2.get_future();
+                auto now = rpp::schedulers::clock_type::now();
+                auto set_promise = [](std::promise<rpp::schedulers::time_point>& promise)
+                {
+                    return [&]() -> rpp::schedulers::optional_duration
+                    {
+                        promise.set_value(rpp::schedulers::clock_type::now());
+                        return {};
+                    };
+                };
+
                 worker->schedule(now + std::chrono::seconds{2}, set_promise(promise_2));
                 worker->schedule(now + std::chrono::seconds{1}, set_promise(promise_1));
 
