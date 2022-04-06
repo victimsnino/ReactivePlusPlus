@@ -88,7 +88,7 @@ SCENARIO("Immediate scheduler schedule task immediately")
             THEN("called twice immediately")
             {
                 std::vector<rpp::schedulers::time_point> executions{};
-                auto                                     diff = std::chrono::seconds{1};
+                std::chrono::milliseconds                diff = std::chrono::seconds{1};
 
                 worker->schedule([&call_count, &executions, &diff]() -> rpp::schedulers::optional_duration
                 {
@@ -99,7 +99,7 @@ SCENARIO("Immediate scheduler schedule task immediately")
                 });
 
                 REQUIRE(call_count == 2);
-                REQUIRE(executions[1] - executions[0] >= diff);
+                REQUIRE(executions[1] - executions[0] >= (diff - std::chrono::milliseconds(500)));
             }
         }
     }
@@ -202,7 +202,7 @@ SCENARIO("New thread scheduler schedules tasks into separate thread")
             THEN("called twice immediately")
             {
                 std::vector<rpp::schedulers::time_point> executions{};
-                auto                                     diff = std::chrono::seconds{1};
+                std::chrono::milliseconds                diff = std::chrono::seconds{1};
                 size_t                                   call_count{};
                 worker->schedule([&call_count, &executions, &diff]() -> rpp::schedulers::optional_duration
                 {
@@ -215,7 +215,7 @@ SCENARIO("New thread scheduler schedules tasks into separate thread")
                 std::this_thread::sleep_for(diff * 2);
 
                 REQUIRE(call_count == 2);
-                REQUIRE(executions[1] - executions[0] >= diff);
+                REQUIRE(executions[1] - executions[0] >= (diff-std::chrono::milliseconds(500))); 
             }
         }
     }

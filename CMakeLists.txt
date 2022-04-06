@@ -36,7 +36,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
 # ======================= CI =========================
