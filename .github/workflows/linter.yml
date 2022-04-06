@@ -24,7 +24,7 @@ jobs:
         mkdir clang-tidy-result
     - name: Analyze
       run: |
-        git diff -U0 origin/main | clang-tidy-diff -p1 -path build -export-fixes clang-tidy-result/fixes.yml
+        git diff -U0 origin/main | clang-tidy-diff -p1 -path build -export-fixes clang-tidy-result/fixes.yml -header-filter=.* -extra-arg=-std=c++20
     - name: Run clang-tidy-pr-comments action
       uses: platisd/clang-tidy-pr-comments@master
       with:
