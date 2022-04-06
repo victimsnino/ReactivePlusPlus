@@ -82,7 +82,7 @@ TEST_CASE("Observable construction", "[benchmark]")
 
 TEST_CASE("Observable subscribe #2", "[benchmark]")
 {
-    rpp::subscription subscription{};
+    rpp::composite_subscription subscription{};
     auto specific = MakeSpecificObservable();
     BENCHMARK("Specific observable subscribe lambda")
     {
