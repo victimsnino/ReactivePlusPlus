@@ -1,0 +1,45 @@
+\hypertarget{classrpp_1_1composite__subscription}{}\doxysection{rpp\+::composite\+\_\+subscription Class Reference}
+\label{classrpp_1_1composite__subscription}\index{rpp::composite\_subscription@{rpp::composite\_subscription}}
+
+
+\mbox{\hyperlink{classrpp_1_1subscription__base}{rpp\+::subscription\+\_\+base}} with ability to add some dependent subscriptions as a part of this one\+: in case of initiation of unsubscribe of this subscription, then any dependent subscriptions will be unsubscribed too  
+
+
+
+
+{\ttfamily \#include $<$composite\+\_\+subscription.\+h$>$}
+
+Inheritance diagram for rpp\+::composite\+\_\+subscription\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classrpp_1_1composite__subscription}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1composite__subscription_a77c37c018747e6dbaf2c0c13700a62d0}\label{classrpp_1_1composite__subscription_a77c37c018747e6dbaf2c0c13700a62d0}} 
+{\footnotesize template$<$std\+::convertible\+\_\+to$<$ \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\+\_\+base}} $>$ ... Subs$>$ \newline
+requires (!rpp\+::constraint\+::variadic\+\_\+is\+\_\+same\+\_\+type$<$ \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}}$>$)}\\{\bfseries composite\+\_\+subscription} (const Subs \&...subs)
+\item 
+\mbox{\Hypertarget{classrpp_1_1composite__subscription_a5485ce8b0ae61da0ce5bf7c113be7db0}\label{classrpp_1_1composite__subscription_a5485ce8b0ae61da0ce5bf7c113be7db0}} 
+{\bfseries composite\+\_\+subscription} (const \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} \&)=default
+\item 
+\mbox{\Hypertarget{classrpp_1_1composite__subscription_a8e62ca88d2e9d3701d00e35b15bc3bbc}\label{classrpp_1_1composite__subscription_a8e62ca88d2e9d3701d00e35b15bc3bbc}} 
+{\bfseries composite\+\_\+subscription} (\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} \&\&) noexcept=default
+\item 
+\mbox{\Hypertarget{classrpp_1_1composite__subscription_a6272549b01ac390de646ae16ad13ef4d}\label{classrpp_1_1composite__subscription_a6272549b01ac390de646ae16ad13ef4d}} 
+\mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\+\_\+base}} {\bfseries add} (const \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\+\_\+base}} \&sub) const
+\begin{DoxyCompactList}\small\item\em Add any other subscription to this as dependent. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrpp_1_1composite__subscription_a9f21fbd5c5272b2d2c06a056262fa5e2}\label{classrpp_1_1composite__subscription_a9f21fbd5c5272b2d2c06a056262fa5e2}} 
+\mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\+\_\+base}} {\bfseries add} (const \mbox{\hyperlink{classrpp_1_1callback__subscription}{callback\+\_\+subscription}} \&sub) const
+\begin{DoxyCompactList}\small\item\em Add callback/function subscription to this as dependent. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classrpp_1_1subscription__base}{rpp\+::subscription\+\_\+base}} with ability to add some dependent subscriptions as a part of this one\+: in case of initiation of unsubscribe of this subscription, then any dependent subscriptions will be unsubscribed too 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/include/rpp/subscriptions/composite\+\_\+subscription.\+h\end{DoxyCompactItemize}

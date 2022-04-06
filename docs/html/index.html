@@ -118,7 +118,7 @@ Performance vs Flexibility: Specific vs Dynamic</h1>
 <div class="line">observable.subscribe(observer);</div>
 <div class="line"><span class="comment">// OR observable.subscribe([](int v){ std::cout &lt;&lt; v;});</span></div>
 <div class="ttc" id="aclassrpp_1_1specific__observer_html"><div class="ttname"><a href="classrpp_1_1specific__observer.html">rpp::specific_observer</a></div><div class="ttdoc">Observer specified with specific template types of callbacks to avoid extra heap usage.</div><div class="ttdef"><b>Definition:</b> specific_observer.h:47</div></div>
-</div><!-- fragment --><p> uses only <b>ONE heap allocation</b> for <code><a class="el" href="classrpp_1_1subscription.html">rpp::subscription</a></code> inside subscriber to store subscription state and no any other allocation happens. On the other hand </p><div class="fragment"><div class="line"><span class="comment">//1 dynamic_subscriber in observable</span></div>
+</div><!-- fragment --><p> uses only <b>ONE heap allocation</b> for <code>rpp::subscription</code> inside subscriber to store subscription state and no any other allocation happens. On the other hand </p><div class="fragment"><div class="line"><span class="comment">//1 dynamic_subscriber in observable</span></div>
 <div class="line"><span class="keyword">auto</span> observable = rpp::observable::create&lt;int&gt;([](<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber&lt;int&gt;</a>&amp; subscriber)</div>
 <div class="line">{</div>
 <div class="line">    subscriber.on_next(1);</div>
@@ -132,7 +132,7 @@ Performance vs Flexibility: Specific vs Dynamic</h1>
 <div class="line">    subscriber.on_next(1);</div>
 <div class="line">});</div>
 <div class="line"> </div>
-<div class="line">observable.<a class="code hl_function" href="classrpp_1_1dynamic__observable.html#a43dfe979f5a6f05a7a546f5bb724422a">subscribe</a>(<a class="code hl_class" href="classrpp_1_1specific__observer.html">rpp::specific_observer</a>{[](<span class="keywordtype">int</span> v){ std::cout &lt;&lt; v;}});</div>
+<div class="line">observable.<a class="code hl_function" href="classrpp_1_1dynamic__observable.html#a58b8ab8917cc6d757b95d71d4293d1ec">subscribe</a>(<a class="code hl_class" href="classrpp_1_1specific__observer.html">rpp::specific_observer</a>{[](<span class="keywordtype">int</span> v){ std::cout &lt;&lt; v;}});</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">//3 dynamic_observer</span></div>
 <div class="line"><span class="keyword">auto</span> observable = rpp::observable::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; subscriber)</div>
@@ -140,9 +140,9 @@ Performance vs Flexibility: Specific vs Dynamic</h1>
 <div class="line">    subscriber.on_next(1);</div>
 <div class="line">});</div>
 <div class="line"> </div>
-<div class="line">observable.<a class="code hl_function" href="classrpp_1_1dynamic__observable.html#a43dfe979f5a6f05a7a546f5bb724422a">subscribe</a>(<a class="code hl_class" href="classrpp_1_1dynamic__observer.html">rpp::dynamic_observer</a>{[](<span class="keywordtype">int</span> v){ std::cout &lt;&lt; v;}});</div>
+<div class="line">observable.<a class="code hl_function" href="classrpp_1_1dynamic__observable.html#a58b8ab8917cc6d757b95d71d4293d1ec">subscribe</a>(<a class="code hl_class" href="classrpp_1_1dynamic__observer.html">rpp::dynamic_observer</a>{[](<span class="keywordtype">int</span> v){ std::cout &lt;&lt; v;}});</div>
 <div class="ttc" id="aclassrpp_1_1dynamic__observable_html"><div class="ttname"><a href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable</a></div><div class="ttdoc">type-erased alternative of observable (comparing to rpp::specific_observable).</div><div class="ttdef"><b>Definition:</b> dynamic_observable.h:43</div></div>
-<div class="ttc" id="aclassrpp_1_1dynamic__observable_html_a43dfe979f5a6f05a7a546f5bb724422a"><div class="ttname"><a href="classrpp_1_1dynamic__observable.html#a43dfe979f5a6f05a7a546f5bb724422a">rpp::dynamic_observable::subscribe</a></div><div class="ttdeci">subscription subscribe(const dynamic_subscriber&lt; Type &gt; &amp;subscriber) const noexcept override</div><div class="ttdoc">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscr...</div><div class="ttdef"><b>Definition:</b> dynamic_observable.h:56</div></div>
+<div class="ttc" id="aclassrpp_1_1dynamic__observable_html_a58b8ab8917cc6d757b95d71d4293d1ec"><div class="ttname"><a href="classrpp_1_1dynamic__observable.html#a58b8ab8917cc6d757b95d71d4293d1ec">rpp::dynamic_observable::subscribe</a></div><div class="ttdeci">composite_subscription subscribe(const dynamic_subscriber&lt; Type &gt; &amp;subscriber) const noexcept override</div><div class="ttdoc">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscr...</div><div class="ttdef"><b>Definition:</b> dynamic_observable.h:56</div></div>
 <div class="ttc" id="aclassrpp_1_1dynamic__observer_html"><div class="ttname"><a href="classrpp_1_1dynamic__observer.html">rpp::dynamic_observer</a></div><div class="ttdoc">Dynamic (type-erased) version of observer (comparing to specific_observer)</div><div class="ttdef"><b>Definition:</b> dynamic_observer.h:45</div></div>
 <div class="ttc" id="aclassrpp_1_1dynamic__subscriber_html"><div class="ttname"><a href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber</a></div><div class="ttdoc">subscriber which uses dynamic_observer&lt;T&gt; to hide original callbacks</div><div class="ttdef"><b>Definition:</b> dynamic_subscriber.h:36</div></div>
 </div><!-- fragment --><p >all this samples uses extra heap allocations:</p><ol type="1">

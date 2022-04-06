@@ -1,0 +1,77 @@
+\hypertarget{immediate__scheduler_8h_source}{}\doxysection{immediate\+\_\+scheduler.\+h}
+\label{immediate__scheduler_8h_source}\index{src/include/rpp/schedulers/immediate\_scheduler.h@{src/include/rpp/schedulers/immediate\_scheduler.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// MIT License}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (c) 2022 Aleksey Loginov}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// Permission is hereby granted, free of charge, to any person obtaining a copy}}
+\DoxyCodeLine{6 \textcolor{comment}{// of this software and associated documentation files (the "{}Software"{}), to deal}}
+\DoxyCodeLine{7 \textcolor{comment}{// in the Software without restriction, including without limitation the rights}}
+\DoxyCodeLine{8 \textcolor{comment}{// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}}
+\DoxyCodeLine{9 \textcolor{comment}{// copies of the Software, and to permit persons to whom the Software is}}
+\DoxyCodeLine{10 \textcolor{comment}{// furnished to do so, subject to the following conditions:}}
+\DoxyCodeLine{11 \textcolor{comment}{// }}
+\DoxyCodeLine{12 \textcolor{comment}{// The above copyright notice and this permission notice shall be included in all}}
+\DoxyCodeLine{13 \textcolor{comment}{// copies or substantial portions of the Software.}}
+\DoxyCodeLine{14 \textcolor{comment}{// }}
+\DoxyCodeLine{15 \textcolor{comment}{// THE SOFTWARE IS PROVIDED "{}AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}}
+\DoxyCodeLine{16 \textcolor{comment}{// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}}
+\DoxyCodeLine{17 \textcolor{comment}{// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}}
+\DoxyCodeLine{18 \textcolor{comment}{// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}}
+\DoxyCodeLine{19 \textcolor{comment}{// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}}
+\DoxyCodeLine{20 \textcolor{comment}{// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}}
+\DoxyCodeLine{21 \textcolor{comment}{// SOFTWARE.}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/schedulers/constraints.h>}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <rpp/schedulers/fwd.h>}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <rpp/subscriptions/subscription\_base.h>}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <chrono>}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <thread>}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{keyword}{namespace }rpp::schedulers}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{37 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{immediate}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1scheduler__tag}{details::scheduler\_tag}}}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{39 \textcolor{keyword}{public}:}
+\DoxyCodeLine{40     \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate_1_1worker}{worker}}}
+\DoxyCodeLine{41     \{}
+\DoxyCodeLine{42     \textcolor{keyword}{public}:}
+\DoxyCodeLine{43         \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate_1_1worker}{worker}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}}\& sub)}
+\DoxyCodeLine{44             : m\_sub\{sub\} \{\}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46         \textcolor{keywordtype}{void} schedule(\textcolor{keyword}{const} constraint::schedulable\_fn \textcolor{keyword}{auto}\& fn)\textcolor{keyword}{ const}}
+\DoxyCodeLine{47 \textcolor{keyword}{        }\{}
+\DoxyCodeLine{48             schedule(std::chrono::high\_resolution\_clock::now(), fn);}
+\DoxyCodeLine{49         \}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51         \textcolor{keywordtype}{void} schedule(time\_point time\_point, \textcolor{keyword}{const} constraint::schedulable\_fn \textcolor{keyword}{auto}\& fn)\textcolor{keyword}{ const}}
+\DoxyCodeLine{52 \textcolor{keyword}{        }\{}
+\DoxyCodeLine{53             \textcolor{keywordflow}{while} (m\_sub.\mbox{\hyperlink{classrpp_1_1subscription__base_ad9c07157024e7f68ce815d971c3faaf2}{is\_subscribed}}())}
+\DoxyCodeLine{54             \{}
+\DoxyCodeLine{55                 std::this\_thread::sleep\_until(time\_point);}
+\DoxyCodeLine{56                 \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} duration = fn())}
+\DoxyCodeLine{57                     time\_point += duration.value();}
+\DoxyCodeLine{58                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{59                     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{60             \}}
+\DoxyCodeLine{61         \}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63         \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate_1_1worker}{worker}}*       operator-\/>() \{ \textcolor{keywordflow}{return} \textcolor{keyword}{this}; \}}
+\DoxyCodeLine{64         \textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate_1_1worker}{worker}}* operator-\/>()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{keyword}{this}; \}}
+\DoxyCodeLine{65     \textcolor{keyword}{private}:}
+\DoxyCodeLine{66         \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}} m\_sub;}
+\DoxyCodeLine{67     \};}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     \textcolor{keyword}{static} \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate_1_1worker}{worker}} create\_worker(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}}\& sub = \{\})}
+\DoxyCodeLine{70     \{}
+\DoxyCodeLine{71         \textcolor{keywordflow}{return} worker\{sub\};}
+\DoxyCodeLine{72     \}}
+\DoxyCodeLine{73 \};}
+\DoxyCodeLine{74 \} \textcolor{comment}{// namespace rpp::schedulers}}
+
+\end{DoxyCode}

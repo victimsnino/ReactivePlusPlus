@@ -49,14 +49,14 @@
 \DoxyCodeLine{53     \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable<Type>}}\&)     = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{54     \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable}}(\mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable<Type>}}\&\&) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{55 }
-\DoxyCodeLine{56     \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable_a43dfe979f5a6f05a7a546f5bb724422a}{subscribe}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<Type>}}\& subscriber) \textcolor{keyword}{const} \textcolor{keyword}{noexcept} \textcolor{keyword}{override}}
+\DoxyCodeLine{56     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable_a58b8ab8917cc6d757b95d71d4293d1ec}{subscribe}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<Type>}}\& subscriber) \textcolor{keyword}{const} \textcolor{keyword}{noexcept} \textcolor{keyword}{override}}
 \DoxyCodeLine{57     \{}
 \DoxyCodeLine{58         \textcolor{keywordflow}{return} m\_observable-\/>subscribe(subscriber);}
 \DoxyCodeLine{59     \}}
 \DoxyCodeLine{60 }
 \DoxyCodeLine{61     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
 \DoxyCodeLine{62         \textcolor{keyword}{requires} (std::is\_constructible\_v<dynamic\_subscriber<Type>, Args...> \&\& !constraint::variadic\_is\_same\_type<dynamic\_subscriber<Type>, Args...>)}
-\DoxyCodeLine{63     \mbox{\hyperlink{classrpp_1_1subscription}{subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable_a43dfe979f5a6f05a7a546f5bb724422a}{subscribe}}(Args\&\&...args) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{63     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable_a58b8ab8917cc6d757b95d71d4293d1ec}{subscribe}}(Args\&\&...args) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
 \DoxyCodeLine{64     \{}
 \DoxyCodeLine{65         \textcolor{keywordflow}{return} m\_observable-\/>subscribe(\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<Type>}}\{std::forward<Args>(args)...\});}
 \DoxyCodeLine{66     \}}

@@ -1,0 +1,61 @@
+\hypertarget{subscription__state_8h_source}{}\doxysection{subscription\+\_\+state.\+h}
+\label{subscription__state_8h_source}\index{src/include/rpp/subscriptions/details/subscription\_state.h@{src/include/rpp/subscriptions/details/subscription\_state.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// MIT License}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (c) 2022 Aleksey Loginov}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// Permission is hereby granted, free of charge, to any person obtaining a copy}}
+\DoxyCodeLine{6 \textcolor{comment}{// of this software and associated documentation files (the "{}Software"{}), to deal}}
+\DoxyCodeLine{7 \textcolor{comment}{// in the Software without restriction, including without limitation the rights}}
+\DoxyCodeLine{8 \textcolor{comment}{// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}}
+\DoxyCodeLine{9 \textcolor{comment}{// copies of the Software, and to permit persons to whom the Software is}}
+\DoxyCodeLine{10 \textcolor{comment}{// furnished to do so, subject to the following conditions:}}
+\DoxyCodeLine{11 \textcolor{comment}{// }}
+\DoxyCodeLine{12 \textcolor{comment}{// The above copyright notice and this permission notice shall be included in all}}
+\DoxyCodeLine{13 \textcolor{comment}{// copies or substantial portions of the Software.}}
+\DoxyCodeLine{14 \textcolor{comment}{// }}
+\DoxyCodeLine{15 \textcolor{comment}{// THE SOFTWARE IS PROVIDED "{}AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}}
+\DoxyCodeLine{16 \textcolor{comment}{// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}}
+\DoxyCodeLine{17 \textcolor{comment}{// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}}
+\DoxyCodeLine{18 \textcolor{comment}{// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}}
+\DoxyCodeLine{19 \textcolor{comment}{// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}}
+\DoxyCodeLine{20 \textcolor{comment}{// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}}
+\DoxyCodeLine{21 \textcolor{comment}{// SOFTWARE.}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <atomic>}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{33 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1details_1_1subscription__state}{subscription\_state}}}
+\DoxyCodeLine{34 \{}
+\DoxyCodeLine{35 \textcolor{keyword}{public}:}
+\DoxyCodeLine{36     \mbox{\hyperlink{classrpp_1_1details_1_1subscription__state}{subscription\_state}}()          = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{37     \textcolor{keyword}{virtual} \mbox{\hyperlink{classrpp_1_1details_1_1subscription__state}{\string~subscription\_state}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39     \mbox{\hyperlink{classrpp_1_1details_1_1subscription__state}{subscription\_state}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1details_1_1subscription__state}{subscription\_state}}\&)     = \textcolor{keyword}{delete};}
+\DoxyCodeLine{40     \mbox{\hyperlink{classrpp_1_1details_1_1subscription__state}{subscription\_state}}(\mbox{\hyperlink{classrpp_1_1details_1_1subscription__state}{subscription\_state}}\&\&) \textcolor{keyword}{noexcept} = \textcolor{keyword}{delete};}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42     [[nodiscard]] \textcolor{keywordtype}{bool} is\_subscribed()\textcolor{keyword}{ const}}
+\DoxyCodeLine{43 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{44         \textcolor{keywordflow}{return} m\_is\_subscribed.load();}
+\DoxyCodeLine{45     \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{keywordtype}{void} unsubscribe()}
+\DoxyCodeLine{48     \{}
+\DoxyCodeLine{49         \textcolor{keywordflow}{if} (m\_is\_subscribed.exchange(\textcolor{keyword}{false}))}
+\DoxyCodeLine{50             on\_unsubscribe();}
+\DoxyCodeLine{51     \}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{54     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_unsubscribe() \{\}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{keyword}{private}:}
+\DoxyCodeLine{57     std::atomic\_bool m\_is\_subscribed\{\textcolor{keyword}{true}\};}
+\DoxyCodeLine{58 \};}
+\DoxyCodeLine{59 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

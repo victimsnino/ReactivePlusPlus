@@ -62,7 +62,7 @@ So, to achieve best performance avoid usage of {\ttfamily dynamic\+\_\+} special
 \DoxyCodeLine{\textcolor{comment}{// OR observable.subscribe([](int v)\{ std::cout << v;\});}}
 
 \end{DoxyCode}
- uses only {\bfseries{ONE heap allocation}} for {\ttfamily \mbox{\hyperlink{classrpp_1_1subscription}{rpp\+::subscription}}} inside subscriber to store subscription state and no any other allocation happens. On the other hand 
+ uses only {\bfseries{ONE heap allocation}} for {\ttfamily rpp\+::subscription} inside subscriber to store subscription state and no any other allocation happens. On the other hand 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{comment}{//1 dynamic\_subscriber in observable}}
 \DoxyCodeLine{\textcolor{keyword}{auto} observable = rpp::observable::create<int>([](\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp::dynamic\_subscriber<int>}}\& subscriber)}
@@ -78,7 +78,7 @@ So, to achieve best performance avoid usage of {\ttfamily dynamic\+\_\+} special
 \DoxyCodeLine{    subscriber.on\_next(1);}
 \DoxyCodeLine{\});}
 \DoxyCodeLine{}
-\DoxyCodeLine{observable.\mbox{\hyperlink{classrpp_1_1dynamic__observable_a43dfe979f5a6f05a7a546f5bb724422a}{subscribe}}(\mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer}}\{[](\textcolor{keywordtype}{int} v)\{ std::cout << v;\}\});}
+\DoxyCodeLine{observable.\mbox{\hyperlink{classrpp_1_1dynamic__observable_a58b8ab8917cc6d757b95d71d4293d1ec}{subscribe}}(\mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer}}\{[](\textcolor{keywordtype}{int} v)\{ std::cout << v;\}\});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//3 dynamic\_observer}}
 \DoxyCodeLine{\textcolor{keyword}{auto} observable = rpp::observable::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber)}
@@ -86,7 +86,7 @@ So, to achieve best performance avoid usage of {\ttfamily dynamic\+\_\+} special
 \DoxyCodeLine{    subscriber.on\_next(1);}
 \DoxyCodeLine{\});}
 \DoxyCodeLine{}
-\DoxyCodeLine{observable.\mbox{\hyperlink{classrpp_1_1dynamic__observable_a43dfe979f5a6f05a7a546f5bb724422a}{subscribe}}(\mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp::dynamic\_observer}}\{[](\textcolor{keywordtype}{int} v)\{ std::cout << v;\}\});}
+\DoxyCodeLine{observable.\mbox{\hyperlink{classrpp_1_1dynamic__observable_a58b8ab8917cc6d757b95d71d4293d1ec}{subscribe}}(\mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp::dynamic\_observer}}\{[](\textcolor{keywordtype}{int} v)\{ std::cout << v;\}\});}
 
 \end{DoxyCode}
 
