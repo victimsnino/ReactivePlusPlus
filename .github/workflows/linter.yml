@@ -1,0 +1,22 @@
+# Workflow syntax:
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+name: cpp-linter
+
+on:
+  push:
+    branches:
+      - main
+  pull_request_target:
+    branches:
+      - main
+
+jobs:
+  cpp-linter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shenxianpeng/cpp-linter-action@master
+        id: linter
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          repo-root: src/include/rpp
