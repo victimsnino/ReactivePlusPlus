@@ -22,50 +22,29 @@
 
 #pragma once
 
-#include <rpp/schedulers/constraints.h>
-#include <rpp/schedulers/fwd.h>
 #include <rpp/subscriptions/subscription_base.h>
 
-#include <chrono>
-#include <thread>
-
-namespace rpp::schedulers
+namespace rpp
 {
-class immediate final : public details::scheduler_tag
+/**
+ * \brief guard over subscription to auto-unsubscribe during destructor
+ */
+class subscription_guard
 {
 public:
-    class worker
+    subscription_guard(const subscription_base& sub)
+        : m_sub{sub} {}
+
+    subscription_guard(const subscription_guard&)     = delete;
+    subscription_guard(subscription_guard&&) noexcept = delete;
+
+    ~subscription_guard()
     {
-    public:
-        worker(const rpp::subscription_base& sub)
-            : m_sub{sub} {}
-
-        void schedule(const constraint::schedulable_fn auto& fn) const
-        {
-            schedule(std::chrono::high_resolution_clock::now(), fn);
-        }
-
-        void schedule(time_point time_point, const constraint::schedulable_fn auto& fn) const
-        {
-            while (m_sub.is_subscribed())
-            {
-                std::this_thread::sleep_until(time_point);
-                auto duration = fn();
-                if (!duration.has_value())
-                    return;
-                time_point += duration.value();
-            }
-        }
-
-        worker*       operator->() { return this; }
-        const worker* operator->() const { return this; }
-    private:
-        rpp::subscription_base m_sub;
-    };
-
-    static worker create_worker(const rpp::subscription_base& sub = {})
-    {
-        return worker{sub};
+        m_sub.unsubscribe();
     }
+
+    const subscription_base* operator->() const { return &m_sub; }
+private:
+    const subscription_base m_sub;
 };
-} // namespace rpp::schedulers
+} // namespace rpp

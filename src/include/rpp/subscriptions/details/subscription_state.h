@@ -1,6 +1,6 @@
 // MIT License
 // 
-// Copyright (c) 2021 Aleksey Loginov
+// Copyright (c) 2022 Aleksey Loginov
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,36 @@
 
 #pragma once
 
-#include <rpp/observables/fwd.h>
-#include <rpp/observers/fwd.h>
-#include <rpp/sources/fwd.h>
-#include <rpp/subscribers/fwd.h>
-#include <rpp/operators/fwd.h>
-#include <rpp/subscriptions/fwd.h>
+#include <atomic>
+
+namespace rpp::details
+{
+class subscription_state
+{
+public:
+    subscription_state()          = default;
+    virtual ~subscription_state() = default;
+
+    subscription_state(const subscription_state&)     = delete;
+    subscription_state(subscription_state&&) noexcept = delete;
+
+    [[nodiscard]] bool is_subscribed() const
+    {
+        return m_is_subscribed.load();
+    }
+
+    void unsubscribe()
+    {
+        if (!m_is_subscribed.exchange(false))
+            return;
+
+        on_unsubscribe();
+    }
+
+protected:
+    virtual void on_unsubscribe() {}
+
+private:
+    std::atomic_bool m_is_subscribed{true};
+};
+} // namespace rpp::details

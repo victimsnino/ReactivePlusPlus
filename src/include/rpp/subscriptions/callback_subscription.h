@@ -22,50 +22,40 @@
 
 #pragma once
 
-#include <rpp/schedulers/constraints.h>
-#include <rpp/schedulers/fwd.h>
 #include <rpp/subscriptions/subscription_base.h>
+#include <rpp/subscriptions/details/subscription_state.h>
 
-#include <chrono>
-#include <thread>
+#include <concepts>
+#include <utility>
 
-namespace rpp::schedulers
+namespace rpp
 {
-class immediate final : public details::scheduler_tag
+class callback_subscription final : public subscription_base
 {
 public:
-    class worker
+    template<std::invocable Fn>
+    callback_subscription(Fn&& fn)
+        : subscription_base{std::make_shared<state<std::decay_t<Fn>>>(std::forward<Fn>(fn))} { }
+
+private:
+    template<std::invocable Fn>
+    class state final : public details::subscription_state
     {
     public:
-        worker(const rpp::subscription_base& sub)
-            : m_sub{sub} {}
+        state(const Fn& fn)
+            : m_fn{fn} {}
 
-        void schedule(const constraint::schedulable_fn auto& fn) const
+        state(Fn&& fn)
+            : m_fn{std::move(fn)} {}
+
+    protected:
+        void on_unsubscribe() override
         {
-            schedule(std::chrono::high_resolution_clock::now(), fn);
+            m_fn();
         }
 
-        void schedule(time_point time_point, const constraint::schedulable_fn auto& fn) const
-        {
-            while (m_sub.is_subscribed())
-            {
-                std::this_thread::sleep_until(time_point);
-                auto duration = fn();
-                if (!duration.has_value())
-                    return;
-                time_point += duration.value();
-            }
-        }
-
-        worker*       operator->() { return this; }
-        const worker* operator->() const { return this; }
     private:
-        rpp::subscription_base m_sub;
+        Fn m_fn{};
     };
-
-    static worker create_worker(const rpp::subscription_base& sub = {})
-    {
-        return worker{sub};
-    }
 };
-} // namespace rpp::schedulers
+} // namespace rpp

@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include "rpp/subscriptions/composite_subscription.h"
+
 #include <catch2/catch_test_macros.hpp>
 #include <rpp/schedulers/immediate_scheduler.h>
 #include <rpp/schedulers/new_thread_scheduler.h>
@@ -107,9 +109,9 @@ SCENARIO("Immediate scheduler depends on subscription")
 {
     GIVEN("immediate_scheduler")
     {
-        auto              scheduler = rpp::schedulers::immediate{};
-        rpp::subscription sub{};
-        auto              worker = scheduler.create_worker(sub);
+        auto                        scheduler = rpp::schedulers::immediate{};
+        rpp::composite_subscription sub{};
+        auto                        worker = scheduler.create_worker(sub);
 
         size_t call_count{};
 
@@ -223,36 +225,39 @@ SCENARIO("New thread scheduler depends on subscription")
 {
     GIVEN("NewThread scheduler")
     {
-        auto              scheduler = rpp::schedulers::new_thread{};
-        rpp::subscription sub{};
-        auto              worker = scheduler.create_worker(sub);
+        auto                        scheduler = rpp::schedulers::new_thread{};
+        rpp::composite_subscription sub{};
+        auto                        worker = scheduler.create_worker(sub);
 
         size_t call_count{};
 
         WHEN("pass unsubscribed subscription")
         {
-            sub.unsubscribe();
-
-            worker->schedule([&call_count]() -> rpp::schedulers::optional_duration
-            {
-                ++call_count;
-                return rpp::schedulers::duration{};
-            });
             THEN("no any calls/schedules")
             {
+                sub.unsubscribe();
+
+                worker->schedule([&call_count]() -> rpp::schedulers::optional_duration
+                    {
+                        ++call_count;
+                        return rpp::schedulers::duration{};
+                    });
+                std::this_thread::sleep_for(std::chrono::seconds{ 1 });
                 CHECK(call_count == 0);
             }
         }
         WHEN("unsubscribe during function")
         {
-            worker->schedule([&call_count, sub]() -> rpp::schedulers::optional_duration
-            {
-                if (++call_count > 1)
-                    sub.unsubscribe();
-                return rpp::schedulers::duration{};
-            });
             THEN("no any calls/schedules after unsubscribe")
             {
+                worker->schedule([&call_count, sub]() -> rpp::schedulers::optional_duration
+                    {
+                        if (++call_count > 1)
+                            sub.unsubscribe();
+                        return rpp::schedulers::duration{};
+                    });
+
+                std::this_thread::sleep_for(std::chrono::seconds{ 1 });
                 CHECK(call_count == 2);
             }
         }

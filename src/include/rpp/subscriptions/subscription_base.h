@@ -1,6 +1,6 @@
 // MIT License
 // 
-// Copyright (c) 2021 Aleksey Loginov
+// Copyright (c) 2022 Aleksey Loginov
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,38 @@
 
 #pragma once
 
-#include <rpp/observables/fwd.h>
-#include <rpp/observers/fwd.h>
-#include <rpp/sources/fwd.h>
-#include <rpp/subscribers/fwd.h>
-#include <rpp/operators/fwd.h>
-#include <rpp/subscriptions/fwd.h>
+#include <rpp/subscriptions/details/subscription_state.h>
+
+#include <atomic>
+#include <memory>
+
+namespace rpp
+{
+class subscription_base
+{
+protected:
+    subscription_base(std::shared_ptr<details::subscription_state> state)
+        : m_state{std::move(state)} {}
+
+    details::subscription_state& get_state() const { return *m_state; }
+public:
+    subscription_base()
+        : m_state{std::make_shared<details::subscription_state>()} {}
+
+    virtual ~subscription_base() = default;
+
+    [[nodiscard]] bool is_subscribed() const
+    {
+        return m_state->is_subscribed();
+    }
+
+    void unsubscribe() const
+    {
+        m_state->unsubscribe();
+    }
+
+private:
+    std::shared_ptr<details::subscription_state> m_state{};
+};
+
+} // namespace rpp

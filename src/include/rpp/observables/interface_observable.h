@@ -93,7 +93,7 @@ struct virtual_observable : public details::observable_tag
      * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
      * \return subscription on this observable which can be used to unsubscribe
      */
-    virtual subscription subscribe(const dynamic_subscriber<Type>& subscriber) const noexcept = 0;
+    virtual composite_subscription subscribe(const dynamic_subscriber<Type>& subscriber) const noexcept = 0;
 };
 
 /**

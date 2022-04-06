@@ -22,8 +22,9 @@
 
 #pragma once
 
-#include <rpp/subscription.h>
 #include <rpp/observers/interface_observer.h>
+#include <rpp/subscriptions/composite_subscription.h>
+#include <rpp/subscriptions/subscription_guard.h>
 
 namespace rpp::details
 {
@@ -35,14 +36,14 @@ struct subscriber_tag {};
  */
 template<constraint::decayed_type Type>
 class subscriber_base
-    : public interface_observer<Type>
-    , public subscriber_tag
+        : public interface_observer<Type>
+        , public subscriber_tag
 {
 public:
-    subscriber_base(const subscription& subscription)
+    subscriber_base(const composite_subscription& subscription)
         : m_subscription{subscription} {}
 
-    subscriber_base(subscription&& subscription = {})
+    subscriber_base(composite_subscription&& subscription = composite_subscription{})
         : m_subscription{std::move(subscription)} {}
 
     subscriber_base(const subscriber_base&)     = default;
@@ -96,7 +97,7 @@ public:
         on_completed_impl();
     }
 
-    const subscription& get_subscription() const
+    const composite_subscription& get_subscription() const
     {
         return m_subscription;
     }
@@ -118,6 +119,6 @@ protected:
     virtual void on_completed_impl() const = 0;
 
 private:
-    subscription m_subscription{};
+    composite_subscription m_subscription{};
 };
 } // namespace rpp::details

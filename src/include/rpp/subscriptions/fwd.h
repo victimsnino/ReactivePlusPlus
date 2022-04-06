@@ -22,47 +22,7 @@
 
 #pragma once
 
-#include <atomic>
-#include <memory>
-
 namespace rpp
 {
-class subscription
-{
-public:
-    subscription() : m_state{std::make_shared<state>()} {}
-
-    [[nodiscard]] bool is_subscribed() const
-    {
-        return m_state && m_state->is_subscribed.load();
-    }
-
-    void unsubscribe() const
-    {
-        if (m_state)
-            m_state->is_subscribed.store(false);
-    }
-
-private:
-    struct state
-    {
-        std::atomic_bool is_subscribed{true};
-    };
-
-    std::shared_ptr<state> m_state{};
-};
-
-/**
- * \brief guard over subscription to auto-unsubscribe during destructor
- */
-class subscription_guard
-{
-public:
-    subscription_guard(const subscription& sub)
-        : m_sub{ sub } {}
-
-    ~subscription_guard() { m_sub.unsubscribe(); }
-private:
-    subscription m_sub;
-};
+class composite_subscription;
 } // namespace rpp

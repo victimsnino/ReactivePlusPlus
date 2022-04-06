@@ -22,7 +22,9 @@
 
 #pragma once
 
-#include <rpp/subscription.h>
+#include "rpp/subscriptions/subscription_guard.h"
+
+#include <rpp/subscriptions/composite_subscription.h>
 #include <rpp/schedulers/constraints.h>
 #include <rpp/schedulers/fwd.h>
 
@@ -68,15 +70,12 @@ public:
     class worker
     {
     public:
-        worker(rpp::subscription&& sub)
-            : m_sub{std::move(sub)}
-            , m_thread{std::bind_front(&worker::data_thread, this)}
-        {
-            //sub.add([&]
-            //{
-            //    m_thread.join();
-            //});
-        }
+        worker(const rpp::composite_subscription& sub)
+            : m_thread{std::bind_front(&worker::data_thread, this)}
+            , m_sub{sub.add([&]
+            {
+                m_thread.request_stop();
+            })} { }
 
         void schedule(constraint::schedulable_fn auto&& fn)
         {
@@ -85,11 +84,11 @@ public:
 
         void schedule(time_point time_point, constraint::schedulable_fn auto&& fn)
         {
-            if (!m_sub.is_subscribed())
+            if (!m_sub->is_subscribed())
                 return;
 
             {
-                std::lock_guard lock{ m_mutex };
+                std::lock_guard lock{m_mutex};
                 m_queue.emplace(time_point, ++m_current_id, std::forward<decltype(fn)>(fn));
             }
             m_cv.notify_one();
@@ -135,18 +134,18 @@ public:
         }
 
     private:
-        rpp::subscription m_sub;
-
         std::mutex                       m_mutex{};
         std::condition_variable_any      m_cv{};
         std::priority_queue<schedulable> m_queue{};
         size_t                           m_current_id{};
         std::jthread                     m_thread{};
+        rpp::subscription_guard          m_sub;
+
     };
 
-    static auto create_worker(rpp::subscription sub = {})
+    static auto create_worker(const rpp::composite_subscription& sub = composite_subscription{})
     {
-        return std::make_shared<worker>(std::move(sub));
+        return std::make_shared<worker>(sub);
     }
 };
 } // namespace rpp::schedulers
