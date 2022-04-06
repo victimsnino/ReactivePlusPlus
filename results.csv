@@ -6764,7 +6764,7 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 6762,Observable subscribe,Specific observable subscribe dynamic observer,129.827,129.35,130.97,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rpp
 6763,Observable subscribe,Dynamic observable subscribe specific observer,196.611,195.756,199.229,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rpp
 6764,Observable subscribe,Dynamic observable subscribe dynamic observer,131.785,131.183,132.948,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rpp
-6765,Observable lift,Specific observable lift specific observer,156,152.793,164.132,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rpp
+6765,Observable lift,Specific observable lift specific observer,156.0,152.793,164.132,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rpp
 6766,Observable lift,Specific observable lift dynamic observer,177.434,176.834,178.876,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rpp
 6767,Observable lift,Dynamic observable lift specific observer,260.192,259.374,262.323,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rpp
 6768,Observable lift,Dynamic observable lift dynamic observer,218.456,217.675,220.632,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rpp
@@ -6787,10 +6787,163 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 6785,Subscriber construction,Transform subsriber to dynamic,160.425,157.969,165.738,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rxcpp
 6786,Observable subscribe,Specific observable subscribe specific observer,1209.67,1199.54,1249.92,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rxcpp
 6787,Observable subscribe,Specific observable subscribe dynamic observer,3733.48,3707.29,3787.48,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rxcpp
-6788,Observable subscribe,Dynamic observable subscribe specific observer,1402,1387.22,1466.28,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rxcpp
-6789,Observable subscribe,Dynamic observable subscribe dynamic observer,1454,1377.81,1565.76,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rxcpp
-6790,Observable lift,Specific observable lift specific observer,1577,1413.1,1856.95,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rxcpp
+6788,Observable subscribe,Dynamic observable subscribe specific observer,1402.0,1387.22,1466.28,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rxcpp
+6789,Observable subscribe,Dynamic observable subscribe dynamic observer,1454.0,1377.81,1565.76,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rxcpp
+6790,Observable lift,Specific observable lift specific observer,1577.0,1413.1,1856.95,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rxcpp
 6791,Observable lift,Specific observable lift dynamic observer,1291.26,1277.32,1347.05,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rxcpp
 6792,Observable lift,Dynamic observable lift specific observer,1460.17,1429.89,1540.5,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rxcpp
 6793,Observable lift,Dynamic observable lift dynamic observer,1362.95,1347.3,1429.8,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rxcpp
 6794,Operators,map construction from observable + subscribe,1010.96,1004.23,1034.38,0.95,Windows MSVC,Try linter (#43) (7e7f04d4),rxcpp
+6795,Observable construction,Specific observable construction,0.669834,0.668752,0.674103,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6796,Observable construction,Dynamic observable construction,20.7206,20.6671,20.8848,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6797,Observable construction,Specific observable construction + as_dynamic,21.1662,21.1173,21.235,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6798,Observable subscribe #2,Specific observable subscribe lambda,6.55002,6.54669,6.55334,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6799,Observable subscribe #2,Dynamic observable subscribe lambda,29.6973,29.6276,29.7782,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6800,Observable subscribe #2,Specific observable subscribe specific subscriber,4.35204,4.35071,4.35381,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6801,Observable subscribe #2,Dynamic observable subscribe specific subscriber,32.6273,32.5528,32.8605,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6802,Observable subscribe #2,Specific observable subscribe dynamic observer,4.03669,4.0173,4.08635,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6803,Observable subscribe #2,Dynamic observable subscribe dynamic observer,7.78463,7.76342,7.8407,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6804,Observer construction,Specific observer construction,0.670658,0.669374,0.675759,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6805,Observer construction,Dynamic observer construction,20.6472,20.6049,20.8245,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6806,Observer construction,Specific observer construction + as_dynamic,21.1435,21.0826,21.3441,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6807,OnNext,Specific observer OnNext,0.344651,0.339719,0.354065,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6808,OnNext,Dynamic observer OnNext,2.00923,2.00599,2.02196,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6809,Subscriber construction,Make subsriber,22.4687,22.3429,22.608,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6810,Subscriber construction,Make copy of subscriber,3.70688,3.70103,3.72891,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6811,Subscriber construction,Transform subsriber to dynamic,23.6475,23.5832,23.7393,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6812,Observable subscribe,Specific observable subscribe specific observer,21.2977,21.289,21.3172,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6813,Observable subscribe,Specific observable subscribe dynamic observer,28.8155,28.7615,29.0593,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6814,Observable subscribe,Dynamic observable subscribe specific observer,51.8664,51.7613,52.1318,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6815,Observable subscribe,Dynamic observable subscribe dynamic observer,32.3603,32.2602,32.6035,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6816,Observable lift,Specific observable lift specific observer,27.2137,27.1075,27.4813,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6817,Observable lift,Specific observable lift dynamic observer,37.4691,37.4469,37.5426,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6818,Observable lift,Dynamic observable lift specific observer,62.817,62.6831,63.1664,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6819,Observable lift,Dynamic observable lift dynamic observer,50.1514,49.9829,50.75,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6820,Operators,map construction from observable + subscribe,17.7999,17.7611,17.9734,0.95,Linux GCC,Update CodeCov.yml (760a5495),rpp
+6821,Observable construction,Specific observable construction,0.335294,0.334583,0.338608,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6822,Observable construction,Specific observable construction + as_dynamic,27.2021,27.149,27.4293,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6823,Observable subscribe #2,Specific observable subscribe lambda,280.26,279.967,280.939,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6824,Observable subscribe #2,Dynamic observable subscribe lambda,340.779,340.176,342.904,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6825,Observable subscribe #2,Specific observable subscribe specific subscriber,280.088,279.255,282.208,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6826,Observable subscribe #2,Dynamic observable subscribe specific subscriber,337.893,337.534,338.31,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6827,Observable subscribe #2,Specific observable subscribe dynamic observer,301.904,301.208,303.762,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6828,Observable subscribe #2,Dynamic observable subscribe dynamic observer,318.962,318.329,320.994,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6829,Observer construction,Specific observer construction,0.334602,0.334511,0.334693,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6830,Observer construction,Dynamic observer construction,22.9633,22.8921,23.087,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6831,Observer construction,Specific observer construction + as_dynamic,23.173,23.1242,23.2334,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6832,OnNext,Specific observer OnNext,0.33529,0.334603,0.337727,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6833,OnNext,Dynamic observer OnNext,2.00923,2.00632,2.02283,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6834,Subscriber construction,Make subsriber,58.4214,58.1444,58.781,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6835,Subscriber construction,Make copy of subscriber,4.49644,4.48692,4.53185,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6836,Subscriber construction,Transform subsriber to dynamic,30.7217,30.6083,30.9371,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6837,Observable subscribe,Specific observable subscribe specific observer,346.109,345.303,349.328,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6838,Observable subscribe,Specific observable subscribe dynamic observer,366.368,365.476,369.945,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6839,Observable subscribe,Dynamic observable subscribe specific observer,399.193,398.032,403.499,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6840,Observable subscribe,Dynamic observable subscribe dynamic observer,379.831,377.293,391.782,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6841,Observable lift,Specific observable lift specific observer,362.054,361.661,362.601,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6842,Observable lift,Specific observable lift dynamic observer,380.475,379.641,383.006,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6843,Observable lift,Dynamic observable lift specific observer,415.243,414.702,416.716,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6844,Observable lift,Dynamic observable lift dynamic observer,400.847,400.485,401.593,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6845,Operators,map construction from observable + subscribe,355.446,354.756,357.852,0.95,Linux GCC,Update CodeCov.yml (760a5495),rxcpp
+6846,Observable construction,Specific observable construction,1.00505,0.988368,1.03787,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6847,Observable construction,Dynamic observable construction,25.4032,25.0874,25.9111,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6848,Observable construction,Specific observable construction + as_dynamic,23.554,23.263,24.0388,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6849,Observable subscribe #2,Specific observable subscribe lambda,9.96186,9.85788,10.1767,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6850,Observable subscribe #2,Dynamic observable subscribe lambda,35.2115,35.1297,35.4071,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6851,Observable subscribe #2,Specific observable subscribe specific subscriber,6.43561,6.4226,6.47919,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6852,Observable subscribe #2,Dynamic observable subscribe specific subscriber,36.6662,36.3326,37.2891,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6853,Observable subscribe #2,Specific observable subscribe dynamic observer,8.45277,8.43623,8.51618,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6854,Observable subscribe #2,Dynamic observable subscribe dynamic observer,8.83631,8.70427,9.04572,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6855,Observer construction,Specific observer construction,1.11648,1.11483,1.12391,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6856,Observer construction,Dynamic observer construction,22.5666,22.0796,23.1812,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6857,Observer construction,Specific observer construction + as_dynamic,24.171,23.7301,24.8111,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6858,OnNext,Specific observer OnNext,0.790433,0.781521,0.804953,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6859,OnNext,Dynamic observer OnNext,2.26604,2.24288,2.31664,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6860,Subscriber construction,Make subsriber,25.1727,24.6689,25.8001,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6861,Subscriber construction,Make copy of subscriber,5.16082,5.10969,5.25689,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6862,Subscriber construction,Transform subsriber to dynamic,27.075,26.8694,27.5951,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6863,Observable subscribe,Specific observable subscribe specific observer,34.6714,34.2329,35.4136,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6864,Observable subscribe,Specific observable subscribe dynamic observer,35.4693,34.828,36.4961,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6865,Observable subscribe,Dynamic observable subscribe specific observer,60.4759,59.8393,61.3395,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6866,Observable subscribe,Dynamic observable subscribe dynamic observer,36.2178,35.8436,36.938,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6867,Observable lift,Specific observable lift specific observer,37.5456,37.4693,37.7776,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6868,Observable lift,Specific observable lift dynamic observer,46.433,46.2765,46.6608,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6869,Observable lift,Dynamic observable lift specific observer,62.4658,62.3128,62.8264,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6870,Observable lift,Dynamic observable lift dynamic observer,57.0765,56.7071,57.7693,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6871,Operators,map construction from observable + subscribe,21.0086,20.7838,21.4463,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rpp
+6872,Observable construction,Specific observable construction,0.737681,0.721325,0.758883,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6873,Observable construction,Specific observable construction + as_dynamic,32.0374,31.708,32.598,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6874,Observable subscribe #2,Specific observable subscribe lambda,272.175,269.281,277.564,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6875,Observable subscribe #2,Dynamic observable subscribe lambda,329.774,325.624,337.373,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6876,Observable subscribe #2,Specific observable subscribe specific subscriber,280.297,279.61,282.855,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6877,Observable subscribe #2,Dynamic observable subscribe specific subscriber,364.929,359.819,372.87,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6878,Observable subscribe #2,Specific observable subscribe dynamic observer,280.383,279.448,284.859,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6879,Observable subscribe #2,Dynamic observable subscribe dynamic observer,313.089,308.115,321.507,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6880,Observer construction,Specific observer construction,0.802677,0.795509,0.816561,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6881,Observer construction,Dynamic observer construction,24.715,24.2632,25.2238,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6882,Observer construction,Specific observer construction + as_dynamic,21.4859,21.3974,21.5982,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6883,OnNext,Specific observer OnNext,0.795017,0.78932,0.803011,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6884,OnNext,Dynamic observer OnNext,2.60562,2.60105,2.62074,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6885,Subscriber construction,Make subsriber,76.1828,75.2605,77.8446,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6886,Subscriber construction,Make copy of subscriber,5.58092,5.51791,5.69192,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6887,Subscriber construction,Transform subsriber to dynamic,33.1287,33.017,33.2331,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6888,Observable subscribe,Specific observable subscribe specific observer,342.22,338.344,348.864,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6889,Observable subscribe,Specific observable subscribe dynamic observer,369.873,366.008,377.592,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6890,Observable subscribe,Dynamic observable subscribe specific observer,389.514,386.365,395.458,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6891,Observable subscribe,Dynamic observable subscribe dynamic observer,402.097,398.956,410.032,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6892,Observable lift,Specific observable lift specific observer,330.178,329.895,330.652,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6893,Observable lift,Specific observable lift dynamic observer,342.543,335.606,350.966,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6894,Observable lift,Dynamic observable lift specific observer,409.783,405.884,416.931,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6895,Observable lift,Dynamic observable lift dynamic observer,394.354,387.12,404.032,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6896,Operators,map construction from observable + subscribe,272.98,272.477,274.873,0.95,Linux CLANG,Update CodeCov.yml (760a5495),rxcpp
+6897,Observable construction,Specific observable construction,0.419595,0.418408,0.42175,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6898,Observable construction,Dynamic observable construction,71.7443,71.5546,72.1552,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6899,Observable construction,Specific observable construction + as_dynamic,72.3009,71.7851,73.4842,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6900,Observable subscribe #2,Specific observable subscribe lambda,35.8584,35.7832,35.9971,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6901,Observable subscribe #2,Dynamic observable subscribe lambda,103.959,103.406,105.18,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6902,Observable subscribe #2,Specific observable subscribe specific subscriber,19.7961,19.5143,20.3351,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6903,Observable subscribe #2,Dynamic observable subscribe specific subscriber,103.98,103.426,105.217,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6904,Observable subscribe #2,Specific observable subscribe dynamic observer,19.2844,19.2566,19.3478,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6905,Observable subscribe #2,Dynamic observable subscribe dynamic observer,21.522,21.0304,22.1473,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6906,Observer construction,Specific observer construction,0.420453,0.418476,0.425211,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6907,Observer construction,Dynamic observer construction,70.3538,69.8607,71.3008,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6908,Observer construction,Specific observer construction + as_dynamic,69.3151,69.1671,69.6219,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6909,OnNext,Specific observer OnNext,0.849866,0.446689,2.86325,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6910,OnNext,Dynamic observer OnNext,2.65915,2.64632,2.68406,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6911,Subscriber construction,Make subsriber,83.46,83.2533,83.9133,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6912,Subscriber construction,Make copy of subscriber,16.1629,16.0837,16.3432,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6913,Subscriber construction,Transform subsriber to dynamic,85.3299,85.1531,85.6973,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6914,Observable subscribe,Specific observable subscribe specific observer,109.965,109.452,111.122,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6915,Observable subscribe,Specific observable subscribe dynamic observer,125.718,125.178,127.025,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6916,Observable subscribe,Dynamic observable subscribe specific observer,176.542,175.556,178.736,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6917,Observable subscribe,Dynamic observable subscribe dynamic observer,127.688,127.432,128.181,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6918,Observable lift,Specific observable lift specific observer,147.202,146.867,147.855,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6919,Observable lift,Specific observable lift dynamic observer,178.266,177.804,179.336,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6920,Observable lift,Dynamic observable lift specific observer,255.39,254.43,258.02,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6921,Observable lift,Dynamic observable lift dynamic observer,227.018,225.673,229.637,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6922,Operators,map construction from observable + subscribe,96.8417,96.5907,97.3668,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rpp
+6923,Observable construction,Specific observable construction,0.811178,0.80264,0.832785,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6924,Observable construction,Specific observable construction + as_dynamic,116.145,115.729,117.313,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6925,Observable subscribe #2,Specific observable subscribe lambda,878.828,873.552,900.069,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6926,Observable subscribe #2,Dynamic observable subscribe lambda,1053.17,1046,1080.79,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6927,Observable subscribe #2,Specific observable subscribe specific subscriber,885.034,877.931,899.69,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6928,Observable subscribe #2,Dynamic observable subscribe specific subscriber,1061.87,1053.29,1086.54,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6929,Observable subscribe #2,Specific observable subscribe dynamic observer,891.786,888.286,901.607,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6930,Observable subscribe #2,Dynamic observable subscribe dynamic observer,929.556,924.667,946.556,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6931,Observer construction,Specific observer construction,0.414447,0.413811,0.415854,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6932,Observer construction,Dynamic observer construction,112.679,111.964,114.076,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6933,Observer construction,Specific observer construction + as_dynamic,111.354,110.969,112.093,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6934,OnNext,Specific observer OnNext,0.430698,0.410753,0.475665,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6935,OnNext,Dynamic observer OnNext,2.00882,2.00615,2.01538,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6936,Subscriber construction,Make subsriber,328.115,323.397,337.577,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6937,Subscriber construction,Make copy of subscriber,34.1723,34.1176,34.2899,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6938,Subscriber construction,Transform subsriber to dynamic,149.473,149.03,150.731,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6939,Observable subscribe,Specific observable subscribe specific observer,1202.24,1196.81,1216.43,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6940,Observable subscribe,Specific observable subscribe dynamic observer,1237.52,1225.52,1291.52,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6941,Observable subscribe,Dynamic observable subscribe specific observer,1402,1391.5,1441.56,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6942,Observable subscribe,Dynamic observable subscribe dynamic observer,1269.75,1264.15,1287.2,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6943,Observable lift,Specific observable lift specific observer,1238.14,1229.19,1276.33,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6944,Observable lift,Specific observable lift dynamic observer,1290.8,1277.05,1330.25,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6945,Observable lift,Dynamic observable lift specific observer,1443.17,1430.61,1497.67,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6946,Observable lift,Dynamic observable lift dynamic observer,1342.47,1329.89,1380.63,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
+6947,Operators,map construction from observable + subscribe,1011.44,1004.68,1041.08,0.95,Windows MSVC,Update CodeCov.yml (760a5495),rxcpp
