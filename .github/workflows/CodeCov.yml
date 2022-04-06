@@ -35,8 +35,8 @@ jobs:
 
     - name: Configure CMake
       env:
-        CC: clang
-        CXX: clang++
+        CC: gcc-10
+        CXX: g++-10
       run: cmake -B ${{github.workspace}}/build -DAUTOTESTS=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCODE_COVERAGE=1
         
     - name: Build
