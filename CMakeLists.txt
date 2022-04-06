@@ -55,6 +55,8 @@ if(CODE_COVERAGE)
     --coverage # sets all required flags
     -fprofile-arcs 
     -ftest-coverage
+    -fprofile-instr-generate 
+    -fcoverage-mapping
   )
   if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
     target_link_options(coverage_config INTERFACE --coverage)
