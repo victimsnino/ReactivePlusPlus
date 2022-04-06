@@ -1,24 +1,40 @@
-# Workflow syntax:
-# https://help.github.com/en/articles/workflow-syntax-for-github-actions
-name: cpp-linter
+name: Static analysis
 
-on:
-  pull_request:
-    branches:
-      - main
+on: pull_request
 
 jobs:
-  cpp-linter:
-    runs-on: ubuntu-latest
+  clang-tidy:
+    runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+        token: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: Create compile_commands.json
-        run: |
-          cmake --version
-          cmake . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=on
-          
-      - uses: ZedThree/clang-tidy-review@v0.8.0
+    - name: Install clang-tidy
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y clang-tidy
+    - name: Prepare compile_commands.json
+      run: |
+        cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+    - name: Create results directory
+      run: |
+        mkdir clang-tidy-result
+    - name: Analyze
+      run: |
+        git diff -U0 HEAD^ | clang-tidy-diff -p1 -path build -export-fixes clang-tidy-result/fixes.yml
+    - name: Run clang-tidy-pr-comments action
+      uses: platisd/clang-tidy-pr-comments@master
+      with:
+        # The GitHub token (or a personal access token)
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        # The path to the clang-tidy fixes generated previously
+        clang_tidy_fixes: clang-tidy-result/fixes.yml
+        # Optionally set to true if you want the Action to request
+        # changes in case warnings are found
+        request_changes: true
+        # Optionally set the number of comments per review
+        # to avoid GitHub API timeouts for heavily loaded
+        # pull requests
+        suggestions_per_comment: 10
