@@ -22,4 +22,10 @@
 
 #pragma once
 
-#include <rpp/operators/map.h>
+namespace rpp
+{
+struct schedulable
+{
+    
+};
+} // namespace rpp

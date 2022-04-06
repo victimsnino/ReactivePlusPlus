@@ -23,10 +23,15 @@
 
 file(GLOB_RECURSE FILES "*.h")
 
-add_library(rpp INTERFACE ${FILES})
+if(${CMAKE_VERSION} VERSION_LESS "3.19.0")
+  add_library(rpp INTERFACE)
+else()
+  add_library(rpp INTERFACE ${FILES})
+endif()
+
 target_sources(rpp INTERFACE ${FILES})
 target_include_directories(rpp INTERFACE .)
-target_link_libraries(rpp INTERFACE coverage_config)
+target_link_libraries(rpp INTERFACE coverage_config Threads::Threads)
 
 foreach(FILE ${FILES}) 
   get_filename_component(PARENT_DIR "${FILE}" PATH)

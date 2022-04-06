@@ -46,13 +46,13 @@ template<constraint::observer TObs>
 dynamic_subscriber(TObs observer) -> dynamic_subscriber<utils::extract_observer_type_t<TObs>>;
 
 template<constraint::observer TObs>
-dynamic_subscriber(subscription, TObs observer) -> dynamic_subscriber<utils::extract_observer_type_t<TObs>>;
+dynamic_subscriber(composite_subscription, TObs observer) -> dynamic_subscriber<utils::extract_observer_type_t<TObs>>;
 
 template<typename T, typename Obs>
 dynamic_subscriber(specific_subscriber<T, Obs>) -> dynamic_subscriber<T>;
 
 template<typename OnNext, typename ...Args>
-dynamic_subscriber(subscription, OnNext, Args...) -> dynamic_subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;
+dynamic_subscriber(composite_subscription, OnNext, Args...) -> dynamic_subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;
 
 template<typename OnNext, typename ...Args>
 dynamic_subscriber(OnNext, Args ...) -> dynamic_subscriber<std::decay_t<utils::function_argument_t<OnNext>>>;

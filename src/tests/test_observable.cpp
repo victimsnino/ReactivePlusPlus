@@ -93,11 +93,11 @@ SCENARIO("Any observable can be subscribed from any type of subscription", "[obs
         WHEN("subscribe with dynamic_subscriber")
             validate_subscribe(rpp::dynamic_subscriber<int>{});
         WHEN("subscribe with subscription + specific_observer")
-            validate_subscribe(rpp::subscription{}, rpp::specific_observer<int>{});
+            validate_subscribe(rpp::composite_subscription{}, rpp::specific_observer<int>{});
         WHEN("subscribe with subscription + dynamic_observer")
-            validate_subscribe(rpp::subscription{}, rpp::dynamic_observer<int>{});
+            validate_subscribe(rpp::composite_subscription{}, rpp::dynamic_observer<int>{});
         WHEN("subscribe with subscription + lambda")
-            validate_subscribe(rpp::subscription{}, [](const int&){});
+            validate_subscribe(rpp::composite_subscription{}, [](const int&){});
     };
 
     GIVEN("specific_observable")

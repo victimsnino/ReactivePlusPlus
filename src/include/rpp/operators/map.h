@@ -29,6 +29,7 @@
  */
 
 #include <rpp/observables/constraints.h>
+#include <rpp/subscribers/constraints.h>
 #include <rpp/observables/type_traits.h>
 
 #include <utility>

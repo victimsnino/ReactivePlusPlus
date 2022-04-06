@@ -27,8 +27,4 @@
 #include <rpp/sources/fwd.h>
 #include <rpp/subscribers/fwd.h>
 #include <rpp/operators/fwd.h>
-
-namespace rpp
-{
-class subscription;
-} // namespace rpp
+#include <rpp/subscriptions/fwd.h>

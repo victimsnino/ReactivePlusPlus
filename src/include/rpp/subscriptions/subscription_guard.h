@@ -22,4 +22,29 @@
 
 #pragma once
 
-#include <rpp/operators/map.h>
+#include <rpp/subscriptions/subscription_base.h>
+
+namespace rpp
+{
+/**
+ * \brief guard over subscription to auto-unsubscribe during destructor
+ */
+class subscription_guard
+{
+public:
+    subscription_guard(const subscription_base& sub)
+        : m_sub{sub} {}
+
+    subscription_guard(const subscription_guard&)     = delete;
+    subscription_guard(subscription_guard&&) noexcept = delete;
+
+    ~subscription_guard()
+    {
+        m_sub.unsubscribe();
+    }
+
+    const subscription_base* operator->() const { return &m_sub; }
+private:
+    const subscription_base m_sub;
+};
+} // namespace rpp

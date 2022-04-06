@@ -22,4 +22,47 @@
 
 #pragma once
 
-#include <rpp/operators/map.h>
+#include <rpp/subscriptions/details/subscription_state.h>
+
+#include <atomic>
+#include <memory>
+
+namespace rpp
+{
+/**
+ * \brief Base subscription implementation used as base class/interface and core implementation for derrived subscriptions
+ */
+class subscription_base
+{
+protected:
+    subscription_base(std::shared_ptr<details::subscription_state> state)
+        : m_state{std::move(state)} {}
+
+    details::subscription_state& get_state() const { return *m_state; }
+public:
+    subscription_base()
+        : m_state{std::make_shared<details::subscription_state>()} {}
+
+    virtual ~subscription_base() = default;
+
+    /**
+     * \brief indicates current status of subscription
+     */
+    [[nodiscard]] bool is_subscribed() const
+    {
+        return m_state->is_subscribed();
+    }
+
+    /**
+     * \brief initiates unsubscription process (if subscribed)
+     */
+    void unsubscribe() const
+    {
+        m_state->unsubscribe();
+    }
+
+private:
+    std::shared_ptr<details::subscription_state> m_state{};
+};
+
+} // namespace rpp

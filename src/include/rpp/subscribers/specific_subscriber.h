@@ -44,26 +44,26 @@ public:
         : details::subscriber_base<Type>{} { }
 
     specific_subscriber(const Observer& observer)
-        : specific_subscriber{subscription{}, observer} { }
+        : specific_subscriber{composite_subscription{}, observer} { }
 
     specific_subscriber(Observer&& observer)
-        : specific_subscriber{subscription{}, std::move(observer)} { }
+        : specific_subscriber{ composite_subscription{}, std::move(observer)} { }
 
-    specific_subscriber(const subscription& sub, const Observer& observer)
+    specific_subscriber(const composite_subscription& sub, const Observer& observer)
         : details::subscriber_base<Type>{sub}
         , m_observer{observer} { }
 
-    specific_subscriber(const subscription& sub, Observer&& observer)
+    specific_subscriber(const composite_subscription& sub, Observer&& observer)
         : details::subscriber_base<Type>{sub}
         , m_observer{std::move(observer)} { }
 
     //********************* Construct by actions *********************//
     template<typename ...Types>
     specific_subscriber(Types&&...vals) requires std::constructible_from<Observer, Types...>
-        : specific_subscriber{subscription{}, std::forward<Types>(vals)...} {}
+        : specific_subscriber{ composite_subscription{}, std::forward<Types>(vals)...} {}
 
     template<typename ...Types>
-    specific_subscriber(const subscription& sub, Types&&...vals) requires std::constructible_from<Observer, Types...>
+    specific_subscriber(const composite_subscription& sub, Types&&...vals) requires std::constructible_from<Observer, Types...>
         : details::subscriber_base<Type>{sub}
         , m_observer{std::forward<Types>(vals)...} {}
 
@@ -107,12 +107,12 @@ template<constraint::observer TObs>
 specific_subscriber(TObs observer) -> specific_subscriber<utils::extract_observer_type_t<TObs>, TObs>;
 
 template<constraint::observer TObs>
-specific_subscriber(subscription, TObs observer) -> specific_subscriber<utils::extract_observer_type_t<TObs>, TObs>;
+specific_subscriber(composite_subscription, TObs observer) -> specific_subscriber<utils::extract_observer_type_t<TObs>, TObs>;
 
 template<typename OnNext,
          typename ...Args,
          typename Type = std::decay_t<utils::function_argument_t<OnNext>>>
-specific_subscriber(subscription, OnNext, Args ...) -> specific_subscriber<Type, details::deduce_specific_observer_type_t<Type, OnNext, Args...>>;
+specific_subscriber(composite_subscription, OnNext, Args ...) -> specific_subscriber<Type, details::deduce_specific_observer_type_t<Type, OnNext, Args...>>;
 
 template<typename OnNext,
          typename ...Args,
@@ -131,7 +131,7 @@ auto make_specific_subscriber(Args&& ...args) -> specific_subscriber<Type, declt
 }
 
 template<typename Type, typename ...Args>
-auto make_specific_subscriber(constraint::decayed_same_as<subscription> auto&& sub, Args&& ...args)  -> specific_subscriber<Type, decltype(rpp::make_specific_observer<Type>(std::declval<Args>()...))>
+auto make_specific_subscriber(constraint::decayed_same_as<composite_subscription> auto&& sub, Args&& ...args)  -> specific_subscriber<Type, decltype(rpp::make_specific_observer<Type>(std::declval<Args>()...))>
 {
     auto observer = rpp::make_specific_observer<Type>(std::forward<Args>(args)...);
     return rpp::specific_subscriber<Type, decltype(observer)>(std::forward<decltype(sub)>(sub), std::move(observer));

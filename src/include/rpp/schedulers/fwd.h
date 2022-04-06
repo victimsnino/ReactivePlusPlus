@@ -22,4 +22,18 @@
 
 #pragma once
 
-#include <rpp/operators/map.h>
+#include <chrono>
+#include <optional>
+
+namespace rpp::schedulers::details
+{
+struct scheduler_tag {};
+} // namespace rpp::schedulers::details
+
+namespace rpp::schedulers
+{
+using clock_type = std::chrono::high_resolution_clock;
+using time_point = std::chrono::high_resolution_clock::time_point;
+using duration   = std::chrono::nanoseconds;
+using optional_duration = std::optional<duration>;
+} // namespace rpp::schedulers
