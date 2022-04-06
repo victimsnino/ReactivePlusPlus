@@ -19,6 +19,8 @@ for platform, data in results.groupby("platform"):
         print("Test Name | Current, ns | Prev, ns | Ratio")
         print("--- | --- | --- | ---")
         for _, r in bench_data.iterrows():
+            if r['source'] != 'rpp':
+                continue
             old_data = prev_data[(prev_data['benchmark_name']==name) & (prev_data['test_case'] == r['test_case'])]
             new_value = f"{r['value']:.2f}ns"
             old_value = old_data['value'].values[0] if len(old_data['value'].values) >= 1 else None
