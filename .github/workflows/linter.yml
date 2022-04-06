@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: true
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: ZedThree/clang-tidy-review@v0.8.0
         id: review
         with:
