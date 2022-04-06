@@ -110,11 +110,11 @@ private:
 
     private:
         enum class DepsState : uint8_t
-		{
-			None,//< default state
-			Add, //< set it during adding new element into deps. After success -> FallBack to None
-			Unsubscribed //< permanent state after unsubscribe
-		};
+        {
+            None,        //< default state
+            Add,         //< set it during adding new element into deps. After success -> FallBack to None
+            Unsubscribed //< permanent state after unsubscribe
+        };
 
         std::atomic<DepsState>         m_state{DepsState::None};
         std::vector<subscription_base> m_deps{};
