@@ -7078,7 +7078,7 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 7076,Observable construction,Specific observable construction,0.804953,0.803489,0.808273,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
 7077,Observable construction,Specific observable construction + as_dynamic,117.019,116.07,118.893,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
 7078,Observable subscribe #2,Specific observable subscribe lambda,890.31,880.621,922.69,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
-7079,Observable subscribe #2,Dynamic observable subscribe lambda,1060,1052.08,1092.42,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
+7079,Observable subscribe #2,Dynamic observable subscribe lambda,1060.0,1052.08,1092.42,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
 7080,Observable subscribe #2,Specific observable subscribe specific subscriber,877.862,868.862,906.552,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
 7081,Observable subscribe #2,Dynamic observable subscribe specific subscriber,1050.04,1044.46,1064.42,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
 7082,Observable subscribe #2,Specific observable subscribe dynamic observer,903.786,894.857,925.464,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
@@ -7094,9 +7094,162 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 7092,Observable subscribe,Specific observable subscribe specific observer,1226.14,1212.62,1265.19,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
 7093,Observable subscribe,Specific observable subscribe dynamic observer,1226.62,1216.38,1266.62,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
 7094,Observable subscribe,Dynamic observable subscribe specific observer,1419.72,1402.28,1469.94,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
-7095,Observable subscribe,Dynamic observable subscribe dynamic observer,1269.3,1256.85,1315,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
-7096,Observable lift,Specific observable lift specific observer,1241,1222.86,1287.57,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
+7095,Observable subscribe,Dynamic observable subscribe dynamic observer,1269.3,1256.85,1315.0,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
+7096,Observable lift,Specific observable lift specific observer,1241.0,1222.86,1287.57,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
 7097,Observable lift,Specific observable lift dynamic observer,1292.1,1278.1,1328.55,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
 7098,Observable lift,Dynamic observable lift specific observer,1454.72,1437.89,1501.56,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
 7099,Observable lift,Dynamic observable lift dynamic observer,1344.89,1325.89,1407.16,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
 7100,Operators,map construction from observable + subscribe,1032.56,1022.72,1055.08,0.95,Windows MSVC,Update linter.yml (8a5a4771),rxcpp
+7101,Observable construction,Specific observable construction,0.803395,0.80173,0.811221,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7102,Observable construction,Dynamic observable construction,19.0359,18.8722,19.2037,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7103,Observable construction,Specific observable construction + as_dynamic,19.0917,18.9807,19.2892,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7104,Observable subscribe #2,Specific observable subscribe lambda,11.8725,11.8105,11.9468,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7105,Observable subscribe #2,Dynamic observable subscribe lambda,27.0878,27.0441,27.157,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7106,Observable subscribe #2,Specific observable subscribe specific subscriber,6.00776,5.97462,6.04793,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7107,Observable subscribe #2,Dynamic observable subscribe specific subscriber,27.7897,27.7237,28.012,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7108,Observable subscribe #2,Specific observable subscribe dynamic observer,6.02983,6.01402,6.1042,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7109,Observable subscribe #2,Dynamic observable subscribe dynamic observer,7.83311,7.82931,7.83918,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7110,Observer construction,Specific observer construction,0.8019,0.801641,0.802159,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7111,Observer construction,Dynamic observer construction,18.0609,18.0528,18.0725,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7112,Observer construction,Specific observer construction + as_dynamic,17.7205,17.6679,17.9461,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7113,OnNext,Specific observer OnNext,0.42912,0.426518,0.433606,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7114,OnNext,Dynamic observer OnNext,2.00981,2.00617,2.02249,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7115,Subscriber construction,Make subsriber,19.5393,19.4655,19.6311,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7116,Subscriber construction,Make copy of subscriber,6.03733,6.01716,6.06679,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7117,Subscriber construction,Transform subsriber to dynamic,19.9539,19.8905,20.161,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7118,Observable subscribe,Specific observable subscribe specific observer,19.0892,19.0109,19.3466,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7119,Observable subscribe,Specific observable subscribe dynamic observer,24.9432,24.8606,25.2078,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7120,Observable subscribe,Dynamic observable subscribe specific observer,46.03,45.9165,46.4323,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7121,Observable subscribe,Dynamic observable subscribe dynamic observer,28.1296,28.0662,28.3397,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7122,Observable lift,Specific observable lift specific observer,27.9523,27.8692,28.1855,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7123,Observable lift,Specific observable lift dynamic observer,35.4475,35.4102,35.487,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7124,Observable lift,Dynamic observable lift specific observer,57.5133,57.3293,57.8575,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7125,Observable lift,Dynamic observable lift dynamic observer,43.7014,43.6068,43.979,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7126,Operators,map construction from observable + subscribe,30.5255,30.4642,30.8071,0.95,Linux GCC,Update linter.yml (#... (d360f804),rpp
+7127,Observable construction,Specific observable construction,0.427169,0.426333,0.430104,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7128,Observable construction,Specific observable construction + as_dynamic,26.7098,26.6778,26.7382,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7129,Observable subscribe #2,Specific observable subscribe lambda,276.763,276.046,278.838,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7130,Observable subscribe #2,Dynamic observable subscribe lambda,342.463,341.661,344.696,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7131,Observable subscribe #2,Specific observable subscribe specific subscriber,280.15,279.518,282.206,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7132,Observable subscribe #2,Dynamic observable subscribe specific subscriber,336.596,335.964,337.297,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7133,Observable subscribe #2,Specific observable subscribe dynamic observer,302.213,301.815,302.928,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7134,Observable subscribe #2,Dynamic observable subscribe dynamic observer,313.86,313.136,315.956,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7135,Observer construction,Specific observer construction,0.426318,0.426171,0.426436,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7136,Observer construction,Dynamic observer construction,19.308,19.2769,19.4319,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7137,Observer construction,Specific observer construction + as_dynamic,19.2884,19.2824,19.2963,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7138,OnNext,Specific observer OnNext,0.437625,0.43472,0.440635,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7139,OnNext,Dynamic observer OnNext,2.00807,2.00503,2.0214,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7140,Subscriber construction,Make subsriber,50.2371,50.0713,50.8916,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7141,Subscriber construction,Make copy of subscriber,5.92478,5.89992,5.95889,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7142,Subscriber construction,Transform subsriber to dynamic,31.2583,31.1328,31.8264,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7143,Observable subscribe,Specific observable subscribe specific observer,321.46,320.79,323.856,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7144,Observable subscribe,Specific observable subscribe dynamic observer,351.462,351.081,351.975,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7145,Observable subscribe,Dynamic observable subscribe specific observer,391.918,390.998,394.958,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7146,Observable subscribe,Dynamic observable subscribe dynamic observer,354.564,353.709,357.455,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7147,Observable lift,Specific observable lift specific observer,330.706,329.728,334.346,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7148,Observable lift,Specific observable lift dynamic observer,362.64,361.714,365.875,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7149,Observable lift,Dynamic observable lift specific observer,410.997,409.861,413.161,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7150,Observable lift,Dynamic observable lift dynamic observer,372.808,371.973,375.378,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7151,Operators,map construction from observable + subscribe,350.498,349.962,351.284,0.95,Linux GCC,Update linter.yml (#... (d360f804),rxcpp
+7152,Observable construction,Specific observable construction,1.20951,1.20007,1.23144,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7153,Observable construction,Dynamic observable construction,24.9174,24.4181,25.8504,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7154,Observable construction,Specific observable construction + as_dynamic,22.3482,21.8664,23.0314,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7155,Observable subscribe #2,Specific observable subscribe lambda,9.08814,8.94452,9.28119,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7156,Observable subscribe #2,Dynamic observable subscribe lambda,34.576,34.0576,35.6381,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7157,Observable subscribe #2,Specific observable subscribe specific subscriber,6.07686,6.00784,6.2815,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7158,Observable subscribe #2,Dynamic observable subscribe specific subscriber,36.6412,36.4003,37.3587,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7159,Observable subscribe #2,Specific observable subscribe dynamic observer,7.76413,7.59154,7.98667,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7160,Observable subscribe #2,Dynamic observable subscribe dynamic observer,7.47989,7.37496,7.67309,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7161,Observer construction,Specific observer construction,1.19324,1.18219,1.21812,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7162,Observer construction,Dynamic observer construction,22.7021,22.4427,23.0828,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7163,Observer construction,Specific observer construction + as_dynamic,21.9357,21.4866,22.5044,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7164,OnNext,Specific observer OnNext,0.803831,0.795353,0.820251,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7165,OnNext,Dynamic observer OnNext,2.39687,2.32684,2.64381,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7166,Subscriber construction,Make subsriber,21.4098,20.968,22.0464,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7167,Subscriber construction,Make copy of subscriber,4.976,4.9165,5.09042,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7168,Subscriber construction,Transform subsriber to dynamic,26.0805,25.694,26.7521,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7169,Observable subscribe,Specific observable subscribe specific observer,31.6607,31.0496,32.4065,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7170,Observable subscribe,Specific observable subscribe dynamic observer,35.6127,35.4951,35.8535,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7171,Observable subscribe,Dynamic observable subscribe specific observer,60.0079,59.5167,61.1218,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7172,Observable subscribe,Dynamic observable subscribe dynamic observer,33.806,32.9235,34.9684,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7173,Observable lift,Specific observable lift specific observer,37.6438,36.7981,38.6592,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7174,Observable lift,Specific observable lift dynamic observer,38.4124,37.9451,39.2461,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7175,Observable lift,Dynamic observable lift specific observer,64.6379,64.1633,65.8703,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7176,Observable lift,Dynamic observable lift dynamic observer,54.3675,53.0614,56.0896,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7177,Operators,map construction from observable + subscribe,18.7308,18.4136,19.2517,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rpp
+7178,Observable construction,Specific observable construction,0.644613,0.636379,0.658785,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7179,Observable construction,Specific observable construction + as_dynamic,30.4618,29.9188,31.1575,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7180,Observable subscribe #2,Specific observable subscribe lambda,275.636,275.132,277.427,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7181,Observable subscribe #2,Dynamic observable subscribe lambda,328.78,325.013,335.183,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7182,Observable subscribe #2,Specific observable subscribe specific subscriber,270.892,266.84,277.452,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7183,Observable subscribe #2,Dynamic observable subscribe specific subscriber,321.74,318.363,327.797,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7184,Observable subscribe #2,Specific observable subscribe dynamic observer,297.887,296.221,300.921,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7185,Observable subscribe #2,Dynamic observable subscribe dynamic observer,312.951,308.585,320.227,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7186,Observer construction,Specific observer construction,0.667407,0.658783,0.682766,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7187,Observer construction,Dynamic observer construction,23.3914,22.8878,24.0364,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7188,Observer construction,Specific observer construction + as_dynamic,24.222,23.722,25.0747,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7189,OnNext,Specific observer OnNext,0.714186,0.701131,0.731865,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7190,OnNext,Dynamic observer OnNext,2.55997,2.51176,2.62648,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7191,Subscriber construction,Make subsriber,72.7783,71.6582,74.4988,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7192,Subscriber construction,Make copy of subscriber,5.10704,5.02448,5.22557,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7193,Subscriber construction,Transform subsriber to dynamic,29.7808,29.2999,30.3906,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7194,Observable subscribe,Specific observable subscribe specific observer,317.548,311.209,325.965,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7195,Observable subscribe,Specific observable subscribe dynamic observer,306.024,302.409,313.014,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7196,Observable subscribe,Dynamic observable subscribe specific observer,344.72,336.187,355.619,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7197,Observable subscribe,Dynamic observable subscribe dynamic observer,368.156,360.319,378.644,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7198,Observable lift,Specific observable lift specific observer,338.119,334.567,344.824,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7199,Observable lift,Specific observable lift dynamic observer,340.205,332.436,351.342,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7200,Observable lift,Dynamic observable lift specific observer,399.098,393.389,409.203,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7201,Observable lift,Dynamic observable lift dynamic observer,389.686,386.061,396.61,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7202,Operators,map construction from observable + subscribe,270.535,267.003,276.956,0.95,Linux CLANG,Update linter.yml (#... (d360f804),rxcpp
+7203,Observable construction,Specific observable construction,0.670033,0.668791,0.67295,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7204,Observable construction,Dynamic observable construction,80.0158,79.7057,80.75,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7205,Observable construction,Specific observable construction + as_dynamic,80.1677,79.8291,80.8956,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7206,Observable subscribe #2,Specific observable subscribe lambda,36.5872,36.4433,36.9593,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7207,Observable subscribe #2,Dynamic observable subscribe lambda,117.216,116.794,118.216,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7208,Observable subscribe #2,Specific observable subscribe specific subscriber,21.8107,21.6783,22.0925,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7209,Observable subscribe #2,Dynamic observable subscribe specific subscriber,122.84,119.225,132.216,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7210,Observable subscribe #2,Specific observable subscribe dynamic observer,19.1445,19.0692,19.3316,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7211,Observable subscribe #2,Dynamic observable subscribe dynamic observer,22.2097,21.6651,23.4601,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7212,Observer construction,Specific observer construction,0.670087,0.668527,0.674134,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7213,Observer construction,Dynamic observer construction,82.0556,81.7941,82.5915,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7214,Observer construction,Specific observer construction + as_dynamic,94.7338,94.2565,95.6721,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7215,OnNext,Specific observer OnNext,0.670696,0.669145,0.673824,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7216,OnNext,Dynamic observer OnNext,2.0148,2.00965,2.02592,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7217,Subscriber construction,Make subsriber,97.3566,96.8023,98.5543,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7218,Subscriber construction,Make copy of subscriber,16.7457,16.7123,16.8231,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7219,Subscriber construction,Transform subsriber to dynamic,111.412,110.892,112.442,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7220,Observable subscribe,Specific observable subscribe specific observer,116.005,115.269,117.626,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7221,Observable subscribe,Specific observable subscribe dynamic observer,130.474,130.051,131.398,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7222,Observable subscribe,Dynamic observable subscribe specific observer,196.867,195.633,199.953,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7223,Observable subscribe,Dynamic observable subscribe dynamic observer,129.187,128.609,130.531,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7224,Observable lift,Specific observable lift specific observer,151.497,150.772,153.21,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7225,Observable lift,Specific observable lift dynamic observer,190.401,186.752,201.547,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7226,Observable lift,Dynamic observable lift specific observer,261.292,260.323,263.625,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7227,Observable lift,Dynamic observable lift dynamic observer,219.197,218.111,221.632,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7228,Operators,map construction from observable + subscribe,88.6503,88.4476,89.0455,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rpp
+7229,Observable construction,Specific observable construction,0.670618,0.669211,0.673894,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7230,Observable construction,Specific observable construction + as_dynamic,124.308,123.838,125.434,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7231,Observable subscribe #2,Specific observable subscribe lambda,872.867,864.1,898.067,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7232,Observable subscribe #2,Dynamic observable subscribe lambda,1052.92,1044.2,1076.32,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7233,Observable subscribe #2,Specific observable subscribe specific subscriber,898.167,887.067,921.433,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7234,Observable subscribe #2,Dynamic observable subscribe specific subscriber,1113.76,1070.4,1272.4,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7235,Observable subscribe #2,Specific observable subscribe dynamic observer,898.69,892.724,915.621,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7236,Observable subscribe #2,Dynamic observable subscribe dynamic observer,932.643,926.857,953.107,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7237,Observer construction,Specific observer construction,0.671536,0.669048,0.677929,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7238,Observer construction,Dynamic observer construction,114.574,114.032,115.829,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7239,Observer construction,Specific observer construction + as_dynamic,114.266,113.851,115.23,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7240,OnNext,Specific observer OnNext,0.670391,0.669024,0.673552,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7241,OnNext,Dynamic observer OnNext,2.01776,2.00936,2.03727,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7242,Subscriber construction,Make subsriber,349.11,346.726,358.055,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7243,Subscriber construction,Make copy of subscriber,34.3522,34.0027,35.8677,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7244,Subscriber construction,Transform subsriber to dynamic,153.566,153.048,154.964,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7245,Observable subscribe,Specific observable subscribe specific observer,1224.68,1199.73,1288.18,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7246,Observable subscribe,Specific observable subscribe dynamic observer,1253.14,1234.48,1308.52,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7247,Observable subscribe,Dynamic observable subscribe specific observer,1394.16,1379.89,1456.11,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7248,Observable subscribe,Dynamic observable subscribe dynamic observer,1289,1271.45,1334.1,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7249,Observable lift,Specific observable lift specific observer,1252.14,1239.9,1300.1,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7250,Observable lift,Specific observable lift dynamic observer,1295.4,1281.8,1351.25,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7251,Observable lift,Dynamic observable lift specific observer,1433.72,1420.17,1495,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7252,Observable lift,Dynamic observable lift dynamic observer,1334.11,1320.89,1392.05,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
+7253,Operators,map construction from observable + subscribe,1009.38,1002.73,1033.35,0.95,Windows MSVC,Update linter.yml (#... (d360f804),rxcpp
