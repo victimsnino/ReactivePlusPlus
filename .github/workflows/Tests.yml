@@ -7,9 +7,16 @@ on:
   pull_request_target:
     branches:
       - main
+    paths:
+      - 'submodules/**'
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - 'submodules/**'
+      
+      
+
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
