@@ -64,6 +64,9 @@ private:
     mutable std::function<optional_duration()> m_function;
 };
 
+/**
+ * \brief scheduler which schedule execution of via queueing tasks to another thread with priority to time_point and order
+ */
 class new_thread final : public details::scheduler_tag
 {
 public:
