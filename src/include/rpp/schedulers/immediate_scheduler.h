@@ -65,7 +65,7 @@ public:
 
     static worker create_worker(rpp::subscription sub = {})
     {
-        return worker{ sub };
+        return worker{sub};
     }
 };
 } // namespace rpp::schedulers
