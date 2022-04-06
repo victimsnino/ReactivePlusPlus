@@ -54,8 +54,6 @@ if(CODE_COVERAGE)
     --coverage # sets all required flags
     -fprofile-arcs 
     -ftest-coverage
-    -fprofile-instr-generate 
-    -fcoverage-mapping
   )
   if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
     target_link_options(coverage_config INTERFACE --coverage)
@@ -86,7 +84,11 @@ endif()
 enable_testing()
 
 macro (add_ctest target)
-  add_test(NAME ${target} COMMAND $<TARGET_FILE:${target}> -r junit -o ${TEST_RESULTS_DIR}/${target}.xml ~[benchmark] ~[misc_benchmark])
+  if(CODE_COVERAGE)
+    add_test(NAME ${target} COMMAND $<TARGET_FILE:${target}> ~[benchmark] ~[misc_benchmark])
+  else()
+    add_test(NAME ${target} COMMAND $<TARGET_FILE:${target}> -r junit -o ${TEST_RESULTS_DIR}/${target}.xml ~[benchmark] ~[misc_benchmark])
+  endif()
 endmacro (add_ctest)
 
 file(MAKE_DIRECTORY ${TEST_RESULTS_DIR})
