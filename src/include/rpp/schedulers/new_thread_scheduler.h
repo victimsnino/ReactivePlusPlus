@@ -75,7 +75,7 @@ public:
     {
     public:
         worker(const rpp::composite_subscription& sub)
-            : m_thread{std::bind_front(&worker::data_thread, this)}
+            : m_thread{[this](const std::stop_token& token) { data_thread(token); }}
             , m_sub{sub.add([&]
             {
                 m_thread.request_stop();
@@ -99,7 +99,7 @@ public:
         }
 
     private:
-        void data_thread(std::stop_token token)
+        void data_thread(const std::stop_token& token)
         {
             std::function<optional_duration()> fn{};
             time_point time_point{};
@@ -113,17 +113,13 @@ public:
 
                     if (!m_cv.wait_until(lock, token, m_queue.top().GetTimePoint(), [&]{ return !m_queue.empty() && m_queue.top().GetTimePoint() <= clock_type::now();}))
                         continue;
-                    
-                    if (token.stop_requested())
-                        return;
 
                     fn         = std::move(m_queue.top().ExtractFunction());
                     time_point = m_queue.top().GetTimePoint();
                     m_queue.pop();
                 }
 
-                auto duration = fn();
-                if (duration.has_value())
+                if (auto duration = fn())
                 {
                     time_point += duration.value();
                     schedule(time_point, std::move(fn));

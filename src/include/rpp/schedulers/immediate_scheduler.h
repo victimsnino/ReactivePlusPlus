@@ -53,10 +53,10 @@ public:
             while (m_sub.is_subscribed())
             {
                 std::this_thread::sleep_until(time_point);
-                auto duration = fn();
-                if (!duration.has_value())
+                if (auto duration = fn())
+                    time_point += duration.value();
+                else
                     return;
-                time_point += duration.value();
             }
         }
 
