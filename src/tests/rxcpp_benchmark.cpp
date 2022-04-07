@@ -205,3 +205,24 @@ TEST_CASE("Operators", "[benchmark]")
             })).subscribe(sub);
     };
 }
+
+TEST_CASE("Subscription", "[benchmark]")
+{
+    BENCHMARK("composite_subscription create")
+    {
+        return rxcpp::composite_subscription{};
+    };
+
+    rxcpp::composite_subscription sub_1{};
+    rxcpp::composite_subscription sub_2{};
+
+    BENCHMARK("composite_subscription creaddate")
+    {
+        return sub_1.add(sub_2);
+    };
+
+    BENCHMARK("composite_subscription unsubscribe")
+    {
+        sub_1.unsubscribe();
+    };
+}

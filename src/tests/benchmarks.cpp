@@ -231,7 +231,28 @@ TEST_CASE("Operators", "[benchmark]")
     };
 }
 
-SCENARIO("Misc benchmarks", "[misc_benchmark]")
+TEST_CASE("Subscription", "[benchmark]")
+{
+    BENCHMARK("composite_subscription create")
+    {
+        return rpp::composite_subscription{};
+    };
+
+    rpp::composite_subscription sub_1{};
+    rpp::composite_subscription sub_2{};
+
+    BENCHMARK("composite_subscription creaddate")
+    {
+        return sub_1.add(sub_2);
+    };
+
+    BENCHMARK("composite_subscription unsubscribe")
+    {
+        sub_1.unsubscribe();
+    };
+}
+
+TEST_CASE("Misc benchmarks", "[misc_benchmark]")
 {
     std::array<int, 100> arr{1};
     auto                 empty_lambda = [arr](int i) { return i * arr[0]; };
