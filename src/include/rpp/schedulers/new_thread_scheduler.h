@@ -75,11 +75,25 @@ public:
     {
     public:
         worker(const rpp::composite_subscription& sub)
-            : m_thread{[this](const std::stop_token& token) { data_thread(token); }}
-            , m_sub{sub.add([&]
+            : m_state{std::make_shared<state>()}
+        {
+            m_state->thread = std::jthread{[state = m_state](const std::stop_token& token)
             {
-                m_thread.request_stop();
-            })} { }
+                state->data_thread(token);
+            }};
+            m_state->sub = sub.add([state = m_state]
+            {
+                if (!state->thread.joinable())
+                    return;
+
+                state->thread.request_stop();
+
+                if (state->thread.get_id() != std::this_thread::get_id())
+                    state->thread.join();
+                else
+                    state->thread.detach();
+            });
+        }
 
         void schedule(constraint::schedulable_fn auto&& fn)
         {
@@ -88,61 +102,73 @@ public:
 
         void schedule(time_point time_point, constraint::schedulable_fn auto&& fn)
         {
-            if (!m_sub->is_subscribed())
-                return;
-
-            {
-                std::lock_guard lock{m_mutex};
-                m_queue.emplace(time_point, ++m_current_id, std::forward<decltype(fn)>(fn));
-            }
-            m_cv.notify_one();
+            m_state->schedule(time_point, std::forward<decltype(fn)>(fn));
         }
 
     private:
-        void data_thread(const std::stop_token& token)
+        struct state
         {
-            std::function<optional_duration()> fn{};
-            time_point time_point{};
-            while (!token.stop_requested())
+            void schedule(time_point time_point, constraint::schedulable_fn auto&& fn)
             {
+                if (!sub.is_subscribed())
+                    return;
+
                 {
-                    std::unique_lock lock{m_mutex};
-
-                    if (!m_cv.wait(lock, token, [&]{ return !m_queue.empty();}))
-                        continue;
-
-                    if (!m_cv.wait_until(lock, token, m_queue.top().GetTimePoint(), [&]{ return !m_queue.empty() && m_queue.top().GetTimePoint() <= clock_type::now();}))
-                        continue;
-
-                    fn         = std::move(m_queue.top().ExtractFunction());
-                    time_point = m_queue.top().GetTimePoint();
-                    m_queue.pop();
+                    std::lock_guard lock{mutex};
+                    queue.emplace(time_point, ++current_id, std::forward<decltype(fn)>(fn));
                 }
-
-                if (auto duration = fn())
-                {
-                    time_point += duration.value();
-                    schedule(time_point, std::move(fn));
-                }
-                fn = {};
+                cv.notify_one();
             }
-        }
 
-    private:
-        std::mutex                       m_mutex{};
-        std::condition_variable_any      m_cv{};
-        std::priority_queue<schedulable> m_queue{};
-        size_t                           m_current_id{};
-        std::jthread                     m_thread{};
-        rpp::subscription_guard          m_sub;
+            void data_thread(const std::stop_token& token)
+            {
+                std::function<optional_duration()> fn{};
+                time_point                         time_point{};
+                while (!token.stop_requested())
+                {
+                    {
+                        std::unique_lock lock{mutex};
 
+                        if (!cv.wait(lock, token, [&] { return !queue.empty(); }))
+                            continue;
+
+                        if (!cv.wait_until(lock,
+                                           token,
+                                           queue.top().GetTimePoint(),
+                                           [&]
+                                           {
+                                               return !queue.empty() && queue.top().GetTimePoint() <= clock_type::now();
+                                           }))
+                            continue;
+
+                        fn         = std::move(queue.top().ExtractFunction());
+                        time_point = queue.top().GetTimePoint();
+                        queue.pop();
+                    }
+
+                    if (auto duration = fn())
+                    {
+                        time_point += duration.value();
+                        schedule(time_point, std::move(fn));
+                    }
+                    fn = {};
+                }
+            }
+
+            std::mutex                       mutex{};
+            std::condition_variable_any      cv{};
+            std::priority_queue<schedulable> queue{};
+            size_t                           current_id{};
+            std::jthread                     thread{};
+            rpp::subscription_base           sub = rpp::subscription_base::empty();
+        };
+
+        std::shared_ptr<state> m_state{};
     };
 
     static auto create_worker(const rpp::composite_subscription& sub = composite_subscription{})
     {
-        auto w = std::make_shared<worker>(sub);
-        sub.add([keep_alive = w] {});
-        return w;
+        return worker{sub};
     }
 };
 } // namespace rpp::schedulers

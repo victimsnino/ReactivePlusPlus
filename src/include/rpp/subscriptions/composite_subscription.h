@@ -51,7 +51,8 @@ public:
     subscription_base add(const subscription_base& sub) const
     {
         if (&sub != this)
-            static_cast<state&>(get_state()).add(sub);
+            if (auto pstate = get_state())
+                static_cast<state*>(pstate)->add(sub);
         return sub;
     }
 

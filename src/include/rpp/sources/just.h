@@ -60,7 +60,7 @@ auto just(auto&& item, const Scheduler& scheduler = Scheduler{})
         else
         {
             auto worker = scheduler.create_worker(subscriber.get_subscription());
-            worker->schedule([subscriber, item]() -> rpp::schedulers::optional_duration
+            worker.schedule([subscriber, item]() mutable -> rpp::schedulers::optional_duration
             {
                 subscriber.on_next(std::move(item));
                 subscriber.on_completed();
