@@ -107,7 +107,7 @@ public:
         {
             void schedule(time_point time_point, constraint::schedulable_fn auto&& fn)
             {
-                if (!sub.is_subscribed())
+                if (!sub->is_subscribed())
                     return;
 
                 {
