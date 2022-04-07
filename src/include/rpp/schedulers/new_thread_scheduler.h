@@ -83,9 +83,6 @@ public:
             }};
             m_state->sub = sub.add([state = m_state]
             {
-                if (!state->thread.joinable())
-                    return;
-
                 state->thread.request_stop();
 
                 if (state->thread.get_id() != std::this_thread::get_id())
@@ -132,13 +129,7 @@ public:
                         if (!cv.wait(lock, token, [&] { return !queue.empty(); }))
                             continue;
 
-                        if (!cv.wait_until(lock,
-                                           token,
-                                           queue.top().GetTimePoint(),
-                                           [&]
-                                           {
-                                               return !queue.empty() && queue.top().GetTimePoint() <= clock_type::now();
-                                           }))
+                        if (!cv.wait_until(lock, token, queue.top().GetTimePoint(), [&] { return !queue.empty() && queue.top().GetTimePoint() <= clock_type::now(); }))
                             continue;
 
                         fn         = std::move(queue.top().ExtractFunction());
@@ -160,7 +151,7 @@ public:
             std::priority_queue<schedulable> queue{};
             size_t                           current_id{};
             std::jthread                     thread{};
-            rpp::subscription_base           sub = rpp::subscription_base::empty();
+            rpp::subscription_guard          sub = rpp::subscription_base::empty();
         };
 
         std::shared_ptr<state> m_state{};
