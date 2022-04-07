@@ -44,6 +44,12 @@ public:
         return *this;
     };
 
+    void reset(subscription_base other)
+    {
+        m_sub.unsubscribe();
+        m_sub = other;
+    };
+
     ~subscription_guard()
     {
         m_sub.unsubscribe();

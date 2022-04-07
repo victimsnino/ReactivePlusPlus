@@ -152,7 +152,9 @@ SCENARIO("New thread scheduler schedules tasks into separate thread")
     GIVEN("NewThread scheduler")
     {
         auto scheduler = rpp::schedulers::new_thread{};
-        auto worker    = scheduler.create_worker();
+        auto sub = rpp::composite_subscription{};
+        auto worker    = scheduler.create_worker(sub);
+        rpp::subscription_guard guard{sub};
         WHEN("schedules job to worker")
         {
             THEN("job executed in another thread")

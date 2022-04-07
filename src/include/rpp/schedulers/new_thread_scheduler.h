@@ -81,7 +81,7 @@ public:
             {
                 state->data_thread(token);
             }};
-            m_state->sub = sub.add([state = m_state]
+            m_state->sub.reset(sub.add([state = m_state]
             {
                 state->thread.request_stop();
 
@@ -89,7 +89,7 @@ public:
                     state->thread.join();
                 else
                     state->thread.detach();
-            });
+            }));
         }
 
         void schedule(constraint::schedulable_fn auto&& fn)
