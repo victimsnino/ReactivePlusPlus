@@ -292,8 +292,13 @@ SCENARIO("source::just")
 
                 REQUIRE(fut.get());
 
+#ifdef _WIN32
                 CHECK(v.get_copy_count() == 2); // 1 copy into function for observable + 1 copy to scheduler lambda
                 CHECK(v.get_move_count() == 3); // 1 move into observable + 1 move to queue + 1 move from queue
+#else
+                CHECK(v.get_copy_count() == 4); 
+                CHECK(v.get_move_count() == 1);
+#endif
             }
         }
     }
