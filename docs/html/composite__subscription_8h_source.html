@@ -115,75 +115,76 @@ $(function() {
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="classrpp_1_1composite__subscription.html#a6272549b01ac390de646ae16ad13ef4d">   51</a></span>    <a class="code hl_class" href="classrpp_1_1subscription__base.html">subscription_base</a> <a class="code hl_function" href="classrpp_1_1composite__subscription.html#a6272549b01ac390de646ae16ad13ef4d">add</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp; sub)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keyword">static_cast&lt;</span>state&amp;<span class="keyword">&gt;</span>(get_state()).<a class="code hl_function" href="classrpp_1_1composite__subscription.html#a6272549b01ac390de646ae16ad13ef4d">add</a>(sub);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">return</span> sub;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="classrpp_1_1composite__subscription.html#a9f21fbd5c5272b2d2c06a056262fa5e2">   60</a></span>    <a class="code hl_class" href="classrpp_1_1subscription__base.html">subscription_base</a> <a class="code hl_function" href="classrpp_1_1composite__subscription.html#a9f21fbd5c5272b2d2c06a056262fa5e2">add</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1callback__subscription.html">callback_subscription</a>&amp; sub)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classrpp_1_1composite__subscription.html#a6272549b01ac390de646ae16ad13ef4d">add</a>(<span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp;<span class="keyword">&gt;</span>(sub));</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">class </span>state final : <span class="keyword">public</span> <a class="code hl_class" href="classrpp_1_1details_1_1subscription__state.html">details::subscription_state</a></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    {</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        state(std::vector&lt;subscription_base&gt;&amp;&amp; deps)</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            : m_deps{std::move(deps)} {}</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classrpp_1_1composite__subscription.html#a6272549b01ac390de646ae16ad13ef4d">add</a>(<span class="keyword">const</span> subscription_base&amp; sub)</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            <span class="keywordflow">while</span> (<span class="keyword">true</span>)</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                DepsState expected{DepsState::None};</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                <span class="keywordflow">if</span> (m_state.compare_exchange_strong(expected, DepsState::Add))</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                    m_deps.push_back(sub);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                    m_state.store(DepsState::None);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                    <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                }</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                <span class="keywordflow">if</span> (expected == DepsState::Unsubscribed)</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                {</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                    sub.<a class="code hl_function" href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">unsubscribe</a>();</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                    <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                }</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            }</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        }</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordtype">void</span> on_unsubscribe()<span class="keyword"> override</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordflow">while</span> (<span class="keyword">true</span>)</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            {</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                DepsState expected{DepsState::None};</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                <span class="keywordflow">if</span> (m_state.compare_exchange_strong(expected, DepsState::Unsubscribed))</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                    std::ranges::for_each(m_deps, &amp;<a class="code hl_function" href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">subscription_base::unsubscribe</a>);</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                    m_deps.clear();</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                    <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                }</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            }</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        }</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keyword">enum class</span> DepsState : uint8_t</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        {</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            None,        <span class="comment">//&lt; default state</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            Add,         <span class="comment">//&lt; set it during adding new element into deps. After success -&gt; FallBack to None</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            Unsubscribed <span class="comment">//&lt; permanent state after unsubscribe</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        };</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        std::atomic&lt;DepsState&gt;         m_state{DepsState::None};</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        std::vector&lt;subscription_base&gt; m_deps{};</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    };</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>};</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>} <span class="comment">// namespace rpp</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">if</span> (&amp;sub != <span class="keyword">this</span>)</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            <span class="keyword">static_cast&lt;</span>state&amp;<span class="keyword">&gt;</span>(get_state()).<a class="code hl_function" href="classrpp_1_1composite__subscription.html#a6272549b01ac390de646ae16ad13ef4d">add</a>(sub);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">return</span> sub;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="classrpp_1_1composite__subscription.html#a9f21fbd5c5272b2d2c06a056262fa5e2">   61</a></span>    <a class="code hl_class" href="classrpp_1_1subscription__base.html">subscription_base</a> <a class="code hl_function" href="classrpp_1_1composite__subscription.html#a9f21fbd5c5272b2d2c06a056262fa5e2">add</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1callback__subscription.html">callback_subscription</a>&amp; sub)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classrpp_1_1composite__subscription.html#a6272549b01ac390de646ae16ad13ef4d">add</a>(<span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp;<span class="keyword">&gt;</span>(sub));</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">class </span>state final : <span class="keyword">public</span> <a class="code hl_class" href="classrpp_1_1details_1_1subscription__state.html">details::subscription_state</a></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        state(std::vector&lt;subscription_base&gt;&amp;&amp; deps)</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            : m_deps{std::move(deps)} {}</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classrpp_1_1composite__subscription.html#a6272549b01ac390de646ae16ad13ef4d">add</a>(<span class="keyword">const</span> subscription_base&amp; sub)</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            <span class="keywordflow">while</span> (<span class="keyword">true</span>)</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                DepsState expected{DepsState::None};</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                <span class="keywordflow">if</span> (m_state.compare_exchange_strong(expected, DepsState::Add))</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                    m_deps.push_back(sub);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                    m_state.store(DepsState::None);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                    <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                }</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                <span class="keywordflow">if</span> (expected == DepsState::Unsubscribed)</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                    sub.<a class="code hl_function" href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">unsubscribe</a>();</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                    <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                }</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        }</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordtype">void</span> on_unsubscribe()<span class="keyword"> override</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="keyword">        </span>{</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            <span class="keywordflow">while</span> (<span class="keyword">true</span>)</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                DepsState expected{DepsState::None};</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                <span class="keywordflow">if</span> (m_state.compare_exchange_strong(expected, DepsState::Unsubscribed))</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                {</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                    std::ranges::for_each(m_deps, &amp;<a class="code hl_function" href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">subscription_base::unsubscribe</a>);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                    m_deps.clear();</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                    <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                }</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        }</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keyword">enum class</span> DepsState : uint8_t</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            None,        <span class="comment">//&lt; default state</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            Add,         <span class="comment">//&lt; set it during adding new element into deps. After success -&gt; FallBack to None</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            Unsubscribed <span class="comment">//&lt; permanent state after unsubscribe</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        };</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        std::atomic&lt;DepsState&gt;         m_state{DepsState::None};</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        std::vector&lt;subscription_base&gt; m_deps{};</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    };</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>};</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>} <span class="comment">// namespace rpp</span></div>
 <div class="ttc" id="aclassrpp_1_1callback__subscription_html"><div class="ttname"><a href="classrpp_1_1callback__subscription.html">rpp::callback_subscription</a></div><div class="ttdoc">Subscription which invoke callbable during unsubscribe.</div><div class="ttdef"><b>Definition:</b> callback_subscription.h:37</div></div>
 <div class="ttc" id="aclassrpp_1_1composite__subscription_html"><div class="ttname"><a href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a></div><div class="ttdoc">rpp::subscription_base with ability to add some dependent subscriptions as a part of this one: in cas...</div><div class="ttdef"><b>Definition:</b> composite_subscription.h:39</div></div>
 <div class="ttc" id="aclassrpp_1_1composite__subscription_html_a6272549b01ac390de646ae16ad13ef4d"><div class="ttname"><a href="classrpp_1_1composite__subscription.html#a6272549b01ac390de646ae16ad13ef4d">rpp::composite_subscription::add</a></div><div class="ttdeci">subscription_base add(const subscription_base &amp;sub) const</div><div class="ttdoc">Add any other subscription to this as dependent.</div><div class="ttdef"><b>Definition:</b> composite_subscription.h:51</div></div>
-<div class="ttc" id="aclassrpp_1_1composite__subscription_html_a9f21fbd5c5272b2d2c06a056262fa5e2"><div class="ttname"><a href="classrpp_1_1composite__subscription.html#a9f21fbd5c5272b2d2c06a056262fa5e2">rpp::composite_subscription::add</a></div><div class="ttdeci">subscription_base add(const callback_subscription &amp;sub) const</div><div class="ttdoc">Add callback/function subscription to this as dependent.</div><div class="ttdef"><b>Definition:</b> composite_subscription.h:60</div></div>
+<div class="ttc" id="aclassrpp_1_1composite__subscription_html_a9f21fbd5c5272b2d2c06a056262fa5e2"><div class="ttname"><a href="classrpp_1_1composite__subscription.html#a9f21fbd5c5272b2d2c06a056262fa5e2">rpp::composite_subscription::add</a></div><div class="ttdeci">subscription_base add(const callback_subscription &amp;sub) const</div><div class="ttdoc">Add callback/function subscription to this as dependent.</div><div class="ttdef"><b>Definition:</b> composite_subscription.h:61</div></div>
 <div class="ttc" id="aclassrpp_1_1details_1_1subscription__state_html"><div class="ttname"><a href="classrpp_1_1details_1_1subscription__state.html">rpp::details::subscription_state</a></div><div class="ttdoc">Base implementation of subscription state used under-hood for rpp::subscription_base and its childs.</div><div class="ttdef"><b>Definition:</b> subscription_state.h:34</div></div>
 <div class="ttc" id="aclassrpp_1_1subscription__base_html"><div class="ttname"><a href="classrpp_1_1subscription__base.html">rpp::subscription_base</a></div><div class="ttdoc">Base subscription implementation used as base class/interface and core implementation for derrived su...</div><div class="ttdef"><b>Definition:</b> subscription_base.h:36</div></div>
 <div class="ttc" id="aclassrpp_1_1subscription__base_html_af07ca7cdfb9758441c0729cbe3e6d19d"><div class="ttname"><a href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">rpp::subscription_base::unsubscribe</a></div><div class="ttdeci">void unsubscribe() const</div><div class="ttdoc">initiates unsubscription process (if subscribed)</div><div class="ttdef"><b>Definition:</b> subscription_base.h:59</div></div>
