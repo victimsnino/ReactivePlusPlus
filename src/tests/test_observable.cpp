@@ -278,28 +278,4 @@ SCENARIO("source::just")
             }
         }
     }
-    GIVEN("observable with scheduler")
-    {
-        copy_count_tracker v{};
-        auto obs = rpp::observable::just(v, rpp::schedulers::new_thread{});
-        WHEN("subscribe on this observable")
-        {
-            THEN("value obtained")
-            {
-                std::promise<bool> prom{};
-                auto fut = prom.get_future();
-                obs.subscribe([&](const copy_count_tracker&) {prom.set_value(true); });
-
-                REQUIRE(fut.get());
-
-#ifdef _WIN32
-                CHECK(v.get_copy_count() == 2); // 1 copy into function for observable + 1 copy to scheduler lambda
-                CHECK(v.get_move_count() == 3); // 1 move into observable + 1 move to queue + 1 move from queue
-#else
-                CHECK(v.get_copy_count() == 4); 
-                CHECK(v.get_move_count() == 1);
-#endif
-            }
-        }
-    }
 }
