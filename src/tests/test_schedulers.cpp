@@ -165,7 +165,7 @@ SCENARIO("New thread scheduler schedules tasks into separate thread")
                     return {};
                 });
 
-                future.wait_for(std::chrono::seconds{5});
+                REQUIRE(future.wait_for(std::chrono::seconds{5})==std::future_status::ready);
 
                 REQUIRE(future.valid());
                 REQUIRE(future.get() != std::this_thread::get_id());
@@ -192,8 +192,8 @@ SCENARIO("New thread scheduler schedules tasks into separate thread")
                 worker.schedule(now + std::chrono::seconds{2}, set_promise(promise_2));
                 worker.schedule(now + std::chrono::seconds{1}, set_promise(promise_1));
 
-                future_1.wait_for(std::chrono::seconds{2});
-                future_2.wait_for(std::chrono::seconds{2});
+                REQUIRE(future_1.wait_for(std::chrono::seconds{2})==std::future_status::ready);
+                REQUIRE(future_2.wait_for(std::chrono::seconds{2})==std::future_status::ready);
 
                 REQUIRE(future_1.valid());
                 REQUIRE(future_2.valid());
@@ -278,7 +278,7 @@ SCENARIO("New thread scheduler depends on subscription")
                                      return rpp::schedulers::duration{};
                                  });
                 sub.unsubscribe();
-                future.wait_for(diff);
+                REQUIRE(future.wait_for(diff)==std::future_status::timeout);
                 CHECK(future.valid());
             }
         }
@@ -299,7 +299,7 @@ SCENARIO("New thread scheduler depends on subscription")
                         });
                 }
                 sub.unsubscribe();
-                future.wait_for(diff);
+                REQUIRE(future.wait_for(diff)==std::future_status::timeout);
                 CHECK(future.valid());
             }
         }
