@@ -64,6 +64,9 @@ public:
 private:
     struct State
     {
+        State(bool copy_values)
+            : m_copy_values{copy_values} {}
+
         bool   m_copy_values             = true;
         size_t m_on_next_const_ref_count = 0;
         size_t m_on_next_move_count      = 0;
