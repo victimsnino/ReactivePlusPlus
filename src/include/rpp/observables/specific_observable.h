@@ -63,7 +63,7 @@ public:
      */
     template<constraint::subscriber_of_type<Type> TSub>
         requires (!constraint::decayed_same_as<TSub, dynamic_subscriber<Type>>)
-    composite_subscription subscribe(const TSub& subscriber) const noexcept
+    composite_subscription subscribe(TSub&& subscriber) const noexcept
     {
         return subscribe_impl(subscriber);
     }
