@@ -50,7 +50,7 @@ namespace rpp::observable
 template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate>
 auto just(auto&& item, const Scheduler& scheduler = Scheduler{})
 {
-    return create<std::decay_t<decltype(item)>>([item = std::forward<decltype(item)>(item), scheduler = scheduler](const constraint::subscriber auto& subscriber)
+    return create<std::decay_t<decltype(item)>>([=, item = std::forward<decltype(item)>(item)](const constraint::subscriber auto& subscriber)
     {
         if constexpr (std::is_same_v<Scheduler, rpp::schedulers::immediate>)
         {
