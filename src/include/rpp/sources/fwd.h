@@ -35,5 +35,5 @@ auto create(OnSubscribeFn&& on_subscribe);
 
 namespace rpp
 {
-	namespace source = observable;
+namespace source = observable;
 } // namespace rpp
