@@ -233,6 +233,8 @@ SCENARIO("New thread scheduler depends on subscription")
         auto                        scheduler = rpp::schedulers::new_thread{};
         rpp::composite_subscription sub{};
         auto                        worker = scheduler.create_worker(sub);
+        rpp::subscription_guard     guard{sub};
+
 
         size_t call_count{};
 
