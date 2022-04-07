@@ -282,5 +282,26 @@ SCENARIO("New thread scheduler depends on subscription")
                 CHECK(future.valid());
             }
         }
+        WHEN("unsubscribe before time multiple")
+        {
+            THEN("no any calls/schedules after unsubscribe")
+            {
+                std::promise<bool> called{};
+                auto               future = called.get_future();
+                auto               diff = std::chrono::seconds{ 5 };
+                for (size_t i = 0; i < 5; ++i)
+                {
+                    worker->schedule(rpp::schedulers::clock_type::now() + diff,
+                        [&called]() -> rpp::schedulers::optional_duration
+                        {
+                            called.set_value(true);
+                            return rpp::schedulers::duration{};
+                        });
+                }
+                sub.unsubscribe();
+                future.wait_for(diff);
+                CHECK(future.valid());
+            }
+        }
     }
 }

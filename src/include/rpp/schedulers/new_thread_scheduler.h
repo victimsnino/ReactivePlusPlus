@@ -140,7 +140,9 @@ public:
 
     static auto create_worker(const rpp::composite_subscription& sub = composite_subscription{})
     {
-        return std::make_shared<worker>(sub);
+        auto w = std::make_shared<worker>(sub);
+        sub.add([keep_alive = w] {});
+        return w;
     }
 };
 } // namespace rpp::schedulers

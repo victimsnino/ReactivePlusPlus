@@ -51,6 +51,9 @@ public:
     }
 
 protected:
+    /**
+     * \brief Derrived action on unsubscribe. Will be called only ONCE!
+     */
     virtual void on_unsubscribe() {}
 
 private:
