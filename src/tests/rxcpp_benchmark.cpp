@@ -216,7 +216,7 @@ TEST_CASE("Subscription", "[benchmark]")
     rxcpp::composite_subscription sub_1{};
     rxcpp::composite_subscription sub_2{};
 
-    BENCHMARK("composite_subscription creaddate")
+    BENCHMARK("composite_subscription add")
     {
         return sub_1.add(sub_2);
     };
