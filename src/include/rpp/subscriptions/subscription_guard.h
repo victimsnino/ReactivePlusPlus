@@ -42,13 +42,13 @@ public:
         m_sub.unsubscribe();
         m_sub = other.m_sub;
         return *this;
-    };
+    }
 
-    void reset(subscription_base other)
+    void reset(const subscription_base& other)
     {
         m_sub.unsubscribe();
         m_sub = other;
-    };
+    }
 
     ~subscription_guard()
     {

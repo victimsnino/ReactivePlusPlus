@@ -292,8 +292,8 @@ SCENARIO("New thread scheduler depends on subscription")
             {
                 std::promise<bool> called{};
                 auto               future = called.get_future();
-                auto               diff = std::chrono::seconds{ 5 };
-                for (size_t i = 0; i < 5; ++i)
+                auto               diff = std::chrono::seconds{ 10 };
+                for (size_t i = 0; i < 3; ++i)
                 {
                     worker.schedule(rpp::schedulers::clock_type::now() + diff,
                         [&called]() -> rpp::schedulers::optional_duration
@@ -301,6 +301,7 @@ SCENARIO("New thread scheduler depends on subscription")
                             called.set_value(true);
                             return rpp::schedulers::duration{};
                         });
+                    std::this_thread::sleep_for(std::chrono::milliseconds(1));
                 }
                 sub.unsubscribe();
                 REQUIRE(future.wait_for(diff)==std::future_status::timeout);
