@@ -22,47 +22,34 @@
 
 #pragma once
 
-#include <rpp/schedulers/constraints.h>
 #include <rpp/schedulers/fwd.h>
-#include <rpp/schedulers/worker.h>
-#include <rpp/subscriptions/subscription_base.h>
-
-#include <chrono>
-#include <thread>
+#include <rpp/schedulers/constraints.h>
 
 namespace rpp::schedulers
 {
-/**
- * \brief immediately calls provided schedulable or waits for time_point (in the caller-thread)
- */
-class immediate final : public details::scheduler_tag
+template<typename T>
+concept worker_strategy = requires(const T t)
+{
+    t.schedule(time_point{}, []() ->optional_duration {return {}; });
+};
+
+template<worker_strategy Strategy>
+class worker
 {
 public:
-    class worker_strategy
+    template<typename ...Args>
+    worker(Args&& ...args) : m_strategy{std::forward<Args>(args)...} {}
+
+    void schedule(constraint::schedulable_fn auto&& fn) const
     {
-    public:
-        worker_strategy(const rpp::subscription_base& sub)
-            : m_sub{sub} {}
-
-        void schedule(time_point time_point, const constraint::schedulable_fn auto& fn) const
-        {
-            while (m_sub.is_subscribed())
-            {
-                std::this_thread::sleep_until(time_point);
-                if (auto duration = fn())
-                    time_point += duration.value();
-                else
-                    return;
-            }
-        }
-
-    private:
-        rpp::subscription_base m_sub;
-    };
-
-    static worker<worker_strategy> create_worker(const rpp::subscription_base& sub = {})
-    {
-        return worker<worker_strategy>{sub};
+        schedule(std::chrono::high_resolution_clock::now(), std::forward<decltype(fn)>(fn));
     }
+
+    void schedule(time_point time_point, constraint::schedulable_fn auto&& fn) const
+    {
+        m_strategy.schedule(time_point, std::forward<decltype(fn)>(fn));
+    }
+private:
+    Strategy m_strategy;
 };
 } // namespace rpp::schedulers

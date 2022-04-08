@@ -22,11 +22,11 @@
 
 #pragma once
 
-#include "rpp/subscriptions/subscription_guard.h"
-
-#include <rpp/subscriptions/composite_subscription.h>
 #include <rpp/schedulers/constraints.h>
 #include <rpp/schedulers/fwd.h>
+#include <rpp/schedulers/worker.h>
+#include <rpp/subscriptions/composite_subscription.h>
+#include <rpp/subscriptions/subscription_guard.h>
 
 #include <chrono>
 #include <condition_variable>
@@ -71,10 +71,10 @@ private:
 class new_thread final : public details::scheduler_tag
 {
 public:
-    class worker
+    class worker_strategy
     {
     public:
-        worker(const rpp::composite_subscription& sub)
+        worker_strategy(const rpp::composite_subscription& sub)
             : m_state{std::make_shared<state>()}
         {
             m_state->thread = std::jthread{[state = m_state](const std::stop_token& token)
@@ -92,12 +92,7 @@ public:
             }));
         }
 
-        void schedule(constraint::schedulable_fn auto&& fn)
-        {
-            schedule(std::chrono::high_resolution_clock::now(), std::forward<decltype(fn)>(fn));
-        }
-
-        void schedule(time_point time_point, constraint::schedulable_fn auto&& fn)
+        void schedule(time_point time_point, constraint::schedulable_fn auto&& fn) const
         {
             m_state->schedule(time_point, std::forward<decltype(fn)>(fn));
         }
@@ -159,7 +154,7 @@ public:
 
     static auto create_worker(const rpp::composite_subscription& sub = composite_subscription{})
     {
-        return worker{sub};
+        return worker<worker_strategy>{sub};
     }
 };
 } // namespace rpp::schedulers
