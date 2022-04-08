@@ -47,7 +47,7 @@ public:
 
     void schedule(time_point time_point, constraint::schedulable_fn auto&& fn) const
     {
-        m_strategy.defer_at(time_point, scheduler_wrapper{m_strategy, time_point, std::forward<decltype(fn)>(fn)});
+        m_strategy.defer_at(time_point, scheduler_wrapper<std::decay_t<decltype(fn)>>{m_strategy, time_point, std::forward<decltype(fn)>(fn)});
     }
 
 private:
