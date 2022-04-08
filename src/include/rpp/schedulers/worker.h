@@ -22,15 +22,15 @@
 
 #pragma once
 
-#include <rpp/schedulers/fwd.h>
 #include <rpp/schedulers/constraints.h>
+#include <rpp/schedulers/fwd.h>
 
 namespace rpp::schedulers
 {
 template<typename T>
 concept worker_strategy = std::copyable<T> && requires(const T t)
 {
-    t.defer_at(time_point{}, []() {});
+    t.defer_at(time_point{}, std::declval<void(*)()>());
 };
 
 template<worker_strategy Strategy>
