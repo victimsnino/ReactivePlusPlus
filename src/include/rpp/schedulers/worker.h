@@ -64,6 +64,7 @@ private:
             , m_time_point{time_point}
             , m_fn{std::move(fn)} {}
 
+        scheduler_wrapper(const scheduler_wrapper&)                                               = default; // LCOV_EXCL_LINE
         scheduler_wrapper(scheduler_wrapper&&) noexcept(std::is_nothrow_move_constructible_v<Fn>) = default;
 
         void operator()()
