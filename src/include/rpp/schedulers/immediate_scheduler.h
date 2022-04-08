@@ -22,11 +22,12 @@
 
 #pragma once
 
-#include <rpp/schedulers/constraints.h>
 #include <rpp/schedulers/fwd.h>
+#include <rpp/schedulers/worker.h>
 #include <rpp/subscriptions/subscription_base.h>
 
 #include <chrono>
+#include <concepts>
 #include <thread>
 
 namespace rpp::schedulers
@@ -37,36 +38,30 @@ namespace rpp::schedulers
 class immediate final : public details::scheduler_tag
 {
 public:
-    class worker
+    class worker_strategy
     {
     public:
-        worker(const rpp::subscription_base& sub)
+        worker_strategy(const rpp::subscription_base& sub)
             : m_sub{sub} {}
 
-        void schedule(const constraint::schedulable_fn auto& fn) const
+        void defer_at(time_point time_point, std::invocable auto&& fn) const
         {
-            schedule(std::chrono::high_resolution_clock::now(), fn);
-        }
+            if (!m_sub.is_subscribed())
+                return;
 
-        void schedule(time_point time_point, const constraint::schedulable_fn auto& fn) const
-        {
-            while (m_sub.is_subscribed())
-            {
-                std::this_thread::sleep_until(time_point);
-                if (auto duration = fn())
-                    time_point += duration.value();
-                else
-                    return;
-            }
+            std::this_thread::sleep_until(time_point);
+
+            if (m_sub.is_subscribed())
+                fn();
         }
 
     private:
         rpp::subscription_base m_sub;
     };
 
-    static worker create_worker(const rpp::subscription_base& sub = {})
+    static worker<worker_strategy> create_worker(const rpp::subscription_base& sub = {})
     {
-        return worker{sub};
+        return worker<worker_strategy>{sub};
     }
 };
 } // namespace rpp::schedulers

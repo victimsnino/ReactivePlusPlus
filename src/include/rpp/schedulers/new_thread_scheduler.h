@@ -22,12 +22,12 @@
 
 #pragma once
 
-#include "rpp/subscriptions/subscription_guard.h"
-
-#include <rpp/subscriptions/composite_subscription.h>
-#include <rpp/schedulers/constraints.h>
 #include <rpp/schedulers/fwd.h>
+#include <rpp/schedulers/worker.h>
+#include <rpp/subscriptions/composite_subscription.h>
+#include <rpp/subscriptions/subscription_guard.h>
 
+#include <concepts>
 #include <chrono>
 #include <condition_variable>
 #include <functional>
@@ -40,7 +40,7 @@ namespace rpp::schedulers
 class schedulable
 {
 public:
-    schedulable(time_point time_point, size_t id, constraint::schedulable_fn auto&& fn)
+    schedulable(time_point time_point, size_t id, std::invocable auto&& fn)
         : m_time_point{time_point}
         , m_id{id}
         , m_function{std::forward<decltype(fn)>(fn)} {}
@@ -55,13 +55,13 @@ public:
         return std::tie(m_time_point, m_id) > std::tie(other.m_time_point, other.m_id);
     }
 
-    time_point                           GetTimePoint() const { return m_time_point; }
-    std::function<optional_duration()>&& ExtractFunction() const { return std::move(m_function); }
+    time_point              GetTimePoint() const { return m_time_point; }
+    std::function<void()>&& ExtractFunction() const { return std::move(m_function); }
 
 private:
-    time_point                                 m_time_point;
-    size_t                                     m_id;
-    mutable std::function<optional_duration()> m_function;
+    time_point                    m_time_point;
+    size_t                        m_id;
+    mutable std::function<void()> m_function;
 };
 
 /**
@@ -71,10 +71,10 @@ private:
 class new_thread final : public details::scheduler_tag
 {
 public:
-    class worker
+    class worker_strategy
     {
     public:
-        worker(const rpp::composite_subscription& sub)
+        worker_strategy(const rpp::composite_subscription& sub)
             : m_state{std::make_shared<state>()}
         {
             m_state->thread = std::jthread{[state = m_state](const std::stop_token& token)
@@ -92,20 +92,15 @@ public:
             }));
         }
 
-        void schedule(constraint::schedulable_fn auto&& fn)
+        void defer_at(time_point time_point, std::invocable auto&& fn) const
         {
-            schedule(std::chrono::high_resolution_clock::now(), std::forward<decltype(fn)>(fn));
-        }
-
-        void schedule(time_point time_point, constraint::schedulable_fn auto&& fn)
-        {
-            m_state->schedule(time_point, std::forward<decltype(fn)>(fn));
+            m_state->defer_at(time_point, std::forward<decltype(fn)>(fn));
         }
 
     private:
         struct state
         {
-            void schedule(time_point time_point, constraint::schedulable_fn auto&& fn)
+            void defer_at(time_point time_point, std::invocable auto&& fn)
             {
                 if (!sub->is_subscribed())
                     return;
@@ -119,29 +114,23 @@ public:
 
             void data_thread(const std::stop_token& token)
             {
-                std::function<optional_duration()> fn{};
-                time_point                         time_point{};
+                std::function<void()> fn{};
                 while (!token.stop_requested())
                 {
-                    {
-                        std::unique_lock lock{mutex};
+                    std::unique_lock lock{ mutex };
 
-                        if (!cv.wait(lock, token, [&] { return !queue.empty(); }))
-                            continue;
+                    if (!cv.wait(lock, token, [&] { return !queue.empty(); }))
+                        continue;
 
-                        if (!cv.wait_until(lock, token, queue.top().GetTimePoint(), [&] { return !queue.empty() && queue.top().GetTimePoint() <= clock_type::now(); }))
-                            continue;
+                    if (!cv.wait_until(lock, token, queue.top().GetTimePoint(), [&] { return !queue.empty() && queue.top().GetTimePoint() <= clock_type::now(); }))
+                        continue;
 
-                        fn         = std::move(queue.top().ExtractFunction());
-                        time_point = queue.top().GetTimePoint();
-                        queue.pop();
-                    }
+                    fn = std::move(queue.top().ExtractFunction());
+                    queue.pop();
 
-                    if (auto duration = fn())
-                    {
-                        time_point += duration.value();
-                        schedule(time_point, std::move(fn));
-                    }
+                    lock.unlock();
+
+                    fn();
                     fn = {};
                 }
             }
@@ -159,7 +148,7 @@ public:
 
     static auto create_worker(const rpp::composite_subscription& sub = composite_subscription{})
     {
-        return worker{sub};
+        return worker<worker_strategy>{sub};
     }
 };
 } // namespace rpp::schedulers
