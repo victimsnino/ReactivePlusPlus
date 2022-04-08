@@ -28,9 +28,9 @@
 namespace rpp::schedulers
 {
 template<typename T>
-concept worker_strategy = requires(const T t)
+concept worker_strategy = std::copyable<T> && requires(const T t)
 {
-    t.schedule(time_point{}, []() ->optional_duration {return {}; });
+    t.defer_at(time_point{}, []() {});
 };
 
 template<worker_strategy Strategy>
@@ -47,8 +47,40 @@ public:
 
     void schedule(time_point time_point, constraint::schedulable_fn auto&& fn) const
     {
-        m_strategy.schedule(time_point, std::forward<decltype(fn)>(fn));
+        m_strategy.defer_at(time_point, scheduler_wrapper{m_strategy, time_point, std::forward<decltype(fn)>(fn)});
     }
+
+private:
+    template<constraint::schedulable_fn Fn>
+    struct scheduler_wrapper
+    {
+        scheduler_wrapper(const Strategy& strategy, time_point time_point, const Fn& fn)
+            : m_strategy{strategy}
+            , m_time_point{time_point}
+            , m_fn{fn} {}
+
+        scheduler_wrapper(const Strategy& strategy, time_point time_point, Fn&& fn)
+            : m_strategy{strategy}
+            , m_time_point{time_point}
+            , m_fn{std::move(fn)} {}
+
+        scheduler_wrapper(const scheduler_wrapper&) = default;
+        scheduler_wrapper(scheduler_wrapper&&)      = default;
+
+        void operator()()
+        {
+            if (auto duration = m_fn())
+            {
+                m_time_point += duration.value();
+                auto time_to_schedule = m_time_point;
+                m_strategy.defer_at(time_to_schedule, std::move(*this));
+            }
+        }
+
+        Strategy   m_strategy;
+        time_point m_time_point;
+        Fn         m_fn{};
+    };
 private:
     Strategy m_strategy;
 };

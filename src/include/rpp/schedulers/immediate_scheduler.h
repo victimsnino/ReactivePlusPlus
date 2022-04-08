@@ -22,12 +22,12 @@
 
 #pragma once
 
-#include <rpp/schedulers/constraints.h>
 #include <rpp/schedulers/fwd.h>
 #include <rpp/schedulers/worker.h>
 #include <rpp/subscriptions/subscription_base.h>
 
 #include <chrono>
+#include <concepts>
 #include <thread>
 
 namespace rpp::schedulers
@@ -44,16 +44,15 @@ public:
         worker_strategy(const rpp::subscription_base& sub)
             : m_sub{sub} {}
 
-        void schedule(time_point time_point, const constraint::schedulable_fn auto& fn) const
+        void defer_at(time_point time_point, std::invocable auto&& fn) const
         {
-            while (m_sub.is_subscribed())
-            {
-                std::this_thread::sleep_until(time_point);
-                if (auto duration = fn())
-                    time_point += duration.value();
-                else
-                    return;
-            }
+            if (!m_sub.is_subscribed())
+                return;
+
+            std::this_thread::sleep_until(time_point);
+
+            if (m_sub.is_subscribed())
+                fn();
         }
 
     private:
