@@ -83,7 +83,7 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gaa70991953a96a64c95d7566ff7069f6b"><td class="memTemplParams" colspan="2">template&lt;typename Type , constraint::on_subscribe_fn&lt; Type &gt; OnSubscribeFn&gt; </td></tr>
+<tr class="memitem:gaa70991953a96a64c95d7566ff7069f6b"><td class="memTemplParams" colspan="2">template&lt;constraint::decayed_type Type, constraint::on_subscribe_fn&lt; Type &gt; OnSubscribeFn&gt; </td></tr>
 <tr class="memitem:gaa70991953a96a64c95d7566ff7069f6b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observables.html#gaa70991953a96a64c95d7566ff7069f6b">rpp::observable::create</a> (OnSubscribeFn &amp;&amp;on_subscribe)</td></tr>
 <tr class="memdesc:gaa70991953a96a64c95d7566ff7069f6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> with passed action as OnSubscribe.  <a href="group__observables.html#gaa70991953a96a64c95d7566ff7069f6b">More...</a><br /></td></tr>
 <tr class="separator:gaa70991953a96a64c95d7566ff7069f6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -91,6 +91,10 @@ Functions</h2></td></tr>
 <tr class="memitem:ga7c355ad67fb60d523e6d05604638bae2"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observables.html#ga7c355ad67fb60d523e6d05604638bae2">rpp::observable::create</a> (OnSubscribeFn &amp;&amp;on_subscribe)</td></tr>
 <tr class="memdesc:ga7c355ad67fb60d523e6d05604638bae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with passed action as OnSubscribe and deduce type of observable by this function.  <a href="group__observables.html#ga7c355ad67fb60d523e6d05604638bae2">More...</a><br /></td></tr>
 <tr class="separator:ga7c355ad67fb60d523e6d05604638bae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae236b520ed9da3383b3b54be4dd5dea2"><td class="memTemplParams" colspan="2">template&lt;rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate&gt; </td></tr>
+<tr class="memitem:gae236b520ed9da3383b3b54be4dd5dea2"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observables.html#gae236b520ed9da3383b3b54be4dd5dea2">rpp::observable::just</a> (auto &amp;&amp;item, const Scheduler &amp;scheduler=Scheduler{})</td></tr>
+<tr class="memdesc:gae236b520ed9da3383b3b54be4dd5dea2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular item and completes.  <a href="group__observables.html#gae236b520ed9da3383b3b54be4dd5dea2">More...</a><br /></td></tr>
+<tr class="separator:gae236b520ed9da3383b3b54be4dd5dea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p >Observable is the source of any Reactive Stream. Observable provides ability to subscribe observer on some events. </p>
@@ -102,7 +106,7 @@ Functions</h2></td></tr>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Type , constraint::on_subscribe_fn&lt; Type &gt; OnSubscribeFn&gt; </div>
+template&lt;constraint::decayed_type Type, constraint::on_subscribe_fn&lt; Type &gt; OnSubscribeFn&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">auto rpp::observable::create </td>
@@ -154,6 +158,52 @@ template&lt;typename OnSubscribeFn &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with passed action</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/create.html">https://reactivex.io/documentation/operators/create.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="gae236b520ed9da3383b3b54be4dd5dea2" name="gae236b520ed9da3383b3b54be4dd5dea2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae236b520ed9da3383b3b54be4dd5dea2">&#9670;&nbsp;</a></span>just()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::observable::just </td>
+          <td>(</td>
+          <td class="paramtype">auto &amp;&amp;&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Scheduler &amp;&#160;</td>
+          <td class="paramname"><em>scheduler</em> = <code>Scheduler{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular item and completes. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Scheduler</td><td>type of scheduler used for scheduling of submissions </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">item</td><td>value to be sent </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> with provided item</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/just.html">https://reactivex.io/documentation/operators/just.html</a> </dd></dl>
 
 </div>
 </div>

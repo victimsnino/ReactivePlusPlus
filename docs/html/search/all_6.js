@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['map_0',['map',['../group__operators.html#ga79ef0bff4448df7b7c07b3d5f1191806',1,'rpp::operators']]],
-  ['map_2eh_1',['map.h',['../map_8h.html',1,'']]]
+  ['lift_0',['lift',['../structrpp_1_1interface__observable.html#ac6c66ddf2ceb4d398044a17e53db13eb',1,'rpp::interface_observable::lift(details::lift_fn&lt; NewType &gt; auto &amp;&amp;op) const &amp;'],['../structrpp_1_1interface__observable.html#a89b275a1f555886633d2389c61b97103',1,'rpp::interface_observable::lift(OperatorFn &amp;&amp;op) const &amp;'],['../structrpp_1_1interface__observable.html#a250a7502f252453f3144b72ffedbb8fa',1,'rpp::interface_observable::lift(OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const &amp;'],['../structrpp_1_1interface__observable.html#abc2606b6028290f9891984be692b2080',1,'rpp::interface_observable::lift(OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const &amp;']]]
 ];

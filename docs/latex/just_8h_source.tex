@@ -1,0 +1,62 @@
+\hypertarget{just_8h_source}{}\doxysection{just.\+h}
+\label{just_8h_source}\index{src/include/rpp/sources/just.h@{src/include/rpp/sources/just.h}}
+\mbox{\hyperlink{just_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// MIT License}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (c) 2022 Aleksey Loginov}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// Permission is hereby granted, free of charge, to any person obtaining a copy}}
+\DoxyCodeLine{6 \textcolor{comment}{// of this software and associated documentation files (the "{}Software"{}), to deal}}
+\DoxyCodeLine{7 \textcolor{comment}{// in the Software without restriction, including without limitation the rights}}
+\DoxyCodeLine{8 \textcolor{comment}{// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}}
+\DoxyCodeLine{9 \textcolor{comment}{// copies of the Software, and to permit persons to whom the Software is}}
+\DoxyCodeLine{10 \textcolor{comment}{// furnished to do so, subject to the following conditions:}}
+\DoxyCodeLine{11 \textcolor{comment}{// }}
+\DoxyCodeLine{12 \textcolor{comment}{// The above copyright notice and this permission notice shall be included in all}}
+\DoxyCodeLine{13 \textcolor{comment}{// copies or substantial portions of the Software.}}
+\DoxyCodeLine{14 \textcolor{comment}{// }}
+\DoxyCodeLine{15 \textcolor{comment}{// THE SOFTWARE IS PROVIDED "{}AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}}
+\DoxyCodeLine{16 \textcolor{comment}{// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}}
+\DoxyCodeLine{17 \textcolor{comment}{// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}}
+\DoxyCodeLine{18 \textcolor{comment}{// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}}
+\DoxyCodeLine{19 \textcolor{comment}{// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}}
+\DoxyCodeLine{20 \textcolor{comment}{// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}}
+\DoxyCodeLine{21 \textcolor{comment}{// SOFTWARE.}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <rpp/sources/fwd.h>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{create_8h}{rpp/sources/create.h}}>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <rpp/schedulers/constraints.h>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <rpp/schedulers/immediate\_scheduler.h>}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{namespace }rpp::observable}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{50 \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler Scheduler = rpp::schedulers::immediate>}
+\DoxyCodeLine{51 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gae236b520ed9da3383b3b54be4dd5dea2}{just}}(\textcolor{keyword}{auto}\&\& item, \textcolor{keyword}{const} Scheduler\& scheduler = Scheduler\{\})}
+\DoxyCodeLine{52 \{}
+\DoxyCodeLine{53     \textcolor{keywordflow}{return} \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{create}}<std::decay\_t<\textcolor{keyword}{decltype}(item)>>([=, item = std::forward<\textcolor{keyword}{decltype}(item)>(item)](\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{54     \{}
+\DoxyCodeLine{55         \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::is\_same\_v<Scheduler, rpp::schedulers::immediate>)}
+\DoxyCodeLine{56         \{}
+\DoxyCodeLine{57             subscriber.on\_next(item);}
+\DoxyCodeLine{58             subscriber.on\_completed();}
+\DoxyCodeLine{59         \}}
+\DoxyCodeLine{60         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{61         \{}
+\DoxyCodeLine{62             \textcolor{keyword}{auto} worker = scheduler.create\_worker(subscriber.get\_subscription());}
+\DoxyCodeLine{63             worker.schedule([subscriber, item]() \textcolor{keyword}{mutable} -\/> rpp::schedulers::optional\_duration}
+\DoxyCodeLine{64             \{}
+\DoxyCodeLine{65                 subscriber.on\_next(std::move(item));}
+\DoxyCodeLine{66                 subscriber.on\_completed();}
+\DoxyCodeLine{67                 \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{68             \});}
+\DoxyCodeLine{69         \}}
+\DoxyCodeLine{70     \});}
+\DoxyCodeLine{71 \}}
+\DoxyCodeLine{72 \} \textcolor{comment}{// namespace rpp::observable}}
+
+\end{DoxyCode}

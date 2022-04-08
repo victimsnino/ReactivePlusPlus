@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: src/include/rpp/sources/create.h File Reference</title>
+<title>ReactivePlusPlus: src/include/rpp/sources/just.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,32 +68,30 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">create.h File Reference</div></div>
+  <div class="headertitle"><div class="title">just.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This file contains implementation of <code>create</code> function to create <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> with OnSubscribe callback.  
+<p>This file contains implementation of <code>just</code> function to create <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular item.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;rpp/sources/fwd.h&gt;</code><br />
-<code>#include &lt;rpp/observables/specific_observable.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="create_8h_source.html">rpp/sources/create.h</a>&gt;</code><br />
+<code>#include &lt;rpp/schedulers/constraints.h&gt;</code><br />
+<code>#include &lt;rpp/schedulers/immediate_scheduler.h&gt;</code><br />
 <code>#include &lt;type_traits&gt;</code><br />
 </div>
-<p><a href="create_8h_source.html">Go to the source code of this file.</a></p>
+<p><a href="just_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gaa70991953a96a64c95d7566ff7069f6b"><td class="memTemplParams" colspan="2">template&lt;constraint::decayed_type Type, constraint::on_subscribe_fn&lt; Type &gt; OnSubscribeFn&gt; </td></tr>
-<tr class="memitem:gaa70991953a96a64c95d7566ff7069f6b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observables.html#gaa70991953a96a64c95d7566ff7069f6b">rpp::observable::create</a> (OnSubscribeFn &amp;&amp;on_subscribe)</td></tr>
-<tr class="memdesc:gaa70991953a96a64c95d7566ff7069f6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> with passed action as OnSubscribe.  <a href="group__observables.html#gaa70991953a96a64c95d7566ff7069f6b">More...</a><br /></td></tr>
-<tr class="separator:gaa70991953a96a64c95d7566ff7069f6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7c355ad67fb60d523e6d05604638bae2"><td class="memTemplParams" colspan="2">template&lt;typename OnSubscribeFn &gt; </td></tr>
-<tr class="memitem:ga7c355ad67fb60d523e6d05604638bae2"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observables.html#ga7c355ad67fb60d523e6d05604638bae2">rpp::observable::create</a> (OnSubscribeFn &amp;&amp;on_subscribe)</td></tr>
-<tr class="memdesc:ga7c355ad67fb60d523e6d05604638bae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with passed action as OnSubscribe and deduce type of observable by this function.  <a href="group__observables.html#ga7c355ad67fb60d523e6d05604638bae2">More...</a><br /></td></tr>
-<tr class="separator:ga7c355ad67fb60d523e6d05604638bae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae236b520ed9da3383b3b54be4dd5dea2"><td class="memTemplParams" colspan="2">template&lt;rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate&gt; </td></tr>
+<tr class="memitem:gae236b520ed9da3383b3b54be4dd5dea2"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observables.html#gae236b520ed9da3383b3b54be4dd5dea2">rpp::observable::just</a> (auto &amp;&amp;item, const Scheduler &amp;scheduler=Scheduler{})</td></tr>
+<tr class="memdesc:gae236b520ed9da3383b3b54be4dd5dea2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular item and completes.  <a href="group__observables.html#gae236b520ed9da3383b3b54be4dd5dea2">More...</a><br /></td></tr>
+<tr class="separator:gae236b520ed9da3383b3b54be4dd5dea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >This file contains implementation of <code>create</code> function to create <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> with OnSubscribe callback. </p>
-<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/create.html">https://reactivex.io/documentation/operators/create.html</a> </dd></dl>
+<div class="textblock"><p >This file contains implementation of <code>just</code> function to create <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular item. </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/just.html">https://reactivex.io/documentation/operators/just.html</a> </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

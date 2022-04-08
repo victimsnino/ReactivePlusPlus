@@ -93,13 +93,13 @@ $(function() {
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &lt;rpp/sources/fwd.h&gt;</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#include &lt;rpp/observables/specific_observable.h&gt;</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &lt;rpp/utils/type_traits.h&gt;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">namespace </span>rpp::observable</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>{</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type, constra<span class="keywordtype">int</span>::on_subscribe_fn&lt;Type&gt; OnSubscribeFn&gt;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::on_subscribe_fn&lt;Type&gt; OnSubscribeFn&gt;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="group__observables.html#gaa70991953a96a64c95d7566ff7069f6b">   48</a></span><span class="keyword">auto</span> <a class="code hl_function" href="group__observables.html#ga7c355ad67fb60d523e6d05604638bae2">create</a>(OnSubscribeFn&amp;&amp; on_subscribe)</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>{</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1specific__observable.html">specific_observable&lt;Type, std::decay_t&lt;OnSubscribeFn&gt;</a>&gt;{std::forward&lt;OnSubscribeFn&gt;(on_subscribe)};</div>

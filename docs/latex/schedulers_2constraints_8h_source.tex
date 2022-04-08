@@ -35,6 +35,9 @@
 \DoxyCodeLine{31 \textcolor{comment}{// returns nullopt in case of don't need to reshedule scheulable or some duration which will be added to "{}now"{} and resheduled}}
 \DoxyCodeLine{32 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
 \DoxyCodeLine{33 \textcolor{keyword}{concept }schedulable\_fn = std::is\_invocable\_r\_v<optional\_duration, T>;}
-\DoxyCodeLine{34 \} \textcolor{comment}{// namespace rpp::schedulers::constraint}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{36 \textcolor{keyword}{concept }scheduler = std::is\_base\_of\_v<details::scheduler\_tag, std::decay\_t<T>>;}
+\DoxyCodeLine{37 \} \textcolor{comment}{// namespace rpp::schedulers::constraint}}
 
 \end{DoxyCode}

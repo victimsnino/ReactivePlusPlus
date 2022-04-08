@@ -36,18 +36,30 @@
 \DoxyCodeLine{35     \mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}\& sub)}
 \DoxyCodeLine{36         : m\_sub\{sub\} \{\}}
 \DoxyCodeLine{37 }
-\DoxyCodeLine{38     \mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}}\&)     = \textcolor{keyword}{delete};}
-\DoxyCodeLine{39     \mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}}(\mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}}\&\&) \textcolor{keyword}{noexcept} = \textcolor{keyword}{delete};}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{41     \mbox{\hyperlink{classrpp_1_1subscription__guard}{\string~subscription\_guard}}()}
-\DoxyCodeLine{42     \{}
-\DoxyCodeLine{43         m\_sub.\mbox{\hyperlink{classrpp_1_1subscription__base_af07ca7cdfb9758441c0729cbe3e6d19d}{unsubscribe}}();}
-\DoxyCodeLine{44     \}}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{46     \textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}* operator-\/>()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \&m\_sub; \}}
-\DoxyCodeLine{47 \textcolor{keyword}{private}:}
-\DoxyCodeLine{48     \textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}} m\_sub;}
-\DoxyCodeLine{49 \};}
-\DoxyCodeLine{50 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{38     \mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40     \mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}}\& operator=(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}}\& other)}
+\DoxyCodeLine{41     \{}
+\DoxyCodeLine{42         m\_sub.\mbox{\hyperlink{classrpp_1_1subscription__base_af07ca7cdfb9758441c0729cbe3e6d19d}{unsubscribe}}();}
+\DoxyCodeLine{43         m\_sub = other.m\_sub;}
+\DoxyCodeLine{44         \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{45     \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{keywordtype}{void} reset(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}\& other)}
+\DoxyCodeLine{48     \{}
+\DoxyCodeLine{49         m\_sub.\mbox{\hyperlink{classrpp_1_1subscription__base_af07ca7cdfb9758441c0729cbe3e6d19d}{unsubscribe}}();}
+\DoxyCodeLine{50         m\_sub = other;}
+\DoxyCodeLine{51     \}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53     \mbox{\hyperlink{classrpp_1_1subscription__guard}{\string~subscription\_guard}}()}
+\DoxyCodeLine{54     \{}
+\DoxyCodeLine{55         m\_sub.\mbox{\hyperlink{classrpp_1_1subscription__base_af07ca7cdfb9758441c0729cbe3e6d19d}{unsubscribe}}();}
+\DoxyCodeLine{56     \}}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58     \textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}* operator-\/>()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \&m\_sub; \}}
+\DoxyCodeLine{59 \textcolor{keyword}{private}:}
+\DoxyCodeLine{60     \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}} m\_sub;}
+\DoxyCodeLine{61 \};}
+\DoxyCodeLine{62 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

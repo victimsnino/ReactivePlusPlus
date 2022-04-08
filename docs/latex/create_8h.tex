@@ -5,13 +5,13 @@
 This file contains implementation of {\ttfamily create} function to create \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} with On\+Subscribe callback.  
 
 
-{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$rpp/sources/fwd.\+h$>$}\newline
 {\ttfamily \#include $<$rpp/observables/specific\+\_\+observable.\+h$>$}\newline
-{\ttfamily \#include $<$rpp/utils/type\+\_\+traits.\+h$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename Type , constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ }\\auto \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{rpp\+::observable\+::create}} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
+{\footnotesize template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ }\\auto \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{rpp\+::observable\+::create}} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} with passed action as On\+Subscribe. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename On\+Subscribe\+Fn $>$ }\\auto \mbox{\hyperlink{group__observables_ga7c355ad67fb60d523e6d05604638bae2}{rpp\+::observable\+::create}} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with passed action as On\+Subscribe and deduce type of observable by this function. \end{DoxyCompactList}\end{DoxyCompactItemize}

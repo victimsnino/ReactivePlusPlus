@@ -103,21 +103,33 @@ $(function() {
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_class" href="classrpp_1_1subscription__guard.html">subscription_guard</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp; sub)</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        : m_sub{sub} {}</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_class" href="classrpp_1_1subscription__guard.html">subscription_guard</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1subscription__guard.html">subscription_guard</a>&amp;)     = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_class" href="classrpp_1_1subscription__guard.html">subscription_guard</a>(<a class="code hl_class" href="classrpp_1_1subscription__guard.html">subscription_guard</a>&amp;&amp;) <span class="keyword">noexcept</span> = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_class" href="classrpp_1_1subscription__guard.html">~subscription_guard</a>()</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        m_sub.<a class="code hl_function" href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">unsubscribe</a>();</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1subscription__base.html">subscription_base</a>* operator-&gt;()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> &amp;m_sub; }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1subscription__base.html">subscription_base</a> m_sub;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>};</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>} <span class="comment">// namespace rpp</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_class" href="classrpp_1_1subscription__guard.html">subscription_guard</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1subscription__guard.html">subscription_guard</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_class" href="classrpp_1_1subscription__guard.html">subscription_guard</a>&amp; operator=(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1subscription__guard.html">subscription_guard</a>&amp; other)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        m_sub.<a class="code hl_function" href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">unsubscribe</a>();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        m_sub = other.m_sub;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">void</span> reset(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp; other)</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        m_sub.<a class="code hl_function" href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">unsubscribe</a>();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        m_sub = other;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_class" href="classrpp_1_1subscription__guard.html">~subscription_guard</a>()</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        m_sub.<a class="code hl_function" href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">unsubscribe</a>();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1subscription__base.html">subscription_base</a>* operator-&gt;()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> &amp;m_sub; }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_class" href="classrpp_1_1subscription__base.html">subscription_base</a> m_sub;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>};</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>} <span class="comment">// namespace rpp</span></div>
 <div class="ttc" id="aclassrpp_1_1subscription__base_html"><div class="ttname"><a href="classrpp_1_1subscription__base.html">rpp::subscription_base</a></div><div class="ttdoc">Base subscription implementation used as base class/interface and core implementation for derrived su...</div><div class="ttdef"><b>Definition:</b> subscription_base.h:36</div></div>
-<div class="ttc" id="aclassrpp_1_1subscription__base_html_af07ca7cdfb9758441c0729cbe3e6d19d"><div class="ttname"><a href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">rpp::subscription_base::unsubscribe</a></div><div class="ttdeci">void unsubscribe() const</div><div class="ttdoc">initiates unsubscription process (if subscribed)</div><div class="ttdef"><b>Definition:</b> subscription_base.h:59</div></div>
+<div class="ttc" id="aclassrpp_1_1subscription__base_html_af07ca7cdfb9758441c0729cbe3e6d19d"><div class="ttname"><a href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">rpp::subscription_base::unsubscribe</a></div><div class="ttdeci">void unsubscribe() const</div><div class="ttdoc">initiates unsubscription process (if subscribed)</div><div class="ttdef"><b>Definition:</b> subscription_base.h:61</div></div>
 <div class="ttc" id="aclassrpp_1_1subscription__guard_html"><div class="ttname"><a href="classrpp_1_1subscription__guard.html">rpp::subscription_guard</a></div><div class="ttdoc">guard over subscription to auto-unsubscribe during destructor</div><div class="ttdef"><b>Definition:</b> subscription_guard.h:33</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

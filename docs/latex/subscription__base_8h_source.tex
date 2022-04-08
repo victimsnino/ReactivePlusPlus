@@ -39,27 +39,30 @@
 \DoxyCodeLine{38     \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}(std::shared\_ptr<details::subscription\_state> state)}
 \DoxyCodeLine{39         : m\_state\{std::move(state)\} \{\}}
 \DoxyCodeLine{40 }
-\DoxyCodeLine{41     \mbox{\hyperlink{classrpp_1_1details_1_1subscription__state}{details::subscription\_state}}\& get\_state()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} *m\_state; \}}
+\DoxyCodeLine{41     \mbox{\hyperlink{classrpp_1_1details_1_1subscription__state}{details::subscription\_state}}* get\_state()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_state.get(); \}}
 \DoxyCodeLine{42 \textcolor{keyword}{public}:}
 \DoxyCodeLine{43     \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}()}
 \DoxyCodeLine{44         : m\_state\{std::make\_shared<details::subscription\_state>()\} \{\}}
 \DoxyCodeLine{45 }
 \DoxyCodeLine{46     \textcolor{keyword}{virtual} \mbox{\hyperlink{classrpp_1_1subscription__base}{\string~subscription\_base}}() = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{47 }
-\DoxyCodeLine{51     [[nodiscard]] \textcolor{keywordtype}{bool} \mbox{\hyperlink{classrpp_1_1subscription__base_ad9c07157024e7f68ce815d971c3faaf2}{is\_subscribed}}()\textcolor{keyword}{ const}}
-\DoxyCodeLine{52 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{53         \textcolor{keywordflow}{return} m\_state-\/>is\_subscribed();}
-\DoxyCodeLine{54     \}}
-\DoxyCodeLine{55 }
-\DoxyCodeLine{59     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1subscription__base_af07ca7cdfb9758441c0729cbe3e6d19d}{unsubscribe}}()\textcolor{keyword}{ const}}
-\DoxyCodeLine{60 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{61         m\_state-\/>unsubscribe();}
-\DoxyCodeLine{62     \}}
-\DoxyCodeLine{63 }
-\DoxyCodeLine{64 \textcolor{keyword}{private}:}
-\DoxyCodeLine{65     std::shared\_ptr<details::subscription\_state> m\_state\{\};}
-\DoxyCodeLine{66 \};}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{68 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{48     \textcolor{keyword}{static} \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}} empty() \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}\{ \textcolor{keyword}{nullptr} \}; \}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{53     [[nodiscard]] \textcolor{keywordtype}{bool} \mbox{\hyperlink{classrpp_1_1subscription__base_ad9c07157024e7f68ce815d971c3faaf2}{is\_subscribed}}()\textcolor{keyword}{ const}}
+\DoxyCodeLine{54 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{55         \textcolor{keywordflow}{return} m\_state \&\& m\_state-\/>is\_subscribed();}
+\DoxyCodeLine{56     \}}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{61     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1subscription__base_af07ca7cdfb9758441c0729cbe3e6d19d}{unsubscribe}}()\textcolor{keyword}{ const}}
+\DoxyCodeLine{62 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{63         \textcolor{keywordflow}{if} (m\_state)}
+\DoxyCodeLine{64             m\_state-\/>unsubscribe();}
+\DoxyCodeLine{65     \}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{keyword}{private}:}
+\DoxyCodeLine{68     std::shared\_ptr<details::subscription\_state> m\_state\{\};}
+\DoxyCodeLine{69 \};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['new_5fthread_0',['new_thread',['../classrpp_1_1schedulers_1_1new__thread.html',1,'rpp::schedulers']]]
+  ['map_0',['map',['../group__operators.html#ga79ef0bff4448df7b7c07b3d5f1191806',1,'rpp::operators']]],
+  ['map_2eh_1',['map.h',['../map_8h.html',1,'']]]
 ];
