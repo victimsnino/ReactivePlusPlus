@@ -194,8 +194,8 @@ SCENARIO("New thread scheduler schedules tasks into separate thread")
                 worker.schedule(now + std::chrono::seconds{2}, set_promise(promise_2));
                 worker.schedule(now + std::chrono::seconds{1}, set_promise(promise_1));
 
-                REQUIRE(future_1.wait_for(std::chrono::seconds{2})==std::future_status::ready);
-                REQUIRE(future_2.wait_for(std::chrono::seconds{2})==std::future_status::ready);
+                REQUIRE(future_1.wait_for(std::chrono::seconds{10})==std::future_status::ready);
+                REQUIRE(future_2.wait_for(std::chrono::seconds{10})==std::future_status::ready);
 
                 REQUIRE(future_1.valid());
                 REQUIRE(future_2.valid());
