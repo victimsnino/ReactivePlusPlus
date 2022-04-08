@@ -38,19 +38,21 @@ protected:
     subscription_base(std::shared_ptr<details::subscription_state> state)
         : m_state{std::move(state)} {}
 
-    details::subscription_state& get_state() const { return *m_state; }
+    details::subscription_state* get_state() const { return m_state.get(); }
 public:
     subscription_base()
         : m_state{std::make_shared<details::subscription_state>()} {}
 
     virtual ~subscription_base() = default;
 
+    static subscription_base empty() { return subscription_base{ nullptr }; }
+
     /**
      * \brief indicates current status of subscription
      */
     [[nodiscard]] bool is_subscribed() const
     {
-        return m_state->is_subscribed();
+        return m_state && m_state->is_subscribed();
     }
 
     /**
@@ -58,7 +60,8 @@ public:
      */
     void unsubscribe() const
     {
-        m_state->unsubscribe();
+        if (m_state)
+            m_state->unsubscribe();
     }
 
 private:

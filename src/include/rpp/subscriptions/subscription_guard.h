@@ -35,8 +35,20 @@ public:
     subscription_guard(const subscription_base& sub)
         : m_sub{sub} {}
 
-    subscription_guard(const subscription_guard&)     = delete;
-    subscription_guard(subscription_guard&&) noexcept = delete;
+    subscription_guard(const subscription_guard&) = delete;
+
+    subscription_guard& operator=(const subscription_guard& other)
+    {
+        m_sub.unsubscribe();
+        m_sub = other.m_sub;
+        return *this;
+    }
+
+    void reset(const subscription_base& other)
+    {
+        m_sub.unsubscribe();
+        m_sub = other;
+    }
 
     ~subscription_guard()
     {
@@ -45,6 +57,6 @@ public:
 
     const subscription_base* operator->() const { return &m_sub; }
 private:
-    const subscription_base m_sub;
+    subscription_base m_sub;
 };
 } // namespace rpp

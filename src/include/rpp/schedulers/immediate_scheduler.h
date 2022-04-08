@@ -60,8 +60,6 @@ public:
             }
         }
 
-        worker*       operator->() { return this; }
-        const worker* operator->() const { return this; }
     private:
         rpp::subscription_base m_sub;
     };

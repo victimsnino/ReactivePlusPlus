@@ -32,3 +32,8 @@ auto create(OnSubscribeFn&& on_subscribe);
 template<typename OnSubscribeFn>
 auto create(OnSubscribeFn&& on_subscribe);
 } // namespace rpp::observable
+
+namespace rpp
+{
+namespace source = observable;
+} // namespace rpp

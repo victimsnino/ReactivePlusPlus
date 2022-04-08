@@ -41,7 +41,7 @@ SCENARIO("Immediate scheduler schedule task immediately")
         {
             THEN("called once immediately")
             {
-                worker->schedule([&call_count]() -> rpp::schedulers::optional_duration
+                worker.schedule([&call_count]() -> rpp::schedulers::optional_duration
                 {
                     ++call_count;
                     return {};
@@ -53,7 +53,7 @@ SCENARIO("Immediate scheduler schedule task immediately")
         {
             THEN("called twice immediately")
             {
-                worker->schedule([&call_count]() -> rpp::schedulers::optional_duration
+                worker.schedule([&call_count]() -> rpp::schedulers::optional_duration
                 {
                     if (++call_count <= 1)
                         return rpp::schedulers::duration{};
@@ -71,7 +71,7 @@ SCENARIO("Immediate scheduler schedule task immediately")
                 auto diff = std::chrono::seconds{1};
 
                 rpp::schedulers::time_point execute_time{};
-                worker->schedule(now + diff,
+                worker.schedule(now + diff,
                                  [&call_count, &execute_time]() -> rpp::schedulers::optional_duration
                                  {
                                      ++call_count;
@@ -90,7 +90,7 @@ SCENARIO("Immediate scheduler schedule task immediately")
                 std::vector<rpp::schedulers::time_point> executions{};
                 std::chrono::milliseconds                diff = std::chrono::seconds{1};
 
-                worker->schedule([&call_count, &executions, &diff]() -> rpp::schedulers::optional_duration
+                worker.schedule([&call_count, &executions, &diff]() -> rpp::schedulers::optional_duration
                 {
                     executions.push_back(rpp::schedulers::clock_type::now());
                     if (++call_count <= 1)
@@ -121,7 +121,7 @@ SCENARIO("Immediate scheduler depends on subscription")
             {
                 sub.unsubscribe();
 
-                worker->schedule([&call_count]() -> rpp::schedulers::optional_duration
+                worker.schedule([&call_count]() -> rpp::schedulers::optional_duration
                 {
                     ++call_count;
                     return rpp::schedulers::duration{};
@@ -134,7 +134,7 @@ SCENARIO("Immediate scheduler depends on subscription")
         {
             THEN("no any calls/schedules after unsubscribe")
             {
-                worker->schedule([&call_count, sub]() -> rpp::schedulers::optional_duration
+                worker.schedule([&call_count, sub]() -> rpp::schedulers::optional_duration
                 {
                     if (++call_count > 1)
                         sub.unsubscribe();
@@ -152,20 +152,22 @@ SCENARIO("New thread scheduler schedules tasks into separate thread")
     GIVEN("NewThread scheduler")
     {
         auto scheduler = rpp::schedulers::new_thread{};
-        auto worker    = scheduler.create_worker();
+        auto sub = rpp::composite_subscription{};
+        auto worker    = scheduler.create_worker(sub);
+        rpp::subscription_guard guard{sub};
         WHEN("schedules job to worker")
         {
             THEN("job executed in another thread")
             {
                 std::promise<std::thread::id> promise{};
                 auto                          future = promise.get_future();
-                worker->schedule([&]() -> rpp::schedulers::optional_duration
+                worker.schedule([&]() -> rpp::schedulers::optional_duration
                 {
                     promise.set_value(std::this_thread::get_id());
                     return {};
                 });
 
-                future.wait_for(std::chrono::seconds{5});
+                REQUIRE(future.wait_for(std::chrono::seconds{5})==std::future_status::ready);
 
                 REQUIRE(future.valid());
                 REQUIRE(future.get() != std::this_thread::get_id());
@@ -189,11 +191,11 @@ SCENARIO("New thread scheduler schedules tasks into separate thread")
                     };
                 };
 
-                worker->schedule(now + std::chrono::seconds{2}, set_promise(promise_2));
-                worker->schedule(now + std::chrono::seconds{1}, set_promise(promise_1));
+                worker.schedule(now + std::chrono::seconds{2}, set_promise(promise_2));
+                worker.schedule(now + std::chrono::seconds{1}, set_promise(promise_1));
 
-                future_1.wait_for(std::chrono::seconds{2});
-                future_2.wait_for(std::chrono::seconds{2});
+                REQUIRE(future_1.wait_for(std::chrono::seconds{2})==std::future_status::ready);
+                REQUIRE(future_2.wait_for(std::chrono::seconds{2})==std::future_status::ready);
 
                 REQUIRE(future_1.valid());
                 REQUIRE(future_2.valid());
@@ -207,7 +209,7 @@ SCENARIO("New thread scheduler schedules tasks into separate thread")
                 std::vector<rpp::schedulers::time_point> executions{};
                 std::chrono::milliseconds                diff = std::chrono::seconds{1};
                 size_t                                   call_count{};
-                worker->schedule([&call_count, &executions, &diff]() -> rpp::schedulers::optional_duration
+                worker.schedule([&call_count, &executions, &diff]() -> rpp::schedulers::optional_duration
                 {
                     executions.push_back(rpp::schedulers::clock_type::now());
                     if (++call_count <= 1)
@@ -231,6 +233,8 @@ SCENARIO("New thread scheduler depends on subscription")
         auto                        scheduler = rpp::schedulers::new_thread{};
         rpp::composite_subscription sub{};
         auto                        worker = scheduler.create_worker(sub);
+        rpp::subscription_guard     guard{sub};
+
 
         size_t call_count{};
 
@@ -240,7 +244,7 @@ SCENARIO("New thread scheduler depends on subscription")
             {
                 sub.unsubscribe();
 
-                worker->schedule([&call_count]() -> rpp::schedulers::optional_duration
+                worker.schedule([&call_count]() -> rpp::schedulers::optional_duration
                     {
                         ++call_count;
                         return rpp::schedulers::duration{};
@@ -253,7 +257,7 @@ SCENARIO("New thread scheduler depends on subscription")
         {
             THEN("no any calls/schedules after unsubscribe")
             {
-                worker->schedule([&call_count, sub]() -> rpp::schedulers::optional_duration
+                worker.schedule([&call_count, sub]() -> rpp::schedulers::optional_duration
                     {
                         if (++call_count > 1)
                             sub.unsubscribe();
@@ -271,14 +275,36 @@ SCENARIO("New thread scheduler depends on subscription")
                 std::promise<bool> called{};
                 auto               future = called.get_future();
                 auto               diff   = std::chrono::seconds{5};
-                worker->schedule(rpp::schedulers::clock_type::now() + diff,
+                worker.schedule(rpp::schedulers::clock_type::now() + diff,
                                  [&called]() -> rpp::schedulers::optional_duration
                                  {
                                      called.set_value(true);
                                      return rpp::schedulers::duration{};
                                  });
                 sub.unsubscribe();
-                future.wait_for(diff);
+                REQUIRE(future.wait_for(diff)==std::future_status::timeout);
+                CHECK(future.valid());
+            }
+        }
+        WHEN("unsubscribe before time multiple")
+        {
+            THEN("no any calls/schedules after unsubscribe")
+            {
+                std::promise<bool> called{};
+                auto               future = called.get_future();
+                auto               diff = std::chrono::seconds{ 10 };
+                for (size_t i = 0; i < 3; ++i)
+                {
+                    worker.schedule(rpp::schedulers::clock_type::now() + diff,
+                        [&called]() -> rpp::schedulers::optional_duration
+                        {
+                            called.set_value(true);
+                            return rpp::schedulers::duration{};
+                        });
+                    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+                }
+                sub.unsubscribe();
+                REQUIRE(future.wait_for(diff)==std::future_status::timeout);
                 CHECK(future.valid());
             }
         }

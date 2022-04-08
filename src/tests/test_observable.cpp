@@ -21,10 +21,13 @@
 // SOFTWARE.
 
 #include "copy_count_tracker.h"
+#include "mock_observer.h"
+#include "rpp/schedulers/new_thread_scheduler.h"
 
 #include <catch2/catch_test_macros.hpp>
 
 #include <rpp/sources/create.h>
+#include <rpp/sources/just.h>
 
 #include <rpp/observables.h>
 #include <rpp/observers.h>
@@ -32,6 +35,7 @@
 #include <rpp/observables/dynamic_observable.h>
 
 #include <array>
+#include <future>
 
 SCENARIO("Any observable can be casted to dynamic_observable", "[observable]")
 {
@@ -234,4 +238,44 @@ SCENARIO("Verify copy when observer take const lvalue& from move", "[observable]
 SCENARIO("Verify copy when observer take const lvalue& from const lvalue&", "[observable][track_copy]")
 {
     TestObserverTypes<const copy_count_tracker&,false, true>("no copies", 0, 0);
+}
+
+SCENARIO("source::just")
+{
+    mock_observer<copy_count_tracker> mock{false};
+
+    GIVEN("observable with copied item")
+    {
+        copy_count_tracker v{};
+        auto obs = rpp::observable::just(v);
+        WHEN("subscribe on this observable")
+        {
+            obs.subscribe(mock);
+            THEN("value obtained")
+            {
+                CHECK(mock.get_on_next_const_ref_count() == 1);
+                CHECK(mock.get_on_next_move_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+                CHECK(v.get_copy_count() == 1); // 1 copy into function for observable
+                CHECK(v.get_move_count() == 1); // 1 move into observable
+            }
+        }
+    }
+    GIVEN("observable with moved item")
+    {
+        copy_count_tracker v{};
+        auto obs = rpp::observable::just(std::move(v));
+        WHEN("subscribe on this observable")
+        {
+            obs.subscribe(mock);
+            THEN("value obtained")
+            {
+                CHECK(mock.get_on_next_const_ref_count() == 1);
+                CHECK(mock.get_on_next_move_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+                CHECK(v.get_copy_count() == 0);
+                CHECK(v.get_move_count() == 2); // 1 move into function for observable + 1 move into observable
+            }
+        }
+    }
 }

@@ -32,18 +32,20 @@ template<typename Type>
 class mock_observer : public rpp::interface_observer<Type>
 {
 public:
-    mock_observer() : m_state{std::make_shared<State>()} {}
+    mock_observer(bool copy_values = true) : m_state{std::make_shared<State>(copy_values)} {}
 
     void on_next(const Type& v) const override
     {
         ++m_state->m_on_next_const_ref_count;
-        m_state->vals.push_back(v);
+        if (m_state->m_copy_values)
+            m_state->vals.push_back(v);
     }
 
     void on_next(Type&& v) const override
     {
         ++m_state->m_on_next_move_count;
-        m_state->vals.push_back(std::move(v));
+        if (m_state->m_copy_values)
+            m_state->vals.push_back(std::move(v));
     }
 
     void on_error(const std::exception_ptr&) const override { ++m_state->m_on_error_count; }
@@ -62,6 +64,10 @@ public:
 private:
     struct State
     {
+        State(bool copy_values)
+            : m_copy_values{copy_values} {}
+
+        bool   m_copy_values             = true;
         size_t m_on_next_const_ref_count = 0;
         size_t m_on_next_move_count      = 0;
         size_t m_on_error_count          = 0;
