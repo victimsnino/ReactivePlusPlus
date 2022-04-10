@@ -1,5 +1,5 @@
-\hypertarget{operators_2fwd_8h_source}{}\doxysection{fwd.\+h}
-\label{operators_2fwd_8h_source}\index{src/include/rpp/operators/fwd.h@{src/include/rpp/operators/fwd.h}}
+\hypertarget{member__overload_8h_source}{}\doxysection{member\+\_\+overload.\+h}
+\label{member__overload_8h_source}\index{src/include/rpp/observables/member\_overload.h@{src/include/rpp/observables/member\_overload.h}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// MIT License}}
@@ -26,6 +26,21 @@
 \DoxyCodeLine{22 }
 \DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/operators/fwd/map.h>}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/utils/constraints.h>}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29 \textcolor{keyword}{template}<\textcolor{keyword}{class }Tag, \textcolor{keyword}{typename} ...AN>}
+\DoxyCodeLine{30 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1operator__declaration}{operator\_declaration}}}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{32     \textcolor{keyword}{static} std::false\_type header\_included();}
+\DoxyCodeLine{33 \};}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...AN>}
+\DoxyCodeLine{36 \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} is\_header\_included\_v = \textcolor{keyword}{decltype}(\mbox{\hyperlink{structrpp_1_1details_1_1operator__declaration}{operator\_declaration<AN...>::header\_included}}())::value;}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable, \textcolor{keyword}{typename} MemberTag>}
+\DoxyCodeLine{39 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}};}
+\DoxyCodeLine{40 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

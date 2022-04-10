@@ -29,25 +29,42 @@
 \DoxyCodeLine{31 \textcolor{preprocessor}{\#include <rpp/observables/constraints.h>}}
 \DoxyCodeLine{32 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.h>}}
 \DoxyCodeLine{33 \textcolor{preprocessor}{\#include <rpp/observables/type\_traits.h>}}
-\DoxyCodeLine{34 }
-\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <utility>}}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37 \textcolor{keyword}{namespace }rpp::operators}
-\DoxyCodeLine{38 \{}
-\DoxyCodeLine{60 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Callable>}
-\DoxyCodeLine{61 \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga79ef0bff4448df7b7c07b3d5f1191806}{map}}(Callable\&\& callable)}
-\DoxyCodeLine{62 \{}
-\DoxyCodeLine{63     \textcolor{keywordflow}{return} [callable = std::forward<Callable>(callable)]<constraint::observable TObservable>(TObservable\&\& observable)}
-\DoxyCodeLine{64     \{}
-\DoxyCodeLine{65         \textcolor{keyword}{using} ObservableType = utils::extract\_observable\_type\_t<TObservable>;}
-\DoxyCodeLine{66         \textcolor{keyword}{using} NewType = std::invoke\_result\_t<Callable, ObservableType>;}
-\DoxyCodeLine{67         \textcolor{keywordflow}{return} std::forward<TObservable>(observable)}
-\DoxyCodeLine{68                 .template lift<NewType>([callable](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
-\DoxyCodeLine{69                 \{}
-\DoxyCodeLine{70                     subscriber.on\_next(callable(std::forward<\textcolor{keyword}{decltype}(value)>(value)));}
-\DoxyCodeLine{71                 \});}
-\DoxyCodeLine{72     \};}
-\DoxyCodeLine{73 \}}
-\DoxyCodeLine{74 \} \textcolor{comment}{// namespace rpp::operators}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <rpp/operators/fwd/map.h>}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }rpp::operators}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Callable>}
+\DoxyCodeLine{41 \textcolor{keyword}{auto} map(Callable\&\& callable)}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43     \textcolor{keywordflow}{return} [callable = std::forward<Callable>(callable)]<constraint::observable TObservable>(TObservable\&\& observable)}
+\DoxyCodeLine{44     \{}
+\DoxyCodeLine{45         \textcolor{keywordflow}{return} observable.map(callable);}
+\DoxyCodeLine{46     \};}
+\DoxyCodeLine{47 \}}
+\DoxyCodeLine{48 \} \textcolor{comment}{// namespace rpp::operators}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{51 \{}
+\DoxyCodeLine{52 \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...AN>}
+\DoxyCodeLine{53 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1operator__declaration}{operator\_declaration}}<map\_tag, AN...>}
+\DoxyCodeLine{54 \{}
+\DoxyCodeLine{55     \textcolor{keyword}{static} std::true\_type header\_included();}
+\DoxyCodeLine{56 \};}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{59 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_same\_as<SpecificObservable> TObs, std::invocable<Type> Callable>}
+\DoxyCodeLine{60 \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload<Type, SpecificObservable, map\_tag>::map\_impl}}(TObs\&\& \_this, Callable\&\& callable)}
+\DoxyCodeLine{61 \{}
+\DoxyCodeLine{62     \textcolor{keyword}{using} NewType = std::invoke\_result\_t<Callable, Type>;}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64     \textcolor{keywordflow}{return} std::forward<TObs>(\_this)}
+\DoxyCodeLine{65             .template lift<NewType>([callable = std::forward<Callable>(callable)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{66             \{}
+\DoxyCodeLine{67                 subscriber.on\_next(callable(std::forward<\textcolor{keyword}{decltype}(value)>(value)));}
+\DoxyCodeLine{68             \});}
+\DoxyCodeLine{69 \}}
+\DoxyCodeLine{70 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

@@ -10,7 +10,8 @@ Operators is way to modify observables and extend with some extra custom logic.
 \item 
 {\footnotesize template$<$details\+::op\+\_\+fn$<$ Specific\+Observable $>$ Operator\+Fn$>$ }\\auto \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{rpp\+::interface\+\_\+observable$<$ Type, Specific\+Observable $>$\+::op}} (Operator\+Fn \&\&fn) const \&
 \begin{DoxyCompactList}\small\item\em The apply function to observable which returns observable of another type. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Callable $>$ }\\auto \mbox{\hyperlink{group__operators_ga79ef0bff4448df7b7c07b3d5f1191806}{rpp\+::operators\+::map}} (Callable \&\&callable)
+{\footnotesize template$<$std\+::invocable$<$ Type $>$ Callable$>$ \newline
+requires is\+\_\+header\+\_\+included\+\_\+v$<$map\+\_\+tag, Callable$>$}\\auto \mbox{\hyperlink{group__operators_ga0b6f480d82f14e963a6308690a6d1774}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, map\+\_\+tag $>$\+::map}} (Callable \&\&callable) const \&
 \begin{DoxyCompactList}\small\item\em transform the items emitted by an Observable by applying a function to each item \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -23,12 +24,14 @@ Operators is way to modify observables and extend with some extra custom logic.
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{group__operators_ga79ef0bff4448df7b7c07b3d5f1191806}\label{group__operators_ga79ef0bff4448df7b7c07b3d5f1191806}} 
+\mbox{\Hypertarget{group__operators_ga0b6f480d82f14e963a6308690a6d1774}\label{group__operators_ga0b6f480d82f14e963a6308690a6d1774}} 
 \index{Operators@{Operators}!map@{map}}
 \index{map@{map}!Operators@{Operators}}
 \doxysubsubsection{\texorpdfstring{map()}{map()}}
-{\footnotesize\ttfamily template$<$typename Callable $>$ \\
-auto rpp\+::operators\+::map (\begin{DoxyParamCaption}\item[{Callable \&\&}]{callable }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$std\+::invocable$<$ Type $>$ Callable$>$ \newline
+requires is\+\_\+header\+\_\+included\+\_\+v$<$map\+\_\+tag, Callable$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, map\+\_\+tag $>$\+::map (\begin{DoxyParamCaption}\item[{Callable \&\&}]{callable }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -40,7 +43,7 @@ The Map operator can keep same type of value or change it to some another type.
 
 Example\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{observable | \mbox{\hyperlink{group__operators_ga79ef0bff4448df7b7c07b3d5f1191806}{map}}([](\textcolor{keyword}{const} \textcolor{keywordtype}{int}\& val)}
+\DoxyCodeLine{observable | \mbox{\hyperlink{group__operators_ga0b6f480d82f14e963a6308690a6d1774}{map}}([](\textcolor{keyword}{const} \textcolor{keywordtype}{int}\& val)}
 \DoxyCodeLine{             \{}
 \DoxyCodeLine{                 \textcolor{keywordflow}{return} std::to\_string(val) + \textcolor{stringliteral}{"{} data"{}};}
 \DoxyCodeLine{             \});}
@@ -59,6 +62,9 @@ Example\+:
 \begin{DoxyReturn}{Returns}
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the Map operator as most recent operator. 
 \end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{map_8h}{rpp/operators/map.\+h}}\texorpdfstring{$>$}{>} 
+\end{DoxyWarning}
 \mbox{\Hypertarget{group__operators_ga381218c46daf100859858d88743d058d}\label{group__operators_ga381218c46daf100859858d88743d058d}} 
 \index{Operators@{Operators}!op@{op}}
 \index{op@{op}!Operators@{Operators}}
