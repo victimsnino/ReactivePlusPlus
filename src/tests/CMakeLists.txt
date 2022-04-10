@@ -33,14 +33,11 @@ add_executable(${TARGET}
     
     test_lift.cpp
 
-    benchmarks.cpp
-    
     mock_observer.h
     copy_count_tracker.h
 )
 
 target_link_libraries(${TARGET} PRIVATE rpp Catch2WithMain coverage_config)
-
 set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 
 add_ctest(${TARGET})
@@ -50,6 +47,15 @@ if(MSVC)
 else()
   target_compile_options(${TARGET} PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion)
 endif()
+
+set(TARGET rpp_benchmark)
+
+add_executable(${TARGET} 
+    benchmarks.cpp
+)
+
+target_link_libraries(${TARGET} PRIVATE rpp Catch2WithMain)
+set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 
 
 if (AUTOTESTS)

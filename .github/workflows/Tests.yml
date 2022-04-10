@@ -14,8 +14,6 @@ on:
       - main
     paths-ignore:
       - 'submodules/**'
-      
-      
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -33,19 +31,19 @@ jobs:
            os: ubuntu-latest
            cc: "gcc-10"
            cxx: "g++-10"
-           relative_path_bench: "build/bin/rpp_tests"
+           relative_path_bench: "build/bin/rpp_benchmark"
            relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
         -  name: "Linux CLANG"
            os: ubuntu-latest
            cc: "clang" 
            cxx: "clang++"
-           relative_path_bench: "build/bin/rpp_tests"
+           relative_path_bench: "build/bin/rpp_benchmark"
            relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
         -  name: "Windows MSVC"
            os: windows-latest
            cc: "cl"
            cxx: "cl"
-           relative_path_bench: "build/bin/Release/rpp_tests"
+           relative_path_bench: "build/bin/Release/rpp_benchmark"
            relative_path_rxcpp_bench: "build/bin/Release/rxcpp_benchmark"
 
     steps:
@@ -88,12 +86,9 @@ jobs:
         reporter: java-junit
 
     - name: Run benchmarks only
-      run: ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] -r xml -o ${{github.workspace}}/build/test_results/rpp_benchmark_result.txt
-      if: matrix.config.relative_path_bench != ''
-
-    - name: Run RxCpp benchmarks only
-      run: ${{github.workspace}}/${{ matrix.config.relative_path_rxcpp_bench }} [benchmark] -r xml -o ${{github.workspace}}/build/test_results/rxcpp_benchmark_result.txt
-      if: matrix.config.relative_path_rxcpp_bench != ''
+      run: |
+        ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] -r xml -o ${{github.workspace}}/build/test_results/rpp_benchmark_result.txt
+        ${{github.workspace}}/${{ matrix.config.relative_path_rxcpp_bench }} [benchmark] -r xml -o ${{github.workspace}}/build/test_results/rxcpp_benchmark_result.txt
 
     - name: Upload parsed results
       uses: actions/upload-artifact@v3
@@ -126,8 +121,6 @@ jobs:
         ref: gh-pages
         token: ${{ secrets.GITHUB_TOKEN }}
         path: gh-pages
-    - name: Log
-      run: ls -R
 
     - name: Install deps
       run: pip3 install pandas
