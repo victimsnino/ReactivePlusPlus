@@ -84,11 +84,7 @@ endif()
 enable_testing()
 
 macro (add_ctest target)
-  if(CODE_COVERAGE)
-    add_test(NAME ${target} COMMAND $<TARGET_FILE:${target}> ~[benchmark] ~[misc_benchmark])
-  else()
-    add_test(NAME ${target} COMMAND $<TARGET_FILE:${target}> -r junit -o ${TEST_RESULTS_DIR}/${target}.xml ~[benchmark] ~[misc_benchmark])
-  endif()
+    add_test(NAME ${target} COMMAND $<TARGET_FILE:${target}> -r junit -o ${TEST_RESULTS_DIR}/${target}.xml)
 endmacro (add_ctest)
 
 file(MAKE_DIRECTORY ${TEST_RESULTS_DIR})
