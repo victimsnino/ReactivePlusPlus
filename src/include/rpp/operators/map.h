@@ -31,44 +31,40 @@
 #include <rpp/observables/constraints.h>
 #include <rpp/subscribers/constraints.h>
 #include <rpp/observables/type_traits.h>
+#include <rpp/operators/fwd/map.h>
 
 #include <utility>
 
 namespace rpp::operators
 {
-/**
- * \brief transform the items emitted by an Observable by applying a function to each item
- *
- * \details The Map operator applies a function of your choosing to each item emitted by the source Observable, and returns an Observable that emits the results of these function applications.
- *
- * The Map operator can keep same type of value or change it to some another type.
- *
- * Example:
- * \code
- * observable | map([](const int& val)
- *              {
- *                  return std::to_string(val) + " data";
- *              });
- * \endcode
- *
- * \see https://reactivex.io/documentation/operators/map.html
- *
- * \tparam Callable type of callable used to provide this transformation
- * \return new specific_observable with the Map operator as most recent operator.
- * \ingroup operators
- */
 template<typename Callable>
 auto map(Callable&& callable)
 {
     return [callable = std::forward<Callable>(callable)]<constraint::observable TObservable>(TObservable&& observable)
     {
-        using ObservableType = utils::extract_observable_type_t<TObservable>;
-        using NewType = std::invoke_result_t<Callable, ObservableType>;
-        return std::forward<TObservable>(observable)
-                .template lift<NewType>([callable](auto&& value, const constraint::subscriber auto& subscriber)
-                {
-                    subscriber.on_next(callable(std::forward<decltype(value)>(value)));
-                });
+        return observable.map(callable);
     };
 }
 } // namespace rpp::operators
+
+namespace rpp::details
+{
+template<typename ...AN>
+struct operator_declaration<map_tag, AN...>
+{
+    static std::true_type header_included();
+};
+
+template<constraint::decayed_type Type, typename SpecificObservable>
+template<constraint::decayed_same_as<SpecificObservable> TObs, std::invocable<Type> Callable>
+auto member_overload<Type, SpecificObservable, map_tag>::map_impl(TObs&& _this, Callable&& callable)
+{
+    using NewType = std::invoke_result_t<Callable, Type>;
+
+    return std::forward<TObs>(_this)
+            .template lift<NewType>([callable = std::forward<Callable>(callable)](auto&& value, const constraint::subscriber auto& subscriber)
+            {
+                subscriber.on_next(callable(std::forward<decltype(value)>(value)));
+            });
+}
+} // namespace rpp::details

@@ -28,6 +28,7 @@
 #include <rpp/subscribers/constraints.h>        // for lift
 #include <rpp/subscribers/specific_subscriber.h>// for make_lift_action_by_callbacks
 #include <rpp/utils/constraints.h>              // general constraints
+#include <rpp/operators/fwd.h>
 
 #include <type_traits>
 
@@ -102,7 +103,9 @@ struct virtual_observable : public details::observable_tag
  * \tparam SpecificObservable final type of observable inherited from this observable to successfully copy/move it
  */
 template<constraint::decayed_type Type, typename SpecificObservable>
-struct interface_observable : public virtual_observable<Type>
+struct interface_observable
+    : public virtual_observable<Type>
+    , details::member_overload<Type, SpecificObservable, details::map_tag>
 {
 public:
     // ********************************* LIFT DIRECT TYPE + OPERATOR: SUBSCRIBER -> SUBSCRIBER ******************//

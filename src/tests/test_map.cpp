@@ -46,7 +46,7 @@ SCENARIO("Map changes values", "[map]")
 
         WHEN("subscribe on observable with map")
         {
-            auto new_obs = observable | rpp::operators::map([](const int& v) {return v*10;});
+            auto new_obs = observable.map([](const int& v) {return v*10;});
             new_obs.subscribe(observer);
             THEN("observer obtains modified values")
             {
@@ -67,7 +67,7 @@ SCENARIO("Map changes values", "[map]")
 
         WHEN("subscribe on observable with map")
         {
-            auto new_obs = observable | rpp::operators::map([](const auto& v) { return std::to_string(v * 10); });
+            auto new_obs = observable.map([](const auto& v) { return std::to_string(v * 10); });
             new_obs.subscribe(observer);
             THEN("observer obtains modified values")
             {
@@ -92,7 +92,7 @@ SCENARIO("Map doesn't produce extra copies", "[map][track_copy]")
                 sub.on_next(tracker);
             });
 
-            auto new_obs = observable | rpp::operators::map([&](copy_count_tracker)
+            auto new_obs = observable.map([&](copy_count_tracker)
             {
                 return true;
             });
@@ -112,7 +112,7 @@ SCENARIO("Map doesn't produce extra copies", "[map][track_copy]")
                 sub.on_next(std::move(tracker));
             });
 
-            auto new_obs = observable | rpp::operators::map([&](copy_count_tracker)
+            auto new_obs = observable.map([&](copy_count_tracker)
             {
                 return true;
             });
