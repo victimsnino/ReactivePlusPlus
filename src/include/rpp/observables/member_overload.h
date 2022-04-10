@@ -22,4 +22,19 @@
 
 #pragma once
 
-#include <rpp/operators/fwd/map.h>
+#include <rpp/utils/constraints.h>
+
+namespace rpp::details
+{
+template<class Tag, typename ...AN>
+struct operator_declaration
+{
+    static std::false_type header_included();
+};
+
+template<typename ...AN>
+constexpr bool is_header_included_v = decltype(operator_declaration<AN...>::header_included())::value;
+
+template<rpp::constraint::decayed_type Type, typename SpecificObservable, typename MemberTag>
+struct member_overload;
+} // namespace rpp::details
