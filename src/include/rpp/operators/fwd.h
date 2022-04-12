@@ -22,4 +22,5 @@
 
 #pragma once
 
+#include <rpp/operators/fwd/filter.h>
 #include <rpp/operators/fwd/map.h>

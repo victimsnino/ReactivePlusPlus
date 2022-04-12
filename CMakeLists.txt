@@ -37,11 +37,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 find_package(Threads REQUIRED)
-
-# ======================= CI =========================
-set(TEST_RESULTS_DIR  ${CMAKE_BINARY_DIR}/test_results)
 set(BUILD_TESTS ON CACHE BOOL "Enable unit tests building" FORCE)
 
+# ======================= CI =========================
 # Code Coverage Configuration
 add_library(coverage_config INTERFACE)
 
@@ -61,10 +59,6 @@ if(CODE_COVERAGE)
     target_link_libraries(coverage_config INTERFACE --coverage)
   endif()
   target_link_libraries(coverage_config INTERFACE gcov)
-  
-  SET(CMAKE_CXX_FLAGS "-g -O0 --coverage -fprofile-arcs -ftest-coverage")
-  SET(CMAKE_C_FLAGS "-g -O0 --coverage -fprofile-arcs -ftest-coverage")
-
 endif(CODE_COVERAGE)
 
 if (AUTOTESTS)
@@ -82,6 +76,8 @@ endif()
 
 # ================== TESTS ==================
 enable_testing()
+
+set(TEST_RESULTS_DIR  ${CMAKE_BINARY_DIR}/test_results)
 
 macro (add_ctest target)
     add_test(NAME ${target} COMMAND $<TARGET_FILE:${target}> -r junit -o ${TEST_RESULTS_DIR}/${target}.xml)

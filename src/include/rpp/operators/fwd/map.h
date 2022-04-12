@@ -24,19 +24,22 @@
 
 #include <rpp/observables/member_overload.h>
 
+namespace rpp::details
+{
+struct map_tag;
+}
+
 namespace rpp::operators
 {
 /**
  * \copydoc rpp::details::member_overload::map
  */
 template<typename Callable>
-auto map(Callable&& callable);
+auto map(Callable&& callable) requires details::is_header_included<details::map_tag, Callable>;
 } // namespace rpp::operators
 
 namespace rpp::details
 {
-struct map_tag;
-
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, map_tag>
 {
@@ -63,13 +66,13 @@ struct member_overload<Type, SpecificObservable, map_tag>
      * \ingroup operators
      */
     template<std::invocable<Type> Callable>
-    auto map(Callable&& callable) const & requires is_header_included_v<map_tag, Callable>
+    auto map(Callable&& callable) const & requires is_header_included<map_tag, Callable>
     {
         return map_impl(*static_cast<const SpecificObservable*>(this), std::forward<Callable>(callable));
     }
 
     template<std::invocable<Type> Callable>
-    auto map(Callable&& callable) && requires is_header_included_v<map_tag, Callable>
+    auto map(Callable&& callable) && requires is_header_included<map_tag, Callable>
     {
         return map_impl(std::move(*static_cast<SpecificObservable*>(this)), std::forward<Callable>(callable));
     }

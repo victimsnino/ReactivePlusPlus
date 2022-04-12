@@ -20,28 +20,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#pragma once
+#include <catch2/catch_test_macros.hpp>
+#include <rpp/operators/filter.h>
+#include <rpp/sources/create.h>
 
-#include <rpp/utils/constraints.h>
+#include "mock_observer.h"
 
-namespace rpp::details
+SCENARIO("Filter provides only satisfied items")
 {
-template<class Tag, typename ...Args>
-struct operator_declaration
-{
-    static std::false_type header_included();
-};
+    auto mock = mock_observer<int>{};
+    GIVEN("observable")
+    {
+        auto observable = rpp::source::create<int>([](const auto& sub)
+        {
+            for (int i = 1; i < 5; ++i)
+                sub.on_next(i);
+        });
 
-template<typename ...Args>
-concept is_header_included = decltype(operator_declaration<Args...>::header_included())::value;
+        WHEN("subscribe on filtered observable")
+        {
+            observable.filter([](int v)
+            {
+                return v % 2 == 0;
+            }).subscribe(mock);
 
-template<rpp::constraint::decayed_type Type, typename SpecificObservable, typename MemberTag>
-struct member_overload;
-
-#define IMPLEMENTATION_FILE(tag)                        \
-template<typename ...Args>                              \
-struct rpp::details::operator_declaration<rpp::details::tag, Args...> \
-{                                                       \
-    static std::true_type header_included();            \
+            THEN("obtained only satisfied items")
+            {
+                CHECK(mock.get_received_values() == std::vector<int>{2, 4});
+            }
+        }
+    }
 }
-} // namespace rpp::details

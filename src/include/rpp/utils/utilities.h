@@ -21,27 +21,14 @@
 // SOFTWARE.
 
 #pragma once
+#include <type_traits>
 
-#include <rpp/utils/constraints.h>
-
-namespace rpp::details
+namespace rpp::utilities
 {
-template<class Tag, typename ...Args>
-struct operator_declaration
-{
-    static std::false_type header_included();
-};
+template<class T>
+constexpr std::add_const_t<T>& as_const(const T& v) noexcept { return v; }
 
-template<typename ...Args>
-concept is_header_included = decltype(operator_declaration<Args...>::header_included())::value;
+template<class T>
+constexpr T&& as_const(T&& v) noexcept requires std::is_rvalue_reference_v<T&&> { return std::forward<T>(v); }
 
-template<rpp::constraint::decayed_type Type, typename SpecificObservable, typename MemberTag>
-struct member_overload;
-
-#define IMPLEMENTATION_FILE(tag)                        \
-template<typename ...Args>                              \
-struct rpp::details::operator_declaration<rpp::details::tag, Args...> \
-{                                                       \
-    static std::true_type header_included();            \
-}
-} // namespace rpp::details
+} // namespace rpp::utilities
