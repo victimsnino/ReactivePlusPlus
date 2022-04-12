@@ -10,8 +10,11 @@ Operators is way to modify observables and extend with some extra custom logic.
 \item 
 {\footnotesize template$<$details\+::op\+\_\+fn$<$ Specific\+Observable $>$ Operator\+Fn$>$ }\\auto \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{rpp\+::interface\+\_\+observable$<$ Type, Specific\+Observable $>$\+::op}} (Operator\+Fn \&\&fn) const \&
 \begin{DoxyCompactList}\small\item\em The apply function to observable which returns observable of another type. \end{DoxyCompactList}\item 
+{\footnotesize template$<$std\+::predicate$<$ const Type \& $>$ Predicate$>$ \newline
+requires is\+\_\+header\+\_\+included$<$filter\+\_\+tag, Predicate$>$}\\auto \mbox{\hyperlink{group__operators_gae2695326a24fb8534f17f0d228d3b7f2}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, filter\+\_\+tag $>$\+::filter}} (Predicate \&\&predicate) const \&
+\begin{DoxyCompactList}\small\item\em emit only those items from an Observable that satisfies a predicate \end{DoxyCompactList}\item 
 {\footnotesize template$<$std\+::invocable$<$ Type $>$ Callable$>$ \newline
-requires is\+\_\+header\+\_\+included\+\_\+v$<$map\+\_\+tag, Callable$>$}\\auto \mbox{\hyperlink{group__operators_ga0b6f480d82f14e963a6308690a6d1774}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, map\+\_\+tag $>$\+::map}} (Callable \&\&callable) const \&
+requires is\+\_\+header\+\_\+included$<$map\+\_\+tag, Callable$>$}\\auto \mbox{\hyperlink{group__operators_gae5dd31e4559517de5cf1145ff2005a86}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, map\+\_\+tag $>$\+::map}} (Callable \&\&callable) const \&
 \begin{DoxyCompactList}\small\item\em transform the items emitted by an Observable by applying a function to each item \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -24,13 +27,52 @@ Operators is way to modify observables and extend with some extra custom logic.
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{group__operators_ga0b6f480d82f14e963a6308690a6d1774}\label{group__operators_ga0b6f480d82f14e963a6308690a6d1774}} 
+\mbox{\Hypertarget{group__operators_gae2695326a24fb8534f17f0d228d3b7f2}\label{group__operators_gae2695326a24fb8534f17f0d228d3b7f2}} 
+\index{Operators@{Operators}!filter@{filter}}
+\index{filter@{filter}!Operators@{Operators}}
+\doxysubsubsection{\texorpdfstring{filter()}{filter()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$std\+::predicate$<$ const Type \& $>$ Predicate$>$ \newline
+requires is\+\_\+header\+\_\+included$<$filter\+\_\+tag, Predicate$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, filter\+\_\+tag $>$\+::filter (\begin{DoxyParamCaption}\item[{Predicate \&\&}]{predicate }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+emit only those items from an Observable that satisfies a predicate 
+
+The Filter operator applies a provided predicate to each item emitted by the Observable, and returns an Observable that emits only items passed provided predicate
+
+Example\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{observable.filter([](\textcolor{keyword}{const} \textcolor{keywordtype}{int}\& val)}
+\DoxyCodeLine{             \{}
+\DoxyCodeLine{                 \textcolor{keywordflow}{return} val >= 10;}
+\DoxyCodeLine{             \});}
+
+\end{DoxyCode}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/filter.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/filter.\+html}}
+\end{DoxySeeAlso}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Predicate} & type of predicate used to check emitted itemss \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the Filter operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{filter_8h_source}{rpp/operators/filter.\+h}}\texorpdfstring{$>$}{>} 
+\end{DoxyWarning}
+\mbox{\Hypertarget{group__operators_gae5dd31e4559517de5cf1145ff2005a86}\label{group__operators_gae5dd31e4559517de5cf1145ff2005a86}} 
 \index{Operators@{Operators}!map@{map}}
 \index{map@{map}!Operators@{Operators}}
 \doxysubsubsection{\texorpdfstring{map()}{map()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
 template$<$std\+::invocable$<$ Type $>$ Callable$>$ \newline
-requires is\+\_\+header\+\_\+included\+\_\+v$<$map\+\_\+tag, Callable$>$\\
+requires is\+\_\+header\+\_\+included$<$map\+\_\+tag, Callable$>$\\
 auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, map\+\_\+tag $>$\+::map (\begin{DoxyParamCaption}\item[{Callable \&\&}]{callable }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -43,7 +85,7 @@ The Map operator can keep same type of value or change it to some another type.
 
 Example\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{observable | \mbox{\hyperlink{group__operators_ga0b6f480d82f14e963a6308690a6d1774}{map}}([](\textcolor{keyword}{const} \textcolor{keywordtype}{int}\& val)}
+\DoxyCodeLine{observable | \mbox{\hyperlink{group__operators_gae5dd31e4559517de5cf1145ff2005a86}{map}}([](\textcolor{keyword}{const} \textcolor{keywordtype}{int}\& val)}
 \DoxyCodeLine{             \{}
 \DoxyCodeLine{                 \textcolor{keywordflow}{return} std::to\_string(val) + \textcolor{stringliteral}{"{} data"{}};}
 \DoxyCodeLine{             \});}
@@ -63,7 +105,7 @@ Example\+:
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the Map operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{map_8h}{rpp/operators/map.\+h}}\texorpdfstring{$>$}{>} 
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{map_8h_source}{rpp/operators/map.\+h}}\texorpdfstring{$>$}{>} 
 \end{DoxyWarning}
 \mbox{\Hypertarget{group__operators_ga381218c46daf100859858d88743d058d}\label{group__operators_ga381218c46daf100859858d88743d058d}} 
 \index{Operators@{Operators}!op@{op}}

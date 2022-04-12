@@ -28,35 +28,38 @@
 \DoxyCodeLine{24 }
 \DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/observables/member\_overload.h>}}
 \DoxyCodeLine{26 }
-\DoxyCodeLine{27 \textcolor{keyword}{namespace }rpp::operators}
+\DoxyCodeLine{27 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{28 \{}
-\DoxyCodeLine{32 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Callable>}
-\DoxyCodeLine{33 \textcolor{keyword}{auto} map(Callable\&\& callable);}
-\DoxyCodeLine{34 \} \textcolor{comment}{// namespace rpp::operators}}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{36 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{37 \{}
-\DoxyCodeLine{38 \textcolor{keyword}{struct }map\_tag;}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{40 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{41 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, map\_tag>}
+\DoxyCodeLine{29 \textcolor{keyword}{struct }map\_tag;}
+\DoxyCodeLine{30 \}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{keyword}{namespace }rpp::operators}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{37 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Callable>}
+\DoxyCodeLine{38 \textcolor{keyword}{auto} map(Callable\&\& callable) \textcolor{keyword}{requires} details::is\_header\_included<details::map\_tag, Callable>;}
+\DoxyCodeLine{39 \} \textcolor{comment}{// namespace rpp::operators}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{42 \{}
-\DoxyCodeLine{65     \textcolor{keyword}{template}<std::invocable<Type> Callable>}
-\DoxyCodeLine{66     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga0b6f480d82f14e963a6308690a6d1774}{map}}(Callable\&\& callable) \textcolor{keyword}{const} \& \textcolor{keyword}{requires} is\_header\_included\_v<map\_tag, Callable>}
-\DoxyCodeLine{67     \{}
-\DoxyCodeLine{68         \textcolor{keywordflow}{return} map\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<Callable>(callable));}
-\DoxyCodeLine{69     \}}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{71     \textcolor{keyword}{template}<std::invocable<Type> Callable>}
-\DoxyCodeLine{72     \textcolor{keyword}{auto} map(Callable\&\& callable) \&\& \textcolor{keyword}{requires} is\_header\_included\_v<map\_tag, Callable>}
-\DoxyCodeLine{73     \{}
-\DoxyCodeLine{74         \textcolor{keywordflow}{return} map\_impl(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})), std::forward<Callable>(callable));}
-\DoxyCodeLine{75     \}}
-\DoxyCodeLine{76 }
-\DoxyCodeLine{77 \textcolor{keyword}{private}:}
-\DoxyCodeLine{78     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_same\_as<SpecificObservable> TObs, std::invocable<Type> Callable>}
-\DoxyCodeLine{79     \textcolor{keyword}{static} \textcolor{keyword}{auto} map\_impl(TObs\&\& \_this, Callable\&\& callable);}
-\DoxyCodeLine{80 \};}
-\DoxyCodeLine{81 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{43 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{44 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, map\_tag>}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{68     \textcolor{keyword}{template}<std::invocable<Type> Callable>}
+\DoxyCodeLine{69     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_gae5dd31e4559517de5cf1145ff2005a86}{map}}(Callable\&\& callable) \textcolor{keyword}{const} \& \textcolor{keyword}{requires} is\_header\_included<map\_tag, Callable>}
+\DoxyCodeLine{70     \{}
+\DoxyCodeLine{71         \textcolor{keywordflow}{return} map\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<Callable>(callable));}
+\DoxyCodeLine{72     \}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74     \textcolor{keyword}{template}<std::invocable<Type> Callable>}
+\DoxyCodeLine{75     \textcolor{keyword}{auto} map(Callable\&\& callable) \&\& \textcolor{keyword}{requires} is\_header\_included<map\_tag, Callable>}
+\DoxyCodeLine{76     \{}
+\DoxyCodeLine{77         \textcolor{keywordflow}{return} map\_impl(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})), std::forward<Callable>(callable));}
+\DoxyCodeLine{78     \}}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{keyword}{private}:}
+\DoxyCodeLine{81     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_same\_as<SpecificObservable> TObs, std::invocable<Type> Callable>}
+\DoxyCodeLine{82     \textcolor{keyword}{static} \textcolor{keyword}{auto} map\_impl(TObs\&\& \_this, Callable\&\& callable);}
+\DoxyCodeLine{83 \};}
+\DoxyCodeLine{84 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

@@ -77,18 +77,70 @@ Functions</h2></td></tr>
 <tr class="memitem:ga381218c46daf100859858d88743d058d"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga381218c46daf100859858d88743d058d">rpp::interface_observable&lt; Type, SpecificObservable &gt;::op</a> (OperatorFn &amp;&amp;fn) const &amp;</td></tr>
 <tr class="memdesc:ga381218c46daf100859858d88743d058d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The apply function to observable which returns observable of another type.  <a href="group__operators.html#ga381218c46daf100859858d88743d058d">More...</a><br /></td></tr>
 <tr class="separator:ga381218c46daf100859858d88743d058d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0b6f480d82f14e963a6308690a6d1774"><td class="memTemplParams" colspan="2">template&lt;std::invocable&lt; Type &gt; Callable&gt; <br />
-requires is_header_included_v&lt;map_tag, Callable&gt;</td></tr>
-<tr class="memitem:ga0b6f480d82f14e963a6308690a6d1774"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga0b6f480d82f14e963a6308690a6d1774">rpp::details::member_overload&lt; Type, SpecificObservable, map_tag &gt;::map</a> (Callable &amp;&amp;callable) const &amp;</td></tr>
-<tr class="memdesc:ga0b6f480d82f14e963a6308690a6d1774"><td class="mdescLeft">&#160;</td><td class="mdescRight">transform the items emitted by an Observable by applying a function to each item  <a href="group__operators.html#ga0b6f480d82f14e963a6308690a6d1774">More...</a><br /></td></tr>
-<tr class="separator:ga0b6f480d82f14e963a6308690a6d1774"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae2695326a24fb8534f17f0d228d3b7f2"><td class="memTemplParams" colspan="2">template&lt;std::predicate&lt; const Type &amp; &gt; Predicate&gt; <br />
+requires is_header_included&lt;filter_tag, Predicate&gt;</td></tr>
+<tr class="memitem:gae2695326a24fb8534f17f0d228d3b7f2"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#gae2695326a24fb8534f17f0d228d3b7f2">rpp::details::member_overload&lt; Type, SpecificObservable, filter_tag &gt;::filter</a> (Predicate &amp;&amp;predicate) const &amp;</td></tr>
+<tr class="memdesc:gae2695326a24fb8534f17f0d228d3b7f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">emit only those items from an Observable that satisfies a predicate  <a href="group__operators.html#gae2695326a24fb8534f17f0d228d3b7f2">More...</a><br /></td></tr>
+<tr class="separator:gae2695326a24fb8534f17f0d228d3b7f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae5dd31e4559517de5cf1145ff2005a86"><td class="memTemplParams" colspan="2">template&lt;std::invocable&lt; Type &gt; Callable&gt; <br />
+requires is_header_included&lt;map_tag, Callable&gt;</td></tr>
+<tr class="memitem:gae5dd31e4559517de5cf1145ff2005a86"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#gae5dd31e4559517de5cf1145ff2005a86">rpp::details::member_overload&lt; Type, SpecificObservable, map_tag &gt;::map</a> (Callable &amp;&amp;callable) const &amp;</td></tr>
+<tr class="memdesc:gae5dd31e4559517de5cf1145ff2005a86"><td class="mdescLeft">&#160;</td><td class="mdescRight">transform the items emitted by an Observable by applying a function to each item  <a href="group__operators.html#gae5dd31e4559517de5cf1145ff2005a86">More...</a><br /></td></tr>
+<tr class="separator:gae5dd31e4559517de5cf1145ff2005a86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p >Operators is way to modify observables and extend with some extra custom logic. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html">https://reactivex.io/documentation/operators.html</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga0b6f480d82f14e963a6308690a6d1774" name="ga0b6f480d82f14e963a6308690a6d1774"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga0b6f480d82f14e963a6308690a6d1774">&#9670;&nbsp;</a></span>map()</h2>
+<a id="gae2695326a24fb8534f17f0d228d3b7f2" name="gae2695326a24fb8534f17f0d228d3b7f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae2695326a24fb8534f17f0d228d3b7f2">&#9670;&nbsp;</a></span>filter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;std::predicate&lt; const Type &amp; &gt; Predicate&gt; <br />
+requires is_header_included&lt;filter_tag, Predicate&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, filter_tag &gt;::filter </td>
+          <td>(</td>
+          <td class="paramtype">Predicate &amp;&amp;&#160;</td>
+          <td class="paramname"><em>predicate</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>emit only those items from an Observable that satisfies a predicate </p>
+<p >The Filter operator applies a provided predicate to each item emitted by the Observable, and returns an Observable that emits only items passed provided predicate</p>
+<p >Example: </p><div class="fragment"><div class="line">observable.filter([](<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; val)</div>
+<div class="line">             {</div>
+<div class="line">                 <span class="keywordflow">return</span> val &gt;= 10;</div>
+<div class="line">             });</div>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/filter.html">https://reactivex.io/documentation/operators/filter.html</a></dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Predicate</td><td>type of predicate used to check emitted itemss </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the Filter operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="filter_8h_source.html">rpp/operators/filter.h</a>&gt; </dd></dl>
+
+</div>
+</div>
+<a id="gae5dd31e4559517de5cf1145ff2005a86" name="gae5dd31e4559517de5cf1145ff2005a86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae5dd31e4559517de5cf1145ff2005a86">&#9670;&nbsp;</a></span>map()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -96,7 +148,7 @@ requires is_header_included_v&lt;map_tag, Callable&gt;</td></tr>
 template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
 <div class="memtemplate">
 template&lt;std::invocable&lt; Type &gt; Callable&gt; <br />
-requires is_header_included_v&lt;map_tag, Callable&gt;</div>
+requires is_header_included&lt;map_tag, Callable&gt;</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -119,11 +171,11 @@ requires is_header_included_v&lt;map_tag, Callable&gt;</div>
 <p>transform the items emitted by an Observable by applying a function to each item </p>
 <p >The Map operator applies a function of your choosing to each item emitted by the source Observable, and returns an Observable that emits the results of these function applications.</p>
 <p >The Map operator can keep same type of value or change it to some another type.</p>
-<p >Example: </p><div class="fragment"><div class="line">observable | <a class="code hl_function" href="group__operators.html#ga0b6f480d82f14e963a6308690a6d1774">map</a>([](<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; val)</div>
+<p >Example: </p><div class="fragment"><div class="line">observable | <a class="code hl_function" href="group__operators.html#gae5dd31e4559517de5cf1145ff2005a86">map</a>([](<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; val)</div>
 <div class="line">             {</div>
 <div class="line">                 <span class="keywordflow">return</span> std::to_string(val) + <span class="stringliteral">&quot; data&quot;</span>;</div>
 <div class="line">             });</div>
-<div class="ttc" id="agroup__operators_html_ga0b6f480d82f14e963a6308690a6d1774"><div class="ttname"><a href="group__operators.html#ga0b6f480d82f14e963a6308690a6d1774">rpp::details::member_overload&lt; Type, SpecificObservable, map_tag &gt;::map</a></div><div class="ttdeci">auto map(Callable &amp;&amp;callable) const &amp;</div><div class="ttdoc">transform the items emitted by an Observable by applying a function to each item</div><div class="ttdef"><b>Definition:</b> map.h:66</div></div>
+<div class="ttc" id="agroup__operators_html_gae5dd31e4559517de5cf1145ff2005a86"><div class="ttname"><a href="group__operators.html#gae5dd31e4559517de5cf1145ff2005a86">rpp::details::member_overload&lt; Type, SpecificObservable, map_tag &gt;::map</a></div><div class="ttdeci">auto map(Callable &amp;&amp;callable) const &amp;</div><div class="ttdoc">transform the items emitted by an Observable by applying a function to each item</div><div class="ttdef"><b>Definition:</b> map.h:69</div></div>
 </div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/map.html">https://reactivex.io/documentation/operators/map.html</a></dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
@@ -132,7 +184,7 @@ requires is_header_included_v&lt;map_tag, Callable&gt;</div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the Map operator as most recent operator. </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="map_8h.html" title="This file contains implementation of operator &quot;map&quot;.">rpp/operators/map.h</a>&gt; </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="map_8h_source.html">rpp/operators/map.h</a>&gt; </dd></dl>
 
 </div>
 </div>

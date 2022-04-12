@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['never_0',['never',['../group__observables.html#ga091f1a238b4d205f0a1dff22b971c880',1,'rpp::observable']]]
+  ['map_0',['map',['../group__operators.html#gae5dd31e4559517de5cf1145ff2005a86',1,'rpp::details::member_overload&lt; Type, SpecificObservable, map_tag &gt;']]]
 ];

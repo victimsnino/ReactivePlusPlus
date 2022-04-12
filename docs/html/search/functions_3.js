@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['is_5fsubscribed_0',['is_subscribed',['../classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2',1,'rpp::subscription_base']]]
+  ['filter_0',['filter',['../group__operators.html#gae2695326a24fb8534f17f0d228d3b7f2',1,'rpp::details::member_overload&lt; Type, SpecificObservable, filter_tag &gt;']]]
 ];
