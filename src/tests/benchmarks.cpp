@@ -23,7 +23,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/benchmark/catch_benchmark.hpp>
 #include <rpp/observables.h>
-#include <rpp/sources/create.h>
+#include <rpp/sources.h>
 #include <rpp/observables/dynamic_observable.h>
 #include <rpp/observers/specific_observer.h>
 #include <rpp/operators/map.h>
@@ -241,6 +241,24 @@ TEST_CASE("Subscription", "[benchmark]")
     BENCHMARK("composite_subscription unsubscribe")
     {
         sub_1.unsubscribe();
+    };
+}
+
+TEST_CASE("foundamental sources", "[benchmark]")
+{
+    rpp::composite_subscription sub{};
+
+    BENCHMARK("never")
+    {
+        return rpp::source::never<int>().subscribe(sub);
+    };
+    BENCHMARK("empty")
+    {
+        return rpp::source::empty<int>().subscribe(sub);
+    };
+    BENCHMARK("error")
+    {
+        return rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})).subscribe(sub);
     };
 }
 

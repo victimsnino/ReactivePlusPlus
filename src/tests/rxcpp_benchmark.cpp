@@ -216,3 +216,21 @@ TEST_CASE("Subscription", "[benchmark]")
         sub_1.unsubscribe();
     };
 }
+
+TEST_CASE("foundamental sources", "[benchmark]")
+{
+    rxcpp::composite_subscription sub{};
+
+    BENCHMARK("never")
+    {
+        return rxcpp::sources::never<int>().subscribe(sub);
+    };
+    BENCHMARK("empty")
+    {
+        return rxcpp::sources::empty<int>().subscribe(sub);
+    };
+    BENCHMARK("error")
+    {
+        return rxcpp::sources::error<int>(std::make_exception_ptr(std::runtime_error{""})).subscribe(sub);
+    };
+}
