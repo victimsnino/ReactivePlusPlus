@@ -45,3 +45,6 @@
 ### Filtering
 - [x] filter
 - [x] take
+
+### Conditional
+- [x] take_while

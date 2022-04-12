@@ -108,6 +108,7 @@ struct interface_observable
     , details::member_overload<Type, SpecificObservable, details::map_tag>
     , details::member_overload<Type, SpecificObservable, details::filter_tag>
     , details::member_overload<Type, SpecificObservable, details::take_tag>
+    , details::member_overload<Type, SpecificObservable, details::take_while_tag>
 {
 public:
     // ********************************* LIFT DIRECT TYPE + OPERATOR: SUBSCRIBER -> SUBSCRIBER ******************//

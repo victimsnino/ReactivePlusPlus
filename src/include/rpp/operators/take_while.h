@@ -22,7 +22,35 @@
 
 #pragma once
 
-#include <rpp/operators/fwd/filter.h>
-#include <rpp/operators/fwd/map.h>
-#include <rpp/operators/fwd/take.h>
 #include <rpp/operators/fwd/take_while.h>
+#include <rpp/utils/utilities.h>
+
+IMPLEMENTATION_FILE(take_while_tag);
+
+namespace rpp::operators
+{
+template<typename Predicate>
+auto take_while(Predicate&& predicate) requires details::is_header_included<details::take_while_tag, Predicate>
+{
+    return [predicate = std::forward<Predicate>(predicate)]<constraint::observable TObservable>(TObservable && observable)
+    {
+        return observable.take_while(predicate);
+    };
+}
+} // namespace rpp::operators
+
+namespace rpp::details
+{
+template<constraint::decayed_type Type, typename SpecificObservable>
+template<constraint::decayed_same_as<SpecificObservable> TObs, std::predicate<const Type&> Predicate>
+auto member_overload<Type, SpecificObservable, take_while_tag>::take_while_impl(TObs&& _this, Predicate&& predicate)
+{
+    return std::forward<TObs>(_this).template lift<Type>([predicate = std::forward<Predicate>(predicate)](auto&& value, const constraint::subscriber auto& subscriber)
+    {
+        if (predicate(utilities::as_const(value)))
+            subscriber.on_next(std::forward<decltype(value)>(value));
+        else
+            subscriber.on_completed();
+    });
+}
+} // namespace rpp::details
