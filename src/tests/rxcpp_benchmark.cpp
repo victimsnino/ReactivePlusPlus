@@ -2,42 +2,24 @@
 #include <catch2/benchmark/catch_benchmark.hpp>
 #include <rxcpp/rx.hpp>
 
-#include <array>
 
 auto MakeSpecificObserver()
 {
-    std::array<int, 1> v{};
-
-    return rxcpp::make_observer<int>( [v](int)
-    {
-        [[maybe_unused]] const auto& t = v;
-    });
+    return rxcpp::make_observer<int>( [](int) {});
 }
 
 auto MakeDynamicObserver()
 {
-    std::array<int, 1> v{};
-
-    return rxcpp::make_observer_dynamic<int>([v](int)
-        {
-            [[maybe_unused]] const auto& t = v;
-        });
+    return rxcpp::make_observer_dynamic<int>([](int){});
 }
 
 auto MakeSpecificObservable()
 {
-    std::array<int, 1> v{};
-
-    return rxcpp::observable<>::create<int>([v](const auto& sub)
-    {
-        sub.on_next(static_cast<int>(v.size()));
-    });
+    return rxcpp::observable<>::create<int>([](const auto& sub){});
 }
 
 auto MakeDynamicObservable()
 {
-    std::array<int, 1> v{};
-
     return MakeSpecificObservable().as_dynamic();
 }
 

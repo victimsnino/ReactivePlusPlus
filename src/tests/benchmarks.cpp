@@ -33,32 +33,17 @@
 template<template<typename...> typename TObserver>
 auto MakeObserver()
 {
-    std::array<int, 1> v{};
-
-    return TObserver{[v](int)
-    {
-        [[maybe_unused]] const auto& t = v;
-    }};
+    return TObserver{[](int) { }};
 }
 
 auto MakeSpecificObservable()
 {
-    std::array<int, 1> v{};
-
-    return rpp::observable::create<int>([v](const auto& sub)
-    {
-        sub.on_next(static_cast<int>(v.size()));
-    });
+    return rpp::observable::create<int>([](const auto& sub) { });
 }
 
 auto MakeDynamicObservable()
 {
-    std::array<int, 1> v{};
-
-    return rpp::dynamic_observable<int>{[v](const auto& sub)
-    {
-        sub.on_next(static_cast<int>(v.size()));
-    }};
+    return rpp::dynamic_observable<int>{[](const auto& sub) { }};
 }
 
 TEST_CASE("Observable construction", "[benchmark]")
@@ -257,21 +242,5 @@ TEST_CASE("Subscription", "[benchmark]")
     {
         sub_1.unsubscribe();
     };
-}
-
-TEST_CASE("Misc benchmarks", "[misc_benchmark]")
-{
-    std::array<int, 100> arr{1};
-    auto                 empty_lambda = [arr](int i) { return i * arr[0]; };
-
-    BENCHMARK("Raw call to lambda", i) { return empty_lambda(i); };
-
-    std::function as_function = empty_lambda;
-    BENCHMARK("Call to lambda via std::function", i) { return as_function(i); };
-
-    BENCHMARK("Copy  lambda") { return empty_lambda; };
-    BENCHMARK("Copy  std::function") { return as_function; };
-
-    BENCHMARK("Make shared  copy of lambda"){return std::make_shared<std::remove_reference_t<decltype(empty_lambda)>>(empty_lambda); };
 }
 
