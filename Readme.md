@@ -27,21 +27,11 @@ Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ
 - **ReactivePlusPlus** is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking
 
 
-## Implementation Status
-
-Current implementation status of different operators and future plans can be found [there](docs/Implementation%20Status.md)
-
-## Documentation
-
-Doxygen documentation generated per each commit can be found [here](https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html)
-
-Manual documentation can be found in [docs folder](docs/Readme.md).
-
-## Performance
-Performance is really **important**! It is **doubly important** when we speak about **realtime applications and libraries**! **ReactivePlusPlus** targets as a realtime library to process and handle a tremendous volumes of data. 
-
-This repository uses continous benchmarking: every commit and pull request measured and diff per each benchmark provided. Graphs over benchmark results can be found [here](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
-
+## Useful links
+- [Current implementation status](docs/Implementation%20Status.md)
+- [Doxygen documentation](https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html)
+- [Tutorial](docs/Readme.md)
+- [Continous benchmarking results, comparison of `dynamic` and `specific` and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/benchmark))
 ## Credits:
 
 ReactivePlusPlus library uses:
