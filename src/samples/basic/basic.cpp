@@ -11,8 +11,8 @@ int main()
                               sub.on_next(std::getchar());
                       })
                       .take_while([](char v) { return v != '0'; })
-                      .filter(std::not_fn(&std::isdigit))
-                      .map(&std::toupper);
+                      .filter(std::not_fn(&::isdigit))
+                      .map(&::toupper);
 
     observable.subscribe([](char v)
     {
