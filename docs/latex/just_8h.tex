@@ -5,15 +5,22 @@
 This file contains implementation of {\ttfamily just} function to create \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits a particular item.  
 
 
-{\ttfamily \#include $<$rpp/sources/fwd.\+h$>$}\newline
-{\ttfamily \#include $<$rpp/sources/create.\+h$>$}\newline
+{\ttfamily \#include $<$rpp/memory\+\_\+model.\+h$>$}\newline
 {\ttfamily \#include $<$rpp/schedulers/constraints.\+h$>$}\newline
 {\ttfamily \#include $<$rpp/schedulers/immediate\+\_\+scheduler.\+h$>$}\newline
+{\ttfamily \#include $<$rpp/sources/create.\+h$>$}\newline
+{\ttfamily \#include $<$rpp/sources/fwd.\+h$>$}\newline
 {\ttfamily \#include $<$type\+\_\+traits$>$}\newline
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$rpp\+::schedulers\+::constraint\+::scheduler Scheduler = rpp\+::schedulers\+::immediate$>$ }\\auto \mbox{\hyperlink{group__observables_gae236b520ed9da3383b3b54be4dd5dea2}{rpp\+::observable\+::just}} (auto \&\&item, const Scheduler \&scheduler=Scheduler\{\})
+\mbox{\Hypertarget{just_8h_a49156232dfba6422249fdba29214bc94}\label{just_8h_a49156232dfba6422249fdba29214bc94}} 
+{\footnotesize template$<$rpp\+::schedulers\+::constraint\+::scheduler Scheduler = rpp\+::schedulers\+::immediate$>$ }\\auto {\bfseries rpp\+::observable\+::details\+::just\+\_\+use\+\_\+stack} (auto \&\&item, const Scheduler \&scheduler)
+\item 
+\mbox{\Hypertarget{just_8h_ae4550ce7f71add8b0c1cfda6306bf115}\label{just_8h_ae4550ce7f71add8b0c1cfda6306bf115}} 
+{\footnotesize template$<$typename T , rpp\+::schedulers\+::constraint\+::scheduler Scheduler = rpp\+::schedulers\+::immediate$>$ }\\auto {\bfseries rpp\+::observable\+::details\+::just\+\_\+use\+\_\+shared} (T \&\&item, const Scheduler \&scheduler)
+\item 
+{\footnotesize template$<$memory\+\_\+model memory\+\_\+model = memory\+\_\+model\+::use\+\_\+stack, rpp\+::schedulers\+::constraint\+::scheduler Scheduler = rpp\+::schedulers\+::immediate$>$ }\\auto \mbox{\hyperlink{group__observables_ga4c12eeef18535ffd2b9153524b8a8899}{rpp\+::observable\+::just}} (auto \&\&item, const Scheduler \&scheduler=Scheduler\{\})
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits a particular item and completes. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 

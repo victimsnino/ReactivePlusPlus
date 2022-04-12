@@ -93,41 +93,69 @@ $(function() {
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &lt;rpp/sources/fwd.h&gt;</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#include &lt;<a class="code" href="create_8h.html">rpp/sources/create.h</a>&gt;</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &lt;rpp/schedulers/constraints.h&gt;</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#include &lt;rpp/schedulers/immediate_scheduler.h&gt;</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">namespace </span>rpp::observable</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>{</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">template</span>&lt;rpp::schedulers::constra<span class="keywordtype">int</span>::scheduler Scheduler = rpp::schedulers::immediate&gt;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="group__observables.html#gae236b520ed9da3383b3b54be4dd5dea2">   51</a></span><span class="keyword">auto</span> <a class="code hl_function" href="group__observables.html#gae236b520ed9da3383b3b54be4dd5dea2">just</a>(<span class="keyword">auto</span>&amp;&amp; item, <span class="keyword">const</span> Scheduler&amp; scheduler = Scheduler{})</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>{</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="group__observables.html#gaa70991953a96a64c95d7566ff7069f6b">create</a>&lt;std::decay_t&lt;<span class="keyword">decltype</span>(item)&gt;&gt;([=, item = std::forward&lt;<span class="keyword">decltype</span>(item)&gt;(item)](<span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp; subscriber)</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    {</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::is_same_v&lt;Scheduler, rpp::schedulers::immediate&gt;)</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            subscriber.on_next(item);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            subscriber.on_completed();</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        }</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="keyword">auto</span> worker = scheduler.create_worker(subscriber.get_subscription());</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            worker.schedule([subscriber, item]() <span class="keyword">mutable</span> -&gt; rpp::schedulers::optional_duration</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                subscriber.on_next(std::move(item));</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                subscriber.on_completed();</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                <span class="keywordflow">return</span> {};</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            });</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        }</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    });</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>} <span class="comment">// namespace rpp::observable</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &lt;rpp/memory_model.h&gt;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#include &lt;rpp/schedulers/constraints.h&gt;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &lt;rpp/schedulers/immediate_scheduler.h&gt;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#include &lt;<a class="code" href="create_8h.html">rpp/sources/create.h</a>&gt;</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &lt;rpp/sources/fwd.h&gt;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">namespace </span>rpp::observable::details</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>{</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">template</span>&lt;rpp::schedulers::constra<span class="keywordtype">int</span>::scheduler Scheduler = rpp::schedulers::immediate&gt;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">auto</span> just_use_stack(<span class="keyword">auto</span>&amp;&amp; item, <span class="keyword">const</span> Scheduler&amp; scheduler)</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>{</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="group__observables.html#gaa70991953a96a64c95d7566ff7069f6b">create</a>&lt;std::decay_t&lt;<span class="keyword">decltype</span>(item)&gt;&gt;([=, item = std::forward&lt;<span class="keyword">decltype</span>(item)&gt;(item)](<span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp; subscriber)</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::is_same_v&lt;Scheduler, rpp::schedulers::immediate&gt;)</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            subscriber.on_next(item);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            subscriber.on_completed();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            <span class="keyword">auto</span> worker = scheduler.create_worker(subscriber.get_subscription());</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            worker.schedule([subscriber, item]() <span class="keyword">mutable</span> -&gt; rpp::schedulers::optional_duration</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                    subscriber.on_next(std::move(item));</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                    subscriber.on_completed();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                });</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        }</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    });</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, rpp::schedulers::constra<span class="keywordtype">int</span>::scheduler Scheduler = rpp::schedulers::immediate&gt;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">auto</span> just_use_shared(T&amp;&amp; item, <span class="keyword">const</span> Scheduler&amp; scheduler)</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>{</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">auto</span> as_shared = std::make_shared&lt;std::decay_t&lt;T&gt;&gt;(std::forward&lt;T&gt;(item));</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">return</span> create&lt;std::decay_t&lt;T&gt;&gt;([=](<span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp; subscriber)</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <span class="keyword">auto</span> worker = scheduler.create_worker(subscriber.get_subscription());</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            worker.schedule([=]() <span class="keyword">mutable</span> -&gt; rpp::schedulers::optional_duration</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                    subscriber.on_next(*as_shared);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                    subscriber.on_completed();</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                });</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        });</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>} <span class="comment">// namespace rpp::observable::details</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword">namespace </span>rpp::observable</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>{</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keyword">template</span>&lt;memory_model memory_model = memory_model::use_stack, rpp::schedulers::constra<span class="keywordtype">int</span>::scheduler Scheduler = rpp::schedulers::immediate&gt;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="group__observables.html#ga4c12eeef18535ffd2b9153524b8a8899">   93</a></span><span class="keyword">auto</span> <a class="code hl_function" href="group__observables.html#ga4c12eeef18535ffd2b9153524b8a8899">just</a>(<span class="keyword">auto</span>&amp;&amp; item, <span class="keyword">const</span> Scheduler&amp; scheduler = Scheduler{})</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>{</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (memory_model == memory_model::use_stack)</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="keywordflow">return</span> details::just_use_stack(std::forward&lt;<span class="keyword">decltype</span>(item)&gt;(item), scheduler);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordflow">return</span> details::just_use_shared(std::forward&lt;<span class="keyword">decltype</span>(item)&gt;(item), scheduler);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>}</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>} <span class="comment">// namespace rpp::observable</span></div>
 <div class="ttc" id="acreate_8h_html"><div class="ttname"><a href="create_8h.html">create.h</a></div><div class="ttdoc">This file contains implementation of create function to create rpp::specific_observable with OnSubscr...</div></div>
+<div class="ttc" id="agroup__observables_html_ga4c12eeef18535ffd2b9153524b8a8899"><div class="ttname"><a href="group__observables.html#ga4c12eeef18535ffd2b9153524b8a8899">rpp::observable::just</a></div><div class="ttdeci">auto just(auto &amp;&amp;item, const Scheduler &amp;scheduler=Scheduler{})</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular item and completes.</div><div class="ttdef"><b>Definition:</b> just.h:93</div></div>
 <div class="ttc" id="agroup__observables_html_gaa70991953a96a64c95d7566ff7069f6b"><div class="ttname"><a href="group__observables.html#gaa70991953a96a64c95d7566ff7069f6b">rpp::observable::create</a></div><div class="ttdeci">auto create(OnSubscribeFn &amp;&amp;on_subscribe)</div><div class="ttdoc">Creates rpp::specific_observable with passed action as OnSubscribe.</div><div class="ttdef"><b>Definition:</b> create.h:48</div></div>
-<div class="ttc" id="agroup__observables_html_gae236b520ed9da3383b3b54be4dd5dea2"><div class="ttname"><a href="group__observables.html#gae236b520ed9da3383b3b54be4dd5dea2">rpp::observable::just</a></div><div class="ttdeci">auto just(auto &amp;&amp;item, const Scheduler &amp;scheduler=Scheduler{})</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular item and completes.</div><div class="ttdef"><b>Definition:</b> just.h:51</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

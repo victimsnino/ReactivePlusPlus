@@ -74,20 +74,29 @@ $(function() {
 
 <p>This file contains implementation of <code>just</code> function to create <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular item.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;rpp/sources/fwd.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="create_8h_source.html">rpp/sources/create.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;rpp/memory_model.h&gt;</code><br />
 <code>#include &lt;rpp/schedulers/constraints.h&gt;</code><br />
 <code>#include &lt;rpp/schedulers/immediate_scheduler.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="create_8h_source.html">rpp/sources/create.h</a>&gt;</code><br />
+<code>#include &lt;rpp/sources/fwd.h&gt;</code><br />
 <code>#include &lt;type_traits&gt;</code><br />
 </div>
 <p><a href="just_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gae236b520ed9da3383b3b54be4dd5dea2"><td class="memTemplParams" colspan="2">template&lt;rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate&gt; </td></tr>
-<tr class="memitem:gae236b520ed9da3383b3b54be4dd5dea2"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observables.html#gae236b520ed9da3383b3b54be4dd5dea2">rpp::observable::just</a> (auto &amp;&amp;item, const Scheduler &amp;scheduler=Scheduler{})</td></tr>
-<tr class="memdesc:gae236b520ed9da3383b3b54be4dd5dea2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular item and completes.  <a href="group__observables.html#gae236b520ed9da3383b3b54be4dd5dea2">More...</a><br /></td></tr>
-<tr class="separator:gae236b520ed9da3383b3b54be4dd5dea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49156232dfba6422249fdba29214bc94"><td class="memTemplParams" colspan="2"><a id="a49156232dfba6422249fdba29214bc94" name="a49156232dfba6422249fdba29214bc94"></a>
+template&lt;rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate&gt; </td></tr>
+<tr class="memitem:a49156232dfba6422249fdba29214bc94"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>rpp::observable::details::just_use_stack</b> (auto &amp;&amp;item, const Scheduler &amp;scheduler)</td></tr>
+<tr class="separator:a49156232dfba6422249fdba29214bc94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4550ce7f71add8b0c1cfda6306bf115"><td class="memTemplParams" colspan="2"><a id="ae4550ce7f71add8b0c1cfda6306bf115" name="ae4550ce7f71add8b0c1cfda6306bf115"></a>
+template&lt;typename T , rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate&gt; </td></tr>
+<tr class="memitem:ae4550ce7f71add8b0c1cfda6306bf115"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>rpp::observable::details::just_use_shared</b> (T &amp;&amp;item, const Scheduler &amp;scheduler)</td></tr>
+<tr class="separator:ae4550ce7f71add8b0c1cfda6306bf115"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4c12eeef18535ffd2b9153524b8a8899"><td class="memTemplParams" colspan="2">template&lt;memory_model memory_model = memory_model::use_stack, rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate&gt; </td></tr>
+<tr class="memitem:ga4c12eeef18535ffd2b9153524b8a8899"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observables.html#ga4c12eeef18535ffd2b9153524b8a8899">rpp::observable::just</a> (auto &amp;&amp;item, const Scheduler &amp;scheduler=Scheduler{})</td></tr>
+<tr class="memdesc:ga4c12eeef18535ffd2b9153524b8a8899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular item and completes.  <a href="group__observables.html#ga4c12eeef18535ffd2b9153524b8a8899">More...</a><br /></td></tr>
+<tr class="separator:ga4c12eeef18535ffd2b9153524b8a8899"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >This file contains implementation of <code>just</code> function to create <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular item. </p>
