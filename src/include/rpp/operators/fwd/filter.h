@@ -27,7 +27,7 @@
 namespace rpp::details
 {
     struct filter_tag;
-};
+}
 namespace rpp::operators
 {
 /**
