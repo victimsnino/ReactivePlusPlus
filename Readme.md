@@ -26,6 +26,9 @@ Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ
 - **ReactivePlusPlus** keeps balance between performance and type-erasing mechanism: Read about it in  [**"Performance vs Flexibility: Specific vs Dynamic"**](./docs/Specific%20vs%20Dynamic.md)
 - **ReactivePlusPlus** is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking
 
+## Implementation Status
+
+Current implementation status of different operators and future plans can be found [there](docs/Implementation%20Status.md)
 
 ## Documentation
 
