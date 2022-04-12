@@ -7,16 +7,17 @@ In general Reactive Extensions can be split into three main parts from the objec
 
 Each of this objects obtains user-defined callbacks to call when some event happens (on_subscribe, on_next/on_error/on_completed and etc). To store it in C++ we have two ways with its own prons and cons:
 - store it explicitly via template type
-  - [+] No heap allocations
-  - [+] Fast invoking (with possible inlining)
-  - [-] Template parameter makes each instance "uniq"
-  - [-] No way to store it somehow in containers/class members without pain
+  - :heavy_check_mark: No heap allocations
+  - :heavy_check_mark: Fast invoking (with possible inlining)
+  - :x: Template parameter makes each instance "uniq"
+  - :x: No way to store it somehow in containers/class members without pain
 - use type-erasure mechanism 
-  - [+] Avoiding of template parameters
-  - [+] Easy to store in containers/class members/input arguments of functions
-  - [-] In most cases heap allocation during constrution
-  - [-] More usage of memory even for cheap objects (std::function or pointer to allocated type)
-  - [-] Indirect invoking (most probably via pointer or virtual functions)
+  - :heavy_check_mark: Avoiding of template parameters
+  - :heavy_check_mark: Easy to store in containers/class members/input arguments of functions
+  - :x: In most cases heap allocation during constrution
+  - :x: More usage of memory even for cheap objects (std::function or pointer to allocated type)
+  - :x: Indirect invoking (most probably via pointer or virtual functions)
+
 
 ReactivePlusPlus provides ability to use both of this ways to make usage experience optimal! Each of mentioned above core parts has two different specifications: `specific_` and `dynamic_`.
 
