@@ -65,92 +65,37 @@ $(function() {
   <div class="headertitle"><div class="title">ReactivePlusPlus </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p ><a class="anchor" id="md_Index"></a> ReactivePlusPlus is <a href="https://reactivex.io/">ReactiveX</a> library for C++ language inspired by "official implementation" (<a href="https://github.com/ReactiveX/RxCpp">RxCpp</a>)</p>
+<div class="textblock"><p ><a class="anchor" id="md_Readme"></a><a href="https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/Tests.yml"><img src="https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/Tests.yml/badge.svg?branch=main" alt="Unit tests" style="pointer-events: none;" class="inline"/></a> <a href="https://codecov.io/gh/victimsnino/ReactivePlusPlus"><img src="https://codecov.io/gh/victimsnino/ReactivePlusPlus/branch/main/graph/badge.svg?token=INEHPRF18E" alt="codecov" style="pointer-events: none;" class="inline"/></a></p>
+<p >ReactivePlusPlus is <a href="https://reactivex.io/">ReactiveX</a> library for C++ language inspired by "official implementation" (<a href="https://github.com/ReactiveX/RxCpp">RxCpp</a>)</p>
+<p >Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. As a result it is fast, readable, easy to use and well-documented.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
-Performance vs Flexibility: Specific vs Dynamic</h1>
-<p >In general Reactive Extensions can be split into three main parts from the objects perspective:</p><ul>
-<li>observable</li>
-<li>observer</li>
-<li>subscriber</li>
+What about existing Reactive Extension libraries for C++?</h1>
+<p >Reactive programming is excelent programming paradigm and approach for creation of multi-threading and real-time programs which reacts on some events. Unfortunately, there is only one stable and fully-implemented library at the moment of creation of ReactivePlusPlus - <a href="https://github.com/ReactiveX/RxCpp">RxCpp</a>.</p>
+<p ><a href="https://github.com/ReactiveX/RxCpp">RxCpp</a> is great and awesome library and perfect implementation of ReactiveX approach. However RxCpp has some disadvantages:</p><ul>
+<li>It is a bit **"old" library written in C++11** with some parts written in the <b>pre-C++11 style</b> (mess of old-style classes and wrappers)</li>
+<li><b>Issue</b> with <b>template parameters</b>: <code>rxcpp::observable</code> contains <b>full chain of operators</b> as second template parameter... where each operator has a bunch of another template parameters itself. It forces <b>IDEs</b> works <b>slower</b> while parsing resulting type of observable. Also it forces to generate <b>heavier binaries and debug symbols and slower build time</b>.</li>
+<li>It has high perfomance cost due to tremendous amount of usage of heap</li>
 </ul>
-<p >Each of this objects obtains user-defined callbacks to call when some event happens (on_subscribe, on_next/on_error/on_completed and etc). To store it in C++ we have two ways with its own prons and cons:</p><ul>
-<li>store it explicitly via template type<ul>
-<li>[+] No heap allocations</li>
-<li>[+] Fast invoking (with possible inlining)</li>
-<li>[-] Template parameter makes each instance "uniq"</li>
-<li>[-] No way to store it somehow in containers/class members without pain</li>
-</ul>
-</li>
-<li>use type-erasure mechanism<ul>
-<li>[+] Avoiding of template parameters</li>
-<li>[+] Easy to store in containers/class members/input arguments of functions</li>
-<li>[-] In most cases heap allocation during constrution</li>
-<li>[-] More usage of memory even for cheap objects (std::function or pointer to allocated type)</li>
-<li>[-] Indirect invoking (most probably via pointer or virtual functions)</li>
+<p >Another implementation of RX for c++: <a href="https://github.com/CODIANZ/another-rxcpp">another-rxcpp</a>. It partly solves issues of RxCpp via <b>eliminating of template parameter</b> with help of <b>type-erasing</b> and making each callback as <code>std::function</code>. As a result issue with templates resvoled, but this approach has disadvantages related to runtime: resulting size of observers/observables becomes greater due to heavy <code>std::function</code> object, usage of heap for storing everything causes perfomance issues, implementation is just pretty simple and provides a lot of copies of passed objects.</p>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Why ReactivePlusPlus?</h1>
+<p ><b>ReactivePlusPlus</b> tries to solve all mentioned issues:</p><ul>
+<li><b>ReactivePlusPlus</b> written in <b>Modern C++ (C++20)</b> with concepts which makes code-base a lot more understandable and clean:<ul>
+<li>Concepts provide more clear errors and checks</li>
+<li>Everywhere while possible used deduction of template arguments, for example, type of values of observable by type of subscriber used in on_subscribe and etc</li>
 </ul>
 </li>
+<li><b>ReactivePlusPlus</b> keeps balance between performance and type-erasing mechanism: Read about it in ./docs/Specific%20vs%20Dynamic.md "**"Performance vs Flexibility: Specific vs Dynamic"**"</li>
+<li><b>ReactivePlusPlus</b> is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking</li>
 </ul>
-<p >ReactivePlusPlus provides ability to use both of this ways to make usage experience optimal! Each of mentioned above core parts has two different specifications: <code>specific_</code> and <code>dynamic_</code>.</p>
-<p ><code>specific_</code> is default specialization which uses fully template approach to have best performance and memory consumption: each callback/used type specific as template parameter of this class <code>dynamic_</code> specialization uses type-erasure mechanism with all resulting peformance and memory hits, but this specialization is useful if you want to store type as class member or place it inside containers and etc.</p>
-<p >There detailed list with explanations:</p><ul>
-<li>observables:<ul>
-<li><a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1specific__observable.html">rpp::specific_observable&lt;T, OnSubscribeFn&gt;</a> - Stores type of <code>on_subscribe</code> callback explicitly via <code>OnSubscribe</code> template type. Due to explicit type of callback such an observable can obtains ANY specialization of subscriber and ANY specialization of observers without construction of <code>dynamic_</code> specializations</li>
-<li><a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observable.html">rpp::dynamic_observable&lt;T&gt;</a> - stores callback as shared_ptr to base class of <code><a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a></code> and calling callback via virtual function. Due to this limitation this observable can obtain only <code>dynamic_observer</code> and <code>dynamic_subscriber</code></li>
-</ul>
-</li>
-<li>observers<ul>
-<li><a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1specific__observer.html">rpp::specific_observer&lt;T, OnNext, OnError, OnCompleted&gt;</a> - Stores types of <code>on_next, on_error and on_completed</code> callbacks explicitly via <code>OnNext, OnError, OnCompleted</code> template types.</li>
-<li><a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observer.html">rpp::dynamic_observer&lt;T&gt;</a> - stores callbacks as shared_ptr to base class of <code><a class="el" href="classrpp_1_1specific__observer.html" title="Observer specified with specific template types of callbacks to avoid extra heap usage.">rpp::specific_observer</a></code> and calling callbacks via virtual functions.</li>
-</ul>
-</li>
-<li>subscribers:<ul>
-<li><a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1specific__subscriber.html">rpp::specific_subscriber&lt;T, Observer&gt;</a> - stores explicit underlying type of observer as <code>Observer</code> template type to avoid construction of <a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observer.html">rpp::dynamic_observer</a>.</li>
-<li><a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber&lt;T&gt;</a> - uses <a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observer.html">rpp::dynamic_observer</a> type as underlying type for observer.</li>
-</ul>
-</li>
-</ul>
-<p >So, to achieve best performance avoid usage of <code>dynamic_</code> specialization till you really need it or you want to avoid extra copies/moves of original objects captured inside callbacks and prefer one-time <code>shared_ptr</code> allication instead. For example, </p><div class="fragment"><div class="line"><span class="keyword">auto</span> observable = rpp::observable::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; subscriber)</div>
-<div class="line">{</div>
-<div class="line">    subscriber.on_next(1);</div>
-<div class="line">});</div>
-<div class="line"> </div>
-<div class="line"><span class="keyword">auto</span> observer = <a class="code hl_class" href="classrpp_1_1specific__observer.html">rpp::specific_observer</a>{[](<span class="keywordtype">int</span> v){ std::cout &lt;&lt; v;}};</div>
-<div class="line">observable.subscribe(observer);</div>
-<div class="line"><span class="comment">// OR observable.subscribe([](int v){ std::cout &lt;&lt; v;});</span></div>
-<div class="ttc" id="aclassrpp_1_1specific__observer_html"><div class="ttname"><a href="classrpp_1_1specific__observer.html">rpp::specific_observer</a></div><div class="ttdoc">Observer specified with specific template types of callbacks to avoid extra heap usage.</div><div class="ttdef"><b>Definition:</b> specific_observer.h:47</div></div>
-</div><!-- fragment --><p> uses only <b>ONE heap allocation</b> for <code>rpp::subscription</code> inside subscriber to store subscription state and no any other allocation happens. On the other hand </p><div class="fragment"><div class="line"><span class="comment">//1 dynamic_subscriber in observable</span></div>
-<div class="line"><span class="keyword">auto</span> observable = rpp::observable::create&lt;int&gt;([](<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber&lt;int&gt;</a>&amp; subscriber)</div>
-<div class="line">{</div>
-<div class="line">    subscriber.on_next(1);</div>
-<div class="line">});</div>
-<div class="line"> </div>
-<div class="line">observable.subscribe(<a class="code hl_class" href="classrpp_1_1specific__observer.html">rpp::specific_observer</a>{[](<span class="keywordtype">int</span> v){ std::cout &lt;&lt; v;}});</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">//2 dynamic_observable</span></div>
-<div class="line"><a class="code hl_class" href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable</a> observable = rpp::observable::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; subscriber)</div>
-<div class="line">{</div>
-<div class="line">    subscriber.on_next(1);</div>
-<div class="line">});</div>
-<div class="line"> </div>
-<div class="line">observable.<a class="code hl_function" href="classrpp_1_1dynamic__observable.html#a58b8ab8917cc6d757b95d71d4293d1ec">subscribe</a>(<a class="code hl_class" href="classrpp_1_1specific__observer.html">rpp::specific_observer</a>{[](<span class="keywordtype">int</span> v){ std::cout &lt;&lt; v;}});</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">//3 dynamic_observer</span></div>
-<div class="line"><span class="keyword">auto</span> observable = rpp::observable::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; subscriber)</div>
-<div class="line">{</div>
-<div class="line">    subscriber.on_next(1);</div>
-<div class="line">});</div>
-<div class="line"> </div>
-<div class="line">observable.<a class="code hl_function" href="classrpp_1_1dynamic__observable.html#a58b8ab8917cc6d757b95d71d4293d1ec">subscribe</a>(<a class="code hl_class" href="classrpp_1_1dynamic__observer.html">rpp::dynamic_observer</a>{[](<span class="keywordtype">int</span> v){ std::cout &lt;&lt; v;}});</div>
-<div class="ttc" id="aclassrpp_1_1dynamic__observable_html"><div class="ttname"><a href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable</a></div><div class="ttdoc">type-erased alternative of observable (comparing to rpp::specific_observable).</div><div class="ttdef"><b>Definition:</b> dynamic_observable.h:43</div></div>
-<div class="ttc" id="aclassrpp_1_1dynamic__observable_html_a58b8ab8917cc6d757b95d71d4293d1ec"><div class="ttname"><a href="classrpp_1_1dynamic__observable.html#a58b8ab8917cc6d757b95d71d4293d1ec">rpp::dynamic_observable::subscribe</a></div><div class="ttdeci">composite_subscription subscribe(const dynamic_subscriber&lt; Type &gt; &amp;subscriber) const noexcept override</div><div class="ttdoc">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscr...</div><div class="ttdef"><b>Definition:</b> dynamic_observable.h:56</div></div>
-<div class="ttc" id="aclassrpp_1_1dynamic__observer_html"><div class="ttname"><a href="classrpp_1_1dynamic__observer.html">rpp::dynamic_observer</a></div><div class="ttdoc">Dynamic (type-erased) version of observer (comparing to specific_observer)</div><div class="ttdef"><b>Definition:</b> dynamic_observer.h:45</div></div>
-<div class="ttc" id="aclassrpp_1_1dynamic__subscriber_html"><div class="ttname"><a href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber</a></div><div class="ttdoc">subscriber which uses dynamic_observer&lt;T&gt; to hide original callbacks</div><div class="ttdef"><b>Definition:</b> dynamic_subscriber.h:36</div></div>
-</div><!-- fragment --><p >all this samples uses extra heap allocations:</p><ol type="1">
-<li>explicitly specify type of subscriber inside observable as <code>dynamic_</code> -&gt; <code>dynamic_subscriber</code> created during <code>subscribe(...)</code> call which creates <code>dynamic_observer</code> underhood -&gt; heap used to construct <code>dynamic_observer</code></li>
-<li><code>dynamic_observable</code> constructed via heap allocation. This specizalization can obtain only <code>dynamic_subscriber</code> -&gt; same as prev. example</li>
-<li><code>dynamic_observer</code> constructed via heap allocation.</li>
-</ol>
-<p >For detailed comparison of performance of different operations for <code>specific_</code> and <code>dynamic_</code> you can find in <a href="https://victimsnino.github.io/ReactivePlusPlus/benchmark">Continuous Benchmarking</a> </p>
+<h1><a class="anchor" id="autotoc_md3"></a>
+Documentation</h1>
+<p >Doxygen documentation generated per each commit can be found <a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html">here</a></p>
+<p >Manual documentation can be found in docs folder.</p>
+<h1><a class="anchor" id="autotoc_md4"></a>
+Performance</h1>
+<p >Performance is really <b>important</b>! It is <b>doubly important</b> when we speak about <b>realtime applications and libraries</b>! <b>ReactivePlusPlus</b> targets as a realtime library to process and handle a tremendous volumes of data.</p>
+<p >This repository uses continous benchmarking: every commit and pull request measured and diff per each benchmark provided. Graphs over benchmark results can be found <a href="https://victimsnino.github.io/ReactivePlusPlus/benchmark">here</a> </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
