@@ -26,7 +26,7 @@
 #include <rpp/subscribers/constraints.h>
 #include <rpp/observables/type_traits.h>
 #include <rpp/operators/fwd/map.h>
-
+#include <rpp/utils/utilities.h>
 #include <utility>
 
 IMPLEMENTATION_FILE(map_tag);
@@ -54,7 +54,7 @@ auto member_overload<Type, SpecificObservable, map_tag>::map_impl(TObs&& _this, 
     return std::forward<TObs>(_this)
             .template lift<NewType>([callable = std::forward<Callable>(callable)](auto&& value, const constraint::subscriber auto& subscriber)
             {
-                subscriber.on_next(callable(std::as_const(std::forward<decltype(value)>(value))));
+                subscriber.on_next(callable(utilities::as_const(std::forward<decltype(value)>(value))));
             });
 }
 } // namespace rpp::details

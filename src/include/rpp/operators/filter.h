@@ -25,6 +25,8 @@
 #include <rpp/operators/fwd/filter.h>
 #include <rpp/observables/constraints.h>
 #include <rpp/subscribers/constraints.h>
+#include <rpp/utils/utilities.h>
+
 
 #include <utility>
 
@@ -49,7 +51,7 @@ auto member_overload<Type, SpecificObservable, filter_tag>::filter_impl(TObs&& _
 {
     return std::forward<TObs>(_this).template lift<Type>([predicate = std::forward<Predicate>(predicate)](auto&& value, const constraint::subscriber auto& subscriber)
     {
-        if (predicate(std::as_const(value)))
+        if (predicate(utilities::as_const(value)))
             subscriber.on_next(std::forward<decltype(value)>(value));
     });
 }
