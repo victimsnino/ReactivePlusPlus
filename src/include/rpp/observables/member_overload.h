@@ -43,5 +43,5 @@ template<typename ...Args>                              \
 struct rpp::details::operator_declaration<rpp::details::tag, Args...> \
 {                                                       \
     static std::true_type header_included();            \
-};
+}
 } // namespace rpp::details

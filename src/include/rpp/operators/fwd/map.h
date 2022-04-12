@@ -26,7 +26,7 @@
 
 namespace rpp::details
 {
-    struct map_tag;
+struct map_tag;
 }
 
 namespace rpp::operators

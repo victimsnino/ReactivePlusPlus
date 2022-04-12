@@ -41,3 +41,6 @@
 ## Operators
 ### Transforming
 - [x] map
+
+### Filtering
+- [x] filter
