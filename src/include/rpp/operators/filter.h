@@ -22,26 +22,34 @@
 
 #pragma once
 
-#include <rpp/utils/constraints.h>
+#include <rpp/operators/fwd/filter.h>
+#include <rpp/observables/constraints.h>
+#include <rpp/subscribers/constraints.h>
 
+
+IMPLEMENTATION_FILE(filter_tag);
+
+namespace rpp::operators
+{
+template<typename Predicate>
+auto filter(Predicate&& predicate) requires details::is_header_included<details::filter_tag, Predicate>
+{
+    return [predicate = std::forward<Predicate>(predicate)]<constraint::observable TObservable>(TObservable && observable)
+    {
+        return observable.filter(predicate);
+    };
+}
+} // namespace rpp::operators
 namespace rpp::details
 {
-template<class Tag, typename ...Args>
-struct operator_declaration
+template<constraint::decayed_type Type, typename SpecificObservable>
+template<constraint::decayed_same_as<SpecificObservable>TObs, std::predicate<const Type&> Predicate>
+auto member_overload<Type, SpecificObservable, filter_tag>::filter_impl(TObs&& _this, Predicate&& predicate)
 {
-    static std::false_type header_included();
-};
-
-template<typename ...Args>
-concept is_header_included = decltype(operator_declaration<Args...>::header_included())::value;
-
-template<rpp::constraint::decayed_type Type, typename SpecificObservable, typename MemberTag>
-struct member_overload;
-
-#define IMPLEMENTATION_FILE(tag)                        \
-template<typename ...Args>                              \
-struct rpp::details::operator_declaration<rpp::details::tag, Args...> \
-{                                                       \
-    static std::true_type header_included();            \
-};
+    return std::forward<TObs>(_this).template lift<Type>([predicate = std::forward<Predicate>(predicate)](auto&& value, const constraint::subscriber auto& subscriber)
+    {
+        if (predicate(std::as_const(value)))
+            subscriber.on_next(std::forward<decltype(value)>(value));
+    });
+}
 } // namespace rpp::details

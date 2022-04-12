@@ -22,12 +22,6 @@
 
 #pragma once
 
-/**
- * \file
- *
- * \brief This file contains implementation of operator "map"
- */
-
 #include <rpp/observables/constraints.h>
 #include <rpp/subscribers/constraints.h>
 #include <rpp/observables/type_traits.h>
@@ -35,10 +29,12 @@
 
 #include <utility>
 
+IMPLEMENTATION_FILE(map_tag);
+
 namespace rpp::operators
 {
 template<typename Callable>
-auto map(Callable&& callable)
+auto map(Callable&& callable) requires details::is_header_included<details::map_tag, Callable>
 {
     return [callable = std::forward<Callable>(callable)]<constraint::observable TObservable>(TObservable&& observable)
     {
@@ -49,12 +45,6 @@ auto map(Callable&& callable)
 
 namespace rpp::details
 {
-template<typename ...AN>
-struct operator_declaration<map_tag, AN...>
-{
-    static std::true_type header_included();
-};
-
 template<constraint::decayed_type Type, typename SpecificObservable>
 template<constraint::decayed_same_as<SpecificObservable> TObs, std::invocable<Type> Callable>
 auto member_overload<Type, SpecificObservable, map_tag>::map_impl(TObs&& _this, Callable&& callable)
