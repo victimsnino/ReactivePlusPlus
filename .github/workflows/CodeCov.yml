@@ -33,6 +33,11 @@ jobs:
       shell: bash
       run: sudo pip install codecov
 
+    - name: Setup cache
+      uses: mikehardy/buildcache-action@v1
+      with:
+        cache_key: "test-coverage"
+
     - name: Configure CMake
       env:
         CC: gcc-10
