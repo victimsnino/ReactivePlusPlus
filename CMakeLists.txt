@@ -35,15 +35,17 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
 find_package(Threads REQUIRED)
-set(BUILD_TESTS ON CACHE BOOL "Enable unit tests building" FORCE)
+
+# ======================= OPTIONS ================================
+set(BUILD_TESTS     ON  CACHE BOOL "Enable unit tests building" FORCE)
+set(BUILD_SAMPLES   ON  CACHE BOOL "Enable samples building" FORCE)
+set(CODE_COVERAGE   OFF CACHE BOOL "Enable coverage reporting" FORCE)
 
 # ======================= CI =========================
 # Code Coverage Configuration
 add_library(coverage_config INTERFACE)
 
-option(CODE_COVERAGE "Enable coverage reporting" OFF)
 if(CODE_COVERAGE)
   # Add required flags (GCC & LLVM/Clang)
   target_compile_options(coverage_config INTERFACE
@@ -73,19 +75,22 @@ if (AUTOTESTS)
   FetchContent_MakeAvailable(RxCpp)
 endif()
 
-
 # ================== TESTS ==================
-enable_testing()
 
-set(TEST_RESULTS_DIR  ${CMAKE_BINARY_DIR}/test_results)
+if (BUILD_TESTS)
+  enable_testing()
+  set(TEST_RESULTS_DIR  ${CMAKE_BINARY_DIR}/test_results)
 
-macro (add_ctest target)
-    add_test(NAME ${target} COMMAND $<TARGET_FILE:${target}> -r junit -o ${TEST_RESULTS_DIR}/${target}.xml)
-endmacro (add_ctest)
+  macro (add_ctest target)
+      add_test(NAME ${target} COMMAND $<TARGET_FILE:${target}> -r junit -o ${TEST_RESULTS_DIR}/${target}.xml)
+  endmacro (add_ctest)
 
-file(MAKE_DIRECTORY ${TEST_RESULTS_DIR})
+  file(MAKE_DIRECTORY ${TEST_RESULTS_DIR})
+endif()
 
 # ================== SOURCES =============
 
-add_subdirectory(submodules)
+if (BUILD_TESTS)
+  add_subdirectory(submodules)
+endif()
 add_subdirectory(src)
