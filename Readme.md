@@ -23,13 +23,15 @@ Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ
 - **ReactivePlusPlus** written in **Modern C++ (C++20)** with concepts which makes code-base a lot more understandable and clean:
    - Concepts provide more clear errors and checks
    - Everywhere while possible used deduction of template arguments, for example, type of values of observable by type of subscriber used in on_subscribe and etc
-- **ReactivePlusPlus** keeps balance between performance and type-erasing mechanism: Read about it in  **"Performance vs Flexibility: Specific vs Dynamic"** on [documentation page](https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html)
+- **ReactivePlusPlus** keeps balance between performance and type-erasing mechanism: Read about it in  [**"Performance vs Flexibility: Specific vs Dynamic"**](./docs/Specific%20vs%20Dynamic.md)
 - **ReactivePlusPlus** is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking
 
 
 ## Documentation
 
 Doxygen documentation generated per each commit can be found [here](https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html)
+
+Manual documentation can be found in [docs folder](docs/Readme.md).
 
 ## Performance
 Performance is really **important**! It is **doubly important** when we speak about **realtime applications and libraries**! **ReactivePlusPlus** targets as a realtime library to process and handle a tremendous volumes of data. 

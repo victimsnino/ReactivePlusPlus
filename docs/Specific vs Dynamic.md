@@ -1,8 +1,3 @@
-# ReactivePlusPlus
-
-ReactivePlusPlus is [ReactiveX](https://reactivex.io/) library for C++ language inspired by "official implementation" ([RxCpp](https://github.com/ReactiveX/RxCpp)) 
-
-
 ## Performance vs Flexibility: Specific vs Dynamic
 
 In general Reactive Extensions can be split into three main parts from the objects perspective:
