@@ -7,13 +7,13 @@ Some of the operators and sources like `rpp::source::just` or `rpp::operators::s
 For example, `rpp::source::just`
 
 ```cpp
-rpp::source::just(my_custom_variable)
+rpp::source::just(my_custom_variable);
 ```
 by default `just` uses `rpp::memory_model::use_stack` and `my_custom_variable` would be copied and moved everywhere when needed. On the other hand
 
 ```cpp
-rpp::source::just<rpp::memory_model::use_shared>(my_custom_variable)
+rpp::source::just<rpp::memory_model::use_shared>(my_custom_variable);
 ```
 makes only 1 copy/move to shared_ptr and then uses it instead.
 
-As a a result, users can select preferrable way of handling of their types.
+As a a result, users can select preferable way of handling of their types.
