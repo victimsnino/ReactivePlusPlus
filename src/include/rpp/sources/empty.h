@@ -22,9 +22,33 @@
 
 #pragma once
 
-namespace rpp
+/**
+ * \file
+ * \brief This file contains implementation of `empty` function to create rpp::specific_observable
+ *
+ * \see https://reactivex.io/documentation/operators/empty-never-throw.html
+ **/
+
+#include <rpp/sources/create.h>
+#include <rpp/sources/fwd.h>
+#include <rpp/utils/constraints.h>
+
+
+namespace rpp::observable
 {
-class callback_subscription;
-class composite_subscription;
-class subscription_guard;
-} // namespace rpp
+/**
+ * \ingroup observables
+ * \brief Creates rpp::specific_observable that emits no items but terminates normally
+ * \tparam Type type of value to specify observable
+ *
+ * \see https://reactivex.io/documentation/operators/empty-never-throw.html
+ */
+template<constraint::decayed_type Type>
+auto empty()
+{
+    return create<Type>([](const auto& sub)
+    {
+        sub.on_completed();
+    });
+}
+} // namespace rpp::observable

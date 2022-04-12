@@ -34,6 +34,9 @@ namespace rpp::schedulers
 {
 using clock_type = std::chrono::high_resolution_clock;
 using time_point = std::chrono::high_resolution_clock::time_point;
-using duration   = std::chrono::nanoseconds;
+using duration = std::chrono::nanoseconds;
 using optional_duration = std::optional<duration>;
+
+class immediate;
+class new_thread;
 } // namespace rpp::schedulers

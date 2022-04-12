@@ -28,3 +28,4 @@
 #include <rpp/subscribers/fwd.h>
 #include <rpp/operators/fwd.h>
 #include <rpp/subscriptions/fwd.h>
+#include <rpp/schedulers/fwd.h>

@@ -22,9 +22,5 @@
 
 #pragma once
 
-namespace rpp
-{
-class callback_subscription;
-class composite_subscription;
-class subscription_guard;
-} // namespace rpp
+#include <rpp/schedulers/immediate_scheduler.h>
+#include <rpp/schedulers/new_thread_scheduler.h>
