@@ -24,3 +24,4 @@
 
 #include <rpp/operators/fwd/filter.h>
 #include <rpp/operators/fwd/map.h>
+#include <rpp/operators/fwd/take.h>

@@ -44,3 +44,4 @@
 
 ### Filtering
 - [x] filter
+- [x] take

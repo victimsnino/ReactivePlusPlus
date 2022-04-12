@@ -23,3 +23,5 @@
 #pragma once
 
 #include <rpp/operators/map.h>
+#include <rpp/operators/filter.h>
+#include <rpp/operators/take.h>

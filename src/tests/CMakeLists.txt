@@ -31,6 +31,7 @@ add_executable(${TARGET}
     test_schedulers.cpp
     test_subscriptions.cpp
     test_filter.cpp
+    test_take.cpp
     
     test_lift.cpp
 
