@@ -23,6 +23,10 @@
 #pragma once
 
 #include <rpp/operators/fwd/take.h>
+#include <rpp/observables/constraints.h>
+#include <rpp/subscribers/constraints.h>
+
+#include <atomic>
 
 IMPLEMENTATION_FILE(take_tag);
 
@@ -53,12 +57,12 @@ public:
     void operator()(auto&& value, const constraint::subscriber auto& subscriber) const
     {
         const auto old_value = m_sent_count.fetch_add(1);
-        if (old_value >= m_count)
-            return;
-
-        subscriber.on_next(std::forward<decltype(value)>(value));
-        if (m_count - old_value == 1)
-            subscriber.on_completed();
+        if (old_value < m_count)
+        {
+            subscriber.on_next(std::forward<decltype(value)>(value));
+            if (m_count - old_value == 1)
+                subscriber.on_completed();
+        }
     }
 
 private:
