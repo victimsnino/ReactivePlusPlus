@@ -26,10 +26,6 @@ Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ
 - **ReactivePlusPlus** keeps balance between performance and type-erasing mechanism: Read about it in  [**"Performance vs Flexibility: Specific vs Dynamic"**](./docs/Specific%20vs%20Dynamic.md)
 - **ReactivePlusPlus** is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking
 
-## Example:
-```cpp
-observable.create
-```
 
 ## Implementation Status
 
@@ -51,5 +47,5 @@ This repository uses continous benchmarking: every commit and pull request measu
 ReactivePlusPlus library uses:
 - [Catch2](https://github.com/catchorg/Catch2) for unit testing only, you can avoid cloning it if you don't need unit-tests
 - [RxCpp](https://github.com/ReactiveX/RxCpp) only for comparison of performance between RPP and RxCpp in CI benchmarks. Used as cmake dependency under option
-- [reactivex.io](reactivex.io) as source for insipration and definition of entities used in RPP. Some comments used in RPP source code taken from [reactivex.io](reactivex.io)
+- [reactivex.io](https://reactivex.io) as source for insipration and definition of entities used in RPP. Some comments used in RPP source code taken from [reactivex.io](https://reactivex.io)
 
