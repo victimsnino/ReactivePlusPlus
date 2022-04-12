@@ -77,8 +77,8 @@
 \DoxyCodeLine{80 \} \textcolor{comment}{// namespace rpp::observable::details}}
 \DoxyCodeLine{81 \textcolor{keyword}{namespace }rpp::observable}
 \DoxyCodeLine{82 \{}
-\DoxyCodeLine{92 \textcolor{keyword}{template}<memory\_model memory\_model = memory\_model::use\_stack, rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler Scheduler = rpp::schedulers::immediate>}
-\DoxyCodeLine{93 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga4c12eeef18535ffd2b9153524b8a8899}{just}}(\textcolor{keyword}{auto}\&\& item, \textcolor{keyword}{const} Scheduler\& scheduler = Scheduler\{\})}
+\DoxyCodeLine{92 \textcolor{keyword}{template}<memory\_model memory\_model, rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler Scheduler>}
+\DoxyCodeLine{93 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gaeb16634f6c858430089044c8683e1efe}{just}}(\textcolor{keyword}{auto}\&\& item, \textcolor{keyword}{const} Scheduler\& scheduler)}
 \DoxyCodeLine{94 \{}
 \DoxyCodeLine{95     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (memory\_model == memory\_model::use\_stack)}
 \DoxyCodeLine{96         \textcolor{keywordflow}{return} details::just\_use\_stack(std::forward<\textcolor{keyword}{decltype}(item)>(item), scheduler);}

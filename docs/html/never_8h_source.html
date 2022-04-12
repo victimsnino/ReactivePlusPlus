@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: src/include/rpp/sources.h Source File</title>
+<title>ReactivePlusPlus: src/include/rpp/sources/never.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,14 +62,14 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b0856f6b0d80ccb263b2f415c91f9e17.html">include</a></li><li class="navelem"><a class="el" href="dir_a0ebbe362f10a27da1664c4cb43bfc1a.html">rpp</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b0856f6b0d80ccb263b2f415c91f9e17.html">include</a></li><li class="navelem"><a class="el" href="dir_a0ebbe362f10a27da1664c4cb43bfc1a.html">rpp</a></li><li class="navelem"><a class="el" href="dir_2d801c90619b5f5d2d9aeed7586d4683.html">sources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">sources.h</div></div>
+  <div class="headertitle"><div class="title">never.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// MIT License</span></div>
+<a href="never_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// MIT License</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// </span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">// Copyright (c) 2022 Aleksey Loginov</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// </span></div>
@@ -93,16 +93,21 @@ $(function() {
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;<a class="code" href="create_8h.html">rpp/sources/create.h</a>&gt;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;<a class="code" href="empty_8h.html">rpp/sources/empty.h</a>&gt;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;<a class="code" href="error_8h.html">rpp/sources/error.h</a>&gt;</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;<a class="code" href="just_8h.html">rpp/sources/just.h</a>&gt;</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;<a class="code" href="never_8h.html">rpp/sources/never.h</a>&gt;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &lt;<a class="code" href="create_8h.html">rpp/sources/create.h</a>&gt;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#include &lt;rpp/sources/fwd.h&gt;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &lt;rpp/utils/constraints.h&gt;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">namespace </span>rpp::observable</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>{</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="group__observables.html#ga091f1a238b4d205f0a1dff22b971c880">   47</a></span><span class="keyword">auto</span> <a class="code hl_function" href="group__observables.html#ga091f1a238b4d205f0a1dff22b971c880">never</a>()</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>{</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">return</span> create&lt;Type&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;) { });</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>} <span class="comment">// namespace rpp::observable</span></div>
 <div class="ttc" id="acreate_8h_html"><div class="ttname"><a href="create_8h.html">create.h</a></div><div class="ttdoc">This file contains implementation of create function to create rpp::specific_observable with OnSubscr...</div></div>
-<div class="ttc" id="aempty_8h_html"><div class="ttname"><a href="empty_8h.html">empty.h</a></div><div class="ttdoc">This file contains implementation of empty function to create rpp::specific_observable.</div></div>
-<div class="ttc" id="aerror_8h_html"><div class="ttname"><a href="error_8h.html">error.h</a></div><div class="ttdoc">This file contains implementation of error functions to create rpp::specific_observable.</div></div>
-<div class="ttc" id="ajust_8h_html"><div class="ttname"><a href="just_8h.html">just.h</a></div><div class="ttdoc">This file contains implementation of just function to create rpp::specific_observable that emits a pa...</div></div>
-<div class="ttc" id="anever_8h_html"><div class="ttname"><a href="never_8h.html">never.h</a></div><div class="ttdoc">This file contains implementation of never functions to create rpp::specific_observable.</div></div>
+<div class="ttc" id="agroup__observables_html_ga091f1a238b4d205f0a1dff22b971c880"><div class="ttname"><a href="group__observables.html#ga091f1a238b4d205f0a1dff22b971c880">rpp::observable::never</a></div><div class="ttdeci">auto never()</div><div class="ttdoc">Creates rpp::specific_observable that emits no items and does not terminate.</div><div class="ttdef"><b>Definition:</b> never.h:47</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

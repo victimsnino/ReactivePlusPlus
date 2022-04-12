@@ -1,6 +1,6 @@
-\hypertarget{sources_8h_source}{}\doxysection{sources.\+h}
-\label{sources_8h_source}\index{src/include/rpp/sources.h@{src/include/rpp/sources.h}}
-
+\hypertarget{never_8h_source}{}\doxysection{never.\+h}
+\label{never_8h_source}\index{src/include/rpp/sources/never.h@{src/include/rpp/sources/never.h}}
+\mbox{\hyperlink{never_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// MIT License}}
 \DoxyCodeLine{2 \textcolor{comment}{// }}
@@ -26,10 +26,18 @@
 \DoxyCodeLine{22 }
 \DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{create_8h}{rpp/sources/create.h}}>}}
-\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{empty_8h}{rpp/sources/empty.h}}>}}
-\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{error_8h}{rpp/sources/error.h}}>}}
-\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{just_8h}{rpp/sources/just.h}}>}}
-\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{never_8h}{rpp/sources/never.h}}>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{create_8h}{rpp/sources/create.h}}>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <rpp/sources/fwd.h>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <rpp/utils/constraints.h>}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{keyword}{namespace }rpp::observable}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{46 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{47 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga091f1a238b4d205f0a1dff22b971c880}{never}}()}
+\DoxyCodeLine{48 \{}
+\DoxyCodeLine{49     \textcolor{keywordflow}{return} create<Type>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\&) \{ \});}
+\DoxyCodeLine{50 \}}
+\DoxyCodeLine{51 \} \textcolor{comment}{// namespace rpp::observable}}
 
 \end{DoxyCode}

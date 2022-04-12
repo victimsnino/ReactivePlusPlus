@@ -19,8 +19,14 @@ class \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+ob
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} with passed action as On\+Subscribe. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename On\+Subscribe\+Fn $>$ }\\auto \mbox{\hyperlink{group__observables_ga7c355ad67fb60d523e6d05604638bae2}{rpp\+::observable\+::create}} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with passed action as On\+Subscribe and deduce type of observable by this function. \end{DoxyCompactList}\item 
-{\footnotesize template$<$memory\+\_\+model memory\+\_\+model = memory\+\_\+model\+::use\+\_\+stack, rpp\+::schedulers\+::constraint\+::scheduler Scheduler = rpp\+::schedulers\+::immediate$>$ }\\auto \mbox{\hyperlink{group__observables_ga4c12eeef18535ffd2b9153524b8a8899}{rpp\+::observable\+::just}} (auto \&\&item, const Scheduler \&scheduler=Scheduler\{\})
-\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits a particular item and completes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\auto \mbox{\hyperlink{group__observables_ga98063c4d7ae8a8222b8d4ff1eacd6517}{rpp\+::observable\+::empty}} ()
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits no items but terminates normally. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\auto \mbox{\hyperlink{group__observables_ga6ec535e9c756e3bf8be5b7f64fc55380}{rpp\+::observable\+::error}} (const std\+::exception\+\_\+ptr \&err)
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits no items and terminates with an error. \end{DoxyCompactList}\item 
+{\footnotesize template$<$memory\+\_\+model memory\+\_\+model = memory\+\_\+model\+::use\+\_\+stack, rpp\+::schedulers\+::constraint\+::scheduler Scheduler = rpp\+::schedulers\+::immediate$>$ }\\auto \mbox{\hyperlink{group__observables_gaeb16634f6c858430089044c8683e1efe}{rpp\+::observable\+::just}} (auto \&\&item, const Scheduler \&scheduler)
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits a particular item and completes. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\auto \mbox{\hyperlink{group__observables_ga091f1a238b4d205f0a1dff22b971c880}{rpp\+::observable\+::never}} ()
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits no items and does not terminate. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -78,12 +84,55 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observa
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__observables_ga4c12eeef18535ffd2b9153524b8a8899}\label{group__observables_ga4c12eeef18535ffd2b9153524b8a8899}} 
+\mbox{\Hypertarget{group__observables_ga98063c4d7ae8a8222b8d4ff1eacd6517}\label{group__observables_ga98063c4d7ae8a8222b8d4ff1eacd6517}} 
+\index{Observables@{Observables}!empty@{empty}}
+\index{empty@{empty}!Observables@{Observables}}
+\doxysubsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
+auto rpp\+::observable\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits no items but terminates normally. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & type of value to specify observable\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/empty-never-throw.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/empty-\/never-\/throw.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__observables_ga6ec535e9c756e3bf8be5b7f64fc55380}\label{group__observables_ga6ec535e9c756e3bf8be5b7f64fc55380}} 
+\index{Observables@{Observables}!error@{error}}
+\index{error@{error}!Observables@{Observables}}
+\doxysubsubsection{\texorpdfstring{error()}{error()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
+auto rpp\+::observable\+::error (\begin{DoxyParamCaption}\item[{const std\+::exception\+\_\+ptr \&}]{err }\end{DoxyParamCaption})}
+
+
+
+Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits no items and terminates with an error. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & type of value to specify observable \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em err} & exception ptr to be sent to subscriber\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/empty-never-throw.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/empty-\/never-\/throw.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__observables_gaeb16634f6c858430089044c8683e1efe}\label{group__observables_gaeb16634f6c858430089044c8683e1efe}} 
 \index{Observables@{Observables}!just@{just}}
 \index{just@{just}!Observables@{Observables}}
 \doxysubsubsection{\texorpdfstring{just()}{just()}}
 {\footnotesize\ttfamily template$<$memory\+\_\+model memory\+\_\+model = memory\+\_\+model\+::use\+\_\+stack, rpp\+::schedulers\+::constraint\+::scheduler Scheduler = rpp\+::schedulers\+::immediate$>$ \\
-auto rpp\+::observable\+::just (\begin{DoxyParamCaption}\item[{auto \&\&}]{item,  }\item[{const Scheduler \&}]{scheduler = {\ttfamily Scheduler\{\}} }\end{DoxyParamCaption})}
+auto rpp\+::observable\+::just (\begin{DoxyParamCaption}\item[{auto \&\&}]{item,  }\item[{const Scheduler \&}]{scheduler }\end{DoxyParamCaption})}
 
 
 
@@ -104,4 +153,23 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \end{DoxyReturn}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/just.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/just.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__observables_ga091f1a238b4d205f0a1dff22b971c880}\label{group__observables_ga091f1a238b4d205f0a1dff22b971c880}} 
+\index{Observables@{Observables}!never@{never}}
+\index{never@{never}!Observables@{Observables}}
+\doxysubsubsection{\texorpdfstring{never()}{never()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
+auto rpp\+::observable\+::never (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits no items and does not terminate. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & type of value to specify observable\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/empty-never-throw.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/empty-\/never-\/throw.\+html}} 
 \end{DoxySeeAlso}

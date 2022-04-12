@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['just_0',['just',['../group__observables.html#ga4c12eeef18535ffd2b9153524b8a8899',1,'rpp::observable']]]
+  ['is_5fsubscribed_0',['is_subscribed',['../classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2',1,'rpp::subscription_base']]]
 ];

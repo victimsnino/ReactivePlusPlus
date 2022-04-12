@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['subscribe_0',['subscribe',['../classrpp_1_1dynamic__observable.html#a58b8ab8917cc6d757b95d71d4293d1ec',1,'rpp::dynamic_observable::subscribe()'],['../structrpp_1_1virtual__observable.html#a21c5a4bcb56911deb4e86dd39028d64f',1,'rpp::virtual_observable::subscribe()'],['../classrpp_1_1specific__observable.html#a0b9d19ca777025a4dc3b2f386a1140d8',1,'rpp::specific_observable::subscribe(const dynamic_subscriber&lt; Type &gt; &amp;subscriber) const noexcept override'],['../classrpp_1_1specific__observable.html#a8cb94e94ecb059766c8e509f27a2ba97',1,'rpp::specific_observable::subscribe(TSub &amp;&amp;subscriber) const noexcept'],['../classrpp_1_1specific__observable.html#a38d171112b404e026c9d0ec896fd1d6f',1,'rpp::specific_observable::subscribe(TObserver &amp;&amp;observer) const noexcept'],['../classrpp_1_1specific__observable.html#a9b665a904d500612243e85afd0bef172',1,'rpp::specific_observable::subscribe(Args &amp;&amp;...args) const noexcept']]]
+  ['never_0',['never',['../group__observables.html#ga091f1a238b4d205f0a1dff22b971c880',1,'rpp::observable']]]
 ];

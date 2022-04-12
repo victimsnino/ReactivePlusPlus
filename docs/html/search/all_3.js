@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['forwarding_5fon_5fcompleted_0',['forwarding_on_completed',['../structrpp_1_1details_1_1forwarding__on__completed.html',1,'rpp::details']]],
-  ['forwarding_5fon_5ferror_1',['forwarding_on_error',['../structrpp_1_1details_1_1forwarding__on__error.html',1,'rpp::details']]]
+  ['empty_0',['empty',['../group__observables.html#ga98063c4d7ae8a8222b8d4ff1eacd6517',1,'rpp::observable']]],
+  ['empty_2eh_1',['empty.h',['../empty_8h.html',1,'']]],
+  ['error_2',['error',['../group__observables.html#ga6ec535e9c756e3bf8be5b7f64fc55380',1,'rpp::observable']]],
+  ['error_2eh_3',['error.h',['../error_8h.html',1,'']]]
 ];

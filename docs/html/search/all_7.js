@@ -1,8 +1,4 @@
 var searchData=
 [
-  ['map_0',['map',['../group__operators.html#ga0b6f480d82f14e963a6308690a6d1774',1,'rpp::details::member_overload&lt; Type, SpecificObservable, map_tag &gt;']]],
-  ['map_2eh_1',['map.h',['../map_8h.html',1,'']]],
-  ['member_5foverload_2',['member_overload',['../structrpp_1_1details_1_1member__overload.html',1,'rpp::details']]],
-  ['member_5foverload_3c_20type_2c_20specificobservable_2c_20details_3a_3amap_5ftag_20_3e_3',['member_overload&lt; Type, SpecificObservable, details::map_tag &gt;',['../structrpp_1_1details_1_1member__overload.html',1,'rpp::details']]],
-  ['member_5foverload_3c_20type_2c_20specificobservable_2c_20map_5ftag_20_3e_4',['member_overload&lt; Type, SpecificObservable, map_tag &gt;',['../structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01map__tag_01_4.html',1,'rpp::details']]]
+  ['lift_0',['lift',['../structrpp_1_1interface__observable.html#ac6c66ddf2ceb4d398044a17e53db13eb',1,'rpp::interface_observable::lift(details::lift_fn&lt; NewType &gt; auto &amp;&amp;op) const &amp;'],['../structrpp_1_1interface__observable.html#a89b275a1f555886633d2389c61b97103',1,'rpp::interface_observable::lift(OperatorFn &amp;&amp;op) const &amp;'],['../structrpp_1_1interface__observable.html#a250a7502f252453f3144b72ffedbb8fa',1,'rpp::interface_observable::lift(OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const &amp;'],['../structrpp_1_1interface__observable.html#abc2606b6028290f9891984be692b2080',1,'rpp::interface_observable::lift(OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const &amp;']]]
 ];
