@@ -23,7 +23,7 @@
 #pragma once
 
 #include <rpp/observables/constraints.h>
-#include <rpp/operators/fwd/take_while.h>
+#include <rpp/operators/fwd/filter.h>
 #include <rpp/subscribers/constraints.h>
 #include <rpp/utils/utilities.h>
 
