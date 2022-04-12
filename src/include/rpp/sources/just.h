@@ -89,8 +89,8 @@ namespace rpp::observable
  *
  * \see https://reactivex.io/documentation/operators/just.html
  */
-template<memory_model memory_model = memory_model::use_stack, rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate>
-auto just(auto&& item, const Scheduler& scheduler = Scheduler{})
+template<memory_model memory_model, rpp::schedulers::constraint::scheduler Scheduler>
+auto just(auto&& item, const Scheduler& scheduler)
 {
     if constexpr (memory_model == memory_model::use_stack)
         return details::just_use_stack(std::forward<decltype(item)>(item), scheduler);

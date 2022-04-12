@@ -22,15 +22,36 @@
 
 #pragma once
 
+#include <rpp/memory_model.h>
+#include <rpp/schedulers/constraints.h>
+#include <rpp/schedulers/fwd.h>
+
 #include <rpp/observables/fwd.h>
 
 namespace rpp::observable
 {
+//**************************** CREATE ****************//
 template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
 auto create(OnSubscribeFn&& on_subscribe);
 
 template<typename OnSubscribeFn>
 auto create(OnSubscribeFn&& on_subscribe);
+
+//**************************** JUST *****************//
+template<memory_model memory_model = memory_model::use_stack, rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate>
+auto just(auto&& item, const Scheduler& scheduler = Scheduler{});
+
+//**************************** EMPTY *****************//
+template<constraint::decayed_type Type>
+auto empty();
+
+//**************************** NEVER *****************//
+template<constraint::decayed_type Type>
+auto never();
+
+//**************************** ERROR *****************//
+template<constraint::decayed_type Type>
+auto error(const std::exception_ptr& err);
 } // namespace rpp::observable
 
 namespace rpp

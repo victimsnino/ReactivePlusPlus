@@ -22,21 +22,35 @@
 
 #pragma once
 
-#include <chrono>
-#include <optional>
+/**
+ * \file
+ * \brief This file contains implementation of `error` functions to create rpp::specific_observable
+ *
+ * \see https://reactivex.io/documentation/operators/empty-never-throw.html
+ **/
 
-namespace rpp::schedulers::details
+#include <rpp/sources/create.h>
+#include <rpp/sources/fwd.h>
+#include <rpp/utils/constraints.h>
+
+#include <exception>
+
+namespace rpp::observable
 {
-struct scheduler_tag {};
-} // namespace rpp::schedulers::details
-
-namespace rpp::schedulers
+/**
+  * \ingroup observables
+  * \brief Creates rpp::specific_observable that emits no items and terminates with an error
+  * \tparam Type type of value to specify observable
+  * \param err exception ptr to be sent to subscriber
+  *
+  * \see https://reactivex.io/documentation/operators/empty-never-throw.html
+  */
+template<constraint::decayed_type Type>
+auto error(const std::exception_ptr& err)
 {
-using clock_type = std::chrono::high_resolution_clock;
-using time_point = std::chrono::high_resolution_clock::time_point;
-using duration = std::chrono::nanoseconds;
-using optional_duration = std::optional<duration>;
-
-class immediate;
-class new_thread;
-} // namespace rpp::schedulers
+    return create<Type>([err](const auto& sub)
+    {
+        sub.on_error(err);
+    });
+}
+} // namespace rpp::observable

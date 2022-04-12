@@ -26,9 +26,8 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <rpp/sources/create.h>
-#include <rpp/sources/just.h>
 
+#include <rpp/sources.h>
 #include <rpp/observables.h>
 #include <rpp/observers.h>
 #include <rpp/subscribers.h>
@@ -309,6 +308,54 @@ SCENARIO("source::just")
                 CHECK(mock.get_on_completed_count() == 1);
                 CHECK(v.get_copy_count() == 0);
                 CHECK(v.get_move_count() == 1); // 1 move into shared_ptr
+            }
+        }
+    }
+}
+
+SCENARIO("base observables")
+{
+    mock_observer<int> mock{ };
+
+    GIVEN("empty")
+    {
+        auto observable = rpp::observable::empty<int>();
+        WHEN("subscribe on this observable")
+        {
+            observable.subscribe(mock);
+            THEN("only on_completed called")
+            {
+                CHECK(mock.get_total_on_next_count() == 0);
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+    GIVEN("never")
+    {
+        auto observable = rpp::observable::never<int>();
+        WHEN("subscribe on this observable")
+        {
+            observable.subscribe(mock);
+            THEN("no any callbacks")
+            {
+                CHECK(mock.get_total_on_next_count() == 0);
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
+    }
+    GIVEN("error")
+    {
+        auto observable = rpp::observable::error<int>(std::make_exception_ptr(std::runtime_error{"MY EXCEPTION"}));
+        WHEN("subscribe on this observable")
+        {
+            observable.subscribe(mock);
+            THEN("only on_error callback once")
+            {
+                CHECK(mock.get_total_on_next_count() == 0);
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
             }
         }
     }
