@@ -29,26 +29,18 @@
  * \see https://reactivex.io/documentation/operators/just.html
  **/
 
-#include <rpp/sources/fwd.h>
-#include <rpp/sources/create.h>
+#include <rpp/memory_model.h>
 #include <rpp/schedulers/constraints.h>
 #include <rpp/schedulers/immediate_scheduler.h>
+#include <rpp/sources/create.h>
+#include <rpp/sources/fwd.h>
 
 #include <type_traits>
 
-namespace rpp::observable
+namespace rpp::observable::details
 {
-/**
- * \ingroup observables
- * \brief Creates rpp::specific_observable that emits a particular item and completes
- * \tparam Scheduler type of scheduler used for scheduling of submissions
- * \param item value to be sent
- * \return rpp::specific_observable with provided item
- *
- * \see https://reactivex.io/documentation/operators/just.html
- */
 template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate>
-auto just(auto&& item, const Scheduler& scheduler = Scheduler{})
+auto just_use_stack(auto&& item, const Scheduler& scheduler)
 {
     return create<std::decay_t<decltype(item)>>([=, item = std::forward<decltype(item)>(item)](const constraint::subscriber auto& subscriber)
     {
@@ -61,12 +53,48 @@ auto just(auto&& item, const Scheduler& scheduler = Scheduler{})
         {
             auto worker = scheduler.create_worker(subscriber.get_subscription());
             worker.schedule([subscriber, item]() mutable -> rpp::schedulers::optional_duration
-            {
-                subscriber.on_next(std::move(item));
-                subscriber.on_completed();
-                return {};
-            });
+                {
+                    subscriber.on_next(std::move(item));
+                    subscriber.on_completed();
+                    return {};
+                });
         }
     });
+}
+
+template<typename T, rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate>
+auto just_use_shared(T&& item, const Scheduler& scheduler)
+{
+    auto as_shared = std::make_shared<std::decay_t<T>>(std::forward<T>(item));
+    return create<std::decay_t<T>>([=](const constraint::subscriber auto& subscriber)
+        {
+            auto worker = scheduler.create_worker(subscriber.get_subscription());
+            worker.schedule([=]() mutable -> rpp::schedulers::optional_duration
+                {
+                    subscriber.on_next(*as_shared);
+                    subscriber.on_completed();
+                    return {};
+                });
+        });
+}
+} // namespace rpp::observable::details
+namespace rpp::observable
+{
+/**
+ * \ingroup observables
+ * \brief Creates rpp::specific_observable that emits a particular item and completes
+ * \tparam Scheduler type of scheduler used for scheduling of submissions
+ * \param item value to be sent
+ * \return rpp::specific_observable with provided item
+ *
+ * \see https://reactivex.io/documentation/operators/just.html
+ */
+template<memory_model memory_model = memory_model::use_stack, rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate>
+auto just(auto&& item, const Scheduler& scheduler = Scheduler{})
+{
+    if constexpr (memory_model == memory_model::use_stack)
+        return details::just_use_stack(std::forward<decltype(item)>(item), scheduler);
+    else
+        return details::just_use_shared(std::forward<decltype(item)>(item), scheduler);
 }
 } // namespace rpp::observable

@@ -22,18 +22,13 @@
 
 #pragma once
 
-#include <rpp/observables/fwd.h>
-
-namespace rpp::observable
-{
-template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
-auto create(OnSubscribeFn&& on_subscribe);
-
-template<typename OnSubscribeFn>
-auto create(OnSubscribeFn&& on_subscribe);
-} // namespace rpp::observable
-
 namespace rpp
 {
-namespace source = observable;
+enum class memory_model
+{
+    // copy and move everywhere when needed
+    use_stack,
+    // make shared_ptr once and avoid any future copies/moves
+    use_shared,
+};
 } // namespace rpp
