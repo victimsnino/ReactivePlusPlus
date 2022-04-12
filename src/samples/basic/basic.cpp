@@ -1,5 +1,6 @@
 #include <rpp/rpp.h>
 
+#include <functional>
 #include <iostream>
 
 int main()
