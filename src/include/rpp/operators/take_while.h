@@ -22,7 +22,9 @@
 
 #pragma once
 
+#include <rpp/observables/constraints.h>
 #include <rpp/operators/fwd/take_while.h>
+#include <rpp/subscribers/constraints.h>
 #include <rpp/utils/utilities.h>
 
 IMPLEMENTATION_FILE(take_while_tag);
