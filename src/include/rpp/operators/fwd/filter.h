@@ -60,17 +60,17 @@ namespace rpp::details
         template<std::predicate<const Type&> Predicate>
         auto filter(Predicate&& predicate) const& requires is_header_included<filter_tag, Predicate>
         {
-            return filter_impl(*static_cast<const SpecificObservable*>(this), std::forward<Predicate>(predicate));
+            return static_cast<const SpecificObservable*>(this)->template lift <Type>(filter_impl(std::forward<Predicate>(predicate)));
         }
 
         template<std::predicate<const Type&> Predicate>
         auto filter(Predicate&& predicate) && requires is_header_included<filter_tag, Predicate>
         {
-            return filter_impl(*static_cast<const SpecificObservable*>(this), std::forward<Predicate>(predicate));
+            return std::move(*static_cast<SpecificObservable*>(this)).template lift<Type>(filter_impl(std::forward<Predicate>(predicate)));
         }
 
     private:
-        template<constraint::decayed_same_as<SpecificObservable> TObs, std::predicate<const Type&> Predicate>
-        static auto filter_impl(TObs&& _this, Predicate&& predicate);
+        template<std::predicate<const Type&> Predicate>
+        static auto filter_impl(Predicate&& predicate);
     };
 } // namespace rpp::details

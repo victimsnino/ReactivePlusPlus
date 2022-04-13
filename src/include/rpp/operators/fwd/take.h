@@ -58,17 +58,16 @@ struct member_overload<Type, SpecificObservable, take_tag>
     template<typename...Args>
     auto take(size_t count) const & requires is_header_included<take_tag, Args...>
     {
-        return take_impl(*static_cast<const SpecificObservable*>(this), count);
+        return static_cast<const SpecificObservable*>(this)->template lift<Type>(take_impl(count));
     }
 
     template<typename...Args>
     auto take(size_t count) && requires is_header_included<take_tag, Args...>
     {
-        return take_impl(*static_cast<const SpecificObservable*>(this), count);
+        return std::move(*static_cast<SpecificObservable*>(this)).template lift<Type>(take_impl(count));
     }
 
 private:
-    template<constraint::decayed_same_as<SpecificObservable> TObs>
-    static auto take_impl(TObs&& _this, size_t count);
+    static auto take_impl(size_t count);
 };
 } // namespace rpp::details

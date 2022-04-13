@@ -46,13 +46,13 @@ auto filter(Predicate&& predicate) requires details::is_header_included<details:
 namespace rpp::details
 {
 template<constraint::decayed_type Type, typename SpecificObservable>
-template<constraint::decayed_same_as<SpecificObservable>TObs, std::predicate<const Type&> Predicate>
-auto member_overload<Type, SpecificObservable, filter_tag>::filter_impl(TObs&& _this, Predicate&& predicate)
+template<std::predicate<const Type&> Predicate>
+auto member_overload<Type, SpecificObservable, filter_tag>::filter_impl(Predicate&& predicate)
 {
-    return std::forward<TObs>(_this).template lift<Type>([predicate = std::forward<Predicate>(predicate)](auto&& value, const constraint::subscriber auto& subscriber)
+    return [predicate = std::forward<Predicate>(predicate)](auto&& value, const constraint::subscriber auto& subscriber)
     {
         if (predicate(utilities::as_const(value)))
             subscriber.on_next(std::forward<decltype(value)>(value));
-    });
+    };
 }
 } // namespace rpp::details
