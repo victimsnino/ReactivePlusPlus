@@ -18,7 +18,10 @@ requires is\+\_\+header\+\_\+included$<$map\+\_\+tag, Callable$>$}\\auto \mbox{\
 \begin{DoxyCompactList}\small\item\em transform the items emitted by an Observable by applying a function to each item \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename... Args$>$ \newline
 requires is\+\_\+header\+\_\+included$<$take\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__operators_ga0dcb41decfa8d5ded95f828a7e65ffee}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, take\+\_\+tag $>$\+::take}} (size\+\_\+t count) const \&
-\begin{DoxyCompactList}\small\item\em emit only first Count items provided by observable \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em emit only first Count items provided by observable \end{DoxyCompactList}\item 
+{\footnotesize template$<$std\+::predicate$<$ const Type \& $>$ Predicate$>$ \newline
+requires is\+\_\+header\+\_\+included$<$take\+\_\+while\+\_\+tag, Predicate$>$}\\auto \mbox{\hyperlink{group__operators_ga47773bfb0298bba2ec71502c1984cc95}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, take\+\_\+while\+\_\+tag $>$\+::take\+\_\+while}} (Predicate \&\&predicate) const \&
+\begin{DoxyCompactList}\small\item\em sends items provided by observable while satisfies predicate. When condition becomes false -\/\texorpdfstring{$>$}{>} terminates \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -158,4 +161,33 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
 \#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{take_8h_source}{rpp/operators/take.\+h}}\texorpdfstring{$>$}{>} 
+\end{DoxyWarning}
+\mbox{\Hypertarget{group__operators_ga47773bfb0298bba2ec71502c1984cc95}\label{group__operators_ga47773bfb0298bba2ec71502c1984cc95}} 
+\index{Operators@{Operators}!take\_while@{take\_while}}
+\index{take\_while@{take\_while}!Operators@{Operators}}
+\doxysubsubsection{\texorpdfstring{take\_while()}{take\_while()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$std\+::predicate$<$ const Type \& $>$ Predicate$>$ \newline
+requires is\+\_\+header\+\_\+included$<$take\+\_\+while\+\_\+tag, Predicate$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, take\+\_\+while\+\_\+tag $>$\+::take\+\_\+while (\begin{DoxyParamCaption}\item[{Predicate \&\&}]{predicate }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sends items provided by observable while satisfies predicate. When condition becomes false -\/\texorpdfstring{$>$}{>} terminates 
+
+Example\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{observable.take\_while([](\textcolor{keywordtype}{int} v)\{\textcolor{keywordflow}{return} v >= 10; \});}
+
+\end{DoxyCode}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/takewhile.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/takewhile.\+html}}
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the take\+\_\+while operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{take__while_8h_source}{rpp/operators/take\+\_\+while.\+h}}\texorpdfstring{$>$}{>} 
 \end{DoxyWarning}

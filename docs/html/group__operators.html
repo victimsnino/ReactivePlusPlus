@@ -92,6 +92,11 @@ requires is_header_included&lt;take_tag, Args...&gt;</td></tr>
 <tr class="memitem:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a> (size_t count) const &amp;</td></tr>
 <tr class="memdesc:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="mdescLeft">&#160;</td><td class="mdescRight">emit only first Count items provided by observable  <a href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">More...</a><br /></td></tr>
 <tr class="separator:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga47773bfb0298bba2ec71502c1984cc95"><td class="memTemplParams" colspan="2">template&lt;std::predicate&lt; const Type &amp; &gt; Predicate&gt; <br />
+requires is_header_included&lt;take_while_tag, Predicate&gt;</td></tr>
+<tr class="memitem:ga47773bfb0298bba2ec71502c1984cc95"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga47773bfb0298bba2ec71502c1984cc95">rpp::details::member_overload&lt; Type, SpecificObservable, take_while_tag &gt;::take_while</a> (Predicate &amp;&amp;predicate) const &amp;</td></tr>
+<tr class="memdesc:ga47773bfb0298bba2ec71502c1984cc95"><td class="mdescLeft">&#160;</td><td class="mdescRight">sends items provided by observable while satisfies predicate. When condition becomes false -&gt; terminates  <a href="group__operators.html#ga47773bfb0298bba2ec71502c1984cc95">More...</a><br /></td></tr>
+<tr class="separator:ga47773bfb0298bba2ec71502c1984cc95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p >Operators is way to modify observables and extend with some extra custom logic. </p>
@@ -266,6 +271,43 @@ requires is_header_included&lt;take_tag, Args...&gt;</div>
 </div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/take.html">https://reactivex.io/documentation/operators/take.html</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the Take operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="take_8h_source.html">rpp/operators/take.h</a>&gt; </dd></dl>
+
+</div>
+</div>
+<a id="ga47773bfb0298bba2ec71502c1984cc95" name="ga47773bfb0298bba2ec71502c1984cc95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga47773bfb0298bba2ec71502c1984cc95">&#9670;&nbsp;</a></span>take_while()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;std::predicate&lt; const Type &amp; &gt; Predicate&gt; <br />
+requires is_header_included&lt;take_while_tag, Predicate&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, take_while_tag &gt;::take_while </td>
+          <td>(</td>
+          <td class="paramtype">Predicate &amp;&amp;&#160;</td>
+          <td class="paramname"><em>predicate</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>sends items provided by observable while satisfies predicate. When condition becomes false -&gt; terminates </p>
+<p >Example: </p><div class="fragment"><div class="line">observable.take_while([](<span class="keywordtype">int</span> v){<span class="keywordflow">return</span> v &gt;= 10; });</div>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/takewhile.html">https://reactivex.io/documentation/operators/takewhile.html</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the take_while operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="take__while_8h_source.html">rpp/operators/take_while.h</a>&gt; </dd></dl>
 
 </div>
 </div>
