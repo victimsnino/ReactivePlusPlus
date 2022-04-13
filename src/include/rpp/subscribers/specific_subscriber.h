@@ -42,33 +42,29 @@ public:
     specific_subscriber()
         : details::subscriber_base<Type>{} { }
 
-    specific_subscriber(const Observer& observer)
-        : specific_subscriber{composite_subscription{}, observer} { }
+    specific_subscriber(constraint::decayed_same_as<Observer> auto&& observer)
+        : details::subscriber_base<Type>{}
+        , m_observer{ std::forward<decltype(observer)>(observer) } { }
 
-    specific_subscriber(Observer&& observer)
-        : specific_subscriber{ composite_subscription{}, std::move(observer)} { }
-
-    specific_subscriber(const composite_subscription& sub, const Observer& observer)
-        : details::subscriber_base<Type>{sub}
-        , m_observer{observer} { }
-
-    specific_subscriber(const composite_subscription& sub, Observer&& observer)
-        : details::subscriber_base<Type>{sub}
-        , m_observer{std::move(observer)} { }
+    specific_subscriber(const composite_subscription& sub, constraint::decayed_same_as<Observer> auto&& observer)
+        : details::subscriber_base<Type>{ sub }
+        , m_observer{ std::forward<decltype(observer)>(observer) } { }
 
     //********************* Construct by actions *********************//
     template<typename ...Types>
     specific_subscriber(Types&&...vals) requires std::constructible_from<Observer, Types...>
-        : specific_subscriber{ composite_subscription{}, std::forward<Types>(vals)...} {}
+        : details::subscriber_base<Type>{  }
+        , m_observer{ std::forward<Types>(vals)... } {}
 
     template<typename ...Types>
     specific_subscriber(const composite_subscription& sub, Types&&...vals) requires std::constructible_from<Observer, Types...>
-        : details::subscriber_base<Type>{sub}
-        , m_observer{std::forward<Types>(vals)...} {}
+        : details::subscriber_base<Type>{ sub }
+        , m_observer{ std::forward<Types>(vals)... } {}
 
     // ************* Copy/Move ************************* //
-    specific_subscriber(const specific_subscriber&)     = default;
+    specific_subscriber(const specific_subscriber&) = default;
     specific_subscriber(specific_subscriber&&) noexcept = default;
+
 
     const Observer& get_observer() const
     {
