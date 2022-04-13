@@ -48,7 +48,7 @@ public:
     /**
      * \brief Add any other subscription to this as dependent
      */
-    subscription_base add(const subscription_base& sub) const
+    subscription_base add(const subscription_base& sub = subscription_base{}) const
     {
         if (&sub != this)
             if (auto pstate = get_state())

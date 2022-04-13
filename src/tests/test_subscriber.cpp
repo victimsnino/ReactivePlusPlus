@@ -30,6 +30,8 @@
 #include <rpp/observers.h>
 #include <rpp/subscribers.h>
 
+#include <optional>
+
 SCENARIO("Any type of observer can be passed to any type of subscriber", "[subscriber]")
 {
     auto validate_observer = [](auto observer)
@@ -378,6 +380,164 @@ SCENARIO("Subscriber obtains on_error when exception", "[subscriber]")
 
         AND_GIVEN("specific_subscriber")
             validate(rpp::specific_subscriber{ observer });
+    }
+}
+
+SCENARIO("Subscriber stops to obtain any callbacks immediately after on_error/on_completed", "[subscriber]")
+{
+    auto validate = [](const auto& create_sub)
+    {
+        AND_GIVEN("subscriber with reference on itself")
+        {
+            // hack for tests only
+            std::optional<rpp::dynamic_subscriber<int>> subscriber{};
+            size_t                                      on_next_count = 0;
+            size_t                                      on_error_count = 0;
+            size_t                                      on_completed_count = 0;
+
+            auto on_next = [&](int)
+            {
+                ++on_next_count;
+            };
+
+            auto on_error = [&](const std::exception_ptr&)
+            {
+                ++on_error_count;
+            };
+
+            auto on_completed = [&]()
+            {
+                ++on_completed_count;
+            };
+            auto err = std::make_exception_ptr(std::runtime_error{ "" });
+
+            WHEN("on_error calls on_next recursively")
+            {
+                subscriber.emplace(create_sub(on_next,
+                                              [&](const std::exception_ptr&)
+                                              {
+                                                  ++on_error_count;
+                                                  subscriber->on_next(1);
+                                              },
+                                              on_completed));
+
+                subscriber->on_error(err);
+                THEN("no any recursive calls allowed")
+                {
+                    CHECK(on_next_count == 0);
+                    CHECK(on_error_count == 1);
+                    CHECK(on_completed_count == 0);
+                }
+            }
+            WHEN("on_error calls on_error recursively")
+            {
+                subscriber.emplace(create_sub(on_next,
+                                              [&](const std::exception_ptr& err)
+                                              {
+                                                  if (++on_error_count == 1)
+                                                      subscriber->on_error(err);
+                                              },
+                                              on_completed));
+
+                subscriber->on_error(err);
+                THEN("no any recursive calls allowed")
+                {
+                    CHECK(on_next_count == 0);
+                    CHECK(on_error_count == 1);
+                    CHECK(on_completed_count == 0);
+                }
+            }
+            WHEN("on_error calls on_completed recursively")
+            {
+                subscriber.emplace(create_sub(on_next,
+                                              [&](const std::exception_ptr&)
+                                              {
+                                                  ++on_error_count;
+                                                  subscriber->on_completed();
+                                              },
+                                              on_completed));
+
+                subscriber->on_error(err);
+                THEN("no any recursive calls allowed")
+                {
+                    CHECK(on_next_count == 0);
+                    CHECK(on_error_count == 1);
+                    CHECK(on_completed_count == 0);
+                }
+            }
+
+            WHEN("on_completed calls on_next recursively")
+            {
+                subscriber.emplace(create_sub(on_next,
+                                              on_error,
+                                              [&]()
+                                              {
+                                                  ++on_completed_count;
+                                                  subscriber->on_next(1);
+                                              }));
+
+                subscriber->on_completed();
+                THEN("no any recursive calls allowed")
+                {
+                    CHECK(on_next_count == 0);
+                    CHECK(on_error_count == 0);
+                    CHECK(on_completed_count == 1);
+                }
+            }
+            WHEN("on_completed calls on_error recursively")
+            {
+                subscriber.emplace(create_sub(on_next,
+                                              on_error,
+                                              [&]()
+                                              {
+                                                  ++on_completed_count;
+                                                  subscriber->on_error(err);
+                                              }));
+
+                subscriber->on_completed();
+                THEN("no any recursive calls allowed")
+                {
+                    CHECK(on_next_count == 0);
+                    CHECK(on_error_count == 0);
+                    CHECK(on_completed_count == 1);
+                }
+            }
+            WHEN("on_completed calls on_completed recursively")
+            {
+                subscriber.emplace(create_sub(on_next,
+                                              on_error,
+                                              [&]()
+                                              {
+                                                  if (++on_completed_count == 1)
+                                                      subscriber->on_completed();
+                                              }));
+
+                subscriber->on_completed();
+                THEN("no any recursive calls allowed")
+                {
+                    CHECK(on_next_count == 0);
+                    CHECK(on_error_count == 0);
+                    CHECK(on_completed_count == 1);
+                }
+            }
+        }
+    };
+
+    GIVEN("subscriber created without subscription")
+    {
+        validate([](const auto&...args)
+        {
+                return rpp::dynamic_subscriber{ args... };
+        });
+    }
+
+    GIVEN("subscriber created with predefined subscription")
+    {
+        rpp::composite_subscription sub{};
+        validate([&](const auto&...args)
+        {
+            return rpp::dynamic_subscriber{ sub, args...};
+        });
     }
 }
 
