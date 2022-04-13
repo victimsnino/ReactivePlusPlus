@@ -52,6 +52,16 @@ TEST_CASE("Observable subscribe #2", "[benchmark]")
         return dynamic.subscribe(subscription, [](const auto&) {});
     };
 
+    BENCHMARK("Specific observable subscribe lambda without subscription")
+    {
+        return specific.subscribe([](const auto&) {});
+    };
+
+    BENCHMARK("Dynamic observable subscribe lambda without subscription")
+    {
+        return dynamic.subscribe([](const auto&) {});
+    };
+
     auto subscriber = rxcpp::make_subscriber<int>([](const int&) {} );
     BENCHMARK("Specific observable subscribe specific subscriber")
     {
@@ -221,16 +231,18 @@ TEST_CASE("foundamental sources", "[benchmark]")
 {
     rxcpp::composite_subscription sub{};
 
-    BENCHMARK("never")
-    {
-        return rxcpp::sources::never<int>().subscribe(sub);
-    };
+    auto err = std::make_exception_ptr(std::runtime_error{""});
+
     BENCHMARK("empty")
     {
         return rxcpp::sources::empty<int>().subscribe(sub);
     };
     BENCHMARK("error")
     {
-        return rxcpp::sources::error<int>(std::make_exception_ptr(std::runtime_error{""})).subscribe(sub);
+        return rxcpp::sources::error<int>(err).subscribe(sub);
+    };
+    BENCHMARK("never")
+    {
+        return rxcpp::sources::never<int>().subscribe(sub);
     };
 }
