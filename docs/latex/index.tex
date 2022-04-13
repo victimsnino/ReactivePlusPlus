@@ -2,7 +2,22 @@
 \Hypertarget{index_md_Readme}%
 \href{https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/Tests.yml}{\texttt{ }} \href{https://codecov.io/gh/victimsnino/ReactivePlusPlus}{\texttt{ }}
 
-Reactive\+Plus\+Plus is \href{https://reactivex.io/}{\texttt{ ReactiveX}} library for C++ language inspired by \char`\"{}official implementation\char`\"{} (\href{https://github.com/ReactiveX/RxCpp}{\texttt{ Rx\+Cpp}})
+Reactive\+Plus\+Plus is reactuve programming library for C++ language inspired by \char`\"{}official implementation\char`\"{} (\href{https://github.com/ReactiveX/RxCpp}{\texttt{ Rx\+Cpp}}) and original idea (\href{https://reactivex.io/}{\texttt{ ReactiveX}})
+
+In short\+: Reactive\+Plus\+Plus is library for building asynchronous event-\/driven streams of data with help of sequences of primitive operators in the declarative form. For example\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{rpp::source::create<char>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{   \{}
+\DoxyCodeLine{     \textcolor{keywordflow}{while} (sub.is\_subscribed())}
+\DoxyCodeLine{         sub.on\_next(std::getchar());}
+\DoxyCodeLine{   \})}
+\DoxyCodeLine{   .take\_while([](\textcolor{keywordtype}{char} v) \{ \textcolor{keywordflow}{return} v != \textcolor{charliteral}{'0'}; \})}
+\DoxyCodeLine{   .filter(std::not\_fn(\&::isdigit))}
+\DoxyCodeLine{   .map(\&::toupper)}
+\DoxyCodeLine{   .subscribe([](\textcolor{keywordtype}{char} v) \{ std::cout << v; \});}
+
+\end{DoxyCode}
+
 
 Main advantages of Reactive\+Plus\+Plus are that it is written in Modern C++ with Performance and Usage in mind. As a result it is fast, readable, easy to use and well-\/documented.\hypertarget{index_autotoc_md1}{}\doxysection{What about existing Reactive Extension libraries for C++?}\label{index_autotoc_md1}
 Reactive programming is excelent programming paradigm and approach for creation of multi-\/threading and real-\/time programs which reacts on some events. Unfortunately, there is only one stable and fully-\/implemented library at the moment of creation of Reactive\+Plus\+Plus -\/ \href{https://github.com/ReactiveX/RxCpp}{\texttt{ Rx\+Cpp}}.
@@ -24,32 +39,14 @@ Another implementation of RX for c++\+: \href{https://github.com/CODIANZ/another
 \end{DoxyItemize}
 \item {\bfseries{Reactive\+Plus\+Plus}} keeps balance between performance and type-\/erasing mechanism\+: Read about it in ./docs/\+Specific\%20vs\%20\+Dynamic.\+md \char`\"{}$\ast$$\ast$\char`\"{}Performance vs Flexibility\+: Specific vs Dynamic\char`\"{}$\ast$$\ast$\char`\"{}
 \item {\bfseries{Reactive\+Plus\+Plus}} is fast\+: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks show that RPP faster that Rx\+CPP in most cases\+: \href{https://victimsnino.github.io/ReactivePlusPlus/benchmark}{\texttt{ Continous benchmarking results}}
-\end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysection{Sample}\label{index_autotoc_md3}
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{auto} observable = rpp::source::create<char>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{                \{}
-\DoxyCodeLine{                    \textcolor{keywordflow}{while} (sub.is\_subscribed())}
-\DoxyCodeLine{                        sub.on\_next(std::getchar());}
-\DoxyCodeLine{                \})}
-\DoxyCodeLine{                .take\_while([](\textcolor{keywordtype}{char} v) \{ \textcolor{keywordflow}{return} v != \textcolor{charliteral}{'0'}; \})}
-\DoxyCodeLine{                .filter(std::not\_fn(\&::isdigit))}
-\DoxyCodeLine{                .map(\&::toupper);}
-\DoxyCodeLine{}
-\DoxyCodeLine{observable.subscribe([](\textcolor{keywordtype}{char} v)}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{  std::cout << v;}
-\DoxyCodeLine{\});}
-
-\end{DoxyCode}
-\hypertarget{index_autotoc_md4}{}\doxysection{Useful links}\label{index_autotoc_md4}
+\end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysection{Useful links}\label{index_autotoc_md3}
 
 \begin{DoxyItemize}
 \item ./docs/\+Implementation\%20\+Status.\+md \char`\"{}\+Current implementation status\char`\"{}
 \item \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html}{\texttt{ Doxygen documentation}}
 \item Tutorial
 \item \href{https://victimsnino.github.io/ReactivePlusPlus/benchmark}{\texttt{ Continous benchmarking results, comparison of {\ttfamily dynamic} and {\ttfamily specific} and comparison with Rx\+Cpp}} 
-\end{DoxyItemize}\hypertarget{index_autotoc_md5}{}\doxysection{Credits\+:}\label{index_autotoc_md5}
+\end{DoxyItemize}\hypertarget{index_autotoc_md4}{}\doxysection{Credits\+:}\label{index_autotoc_md4}
 Reactive\+Plus\+Plus library uses\+:
 \begin{DoxyItemize}
 \item \href{https://github.com/catchorg/Catch2}{\texttt{ Catch2}} for unit testing only, you can avoid cloning it if you don\textquotesingle{}t need unit-\/tests
