@@ -71,9 +71,8 @@ private:
 };
 
 template<constraint::decayed_type Type, typename SpecificObservable>
-template<constraint::decayed_same_as<SpecificObservable> TObs>
-auto member_overload<Type, SpecificObservable, take_tag>::take_impl(TObs&& _this, size_t count)
+auto member_overload<Type, SpecificObservable, take_tag>::take_impl(size_t count)
 {
-    return std::forward<TObs>(_this).template lift<Type>(take_action{count});
+    return take_action{count};
 }
 } // namespace rpp::details
