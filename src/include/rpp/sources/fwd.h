@@ -52,6 +52,13 @@ auto never();
 //**************************** ERROR *****************//
 template<constraint::decayed_type Type>
 auto error(const std::exception_ptr& err);
+
+//*************************** FROM ********************//
+template<memory_model memory_model = memory_model::use_stack, typename T, typename ...Ts>
+auto from(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...);
+
+template<memory_model memory_model = memory_model::use_stack, typename T, typename ...Ts>
+auto from(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...);
 } // namespace rpp::observable
 
 namespace rpp
