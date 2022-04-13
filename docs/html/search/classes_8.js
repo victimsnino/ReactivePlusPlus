@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['take_5faction_0',['take_action',['../classrpp_1_1details_1_1take__action.html',1,'rpp::details']]]
+  ['virtual_5fobservable_0',['virtual_observable',['../structrpp_1_1virtual__observable.html',1,'rpp']]]
 ];
