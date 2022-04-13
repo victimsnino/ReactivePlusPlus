@@ -41,17 +41,19 @@ class subscriber_base
 {
 public:
     subscriber_base(const composite_subscription& subscription)
-        : m_subscription{subscription} {}
+        : m_subscription{subscription}
+        , m_local_subscription{m_subscription.add()} { }
 
-    subscriber_base(composite_subscription&& subscription = composite_subscription{})
-        : m_subscription{std::move(subscription)} {}
+    subscriber_base()
+        : m_subscription{}
+        , m_local_subscription{m_subscription} {}
 
     subscriber_base(const subscriber_base&)     = default;
     subscriber_base(subscriber_base&&) noexcept = default;
 
     void on_next(const Type& val) const final
     {
-        if (!m_subscription.is_subscribed())
+        if (!m_local_subscription.is_subscribed())
             return;
 
         try
@@ -66,7 +68,7 @@ public:
 
     void on_next(Type&& val) const final
     {
-        if (!m_subscription.is_subscribed())
+        if (!m_local_subscription.is_subscribed())
             return;
 
         try
@@ -81,19 +83,27 @@ public:
 
     void on_error(const std::exception_ptr& err) const final
     {
-        if (!m_subscription.is_subscribed())
+        if (!m_local_subscription.is_subscribed())
             return;
 
         subscription_guard guard{m_subscription};
+
+        // prevent callbacks during on-error/on-completed stack returning, prevent obtaining of callbacks now!
+        m_local_subscription.unsubscribe();
+
         on_error_impl(err);
     }
 
     void on_completed() const final
     {
-        if (!m_subscription.is_subscribed())
+        if (!m_local_subscription.is_subscribed())
             return;
 
         subscription_guard guard{m_subscription};
+
+        // prevent callbacks during on-error/on-completed stack returning, prevent obtaining of callbacks now!
+        m_local_subscription.unsubscribe();
+
         on_completed_impl();
     }
 
@@ -120,5 +130,6 @@ protected:
 
 private:
     composite_subscription m_subscription{};
+    subscription_base      m_local_subscription{};
 };
 } // namespace rpp::details
