@@ -274,7 +274,7 @@ SCENARIO("New thread scheduler depends on subscription")
             {
                 std::promise<bool> called{};
                 auto               future = called.get_future();
-                auto               diff   = std::chrono::seconds{5};
+                auto               diff   = std::chrono::seconds{2};
                 worker.schedule(rpp::schedulers::clock_type::now() + diff,
                                  [&called]() -> rpp::schedulers::optional_duration
                                  {
@@ -292,7 +292,7 @@ SCENARIO("New thread scheduler depends on subscription")
             {
                 std::promise<bool> called{};
                 auto               future = called.get_future();
-                auto               diff = std::chrono::seconds{ 10 };
+                auto               diff = std::chrono::seconds{ 2 };
                 for (size_t i = 0; i < 3; ++i)
                 {
                     worker.schedule(rpp::schedulers::clock_type::now() + diff,
