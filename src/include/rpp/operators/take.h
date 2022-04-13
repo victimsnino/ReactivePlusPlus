@@ -27,6 +27,7 @@
 #include <rpp/subscribers/constraints.h>
 
 #include <atomic>
+#include <memory>
 
 IMPLEMENTATION_FILE(take_tag);
 
@@ -49,6 +50,8 @@ auto member_overload<Type, SpecificObservable, take_tag>::take_impl(size_t count
 {
     struct state
     {
+        state(size_t count) : count{count} {}
+        
         const size_t       count;
         std::atomic_size_t sent_count{};
     };
