@@ -3,6 +3,9 @@ name: CodeCoverage Report
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - '**.md'
+      - '**.py'
   pull_request:
     branches: [ main ]
 
