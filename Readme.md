@@ -41,8 +41,7 @@ Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ
 - **ReactivePlusPlus** is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks show that RPP faster that RxCPP in most cases: [Continous benchmarking results](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
 
 ## Useful links
-- [Tutorial](./docs/Readme.md)
-- [Current implementation status](./docs/Implementation%20Status.md)
+- [Docs](https://github.com/victimsnino/ReactivePlusPlus/tree/main/docs/Readme.md)
 - [Doxygen documentation](https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html)
 - [Continous benchmarking results, comparison of `dynamic` and `specific` and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
 
