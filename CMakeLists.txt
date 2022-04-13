@@ -38,9 +38,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 find_package(Threads REQUIRED)
 
 # ======================= OPTIONS ================================
-set(BUILD_TESTS     ON  CACHE BOOL "Enable unit tests building" FORCE)
-set(BUILD_SAMPLES   ON  CACHE BOOL "Enable samples building" FORCE)
-set(CODE_COVERAGE   OFF CACHE BOOL "Enable coverage reporting" FORCE)
+set(BUILD_TESTS     OFF  CACHE BOOL "Enable unit tests building")
+set(BUILD_SAMPLES   OFF  CACHE BOOL "Enable samples building")
+set(CODE_COVERAGE   OFF CACHE BOOL "Enable coverage reporting")
 
 # ======================= CI =========================
 # Code Coverage Configuration
