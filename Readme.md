@@ -28,9 +28,9 @@ Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ
 
 
 ## Useful links
-- [Current implementation status](docs/Implementation%20Status.md)
+- [Current implementation status](./docs/Implementation%20Status.md)
 - [Doxygen documentation](https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html)
-- [Tutorial](docs/Readme.md)
+- [Tutorial](./docs/Readme.md)
 - [Continous benchmarking results, comparison of `dynamic` and `specific` and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
 ## Credits:
 
