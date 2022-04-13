@@ -26,6 +26,22 @@ Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ
 - **ReactivePlusPlus** keeps balance between performance and type-erasing mechanism: Read about it in  [**"Performance vs Flexibility: Specific vs Dynamic"**](./docs/Specific%20vs%20Dynamic.md)
 - **ReactivePlusPlus** is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks show that RPP faster that RxCPP in most cases: [Continous benchmarking results](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
 
+## Sample
+```cpp
+auto observable = rpp::source::create<char>([](const auto& sub)
+                {
+                    while (sub.is_subscribed())
+                        sub.on_next(std::getchar());
+                })
+                .take_while([](char v) { return v != '0'; })
+                .filter(std::not_fn(&::isdigit))
+                .map(&::toupper);
+
+observable.subscribe([](char v)
+{
+  std::cout << v;
+});
+```
 
 ## Useful links
 - [Current implementation status](./docs/Implementation%20Status.md)
