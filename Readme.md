@@ -2,7 +2,21 @@
 [![Unit tests](https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/Tests.yml/badge.svg?branch=main)](https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/Tests.yml) 
 [![codecov](https://codecov.io/gh/victimsnino/ReactivePlusPlus/branch/main/graph/badge.svg?token=INEHPRF18E)](https://codecov.io/gh/victimsnino/ReactivePlusPlus)
 
-ReactivePlusPlus is [ReactiveX](https://reactivex.io/) library for C++ language inspired by "official implementation" ([RxCpp](https://github.com/ReactiveX/RxCpp)) 
+ReactivePlusPlus is reactuve programming library for C++ language inspired by "official implementation" ([RxCpp](https://github.com/ReactiveX/RxCpp)) and original idea ([ReactiveX](https://reactivex.io/))
+
+In short: ReactivePlusPlus is library for building asynchronous event-driven streams of data with help of sequences of primitive operators in the declarative form. For example:
+```cpp
+rpp::source::create<char>([](const auto& sub)
+   {
+     while (sub.is_subscribed())
+         sub.on_next(std::getchar());
+   })
+   .take_while([](char v) { return v != '0'; })
+   .filter(std::not_fn(&::isdigit))
+   .map(&::toupper)
+   .subscribe([](char v) { std::cout << v; });
+```
+
 
 Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. As a result it is fast, readable, easy to use and well-documented.
 
@@ -25,23 +39,6 @@ Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ
    - Everywhere while possible used deduction of template arguments, for example, type of values of observable by type of subscriber used in on_subscribe and etc
 - **ReactivePlusPlus** keeps balance between performance and type-erasing mechanism: Read about it in  [**"Performance vs Flexibility: Specific vs Dynamic"**](./docs/Specific%20vs%20Dynamic.md)
 - **ReactivePlusPlus** is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks show that RPP faster that RxCPP in most cases: [Continous benchmarking results](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
-
-## Sample
-```cpp
-auto observable = rpp::source::create<char>([](const auto& sub)
-                {
-                    while (sub.is_subscribed())
-                        sub.on_next(std::getchar());
-                })
-                .take_while([](char v) { return v != '0'; })
-                .filter(std::not_fn(&::isdigit))
-                .map(&::toupper);
-
-observable.subscribe([](char v)
-{
-  std::cout << v;
-});
-```
 
 ## Useful links
 - [Current implementation status](./docs/Implementation%20Status.md)
