@@ -47,9 +47,7 @@ struct member_overload<Type, SpecificObservable, take_tag>
      * \brief emit only first Count items provided by observable
      *
      * Example:
-     * \code
-     * observable.take(10);
-     * \endcode
+     * \snippet take.cpp take
      *
      * \see https://reactivex.io/documentation/operators/take.html
      *

@@ -48,12 +48,7 @@ namespace rpp::details
          * \details The Filter operator applies a provided predicate to each item emitted by the Observable, and returns an Observable that emits only items passed provided predicate
          *
          * Example:
-         * \code
-         * observable.filter([](const int& val)
-         *              {
-         *                  return val >= 10;
-         *              });
-         * \endcode
+         * \snippet filter.cpp Filter
          *
          * \see https://reactivex.io/documentation/operators/filter.html
          *

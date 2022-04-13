@@ -25,6 +25,9 @@
 /**
  * \file
  * \brief This file contains implementation of `just` function to create rpp::specific_observable that emits a particular item
+ * \snippet just.cpp just
+ * \snippet just.cpp just memory model
+ * \snippet just.cpp just scheduler
  *
  * \see https://reactivex.io/documentation/operators/just.html
  **/
@@ -83,9 +86,14 @@ namespace rpp::observable
 /**
  * \ingroup observables
  * \brief Creates rpp::specific_observable that emits a particular item and completes
+ * \tparam memory_model rpp::memory_model startegy used to handle item.
  * \tparam Scheduler type of scheduler used for scheduling of submissions
  * \param item value to be sent
  * \return rpp::specific_observable with provided item
+ *
+ * \snippet just.cpp just
+ * \snippet just.cpp just memory model
+ * \snippet just.cpp just scheduler
  *
  * \see https://reactivex.io/documentation/operators/just.html
  */

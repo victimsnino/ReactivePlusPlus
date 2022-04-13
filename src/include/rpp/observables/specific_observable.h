@@ -79,6 +79,12 @@ public:
         return subscribe_impl<std::decay_t<TObserver>>(std::forward<TObserver>(observer));
     }
 
+
+    /**
+     * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
+     * \details this overloading accepts subscription and observer to construct specific_subscriber without extra overheads
+     * \return subscription on this observable which can be used to unsubscribe
+     */
     template<constraint::observer_of_type<Type> TObserver>
     composite_subscription subscribe(constraint::decayed_same_as<composite_subscription> auto&& sub, TObserver&& observer) const noexcept
     {

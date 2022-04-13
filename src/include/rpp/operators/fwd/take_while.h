@@ -46,9 +46,7 @@ struct member_overload<Type, SpecificObservable, take_while_tag>
      * \brief sends items provided by observable while satisfies predicate. When condition becomes false -> terminates
      *
      * Example:
-     * \code
-     * observable.take_while([](int v){return v >= 10; });
-     * \endcode
+     * \snippet take_while.cpp take_while
      *
      * \see https://reactivex.io/documentation/operators/takewhile.html
      *

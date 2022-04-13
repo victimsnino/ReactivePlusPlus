@@ -50,13 +50,11 @@ struct member_overload<Type, SpecificObservable, map_tag>
      *
      * The Map operator can keep same type of value or change it to some another type.
      *
-     * Example:
-     * \code
-     * observable | map([](const int& val)
-     *              {
-     *                  return std::to_string(val) + " data";
-     *              });
-     * \endcode
+     * Example with same type:
+     * \snippet map.cpp Same type
+     *
+     * Example with changed type:
+     * \snippet map.cpp Changed type
      *
      * \see https://reactivex.io/documentation/operators/map.html
      *

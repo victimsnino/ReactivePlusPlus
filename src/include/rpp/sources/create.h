@@ -26,6 +26,11 @@
  * \file
  * \brief This file contains implementation of `create` function to create rpp::specific_observable with OnSubscribe callback
  *
+ * Examples:
+ * \snippet create.cpp create
+ * \snippet create.cpp create with capture
+ * \snippet create.cpp create type deduction
+ *
  * \see https://reactivex.io/documentation/operators/create.html
  **/
 
@@ -42,6 +47,11 @@ namespace rpp::observable
  * \tparam OnSubscribeFn action called after subscription on this observable
  * \return rpp::specific_observable with passed action
  *
+ * Examples:
+ * \snippet create.cpp create
+ * \snippet create.cpp create with capture
+ * \snippet create.cpp create type deduction
+ *
  * \see https://reactivex.io/documentation/operators/create.html
  */
 template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
@@ -55,6 +65,11 @@ auto create(OnSubscribeFn&& on_subscribe)
  * \brief Creates specific_observable with passed action as OnSubscribe and deduce type of observable by this function
  * \tparam OnSubscribeFn action called after subscription on this observable
  * \return specific_observable with passed action
+ *
+ * Examples:
+ * \snippet create.cpp create
+ * \snippet create.cpp create with capture
+ * \snippet create.cpp create type deduction
  *
  * \see https://reactivex.io/documentation/operators/create.html
  */
