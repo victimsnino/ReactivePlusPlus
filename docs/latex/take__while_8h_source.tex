@@ -48,16 +48,16 @@
 \DoxyCodeLine{44 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{45 \{}
 \DoxyCodeLine{46 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{47 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_same\_as<SpecificObservable> TObs, std::predicate<const Type\&> Predicate>}
-\DoxyCodeLine{48 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, take\_while\_tag>::take\_while\_impl(TObs\&\& \_this, Predicate\&\& predicate)}
+\DoxyCodeLine{47 \textcolor{keyword}{template}<std::predicate<const Type\&> Predicate>}
+\DoxyCodeLine{48 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, take\_while\_tag>::take\_while\_impl(Predicate\&\& predicate)}
 \DoxyCodeLine{49 \{}
-\DoxyCodeLine{50     \textcolor{keywordflow}{return} std::forward<TObs>(\_this).template lift<Type>([predicate = std::forward<Predicate>(predicate)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{50     \textcolor{keywordflow}{return} [predicate = std::forward<Predicate>(predicate)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
 \DoxyCodeLine{51     \{}
 \DoxyCodeLine{52         \textcolor{keywordflow}{if} (predicate(utilities::as\_const(value)))}
 \DoxyCodeLine{53             subscriber.on\_next(std::forward<\textcolor{keyword}{decltype}(value)>(value));}
 \DoxyCodeLine{54         \textcolor{keywordflow}{else}}
 \DoxyCodeLine{55             subscriber.on\_completed();}
-\DoxyCodeLine{56     \});}
+\DoxyCodeLine{56     \};}
 \DoxyCodeLine{57 \}}
 \DoxyCodeLine{58 \} \textcolor{comment}{// namespace rpp::details}}
 

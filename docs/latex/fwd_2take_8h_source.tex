@@ -47,19 +47,18 @@
 \DoxyCodeLine{58     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
 \DoxyCodeLine{59     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga0dcb41decfa8d5ded95f828a7e65ffee}{take}}(\textcolor{keywordtype}{size\_t} count) \textcolor{keyword}{const} \& \textcolor{keyword}{requires} is\_header\_included<take\_tag, Args...>}
 \DoxyCodeLine{60     \{}
-\DoxyCodeLine{61         \textcolor{keywordflow}{return} take\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), count);}
+\DoxyCodeLine{61         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<Type>(take\_impl(count));}
 \DoxyCodeLine{62     \}}
 \DoxyCodeLine{63 }
 \DoxyCodeLine{64     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
 \DoxyCodeLine{65     \textcolor{keyword}{auto} take(\textcolor{keywordtype}{size\_t} count) \&\& \textcolor{keyword}{requires} is\_header\_included<take\_tag, Args...>}
 \DoxyCodeLine{66     \{}
-\DoxyCodeLine{67         \textcolor{keywordflow}{return} take\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), count);}
+\DoxyCodeLine{67         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template lift<Type>(take\_impl(count));}
 \DoxyCodeLine{68     \}}
 \DoxyCodeLine{69 }
 \DoxyCodeLine{70 \textcolor{keyword}{private}:}
-\DoxyCodeLine{71     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_same\_as<SpecificObservable> TObs>}
-\DoxyCodeLine{72     \textcolor{keyword}{static} \textcolor{keyword}{auto} take\_impl(TObs\&\& \_this, \textcolor{keywordtype}{size\_t} count);}
-\DoxyCodeLine{73 \};}
-\DoxyCodeLine{74 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{71     \textcolor{keyword}{static} \textcolor{keyword}{auto} take\_impl(\textcolor{keywordtype}{size\_t} count);}
+\DoxyCodeLine{72 \};}
+\DoxyCodeLine{73 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

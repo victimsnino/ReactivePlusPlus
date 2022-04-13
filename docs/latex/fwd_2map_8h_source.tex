@@ -47,18 +47,18 @@
 \DoxyCodeLine{66     \textcolor{keyword}{template}<std::invocable<Type> Callable>}
 \DoxyCodeLine{67     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_gae5dd31e4559517de5cf1145ff2005a86}{map}}(Callable\&\& callable) \textcolor{keyword}{const} \& \textcolor{keyword}{requires} is\_header\_included<map\_tag, Callable>}
 \DoxyCodeLine{68     \{}
-\DoxyCodeLine{69         \textcolor{keywordflow}{return} map\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<Callable>(callable));}
+\DoxyCodeLine{69         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<std::invoke\_result\_t<Callable, Type>>(map\_impl(std::forward<Callable>(callable)));}
 \DoxyCodeLine{70     \}}
 \DoxyCodeLine{71 }
 \DoxyCodeLine{72     \textcolor{keyword}{template}<std::invocable<Type> Callable>}
 \DoxyCodeLine{73     \textcolor{keyword}{auto} map(Callable\&\& callable) \&\& \textcolor{keyword}{requires} is\_header\_included<map\_tag, Callable>}
 \DoxyCodeLine{74     \{}
-\DoxyCodeLine{75         \textcolor{keywordflow}{return} map\_impl(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})), std::forward<Callable>(callable));}
+\DoxyCodeLine{75         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template lift<std::invoke\_result\_t<Callable, Type>>(map\_impl(std::forward<Callable>(callable)));}
 \DoxyCodeLine{76     \}}
 \DoxyCodeLine{77 }
 \DoxyCodeLine{78 \textcolor{keyword}{private}:}
-\DoxyCodeLine{79     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_same\_as<SpecificObservable> TObs, std::invocable<Type> Callable>}
-\DoxyCodeLine{80     \textcolor{keyword}{static} \textcolor{keyword}{auto} map\_impl(TObs\&\& \_this, Callable\&\& callable);}
+\DoxyCodeLine{79     \textcolor{keyword}{template}<std::invocable<Type> Callable>}
+\DoxyCodeLine{80     \textcolor{keyword}{static} \textcolor{keyword}{auto} map\_impl(Callable\&\& callable);}
 \DoxyCodeLine{81 \};}
 \DoxyCodeLine{82 \} \textcolor{comment}{// namespace rpp::details}}
 

@@ -46,18 +46,18 @@
 \DoxyCodeLine{57     \textcolor{keyword}{template}<std::predicate<const Type\&> Predicate>}
 \DoxyCodeLine{58     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga47773bfb0298bba2ec71502c1984cc95}{take\_while}}(Predicate\&\& predicate) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<take\_while\_tag, Predicate>}
 \DoxyCodeLine{59     \{}
-\DoxyCodeLine{60         \textcolor{keywordflow}{return} take\_while\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<Predicate>(predicate));}
+\DoxyCodeLine{60         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<Type>(take\_while\_impl(std::forward<Predicate>(predicate)));}
 \DoxyCodeLine{61     \}}
 \DoxyCodeLine{62 }
 \DoxyCodeLine{63     \textcolor{keyword}{template}<std::predicate<const Type\&> Predicate>}
 \DoxyCodeLine{64     \textcolor{keyword}{auto} take\_while(Predicate\&\& predicate) \&\& \textcolor{keyword}{requires} is\_header\_included<take\_while\_tag, Predicate>}
 \DoxyCodeLine{65     \{}
-\DoxyCodeLine{66         \textcolor{keywordflow}{return} take\_while\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<Predicate>(predicate));}
+\DoxyCodeLine{66         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template lift<Type>(take\_while\_impl(std::forward<Predicate>(predicate)));}
 \DoxyCodeLine{67     \}}
 \DoxyCodeLine{68 }
 \DoxyCodeLine{69 \textcolor{keyword}{private}:}
-\DoxyCodeLine{70     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_same\_as<SpecificObservable>TObs, std::predicate<const Type\&> Predicate>}
-\DoxyCodeLine{71     \textcolor{keyword}{static} \textcolor{keyword}{auto} take\_while\_impl(TObs\&\& \_this, Predicate\&\& predicate);}
+\DoxyCodeLine{70     \textcolor{keyword}{template}<std::predicate<const Type\&> Predicate>}
+\DoxyCodeLine{71     \textcolor{keyword}{static} \textcolor{keyword}{auto} take\_while\_impl(Predicate\&\& predicate);}
 \DoxyCodeLine{72 \};}
 \DoxyCodeLine{73 \} \textcolor{comment}{// namespace rpp::details}}
 

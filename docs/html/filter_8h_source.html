@@ -117,14 +117,14 @@ $(function() {
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keyword">namespace </span>rpp::details</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>{</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, <span class="keyword">typename</span> SpecificObservable&gt;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_same_as&lt;SpecificObservable&gt;TObs, std::predicate&lt;const Type&amp;&gt; Predicate&gt;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">auto</span> member_overload&lt;Type, SpecificObservable, filter_tag&gt;::filter_impl(TObs&amp;&amp; _this, Predicate&amp;&amp; predicate)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">template</span>&lt;std::predicate&lt;const Type&amp;&gt; Predicate&gt;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">auto</span> member_overload&lt;Type, SpecificObservable, filter_tag&gt;::filter_impl(Predicate&amp;&amp; predicate)</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>{</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">return</span> std::forward&lt;TObs&gt;(_this).template lift&lt;Type&gt;([predicate = std::forward&lt;Predicate&gt;(predicate)](<span class="keyword">auto</span>&amp;&amp; value, <span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp; subscriber)</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">return</span> [predicate = std::forward&lt;Predicate&gt;(predicate)](<span class="keyword">auto</span>&amp;&amp; value, <span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp; subscriber)</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    {</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">if</span> (predicate(utilities::as_const(value)))</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            subscriber.on_next(std::forward&lt;<span class="keyword">decltype</span>(value)&gt;(value));</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    });</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    };</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>} <span class="comment">// namespace rpp::details</span></div>
 </div><!-- fragment --></div><!-- contents -->

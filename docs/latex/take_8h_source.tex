@@ -75,11 +75,10 @@
 \DoxyCodeLine{71 \};}
 \DoxyCodeLine{72 }
 \DoxyCodeLine{73 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{74 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_same\_as<SpecificObservable> TObs>}
-\DoxyCodeLine{75 \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload<Type, SpecificObservable, take\_tag>::take\_impl}}(TObs\&\& \_this, \textcolor{keywordtype}{size\_t} count)}
-\DoxyCodeLine{76 \{}
-\DoxyCodeLine{77     \textcolor{keywordflow}{return} std::forward<TObs>(\_this).template lift<Type>(\mbox{\hyperlink{classrpp_1_1details_1_1take__action}{take\_action}}\{count\});}
-\DoxyCodeLine{78 \}}
-\DoxyCodeLine{79 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{74 \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload<Type, SpecificObservable, take\_tag>::take\_impl}}(\textcolor{keywordtype}{size\_t} count)}
+\DoxyCodeLine{75 \{}
+\DoxyCodeLine{76     \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1details_1_1take__action}{take\_action}}\{count\};}
+\DoxyCodeLine{77 \}}
+\DoxyCodeLine{78 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}
