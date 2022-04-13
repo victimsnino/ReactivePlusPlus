@@ -117,9 +117,9 @@ requires (!constraint::decayed_same_as&lt;TSub, <a class="el" href="classrpp_1_1
 <tr class="memitem:a38d171112b404e026c9d0ec896fd1d6f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1specific__observable.html#a38d171112b404e026c9d0ec896fd1d6f">subscribe</a> (TObserver &amp;&amp;observer) const noexcept</td></tr>
 <tr class="memdesc:a38d171112b404e026c9d0ec896fd1d6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="classrpp_1_1specific__observable.html#a38d171112b404e026c9d0ec896fd1d6f">More...</a><br /></td></tr>
 <tr class="separator:a38d171112b404e026c9d0ec896fd1d6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a572f3c4b38e1daa5ce7bd9892bce4bce"><td class="memTemplParams" colspan="2"><a id="a572f3c4b38e1daa5ce7bd9892bce4bce" name="a572f3c4b38e1daa5ce7bd9892bce4bce"></a>
-template&lt;constraint::observer_of_type&lt; Type &gt; TObserver&gt; </td></tr>
-<tr class="memitem:a572f3c4b38e1daa5ce7bd9892bce4bce"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (constraint::decayed_same_as&lt; <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> &gt; auto &amp;&amp;sub, TObserver &amp;&amp;observer) const noexcept</td></tr>
+<tr class="memitem:a572f3c4b38e1daa5ce7bd9892bce4bce"><td class="memTemplParams" colspan="2">template&lt;constraint::observer_of_type&lt; Type &gt; TObserver&gt; </td></tr>
+<tr class="memitem:a572f3c4b38e1daa5ce7bd9892bce4bce"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1specific__observable.html#a572f3c4b38e1daa5ce7bd9892bce4bce">subscribe</a> (constraint::decayed_same_as&lt; <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> &gt; auto &amp;&amp;sub, TObserver &amp;&amp;observer) const noexcept</td></tr>
+<tr class="memdesc:a572f3c4b38e1daa5ce7bd9892bce4bce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="classrpp_1_1specific__observable.html#a572f3c4b38e1daa5ce7bd9892bce4bce">More...</a><br /></td></tr>
 <tr class="separator:a572f3c4b38e1daa5ce7bd9892bce4bce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b665a904d500612243e85afd0bef172"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; <br />
 requires (std::is_constructible_v&lt;<a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;Type&gt;, std::decay_t&lt;Args&gt;...&gt; &amp;&amp; !constraint::variadic_is_same_type&lt;<a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;Type&gt;, Args...&gt;)</td></tr>
@@ -170,7 +170,7 @@ class rpp::specific_observable&lt; Type, OnSubscribeFn &gt;</div><p >observable 
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a9b665a904d500612243e85afd0bef172" name="a9b665a904d500612243e85afd0bef172"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b665a904d500612243e85afd0bef172">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b665a904d500612243e85afd0bef172">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -204,7 +204,7 @@ requires (std::is_constructible_v&lt;<a class="el" href="classrpp_1_1dynamic__su
 </div>
 </div>
 <a id="a0b9d19ca777025a4dc3b2f386a1140d8" name="a0b9d19ca777025a4dc3b2f386a1140d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b9d19ca777025a4dc3b2f386a1140d8">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b9d19ca777025a4dc3b2f386a1140d8">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,8 +236,51 @@ template&lt;constraint::decayed_type Type, constraint::on_subscribe_fn&lt; Type 
 
 </div>
 </div>
+<a id="a572f3c4b38e1daa5ce7bd9892bce4bce" name="a572f3c4b38e1daa5ce7bd9892bce4bce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a572f3c4b38e1daa5ce7bd9892bce4bce">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, constraint::on_subscribe_fn&lt; Type &gt; OnSubscribeFn&gt; </div>
+<div class="memtemplate">
+template&lt;constraint::observer_of_type&lt; Type &gt; TObserver&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> <a class="el" href="classrpp_1_1specific__observable.html">rpp::specific_observable</a>&lt; Type, OnSubscribeFn &gt;::subscribe </td>
+          <td>(</td>
+          <td class="paramtype">constraint::decayed_same_as&lt; <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> &gt; auto &amp;&amp;&#160;</td>
+          <td class="paramname"><em>sub</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TObserver &amp;&amp;&#160;</td>
+          <td class="paramname"><em>observer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function. </p>
+<p >this overloading accepts subscription and observer to construct <a class="el" href="classrpp_1_1specific__subscriber.html" title="specific version of subscriber which stores type of observer used inside to prevent extra allocations">specific_subscriber</a> without extra overheads </p><dl class="section return"><dt>Returns</dt><dd>subscription on this observable which can be used to unsubscribe </dd></dl>
+
+</div>
+</div>
 <a id="a38d171112b404e026c9d0ec896fd1d6f" name="a38d171112b404e026c9d0ec896fd1d6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38d171112b404e026c9d0ec896fd1d6f">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a38d171112b404e026c9d0ec896fd1d6f">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -270,7 +313,7 @@ template&lt;constraint::observer_of_type&lt; Type &gt; TObserver&gt; </div>
 </div>
 </div>
 <a id="a8cb94e94ecb059766c8e509f27a2ba97" name="a8cb94e94ecb059766c8e509f27a2ba97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cb94e94ecb059766c8e509f27a2ba97">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cb94e94ecb059766c8e509f27a2ba97">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

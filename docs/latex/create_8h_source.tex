@@ -26,23 +26,23 @@
 \DoxyCodeLine{22 }
 \DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{24 }
-\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <rpp/sources/fwd.h>}}
-\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <rpp/observables/specific\_observable.h>}}
-\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <type\_traits>}}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{36 \textcolor{keyword}{namespace }rpp::observable}
-\DoxyCodeLine{37 \{}
-\DoxyCodeLine{47 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::on\_subscribe\_fn<Type> OnSubscribeFn>}
-\DoxyCodeLine{48 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga7c355ad67fb60d523e6d05604638bae2}{create}}(OnSubscribeFn\&\& on\_subscribe)}
-\DoxyCodeLine{49 \{}
-\DoxyCodeLine{50     \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable<Type, std::decay\_t<OnSubscribeFn>}}>\{std::forward<OnSubscribeFn>(on\_subscribe)\};}
-\DoxyCodeLine{51 \}}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{61 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnSubscribeFn>}
-\DoxyCodeLine{62 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga7c355ad67fb60d523e6d05604638bae2}{create}}(OnSubscribeFn\&\& on\_subscribe)}
-\DoxyCodeLine{63 \{}
-\DoxyCodeLine{64     \textcolor{keywordflow}{return} create<utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OnSubscribeFn>>>(std::forward<OnSubscribeFn>(on\_subscribe));}
-\DoxyCodeLine{65 \}}
-\DoxyCodeLine{66 \} \textcolor{comment}{// namespace rpp::observable}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <rpp/sources/fwd.h>}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <rpp/observables/specific\_observable.h>}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{keyword}{namespace }rpp::observable}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{57 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::on\_subscribe\_fn<Type> OnSubscribeFn>}
+\DoxyCodeLine{58 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga7c355ad67fb60d523e6d05604638bae2}{create}}(OnSubscribeFn\&\& on\_subscribe)}
+\DoxyCodeLine{59 \{}
+\DoxyCodeLine{60     \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable<Type, std::decay\_t<OnSubscribeFn>}}>\{std::forward<OnSubscribeFn>(on\_subscribe)\};}
+\DoxyCodeLine{61 \}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{76 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnSubscribeFn>}
+\DoxyCodeLine{77 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga7c355ad67fb60d523e6d05604638bae2}{create}}(OnSubscribeFn\&\& on\_subscribe)}
+\DoxyCodeLine{78 \{}
+\DoxyCodeLine{79     \textcolor{keywordflow}{return} create<utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OnSubscribeFn>>>(std::forward<OnSubscribeFn>(on\_subscribe));}
+\DoxyCodeLine{80 \}}
+\DoxyCodeLine{81 \} \textcolor{comment}{// namespace rpp::observable}}
 
 \end{DoxyCode}

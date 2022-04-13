@@ -27,6 +27,25 @@ This file contains implementation of {\ttfamily just} function to create \mbox{\
 \doxysubsection{Detailed Description}
 This file contains implementation of {\ttfamily just} function to create \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits a particular item. 
 
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_gaeb16634f6c858430089044c8683e1efe}{rpp::source::just}}(42).subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    std::array<int, 100> cheap\_to\_copy\{\};}
+\DoxyCodeLine{    rpp::source::just<rpp::memory\_model::use\_shared>(cheap\_to\_copy).subscribe();}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_gaeb16634f6c858430089044c8683e1efe}{rpp::source::just}}(42, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}).subscribe();}
+
+\end{DoxyCodeInclude}
+
+
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/just.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/just.\+html}} 
 \end{DoxySeeAlso}

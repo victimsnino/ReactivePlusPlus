@@ -43,22 +43,22 @@
 \DoxyCodeLine{42     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
 \DoxyCodeLine{43     \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, filter\_tag>}
 \DoxyCodeLine{44     \{}
-\DoxyCodeLine{65         \textcolor{keyword}{template}<std::predicate<const Type\&> Predicate>}
-\DoxyCodeLine{66         \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_gae2695326a24fb8534f17f0d228d3b7f2}{filter}}(Predicate\&\& predicate) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<filter\_tag, Predicate>}
-\DoxyCodeLine{67         \{}
-\DoxyCodeLine{68             \textcolor{keywordflow}{return} filter\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<Predicate>(predicate));}
-\DoxyCodeLine{69         \}}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{71         \textcolor{keyword}{template}<std::predicate<const Type\&> Predicate>}
-\DoxyCodeLine{72         \textcolor{keyword}{auto} filter(Predicate\&\& predicate) \&\& \textcolor{keyword}{requires} is\_header\_included<filter\_tag, Predicate>}
-\DoxyCodeLine{73         \{}
-\DoxyCodeLine{74             \textcolor{keywordflow}{return} filter\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<Predicate>(predicate));}
-\DoxyCodeLine{75         \}}
-\DoxyCodeLine{76 }
-\DoxyCodeLine{77     \textcolor{keyword}{private}:}
-\DoxyCodeLine{78         \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_same\_as<SpecificObservable> TObs, std::predicate<const Type\&> Predicate>}
-\DoxyCodeLine{79         \textcolor{keyword}{static} \textcolor{keyword}{auto} filter\_impl(TObs\&\& \_this, Predicate\&\& predicate);}
-\DoxyCodeLine{80     \};}
-\DoxyCodeLine{81 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{60         \textcolor{keyword}{template}<std::predicate<const Type\&> Predicate>}
+\DoxyCodeLine{61         \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_gae2695326a24fb8534f17f0d228d3b7f2}{filter}}(Predicate\&\& predicate) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<filter\_tag, Predicate>}
+\DoxyCodeLine{62         \{}
+\DoxyCodeLine{63             \textcolor{keywordflow}{return} filter\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<Predicate>(predicate));}
+\DoxyCodeLine{64         \}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66         \textcolor{keyword}{template}<std::predicate<const Type\&> Predicate>}
+\DoxyCodeLine{67         \textcolor{keyword}{auto} filter(Predicate\&\& predicate) \&\& \textcolor{keyword}{requires} is\_header\_included<filter\_tag, Predicate>}
+\DoxyCodeLine{68         \{}
+\DoxyCodeLine{69             \textcolor{keywordflow}{return} filter\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<Predicate>(predicate));}
+\DoxyCodeLine{70         \}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72     \textcolor{keyword}{private}:}
+\DoxyCodeLine{73         \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_same\_as<SpecificObservable> TObs, std::predicate<const Type\&> Predicate>}
+\DoxyCodeLine{74         \textcolor{keyword}{static} \textcolor{keyword}{auto} filter\_impl(TObs\&\& \_this, Predicate\&\& predicate);}
+\DoxyCodeLine{75     \};}
+\DoxyCodeLine{76 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

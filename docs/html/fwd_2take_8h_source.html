@@ -111,24 +111,24 @@ $(function() {
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, <span class="keyword">typename</span> SpecificObservable&gt;</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__tag_01_4.html">   44</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1member__overload.html">member_overload</a>&lt;Type, SpecificObservable, take_tag&gt;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>{</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>...Args&gt;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">   61</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">take</a>(<span class="keywordtype">size_t</span> count) <span class="keyword">const</span> &amp; <span class="keyword">requires</span> is_header_included&lt;take_tag, Args...&gt;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordflow">return</span> take_impl(*<span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>), count);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>...Args&gt;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">auto</span> take(<span class="keywordtype">size_t</span> count) &amp;&amp; <span class="keyword">requires</span> is_header_included&lt;take_tag, Args...&gt;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">return</span> take_impl(*<span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>), count);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_same_as&lt;SpecificObservable&gt; TObs&gt;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">static</span> <span class="keyword">auto</span> take_impl(TObs&amp;&amp; _this, <span class="keywordtype">size_t</span> count);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>};</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>} <span class="comment">// namespace rpp::details</span></div>
-<div class="ttc" id="agroup__operators_html_ga0dcb41decfa8d5ded95f828a7e65ffee"><div class="ttname"><a href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a></div><div class="ttdeci">auto take(size_t count) const &amp;</div><div class="ttdoc">emit only first Count items provided by observable</div><div class="ttdef"><b>Definition:</b> take.h:61</div></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>...Args&gt;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">   59</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">take</a>(<span class="keywordtype">size_t</span> count) <span class="keyword">const</span> &amp; <span class="keyword">requires</span> is_header_included&lt;take_tag, Args...&gt;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">return</span> take_impl(*<span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>), count);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>...Args&gt;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">auto</span> take(<span class="keywordtype">size_t</span> count) &amp;&amp; <span class="keyword">requires</span> is_header_included&lt;take_tag, Args...&gt;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">return</span> take_impl(*<span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>), count);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_same_as&lt;SpecificObservable&gt; TObs&gt;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">static</span> <span class="keyword">auto</span> take_impl(TObs&amp;&amp; _this, <span class="keywordtype">size_t</span> count);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>};</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>} <span class="comment">// namespace rpp::details</span></div>
+<div class="ttc" id="agroup__operators_html_ga0dcb41decfa8d5ded95f828a7e65ffee"><div class="ttname"><a href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a></div><div class="ttdeci">auto take(size_t count) const &amp;</div><div class="ttdoc">emit only first Count items provided by observable</div><div class="ttdef"><b>Definition:</b> take.h:59</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1member__overload_html"><div class="ttname"><a href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a></div><div class="ttdef"><b>Definition:</b> member_overload.h:39</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

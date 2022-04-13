@@ -1,0 +1,21 @@
+\hypertarget{just_8cpp-example}{}\doxysection{just.\+cpp}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <array>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_gaeb16634f6c858430089044c8683e1efe}{rpp::source::just}}(42).subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
+\DoxyCodeLine{\textcolor{comment}{}}
+\DoxyCodeLine{    std::array<int, 100> cheap\_to\_copy\{\};}
+\DoxyCodeLine{    rpp::source::just<rpp::memory\_model::use\_shared>(cheap\_to\_copy).subscribe();}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_gaeb16634f6c858430089044c8683e1efe}{rpp::source::just}}(42, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}).subscribe();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

@@ -59,9 +59,45 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \begin{DoxyReturn}{Returns}
 \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} with passed action
 \end{DoxyReturn}
+Examples\+: 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                sub.on\_next(42);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keywordtype}{int}                                        val = 42;}
+\DoxyCodeLine{    rpp::source::create<int>([val](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                sub.on\_next(val);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{rpp::source::create}}([](\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp::dynamic\_subscriber<int>}}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                sub.on\_next(42);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
+
+\end{DoxyCodeInclude}
+
+
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}} 
 \end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{create_8cpp-example}{create.\+cpp}}.\end{Desc}
 \mbox{\Hypertarget{group__observables_ga7c355ad67fb60d523e6d05604638bae2}\label{group__observables_ga7c355ad67fb60d523e6d05604638bae2}} 
 \index{Observables@{Observables}!create@{create}}
 \index{create@{create}!Observables@{Observables}}
@@ -81,6 +117,39 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observa
 \begin{DoxyReturn}{Returns}
 \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with passed action
 \end{DoxyReturn}
+Examples\+: 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                sub.on\_next(42);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keywordtype}{int}                                        val = 42;}
+\DoxyCodeLine{    rpp::source::create<int>([val](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                sub.on\_next(val);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{rpp::source::create}}([](\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp::dynamic\_subscriber<int>}}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                sub.on\_next(42);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
+
+\end{DoxyCodeInclude}
+
+
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}} 
 \end{DoxySeeAlso}
@@ -140,6 +209,8 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 
 
 \begin{DoxyTemplParams}{Template Parameters}
+{\em memory\+\_\+model} & rpp\+::memory\+\_\+model startegy used to handle item. \\
+\hline
 {\em Scheduler} & type of scheduler used for scheduling of submissions \\
 \hline
 \end{DoxyTemplParams}
@@ -151,9 +222,31 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \begin{DoxyReturn}{Returns}
 \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} with provided item
 \end{DoxyReturn}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_gaeb16634f6c858430089044c8683e1efe}{rpp::source::just}}(42).subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    std::array<int, 100> cheap\_to\_copy\{\};}
+\DoxyCodeLine{    rpp::source::just<rpp::memory\_model::use\_shared>(cheap\_to\_copy).subscribe();}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_gaeb16634f6c858430089044c8683e1efe}{rpp::source::just}}(42, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}).subscribe();}
+
+\end{DoxyCodeInclude}
+
+
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/just.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/just.\+html}} 
 \end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{just_8cpp-example}{just.\+cpp}}.\end{Desc}
 \mbox{\Hypertarget{group__observables_ga091f1a238b4d205f0a1dff22b971c880}\label{group__observables_ga091f1a238b4d205f0a1dff22b971c880}} 
 \index{Observables@{Observables}!never@{never}}
 \index{never@{never}!Observables@{Observables}}

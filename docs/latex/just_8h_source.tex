@@ -26,65 +26,65 @@
 \DoxyCodeLine{22 }
 \DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{24 }
-\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <rpp/memory\_model.h>}}
-\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <rpp/schedulers/constraints.h>}}
-\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <rpp/schedulers/immediate\_scheduler.h>}}
-\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{create_8h}{rpp/sources/create.h}}>}}
-\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <rpp/sources/fwd.h>}}
-\DoxyCodeLine{37 }
-\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <type\_traits>}}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{40 \textcolor{keyword}{namespace }rpp::observable::details}
-\DoxyCodeLine{41 \{}
-\DoxyCodeLine{42 \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler Scheduler = rpp::schedulers::immediate>}
-\DoxyCodeLine{43 \textcolor{keyword}{auto} just\_use\_stack(\textcolor{keyword}{auto}\&\& item, \textcolor{keyword}{const} Scheduler\& scheduler)}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <rpp/memory\_model.h>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <rpp/schedulers/constraints.h>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <rpp/schedulers/immediate\_scheduler.h>}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{create_8h}{rpp/sources/create.h}}>}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <rpp/sources/fwd.h>}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{keyword}{namespace }rpp::observable::details}
 \DoxyCodeLine{44 \{}
-\DoxyCodeLine{45     \textcolor{keywordflow}{return} \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{create}}<std::decay\_t<\textcolor{keyword}{decltype}(item)>>([=, item = std::forward<\textcolor{keyword}{decltype}(item)>(item)](\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
-\DoxyCodeLine{46     \{}
-\DoxyCodeLine{47         \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::is\_same\_v<Scheduler, rpp::schedulers::immediate>)}
-\DoxyCodeLine{48         \{}
-\DoxyCodeLine{49             subscriber.on\_next(item);}
-\DoxyCodeLine{50             subscriber.on\_completed();}
-\DoxyCodeLine{51         \}}
-\DoxyCodeLine{52         \textcolor{keywordflow}{else}}
-\DoxyCodeLine{53         \{}
-\DoxyCodeLine{54             \textcolor{keyword}{auto} worker = scheduler.create\_worker(subscriber.get\_subscription());}
-\DoxyCodeLine{55             worker.schedule([subscriber, item]() \textcolor{keyword}{mutable} -\/> rpp::schedulers::optional\_duration}
-\DoxyCodeLine{56                 \{}
-\DoxyCodeLine{57                     subscriber.on\_next(std::move(item));}
-\DoxyCodeLine{58                     subscriber.on\_completed();}
-\DoxyCodeLine{59                     \textcolor{keywordflow}{return} \{\};}
-\DoxyCodeLine{60                 \});}
-\DoxyCodeLine{61         \}}
-\DoxyCodeLine{62     \});}
-\DoxyCodeLine{63 \}}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{65 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler Scheduler = rpp::schedulers::immediate>}
-\DoxyCodeLine{66 \textcolor{keyword}{auto} just\_use\_shared(T\&\& item, \textcolor{keyword}{const} Scheduler\& scheduler)}
-\DoxyCodeLine{67 \{}
-\DoxyCodeLine{68     \textcolor{keyword}{auto} as\_shared = std::make\_shared<std::decay\_t<T>>(std::forward<T>(item));}
-\DoxyCodeLine{69     \textcolor{keywordflow}{return} create<std::decay\_t<T>>([=](\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
-\DoxyCodeLine{70         \{}
-\DoxyCodeLine{71             \textcolor{keyword}{auto} worker = scheduler.create\_worker(subscriber.get\_subscription());}
-\DoxyCodeLine{72             worker.schedule([=]() \textcolor{keyword}{mutable} -\/> rpp::schedulers::optional\_duration}
-\DoxyCodeLine{73                 \{}
-\DoxyCodeLine{74                     subscriber.on\_next(*as\_shared);}
-\DoxyCodeLine{75                     subscriber.on\_completed();}
-\DoxyCodeLine{76                     \textcolor{keywordflow}{return} \{\};}
-\DoxyCodeLine{77                 \});}
-\DoxyCodeLine{78         \});}
-\DoxyCodeLine{79 \}}
-\DoxyCodeLine{80 \} \textcolor{comment}{// namespace rpp::observable::details}}
-\DoxyCodeLine{81 \textcolor{keyword}{namespace }rpp::observable}
-\DoxyCodeLine{82 \{}
-\DoxyCodeLine{92 \textcolor{keyword}{template}<memory\_model memory\_model, rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler Scheduler>}
-\DoxyCodeLine{93 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gaeb16634f6c858430089044c8683e1efe}{just}}(\textcolor{keyword}{auto}\&\& item, \textcolor{keyword}{const} Scheduler\& scheduler)}
-\DoxyCodeLine{94 \{}
-\DoxyCodeLine{95     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (memory\_model == memory\_model::use\_stack)}
-\DoxyCodeLine{96         \textcolor{keywordflow}{return} details::just\_use\_stack(std::forward<\textcolor{keyword}{decltype}(item)>(item), scheduler);}
-\DoxyCodeLine{97     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{98         \textcolor{keywordflow}{return} details::just\_use\_shared(std::forward<\textcolor{keyword}{decltype}(item)>(item), scheduler);}
-\DoxyCodeLine{99 \}}
-\DoxyCodeLine{100 \} \textcolor{comment}{// namespace rpp::observable}}
+\DoxyCodeLine{45 \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler Scheduler = rpp::schedulers::immediate>}
+\DoxyCodeLine{46 \textcolor{keyword}{auto} just\_use\_stack(\textcolor{keyword}{auto}\&\& item, \textcolor{keyword}{const} Scheduler\& scheduler)}
+\DoxyCodeLine{47 \{}
+\DoxyCodeLine{48     \textcolor{keywordflow}{return} \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{create}}<std::decay\_t<\textcolor{keyword}{decltype}(item)>>([=, item = std::forward<\textcolor{keyword}{decltype}(item)>(item)](\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{49     \{}
+\DoxyCodeLine{50         \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::is\_same\_v<Scheduler, rpp::schedulers::immediate>)}
+\DoxyCodeLine{51         \{}
+\DoxyCodeLine{52             subscriber.on\_next(item);}
+\DoxyCodeLine{53             subscriber.on\_completed();}
+\DoxyCodeLine{54         \}}
+\DoxyCodeLine{55         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{56         \{}
+\DoxyCodeLine{57             \textcolor{keyword}{auto} worker = scheduler.create\_worker(subscriber.get\_subscription());}
+\DoxyCodeLine{58             worker.schedule([subscriber, item]() \textcolor{keyword}{mutable} -\/> rpp::schedulers::optional\_duration}
+\DoxyCodeLine{59                 \{}
+\DoxyCodeLine{60                     subscriber.on\_next(std::move(item));}
+\DoxyCodeLine{61                     subscriber.on\_completed();}
+\DoxyCodeLine{62                     \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{63                 \});}
+\DoxyCodeLine{64         \}}
+\DoxyCodeLine{65     \});}
+\DoxyCodeLine{66 \}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler Scheduler = rpp::schedulers::immediate>}
+\DoxyCodeLine{69 \textcolor{keyword}{auto} just\_use\_shared(T\&\& item, \textcolor{keyword}{const} Scheduler\& scheduler)}
+\DoxyCodeLine{70 \{}
+\DoxyCodeLine{71     \textcolor{keyword}{auto} as\_shared = std::make\_shared<std::decay\_t<T>>(std::forward<T>(item));}
+\DoxyCodeLine{72     \textcolor{keywordflow}{return} create<std::decay\_t<T>>([=](\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{73         \{}
+\DoxyCodeLine{74             \textcolor{keyword}{auto} worker = scheduler.create\_worker(subscriber.get\_subscription());}
+\DoxyCodeLine{75             worker.schedule([=]() \textcolor{keyword}{mutable} -\/> rpp::schedulers::optional\_duration}
+\DoxyCodeLine{76                 \{}
+\DoxyCodeLine{77                     subscriber.on\_next(*as\_shared);}
+\DoxyCodeLine{78                     subscriber.on\_completed();}
+\DoxyCodeLine{79                     \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{80                 \});}
+\DoxyCodeLine{81         \});}
+\DoxyCodeLine{82 \}}
+\DoxyCodeLine{83 \} \textcolor{comment}{// namespace rpp::observable::details}}
+\DoxyCodeLine{84 \textcolor{keyword}{namespace }rpp::observable}
+\DoxyCodeLine{85 \{}
+\DoxyCodeLine{100 \textcolor{keyword}{template}<memory\_model memory\_model, rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler Scheduler>}
+\DoxyCodeLine{101 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gaeb16634f6c858430089044c8683e1efe}{just}}(\textcolor{keyword}{auto}\&\& item, \textcolor{keyword}{const} Scheduler\& scheduler)}
+\DoxyCodeLine{102 \{}
+\DoxyCodeLine{103     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (memory\_model == memory\_model::use\_stack)}
+\DoxyCodeLine{104         \textcolor{keywordflow}{return} details::just\_use\_stack(std::forward<\textcolor{keyword}{decltype}(item)>(item), scheduler);}
+\DoxyCodeLine{105     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{106         \textcolor{keywordflow}{return} details::just\_use\_shared(std::forward<\textcolor{keyword}{decltype}(item)>(item), scheduler);}
+\DoxyCodeLine{107 \}}
+\DoxyCodeLine{108 \} \textcolor{comment}{// namespace rpp::observable}}
 
 \end{DoxyCode}

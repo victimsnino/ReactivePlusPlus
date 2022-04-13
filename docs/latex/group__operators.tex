@@ -49,13 +49,17 @@ emit only those items from an Observable that satisfies a predicate
 The Filter operator applies a provided predicate to each item emitted by the Observable, and returns an Observable that emits only items passed provided predicate
 
 Example\+: 
-\begin{DoxyCode}{0}
-\DoxyCodeLine{observable.filter([](\textcolor{keyword}{const} \textcolor{keywordtype}{int}\& val)}
-\DoxyCodeLine{             \{}
-\DoxyCodeLine{                 \textcolor{keywordflow}{return} val >= 10;}
-\DoxyCodeLine{             \});}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 10; ++i)}
+\DoxyCodeLine{                    sub.on\_next(i);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .\mbox{\hyperlink{group__operators_gae2695326a24fb8534f17f0d228d3b7f2}{filter}}([](\textcolor{keywordtype}{int}    v) \{ \textcolor{keywordflow}{return} v \% 2 == 0; \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 0 2 4 6 8}}
 
-\end{DoxyCode}
+\end{DoxyCodeInclude}
 
 
 \begin{DoxySeeAlso}{See also}
@@ -89,14 +93,36 @@ The Map operator applies a function of your choosing to each item emitted by the
 
 The Map operator can keep same type of value or change it to some another type.
 
-Example\+: 
-\begin{DoxyCode}{0}
-\DoxyCodeLine{observable | \mbox{\hyperlink{group__operators_gae5dd31e4559517de5cf1145ff2005a86}{map}}([](\textcolor{keyword}{const} \textcolor{keywordtype}{int}\& val)}
-\DoxyCodeLine{             \{}
-\DoxyCodeLine{                 \textcolor{keywordflow}{return} std::to\_string(val) + \textcolor{stringliteral}{"{} data"{}};}
-\DoxyCodeLine{             \});}
+Example with same type\+: 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                sub.on\_next(42);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .\mbox{\hyperlink{group__operators_gae5dd31e4559517de5cf1145ff2005a86}{map}}([](\textcolor{keywordtype}{int} value)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                \textcolor{keywordflow}{return} value + 10;}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 52}}
 
-\end{DoxyCode}
+\end{DoxyCodeInclude}
+
+
+Example with changed type\+: 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                sub.on\_next(42);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .\mbox{\hyperlink{group__operators_gae5dd31e4559517de5cf1145ff2005a86}{map}}([](\textcolor{keywordtype}{int} value)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                \textcolor{keywordflow}{return} std::to\_string(value) + \textcolor{stringliteral}{"{} VAL"{}};}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe([](std::string v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42 VAL}}
+
+\end{DoxyCodeInclude}
 
 
 \begin{DoxySeeAlso}{See also}
@@ -147,10 +173,17 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 emit only first Count items provided by observable 
 
 Example\+: 
-\begin{DoxyCode}{0}
-\DoxyCodeLine{observable.take(10);}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 10; ++i)}
+\DoxyCodeLine{                    sub.on\_next(i);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .\mbox{\hyperlink{group__operators_ga0dcb41decfa8d5ded95f828a7e65ffee}{take}}(2)}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 0 1}}
 
-\end{DoxyCode}
+\end{DoxyCodeInclude}
 
 
 \begin{DoxySeeAlso}{See also}
@@ -176,10 +209,17 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 sends items provided by observable while satisfies predicate. When condition becomes false -\/\texorpdfstring{$>$}{>} terminates 
 
 Example\+: 
-\begin{DoxyCode}{0}
-\DoxyCodeLine{observable.take\_while([](\textcolor{keywordtype}{int} v)\{\textcolor{keywordflow}{return} v >= 10; \});}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 10; ++i)}
+\DoxyCodeLine{                    sub.on\_next(i);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .\mbox{\hyperlink{group__operators_ga47773bfb0298bba2ec71502c1984cc95}{take\_while}}([](\textcolor{keywordtype}{int} v) \{ \textcolor{keywordflow}{return} v != 5; \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}  v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 0 1 2 3 4}}
 
-\end{DoxyCode}
+\end{DoxyCodeInclude}
 
 
 \begin{DoxySeeAlso}{See also}
