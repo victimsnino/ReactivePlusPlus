@@ -34,7 +34,10 @@ SCENARIO("take limits count of items")
         auto obs = rpp::source::create<int>([](const auto& sub)
         {
             for (int i = 0; i < 10; ++i)
-                sub.on_next(i);
+            {
+                auto new_sub = sub; // send it to copy to test for shared
+                new_sub.on_next(i);
+            }
         });
         WHEN("subscribe on it with take")
         {

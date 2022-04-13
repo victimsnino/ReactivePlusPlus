@@ -44,35 +44,38 @@ auto take(size_t count) requires details::is_header_included<details::take_tag, 
 
 namespace rpp::details
 {
-class take_action
-{
-public:
-    take_action(size_t count)
-        : m_count{count} {}
-
-    take_action(const take_action& other)
-        : m_count{other.m_count}
-        , m_sent_count{} {}
-
-    void operator()(auto&& value, const constraint::subscriber auto& subscriber) const
-    {
-        const auto old_value = m_sent_count.fetch_add(1);
-        if (old_value < m_count)
-        {
-            subscriber.on_next(std::forward<decltype(value)>(value));
-            if (m_count - old_value == 1)
-                subscriber.on_completed();
-        }
-    }
-
-private:
-    const size_t               m_count;
-    mutable std::atomic_size_t m_sent_count{};
-};
-
 template<constraint::decayed_type Type, typename SpecificObservable>
 auto member_overload<Type, SpecificObservable, take_tag>::take_impl(size_t count)
 {
-    return take_action{count};
+    struct state
+    {
+        const size_t       count;
+        std::atomic_size_t sent_count{};
+    };
+
+    return [count]<constraint::subscriber TSub>(TSub&& subscriber)
+    {
+        auto action = [state = std::make_shared<state>(count)](auto&& value, const constraint::subscriber auto& subscriber)
+        {
+            const auto old_value = state->sent_count.fetch_add(1);
+            if (old_value < state->count)
+            {
+                subscriber.on_next(std::forward<decltype(value)>(value));
+                if (state->count - old_value == 1)
+                    subscriber.on_completed();
+            }
+        };
+
+        auto subscription = subscriber.get_subscription();
+
+        return specific_subscriber<Type, state_observer<Type, std::decay_t<TSub>, std::decay_t<decltype(action)>>>
+        {
+            subscription,
+            std::forward<TSub>(subscriber),
+            std::move(action),
+            forwarding_on_error{},
+            forwarding_on_completed{}
+        };
+    };
 }
 } // namespace rpp::details
