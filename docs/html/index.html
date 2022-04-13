@@ -89,6 +89,21 @@ Why ReactivePlusPlus?</h1>
 <li><b>ReactivePlusPlus</b> is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks show that RPP faster that RxCPP in most cases: <a href="https://victimsnino.github.io/ReactivePlusPlus/benchmark">Continous benchmarking results</a></li>
 </ul>
 <h1><a class="anchor" id="autotoc_md3"></a>
+Sample</h1>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> observable = rpp::source::create&lt;char&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keywordflow">while</span> (sub.is_subscribed())</div>
+<div class="line">                        sub.on_next(std::getchar());</div>
+<div class="line">                })</div>
+<div class="line">                .take_while([](<span class="keywordtype">char</span> v) { <span class="keywordflow">return</span> v != <span class="charliteral">&#39;0&#39;</span>; })</div>
+<div class="line">                .filter(std::not_fn(&amp;::isdigit))</div>
+<div class="line">                .map(&amp;::toupper);</div>
+<div class="line"> </div>
+<div class="line">observable.subscribe([](<span class="keywordtype">char</span> v)</div>
+<div class="line">{</div>
+<div class="line">  std::cout &lt;&lt; v;</div>
+<div class="line">});</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md4"></a>
 Useful links</h1>
 <ul>
 <li>./docs/Implementation%20Status.md "Current implementation status"</li>
@@ -96,7 +111,7 @@ Useful links</h1>
 <li>Tutorial</li>
 <li><a href="https://victimsnino.github.io/ReactivePlusPlus/benchmark">Continous benchmarking results, comparison of <code>dynamic</code> and <code>specific</code> and comparison with RxCpp</a> </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md5"></a>
 Credits:</h1>
 <p >ReactivePlusPlus library uses:</p><ul>
 <li><a href="https://github.com/catchorg/Catch2">Catch2</a> for unit testing only, you can avoid cloning it if you don't need unit-tests</li>
