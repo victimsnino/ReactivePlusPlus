@@ -33,7 +33,7 @@ for platform, data in results.groupby("platform", sort=False, as_index=False):
                      "commit": "Commit",
                      "test_case" : "Benchmark"
                  }
-        fig = px.line(bench_data, x="commit", y="value", color="test_case", line_shape='spline', markers=True, hover_data=hover_data, title=name, height=500, labels=labels, line_dash='source')
+        fig = px.line(bench_data, x="commit", y="value", color="test_case", line_shape='spline', markers=True, hover_data=hover_data, title=name, height=500, labels=labels, line_dash='source', render_mode='svg')
         copy_data = fig["data"]
         for v in copy_data:
             index_of_comma = rindex(v['legendgroup'], ',')
