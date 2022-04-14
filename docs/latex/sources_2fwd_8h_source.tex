@@ -32,35 +32,44 @@
 \DoxyCodeLine{28 }
 \DoxyCodeLine{29 \textcolor{preprocessor}{\#include <rpp/observables/fwd.h>}}
 \DoxyCodeLine{30 }
-\DoxyCodeLine{31 \textcolor{keyword}{namespace }rpp::observable}
-\DoxyCodeLine{32 \{}
-\DoxyCodeLine{33 \textcolor{comment}{//**************************** CREATE ****************//}}
-\DoxyCodeLine{34 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::on\_subscribe\_fn<Type> OnSubscribeFn>}
-\DoxyCodeLine{35 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{create}}(OnSubscribeFn\&\& on\_subscribe);}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnSubscribeFn>}
-\DoxyCodeLine{38 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{create}}(OnSubscribeFn\&\& on\_subscribe);}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{40 \textcolor{comment}{//**************************** JUST *****************//}}
-\DoxyCodeLine{41 \textcolor{keyword}{template}<memory\_model memory\_model = memory\_model::use\_stack, rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler Scheduler = rpp::schedulers::immediate>}
-\DoxyCodeLine{42 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gaeb16634f6c858430089044c8683e1efe}{just}}(\textcolor{keyword}{auto}\&\& item, \textcolor{keyword}{const} Scheduler\& scheduler = Scheduler\{\});}
-\DoxyCodeLine{43 }
-\DoxyCodeLine{44 \textcolor{comment}{//**************************** EMPTY *****************//}}
-\DoxyCodeLine{45 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{46 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga98063c4d7ae8a8222b8d4ff1eacd6517}{empty}}();}
-\DoxyCodeLine{47 }
-\DoxyCodeLine{48 \textcolor{comment}{//**************************** NEVER *****************//}}
-\DoxyCodeLine{49 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{50 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga091f1a238b4d205f0a1dff22b971c880}{never}}();}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{52 \textcolor{comment}{//**************************** ERROR *****************//}}
-\DoxyCodeLine{53 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{54 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga6ec535e9c756e3bf8be5b7f64fc55380}{error}}(\textcolor{keyword}{const} std::exception\_ptr\& err);}
-\DoxyCodeLine{55 \} \textcolor{comment}{// namespace rpp::observable}}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{57 \textcolor{keyword}{namespace }rpp}
-\DoxyCodeLine{58 \{}
-\DoxyCodeLine{59 \textcolor{keyword}{namespace }source = observable;}
-\DoxyCodeLine{60 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <ranges>}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{keyword}{namespace }rpp::observable}
+\DoxyCodeLine{34 \{}
+\DoxyCodeLine{35 \textcolor{comment}{//**************************** CREATE ****************//}}
+\DoxyCodeLine{36 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::on\_subscribe\_fn<Type> OnSubscribeFn>}
+\DoxyCodeLine{37 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{create}}(OnSubscribeFn\&\& on\_subscribe);}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnSubscribeFn>}
+\DoxyCodeLine{40 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{create}}(OnSubscribeFn\&\& on\_subscribe);}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{comment}{//**************************** EMPTY *****************//}}
+\DoxyCodeLine{43 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{44 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga98063c4d7ae8a8222b8d4ff1eacd6517}{empty}}();}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{comment}{//**************************** NEVER *****************//}}
+\DoxyCodeLine{47 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{48 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga091f1a238b4d205f0a1dff22b971c880}{never}}();}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \textcolor{comment}{//**************************** ERROR *****************//}}
+\DoxyCodeLine{51 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{52 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga6ec535e9c756e3bf8be5b7f64fc55380}{error}}(\textcolor{keyword}{const} std::exception\_ptr\& err);}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{comment}{//*************************** JUST ********************//}}
+\DoxyCodeLine{55 \textcolor{keyword}{template}<memory\_model memory\_model = memory\_model::use\_stack, \textcolor{keyword}{typename} T, \textcolor{keyword}{typename} ...Ts>}
+\DoxyCodeLine{56 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga9b6fdbec2962d28ae4284811e6971f27}{just}}(\textcolor{keyword}{const} schedulers::constraint::scheduler \textcolor{keyword}{auto}\& scheduler, T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (constraint::decayed\_same\_as<T, Ts> \&\& ...);}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{keyword}{template}<memory\_model memory\_model = memory\_model::use\_stack, \textcolor{keyword}{typename} T, \textcolor{keyword}{typename} ...Ts>}
+\DoxyCodeLine{59 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga9b6fdbec2962d28ae4284811e6971f27}{just}}(T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (constraint::decayed\_same\_as<T, Ts> \&\& ...);}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{comment}{//************************** FROM ***********************//}}
+\DoxyCodeLine{62 \textcolor{keyword}{template}<memory\_model memory\_model= memory\_model::use\_stack, schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler = rpp::schedulers::immediate>}
+\DoxyCodeLine{63 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{from}}(std::ranges::range \textcolor{keyword}{auto}\&\& iterable, \textcolor{keyword}{const} TScheduler\& scheduler = TScheduler\{\});}
+\DoxyCodeLine{64 \} \textcolor{comment}{// namespace rpp::observable}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \textcolor{keyword}{namespace }rpp}
+\DoxyCodeLine{67 \{}
+\DoxyCodeLine{68 \textcolor{keyword}{namespace }source = observable;}
+\DoxyCodeLine{69 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

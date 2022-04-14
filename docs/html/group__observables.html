@@ -99,10 +99,20 @@ Functions</h2></td></tr>
 <tr class="memitem:ga6ec535e9c756e3bf8be5b7f64fc55380"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observables.html#ga6ec535e9c756e3bf8be5b7f64fc55380">rpp::observable::error</a> (const std::exception_ptr &amp;err)</td></tr>
 <tr class="memdesc:ga6ec535e9c756e3bf8be5b7f64fc55380"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits no items and terminates with an error.  <a href="group__observables.html#ga6ec535e9c756e3bf8be5b7f64fc55380">More...</a><br /></td></tr>
 <tr class="separator:ga6ec535e9c756e3bf8be5b7f64fc55380"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaeb16634f6c858430089044c8683e1efe"><td class="memTemplParams" colspan="2">template&lt;memory_model memory_model = memory_model::use_stack, rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate&gt; </td></tr>
-<tr class="memitem:gaeb16634f6c858430089044c8683e1efe"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observables.html#gaeb16634f6c858430089044c8683e1efe">rpp::observable::just</a> (auto &amp;&amp;item, const Scheduler &amp;scheduler)</td></tr>
-<tr class="memdesc:gaeb16634f6c858430089044c8683e1efe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular item and completes.  <a href="group__observables.html#gaeb16634f6c858430089044c8683e1efe">More...</a><br /></td></tr>
-<tr class="separator:gaeb16634f6c858430089044c8683e1efe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga59e99a150529fe274de8ea48e0cc0913"><td class="memTemplParams" colspan="2">template&lt;memory_model memory_model, schedulers::constraint::scheduler TScheduler&gt; </td></tr>
+<tr class="memitem:ga59e99a150529fe274de8ea48e0cc0913"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observables.html#ga59e99a150529fe274de8ea48e0cc0913">rpp::observable::from</a> (std::ranges::range auto &amp;&amp;iterable, const TScheduler &amp;scheduler)</td></tr>
+<tr class="memdesc:ga59e99a150529fe274de8ea48e0cc0913"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a items from provided iterable.  <a href="group__observables.html#ga59e99a150529fe274de8ea48e0cc0913">More...</a><br /></td></tr>
+<tr class="separator:ga59e99a150529fe274de8ea48e0cc0913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga819797b9fb7452311dedc62aa94d1f7b"><td class="memTemplParams" colspan="2">template&lt;memory_model memory_model = memory_model::use_stack, typename T , typename ... Ts&gt; <br />
+requires (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</td></tr>
+<tr class="memitem:ga819797b9fb7452311dedc62aa94d1f7b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::observable::just</a> (const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</td></tr>
+<tr class="memdesc:ga819797b9fb7452311dedc62aa94d1f7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular items and completes.  <a href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">More...</a><br /></td></tr>
+<tr class="separator:ga819797b9fb7452311dedc62aa94d1f7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9b6fdbec2962d28ae4284811e6971f27"><td class="memTemplParams" colspan="2">template&lt;memory_model memory_model = memory_model::use_stack, typename T , typename ... Ts&gt; <br />
+requires (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</td></tr>
+<tr class="memitem:ga9b6fdbec2962d28ae4284811e6971f27"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observables.html#ga9b6fdbec2962d28ae4284811e6971f27">rpp::observable::just</a> (T &amp;&amp;item, Ts &amp;&amp;...items)</td></tr>
+<tr class="memdesc:ga9b6fdbec2962d28ae4284811e6971f27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular items and completes.  <a href="group__observables.html#ga9b6fdbec2962d28ae4284811e6971f27">More...</a><br /></td></tr>
+<tr class="separator:ga9b6fdbec2962d28ae4284811e6971f27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga091f1a238b4d205f0a1dff22b971c880"><td class="memTemplParams" colspan="2">template&lt;constraint::decayed_type Type&gt; </td></tr>
 <tr class="memitem:ga091f1a238b4d205f0a1dff22b971c880"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observables.html#ga091f1a238b4d205f0a1dff22b971c880">rpp::observable::never</a> ()</td></tr>
 <tr class="memdesc:ga091f1a238b4d205f0a1dff22b971c880"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits no items and does not terminate.  <a href="group__observables.html#ga091f1a238b4d205f0a1dff22b971c880">More...</a><br /></td></tr>
@@ -278,24 +288,24 @@ template&lt;constraint::decayed_type Type&gt; </div>
 
 </div>
 </div>
-<a id="gaeb16634f6c858430089044c8683e1efe" name="gaeb16634f6c858430089044c8683e1efe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaeb16634f6c858430089044c8683e1efe">&#9670;&nbsp;</a></span>just()</h2>
+<a id="ga59e99a150529fe274de8ea48e0cc0913" name="ga59e99a150529fe274de8ea48e0cc0913"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga59e99a150529fe274de8ea48e0cc0913">&#9670;&nbsp;</a></span>from()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;memory_model memory_model = memory_model::use_stack, rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate&gt; </div>
+template&lt;memory_model memory_model, schedulers::constraint::scheduler TScheduler&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">auto rpp::observable::just </td>
+          <td class="memname">auto rpp::observable::from </td>
           <td>(</td>
-          <td class="paramtype">auto &amp;&amp;&#160;</td>
-          <td class="paramname"><em>item</em>, </td>
+          <td class="paramtype">std::ranges::range auto &amp;&amp;&#160;</td>
+          <td class="paramname"><em>iterable</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Scheduler &amp;&#160;</td>
+          <td class="paramtype">const TScheduler &amp;&#160;</td>
           <td class="paramname"><em>scheduler</em>&#160;</td>
         </tr>
         <tr>
@@ -306,31 +316,140 @@ template&lt;memory_model memory_model = memory_model::use_stack, rpp::schedulers
       </table>
 </div><div class="memdoc">
 
-<p>Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular item and completes. </p>
+<p>Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a items from provided iterable. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">memory_model</td><td>rpp::memory_model startegy used to handle item. </td></tr>
-    <tr><td class="paramname">Scheduler</td><td>type of scheduler used for scheduling of submissions </td></tr>
+    <tr><td class="paramname">memory_model</td><td>rpp::memory_model startegy used to handle provided iterable </td></tr>
+    <tr><td class="paramname">TScheduler</td><td>type of scheduler used for scheduling of submissions: next item will be submitted to scheduler when previous one is executed </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">item</td><td>value to be sent </td></tr>
+    <tr><td class="paramname">iterable</td><td>container with values which will be flattened </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="ga819797b9fb7452311dedc62aa94d1f7b" name="ga819797b9fb7452311dedc62aa94d1f7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga819797b9fb7452311dedc62aa94d1f7b">&#9670;&nbsp;</a></span>just() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;memory_model memory_model = memory_model::use_stack, typename T , typename ... Ts&gt; <br />
+requires (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::observable::just </td>
+          <td>(</td>
+          <td class="paramtype">const schedulers::constraint::scheduler auto &amp;&#160;</td>
+          <td class="paramname"><em>scheduler</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T &amp;&amp;&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ts &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>items</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular items and completes. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">memory_model</td><td>rpp::memory_model startegy used to handle provided items </td></tr>
+    <tr><td class="paramname">Scheduler</td><td>type of scheduler used for scheduling of submissions: next item will be submitted to scheduler when previous one is executed </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">item</td><td>first value to be sent </td></tr>
+    <tr><td class="paramname">items</td><td>rest values to be sent </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> with provided item</dd></dl>
-<div class="fragment"><div class="line">    <a class="code hl_function" href="group__observables.html#gaeb16634f6c858430089044c8683e1efe">rpp::source::just</a>(42).subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
-<div class="line">    <span class="comment">// Output: 42</span></div>
-<div class="ttc" id="agroup__observables_html_gaeb16634f6c858430089044c8683e1efe"><div class="ttname"><a href="group__observables.html#gaeb16634f6c858430089044c8683e1efe">rpp::observable::just</a></div><div class="ttdeci">auto just(auto &amp;&amp;item, const Scheduler &amp;scheduler=Scheduler{})</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular item and completes.</div><div class="ttdef"><b>Definition:</b> just.h:101</div></div>
-</div><!-- fragment --> <div class="fragment"><div class="line">    std::array&lt;int, 100&gt; cheap_to_copy{};</div>
-<div class="line">    rpp::source::just&lt;rpp::memory_model::use_shared&gt;(cheap_to_copy).subscribe();</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">    <a class="code hl_function" href="group__observables.html#gaeb16634f6c858430089044c8683e1efe">rpp::source::just</a>(42, <a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}).subscribe();</div>
+<div class="fragment"><div class="line">    <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 42 53 10 1</span></div>
+<div class="ttc" id="agroup__observables_html_ga819797b9fb7452311dedc62aa94d1f7b"><div class="ttname"><a href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> just.h:72</div></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    std::array&lt;int, 100&gt; cheap_to_copy_1{};</div>
+<div class="line">    std::array&lt;int, 100&gt; cheap_to_copy_2{};</div>
+<div class="line">    rpp::source::just&lt;rpp::memory_model::use_shared&gt;(cheap_to_copy_1, cheap_to_copy_2).subscribe();</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}, 42, 53).subscribe();</div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">scheduler which schedule execution of via queueing tasks to another thread with priority to time_poin...</div><div class="ttdef"><b>Definition:</b> new_thread_scheduler.h:72</div></div>
 </div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/just.html">https://reactivex.io/documentation/operators/just.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="just_8cpp-example.html#a0">just.cpp</a>.</dd>
 </dl>
+
+</div>
+</div>
+<a id="ga9b6fdbec2962d28ae4284811e6971f27" name="ga9b6fdbec2962d28ae4284811e6971f27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9b6fdbec2962d28ae4284811e6971f27">&#9670;&nbsp;</a></span>just() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;memory_model memory_model = memory_model::use_stack, typename T , typename ... Ts&gt; <br />
+requires (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::observable::just </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&amp;&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ts &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>items</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular items and completes. </p>
+<p >this overloading uses immediate scheduler as default </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">memory_model</td><td>rpp::memory_model startegy used to handle provided items </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">item</td><td>first value to be sent </td></tr>
+    <tr><td class="paramname">items</td><td>rest values to be sent </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> with provided item</dd></dl>
+<div class="fragment"><div class="line">    <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 42 53 10 1</span></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    std::array&lt;int, 100&gt; cheap_to_copy_1{};</div>
+<div class="line">    std::array&lt;int, 100&gt; cheap_to_copy_2{};</div>
+<div class="line">    rpp::source::just&lt;rpp::memory_model::use_shared&gt;(cheap_to_copy_1, cheap_to_copy_2).subscribe();</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}, 42, 53).subscribe();</div>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/just.html">https://reactivex.io/documentation/operators/just.html</a> </dd></dl>
 
 </div>
 </div>
