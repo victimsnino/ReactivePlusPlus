@@ -49,6 +49,14 @@ concept DerefIterable = requires(Rng r)
     { *r } -> std::ranges::range;
 };
 
+template<typename Cont>
+struct container_wrapper
+{
+    const Cont& operator*() const { return container; }
+
+    Cont container;
+};
+
 void iterate(const DerefIterable auto&                     r,
              const schedulers::constraint::scheduler auto& scheduler,
              const constraint::subscriber auto&            subscriber)
@@ -62,25 +70,28 @@ void iterate(const DerefIterable auto&                     r,
     else
     {
         auto worker = scheduler.create_worker(subscriber.get_subscription());
-        worker.schedule([=, itr = (*r).cbegin()]() mutable-> schedulers::optional_duration
+        worker.schedule([=, index = size_t{0}]() mutable-> schedulers::optional_duration
         {
-            subscriber.on_next(utilities::as_const(*itr));
-            if (++itr != (*r).cend())
-                return schedulers::duration{}; // re-schedule this
+            const auto end = std::cend(*r);
+            auto       itr = std::cbegin(*r);
+
+            std::ranges::advance(itr, index, end);
+
+            if (itr != end)
+            {
+                subscriber.on_next(utilities::as_const(*itr));
+                if (std::next(itr) != end) // it was not last
+                {
+                    ++index;
+                    return schedulers::duration{}; // re-schedule this
+                }
+            }
 
             subscriber.on_completed();
             return {};
         });
     }
 }
-
-template<typename Cont>
-struct container_wrapper
-{
-    const Cont& operator*() const { return container; }
-
-    Cont container;
-};
 
 template<memory_model memory_model, constraint::decayed_type T, typename ...Ts>
 auto pack_variadic(Ts&& ...items)
@@ -91,6 +102,7 @@ auto pack_variadic(Ts&& ...items)
         return std::make_shared<std::array<T, sizeof...(Ts)>>(std::forward<Ts>(items)...);
 }
 } // namespace rpp::observable::details
+
 namespace rpp::observable
 {
 /**
