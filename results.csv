@@ -16544,7 +16544,7 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 16542,Observable lift,Dynamic observable lift dynamic observer,56.958,56.8394,57.2975,0.95,Linux GCC,remove some benchmar... (52a38b9e),rpp
 16543,Operators,map construction from observable via dot + subscribe,3020.08,63.8019,17800.5,0.95,Linux GCC,remove some benchmar... (52a38b9e),rpp
 16544,Subscription,composite_subscription create,23.1567,23.1257,23.2135,0.95,Linux GCC,remove some benchmar... (52a38b9e),rpp
-16545,Subscription,composite_subscription add,2102.45,18.9685,12455,0.95,Linux GCC,remove some benchmar... (52a38b9e),rpp
+16545,Subscription,composite_subscription add,2102.45,18.9685,12455.0,0.95,Linux GCC,remove some benchmar... (52a38b9e),rpp
 16546,Subscription,composite_subscription unsubscribe,6.94433,6.91429,7.01237,0.95,Linux GCC,remove some benchmar... (52a38b9e),rpp
 16547,foundamental sources,empty,42.2038,42.135,42.4238,0.95,Linux GCC,remove some benchmar... (52a38b9e),rpp
 16548,foundamental sources,error,78.4491,78.2719,78.8082,0.95,Linux GCC,remove some benchmar... (52a38b9e),rpp
@@ -16661,3 +16661,219 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 16659,just,just send int,38.675,37.5053,41.5066,0.95,Linux CLANG,remove some benchmar... (52a38b9e),rxcpp
 16660,just,just send variadic,46.836,45.9333,48.2282,0.95,Linux CLANG,remove some benchmar... (52a38b9e),rxcpp
 16661,from,from vector with int,67.1493,65.0167,70.1375,0.95,Linux CLANG,remove some benchmar... (52a38b9e),rxcpp
+16662,Observable construction,Specific observable construction,0.418124,0.417582,0.419427,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16663,Observable construction,Dynamic observable construction,69.1643,68.9889,69.4763,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16664,Observable construction,Specific observable construction + as_dynamic,69.9482,69.0457,72.4573,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16665,Observable subscribe #2,Specific observable subscribe lambda,109.301,108.929,110.066,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16666,Observable subscribe #2,Dynamic observable subscribe lambda,181.317,180.353,183.446,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16667,Observable subscribe #2,Specific observable subscribe lambda without subscription,110.129,109.427,111.822,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16668,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,181.319,180.384,183.442,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16669,Observable subscribe #2,Specific observable subscribe specific subscriber,18.8737,18.8492,18.9326,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16670,Observable subscribe #2,Dynamic observable subscribe specific subscriber,121.234,120.726,122.537,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16671,Observable subscribe #2,Specific observable subscribe dynamic observer,18.8967,18.8676,18.9602,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16672,Observable subscribe #2,Dynamic observable subscribe dynamic observer,18.9047,18.8693,18.9769,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16673,Observer construction,Specific observer construction,0.418462,0.417803,0.419968,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16674,Observer construction,Dynamic observer construction,68.5356,68.3437,68.8111,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16675,Observer construction,Specific observer construction + as_dynamic,70.6516,70.2748,71.5354,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16676,OnNext,Specific observer OnNext,0.446193,0.445504,0.447662,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16677,OnNext,Dynamic observer OnNext,2.01535,2.00767,2.03779,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16678,Subscriber construction,Make subsriber,93.3271,93.094,93.7105,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16679,Subscriber construction,Make copy of subscriber,32.1886,32.1196,32.355,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16680,Subscriber construction,Transform subsriber to dynamic,103.383,103.129,103.85,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16681,Observable subscribe,Specific observable subscribe specific observer,108.629,107.616,112.886,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16682,Observable subscribe,Specific observable subscribe dynamic observer,125.447,125.07,126.367,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16683,Observable subscribe,Dynamic observable subscribe specific observer,179.525,179.007,180.993,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16684,Observable subscribe,Dynamic observable subscribe dynamic observer,126.787,126.365,127.624,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16685,Observable lift,Specific observable lift specific observer,160.948,160.523,162.118,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16686,Observable lift,Specific observable lift dynamic observer,192.155,191.736,193,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16687,Observable lift,Dynamic observable lift specific observer,285.125,284.102,288.648,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16688,Observable lift,Dynamic observable lift dynamic observer,242.873,241.598,245.833,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16689,Operators,map construction from observable via dot + subscribe,3820.7,231.641,21740.5,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16690,Subscription,composite_subscription create,75.0979,74.1246,77.27,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16691,Subscription,composite_subscription unsubscribe,8.0313,8.02087,8.05771,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16692,foundamental sources,empty,142.571,142.206,143.457,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16693,foundamental sources,error,186.015,185.701,186.634,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16694,foundamental sources,never,140.331,139.937,141.326,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16695,just,just send int,151.72,150.739,153.599,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16696,just,just send variadic,167.842,161.377,199.164,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16697,from,from vector with int,199.392,198.424,202.184,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rpp
+16698,Observable construction,Specific observable construction,0.416884,0.414682,0.422128,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16699,Observable construction,Specific observable construction + as_dynamic,116.314,115.843,117.362,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16700,Observable subscribe #2,Specific observable subscribe lambda,1182.36,1172.77,1223.05,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16701,Observable subscribe #2,Dynamic observable subscribe lambda,1364.21,1352.74,1409.63,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16702,Observable subscribe #2,Specific observable subscribe lambda without subscription,1189.05,1177.89,1232.89,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16703,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,1359.26,1352.05,1384.47,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16704,Observable subscribe #2,Specific observable subscribe specific subscriber,877.034,872.724,893.31,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16705,Observable subscribe #2,Dynamic observable subscribe specific subscriber,1080.17,1072.43,1104.96,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16706,Observable subscribe #2,Specific observable subscribe dynamic observer,904.107,895.357,924,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16707,Observable subscribe #2,Dynamic observable subscribe dynamic observer,934.852,929.148,956,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16708,Observer construction,Specific observer construction,2.01106,2.00512,2.02562,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16709,Observer construction,Dynamic observer construction,111.746,111.152,113.103,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16710,Observer construction,Specific observer construction + as_dynamic,111.561,110.846,113.027,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16711,OnNext,Specific observer OnNext,0.4466,0.445932,0.447915,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16712,OnNext,Dynamic observer OnNext,2.01527,2.00788,2.03381,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16713,Subscriber construction,Make subsriber,331.507,329.52,339.107,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16714,Subscriber construction,Make copy of subscriber,34.644,34.295,35.3338,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16715,Subscriber construction,Transform subsriber to dynamic,151.442,150.515,153.921,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16716,Observable subscribe,Specific observable subscribe specific observer,1181.32,1172.68,1204.77,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16717,Observable subscribe,Specific observable subscribe dynamic observer,1218.7,1203.4,1264.25,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16718,Observable subscribe,Dynamic observable subscribe specific observer,1397.58,1368.26,1468.58,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16719,Observable subscribe,Dynamic observable subscribe dynamic observer,1259.29,1246.9,1296.33,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16720,Observable lift,Specific observable lift specific observer,1229.38,1216.52,1272.52,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16721,Observable lift,Specific observable lift dynamic observer,1253.65,1249.7,1263.4,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16722,Observable lift,Dynamic observable lift specific observer,1422.94,1409.28,1458.33,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16723,Observable lift,Dynamic observable lift dynamic observer,1519.7,1328.45,2404.9,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16724,Operators,map construction from observable via dot + subscribe,1019.64,1010.88,1042.64,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16725,Subscription,composite_subscription create,343.545,327.766,406.558,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16726,Subscription,composite_subscription add,62.7653,62.6556,62.9413,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16727,Subscription,composite_subscription unsubscribe,39.8048,39.7355,39.9597,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16728,foundamental sources,empty,178.631,177.539,180.752,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16729,foundamental sources,error,227.214,225.482,231.598,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16730,foundamental sources,never,81.3553,81.1612,81.8388,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16731,just,just send int,245.589,189.752,456.879,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16732,just,just send variadic,182.043,179.906,190.432,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16733,from,from vector with int,238.411,236.262,243.009,0.95,Windows MSVC,fix lambda benchmark (a04e8bec),rxcpp
+16734,Observable construction,Specific observable construction,0.344561,0.331672,0.36499,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16735,Observable construction,Dynamic observable construction,19.1249,18.4606,20.0481,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16736,Observable construction,Specific observable construction + as_dynamic,21.9978,20.6282,23.9194,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16737,Observable subscribe #2,Specific observable subscribe lambda,26.2362,24.9463,28.0226,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16738,Observable subscribe #2,Dynamic observable subscribe lambda,50.33,47.7748,54.9566,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16739,Observable subscribe #2,Specific observable subscribe lambda without subscription,26.0739,25.2459,27.2778,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16740,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,53.391,50.2433,58.072,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16741,Observable subscribe #2,Specific observable subscribe specific subscriber,5.24397,4.97407,5.75548,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16742,Observable subscribe #2,Dynamic observable subscribe specific subscriber,27.2984,26.3996,28.7903,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16743,Observable subscribe #2,Specific observable subscribe dynamic observer,4.52466,4.26375,4.8711,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16744,Observable subscribe #2,Dynamic observable subscribe dynamic observer,4.47736,4.21738,5.12585,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16745,Observer construction,Specific observer construction,0.367286,0.351963,0.385915,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16746,Observer construction,Dynamic observer construction,20.5009,19.6147,21.7108,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16747,Observer construction,Specific observer construction + as_dynamic,19.9724,19.3172,21.0168,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16748,OnNext,Specific observer OnNext,0.371143,0.357195,0.412146,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16749,OnNext,Dynamic observer OnNext,2.09151,2.00363,2.24241,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16750,Subscriber construction,Make subsriber,23.5733,23.0449,24.6804,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16751,Subscriber construction,Make copy of subscriber,9.20329,8.77686,9.91481,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16752,Subscriber construction,Transform subsriber to dynamic,31.3266,29.6518,34.815,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16753,Observable subscribe,Specific observable subscribe specific observer,29.2216,28.1918,30.6473,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16754,Observable subscribe,Specific observable subscribe dynamic observer,30.2879,29.3537,31.8508,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16755,Observable subscribe,Dynamic observable subscribe specific observer,57.4028,55.165,64.0613,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16756,Observable subscribe,Dynamic observable subscribe dynamic observer,36.479,34.7091,40.4586,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16757,Observable lift,Specific observable lift specific observer,42.7665,40.8366,45.9772,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16758,Observable lift,Specific observable lift dynamic observer,46.026,44.6076,48.4033,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16759,Observable lift,Dynamic observable lift specific observer,72.7722,69.3501,78.0461,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16760,Observable lift,Dynamic observable lift dynamic observer,64.61,61.5193,69.8056,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16761,Operators,map construction from observable via dot + subscribe,1911.59,104.649,10933.4,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16762,Subscription,composite_subscription create,28.3522,25.9766,36.3626,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16763,Subscription,composite_subscription unsubscribe,6.95669,6.7591,7.31106,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16764,foundamental sources,empty,49.3483,47.3112,52.4474,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16765,foundamental sources,error,92.2777,88.3186,99.2955,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16766,foundamental sources,never,53.4297,51.2891,56.5655,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16767,just,just send int,52.8254,49.9443,57.3733,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16768,just,just send variadic,50.5122,48.5371,53.5995,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16769,from,from vector with int,73.0983,70.0117,78.3943,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rpp
+16770,Observable construction,Specific observable construction,0.401777,0.391666,0.41867,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16771,Observable construction,Specific observable construction + as_dynamic,29.9668,28.8001,31.911,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16772,Observable subscribe #2,Specific observable subscribe lambda,423.439,407.902,445.772,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16773,Observable subscribe #2,Dynamic observable subscribe lambda,413.367,400.066,434.897,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16774,Observable subscribe #2,Specific observable subscribe lambda without subscription,398.215,384.239,418.523,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16775,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,408.694,404.879,418.965,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16776,Observable subscribe #2,Specific observable subscribe specific subscriber,355.351,342.502,373.803,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16777,Observable subscribe #2,Dynamic observable subscribe specific subscriber,399.169,388.293,414.613,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16778,Observable subscribe #2,Specific observable subscribe dynamic observer,338.17,326.833,355.768,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16779,Observable subscribe #2,Dynamic observable subscribe dynamic observer,365.043,352.324,385.043,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16780,Observer construction,Specific observer construction,0.397549,0.387712,0.415034,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16781,Observer construction,Dynamic observer construction,27.9047,26.2321,30.2876,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16782,Observer construction,Specific observer construction + as_dynamic,24.0208,22.9211,25.7579,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16783,OnNext,Specific observer OnNext,0.373745,0.362206,0.3902,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16784,OnNext,Dynamic observer OnNext,2.13493,2.07587,2.24196,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16785,Subscriber construction,Make subsriber,64.1273,61.5354,67.825,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16786,Subscriber construction,Make copy of subscriber,5.09408,4.89301,5.38143,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16787,Subscriber construction,Transform subsriber to dynamic,29.2463,28.0746,31.4455,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16788,Observable subscribe,Specific observable subscribe specific observer,362.776,346.519,386.532,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16789,Observable subscribe,Specific observable subscribe dynamic observer,362.302,344.388,387.538,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16790,Observable subscribe,Dynamic observable subscribe specific observer,447.71,425.48,490.508,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16791,Observable subscribe,Dynamic observable subscribe dynamic observer,473.489,445.55,514.711,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16792,Observable lift,Specific observable lift specific observer,390.177,370.104,460.812,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16793,Observable lift,Specific observable lift dynamic observer,370.748,367.505,379.559,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16794,Observable lift,Dynamic observable lift specific observer,514.847,484.265,552.05,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16795,Observable lift,Dynamic observable lift dynamic observer,510.266,479.841,573.924,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16796,Operators,map construction from observable via dot + subscribe,399.547,378.307,440.583,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16797,Subscription,composite_subscription create,54.8945,53.2112,59.3245,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16798,Subscription,composite_subscription add,16.4857,15.9711,17.381,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16799,Subscription,composite_subscription unsubscribe,11.2807,11.1578,11.584,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16800,foundamental sources,empty,46.4089,44.9722,49.0272,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16801,foundamental sources,error,85.7747,82.8112,90.7474,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16802,foundamental sources,never,20.1813,19.4101,21.2025,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16803,just,just send int,54.1348,51.5788,58.1124,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16804,just,just send variadic,51.6683,49.2593,55.6013,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16805,from,from vector with int,68.6435,66.6314,71.757,0.95,Linux GCC,fix lambda benchmark (a04e8bec),rxcpp
+16806,Observable construction,Specific observable construction,0.592993,0.59089,0.602669,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16807,Observable construction,Dynamic observable construction,25.1509,25.0756,25.4698,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16808,Observable construction,Specific observable construction + as_dynamic,25.0841,25.0681,25.1302,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16809,Observable subscribe #2,Specific observable subscribe lambda,51.7203,51.6294,52.051,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16810,Observable subscribe #2,Dynamic observable subscribe lambda,82.5765,82.395,83.2995,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16811,Observable subscribe #2,Specific observable subscribe lambda without subscription,51.8738,51.7117,52.5046,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16812,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,82.7697,82.5226,83.7512,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16813,Observable subscribe #2,Specific observable subscribe specific subscriber,14.7881,14.75,14.9398,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16814,Observable subscribe #2,Dynamic observable subscribe specific subscriber,70.1747,69.9984,70.5298,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16815,Observable subscribe #2,Specific observable subscribe dynamic observer,14.7461,14.7405,14.7516,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16816,Observable subscribe #2,Dynamic observable subscribe dynamic observer,14.7855,14.7567,14.9172,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16817,Observer construction,Specific observer construction,0.592086,0.590492,0.599594,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16818,Observer construction,Dynamic observer construction,25.1907,25.1454,25.3792,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16819,Observer construction,Specific observer construction + as_dynamic,27.2629,27.2187,27.4265,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16820,OnNext,Specific observer OnNext,0.592676,0.590971,0.600053,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16821,OnNext,Dynamic observer OnNext,1.77715,1.77183,1.79907,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16822,Subscriber construction,Make subsriber,40.2126,40.1179,40.6411,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16823,Subscriber construction,Make copy of subscriber,27.468,27.4297,27.6235,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16824,Subscriber construction,Transform subsriber to dynamic,56.4732,56.27,56.8948,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16825,Observable subscribe,Specific observable subscribe specific observer,51.7178,51.6151,52.1227,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16826,Observable subscribe,Specific observable subscribe dynamic observer,68.3044,68.1582,68.7341,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16827,Observable subscribe,Dynamic observable subscribe specific observer,83.7364,83.3971,85.3094,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16828,Observable subscribe,Dynamic observable subscribe dynamic observer,70.7755,70.7435,70.8444,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16829,Observable lift,Specific observable lift specific observer,83.8256,83.5532,85.061,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16830,Observable lift,Specific observable lift dynamic observer,121.502,121.082,121.926,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16831,Observable lift,Dynamic observable lift specific observer,159.631,159.289,160.577,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16832,Observable lift,Dynamic observable lift dynamic observer,169.178,168.587,171.858,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16833,Operators,map construction from observable via dot + subscribe,2015.8,172.394,11228.4,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16834,Subscription,composite_subscription create,28.1036,28.092,28.1246,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16835,Subscription,composite_subscription unsubscribe,7.38876,7.37439,7.45018,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16836,foundamental sources,empty,81.7381,81.6955,81.8572,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16837,foundamental sources,error,112.839,112.647,113.185,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16838,foundamental sources,never,78.2598,78.1988,78.3732,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16839,just,just send int,84.067,83.8192,85.2142,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16840,just,just send variadic,99.7077,99.5961,99.8045,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16841,from,from vector with int,95.7296,95.4975,96.2477,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rpp
+16842,Observable construction,Specific observable construction,0.296068,0.295446,0.298558,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16843,Observable construction,Specific observable construction + as_dynamic,21.8937,21.8269,22.0781,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16844,Observable subscribe #2,Specific observable subscribe lambda,257.109,256.089,261.349,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16845,Observable subscribe #2,Dynamic observable subscribe lambda,332.829,331.993,336.115,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16846,Observable subscribe #2,Specific observable subscribe lambda without subscription,291.189,290.189,295.385,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16847,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,331.573,330.969,333.437,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16848,Observable subscribe #2,Specific observable subscribe specific subscriber,227.461,226.258,232.842,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16849,Observable subscribe #2,Dynamic observable subscribe specific subscriber,271.418,270.458,273.974,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16850,Observable subscribe #2,Specific observable subscribe dynamic observer,255.504,254.694,257.331,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16851,Observable subscribe #2,Dynamic observable subscribe dynamic observer,262.572,261.749,264.631,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16852,Observer construction,Specific observer construction,0.336291,0.33489,0.340873,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16853,Observer construction,Dynamic observer construction,22.1516,22.0744,22.3647,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16854,Observer construction,Specific observer construction + as_dynamic,21.9921,21.9395,22.1286,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16855,OnNext,Specific observer OnNext,0.670367,0.669257,0.67536,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16856,OnNext,Dynamic observer OnNext,2.4092,2.38787,2.44752,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16857,Subscriber construction,Make subsriber,67.1068,66.8927,67.9663,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16858,Subscriber construction,Make copy of subscriber,4.70229,4.6959,4.70798,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16859,Subscriber construction,Transform subsriber to dynamic,26.5419,26.4387,26.9205,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16860,Observable subscribe,Specific observable subscribe specific observer,290.396,289.396,294.123,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16861,Observable subscribe,Specific observable subscribe dynamic observer,304.073,303.721,305.039,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16862,Observable subscribe,Dynamic observable subscribe specific observer,334.043,332.941,336.816,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16863,Observable subscribe,Dynamic observable subscribe dynamic observer,321.148,320.029,324.232,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16864,Observable lift,Specific observable lift specific observer,296.871,296.193,298.893,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16865,Observable lift,Specific observable lift dynamic observer,315.099,314.276,318.345,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16866,Observable lift,Dynamic observable lift specific observer,341.916,340.006,348.928,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16867,Observable lift,Dynamic observable lift dynamic observer,328.746,328.24,330.66,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16868,Operators,map construction from observable via dot + subscribe,244.545,243.922,246.765,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16869,Subscription,composite_subscription create,55.7747,55.5441,56.6357,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16870,Subscription,composite_subscription add,20.6062,20.5651,20.7676,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16871,Subscription,composite_subscription unsubscribe,10.7288,10.697,10.8562,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16872,foundamental sources,empty,36.7142,36.6472,36.7716,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16873,foundamental sources,error,84.2551,84.0702,85.0797,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16874,foundamental sources,never,13.7822,13.7486,13.9356,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16875,just,just send int,39.0975,39.0224,39.1612,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16876,just,just send variadic,44.9258,44.8781,45.0773,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
+16877,from,from vector with int,58.234,58.1751,58.3626,0.95,Linux CLANG,fix lambda benchmark (a04e8bec),rxcpp
