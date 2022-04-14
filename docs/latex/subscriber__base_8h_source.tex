@@ -53,7 +53,7 @@
 \DoxyCodeLine{53 }
 \DoxyCodeLine{54     \textcolor{keywordtype}{void} on\_next(\textcolor{keyword}{const} Type\& val) \textcolor{keyword}{const} \textcolor{keyword}{final}}
 \DoxyCodeLine{55     \{}
-\DoxyCodeLine{56         \textcolor{keywordflow}{if} (!m\_local\_subscription.\mbox{\hyperlink{classrpp_1_1subscription__base_ad9c07157024e7f68ce815d971c3faaf2}{is\_subscribed}}())}
+\DoxyCodeLine{56         \textcolor{keywordflow}{if} (!is\_subscribed())}
 \DoxyCodeLine{57             \textcolor{keywordflow}{return};}
 \DoxyCodeLine{58 }
 \DoxyCodeLine{59         \textcolor{keywordflow}{try}}
@@ -68,7 +68,7 @@
 \DoxyCodeLine{68 }
 \DoxyCodeLine{69     \textcolor{keywordtype}{void} on\_next(Type\&\& val) \textcolor{keyword}{const} \textcolor{keyword}{final}}
 \DoxyCodeLine{70     \{}
-\DoxyCodeLine{71         \textcolor{keywordflow}{if} (!m\_local\_subscription.\mbox{\hyperlink{classrpp_1_1subscription__base_ad9c07157024e7f68ce815d971c3faaf2}{is\_subscribed}}())}
+\DoxyCodeLine{71         \textcolor{keywordflow}{if} (!is\_subscribed())}
 \DoxyCodeLine{72             \textcolor{keywordflow}{return};}
 \DoxyCodeLine{73 }
 \DoxyCodeLine{74         \textcolor{keywordflow}{try}}
@@ -83,7 +83,7 @@
 \DoxyCodeLine{83 }
 \DoxyCodeLine{84     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_ae9532294156f8acf86d1cf39d4c1cc15}{on\_error}}(\textcolor{keyword}{const} std::exception\_ptr\& err) \textcolor{keyword}{const} \textcolor{keyword}{final}}
 \DoxyCodeLine{85     \{}
-\DoxyCodeLine{86         \textcolor{keywordflow}{if} (!m\_local\_subscription.\mbox{\hyperlink{classrpp_1_1subscription__base_ad9c07157024e7f68ce815d971c3faaf2}{is\_subscribed}}())}
+\DoxyCodeLine{86         \textcolor{keywordflow}{if} (!is\_subscribed())}
 \DoxyCodeLine{87             \textcolor{keywordflow}{return};}
 \DoxyCodeLine{88 }
 \DoxyCodeLine{89         \mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}} guard\{m\_subscription\};}
@@ -96,7 +96,7 @@
 \DoxyCodeLine{96 }
 \DoxyCodeLine{97     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_a85ef4e79f7f9d82d5899dc2524a7289a}{on\_completed}}() const final}
 \DoxyCodeLine{98     \{}
-\DoxyCodeLine{99         \textcolor{keywordflow}{if} (!m\_local\_subscription.\mbox{\hyperlink{classrpp_1_1subscription__base_ad9c07157024e7f68ce815d971c3faaf2}{is\_subscribed}}())}
+\DoxyCodeLine{99         \textcolor{keywordflow}{if} (!is\_subscribed())}
 \DoxyCodeLine{100             \textcolor{keywordflow}{return};}
 \DoxyCodeLine{101 }
 \DoxyCodeLine{102         \mbox{\hyperlink{classrpp_1_1subscription__guard}{subscription\_guard}} guard\{m\_subscription\};}
@@ -114,7 +114,7 @@
 \DoxyCodeLine{114 }
 \DoxyCodeLine{115     [[nodiscard]] \textcolor{keywordtype}{bool} is\_subscribed()\textcolor{keyword}{ const}}
 \DoxyCodeLine{116 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{117         \textcolor{keywordflow}{return} m\_subscription.\mbox{\hyperlink{classrpp_1_1subscription__base_ad9c07157024e7f68ce815d971c3faaf2}{is\_subscribed}}();}
+\DoxyCodeLine{117         \textcolor{keywordflow}{return} m\_local\_subscription.\mbox{\hyperlink{classrpp_1_1subscription__base_ad9c07157024e7f68ce815d971c3faaf2}{is\_subscribed}}();}
 \DoxyCodeLine{118     \}}
 \DoxyCodeLine{119 }
 \DoxyCodeLine{120     \textcolor{keywordtype}{void} unsubscribe()\textcolor{keyword}{ const}}
