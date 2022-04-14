@@ -26,86 +26,86 @@
 \DoxyCodeLine{22 }
 \DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{24 }
-\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <rpp/memory\_model.h>}}
-\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <rpp/schedulers/constraints.h>}}
-\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <rpp/schedulers/immediate\_scheduler.h>}}
-\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{create_8h}{rpp/sources/create.h}}>}}
-\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <rpp/sources/fwd.h>}}
-\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <rpp/utils/utilities.h>}}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{40 \textcolor{preprocessor}{\#include <array>}}
-\DoxyCodeLine{41 \textcolor{preprocessor}{\#include <ranges>}}
-\DoxyCodeLine{42 \textcolor{preprocessor}{\#include <type\_traits>}}
-\DoxyCodeLine{43 }
-\DoxyCodeLine{44 \textcolor{keyword}{namespace }rpp::observable::details}
-\DoxyCodeLine{45 \{}
-\DoxyCodeLine{46 \textcolor{keywordtype}{void} iterate(\textcolor{keyword}{const} \textcolor{keyword}{auto}\&                                   iterable,}
-\DoxyCodeLine{47              \textcolor{keyword}{const} schedulers::constraint::scheduler \textcolor{keyword}{auto}\& scheduler,}
-\DoxyCodeLine{48              \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\&            subscriber)}
-\DoxyCodeLine{49 \{}
-\DoxyCodeLine{50     \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} extract\_iterable = []<\textcolor{keyword}{typename} T>(\textcolor{keyword}{const} T\& v) -\/> \textcolor{keyword}{const} \textcolor{keyword}{auto}\&}
-\DoxyCodeLine{51     \{}
-\DoxyCodeLine{52         \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::ranges::range<T>)}
-\DoxyCodeLine{53             \textcolor{keywordflow}{return} v;}
-\DoxyCodeLine{54         \textcolor{keywordflow}{else}}
-\DoxyCodeLine{55             \textcolor{keywordflow}{return} *v;}
-\DoxyCodeLine{56     \};}
-\DoxyCodeLine{57 }
-\DoxyCodeLine{58     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (constraint::decayed\_same\_as<\textcolor{keyword}{decltype}(scheduler), schedulers::immediate>)}
-\DoxyCodeLine{59     \{}
-\DoxyCodeLine{60         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& v : extract\_iterable(iterable))}
-\DoxyCodeLine{61             subscriber.on\_next(utilities::as\_const(v));}
-\DoxyCodeLine{62         subscriber.on\_completed();}
-\DoxyCodeLine{63     \}}
-\DoxyCodeLine{64     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{65     \{}
-\DoxyCodeLine{66         \textcolor{keyword}{auto} worker = scheduler.create\_worker(subscriber.get\_subscription());}
-\DoxyCodeLine{67         worker.schedule([=, index = \textcolor{keywordtype}{size\_t}\{0\}]() mutable-\/> schedulers::optional\_duration}
-\DoxyCodeLine{68         \{}
-\DoxyCodeLine{69             \textcolor{keyword}{const} \textcolor{keyword}{auto} end = std::cend(extract\_iterable(iterable));}
-\DoxyCodeLine{70             \textcolor{keyword}{auto}       itr = std::cbegin(extract\_iterable(iterable));}
-\DoxyCodeLine{71 }
-\DoxyCodeLine{72             std::ranges::advance(itr, index, end);}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <rpp/memory\_model.h>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <rpp/schedulers/constraints.h>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <rpp/schedulers/immediate\_scheduler.h>}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{create_8h}{rpp/sources/create.h}}>}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <rpp/sources/fwd.h>}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#include <rpp/utils/utilities.h>}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#include <array>}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#include <ranges>}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{keyword}{namespace }rpp::observable::details}
+\DoxyCodeLine{47 \{}
+\DoxyCodeLine{48 \textcolor{keywordtype}{void} iterate(\textcolor{keyword}{const} \textcolor{keyword}{auto}\&                                   iterable,}
+\DoxyCodeLine{49              \textcolor{keyword}{const} schedulers::constraint::scheduler \textcolor{keyword}{auto}\& scheduler,}
+\DoxyCodeLine{50              \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\&            subscriber)}
+\DoxyCodeLine{51 \{}
+\DoxyCodeLine{52     \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} extract\_iterable = []<\textcolor{keyword}{typename} T>(\textcolor{keyword}{const} T\& v) -\/> \textcolor{keyword}{const} \textcolor{keyword}{auto}\&}
+\DoxyCodeLine{53     \{}
+\DoxyCodeLine{54         \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::ranges::range<T>)}
+\DoxyCodeLine{55             \textcolor{keywordflow}{return} v;}
+\DoxyCodeLine{56         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{57             \textcolor{keywordflow}{return} *v;}
+\DoxyCodeLine{58     \};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (constraint::decayed\_same\_as<\textcolor{keyword}{decltype}(scheduler), schedulers::immediate>)}
+\DoxyCodeLine{61     \{}
+\DoxyCodeLine{62         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& v : extract\_iterable(iterable))}
+\DoxyCodeLine{63             subscriber.on\_next(utilities::as\_const(v));}
+\DoxyCodeLine{64         subscriber.on\_completed();}
+\DoxyCodeLine{65     \}}
+\DoxyCodeLine{66     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{67     \{}
+\DoxyCodeLine{68         \textcolor{keyword}{auto} worker = scheduler.create\_worker(subscriber.get\_subscription());}
+\DoxyCodeLine{69         worker.schedule([=, index = \textcolor{keywordtype}{size\_t}\{0\}]() mutable-\/> schedulers::optional\_duration}
+\DoxyCodeLine{70         \{}
+\DoxyCodeLine{71             \textcolor{keyword}{const} \textcolor{keyword}{auto} end = std::cend(extract\_iterable(iterable));}
+\DoxyCodeLine{72             \textcolor{keyword}{auto}       itr = std::cbegin(extract\_iterable(iterable));}
 \DoxyCodeLine{73 }
-\DoxyCodeLine{74             \textcolor{keywordflow}{if} (itr != end)}
-\DoxyCodeLine{75             \{}
-\DoxyCodeLine{76                 subscriber.on\_next(utilities::as\_const(*itr));}
-\DoxyCodeLine{77                 \textcolor{keywordflow}{if} (std::next(itr) != end) \textcolor{comment}{// it was not last}}
-\DoxyCodeLine{78                 \{}
-\DoxyCodeLine{79                     ++index;}
-\DoxyCodeLine{80                     \textcolor{keywordflow}{return} schedulers::duration\{\}; \textcolor{comment}{// re-\/schedule this}}
-\DoxyCodeLine{81                 \}}
-\DoxyCodeLine{82             \}}
-\DoxyCodeLine{83 }
-\DoxyCodeLine{84             subscriber.on\_completed();}
-\DoxyCodeLine{85             \textcolor{keywordflow}{return} \{\};}
-\DoxyCodeLine{86         \});}
-\DoxyCodeLine{87     \}}
-\DoxyCodeLine{88 \}}
-\DoxyCodeLine{89 }
-\DoxyCodeLine{90 \textcolor{keyword}{template}<memory\_model memory\_model, std::ranges::range Container, \textcolor{keyword}{typename} ...Ts>}
-\DoxyCodeLine{91 \textcolor{keyword}{auto} pack\_to\_container(Ts\&\& ...items)}
-\DoxyCodeLine{92 \{}
-\DoxyCodeLine{93     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (memory\_model == memory\_model::use\_stack)}
-\DoxyCodeLine{94         \textcolor{keywordflow}{return} Container\{std::forward<Ts>(items)...\};}
-\DoxyCodeLine{95     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{96         \textcolor{comment}{// raw new call to avoid extra copy/moves for items}}
-\DoxyCodeLine{97         \textcolor{keywordflow}{return} std::shared\_ptr<Container>(\textcolor{keyword}{new} Container\{std::forward<Ts>(items)...\});}
-\DoxyCodeLine{98 \}}
-\DoxyCodeLine{99 \} \textcolor{comment}{// namespace rpp::observable::details}}
-\DoxyCodeLine{100 }
-\DoxyCodeLine{101 \textcolor{keyword}{namespace }rpp::observable}
-\DoxyCodeLine{102 \{}
-\DoxyCodeLine{111 \textcolor{keyword}{template}<memory\_model memory\_model, schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
-\DoxyCodeLine{112 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{from}}(std::ranges::range \textcolor{keyword}{auto}\&\& iterable, \textcolor{keyword}{const} TScheduler\& scheduler)}
-\DoxyCodeLine{113 \{}
-\DoxyCodeLine{114     \textcolor{keyword}{using} Container = std::decay\_t<\textcolor{keyword}{decltype}(iterable)>;}
-\DoxyCodeLine{115     \textcolor{keyword}{using} Type = std::ranges::range\_value\_t<Container>;}
-\DoxyCodeLine{116     \textcolor{keywordflow}{return} create<Type>([=, items = details::pack\_to\_container<memory\_model, Container>(std::forward<\textcolor{keyword}{decltype}(iterable)>(iterable))](\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
-\DoxyCodeLine{117     \{}
-\DoxyCodeLine{118         details::iterate(items, scheduler, subscriber);}
-\DoxyCodeLine{119     \});}
-\DoxyCodeLine{120 \}}
-\DoxyCodeLine{121 \} \textcolor{comment}{// namespace rpp::observable}}
+\DoxyCodeLine{74             std::ranges::advance(itr, index, end);}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76             \textcolor{keywordflow}{if} (itr != end)}
+\DoxyCodeLine{77             \{}
+\DoxyCodeLine{78                 subscriber.on\_next(utilities::as\_const(*itr));}
+\DoxyCodeLine{79                 \textcolor{keywordflow}{if} (std::next(itr) != end) \textcolor{comment}{// it was not last}}
+\DoxyCodeLine{80                 \{}
+\DoxyCodeLine{81                     ++index;}
+\DoxyCodeLine{82                     \textcolor{keywordflow}{return} schedulers::duration\{\}; \textcolor{comment}{// re-\/schedule this}}
+\DoxyCodeLine{83                 \}}
+\DoxyCodeLine{84             \}}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86             subscriber.on\_completed();}
+\DoxyCodeLine{87             \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{88         \});}
+\DoxyCodeLine{89     \}}
+\DoxyCodeLine{90 \}}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92 \textcolor{keyword}{template}<memory\_model memory\_model, std::ranges::range Container, \textcolor{keyword}{typename} ...Ts>}
+\DoxyCodeLine{93 \textcolor{keyword}{auto} pack\_to\_container(Ts\&\& ...items)}
+\DoxyCodeLine{94 \{}
+\DoxyCodeLine{95     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (memory\_model == memory\_model::use\_stack)}
+\DoxyCodeLine{96         \textcolor{keywordflow}{return} Container\{std::forward<Ts>(items)...\};}
+\DoxyCodeLine{97     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{98         \textcolor{comment}{// raw new call to avoid extra copy/moves for items}}
+\DoxyCodeLine{99         \textcolor{keywordflow}{return} std::shared\_ptr<Container>(\textcolor{keyword}{new} Container\{std::forward<Ts>(items)...\});}
+\DoxyCodeLine{100 \}}
+\DoxyCodeLine{101 \} \textcolor{comment}{// namespace rpp::observable::details}}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103 \textcolor{keyword}{namespace }rpp::observable}
+\DoxyCodeLine{104 \{}
+\DoxyCodeLine{118 \textcolor{keyword}{template}<memory\_model memory\_model, schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
+\DoxyCodeLine{119 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{from}}(std::ranges::range \textcolor{keyword}{auto}\&\& iterable, \textcolor{keyword}{const} TScheduler\& scheduler)}
+\DoxyCodeLine{120 \{}
+\DoxyCodeLine{121     \textcolor{keyword}{using} Container = std::decay\_t<\textcolor{keyword}{decltype}(iterable)>;}
+\DoxyCodeLine{122     \textcolor{keyword}{using} Type = std::ranges::range\_value\_t<Container>;}
+\DoxyCodeLine{123     \textcolor{keywordflow}{return} create<Type>([=, items = details::pack\_to\_container<memory\_model, Container>(std::forward<\textcolor{keyword}{decltype}(iterable)>(iterable))](\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{124     \{}
+\DoxyCodeLine{125         details::iterate(items, scheduler, subscriber);}
+\DoxyCodeLine{126     \});}
+\DoxyCodeLine{127 \}}
+\DoxyCodeLine{128 \} \textcolor{comment}{// namespace rpp::observable}}
 
 \end{DoxyCode}
