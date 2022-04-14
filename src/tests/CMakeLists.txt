@@ -33,6 +33,7 @@ add_executable(${TARGET}
     test_filter.cpp
     test_take.cpp
     test_take_while.cpp
+    test_from.cpp
     
     test_lift.cpp
 

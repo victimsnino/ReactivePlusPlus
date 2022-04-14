@@ -25,5 +25,6 @@
 #include <rpp/sources/create.h>
 #include <rpp/sources/empty.h>
 #include <rpp/sources/error.h>
-#include <rpp/sources/just.h>
 #include <rpp/sources/never.h>
+#include <rpp/sources/just.h>
+#include <rpp/sources/from.h>

@@ -28,6 +28,8 @@
 
 #include <rpp/observables/fwd.h>
 
+#include <ranges>
+
 namespace rpp::observable
 {
 //**************************** CREATE ****************//
@@ -36,10 +38,6 @@ auto create(OnSubscribeFn&& on_subscribe);
 
 template<typename OnSubscribeFn>
 auto create(OnSubscribeFn&& on_subscribe);
-
-//**************************** JUST *****************//
-template<memory_model memory_model = memory_model::use_stack, rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate>
-auto just(auto&& item, const Scheduler& scheduler = Scheduler{});
 
 //**************************** EMPTY *****************//
 template<constraint::decayed_type Type>
@@ -52,6 +50,17 @@ auto never();
 //**************************** ERROR *****************//
 template<constraint::decayed_type Type>
 auto error(const std::exception_ptr& err);
+
+//*************************** JUST ********************//
+template<memory_model memory_model = memory_model::use_stack, typename T, typename ...Ts>
+auto just(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...);
+
+template<memory_model memory_model = memory_model::use_stack, typename T, typename ...Ts>
+auto just(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...);
+
+//************************** FROM ***********************//
+template<memory_model memory_model= memory_model::use_stack, schedulers::constraint::scheduler TScheduler = rpp::schedulers::immediate>
+auto from(std::ranges::range auto&& iterable, const TScheduler& scheduler = TScheduler{});
 } // namespace rpp::observable
 
 namespace rpp
