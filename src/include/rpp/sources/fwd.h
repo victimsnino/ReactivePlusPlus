@@ -28,6 +28,8 @@
 
 #include <rpp/observables/fwd.h>
 
+#include <ranges>
+
 namespace rpp::observable
 {
 //**************************** CREATE ****************//
@@ -58,7 +60,7 @@ auto just(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> 
 
 //************************** FROM ***********************//
 template<memory_model memory_model= memory_model::use_stack, schedulers::constraint::scheduler TScheduler = rpp::schedulers::immediate>
-auto from(std::ranges::range auto&& iterable, const TScheduler& scheduler = {});
+auto from(std::ranges::range auto&& iterable, const TScheduler& scheduler = TScheduler{});
 } // namespace rpp::observable
 
 namespace rpp
