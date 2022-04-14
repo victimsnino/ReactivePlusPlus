@@ -47,10 +47,7 @@ namespace rpp::observable::details
 template<memory_model memory_model, constraint::decayed_type T, typename ...Ts>
 auto pack_variadic(Ts&& ...items)
 {
-    if constexpr (memory_model == memory_model::use_stack)
-        return container_wrapper<std::array<T, sizeof...(Ts)>>{std::forward<Ts>(items)...};
-    else
-        return std::make_shared<std::array<T, sizeof...(Ts)>>(std::array<T, sizeof...(Ts)>{std::forward<Ts>(items)...});
+    return pack_to_container<memory_model, std::array<T, sizeof...(Ts)>>(std::forward<Ts>(items)...);
 }
 } // namespace rpp::observable::details
 

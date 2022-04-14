@@ -25,20 +25,21 @@
 #include <rpp/sources/from.h>
 #include <catch2/catch_test_macros.hpp>
 
-//SCENARIO("from variadic")
-//{
-//    auto mock = mock_observer<int>();
-//    GIVEN("observable from variadic")
-//    {
-//        auto obs = rpp::source::from(1, 2, 3, 4, 5, 6);
-//        WHEN("subscribe on it")
-//        {
-//            obs.subscribe(mock);
-//            THEN("observer obtains values in the same order")
-//            {
-//                CHECK(mock.get_received_values() == std::vector{ 1, 2, 3, 4, 5, 6 });
-//                CHECK(mock.get_on_completed_count() == 1);
-//            }
-//        }
-//    }
-//}
+SCENARIO("from iterable")
+{
+    auto mock = mock_observer<int>();
+    GIVEN("observable from variadic")
+    {
+        auto vals = std::vector{1, 2, 3, 4, 5, 6};
+        auto obs  = rpp::source::from(vals);
+        WHEN("subscribe on it")
+        {
+            obs.subscribe(mock);
+            THEN("observer obtains values in the same order")
+            {
+                CHECK(mock.get_received_values() == vals);
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+}
