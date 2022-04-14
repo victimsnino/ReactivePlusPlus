@@ -15,6 +15,7 @@ env:
 
 jobs:
   build_and_generate_report:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
 
     steps:
