@@ -218,13 +218,6 @@ TEST_CASE("Operators", "[benchmark]")
                     sub.on_next(1);
                 });
     auto sub = rpp::specific_subscriber{[](const int&){}};
-    BENCHMARK("map construction from observable + subscribe")
-    {
-        return (obs | rpp::operators::map([](const auto& v)
-        {
-            return v * 100;
-        })).subscribe(sub);
-    };
     BENCHMARK("map construction from observable via dot + subscribe")
     {
         return obs.map([](const auto& v)

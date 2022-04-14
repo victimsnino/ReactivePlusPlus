@@ -189,14 +189,6 @@ TEST_CASE("Operators", "[benchmark]")
             sub.on_next(1);
         });
     auto sub = rxcpp::make_subscriber<int>([](const int&) {});
-    BENCHMARK("map construction from observable + subscribe")
-    {
-        return (obs | rxcpp::operators::map([](const auto& v)
-            {
-                return v * 100;
-            })).subscribe(sub);
-    };
-
     BENCHMARK("map construction from observable via dot + subscribe")
     {
         return obs.map([](const auto& v)
