@@ -274,3 +274,29 @@ TEST_CASE("foundamental sources", "[benchmark]")
     };
 }
 
+
+TEST_CASE("just", "[benchmark]")
+{
+    rpp::composite_subscription sub{};
+
+    BENCHMARK("just send int")
+    {
+        return rpp::source::just(1).subscribe(sub);
+    };
+
+    BENCHMARK("just send variadic")
+    {
+        return rpp::source::just(1,2,3,4,5,6,7,8,9,10).subscribe(sub);
+    };
+}
+
+TEST_CASE("from", "[benchmark]")
+{
+    rpp::composite_subscription sub{};
+
+    std::vector vec{1};
+    BENCHMARK("from vector with int")
+    {
+        return rpp::source::from(vec).subscribe(sub);
+    };
+}

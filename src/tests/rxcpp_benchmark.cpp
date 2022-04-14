@@ -246,3 +246,29 @@ TEST_CASE("foundamental sources", "[benchmark]")
         return rxcpp::sources::never<int>().subscribe(sub);
     };
 }
+
+TEST_CASE("just", "[benchmark]")
+{
+    rxcpp::composite_subscription sub{};
+
+    BENCHMARK("just send int")
+    {
+        return rxcpp::sources::just(1).subscribe(sub);
+    };
+
+    BENCHMARK("just send variadic")
+    {
+        return rxcpp::sources::from(1, 2, 3, 4, 5, 6, 7, 8, 9, 10).subscribe(sub);
+    };
+}
+
+TEST_CASE("from", "[benchmark]")
+{
+    rxcpp::composite_subscription sub{};
+
+    std::vector vec{ 1 };
+    BENCHMARK("from vector with int")
+    {
+        return rxcpp::sources::iterate(vec).subscribe(sub);
+    };
+}
