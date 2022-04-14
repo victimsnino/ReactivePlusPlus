@@ -81,6 +81,7 @@ struct container_wrapper
 
     Cont container;
 };
+
 template<memory_model memory_model, constraint::decayed_type T, typename ...Ts>
 auto pack_variadic(Ts&& ...items)
 {
@@ -89,24 +90,6 @@ auto pack_variadic(Ts&& ...items)
     else
         return std::make_shared<std::array<T, sizeof...(Ts)>>(std::forward<Ts>(items)...);
 }
-
-template<constraint::decayed_type T, typename ...Ts>
-auto from_use_stack(const schedulers::constraint::scheduler auto& scheduler, Ts&& ...items)
-{
-    return create<T>([=, items = container_wrapper<std::array<T, sizeof...(Ts)>>{ std::forward<Ts>(items)... }](const constraint::subscriber auto& subscriber)
-    {
-        iterate(items, scheduler, subscriber);
-    });
-}
-template<constraint::decayed_type T, typename ...Ts>
-auto from_use_shared(const schedulers::constraint::scheduler auto& scheduler, Ts&& ...items)
-{
-    auto as_shared = std::make_shared<std::array<T, sizeof...(Ts)>>(std::forward<Ts>(items));
-    return create<T>([scheduler, items = std::move(as_shared)](const constraint::subscriber auto& subscriber)
-    {
-        iterate(items, scheduler, subscriber);
-    });
-} 
 } // namespace rpp::observable::details
 namespace rpp::observable
 {
