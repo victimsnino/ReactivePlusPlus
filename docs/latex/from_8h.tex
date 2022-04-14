@@ -32,20 +32,20 @@ This file contains implementation of {\ttfamily from} function to create \mbox{\
 
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    std::vector<int> vals\{ 1,2,3 \};}
-\DoxyCodeLine{    \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{rpp::source::from}}(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
+\DoxyCodeLine{        \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{rpp::source::from}}(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    std::vector<int> vals\{ 1,2,3 \};}
-\DoxyCodeLine{    rpp::source::from<rpp::memory\_model::use\_shared>(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
+\DoxyCodeLine{        rpp::source::from<rpp::memory\_model::use\_shared>(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    std::vector<int> vals\{ 1,2,3 \};}
-\DoxyCodeLine{    \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{rpp::source::from}}(vals, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
+\DoxyCodeLine{        \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{rpp::source::from}}(vals, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 
 \end{DoxyCodeInclude}
 
