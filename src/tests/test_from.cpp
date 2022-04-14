@@ -61,7 +61,7 @@ SCENARIO("from iterable", "[track_copy]")
             THEN("no extra copies")
             {
                 CHECK(tracker.get_copy_count() - initial_copy == 1); // 1 copy to wrapped container
-                CHECK(tracker.get_move_count() - initial_move == 2); // 1 move to lambda, 1 move lambda to observable
+                CHECK(tracker.get_move_count() - initial_move <= 2); // 1 move to lambda, 1 move lambda to observable
             }
         }
     }
@@ -74,7 +74,7 @@ SCENARIO("from iterable", "[track_copy]")
             THEN("no extra copies")
             {
                 CHECK(tracker.get_copy_count() - initial_copy == 0); 
-                CHECK(tracker.get_move_count() - initial_move == 3); // 1 move to wrapped container + 1 move to lambda, 1 move lambda to observable
+                CHECK(tracker.get_move_count() - initial_move <= 3); // 1 move to wrapped container + 1 move to lambda, 1 move lambda to observable
             }
         }
     }

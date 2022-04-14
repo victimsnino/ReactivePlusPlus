@@ -256,7 +256,7 @@ SCENARIO("source::just")
                 CHECK(mock.get_on_next_move_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
                 CHECK(v.get_copy_count() == 1); // 1 copy into array
-                CHECK(v.get_move_count() == 2); // 1 move of array into lambda + 1 move lambda into observable
+                CHECK(v.get_move_count() <= 2); // 1 move of array into lambda + 1 move lambda into observable
             }
         }
     }
@@ -273,7 +273,7 @@ SCENARIO("source::just")
                 CHECK(mock.get_on_next_move_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
                 CHECK(v.get_copy_count() == 0);
-                CHECK(v.get_move_count() == 3); // 1 move into array + 1 move array to function for observable + 1 move into observable
+                CHECK(v.get_move_count() <= 3); // 1 move into array + 1 move array to function for observable + 1 move into observable
             }
         }
     }
