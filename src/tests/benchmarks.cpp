@@ -67,17 +67,16 @@ TEST_CASE("Observable construction", "[benchmark]")
 
 TEST_CASE("Observable subscribe #2", "[benchmark]")
 {
-    rpp::composite_subscription subscription{};
     auto specific = MakeSpecificObservable();
     BENCHMARK("Specific observable subscribe lambda")
     {
-        return specific.subscribe(subscription, [](const auto&) {});
+        return specific.subscribe([](const auto&) {});
     };
 
     auto dynamic = MakeDynamicObservable();
     BENCHMARK("Dynamic observable subscribe lambda")
     {
-        return dynamic.subscribe(subscription, [](const auto&) {});
+        return dynamic.subscribe([](const auto&) {});
     };
 
     BENCHMARK("Specific observable subscribe lambda without subscription")
@@ -235,12 +234,6 @@ TEST_CASE("Subscription", "[benchmark]")
     };
 
     rpp::composite_subscription sub_1{};
-    rpp::composite_subscription sub_2{};
-
-    BENCHMARK("composite_subscription add")
-    {
-        return sub_1.add(sub_2);
-    };
 
     BENCHMARK("composite_subscription unsubscribe")
     {
