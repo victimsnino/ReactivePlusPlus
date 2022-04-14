@@ -26,8 +26,7 @@
   - [x] + memory_model
 - [x] empty/never/error
 - [ ] from
-  - [ ] variadic
-  - [ ] iterable
+  - [x] iterable
   - [ ] future
   - [ ] promise
   - [ ] callback

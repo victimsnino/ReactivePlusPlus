@@ -51,3 +51,10 @@ rpp::source::create<char>([](const auto& sub)
     .map(&::toupper)
     .subscribe([](char v) { std::cout << v; });
 ```
+Subscribe function applies any from:
+- (optional) subscription
+- (optional) subscription, `on_next`
+- (optional) subscription, `on_next`, `on_error`
+- (optional) subscription, `on_next`, `on_completed`
+- (optional) subscription, `on_next`, `on_error`  `on_completed`
+- (optional) subscription, observer

@@ -25,7 +25,9 @@
 /**
  * \file
  * \brief This file contains implementation of `from` function to create rpp::specific_observable that constructed from provided items
-
+ * \snippet from.cpp from
+ * \snippet from.cpp from with model
+ * \snippet from.cpp from with scheduler
  *
  * \see https://reactivex.io/documentation/operators/from.html
  **/
@@ -106,8 +108,13 @@ namespace rpp::observable
  * \tparam memory_model rpp::memory_model startegy used to handle provided iterable
  * \tparam TScheduler type of scheduler used for scheduling of submissions: next item will be submitted to scheduler when previous one is executed
  * \param iterable container with values which will be flattened
- * \return 
- */
+ *
+ * \snippet from.cpp from
+ * \snippet from.cpp from with model
+ * \snippet from.cpp from with scheduler
+ *
+ * \see https://reactivex.io/documentation/operators/from.html
+*/
 template<memory_model memory_model, schedulers::constraint::scheduler TScheduler>
 auto from(std::ranges::range auto&& iterable, const TScheduler& scheduler)
 {
