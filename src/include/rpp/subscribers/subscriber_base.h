@@ -53,7 +53,7 @@ public:
 
     void on_next(const Type& val) const final
     {
-        if (!m_local_subscription.is_subscribed())
+        if (!is_subscribed())
             return;
 
         try
@@ -68,7 +68,7 @@ public:
 
     void on_next(Type&& val) const final
     {
-        if (!m_local_subscription.is_subscribed())
+        if (!is_subscribed())
             return;
 
         try
@@ -83,7 +83,7 @@ public:
 
     void on_error(const std::exception_ptr& err) const final
     {
-        if (!m_local_subscription.is_subscribed())
+        if (!is_subscribed())
             return;
 
         subscription_guard guard{m_subscription};
@@ -96,7 +96,7 @@ public:
 
     void on_completed() const final
     {
-        if (!m_local_subscription.is_subscribed())
+        if (!is_subscribed())
             return;
 
         subscription_guard guard{m_subscription};
@@ -114,7 +114,7 @@ public:
 
     [[nodiscard]] bool is_subscribed() const
     {
-        return m_subscription.is_subscribed();
+        return m_local_subscription.is_subscribed();
     }
 
     void unsubscribe() const
