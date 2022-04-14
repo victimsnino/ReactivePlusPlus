@@ -34,61 +34,35 @@
 
 #include <rpp/memory_model.h>
 #include <rpp/schedulers/constraints.h>
-#include <rpp/schedulers/immediate_scheduler.h>
-#include <rpp/sources/create.h>
+#include <rpp/sources/from.h>
 #include <rpp/sources/fwd.h>
 
+#include <array>
+#include <ranges>
+#include <memory>
 #include <type_traits>
 
 namespace rpp::observable::details
 {
-template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate>
-auto just_use_stack(auto&& item, const Scheduler& scheduler)
+template<memory_model memory_model, constraint::decayed_type T, typename ...Ts>
+auto pack_variadic(Ts&& ...items)
 {
-    return create<std::decay_t<decltype(item)>>([=, item = std::forward<decltype(item)>(item)](const constraint::subscriber auto& subscriber)
-    {
-        if constexpr (std::is_same_v<Scheduler, rpp::schedulers::immediate>)
-        {
-            subscriber.on_next(item);
-            subscriber.on_completed();
-        }
-        else
-        {
-            auto worker = scheduler.create_worker(subscriber.get_subscription());
-            worker.schedule([subscriber, item]() mutable -> rpp::schedulers::optional_duration
-                {
-                    subscriber.on_next(std::move(item));
-                    subscriber.on_completed();
-                    return {};
-                });
-        }
-    });
-}
-
-template<typename T, rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate>
-auto just_use_shared(T&& item, const Scheduler& scheduler)
-{
-    auto as_shared = std::make_shared<std::decay_t<T>>(std::forward<T>(item));
-    return create<std::decay_t<T>>([=](const constraint::subscriber auto& subscriber)
-        {
-            auto worker = scheduler.create_worker(subscriber.get_subscription());
-            worker.schedule([=]() mutable -> rpp::schedulers::optional_duration
-                {
-                    subscriber.on_next(*as_shared);
-                    subscriber.on_completed();
-                    return {};
-                });
-        });
+    if constexpr (memory_model == memory_model::use_stack)
+        return container_wrapper<std::array<T, sizeof...(Ts)>>{std::forward<Ts>(items)...};
+    else
+        return std::make_shared<std::array<T, sizeof...(Ts)>>(std::array<T, sizeof...(Ts)>{std::forward<Ts>(items)...});
 }
 } // namespace rpp::observable::details
+
 namespace rpp::observable
 {
 /**
  * \ingroup observables
- * \brief Creates rpp::specific_observable that emits a particular item and completes
- * \tparam memory_model rpp::memory_model startegy used to handle item.
- * \tparam Scheduler type of scheduler used for scheduling of submissions
- * \param item value to be sent
+ * \brief Creates rpp::specific_observable that emits a particular items and completes
+ * \tparam memory_model rpp::memory_model startegy used to handle provided items
+ * \tparam Scheduler type of scheduler used for scheduling of submissions: next item will be submitted to scheduler when previous one is executed
+ * \param item first value to be sent
+ * \param items rest values to be sent
  * \return rpp::specific_observable with provided item
  *
  * \snippet just.cpp just
@@ -97,12 +71,34 @@ namespace rpp::observable
  *
  * \see https://reactivex.io/documentation/operators/just.html
  */
-template<memory_model memory_model, rpp::schedulers::constraint::scheduler Scheduler>
-auto just(auto&& item, const Scheduler& scheduler)
+template<memory_model memory_model, typename T, typename ...Ts>
+auto just(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...)
 {
-    if constexpr (memory_model == memory_model::use_stack)
-        return details::just_use_stack(std::forward<decltype(item)>(item), scheduler);
-    else
-        return details::just_use_shared(std::forward<decltype(item)>(item), scheduler);
+    using DT = std::decay_t<T>;
+    return create<DT>([=, items = details::pack_variadic<memory_model, DT>(std::forward<T>(item), std::forward<Ts>(items)...)](const constraint::subscriber auto& subscriber)
+    {
+        details::iterate(items, scheduler, subscriber);
+    });
+}
+
+/**
+ * \ingroup observables
+ * \brief Creates rpp::specific_observable that emits a particular items and completes
+ * \details this overloading uses immediate scheduler as default
+ * \tparam memory_model rpp::memory_model startegy used to handle provided items
+ * \param item first value to be sent
+ * \param items rest values to be sent
+ * \return rpp::specific_observable with provided item
+ *
+ * \snippet just.cpp just
+ * \snippet just.cpp just memory model
+ * \snippet just.cpp just scheduler
+ *
+ * \see https://reactivex.io/documentation/operators/just.html
+ */
+template<memory_model memory_model, typename T, typename ...Ts>
+auto just(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...)
+{
+    return just<memory_model>(schedulers::immediate{}, std::forward<T>(item), std::forward<Ts>(items)...);
 }
 } // namespace rpp::observable

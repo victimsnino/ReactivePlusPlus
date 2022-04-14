@@ -93,52 +93,10 @@ void iterate(const DerefIterable auto&                     r,
     }
 }
 
-template<memory_model memory_model, constraint::decayed_type T, typename ...Ts>
-auto pack_variadic(Ts&& ...items)
-{
-    if constexpr (memory_model == memory_model::use_stack)
-        return container_wrapper<std::array<T, sizeof...(Ts)>>{ std::forward<Ts>(items)... };
-    else
-        return std::make_shared<std::array<T, sizeof...(Ts)>>(std::forward<Ts>(items)...);
-}
+
 } // namespace rpp::observable::details
 
 namespace rpp::observable
 {
-/**
- * \ingroup observables
- * \brief Creates rpp::specific_observable that emits a provided items and completes
- * \tparam memory_model rpp::memory_model startegy used to handle provided items.
- * \param scheduler type of scheduler used for scheduling of submissions
- * \param item first value to be sent
- * \param items rest values to be sent
- * \return rpp::specific_observable with provided items
- * 
- * \see https://reactivex.io/documentation/operators/from.html
- */
-template<memory_model memory_model, typename T, typename ...Ts>
-auto from(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...)
-{
-    using DT = std::decay_t<T>;
-    return create<DT>([=, items = details::pack_variadic<memory_model, DT>(std::forward<T>(item), std::forward<Ts>(items)...)](const constraint::subscriber auto& subscriber)
-                      {
-                          iterate(items, scheduler, subscriber);
-                      });
-}
 
-/**
- * \ingroup observables
- * \brief Creates rpp::specific_observable that emits a provided items and completes
- * \tparam memory_model rpp::memory_model startegy used to handle provided items.
- * \param item first value to be sent
- * \param items rest values to be sent
- * \return rpp::specific_observable with provided items
- *  
- * \see https://reactivex.io/documentation/operators/from.html
- */
-template<memory_model memory_model, typename T, typename ...Ts>
-auto from(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...)
-{
-    return from<memory_model>(schedulers::immediate{}, std::forward<T>(item), std::forward<Ts>(items)...);
-}
 } // namespace rpp::observable
