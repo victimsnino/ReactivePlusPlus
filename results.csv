@@ -16582,13 +16582,13 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 16580,Subscriber construction,Make subsriber,325.25,323.645,331.171,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
 16581,Subscriber construction,Make copy of subscriber,34.163,34.1119,34.2845,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
 16582,Subscriber construction,Transform subsriber to dynamic,146.347,145.959,147.382,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
-16583,Observable subscribe,Specific observable subscribe specific observer,1165.36,1156,1190.64,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
-16584,Observable subscribe,Specific observable subscribe dynamic observer,1203.52,1194,1243.33,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
+16583,Observable subscribe,Specific observable subscribe specific observer,1165.36,1156.0,1190.64,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
+16584,Observable subscribe,Specific observable subscribe dynamic observer,1203.52,1194.0,1243.33,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
 16585,Observable subscribe,Dynamic observable subscribe specific observer,1344.47,1330.53,1390.47,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
 16586,Observable subscribe,Dynamic observable subscribe dynamic observer,1234.43,1223.1,1268.14,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
-16587,Observable lift,Specific observable lift specific observer,1202.9,1192.43,1244,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
+16587,Observable lift,Specific observable lift specific observer,1202.9,1192.43,1244.0,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
 16588,Observable lift,Specific observable lift dynamic observer,1258.95,1248.65,1287.4,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
-16589,Observable lift,Dynamic observable lift specific observer,1395.05,1380,1434.26,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
+16589,Observable lift,Dynamic observable lift specific observer,1395.05,1380.0,1434.26,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
 16590,Observable lift,Dynamic observable lift dynamic observer,1300.05,1286.85,1340.5,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
 16591,Operators,map construction from observable + subscribe,1015.2,1008.8,1029.76,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
 16592,Operators,map construction from observable via dot + subscribe,1024.52,1007.76,1081.48,0.95,Windows MSVC,compile fixes (eb4589da),rxcpp
@@ -16751,3 +16751,228 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 16749,just,just send int,38.0248,37.8151,38.7755,0.95,Linux CLANG,compile fixes (eb4589da),rxcpp
 16750,just,just send variadic,44.984,44.887,45.3552,0.95,Linux CLANG,compile fixes (eb4589da),rxcpp
 16751,from,from vector with int,57.8083,57.7279,57.9321,0.95,Linux CLANG,compile fixes (eb4589da),rxcpp
+16752,Observable construction,Specific observable construction,0.805943,0.802771,0.818049,0.95,Windows MSVC,fix performance (11599eef),rpp
+16753,Observable construction,Dynamic observable construction,88.057,87.5696,89.0759,0.95,Windows MSVC,fix performance (11599eef),rpp
+16754,Observable construction,Specific observable construction + as_dynamic,87.2767,86.8522,88.6698,0.95,Windows MSVC,fix performance (11599eef),rpp
+16755,Observable subscribe #2,Specific observable subscribe lambda,150.339,136.303,174.211,0.95,Windows MSVC,fix performance (11599eef),rpp
+16756,Observable subscribe #2,Dynamic observable subscribe lambda,234.387,202.548,318.355,0.95,Windows MSVC,fix performance (11599eef),rpp
+16757,Observable subscribe #2,Specific observable subscribe lambda without subscription,107.714,107.199,108.87,0.95,Windows MSVC,fix performance (11599eef),rpp
+16758,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,176.929,176.241,179.291,0.95,Windows MSVC,fix performance (11599eef),rpp
+16759,Observable subscribe #2,Specific observable subscribe specific subscriber,18.9024,18.8673,18.9687,0.95,Windows MSVC,fix performance (11599eef),rpp
+16760,Observable subscribe #2,Dynamic observable subscribe specific subscriber,123.176,122.402,125.157,0.95,Windows MSVC,fix performance (11599eef),rpp
+16761,Observable subscribe #2,Specific observable subscribe dynamic observer,18.9543,18.8628,19.1852,0.95,Windows MSVC,fix performance (11599eef),rpp
+16762,Observable subscribe #2,Dynamic observable subscribe dynamic observer,18.9855,18.8872,19.3445,0.95,Windows MSVC,fix performance (11599eef),rpp
+16763,Observer construction,Specific observer construction,0.419237,0.418696,0.420592,0.95,Windows MSVC,fix performance (11599eef),rpp
+16764,Observer construction,Dynamic observer construction,69.6399,69.4543,70.0222,0.95,Windows MSVC,fix performance (11599eef),rpp
+16765,Observer construction,Specific observer construction + as_dynamic,68.9201,68.6474,69.27,0.95,Windows MSVC,fix performance (11599eef),rpp
+16766,OnNext,Specific observer OnNext,0.446774,0.445909,0.448451,0.95,Windows MSVC,fix performance (11599eef),rpp
+16767,OnNext,Dynamic observer OnNext,1.63365,1.63025,1.6396,0.95,Windows MSVC,fix performance (11599eef),rpp
+16768,Subscriber construction,Make subsriber,94.3094,93.9547,94.9736,0.95,Windows MSVC,fix performance (11599eef),rpp
+16769,Subscriber construction,Make copy of subscriber,32.141,32.1005,32.2376,0.95,Windows MSVC,fix performance (11599eef),rpp
+16770,Subscriber construction,Transform subsriber to dynamic,102.71,102.143,103.996,0.95,Windows MSVC,fix performance (11599eef),rpp
+16771,Observable subscribe,Specific observable subscribe specific observer,111.591,110.996,112.902,0.95,Windows MSVC,fix performance (11599eef),rpp
+16772,Observable subscribe,Specific observable subscribe dynamic observer,125.96,125.075,128.156,0.95,Windows MSVC,fix performance (11599eef),rpp
+16773,Observable subscribe,Dynamic observable subscribe specific observer,179.529,178.136,182.179,0.95,Windows MSVC,fix performance (11599eef),rpp
+16774,Observable subscribe,Dynamic observable subscribe dynamic observer,127.183,126.31,128.919,0.95,Windows MSVC,fix performance (11599eef),rpp
+16775,Observable lift,Specific observable lift specific observer,165.725,163.497,174.052,0.95,Windows MSVC,fix performance (11599eef),rpp
+16776,Observable lift,Specific observable lift dynamic observer,195.614,194.409,198.126,0.95,Windows MSVC,fix performance (11599eef),rpp
+16777,Observable lift,Dynamic observable lift specific observer,276.411,275.044,279.778,0.95,Windows MSVC,fix performance (11599eef),rpp
+16778,Observable lift,Dynamic observable lift dynamic observer,247.137,245.794,250.245,0.95,Windows MSVC,fix performance (11599eef),rpp
+16779,Operators,map construction from observable + subscribe,3881.28,243.033,22033.5,0.95,Windows MSVC,fix performance (11599eef),rpp
+16780,Operators,map construction from observable via dot + subscribe,251.678,234.136,287.831,0.95,Windows MSVC,fix performance (11599eef),rpp
+16781,Subscription,composite_subscription create,74.9521,74.4371,75.9281,0.95,Windows MSVC,fix performance (11599eef),rpp
+16782,Subscription,composite_subscription add,50.5268,49.442,52.6071,0.95,Windows MSVC,fix performance (11599eef),rpp
+16783,Subscription,composite_subscription unsubscribe,8.03406,8.02141,8.0613,0.95,Windows MSVC,fix performance (11599eef),rpp
+16784,foundamental sources,empty,142.44,142.017,143.223,0.95,Windows MSVC,fix performance (11599eef),rpp
+16785,foundamental sources,error,181.957,180.978,184.268,0.95,Windows MSVC,fix performance (11599eef),rpp
+16786,foundamental sources,never,140.466,139.736,142.185,0.95,Windows MSVC,fix performance (11599eef),rpp
+16787,just,just send int,151.133,150.388,152.83,0.95,Windows MSVC,fix performance (11599eef),rpp
+16788,just,just send variadic,159.025,158.643,159.809,0.95,Windows MSVC,fix performance (11599eef),rpp
+16789,from,from vector with int,196.576,196.048,197.872,0.95,Windows MSVC,fix performance (11599eef),rpp
+16790,Observable construction,Specific observable construction,0.415108,0.414238,0.416814,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16791,Observable construction,Specific observable construction + as_dynamic,116.052,115.61,117.446,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16792,Observable subscribe #2,Specific observable subscribe lambda,882.75,874.107,902.571,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16793,Observable subscribe #2,Dynamic observable subscribe lambda,1048.71,1041.75,1075.92,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16794,Observable subscribe #2,Specific observable subscribe lambda without subscription,1186.76,1175.62,1234.81,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16795,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,1355.79,1346.16,1396.63,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16796,Observable subscribe #2,Specific observable subscribe specific subscriber,879.897,874.586,900.448,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16797,Observable subscribe #2,Dynamic observable subscribe specific subscriber,1050.37,1044.17,1074.79,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16798,Observable subscribe #2,Specific observable subscribe dynamic observer,900.036,890.929,921.321,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16799,Observable subscribe #2,Dynamic observable subscribe dynamic observer,928.115,920.5,949.846,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16800,Observer construction,Specific observer construction,2.01252,2.00664,2.02421,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16801,Observer construction,Dynamic observer construction,112.135,111.505,113.581,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16802,Observer construction,Specific observer construction + as_dynamic,112.571,112.228,113.25,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16803,OnNext,Specific observer OnNext,0.453588,0.44816,0.468317,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16804,OnNext,Dynamic observer OnNext,2.02874,2.00958,2.07785,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16805,Subscriber construction,Make subsriber,332.014,329.622,338.149,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16806,Subscriber construction,Make copy of subscriber,37.2576,37.1924,37.3833,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16807,Subscriber construction,Transform subsriber to dynamic,150.446,150.102,151.042,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16808,Observable subscribe,Specific observable subscribe specific observer,1193.45,1180.23,1230.86,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16809,Observable subscribe,Specific observable subscribe dynamic observer,1217.38,1207.1,1261.95,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16810,Observable subscribe,Dynamic observable subscribe specific observer,1352.42,1346.21,1374.21,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16811,Observable subscribe,Dynamic observable subscribe dynamic observer,1251,1240.71,1295,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16812,Observable lift,Specific observable lift specific observer,1219.9,1210.24,1260.81,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16813,Observable lift,Specific observable lift dynamic observer,1286.15,1273.65,1316.3,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16814,Observable lift,Dynamic observable lift specific observer,1406.44,1390.67,1455.17,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16815,Observable lift,Dynamic observable lift dynamic observer,1311.75,1299.5,1363.35,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16816,Operators,map construction from observable + subscribe,1008.76,999.88,1029.88,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16817,Operators,map construction from observable via dot + subscribe,1011.28,1003.36,1032.44,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16818,Subscription,composite_subscription create,321.513,318.41,330.923,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16819,Subscription,composite_subscription add,64.4552,64.1381,65.2199,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16820,Subscription,composite_subscription unsubscribe,28.5407,28.4868,28.6948,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16821,foundamental sources,empty,181.549,180.958,183.514,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16822,foundamental sources,error,225.421,224.307,228.035,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16823,foundamental sources,never,81.2557,80.9574,81.8328,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16824,just,just send int,177.921,177.464,179.186,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16825,just,just send variadic,180.42,179.551,182.514,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16826,from,from vector with int,241.841,240.766,243.925,0.95,Windows MSVC,fix performance (11599eef),rxcpp
+16827,Observable construction,Specific observable construction,0.335185,0.334578,0.337911,0.95,Linux GCC,fix performance (11599eef),rpp
+16828,Observable construction,Dynamic observable construction,20.8716,20.7882,21.1428,0.95,Linux GCC,fix performance (11599eef),rpp
+16829,Observable construction,Specific observable construction + as_dynamic,20.265,20.2144,20.3847,0.95,Linux GCC,fix performance (11599eef),rpp
+16830,Observable subscribe #2,Specific observable subscribe lambda,1820.01,69.7296,10570.1,0.95,Linux GCC,fix performance (11599eef),rpp
+16831,Observable subscribe #2,Dynamic observable subscribe lambda,107.41,91.0155,187.151,0.95,Linux GCC,fix performance (11599eef),rpp
+16832,Observable subscribe #2,Specific observable subscribe lambda without subscription,27.114,27.0144,27.441,0.95,Linux GCC,fix performance (11599eef),rpp
+16833,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,51.7567,51.6431,52.0574,0.95,Linux GCC,fix performance (11599eef),rpp
+16834,Observable subscribe #2,Specific observable subscribe specific subscriber,3.60978,3.60371,3.63379,0.95,Linux GCC,fix performance (11599eef),rpp
+16835,Observable subscribe #2,Dynamic observable subscribe specific subscriber,29.5806,29.475,29.7633,0.95,Linux GCC,fix performance (11599eef),rpp
+16836,Observable subscribe #2,Specific observable subscribe dynamic observer,3.62,3.61379,3.64178,0.95,Linux GCC,fix performance (11599eef),rpp
+16837,Observable subscribe #2,Dynamic observable subscribe dynamic observer,3.7581,3.74775,3.77994,0.95,Linux GCC,fix performance (11599eef),rpp
+16838,Observer construction,Specific observer construction,0.335265,0.334679,0.337416,0.95,Linux GCC,fix performance (11599eef),rpp
+16839,Observer construction,Dynamic observer construction,20.6909,20.6519,20.8305,0.95,Linux GCC,fix performance (11599eef),rpp
+16840,Observer construction,Specific observer construction + as_dynamic,21.3249,21.2736,21.5151,0.95,Linux GCC,fix performance (11599eef),rpp
+16841,OnNext,Specific observer OnNext,0.335971,0.33525,0.338866,0.95,Linux GCC,fix performance (11599eef),rpp
+16842,OnNext,Dynamic observer OnNext,1.67287,1.67226,1.67366,0.95,Linux GCC,fix performance (11599eef),rpp
+16843,Subscriber construction,Make subsriber,25.5339,25.4819,25.5902,0.95,Linux GCC,fix performance (11599eef),rpp
+16844,Subscriber construction,Make copy of subscriber,7.25107,7.23622,7.29711,0.95,Linux GCC,fix performance (11599eef),rpp
+16845,Subscriber construction,Transform subsriber to dynamic,26.9921,26.9459,27.1517,0.95,Linux GCC,fix performance (11599eef),rpp
+16846,Observable subscribe,Specific observable subscribe specific observer,26.4542,26.3476,26.7562,0.95,Linux GCC,fix performance (11599eef),rpp
+16847,Observable subscribe,Specific observable subscribe dynamic observer,30.589,30.5159,30.7764,0.95,Linux GCC,fix performance (11599eef),rpp
+16848,Observable subscribe,Dynamic observable subscribe specific observer,52.9702,52.8655,53.2424,0.95,Linux GCC,fix performance (11599eef),rpp
+16849,Observable subscribe,Dynamic observable subscribe dynamic observer,31.7556,31.6535,31.9412,0.95,Linux GCC,fix performance (11599eef),rpp
+16850,Observable lift,Specific observable lift specific observer,34.092,34.0659,34.15,0.95,Linux GCC,fix performance (11599eef),rpp
+16851,Observable lift,Specific observable lift dynamic observer,42.2549,42.1073,42.5085,0.95,Linux GCC,fix performance (11599eef),rpp
+16852,Observable lift,Dynamic observable lift specific observer,70.917,70.7824,71.0565,0.95,Linux GCC,fix performance (11599eef),rpp
+16853,Observable lift,Dynamic observable lift dynamic observer,57.6407,57.4574,58.3029,0.95,Linux GCC,fix performance (11599eef),rpp
+16854,Operators,map construction from observable + subscribe,1502.77,65.6913,8686.95,0.95,Linux GCC,fix performance (11599eef),rpp
+16855,Operators,map construction from observable via dot + subscribe,114.349,88.6628,240.627,0.95,Linux GCC,fix performance (11599eef),rpp
+16856,Subscription,composite_subscription create,22.7365,22.7295,22.7474,0.95,Linux GCC,fix performance (11599eef),rpp
+16857,Subscription,composite_subscription add,1098.88,17.0853,6477.92,0.95,Linux GCC,fix performance (11599eef),rpp
+16858,Subscription,composite_subscription unsubscribe,6.94567,6.92237,7.00557,0.95,Linux GCC,fix performance (11599eef),rpp
+16859,foundamental sources,empty,42.3574,42.3204,42.4372,0.95,Linux GCC,fix performance (11599eef),rpp
+16860,foundamental sources,error,82.0355,81.8814,82.5782,0.95,Linux GCC,fix performance (11599eef),rpp
+16861,foundamental sources,never,41.7604,41.6759,42.0238,0.95,Linux GCC,fix performance (11599eef),rpp
+16862,just,just send int,43.5336,43.4576,43.829,0.95,Linux GCC,fix performance (11599eef),rpp
+16863,just,just send variadic,51.8186,51.6971,52.1567,0.95,Linux GCC,fix performance (11599eef),rpp
+16864,from,from vector with int,63.7084,63.5637,64.0626,0.95,Linux GCC,fix performance (11599eef),rpp
+16865,Observable construction,Specific observable construction,0.335057,0.33453,0.337154,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16866,Observable construction,Specific observable construction + as_dynamic,24.4157,24.3553,24.4835,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16867,Observable subscribe #2,Specific observable subscribe lambda,278.721,278.212,280.629,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16868,Observable subscribe #2,Dynamic observable subscribe lambda,323.73,323.536,323.977,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16869,Observable subscribe #2,Specific observable subscribe lambda without subscription,362.914,362.24,365.094,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16870,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,376.336,375.899,377.324,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16871,Observable subscribe #2,Specific observable subscribe specific subscriber,278.219,277.495,280.908,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16872,Observable subscribe #2,Dynamic observable subscribe specific subscriber,320.233,319.722,322.319,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16873,Observable subscribe #2,Specific observable subscribe dynamic observer,295.278,294.191,296.768,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16874,Observable subscribe #2,Dynamic observable subscribe dynamic observer,302.817,302.201,304.939,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16875,Observer construction,Specific observer construction,0.334502,0.33439,0.334614,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16876,Observer construction,Dynamic observer construction,22.0593,22.0511,22.0689,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16877,Observer construction,Specific observer construction + as_dynamic,22.2636,22.2392,22.3148,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16878,OnNext,Specific observer OnNext,0.33503,0.334525,0.337015,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16879,OnNext,Dynamic observer OnNext,2.0113,2.0076,2.02529,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16880,Subscriber construction,Make subsriber,55.8098,55.6677,56.1572,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16881,Subscriber construction,Make copy of subscriber,4.70695,4.70002,4.73374,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16882,Subscriber construction,Transform subsriber to dynamic,30.8001,30.7525,31.0144,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16883,Observable subscribe,Specific observable subscribe specific observer,335.621,335.021,337.632,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16884,Observable subscribe,Specific observable subscribe dynamic observer,341.738,341.181,343.897,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16885,Observable subscribe,Dynamic observable subscribe specific observer,374.511,374.262,375.249,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16886,Observable subscribe,Dynamic observable subscribe dynamic observer,359.07,358.463,361.202,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16887,Observable lift,Specific observable lift specific observer,342.804,342.482,343.425,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16888,Observable lift,Specific observable lift dynamic observer,361.276,361.047,361.902,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16889,Observable lift,Dynamic observable lift specific observer,393.038,392.739,393.7,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16890,Observable lift,Dynamic observable lift dynamic observer,385.73,385.41,386.832,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16891,Operators,map construction from observable + subscribe,353.587,352.917,355.775,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16892,Operators,map construction from observable via dot + subscribe,353.281,352.152,358.458,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16893,Subscription,composite_subscription create,51.5438,51.5121,51.5984,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16894,Subscription,composite_subscription add,17.2823,17.2441,17.3605,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16895,Subscription,composite_subscription unsubscribe,11.0451,11.0285,11.1199,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16896,foundamental sources,empty,49.1956,48.952,49.4835,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16897,foundamental sources,error,79.6958,79.5759,80.2265,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16898,foundamental sources,never,18.1642,18.1368,18.2743,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16899,just,just send int,49.0886,48.9208,49.3434,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16900,just,just send variadic,47.2772,47.1679,47.5324,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16901,from,from vector with int,68.6749,68.5009,69.2516,0.95,Linux GCC,fix performance (11599eef),rxcpp
+16902,Observable construction,Specific observable construction,0.67016,0.668833,0.676015,0.95,Linux CLANG,fix performance (11599eef),rpp
+16903,Observable construction,Dynamic observable construction,28.5204,28.4671,28.7576,0.95,Linux CLANG,fix performance (11599eef),rpp
+16904,Observable construction,Specific observable construction + as_dynamic,28.4682,28.4493,28.5005,0.95,Linux CLANG,fix performance (11599eef),rpp
+16905,Observable subscribe #2,Specific observable subscribe lambda,2835.64,121.976,16401.5,0.95,Linux CLANG,fix performance (11599eef),rpp
+16906,Observable subscribe #2,Dynamic observable subscribe lambda,158.192,155.244,162.65,0.95,Linux CLANG,fix performance (11599eef),rpp
+16907,Observable subscribe #2,Specific observable subscribe lambda without subscription,58.4912,58.4718,58.5125,0.95,Linux CLANG,fix performance (11599eef),rpp
+16908,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,98.6805,98.5274,99.3439,0.95,Linux CLANG,fix performance (11599eef),rpp
+16909,Observable subscribe #2,Specific observable subscribe specific subscriber,16.7374,16.7088,16.8517,0.95,Linux CLANG,fix performance (11599eef),rpp
+16910,Observable subscribe #2,Dynamic observable subscribe specific subscriber,100.634,97.0433,105.088,0.95,Linux CLANG,fix performance (11599eef),rpp
+16911,Observable subscribe #2,Specific observable subscribe dynamic observer,16.7573,16.7208,16.8555,0.95,Linux CLANG,fix performance (11599eef),rpp
+16912,Observable subscribe #2,Dynamic observable subscribe dynamic observer,16.718,16.7092,16.7485,0.95,Linux CLANG,fix performance (11599eef),rpp
+16913,Observer construction,Specific observer construction,0.670862,0.669173,0.677489,0.95,Linux CLANG,fix performance (11599eef),rpp
+16914,Observer construction,Dynamic observer construction,35.8685,34.9724,36.9967,0.95,Linux CLANG,fix performance (11599eef),rpp
+16915,Observer construction,Specific observer construction + as_dynamic,28.4339,28.4187,28.4856,0.95,Linux CLANG,fix performance (11599eef),rpp
+16916,OnNext,Specific observer OnNext,0.94547,0.873016,1.03675,0.95,Linux CLANG,fix performance (11599eef),rpp
+16917,OnNext,Dynamic observer OnNext,2.00664,2.00591,2.00752,0.95,Linux CLANG,fix performance (11599eef),rpp
+16918,Subscriber construction,Make subsriber,45.5042,45.464,45.6069,0.95,Linux CLANG,fix performance (11599eef),rpp
+16919,Subscriber construction,Make copy of subscriber,36.6019,35.2382,38.268,0.95,Linux CLANG,fix performance (11599eef),rpp
+16920,Subscriber construction,Transform subsriber to dynamic,76.0888,73.7491,79.7149,0.95,Linux CLANG,fix performance (11599eef),rpp
+16921,Observable subscribe,Specific observable subscribe specific observer,58.8744,58.5186,60.1741,0.95,Linux CLANG,fix performance (11599eef),rpp
+16922,Observable subscribe,Specific observable subscribe dynamic observer,102.277,97.9117,107.397,0.95,Linux CLANG,fix performance (11599eef),rpp
+16923,Observable subscribe,Dynamic observable subscribe specific observer,94.995,94.1819,97.5461,0.95,Linux CLANG,fix performance (11599eef),rpp
+16924,Observable subscribe,Dynamic observable subscribe dynamic observer,80.3414,80.1281,81.0562,0.95,Linux CLANG,fix performance (11599eef),rpp
+16925,Observable lift,Specific observable lift specific observer,94.8675,94.6211,95.9511,0.95,Linux CLANG,fix performance (11599eef),rpp
+16926,Observable lift,Specific observable lift dynamic observer,197.065,190.72,204.764,0.95,Linux CLANG,fix performance (11599eef),rpp
+16927,Observable lift,Dynamic observable lift specific observer,216.404,211.234,223.258,0.95,Linux CLANG,fix performance (11599eef),rpp
+16928,Observable lift,Dynamic observable lift dynamic observer,191.39,190.927,193.432,0.95,Linux CLANG,fix performance (11599eef),rpp
+16929,Operators,map construction from observable + subscribe,1511,179.029,8167.54,0.95,Linux CLANG,fix performance (11599eef),rpp
+16930,Operators,map construction from observable via dot + subscribe,178.676,177.685,180.167,0.95,Linux CLANG,fix performance (11599eef),rpp
+16931,Subscription,composite_subscription create,31.8795,31.8271,32.1119,0.95,Linux CLANG,fix performance (11599eef),rpp
+16932,Subscription,composite_subscription add,1924.22,38.3275,11304.5,0.95,Linux CLANG,fix performance (11599eef),rpp
+16933,Subscription,composite_subscription unsubscribe,6.02896,6.01933,6.06785,0.95,Linux CLANG,fix performance (11599eef),rpp
+16934,foundamental sources,empty,94.7852,94.749,94.857,0.95,Linux CLANG,fix performance (11599eef),rpp
+16935,foundamental sources,error,132.27,132.219,132.322,0.95,Linux CLANG,fix performance (11599eef),rpp
+16936,foundamental sources,never,150.525,140.621,163.63,0.95,Linux CLANG,fix performance (11599eef),rpp
+16937,just,just send int,96.5219,96.4003,96.8057,0.95,Linux CLANG,fix performance (11599eef),rpp
+16938,just,just send variadic,114.126,113.821,115.236,0.95,Linux CLANG,fix performance (11599eef),rpp
+16939,from,from vector with int,111.598,111.387,112.276,0.95,Linux CLANG,fix performance (11599eef),rpp
+16940,Observable construction,Specific observable construction,0.335878,0.334502,0.342568,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16941,Observable construction,Specific observable construction + as_dynamic,25.0604,24.9974,25.1841,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16942,Observable subscribe #2,Specific observable subscribe lambda,248.947,243.216,257.281,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16943,Observable subscribe #2,Dynamic observable subscribe lambda,297.603,289.545,308.136,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16944,Observable subscribe #2,Specific observable subscribe lambda without subscription,352.628,347.179,366.833,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16945,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,330.77,328.289,337.565,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16946,Observable subscribe #2,Specific observable subscribe specific subscriber,258.732,250.031,269.991,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16947,Observable subscribe #2,Dynamic observable subscribe specific subscriber,267.078,266.632,268.681,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16948,Observable subscribe #2,Specific observable subscribe dynamic observer,259.982,253.666,269.385,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16949,Observable subscribe #2,Dynamic observable subscribe dynamic observer,260.075,259.623,261.846,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16950,Observer construction,Specific observer construction,0.338826,0.334953,0.354639,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16951,Observer construction,Dynamic observer construction,23.6628,22.9941,24.7226,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16952,Observer construction,Specific observer construction + as_dynamic,23.1555,23.0779,23.2491,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16953,OnNext,Specific observer OnNext,0.670068,0.668666,0.676925,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16954,OnNext,Dynamic observer OnNext,2.37531,2.34529,2.45143,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16955,Subscriber construction,Make subsriber,65.2975,65.1436,65.9457,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16956,Subscriber construction,Make copy of subscriber,4.71532,4.69958,4.73868,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16957,Subscriber construction,Transform subsriber to dynamic,27.2029,27.1112,27.3657,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16958,Observable subscribe,Specific observable subscribe specific observer,291.041,290.819,291.551,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16959,Observable subscribe,Specific observable subscribe dynamic observer,301.75,301.062,304.279,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16960,Observable subscribe,Dynamic observable subscribe specific observer,397.706,380.657,421.046,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16961,Observable subscribe,Dynamic observable subscribe dynamic observer,318.789,318.27,320.779,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16962,Observable lift,Specific observable lift specific observer,342.953,335.882,355.356,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16963,Observable lift,Specific observable lift dynamic observer,309.793,309.155,312.338,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16964,Observable lift,Dynamic observable lift specific observer,370.884,363.964,381.33,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16965,Observable lift,Dynamic observable lift dynamic observer,338.628,337.853,341.229,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16966,Operators,map construction from observable + subscribe,361.07,348.519,376.585,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16967,Operators,map construction from observable via dot + subscribe,244.444,243.893,246.393,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16968,Subscription,composite_subscription create,56.65,56.5343,57.0081,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16969,Subscription,composite_subscription add,21.8282,21.4337,22.4281,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16970,Subscription,composite_subscription unsubscribe,10.7105,10.6925,10.793,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16971,foundamental sources,empty,37.1213,37.0357,37.3079,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16972,foundamental sources,error,83.4022,83.224,84.229,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16973,foundamental sources,never,13.7102,13.7073,13.7122,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16974,just,just send int,37.8483,37.7301,38.012,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16975,just,just send variadic,45.2189,45.1507,45.4786,0.95,Linux CLANG,fix performance (11599eef),rxcpp
+16976,from,from vector with int,63.8594,62.7645,66.1622,0.95,Linux CLANG,fix performance (11599eef),rxcpp
