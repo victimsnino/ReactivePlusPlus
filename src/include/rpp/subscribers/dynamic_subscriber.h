@@ -39,7 +39,13 @@ public:
 
     template<typename Obs>
     dynamic_subscriber(const specific_subscriber<T, Obs>& subscriber)
-        : specific_subscriber<T, dynamic_observer<T>>{subscriber.get_subscription(), subscriber.get_observer()} {}
+        : specific_subscriber<T, dynamic_observer<T>>{static_cast<const details::subscriber_base<T>&>(subscriber),
+                                                      subscriber.get_observer()} {}
+
+    template<typename Obs>
+    dynamic_subscriber(specific_subscriber<T, Obs>&& subscriber)
+        : specific_subscriber<T, dynamic_observer<T>>{static_cast<const details::subscriber_base<T>&>(subscriber),
+                                                      std::move(subscriber).get_observer()} {}
 };
 
 template<constraint::observer TObs>

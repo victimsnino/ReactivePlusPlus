@@ -38,19 +38,6 @@ template<constraint::decayed_type Type, constraint::decayed_observer Observer>
 class specific_subscriber : public details::subscriber_base<Type>
 {
 public:
-    //********************* Construct by observer *********************//
-    specific_subscriber()
-        : details::subscriber_base<Type>{} { }
-
-    specific_subscriber(constraint::decayed_same_as<Observer> auto&& observer)
-        : details::subscriber_base<Type>{}
-        , m_observer{ std::forward<decltype(observer)>(observer) } { }
-
-    specific_subscriber(const composite_subscription& sub, constraint::decayed_same_as<Observer> auto&& observer)
-        : details::subscriber_base<Type>{ sub }
-        , m_observer{ std::forward<decltype(observer)>(observer) } { }
-
-    //********************* Construct by actions *********************//
     template<typename ...Types>
     specific_subscriber(Types&&...vals) requires std::constructible_from<Observer, Types...>
         : details::subscriber_base<Type>{  }
@@ -61,14 +48,24 @@ public:
         : details::subscriber_base<Type>{ sub }
         , m_observer{ std::forward<Types>(vals)... } {}
 
+    template<typename ...Types>
+    specific_subscriber(const details::subscriber_base<Type>& base, Types&&...vals) requires std::constructible_from<Observer, Types...>
+        : details::subscriber_base<Type>{ base }
+        , m_observer{ std::forward<Types>(vals)... } {}
+
     // ************* Copy/Move ************************* //
     specific_subscriber(const specific_subscriber&) = default;
     specific_subscriber(specific_subscriber&&) noexcept = default;
 
 
-    const Observer& get_observer() const
+    const Observer& get_observer() const &
     {
         return m_observer;
+    }
+
+    Observer&& get_observer() &&
+    {
+        return std::move(m_observer);
     }
 
     auto as_dynamic() const & { return dynamic_subscriber<Type>{*this};            }
