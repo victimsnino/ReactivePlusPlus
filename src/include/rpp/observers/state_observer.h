@@ -19,6 +19,11 @@
 
 namespace rpp::details
 {
+struct forwarding_on_next
+{
+    template<constraint::subscriber TSub>
+    void operator()(auto&& v, TSub&& sub) const { sub.on_next(std::forward<decltype(v)>(v)); }
+};
 
 struct forwarding_on_error
 {
@@ -37,7 +42,7 @@ struct forwarding_on_completed
  */
 template<constraint::decayed_type T,
          constraint::decayed_type State,
-         std::invocable<T, State>                  OnNext,
+         std::invocable<T, State>                  OnNext = forwarding_on_next,
          std::invocable<std::exception_ptr, State> OnError = forwarding_on_error,
          std::invocable<State>                     OnCompleted= forwarding_on_completed>
 class state_observer final : public interface_observer<T>

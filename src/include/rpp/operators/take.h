@@ -58,15 +58,7 @@ auto member_overload<Type, SpecificObservable, take_tag>::take_impl(size_t count
         };
 
         auto subscription = subscriber.get_subscription();
-
-        return specific_subscriber<Type, state_observer<Type, std::decay_t<TSub>, std::decay_t<decltype(action)>>>
-        {
-            subscription,
-            std::forward<TSub>(subscriber),
-            std::move(action),
-            forwarding_on_error{},
-            forwarding_on_completed{}
-        };
+        return create_subscriber_with_state<Type>(subscription, std::forward<TSub>(subscriber), std::move(action), forwarding_on_error{}, forwarding_on_completed{});
     };
 }
 } // namespace rpp::details

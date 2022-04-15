@@ -21,6 +21,8 @@ By default, Functional programming deals with immutable data and "pure functions
 
 For better compilation speed each operator placed in each own header. Due to great desire to have dot operations inside observable, observable inherits implementation of operators via `member_overload` hack: it forwards interface, but implementation placed in another file. It looks like wide-spread separation to cpp/h files.
 
+Each operator is thread-safe internally and not-thread-safe externally: it means, that all internal staff is guarded or written in lock-free way, but user's types/functions and everything passed to operators/subscribers should be ready to called in parallel (if stream merge multiple streams or any under conditions)
+
 ## Subscriber
 
 Subscriber is just wrapper over observer with subscription. Everytime callback received, subscriber checks for subscription state and emits value to observer if subscription is still active.
