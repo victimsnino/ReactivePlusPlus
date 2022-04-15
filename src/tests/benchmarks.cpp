@@ -12,9 +12,8 @@
 #include <catch2/benchmark/catch_benchmark.hpp>
 #include <rpp/observables.h>
 #include <rpp/sources.h>
-#include <rpp/observables/dynamic_observable.h>
 #include <rpp/observers/specific_observer.h>
-#include <rpp/operators/map.h>
+#include <rpp/operators.h>
 
 #include <array>
 
@@ -272,5 +271,22 @@ TEST_CASE("from", "[benchmark]")
     BENCHMARK("from vector with int")
     {
         return rpp::source::from(vec).subscribe(sub);
+    };
+}
+
+TEST_CASE("merge", "[benchmark]")
+{
+    BENCHMARK("merge")
+    {
+        return rpp::source::just(rpp::source::just(1),
+                                 rpp::source::just(2))
+               .merge()
+               .subscribe([](const auto& v) { });
+    };
+    BENCHMARK("merge_with")
+    {
+        return rpp::source::just(1)
+               .merge_with(rpp::source::just(2))
+               .subscribe([](const auto& v) {});
     };
 }

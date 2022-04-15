@@ -51,4 +51,5 @@
 ### Combining
 - [x] merge
   - [x] observable of observables
-  - [ ] merge with
+  - [x] merge with
+  - [ ] merge delay error

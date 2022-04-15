@@ -263,3 +263,20 @@ TEST_CASE("from", "[benchmark]")
         return rxcpp::sources::iterate(vec).subscribe(sub);
     };
 }
+
+TEST_CASE("merge", "[benchmark]")
+{
+    BENCHMARK("merge")
+    {
+        return from(rxcpp::sources::just(1),
+                    rxcpp::sources::just(2))
+               .merge()
+               .subscribe([](const auto& v) {});
+    };
+    BENCHMARK("merge_with")
+    {
+        return rxcpp::sources::just(1)
+               .merge(rxcpp::sources::just(2))
+               .subscribe([](const auto& v) {});
+    };
+}
