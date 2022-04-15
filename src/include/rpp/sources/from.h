@@ -108,7 +108,7 @@ auto from(std::ranges::range auto&& iterable, const TScheduler& scheduler)
 {
     using Container = std::decay_t<decltype(iterable)>;
     using Type = std::ranges::range_value_t<Container>;
-    return create<Type>([=, items = details::pack_to_container<memory_model, Container>(std::forward<decltype(iterable)>(iterable))](const constraint::subscriber auto& subscriber)
+    return create<Type>([=, items = details::pack_to_container<memory_model, Container>(std::forward<decltype(iterable)>(iterable))](const constraint::subscriber_of_type<Type> auto& subscriber)
     {
         details::iterate(items, scheduler, subscriber);
     });

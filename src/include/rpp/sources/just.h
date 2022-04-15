@@ -60,7 +60,7 @@ template<memory_model memory_model, typename T, typename ...Ts>
 auto just(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...)
 {
     using DT = std::decay_t<T>;
-    return create<DT>([=, items = details::pack_variadic<memory_model, DT>(std::forward<T>(item), std::forward<Ts>(items)...)](const constraint::subscriber auto& subscriber)
+    return create<DT>([=, items = details::pack_variadic<memory_model, DT>(std::forward<T>(item), std::forward<Ts>(items)...)](const constraint::subscriber_of_type<DT> auto& subscriber)
     {
         details::iterate(items, scheduler, subscriber);
     });
