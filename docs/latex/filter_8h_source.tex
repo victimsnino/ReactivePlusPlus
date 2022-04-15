@@ -2,63 +2,51 @@
 \label{filter_8h_source}\index{src/include/rpp/operators/filter.h@{src/include/rpp/operators/filter.h}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{// MIT License}}
-\DoxyCodeLine{2 \textcolor{comment}{// }}
-\DoxyCodeLine{3 \textcolor{comment}{// Copyright (c) 2022 Aleksey Loginov}}
-\DoxyCodeLine{4 \textcolor{comment}{// }}
-\DoxyCodeLine{5 \textcolor{comment}{// Permission is hereby granted, free of charge, to any person obtaining a copy}}
-\DoxyCodeLine{6 \textcolor{comment}{// of this software and associated documentation files (the "{}Software"{}), to deal}}
-\DoxyCodeLine{7 \textcolor{comment}{// in the Software without restriction, including without limitation the rights}}
-\DoxyCodeLine{8 \textcolor{comment}{// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}}
-\DoxyCodeLine{9 \textcolor{comment}{// copies of the Software, and to permit persons to whom the Software is}}
-\DoxyCodeLine{10 \textcolor{comment}{// furnished to do so, subject to the following conditions:}}
-\DoxyCodeLine{11 \textcolor{comment}{// }}
-\DoxyCodeLine{12 \textcolor{comment}{// The above copyright notice and this permission notice shall be included in all}}
-\DoxyCodeLine{13 \textcolor{comment}{// copies or substantial portions of the Software.}}
-\DoxyCodeLine{14 \textcolor{comment}{// }}
-\DoxyCodeLine{15 \textcolor{comment}{// THE SOFTWARE IS PROVIDED "{}AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}}
-\DoxyCodeLine{16 \textcolor{comment}{// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}}
-\DoxyCodeLine{17 \textcolor{comment}{// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}}
-\DoxyCodeLine{18 \textcolor{comment}{// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}}
-\DoxyCodeLine{19 \textcolor{comment}{// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}}
-\DoxyCodeLine{20 \textcolor{comment}{// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}}
-\DoxyCodeLine{21 \textcolor{comment}{// SOFTWARE.}}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/constraints.h>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/operators/fwd/filter.h>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.h>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/utils/utilities.h>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 IMPLEMENTATION\_FILE(filter\_tag);}
 \DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/observables/constraints.h>}}
-\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <rpp/operators/fwd/filter.h>}}
-\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.h>}}
-\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <rpp/utils/utilities.h>}}
-\DoxyCodeLine{29 }
-\DoxyCodeLine{30 }
-\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <utility>}}
-\DoxyCodeLine{32 }
-\DoxyCodeLine{33 IMPLEMENTATION\_FILE(filter\_tag);}
-\DoxyCodeLine{34 }
-\DoxyCodeLine{35 \textcolor{keyword}{namespace }rpp::operators}
-\DoxyCodeLine{36 \{}
-\DoxyCodeLine{37 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Predicate>}
-\DoxyCodeLine{38 \textcolor{keyword}{auto} filter(Predicate\&\& predicate) \textcolor{keyword}{requires} details::is\_header\_included<details::filter\_tag, Predicate>}
+\DoxyCodeLine{23 \textcolor{keyword}{namespace }rpp::operators}
+\DoxyCodeLine{24 \{}
+\DoxyCodeLine{25 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Predicate>}
+\DoxyCodeLine{26 \textcolor{keyword}{auto} filter(Predicate\&\& predicate) \textcolor{keyword}{requires} details::is\_header\_included<details::filter\_tag, Predicate>}
+\DoxyCodeLine{27 \{}
+\DoxyCodeLine{28     \textcolor{keywordflow}{return} [predicate = std::forward<Predicate>(predicate)]<constraint::observable TObservable>(TObservable \&\& observable)}
+\DoxyCodeLine{29     \{}
+\DoxyCodeLine{30         \textcolor{keywordflow}{return} observable.filter(predicate);}
+\DoxyCodeLine{31     \};}
+\DoxyCodeLine{32 \}}
+\DoxyCodeLine{33 \} \textcolor{comment}{// namespace rpp::operators}}
+\DoxyCodeLine{34 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{37 \textcolor{keyword}{template}<std::predicate<const Type\&> Predicate>}
+\DoxyCodeLine{38 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, filter\_tag>::filter\_impl(Predicate\&\& predicate)}
 \DoxyCodeLine{39 \{}
-\DoxyCodeLine{40     \textcolor{keywordflow}{return} [predicate = std::forward<Predicate>(predicate)]<constraint::observable TObservable>(TObservable \&\& observable)}
+\DoxyCodeLine{40     \textcolor{keywordflow}{return} [predicate = std::forward<Predicate>(predicate)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
 \DoxyCodeLine{41     \{}
-\DoxyCodeLine{42         \textcolor{keywordflow}{return} observable.filter(predicate);}
-\DoxyCodeLine{43     \};}
-\DoxyCodeLine{44 \}}
-\DoxyCodeLine{45 \} \textcolor{comment}{// namespace rpp::operators}}
-\DoxyCodeLine{46 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{47 \{}
-\DoxyCodeLine{48 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{49 \textcolor{keyword}{template}<std::predicate<const Type\&> Predicate>}
-\DoxyCodeLine{50 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, filter\_tag>::filter\_impl(Predicate\&\& predicate)}
-\DoxyCodeLine{51 \{}
-\DoxyCodeLine{52     \textcolor{keywordflow}{return} [predicate = std::forward<Predicate>(predicate)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
-\DoxyCodeLine{53     \{}
-\DoxyCodeLine{54         \textcolor{keywordflow}{if} (predicate(utilities::as\_const(value)))}
-\DoxyCodeLine{55             subscriber.on\_next(std::forward<\textcolor{keyword}{decltype}(value)>(value));}
-\DoxyCodeLine{56     \};}
-\DoxyCodeLine{57 \}}
-\DoxyCodeLine{58 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{42         \textcolor{keywordflow}{if} (predicate(utilities::as\_const(value)))}
+\DoxyCodeLine{43             subscriber.on\_next(std::forward<\textcolor{keyword}{decltype}(value)>(value));}
+\DoxyCodeLine{44     \};}
+\DoxyCodeLine{45 \}}
+\DoxyCodeLine{46 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

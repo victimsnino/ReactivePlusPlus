@@ -2,74 +2,62 @@
 \label{sources_2fwd_8h_source}\index{src/include/rpp/sources/fwd.h@{src/include/rpp/sources/fwd.h}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{// MIT License}}
-\DoxyCodeLine{2 \textcolor{comment}{// }}
-\DoxyCodeLine{3 \textcolor{comment}{// Copyright (c) 2022 Aleksey Loginov}}
-\DoxyCodeLine{4 \textcolor{comment}{// }}
-\DoxyCodeLine{5 \textcolor{comment}{// Permission is hereby granted, free of charge, to any person obtaining a copy}}
-\DoxyCodeLine{6 \textcolor{comment}{// of this software and associated documentation files (the "{}Software"{}), to deal}}
-\DoxyCodeLine{7 \textcolor{comment}{// in the Software without restriction, including without limitation the rights}}
-\DoxyCodeLine{8 \textcolor{comment}{// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}}
-\DoxyCodeLine{9 \textcolor{comment}{// copies of the Software, and to permit persons to whom the Software is}}
-\DoxyCodeLine{10 \textcolor{comment}{// furnished to do so, subject to the following conditions:}}
-\DoxyCodeLine{11 \textcolor{comment}{// }}
-\DoxyCodeLine{12 \textcolor{comment}{// The above copyright notice and this permission notice shall be included in all}}
-\DoxyCodeLine{13 \textcolor{comment}{// copies or substantial portions of the Software.}}
-\DoxyCodeLine{14 \textcolor{comment}{// }}
-\DoxyCodeLine{15 \textcolor{comment}{// THE SOFTWARE IS PROVIDED "{}AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}}
-\DoxyCodeLine{16 \textcolor{comment}{// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}}
-\DoxyCodeLine{17 \textcolor{comment}{// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}}
-\DoxyCodeLine{18 \textcolor{comment}{// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}}
-\DoxyCodeLine{19 \textcolor{comment}{// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}}
-\DoxyCodeLine{20 \textcolor{comment}{// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}}
-\DoxyCodeLine{21 \textcolor{comment}{// SOFTWARE.}}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/memory\_model.h>}}
-\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <rpp/schedulers/constraints.h>}}
-\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <rpp/schedulers/fwd.h>}}
-\DoxyCodeLine{28 }
-\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <rpp/observables/fwd.h>}}
-\DoxyCodeLine{30 }
-\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <ranges>}}
-\DoxyCodeLine{32 }
-\DoxyCodeLine{33 \textcolor{keyword}{namespace }rpp::observable}
-\DoxyCodeLine{34 \{}
-\DoxyCodeLine{35 \textcolor{comment}{//**************************** CREATE ****************//}}
-\DoxyCodeLine{36 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::on\_subscribe\_fn<Type> OnSubscribeFn>}
-\DoxyCodeLine{37 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{create}}(OnSubscribeFn\&\& on\_subscribe);}
-\DoxyCodeLine{38 }
-\DoxyCodeLine{39 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnSubscribeFn>}
-\DoxyCodeLine{40 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{create}}(OnSubscribeFn\&\& on\_subscribe);}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/memory\_model.h>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/schedulers/constraints.h>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/schedulers/fwd.h>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/observables/fwd.h>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <ranges>}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::observable}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \textcolor{comment}{//**************************** CREATE ****************//}}
+\DoxyCodeLine{24 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::on\_subscribe\_fn<Type> OnSubscribeFn>}
+\DoxyCodeLine{25 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{create}}(OnSubscribeFn\&\& on\_subscribe);}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnSubscribeFn>}
+\DoxyCodeLine{28 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{create}}(OnSubscribeFn\&\& on\_subscribe);}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{comment}{//**************************** EMPTY *****************//}}
+\DoxyCodeLine{31 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{32 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga98063c4d7ae8a8222b8d4ff1eacd6517}{empty}}();}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{comment}{//**************************** NEVER *****************//}}
+\DoxyCodeLine{35 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{36 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga091f1a238b4d205f0a1dff22b971c880}{never}}();}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{comment}{//**************************** ERROR *****************//}}
+\DoxyCodeLine{39 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{40 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga6ec535e9c756e3bf8be5b7f64fc55380}{error}}(\textcolor{keyword}{const} std::exception\_ptr\& err);}
 \DoxyCodeLine{41 }
-\DoxyCodeLine{42 \textcolor{comment}{//**************************** EMPTY *****************//}}
-\DoxyCodeLine{43 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{44 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga98063c4d7ae8a8222b8d4ff1eacd6517}{empty}}();}
+\DoxyCodeLine{42 \textcolor{comment}{//*************************** JUST ********************//}}
+\DoxyCodeLine{43 \textcolor{keyword}{template}<memory\_model memory\_model = memory\_model::use\_stack, \textcolor{keyword}{typename} T, \textcolor{keyword}{typename} ...Ts>}
+\DoxyCodeLine{44 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga9b6fdbec2962d28ae4284811e6971f27}{just}}(\textcolor{keyword}{const} schedulers::constraint::scheduler \textcolor{keyword}{auto}\& scheduler, T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (constraint::decayed\_same\_as<T, Ts> \&\& ...);}
 \DoxyCodeLine{45 }
-\DoxyCodeLine{46 \textcolor{comment}{//**************************** NEVER *****************//}}
-\DoxyCodeLine{47 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{48 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga091f1a238b4d205f0a1dff22b971c880}{never}}();}
-\DoxyCodeLine{49 }
-\DoxyCodeLine{50 \textcolor{comment}{//**************************** ERROR *****************//}}
-\DoxyCodeLine{51 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{52 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga6ec535e9c756e3bf8be5b7f64fc55380}{error}}(\textcolor{keyword}{const} std::exception\_ptr\& err);}
+\DoxyCodeLine{46 \textcolor{keyword}{template}<memory\_model memory\_model = memory\_model::use\_stack, \textcolor{keyword}{typename} T, \textcolor{keyword}{typename} ...Ts>}
+\DoxyCodeLine{47 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga9b6fdbec2962d28ae4284811e6971f27}{just}}(T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (constraint::decayed\_same\_as<T, Ts> \&\& ...);}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \textcolor{comment}{//************************** FROM ***********************//}}
+\DoxyCodeLine{50 \textcolor{keyword}{template}<memory\_model memory\_model= memory\_model::use\_stack, schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler = rpp::schedulers::immediate>}
+\DoxyCodeLine{51 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{from}}(std::ranges::range \textcolor{keyword}{auto}\&\& iterable, \textcolor{keyword}{const} TScheduler\& scheduler = TScheduler\{\});}
+\DoxyCodeLine{52 \} \textcolor{comment}{// namespace rpp::observable}}
 \DoxyCodeLine{53 }
-\DoxyCodeLine{54 \textcolor{comment}{//*************************** JUST ********************//}}
-\DoxyCodeLine{55 \textcolor{keyword}{template}<memory\_model memory\_model = memory\_model::use\_stack, \textcolor{keyword}{typename} T, \textcolor{keyword}{typename} ...Ts>}
-\DoxyCodeLine{56 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga9b6fdbec2962d28ae4284811e6971f27}{just}}(\textcolor{keyword}{const} schedulers::constraint::scheduler \textcolor{keyword}{auto}\& scheduler, T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (constraint::decayed\_same\_as<T, Ts> \&\& ...);}
-\DoxyCodeLine{57 }
-\DoxyCodeLine{58 \textcolor{keyword}{template}<memory\_model memory\_model = memory\_model::use\_stack, \textcolor{keyword}{typename} T, \textcolor{keyword}{typename} ...Ts>}
-\DoxyCodeLine{59 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga9b6fdbec2962d28ae4284811e6971f27}{just}}(T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (constraint::decayed\_same\_as<T, Ts> \&\& ...);}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{61 \textcolor{comment}{//************************** FROM ***********************//}}
-\DoxyCodeLine{62 \textcolor{keyword}{template}<memory\_model memory\_model= memory\_model::use\_stack, schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler = rpp::schedulers::immediate>}
-\DoxyCodeLine{63 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{from}}(std::ranges::range \textcolor{keyword}{auto}\&\& iterable, \textcolor{keyword}{const} TScheduler\& scheduler = TScheduler\{\});}
-\DoxyCodeLine{64 \} \textcolor{comment}{// namespace rpp::observable}}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{66 \textcolor{keyword}{namespace }rpp}
-\DoxyCodeLine{67 \{}
-\DoxyCodeLine{68 \textcolor{keyword}{namespace }source = observable;}
-\DoxyCodeLine{69 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{54 \textcolor{keyword}{namespace }rpp}
+\DoxyCodeLine{55 \{}
+\DoxyCodeLine{56 \textcolor{keyword}{namespace }source = observable;}
+\DoxyCodeLine{57 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

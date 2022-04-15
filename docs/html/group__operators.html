@@ -87,6 +87,10 @@ requires is_header_included&lt;map_tag, Callable&gt;</td></tr>
 <tr class="memitem:gae5dd31e4559517de5cf1145ff2005a86"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#gae5dd31e4559517de5cf1145ff2005a86">rpp::details::member_overload&lt; Type, SpecificObservable, map_tag &gt;::map</a> (Callable &amp;&amp;callable) const &amp;</td></tr>
 <tr class="memdesc:gae5dd31e4559517de5cf1145ff2005a86"><td class="mdescLeft">&#160;</td><td class="mdescRight">transform the items emitted by an Observable by applying a function to each item  <a href="group__operators.html#gae5dd31e4559517de5cf1145ff2005a86">More...</a><br /></td></tr>
 <tr class="separator:gae5dd31e4559517de5cf1145ff2005a86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga84ed0dcdeda6a4cb3a9871ab2817e114"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; <br />
+requires (is_header_included&lt;merge_tag, Args...&gt; &amp;&amp; rpp::constraint::observable&lt;Type&gt;)</td></tr>
+<tr class="memitem:ga84ed0dcdeda6a4cb3a9871ab2817e114"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga84ed0dcdeda6a4cb3a9871ab2817e114">rpp::details::member_overload&lt; Type, SpecificObservable, merge_tag &gt;::merge</a> () const &amp;</td></tr>
+<tr class="separator:ga84ed0dcdeda6a4cb3a9871ab2817e114"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; <br />
 requires is_header_included&lt;take_tag, Args...&gt;</td></tr>
 <tr class="memitem:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a> (size_t count) const &amp;</td></tr>
@@ -141,7 +145,7 @@ requires is_header_included&lt;filter_tag, Predicate&gt;</div>
 <div class="line">            .<a class="code hl_function" href="group__operators.html#gae2695326a24fb8534f17f0d228d3b7f2">filter</a>([](<span class="keywordtype">int</span>    v) { <span class="keywordflow">return</span> v % 2 == 0; })</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 2 4 6 8</span></div>
-<div class="ttc" id="agroup__operators_html_gae2695326a24fb8534f17f0d228d3b7f2"><div class="ttname"><a href="group__operators.html#gae2695326a24fb8534f17f0d228d3b7f2">rpp::details::member_overload&lt; Type, SpecificObservable, filter_tag &gt;::filter</a></div><div class="ttdeci">auto filter(Predicate &amp;&amp;predicate) const &amp;</div><div class="ttdoc">emit only those items from an Observable that satisfies a predicate</div><div class="ttdef"><b>Definition:</b> filter.h:61</div></div>
+<div class="ttc" id="agroup__operators_html_gae2695326a24fb8534f17f0d228d3b7f2"><div class="ttname"><a href="group__operators.html#gae2695326a24fb8534f17f0d228d3b7f2">rpp::details::member_overload&lt; Type, SpecificObservable, filter_tag &gt;::filter</a></div><div class="ttdeci">auto filter(Predicate &amp;&amp;predicate) const &amp;</div><div class="ttdoc">emit only those items from an Observable that satisfies a predicate</div><div class="ttdef"><b>Definition:</b> filter.h:49</div></div>
 </div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/filter.html">https://reactivex.io/documentation/operators/filter.html</a></dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
@@ -196,7 +200,7 @@ requires is_header_included&lt;map_tag, Callable&gt;</div>
 <div class="line">            })</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 52</span></div>
-<div class="ttc" id="agroup__operators_html_gae5dd31e4559517de5cf1145ff2005a86"><div class="ttname"><a href="group__operators.html#gae5dd31e4559517de5cf1145ff2005a86">rpp::details::member_overload&lt; Type, SpecificObservable, map_tag &gt;::map</a></div><div class="ttdeci">auto map(Callable &amp;&amp;callable) const &amp;</div><div class="ttdoc">transform the items emitted by an Observable by applying a function to each item</div><div class="ttdef"><b>Definition:</b> map.h:67</div></div>
+<div class="ttc" id="agroup__operators_html_gae5dd31e4559517de5cf1145ff2005a86"><div class="ttname"><a href="group__operators.html#gae5dd31e4559517de5cf1145ff2005a86">rpp::details::member_overload&lt; Type, SpecificObservable, map_tag &gt;::map</a></div><div class="ttdeci">auto map(Callable &amp;&amp;callable) const &amp;</div><div class="ttdoc">transform the items emitted by an Observable by applying a function to each item</div><div class="ttdef"><b>Definition:</b> map.h:55</div></div>
 </div><!-- fragment --><p >Example with changed type: </p><div class="fragment"><div class="line">    rpp::source::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
 <div class="line">            {</div>
 <div class="line">                sub.on_next(42);</div>
@@ -216,6 +220,40 @@ requires is_header_included&lt;map_tag, Callable&gt;</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the Map operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="map_8h_source.html">rpp/operators/map.h</a>&gt; </dd></dl>
+
+</div>
+</div>
+<a id="ga84ed0dcdeda6a4cb3a9871ab2817e114" name="ga84ed0dcdeda6a4cb3a9871ab2817e114"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga84ed0dcdeda6a4cb3a9871ab2817e114">&#9670;&nbsp;</a></span>merge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename ... Args&gt; <br />
+requires (is_header_included&lt;merge_tag, Args...&gt; &amp;&amp; rpp::constraint::observable&lt;Type&gt;)</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, merge_tag &gt;::merge </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >Example:</p>
+<dl class="section see"><dt>See also</dt><dd></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the merge operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="merge_8h_source.html">rpp/operators/merge.h</a>&gt; </dd></dl>
 
 </div>
 </div>
@@ -296,7 +334,7 @@ requires is_header_included&lt;take_tag, Args...&gt;</div>
 <div class="line">            .<a class="code hl_function" href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">take</a>(2)</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 1</span></div>
-<div class="ttc" id="agroup__operators_html_ga0dcb41decfa8d5ded95f828a7e65ffee"><div class="ttname"><a href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a></div><div class="ttdeci">auto take(size_t count) const &amp;</div><div class="ttdoc">emit only first Count items provided by observable</div><div class="ttdef"><b>Definition:</b> take.h:59</div></div>
+<div class="ttc" id="agroup__operators_html_ga0dcb41decfa8d5ded95f828a7e65ffee"><div class="ttname"><a href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a></div><div class="ttdeci">auto take(size_t count) const &amp;</div><div class="ttdoc">emit only first Count items provided by observable</div><div class="ttdef"><b>Definition:</b> take.h:47</div></div>
 </div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/take.html">https://reactivex.io/documentation/operators/take.html</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the Take operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="take_8h_source.html">rpp/operators/take.h</a>&gt; </dd></dl>
@@ -341,7 +379,7 @@ requires is_header_included&lt;take_while_tag, Predicate&gt;</div>
 <div class="line">            .<a class="code hl_function" href="group__operators.html#ga47773bfb0298bba2ec71502c1984cc95">take_while</a>([](<span class="keywordtype">int</span> v) { <span class="keywordflow">return</span> v != 5; })</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span>  v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 1 2 3 4</span></div>
-<div class="ttc" id="agroup__operators_html_ga47773bfb0298bba2ec71502c1984cc95"><div class="ttname"><a href="group__operators.html#ga47773bfb0298bba2ec71502c1984cc95">rpp::details::member_overload&lt; Type, SpecificObservable, take_while_tag &gt;::take_while</a></div><div class="ttdeci">auto take_while(Predicate &amp;&amp;predicate) const &amp;</div><div class="ttdoc">sends items provided by observable while satisfies predicate. When condition becomes false -&gt; termina...</div><div class="ttdef"><b>Definition:</b> take_while.h:58</div></div>
+<div class="ttc" id="agroup__operators_html_ga47773bfb0298bba2ec71502c1984cc95"><div class="ttname"><a href="group__operators.html#ga47773bfb0298bba2ec71502c1984cc95">rpp::details::member_overload&lt; Type, SpecificObservable, take_while_tag &gt;::take_while</a></div><div class="ttdeci">auto take_while(Predicate &amp;&amp;predicate) const &amp;</div><div class="ttdoc">sends items provided by observable while satisfies predicate. When condition becomes false -&gt; termina...</div><div class="ttdef"><b>Definition:</b> take_while.h:46</div></div>
 </div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/takewhile.html">https://reactivex.io/documentation/operators/takewhile.html</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the take_while operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="take__while_8h_source.html">rpp/operators/take_while.h</a>&gt; </dd></dl>
