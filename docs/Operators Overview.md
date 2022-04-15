@@ -125,4 +125,10 @@ There is two overloadings:
         .subscribe([](int v) { std::cout << v << " "; });
   // Output: 1 2
   ```
-- `merge(observables...)` merge submissions of original observable with others
+- `merge_with(observables...)` merge submissions of original observable with others
+  ```cpp
+  rpp::source::just(1)
+        .merge_with(rpp::source::just(2))
+        .subscribe([](int v) { std::cout << v << " "; });
+  // Output: 1 2
+  ```
