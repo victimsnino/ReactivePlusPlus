@@ -35,6 +35,25 @@
 namespace rpp::details
 {
 template<constraint::decayed_type Type, typename OnNext, typename OnError, typename OnCompleted>
+auto create_subscriber_with_state(auto&&                        state,
+                                  OnNext&&                      on_next,
+                                  OnError&&                     on_error,
+                                  OnCompleted&&                 on_completed)
+{
+    return specific_subscriber<Type, state_observer<Type,
+                                                    std::decay_t<decltype(state)>,
+                                                    std::decay_t<OnNext>,
+                                                    std::decay_t<OnError>,
+                                                    std::decay_t<OnCompleted>>>
+    {
+        std::forward<decltype(state)>(state),
+        on_next,
+        on_error,
+        on_completed
+    };
+}
+
+template<constraint::decayed_type Type, typename OnNext, typename OnError, typename OnCompleted>
 auto create_subscriber_with_state(const composite_subscription& sub,
                                   auto&&                        state,
                                   OnNext&&                      on_next,
