@@ -35,25 +35,58 @@
 namespace rpp::details
 {
 template<constraint::decayed_type Type, typename OnNext, typename OnError, typename OnCompleted>
-static auto make_lift_action_by_callbacks(OnNext&& on_next, OnError&& on_error, OnCompleted&& on_completed)
+auto create_subscriber_with_state(auto&&                        state,
+                                  OnNext&&                      on_next,
+                                  OnError&&                     on_error,
+                                  OnCompleted&&                 on_completed)
+{
+    return specific_subscriber<Type, state_observer<Type,
+                                                    std::decay_t<decltype(state)>,
+                                                    std::decay_t<OnNext>,
+                                                    std::decay_t<OnError>,
+                                                    std::decay_t<OnCompleted>>>
+    {
+        std::forward<decltype(state)>(state),
+        on_next,
+        on_error,
+        on_completed
+    };
+}
+
+template<constraint::decayed_type Type, typename OnNext, typename OnError, typename OnCompleted>
+auto create_subscriber_with_state(const composite_subscription& sub,
+                                  auto&&                        state,
+                                  OnNext&&                      on_next,
+                                  OnError&&                     on_error,
+                                  OnCompleted&&                 on_completed)
+{
+    return specific_subscriber<Type, state_observer<Type,
+                                                    std::decay_t<decltype(state)>,
+                                                    std::decay_t<OnNext>,
+                                                    std::decay_t<OnError>,
+                                                    std::decay_t<OnCompleted>>>
+    {
+        sub,
+        std::forward<decltype(state)>(state),
+        on_next,
+        on_error,
+        on_completed
+    };
+}
+
+template<constraint::decayed_type Type, typename OnNext, typename OnError, typename OnCompleted>
+auto make_lift_action_by_callbacks(OnNext&& on_next, OnError&& on_error, OnCompleted&& on_completed)
 {
     return [on_next = std::forward<OnNext>(on_next),
             on_error = std::forward<OnError>(on_error),
-            on_completed = std::forward<OnCompleted>(on_completed)]<constraint::subscriber TSub>(TSub&& subscriber)
+            on_completed = std::forward<OnCompleted>(on_completed)](constraint::subscriber auto&& subscriber)
     {
         auto subscription = subscriber.get_subscription();
-        return specific_subscriber<Type, state_observer<Type,
-                                                        std::decay_t<TSub>,
-                                                        std::decay_t<OnNext>,
-                                                        std::decay_t<OnError>,
-                                                        std::decay_t<OnCompleted>>>
-        {
-            subscription,
-            std::forward<TSub>(subscriber),
-            on_next,
-            on_error,
-            on_completed
-        };
+        return create_subscriber_with_state<Type>(subscription,
+                                                  std::forward<decltype(subscriber)>(subscriber),
+                                                  on_next,
+                                                  on_error,
+                                                  on_completed);
     };
 }
 
@@ -97,6 +130,7 @@ struct interface_observable
     , details::member_overload<Type, SpecificObservable, details::filter_tag>
     , details::member_overload<Type, SpecificObservable, details::take_tag>
     , details::member_overload<Type, SpecificObservable, details::take_while_tag>
+    , details::member_overload<Type, SpecificObservable, details::merge_tag>
 {
 public:
     // ********************************* LIFT DIRECT TYPE + OPERATOR: SUBSCRIBER -> SUBSCRIBER ******************//

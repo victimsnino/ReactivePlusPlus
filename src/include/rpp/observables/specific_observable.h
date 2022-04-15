@@ -33,6 +33,10 @@ public:
     specific_observable(constraint::decayed_same_as<OnSubscribeFn> auto&& on_subscribe)
         : m_state{std::forward<decltype(on_subscribe)>(on_subscribe)} {}
 
+
+    specific_observable(const specific_observable<Type, OnSubscribeFn>&)     = default;
+    specific_observable(specific_observable<Type, OnSubscribeFn>&&) noexcept = default;
+
     /**
      * \brief Converts rpp::specific_observable to rpp::dynamic_observable via type-erasure mechanism.
      */

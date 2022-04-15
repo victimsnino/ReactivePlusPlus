@@ -44,9 +44,9 @@ auto member_overload<Type, SpecificObservable, take_tag>::take_impl(size_t count
         std::atomic_size_t sent_count{};
     };
 
-    return [count]<constraint::subscriber TSub>(TSub&& subscriber)
+    return [count]<constraint::subscriber_of_type<Type> TSub>(TSub&& subscriber)
     {
-        auto action = [state = std::make_shared<state>(count)](auto&& value, const constraint::subscriber auto& subscriber)
+        auto action = [state = std::make_shared<state>(count)](auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber)
         {
             const auto old_value = state->sent_count.fetch_add(1);
             if (old_value < state->count)
@@ -58,15 +58,7 @@ auto member_overload<Type, SpecificObservable, take_tag>::take_impl(size_t count
         };
 
         auto subscription = subscriber.get_subscription();
-
-        return specific_subscriber<Type, state_observer<Type, std::decay_t<TSub>, std::decay_t<decltype(action)>>>
-        {
-            subscription,
-            std::forward<TSub>(subscriber),
-            std::move(action),
-            forwarding_on_error{},
-            forwarding_on_completed{}
-        };
+        return create_subscriber_with_state<Type>(subscription, std::forward<TSub>(subscriber), std::move(action), forwarding_on_error{}, forwarding_on_completed{});
     };
 }
 } // namespace rpp::details

@@ -21,7 +21,8 @@ add_executable(${TARGET}
     test_take.cpp
     test_take_while.cpp
     test_from.cpp
-    
+    test_merge.cpp
+
     test_lift.cpp
 
     mock_observer.h

@@ -37,7 +37,7 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 template<std::invocable<Type> Callable>
 auto member_overload<Type, SpecificObservable, map_tag>::map_impl(Callable&& callable)
 {
-    return [callable = std::forward<Callable>(callable)](auto&& value, const constraint::subscriber auto& subscriber)
+    return [callable = std::forward<Callable>(callable)](auto&& value, const constraint::subscriber_of_type<std::invoke_result_t<Callable, Type>> auto& subscriber)
     {
         subscriber.on_next(callable(utilities::as_const(std::forward<decltype(value)>(value))));
     };

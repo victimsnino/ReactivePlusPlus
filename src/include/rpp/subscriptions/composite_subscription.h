@@ -54,6 +54,13 @@ public:
         return add(static_cast<const subscription_base&>(sub));
     }
 
+    composite_subscription make_child() const
+    {
+        composite_subscription ret{};
+        add(ret);
+        return ret;
+    }
+
 private:
     class state final : public details::subscription_state
     {

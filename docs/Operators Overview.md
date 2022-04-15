@@ -109,3 +109,26 @@ rpp::source::create<int>([](const auto& sub)
         .subscribe([](int  v) { std::cout << v << " "; });
 // Output: 0 1 2 3 4
 ```
+
+## Combining
+### merge
+Combines emissions of multiple observables. Subscribes on all of them at the same time and emit items immediately as the appears.
+
+There is two overloadings:
+- `merge()` for observable (1) of observables (2): merges emissions from (2) observables
+  for example
+  ```cpp
+  rpp::source::just(rpp::source::just(1).as_dynamic(),
+                    rpp::source::never<int>().as_dynamic(),
+                    rpp::source::just(2).as_dynamic())
+        .merge()
+        .subscribe([](int v) { std::cout << v << " "; });
+  // Output: 1 2
+  ```
+- `merge_with(observables...)` merge submissions of original observable with others
+  ```cpp
+  rpp::source::just(1)
+        .merge_with(rpp::source::just(2))
+        .subscribe([](int v) { std::cout << v << " "; });
+  // Output: 1 2
+  ```

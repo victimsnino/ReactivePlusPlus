@@ -35,7 +35,7 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 template<std::predicate<const Type&> Predicate>
 auto member_overload<Type, SpecificObservable, take_while_tag>::take_while_impl(Predicate&& predicate)
 {
-    return [predicate = std::forward<Predicate>(predicate)](auto&& value, const constraint::subscriber auto& subscriber)
+    return [predicate = std::forward<Predicate>(predicate)](auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber)
     {
         if (predicate(utilities::as_const(value)))
             subscriber.on_next(std::forward<decltype(value)>(value));

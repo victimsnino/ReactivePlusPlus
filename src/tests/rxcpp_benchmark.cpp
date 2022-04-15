@@ -220,7 +220,7 @@ TEST_CASE("Subscription", "[benchmark]")
 
 TEST_CASE("foundamental sources", "[benchmark]")
 {
-    rxcpp::composite_subscription sub{};
+    auto sub = rxcpp::make_subscriber<int>();
 
     auto err = std::make_exception_ptr(std::runtime_error{""});
 
@@ -240,7 +240,7 @@ TEST_CASE("foundamental sources", "[benchmark]")
 
 TEST_CASE("just", "[benchmark]")
 {
-    rxcpp::composite_subscription sub{};
+    auto sub = rxcpp::make_subscriber<int>();
 
     BENCHMARK("just send int")
     {
@@ -255,11 +255,30 @@ TEST_CASE("just", "[benchmark]")
 
 TEST_CASE("from", "[benchmark]")
 {
-    rxcpp::composite_subscription sub{};
+    auto sub = rxcpp::make_subscriber<int>();
 
     std::vector vec{ 1 };
     BENCHMARK("from vector with int")
     {
         return rxcpp::sources::iterate(vec).subscribe(sub);
+    };
+}
+
+TEST_CASE("merge", "[benchmark]")
+{
+    auto sub = rxcpp::make_subscriber<int>();
+
+    BENCHMARK("merge")
+    {
+        return from(rxcpp::sources::just(1),
+                    rxcpp::sources::just(2))
+               .merge()
+               .subscribe(sub);
+    };
+    BENCHMARK("merge_with")
+    {
+        return rxcpp::sources::just(1)
+               .merge(rxcpp::sources::just(2))
+               .subscribe(sub);
     };
 }
