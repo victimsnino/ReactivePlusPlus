@@ -11,10 +11,13 @@
 #pragma once
 
 #include <rpp/observables/fwd.h>
+#include <rpp/observables/type_traits.h>
 
 #include <type_traits>
 
 namespace rpp::constraint
 {
 template<typename T> concept observable = std::is_base_of_v<details::observable_tag, std::decay_t<T>>;
+
+template<typename T, typename Type> concept observable_of_type = observable<T> && std::is_same_v<utils::extract_observable_type_t<T>, Type>;
 } // namespace rpp::constraint

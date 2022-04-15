@@ -33,7 +33,7 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, merge_tag>
 {
     /**
-    * \brief combine submissions from observables into one
+    * \brief combine submissions from observables inside this observable into one
     *
     * \details this overloading of Merge operator can be applied for observable of observables and will merge emissions of observables inside root observable
     *	
@@ -57,7 +57,35 @@ struct member_overload<Type, SpecificObservable, merge_tag>
         return std::move(*static_cast<SpecificObservable*>(this)).template lift<utils::extract_observable_type_t<Type>>(merge_impl());
     }
 
+    /**
+    * \brief combine submissions from current observable with other observables into one
+    *
+    * \details this overloading of Merge operator can be applied to any observable to merge emissions with other observables from arguments
+    *
+    * Example:
+    * \snippet merge.cpp merge_with
+    * \see https://reactivex.io/documentation/operators/merge.html
+    *
+    * \return new specific_observable with the merge operator as most recent operator.
+    * \warning #include <rpp/operators/merge.h>
+    * \ingroup operators
+    */
+    template<constraint::observable_of_type<Type> ...TObservables>
+    auto merge_with(TObservables&&... observables) const& requires (is_header_included<merge_tag, TObservables...>&& sizeof...(TObservables) >= 1)
+    {
+        return static_cast<const SpecificObservable*>(this)->op(merge_with_impl(std::forward<TObservables>(observables)...));
+    }
+
+    template<constraint::observable_of_type<Type> ...TObservables>
+    auto merge_with(TObservables&&... observables) && requires (is_header_included<merge_tag, TObservables...> && sizeof...(TObservables) >= 1)
+    {
+        return std::move(*static_cast<SpecificObservable*>(this)).op(merge_with_impl(std::forward<TObservables>(observables)...));
+    }
+
 private:
     static auto merge_impl();
+
+    template<constraint::observable_of_type<Type> ...TObservables>
+    static auto merge_with_impl(TObservables&& ...observables) requires (sizeof...(TObservables) >= 1);
 };
 } // namespace rpp::details

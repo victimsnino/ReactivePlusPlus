@@ -15,6 +15,7 @@
 #include <rpp/subscribers/constraints.h>
 #include <rpp/subscriptions/composite_subscription.h>
 #include <rpp/observers/state_observer.h>
+#include <rpp/sources/just.h>
 
 #include <atomic>
 #include <memory>
@@ -71,6 +72,16 @@ auto member_overload<Type, SpecificObservable, merge_tag>::merge_impl()
         };
 
         return create_proxy_subscriber<Type>(std::forward<TSub>(subscriber), count_of_on_completed_required, std::move(on_new_observable));
+    };
+}
+
+template<constraint::decayed_type Type, typename SpecificObservable>
+template<constraint::observable_of_type<Type> ... TObservables>
+auto member_overload<Type, SpecificObservable, merge_tag>::merge_with_impl(TObservables&&... observables) requires (sizeof...(TObservables) >= 1)
+{
+    return [...observables = std::forward<TObservables>(observables)]<constraint::observable TObs>(TObs&& obs)
+    {
+        return rpp::source::just(std::forward<TObs>(obs).as_dynamic(), std::move(observables).as_dynamic()...).merge();
     };
 }
 } // namespace rpp::details

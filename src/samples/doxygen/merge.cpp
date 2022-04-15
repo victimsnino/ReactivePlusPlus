@@ -14,5 +14,12 @@ int main()
             .subscribe([](int v) { std::cout << v << " "; });
     // Output: 1 2
     //! [merge]
+
+    //! [merge_with]
+    rpp::source::just(1)
+            .merge_with(rpp::source::just(2))
+            .subscribe([](int v) { std::cout << v << " "; });
+    // Output: 1 2
+    //! [merge_with]
     return 0;
 }
