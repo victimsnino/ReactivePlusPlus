@@ -17,8 +17,6 @@ class \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+ob
 \item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ }\\auto \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{rpp\+::observable\+::create}} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} with passed action as On\+Subscribe. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename On\+Subscribe\+Fn $>$ }\\auto \mbox{\hyperlink{group__observables_ga7c355ad67fb60d523e6d05604638bae2}{rpp\+::observable\+::create}} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
-\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with passed action as On\+Subscribe and deduce type of observable by this function. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\auto \mbox{\hyperlink{group__observables_ga98063c4d7ae8a8222b8d4ff1eacd6517}{rpp\+::observable\+::empty}} ()
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits no items but terminates normally. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\auto \mbox{\hyperlink{group__observables_ga6ec535e9c756e3bf8be5b7f64fc55380}{rpp\+::observable\+::error}} (const std\+::exception\+\_\+ptr \&err)
@@ -47,13 +45,15 @@ Observable is the source of any Reactive Stream. Observable provides ability to 
 \mbox{\Hypertarget{group__observables_gaa70991953a96a64c95d7566ff7069f6b}\label{group__observables_gaa70991953a96a64c95d7566ff7069f6b}} 
 \index{Observables@{Observables}!create@{create}}
 \index{create@{create}!Observables@{Observables}}
-\doxysubsubsection{\texorpdfstring{create()}{create()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ \\
 auto rpp\+::observable\+::create (\begin{DoxyParamCaption}\item[{On\+Subscribe\+Fn \&\&}]{on\+\_\+subscribe }\end{DoxyParamCaption})}
 
 
 
 Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} with passed action as On\+Subscribe. 
+
+Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with passed action as On\+Subscribe and deduce type of observable by this function.
 
 
 \begin{DoxyTemplParams}{Template Parameters}
@@ -99,25 +99,13 @@ Examples\+:
 
 
 \begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}} 
+\href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}}
 \end{DoxySeeAlso}
-\begin{Desc}
-\item[Examples]\par
-\mbox{\hyperlink{create_8cpp-example}{create.\+cpp}}.\end{Desc}
-\mbox{\Hypertarget{group__observables_ga7c355ad67fb60d523e6d05604638bae2}\label{group__observables_ga7c355ad67fb60d523e6d05604638bae2}} 
-\index{Observables@{Observables}!create@{create}}
-\index{create@{create}!Observables@{Observables}}
-\doxysubsubsection{\texorpdfstring{create()}{create()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$typename On\+Subscribe\+Fn $>$ \\
-auto rpp\+::observable\+::create (\begin{DoxyParamCaption}\item[{On\+Subscribe\+Fn \&\&}]{on\+\_\+subscribe }\end{DoxyParamCaption})}
-
-
-
-Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with passed action as On\+Subscribe and deduce type of observable by this function. 
-
 
 \begin{DoxyTemplParams}{Template Parameters}
 {\em On\+Subscribe\+Fn} & action called after subscription on this observable \\
+\hline
+{\em Type} & type of values deduced by argument of function \\
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyReturn}{Returns}
@@ -159,6 +147,9 @@ Examples\+:
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}} 
 \end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{create_8cpp-example}{create.\+cpp}}.\end{Desc}
 \mbox{\Hypertarget{group__observables_ga98063c4d7ae8a8222b8d4ff1eacd6517}\label{group__observables_ga98063c4d7ae8a8222b8d4ff1eacd6517}} 
 \index{Observables@{Observables}!empty@{empty}}
 \index{empty@{empty}!Observables@{Observables}}
@@ -248,6 +239,9 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/from.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/from.\+html}} 
 \end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{from_8cpp-example}{from.\+cpp}}.\end{Desc}
 \mbox{\Hypertarget{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}\label{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}} 
 \index{Observables@{Observables}!just@{just}}
 \index{just@{just}!Observables@{Observables}}
@@ -302,7 +296,7 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \end{DoxySeeAlso}
 \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{just_8cpp-example}{just.\+cpp}}.\end{Desc}
+\mbox{\hyperlink{just_8cpp-example}{just.\+cpp}}, and \mbox{\hyperlink{merge_8cpp-example}{merge.\+cpp}}.\end{Desc}
 \mbox{\Hypertarget{group__observables_ga9b6fdbec2962d28ae4284811e6971f27}\label{group__observables_ga9b6fdbec2962d28ae4284811e6971f27}} 
 \index{Observables@{Observables}!just@{just}}
 \index{just@{just}!Observables@{Observables}}

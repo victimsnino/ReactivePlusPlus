@@ -48,9 +48,9 @@
 \DoxyCodeLine{44         std::atomic\_size\_t sent\_count\{\};}
 \DoxyCodeLine{45     \};}
 \DoxyCodeLine{46 }
-\DoxyCodeLine{47     \textcolor{keywordflow}{return} [count]<constraint::subscriber TSub>(TSub\&\& subscriber)}
+\DoxyCodeLine{47     \textcolor{keywordflow}{return} [count]<constraint::subscriber\_of\_type<Type> TSub>(TSub\&\& subscriber)}
 \DoxyCodeLine{48     \{}
-\DoxyCodeLine{49         \textcolor{keyword}{auto} action = [state = std::make\_shared<state>(count)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{49         \textcolor{keyword}{auto} action = [state = std::make\_shared<state>(count)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
 \DoxyCodeLine{50         \{}
 \DoxyCodeLine{51             \textcolor{keyword}{const} \textcolor{keyword}{auto} old\_value = state-\/>sent\_count.fetch\_add(1);}
 \DoxyCodeLine{52             \textcolor{keywordflow}{if} (old\_value < state-\/>count)}
@@ -62,17 +62,9 @@
 \DoxyCodeLine{58         \};}
 \DoxyCodeLine{59 }
 \DoxyCodeLine{60         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{62         \textcolor{keywordflow}{return} specific\_subscriber<Type, state\_observer<Type, std::decay\_t<TSub>, std::decay\_t<\textcolor{keyword}{decltype}(action)>>>}
-\DoxyCodeLine{63         \{}
-\DoxyCodeLine{64             subscription,}
-\DoxyCodeLine{65             std::forward<TSub>(subscriber),}
-\DoxyCodeLine{66             std::move(action),}
-\DoxyCodeLine{67             forwarding\_on\_error\{\},}
-\DoxyCodeLine{68             forwarding\_on\_completed\{\}}
-\DoxyCodeLine{69         \};}
-\DoxyCodeLine{70     \};}
-\DoxyCodeLine{71 \}}
-\DoxyCodeLine{72 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{61         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(subscription, std::forward<TSub>(subscriber), std::move(action), forwarding\_on\_error\{\}, forwarding\_on\_completed\{\});}
+\DoxyCodeLine{62     \};}
+\DoxyCodeLine{63 \}}
+\DoxyCodeLine{64 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

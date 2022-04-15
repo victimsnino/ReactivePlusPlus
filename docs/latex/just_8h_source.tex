@@ -39,7 +39,7 @@
 \DoxyCodeLine{60 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{just}}(\textcolor{keyword}{const} schedulers::constraint::scheduler \textcolor{keyword}{auto}\& scheduler, T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (constraint::decayed\_same\_as<T, Ts> \&\& ...)}
 \DoxyCodeLine{61 \{}
 \DoxyCodeLine{62     \textcolor{keyword}{using} DT = std::decay\_t<T>;}
-\DoxyCodeLine{63     \textcolor{keywordflow}{return} create<DT>([=, items = details::pack\_variadic<memory\_model, DT>(std::forward<T>(item), std::forward<Ts>(items)...)](\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{63     \textcolor{keywordflow}{return} create<DT>([=, items = details::pack\_variadic<memory\_model, DT>(std::forward<T>(item), std::forward<Ts>(items)...)](\textcolor{keyword}{const} constraint::subscriber\_of\_type<DT> \textcolor{keyword}{auto}\& subscriber)}
 \DoxyCodeLine{64     \{}
 \DoxyCodeLine{65         details::iterate(items, scheduler, subscriber);}
 \DoxyCodeLine{66     \});}

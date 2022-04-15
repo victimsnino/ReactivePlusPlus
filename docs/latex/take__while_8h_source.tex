@@ -39,7 +39,7 @@
 \DoxyCodeLine{35 \textcolor{keyword}{template}<std::predicate<const Type\&> Predicate>}
 \DoxyCodeLine{36 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, take\_while\_tag>::take\_while\_impl(Predicate\&\& predicate)}
 \DoxyCodeLine{37 \{}
-\DoxyCodeLine{38     \textcolor{keywordflow}{return} [predicate = std::forward<Predicate>(predicate)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{38     \textcolor{keywordflow}{return} [predicate = std::forward<Predicate>(predicate)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
 \DoxyCodeLine{39     \{}
 \DoxyCodeLine{40         \textcolor{keywordflow}{if} (predicate(utilities::as\_const(value)))}
 \DoxyCodeLine{41             subscriber.on\_next(std::forward<\textcolor{keyword}{decltype}(value)>(value));}

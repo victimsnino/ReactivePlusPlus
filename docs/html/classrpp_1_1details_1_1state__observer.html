@@ -113,7 +113,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7d24b5c70f82c0a4c1f756caf54df267"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;constraint::decayed_type T, constraint::decayed_type State, std::invocable&lt; T, State &gt; OnNext, std::invocable&lt; std::exception_ptr, State &gt; OnError = forwarding_on_error, std::invocable&lt; State &gt; OnCompleted = forwarding_on_completed&gt;<br />
+<div class="textblock"><div class="compoundTemplParams">template&lt;constraint::decayed_type T, constraint::decayed_type State, std::invocable&lt; T, State &gt; OnNext = forwarding_on_next, std::invocable&lt; std::exception_ptr, State &gt; OnError = forwarding_on_error, std::invocable&lt; State &gt; OnCompleted = forwarding_on_completed&gt;<br />
 class rpp::details::state_observer&lt; T, State, OnNext, OnError, OnCompleted &gt;</div><p >Special type of <a class="el" href="classrpp_1_1specific__observer.html" title="Observer specified with specific template types of callbacks to avoid extra heap usage.">specific_observer</a> which has some state which this observer stores and pass to each callback. Used for storing subscriber without extra copies. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a7d24b5c70f82c0a4c1f756caf54df267" name="a7d24b5c70f82c0a4c1f756caf54df267"></a>
@@ -122,7 +122,7 @@ class rpp::details::state_observer&lt; T, State, OnNext, OnError, OnCompleted &g
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::decayed_type T, constraint::decayed_type State, std::invocable&lt; T, State &gt; OnNext, std::invocable&lt; std::exception_ptr, State &gt; OnError = forwarding_on_error, std::invocable&lt; State &gt; OnCompleted = forwarding_on_completed&gt; </div>
+template&lt;constraint::decayed_type T, constraint::decayed_type State, std::invocable&lt; T, State &gt; OnNext = forwarding_on_next, std::invocable&lt; std::exception_ptr, State &gt; OnError = forwarding_on_error, std::invocable&lt; State &gt; OnCompleted = forwarding_on_completed&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -154,7 +154,7 @@ template&lt;constraint::decayed_type T, constraint::decayed_type State, std::inv
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::decayed_type T, constraint::decayed_type State, std::invocable&lt; T, State &gt; OnNext, std::invocable&lt; std::exception_ptr, State &gt; OnError = forwarding_on_error, std::invocable&lt; State &gt; OnCompleted = forwarding_on_completed&gt; </div>
+template&lt;constraint::decayed_type T, constraint::decayed_type State, std::invocable&lt; T, State &gt; OnNext = forwarding_on_next, std::invocable&lt; std::exception_ptr, State &gt; OnError = forwarding_on_error, std::invocable&lt; State &gt; OnCompleted = forwarding_on_completed&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -193,7 +193,7 @@ template&lt;constraint::decayed_type T, constraint::decayed_type State, std::inv
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::decayed_type T, constraint::decayed_type State, std::invocable&lt; T, State &gt; OnNext, std::invocable&lt; std::exception_ptr, State &gt; OnError = forwarding_on_error, std::invocable&lt; State &gt; OnCompleted = forwarding_on_completed&gt; </div>
+template&lt;constraint::decayed_type T, constraint::decayed_type State, std::invocable&lt; T, State &gt; OnNext = forwarding_on_next, std::invocable&lt; std::exception_ptr, State &gt; OnError = forwarding_on_error, std::invocable&lt; State &gt; OnCompleted = forwarding_on_completed&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -226,7 +226,7 @@ template&lt;constraint::decayed_type T, constraint::decayed_type State, std::inv
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::decayed_type T, constraint::decayed_type State, std::invocable&lt; T, State &gt; OnNext, std::invocable&lt; std::exception_ptr, State &gt; OnError = forwarding_on_error, std::invocable&lt; State &gt; OnCompleted = forwarding_on_completed&gt; </div>
+template&lt;constraint::decayed_type T, constraint::decayed_type State, std::invocable&lt; T, State &gt; OnNext = forwarding_on_next, std::invocable&lt; std::exception_ptr, State &gt; OnError = forwarding_on_error, std::invocable&lt; State &gt; OnCompleted = forwarding_on_completed&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">

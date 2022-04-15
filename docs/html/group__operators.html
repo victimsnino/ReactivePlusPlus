@@ -87,6 +87,16 @@ requires is_header_included&lt;map_tag, Callable&gt;</td></tr>
 <tr class="memitem:gae5dd31e4559517de5cf1145ff2005a86"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#gae5dd31e4559517de5cf1145ff2005a86">rpp::details::member_overload&lt; Type, SpecificObservable, map_tag &gt;::map</a> (Callable &amp;&amp;callable) const &amp;</td></tr>
 <tr class="memdesc:gae5dd31e4559517de5cf1145ff2005a86"><td class="mdescLeft">&#160;</td><td class="mdescRight">transform the items emitted by an Observable by applying a function to each item  <a href="group__operators.html#gae5dd31e4559517de5cf1145ff2005a86">More...</a><br /></td></tr>
 <tr class="separator:gae5dd31e4559517de5cf1145ff2005a86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga84ed0dcdeda6a4cb3a9871ab2817e114"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; <br />
+requires (is_header_included&lt;merge_tag, Args...&gt; &amp;&amp; rpp::constraint::observable&lt;Type&gt;)</td></tr>
+<tr class="memitem:ga84ed0dcdeda6a4cb3a9871ab2817e114"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga84ed0dcdeda6a4cb3a9871ab2817e114">rpp::details::member_overload&lt; Type, SpecificObservable, merge_tag &gt;::merge</a> () const &amp;</td></tr>
+<tr class="memdesc:ga84ed0dcdeda6a4cb3a9871ab2817e114"><td class="mdescLeft">&#160;</td><td class="mdescRight">combine submissions from observables inside this observable into one  <a href="group__operators.html#ga84ed0dcdeda6a4cb3a9871ab2817e114">More...</a><br /></td></tr>
+<tr class="separator:ga84ed0dcdeda6a4cb3a9871ab2817e114"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafa55b14eec1c6c40b8655e20c6edf5b2"><td class="memTemplParams" colspan="2">template&lt;constraint::observable_of_type&lt; Type &gt; ... TObservables&gt; <br />
+requires (is_header_included&lt;merge_tag, TObservables...&gt;&amp;&amp; sizeof...(TObservables) &gt;= 1)</td></tr>
+<tr class="memitem:gafa55b14eec1c6c40b8655e20c6edf5b2"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#gafa55b14eec1c6c40b8655e20c6edf5b2">rpp::details::member_overload&lt; Type, SpecificObservable, merge_tag &gt;::merge_with</a> (TObservables &amp;&amp;... observables) const &amp;</td></tr>
+<tr class="memdesc:gafa55b14eec1c6c40b8655e20c6edf5b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">combine submissions from current observable with other observables into one  <a href="group__operators.html#gafa55b14eec1c6c40b8655e20c6edf5b2">More...</a><br /></td></tr>
+<tr class="separator:gafa55b14eec1c6c40b8655e20c6edf5b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; <br />
 requires is_header_included&lt;take_tag, Args...&gt;</td></tr>
 <tr class="memitem:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a> (size_t count) const &amp;</td></tr>
@@ -216,6 +226,90 @@ requires is_header_included&lt;map_tag, Callable&gt;</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the Map operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="map_8h_source.html">rpp/operators/map.h</a>&gt; </dd></dl>
+
+</div>
+</div>
+<a id="ga84ed0dcdeda6a4cb3a9871ab2817e114" name="ga84ed0dcdeda6a4cb3a9871ab2817e114"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga84ed0dcdeda6a4cb3a9871ab2817e114">&#9670;&nbsp;</a></span>merge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename ... Args&gt; <br />
+requires (is_header_included&lt;merge_tag, Args...&gt; &amp;&amp; rpp::constraint::observable&lt;Type&gt;)</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, merge_tag &gt;::merge </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>combine submissions from observables inside this observable into one </p>
+<p >this overloading of Merge operator can be applied for observable of observables and will merge emissions of observables inside root observable</p>
+<p >Example: </p><div class="fragment"><div class="line">    <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(<a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(1).as_dynamic(),</div>
+<div class="line">                      rpp::source::never&lt;int&gt;().as_dynamic(),</div>
+<div class="line">                      <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(2).as_dynamic())</div>
+<div class="line">            .merge()</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 1 2</span></div>
+<div class="ttc" id="agroup__observables_html_ga819797b9fb7452311dedc62aa94d1f7b"><div class="ttname"><a href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> just.h:60</div></div>
+</div><!-- fragment --> <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/merge.html">https://reactivex.io/documentation/operators/merge.html</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the merge operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="merge_8h_source.html">rpp/operators/merge.h</a>&gt; </dd></dl>
+
+</div>
+</div>
+<a id="gafa55b14eec1c6c40b8655e20c6edf5b2" name="gafa55b14eec1c6c40b8655e20c6edf5b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafa55b14eec1c6c40b8655e20c6edf5b2">&#9670;&nbsp;</a></span>merge_with()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;constraint::observable_of_type&lt; Type &gt; ... TObservables&gt; <br />
+requires (is_header_included&lt;merge_tag, TObservables...&gt;&amp;&amp; sizeof...(TObservables) &gt;= 1)</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, merge_tag &gt;::merge_with </td>
+          <td>(</td>
+          <td class="paramtype">TObservables &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>observables</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>combine submissions from current observable with other observables into one </p>
+<p >this overloading of Merge operator can be applied to any observable to merge emissions with other observables from arguments</p>
+<p >Example: </p><div class="fragment"><div class="line">    <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(1)</div>
+<div class="line">            .merge_with(<a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(2))</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 1 2</span></div>
+</div><!-- fragment --> <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/merge.html">https://reactivex.io/documentation/operators/merge.html</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the merge operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="merge_8h_source.html">rpp/operators/merge.h</a>&gt; </dd></dl>
 
 </div>
 </div>

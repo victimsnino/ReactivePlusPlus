@@ -38,7 +38,7 @@ void \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a7d24b5c70f82c0a4c1
 
 
 \doxysubsection{Detailed Description}
-\subsubsection*{template$<$constraint\+::decayed\+\_\+type T, constraint\+::decayed\+\_\+type State, std\+::invocable$<$ T, State $>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, State $>$ On\+Error = forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ State $>$ On\+Completed = forwarding\+\_\+on\+\_\+completed$>$\newline
+\subsubsection*{template$<$constraint\+::decayed\+\_\+type T, constraint\+::decayed\+\_\+type State, std\+::invocable$<$ T, State $>$ On\+Next = forwarding\+\_\+on\+\_\+next, std\+::invocable$<$ std\+::exception\+\_\+ptr, State $>$ On\+Error = forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ State $>$ On\+Completed = forwarding\+\_\+on\+\_\+completed$>$\newline
 class rpp\+::details\+::state\+\_\+observer$<$ T, State, On\+Next, On\+Error, On\+Completed $>$}
 Special type of \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\+\_\+observer}} which has some state which this observer stores and pass to each callback. Used for storing subscriber without extra copies. 
 
@@ -47,7 +47,7 @@ Special type of \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\+\_\+o
 \index{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}!on\_completed@{on\_completed}}
 \index{on\_completed@{on\_completed}!rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}}
 \doxysubsubsection{\texorpdfstring{on\_completed()}{on\_completed()}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type T, constraint\+::decayed\+\_\+type State, std\+::invocable$<$ T, State $>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, State $>$ On\+Error = forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ State $>$ On\+Completed = forwarding\+\_\+on\+\_\+completed$>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type T, constraint\+::decayed\+\_\+type State, std\+::invocable$<$ T, State $>$ On\+Next = forwarding\+\_\+on\+\_\+next, std\+::invocable$<$ std\+::exception\+\_\+ptr, State $>$ On\+Error = forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ State $>$ On\+Completed = forwarding\+\_\+on\+\_\+completed$>$ \\
 void \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{rpp\+::details\+::state\+\_\+observer}}$<$ T, State, On\+Next, On\+Error, On\+Completed $>$\+::on\+\_\+completed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
@@ -65,7 +65,7 @@ Implements \mbox{\hyperlink{structrpp_1_1interface__observer_a33ab3fa364e11b58e4
 \index{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}!on\_error@{on\_error}}
 \index{on\_error@{on\_error}!rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}}
 \doxysubsubsection{\texorpdfstring{on\_error()}{on\_error()}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type T, constraint\+::decayed\+\_\+type State, std\+::invocable$<$ T, State $>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, State $>$ On\+Error = forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ State $>$ On\+Completed = forwarding\+\_\+on\+\_\+completed$>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type T, constraint\+::decayed\+\_\+type State, std\+::invocable$<$ T, State $>$ On\+Next = forwarding\+\_\+on\+\_\+next, std\+::invocable$<$ std\+::exception\+\_\+ptr, State $>$ On\+Error = forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ State $>$ On\+Completed = forwarding\+\_\+on\+\_\+completed$>$ \\
 void \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{rpp\+::details\+::state\+\_\+observer}}$<$ T, State, On\+Next, On\+Error, On\+Completed $>$\+::on\+\_\+error (\begin{DoxyParamCaption}\item[{const std\+::exception\+\_\+ptr \&}]{err }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
@@ -88,7 +88,7 @@ Implements \mbox{\hyperlink{structrpp_1_1interface__observer_a75f46a05b81cdc26b9
 \index{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}!on\_next@{on\_next}}
 \index{on\_next@{on\_next}!rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}}
 \doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type T, constraint\+::decayed\+\_\+type State, std\+::invocable$<$ T, State $>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, State $>$ On\+Error = forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ State $>$ On\+Completed = forwarding\+\_\+on\+\_\+completed$>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type T, constraint\+::decayed\+\_\+type State, std\+::invocable$<$ T, State $>$ On\+Next = forwarding\+\_\+on\+\_\+next, std\+::invocable$<$ std\+::exception\+\_\+ptr, State $>$ On\+Error = forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ State $>$ On\+Completed = forwarding\+\_\+on\+\_\+completed$>$ \\
 void \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{rpp\+::details\+::state\+\_\+observer}}$<$ T, State, On\+Next, On\+Error, On\+Completed $>$\+::on\+\_\+next (\begin{DoxyParamCaption}\item[{const T \&}]{v }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
@@ -106,7 +106,7 @@ Implements \mbox{\hyperlink{structrpp_1_1interface__observer_aa434bd87b9be8e727e
 \index{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}!on\_next@{on\_next}}
 \index{on\_next@{on\_next}!rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}}
 \doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type T, constraint\+::decayed\+\_\+type State, std\+::invocable$<$ T, State $>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, State $>$ On\+Error = forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ State $>$ On\+Completed = forwarding\+\_\+on\+\_\+completed$>$ \\
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type T, constraint\+::decayed\+\_\+type State, std\+::invocable$<$ T, State $>$ On\+Next = forwarding\+\_\+on\+\_\+next, std\+::invocable$<$ std\+::exception\+\_\+ptr, State $>$ On\+Error = forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ State $>$ On\+Completed = forwarding\+\_\+on\+\_\+completed$>$ \\
 void \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{rpp\+::details\+::state\+\_\+observer}}$<$ T, State, On\+Next, On\+Error, On\+Completed $>$\+::on\+\_\+next (\begin{DoxyParamCaption}\item[{T \&\&}]{v }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 

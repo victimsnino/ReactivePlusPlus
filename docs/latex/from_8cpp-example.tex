@@ -1,0 +1,28 @@
+\hypertarget{from_8cpp-example}{}\doxysection{from.\+cpp}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
+\DoxyCodeLine{        \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{rpp::source::from}}(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
+\DoxyCodeLine{        rpp::source::from<rpp::memory\_model::use\_shared>(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
+\DoxyCodeLine{        \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{rpp::source::from}}(vals, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

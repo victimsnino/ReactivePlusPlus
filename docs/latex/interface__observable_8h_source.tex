@@ -27,178 +27,212 @@
 \DoxyCodeLine{35 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{36 \{}
 \DoxyCodeLine{37 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} OnNext, \textcolor{keyword}{typename} OnError, \textcolor{keyword}{typename} OnCompleted>}
-\DoxyCodeLine{38 \textcolor{keyword}{static} \textcolor{keyword}{auto} make\_lift\_action\_by\_callbacks(OnNext\&\& on\_next, OnError\&\& on\_error, OnCompleted\&\& on\_completed)}
-\DoxyCodeLine{39 \{}
-\DoxyCodeLine{40     \textcolor{keywordflow}{return} [on\_next = std::forward<OnNext>(on\_next),}
-\DoxyCodeLine{41             on\_error = std::forward<OnError>(on\_error),}
-\DoxyCodeLine{42             on\_completed = std::forward<OnCompleted>(on\_completed)]<constraint::subscriber TSub>(TSub\&\& subscriber)}
-\DoxyCodeLine{43     \{}
-\DoxyCodeLine{44         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
-\DoxyCodeLine{45         \textcolor{keywordflow}{return} specific\_subscriber<Type, state\_observer<Type,}
-\DoxyCodeLine{46                                                         std::decay\_t<TSub>,}
-\DoxyCodeLine{47                                                         std::decay\_t<OnNext>,}
-\DoxyCodeLine{48                                                         std::decay\_t<OnError>,}
-\DoxyCodeLine{49                                                         std::decay\_t<OnCompleted>>>}
-\DoxyCodeLine{50         \{}
-\DoxyCodeLine{51             subscription,}
-\DoxyCodeLine{52             std::forward<TSub>(subscriber),}
-\DoxyCodeLine{53             on\_next,}
-\DoxyCodeLine{54             on\_error,}
-\DoxyCodeLine{55             on\_completed}
-\DoxyCodeLine{56         \};}
-\DoxyCodeLine{57     \};}
-\DoxyCodeLine{58 \}}
-\DoxyCodeLine{59 }
-\DoxyCodeLine{60 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1observable__tag}{observable\_tag}} \{\};}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{62 }
-\DoxyCodeLine{63 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} NewType>}
-\DoxyCodeLine{64 \textcolor{keyword}{concept }lift\_fn = constraint::subscriber<std::invoke\_result\_t<T, dynamic\_subscriber<NewType>>>;}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{66 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} TObservable>}
-\DoxyCodeLine{67 \textcolor{keyword}{concept }op\_fn = constraint::observable<std::invoke\_result\_t<T, TObservable>>;}
-\DoxyCodeLine{68 \} \textcolor{comment}{// namespace rpp::details}}
-\DoxyCodeLine{69 }
-\DoxyCodeLine{70 \textcolor{keyword}{namespace }rpp}
-\DoxyCodeLine{71 \{}
-\DoxyCodeLine{76 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{77 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1virtual__observable}{virtual\_observable}} : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1details_1_1observable__tag}{details::observable\_tag}}}
-\DoxyCodeLine{78 \{}
-\DoxyCodeLine{79     \textcolor{keyword}{virtual}              \mbox{\hyperlink{structrpp_1_1virtual__observable}{\string~virtual\_observable}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{80 }
-\DoxyCodeLine{85     \textcolor{keyword}{virtual} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}} \mbox{\hyperlink{structrpp_1_1virtual__observable_a21c5a4bcb56911deb4e86dd39028d64f}{subscribe}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<Type>}}\& subscriber) \textcolor{keyword}{const} \textcolor{keyword}{noexcept} = 0;}
-\DoxyCodeLine{86 \};}
-\DoxyCodeLine{87 }
-\DoxyCodeLine{93 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{94 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1interface__observable}{interface\_observable}}}
-\DoxyCodeLine{95     : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1virtual__observable}{virtual\_observable}}<Type>}
-\DoxyCodeLine{96     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::map\_tag>}
-\DoxyCodeLine{97     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::filter\_tag>}
-\DoxyCodeLine{98     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::take\_tag>}
-\DoxyCodeLine{99     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::take\_while\_tag>}
-\DoxyCodeLine{100 \{}
-\DoxyCodeLine{101 \textcolor{keyword}{public}:}
-\DoxyCodeLine{102     \textcolor{comment}{// ********************************* LIFT DIRECT TYPE + OPERATOR: SUBSCRIBER -\/> SUBSCRIBER ******************//}}
-\DoxyCodeLine{109 \textcolor{comment}{}    \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType>}
-\DoxyCodeLine{110     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_ac6c66ddf2ceb4d398044a17e53db13eb}{lift}}(details::lift\_fn<NewType> \textcolor{keyword}{auto}\&\& \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}) \textcolor{keyword}{const} \&}
-\DoxyCodeLine{111     \{}
-\DoxyCodeLine{112         \textcolor{keywordflow}{return} lift\_impl<NewType>(std::forward<\textcolor{keyword}{decltype}(\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}})>(\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}), CastThis());}
-\DoxyCodeLine{113     \}}
-\DoxyCodeLine{114 }
-\DoxyCodeLine{115     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType>}
-\DoxyCodeLine{116     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_ac6c66ddf2ceb4d398044a17e53db13eb}{lift}}(details::lift\_fn<NewType> \textcolor{keyword}{auto}\&\& \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}) \&\&}
-\DoxyCodeLine{117     \{}
-\DoxyCodeLine{118         \textcolor{keywordflow}{return} lift\_impl<NewType>(std::forward<\textcolor{keyword}{decltype}(\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}})>(\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}), MoveThis());}
-\DoxyCodeLine{119     \}}
+\DoxyCodeLine{38 \textcolor{keyword}{auto} create\_subscriber\_with\_state(\textcolor{keyword}{auto}\&\&                        state,}
+\DoxyCodeLine{39                                   OnNext\&\&                      on\_next,}
+\DoxyCodeLine{40                                   OnError\&\&                     on\_error,}
+\DoxyCodeLine{41                                   OnCompleted\&\&                 on\_completed)}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43     \textcolor{keywordflow}{return} specific\_subscriber<Type, state\_observer<Type,}
+\DoxyCodeLine{44                                                     std::decay\_t<\textcolor{keyword}{decltype}(state)>,}
+\DoxyCodeLine{45                                                     std::decay\_t<OnNext>,}
+\DoxyCodeLine{46                                                     std::decay\_t<OnError>,}
+\DoxyCodeLine{47                                                     std::decay\_t<OnCompleted>>>}
+\DoxyCodeLine{48     \{}
+\DoxyCodeLine{49         std::forward<decltype(state)>(state),}
+\DoxyCodeLine{50         on\_next,}
+\DoxyCodeLine{51         on\_error,}
+\DoxyCodeLine{52         on\_completed}
+\DoxyCodeLine{53     \};}
+\DoxyCodeLine{54 \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} OnNext, \textcolor{keyword}{typename} OnError, \textcolor{keyword}{typename} OnCompleted>}
+\DoxyCodeLine{57 \textcolor{keyword}{auto} create\_subscriber\_with\_state(\textcolor{keyword}{const} composite\_subscription\& sub,}
+\DoxyCodeLine{58                                   \textcolor{keyword}{auto}\&\&                        state,}
+\DoxyCodeLine{59                                   OnNext\&\&                      on\_next,}
+\DoxyCodeLine{60                                   OnError\&\&                     on\_error,}
+\DoxyCodeLine{61                                   OnCompleted\&\&                 on\_completed)}
+\DoxyCodeLine{62 \{}
+\DoxyCodeLine{63     \textcolor{keywordflow}{return} specific\_subscriber<Type, state\_observer<Type,}
+\DoxyCodeLine{64                                                     std::decay\_t<\textcolor{keyword}{decltype}(state)>,}
+\DoxyCodeLine{65                                                     std::decay\_t<OnNext>,}
+\DoxyCodeLine{66                                                     std::decay\_t<OnError>,}
+\DoxyCodeLine{67                                                     std::decay\_t<OnCompleted>>>}
+\DoxyCodeLine{68     \{}
+\DoxyCodeLine{69         sub,}
+\DoxyCodeLine{70         std::forward<decltype(state)>(state),}
+\DoxyCodeLine{71         on\_next,}
+\DoxyCodeLine{72         on\_error,}
+\DoxyCodeLine{73         on\_completed}
+\DoxyCodeLine{74     \};}
+\DoxyCodeLine{75 \}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} OnNext, \textcolor{keyword}{typename} OnError, \textcolor{keyword}{typename} OnCompleted>}
+\DoxyCodeLine{78 \textcolor{keyword}{auto} make\_lift\_action\_by\_callbacks(OnNext\&\& on\_next, OnError\&\& on\_error, OnCompleted\&\& on\_completed)}
+\DoxyCodeLine{79 \{}
+\DoxyCodeLine{80     \textcolor{keywordflow}{return} [on\_next = std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{81             on\_error = std::forward<OnError>(on\_error),}
+\DoxyCodeLine{82             on\_completed = std::forward<OnCompleted>(on\_completed)](constraint::subscriber \textcolor{keyword}{auto}\&\& subscriber)}
+\DoxyCodeLine{83     \{}
+\DoxyCodeLine{84         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
+\DoxyCodeLine{85         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(subscription,}
+\DoxyCodeLine{86                                                   std::forward<\textcolor{keyword}{decltype}(subscriber)>(subscriber),}
+\DoxyCodeLine{87                                                   on\_next,}
+\DoxyCodeLine{88                                                   on\_error,}
+\DoxyCodeLine{89                                                   on\_completed);}
+\DoxyCodeLine{90     \};}
+\DoxyCodeLine{91 \}}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1observable__tag}{observable\_tag}} \{\};}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} NewType>}
+\DoxyCodeLine{97 \textcolor{keyword}{concept }lift\_fn = constraint::subscriber<std::invoke\_result\_t<T, dynamic\_subscriber<NewType>>>;}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} TObservable>}
+\DoxyCodeLine{100 \textcolor{keyword}{concept }op\_fn = constraint::observable<std::invoke\_result\_t<T, TObservable>>;}
+\DoxyCodeLine{101 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103 \textcolor{keyword}{namespace }rpp}
+\DoxyCodeLine{104 \{}
+\DoxyCodeLine{109 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{110 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1virtual__observable}{virtual\_observable}} : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1details_1_1observable__tag}{details::observable\_tag}}}
+\DoxyCodeLine{111 \{}
+\DoxyCodeLine{112     \textcolor{keyword}{virtual}              \mbox{\hyperlink{structrpp_1_1virtual__observable}{\string~virtual\_observable}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{118     \textcolor{keyword}{virtual} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}} \mbox{\hyperlink{structrpp_1_1virtual__observable_a21c5a4bcb56911deb4e86dd39028d64f}{subscribe}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<Type>}}\& subscriber) \textcolor{keyword}{const} \textcolor{keyword}{noexcept} = 0;}
+\DoxyCodeLine{119 \};}
 \DoxyCodeLine{120 }
-\DoxyCodeLine{121     \textcolor{comment}{// ********************************* LIFT OPERATOR: SUBSCRIBER -\/> SUBSCRIBER ******************//}}
-\DoxyCodeLine{129 \textcolor{comment}{}    \textcolor{keyword}{template}<\textcolor{keyword}{typename} OperatorFn,}
-\DoxyCodeLine{130              constraint::decayed\_type NewType = utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OperatorFn>>>}
-\DoxyCodeLine{131     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_a89b275a1f555886633d2389c61b97103}{lift}}(OperatorFn\&\& \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}) \textcolor{keyword}{const} \& \textcolor{keyword}{requires} details::lift\_fn<OperatorFn, NewType>}
-\DoxyCodeLine{132     \{}
-\DoxyCodeLine{133         \textcolor{keywordflow}{return} lift<NewType>(std::forward<OperatorFn>(\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}));}
-\DoxyCodeLine{134     \}}
-\DoxyCodeLine{135     \textcolor{keyword}{template}<\textcolor{keyword}{typename} OperatorFn,}
-\DoxyCodeLine{136              constraint::decayed\_type NewType = utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OperatorFn>>>}
-\DoxyCodeLine{137     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_ac6c66ddf2ceb4d398044a17e53db13eb}{lift}}(OperatorFn\&\& \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}) \&\& \textcolor{keyword}{requires} details::lift\_fn<OperatorFn, NewType>}
-\DoxyCodeLine{138     \{}
-\DoxyCodeLine{139         \textcolor{keywordflow}{return} std::move(*this).template lift<NewType>(std::forward<OperatorFn>(\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}));}
-\DoxyCodeLine{140     \}}
-\DoxyCodeLine{141 }
-\DoxyCodeLine{142         \textcolor{comment}{// ********************************* LIFT Direct type + OnNext, Onerror, OnCompleted ******************//}}
-\DoxyCodeLine{143 }
-\DoxyCodeLine{153     \textcolor{keyword}{template}<constraint::decayed\_type                                        NewType,}
-\DoxyCodeLine{154              std::invocable<Type, dynamic\_subscriber<NewType>>               OnNext,}
-\DoxyCodeLine{155              std::invocable<std::exception\_ptr, dynamic\_subscriber<NewType>> OnError = details::forwarding\_on\_error,}
-\DoxyCodeLine{156              std::invocable<dynamic\_subscriber<NewType>>                     OnCompleted = details::forwarding\_on\_completed>}
-\DoxyCodeLine{157     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_a250a7502f252453f3144b72ffedbb8fa}{lift}}(OnNext\&\& on\_next, OnError\&\& on\_error = \{\}, OnCompleted\&\& on\_completed = \{\}) \textcolor{keyword}{const} \&}
-\DoxyCodeLine{158     \{}
-\DoxyCodeLine{159         \textcolor{keywordflow}{return} lift\_impl<NewType>(details::make\_lift\_action\_by\_callbacks<Type>(std::forward<OnNext>(on\_next),}
-\DoxyCodeLine{160                                                                                std::forward<OnError>(on\_error),}
-\DoxyCodeLine{161                                                                                std::forward<OnCompleted>(on\_completed)),}
-\DoxyCodeLine{162                                   CastThis());}
-\DoxyCodeLine{163     \}}
-\DoxyCodeLine{164 }
-\DoxyCodeLine{165     \textcolor{keyword}{template}<constraint::decayed\_type                                        NewType,}
-\DoxyCodeLine{166              std::invocable<Type, dynamic\_subscriber<NewType>>               OnNext,}
-\DoxyCodeLine{167              std::invocable<std::exception\_ptr, dynamic\_subscriber<NewType>> OnError = details::forwarding\_on\_error,}
-\DoxyCodeLine{168              std::invocable<dynamic\_subscriber<NewType>>                     OnCompleted = details::forwarding\_on\_completed>}
-\DoxyCodeLine{169     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_ac6c66ddf2ceb4d398044a17e53db13eb}{lift}}(OnNext\&\& on\_next, OnError\&\& on\_error = \{\}, OnCompleted\&\& on\_completed = \{\}) \&\&}
-\DoxyCodeLine{170     \{}
-\DoxyCodeLine{171         \textcolor{keywordflow}{return} lift\_impl<NewType>(details::make\_lift\_action\_by\_callbacks<Type>(std::forward<OnNext>(on\_next),}
-\DoxyCodeLine{172                                                                                std::forward<OnError>(on\_error),}
-\DoxyCodeLine{173                                                                                std::forward<OnCompleted>(on\_completed)),}
-\DoxyCodeLine{174                                   MoveThis());}
-\DoxyCodeLine{175     \}}
-\DoxyCodeLine{176 }
-\DoxyCodeLine{177     \textcolor{comment}{// ********************************* LIFT OnNext, Onerror, OnCompleted ******************//}}
-\DoxyCodeLine{178 }
-\DoxyCodeLine{187     \textcolor{keyword}{template}<\textcolor{keyword}{typename}                                                        OnNext,}
-\DoxyCodeLine{188              constraint::decayed\_type                                        NewType = utils::extract\_subscriber\_type\_t<std::decay\_t<utils::function\_argument\_t<OnNext, 1>>>,}
+\DoxyCodeLine{126 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{127 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1interface__observable}{interface\_observable}}}
+\DoxyCodeLine{128     : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1virtual__observable}{virtual\_observable}}<Type>}
+\DoxyCodeLine{129     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::map\_tag>}
+\DoxyCodeLine{130     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::filter\_tag>}
+\DoxyCodeLine{131     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::take\_tag>}
+\DoxyCodeLine{132     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::take\_while\_tag>}
+\DoxyCodeLine{133     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::merge\_tag>}
+\DoxyCodeLine{134 \{}
+\DoxyCodeLine{135 \textcolor{keyword}{public}:}
+\DoxyCodeLine{136     \textcolor{comment}{// ********************************* LIFT DIRECT TYPE + OPERATOR: SUBSCRIBER -\/> SUBSCRIBER ******************//}}
+\DoxyCodeLine{143 \textcolor{comment}{}    \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType>}
+\DoxyCodeLine{144     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_ac6c66ddf2ceb4d398044a17e53db13eb}{lift}}(details::lift\_fn<NewType> \textcolor{keyword}{auto}\&\& \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}) \textcolor{keyword}{const} \&}
+\DoxyCodeLine{145     \{}
+\DoxyCodeLine{146         \textcolor{keywordflow}{return} lift\_impl<NewType>(std::forward<\textcolor{keyword}{decltype}(\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}})>(\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}), CastThis());}
+\DoxyCodeLine{147     \}}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{149     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType>}
+\DoxyCodeLine{150     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_ac6c66ddf2ceb4d398044a17e53db13eb}{lift}}(details::lift\_fn<NewType> \textcolor{keyword}{auto}\&\& \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}) \&\&}
+\DoxyCodeLine{151     \{}
+\DoxyCodeLine{152         \textcolor{keywordflow}{return} lift\_impl<NewType>(std::forward<\textcolor{keyword}{decltype}(\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}})>(\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}), MoveThis());}
+\DoxyCodeLine{153     \}}
+\DoxyCodeLine{154 }
+\DoxyCodeLine{155     \textcolor{comment}{// ********************************* LIFT OPERATOR: SUBSCRIBER -\/> SUBSCRIBER ******************//}}
+\DoxyCodeLine{163 \textcolor{comment}{}    \textcolor{keyword}{template}<\textcolor{keyword}{typename} OperatorFn,}
+\DoxyCodeLine{164              constraint::decayed\_type NewType = utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OperatorFn>>>}
+\DoxyCodeLine{165     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_a89b275a1f555886633d2389c61b97103}{lift}}(OperatorFn\&\& \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}) \textcolor{keyword}{const} \& \textcolor{keyword}{requires} details::lift\_fn<OperatorFn, NewType>}
+\DoxyCodeLine{166     \{}
+\DoxyCodeLine{167         \textcolor{keywordflow}{return} lift<NewType>(std::forward<OperatorFn>(\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}));}
+\DoxyCodeLine{168     \}}
+\DoxyCodeLine{169     \textcolor{keyword}{template}<\textcolor{keyword}{typename} OperatorFn,}
+\DoxyCodeLine{170              constraint::decayed\_type NewType = utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OperatorFn>>>}
+\DoxyCodeLine{171     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_ac6c66ddf2ceb4d398044a17e53db13eb}{lift}}(OperatorFn\&\& \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}) \&\& \textcolor{keyword}{requires} details::lift\_fn<OperatorFn, NewType>}
+\DoxyCodeLine{172     \{}
+\DoxyCodeLine{173         \textcolor{keywordflow}{return} std::move(*this).template lift<NewType>(std::forward<OperatorFn>(\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}));}
+\DoxyCodeLine{174     \}}
+\DoxyCodeLine{175 }
+\DoxyCodeLine{176         \textcolor{comment}{// ********************************* LIFT Direct type + OnNext, Onerror, OnCompleted ******************//}}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{187     \textcolor{keyword}{template}<constraint::decayed\_type                                        NewType,}
+\DoxyCodeLine{188              std::invocable<Type, dynamic\_subscriber<NewType>>               OnNext,}
 \DoxyCodeLine{189              std::invocable<std::exception\_ptr, dynamic\_subscriber<NewType>> OnError = details::forwarding\_on\_error,}
 \DoxyCodeLine{190              std::invocable<dynamic\_subscriber<NewType>>                     OnCompleted = details::forwarding\_on\_completed>}
-\DoxyCodeLine{191         \textcolor{keyword}{requires} std::invocable<OnNext, Type, dynamic\_subscriber<NewType>>}
-\DoxyCodeLine{192     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_abc2606b6028290f9891984be692b2080}{lift}}(OnNext\&\& on\_next, OnError\&\& on\_error = \{\}, OnCompleted\&\& on\_completed = \{\}) \textcolor{keyword}{const} \&}
-\DoxyCodeLine{193     \{}
-\DoxyCodeLine{194         \textcolor{keywordflow}{return} lift<NewType>(std::forward<OnNext>(on\_next),}
-\DoxyCodeLine{195                              std::forward<OnError>(on\_error),}
-\DoxyCodeLine{196                              std::forward<OnCompleted>(on\_completed));}
+\DoxyCodeLine{191     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_a250a7502f252453f3144b72ffedbb8fa}{lift}}(OnNext\&\& on\_next, OnError\&\& on\_error = \{\}, OnCompleted\&\& on\_completed = \{\}) \textcolor{keyword}{const} \&}
+\DoxyCodeLine{192     \{}
+\DoxyCodeLine{193         \textcolor{keywordflow}{return} lift\_impl<NewType>(details::make\_lift\_action\_by\_callbacks<Type>(std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{194                                                                                std::forward<OnError>(on\_error),}
+\DoxyCodeLine{195                                                                                std::forward<OnCompleted>(on\_completed)),}
+\DoxyCodeLine{196                                   CastThis());}
 \DoxyCodeLine{197     \}}
 \DoxyCodeLine{198 }
-\DoxyCodeLine{199     \textcolor{keyword}{template}<\textcolor{keyword}{typename}                                                        OnNext,}
-\DoxyCodeLine{200              constraint::decayed\_type                                        NewType = utils::extract\_subscriber\_type\_t<std::decay\_t<utils::function\_argument\_t<OnNext, 1>>>,}
+\DoxyCodeLine{199     \textcolor{keyword}{template}<constraint::decayed\_type                                        NewType,}
+\DoxyCodeLine{200              std::invocable<Type, dynamic\_subscriber<NewType>>               OnNext,}
 \DoxyCodeLine{201              std::invocable<std::exception\_ptr, dynamic\_subscriber<NewType>> OnError = details::forwarding\_on\_error,}
 \DoxyCodeLine{202              std::invocable<dynamic\_subscriber<NewType>>                     OnCompleted = details::forwarding\_on\_completed>}
-\DoxyCodeLine{203         \textcolor{keyword}{requires} std::invocable<OnNext, Type, dynamic\_subscriber<NewType>>}
-\DoxyCodeLine{204     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_ac6c66ddf2ceb4d398044a17e53db13eb}{lift}}(OnNext\&\& on\_next, OnError\&\& on\_error = \{\}, OnCompleted\&\& on\_completed = \{\}) \&\&}
-\DoxyCodeLine{205     \{}
-\DoxyCodeLine{206         \textcolor{keywordflow}{return} std::move(*this).template lift<NewType>(std::forward<OnNext>(on\_next),}
-\DoxyCodeLine{207                                                        std::forward<OnError>(on\_error),}
-\DoxyCodeLine{208                                                        std::forward<OnCompleted>(on\_completed));}
+\DoxyCodeLine{203     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_ac6c66ddf2ceb4d398044a17e53db13eb}{lift}}(OnNext\&\& on\_next, OnError\&\& on\_error = \{\}, OnCompleted\&\& on\_completed = \{\}) \&\&}
+\DoxyCodeLine{204     \{}
+\DoxyCodeLine{205         \textcolor{keywordflow}{return} lift\_impl<NewType>(details::make\_lift\_action\_by\_callbacks<Type>(std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{206                                                                                std::forward<OnError>(on\_error),}
+\DoxyCodeLine{207                                                                                std::forward<OnCompleted>(on\_completed)),}
+\DoxyCodeLine{208                                   MoveThis());}
 \DoxyCodeLine{209     \}}
 \DoxyCodeLine{210 }
-\DoxyCodeLine{218     \textcolor{keyword}{template}<details::op\_fn<SpecificObservable> OperatorFn>}
-\DoxyCodeLine{219     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}(OperatorFn\&\& fn) \textcolor{keyword}{const} \&}
-\DoxyCodeLine{220     \{}
-\DoxyCodeLine{221         \textcolor{keywordflow}{return} fn(CastThis());}
-\DoxyCodeLine{222     \}}
-\DoxyCodeLine{223 }
-\DoxyCodeLine{224     \textcolor{keyword}{template}<details::op\_fn<SpecificObservable> OperatorFn>}
-\DoxyCodeLine{225     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}(OperatorFn\&\& fn) \&\&}
-\DoxyCodeLine{226     \{}
-\DoxyCodeLine{227         \textcolor{keywordflow}{return} fn(MoveThis());}
-\DoxyCodeLine{228     \}}
-\DoxyCodeLine{229     }
-\DoxyCodeLine{230 \textcolor{keyword}{private}:}
-\DoxyCodeLine{231 }
-\DoxyCodeLine{232     \textcolor{keyword}{const} SpecificObservable\& CastThis()\textcolor{keyword}{ const}}
-\DoxyCodeLine{233 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{234         \textcolor{keywordflow}{return} *\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
-\DoxyCodeLine{235     \}}
-\DoxyCodeLine{236 }
-\DoxyCodeLine{237     SpecificObservable\&\& MoveThis()}
-\DoxyCodeLine{238     \{}
-\DoxyCodeLine{239         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
-\DoxyCodeLine{240     \}}
-\DoxyCodeLine{241 }
-\DoxyCodeLine{242     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType, details::lift\_fn<NewType> OperatorFn, \textcolor{keyword}{typename} FwdThis>}
-\DoxyCodeLine{243     \textcolor{keyword}{static} \textcolor{keyword}{auto} lift\_impl(OperatorFn\&\& \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}, FwdThis\&\& \_this)}
-\DoxyCodeLine{244     \{}
-\DoxyCodeLine{245         \textcolor{keyword}{auto} action = [new\_this = std::forward<FwdThis>(\_this), \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}} = std::forward<OperatorFn>(\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}})](\textcolor{keyword}{auto}\&\& subscriber)}
-\DoxyCodeLine{246         \{}
-\DoxyCodeLine{247             new\_this.subscribe(\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}(std::forward<\textcolor{keyword}{decltype}(subscriber)>(subscriber)));}
-\DoxyCodeLine{248         \};}
-\DoxyCodeLine{249 }
-\DoxyCodeLine{250         \textcolor{keywordflow}{return} specific\_observable<NewType, decltype(action)>(std::move(action));}
-\DoxyCodeLine{251     \}}
-\DoxyCodeLine{252 \};}
-\DoxyCodeLine{253 }
-\DoxyCodeLine{254 \textcolor{keyword}{template}<constraint::observable              Observable,}
-\DoxyCodeLine{255     details::op\_fn<Observable> Operator>}
-\DoxyCodeLine{256 \textcolor{keyword}{auto} operator |(Observable\&\& observable, Operator\&\& op)}
-\DoxyCodeLine{257 \{}
-\DoxyCodeLine{258     \textcolor{keywordflow}{return} std::forward<Observable>(observable).op(std::forward<Operator>(op));}
-\DoxyCodeLine{259 \}}
-\DoxyCodeLine{260 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{211     \textcolor{comment}{// ********************************* LIFT OnNext, Onerror, OnCompleted ******************//}}
+\DoxyCodeLine{212 }
+\DoxyCodeLine{221     \textcolor{keyword}{template}<\textcolor{keyword}{typename}                                                        OnNext,}
+\DoxyCodeLine{222              constraint::decayed\_type                                        NewType = utils::extract\_subscriber\_type\_t<std::decay\_t<utils::function\_argument\_t<OnNext, 1>>>,}
+\DoxyCodeLine{223              std::invocable<std::exception\_ptr, dynamic\_subscriber<NewType>> OnError = details::forwarding\_on\_error,}
+\DoxyCodeLine{224              std::invocable<dynamic\_subscriber<NewType>>                     OnCompleted = details::forwarding\_on\_completed>}
+\DoxyCodeLine{225         \textcolor{keyword}{requires} std::invocable<OnNext, Type, dynamic\_subscriber<NewType>>}
+\DoxyCodeLine{226     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_abc2606b6028290f9891984be692b2080}{lift}}(OnNext\&\& on\_next, OnError\&\& on\_error = \{\}, OnCompleted\&\& on\_completed = \{\}) \textcolor{keyword}{const} \&}
+\DoxyCodeLine{227     \{}
+\DoxyCodeLine{228         \textcolor{keywordflow}{return} lift<NewType>(std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{229                              std::forward<OnError>(on\_error),}
+\DoxyCodeLine{230                              std::forward<OnCompleted>(on\_completed));}
+\DoxyCodeLine{231     \}}
+\DoxyCodeLine{232 }
+\DoxyCodeLine{233     \textcolor{keyword}{template}<\textcolor{keyword}{typename}                                                        OnNext,}
+\DoxyCodeLine{234              constraint::decayed\_type                                        NewType = utils::extract\_subscriber\_type\_t<std::decay\_t<utils::function\_argument\_t<OnNext, 1>>>,}
+\DoxyCodeLine{235              std::invocable<std::exception\_ptr, dynamic\_subscriber<NewType>> OnError = details::forwarding\_on\_error,}
+\DoxyCodeLine{236              std::invocable<dynamic\_subscriber<NewType>>                     OnCompleted = details::forwarding\_on\_completed>}
+\DoxyCodeLine{237         \textcolor{keyword}{requires} std::invocable<OnNext, Type, dynamic\_subscriber<NewType>>}
+\DoxyCodeLine{238     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_ac6c66ddf2ceb4d398044a17e53db13eb}{lift}}(OnNext\&\& on\_next, OnError\&\& on\_error = \{\}, OnCompleted\&\& on\_completed = \{\}) \&\&}
+\DoxyCodeLine{239     \{}
+\DoxyCodeLine{240         \textcolor{keywordflow}{return} std::move(*this).template lift<NewType>(std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{241                                                        std::forward<OnError>(on\_error),}
+\DoxyCodeLine{242                                                        std::forward<OnCompleted>(on\_completed));}
+\DoxyCodeLine{243     \}}
+\DoxyCodeLine{244 }
+\DoxyCodeLine{252     \textcolor{keyword}{template}<details::op\_fn<SpecificObservable> OperatorFn>}
+\DoxyCodeLine{253     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}(OperatorFn\&\& fn) \textcolor{keyword}{const} \&}
+\DoxyCodeLine{254     \{}
+\DoxyCodeLine{255         \textcolor{keywordflow}{return} fn(CastThis());}
+\DoxyCodeLine{256     \}}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{258     \textcolor{keyword}{template}<details::op\_fn<SpecificObservable> OperatorFn>}
+\DoxyCodeLine{259     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}(OperatorFn\&\& fn) \&\&}
+\DoxyCodeLine{260     \{}
+\DoxyCodeLine{261         \textcolor{keywordflow}{return} fn(MoveThis());}
+\DoxyCodeLine{262     \}}
+\DoxyCodeLine{263     }
+\DoxyCodeLine{264 \textcolor{keyword}{private}:}
+\DoxyCodeLine{265 }
+\DoxyCodeLine{266     \textcolor{keyword}{const} SpecificObservable\& CastThis()\textcolor{keyword}{ const}}
+\DoxyCodeLine{267 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{268         \textcolor{keywordflow}{return} *\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
+\DoxyCodeLine{269     \}}
+\DoxyCodeLine{270 }
+\DoxyCodeLine{271     SpecificObservable\&\& MoveThis()}
+\DoxyCodeLine{272     \{}
+\DoxyCodeLine{273         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{274     \}}
+\DoxyCodeLine{275 }
+\DoxyCodeLine{276     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType, details::lift\_fn<NewType> OperatorFn, \textcolor{keyword}{typename} FwdThis>}
+\DoxyCodeLine{277     \textcolor{keyword}{static} \textcolor{keyword}{auto} lift\_impl(OperatorFn\&\& \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}, FwdThis\&\& \_this)}
+\DoxyCodeLine{278     \{}
+\DoxyCodeLine{279         \textcolor{keyword}{auto} action = [new\_this = std::forward<FwdThis>(\_this), \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}} = std::forward<OperatorFn>(\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}})](\textcolor{keyword}{auto}\&\& subscriber)}
+\DoxyCodeLine{280         \{}
+\DoxyCodeLine{281             new\_this.subscribe(\mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}(std::forward<\textcolor{keyword}{decltype}(subscriber)>(subscriber)));}
+\DoxyCodeLine{282         \};}
+\DoxyCodeLine{283 }
+\DoxyCodeLine{284         \textcolor{keywordflow}{return} specific\_observable<NewType, decltype(action)>(std::move(action));}
+\DoxyCodeLine{285     \}}
+\DoxyCodeLine{286 \};}
+\DoxyCodeLine{287 }
+\DoxyCodeLine{288 \textcolor{keyword}{template}<constraint::observable              Observable,}
+\DoxyCodeLine{289     details::op\_fn<Observable> Operator>}
+\DoxyCodeLine{290 \textcolor{keyword}{auto} operator |(Observable\&\& observable, Operator\&\& op)}
+\DoxyCodeLine{291 \{}
+\DoxyCodeLine{292     \textcolor{keywordflow}{return} std::forward<Observable>(observable).op(std::forward<Operator>(op));}
+\DoxyCodeLine{293 \}}
+\DoxyCodeLine{294 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

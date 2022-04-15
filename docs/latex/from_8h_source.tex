@@ -89,7 +89,7 @@
 \DoxyCodeLine{108 \{}
 \DoxyCodeLine{109     \textcolor{keyword}{using} Container = std::decay\_t<\textcolor{keyword}{decltype}(iterable)>;}
 \DoxyCodeLine{110     \textcolor{keyword}{using} Type = std::ranges::range\_value\_t<Container>;}
-\DoxyCodeLine{111     \textcolor{keywordflow}{return} create<Type>([=, items = details::pack\_to\_container<memory\_model, Container>(std::forward<\textcolor{keyword}{decltype}(iterable)>(iterable))](\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{111     \textcolor{keywordflow}{return} create<Type>([=, items = details::pack\_to\_container<memory\_model, Container>(std::forward<\textcolor{keyword}{decltype}(iterable)>(iterable))](\textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
 \DoxyCodeLine{112     \{}
 \DoxyCodeLine{113         details::iterate(items, scheduler, subscriber);}
 \DoxyCodeLine{114     \});}
