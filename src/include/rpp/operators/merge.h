@@ -62,10 +62,8 @@ auto create_proxy_subscriber(const constraint::subscriber auto&         subscrib
                                               forwarding_on_error{},
                                               [=](const constraint::subscriber auto& sub)
                                               {
-                                                  const auto new_state = --(*on_completed_count);
-                                                  if (new_state > 0)
-                                                      return;
-                                                  sub.on_completed();
+                                                  if (--(*on_completed_count) == 0)
+                                                    sub.on_completed();
                                               });
 };
 
