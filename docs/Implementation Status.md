@@ -47,3 +47,8 @@
 
 ### Conditional
 - [x] take_while
+
+### Combining
+- [x] merge
+  - [x] observable of observables
+  - [ ] merge with

@@ -2,6 +2,10 @@
 
 #include <iostream>
 
+/**
+ * \example from.cpp
+ **/
+
 int main()
 {
     {

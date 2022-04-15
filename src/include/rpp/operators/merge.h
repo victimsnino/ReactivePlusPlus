@@ -26,9 +26,9 @@ namespace rpp::operators
 template<typename ...Args>
 auto merge() requires details::is_header_included<details::merge_tag, Args...>
 {
-    return []<constraint::observable TObservable>(TObservable && observable)
+    return []<constraint::observable TObservable>(TObservable&& observable)
     {
-        return observable.merge();
+        return std::forward<TObservable>(observable).merge();
     };
 }
 } // namespace rpp::operators
@@ -42,16 +42,17 @@ auto create_proxy_subscriber(constraint::subscriber auto&&              subscrib
 {
     ++(*on_completed_count);
 
-    auto result = create_subscriber_with_state<Type>(std::forward<decltype(subscriber)>(subscriber),
-                                                     std::forward<decltype(on_next)>(on_next),
-                                                     forwarding_on_error{},
-                                                     [=](const constraint::subscriber auto& sub)
-                                                     {
-                                                         if (--(*on_completed_count) == 0)
-                                                             sub.on_completed();
-                                                     });
+    auto subscription = subscriber.get_subscription();
+    auto result       = create_subscriber_with_state<Type>(std::forward<decltype(subscriber)>(subscriber),
+                                                           std::forward<decltype(on_next)>(on_next),
+                                                           forwarding_on_error{},
+                                                           [=](const constraint::subscriber auto& sub)
+                                                           {
+                                                               if (--(*on_completed_count) == 0)
+                                                                   sub.on_completed();
+                                                           });
 
-    subscriber.get_subscription().add(result.get_subscription());
+    subscription.add(result.get_subscription());
     return result;
 };
 

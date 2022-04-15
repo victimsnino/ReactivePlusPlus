@@ -33,13 +33,13 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, merge_tag>
 {
     /**
-    * \brief
+    * \brief combine submissions from observables into one
     *
-    * \details
+    * \details this overloading of Merge operator can be applied for observable of observables and will merge emissions of observables inside root observable
     *	
     * Example:
-    *
-    * \see 
+    * \snippet merge.cpp merge
+    * \see https://reactivex.io/documentation/operators/merge.html
     *
     * \return new specific_observable with the merge operator as most recent operator.
     * \warning #include <rpp/operators/merge.h>

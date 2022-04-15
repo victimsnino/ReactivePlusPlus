@@ -65,4 +65,43 @@ SCENARIO("merge for observable of observables")
             }
         }
     }
+    GIVEN("observable of observables one with error")
+    {
+        auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub)
+            {
+                sub.on_next(rpp::source::just(1).as_dynamic());
+                sub.on_next(rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})).as_dynamic());
+                sub.on_next(rpp::source::just(2).as_dynamic());
+            });
+
+        WHEN("subscribe on concat of observable")
+        {
+            obs.merge().subscribe(mock);
+            THEN("observer obtains values from second observable even if first emits nothing")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 1 });
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0); //no complete due to error
+            }
+        }
+    }
+    GIVEN("observable of observables with error")
+    {
+        auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub)
+        {
+            sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
+            sub.on_next(rpp::source::just(1).as_dynamic());
+        });
+
+        WHEN("subscribe on concat of observable")
+        {
+            obs.merge().subscribe(mock);
+            THEN("observer obtains values from second observable even if first emits nothing")
+            {
+                CHECK(mock.get_total_on_next_count() == 0);
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0); //no complete due to error
+            }
+        }
+    }
 }
