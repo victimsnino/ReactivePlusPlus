@@ -55,7 +55,7 @@ auto create_proxy_subscriber(constraint::subscriber auto&&              subscrib
 
     subscription.add(result.get_subscription());
     return result;
-};
+}
 
 template<constraint::decayed_type Type, typename SpecificObservable>
 auto member_overload<Type, SpecificObservable, merge_tag>::merge_impl()
