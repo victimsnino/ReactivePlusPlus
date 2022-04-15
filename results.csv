@@ -17132,7 +17132,7 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 17130,Observable construction,Specific observable construction,0.672492,0.669642,0.679885,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
 17131,Observable construction,Specific observable construction + as_dynamic,125.955,125.478,126.821,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
 17132,Observable subscribe #2,Specific observable subscribe lambda,1178.82,1167.91,1223.73,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
-17133,Observable subscribe #2,Dynamic observable subscribe lambda,1363.47,1348.26,1431,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
+17133,Observable subscribe #2,Dynamic observable subscribe lambda,1363.47,1348.26,1431.0,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
 17134,Observable subscribe #2,Specific observable subscribe lambda without subscription,1179.64,1168.55,1227.68,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
 17135,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,1362.74,1349.11,1416.53,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
 17136,Observable subscribe #2,Specific observable subscribe specific subscriber,862.733,856.5,886.933,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
@@ -17153,8 +17153,8 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 17151,Observable subscribe,Dynamic observable subscribe dynamic observer,1258.19,1243.81,1314.05,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
 17152,Observable lift,Specific observable lift specific observer,1229.29,1217.62,1276.1,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
 17153,Observable lift,Specific observable lift dynamic observer,1283.5,1266.3,1331.45,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
-17154,Observable lift,Dynamic observable lift specific observer,1413.39,1399.06,1473,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
-17155,Observable lift,Dynamic observable lift dynamic observer,1326.85,1314.9,1365,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
+17154,Observable lift,Dynamic observable lift specific observer,1413.39,1399.06,1473.0,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
+17155,Observable lift,Dynamic observable lift dynamic observer,1326.85,1314.9,1365.0,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
 17156,Operators,map construction from observable via dot + subscribe,1003.88,995.192,1030.08,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
 17157,Subscription,composite_subscription create,354.053,345.2,376.84,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
 17158,Subscription,composite_subscription add,63.3199,63.0302,64.4131,0.95,Windows MSVC,Update license (#69) (5da49ea8),rxcpp
@@ -17309,3 +17309,219 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 17307,just,just send int,38.4496,38.3386,38.6341,0.95,Linux CLANG,Update license (#69) (5da49ea8),rxcpp
 17308,just,just send variadic,44.8937,44.8108,45.2597,0.95,Linux CLANG,Update license (#69) (5da49ea8),rxcpp
 17309,from,from vector with int,58.2942,58.1685,58.4839,0.95,Linux CLANG,Update license (#69) (5da49ea8),rxcpp
+17310,Observable construction,Specific observable construction,0.714063,0.69597,0.730597,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17311,Observable construction,Dynamic observable construction,71.6844,70.6113,73.9535,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17312,Observable construction,Specific observable construction + as_dynamic,72.2724,71.9568,72.9502,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17313,Observable subscribe #2,Specific observable subscribe lambda,105.005,102.981,108.885,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17314,Observable subscribe #2,Dynamic observable subscribe lambda,173.098,169.407,179.504,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17315,Observable subscribe #2,Specific observable subscribe lambda without subscription,102.869,102.477,103.724,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17316,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,180.289,175.766,187.328,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17317,Observable subscribe #2,Specific observable subscribe specific subscriber,14.8614,14.796,15.0073,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17318,Observable subscribe #2,Dynamic observable subscribe specific subscriber,114.118,113.226,116.554,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17319,Observable subscribe #2,Specific observable subscribe dynamic observer,14.9051,14.7253,15.3583,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17320,Observable subscribe #2,Dynamic observable subscribe dynamic observer,15.653,15.4654,16.0339,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17321,Observer construction,Specific observer construction,0.59069,0.589622,0.593309,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17322,Observer construction,Dynamic observer construction,73.7039,72.7763,75.8553,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17323,Observer construction,Specific observer construction + as_dynamic,72.1732,71.9412,72.6732,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17324,OnNext,Specific observer OnNext,0.598731,0.591496,0.616739,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17325,OnNext,Dynamic observer OnNext,1.48266,1.47837,1.49373,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17326,Subscriber construction,Make subsriber,89.5542,88.4096,92.2771,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17327,Subscriber construction,Make copy of subscriber,25.412,25.3627,25.5352,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17328,Subscriber construction,Transform subsriber to dynamic,98.4598,97.6607,100.625,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17329,Observable subscribe,Specific observable subscribe specific observer,104.981,104.168,107.435,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17330,Observable subscribe,Specific observable subscribe dynamic observer,118.397,117.963,119.471,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17331,Observable subscribe,Dynamic observable subscribe specific observer,178.68,177.976,180.544,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17332,Observable subscribe,Dynamic observable subscribe dynamic observer,121.951,121.541,122.892,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17333,Observable lift,Specific observable lift specific observer,146.051,144.5,152.135,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17334,Observable lift,Specific observable lift dynamic observer,170.554,168.762,175.523,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17335,Observable lift,Dynamic observable lift specific observer,253.826,250.035,263.174,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17336,Observable lift,Dynamic observable lift dynamic observer,213.748,208.786,222.942,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17337,Operators,map construction from observable via dot + subscribe,7783.28,216.086,45576.3,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17338,Subscription,composite_subscription create,79.8459,79.6353,80.3308,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17339,Subscription,composite_subscription unsubscribe,6.19994,6.06861,6.54215,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17340,foundamental sources,empty,130.201,129.069,134.092,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17341,foundamental sources,error,158.507,155.879,163.971,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17342,foundamental sources,never,137.355,131.773,153.977,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17343,just,just send int,139.418,138.804,140.797,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17344,just,just send variadic,157.448,156.888,158.951,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17345,from,from vector with int,192.867,190.885,198.628,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rpp
+17346,Observable construction,Specific observable construction,0.590997,0.589882,0.593706,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17347,Observable construction,Specific observable construction + as_dynamic,110.571,109.083,113.824,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17348,Observable subscribe #2,Specific observable subscribe lambda,1264.73,1219.68,1324.36,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17349,Observable subscribe #2,Dynamic observable subscribe lambda,1217.32,1199.84,1268.47,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17350,Observable subscribe #2,Specific observable subscribe lambda without subscription,1068.59,1044.05,1111.14,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17351,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,1205.47,1184.84,1253.47,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17352,Observable subscribe #2,Specific observable subscribe specific subscriber,770.207,754.483,798.586,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17353,Observable subscribe #2,Dynamic observable subscribe specific subscriber,923.84,915.36,952.44,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17354,Observable subscribe #2,Specific observable subscribe dynamic observer,791.5,776.429,820.036,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17355,Observable subscribe #2,Dynamic observable subscribe dynamic observer,797.25,778.714,828.75,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17356,Observer construction,Specific observer construction,1.35149,1.32395,1.40117,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17357,Observer construction,Dynamic observer construction,99.7558,99.318,100.691,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17358,Observer construction,Specific observer construction + as_dynamic,100.662,99.3556,104.009,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17359,OnNext,Specific observer OnNext,0.591688,0.590275,0.594434,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17360,OnNext,Dynamic observer OnNext,2.07276,2.06746,2.08477,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17361,Subscriber construction,Make subsriber,306.569,299.056,319.236,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17362,Subscriber construction,Make copy of subscriber,27.8101,27.7572,27.9409,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17363,Subscriber construction,Transform subsriber to dynamic,149.509,145.339,154.442,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17364,Observable subscribe,Specific observable subscribe specific observer,1058.14,1040.86,1097.36,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17365,Observable subscribe,Specific observable subscribe dynamic observer,1079.62,1067.9,1125.1,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17366,Observable subscribe,Dynamic observable subscribe specific observer,1220.26,1200.79,1265.68,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17367,Observable subscribe,Dynamic observable subscribe dynamic observer,1453.52,1439.86,1498.48,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17368,Observable lift,Specific observable lift specific observer,1090.67,1070.57,1134.05,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17369,Observable lift,Specific observable lift dynamic observer,1132.7,1120.6,1182.7,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17370,Observable lift,Dynamic observable lift specific observer,1268.94,1241.94,1339.67,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17371,Observable lift,Dynamic observable lift dynamic observer,1456.8,1420.85,1498.5,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17372,Operators,map construction from observable via dot + subscribe,889,868.68,923,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17373,Subscription,composite_subscription create,299.711,297.974,306.513,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17374,Subscription,composite_subscription add,55.5383,55.148,56.9031,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17375,Subscription,composite_subscription unsubscribe,22.8532,22.5182,23.6265,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17376,foundamental sources,empty,161.345,160.079,164.806,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17377,foundamental sources,error,177.25,176.808,178.15,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17378,foundamental sources,never,64.8338,64.7092,65.1217,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17379,just,just send int,160.672,158.978,165.555,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17380,just,just send variadic,162.508,161.826,164.182,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17381,from,from vector with int,220.765,219.676,223.471,0.95,Windows MSVC,revert bad-merge cha... (8f0b497e),rxcpp
+17382,Observable construction,Specific observable construction,0.372481,0.371739,0.375285,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17383,Observable construction,Dynamic observable construction,22.8033,22.7425,23.0094,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17384,Observable construction,Specific observable construction + as_dynamic,22.0276,21.5864,22.6915,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17385,Observable subscribe #2,Specific observable subscribe lambda,28.9066,28.8529,28.9639,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17386,Observable subscribe #2,Dynamic observable subscribe lambda,57.193,57.0887,57.4497,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17387,Observable subscribe #2,Specific observable subscribe lambda without subscription,29.8546,29.7136,30.2743,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17388,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,58.4658,57.8115,59.5974,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17389,Observable subscribe #2,Specific observable subscribe specific subscriber,3.91306,3.85485,4.00658,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17390,Observable subscribe #2,Dynamic observable subscribe specific subscriber,33.8224,33.6958,34.065,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17391,Observable subscribe #2,Specific observable subscribe dynamic observer,4.26129,4.22419,4.31627,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17392,Observable subscribe #2,Dynamic observable subscribe dynamic observer,4.21239,4.18378,4.27378,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17393,Observer construction,Specific observer construction,0.372265,0.371687,0.374522,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17394,Observer construction,Dynamic observer construction,22.7272,22.2124,23.3214,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17395,Observer construction,Specific observer construction + as_dynamic,24.1108,23.749,24.948,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17396,OnNext,Specific observer OnNext,0.381319,0.378037,0.388557,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17397,OnNext,Dynamic observer OnNext,1.83348,1.79444,1.88467,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17398,Subscriber construction,Make subsriber,27.7322,27.057,28.5784,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17399,Subscriber construction,Make copy of subscriber,8.27686,8.20922,8.42748,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17400,Subscriber construction,Transform subsriber to dynamic,29.5568,29.0072,30.3012,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17401,Observable subscribe,Specific observable subscribe specific observer,31.4152,30.9053,32.1469,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17402,Observable subscribe,Specific observable subscribe dynamic observer,32.7898,32.0467,33.7484,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17403,Observable subscribe,Dynamic observable subscribe specific observer,58.3123,58.0071,59.3072,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17404,Observable subscribe,Dynamic observable subscribe dynamic observer,36.2807,35.7546,37.1089,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17405,Observable lift,Specific observable lift specific observer,37.9074,37.3119,38.95,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17406,Observable lift,Specific observable lift dynamic observer,45.8731,45.8026,46.1217,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17407,Observable lift,Dynamic observable lift specific observer,79.4895,79.1626,79.8882,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17408,Observable lift,Dynamic observable lift dynamic observer,58.8309,57.9172,60.1381,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17409,Operators,map construction from observable via dot + subscribe,1204.97,94.6772,6753.72,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17410,Subscription,composite_subscription create,25.4344,25.3068,25.8391,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17411,Subscription,composite_subscription unsubscribe,8.26661,8.1326,8.46286,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17412,foundamental sources,empty,48.5812,47.8854,49.5368,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17413,foundamental sources,error,82.6384,81.5089,83.884,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17414,foundamental sources,never,47.8526,46.9852,48.9226,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17415,just,just send int,44.2894,43.6845,45.1176,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17416,just,just send variadic,56.1985,54.9306,57.7646,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17417,from,from vector with int,73.5616,72.9245,74.4457,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rpp
+17418,Observable construction,Specific observable construction,0.391014,0.387363,0.397677,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17419,Observable construction,Specific observable construction + as_dynamic,25.8452,25.3884,26.5233,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17420,Observable subscribe #2,Specific observable subscribe lambda,374.034,367.249,382.175,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17421,Observable subscribe #2,Dynamic observable subscribe lambda,413.064,407.451,420.639,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17422,Observable subscribe #2,Specific observable subscribe lambda without subscription,339.021,333.815,346.946,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17423,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,393.936,385.81,406.317,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17424,Observable subscribe #2,Specific observable subscribe specific subscriber,289.136,284.991,294.664,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17425,Observable subscribe #2,Dynamic observable subscribe specific subscriber,329.64,325.661,335.271,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17426,Observable subscribe #2,Specific observable subscribe dynamic observer,332.38,329.369,340.351,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17427,Observable subscribe #2,Dynamic observable subscribe dynamic observer,343.427,340.802,348.49,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17428,Observer construction,Specific observer construction,0.326204,0.323663,0.332665,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17429,Observer construction,Dynamic observer construction,22.9033,22.5069,23.4854,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17430,Observer construction,Specific observer construction + as_dynamic,25.374,25.2513,25.4928,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17431,OnNext,Specific observer OnNext,0.385797,0.38162,0.393794,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17432,OnNext,Dynamic observer OnNext,2.25982,2.21946,2.3137,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17433,Subscriber construction,Make subsriber,61.5548,60.1377,63.9701,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17434,Subscriber construction,Make copy of subscriber,5.07352,4.96198,5.20809,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17435,Subscriber construction,Transform subsriber to dynamic,33.7644,33.342,34.4973,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17436,Observable subscribe,Specific observable subscribe specific observer,372.771,372.035,375.242,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17437,Observable subscribe,Specific observable subscribe dynamic observer,370.694,364.957,378.771,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17438,Observable subscribe,Dynamic observable subscribe specific observer,445.534,440.091,455.105,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17439,Observable subscribe,Dynamic observable subscribe dynamic observer,373.18,366.312,383.928,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17440,Observable lift,Specific observable lift specific observer,420.429,415.576,428.868,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17441,Observable lift,Specific observable lift dynamic observer,387.723,381.928,395.157,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17442,Observable lift,Dynamic observable lift specific observer,447.082,444.393,457.61,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17443,Observable lift,Dynamic observable lift dynamic observer,452.155,444.788,467.233,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17444,Operators,map construction from observable via dot + subscribe,406.359,402.073,414.43,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17445,Subscription,composite_subscription create,60.2192,60.0506,60.4308,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17446,Subscription,composite_subscription add,18.6967,18.3564,19.1933,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17447,Subscription,composite_subscription unsubscribe,10.7738,10.6891,11.1095,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17448,foundamental sources,empty,52.1231,50.8711,53.8448,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17449,foundamental sources,error,92.9443,91.3597,95.502,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17450,foundamental sources,never,22.2513,21.8213,22.9182,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17451,just,just send int,51.6862,51.0032,52.366,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17452,just,just send variadic,44.3927,43.3356,45.7239,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17453,from,from vector with int,65.6693,65.4758,66.0043,0.95,Linux GCC,revert bad-merge cha... (8f0b497e),rxcpp
+17454,Observable construction,Specific observable construction,0.670298,0.669128,0.674922,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17455,Observable construction,Dynamic observable construction,28.4856,28.4227,28.7668,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17456,Observable construction,Specific observable construction + as_dynamic,28.4636,28.4113,28.6982,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17457,Observable subscribe #2,Specific observable subscribe lambda,58.6549,58.5411,59.1696,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17458,Observable subscribe #2,Dynamic observable subscribe lambda,93.5417,93.3482,94.3198,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17459,Observable subscribe #2,Specific observable subscribe lambda without subscription,58.6399,58.4908,59.2694,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17460,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,93.5542,93.4074,94.1358,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17461,Observable subscribe #2,Specific observable subscribe specific subscriber,16.7432,16.7107,16.8947,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17462,Observable subscribe #2,Dynamic observable subscribe specific subscriber,77.3762,77.2032,77.9854,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17463,Observable subscribe #2,Specific observable subscribe dynamic observer,16.7545,16.7136,16.947,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17464,Observable subscribe #2,Dynamic observable subscribe dynamic observer,16.7263,16.7151,16.7651,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17465,Observer construction,Specific observer construction,0.673597,0.669466,0.693141,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17466,Observer construction,Dynamic observer construction,28.4838,28.4723,28.4982,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17467,Observer construction,Specific observer construction + as_dynamic,28.5043,28.4928,28.5225,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17468,OnNext,Specific observer OnNext,0.671077,0.669547,0.678449,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17469,OnNext,Dynamic observer OnNext,2.00846,2.00744,2.01223,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17470,Subscriber construction,Make subsriber,45.5657,45.4818,45.9322,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17471,Subscriber construction,Make copy of subscriber,31.1269,31.1049,31.201,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17472,Subscriber construction,Transform subsriber to dynamic,63.9003,63.6685,64.3209,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17473,Observable subscribe,Specific observable subscribe specific observer,58.6441,58.4972,59.2715,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17474,Observable subscribe,Specific observable subscribe dynamic observer,77.3199,77.2008,77.8638,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17475,Observable subscribe,Dynamic observable subscribe specific observer,94.3813,94.3465,94.4192,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17476,Observable subscribe,Dynamic observable subscribe dynamic observer,80.2352,80.0791,80.8481,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17477,Observable lift,Specific observable lift specific observer,94.7,94.6586,94.8045,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17478,Observable lift,Specific observable lift dynamic observer,140.199,139.946,141.322,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17479,Observable lift,Dynamic observable lift specific observer,181.124,180.803,182.554,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17480,Observable lift,Dynamic observable lift dynamic observer,191.143,191.086,191.207,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17481,Operators,map construction from observable via dot + subscribe,2052,191.096,11353.4,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17482,Subscription,composite_subscription create,31.8627,31.8083,32.0807,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17483,Subscription,composite_subscription unsubscribe,8.37933,8.36232,8.45733,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17484,foundamental sources,empty,92.7718,92.6011,93.4053,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17485,foundamental sources,error,128.274,127.942,129.101,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17486,foundamental sources,never,88.5266,88.3554,88.9959,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17487,just,just send int,95.0654,94.9034,95.7917,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17488,just,just send variadic,112.627,112.267,113.718,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17489,from,from vector with int,108.632,108.364,109.365,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rpp
+17490,Observable construction,Specific observable construction,0.334744,0.334543,0.33542,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17491,Observable construction,Specific observable construction + as_dynamic,25.4675,25.1789,26.5247,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17492,Observable subscribe #2,Specific observable subscribe lambda,292.456,292.289,292.848,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17493,Observable subscribe #2,Dynamic observable subscribe lambda,331.736,331.096,334.275,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17494,Observable subscribe #2,Specific observable subscribe lambda without subscription,291.622,290.642,295.711,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17495,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,349.847,348.563,354.825,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17496,Observable subscribe #2,Specific observable subscribe specific subscriber,226.85,226.249,229.504,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17497,Observable subscribe #2,Dynamic observable subscribe specific subscriber,271.234,271.069,271.454,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17498,Observable subscribe #2,Specific observable subscribe dynamic observer,242.722,242.181,244.407,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17499,Observable subscribe #2,Dynamic observable subscribe dynamic observer,263.291,262.604,266.083,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17500,Observer construction,Specific observer construction,0.336127,0.335127,0.340053,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17501,Observer construction,Dynamic observer construction,21.9348,21.8728,22.0784,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17502,Observer construction,Specific observer construction + as_dynamic,21.6377,21.5784,21.7088,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17503,OnNext,Specific observer OnNext,0.670199,0.668848,0.676404,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17504,OnNext,Dynamic observer OnNext,2.45728,2.43083,2.48491,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17505,Subscriber construction,Make subsriber,65.6961,65.5505,66.2679,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17506,Subscriber construction,Make copy of subscriber,6.28289,6.25069,6.32086,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17507,Subscriber construction,Transform subsriber to dynamic,27.233,27.1687,27.5245,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17508,Observable subscribe,Specific observable subscribe specific observer,293.063,289.083,310.27,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17509,Observable subscribe,Specific observable subscribe dynamic observer,301.702,301.197,303.52,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17510,Observable subscribe,Dynamic observable subscribe specific observer,343.653,342.619,345.778,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17511,Observable subscribe,Dynamic observable subscribe dynamic observer,321.392,320.661,324.478,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17512,Observable lift,Specific observable lift specific observer,297.631,296.873,300.742,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17513,Observable lift,Specific observable lift dynamic observer,316.335,316.047,317.005,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17514,Observable lift,Dynamic observable lift specific observer,340.523,339.936,342.821,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17515,Observable lift,Dynamic observable lift dynamic observer,352.16,351.767,352.815,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17516,Operators,map construction from observable via dot + subscribe,244.783,244.2,247.021,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17517,Subscription,composite_subscription create,55.0193,54.8828,55.381,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17518,Subscription,composite_subscription add,20.9844,20.9126,21.3058,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17519,Subscription,composite_subscription unsubscribe,10.7289,10.7048,10.8261,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17520,foundamental sources,empty,36.8136,36.6055,37.0804,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17521,foundamental sources,error,83.5559,83.3262,84.5585,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17522,foundamental sources,never,13.7593,13.7294,13.8984,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17523,just,just send int,38.8109,38.7153,38.9968,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17524,just,just send variadic,44.8246,44.8033,44.8553,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
+17525,from,from vector with int,58.1159,57.9796,58.4552,0.95,Linux CLANG,revert bad-merge cha... (8f0b497e),rxcpp
