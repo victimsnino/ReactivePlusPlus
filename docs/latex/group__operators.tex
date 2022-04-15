@@ -16,9 +16,6 @@ requires is\+\_\+header\+\_\+included$<$filter\+\_\+tag, Predicate$>$}\\auto \mb
 {\footnotesize template$<$std\+::invocable$<$ Type $>$ Callable$>$ \newline
 requires is\+\_\+header\+\_\+included$<$map\+\_\+tag, Callable$>$}\\auto \mbox{\hyperlink{group__operators_gae5dd31e4559517de5cf1145ff2005a86}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, map\+\_\+tag $>$\+::map}} (Callable \&\&callable) const \&
 \begin{DoxyCompactList}\small\item\em transform the items emitted by an Observable by applying a function to each item \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename ... Args$>$ \newline
-requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, Args...$>$ \&\& rpp\+::constraint\+::observable$<$Type$>$)}\\auto \mbox{\hyperlink{group__operators_ga84ed0dcdeda6a4cb3a9871ab2817e114}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge}} () const \&
-\item 
 {\footnotesize template$<$typename... Args$>$ \newline
 requires is\+\_\+header\+\_\+included$<$take\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__operators_ga0dcb41decfa8d5ded95f828a7e65ffee}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, take\+\_\+tag $>$\+::take}} (size\+\_\+t count) const \&
 \begin{DoxyCompactList}\small\item\em emit only first Count items provided by observable \end{DoxyCompactList}\item 
@@ -141,26 +138,6 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
 \#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{map_8h_source}{rpp/operators/map.\+h}}\texorpdfstring{$>$}{>} 
-\end{DoxyWarning}
-\mbox{\Hypertarget{group__operators_ga84ed0dcdeda6a4cb3a9871ab2817e114}\label{group__operators_ga84ed0dcdeda6a4cb3a9871ab2817e114}} 
-\index{Operators@{Operators}!merge@{merge}}
-\index{merge@{merge}!Operators@{Operators}}
-\doxysubsubsection{\texorpdfstring{merge()}{merge()}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$typename ... Args$>$ \newline
-requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, Args...$>$ \&\& rpp\+::constraint\+::observable$<$Type$>$)\\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
-
-Example\+:
-
-\begin{DoxySeeAlso}{See also}
-
-\end{DoxySeeAlso}
-\begin{DoxyReturn}{Returns}
-new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the merge operator as most recent operator. 
-\end{DoxyReturn}
-\begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}rpp/operators/merge.\+h\texorpdfstring{$>$}{>} 
 \end{DoxyWarning}
 \mbox{\Hypertarget{group__operators_ga381218c46daf100859858d88743d058d}\label{group__operators_ga381218c46daf100859858d88743d058d}} 
 \index{Operators@{Operators}!op@{op}}

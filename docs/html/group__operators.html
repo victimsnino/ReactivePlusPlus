@@ -87,10 +87,6 @@ requires is_header_included&lt;map_tag, Callable&gt;</td></tr>
 <tr class="memitem:gae5dd31e4559517de5cf1145ff2005a86"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#gae5dd31e4559517de5cf1145ff2005a86">rpp::details::member_overload&lt; Type, SpecificObservable, map_tag &gt;::map</a> (Callable &amp;&amp;callable) const &amp;</td></tr>
 <tr class="memdesc:gae5dd31e4559517de5cf1145ff2005a86"><td class="mdescLeft">&#160;</td><td class="mdescRight">transform the items emitted by an Observable by applying a function to each item  <a href="group__operators.html#gae5dd31e4559517de5cf1145ff2005a86">More...</a><br /></td></tr>
 <tr class="separator:gae5dd31e4559517de5cf1145ff2005a86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga84ed0dcdeda6a4cb3a9871ab2817e114"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; <br />
-requires (is_header_included&lt;merge_tag, Args...&gt; &amp;&amp; rpp::constraint::observable&lt;Type&gt;)</td></tr>
-<tr class="memitem:ga84ed0dcdeda6a4cb3a9871ab2817e114"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga84ed0dcdeda6a4cb3a9871ab2817e114">rpp::details::member_overload&lt; Type, SpecificObservable, merge_tag &gt;::merge</a> () const &amp;</td></tr>
-<tr class="separator:ga84ed0dcdeda6a4cb3a9871ab2817e114"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; <br />
 requires is_header_included&lt;take_tag, Args...&gt;</td></tr>
 <tr class="memitem:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a> (size_t count) const &amp;</td></tr>
@@ -220,40 +216,6 @@ requires is_header_included&lt;map_tag, Callable&gt;</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the Map operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="map_8h_source.html">rpp/operators/map.h</a>&gt; </dd></dl>
-
-</div>
-</div>
-<a id="ga84ed0dcdeda6a4cb3a9871ab2817e114" name="ga84ed0dcdeda6a4cb3a9871ab2817e114"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga84ed0dcdeda6a4cb3a9871ab2817e114">&#9670;&nbsp;</a></span>merge()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
-<div class="memtemplate">
-template&lt;typename ... Args&gt; <br />
-requires (is_header_included&lt;merge_tag, Args...&gt; &amp;&amp; rpp::constraint::observable&lt;Type&gt;)</div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, merge_tag &gt;::merge </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const &amp;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Example:</p>
-<dl class="section see"><dt>See also</dt><dd></dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the merge operator as most recent operator. </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>#include &lt;rpp/operators/merge.h&gt; </dd></dl>
 
 </div>
 </div>
