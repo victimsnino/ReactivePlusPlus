@@ -48,7 +48,7 @@ auto merge() requires details::is_header_included<details::merge_tag, Args...>
 namespace rpp::details
 {
 template<constraint::decayed_type Type>
-auto create_proxy_subscriber(const constraint::subscriber auto&         subscriber,
+auto create_proxy_subscriber(constraint::subscriber auto&&              subscriber,
                              const std::shared_ptr<std::atomic_size_t>& on_completed_count,
                              auto&&                                     on_next)
 {
@@ -70,17 +70,18 @@ auto create_proxy_subscriber(const constraint::subscriber auto&         subscrib
 template<constraint::decayed_type Type, typename SpecificObservable>
 auto member_overload<Type, SpecificObservable, merge_tag>::merge_impl()
 {
-    return []<constraint::subscriber TSub>(TSub&& subscriber)
+    using ValueType = utils::extract_observable_type_t<Type>;
+
+    return []<constraint::subscriber_of_type<ValueType> TSub>(TSub&& subscriber)
     {
         auto count_of_on_completed_required = std::make_shared<std::atomic_size_t>();
 
         auto on_new_observable = [=]<constraint::observable TObs>(TObs&& new_observable, const constraint::subscriber auto& sub)
         {
-            using ValueType = utils::extract_observable_type_t<Type>;
             std::forward<TObs>(new_observable).subscribe(create_proxy_subscriber<ValueType>(sub, count_of_on_completed_required, forwarding_on_next{}));
         };
 
-        return create_proxy_subscriber<Type>(subscriber, count_of_on_completed_required, std::move(on_new_observable));
+        return create_proxy_subscriber<Type>(std::forward<TSub>(subscriber), count_of_on_completed_required, std::move(on_new_observable));
     };
 }
 } // namespace rpp::details

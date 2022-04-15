@@ -61,7 +61,7 @@ auto create(OnSubscribeFn&& on_subscribe)
  *
  * \see https://reactivex.io/documentation/operators/create.html
  */
-template<typename OnSubscribeFn>
+template<utils::is_callable OnSubscribeFn>
 auto create(OnSubscribeFn&& on_subscribe)
 {
     return create<utils::extract_subscriber_type_t<utils::function_argument_t<OnSubscribeFn>>>(std::forward<OnSubscribeFn>(on_subscribe));

@@ -13,6 +13,7 @@
 #include <rpp/memory_model.h>
 #include <rpp/schedulers/constraints.h>
 #include <rpp/schedulers/fwd.h>
+#include <rpp/utils/function_traits.h>
 
 #include <rpp/observables/fwd.h>
 
@@ -24,7 +25,7 @@ namespace rpp::observable
 template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
 auto create(OnSubscribeFn&& on_subscribe);
 
-template<typename OnSubscribeFn>
+template<utils::is_callable OnSubscribeFn>
 auto create(OnSubscribeFn&& on_subscribe);
 
 //**************************** EMPTY *****************//

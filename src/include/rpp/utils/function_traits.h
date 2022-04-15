@@ -15,25 +15,25 @@
 namespace rpp::utils
 {
 template<typename T, typename = void>
-struct is_callable : std::false_type{};
+struct is_callable_t : std::false_type{};
 
 template<typename T>
-struct is_callable<T, std::void_t<decltype(&T::operator())>> : std::true_type{};
+struct is_callable_t<T, std::void_t<decltype(&T::operator())>> : std::true_type{};
 
 template<class T, class R, class... Args>
-struct is_callable<R (T::*)(Args ...) const> : std::true_type{};
+struct is_callable_t<R (T::*)(Args ...) const> : std::true_type{};
 
 template<class T, class R, class... Args>
-struct is_callable<R (T::*)(Args ...)> : std::true_type{};
+struct is_callable_t<R (T::*)(Args ...)> : std::true_type{};
 
 template<class R, class... Args>
-struct is_callable<R (*)(Args ...)> : std::true_type{};
+struct is_callable_t<R (*)(Args ...)> : std::true_type{};
 
 template<typename T>
-constexpr bool is_callable_v = is_callable<T>::value;
+concept is_callable = is_callable_t<T>::value;
 
 // Lambda
-template<class T, typename = std::enable_if_t<is_callable_v<T>>>
+template<is_callable T>
 struct function_traits : function_traits<decltype(&T::operator())> {};
 
 // Operator of lambda
