@@ -52,6 +52,7 @@ auto create(OnSubscribeFn&& on_subscribe)
  * \ingroup observables
  * \brief Creates specific_observable with passed action as OnSubscribe and deduce type of observable by this function
  * \tparam OnSubscribeFn action called after subscription on this observable
+ * \tparam Type type of values deduced by argument of function
  * \return specific_observable with passed action
  *
  * Examples:
@@ -61,9 +62,9 @@ auto create(OnSubscribeFn&& on_subscribe)
  *
  * \see https://reactivex.io/documentation/operators/create.html
  */
-template<utils::is_callable OnSubscribeFn>
+template<utils::is_callable OnSubscribeFn, constraint::decayed_type Type>
 auto create(OnSubscribeFn&& on_subscribe)
 {
-    return create<utils::extract_subscriber_type_t<utils::function_argument_t<OnSubscribeFn>>>(std::forward<OnSubscribeFn>(on_subscribe));
+    return create<Type>(std::forward<OnSubscribeFn>(on_subscribe));
 }
 } // namespace rpp::observable

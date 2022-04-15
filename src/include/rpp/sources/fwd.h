@@ -14,6 +14,7 @@
 #include <rpp/schedulers/constraints.h>
 #include <rpp/schedulers/fwd.h>
 #include <rpp/utils/function_traits.h>
+#include <rpp/subscribers/type_traits.h>
 
 #include <rpp/observables/fwd.h>
 
@@ -25,7 +26,7 @@ namespace rpp::observable
 template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
 auto create(OnSubscribeFn&& on_subscribe);
 
-template<utils::is_callable OnSubscribeFn>
+template<utils::is_callable OnSubscribeFn, constraint::decayed_type Type = utils::extract_subscriber_type_t<utils::function_argument_t<OnSubscribeFn>>>
 auto create(OnSubscribeFn&& on_subscribe);
 
 //**************************** EMPTY *****************//
