@@ -2,7 +2,9 @@
 
 In ReactivePlusPlus there is new concept unique for this implementation: `memory_model`:
 
-Some of the operators and sources like `rpp::source::just` or `rpp::operators::start_with` accept user's variables for usage. Some of this types can be such an expensive to copy or move and it would be preferable to copy it once to heap, but some other types (like POD) is cheap another and usage of heap would be overkill. So, RPP provides ability to select strategy "how to deal with such a variables" via `rpp::memory_model` enum.
+Some of the operators and sources like `rpp::source::just` or `rpp::operators::start_with` accept user's variables for usage. Some of this types can be such an expensive to copy or move and it would be preferable to copy it once to heap, but some other types (like POD) is cheap enough and usage of heap would be overkill. But these variables should be saved inside somehow!
+
+So, RPP provides ability to select strategy "how to deal with such a variables" via `rpp::memory_model` enum.
 
 For example, `rpp::source::just`
 
