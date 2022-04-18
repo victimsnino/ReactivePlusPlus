@@ -33,36 +33,36 @@
 \DoxyCodeLine{32 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
 \DoxyCodeLine{33 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, merge\_tag>}
 \DoxyCodeLine{34 \{}
-\DoxyCodeLine{48     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{49     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga84ed0dcdeda6a4cb3a9871ab2817e114}{merge}}() const\& requires (is\_header\_included<merge\_tag, Args...> \&\& rpp::constraint::observable<Type>)}
-\DoxyCodeLine{50     \{}
-\DoxyCodeLine{51         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<utils::extract\_observable\_type\_t<Type>>(merge\_impl());}
-\DoxyCodeLine{52     \}}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{54     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{55     \textcolor{keyword}{auto} merge() \&\& \textcolor{keyword}{requires} (is\_header\_included<merge\_tag, Args...>\&\& rpp::constraint::observable<Type>)}
-\DoxyCodeLine{56     \{}
-\DoxyCodeLine{57         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template lift<utils::extract\_observable\_type\_t<Type>>(merge\_impl());}
-\DoxyCodeLine{58     \}}
-\DoxyCodeLine{59 }
-\DoxyCodeLine{73     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> ...TObservables>}
-\DoxyCodeLine{74     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_gafa55b14eec1c6c40b8655e20c6edf5b2}{merge\_with}}(TObservables\&\&... observables) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} (is\_header\_included<merge\_tag, TObservables...>\&\& \textcolor{keyword}{sizeof}...(TObservables) >= 1)}
-\DoxyCodeLine{75     \{}
-\DoxyCodeLine{76         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>op(merge\_with\_impl(std::forward<TObservables>(observables)...));}
-\DoxyCodeLine{77     \}}
-\DoxyCodeLine{78 }
-\DoxyCodeLine{79     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> ...TObservables>}
-\DoxyCodeLine{80     \textcolor{keyword}{auto} merge\_with(TObservables\&\&... observables) \&\& \textcolor{keyword}{requires} (is\_header\_included<merge\_tag, TObservables...> \&\& \textcolor{keyword}{sizeof}...(TObservables) >= 1)}
-\DoxyCodeLine{81     \{}
-\DoxyCodeLine{82         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).op(merge\_with\_impl(std::forward<TObservables>(observables)...));}
-\DoxyCodeLine{83     \}}
-\DoxyCodeLine{84 }
-\DoxyCodeLine{85 \textcolor{keyword}{private}:}
-\DoxyCodeLine{86     \textcolor{keyword}{static} \textcolor{keyword}{auto} merge\_impl();}
-\DoxyCodeLine{87 }
-\DoxyCodeLine{88     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> ...TObservables>}
-\DoxyCodeLine{89     \textcolor{keyword}{static} \textcolor{keyword}{auto} merge\_with\_impl(TObservables\&\& ...observables) \textcolor{keyword}{requires} (\textcolor{keyword}{sizeof}...(TObservables) >= 1);}
-\DoxyCodeLine{90 \};}
-\DoxyCodeLine{91 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{49     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{50     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga84ed0dcdeda6a4cb3a9871ab2817e114}{merge}}() const\& requires (is\_header\_included<merge\_tag, Args...> \&\& rpp::constraint::observable<Type>)}
+\DoxyCodeLine{51     \{}
+\DoxyCodeLine{52         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<utils::extract\_observable\_type\_t<Type>>(merge\_impl());}
+\DoxyCodeLine{53     \}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{56     \textcolor{keyword}{auto} merge() \&\& \textcolor{keyword}{requires} (is\_header\_included<merge\_tag, Args...>\&\& rpp::constraint::observable<Type>)}
+\DoxyCodeLine{57     \{}
+\DoxyCodeLine{58         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template lift<utils::extract\_observable\_type\_t<Type>>(merge\_impl());}
+\DoxyCodeLine{59     \}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{75     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> ...TObservables>}
+\DoxyCodeLine{76     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_gafa55b14eec1c6c40b8655e20c6edf5b2}{merge\_with}}(TObservables\&\&... observables) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} (is\_header\_included<merge\_tag, TObservables...>\&\& \textcolor{keyword}{sizeof}...(TObservables) >= 1)}
+\DoxyCodeLine{77     \{}
+\DoxyCodeLine{78         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>op(merge\_with\_impl(std::forward<TObservables>(observables)...));}
+\DoxyCodeLine{79     \}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> ...TObservables>}
+\DoxyCodeLine{82     \textcolor{keyword}{auto} merge\_with(TObservables\&\&... observables) \&\& \textcolor{keyword}{requires} (is\_header\_included<merge\_tag, TObservables...> \&\& \textcolor{keyword}{sizeof}...(TObservables) >= 1)}
+\DoxyCodeLine{83     \{}
+\DoxyCodeLine{84         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).op(merge\_with\_impl(std::forward<TObservables>(observables)...));}
+\DoxyCodeLine{85     \}}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87 \textcolor{keyword}{private}:}
+\DoxyCodeLine{88     \textcolor{keyword}{static} \textcolor{keyword}{auto} merge\_impl();}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> ...TObservables>}
+\DoxyCodeLine{91     \textcolor{keyword}{static} \textcolor{keyword}{auto} merge\_with\_impl(TObservables\&\& ...observables) \textcolor{keyword}{requires} (\textcolor{keyword}{sizeof}...(TObservables) >= 1);}
+\DoxyCodeLine{92 \};}
+\DoxyCodeLine{93 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

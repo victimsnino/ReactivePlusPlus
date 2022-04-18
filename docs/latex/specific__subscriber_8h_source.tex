@@ -31,88 +31,78 @@
 \DoxyCodeLine{32         , m\_observer\{ std::forward<Types>(vals)... \} \{\}}
 \DoxyCodeLine{33 }
 \DoxyCodeLine{34     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Types>}
-\DoxyCodeLine{35     \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\& sub, Types\&\&...vals) \textcolor{keyword}{requires} std::constructible\_from<Observer, Types...>}
-\DoxyCodeLine{36         : \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{details::subscriber\_base<Type>}}\{ sub \}}
+\DoxyCodeLine{35     \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(constraint::decayed\_same\_as<composite\_subscription> \textcolor{keyword}{auto}\&\& sub, Types\&\&...vals) \textcolor{keyword}{requires} std::constructible\_from<Observer, Types...>}
+\DoxyCodeLine{36         : \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{details::subscriber\_base<Type>}}\{ std::forward<decltype(sub)>(sub )\}}
 \DoxyCodeLine{37         , m\_observer\{ std::forward<Types>(vals)... \} \{\}}
 \DoxyCodeLine{38 }
-\DoxyCodeLine{39     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Types>}
-\DoxyCodeLine{40     \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{details::subscriber\_base<Type>}}\& base, Types\&\&...vals) \textcolor{keyword}{requires} std::constructible\_from<Observer, Types...>}
-\DoxyCodeLine{41         : \mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base}{details::subscriber\_base<Type>}}\{ base \}}
-\DoxyCodeLine{42         , m\_observer\{ std::forward<Types>(vals)... \} \{\}}
+\DoxyCodeLine{39     \textcolor{comment}{// ************* Copy/Move ************************* //}}
+\DoxyCodeLine{40     \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{41     \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(\mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}\&\&) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{42 }
 \DoxyCodeLine{43 }
-\DoxyCodeLine{44     \textcolor{comment}{// ************* Copy/Move ************************* //}}
-\DoxyCodeLine{45     \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{46     \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(\mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}\&\&) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{47 }
+\DoxyCodeLine{44     \textcolor{keyword}{const} Observer\& get\_observer()\textcolor{keyword}{ const}}
+\DoxyCodeLine{45 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{46         \textcolor{keywordflow}{return} m\_observer;}
+\DoxyCodeLine{47     \}}
 \DoxyCodeLine{48 }
-\DoxyCodeLine{49     \textcolor{keyword}{const} Observer\& get\_observer() \textcolor{keyword}{const} \&}
-\DoxyCodeLine{50     \{}
-\DoxyCodeLine{51         \textcolor{keywordflow}{return} m\_observer;}
-\DoxyCodeLine{52     \}}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{54     Observer\&\& get\_observer() \&\&}
-\DoxyCodeLine{55     \{}
-\DoxyCodeLine{56         \textcolor{keywordflow}{return} std::move(m\_observer);}
-\DoxyCodeLine{57     \}}
-\DoxyCodeLine{58 }
-\DoxyCodeLine{59     \textcolor{keyword}{auto} as\_dynamic() \textcolor{keyword}{const} \& \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<Type>}}\{*\textcolor{keyword}{this}\};            \}}
-\DoxyCodeLine{60     \textcolor{keyword}{auto} as\_dynamic() \&\&      \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<Type>}}\{std::move(*\textcolor{keyword}{this})\}; \}}
-\DoxyCodeLine{61 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{62     \textcolor{keywordtype}{void} on\_next\_impl(\textcolor{keyword}{const} Type\& val) \textcolor{keyword}{const} \textcolor{keyword}{final}}
+\DoxyCodeLine{49     \textcolor{keyword}{auto} as\_dynamic() \textcolor{keyword}{const} \& \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<Type>}}\{*\textcolor{keyword}{this}\}; \}}
+\DoxyCodeLine{50     \textcolor{keyword}{auto} as\_dynamic() \&\& \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<Type>}}\{this-\/>get\_subscription(), std::move(m\_observer)\}; \}}
+\DoxyCodeLine{51 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{52     \textcolor{keywordtype}{void} on\_next\_impl(\textcolor{keyword}{const} Type\& val) \textcolor{keyword}{const} \textcolor{keyword}{final}}
+\DoxyCodeLine{53     \{}
+\DoxyCodeLine{54         m\_observer.on\_next(val);}
+\DoxyCodeLine{55     \}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57     \textcolor{keywordtype}{void} on\_next\_impl(Type\&\& val) \textcolor{keyword}{const} \textcolor{keyword}{final}}
+\DoxyCodeLine{58     \{}
+\DoxyCodeLine{59         m\_observer.on\_next(std::move(val));}
+\DoxyCodeLine{60     \}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62     \textcolor{keywordtype}{void} on\_error\_impl(\textcolor{keyword}{const} std::exception\_ptr\& err) \textcolor{keyword}{const} \textcolor{keyword}{final}}
 \DoxyCodeLine{63     \{}
-\DoxyCodeLine{64         m\_observer.on\_next(val);}
+\DoxyCodeLine{64         m\_observer.on\_error(err);}
 \DoxyCodeLine{65     \}}
 \DoxyCodeLine{66 }
-\DoxyCodeLine{67     \textcolor{keywordtype}{void} on\_next\_impl(Type\&\& val) \textcolor{keyword}{const} \textcolor{keyword}{final}}
+\DoxyCodeLine{67     \textcolor{keywordtype}{void} on\_completed\_impl() \textcolor{keyword}{const} \textcolor{keyword}{final}}
 \DoxyCodeLine{68     \{}
-\DoxyCodeLine{69         m\_observer.on\_next(std::move(val));}
+\DoxyCodeLine{69         m\_observer.on\_completed();}
 \DoxyCodeLine{70     \}}
 \DoxyCodeLine{71 }
-\DoxyCodeLine{72     \textcolor{keywordtype}{void} on\_error\_impl(\textcolor{keyword}{const} std::exception\_ptr\& err) \textcolor{keyword}{const} \textcolor{keyword}{final}}
-\DoxyCodeLine{73     \{}
-\DoxyCodeLine{74         m\_observer.on\_error(err);}
-\DoxyCodeLine{75     \}}
-\DoxyCodeLine{76 }
-\DoxyCodeLine{77     \textcolor{keywordtype}{void} on\_completed\_impl() \textcolor{keyword}{const} \textcolor{keyword}{final}}
-\DoxyCodeLine{78     \{}
-\DoxyCodeLine{79         m\_observer.on\_completed();}
-\DoxyCodeLine{80     \}}
+\DoxyCodeLine{72 \textcolor{keyword}{private}:}
+\DoxyCodeLine{73     Observer m\_observer\{\};}
+\DoxyCodeLine{74 \};}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer TObs>}
+\DoxyCodeLine{77 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(TObs observer) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber<utils::extract\_observer\_type\_t<TObs>}}, TObs>;}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer TObs>}
+\DoxyCodeLine{80 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}, TObs observer) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber<utils::extract\_observer\_type\_t<TObs>}}, TObs>;}
 \DoxyCodeLine{81 }
-\DoxyCodeLine{82 \textcolor{keyword}{private}:}
-\DoxyCodeLine{83     Observer m\_observer\{\};}
-\DoxyCodeLine{84 \};}
-\DoxyCodeLine{85 }
-\DoxyCodeLine{86 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer TObs>}
-\DoxyCodeLine{87 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(TObs observer) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber<utils::extract\_observer\_type\_t<TObs>}}, TObs>;}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{89 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer TObs>}
-\DoxyCodeLine{90 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}, TObs observer) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber<utils::extract\_observer\_type\_t<TObs>}}, TObs>;}
+\DoxyCodeLine{82 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext,}
+\DoxyCodeLine{83          \textcolor{keyword}{typename} ...Args,}
+\DoxyCodeLine{84          \textcolor{keyword}{typename} Type = std::decay\_t<utils::function\_argument\_t<OnNext>>>}
+\DoxyCodeLine{85 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}, OnNext, Args ...) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}<Type, details::deduce\_specific\_observer\_type\_t<Type, OnNext, Args...>>;}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext,}
+\DoxyCodeLine{88          \textcolor{keyword}{typename} ...Args,}
+\DoxyCodeLine{89          \textcolor{keyword}{typename} Type = std::decay\_t<utils::function\_argument\_t<OnNext>>>}
+\DoxyCodeLine{90 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(OnNext, Args ...) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}<Type, details::deduce\_specific\_observer\_type\_t<Type, OnNext, Args...>>;}
 \DoxyCodeLine{91 }
-\DoxyCodeLine{92 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext,}
-\DoxyCodeLine{93          \textcolor{keyword}{typename} ...Args,}
-\DoxyCodeLine{94          \textcolor{keyword}{typename} Type = std::decay\_t<utils::function\_argument\_t<OnNext>>>}
-\DoxyCodeLine{95 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}, OnNext, Args ...) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}<Type, details::deduce\_specific\_observer\_type\_t<Type, OnNext, Args...>>;}
-\DoxyCodeLine{96 }
-\DoxyCodeLine{97 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext,}
-\DoxyCodeLine{98          \textcolor{keyword}{typename} ...Args,}
-\DoxyCodeLine{99          \textcolor{keyword}{typename} Type = std::decay\_t<utils::function\_argument\_t<OnNext>>>}
-\DoxyCodeLine{100 \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}(OnNext, Args ...) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber}}<Type, details::deduce\_specific\_observer\_type\_t<Type, OnNext, Args...>>;}
-\DoxyCodeLine{101 }
+\DoxyCodeLine{92 }
+\DoxyCodeLine{96 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{97 \textcolor{keyword}{auto} make\_specific\_subscriber(Args\&\& ...args) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber<Type, decltype(rpp::make\_specific\_observer<Type>}}(std::declval<Args>()...))>}
+\DoxyCodeLine{98 \{}
+\DoxyCodeLine{99     \textcolor{keyword}{auto} observer = rpp::make\_specific\_observer<Type>(std::forward<Args>(args)...);}
+\DoxyCodeLine{100     \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1specific__subscriber}{rpp::specific\_subscriber<Type, decltype(observer)>}}(std::move(observer));}
+\DoxyCodeLine{101 \}}
 \DoxyCodeLine{102 }
-\DoxyCodeLine{106 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{107 \textcolor{keyword}{auto} make\_specific\_subscriber(Args\&\& ...args) -\/> \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber<Type, decltype(rpp::make\_specific\_observer<Type>}}(std::declval<Args>()...))>}
-\DoxyCodeLine{108 \{}
-\DoxyCodeLine{109     \textcolor{keyword}{auto} observer = rpp::make\_specific\_observer<Type>(std::forward<Args>(args)...);}
-\DoxyCodeLine{110     \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1specific__subscriber}{rpp::specific\_subscriber<Type, decltype(observer)>}}(std::move(observer));}
-\DoxyCodeLine{111 \}}
-\DoxyCodeLine{112 }
-\DoxyCodeLine{113 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{114 \textcolor{keyword}{auto} make\_specific\_subscriber(constraint::decayed\_same\_as<composite\_subscription> \textcolor{keyword}{auto}\&\& sub, Args\&\& ...args)  -\/> specific\_subscriber<Type, decltype(rpp::make\_specific\_observer<Type>(std::declval<Args>()...))>}
-\DoxyCodeLine{115 \{}
-\DoxyCodeLine{116     \textcolor{keyword}{auto} observer = rpp::make\_specific\_observer<Type>(std::forward<Args>(args)...);}
-\DoxyCodeLine{117     \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1specific__subscriber}{rpp::specific\_subscriber<Type, decltype(observer)>}}(std::forward<\textcolor{keyword}{decltype}(sub)>(sub), std::move(observer));}
-\DoxyCodeLine{118 \}}
-\DoxyCodeLine{119 }
-\DoxyCodeLine{120 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{103 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{104 \textcolor{keyword}{auto} make\_specific\_subscriber(constraint::decayed\_same\_as<composite\_subscription> \textcolor{keyword}{auto}\&\& sub, Args\&\& ...args)  -\/> specific\_subscriber<Type, decltype(rpp::make\_specific\_observer<Type>(std::declval<Args>()...))>}
+\DoxyCodeLine{105 \{}
+\DoxyCodeLine{106     \textcolor{keyword}{auto} observer = rpp::make\_specific\_observer<Type>(std::forward<Args>(args)...);}
+\DoxyCodeLine{107     \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1specific__subscriber}{rpp::specific\_subscriber<Type, decltype(observer)>}}(std::forward<\textcolor{keyword}{decltype}(sub)>(sub), std::move(observer));}
+\DoxyCodeLine{108 \}}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

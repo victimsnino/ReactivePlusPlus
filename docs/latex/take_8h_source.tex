@@ -40,31 +40,24 @@
 \DoxyCodeLine{36 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
 \DoxyCodeLine{37 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, take\_tag>::take\_impl(\textcolor{keywordtype}{size\_t} count)}
 \DoxyCodeLine{38 \{}
-\DoxyCodeLine{39     \textcolor{keyword}{struct }state}
+\DoxyCodeLine{39     \textcolor{keywordflow}{return} [count]<constraint::subscriber\_of\_type<Type> TSub>(TSub\&\& subscriber)}
 \DoxyCodeLine{40     \{}
-\DoxyCodeLine{41         state(\textcolor{keywordtype}{size\_t} count) : count\{count\} \{\}}
-\DoxyCodeLine{42         }
-\DoxyCodeLine{43         \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t}       count;}
-\DoxyCodeLine{44         std::atomic\_size\_t sent\_count\{\};}
-\DoxyCodeLine{45     \};}
-\DoxyCodeLine{46 }
-\DoxyCodeLine{47     \textcolor{keywordflow}{return} [count]<constraint::subscriber\_of\_type<Type> TSub>(TSub\&\& subscriber)}
-\DoxyCodeLine{48     \{}
-\DoxyCodeLine{49         \textcolor{keyword}{auto} action = [state = std::make\_shared<state>(count)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
-\DoxyCodeLine{50         \{}
-\DoxyCodeLine{51             \textcolor{keyword}{const} \textcolor{keyword}{auto} old\_value = state-\/>sent\_count.fetch\_add(1);}
-\DoxyCodeLine{52             \textcolor{keywordflow}{if} (old\_value < state-\/>count)}
-\DoxyCodeLine{53             \{}
-\DoxyCodeLine{54                 subscriber.on\_next(std::forward<\textcolor{keyword}{decltype}(value)>(value));}
-\DoxyCodeLine{55                 \textcolor{keywordflow}{if} (state-\/>count -\/ old\_value == 1)}
-\DoxyCodeLine{56                     subscriber.on\_completed();}
-\DoxyCodeLine{57             \}}
-\DoxyCodeLine{58         \};}
-\DoxyCodeLine{59 }
-\DoxyCodeLine{60         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
-\DoxyCodeLine{61         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(subscription, std::forward<TSub>(subscriber), std::move(action), forwarding\_on\_error\{\}, forwarding\_on\_completed\{\});}
-\DoxyCodeLine{62     \};}
-\DoxyCodeLine{63 \}}
-\DoxyCodeLine{64 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{41         \textcolor{keyword}{auto} action = [shared\_count = std::make\_shared<size\_t>(count)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{42         \{}
+\DoxyCodeLine{43             \textcolor{keywordflow}{if} (*shared\_count > 0)}
+\DoxyCodeLine{44             \{}
+\DoxyCodeLine{45                 -\/-\/(*shared\_count);}
+\DoxyCodeLine{46                 subscriber.on\_next(std::forward<\textcolor{keyword}{decltype}(value)>(value));}
+\DoxyCodeLine{47             \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49             \textcolor{keywordflow}{if} (*shared\_count == 0)}
+\DoxyCodeLine{50                 subscriber.on\_completed();}
+\DoxyCodeLine{51         \};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
+\DoxyCodeLine{54         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(std::move(subscription), std::forward<TSub>(subscriber), std::move(action), forwarding\_on\_error\{\}, forwarding\_on\_completed\{\});}
+\DoxyCodeLine{55     \};}
+\DoxyCodeLine{56 \}}
+\DoxyCodeLine{57 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

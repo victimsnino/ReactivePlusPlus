@@ -46,11 +46,11 @@
 \DoxyCodeLine{54 \}}
 \DoxyCodeLine{55 }
 \DoxyCodeLine{56 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} OnNext, \textcolor{keyword}{typename} OnError, \textcolor{keyword}{typename} OnCompleted>}
-\DoxyCodeLine{57 \textcolor{keyword}{auto} create\_subscriber\_with\_state(\textcolor{keyword}{const} composite\_subscription\& sub,}
-\DoxyCodeLine{58                                   \textcolor{keyword}{auto}\&\&                        state,}
-\DoxyCodeLine{59                                   OnNext\&\&                      on\_next,}
-\DoxyCodeLine{60                                   OnError\&\&                     on\_error,}
-\DoxyCodeLine{61                                   OnCompleted\&\&                 on\_completed)}
+\DoxyCodeLine{57 \textcolor{keyword}{auto} create\_subscriber\_with\_state(constraint::decayed\_same\_as<composite\_subscription> \textcolor{keyword}{auto}\&\& sub,}
+\DoxyCodeLine{58                                   \textcolor{keyword}{auto}\&\&                                                     state,}
+\DoxyCodeLine{59                                   OnNext\&\&                                                   on\_next,}
+\DoxyCodeLine{60                                   OnError\&\&                                                  on\_error,}
+\DoxyCodeLine{61                                   OnCompleted\&\&                                              on\_completed)}
 \DoxyCodeLine{62 \{}
 \DoxyCodeLine{63     \textcolor{keywordflow}{return} specific\_subscriber<Type, state\_observer<Type,}
 \DoxyCodeLine{64                                                     std::decay\_t<\textcolor{keyword}{decltype}(state)>,}
@@ -58,7 +58,7 @@
 \DoxyCodeLine{66                                                     std::decay\_t<OnError>,}
 \DoxyCodeLine{67                                                     std::decay\_t<OnCompleted>>>}
 \DoxyCodeLine{68     \{}
-\DoxyCodeLine{69         sub,}
+\DoxyCodeLine{69         std::forward<decltype(sub)>(sub),}
 \DoxyCodeLine{70         std::forward<decltype(state)>(state),}
 \DoxyCodeLine{71         on\_next,}
 \DoxyCodeLine{72         on\_error,}

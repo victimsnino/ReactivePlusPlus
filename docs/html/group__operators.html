@@ -258,7 +258,7 @@ requires (is_header_included&lt;merge_tag, Args...&gt; &amp;&amp; rpp::constrain
 </div><div class="memdoc">
 
 <p>combine submissions from observables inside this observable into one </p>
-<p >this overloading of Merge operator can be applied for observable of observables and will merge emissions of observables inside root observable</p>
+<p >this overloading of Merge operator can be applied for observable of observables and will merge emissions of observables inside root observable \warn According to observable contract (<a href="https://reactivex.io/documentation/contract.html">https://reactivex.io/documentation/contract.html</a>) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement</p>
 <p >Example: </p><div class="fragment"><div class="line">    <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(<a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(1).as_dynamic(),</div>
 <div class="line">                      rpp::source::never&lt;int&gt;().as_dynamic(),</div>
 <div class="line">                      <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(2).as_dynamic())</div>
@@ -302,7 +302,7 @@ requires (is_header_included&lt;merge_tag, TObservables...&gt;&amp;&amp; sizeof.
 </div><div class="memdoc">
 
 <p>combine submissions from current observable with other observables into one </p>
-<p >this overloading of Merge operator can be applied to any observable to merge emissions with other observables from arguments</p>
+<p >this overloading of Merge operator can be applied to any observable to merge emissions with other observables from arguments \warn According to observable contract (<a href="https://reactivex.io/documentation/contract.html">https://reactivex.io/documentation/contract.html</a>) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement</p>
 <p >Example: </p><div class="fragment"><div class="line">    <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(1)</div>
 <div class="line">            .merge_with(<a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(2))</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
