@@ -47,9 +47,11 @@
 
 ### Conditional
 - [x] take_while
-
 ### Combining
 - [x] merge
   - [x] observable of observables
   - [x] merge with
   - [ ] merge delay error
+
+### Utility
+- [ ] observe_on

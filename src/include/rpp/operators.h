@@ -15,3 +15,4 @@
 #include <rpp/operators/take.h>
 #include <rpp/operators/take_while.h>
 #include <rpp/operators/merge.h>
+#include <rpp/operators/observe_on.h>
