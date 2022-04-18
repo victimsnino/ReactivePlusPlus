@@ -29,7 +29,7 @@ auto merge(TObservables&&...observables) requires details::is_header_included<de
 {
     return [...observables = std::forward<TObservables>(observables)]<constraint::observable TObservable>(TObservable && observable)
     {
-        return std::forward<TObservable>(observable).merge(observables);
+        return std::forward<TObservable>(observable).merge(observables...);
     };
 }
 } // namespace rpp::operators
