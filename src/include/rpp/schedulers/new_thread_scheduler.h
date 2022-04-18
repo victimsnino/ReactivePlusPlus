@@ -121,6 +121,11 @@ public:
                     fn();
                     fn = {};
                 }
+
+                // clear
+                std::unique_lock lock{ mutex };
+
+                queue = std::priority_queue<schedulable>{};
             }
 
             std::mutex                       mutex{};

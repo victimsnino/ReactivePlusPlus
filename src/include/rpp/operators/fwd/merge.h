@@ -23,8 +23,8 @@ namespace rpp::operators
 /**
  * \copydoc rpp::details::member_overload::merge
  */
-template<typename ...Args>
-auto merge() requires details::is_header_included<details::merge_tag, Args...>;
+template<constraint::observable ...TObservables>
+auto merge(TObservables&&... observables) requires details::is_header_included<details::merge_tag, TObservables...>;
 } // namespace rpp::operators
 
 namespace rpp::details

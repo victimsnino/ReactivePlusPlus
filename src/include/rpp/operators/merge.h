@@ -24,12 +24,12 @@ IMPLEMENTATION_FILE(merge_tag);
 
 namespace rpp::operators
 {
-template<typename ...Args>
-auto merge() requires details::is_header_included<details::merge_tag, Args...>
+template<constraint::observable ...TObservables>
+auto merge(TObservables&&...observables) requires details::is_header_included<details::merge_tag, TObservables...>
 {
-    return []<constraint::observable TObservable>(TObservable&& observable)
+    return [...observables = std::forward<TObservables>(observables)]<constraint::observable TObservable>(TObservable && observable)
     {
-        return std::forward<TObservable>(observable).merge();
+        return std::forward<TObservable>(observable).merge(observables);
     };
 }
 } // namespace rpp::operators
