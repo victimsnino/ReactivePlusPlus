@@ -182,7 +182,7 @@ SCENARIO("merge serializes emissions")
             {
                 std::atomic_size_t                          counter{};
                 size_t max_value = 0;
-                s1.merge_with(s2).subscribe([&](const auto&)
+                s1.merge_with(s2).as_blocking().subscribe([&](const auto&)
                 {
                     CHECK(++counter < 2);
                     max_value = std::max(counter.load(), max_value);
@@ -192,7 +192,6 @@ SCENARIO("merge serializes emissions")
                     max_value = std::max(counter.load(), max_value);
                     --counter;
                 });
-                std::this_thread::sleep_for(std::chrono::seconds{ 2 });
                 CHECK(max_value == 1);
             }
         }

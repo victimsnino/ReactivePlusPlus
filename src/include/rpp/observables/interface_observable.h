@@ -17,6 +17,8 @@
 #include <rpp/subscribers/specific_subscriber.h>// for make_lift_action_by_callbacks
 #include <rpp/utils/constraints.h>              // general constraints
 #include <rpp/operators/fwd.h>
+#include <rpp/observables/blocking_observable.h>
+#include <rpp/observables/utils.h>
 
 #include <type_traits>
 
@@ -34,46 +36,6 @@
 
 namespace rpp::details
 {
-template<constraint::decayed_type Type, typename OnNext, typename OnError, typename OnCompleted>
-auto create_subscriber_with_state(auto&&                        state,
-                                  OnNext&&                      on_next,
-                                  OnError&&                     on_error,
-                                  OnCompleted&&                 on_completed)
-{
-    return specific_subscriber<Type, state_observer<Type,
-                                                    std::decay_t<decltype(state)>,
-                                                    std::decay_t<OnNext>,
-                                                    std::decay_t<OnError>,
-                                                    std::decay_t<OnCompleted>>>
-    {
-        std::forward<decltype(state)>(state),
-        on_next,
-        on_error,
-        on_completed
-    };
-}
-
-template<constraint::decayed_type Type, typename OnNext, typename OnError, typename OnCompleted>
-auto create_subscriber_with_state(constraint::decayed_same_as<composite_subscription> auto&& sub,
-                                  auto&&                                                     state,
-                                  OnNext&&                                                   on_next,
-                                  OnError&&                                                  on_error,
-                                  OnCompleted&&                                              on_completed)
-{
-    return specific_subscriber<Type, state_observer<Type,
-                                                    std::decay_t<decltype(state)>,
-                                                    std::decay_t<OnNext>,
-                                                    std::decay_t<OnError>,
-                                                    std::decay_t<OnCompleted>>>
-    {
-        std::forward<decltype(sub)>(sub),
-        std::forward<decltype(state)>(state),
-        on_next,
-        on_error,
-        on_completed
-    };
-}
-
 template<constraint::decayed_type Type, typename OnNext, typename OnError, typename OnCompleted>
 auto make_lift_action_by_callbacks(OnNext&& on_next, OnError&& on_error, OnCompleted&& on_completed)
 {
@@ -259,6 +221,19 @@ public:
     auto op(OperatorFn&& fn) &&
     {
         return fn(MoveThis());
+    }
+
+    /**
+     * \brief Converts existing observable to rpp::blocking_observable which has another interface and abilities
+     */
+    auto as_blocking() const &
+    {
+        return blocking_observable{ CastThis ()};
+    }
+
+    auto as_blocking()&&
+    {
+        return blocking_observable{ MoveThis() };
     }
     
 private:
