@@ -14,7 +14,6 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-
 #include <rpp/sources.h>
 #include <rpp/observables.h>
 #include <rpp/observers.h>
@@ -362,6 +361,27 @@ SCENARIO("base observables")
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 1);
                 CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
+    }
+}
+
+SCENARIO("blocking observable")
+{
+    GIVEN("observable with wait")
+    {
+        auto obs = rpp::source::create<int>([](const auto& sub)
+        {
+            std::this_thread::sleep_for(std::chrono::seconds{1});
+            sub.on_completed();
+        });
+        WHEN("subscribe on it via as_blocking")
+        {
+            auto mock = mock_observer<int>();
+            obs.as_blocking().subscribe(mock);
+            THEN("obtain on_completed")
+            {
+                CHECK(mock.get_on_completed_count() == 1);
             }
         }
     }

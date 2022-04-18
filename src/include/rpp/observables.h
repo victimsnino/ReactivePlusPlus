@@ -12,3 +12,4 @@
 
 #include <rpp/observables/specific_observable.h>
 #include <rpp/observables/dynamic_observable.h>
+#include <rpp/observables/blocking_observable.h>

@@ -13,6 +13,8 @@
 #include <rpp/operators/fwd/take.h>
 #include <rpp/observables/constraints.h>
 #include <rpp/subscribers/constraints.h>
+#include <rpp/observables/utils.h>
+
 
 #include <atomic>
 #include <memory>
