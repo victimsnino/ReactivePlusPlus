@@ -20,100 +20,102 @@
 \DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/subscriptions/composite\_subscription.h>}}
 \DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/observers/state\_observer.h>}}
 \DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{just_8h}{rpp/sources/just.h}}>}}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <atomic>}}
-\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <memory>}}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 IMPLEMENTATION\_FILE(merge\_tag);}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <rpp/observables/utils.h>}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <atomic>}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <memory>}}
 \DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{keyword}{namespace }rpp::operators}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27 \textcolor{keyword}{template}<constraint::observable ...TObservables>}
-\DoxyCodeLine{28 \textcolor{keyword}{auto} merge(TObservables\&\&...observables) \textcolor{keyword}{requires} details::is\_header\_included<details::merge\_tag, TObservables...>}
-\DoxyCodeLine{29 \{}
-\DoxyCodeLine{30     \textcolor{keywordflow}{return} [...observables = std::forward<TObservables>(observables)]<constraint::observable TObservable>(TObservable \&\& observable)}
-\DoxyCodeLine{31     \{}
-\DoxyCodeLine{32         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).merge(observables...);}
-\DoxyCodeLine{33     \};}
-\DoxyCodeLine{34 \}}
-\DoxyCodeLine{35 \} \textcolor{comment}{// namespace rpp::operators}}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{38 \{}
-\DoxyCodeLine{39 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1state__t}{state\_t}}}
+\DoxyCodeLine{25 IMPLEMENTATION\_FILE(merge\_tag);}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{keyword}{namespace }rpp::operators}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29 \textcolor{keyword}{template}<constraint::observable ...TObservables>}
+\DoxyCodeLine{30 \textcolor{keyword}{auto} merge(TObservables\&\&...observables) \textcolor{keyword}{requires} details::is\_header\_included<details::merge\_tag, TObservables...>}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{32     \textcolor{keywordflow}{return} [...observables = std::forward<TObservables>(observables)]<constraint::observable TObservable>(TObservable \&\& observable)}
+\DoxyCodeLine{33     \{}
+\DoxyCodeLine{34         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).merge(observables...);}
+\DoxyCodeLine{35     \};}
+\DoxyCodeLine{36 \}}
+\DoxyCodeLine{37 \} \textcolor{comment}{// namespace rpp::operators}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{40 \{}
-\DoxyCodeLine{41     std::atomic\_size\_t count\_of\_on\_completed\{\};}
-\DoxyCodeLine{42     std::mutex         mutex\{\};}
-\DoxyCodeLine{43 \};}
-\DoxyCodeLine{44 }
-\DoxyCodeLine{45 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{46 \textcolor{keyword}{auto} create\_proxy\_subscriber(constraint::subscriber \textcolor{keyword}{auto}\&\&   subscriber,}
-\DoxyCodeLine{47                              \textcolor{keyword}{const} std::shared\_ptr<state\_t>\& state,}
-\DoxyCodeLine{48                              \textcolor{keyword}{auto}\&\&                          on\_next,}
-\DoxyCodeLine{49                              \textcolor{keyword}{auto}\&\&                          on\_error,}
-\DoxyCodeLine{50                              \textcolor{keyword}{auto}\&\&                          on\_completed)}
-\DoxyCodeLine{51 \{}
-\DoxyCodeLine{52     ++(state-\/>count\_of\_on\_completed);}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{54     \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
-\DoxyCodeLine{55     \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(subscription.make\_child(),}
-\DoxyCodeLine{56                                               std::forward<\textcolor{keyword}{decltype}(subscriber)>(subscriber),}
-\DoxyCodeLine{57                                               std::forward<\textcolor{keyword}{decltype}(on\_next)>(on\_next),}
-\DoxyCodeLine{58                                               std::forward<\textcolor{keyword}{decltype}(on\_error)>(on\_error),}
-\DoxyCodeLine{59                                               std::forward<\textcolor{keyword}{decltype}(on\_completed)>(on\_completed));}
-\DoxyCodeLine{60 \}}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{62 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{63 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, merge\_tag>::merge\_impl()}
-\DoxyCodeLine{64 \{}
-\DoxyCodeLine{65     \textcolor{keyword}{using} ValueType = utils::extract\_observable\_type\_t<Type>;}
-\DoxyCodeLine{66 }
-\DoxyCodeLine{67     \textcolor{keywordflow}{return} []<constraint::subscriber\_of\_type<ValueType> TSub>(TSub\&\& subscriber)}
-\DoxyCodeLine{68     \{}
-\DoxyCodeLine{69         \textcolor{keyword}{auto} state = std::make\_shared<state\_t>();}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{71         \textcolor{keyword}{auto} wrap\_under\_guard = [state](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& callable)}
-\DoxyCodeLine{72         \{}
-\DoxyCodeLine{73             \textcolor{keywordflow}{return} [state, callable](\textcolor{keyword}{auto}\&\&...args)}
-\DoxyCodeLine{74             \{}
-\DoxyCodeLine{75                 std::lock\_guard lock\{ state-\/>mutex \};}
-\DoxyCodeLine{76                 callable(std::forward<\textcolor{keyword}{decltype}(args)>(args)...);}
-\DoxyCodeLine{77             \};}
-\DoxyCodeLine{78         \};}
-\DoxyCodeLine{79 }
-\DoxyCodeLine{80         \textcolor{keyword}{auto} on\_completed = [=](\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{81         \{}
-\DoxyCodeLine{82             \textcolor{keywordflow}{if} (-\/-\/(state-\/>count\_of\_on\_completed) == 0)}
-\DoxyCodeLine{83                 sub.on\_completed();}
-\DoxyCodeLine{84         \};}
-\DoxyCodeLine{85 }
-\DoxyCodeLine{86         \textcolor{keyword}{auto} on\_new\_observable = [=]<constraint::observable TObs>(TObs\&\& new\_observable,}
-\DoxyCodeLine{87                                                                   \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{88         \{}
-\DoxyCodeLine{89             std::forward<TObs>(new\_observable).subscribe(create\_proxy\_subscriber<ValueType>(sub,}
-\DoxyCodeLine{90                                                                                             state,}
-\DoxyCodeLine{91                                                                                             wrap\_under\_guard(forwarding\_on\_next\{\}),}
-\DoxyCodeLine{92                                                                                             wrap\_under\_guard(forwarding\_on\_error\{\}),}
-\DoxyCodeLine{93                                                                                             on\_completed));}
-\DoxyCodeLine{94         \};}
-\DoxyCodeLine{95 }
-\DoxyCodeLine{96         \textcolor{keywordflow}{return} create\_proxy\_subscriber<Type>(std::forward<TSub>(subscriber),}
-\DoxyCodeLine{97                                              state,}
-\DoxyCodeLine{98                                              std::move(on\_new\_observable),}
-\DoxyCodeLine{99                                              wrap\_under\_guard(forwarding\_on\_error\{\}),}
-\DoxyCodeLine{100                                              on\_completed);}
-\DoxyCodeLine{101     \};}
-\DoxyCodeLine{102 \}}
-\DoxyCodeLine{103 }
-\DoxyCodeLine{104 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{105 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> ... TObservables>}
-\DoxyCodeLine{106 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, merge\_tag>::merge\_with\_impl(TObservables\&\&... observables) \textcolor{keyword}{requires} (\textcolor{keyword}{sizeof}...(TObservables) >= 1)}
-\DoxyCodeLine{107 \{}
-\DoxyCodeLine{108     \textcolor{keywordflow}{return} [...observables = std::forward<TObservables>(observables)]<constraint::observable TObs>(TObs\&\& obs)}
-\DoxyCodeLine{109     \{}
-\DoxyCodeLine{110         \textcolor{keywordflow}{return} \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(std::forward<TObs>(obs).as\_dynamic(), std::move(observables).as\_dynamic()...).merge();}
-\DoxyCodeLine{111     \};}
-\DoxyCodeLine{112 \}}
-\DoxyCodeLine{113 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{41 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1state__t}{state\_t}}}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43     std::atomic\_size\_t count\_of\_on\_completed\{\};}
+\DoxyCodeLine{44     std::mutex         mutex\{\};}
+\DoxyCodeLine{45 \};}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{48 \textcolor{keyword}{auto} create\_proxy\_subscriber(constraint::subscriber \textcolor{keyword}{auto}\&\&   subscriber,}
+\DoxyCodeLine{49                              \textcolor{keyword}{const} std::shared\_ptr<state\_t>\& state,}
+\DoxyCodeLine{50                              \textcolor{keyword}{auto}\&\&                          on\_next,}
+\DoxyCodeLine{51                              \textcolor{keyword}{auto}\&\&                          on\_error,}
+\DoxyCodeLine{52                              \textcolor{keyword}{auto}\&\&                          on\_completed)}
+\DoxyCodeLine{53 \{}
+\DoxyCodeLine{54     ++(state-\/>count\_of\_on\_completed);}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56     \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
+\DoxyCodeLine{57     \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(subscription.make\_child(),}
+\DoxyCodeLine{58                                               std::forward<\textcolor{keyword}{decltype}(subscriber)>(subscriber),}
+\DoxyCodeLine{59                                               std::forward<\textcolor{keyword}{decltype}(on\_next)>(on\_next),}
+\DoxyCodeLine{60                                               std::forward<\textcolor{keyword}{decltype}(on\_error)>(on\_error),}
+\DoxyCodeLine{61                                               std::forward<\textcolor{keyword}{decltype}(on\_completed)>(on\_completed));}
+\DoxyCodeLine{62 \}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{65 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, merge\_tag>::merge\_impl()}
+\DoxyCodeLine{66 \{}
+\DoxyCodeLine{67     \textcolor{keyword}{using} ValueType = utils::extract\_observable\_type\_t<Type>;}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     \textcolor{keywordflow}{return} []<constraint::subscriber\_of\_type<ValueType> TSub>(TSub\&\& subscriber)}
+\DoxyCodeLine{70     \{}
+\DoxyCodeLine{71         \textcolor{keyword}{auto} state = std::make\_shared<state\_t>();}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73         \textcolor{keyword}{auto} wrap\_under\_guard = [state](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& callable)}
+\DoxyCodeLine{74         \{}
+\DoxyCodeLine{75             \textcolor{keywordflow}{return} [state, callable](\textcolor{keyword}{auto}\&\&...args)}
+\DoxyCodeLine{76             \{}
+\DoxyCodeLine{77                 std::lock\_guard lock\{ state-\/>mutex \};}
+\DoxyCodeLine{78                 callable(std::forward<\textcolor{keyword}{decltype}(args)>(args)...);}
+\DoxyCodeLine{79             \};}
+\DoxyCodeLine{80         \};}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82         \textcolor{keyword}{auto} on\_completed = [=](\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{83         \{}
+\DoxyCodeLine{84             \textcolor{keywordflow}{if} (-\/-\/(state-\/>count\_of\_on\_completed) == 0)}
+\DoxyCodeLine{85                 sub.on\_completed();}
+\DoxyCodeLine{86         \};}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88         \textcolor{keyword}{auto} on\_new\_observable = [=]<constraint::observable TObs>(TObs\&\& new\_observable,}
+\DoxyCodeLine{89                                                                   \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{90         \{}
+\DoxyCodeLine{91             std::forward<TObs>(new\_observable).subscribe(create\_proxy\_subscriber<ValueType>(sub,}
+\DoxyCodeLine{92                                                                                             state,}
+\DoxyCodeLine{93                                                                                             wrap\_under\_guard(forwarding\_on\_next\{\}),}
+\DoxyCodeLine{94                                                                                             wrap\_under\_guard(forwarding\_on\_error\{\}),}
+\DoxyCodeLine{95                                                                                             on\_completed));}
+\DoxyCodeLine{96         \};}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98         \textcolor{keywordflow}{return} create\_proxy\_subscriber<Type>(std::forward<TSub>(subscriber),}
+\DoxyCodeLine{99                                              state,}
+\DoxyCodeLine{100                                              std::move(on\_new\_observable),}
+\DoxyCodeLine{101                                              wrap\_under\_guard(forwarding\_on\_error\{\}),}
+\DoxyCodeLine{102                                              on\_completed);}
+\DoxyCodeLine{103     \};}
+\DoxyCodeLine{104 \}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{107 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> ... TObservables>}
+\DoxyCodeLine{108 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, merge\_tag>::merge\_with\_impl(TObservables\&\&... observables) \textcolor{keyword}{requires} (\textcolor{keyword}{sizeof}...(TObservables) >= 1)}
+\DoxyCodeLine{109 \{}
+\DoxyCodeLine{110     \textcolor{keywordflow}{return} [...observables = std::forward<TObservables>(observables)]<constraint::observable TObs>(TObs\&\& obs)}
+\DoxyCodeLine{111     \{}
+\DoxyCodeLine{112         \textcolor{keywordflow}{return} \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(std::forward<TObs>(obs).as\_dynamic(), std::move(observables).as\_dynamic()...).merge();}
+\DoxyCodeLine{113     \};}
+\DoxyCodeLine{114 \}}
+\DoxyCodeLine{115 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

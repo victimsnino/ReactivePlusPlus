@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['dynamic_5fobservable_0',['dynamic_observable',['../classrpp_1_1dynamic__observable.html',1,'rpp']]],
-  ['dynamic_5fobserver_1',['dynamic_observer',['../classrpp_1_1dynamic__observer.html',1,'rpp']]],
-  ['dynamic_5fsubscriber_2',['dynamic_subscriber',['../classrpp_1_1dynamic__subscriber.html',1,'rpp']]]
+  ['callback_5fsubscription_0',['callback_subscription',['../classrpp_1_1callback__subscription.html',1,'rpp']]],
+  ['composite_5fsubscription_1',['composite_subscription',['../classrpp_1_1composite__subscription.html',1,'rpp']]]
 ];

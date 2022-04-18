@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['lift_0',['lift',['../structrpp_1_1interface__observable.html#ac6c66ddf2ceb4d398044a17e53db13eb',1,'rpp::interface_observable::lift(details::lift_fn&lt; NewType &gt; auto &amp;&amp;op) const &amp;'],['../structrpp_1_1interface__observable.html#a89b275a1f555886633d2389c61b97103',1,'rpp::interface_observable::lift(OperatorFn &amp;&amp;op) const &amp;'],['../structrpp_1_1interface__observable.html#a250a7502f252453f3144b72ffedbb8fa',1,'rpp::interface_observable::lift(OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const &amp;'],['../structrpp_1_1interface__observable.html#abc2606b6028290f9891984be692b2080',1,'rpp::interface_observable::lift(OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const &amp;']]]
+  ['just_0',['just',['../group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b',1,'rpp::observable::just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)'],['../group__observables.html#ga9b6fdbec2962d28ae4284811e6971f27',1,'rpp::observable::just(T &amp;&amp;item, Ts &amp;&amp;...items)']]],
+  ['just_2eh_1',['just.h',['../just_8h.html',1,'']]]
 ];

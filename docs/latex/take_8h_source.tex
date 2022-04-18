@@ -17,47 +17,49 @@
 \DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/operators/fwd/take.h>}}
 \DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observables/constraints.h>}}
 \DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.h>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <atomic>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <memory>}}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20 IMPLEMENTATION\_FILE(take\_tag);}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/observables/utils.h>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <atomic>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <memory>}}
 \DoxyCodeLine{21 }
-\DoxyCodeLine{22 \textcolor{keyword}{namespace }rpp::operators}
-\DoxyCodeLine{23 \{}
-\DoxyCodeLine{24 \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
-\DoxyCodeLine{25 \textcolor{keyword}{auto} take(\textcolor{keywordtype}{size\_t} count) \textcolor{keyword}{requires} details::is\_header\_included<details::take\_tag, Args...>}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27     \textcolor{keywordflow}{return} [count]<constraint::observable TObservable>(TObservable\&\& observable)}
-\DoxyCodeLine{28     \{}
-\DoxyCodeLine{29         \textcolor{keywordflow}{return} observable.take(count);}
-\DoxyCodeLine{30     \};}
-\DoxyCodeLine{31 \}}
-\DoxyCodeLine{32 \} \textcolor{comment}{// namespace rpp::operators}}
-\DoxyCodeLine{33 }
-\DoxyCodeLine{34 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{35 \{}
-\DoxyCodeLine{36 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{37 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, take\_tag>::take\_impl(\textcolor{keywordtype}{size\_t} count)}
-\DoxyCodeLine{38 \{}
-\DoxyCodeLine{39     \textcolor{keywordflow}{return} [count]<constraint::subscriber\_of\_type<Type> TSub>(TSub\&\& subscriber)}
-\DoxyCodeLine{40     \{}
-\DoxyCodeLine{41         \textcolor{keyword}{auto} action = [shared\_count = std::make\_shared<size\_t>(count)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
-\DoxyCodeLine{42         \{}
-\DoxyCodeLine{43             \textcolor{keywordflow}{if} (*shared\_count > 0)}
-\DoxyCodeLine{44             \{}
-\DoxyCodeLine{45                 -\/-\/(*shared\_count);}
-\DoxyCodeLine{46                 subscriber.on\_next(std::forward<\textcolor{keyword}{decltype}(value)>(value));}
-\DoxyCodeLine{47             \}}
-\DoxyCodeLine{48 }
-\DoxyCodeLine{49             \textcolor{keywordflow}{if} (*shared\_count == 0)}
-\DoxyCodeLine{50                 subscriber.on\_completed();}
-\DoxyCodeLine{51         \};}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{53         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
-\DoxyCodeLine{54         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(std::move(subscription), std::forward<TSub>(subscriber), std::move(action), forwarding\_on\_error\{\}, forwarding\_on\_completed\{\});}
-\DoxyCodeLine{55     \};}
-\DoxyCodeLine{56 \}}
-\DoxyCodeLine{57 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{22 IMPLEMENTATION\_FILE(take\_tag);}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{keyword}{namespace }rpp::operators}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26 \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{27 \textcolor{keyword}{auto} take(\textcolor{keywordtype}{size\_t} count) \textcolor{keyword}{requires} details::is\_header\_included<details::take\_tag, Args...>}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29     \textcolor{keywordflow}{return} [count]<constraint::observable TObservable>(TObservable\&\& observable)}
+\DoxyCodeLine{30     \{}
+\DoxyCodeLine{31         \textcolor{keywordflow}{return} observable.take(count);}
+\DoxyCodeLine{32     \};}
+\DoxyCodeLine{33 \}}
+\DoxyCodeLine{34 \} \textcolor{comment}{// namespace rpp::operators}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{39 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, take\_tag>::take\_impl(\textcolor{keywordtype}{size\_t} count)}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41     \textcolor{keywordflow}{return} [count]<constraint::subscriber\_of\_type<Type> TSub>(TSub\&\& subscriber)}
+\DoxyCodeLine{42     \{}
+\DoxyCodeLine{43         \textcolor{keyword}{auto} action = [shared\_count = std::make\_shared<size\_t>(count)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{44         \{}
+\DoxyCodeLine{45             \textcolor{keywordflow}{if} (*shared\_count > 0)}
+\DoxyCodeLine{46             \{}
+\DoxyCodeLine{47                 -\/-\/(*shared\_count);}
+\DoxyCodeLine{48                 subscriber.on\_next(std::forward<\textcolor{keyword}{decltype}(value)>(value));}
+\DoxyCodeLine{49             \}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51             \textcolor{keywordflow}{if} (*shared\_count == 0)}
+\DoxyCodeLine{52                 subscriber.on\_completed();}
+\DoxyCodeLine{53         \};}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
+\DoxyCodeLine{56         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(std::move(subscription), std::forward<TSub>(subscriber), std::move(action), forwarding\_on\_error\{\}, forwarding\_on\_completed\{\});}
+\DoxyCodeLine{57     \};}
+\DoxyCodeLine{58 \}}
+\DoxyCodeLine{59 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}
