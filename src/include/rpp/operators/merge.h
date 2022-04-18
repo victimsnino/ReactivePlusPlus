@@ -36,25 +36,27 @@ auto merge(TObservables&&...observables) requires details::is_header_included<de
 
 namespace rpp::details
 {
-template<constraint::decayed_type Type>
-auto create_proxy_subscriber(constraint::subscriber auto&&              subscriber,
-                             const std::shared_ptr<std::atomic_size_t>& on_completed_count,
-                             auto&&                                     on_next)
+struct state_t
 {
-    ++(*on_completed_count);
+    std::atomic_size_t count_of_on_completed{};
+    std::mutex         mutex{};
+};
+
+template<constraint::decayed_type Type>
+auto create_proxy_subscriber(constraint::subscriber auto&&   subscriber,
+                             const std::shared_ptr<state_t>& state,
+                             auto&&                          on_next,
+                             auto&&                          on_error,
+                             auto&&                          on_completed)
+{
+    ++(state->count_of_on_completed);
 
     auto subscription = subscriber.get_subscription();
-    auto result       = create_subscriber_with_state<Type>(std::forward<decltype(subscriber)>(subscriber),
-                                                           std::forward<decltype(on_next)>(on_next),
-                                                           forwarding_on_error{},
-                                                           [=](const constraint::subscriber auto& sub)
-                                                           {
-                                                               if (--(*on_completed_count) == 0)
-                                                                   sub.on_completed();
-                                                           });
-
-    subscription.add(result.get_subscription());
-    return result;
+    return create_subscriber_with_state<Type>(subscription.make_child(),
+                                              std::forward<decltype(subscriber)>(subscriber),
+                                              std::forward<decltype(on_next)>(on_next),
+                                              std::forward<decltype(on_error)>(on_error),
+                                              std::forward<decltype(on_completed)>(on_completed));
 }
 
 template<constraint::decayed_type Type, typename SpecificObservable>
@@ -64,14 +66,38 @@ auto member_overload<Type, SpecificObservable, merge_tag>::merge_impl()
 
     return []<constraint::subscriber_of_type<ValueType> TSub>(TSub&& subscriber)
     {
-        auto count_of_on_completed_required = std::make_shared<std::atomic_size_t>();
+        auto state = std::make_shared<state_t>();
 
-        auto on_new_observable = [=]<constraint::observable TObs>(TObs&& new_observable, const constraint::subscriber auto& sub)
+        auto wrap_under_guard = [state](const auto& callable)
         {
-            std::forward<TObs>(new_observable).subscribe(create_proxy_subscriber<ValueType>(sub, count_of_on_completed_required, forwarding_on_next{}));
+            return [state, callable](auto&&...args)
+            {
+                std::lock_guard lock{ state->mutex };
+                callable(std::forward<decltype(args)>(args)...);
+            };
         };
 
-        return create_proxy_subscriber<Type>(std::forward<TSub>(subscriber), count_of_on_completed_required, std::move(on_new_observable));
+        auto on_completed = [=](const constraint::subscriber auto& sub)
+        {
+            if (--(state->count_of_on_completed) == 0)
+                sub.on_completed();
+        };
+
+        auto on_new_observable = [=]<constraint::observable TObs>(TObs&& new_observable,
+                                                                  const constraint::subscriber auto& sub)
+        {
+            std::forward<TObs>(new_observable).subscribe(create_proxy_subscriber<ValueType>(sub,
+                                                                                            state,
+                                                                                            wrap_under_guard(forwarding_on_next{}),
+                                                                                            wrap_under_guard(forwarding_on_error{}),
+                                                                                            on_completed));
+        };
+
+        return create_proxy_subscriber<Type>(std::forward<TSub>(subscriber),
+                                             state,
+                                             std::move(on_new_observable),
+                                             wrap_under_guard(forwarding_on_error{}),
+                                             on_completed);
     };
 }
 

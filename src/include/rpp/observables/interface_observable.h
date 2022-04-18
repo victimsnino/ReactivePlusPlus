@@ -54,11 +54,11 @@ auto create_subscriber_with_state(auto&&                        state,
 }
 
 template<constraint::decayed_type Type, typename OnNext, typename OnError, typename OnCompleted>
-auto create_subscriber_with_state(const composite_subscription& sub,
-                                  auto&&                        state,
-                                  OnNext&&                      on_next,
-                                  OnError&&                     on_error,
-                                  OnCompleted&&                 on_completed)
+auto create_subscriber_with_state(constraint::decayed_same_as<composite_subscription> auto&& sub,
+                                  auto&&                                                     state,
+                                  OnNext&&                                                   on_next,
+                                  OnError&&                                                  on_error,
+                                  OnCompleted&&                                              on_completed)
 {
     return specific_subscriber<Type, state_observer<Type,
                                                     std::decay_t<decltype(state)>,
@@ -66,7 +66,7 @@ auto create_subscriber_with_state(const composite_subscription& sub,
                                                     std::decay_t<OnError>,
                                                     std::decay_t<OnCompleted>>>
     {
-        sub,
+        std::forward<decltype(sub)>(sub),
         std::forward<decltype(state)>(state),
         on_next,
         on_error,

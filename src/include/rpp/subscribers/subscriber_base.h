@@ -28,13 +28,11 @@ class subscriber_base
         , public subscriber_tag
 {
 public:
-    subscriber_base(const composite_subscription& subscription)
-        : m_subscription{subscription}
-        , m_local_subscription{m_subscription.add()} { }
+    subscriber_base(composite_subscription&& subscription = composite_subscription{})
+        : m_subscription{ std::move(subscription) } { }
 
-    subscriber_base()
-        : m_subscription{}
-        , m_local_subscription{m_subscription} {}
+    subscriber_base(const composite_subscription& subscription)
+        : m_subscription{subscription}{ }
 
     subscriber_base(const subscriber_base&)     = default;
     subscriber_base(subscriber_base&&) noexcept = default;
@@ -75,10 +73,6 @@ public:
             return;
 
         subscription_guard guard{m_subscription};
-
-        // prevent callbacks during on-error/on-completed stack returning, prevent obtaining of callbacks now!
-        m_local_subscription.unsubscribe();
-
         on_error_impl(err);
     }
 
@@ -88,10 +82,6 @@ public:
             return;
 
         subscription_guard guard{m_subscription};
-
-        // prevent callbacks during on-error/on-completed stack returning, prevent obtaining of callbacks now!
-        m_local_subscription.unsubscribe();
-
         on_completed_impl();
     }
 
@@ -102,7 +92,7 @@ public:
 
     [[nodiscard]] bool is_subscribed() const
     {
-        return m_local_subscription.is_subscribed();
+        return m_subscription.is_subscribed();
     }
 
     void unsubscribe() const
@@ -118,6 +108,5 @@ protected:
 
 private:
     composite_subscription m_subscription{};
-    subscription_base      m_local_subscription{};
 };
 } // namespace rpp::details

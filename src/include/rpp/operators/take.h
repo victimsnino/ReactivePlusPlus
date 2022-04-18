@@ -36,29 +36,22 @@ namespace rpp::details
 template<constraint::decayed_type Type, typename SpecificObservable>
 auto member_overload<Type, SpecificObservable, take_tag>::take_impl(size_t count)
 {
-    struct state
-    {
-        state(size_t count) : count{count} {}
-        
-        const size_t       count;
-        std::atomic_size_t sent_count{};
-    };
-
     return [count]<constraint::subscriber_of_type<Type> TSub>(TSub&& subscriber)
     {
-        auto action = [state = std::make_shared<state>(count)](auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber)
+        auto action = [shared_count = std::make_shared<size_t>(count)](auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber)
         {
-            const auto old_value = state->sent_count.fetch_add(1);
-            if (old_value < state->count)
+            if (*shared_count > 0)
             {
+                --(*shared_count);
                 subscriber.on_next(std::forward<decltype(value)>(value));
-                if (state->count - old_value == 1)
-                    subscriber.on_completed();
             }
+
+            if (*shared_count == 0)
+                subscriber.on_completed();
         };
 
         auto subscription = subscriber.get_subscription();
-        return create_subscriber_with_state<Type>(subscription, std::forward<TSub>(subscriber), std::move(action), forwarding_on_error{}, forwarding_on_completed{});
+        return create_subscriber_with_state<Type>(std::move(subscription), std::forward<TSub>(subscriber), std::move(action), forwarding_on_error{}, forwarding_on_completed{});
     };
 }
 } // namespace rpp::details
