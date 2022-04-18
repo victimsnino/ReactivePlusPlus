@@ -66,7 +66,7 @@ auto create_subscriber_with_state(const composite_subscription& sub,
                                                     std::decay_t<OnError>,
                                                     std::decay_t<OnCompleted>>>
     {
-        sub,
+        std::forward<decltype(sub)>(sub),
         std::forward<decltype(state)>(state),
         on_next,
         on_error,
