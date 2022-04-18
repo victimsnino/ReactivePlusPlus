@@ -52,13 +52,11 @@ auto create_proxy_subscriber(constraint::subscriber auto&&   subscriber,
     ++(state->count_of_on_completed);
 
     auto subscription = subscriber.get_subscription();
-    auto result       = create_subscriber_with_state<Type>(std::forward<decltype(subscriber)>(subscriber),
-                                                           std::forward<decltype(on_next)>(on_next),
-                                                           std::forward<decltype(on_error)>(on_error),
-                                                           std::forward<decltype(on_completed)>(on_completed));
-
-    subscription.add(result.get_subscription());
-    return result;
+    return create_subscriber_with_state<Type>(subscription.make_child(),
+                                              std::forward<decltype(subscriber)>(subscriber),
+                                              std::forward<decltype(on_next)>(on_next),
+                                              std::forward<decltype(on_error)>(on_error),
+                                              std::forward<decltype(on_completed)>(on_completed));
 }
 
 template<constraint::decayed_type Type, typename SpecificObservable>
