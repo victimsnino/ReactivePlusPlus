@@ -18673,7 +18673,7 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 18671,Subscriber construction,Make copy of subscriber,16.3259,16.096,17.1692,0.95,Windows MSVC,compile (92d448e0),rpp
 18672,Subscriber construction,Transform subsriber to dynamic,86.4205,85.8975,87.7774,0.95,Windows MSVC,compile (92d448e0),rpp
 18673,Observable subscribe,Specific observable subscribe specific observer,108.539,108.228,109.206,0.95,Windows MSVC,compile (92d448e0),rpp
-18674,Observable subscribe,Specific observable subscribe dynamic observer,126.213,125.853,127,0.95,Windows MSVC,compile (92d448e0),rpp
+18674,Observable subscribe,Specific observable subscribe dynamic observer,126.213,125.853,127.0,0.95,Windows MSVC,compile (92d448e0),rpp
 18675,Observable subscribe,Dynamic observable subscribe specific observer,182.297,181.341,184.406,0.95,Windows MSVC,compile (92d448e0),rpp
 18676,Observable subscribe,Dynamic observable subscribe dynamic observer,126.285,125.943,127.14,0.95,Windows MSVC,compile (92d448e0),rpp
 18677,Observable lift,Specific observable lift specific observer,144.669,144.278,145.568,0.95,Windows MSVC,compile (92d448e0),rpp
@@ -18712,8 +18712,8 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 18710,Observable subscribe,Specific observable subscribe specific observer,1167.27,1156.68,1214.86,0.95,Windows MSVC,compile (92d448e0),rxcpp
 18711,Observable subscribe,Specific observable subscribe dynamic observer,1202.24,1196.86,1212.81,0.95,Windows MSVC,compile (92d448e0),rxcpp
 18712,Observable subscribe,Dynamic observable subscribe specific observer,1345.68,1333.84,1379.32,0.95,Windows MSVC,compile (92d448e0),rxcpp
-18713,Observable subscribe,Dynamic observable subscribe dynamic observer,1226.81,1216.05,1274,0.95,Windows MSVC,compile (92d448e0),rxcpp
-18714,Observable lift,Specific observable lift specific observer,1211.71,1203.05,1241,0.95,Windows MSVC,compile (92d448e0),rxcpp
+18713,Observable subscribe,Dynamic observable subscribe dynamic observer,1226.81,1216.05,1274.0,0.95,Windows MSVC,compile (92d448e0),rxcpp
+18714,Observable lift,Specific observable lift specific observer,1211.71,1203.05,1241.0,0.95,Windows MSVC,compile (92d448e0),rxcpp
 18715,Observable lift,Specific observable lift dynamic observer,1264.3,1253.05,1313.6,0.95,Windows MSVC,compile (92d448e0),rxcpp
 18716,Observable lift,Dynamic observable lift specific observer,1406.5,1391.83,1450.72,0.95,Windows MSVC,compile (92d448e0),rxcpp
 18717,Observable lift,Dynamic observable lift dynamic observer,1317.75,1286.65,1441.3,0.95,Windows MSVC,compile (92d448e0),rxcpp
@@ -18881,3 +18881,231 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 18879,from,from vector with int,57.3752,57.2557,57.7947,0.95,Linux CLANG,compile (92d448e0),rxcpp
 18880,merge,merge,120.028,119.741,120.82,0.95,Linux CLANG,compile (92d448e0),rxcpp
 18881,merge,merge_with,273.612,273.33,274.058,0.95,Linux CLANG,compile (92d448e0),rxcpp
+18882,Observable construction,Specific observable construction,0.671409,0.668738,0.677994,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18883,Observable construction,Dynamic observable construction,82.8875,82.418,83.791,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18884,Observable construction,Specific observable construction + as_dynamic,94.4519,94.1346,95.1186,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18885,Observable subscribe #2,Specific observable subscribe lambda,120.491,119.074,123.106,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18886,Observable subscribe #2,Dynamic observable subscribe lambda,201.52,200.864,202.768,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18887,Observable subscribe #2,Specific observable subscribe lambda without subscription,118.797,117.887,120.646,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18888,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,202.961,202.15,205.047,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18889,Observable subscribe #2,Specific observable subscribe specific subscriber,16.7513,16.7211,16.8274,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18890,Observable subscribe #2,Dynamic observable subscribe specific subscriber,114.59,113.905,115.856,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18891,Observable subscribe #2,Specific observable subscribe dynamic observer,16.7657,16.7294,16.8469,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18892,Observable subscribe #2,Dynamic observable subscribe dynamic observer,17.4917,17.4124,17.6717,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18893,Observer construction,Specific observer construction,0.673989,0.670262,0.683427,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18894,Observer construction,Dynamic observer construction,82.0677,81.7774,82.7387,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18895,Observer construction,Specific observer construction + as_dynamic,82.9482,82.4078,84.3139,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18896,OnNext,Specific observer OnNext,0.673339,0.67048,0.680171,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18897,OnNext,Dynamic observer OnNext,2.012,2.00789,2.02147,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18898,Subscriber construction,Make subsriber,100.761,100.314,101.808,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18899,Subscriber construction,Make copy of subscriber,19.2776,19.1152,19.5246,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18900,Subscriber construction,Transform subsriber to dynamic,98.6211,98.3086,99.1914,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18901,Observable subscribe,Specific observable subscribe specific observer,117.58,117.08,118.712,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18902,Observable subscribe,Specific observable subscribe dynamic observer,131.716,131.139,132.897,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18903,Observable subscribe,Dynamic observable subscribe specific observer,203.389,202.341,206.016,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18904,Observable subscribe,Dynamic observable subscribe dynamic observer,135.683,135.215,136.984,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18905,Observable lift,Specific observable lift specific observer,153.928,153,155.669,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18906,Observable lift,Specific observable lift dynamic observer,178.385,177.678,180.203,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18907,Observable lift,Dynamic observable lift specific observer,255.27,253.98,259.72,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18908,Observable lift,Dynamic observable lift dynamic observer,231.763,227.491,246.193,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18909,Operators,map construction from observable via dot + subscribe,88.8667,88.6842,89.2702,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18910,Subscription,composite_subscription create,87.2256,86.7508,88.138,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18911,Subscription,composite_subscription unsubscribe,8.37179,8.30014,8.42539,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18912,foundamental sources,empty,18.7489,18.7158,18.8299,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18913,foundamental sources,error,51.5236,50.4016,56.3504,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18914,foundamental sources,never,17.7286,17.5079,18.0554,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18915,just,just send int,27.7805,27.4814,28.3404,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18916,just,just send variadic,41.6374,41.5301,41.8423,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18917,from,from vector with int,89.4948,89.0383,90.4111,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18918,merge,merge,544.681,541.234,554.213,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18919,merge,merge_with,738.6,733.714,756.057,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18920,Observable construction,Specific observable construction,0.671522,0.669143,0.677509,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18921,Observable construction,Specific observable construction + as_dynamic,124.502,124.02,125.368,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18922,Observable subscribe #2,Specific observable subscribe lambda,1189.5,1176.36,1246.59,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18923,Observable subscribe #2,Dynamic observable subscribe lambda,1363.42,1348.42,1431.26,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18924,Observable subscribe #2,Specific observable subscribe lambda without subscription,1185.5,1171.09,1238.05,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18925,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,1365.68,1349.74,1423.58,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18926,Observable subscribe #2,Specific observable subscribe specific subscriber,864.133,857.533,889.933,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18927,Observable subscribe #2,Dynamic observable subscribe specific subscriber,1051.56,1036.88,1111.68,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18928,Observable subscribe #2,Specific observable subscribe dynamic observer,889.214,882.536,916.536,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18929,Observable subscribe #2,Dynamic observable subscribe dynamic observer,917.643,914.321,924.464,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18930,Observer construction,Specific observer construction,1.50845,1.50253,1.52314,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18931,Observer construction,Dynamic observer construction,115.064,114.665,116.156,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18932,Observer construction,Specific observer construction + as_dynamic,115.25,114.75,116.364,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18933,OnNext,Specific observer OnNext,0.671001,0.669542,0.674345,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18934,OnNext,Dynamic observer OnNext,2.01414,2.00667,2.03297,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18935,Subscriber construction,Make subsriber,361.351,348.797,392.432,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18936,Subscriber construction,Make copy of subscriber,31.5449,31.4352,31.9339,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18937,Subscriber construction,Transform subsriber to dynamic,155.218,154.158,157.388,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18938,Observable subscribe,Specific observable subscribe specific observer,1195.18,1181.05,1237.5,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18939,Observable subscribe,Specific observable subscribe dynamic observer,1218.38,1206.14,1267.52,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18940,Observable subscribe,Dynamic observable subscribe specific observer,1378.42,1363.58,1434.89,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18941,Observable subscribe,Dynamic observable subscribe dynamic observer,1256.33,1241.9,1318.52,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18942,Observable lift,Specific observable lift specific observer,1376.62,1345.14,1452.29,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18943,Observable lift,Specific observable lift dynamic observer,1278.86,1261.9,1320.95,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18944,Observable lift,Dynamic observable lift specific observer,1419.39,1402.39,1482.11,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18945,Observable lift,Dynamic observable lift dynamic observer,1322.9,1309.05,1380.2,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18946,Operators,map construction from observable via dot + subscribe,1004.85,997.808,1034.04,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18947,Subscription,composite_subscription create,391.733,389.88,397.133,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18948,Subscription,composite_subscription add,65.1159,64.3426,66.6776,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18949,Subscription,composite_subscription unsubscribe,26.6657,25.8253,28.6424,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18950,foundamental sources,empty,174.248,173.469,176.303,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18951,foundamental sources,error,190.538,189.75,192.955,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18952,foundamental sources,never,69.019,68.8886,69.3016,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18953,just,just send int,178.764,178.028,180.458,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18954,just,just send variadic,177.862,176.841,179.821,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18955,from,from vector with int,241.606,240.404,244.625,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18956,merge,merge,571.222,556.796,612.148,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18957,merge,merge_with,1013.8,1007.64,1037.32,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rxcpp
+18958,Observable construction,Specific observable construction,0.33499,0.334485,0.336954,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18959,Observable construction,Dynamic observable construction,20.6008,20.5357,20.7649,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18960,Observable construction,Specific observable construction + as_dynamic,21.0389,20.9994,21.098,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18961,Observable subscribe #2,Specific observable subscribe lambda,26.4016,26.2247,27.2414,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18962,Observable subscribe #2,Dynamic observable subscribe lambda,49.7398,49.4894,50.0748,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18963,Observable subscribe #2,Specific observable subscribe lambda without subscription,25.4458,25.3604,25.5889,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18964,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,49.3865,49.2777,49.7425,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18965,Observable subscribe #2,Specific observable subscribe specific subscriber,3.66881,3.66315,3.69059,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18966,Observable subscribe #2,Dynamic observable subscribe specific subscriber,27.2767,27.2166,27.5403,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18967,Observable subscribe #2,Specific observable subscribe dynamic observer,3.73166,3.7207,3.77359,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18968,Observable subscribe #2,Dynamic observable subscribe dynamic observer,3.77452,3.76868,3.79788,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18969,Observer construction,Specific observer construction,0.335047,0.334486,0.337144,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18970,Observer construction,Dynamic observer construction,21.3233,21.273,21.4202,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18971,Observer construction,Specific observer construction + as_dynamic,21.2646,21.2221,21.3834,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18972,OnNext,Specific observer OnNext,0.336076,0.334752,0.342169,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18973,OnNext,Dynamic observer OnNext,1.67456,1.67193,1.68595,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18974,Subscriber construction,Make subsriber,29.9489,29.9297,29.968,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18975,Subscriber construction,Make copy of subscriber,3.72703,3.71929,3.75935,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18976,Subscriber construction,Transform subsriber to dynamic,24.7574,24.716,24.9349,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18977,Observable subscribe,Specific observable subscribe specific observer,25.9015,25.8114,26.2383,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18978,Observable subscribe,Specific observable subscribe dynamic observer,29.7348,29.6811,29.7616,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18979,Observable subscribe,Dynamic observable subscribe specific observer,49.2655,49.17,49.5934,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18980,Observable subscribe,Dynamic observable subscribe dynamic observer,34.1842,34.1334,34.2259,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18981,Observable lift,Specific observable lift specific observer,30.0225,29.9282,30.3633,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18982,Observable lift,Specific observable lift dynamic observer,38.1297,38.07,38.362,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18983,Observable lift,Dynamic observable lift specific observer,62.9339,62.6089,63.519,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18984,Observable lift,Dynamic observable lift dynamic observer,51.992,51.8342,52.2149,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18985,Operators,map construction from observable via dot + subscribe,18.6176,18.5858,18.7198,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18986,Subscription,composite_subscription create,23.1271,23.0482,23.2912,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18987,Subscription,composite_subscription unsubscribe,8.32825,8.31509,8.36132,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18988,foundamental sources,empty,3.6521,3.64464,3.67925,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18989,foundamental sources,error,33.8168,33.7568,34.0422,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18990,foundamental sources,never,3.58776,3.57821,3.61915,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18991,just,just send int,5.69627,5.68789,5.73365,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18992,just,just send variadic,12.7271,12.7241,12.731,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18993,from,from vector with int,26.5457,26.48,26.6864,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18994,merge,merge,133.846,133.672,134.512,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18995,merge,merge_with,183.288,182.916,184.758,0.95,Linux GCC,create blocking_obse... (0d939ba1),rpp
+18996,Observable construction,Specific observable construction,0.334999,0.334492,0.337377,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+18997,Observable construction,Specific observable construction + as_dynamic,24.1467,24.1042,24.2291,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+18998,Observable subscribe #2,Specific observable subscribe lambda,339.497,339.092,340.08,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+18999,Observable subscribe #2,Dynamic observable subscribe lambda,390.581,389.673,394.542,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19000,Observable subscribe #2,Specific observable subscribe lambda without subscription,341.911,340.866,344.331,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19001,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,391.067,390.132,393.431,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19002,Observable subscribe #2,Specific observable subscribe specific subscriber,281.756,281.53,282.257,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19003,Observable subscribe #2,Dynamic observable subscribe specific subscriber,333.766,333.317,334.351,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19004,Observable subscribe #2,Specific observable subscribe dynamic observer,294.57,293.6,297.051,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19005,Observable subscribe #2,Dynamic observable subscribe dynamic observer,316.385,315.736,318.428,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19006,Observer construction,Specific observer construction,0.334447,0.334391,0.334515,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19007,Observer construction,Dynamic observer construction,23.1124,23.0114,23.1923,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19008,Observer construction,Specific observer construction + as_dynamic,21.4647,21.4116,21.6343,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19009,OnNext,Specific observer OnNext,0.334789,0.334599,0.335465,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19010,OnNext,Dynamic observer OnNext,2.0113,2.00752,2.02861,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19011,Subscriber construction,Make subsriber,57.1222,57.0603,57.1956,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19012,Subscriber construction,Make copy of subscriber,4.48732,4.48535,4.48945,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19013,Subscriber construction,Transform subsriber to dynamic,30.2515,30.1942,30.4588,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19014,Observable subscribe,Specific observable subscribe specific observer,336.53,335.721,338.564,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19015,Observable subscribe,Specific observable subscribe dynamic observer,350.932,350.038,353.226,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19016,Observable subscribe,Dynamic observable subscribe specific observer,391.976,391.197,394.353,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19017,Observable subscribe,Dynamic observable subscribe dynamic observer,377.015,376.432,377.953,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19018,Observable lift,Specific observable lift specific observer,347.409,346.676,349.235,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19019,Observable lift,Specific observable lift dynamic observer,364.845,364.002,367.098,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19020,Observable lift,Dynamic observable lift specific observer,407.489,406.421,410.61,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19021,Observable lift,Dynamic observable lift dynamic observer,405.219,404.408,407.786,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19022,Operators,map construction from observable via dot + subscribe,355.752,355.074,358.157,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19023,Subscription,composite_subscription create,54.1305,54.0294,54.4741,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19024,Subscription,composite_subscription add,16.0834,16.0589,16.1896,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19025,Subscription,composite_subscription unsubscribe,11.0462,11.0279,11.1316,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19026,foundamental sources,empty,47.9199,47.8684,48.0549,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19027,foundamental sources,error,83.1011,82.9641,83.6429,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19028,foundamental sources,never,19.1691,19.0288,19.8535,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19029,just,just send int,50.2963,50.2227,50.38,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19030,just,just send variadic,46.4777,46.3968,46.7794,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19031,from,from vector with int,69.84,69.6419,70.281,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19032,merge,merge,131.507,131.11,132.429,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19033,merge,merge_with,321.26,320.604,323.743,0.95,Linux GCC,create blocking_obse... (0d939ba1),rxcpp
+19034,Observable construction,Specific observable construction,0.402399,0.401085,0.408757,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19035,Observable construction,Dynamic observable construction,28.4827,28.4716,28.4939,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19036,Observable construction,Specific observable construction + as_dynamic,29.2313,29.076,29.4693,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19037,Observable subscribe #2,Specific observable subscribe lambda,63.5839,63.4408,64.1477,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19038,Observable subscribe #2,Dynamic observable subscribe lambda,96.6441,96.4509,97.4136,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19039,Observable subscribe #2,Specific observable subscribe lambda without subscription,63.9641,63.5247,65.7242,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19040,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,97.0505,96.7811,98.0842,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19041,Observable subscribe #2,Specific observable subscribe specific subscriber,16.052,16.0469,16.0627,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19042,Observable subscribe #2,Dynamic observable subscribe specific subscriber,63.5824,63.4176,64.2462,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19043,Observable subscribe #2,Specific observable subscribe dynamic observer,16.0859,16.048,16.2305,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19044,Observable subscribe #2,Dynamic observable subscribe dynamic observer,18.9195,18.8614,19.1122,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19045,Observer construction,Specific observer construction,0.802442,0.802018,0.803997,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19046,Observer construction,Dynamic observer construction,31.3068,31.2935,31.3212,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19047,Observer construction,Specific observer construction + as_dynamic,28.5955,28.5207,28.8916,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19048,OnNext,Specific observer OnNext,0.443738,0.442326,0.449983,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19049,OnNext,Dynamic observer OnNext,2.00897,2.0053,2.02685,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19050,Subscriber construction,Make subsriber,50.4049,50.226,51.0584,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19051,Subscriber construction,Make copy of subscriber,18.9084,18.8625,19.0757,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19052,Subscriber construction,Transform subsriber to dynamic,47.4633,47.3567,47.8683,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19053,Observable subscribe,Specific observable subscribe specific observer,62.2247,62.027,62.9708,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19054,Observable subscribe,Specific observable subscribe dynamic observer,75.9619,75.8147,76.6349,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19055,Observable subscribe,Dynamic observable subscribe specific observer,95.8345,95.6139,96.8379,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19056,Observable subscribe,Dynamic observable subscribe dynamic observer,81.3451,81.2982,81.4035,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19057,Observable lift,Specific observable lift specific observer,93.943,93.8592,94.2652,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19058,Observable lift,Specific observable lift dynamic observer,126,125.946,126.068,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19059,Observable lift,Dynamic observable lift specific observer,156.337,156.271,156.442,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19060,Observable lift,Dynamic observable lift dynamic observer,180.53,180.212,181.96,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19061,Operators,map construction from observable via dot + subscribe,91.2564,91.0738,92.0866,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19062,Subscription,composite_subscription create,34.6519,34.6335,34.6679,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19063,Subscription,composite_subscription unsubscribe,8.02035,8.01893,8.02233,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19064,foundamental sources,empty,19.2158,19.1583,19.481,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19065,foundamental sources,error,51.7253,51.4542,53.0413,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19066,foundamental sources,never,16.0407,16.0396,16.0435,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19067,just,just send int,19.2995,19.2543,19.514,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19068,just,just send variadic,31.1057,31.0436,31.354,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19069,from,from vector with int,36.1945,36.138,36.261,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19070,merge,merge,378.76,378.573,379.213,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19071,merge,merge_with,441.303,440.031,446.455,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19072,Observable construction,Specific observable construction,0.401793,0.401116,0.404857,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19073,Observable construction,Specific observable construction + as_dynamic,25.1113,25.0481,25.2663,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19074,Observable subscribe #2,Specific observable subscribe lambda,297.143,296.684,297.97,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19075,Observable subscribe #2,Dynamic observable subscribe lambda,340.565,339.471,343.906,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19076,Observable subscribe #2,Specific observable subscribe lambda without subscription,302.48,301.816,304.592,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19077,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,335.529,334.437,339.242,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19078,Observable subscribe #2,Specific observable subscribe specific subscriber,221.117,220.492,223.344,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19079,Observable subscribe #2,Dynamic observable subscribe specific subscriber,263.398,262.722,266.009,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19080,Observable subscribe #2,Specific observable subscribe dynamic observer,239.174,238.628,240.777,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19081,Observable subscribe #2,Dynamic observable subscribe dynamic observer,261.509,260.815,263.852,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19082,Observer construction,Specific observer construction,0.40136,0.401219,0.40153,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19083,Observer construction,Dynamic observer construction,20.4943,20.4575,20.6553,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19084,Observer construction,Specific observer construction + as_dynamic,20.1107,20.0691,20.299,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19085,OnNext,Specific observer OnNext,0.443869,0.44237,0.450969,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19086,OnNext,Dynamic observer OnNext,2.00459,2.00381,2.00578,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19087,Subscriber construction,Make subsriber,65.5926,65.3959,66.037,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19088,Subscriber construction,Make copy of subscriber,5.44373,5.31764,5.57742,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19089,Subscriber construction,Transform subsriber to dynamic,24.2414,24.2233,24.2604,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19090,Observable subscribe,Specific observable subscribe specific observer,300.786,300.337,301.49,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19091,Observable subscribe,Specific observable subscribe dynamic observer,305.716,304.99,307.621,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19092,Observable subscribe,Dynamic observable subscribe specific observer,340.349,339.314,343.128,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19093,Observable subscribe,Dynamic observable subscribe dynamic observer,321.719,320.787,325.056,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19094,Observable lift,Specific observable lift specific observer,298.636,297.606,302.132,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19095,Observable lift,Specific observable lift dynamic observer,318.305,317.381,321.565,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19096,Observable lift,Dynamic observable lift specific observer,352.179,351.179,356.071,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19097,Observable lift,Dynamic observable lift dynamic observer,335.081,334.127,338.655,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19098,Operators,map construction from observable via dot + subscribe,237.345,237.092,237.698,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19099,Subscription,composite_subscription create,49.9049,49.7361,50.1203,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19100,Subscription,composite_subscription add,21.2417,21.1579,21.4292,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19101,Subscription,composite_subscription unsubscribe,13.6384,13.6331,13.6441,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19102,foundamental sources,empty,30.1052,30.0064,30.3783,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19103,foundamental sources,error,75.3974,75.1688,75.9948,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19104,foundamental sources,never,11.7198,11.5361,12.1821,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19105,just,just send int,30.5594,30.4752,30.8067,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19106,just,just send variadic,38.4491,38.365,38.7422,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19107,from,from vector with int,51.8135,51.7727,51.8721,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19108,merge,merge,110.125,109.786,110.86,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19109,merge,merge_with,257.643,256.884,258.625,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
