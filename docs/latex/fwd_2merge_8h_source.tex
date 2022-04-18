@@ -24,11 +24,11 @@
 \DoxyCodeLine{20 \}}
 \DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::operators}
 \DoxyCodeLine{22 \{}
-\DoxyCodeLine{26 \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{27 \textcolor{keyword}{auto} merge() \textcolor{keyword}{requires} details::is\_header\_included<details::merge\_tag, Args...>;}
+\DoxyCodeLine{26 \textcolor{keyword}{template}<constraint::observable ...TObservables>}
+\DoxyCodeLine{27 \textcolor{keyword}{auto} merge(TObservables\&\&... observables) \textcolor{keyword}{requires} details::is\_header\_included<details::merge\_tag, TObservables...>;}
 \DoxyCodeLine{28 \} \textcolor{comment}{// namespace rpp::operators}}
 \DoxyCodeLine{29 }
-\DoxyCodeLine{30 namespace rpp::details}
+\DoxyCodeLine{30 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{31 \{}
 \DoxyCodeLine{32 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
 \DoxyCodeLine{33 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, merge\_tag>}

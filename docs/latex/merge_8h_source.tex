@@ -28,12 +28,12 @@
 \DoxyCodeLine{24 }
 \DoxyCodeLine{25 \textcolor{keyword}{namespace }rpp::operators}
 \DoxyCodeLine{26 \{}
-\DoxyCodeLine{27 \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{28 \textcolor{keyword}{auto} merge() \textcolor{keyword}{requires} details::is\_header\_included<details::merge\_tag, Args...>}
+\DoxyCodeLine{27 \textcolor{keyword}{template}<constraint::observable ...TObservables>}
+\DoxyCodeLine{28 \textcolor{keyword}{auto} merge(TObservables\&\&...observables) \textcolor{keyword}{requires} details::is\_header\_included<details::merge\_tag, TObservables...>}
 \DoxyCodeLine{29 \{}
-\DoxyCodeLine{30     \textcolor{keywordflow}{return} []<constraint::observable TObservable>(TObservable\&\& observable)}
+\DoxyCodeLine{30     \textcolor{keywordflow}{return} [...observables = std::forward<TObservables>(observables)]<constraint::observable TObservable>(TObservable \&\& observable)}
 \DoxyCodeLine{31     \{}
-\DoxyCodeLine{32         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).merge();}
+\DoxyCodeLine{32         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).merge(observables...);}
 \DoxyCodeLine{33     \};}
 \DoxyCodeLine{34 \}}
 \DoxyCodeLine{35 \} \textcolor{comment}{// namespace rpp::operators}}
