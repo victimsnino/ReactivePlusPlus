@@ -32,13 +32,8 @@ public:
         , m_observer{ std::forward<Types>(vals)... } {}
 
     template<typename ...Types>
-    specific_subscriber(const composite_subscription& sub, Types&&...vals) requires std::constructible_from<Observer, Types...>
-        : details::subscriber_base<Type>{ sub }
-        , m_observer{ std::forward<Types>(vals)... } {}
-
-    template<typename ...Types>
-    specific_subscriber(const details::subscriber_base<Type>& base, Types&&...vals) requires std::constructible_from<Observer, Types...>
-        : details::subscriber_base<Type>{ base }
+    specific_subscriber(constraint::decayed_same_as<composite_subscription> auto&& sub, Types&&...vals) requires std::constructible_from<Observer, Types...>
+        : details::subscriber_base<Type>{ std::forward<decltype(sub)>(sub )}
         , m_observer{ std::forward<Types>(vals)... } {}
 
     // ************* Copy/Move ************************* //
@@ -46,18 +41,13 @@ public:
     specific_subscriber(specific_subscriber&&) noexcept = default;
 
 
-    const Observer& get_observer() const &
+    const Observer& get_observer() const
     {
         return m_observer;
     }
 
-    Observer&& get_observer() &&
-    {
-        return std::move(m_observer);
-    }
-
-    auto as_dynamic() const & { return dynamic_subscriber<Type>{*this};            }
-    auto as_dynamic() &&      { return dynamic_subscriber<Type>{std::move(*this)}; }
+    auto as_dynamic() const & { return dynamic_subscriber<Type>{*this}; }
+    auto as_dynamic() && { return dynamic_subscriber<Type>{this->get_subscription(), std::move(m_observer)}; }
 protected:
     void on_next_impl(const Type& val) const final
     {
