@@ -14,6 +14,7 @@
 #include <rpp/operators/merge.h>
 #include <rpp/sources.h>
 #include <rpp/observables/dynamic_observable.h>
+#include <rpp/schedulers/new_thread_scheduler.h>
 
 SCENARIO("merge for observable of observables")
 {
@@ -166,5 +167,34 @@ SCENARIO("merge_with")
             }
         }
 
+    }
+}
+
+SCENARIO("merge serializes emissions")
+{
+    GIVEN("observables from different threads")
+    {
+        auto s1 = rpp::source::just(rpp::schedulers::new_thread{}, 1);
+        auto s2 = rpp::source::just(rpp::schedulers::new_thread{}, 2);
+        WHEN("subscribe on merge of this observables")
+        {
+            THEN("resulting observable emits items sequentially")
+            {
+                std::atomic_size_t                          counter{};
+                size_t max_value = 0;
+                s1.merge_with(s2).subscribe([&](const auto&)
+                {
+                    CHECK(++counter < 2);
+                    max_value = std::max(counter.load(), max_value);
+
+                    std::this_thread::sleep_for(std::chrono::seconds{1});
+
+                    max_value = std::max(counter.load(), max_value);
+                    --counter;
+                });
+                std::this_thread::sleep_for(std::chrono::seconds{ 2 });
+                CHECK(max_value == 1);
+            }
+        }
     }
 }
