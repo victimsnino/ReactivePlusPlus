@@ -120,7 +120,7 @@ $(function() {
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            <span class="keyword">const</span> <span class="keyword">auto</span> end = std::cend(extract_iterable(iterable));</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keyword">auto</span>       itr = std::cbegin(extract_iterable(iterable));</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            std::ranges::advance(itr, index, end);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            std::ranges::advance(itr, <span class="keyword">static_cast&lt;</span>int64_t<span class="keyword">&gt;</span>(index), end);</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            <span class="keywordflow">if</span> (itr != end)</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            {</div>

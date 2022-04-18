@@ -53,7 +53,7 @@
 \DoxyCodeLine{59             \textcolor{keyword}{const} \textcolor{keyword}{auto} end = std::cend(extract\_iterable(iterable));}
 \DoxyCodeLine{60             \textcolor{keyword}{auto}       itr = std::cbegin(extract\_iterable(iterable));}
 \DoxyCodeLine{61 }
-\DoxyCodeLine{62             std::ranges::advance(itr, index, end);}
+\DoxyCodeLine{62             std::ranges::advance(itr, \textcolor{keyword}{static\_cast<}int64\_t\textcolor{keyword}{>}(index), end);}
 \DoxyCodeLine{63 }
 \DoxyCodeLine{64             \textcolor{keywordflow}{if} (itr != end)}
 \DoxyCodeLine{65             \{}
