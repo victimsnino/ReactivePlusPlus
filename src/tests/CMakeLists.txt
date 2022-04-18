@@ -37,7 +37,11 @@ foreach(SOURCE ${FILES})
 
   target_link_libraries(${TARGET} PRIVATE rpp Catch2 coverage_config)
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites)
-  target_link_libraries(${EXECUTABLE_TARGET} PRIVATE -Wl,--whole-archive ${TARGET} -Wl,--no-whole-archive)
+  if(MSVC)
+    target_link_options(${EXECUTABLE_TARGET} PRIVATE /WHOLEARCHIVE:$<TARGET_FILE:${TARGET}>)
+  else()
+    target_link_libraries(${EXECUTABLE_TARGET} PRIVATE -Wl,--whole-archive ${TARGET} -Wl,--no-whole-archive)
+  endif()
 endforeach()
 
 # ================ BENCHMARKS =================
