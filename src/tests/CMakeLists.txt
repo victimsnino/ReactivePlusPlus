@@ -10,20 +10,10 @@
 
 set(TARGET rpp_tests)
 
-add_executable(${TARGET} 
-    test_observable.cpp
-    test_observer.cpp
-    test_subscriber.cpp
-    test_map.cpp
-    test_schedulers.cpp
-    test_subscriptions.cpp
-    test_filter.cpp
-    test_take.cpp
-    test_take_while.cpp
-    test_from.cpp
-    test_merge.cpp
+file(GLOB_RECURSE FILES "test_*.cpp")
 
-    test_lift.cpp
+add_executable(${TARGET} 
+    ${FILES}
 
     mock_observer.h
     copy_count_tracker.h
@@ -39,7 +29,6 @@ if(MSVC)
 else()
   target_compile_options(${TARGET} PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion)
 endif()
-
 set(TARGET rpp_benchmark)
 
 add_executable(${TARGET} 

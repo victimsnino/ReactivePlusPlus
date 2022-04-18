@@ -2,6 +2,17 @@
 
 Before hand, please, read [Specific vs Dynamic.md](./Specific%20vs%20Dynamic.md)
 
+Also read this one: [Contract](https://reactivex.io/documentation/contract.html)
+
+Let's review this one it details:
+> Observables must issue notifications to observers serially (not in parallel). They may issue these notifications from different threads, but there must be a formal happens-before relationship between the notifications.
+
+It means, that:
+1) All operators implemented in RPP is following this contract and emissions from observables/operators built-in in RPP is serialized
+2) All logic inside operator's callbacks and observer can be not thread-safe due to thread-safety is guaranteed
+3) When you implement your own operator via `create` be careful to follow this contract!
+4) [TODO] it is true **EXCEPT FOR** subjects: due to users can use subjects for its own purposes there is potentially place for breaking this concept. Be careful and use synchronize subjects! 
+
 ## Observable
 
 Observables is just wrappers over callback function with ability to be extended via operators. Everytime you apply some operator to observable, observable copied (or moved). As a result,  whole its state is copied/moved too:
@@ -20,8 +31,6 @@ By default, Functional programming deals with immutable data and "pure functions
 ## Operators
 
 For better compilation speed each operator placed in each own header. Due to great desire to have dot operations inside observable, observable inherits implementation of operators via `member_overload` hack: it forwards interface, but implementation placed in another file. It looks like wide-spread separation to cpp/h files.
-
-Each operator is thread-safe internally and not-thread-safe externally: it means, that all internal staff is guarded or written in lock-free way, but user's types/functions and everything passed to operators/subscribers should be ready to called in parallel (if stream merge multiple streams or any under conditions)
 
 ## Subscriber
 
