@@ -18904,7 +18904,7 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 18902,Observable subscribe,Specific observable subscribe dynamic observer,131.716,131.139,132.897,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
 18903,Observable subscribe,Dynamic observable subscribe specific observer,203.389,202.341,206.016,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
 18904,Observable subscribe,Dynamic observable subscribe dynamic observer,135.683,135.215,136.984,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
-18905,Observable lift,Specific observable lift specific observer,153.928,153,155.669,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
+18905,Observable lift,Specific observable lift specific observer,153.928,153.0,155.669,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
 18906,Observable lift,Specific observable lift dynamic observer,178.385,177.678,180.203,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
 18907,Observable lift,Dynamic observable lift specific observer,255.27,253.98,259.72,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
 18908,Observable lift,Dynamic observable lift dynamic observer,231.763,227.491,246.193,0.95,Windows MSVC,create blocking_obse... (0d939ba1),rpp
@@ -19057,7 +19057,7 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 19055,Observable subscribe,Dynamic observable subscribe specific observer,95.8345,95.6139,96.8379,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
 19056,Observable subscribe,Dynamic observable subscribe dynamic observer,81.3451,81.2982,81.4035,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
 19057,Observable lift,Specific observable lift specific observer,93.943,93.8592,94.2652,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
-19058,Observable lift,Specific observable lift dynamic observer,126,125.946,126.068,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
+19058,Observable lift,Specific observable lift dynamic observer,126.0,125.946,126.068,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
 19059,Observable lift,Dynamic observable lift specific observer,156.337,156.271,156.442,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
 19060,Observable lift,Dynamic observable lift dynamic observer,180.53,180.212,181.96,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
 19061,Operators,map construction from observable via dot + subscribe,91.2564,91.0738,92.0866,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rpp
@@ -19109,3 +19109,231 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 19107,from,from vector with int,51.8135,51.7727,51.8721,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
 19108,merge,merge,110.125,109.786,110.86,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
 19109,merge,merge_with,257.643,256.884,258.625,0.95,Linux CLANG,create blocking_obse... (0d939ba1),rxcpp
+19110,Observable construction,Specific observable construction,0.672264,0.670566,0.676031,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19111,Observable construction,Dynamic observable construction,81.8529,81.4379,82.7876,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19112,Observable construction,Specific observable construction + as_dynamic,81.5723,81.3055,82.1254,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19113,Observable subscribe #2,Specific observable subscribe lambda,119.583,118.739,121.318,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19114,Observable subscribe #2,Dynamic observable subscribe lambda,201.397,200.286,204.881,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19115,Observable subscribe #2,Specific observable subscribe lambda without subscription,119.953,119.066,121.825,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19116,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,202.781,200.383,210.148,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19117,Observable subscribe #2,Specific observable subscribe specific subscriber,16.7891,16.7405,16.8916,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19118,Observable subscribe #2,Dynamic observable subscribe specific subscriber,112.306,111.376,114.297,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19119,Observable subscribe #2,Specific observable subscribe dynamic observer,16.7788,16.7362,16.8794,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19120,Observable subscribe #2,Dynamic observable subscribe dynamic observer,17.4903,17.4427,17.5891,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19121,Observer construction,Specific observer construction,0.671032,0.669441,0.674637,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19122,Observer construction,Dynamic observer construction,81.7,81.4161,82.3806,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19123,Observer construction,Specific observer construction + as_dynamic,81.7484,81.4871,82.4032,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19124,OnNext,Specific observer OnNext,0.676612,0.671151,0.691727,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19125,OnNext,Dynamic observer OnNext,2.02011,2.01029,2.04341,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19126,Subscriber construction,Make subsriber,100.94,100.52,101.972,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19127,Subscriber construction,Make copy of subscriber,16.7648,16.7295,16.8474,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19128,Subscriber construction,Transform subsriber to dynamic,96.1623,95.7849,97.1509,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19129,Observable subscribe,Specific observable subscribe specific observer,137.551,136.417,140.843,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19130,Observable subscribe,Specific observable subscribe dynamic observer,132.115,131.272,134.058,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19131,Observable subscribe,Dynamic observable subscribe specific observer,201.627,200.437,204.595,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19132,Observable subscribe,Dynamic observable subscribe dynamic observer,136.068,135.621,137.226,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19133,Observable lift,Specific observable lift specific observer,178.482,177.295,181.783,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19134,Observable lift,Specific observable lift dynamic observer,177.916,177.175,180.189,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19135,Observable lift,Dynamic observable lift specific observer,256.69,255.32,260.42,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19136,Observable lift,Dynamic observable lift dynamic observer,226.153,224.865,229.027,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19137,Operators,map construction from observable via dot + subscribe,89.2042,88.7817,90.1162,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19138,Subscription,composite_subscription create,87.3932,86.9356,88.9458,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19139,Subscription,composite_subscription unsubscribe,8.39544,8.3628,8.52125,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19140,foundamental sources,empty,18.7793,18.7407,18.8711,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19141,foundamental sources,error,58.6004,57.998,60.3976,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19142,foundamental sources,never,17.1883,17.086,17.4553,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19143,just,just send int,27.2028,27.141,27.3416,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19144,just,just send variadic,41.7315,41.5305,42.3871,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19145,from,from vector with int,88.1533,87.9338,88.6725,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19146,merge,merge,544.702,541.596,556.447,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19147,merge,merge_with,743.294,736.441,763.294,0.95,Windows MSVC,split tests to separ... (563b0c89),rpp
+19148,Observable construction,Specific observable construction,0.67249,0.669543,0.679925,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19149,Observable construction,Specific observable construction + as_dynamic,126.01,125.21,127.546,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19150,Observable subscribe #2,Specific observable subscribe lambda,1191.09,1175.45,1245,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19151,Observable subscribe #2,Dynamic observable subscribe lambda,1373.21,1356.05,1430,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19152,Observable subscribe #2,Specific observable subscribe lambda without subscription,1186.68,1172,1251.32,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19153,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,1367.63,1351.84,1434.89,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19154,Observable subscribe #2,Specific observable subscribe specific subscriber,865.7,854.733,893.467,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19155,Observable subscribe #2,Dynamic observable subscribe specific subscriber,1045.72,1034.72,1078,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19156,Observable subscribe #2,Specific observable subscribe dynamic observer,892.897,885.621,912.759,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19157,Observable subscribe #2,Dynamic observable subscribe dynamic observer,933.429,923.857,960.393,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19158,Observer construction,Specific observer construction,1.5094,1.50555,1.51804,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19159,Observer construction,Dynamic observer construction,115.294,114.872,116.633,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19160,Observer construction,Specific observer construction + as_dynamic,115.117,114.695,116.404,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19161,OnNext,Specific observer OnNext,0.672964,0.670841,0.67689,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19162,OnNext,Dynamic observer OnNext,2.07526,2.04906,2.13952,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19163,Subscriber construction,Make subsriber,347.452,345,356.26,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19164,Subscriber construction,Make copy of subscriber,31.5531,31.4881,31.7104,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19165,Subscriber construction,Transform subsriber to dynamic,155.811,154.372,158.841,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19166,Observable subscribe,Specific observable subscribe specific observer,1189,1175.45,1242.86,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19167,Observable subscribe,Specific observable subscribe dynamic observer,1221.81,1207.33,1282.43,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19168,Observable subscribe,Dynamic observable subscribe specific observer,1376.53,1359.74,1450.37,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19169,Observable subscribe,Dynamic observable subscribe dynamic observer,1256.14,1240.24,1321.57,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19170,Observable lift,Specific observable lift specific observer,1330.67,1296.38,1412.43,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19171,Observable lift,Specific observable lift dynamic observer,1285.86,1268.29,1365.38,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19172,Observable lift,Dynamic observable lift specific observer,1422.95,1403.95,1490.16,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19173,Observable lift,Dynamic observable lift dynamic observer,1325.8,1309.4,1374.6,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19174,Operators,map construction from observable via dot + subscribe,1008.08,1001.42,1034.42,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19175,Subscription,composite_subscription create,341.507,338.587,349.907,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19176,Subscription,composite_subscription add,63.9169,63.5673,64.788,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19177,Subscription,composite_subscription unsubscribe,25.5248,25.4166,25.8028,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19178,foundamental sources,empty,193.66,190.483,197.327,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19179,foundamental sources,error,190.195,189.143,192.383,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19180,foundamental sources,never,69.3649,69.0243,70.1568,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19181,just,just send int,177.59,176.306,180.16,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19182,just,just send variadic,178.778,177.792,181.972,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19183,from,from vector with int,244.283,242.236,248.245,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19184,merge,merge,481.407,478.574,490.519,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19185,merge,merge_with,1016.8,1010.44,1032.24,0.95,Windows MSVC,split tests to separ... (563b0c89),rxcpp
+19186,Observable construction,Specific observable construction,0.29438,0.291804,0.300022,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19187,Observable construction,Dynamic observable construction,17.97,17.6786,18.5044,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19188,Observable construction,Specific observable construction + as_dynamic,18.3255,18.0211,18.8828,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19189,Observable subscribe #2,Specific observable subscribe lambda,23.0846,23.0348,23.2206,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19190,Observable subscribe #2,Dynamic observable subscribe lambda,42.8965,42.246,44.0623,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19191,Observable subscribe #2,Specific observable subscribe lambda without subscription,22.3009,22.2718,22.3411,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19192,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,44.0305,43.8942,44.4243,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19193,Observable subscribe #2,Specific observable subscribe specific subscriber,3.19104,3.18371,3.22038,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19194,Observable subscribe #2,Dynamic observable subscribe specific subscriber,23.9559,23.9252,24.0247,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19195,Observable subscribe #2,Specific observable subscribe dynamic observer,3.23729,3.23532,3.24268,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19196,Observable subscribe #2,Dynamic observable subscribe dynamic observer,3.33597,3.32819,3.36067,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19197,Observer construction,Specific observer construction,0.29611,0.295506,0.298467,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19198,Observer construction,Dynamic observer construction,18.7902,18.7478,18.9246,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19199,Observer construction,Specific observer construction + as_dynamic,18.6924,18.6419,18.8628,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19200,OnNext,Specific observer OnNext,0.296171,0.296004,0.296351,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19201,OnNext,Dynamic observer OnNext,1.47856,1.47549,1.49067,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19202,Subscriber construction,Make subsriber,26.4993,26.4764,26.5504,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19203,Subscriber construction,Make copy of subscriber,3.28473,3.28261,3.29106,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19204,Subscriber construction,Transform subsriber to dynamic,21.7412,21.7174,21.7725,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19205,Observable subscribe,Specific observable subscribe specific observer,23.0157,23.0055,23.0389,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19206,Observable subscribe,Specific observable subscribe dynamic observer,26.3205,26.2447,26.5206,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19207,Observable subscribe,Dynamic observable subscribe specific observer,44.7097,44.6039,45.0535,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19208,Observable subscribe,Dynamic observable subscribe dynamic observer,30.5621,30.4964,30.7502,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19209,Observable lift,Specific observable lift specific observer,26.7165,26.7024,26.7446,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19210,Observable lift,Specific observable lift dynamic observer,33.5528,33.4355,33.8983,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19211,Observable lift,Dynamic observable lift specific observer,55.4509,55.3078,55.9633,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19212,Observable lift,Dynamic observable lift dynamic observer,46.1684,46.074,46.4694,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19213,Operators,map construction from observable via dot + subscribe,16.4577,16.4223,16.5868,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19214,Subscription,composite_subscription create,20.2245,20.1734,20.2741,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19215,Subscription,composite_subscription unsubscribe,7.34951,7.34227,7.35872,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19216,foundamental sources,empty,3.26243,3.25269,3.3057,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19217,foundamental sources,error,29.899,29.8337,30.1941,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19218,foundamental sources,never,3.17802,3.17336,3.1828,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19219,just,just send int,5.02074,5.01865,5.02434,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19220,just,just send variadic,11.2228,11.2181,11.2283,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19221,from,from vector with int,22.27,21.8676,22.9933,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19222,merge,merge,114.923,114.858,115.014,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19223,merge,merge_with,166.286,164.539,170.712,0.95,Linux GCC,split tests to separ... (563b0c89),rpp
+19224,Observable construction,Specific observable construction,0.292414,0.29033,0.300295,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19225,Observable construction,Specific observable construction + as_dynamic,19.5212,19.5072,19.536,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19226,Observable subscribe #2,Specific observable subscribe lambda,299.813,299.071,301.712,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19227,Observable subscribe #2,Dynamic observable subscribe lambda,347.446,346.836,349.381,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19228,Observable subscribe #2,Specific observable subscribe lambda without subscription,309.633,303.409,319.869,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19229,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,344.069,341.954,350.685,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19230,Observable subscribe #2,Specific observable subscribe specific subscriber,250.583,246.9,257.77,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19231,Observable subscribe #2,Dynamic observable subscribe specific subscriber,302.559,297.927,311.504,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19232,Observable subscribe #2,Specific observable subscribe dynamic observer,256.782,255.253,261.619,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19233,Observable subscribe #2,Dynamic observable subscribe dynamic observer,281.246,280.698,281.814,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19234,Observer construction,Specific observer construction,0.295658,0.295142,0.298027,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19235,Observer construction,Dynamic observer construction,20.8111,20.6197,21.2931,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19236,Observer construction,Specific observer construction + as_dynamic,19.1681,18.9585,19.707,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19237,OnNext,Specific observer OnNext,0.294358,0.290384,0.303352,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19238,OnNext,Dynamic observer OnNext,1.77517,1.77179,1.78995,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19239,Subscriber construction,Make subsriber,50.8807,50.751,51.3141,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19240,Subscriber construction,Make copy of subscriber,4.05464,3.99313,4.19217,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19241,Subscriber construction,Transform subsriber to dynamic,26.802,26.5226,27.5004,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19242,Observable subscribe,Specific observable subscribe specific observer,292.318,291.611,293.431,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19243,Observable subscribe,Specific observable subscribe dynamic observer,310.492,309.702,313.005,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19244,Observable subscribe,Dynamic observable subscribe specific observer,343.563,339.096,354.199,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19245,Observable subscribe,Dynamic observable subscribe dynamic observer,329.794,328.979,332.461,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19246,Observable lift,Specific observable lift specific observer,308.434,307.597,310.608,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19247,Observable lift,Specific observable lift dynamic observer,320.739,320.401,321.233,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19248,Observable lift,Dynamic observable lift specific observer,361.532,360.464,365.505,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19249,Observable lift,Dynamic observable lift dynamic observer,356.645,356.232,357.258,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19250,Operators,map construction from observable via dot + subscribe,312.463,311.675,314.544,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19251,Subscription,composite_subscription create,47.9355,47.8017,48.2376,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19252,Subscription,composite_subscription add,14.2385,14.2009,14.3745,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19253,Subscription,composite_subscription unsubscribe,9.75356,9.73093,9.85825,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19254,foundamental sources,empty,41.5733,41.4404,41.9753,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19255,foundamental sources,error,73.338,73.1653,74.0261,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19256,foundamental sources,never,16.8188,16.808,16.8513,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19257,just,just send int,44.8816,44.7544,45.359,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19258,just,just send variadic,40.9229,40.9011,40.9479,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19259,from,from vector with int,61.6448,61.5629,61.7643,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19260,merge,merge,115.613,115.39,115.858,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19261,merge,merge_with,284.832,284.509,285.348,0.95,Linux GCC,split tests to separ... (563b0c89),rxcpp
+19262,Observable construction,Specific observable construction,0.755183,0.726049,0.809056,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19263,Observable construction,Dynamic observable construction,31.5035,30.6746,32.7434,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19264,Observable construction,Specific observable construction + as_dynamic,33.3459,32.4511,35.3958,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19265,Observable subscribe #2,Specific observable subscribe lambda,65.9134,63.9199,68.6645,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19266,Observable subscribe #2,Dynamic observable subscribe lambda,96.2844,93.4438,100.838,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19267,Observable subscribe #2,Specific observable subscribe lambda without subscription,65.8389,63.7638,69.0618,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19268,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,94.3123,92.164,97.5962,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19269,Observable subscribe #2,Specific observable subscribe specific subscriber,19.6022,19.0934,20.309,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19270,Observable subscribe #2,Dynamic observable subscribe specific subscriber,69.2706,67.6858,71.4381,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19271,Observable subscribe #2,Specific observable subscribe dynamic observer,20.2128,19.4104,22.5744,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19272,Observable subscribe #2,Dynamic observable subscribe dynamic observer,19.5992,18.8955,21.6431,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19273,Observer construction,Specific observer construction,0.751095,0.740504,0.771402,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19274,Observer construction,Dynamic observer construction,33.8851,32.4059,38.8996,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19275,Observer construction,Specific observer construction + as_dynamic,27.9525,27.8382,28.4783,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19276,OnNext,Specific observer OnNext,0.766363,0.739848,0.801102,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19277,OnNext,Dynamic observer OnNext,2.27782,2.2135,2.36319,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19278,Subscriber construction,Make subsriber,47.544,46.3824,49.5872,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19279,Subscriber construction,Make copy of subscriber,18.3802,17.985,18.9496,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19280,Subscriber construction,Transform subsriber to dynamic,48.0067,46.7757,50.4473,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19281,Observable subscribe,Specific observable subscribe specific observer,69.9178,68.0085,72.5318,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19282,Observable subscribe,Specific observable subscribe dynamic observer,76.1465,74.2061,79.2109,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19283,Observable subscribe,Dynamic observable subscribe specific observer,93.9661,91.7648,97.5884,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19284,Observable subscribe,Dynamic observable subscribe dynamic observer,87.8074,87.609,88.3995,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19285,Observable lift,Specific observable lift specific observer,101.819,99.7688,104.572,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19286,Observable lift,Specific observable lift dynamic observer,129.678,127.867,132.867,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19287,Observable lift,Dynamic observable lift specific observer,164.464,158.886,173.865,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19288,Observable lift,Dynamic observable lift dynamic observer,182.069,178.431,189.937,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19289,Operators,map construction from observable via dot + subscribe,95.6358,94.698,97.6451,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19290,Subscription,composite_subscription create,33.189,32.4412,34.4234,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19291,Subscription,composite_subscription unsubscribe,7.93672,7.25829,10.3,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19292,foundamental sources,empty,20.307,19.8171,21.0108,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19293,foundamental sources,error,55.5583,53.5214,61.1868,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19294,foundamental sources,never,18.0413,17.6871,18.5482,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19295,just,just send int,23.6531,23.1711,24.6327,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19296,just,just send variadic,38.3704,37.3937,39.6323,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19297,from,from vector with int,36.2745,35.6493,37.2669,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19298,merge,merge,378.093,372.106,387.737,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19299,merge,merge_with,485.167,477.576,497.076,0.95,Linux CLANG,split tests to separ... (563b0c89),rpp
+19300,Observable construction,Specific observable construction,0.364036,0.356554,0.376107,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19301,Observable construction,Specific observable construction + as_dynamic,27.0984,26.4008,28.0827,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19302,Observable subscribe #2,Specific observable subscribe lambda,335.737,322.505,361.916,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19303,Observable subscribe #2,Dynamic observable subscribe lambda,390.22,380.062,405.306,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19304,Observable subscribe #2,Specific observable subscribe lambda without subscription,304.567,298.211,315.523,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19305,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,372.854,365.269,383.659,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19306,Observable subscribe #2,Specific observable subscribe specific subscriber,244.402,238.025,259.353,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19307,Observable subscribe #2,Dynamic observable subscribe specific subscriber,295.455,289.182,304.293,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19308,Observable subscribe #2,Specific observable subscribe dynamic observer,285.649,273.46,314.009,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19309,Observable subscribe #2,Dynamic observable subscribe dynamic observer,306.112,305.224,308.327,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19310,Observer construction,Specific observer construction,0.381984,0.368482,0.406451,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19311,Observer construction,Dynamic observer construction,24.2718,23.1709,26.9601,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19312,Observer construction,Specific observer construction + as_dynamic,25.4146,24.5945,26.9955,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19313,OnNext,Specific observer OnNext,0.741311,0.712232,0.794363,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19314,OnNext,Dynamic observer OnNext,2.26664,2.23222,2.3374,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19315,Subscriber construction,Make subsriber,69.2987,67.7699,71.6239,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19316,Subscriber construction,Make copy of subscriber,5.35024,5.25318,5.50029,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19317,Subscriber construction,Transform subsriber to dynamic,30.1929,29.6832,30.987,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19318,Observable subscribe,Specific observable subscribe specific observer,299.955,295.708,307.303,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19319,Observable subscribe,Specific observable subscribe dynamic observer,341.248,334.011,353.452,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19320,Observable subscribe,Dynamic observable subscribe specific observer,335.938,331.875,346.375,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19321,Observable subscribe,Dynamic observable subscribe dynamic observer,370.841,365.284,379.659,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19322,Observable lift,Specific observable lift specific observer,302.157,296.938,310.667,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19323,Observable lift,Specific observable lift dynamic observer,404.545,380.323,455.423,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19324,Observable lift,Dynamic observable lift specific observer,353.072,346.738,367.703,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19325,Observable lift,Dynamic observable lift dynamic observer,355.6,341.906,404.129,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19326,Operators,map construction from observable via dot + subscribe,281.653,276.348,289.39,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19327,Subscription,composite_subscription create,61.1948,59.5713,63.6125,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19328,Subscription,composite_subscription add,26.3493,24.8664,30.8393,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19329,Subscription,composite_subscription unsubscribe,12.513,11.9339,14.479,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19330,foundamental sources,empty,34.2464,33.9596,34.9228,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19331,foundamental sources,error,80.5785,77.9204,86.0388,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19332,foundamental sources,never,12.0507,11.6365,12.9432,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19333,just,just send int,38.1003,37.0397,39.6832,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19334,just,just send variadic,48.4372,46.9021,51.2369,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19335,from,from vector with int,56.7808,55.8602,58.6768,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19336,merge,merge,123.943,121.045,128.484,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
+19337,merge,merge_with,284.859,276.283,315.057,0.95,Linux CLANG,split tests to separ... (563b0c89),rxcpp
