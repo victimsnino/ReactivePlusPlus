@@ -59,7 +59,7 @@ void iterate(const auto&                                   iterable,
             const auto end = std::cend(extract_iterable(iterable));
             auto       itr = std::cbegin(extract_iterable(iterable));
 
-            std::ranges::advance(itr, index, end);
+            std::ranges::advance(itr, static_cast<int64_t>(index), end);
 
             if (itr != end)
             {
