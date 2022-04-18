@@ -21,7 +21,14 @@ By default, Functional programming deals with immutable data and "pure functions
 
 For better compilation speed each operator placed in each own header. Due to great desire to have dot operations inside observable, observable inherits implementation of operators via `member_overload` hack: it forwards interface, but implementation placed in another file. It looks like wide-spread separation to cpp/h files.
 
-Each operator is thread-safe internally and not-thread-safe externally: it means, that all internal staff is guarded or written in lock-free way, but user's types/functions and everything passed to operators/subscribers should be ready to called in parallel (if stream merge multiple streams or any under conditions)
+Each operator is thread-safe internally and not-thread-safe externally: it means, that all internal staff is guarded or written in lock-free way, but user's types/functions and everything passed to operators/subscribers should be ready to called in parallel (if stream merge multiple streams or any under conditions). For example,
+```cpp
+auto s = rpp::source::from(rpp::schedulers::new_thread{}, 1,2,3,4,5,6,7,8,9);
+s.merge_with(s).take(5).subscribe(user_callback);
+```
+there 2 sources which emits items from different threads. It means, that after `merge_with` operator it is possible to obtain two different emissions at the same time (for `user_callback`), however operator `take(5)` is guarantees to send only 5 emissions due to internal multi-threaded logic.
+
+If you know, that your stream is single-threaded - then never mind, but if it is multithreaded -> be ready for it.
 
 ## Subscriber
 
