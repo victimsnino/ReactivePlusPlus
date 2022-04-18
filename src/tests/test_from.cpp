@@ -12,6 +12,7 @@
 #include "mock_observer.h"
 
 #include <rpp/sources/from.h>
+#include <rpp/schedulers/new_thread_scheduler.h>
 #include <catch2/catch_test_macros.hpp>
 
 SCENARIO("from iterable")
@@ -21,6 +22,20 @@ SCENARIO("from iterable")
     {
         auto vals = std::vector{1, 2, 3, 4, 5, 6};
         auto obs  = rpp::source::from(vals);
+        WHEN("subscribe on it")
+        {
+            obs.subscribe(mock);
+            THEN("observer obtains values in the same order")
+            {
+                CHECK(mock.get_received_values() == vals);
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+    GIVEN("observable from iterable with scheduler")
+    {
+        auto vals = std::vector{ 1, 2, 3, 4, 5, 6 };
+        auto obs = rpp::source::from(vals, rpp::schedulers::new_thread{}).as_blocking();
         WHEN("subscribe on it")
         {
             obs.subscribe(mock);

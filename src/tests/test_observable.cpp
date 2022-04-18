@@ -385,4 +385,17 @@ SCENARIO("blocking observable")
             }
         }
     }
+    GIVEN("observable with error")
+    {
+        auto obs = rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}));
+        WHEN("subscribe on it via as_blocking")
+        {
+            auto mock = mock_observer<int>();
+            obs.as_blocking().subscribe(mock);
+            THEN("obtain on_error")
+            {
+                CHECK(mock.get_on_error_count() == 1);
+            }
+        }
+    }
 }
