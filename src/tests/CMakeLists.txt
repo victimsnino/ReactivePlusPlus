@@ -8,27 +8,43 @@
 # Project home: https://github.com/victimsnino/ReactivePlusPlus
 #
 
-set(TARGET rpp_tests)
-
 file(GLOB_RECURSE FILES "test_*.cpp")
 
-add_executable(${TARGET} 
-    ${FILES}
+set(EXECUTABLE_TARGET rpp_tests)
+add_executable(${EXECUTABLE_TARGET} null.cpp)
 
-    mock_observer.h
-    copy_count_tracker.h
-)
+target_link_libraries(${EXECUTABLE_TARGET} PRIVATE rpp Catch2WithMain coverage_config)
+set_target_properties(${EXECUTABLE_TARGET} PROPERTIES FOLDER Tests)
 
-target_link_libraries(${TARGET} PRIVATE rpp Catch2WithMain coverage_config)
-set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
-
-add_ctest(${TARGET})
+add_ctest(${EXECUTABLE_TARGET})
 
 if(MSVC)
-  target_compile_options(${TARGET} PRIVATE /W4 /WX)
+  target_compile_options(${EXECUTABLE_TARGET} PRIVATE /W4 /WX)
 else()
-  target_compile_options(${TARGET} PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion)
+  target_compile_options(${EXECUTABLE_TARGET} PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion)
 endif()
+
+foreach(SOURCE ${FILES}) 
+  get_filename_component(BASE_NAME ${SOURCE} NAME_WE)
+  set(TARGET ${BASE_NAME})
+
+  add_library(${TARGET} 
+    STATIC
+      ${SOURCE}
+      mock_observer.h
+      copy_count_tracker.h
+  )
+
+  target_link_libraries(${TARGET} PRIVATE rpp Catch2 coverage_config)
+  set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites)
+  if(MSVC)
+    target_link_options(${EXECUTABLE_TARGET} PRIVATE /WHOLEARCHIVE:$<TARGET_FILE:${TARGET}>)
+  else()
+    target_link_libraries(${EXECUTABLE_TARGET} PRIVATE -Wl,--whole-archive ${TARGET} -Wl,--no-whole-archive)
+  endif()
+endforeach()
+
+# ================ BENCHMARKS =================
 set(TARGET rpp_benchmark)
 
 add_executable(${TARGET} 
