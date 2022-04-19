@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 20.607935
+%%BoundingBox: 0 0 500 17.448200
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,13 +19,13 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 24.262501 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 28.656250 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
 /rows 4 def
-/cols 6 def
+/cols 7 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
 
@@ -181,6 +181,7 @@ boxfont setfont
 (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::take_tag >) cw
 (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::take_while_tag >) cw
 (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::merge_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::observe_on_tag >) cw
 (rpp::details::observable_tag) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
@@ -193,26 +194,27 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (rpp::specific_observable< Type, OnSubscribeFn >) 2.500000 0.000000 box
- (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) 2.500000 1.000000 box
+ (rpp::specific_observable< Type, OnSubscribeFn >) 3.000000 0.000000 box
+ (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) 3.000000 1.000000 box
  (rpp::virtual_observable< Type >) 0.000000 2.000000 box
  (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::map_tag >) 1.000000 2.000000 box
  (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::filter_tag >) 2.000000 2.000000 box
  (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::take_tag >) 3.000000 2.000000 box
  (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::take_while_tag >) 4.000000 2.000000 box
  (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::merge_tag >) 5.000000 2.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::observe_on_tag >) 6.000000 2.000000 box
  (rpp::details::observable_tag) 0.000000 3.000000 box
 
 % ----- relations -----
 
 solid
-0 2.500000 0.000000 out
+0 3.000000 0.000000 out
 solid
-1 2.500000 1.000000 in
+1 3.000000 1.000000 in
 solid
-0 2.500000 1.000000 out
+0 3.000000 1.000000 out
 solid
-0.000000 5.000000 2.000000 conn
+0.000000 6.000000 2.000000 conn
 solid
 1 0.000000 2.000000 in
 solid
@@ -227,5 +229,7 @@ solid
 1 4.000000 2.000000 in
 solid
 1 5.000000 2.000000 in
+solid
+1 6.000000 2.000000 in
 solid
 1 0.000000 3.000000 in

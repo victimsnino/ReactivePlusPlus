@@ -97,6 +97,11 @@ requires (is_header_included&lt;merge_tag, TObservables...&gt;&amp;&amp; sizeof.
 <tr class="memitem:gafa55b14eec1c6c40b8655e20c6edf5b2"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#gafa55b14eec1c6c40b8655e20c6edf5b2">rpp::details::member_overload&lt; Type, SpecificObservable, merge_tag &gt;::merge_with</a> (TObservables &amp;&amp;... observables) const &amp;</td></tr>
 <tr class="memdesc:gafa55b14eec1c6c40b8655e20c6edf5b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">combine submissions from current observable with other observables into one  <a href="group__operators.html#gafa55b14eec1c6c40b8655e20c6edf5b2">More...</a><br /></td></tr>
 <tr class="separator:gafa55b14eec1c6c40b8655e20c6edf5b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga374d453301a31f00fed7024be4327934"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler&gt; <br />
+requires is_header_included&lt;observe_on_tag, TScheduler&gt;</td></tr>
+<tr class="memitem:ga374d453301a31f00fed7024be4327934"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga374d453301a31f00fed7024be4327934">rpp::details::member_overload&lt; Type, SpecificObservable, observe_on_tag &gt;::observe_on</a> (TScheduler &amp;&amp;scheduler) const &amp;</td></tr>
+<tr class="memdesc:ga374d453301a31f00fed7024be4327934"><td class="mdescLeft">&#160;</td><td class="mdescRight">transfer emissions of items to provided scheduler  <a href="group__operators.html#ga374d453301a31f00fed7024be4327934">More...</a><br /></td></tr>
+<tr class="separator:ga374d453301a31f00fed7024be4327934"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; <br />
 requires is_header_included&lt;take_tag, Args...&gt;</td></tr>
 <tr class="memitem:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a> (size_t count) const &amp;</td></tr>
@@ -310,6 +315,54 @@ requires (is_header_included&lt;merge_tag, TObservables...&gt;&amp;&amp; sizeof.
 </div><!-- fragment --> <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/merge.html">https://reactivex.io/documentation/operators/merge.html</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the merge operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="merge_8h_source.html">rpp/operators/merge.h</a>&gt; </dd></dl>
+
+</div>
+</div>
+<a id="ga374d453301a31f00fed7024be4327934" name="ga374d453301a31f00fed7024be4327934"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga374d453301a31f00fed7024be4327934">&#9670;&nbsp;</a></span>observe_on()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;schedulers::constraint::scheduler TScheduler&gt; <br />
+requires is_header_included&lt;observe_on_tag, TScheduler&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, observe_on_tag &gt;::observe_on </td>
+          <td>(</td>
+          <td class="paramtype">TScheduler &amp;&amp;&#160;</td>
+          <td class="paramname"><em>scheduler</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>transfer emissions of items to provided scheduler </p>
+<p >after applying this operator all next emissions will be provided via scheduler</p>
+<p >Example: </p><div class="fragment"><div class="line">    std::cout &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;</div>
+<div class="line">    <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(10, 15, 20)</div>
+<div class="line">            .observe_on(<a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{})</div>
+<div class="line">            .as_blocking()</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;] : &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; });</div>
+<div class="line">    <span class="comment">// Template for output:</span></div>
+<div class="line">    <span class="comment">// TH1</span></div>
+<div class="line">    <span class="comment">// [TH2]: 10</span></div>
+<div class="line">    <span class="comment">// [TH2]: 15</span></div>
+<div class="line">    <span class="comment">// [TH2]: 20</span></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">scheduler which schedule execution of via queueing tasks to another thread with priority to time_poin...</div><div class="ttdef"><b>Definition:</b> new_thread_scheduler.h:60</div></div>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/observeon.html">https://reactivex.io/documentation/operators/observeon.html</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the observe_on operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="observe__on_8h_source.html">rpp/operators/observe_on.h</a>&gt; </dd></dl>
 
 </div>
 </div>

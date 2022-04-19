@@ -22,6 +22,9 @@ requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, Args...$>$ \&\& rpp\+::
 {\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... TObservables$>$ \newline
 requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, TObservables...$>$\&\& sizeof...(TObservables) $>$= 1)}\\auto \mbox{\hyperlink{group__operators_gafa55b14eec1c6c40b8655e20c6edf5b2}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge\+\_\+with}} (TObservables \&\&... observables) const \&
 \begin{DoxyCompactList}\small\item\em combine submissions from current observable with other observables into one \end{DoxyCompactList}\item 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \newline
+requires is\+\_\+header\+\_\+included$<$observe\+\_\+on\+\_\+tag, TScheduler$>$}\\auto \mbox{\hyperlink{group__operators_ga374d453301a31f00fed7024be4327934}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, observe\+\_\+on\+\_\+tag $>$\+::observe\+\_\+on}} (TScheduler \&\&scheduler) const \&
+\begin{DoxyCompactList}\small\item\em transfer emissions of items to provided scheduler \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename... Args$>$ \newline
 requires is\+\_\+header\+\_\+included$<$take\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__operators_ga0dcb41decfa8d5ded95f828a7e65ffee}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, take\+\_\+tag $>$\+::take}} (size\+\_\+t count) const \&
 \begin{DoxyCompactList}\small\item\em emit only first Count items provided by observable \end{DoxyCompactList}\item 
@@ -210,6 +213,46 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
 \#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{merge_8h_source}{rpp/operators/merge.\+h}}\texorpdfstring{$>$}{>} 
+\end{DoxyWarning}
+\mbox{\Hypertarget{group__operators_ga374d453301a31f00fed7024be4327934}\label{group__operators_ga374d453301a31f00fed7024be4327934}} 
+\index{Operators@{Operators}!observe\_on@{observe\_on}}
+\index{observe\_on@{observe\_on}!Operators@{Operators}}
+\doxysubsubsection{\texorpdfstring{observe\_on()}{observe\_on()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \newline
+requires is\+\_\+header\+\_\+included$<$observe\+\_\+on\+\_\+tag, TScheduler$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, observe\+\_\+on\+\_\+tag $>$\+::observe\+\_\+on (\begin{DoxyParamCaption}\item[{TScheduler \&\&}]{scheduler }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+transfer emissions of items to provided scheduler 
+
+after applying this operator all next emissions will be provided via scheduler
+
+Example\+: 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    std::cout << std::this\_thread::get\_id() << std::endl;}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(10, 15, 20)}
+\DoxyCodeLine{            .observe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{            .as\_blocking()}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}["{}} << std::this\_thread::get\_id() << \textcolor{stringliteral}{"{}] : "{}} << v << \textcolor{stringliteral}{"{}\(\backslash\)n"{}}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Template for output:}}
+\DoxyCodeLine{    \textcolor{comment}{// TH1}}
+\DoxyCodeLine{    \textcolor{comment}{// [TH2]: 10}}
+\DoxyCodeLine{    \textcolor{comment}{// [TH2]: 15}}
+\DoxyCodeLine{    \textcolor{comment}{// [TH2]: 20}}
+
+\end{DoxyCodeInclude}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/observeon.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/observeon.\+html}}
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the observe\+\_\+on operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{observe__on_8h_source}{rpp/operators/observe\+\_\+on.\+h}}\texorpdfstring{$>$}{>} 
 \end{DoxyWarning}
 \mbox{\Hypertarget{group__operators_ga381218c46daf100859858d88743d058d}\label{group__operators_ga381218c46daf100859858d88743d058d}} 
 \index{Operators@{Operators}!op@{op}}
