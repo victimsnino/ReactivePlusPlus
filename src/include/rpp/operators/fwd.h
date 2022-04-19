@@ -15,3 +15,4 @@
 #include <rpp/operators/fwd/take.h>
 #include <rpp/operators/fwd/take_while.h>
 #include <rpp/operators/fwd/merge.h>
+#include <rpp/operators/fwd/observe_on.h>

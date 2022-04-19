@@ -24,7 +24,7 @@ jobs:
         CC: clang
         CXX: clang++
       run: |
-        cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+        cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTS=1 -DBUILD_SAMPLES=1
     - name: Create results directory
       run: |
         mkdir clang-tidy-result

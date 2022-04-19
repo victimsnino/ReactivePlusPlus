@@ -27,16 +27,10 @@ endif()
 foreach(SOURCE ${FILES}) 
   get_filename_component(BASE_NAME ${SOURCE} NAME_WE)
   set(TARGET ${BASE_NAME})
-
-  add_library(${TARGET} 
-    STATIC
-      ${SOURCE}
-      mock_observer.h
-      copy_count_tracker.h
-  )
-
+  add_library(${TARGET} STATIC ${SOURCE} mock_observer.h copy_count_tracker.h)
   target_link_libraries(${TARGET} PRIVATE rpp Catch2 coverage_config)
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites)
+
   if(MSVC)
     target_link_options(${EXECUTABLE_TARGET} PRIVATE /WHOLEARCHIVE:$<TARGET_FILE:${TARGET}>)
   else()
