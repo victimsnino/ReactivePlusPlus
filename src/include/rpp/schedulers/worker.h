@@ -12,6 +12,7 @@
 
 #include <rpp/schedulers/constraints.h>
 #include <rpp/schedulers/fwd.h>
+#include <rpp/utils/constraints.h>
 
 namespace rpp::schedulers
 {
@@ -26,7 +27,11 @@ class worker
 {
 public:
     template<typename ...Args>
+        requires (!rpp::constraint::variadic_is_same_type<worker<Strategy>, Args...>)
     worker(Args&& ...args) : m_strategy{std::forward<Args>(args)...} {}
+
+    worker(const worker&) = default;
+    worker(worker&&) noexcept= default;
 
     void schedule(constraint::schedulable_fn auto&& fn) const
     {
