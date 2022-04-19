@@ -33,6 +33,8 @@ SCENARIO("observe_on transfers emssions to scheduler")
                 res.subscribe(mock);
 
                 CHECK(mock.get_received_values() == vals);
+                CHECK(mock.get_on_completed_count() == 1);
+
             }
             THEN("obtain values in the same thread")
             {
@@ -54,6 +56,8 @@ SCENARIO("observe_on transfers emssions to scheduler")
                 res.as_blocking().subscribe(mock);
 
                 CHECK(mock.get_received_values() == vals);
+                CHECK(mock.get_on_completed_count() == 1);
+
             }
             THEN("obtain values in the same thread")
             {
@@ -64,6 +68,36 @@ SCENARIO("observe_on transfers emssions to scheduler")
                 });
 
                 CHECK(threads != std::set{ std::this_thread::get_id() });
+            }
+        }
+    }
+
+    GIVEN("observable with error")
+    {
+        auto obs = rpp::source::error<std::string>(std::make_exception_ptr(std::runtime_error{""}));
+
+        WHEN("subscribe on observable via observe_on with immediate scheduler")
+        {
+            auto res = obs.observe_on(rpp::schedulers::immediate{});
+            THEN("obtain error")
+            {
+                res.subscribe(mock);
+
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
+
+
+        WHEN("subscribe on observable via observe_on with immediate scheduler")
+        {
+            auto res = obs.observe_on(rpp::schedulers::new_thread{});
+            THEN("obtain error")
+            {
+                res.as_blocking().subscribe(mock);
+
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
             }
         }
     }
