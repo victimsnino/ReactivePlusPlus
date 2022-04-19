@@ -11,9 +11,9 @@
 file(GLOB_RECURSE FILES "test_*.cpp")
 
 set(EXECUTABLE_TARGET rpp_tests)
-add_executable(${EXECUTABLE_TARGET} null.cpp)
+add_executable(${EXECUTABLE_TARGET} main.cpp)
 
-target_link_libraries(${EXECUTABLE_TARGET} PRIVATE rpp Catch2WithMain coverage_config)
+target_link_libraries(${EXECUTABLE_TARGET} PRIVATE rpp Catch2 coverage_config)
 set_target_properties(${EXECUTABLE_TARGET} PROPERTIES FOLDER Tests)
 
 add_ctest(${EXECUTABLE_TARGET})
