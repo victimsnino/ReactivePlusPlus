@@ -7,6 +7,7 @@
 // 
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
+#include "copy_count_tracker.h"
 #include "mock_observer.h"
 
 #include <catch2/catch_test_macros.hpp>
@@ -98,6 +99,44 @@ SCENARIO("observe_on transfers emssions to scheduler")
 
                 CHECK(mock.get_on_error_count() == 1);
                 CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
+    }
+}
+
+SCENARIO("observe_on doesn't produce a lot of copies", "[track_copy]")
+{
+    GIVEN("observable with value by copy")
+    {
+        auto tracker = copy_count_tracker{};
+        auto obs     = rpp::source::create<copy_count_tracker>([&](const auto& sub)
+        {
+            sub.on_next(tracker);
+        });
+        WHEN("subscribe on it via scheduler")
+        {
+            obs.observe_on(rpp::schedulers::immediate{}).subscribe();
+            THEN("only 1 extra copy and 1 move")
+            {
+                CHECK(tracker.get_copy_count() == 1);
+                CHECK(tracker.get_move_count() == 1);
+            }
+        }
+    }
+    GIVEN("observable with value by move")
+    {
+        auto tracker = copy_count_tracker{};
+        auto obs     = rpp::source::create<copy_count_tracker>([&](const auto& sub)
+        {
+            sub.on_next(std::move(tracker));
+        });
+        WHEN("subscribe on it via scheduler")
+        {
+            obs.observe_on(rpp::schedulers::immediate{}).subscribe();
+            THEN("only 2 extra moves")
+            {
+                CHECK(tracker.get_copy_count() == 0);
+                CHECK(tracker.get_move_count() == 2);
             }
         }
     }
