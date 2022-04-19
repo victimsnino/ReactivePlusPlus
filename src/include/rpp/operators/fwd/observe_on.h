@@ -22,13 +22,14 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, observe_on_tag>
 {
     /**
-    * \brief
+    * \brief transfer emissions of items to provided scheduler
     *
-    * \details
+    * \details after applying this operator all next emissions will be provided via scheduler
     *	
     * Example:
+    * \snippet observe_on.cpp observe_on
     *
-    * \see 
+    * \see https://reactivex.io/documentation/operators/observeon.html
     *
     * \return new specific_observable with the observe_on operator as most recent operator.
     * \warning #include <rpp/operators/observe_on.h>

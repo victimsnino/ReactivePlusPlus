@@ -132,3 +132,19 @@ There is two overloadings:
         .subscribe([](int v) { std::cout << v << " "; });
   // Output: 1 2
   ```
+
+## Utility
+### observe_on
+Transfers emissions of items to provided scheduler with goal to provided multithreaded behaviour
+```cpp
+std::cout << std::this_thread::get_id() << std::endl;
+rpp::source::just(10, 15, 20)
+        .observe_on(rpp::schedulers::new_thread{})
+        .as_blocking()
+        .subscribe([](int v) { std::cout << "[" << std::this_thread::get_id() << "] : " << v << "\n"; });
+// Template for output:
+// TH1
+// [TH2]: 10
+// [TH2]: 15
+// [TH2]: 20
+```

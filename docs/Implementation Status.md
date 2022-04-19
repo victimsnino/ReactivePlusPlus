@@ -54,4 +54,4 @@
   - [ ] merge delay error
 
 ### Utility
-- [ ] observe_on
+- [x] observe_on
