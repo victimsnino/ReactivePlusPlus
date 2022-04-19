@@ -27,16 +27,17 @@ endif()
 foreach(SOURCE ${FILES}) 
   get_filename_component(BASE_NAME ${SOURCE} NAME_WE)
   set(TARGET ${BASE_NAME})
+  set(SOURCES ${SOURCE} mock_observer.h copy_count_tracker.h)
+  if(MSVC)
+    add_executable(${TARGET} ${SOURCES})
+    target_link_libraries(${TARGET} PRIVATE rpp Catch2WithMain coverage_config)
+  else()
+    add_library(${TARGET} STATIC ${SOURCES})
+    target_link_libraries(${TARGET} PRIVATE rpp Catch2 coverage_config)
+  endif()
 
-  add_executable(${TARGET} 
-      ${SOURCE}
-      mock_observer.h
-      copy_count_tracker.h
-  )
-
-  set_property(TARGET ${TARGET} PROPERTY ENABLE_EXPORTS 1)
-  target_link_libraries(${TARGET} PRIVATE rpp Catch2WithMain coverage_config)
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites)
+
   if(MSVC)
     target_link_options(${EXECUTABLE_TARGET} PRIVATE /WHOLEARCHIVE:$<TARGET_FILE:${TARGET}>)
   else()

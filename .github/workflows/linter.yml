@@ -24,7 +24,7 @@ jobs:
         CC: clang
         CXX: clang++
       run: |
-        cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+        cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_CXX_USE_RESPONSE_FILE_FOR_INCLUDES=0
     - name: Create results directory
       run: |
         mkdir clang-tidy-result
