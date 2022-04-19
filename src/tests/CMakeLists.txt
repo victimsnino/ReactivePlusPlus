@@ -34,6 +34,7 @@ foreach(SOURCE ${FILES})
       copy_count_tracker.h
   )
 
+  set_property(TARGET ${TARGET} PROPERTY ENABLE_EXPORTS 1)
   target_link_libraries(${TARGET} PRIVATE rpp Catch2WithMain coverage_config)
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites)
   if(MSVC)
