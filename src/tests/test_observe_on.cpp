@@ -10,7 +10,7 @@
 #include "copy_count_tracker.hpp"
 #include "mock_observer.hpp"
 
-#include <catch2/catch_test_macros..hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <rpp/schedulers.hpp>
 #include <rpp/operators/observe_on.hpp>

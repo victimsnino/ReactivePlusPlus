@@ -13,7 +13,7 @@
 
 #include <rpp/sources/from.hpp>
 #include <rpp/schedulers/new_thread_scheduler.hpp>
-#include <catch2/catch_test_macros..hpp>
+#include <catch2/catch_test_macros.hpp>
 
 SCENARIO("from iterable")
 {

@@ -12,7 +12,7 @@
 #include "rpp/sources/create.hpp"
 
 #include <rpp/operators/take_while.hpp>
-#include <catch2/catch_test_macros..hpp>
+#include <catch2/catch_test_macros.hpp>
 
 SCENARIO("take_while filters values")
 {
