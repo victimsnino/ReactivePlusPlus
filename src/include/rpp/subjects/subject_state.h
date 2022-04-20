@@ -162,19 +162,19 @@ public:
             if (current_state == new_state)
                 return;
 
-            if (!std::atomic_compare_exchange_strong(&m_state, &current_state, new_state))
-                continue;
-
-            auto weak = this->weak_from_this();
-            subscriber.get_subscription().add([weak]
+            if (std::atomic_compare_exchange_strong(&m_state, &current_state, new_state))
             {
-                while (auto shared = weak.lock())
+                auto weak = this->weak_from_this();
+                subscriber.get_subscription().add([weak]
                 {
-                    if (shared->try_to_update_state(&states::state_interface<T>::on_subscriber_unsubscribed))
-                        return;
-                }
-            });
-            return;
+                    while (auto shared = weak.lock())
+                    {
+                        if (shared->try_to_update_state(&states::state_interface<T>::on_subscriber_unsubscribed))
+                            return;
+                    }
+                });
+                return;
+            }
         }
     }
 
@@ -221,11 +221,11 @@ private:
             if (current_state->is_terminated())
                 return;
 
-            if (!try_to_update_state(current_state, new_state))
-                continue;
-
-            std::invoke(state_callback, current_state);
-            return;
+            if (try_to_update_state(current_state, new_state))
+            {
+                std::invoke(state_callback, current_state);
+                return;
+            }
         }
     }
 
