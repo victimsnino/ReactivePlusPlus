@@ -24,13 +24,13 @@ jobs:
         CC: clang
         CXX: clang++
       run: |
-        cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTS=1 -DBUILD_SAMPLES=1
+        cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_SAMPLES=1
     - name: Create results directory
       run: |
         mkdir clang-tidy-result
     - name: Analyze
       run: |
-        git diff -U0 origin/main | clang-tidy-diff -p1 -path build -export-fixes clang-tidy-result/fixes.yml -extra-arg=-std=c++20 -checks=bugprone-*,concurrency-*,performance-*
+        git diff -U0 origin/main | clang-tidy-diff -j 0 -p1 -path build -export-fixes clang-tidy-result/fixes.yml -extra-arg=-std=c++20 -checks=bugprone-*,concurrency-*,performance-* -- -header-filter=src/include/ -Isrc/include/
     - name: Run clang-tidy-pr-comments action
       uses: platisd/clang-tidy-pr-comments@master
       with:
