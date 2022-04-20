@@ -17,4 +17,3 @@
 #include <rpp/operators/fwd.hpp>
 #include <rpp/subscriptions/fwd.hpp>
 #include <rpp/schedulers/fwd.hpp>
-.hpp
