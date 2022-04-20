@@ -10,7 +10,7 @@
 
 #include "mock_observer.hpp"
 
-#include <catch2/catch_test_macros.hpppp>
+#include <catch2/catch_test_macros..hpp>
 #include <rpp/operators/merge.hpp>
 #include <rpp/sources.hpp>
 #include <rpp/observables/dynamic_observable.hpp>

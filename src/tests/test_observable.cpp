@@ -12,7 +12,7 @@
 #include "mock_observer.hpp"
 #include "rpp/schedulers/new_thread_scheduler.hpp"
 
-#include <catch2/catch_test_macros.hpppp>
+#include <catch2/catch_test_macros..hpp>
 
 #include <rpp/sources.hpp>
 #include <rpp/observables.hpp>

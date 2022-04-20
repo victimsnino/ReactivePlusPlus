@@ -8,7 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_test_macros.hpppp>
+#include <catch2/catch_test_macros..hpp>
 #include <rpp/operators/filter.hpp>
 #include <rpp/sources/create.hpp>
 

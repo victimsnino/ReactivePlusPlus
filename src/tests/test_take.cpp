@@ -11,7 +11,7 @@
 #include "mock_observer.hpp"
 #include "rpp/sources.hpp"
 
-#include <catch2/catch_test_macros.hpppp>
+#include <catch2/catch_test_macros..hpp>
 #include <rpp/operators/take.hpp>
 
 SCENARIO("take limits count of items")

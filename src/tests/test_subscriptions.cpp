@@ -12,7 +12,7 @@
 #include <rpp/subscriptions/callback_subscription.hpp>
 #include <rpp/subscriptions/composite_subscription.hpp>
 
-#include <catch2/catch_test_macros.hpppp>
+#include <catch2/catch_test_macros..hpp>
 
 SCENARIO("subscriptions works as expected")
 {
