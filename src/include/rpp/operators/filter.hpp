@@ -39,7 +39,7 @@ auto member_overload<Type, SpecificObservable, filter_tag>::filter_impl(Predicat
 {
     return [predicate = std::forward<Predicate>(predicate)](auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber)
     {
-        if (predicate(utilities::as_const(value)))
+        if (predicate(utils::as_const(value)))
             subscriber.on_next(std::forward<decltype(value)>(value));
     };
 }

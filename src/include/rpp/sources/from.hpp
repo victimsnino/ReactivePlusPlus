@@ -48,7 +48,7 @@ void iterate(const auto&                                   iterable,
     if constexpr (constraint::decayed_same_as<decltype(scheduler), schedulers::immediate>)
     {
         for (const auto& v : extract_iterable(iterable))
-            subscriber.on_next(utilities::as_const(v));
+            subscriber.on_next(utils::as_const(v));
         subscriber.on_completed();
     }
     else
@@ -63,7 +63,7 @@ void iterate(const auto&                                   iterable,
 
             if (itr != end)
             {
-                subscriber.on_next(utilities::as_const(*itr));
+                subscriber.on_next(utils::as_const(*itr));
                 if (std::next(itr) != end) // it was not last
                 {
                     ++index;
