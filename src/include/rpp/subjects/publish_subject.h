@@ -11,10 +11,9 @@
 
 #include <rpp/subjects/fwd.h>
 #include <rpp/utils/constraints.h>
-#include <rpp/sources/create.h>
 #include <rpp/subscribers/dynamic_subscriber.h>
 #include <rpp/subjects/subject_state.h>
-
+#include <rpp/subjects/base_subject.h>
 
 namespace rpp::subjects::details
 {
@@ -22,7 +21,7 @@ template<constraint::decayed_type T>
 class publish_strategy
 {
 public:
-    publish_strategy(const composite_subscription& sub = composite_subscription{})
+    publish_strategy(const composite_subscription& sub)
         : m_sub{sub}
     {
         std::weak_ptr weak = m_state;
@@ -33,7 +32,7 @@ public:
         });
     }
 
-    void add(const dynamic_subscriber<T>& sub) const
+    void on_subscribe(const dynamic_subscriber<T>& sub) const
     {
         m_state->on_subscribe(sub);
     }
@@ -63,24 +62,14 @@ private:
 
 namespace rpp::subjects
 {
+/**
+ * \brief Subject which just multicasts values to observers subscribed on it. It contains two parts: subscriber and observable at the same time.
+ * \details Each subscriber obtains only values which emitter after corresponding subscribe. on_error/on_completer/unsubscribe cached and provided to new subscribers if any
+ * \warn this subject is not synchronized/serialized! It means, that expected to call callbacks of subscriber in the serialized way to follow observable contract: "Observables must issue notifications to observers serially (not in parallel).". If you are not sure or need extra serialization, please, use serialized_subject.
+ * \tparam T value provided by this subject
+ * \see https://reactivex.io/documentation/subject.html
+ * \ingroup subjects
+ */
 template<constraint::decayed_type T>
-class publish_subject
-{
-public:
-    auto get_subscriber() const
-    {
-        return m_strategy.get_subscriber();
-    }
-
-    auto get_observable() const
-    {
-        return source::create<T>([strategy = this->m_strategy](const auto& sub)
-        {
-            strategy.add(sub);
-        });
-    }
-
-private:
-    details::publish_strategy<T> m_strategy{};
-};
+class publish_subject final : public details::base_subject<T, details::publish_strategy<T>>{};
 } // namespace rpp::subjects

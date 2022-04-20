@@ -185,11 +185,7 @@ public:
 
     void on_error(const std::exception_ptr& err)
     {
-        update_state_if_not_terminated(std::make_shared<states::error<T>>(err),
-                                       [&](const auto& state)
-                                       {
-                                           state->on_error(err);
-                                       });
+        update_state_if_not_terminated(std::make_shared<states::error<T>>(err), [&](const auto& state) { state->on_error(err); });
     }
 
     void on_completed()

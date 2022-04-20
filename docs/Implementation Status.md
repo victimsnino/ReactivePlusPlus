@@ -55,3 +55,10 @@
 
 ### Utility
 - [x] observe_on
+
+## Subjects
+- [x] publish_subject
+- [ ] serialized_subject
+- [ ] replay_subject
+- [ ] publish_subject
+- [ ] async_subject
