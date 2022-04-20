@@ -8,12 +8,12 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include "copy_count_tracker.h"
-#include "mock_observer.h"
+#include "copy_count_tracker.hpp"
+#include "mock_observer.hpp"
 
-#include <rpp/sources/from.h>
-#include <rpp/schedulers/new_thread_scheduler.h>
-#include <catch2/catch_test_macros.hpp>
+#include <rpp/sources/from.hpp>
+#include <rpp/schedulers/new_thread_scheduler.hpp>
+#include <catch2/catch_test_macros.hpppp>
 
 SCENARIO("from iterable")
 {

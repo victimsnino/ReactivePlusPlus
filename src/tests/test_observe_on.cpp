@@ -7,14 +7,14 @@
 // 
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
-#include "copy_count_tracker.h"
-#include "mock_observer.h"
+#include "copy_count_tracker.hpp"
+#include "mock_observer.hpp"
 
-#include <catch2/catch_test_macros.hpp>
+#include <catch2/catch_test_macros.hpppp>
 
-#include <rpp/schedulers.h>
-#include <rpp/operators/observe_on.h>
-#include <rpp/sources.h>
+#include <rpp/schedulers.hpp>
+#include <rpp/operators/observe_on.hpp>
+#include <rpp/sources.hpp>
 #include <set>
 
 SCENARIO("observe_on transfers emssions to scheduler")

@@ -8,11 +8,11 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include "mock_observer.h"
-#include "rpp/sources.h"
+#include "mock_observer.hpp"
+#include "rpp/sources.hpp"
 
-#include <catch2/catch_test_macros.hpp>
-#include <rpp/operators/take.h>
+#include <catch2/catch_test_macros.hpppp>
+#include <rpp/operators/take.hpp>
 
 SCENARIO("take limits count of items")
 {

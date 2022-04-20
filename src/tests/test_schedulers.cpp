@@ -8,11 +8,11 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include "rpp/subscriptions/composite_subscription.h"
+#include "rpp/subscriptions/composite_subscription.hpp"
 
-#include <catch2/catch_test_macros.hpp>
-#include <rpp/schedulers/immediate_scheduler.h>
-#include <rpp/schedulers/new_thread_scheduler.h>
+#include <catch2/catch_test_macros.hpppp>
+#include <rpp/schedulers/immediate_scheduler.hpp>
+#include <rpp/schedulers/new_thread_scheduler.hpp>
 
 #include <future>
 

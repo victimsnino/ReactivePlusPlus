@@ -8,11 +8,11 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_test_macros.hpp>
-#include <rpp/operators/filter.h>
-#include <rpp/sources/create.h>
+#include <catch2/catch_test_macros.hpppp>
+#include <rpp/operators/filter.hpp>
+#include <rpp/sources/create.hpp>
 
-#include "mock_observer.h"
+#include "mock_observer.hpp"
 
 SCENARIO("Filter provides only satisfied items")
 {

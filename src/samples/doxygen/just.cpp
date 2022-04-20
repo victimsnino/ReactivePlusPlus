@@ -1,4 +1,4 @@
-#include <rpp/rpp.h>
+#include <rpp/rpp.hpp>
 
 #include <iostream>
 #include <array>

@@ -8,13 +8,13 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include "mock_observer.h"
+#include "mock_observer.hpp"
 
-#include <catch2/catch_test_macros.hpp>
-#include <rpp/operators/merge.h>
-#include <rpp/sources.h>
-#include <rpp/observables/dynamic_observable.h>
-#include <rpp/schedulers/new_thread_scheduler.h>
+#include <catch2/catch_test_macros.hpppp>
+#include <rpp/operators/merge.hpp>
+#include <rpp/sources.hpp>
+#include <rpp/observables/dynamic_observable.hpp>
+#include <rpp/schedulers/new_thread_scheduler.hpp>
 
 SCENARIO("merge for observable of observables")
 {
