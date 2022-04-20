@@ -21,8 +21,8 @@ jobs:
         sudo apt-get install -y clang-tidy
     - name: Prepare compile_commands.json
       env:
-        CC: clang
-        CXX: clang++
+        CC: gcc-10
+        CXX: g++-10
       run: |
         cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_SAMPLES=1 -DBUILD_TESTS=1
     - name: Create results directory
