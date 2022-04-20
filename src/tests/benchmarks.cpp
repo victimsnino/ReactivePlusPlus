@@ -14,7 +14,7 @@
 #include <rpp/sources.hpp>
 #include <rpp/observers/specific_observer.hpp>
 #include <rpp/operators.hpp>
-.hpp
+
 #include <array>
 
 template<template<typename...> typename TObserver>
