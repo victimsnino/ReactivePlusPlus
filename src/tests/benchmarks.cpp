@@ -292,23 +292,3 @@ TEST_CASE("merge")
                .subscribe(sub);
     };
 }
-
-TEST_CASE("publish_subject")
-{
-    auto sub = rpp::composite_subscription{};
-    BENCHMARK("construction")
-    {
-        return rpp::subjects::publish_subject<int>{sub};
-    };
-    auto subj = rpp::subjects::publish_subject<int>{};
-
-    auto subscriber = subj.get_subscriber();
-    BENCHMARK("on_next")
-    {
-        subscriber.on_next(1);
-    };
-    BENCHMARK("on_completed")
-    {
-        subscriber.on_completed();
-    };
-}

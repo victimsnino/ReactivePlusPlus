@@ -282,24 +282,3 @@ TEST_CASE("merge")
                .subscribe(sub);
     };
 }
-
-
-TEST_CASE("publish_subject")
-{
-    auto sub = rxcpp::composite_subscription{};
-    BENCHMARK("construction")
-    {
-        return rxcpp::subjects::subject<int>{sub};
-    };
-    auto subj = rxcpp::subjects::subject<int>{};
-
-    auto subscriber = subj.get_subscriber();
-    BENCHMARK("on_next")
-    {
-        subscriber.on_next(1);
-    };
-    BENCHMARK("on_completed")
-    {
-        subscriber.on_completed();
-    };
-}
