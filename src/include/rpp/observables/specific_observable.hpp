@@ -103,9 +103,12 @@ private:
         {
             m_state(subscriber);
         }
-        catch (const std::exception& exc)
+        catch (const std::runtime_error& exc)
         {
-            subscriber.on_error(std::make_exception_ptr(exc));
+            if (subscriber.is_subscribed())
+                subscriber.on_error(std::make_exception_ptr(exc));
+            else
+                throw;
         }
         return subscriber.get_subscription();
     }

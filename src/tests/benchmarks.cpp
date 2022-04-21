@@ -250,7 +250,7 @@ TEST_CASE("foundamental sources")
 
     BENCHMARK_ADVANCED("error")(Catch::Benchmark::Chronometer meter)
     {
-        auto sub = rpp::make_specific_subscriber<int>();
+        auto sub = rpp::make_specific_subscriber<int>([](int){}, [](const std::exception_ptr& err){});
 
         auto err = std::make_exception_ptr(std::runtime_error{""});
 

@@ -18,6 +18,11 @@ struct empty_function_t
     void operator()(const Types&...) const noexcept {}
 };
 
+struct rethrow_error_t
+{
+    void operator()(const std::exception_ptr &err) const { std::rethrow_exception(err); }
+};
+
 template<typename Observer>
 auto make_forwarding_on_next(const Observer& obs)
 {

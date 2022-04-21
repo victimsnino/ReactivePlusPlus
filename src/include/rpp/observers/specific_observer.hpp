@@ -29,14 +29,14 @@ namespace rpp
  */
 template<constraint::decayed_type T,
          constraint::on_next_fn<T>   OnNext      = utils::empty_function_t<T>,
-         constraint::on_error_fn     OnError     = utils::empty_function_t<std::exception_ptr>,
+         constraint::on_error_fn     OnError     = utils::rethrow_error_t,
          constraint::on_completed_fn OnCompleted = utils::empty_function_t<>>
 class specific_observer final : public interface_observer<T>
 {
 public:
 
     template<constraint::on_next_fn<T>   TOnNext      = utils::empty_function_t<T>,
-             constraint::on_error_fn     TOnError     = utils::empty_function_t<std::exception_ptr>,
+             constraint::on_error_fn     TOnError     = utils::rethrow_error_t,
              constraint::on_completed_fn TOnCompleted = utils::empty_function_t<>>
     specific_observer(TOnNext&& on_next = {}, TOnError&& on_error = {}, TOnCompleted&& on_completed = {})
         : m_on_next{std::forward<TOnNext>(on_next)}
@@ -75,7 +75,7 @@ template<typename OnNext, constraint::on_error_fn OnError, typename ...Args>
 specific_observer(OnNext, OnError, Args...) -> specific_observer<utils::decayed_function_argument_t<OnNext>, OnNext, OnError, Args...>;
 
 template<typename OnNext, constraint::on_completed_fn OnCompleted>
-specific_observer(OnNext, OnCompleted) -> specific_observer<utils::decayed_function_argument_t<OnNext>, OnNext, utils::empty_function_t<std::exception_ptr>, OnCompleted>;
+specific_observer(OnNext, OnCompleted) -> specific_observer<utils::decayed_function_argument_t<OnNext>, OnNext, utils::rethrow_error_t, OnCompleted>;
 
 template<typename...Args>
 using specific_observer_with_decayed_args = rpp::specific_observer<std::decay_t<Args>...>;
@@ -98,7 +98,7 @@ auto make_specific_observer(constraint::on_next_fn<Type> auto&& on_next) -> spec
 
 template<constraint::decayed_type Type>
 auto make_specific_observer(constraint::on_next_fn<Type> auto&& on_next,
-                            constraint::on_completed_fn auto&&  on_completed) -> specific_observer_with_decayed_args<Type, decltype(on_next), utils::empty_function_t<std::exception_ptr>, decltype(on_completed)>
+                            constraint::on_completed_fn auto&&  on_completed) -> specific_observer_with_decayed_args<Type, decltype(on_next), utils::rethrow_error_t, decltype(on_completed)>
 {
     return {std::forward<decltype(on_next)>(on_next), std::forward<decltype(on_completed)>(on_completed)};
 }
