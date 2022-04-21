@@ -40,7 +40,7 @@ SCENARIO("observe_on transfers emssions to scheduler")
             THEN("obtain values in the same thread")
             {
                 std::set<std::thread::id>     threads{};
-                res.subscribe([&](const auto& v)
+                res.subscribe([&](const auto&)
                 {
                     threads.insert(std::this_thread::get_id());
                 });
@@ -63,7 +63,7 @@ SCENARIO("observe_on transfers emssions to scheduler")
             THEN("obtain values in the same thread")
             {
                 std::set<std::thread::id>                   threads{};
-                res.as_blocking().subscribe([&](const auto& v)
+                res.as_blocking().subscribe([&](const auto&)
                 {
                     threads.insert(std::this_thread::get_id());
                 });
