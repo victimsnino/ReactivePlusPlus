@@ -37,7 +37,7 @@ auto member_overload<Type, SpecificObservable, take_while_tag>::take_while_impl(
 {
     return [predicate = std::forward<Predicate>(predicate)](auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber)
     {
-        if (predicate(utilities::as_const(value)))
+        if (predicate(utils::as_const(value)))
             subscriber.on_next(std::forward<decltype(value)>(value));
         else
             subscriber.on_completed();

@@ -23,7 +23,7 @@ auto MakeDynamicObservable()
     return MakeSpecificObservable().as_dynamic();
 }
 
-TEST_CASE("Observable construction", "[benchmark]")
+TEST_CASE("Observable construction")
 {
     BENCHMARK("Specific observable construction")
     {
@@ -37,7 +37,7 @@ TEST_CASE("Observable construction", "[benchmark]")
 
 }
 
-TEST_CASE("Observable subscribe #2", "[benchmark]")
+TEST_CASE("Observable subscribe #2")
 {
     auto specific = MakeSpecificObservable();
     BENCHMARK("Specific observable subscribe lambda")
@@ -84,7 +84,7 @@ TEST_CASE("Observable subscribe #2", "[benchmark]")
     };
 }
 
-TEST_CASE("Observer construction", "[benchmark]")
+TEST_CASE("Observer construction")
 {
     BENCHMARK("Specific observer construction")
     {
@@ -102,7 +102,7 @@ TEST_CASE("Observer construction", "[benchmark]")
     };
 }
 
-TEST_CASE("OnNext", "[benchmark]")
+TEST_CASE("OnNext")
 {
     auto specific_observer = MakeSpecificObserver();
     auto dynamic_observer = MakeDynamicObserver();
@@ -121,7 +121,7 @@ TEST_CASE("OnNext", "[benchmark]")
 
 }
 
-TEST_CASE("Subscriber construction", "[benchmark]")
+TEST_CASE("Subscriber construction")
 {
     BENCHMARK("Make subsriber")
     {
@@ -142,7 +142,7 @@ TEST_CASE("Subscriber construction", "[benchmark]")
     };
 }
 
-TEST_CASE("Observable subscribe", "[benchmark]")
+TEST_CASE("Observable subscribe")
 {
     auto validate_observable = [](auto observable, const std::string& observable_prefix)
     {
@@ -161,7 +161,7 @@ TEST_CASE("Observable subscribe", "[benchmark]")
     validate_observable(MakeDynamicObservable(), "Dynamic");
 }
 
-TEST_CASE("Observable lift", "[benchmark]")
+TEST_CASE("Observable lift")
 {
     auto validate_observable = [](auto observable, const std::string& observable_prefix)
     {
@@ -181,7 +181,7 @@ TEST_CASE("Observable lift", "[benchmark]")
     validate_observable(MakeDynamicObservable(), "Dynamic");
 }
 
-TEST_CASE("Operators", "[benchmark]")
+TEST_CASE("Operators")
 {
     auto obs = rxcpp::observable<>::create<int>([](const auto& sub)
         {
@@ -197,7 +197,7 @@ TEST_CASE("Operators", "[benchmark]")
     };
 }
 
-TEST_CASE("Subscription", "[benchmark]")
+TEST_CASE("Subscription")
 {
     BENCHMARK("composite_subscription create")
     {
@@ -218,7 +218,7 @@ TEST_CASE("Subscription", "[benchmark]")
     };
 }
 
-TEST_CASE("foundamental sources", "[benchmark]")
+TEST_CASE("foundamental sources")
 {
     auto sub = rxcpp::make_subscriber<int>();
 
@@ -238,7 +238,7 @@ TEST_CASE("foundamental sources", "[benchmark]")
     };
 }
 
-TEST_CASE("just", "[benchmark]")
+TEST_CASE("just")
 {
     auto sub = rxcpp::make_subscriber<int>();
 
@@ -253,7 +253,7 @@ TEST_CASE("just", "[benchmark]")
     };
 }
 
-TEST_CASE("from", "[benchmark]")
+TEST_CASE("from")
 {
     auto sub = rxcpp::make_subscriber<int>();
 
@@ -264,7 +264,7 @@ TEST_CASE("from", "[benchmark]")
     };
 }
 
-TEST_CASE("merge", "[benchmark]")
+TEST_CASE("merge")
 {
     auto sub = rxcpp::make_subscriber<int>();
 

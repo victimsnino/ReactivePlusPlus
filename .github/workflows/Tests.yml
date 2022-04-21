@@ -92,8 +92,8 @@ jobs:
 
     - name: Run benchmarks only
       run: |
-        ${{github.workspace}}/${{ matrix.config.relative_path_bench }} [benchmark] -r xml -o ${{github.workspace}}/build/test_results/rpp_benchmark_result.txt
-        ${{github.workspace}}/${{ matrix.config.relative_path_rxcpp_bench }} [benchmark] -r xml -o ${{github.workspace}}/build/test_results/rxcpp_benchmark_result.txt
+        ${{github.workspace}}/${{ matrix.config.relative_path_bench }} -r xml -o ${{github.workspace}}/build/test_results/rpp_benchmark_result.txt
+        ${{github.workspace}}/${{ matrix.config.relative_path_rxcpp_bench }} -r xml -o ${{github.workspace}}/build/test_results/rxcpp_benchmark_result.txt
 
     - name: Upload parsed results
       uses: actions/upload-artifact@v3

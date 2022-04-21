@@ -39,7 +39,7 @@ auto member_overload<Type, SpecificObservable, map_tag>::map_impl(Callable&& cal
 {
     return [callable = std::forward<Callable>(callable)](auto&& value, const constraint::subscriber_of_type<std::invoke_result_t<Callable, Type>> auto& subscriber)
     {
-        subscriber.on_next(callable(utilities::as_const(std::forward<decltype(value)>(value))));
+        subscriber.on_next(callable(utils::as_const(std::forward<decltype(value)>(value))));
     };
 }
 } // namespace rpp::details
