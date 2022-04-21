@@ -277,7 +277,7 @@ TEST_CASE("from")
         auto sub = rxcpp::make_subscriber<int>();
 
         std::vector vec{ 1 };
-        meter.measure([&] {return rxcpp::sources::from(vec).subscribe(sub); });
+        meter.measure([&] {return rxcpp::sources::iterate(vec).subscribe(sub); });
     };
 }
 
