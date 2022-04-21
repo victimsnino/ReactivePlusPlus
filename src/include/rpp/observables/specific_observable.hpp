@@ -43,7 +43,7 @@ public:
     [[nodiscard]] auto as_dynamic() const & { return rpp::dynamic_observable<Type>{*this};            }
     [[nodiscard]] auto as_dynamic() &&      { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
-    composite_subscription subscribe(const dynamic_subscriber<Type>& subscriber) const noexcept override
+    composite_subscription subscribe(const dynamic_subscriber<Type>& subscriber) const override
     {
         return subscribe_impl(subscriber);
     }
@@ -55,7 +55,7 @@ public:
      */
     template<constraint::subscriber_of_type<Type> TSub>
         requires (!constraint::decayed_same_as<TSub, dynamic_subscriber<Type>>)
-    composite_subscription subscribe(TSub&& subscriber) const noexcept
+    composite_subscription subscribe(TSub&& subscriber) const
     {
         return subscribe_impl(subscriber);
     }
@@ -66,7 +66,7 @@ public:
      * \return subscription on this observable which can be used to unsubscribe
      */
     template<constraint::observer_of_type<Type> TObserver>
-    composite_subscription subscribe(TObserver&& observer) const noexcept
+    composite_subscription subscribe(TObserver&& observer) const
     {
         return subscribe_impl<std::decay_t<TObserver>>(std::forward<TObserver>(observer));
     }
@@ -78,7 +78,7 @@ public:
      * \return subscription on this observable which can be used to unsubscribe
      */
     template<constraint::observer_of_type<Type> TObserver>
-    composite_subscription subscribe(constraint::decayed_same_as<composite_subscription> auto&& sub, TObserver&& observer) const noexcept
+    composite_subscription subscribe(constraint::decayed_same_as<composite_subscription> auto&& sub, TObserver&& observer) const
     {
         return subscribe_impl(specific_subscriber<Type, std::decay_t<TObserver>>{std::forward<decltype(sub)>(sub), std::forward<TObserver>(observer)});
     }
@@ -90,14 +90,14 @@ public:
      */
     template<typename ...Args>
         requires (std::is_constructible_v<dynamic_subscriber<Type>, std::decay_t<Args>...> && !constraint::variadic_is_same_type<dynamic_subscriber<Type>, Args...>)
-    composite_subscription subscribe(Args&&...args) const noexcept
+    composite_subscription subscribe(Args&&...args) const
     {
         return subscribe_impl(rpp::make_specific_subscriber<Type>(std::forward<Args>(args)...));
     }
 
 private:
     template<constraint::observer_of_type<Type> Obs>
-    composite_subscription subscribe_impl(const specific_subscriber<Type, Obs>& subscriber) const noexcept
+    composite_subscription subscribe_impl(const specific_subscriber<Type, Obs>& subscriber) const
     {
         try
         {
