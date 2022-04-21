@@ -266,7 +266,7 @@ TEST_CASE("just")
     {
         auto sub = rxcpp::make_subscriber<int>();
 
-        meter.measure([&] { return rxcpp::sources::just(1, 2, 3, 4, 5, 6, 7, 8, 9, 10).subscribe(sub); });
+        meter.measure([&] { return rxcpp::sources::from(1, 2, 3, 4, 5, 6, 7, 8, 9, 10).subscribe(sub); });
     };
 }
 
@@ -304,6 +304,70 @@ TEST_CASE("merge")
                 return rxcpp::sources::just(1)
                     .merge(rxcpp::sources::just(2))
                     .subscribe(sub);
+            });
+    };
+}
+
+TEST_CASE("publish_subject callbacks")
+{
+    BENCHMARK_ADVANCED("on_next")(Catch::Benchmark::Chronometer meter)
+    {
+        auto subj = rxcpp::subjects::subject<int>{};
+        auto sub  = subj.get_subscriber();
+
+        meter.measure([&]
+        {
+            sub.on_next(1);
+        });
+    };
+    BENCHMARK_ADVANCED("on_error")(Catch::Benchmark::Chronometer meter)
+    {
+        auto subj = rxcpp::subjects::subject<int>{};
+        auto sub  = subj.get_subscriber();
+        auto err  = std::make_exception_ptr(std::runtime_error{""});
+
+        meter.measure([&]
+        {
+            sub.on_error(err);
+        });
+    };
+    BENCHMARK_ADVANCED("on_completed")(Catch::Benchmark::Chronometer meter)
+    {
+        auto subj = rxcpp::subjects::subject<int>{};
+        auto sub  = subj.get_subscriber();
+
+        meter.measure([&]
+        {
+            sub.on_completed();
+        });
+    };
+}
+
+TEST_CASE("publish_subject routines")
+{
+    BENCHMARK_ADVANCED("construct")(Catch::Benchmark::Chronometer meter)
+    {
+        auto sub = rxcpp::composite_subscription();
+
+        meter.measure([&]
+            {
+                return rxcpp::subjects::subject<int>{sub};
+            });
+    };
+    BENCHMARK_ADVANCED("get_observable")(Catch::Benchmark::Chronometer meter)
+    {
+        auto subj = rxcpp::subjects::subject<int>{};
+        meter.measure([&]
+            {
+                return subj.get_observable();
+            });
+    };
+    BENCHMARK_ADVANCED("get_subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        auto subj = rxcpp::subjects::subject<int>{};
+        meter.measure([&]
+            {
+                return subj.get_subscriber();
             });
     };
 }

@@ -318,3 +318,67 @@ TEST_CASE("merge")
         });
     };
 }
+
+TEST_CASE("publish_subject callbacks")
+{
+    BENCHMARK_ADVANCED("on_next")(Catch::Benchmark::Chronometer meter)
+    {
+        auto subj = rpp::subjects::publish_subject<int>{};
+        auto sub  = subj.get_subscriber();
+
+        meter.measure([&]
+        {
+            sub.on_next(1);
+        });
+    };
+    BENCHMARK_ADVANCED("on_error")(Catch::Benchmark::Chronometer meter)
+    {
+        auto subj = rpp::subjects::publish_subject<int>{};
+        auto sub  = subj.get_subscriber();
+        auto err = std::make_exception_ptr(std::runtime_error{ "" });
+
+        meter.measure([&]
+        {
+            sub.on_error(err);
+        });
+    };
+    BENCHMARK_ADVANCED("on_completed")(Catch::Benchmark::Chronometer meter)
+    {
+        auto subj = rpp::subjects::publish_subject<int>{};
+        auto sub = subj.get_subscriber();
+
+        meter.measure([&]
+            {
+                sub.on_completed();
+            });
+    };
+}
+
+TEST_CASE("publish_subject routines")
+{
+    BENCHMARK_ADVANCED("construct")(Catch::Benchmark::Chronometer meter)
+    {
+        auto sub = rpp::composite_subscription();
+
+        meter.measure([&]
+        {
+            return rpp::subjects::publish_subject<int>{sub};
+        });
+    };
+    BENCHMARK_ADVANCED("get_observable")(Catch::Benchmark::Chronometer meter)
+    {
+        auto subj = rpp::subjects::publish_subject<int>{};
+        meter.measure([&]
+        {
+            return subj.get_observable();
+        });
+    };
+    BENCHMARK_ADVANCED("get_subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        auto subj = rpp::subjects::publish_subject<int>{};
+        meter.measure([&]
+            {
+                return subj.get_subscriber();
+            });
+    };
+}
