@@ -27,7 +27,7 @@ for platform, data in results.groupby("platform"):
             old_value = old_data['value'].values[0] if len(old_data['value'].values) >= 1 else None
             old_value_str = f"{old_value:.2f}ns" if old_value is not None else "."
             ratio     = f"{r['value']/old_value:.2f}" if old_value is not None else '.'
-            rxcpp_value = f"{rxcpp_data['value']:.2f}ns" if len(rxcpp_data['value'].values) >= 1 else '.'
+            rxcpp_value = f"{rxcpp_data['value'].values[0] :.2f}ns" if len(rxcpp_data['value'].values) >= 1 else '.'
             print(f"{r['test_case']} | { new_value } | { old_value } | {ratio} | {rxcpp_value}")
         print("")
         print("</details>")
