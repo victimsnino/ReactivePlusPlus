@@ -8,9 +8,9 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <rpp/subscriptions/subscription_base.h>
-#include <rpp/subscriptions/callback_subscription.h>
-#include <rpp/subscriptions/composite_subscription.h>
+#include <rpp/subscriptions/subscription_base.hpp>
+#include <rpp/subscriptions/callback_subscription.hpp>
+#include <rpp/subscriptions/composite_subscription.hpp>
 
 #include <catch2/catch_test_macros.hpp>
 

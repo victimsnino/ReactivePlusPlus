@@ -8,10 +8,10 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include "mock_observer.h"
-#include "rpp/sources/create.h"
+#include "mock_observer.hpp"
+#include "rpp/sources/create.hpp"
 
-#include <rpp/operators/take_while.h>
+#include <rpp/operators/take_while.hpp>
 #include <catch2/catch_test_macros.hpp>
 
 SCENARIO("take_while filters values")

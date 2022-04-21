@@ -75,6 +75,10 @@ if (AUTOTESTS)
   FetchContent_MakeAvailable(RxCpp)
 endif()
 
+if(CMAKE_EXPORT_COMPILE_COMMANDS)
+    set(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES ${CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES})
+endif()
+
 # ================== TESTS ==================
 
 if (BUILD_TESTS)

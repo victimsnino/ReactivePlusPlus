@@ -8,13 +8,13 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include "copy_count_tracker.h"
-#include "mock_observer.h"
+#include "copy_count_tracker.hpp"
+#include "mock_observer.hpp"
 
 #include <catch2/catch_test_macros.hpp>
-#include <rpp/observers.h>
-#include <rpp/observers/state_observer.h>
-#include <rpp/subscribers/dynamic_subscriber.h>
+#include <rpp/observers.hpp>
+#include <rpp/observers/state_observer.hpp>
+#include <rpp/subscribers/dynamic_subscriber.hpp>
 
 SCENARIO("on_next, on_error and on_completed can be obtained")
 {

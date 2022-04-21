@@ -8,14 +8,14 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include "copy_count_tracker.h"
+#include "copy_count_tracker.hpp"
 
 #include <catch2/catch_test_macros.hpp>
-#include <rpp/observables.h>
-#include <rpp/sources/create.h>
-#include <rpp/subscribers.h>
-#include <rpp/observables/dynamic_observable.h>
-#include <rpp/observers/state_observer.h>
+#include <rpp/observables.hpp>
+#include <rpp/sources/create.hpp>
+#include <rpp/subscribers.hpp>
+#include <rpp/observables/dynamic_observable.hpp>
+#include <rpp/observers/state_observer.hpp>
 
 SCENARIO("Observable can be lifted")
 {

@@ -10,10 +10,10 @@
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/benchmark/catch_benchmark.hpp>
-#include <rpp/observables.h>
-#include <rpp/sources.h>
-#include <rpp/observers/specific_observer.h>
-#include <rpp/operators.h>
+#include <rpp/observables.hpp>
+#include <rpp/sources.hpp>
+#include <rpp/observers/specific_observer.hpp>
+#include <rpp/operators.hpp>
 
 #include <array>
 

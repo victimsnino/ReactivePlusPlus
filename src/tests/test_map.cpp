@@ -8,15 +8,15 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include "copy_count_tracker.h"
-#include "mock_observer.h"
+#include "copy_count_tracker.hpp"
+#include "mock_observer.hpp"
 
-#include <rpp/sources/create.h>
+#include <rpp/sources/create.hpp>
 
 
 #include <catch2/catch_test_macros.hpp>
-#include <rpp/observables.h>
-#include <rpp/operators/map.h>
+#include <rpp/observables.hpp>
+#include <rpp/operators/map.hpp>
 
 using namespace std::string_literals;
 

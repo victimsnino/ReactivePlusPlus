@@ -9,10 +9,10 @@
 //
 
 #include <catch2/catch_test_macros.hpp>
-#include <rpp/operators/filter.h>
-#include <rpp/sources/create.h>
+#include <rpp/operators/filter.hpp>
+#include <rpp/sources/create.hpp>
 
-#include "mock_observer.h"
+#include "mock_observer.hpp"
 
 SCENARIO("Filter provides only satisfied items")
 {
