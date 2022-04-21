@@ -1,0 +1,47 @@
+\hypertarget{interface__observer_8hpp_source}{}\doxysection{interface\+\_\+observer.\+hpp}
+\label{interface__observer_8hpp_source}\index{src/include/rpp/observers/interface\_observer.hpp@{src/include/rpp/observers/interface\_observer.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observers/fwd.hpp>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <exception>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 }
+\DoxyCodeLine{23 \textcolor{keyword}{namespace }rpp}
+\DoxyCodeLine{24 \{}
+\DoxyCodeLine{25 \textcolor{keyword}{namespace }details}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1observer__tag}{observer\_tag}} \{\};}
+\DoxyCodeLine{28 \} \textcolor{comment}{// namespace details}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{34 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{35 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1interface__observer}{interface\_observer}} : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1details_1_1observer__tag}{details::observer\_tag}}}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{37     \textcolor{keyword}{virtual} \mbox{\hyperlink{structrpp_1_1interface__observer}{\string~interface\_observer}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{44     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structrpp_1_1interface__observer_aa434bd87b9be8e727ef38dcac14e7e27}{on\_next}}(\textcolor{keyword}{const} T\& v) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{51     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structrpp_1_1interface__observer_a3780d41600d3dacd8ae6536fb65614d6}{on\_next}}(T\&\& v) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 }
+\DoxyCodeLine{59     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structrpp_1_1interface__observer_a75f46a05b81cdc26b9d7d52efede9cf0}{on\_error}}(\textcolor{keyword}{const} std::exception\_ptr\& err) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 }
+\DoxyCodeLine{66     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structrpp_1_1interface__observer_a33ab3fa364e11b58e4225afd9c071ad1}{on\_completed}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{67 \};}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69 \} \textcolor{comment}{// namespace rpp}}
+
+\end{DoxyCode}

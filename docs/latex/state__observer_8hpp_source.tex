@@ -1,0 +1,80 @@
+\hypertarget{state__observer_8hpp_source}{}\doxysection{state\+\_\+observer.\+hpp}
+\label{state__observer_8hpp_source}\index{src/include/rpp/observers/state\_observer.hpp@{src/include/rpp/observers/state\_observer.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observers/interface\_observer.hpp>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/utils/constraints.hpp>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/utils/function\_traits.hpp>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <exception>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__next}{forwarding\_on\_next}}}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber TSub>}
+\DoxyCodeLine{25     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{auto}\&\& v, TSub\&\& sub)\textcolor{keyword}{ const }\{ sub.on\_next(std::forward<\textcolor{keyword}{decltype}(v)>(v)); \}}
+\DoxyCodeLine{26 \};}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__error}{forwarding\_on\_error}}}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber TSub>}
+\DoxyCodeLine{31     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} std::exception\_ptr\& err, TSub\&\& sub)\textcolor{keyword}{ const }\{sub.on\_error(err);\}}
+\DoxyCodeLine{32 \};}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__completed}{forwarding\_on\_completed}}}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber TSub>}
+\DoxyCodeLine{37     \textcolor{keywordtype}{void} operator()(TSub\&\& sub)\textcolor{keyword}{ const }\{sub.on\_completed();\}}
+\DoxyCodeLine{38 \};}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{43 \textcolor{keyword}{template}<constraint::decayed\_type T,}
+\DoxyCodeLine{44          constraint::decayed\_type State,}
+\DoxyCodeLine{45          std::invocable<T, State>                  OnNext = \mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__next}{forwarding\_on\_next}},}
+\DoxyCodeLine{46          std::invocable<std::exception\_ptr, State> OnError = \mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__error}{forwarding\_on\_error}},}
+\DoxyCodeLine{47          std::invocable<State>                     OnCompleted= \mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__completed}{forwarding\_on\_completed}}>}
+\DoxyCodeLine{48 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\_observer}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1interface__observer}{interface\_observer}}<T>}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{50 \textcolor{keyword}{public}:}
+\DoxyCodeLine{51     \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\_observer}}(constraint::decayed\_same\_as<State> \textcolor{keyword}{auto}\&\&        state,}
+\DoxyCodeLine{52                    std::invocable<T, State> \textcolor{keyword}{auto}\&\&                  \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a0e00117dd1c6fc7e1cf296c3b42a86ee}{on\_next}},}
+\DoxyCodeLine{53                    std::invocable<std::exception\_ptr, State> \textcolor{keyword}{auto}\&\& \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a96d063f55c73076809134f706a8d19dd}{on\_error}},}
+\DoxyCodeLine{54                    std::invocable<State> \textcolor{keyword}{auto}\&\&                     \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a7d24b5c70f82c0a4c1f756caf54df267}{on\_completed}})}
+\DoxyCodeLine{55         : m\_state\{std::forward<decltype(state)>(state)\}}
+\DoxyCodeLine{56         , m\_on\_next\{std::forward<decltype(on\_next)>(\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a0e00117dd1c6fc7e1cf296c3b42a86ee}{on\_next}})\}}
+\DoxyCodeLine{57         , m\_on\_err\{std::forward<decltype(on\_error)>(\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a96d063f55c73076809134f706a8d19dd}{on\_error}})\}}
+\DoxyCodeLine{58         , m\_on\_completed\{std::forward<decltype(on\_completed)>(\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a7d24b5c70f82c0a4c1f756caf54df267}{on\_completed}})\} \{\}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\_observer}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\_observer<T, State, OnNext, OnError, OnCompleted>}}\& other)     = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{61     \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\_observer}}(\mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\_observer<T, State, OnNext, OnError, OnCompleted>}}\&\& other) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a0e00117dd1c6fc7e1cf296c3b42a86ee}{on\_next}}(\textcolor{keyword}{const} T\& v)\textcolor{keyword}{ const override                     }\{ m\_on\_next(v, m\_state);             \}}
+\DoxyCodeLine{64     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_aeb292b8b8b42cbd39aaad8ed1db5e645}{on\_next}}(T\&\& v)\textcolor{keyword}{ const override                          }\{ m\_on\_next(std::move(v), m\_state);  \}}
+\DoxyCodeLine{65     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a96d063f55c73076809134f706a8d19dd}{on\_error}}(\textcolor{keyword}{const} std::exception\_ptr\& err)\textcolor{keyword}{ const override }\{ m\_on\_err(err, m\_state);            \}}
+\DoxyCodeLine{66     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a7d24b5c70f82c0a4c1f756caf54df267}{on\_completed}}()\textcolor{keyword}{ const override                          }\{ m\_on\_completed(m\_state);         \}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{keyword}{private}:}
+\DoxyCodeLine{69     State       m\_state;}
+\DoxyCodeLine{70     OnNext      m\_on\_next;}
+\DoxyCodeLine{71     OnError     m\_on\_err;}
+\DoxyCodeLine{72     OnCompleted m\_on\_completed;}
+\DoxyCodeLine{73 \};}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75 \textcolor{keyword}{template}<\textcolor{keyword}{typename} TState, \textcolor{keyword}{typename} TOnNext, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{76 state\_observer(TState, TOnNext, Args...) -\/> state\_observer<std::decay\_t<utils::function\_argument\_t<TOnNext>>, TState, TOnNext, Args...>;}
+\DoxyCodeLine{77 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

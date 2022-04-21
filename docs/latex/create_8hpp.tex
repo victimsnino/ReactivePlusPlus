@@ -1,0 +1,56 @@
+\hypertarget{create_8hpp}{}\doxysection{src/include/rpp/sources/create.hpp File Reference}
+\label{create_8hpp}\index{src/include/rpp/sources/create.hpp@{src/include/rpp/sources/create.hpp}}
+
+
+This file contains implementation of {\ttfamily create} function to create \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} with On\+Subscribe callback.  
+
+
+{\ttfamily \#include $<$rpp/sources/fwd.\+hpp$>$}\newline
+{\ttfamily \#include $<$rpp/observables/specific\+\_\+observable.\+hpp$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$ }\\auto \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{rpp\+::observable\+::create}} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} with passed action as On\+Subscribe. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains implementation of {\ttfamily create} function to create \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} with On\+Subscribe callback. 
+
+Examples\+: 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                sub.on\_next(42);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keywordtype}{int}                                        val = 42;}
+\DoxyCodeLine{    rpp::source::create<int>([val](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                sub.on\_next(val);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{rpp::source::create}}([](\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp::dynamic\_subscriber<int>}}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                sub.on\_next(42);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
+
+\end{DoxyCodeInclude}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/create.hpptml}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+hpptml}} 
+\end{DoxySeeAlso}

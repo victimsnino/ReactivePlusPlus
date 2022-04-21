@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['empty_2eh_0',['empty.h',['../empty_8h.html',1,'']]],
-  ['error_2eh_1',['error.h',['../error_8h.html',1,'']]]
+  ['empty_2ehpp_0',['empty.hpp',['../empty_8hpp.html',1,'']]],
+  ['error_2ehpp_1',['error.hpp',['../error_8hpp.html',1,'']]]
 ];
