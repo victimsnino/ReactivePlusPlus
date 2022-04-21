@@ -16,4 +16,4 @@
  * \see https://reactivex.io/documentation/subject.html
  */
 
-#include <rpp/subjects/publish_subject.h>
+#include <rpp/subjects/publish_subject.hpp>

@@ -9,11 +9,11 @@
 
 #pragma once
 
-#include <rpp/utils/constraints.h>
-#include <rpp/sources/create.h>
-#include <rpp/subscribers/constraints.h>
-#include <rpp/subscribers/fwd.h>
-#include <rpp/subscriptions/composite_subscription.h>
+#include <rpp/utils/constraints.hpp>
+#include <rpp/sources/create.hpp>
+#include <rpp/subscribers/constraints.hpp>
+#include <rpp/subscribers/fwd.hpp>
+#include <rpp/subscriptions/composite_subscription.hpp>
 
 namespace rpp::subjects::details
 {

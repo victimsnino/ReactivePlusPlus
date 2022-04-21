@@ -10,7 +10,7 @@
 #include "mock_observer.h"
 
 #include <catch2/catch_test_macros.hpp>
-#include <rpp/subjects/publish_subject.h>
+#include <rpp/subjects/publish_subject.hpp>
 
 SCENARIO("publish subject multicasts values")
 {

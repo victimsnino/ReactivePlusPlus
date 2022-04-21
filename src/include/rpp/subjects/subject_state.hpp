@@ -9,9 +9,9 @@
 
 #pragma once
 
-#include <rpp/subscribers/dynamic_subscriber.h>
-#include <rpp/utils/constraints.h>
-#include <rpp/utils/utilities.h>
+#include <rpp/subscribers/dynamic_subscriber.hpp>
+#include <rpp/utils/constraints.hpp>
+#include <rpp/utils/utilities.hpp>
 
 #include <atomic>
 #include <functional>
