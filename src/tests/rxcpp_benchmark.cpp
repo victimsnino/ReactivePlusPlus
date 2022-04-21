@@ -116,11 +116,13 @@ TEST_CASE("OnNext")
     BENCHMARK("Specific observer OnNext", i)
     {
         specific_observer.on_next(i);
+        return i;
     };
 
     BENCHMARK("Dynamic observer OnNext", i)
     {
         dynamic_observer.on_next(i);
+        return i;
     };
 
 }
