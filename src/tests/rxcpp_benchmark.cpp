@@ -30,6 +30,11 @@ TEST_CASE("Observable construction")
         return MakeSpecificObservable();
     };
 
+    BENCHMARK("Dynamic observable construction")
+    {
+        return MakeDynamicObservable();
+    };
+
     BENCHMARK("Specific observable construction + as_dynamic")
     {
         return MakeSpecificObservable().as_dynamic();
@@ -61,7 +66,7 @@ TEST_CASE("Observable subscribe #2")
         return dynamic.subscribe([](const auto&) {});
     };
 
-    auto subscriber = rxcpp::make_subscriber<int>([](const int&) {} );
+    auto subscriber = rxcpp::make_subscriber<int>([](const int&) {});
     BENCHMARK("Specific observable subscribe specific subscriber")
     {
         return specific.subscribe(subscriber);
@@ -83,6 +88,7 @@ TEST_CASE("Observable subscribe #2")
         return dynamic.subscribe(dynamic_subscriber);
     };
 }
+
 
 TEST_CASE("Observer construction")
 {
@@ -183,17 +189,21 @@ TEST_CASE("Observable lift")
 
 TEST_CASE("Operators")
 {
-    auto obs = rxcpp::observable<>::create<int>([](const auto& sub)
-        {
-            sub.on_next(1);
-        });
-    auto sub = rxcpp::make_subscriber<int>([](const int&) {});
-    BENCHMARK("map construction from observable via dot + subscribe")
+    BENCHMARK_ADVANCED("map construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
     {
-        return obs.map([](const auto& v)
-        {
-            return v * 100;
-        }).subscribe(sub);
+        const auto obs = rxcpp::sources::create<int>([](const auto& sub)
+            {
+                sub.on_next(1);
+            });
+        auto sub = rxcpp::make_subscriber<int>([](const int&) {});
+
+        meter.measure([&]
+            {
+                return obs.map([](const auto& v)
+                    {
+                        return v * 100;
+                    }).subscribe(sub);
+            });
     };
 }
 
@@ -204,81 +214,162 @@ TEST_CASE("Subscription")
         return rxcpp::composite_subscription{};
     };
 
-    rxcpp::composite_subscription sub_1{};
-    rxcpp::composite_subscription sub_2{};
-
-    BENCHMARK("composite_subscription add")
+    BENCHMARK_ADVANCED("composite_subscription add")(Catch::Benchmark::Chronometer meter)
     {
-        return sub_1.add(sub_2);
+        rxcpp::composite_subscription sub{};
+        rxcpp::composite_subscription sub_1{};
+        meter.measure([&] { return sub.add(sub_1); });
     };
 
-    BENCHMARK("composite_subscription unsubscribe")
+    BENCHMARK_ADVANCED("composite_subscription unsubscribe")(Catch::Benchmark::Chronometer meter)
     {
-        sub_1.unsubscribe();
+        rxcpp::composite_subscription sub{};
+        meter.measure([&] { sub.unsubscribe(); });
     };
 }
 
 TEST_CASE("foundamental sources")
 {
-    auto sub = rxcpp::make_subscriber<int>();
+    BENCHMARK_ADVANCED("empty")(Catch::Benchmark::Chronometer meter)
+    {
+        auto sub = rxcpp::make_subscriber<int>();
 
-    auto err = std::make_exception_ptr(std::runtime_error{""});
+        meter.measure([&] { return rxcpp::sources::empty<int>().subscribe(sub); });
+    };
 
-    BENCHMARK("empty")
+    BENCHMARK_ADVANCED("error")(Catch::Benchmark::Chronometer meter)
     {
-        return rxcpp::sources::empty<int>().subscribe(sub);
+        auto sub = rxcpp::make_subscriber<int>([](int) {}, [](const std::exception_ptr& err) {});
+
+        auto err = std::make_exception_ptr(std::runtime_error{ "" });
+
+        meter.measure([&] { return rxcpp::sources::error<int>(err).subscribe(sub); });
     };
-    BENCHMARK("error")
+
+    BENCHMARK_ADVANCED("never")(Catch::Benchmark::Chronometer meter)
     {
-        return rxcpp::sources::error<int>(err).subscribe(sub);
-    };
-    BENCHMARK("never")
-    {
-        return rxcpp::sources::never<int>().subscribe(sub);
+        auto sub = rxcpp::make_subscriber<int>();
+
+        meter.measure([&] { return rxcpp::sources::never<int>().subscribe(sub); });
     };
 }
 
+
 TEST_CASE("just")
 {
-    auto sub = rxcpp::make_subscriber<int>();
-
-    BENCHMARK("just send int")
+    BENCHMARK_ADVANCED("just send int")(Catch::Benchmark::Chronometer meter)
     {
-        return rxcpp::sources::just(1).subscribe(sub);
+        auto sub = rxcpp::make_subscriber<int>();
+
+        meter.measure([&] { return rxcpp::sources::just(1).subscribe(sub); });
     };
 
-    BENCHMARK("just send variadic")
+    BENCHMARK_ADVANCED("just send variadic")(Catch::Benchmark::Chronometer meter)
     {
-        return rxcpp::sources::from(1, 2, 3, 4, 5, 6, 7, 8, 9, 10).subscribe(sub);
+        auto sub = rxcpp::make_subscriber<int>();
+
+        meter.measure([&] { return rxcpp::sources::from(1, 2, 3, 4, 5, 6, 7, 8, 9, 10).subscribe(sub); });
     };
 }
 
 TEST_CASE("from")
 {
-    auto sub = rxcpp::make_subscriber<int>();
-
-    std::vector vec{ 1 };
-    BENCHMARK("from vector with int")
+    BENCHMARK_ADVANCED("from vector with int")(Catch::Benchmark::Chronometer meter)
     {
-        return rxcpp::sources::iterate(vec).subscribe(sub);
+        auto sub = rxcpp::make_subscriber<int>();
+
+        std::vector vec{ 1 };
+        meter.measure([&] {return rxcpp::sources::iterate(vec).subscribe(sub); });
     };
 }
 
 TEST_CASE("merge")
 {
-    auto sub = rxcpp::make_subscriber<int>();
+    BENCHMARK_ADVANCED("merge")(Catch::Benchmark::Chronometer meter)
+    {
+        auto sub = rxcpp::make_subscriber<int>();
 
-    BENCHMARK("merge")
-    {
-        return from(rxcpp::sources::just(1),
+        meter.measure([&]
+            {
+                return rxcpp::sources::from(rxcpp::sources::just(1),
                     rxcpp::sources::just(2))
-               .merge()
-               .subscribe(sub);
+                    .merge()
+                    .subscribe(sub);
+            });
     };
-    BENCHMARK("merge_with")
+    BENCHMARK_ADVANCED("merge_with")(Catch::Benchmark::Chronometer meter)
     {
-        return rxcpp::sources::just(1)
-               .merge(rxcpp::sources::just(2))
-               .subscribe(sub);
+        auto sub = rxcpp::make_subscriber<int>();
+
+        meter.measure([&]
+            {
+                return rxcpp::sources::just(1)
+                    .merge(rxcpp::sources::just(2))
+                    .subscribe(sub);
+            });
+    };
+}
+
+TEST_CASE("publish_subject callbacks")
+{
+    BENCHMARK_ADVANCED("on_next")(Catch::Benchmark::Chronometer meter)
+    {
+        auto subj = rxcpp::subjects::subject<int>{};
+        auto sub  = subj.get_subscriber();
+
+        meter.measure([&]
+        {
+            sub.on_next(1);
+        });
+    };
+    BENCHMARK_ADVANCED("on_error")(Catch::Benchmark::Chronometer meter)
+    {
+        auto subj = rxcpp::subjects::subject<int>{};
+        auto sub  = subj.get_subscriber();
+        auto err  = std::make_exception_ptr(std::runtime_error{""});
+
+        meter.measure([&]
+        {
+            sub.on_error(err);
+        });
+    };
+    BENCHMARK_ADVANCED("on_completed")(Catch::Benchmark::Chronometer meter)
+    {
+        auto subj = rxcpp::subjects::subject<int>{};
+        auto sub  = subj.get_subscriber();
+
+        meter.measure([&]
+        {
+            sub.on_completed();
+        });
+    };
+}
+
+TEST_CASE("publish_subject routines")
+{
+    BENCHMARK_ADVANCED("construct")(Catch::Benchmark::Chronometer meter)
+    {
+        auto sub = rxcpp::composite_subscription();
+
+        meter.measure([&]
+            {
+                return rxcpp::subjects::subject<int>{sub};
+            });
+    };
+    BENCHMARK_ADVANCED("get_observable")(Catch::Benchmark::Chronometer meter)
+    {
+        auto subj = rxcpp::subjects::subject<int>{};
+        meter.measure([&]
+            {
+                return subj.get_observable();
+            });
+    };
+    BENCHMARK_ADVANCED("get_subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        auto subj = rxcpp::subjects::subject<int>{};
+        meter.measure([&]
+            {
+                return subj.get_subscriber();
+            });
     };
 }

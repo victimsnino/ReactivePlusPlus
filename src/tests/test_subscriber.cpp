@@ -327,6 +327,17 @@ SCENARIO("Subscriber obtains on_error when exception", "[subscriber]")
                     CHECK(subscription.is_subscribed() == false);
                 }
             }
+            WHEN("observer subscribes with unsubscribed subscription")
+            {
+                sub.unsubscribe();
+                CHECK_THROWS(observable.subscribe(sub));
+                THEN("no on_error call")
+                {
+                    CHECK(observer.get_total_on_next_count() == 0);
+                    CHECK(observer.get_on_error_count() == 0);
+                    CHECK(observer.get_on_completed_count() == 0);
+                }
+            }
         };
 
         AND_GIVEN("dynamic_subscriber")

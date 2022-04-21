@@ -73,6 +73,23 @@ SCENARIO("on_next, on_error and on_completed can be obtained")
     }
 }
 
+SCENARIO("observer by default rethrow exceptions")
+{
+    GIVEN("observer with only on_next callback")
+    {
+        auto obs = rpp::make_specific_observer<int>([](int) {});
+        WHEN("send on_error to it")
+        {
+            THEN("it rethrow error")
+            {
+                struct custom_error : std::runtime_error { using std::runtime_error::runtime_error; };
+                auto err = custom_error{ "" };
+                CHECK_THROWS_AS(obs.on_error(std::make_exception_ptr(err)), custom_error);
+            }
+        }
+    }
+}
+
 SCENARIO("Any observer can be casted to dynamic_observer")
 {
     auto validate_observer =[](const auto& observer)

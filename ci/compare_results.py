@@ -16,17 +16,19 @@ for platform, data in results.groupby("platform"):
         print("<details>")
         print("<summary>Table</summary>")
         print("")
-        print("Test Name | Current, ns | Prev, ns | Ratio")
-        print("--- | --- | --- | ---")
+        print("Test Name | Current, ns | Prev, ns | Ratio | RxCpp current, ns")
+        print("--- | --- | --- | --- | ---")
         for _, r in bench_data.iterrows():
             if r['source'] != 'rpp':
                 continue
             old_data = prev_data[(prev_data['benchmark_name']==name) & (prev_data['test_case'] == r['test_case']) & (prev_data['source'] == 'rpp')]
+            rxcpp_data = bench_data[(bench_data['benchmark_name']==name) & (bench_data['test_case'] == r['test_case']) & (bench_data['source'] == 'rxcpp')]
             new_value = f"{r['value']:.2f}ns"
             old_value = old_data['value'].values[0] if len(old_data['value'].values) >= 1 else None
             old_value_str = f"{old_value:.2f}ns" if old_value is not None else "."
             ratio     = f"{r['value']/old_value:.2f}" if old_value is not None else '.'
-            print(f"{r['test_case']} | { new_value } | { old_value } | {ratio}")
+            rxcpp_value = f"{rxcpp_data['value'].values[0] :.2f}ns" if len(rxcpp_data['value'].values) >= 1 else '.'
+            print(f"{r['test_case']} | { new_value } | { old_value } | {ratio} | {rxcpp_value}")
         print("")
         print("</details>")
         print("")

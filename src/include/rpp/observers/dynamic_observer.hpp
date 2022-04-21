@@ -33,7 +33,7 @@ class dynamic_observer final : public interface_observer<T>
 {
 public:
     template<constraint::on_next_fn<T>   OnNext      = utils::empty_function_t<T>,
-             constraint::on_error_fn     OnError     = utils::empty_function_t<std::exception_ptr>,
+             constraint::on_error_fn     OnError     = utils::rethrow_error_t,
              constraint::on_completed_fn OnCompleted = utils::empty_function_t<>>
     dynamic_observer(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
         : m_state{make_shared_state(std::forward<OnNext>(on_next),
@@ -42,7 +42,7 @@ public:
 
     dynamic_observer(constraint::on_next_fn<T> auto&& on_next, constraint::on_completed_fn auto&& on_completed)
         : dynamic_observer{std::forward<decltype(on_next)>(on_next),
-                           utils::empty_function_t<std::exception_ptr>{},
+                           utils::rethrow_error_t{},
                            std::forward<decltype(on_completed)>(on_completed)} {}
 
     template<constraint::observer TObserver> 
