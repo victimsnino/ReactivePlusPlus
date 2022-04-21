@@ -43,7 +43,7 @@
 \DoxyCodeLine{39 \{}
 \DoxyCodeLine{40     \textcolor{keywordflow}{return} [callable = std::forward<Callable>(callable)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber\_of\_type<std::invoke\_result\_t<Callable, Type>> \textcolor{keyword}{auto}\& subscriber)}
 \DoxyCodeLine{41     \{}
-\DoxyCodeLine{42         subscriber.on\_next(callable(utilities::as\_const(std::forward<\textcolor{keyword}{decltype}(value)>(value))));}
+\DoxyCodeLine{42         subscriber.on\_next(callable(utils::as\_const(std::forward<\textcolor{keyword}{decltype}(value)>(value))));}
 \DoxyCodeLine{43     \};}
 \DoxyCodeLine{44 \}}
 \DoxyCodeLine{45 \} \textcolor{comment}{// namespace rpp::details}}

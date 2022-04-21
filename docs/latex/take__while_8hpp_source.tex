@@ -41,7 +41,7 @@
 \DoxyCodeLine{37 \{}
 \DoxyCodeLine{38     \textcolor{keywordflow}{return} [predicate = std::forward<Predicate>(predicate)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
 \DoxyCodeLine{39     \{}
-\DoxyCodeLine{40         \textcolor{keywordflow}{if} (predicate(utilities::as\_const(value)))}
+\DoxyCodeLine{40         \textcolor{keywordflow}{if} (predicate(utils::as\_const(value)))}
 \DoxyCodeLine{41             subscriber.on\_next(std::forward<\textcolor{keyword}{decltype}(value)>(value));}
 \DoxyCodeLine{42         \textcolor{keywordflow}{else}}
 \DoxyCodeLine{43             subscriber.on\_completed();}

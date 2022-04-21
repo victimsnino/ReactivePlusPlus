@@ -42,7 +42,7 @@
 \DoxyCodeLine{48     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (constraint::decayed\_same\_as<\textcolor{keyword}{decltype}(scheduler), schedulers::immediate>)}
 \DoxyCodeLine{49     \{}
 \DoxyCodeLine{50         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& v : extract\_iterable(iterable))}
-\DoxyCodeLine{51             subscriber.on\_next(utilities::as\_const(v));}
+\DoxyCodeLine{51             subscriber.on\_next(utils::as\_const(v));}
 \DoxyCodeLine{52         subscriber.on\_completed();}
 \DoxyCodeLine{53     \}}
 \DoxyCodeLine{54     \textcolor{keywordflow}{else}}
@@ -57,7 +57,7 @@
 \DoxyCodeLine{63 }
 \DoxyCodeLine{64             \textcolor{keywordflow}{if} (itr != end)}
 \DoxyCodeLine{65             \{}
-\DoxyCodeLine{66                 subscriber.on\_next(utilities::as\_const(*itr));}
+\DoxyCodeLine{66                 subscriber.on\_next(utils::as\_const(*itr));}
 \DoxyCodeLine{67                 \textcolor{keywordflow}{if} (std::next(itr) != end) \textcolor{comment}{// it was not last}}
 \DoxyCodeLine{68                 \{}
 \DoxyCodeLine{69                     ++index;}
