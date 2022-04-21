@@ -104,14 +104,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2a2874e4fbeb7aeba94d371aceaef1de"><td class="memItemLeft" align="right" valign="top"><a id="a2a2874e4fbeb7aeba94d371aceaef1de" name="a2a2874e4fbeb7aeba94d371aceaef1de"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>dynamic_observable</b> (<a class="el" href="classrpp_1_1dynamic__observable.html">dynamic_observable</a>&lt; Type &gt; &amp;&amp;) noexcept=default</td></tr>
 <tr class="separator:a2a2874e4fbeb7aeba94d371aceaef1de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58b8ab8917cc6d757b95d71d4293d1ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1dynamic__observable.html#a58b8ab8917cc6d757b95d71d4293d1ec">subscribe</a> (const <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; Type &gt; &amp;subscriber) const noexcept override</td></tr>
-<tr class="memdesc:a58b8ab8917cc6d757b95d71d4293d1ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="classrpp_1_1dynamic__observable.html#a58b8ab8917cc6d757b95d71d4293d1ec">More...</a><br /></td></tr>
-<tr class="separator:a58b8ab8917cc6d757b95d71d4293d1ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a609180e8b7afff474cdcf04504b0c63e"><td class="memTemplParams" colspan="2"><a id="a609180e8b7afff474cdcf04504b0c63e" name="a609180e8b7afff474cdcf04504b0c63e"></a>
+<tr class="memitem:a07c7692532edb8c791a9154af7ca7154"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1dynamic__observable.html#a07c7692532edb8c791a9154af7ca7154">subscribe</a> (const <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; Type &gt; &amp;subscriber) const override</td></tr>
+<tr class="memdesc:a07c7692532edb8c791a9154af7ca7154"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="classrpp_1_1dynamic__observable.html#a07c7692532edb8c791a9154af7ca7154">More...</a><br /></td></tr>
+<tr class="separator:a07c7692532edb8c791a9154af7ca7154"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a476024a6d4d8d2b80a4cf1632eaf8309"><td class="memTemplParams" colspan="2"><a id="a476024a6d4d8d2b80a4cf1632eaf8309" name="a476024a6d4d8d2b80a4cf1632eaf8309"></a>
 template&lt;typename ... Args&gt; <br />
 requires (std::is_constructible_v&lt;<a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;Type&gt;, Args...&gt; &amp;&amp; !constraint::variadic_is_same_type&lt;<a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;Type&gt;, Args...&gt;)</td></tr>
-<tr class="memitem:a609180e8b7afff474cdcf04504b0c63e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (Args &amp;&amp;...args) const noexcept</td></tr>
-<tr class="separator:a609180e8b7afff474cdcf04504b0c63e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a476024a6d4d8d2b80a4cf1632eaf8309"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (Args &amp;&amp;...args) const</td></tr>
+<tr class="separator:a476024a6d4d8d2b80a4cf1632eaf8309"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e2b298b099bc9f6863786c0496518a4"><td class="memItemLeft" align="right" valign="top"><a id="a0e2b298b099bc9f6863786c0496518a4" name="a0e2b298b099bc9f6863786c0496518a4"></a>
 const <a class="el" href="classrpp_1_1dynamic__observable.html">dynamic_observable</a>&lt; Type &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>as_dynamic</b> () const</td></tr>
 <tr class="separator:a0e2b298b099bc9f6863786c0496518a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,8 +171,8 @@ class rpp::dynamic_observable&lt; Type &gt;</div><p >type-erased alternative of 
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a58b8ab8917cc6d757b95d71d4293d1ec" name="a58b8ab8917cc6d757b95d71d4293d1ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58b8ab8917cc6d757b95d71d4293d1ec">&#9670;&nbsp;</a></span>subscribe()</h2>
+<a id="a07c7692532edb8c791a9154af7ca7154" name="a07c7692532edb8c791a9154af7ca7154"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07c7692532edb8c791a9154af7ca7154">&#9670;&nbsp;</a></span>subscribe()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -192,7 +192,7 @@ template&lt;constraint::decayed_type Type&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -200,7 +200,7 @@ template&lt;constraint::decayed_type Type&gt; </div>
 <p>Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function. </p>
 <dl class="section return"><dt>Returns</dt><dd>subscription on this observable which can be used to unsubscribe </dd></dl>
 
-<p>Implements <a class="el" href="structrpp_1_1virtual__observable.html#a21c5a4bcb56911deb4e86dd39028d64f">rpp::virtual_observable&lt; Type &gt;</a>.</p>
+<p>Implements <a class="el" href="structrpp_1_1virtual__observable.html#a1b64dbf3f79ccc497fd6de3f6c26f350">rpp::virtual_observable&lt; Type &gt;</a>.</p>
 
 </div>
 </div>

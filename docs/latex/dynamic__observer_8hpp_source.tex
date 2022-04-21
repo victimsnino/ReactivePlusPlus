@@ -30,7 +30,7 @@
 \DoxyCodeLine{33 \{}
 \DoxyCodeLine{34 \textcolor{keyword}{public}:}
 \DoxyCodeLine{35     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_next\_fn<T>   OnNext      = utils::empty\_function\_t<T>,}
-\DoxyCodeLine{36              constra\textcolor{keywordtype}{int}::on\_error\_fn     OnError     = utils::empty\_function\_t<std::exception\_ptr>,}
+\DoxyCodeLine{36              constra\textcolor{keywordtype}{int}::on\_error\_fn     OnError     = utils::rethrow\_error\_t,}
 \DoxyCodeLine{37              constra\textcolor{keywordtype}{int}::on\_completed\_fn OnCompleted = utils::empty\_function\_t<>>}
 \DoxyCodeLine{38     \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}(OnNext\&\& \mbox{\hyperlink{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}{on\_next}} = \{\}, OnError\&\& \mbox{\hyperlink{classrpp_1_1dynamic__observer_a1e8abba013fb85e23518ee93a3524e0c}{on\_error}} = \{\}, OnCompleted\&\& \mbox{\hyperlink{classrpp_1_1dynamic__observer_aebd2d9f021a23ce98a2eac7d49d8f254}{on\_completed}} = \{\})}
 \DoxyCodeLine{39         : m\_state\{make\_shared\_state(std::forward<OnNext>(\mbox{\hyperlink{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}{on\_next}}),}
@@ -39,7 +39,7 @@
 \DoxyCodeLine{42 }
 \DoxyCodeLine{43     \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}(constraint::on\_next\_fn<T> \textcolor{keyword}{auto}\&\& \mbox{\hyperlink{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}{on\_next}}, constraint::on\_completed\_fn \textcolor{keyword}{auto}\&\& \mbox{\hyperlink{classrpp_1_1dynamic__observer_aebd2d9f021a23ce98a2eac7d49d8f254}{on\_completed}})}
 \DoxyCodeLine{44         : \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}\{std::forward<decltype(on\_next)>(\mbox{\hyperlink{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}{on\_next}}),}
-\DoxyCodeLine{45                            utils::empty\_function\_t<std::exception\_ptr>\{\},}
+\DoxyCodeLine{45                            utils::rethrow\_error\_t\{\},}
 \DoxyCodeLine{46                            std::forward<decltype(on\_completed)>(\mbox{\hyperlink{classrpp_1_1dynamic__observer_aebd2d9f021a23ce98a2eac7d49d8f254}{on\_completed}})\} \{\}}
 \DoxyCodeLine{47 }
 \DoxyCodeLine{48     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer TObserver> }

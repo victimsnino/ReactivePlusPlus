@@ -22,14 +22,14 @@
 \DoxyCodeLine{18 \{}
 \DoxyCodeLine{30 \textcolor{keyword}{template}<constraint::decayed\_type T,}
 \DoxyCodeLine{31          constraint::on\_next\_fn<T>   OnNext      = utils::empty\_function\_t<T>,}
-\DoxyCodeLine{32          constraint::on\_error\_fn     OnError     = utils::empty\_function\_t<std::exception\_ptr>,}
+\DoxyCodeLine{32          constraint::on\_error\_fn     OnError     = utils::rethrow\_error\_t,}
 \DoxyCodeLine{33          constraint::on\_completed\_fn OnCompleted = utils::empty\_function\_t<>>}
 \DoxyCodeLine{34 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1interface__observer}{interface\_observer}}<T>}
 \DoxyCodeLine{35 \{}
 \DoxyCodeLine{36 \textcolor{keyword}{public}:}
 \DoxyCodeLine{37 }
 \DoxyCodeLine{38     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_next\_fn<T>   TOnNext      = utils::empty\_function\_t<T>,}
-\DoxyCodeLine{39              constra\textcolor{keywordtype}{int}::on\_error\_fn     TOnError     = utils::empty\_function\_t<std::exception\_ptr>,}
+\DoxyCodeLine{39              constra\textcolor{keywordtype}{int}::on\_error\_fn     TOnError     = utils::rethrow\_error\_t,}
 \DoxyCodeLine{40              constra\textcolor{keywordtype}{int}::on\_completed\_fn TOnCompleted = utils::empty\_function\_t<>>}
 \DoxyCodeLine{41     \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}}(TOnNext\&\& \mbox{\hyperlink{classrpp_1_1specific__observer_a00ef0f5cdd0c45d58c0e019479cadd35}{on\_next}} = \{\}, TOnError\&\& \mbox{\hyperlink{classrpp_1_1specific__observer_a337db92fb5f059a4bea5019248d70e30}{on\_error}} = \{\}, TOnCompleted\&\& \mbox{\hyperlink{classrpp_1_1specific__observer_a6e81d90a6985ee8b9161564c71f713e1}{on\_completed}} = \{\})}
 \DoxyCodeLine{42         : m\_on\_next\{std::forward<TOnNext>(\mbox{\hyperlink{classrpp_1_1specific__observer_a00ef0f5cdd0c45d58c0e019479cadd35}{on\_next}})\}}
@@ -64,7 +64,7 @@
 \DoxyCodeLine{75 specific\_observer(OnNext, OnError, Args...) -\/> specific\_observer<utils::decayed\_function\_argument\_t<OnNext>, OnNext, OnError, Args...>;}
 \DoxyCodeLine{76 }
 \DoxyCodeLine{77 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext, constra\textcolor{keywordtype}{int}::on\_completed\_fn OnCompleted>}
-\DoxyCodeLine{78 specific\_observer(OnNext, OnCompleted) -\/> specific\_observer<utils::decayed\_function\_argument\_t<OnNext>, OnNext, utils::empty\_function\_t<std::exception\_ptr>, OnCompleted>;}
+\DoxyCodeLine{78 specific\_observer(OnNext, OnCompleted) -\/> specific\_observer<utils::decayed\_function\_argument\_t<OnNext>, OnNext, utils::rethrow\_error\_t, OnCompleted>;}
 \DoxyCodeLine{79 }
 \DoxyCodeLine{80 \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
 \DoxyCodeLine{81 \textcolor{keyword}{using} specific\_observer\_with\_decayed\_args = \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer<std::decay\_t<Args>}}...>;}
@@ -83,7 +83,7 @@
 \DoxyCodeLine{98 }
 \DoxyCodeLine{99 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
 \DoxyCodeLine{100 \textcolor{keyword}{auto} make\_specific\_observer(constraint::on\_next\_fn<Type> \textcolor{keyword}{auto}\&\& on\_next,}
-\DoxyCodeLine{101                             constraint::on\_completed\_fn \textcolor{keyword}{auto}\&\&  on\_completed) -\/> specific\_observer\_with\_decayed\_args<Type, \textcolor{keyword}{decltype}(on\_next), utils::empty\_function\_t<std::exception\_ptr>, \textcolor{keyword}{decltype}(on\_completed)>}
+\DoxyCodeLine{101                             constraint::on\_completed\_fn \textcolor{keyword}{auto}\&\&  on\_completed) -\/> specific\_observer\_with\_decayed\_args<Type, \textcolor{keyword}{decltype}(on\_next), utils::rethrow\_error\_t, \textcolor{keyword}{decltype}(on\_completed)>}
 \DoxyCodeLine{102 \{}
 \DoxyCodeLine{103     \textcolor{keywordflow}{return} \{std::forward<decltype(on\_next)>(on\_next), std::forward<decltype(on\_completed)>(on\_completed)\};}
 \DoxyCodeLine{104 \}}

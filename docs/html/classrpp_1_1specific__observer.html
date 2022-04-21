@@ -91,7 +91,7 @@ Inheritance diagram for rpp::specific_observer&lt; T, OnNext, OnError, OnComplet
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab2733a8e82d4e9db909ed24f2faded22"><td class="memTemplParams" colspan="2"><a id="ab2733a8e82d4e9db909ed24f2faded22" name="ab2733a8e82d4e9db909ed24f2faded22"></a>
-template&lt;constraint::on_next_fn&lt; T &gt; TOnNext = utils::empty_function_t&lt;T&gt;, constraint::on_error_fn TOnError = utils::empty_function_t&lt;std::exception_ptr&gt;, constraint::on_completed_fn TOnCompleted = utils::empty_function_t&lt;&gt;&gt; </td></tr>
+template&lt;constraint::on_next_fn&lt; T &gt; TOnNext = utils::empty_function_t&lt;T&gt;, constraint::on_error_fn TOnError = utils::rethrow_error_t, constraint::on_completed_fn TOnCompleted = utils::empty_function_t&lt;&gt;&gt; </td></tr>
 <tr class="memitem:ab2733a8e82d4e9db909ed24f2faded22"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>specific_observer</b> (TOnNext &amp;&amp;<a class="el" href="classrpp_1_1specific__observer.html#a00ef0f5cdd0c45d58c0e019479cadd35">on_next</a>={}, TOnError &amp;&amp;<a class="el" href="classrpp_1_1specific__observer.html#a337db92fb5f059a4bea5019248d70e30">on_error</a>={}, TOnCompleted &amp;&amp;<a class="el" href="classrpp_1_1specific__observer.html#a6e81d90a6985ee8b9161564c71f713e1">on_completed</a>={})</td></tr>
 <tr class="separator:ab2733a8e82d4e9db909ed24f2faded22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4338295479d275dc566d86668045b472"><td class="memItemLeft" align="right" valign="top"><a id="a4338295479d275dc566d86668045b472" name="a4338295479d275dc566d86668045b472"></a>
@@ -123,7 +123,7 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>as_dynamic</b> () &am
 <tr class="separator:a757ff9964fa64097216ce23f69580c56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;constraint::decayed_type T, constraint::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, constraint::on_error_fn OnError = utils::empty_function_t&lt;std::exception_ptr&gt;, constraint::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt;<br />
+<div class="textblock"><div class="compoundTemplParams">template&lt;constraint::decayed_type T, constraint::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, constraint::on_error_fn OnError = utils::rethrow_error_t, constraint::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt;<br />
 class rpp::specific_observer&lt; T, OnNext, OnError, OnCompleted &gt;</div><p >Observer specified with specific template types of callbacks to avoid extra heap usage. </p>
 <p >It has better performance comparing to <a class="el" href="classrpp_1_1dynamic__observer.html" title="Dynamic (type-erased) version of observer (comparing to specific_observer)">rpp::dynamic_observer</a> due to using stack instead of heap as long as possible. It is default return type of all operators</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
@@ -142,7 +142,7 @@ class rpp::specific_observer&lt; T, OnNext, OnError, OnCompleted &gt;</div><p >O
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::decayed_type T, constraint::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, constraint::on_error_fn OnError = utils::empty_function_t&lt;std::exception_ptr&gt;, constraint::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt; </div>
+template&lt;constraint::decayed_type T, constraint::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, constraint::on_error_fn OnError = utils::rethrow_error_t, constraint::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -172,7 +172,7 @@ template&lt;constraint::decayed_type T, constraint::on_next_fn&lt; T &gt; OnNext
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::decayed_type T, constraint::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, constraint::on_error_fn OnError = utils::empty_function_t&lt;std::exception_ptr&gt;, constraint::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt; </div>
+template&lt;constraint::decayed_type T, constraint::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, constraint::on_error_fn OnError = utils::rethrow_error_t, constraint::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -204,7 +204,7 @@ template&lt;constraint::decayed_type T, constraint::on_next_fn&lt; T &gt; OnNext
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::decayed_type T, constraint::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, constraint::on_error_fn OnError = utils::empty_function_t&lt;std::exception_ptr&gt;, constraint::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt; </div>
+template&lt;constraint::decayed_type T, constraint::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, constraint::on_error_fn OnError = utils::rethrow_error_t, constraint::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -243,7 +243,7 @@ template&lt;constraint::decayed_type T, constraint::on_next_fn&lt; T &gt; OnNext
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::decayed_type T, constraint::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, constraint::on_error_fn OnError = utils::empty_function_t&lt;std::exception_ptr&gt;, constraint::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt; </div>
+template&lt;constraint::decayed_type T, constraint::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, constraint::on_error_fn OnError = utils::rethrow_error_t, constraint::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -276,7 +276,7 @@ template&lt;constraint::decayed_type T, constraint::on_next_fn&lt; T &gt; OnNext
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::decayed_type T, constraint::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, constraint::on_error_fn OnError = utils::empty_function_t&lt;std::exception_ptr&gt;, constraint::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt; </div>
+template&lt;constraint::decayed_type T, constraint::on_next_fn&lt; T &gt; OnNext = utils::empty_function_t&lt;T&gt;, constraint::on_error_fn OnError = utils::rethrow_error_t, constraint::on_completed_fn OnCompleted = utils::empty_function_t&lt;&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
