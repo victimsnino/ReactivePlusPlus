@@ -20311,7 +20311,7 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 20309,Observable subscribe,Dynamic observable subscribe dynamic observer,1563.05,1502.55,1815.75,0.95,Windows MSVC,Bump submodules/Catc... (42f14167),rxcpp
 20310,Observable lift,Specific observable lift specific observer,1522.4,1483.85,1641.3,0.95,Windows MSVC,Bump submodules/Catc... (42f14167),rxcpp
 20311,Observable lift,Specific observable lift dynamic observer,1458.15,1417.6,1512.75,0.95,Windows MSVC,Bump submodules/Catc... (42f14167),rxcpp
-20312,Observable lift,Dynamic observable lift specific observer,1826.38,1742.06,2022,0.95,Windows MSVC,Bump submodules/Catc... (42f14167),rxcpp
+20312,Observable lift,Dynamic observable lift specific observer,1826.38,1742.06,2022.0,0.95,Windows MSVC,Bump submodules/Catc... (42f14167),rxcpp
 20313,Observable lift,Dynamic observable lift dynamic observer,1507.35,1482.15,1561.1,0.95,Windows MSVC,Bump submodules/Catc... (42f14167),rxcpp
 20314,Operators,map construction from observable via dot + subscribe,1165.8,1131.52,1292.6,0.95,Windows MSVC,Bump submodules/Catc... (42f14167),rxcpp
 20315,Subscription,composite_subscription create,367.764,357.417,380.458,0.95,Windows MSVC,Bump submodules/Catc... (42f14167),rxcpp
@@ -20477,3 +20477,273 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 20475,from,from vector with int,55.9917,55.9211,56.0678,0.95,Linux CLANG,Bump submodules/Catc... (42f14167),rxcpp
 20476,merge,merge,113.678,113.236,115.376,0.95,Linux CLANG,Bump submodules/Catc... (42f14167),rxcpp
 20477,merge,merge_with,278.888,278.249,280.996,0.95,Linux CLANG,Bump submodules/Catc... (42f14167),rxcpp
+20478,Observable construction,Specific observable construction,0.59117,0.590186,0.59356,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20479,Observable construction,Dynamic observable construction,81.3778,81.1449,81.9091,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20480,Observable construction,Specific observable construction + as_dynamic,81.7124,81.3377,82.4565,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20481,Observable subscribe #2,Specific observable subscribe lambda,119.87,119.294,120.989,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20482,Observable subscribe #2,Dynamic observable subscribe lambda,177.924,177.014,180.628,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20483,Observable subscribe #2,Specific observable subscribe lambda without subscription,104.98,104.62,106.041,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20484,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,201.503,200.252,204.035,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20485,Observable subscribe #2,Specific observable subscribe specific subscriber,14.7747,14.7501,14.8356,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20486,Observable subscribe #2,Dynamic observable subscribe specific subscriber,101.049,100.401,102.555,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20487,Observable subscribe #2,Specific observable subscribe dynamic observer,14.9064,14.7853,15.3444,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20488,Observable subscribe #2,Dynamic observable subscribe dynamic observer,22.1341,19.1207,36.5942,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20489,Observer construction,Specific observer construction,0.672271,0.669648,0.678294,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20490,Observer construction,Dynamic observer construction,81.731,81.3668,82.4484,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20491,Observer construction,Specific observer construction + as_dynamic,81.6489,81.3257,82.2748,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20492,OnNext,Specific observer OnNext,0.671792,0.669623,0.676896,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20493,OnNext,Dynamic observer OnNext,2.17435,2.12536,2.27434,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20494,Subscriber construction,Make subsriber,100.705,100.371,101.517,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20495,Subscriber construction,Make copy of subscriber,14.7731,14.7449,14.834,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20496,Subscriber construction,Transform subsriber to dynamic,111.36,110.84,112.32,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20497,Observable subscribe,Specific observable subscribe specific observer,105.124,104.652,106.27,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20498,Observable subscribe,Specific observable subscribe dynamic observer,133.858,132.932,136.178,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20499,Observable subscribe,Dynamic observable subscribe specific observer,177.376,176.664,179.342,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20500,Observable subscribe,Dynamic observable subscribe dynamic observer,138.979,136.681,146.916,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20501,Observable lift,Specific observable lift specific observer,155.407,154.831,156.82,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20502,Observable lift,Specific observable lift dynamic observer,217,216.276,218.656,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20503,Observable lift,Dynamic observable lift specific observer,265.422,264.128,268.661,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20504,Observable lift,Dynamic observable lift dynamic observer,198.032,197.206,200.31,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20505,Operators,map construction from observable via dot + subscribe,80.5202,80.2336,81.1651,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20506,Subscription,composite_subscription create,78.0576,77.8424,78.4545,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20507,Subscription,composite_subscription add,73.1013,72.0854,77.6551,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20508,Subscription,composite_subscription unsubscribe,7.39321,7.3785,7.42348,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20509,foundamental sources,empty,16.3911,16.2918,16.6381,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20510,foundamental sources,error,44.9123,44.7496,45.1738,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20511,foundamental sources,never,14.765,14.7436,14.8189,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20512,just,just send int,22.5608,22.4768,22.724,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20513,just,just send variadic,43.3306,42.6888,44.213,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20514,from,from vector with int,79.1902,78.9827,79.5706,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20515,merge,merge,586.593,569.167,612.5,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20516,merge,merge_with,777.286,772.2,795.486,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20517,publish_subject callbacks,on_next,31.9523,31.1305,33.7889,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20518,publish_subject callbacks,on_error,3.61558,3.56311,3.68838,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20519,publish_subject callbacks,on_completed,2.43475,2.41575,2.45656,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20520,publish_subject routines,construct,425.306,419.469,447.102,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20521,publish_subject routines,get_observable,31.7376,31.6283,31.9471,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20522,publish_subject routines,get_subscriber,58.7062,58.3461,59.334,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rpp
+20523,Observable construction,Specific observable construction,0.671294,0.668688,0.676616,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20524,Observable construction,Dynamic observable construction,108.939,108.51,110.101,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20525,Observable construction,Specific observable construction + as_dynamic,123.818,123.138,125.573,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20526,Observable subscribe #2,Specific observable subscribe lambda,1192.61,1180.74,1231.78,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20527,Observable subscribe #2,Dynamic observable subscribe lambda,1209.95,1196.9,1267.95,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20528,Observable subscribe #2,Specific observable subscribe lambda without subscription,1049.7,1038.26,1100.17,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20529,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,1371.05,1356.95,1433.15,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20530,Observable subscribe #2,Specific observable subscribe specific subscriber,856.862,850.724,881.897,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20531,Observable subscribe #2,Dynamic observable subscribe specific subscriber,917.625,909.833,949.458,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20532,Observable subscribe #2,Specific observable subscribe dynamic observer,790.097,784.452,804.032,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20533,Observable subscribe #2,Dynamic observable subscribe dynamic observer,906.556,874.37,973.593,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20534,Observer construction,Specific observer construction,1.50793,1.50461,1.51608,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20535,Observer construction,Dynamic observer construction,132.863,131.377,135.722,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20536,Observer construction,Specific observer construction + as_dynamic,132.455,130.502,136.411,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20537,OnNext,Specific observer OnNext,0.672427,0.669863,0.678837,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20538,OnNext,Dynamic observer OnNext,1.71627,1.70552,1.73936,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20539,Subscriber construction,Make subsriber,347.056,344.394,354.014,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20540,Subscriber construction,Make copy of subscriber,31.5071,31.4424,31.6468,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20541,Subscriber construction,Transform subsriber to dynamic,136.264,135.459,138.145,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20542,Observable subscribe,Specific observable subscribe specific observer,1191,1180.27,1231.95,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20543,Observable subscribe,Specific observable subscribe dynamic observer,1228.38,1215.9,1277.29,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20544,Observable subscribe,Dynamic observable subscribe specific observer,1375.61,1361.33,1437,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20545,Observable subscribe,Dynamic observable subscribe dynamic observer,1261.85,1251.65,1301.25,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20546,Observable lift,Specific observable lift specific observer,1232.65,1220.65,1282,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20547,Observable lift,Specific observable lift dynamic observer,1476.74,1463.32,1529.26,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20548,Observable lift,Dynamic observable lift specific observer,1419.29,1403.65,1480.65,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20549,Observable lift,Dynamic observable lift dynamic observer,1327.84,1315.16,1367.95,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20550,Operators,map construction from observable via dot + subscribe,1012.08,1005.28,1036.84,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20551,Subscription,composite_subscription create,344.211,342.197,351.296,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20552,Subscription,composite_subscription add,63.2972,63.0982,63.6537,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20553,Subscription,composite_subscription unsubscribe,26.8961,26.8065,27.0606,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20554,foundamental sources,empty,193.368,192.088,197.61,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20555,foundamental sources,error,207.555,206.258,212.211,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20556,foundamental sources,never,860.357,854.75,878.821,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20557,just,just send int,193.453,191.949,198.248,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20558,just,just send variadic,194.428,192.783,198.884,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20559,from,from vector with int,265.798,263.646,271.434,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20560,merge,merge,717.692,710.404,744.769,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20561,merge,merge_with,1559.76,1520.2,1651.08,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20562,publish_subject callbacks,on_next,32.5283,32.3639,32.8612,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20563,publish_subject callbacks,on_error,17.4274,17.3649,17.5516,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20564,publish_subject callbacks,on_completed,0.680184,0.678594,0.683782,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20565,publish_subject routines,construct,592.156,587.156,609.469,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20566,publish_subject routines,get_observable,159.81,159.255,160.967,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20567,publish_subject routines,get_subscriber,90.4044,89.9779,91.1949,0.95,Windows MSVC,Update benchmarks (#... (0f44ea39),rxcpp
+20568,Observable construction,Specific observable construction,0.325973,0.32355,0.337823,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20569,Observable construction,Dynamic observable construction,18.0022,17.9302,18.2697,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20570,Observable construction,Specific observable construction + as_dynamic,19.6073,19.0778,21.5634,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20571,Observable subscribe #2,Specific observable subscribe lambda,24.1799,23.5706,26.4204,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20572,Observable subscribe #2,Dynamic observable subscribe lambda,51.1521,49.9327,56.9753,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20573,Observable subscribe #2,Specific observable subscribe lambda without subscription,24.3943,23.8141,26.4295,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20574,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,51.9795,50.1982,55.96,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20575,Observable subscribe #2,Specific observable subscribe specific subscriber,4.74326,4.65673,4.84458,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20576,Observable subscribe #2,Dynamic observable subscribe specific subscriber,25.3257,24.8839,26.3068,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20577,Observable subscribe #2,Specific observable subscribe dynamic observer,5.3542,5.07405,6.44355,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20578,Observable subscribe #2,Dynamic observable subscribe dynamic observer,4.18703,4.0519,4.59123,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20579,Observer construction,Specific observer construction,0.323513,0.323363,0.323663,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20580,Observer construction,Dynamic observer construction,18.2552,18.0397,18.698,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20581,Observer construction,Specific observer construction + as_dynamic,18.1482,18.1349,18.1972,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20582,OnNext,Specific observer OnNext,0.329482,0.32615,0.337508,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20583,OnNext,Dynamic observer OnNext,1.9474,1.94334,1.96361,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20584,Subscriber construction,Make subsriber,28.4672,28.1917,29.0732,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20585,Subscriber construction,Make copy of subscriber,4.39501,4.3047,4.48231,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20586,Subscriber construction,Transform subsriber to dynamic,21.1894,21.1066,21.5769,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20587,Observable subscribe,Specific observable subscribe specific observer,23.3589,23.3419,23.4243,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20588,Observable subscribe,Specific observable subscribe dynamic observer,27.6388,27.5755,27.7451,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20589,Observable subscribe,Dynamic observable subscribe specific observer,45.7711,45.6745,46.1838,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20590,Observable subscribe,Dynamic observable subscribe dynamic observer,33.0424,33.0244,33.1009,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20591,Observable lift,Specific observable lift specific observer,30.1106,30.0215,30.4322,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20592,Observable lift,Specific observable lift dynamic observer,35.1531,35.0997,35.2783,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20593,Observable lift,Dynamic observable lift specific observer,69.9074,66.9659,78.0645,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20594,Observable lift,Dynamic observable lift dynamic observer,56.1328,55.5912,57.5183,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20595,Operators,map construction from observable via dot + subscribe,26.1932,25.2466,29.796,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20596,Subscription,composite_subscription create,20.1238,20.0775,20.2783,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20597,Subscription,composite_subscription add,27.8958,26.4335,31.0336,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20598,Subscription,composite_subscription unsubscribe,6.16934,6.14827,6.26906,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20599,foundamental sources,empty,4.3836,4.27971,4.78449,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20600,foundamental sources,error,41.3294,38.8809,47.5935,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20601,foundamental sources,never,4.94759,4.52035,5.76726,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20602,just,just send int,6.54904,6.4302,6.99961,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20603,just,just send variadic,16.4136,15.8184,18.5886,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20604,from,from vector with int,25.4876,24.7682,28.0451,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20605,merge,merge,151.402,144.153,180.413,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20606,merge,merge_with,192.661,187.022,206.477,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20607,publish_subject callbacks,on_next,16.9696,16.4245,17.9503,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20608,publish_subject callbacks,on_error,0.678991,0.660883,0.732646,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20609,publish_subject callbacks,on_completed,0.650526,0.64972,0.654219,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20610,publish_subject routines,construct,131.791,129.097,137.524,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20611,publish_subject routines,get_observable,9.12457,9.12109,9.12837,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20612,publish_subject routines,get_subscriber,15.845,15.3942,16.7019,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rpp
+20613,Observable construction,Specific observable construction,0.323588,0.323258,0.324928,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20614,Observable construction,Dynamic observable construction,25.1251,24.4733,27.4741,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20615,Observable construction,Specific observable construction + as_dynamic,22.7309,22.6503,22.8883,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20616,Observable subscribe #2,Specific observable subscribe lambda,471.196,420.25,592.914,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20617,Observable subscribe #2,Dynamic observable subscribe lambda,404.109,398.343,414.226,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20618,Observable subscribe #2,Specific observable subscribe lambda without subscription,369.044,352.966,425.149,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20619,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,405.065,396.52,430.55,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20620,Observable subscribe #2,Specific observable subscribe specific subscriber,303.436,298.094,311.562,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20621,Observable subscribe #2,Dynamic observable subscribe specific subscriber,365.843,352.316,396.721,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20622,Observable subscribe #2,Specific observable subscribe dynamic observer,301.515,297.371,309.194,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20623,Observable subscribe #2,Dynamic observable subscribe dynamic observer,309.636,308.706,312.176,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20624,Observer construction,Specific observer construction,0.345528,0.334556,0.374227,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20625,Observer construction,Dynamic observer construction,19.8018,19.7067,20.0618,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20626,Observer construction,Specific observer construction + as_dynamic,19.3352,19.3206,19.3911,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20627,OnNext,Specific observer OnNext,0.327537,0.3236,0.346873,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20628,OnNext,Dynamic observer OnNext,1.9847,1.96285,2.02863,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20629,Subscriber construction,Make subsriber,64.9235,63.3389,67.2684,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20630,Subscriber construction,Make copy of subscriber,10.126,9.71786,11.2888,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20631,Subscriber construction,Transform subsriber to dynamic,28.2841,28.1661,28.7645,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20632,Observable subscribe,Specific observable subscribe specific observer,343.952,342.781,347.768,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20633,Observable subscribe,Specific observable subscribe dynamic observer,356.852,353.256,365.159,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20634,Observable subscribe,Dynamic observable subscribe specific observer,431.093,405.761,529.891,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20635,Observable subscribe,Dynamic observable subscribe dynamic observer,369.672,368.991,371.63,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20636,Observable lift,Specific observable lift specific observer,377.65,352.517,490.928,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20637,Observable lift,Specific observable lift dynamic observer,367.789,366.101,372.006,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20638,Observable lift,Dynamic observable lift specific observer,413.445,409.702,422.188,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20639,Observable lift,Dynamic observable lift dynamic observer,389.617,388.424,392.661,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20640,Operators,map construction from observable via dot + subscribe,386.273,375.57,417.555,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20641,Subscription,composite_subscription create,56.6452,54.7523,63.4027,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20642,Subscription,composite_subscription add,16.2951,15.8666,17.7535,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20643,Subscription,composite_subscription unsubscribe,22.5602,12.856,61.9322,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20644,foundamental sources,empty,57.8553,55.285,63.3879,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20645,foundamental sources,error,86.3969,84.5558,89.2283,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20646,foundamental sources,never,284.366,283.197,287.483,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20647,just,just send int,50.1317,49.4246,52.1144,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20648,just,just send variadic,48.7523,47.4234,52.8112,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20649,from,from vector with int,66.3485,66.094,66.958,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20650,merge,merge,153.146,145.868,169.456,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20651,merge,merge_with,428.006,413.416,455.524,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20652,publish_subject callbacks,on_next,10.4505,10.0821,11.1466,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20653,publish_subject callbacks,on_error,16.9415,16.9087,17.0249,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20654,publish_subject callbacks,on_completed,0.741566,0.712683,0.8222,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20655,publish_subject routines,construct,172.866,169.002,191.367,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20656,publish_subject routines,get_observable,47.1607,45.7877,50.9742,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20657,publish_subject routines,get_subscriber,22.2334,22.0525,22.6483,0.95,Linux GCC,Update benchmarks (#... (0f44ea39),rxcpp
+20658,Observable construction,Specific observable construction,0.673339,0.668764,0.695786,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20659,Observable construction,Dynamic observable construction,28.4786,28.4205,28.7005,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20660,Observable construction,Specific observable construction + as_dynamic,28.4704,28.4303,28.6309,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20661,Observable subscribe #2,Specific observable subscribe lambda,58.658,58.509,59.3502,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20662,Observable subscribe #2,Dynamic observable subscribe lambda,89.2891,89.241,89.4479,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20663,Observable subscribe #2,Specific observable subscribe lambda without subscription,58.4834,58.4619,58.5071,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20664,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,89.4718,89.2923,90.2354,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20665,Observable subscribe #2,Specific observable subscribe specific subscriber,16.7314,16.7068,16.8295,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20666,Observable subscribe #2,Dynamic observable subscribe specific subscriber,62.2075,62.1867,62.2263,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20667,Observable subscribe #2,Specific observable subscribe dynamic observer,16.7381,16.713,16.8367,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20668,Observable subscribe #2,Dynamic observable subscribe dynamic observer,16.7348,16.7102,16.843,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20669,Observer construction,Specific observer construction,0.670072,0.669064,0.674578,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20670,Observer construction,Dynamic observer construction,28.4191,28.4095,28.4333,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20671,Observer construction,Specific observer construction + as_dynamic,28.5592,28.5001,28.7661,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20672,OnNext,Specific observer OnNext,0.669932,0.668808,0.675088,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20673,OnNext,Dynamic observer OnNext,2.01174,2.00683,2.03206,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20674,Subscriber construction,Make subsriber,44.9559,44.8643,45.3147,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20675,Subscriber construction,Make copy of subscriber,17.0701,17.0432,17.1672,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20676,Subscriber construction,Transform subsriber to dynamic,48.1606,48.1445,48.18,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20677,Observable subscribe,Specific observable subscribe specific observer,58.5972,58.4952,59.0639,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20678,Observable subscribe,Specific observable subscribe dynamic observer,70.9705,70.9108,71.1467,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20679,Observable subscribe,Dynamic observable subscribe specific observer,91.0323,90.9987,91.0809,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20680,Observable subscribe,Dynamic observable subscribe dynamic observer,75.3061,75.1741,75.7554,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20681,Observable lift,Specific observable lift specific observer,82.7199,82.5845,83.2366,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20682,Observable lift,Specific observable lift dynamic observer,115.84,115.668,116.526,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20683,Observable lift,Dynamic observable lift specific observer,148.978,148.701,149.786,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20684,Observable lift,Dynamic observable lift dynamic observer,165.688,165.584,165.766,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20685,Operators,map construction from observable via dot + subscribe,84.2693,84.2412,84.2976,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20686,Subscription,composite_subscription create,30.7888,30.7475,30.9779,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20687,Subscription,composite_subscription add,58.637,58.4692,59.4472,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20688,Subscription,composite_subscription unsubscribe,6.02836,6.01968,6.06648,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20689,foundamental sources,empty,18.4243,18.3954,18.5586,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20690,foundamental sources,error,48.3026,48.1799,48.8284,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20691,foundamental sources,never,16.7118,16.7062,16.7175,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20692,just,just send int,20.1249,20.0765,20.3497,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20693,just,just send variadic,37.6544,37.6292,37.6784,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20694,from,from vector with int,32.2644,32.1847,32.5583,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20695,merge,merge,375.08,374.533,377.08,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20696,merge,merge_with,437.981,437.206,440.46,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20697,publish_subject callbacks,on_next,46.5671,46.4599,46.6934,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20698,publish_subject callbacks,on_error,2.62561,2.59513,2.65263,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20699,publish_subject callbacks,on_completed,2.03374,2.03058,2.0474,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20700,publish_subject routines,construct,236.273,234.621,242.309,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20701,publish_subject routines,get_observable,40.4588,40.4372,40.5279,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20702,publish_subject routines,get_subscriber,66.2745,66.1755,66.6357,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rpp
+20703,Observable construction,Specific observable construction,0.335268,0.334654,0.33767,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20704,Observable construction,Dynamic observable construction,24.6042,24.5193,24.7301,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20705,Observable construction,Specific observable construction + as_dynamic,24.9856,24.8939,25.0881,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20706,Observable subscribe #2,Specific observable subscribe lambda,291.044,290.51,292.996,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20707,Observable subscribe #2,Dynamic observable subscribe lambda,331.018,330.639,332.355,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20708,Observable subscribe #2,Specific observable subscribe lambda without subscription,291.679,291.13,293.39,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20709,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,333.985,333.479,335.766,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20710,Observable subscribe #2,Specific observable subscribe specific subscriber,227.205,227.078,227.456,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20711,Observable subscribe #2,Dynamic observable subscribe specific subscriber,271.461,271.291,271.916,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20712,Observable subscribe #2,Specific observable subscribe dynamic observer,242.91,242.283,245.736,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20713,Observable subscribe #2,Dynamic observable subscribe dynamic observer,262.828,262.678,263.058,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20714,Observer construction,Specific observer construction,0.335216,0.334614,0.337571,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20715,Observer construction,Dynamic observer construction,22.3591,22.2915,22.4945,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20716,Observer construction,Specific observer construction + as_dynamic,23.4199,23.3296,23.537,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20717,OnNext,Specific observer OnNext,0.668802,0.668558,0.669092,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20718,OnNext,Dynamic observer OnNext,2.4068,2.38715,2.43055,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20719,Subscriber construction,Make subsriber,64.5927,64.4872,64.9969,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20720,Subscriber construction,Make copy of subscriber,4.75108,4.73827,4.76232,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20721,Subscriber construction,Transform subsriber to dynamic,28.1204,28.0758,28.2989,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20722,Observable subscribe,Specific observable subscribe specific observer,290.133,289.938,290.486,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20723,Observable subscribe,Specific observable subscribe dynamic observer,300.263,299.966,300.947,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20724,Observable subscribe,Dynamic observable subscribe specific observer,349.973,349.72,350.374,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20725,Observable subscribe,Dynamic observable subscribe dynamic observer,322.762,322.123,324.837,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20726,Observable lift,Specific observable lift specific observer,293.122,292.569,295.21,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20727,Observable lift,Specific observable lift dynamic observer,311.955,311.376,314.192,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20728,Observable lift,Dynamic observable lift specific observer,343.333,342.67,346.04,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20729,Observable lift,Dynamic observable lift dynamic observer,329.681,328.996,331.801,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20730,Operators,map construction from observable via dot + subscribe,242.849,242.415,244.291,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20731,Subscription,composite_subscription create,54.2985,54.127,54.6013,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20732,Subscription,composite_subscription add,20.9293,20.8979,21.0743,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20733,Subscription,composite_subscription unsubscribe,10.7116,10.697,10.7695,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20734,foundamental sources,empty,37.0019,36.8888,37.1223,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20735,foundamental sources,error,77.9531,77.7594,78.402,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20736,foundamental sources,never,237.28,236.777,238.564,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20737,just,just send int,37.4068,37.2542,37.8542,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20738,just,just send variadic,43.2533,43.1137,43.4761,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20739,from,from vector with int,58.2303,58.007,58.6054,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20740,merge,merge,123.237,122.95,123.932,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20741,merge,merge_with,299.122,298.158,301.676,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20742,publish_subject callbacks,on_next,10.1988,10.148,10.2771,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20743,publish_subject callbacks,on_error,19.1702,19.1353,19.3089,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20744,publish_subject callbacks,on_completed,0.671295,0.671072,0.671629,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20745,publish_subject routines,construct,179.856,178.261,183.936,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20746,publish_subject routines,get_observable,52.2035,52.0201,52.6776,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
+20747,publish_subject routines,get_subscriber,14.304,14.2248,14.3846,0.95,Linux CLANG,Update benchmarks (#... (0f44ea39),rxcpp
