@@ -17,7 +17,7 @@ for platform, data in results.groupby("platform"):
         print("<summary>Table</summary>")
         print("")
         print("Test Name | Current, ns | Prev, ns | Ratio | RxCpp current, ns")
-        print("--- | --- | --- | ---")
+        print("--- | --- | --- | --- | ---")
         for _, r in bench_data.iterrows():
             if r['source'] != 'rpp':
                 continue
