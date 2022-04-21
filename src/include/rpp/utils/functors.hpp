@@ -10,6 +10,9 @@
 
 #pragma once
 
+#include <exception>
+#include <utility>
+
 namespace rpp::utils
 {
 template<typename ...Types>
