@@ -24,6 +24,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      - name: Setup cache
+        uses: mikehardy/buildcache-action@v1
+       
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
@@ -51,8 +54,8 @@ jobs:
           CXX: g++-10
         run: |
           mkdir build
-          cmake -S . -B build -DBUILD_TESTS=1
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release
+          cmake -S . -B build -DBUILD_TESTS=1 -DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release --parallel 2
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
