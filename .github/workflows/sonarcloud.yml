@@ -20,16 +20,12 @@ jobs:
           submodules: true
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+      
       - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Setup cache
-        uses: mikehardy/buildcache-action@v1
 
-      - name: Install lcov
-        run: sudo apt-get install lcov gcovr
-       
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
@@ -51,21 +47,15 @@ jobs:
           curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
           unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
           echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
+      
       - name: Run build-wrapper
         env:
           CC: gcc-10
           CXX: g++-10
         run: |
           mkdir build
-          cmake -S . -B build -DBUILD_TESTS=1 -DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache -DCODE_COVERAGE=1
+          cmake -S . -B build -DBUILD_TESTS=1
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release --parallel 2
-      - name: Test
-        working-directory: ${{github.workspace}}/build
-        run: |
-          ctest -C Release
-          mkdir reports
-          cd reports
-          find .. -iname "*.gcno" -o -iname "*.gcda" | xargs gcov
 
       - name: Run sonar-scanner
         env:
