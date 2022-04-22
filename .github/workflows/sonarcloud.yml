@@ -57,12 +57,12 @@ jobs:
           CXX: g++-10
         run: |
           mkdir build
-          cmake -S . -B build -DBUILD_TESTS=1 -DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache -DCODE_COVERAGE=1
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release --parallel 2
+          cmake -S . -B build -DBUILD_TESTS=1 -DCODE_COVERAGE=1 -DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Debug --parallel 2
       - name: Test
         working-directory: ${{github.workspace}}/build
         run: |
-          ctest -C Release
+          ctest -C Debug
           mkdir reports
           cd reports
           find .. -iname "*.gcno" -o -iname "*.gcda" | xargs gcov
