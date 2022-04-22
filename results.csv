@@ -21335,8 +21335,8 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 21333,Observable construction,Specific observable construction,0.670434,0.669004,0.673832,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
 21334,Observable construction,Dynamic observable construction,123.718,123.243,124.791,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
 21335,Observable construction,Specific observable construction + as_dynamic,123.707,123.156,124.941,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
-21336,Observable subscribe #2,Specific observable subscribe lambda,1182,1175.27,1195.82,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
-21337,Observable subscribe #2,Dynamic observable subscribe lambda,1373.89,1360.68,1422,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
+21336,Observable subscribe #2,Specific observable subscribe lambda,1182.0,1175.27,1195.82,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
+21337,Observable subscribe #2,Dynamic observable subscribe lambda,1373.89,1360.68,1422.0,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
 21338,Observable subscribe #2,Specific observable subscribe lambda without subscription,1187.23,1177.86,1223.14,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
 21339,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,1371.32,1359.21,1421.47,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
 21340,Observable subscribe #2,Specific observable subscribe specific subscriber,861.3,856.667,877.5,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
@@ -21354,7 +21354,7 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 21352,Observable subscribe,Specific observable subscribe specific observer,1191.14,1181.55,1226.14,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
 21353,Observable subscribe,Specific observable subscribe dynamic observer,1214.33,1209.48,1229.19,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
 21354,Observable subscribe,Dynamic observable subscribe specific observer,1369.32,1361.95,1383.37,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
-21355,Observable subscribe,Dynamic observable subscribe dynamic observer,1249.43,1243,1270.29,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
+21355,Observable subscribe,Dynamic observable subscribe dynamic observer,1249.43,1243.0,1270.29,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
 21356,Observable lift,Specific observable lift specific observer,1399.38,1378.52,1434.1,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
 21357,Observable lift,Specific observable lift dynamic observer,1316.15,1283.3,1433.2,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
 21358,Observable lift,Dynamic observable lift specific observer,1420.89,1407.47,1477.53,0.95,Windows MSVC,try to add coverage ... (08b8ed61),rxcpp
@@ -21557,3 +21557,273 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 21555,publish_subject routines,construct,204.594,180.696,292.002,0.95,Linux CLANG,try to add coverage ... (08b8ed61),rxcpp
 21556,publish_subject routines,get_observable,60.8585,56.7521,66.316,0.95,Linux CLANG,try to add coverage ... (08b8ed61),rxcpp
 21557,publish_subject routines,get_subscriber,13.7398,13.1132,14.6857,0.95,Linux CLANG,try to add coverage ... (08b8ed61),rxcpp
+21558,Observable construction,Specific observable construction,0.419126,0.418433,0.420648,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21559,Observable construction,Dynamic observable construction,69.0117,68.7697,69.4985,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21560,Observable construction,Specific observable construction + as_dynamic,69.2558,69.1192,69.4884,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21561,Observable subscribe #2,Specific observable subscribe lambda,110.039,109.434,111.224,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21562,Observable subscribe #2,Dynamic observable subscribe lambda,177.37,176.493,179.551,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21563,Observable subscribe #2,Specific observable subscribe lambda without subscription,110.373,110.009,111.249,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21564,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,178.652,177.652,180.522,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21565,Observable subscribe #2,Specific observable subscribe specific subscriber,18.894,18.8612,18.9649,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21566,Observable subscribe #2,Dynamic observable subscribe specific subscriber,105.285,101.211,124.386,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21567,Observable subscribe #2,Specific observable subscribe dynamic observer,18.9314,18.8711,19.0572,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21568,Observable subscribe #2,Dynamic observable subscribe dynamic observer,18.8885,18.8588,18.958,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21569,Observer construction,Specific observer construction,0.421157,0.418901,0.426754,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21570,Observer construction,Dynamic observer construction,68.8285,68.5523,69.2907,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21571,Observer construction,Specific observer construction + as_dynamic,68.7609,68.5773,69.1691,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21572,OnNext,Specific observer OnNext,0.448245,0.446062,0.453712,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21573,OnNext,Dynamic observer OnNext,2.00993,2.00684,2.01735,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21574,Subscriber construction,Make subsriber,89.5321,89.2491,90.2679,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21575,Subscriber construction,Make copy of subscriber,16.1107,16.0671,16.2083,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21576,Subscriber construction,Transform subsriber to dynamic,86.4345,86.2034,86.9621,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21577,Observable subscribe,Specific observable subscribe specific observer,110.106,109.814,110.788,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21578,Observable subscribe,Specific observable subscribe dynamic observer,125.624,125.381,126.098,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21579,Observable subscribe,Dynamic observable subscribe specific observer,178.688,177.725,181.13,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21580,Observable subscribe,Dynamic observable subscribe dynamic observer,127.629,126.32,130.457,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21581,Observable lift,Specific observable lift specific observer,188.753,187.559,190.994,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21582,Observable lift,Specific observable lift dynamic observer,175.577,175.216,176.351,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21583,Observable lift,Dynamic observable lift specific observer,324.128,322.277,327.968,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21584,Observable lift,Dynamic observable lift dynamic observer,226.692,225.692,229.486,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21585,Operators,map construction from observable via dot + subscribe,103.354,102.872,104.078,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21586,Subscription,composite_subscription create,75.9817,75.841,76.2508,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21587,Subscription,composite_subscription add,102.58,101.445,106.351,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21588,Subscription,composite_subscription unsubscribe,8.09436,8.0547,8.16239,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21589,foundamental sources,empty,19.9219,19.4824,20.5693,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21590,foundamental sources,error,61.0879,60.5804,61.6709,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21591,foundamental sources,never,19.8161,19.704,20.086,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21592,just,just send int,27.874,27.6233,28.2639,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21593,just,just send variadic,58.207,57.7015,59.6231,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21594,from,from vector with int,114.273,113.638,115.379,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21595,merge,merge,578.261,575.478,587.5,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21596,merge,merge_with,774.294,771.029,783.647,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21597,publish_subject callbacks,on_next,41.9079,41.6857,42.4561,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21598,publish_subject callbacks,on_error,2.39558,2.3707,2.41709,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21599,publish_subject callbacks,on_completed,2.46472,2.44796,2.49656,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21600,publish_subject routines,construct,426.98,422.725,445.902,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21601,publish_subject routines,get_observable,47.3169,47.1157,47.6281,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21602,publish_subject routines,get_subscriber,69.7193,69.2398,70.4064,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rpp
+21603,Observable construction,Specific observable construction,0.414233,0.413674,0.415584,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21604,Observable construction,Dynamic observable construction,115.211,114.422,116.759,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21605,Observable construction,Specific observable construction + as_dynamic,114.103,113.773,114.953,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21606,Observable subscribe #2,Specific observable subscribe lambda,1174.43,1166.83,1190.48,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21607,Observable subscribe #2,Dynamic observable subscribe lambda,1358.65,1345.1,1419.9,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21608,Observable subscribe #2,Specific observable subscribe lambda without subscription,1182.58,1171,1216.29,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21609,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,1347.6,1338.85,1380.4,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21610,Observable subscribe #2,Specific observable subscribe specific subscriber,867.065,863.161,880.516,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21611,Observable subscribe #2,Dynamic observable subscribe specific subscriber,1060.92,1052.23,1079.54,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21612,Observable subscribe #2,Specific observable subscribe dynamic observer,925.645,920.871,943.613,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21613,Observable subscribe #2,Dynamic observable subscribe dynamic observer,963.138,960.483,967.828,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21614,Observer construction,Specific observer construction,2.01704,2.00775,2.04046,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21615,Observer construction,Dynamic observer construction,111.346,111.091,111.778,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21616,Observer construction,Specific observer construction + as_dynamic,119.796,112.233,142.025,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21617,OnNext,Specific observer OnNext,0.446483,0.445833,0.447833,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21618,OnNext,Dynamic observer OnNext,1.61012,1.60615,1.61939,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21619,Subscriber construction,Make subsriber,328.024,325.549,332.793,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21620,Subscriber construction,Make copy of subscriber,37.4413,37.338,37.6844,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21621,Subscriber construction,Transform subsriber to dynamic,149.089,148.659,150.346,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21622,Observable subscribe,Specific observable subscribe specific observer,1186.3,1176.3,1229.26,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21623,Observable subscribe,Specific observable subscribe dynamic observer,1206.87,1199.83,1235.61,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21624,Observable subscribe,Dynamic observable subscribe specific observer,1363.95,1351.1,1421.4,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21625,Observable subscribe,Dynamic observable subscribe dynamic observer,1252.36,1240.41,1281.32,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21626,Observable lift,Specific observable lift specific observer,1219.7,1210.09,1260.26,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21627,Observable lift,Specific observable lift dynamic observer,1272.09,1261,1317,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21628,Observable lift,Dynamic observable lift specific observer,1409.35,1404.2,1424.75,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21629,Observable lift,Dynamic observable lift dynamic observer,1315.43,1300.38,1359.9,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21630,Operators,map construction from observable via dot + subscribe,1024.56,1020.7,1031.7,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21631,Subscription,composite_subscription create,319,318.082,320.976,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21632,Subscription,composite_subscription add,64.4535,64.1408,64.9547,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21633,Subscription,composite_subscription unsubscribe,23.6658,23.5,23.9983,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21634,foundamental sources,empty,187.572,186.409,191.189,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21635,foundamental sources,error,233.896,232.736,236.52,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21636,foundamental sources,never,864.594,861.969,870.188,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21637,just,just send int,194.895,194.183,197.34,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21638,just,just send variadic,188.744,187.397,191.494,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21639,from,from vector with int,246.116,244,250.901,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21640,merge,merge,713.564,707.564,728.709,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21641,merge,merge_with,1484.07,1470.81,1541.41,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21642,publish_subject callbacks,on_next,28.5638,28.3794,28.8489,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21643,publish_subject callbacks,on_error,22.3515,22.1623,22.6607,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21644,publish_subject callbacks,on_completed,0.817721,0.813487,0.827208,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21645,publish_subject routines,construct,618.03,612.545,628.818,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21646,publish_subject routines,get_observable,152.978,151.848,155.045,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21647,publish_subject routines,get_subscriber,100.854,100.127,102.34,0.95,Windows MSVC,remove code-coverage... (3cdb3f9a),rxcpp
+21648,Observable construction,Specific observable construction,0.41078,0.385424,0.461398,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21649,Observable construction,Dynamic observable construction,18.2839,18.0829,18.7577,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21650,Observable construction,Specific observable construction + as_dynamic,19.4393,18.622,21.1497,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21651,Observable subscribe #2,Specific observable subscribe lambda,28.5406,27.1666,31.2429,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21652,Observable subscribe #2,Dynamic observable subscribe lambda,54.7892,50.9796,65.44,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21653,Observable subscribe #2,Specific observable subscribe lambda without subscription,27.3126,26.4155,30.0156,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21654,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,53.8524,50.6255,58.5214,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21655,Observable subscribe #2,Specific observable subscribe specific subscriber,4.87169,4.52377,5.6428,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21656,Observable subscribe #2,Dynamic observable subscribe specific subscriber,26.7703,25.9504,28.2218,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21657,Observable subscribe #2,Specific observable subscribe dynamic observer,5.96972,5.65333,6.39866,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21658,Observable subscribe #2,Dynamic observable subscribe dynamic observer,4.51899,4.40715,4.88805,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21659,Observer construction,Specific observer construction,0.43723,0.406578,0.486167,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21660,Observer construction,Dynamic observer construction,23.9253,22.2748,27.1554,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21661,Observer construction,Specific observer construction + as_dynamic,22.2162,21.4436,23.397,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21662,OnNext,Specific observer OnNext,0.475718,0.437242,0.533004,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21663,OnNext,Dynamic observer OnNext,2.49446,2.392,2.66259,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21664,Subscriber construction,Make subsriber,38.6866,37.8479,40.3628,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21665,Subscriber construction,Make copy of subscriber,5.11231,4.99463,5.43648,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21666,Subscriber construction,Transform subsriber to dynamic,21.8079,21.5837,22.35,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21667,Observable subscribe,Specific observable subscribe specific observer,27.1455,26.4034,28.2152,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21668,Observable subscribe,Specific observable subscribe dynamic observer,26.2031,25.5192,27.5201,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21669,Observable subscribe,Dynamic observable subscribe specific observer,48.568,47.1503,50.9302,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21670,Observable subscribe,Dynamic observable subscribe dynamic observer,36.9573,34.0578,44.7619,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21671,Observable lift,Specific observable lift specific observer,36.0906,34.7889,37.9273,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21672,Observable lift,Specific observable lift dynamic observer,38.4366,36.2858,41.5778,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21673,Observable lift,Dynamic observable lift specific observer,66.3634,63.8454,72.307,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21674,Observable lift,Dynamic observable lift dynamic observer,54.8563,54.2689,56.2906,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21675,Operators,map construction from observable via dot + subscribe,33.2375,30.3342,40.6526,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21676,Subscription,composite_subscription create,23.2706,22.2534,25.1174,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21677,Subscription,composite_subscription add,24.0316,23.3222,25.4668,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21678,Subscription,composite_subscription unsubscribe,7.05928,6.73406,7.63779,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21679,foundamental sources,empty,4.61948,4.48503,4.86362,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21680,foundamental sources,error,42.2933,39.9622,45.5799,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21681,foundamental sources,never,4.18083,4.04616,4.41086,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21682,just,just send int,7.10618,6.84105,7.55157,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21683,just,just send variadic,21.1598,19.8546,22.6988,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21684,from,from vector with int,29.5282,28.266,31.634,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21685,merge,merge,185.078,174.588,201.052,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21686,merge,merge_with,181.45,180.151,186.144,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21687,publish_subject callbacks,on_next,12.7405,12.51,13.1764,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21688,publish_subject callbacks,on_error,0.79958,0.7483,0.871013,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21689,publish_subject callbacks,on_completed,0.615647,0.595133,0.645393,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21690,publish_subject routines,construct,128.45,121.43,139.172,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21691,publish_subject routines,get_observable,9.56662,9.02512,10.3934,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21692,publish_subject routines,get_subscriber,19.579,18.7829,20.6125,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rpp
+21693,Observable construction,Specific observable construction,0.392713,0.379277,0.41484,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21694,Observable construction,Dynamic observable construction,24.1454,23.166,25.3847,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21695,Observable construction,Specific observable construction + as_dynamic,23.3275,22.2974,25.0363,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21696,Observable subscribe #2,Specific observable subscribe lambda,333.148,323.343,348.649,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21697,Observable subscribe #2,Dynamic observable subscribe lambda,383.341,365.958,411.046,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21698,Observable subscribe #2,Specific observable subscribe lambda without subscription,676.381,364.132,2140.81,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21699,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,439.53,424.017,478.76,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21700,Observable subscribe #2,Specific observable subscribe specific subscriber,293.152,280.941,317.902,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21701,Observable subscribe #2,Dynamic observable subscribe specific subscriber,474.748,436.982,528.014,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21702,Observable subscribe #2,Specific observable subscribe dynamic observer,356.679,320.571,467.757,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21703,Observable subscribe #2,Dynamic observable subscribe dynamic observer,325.156,313.497,352.585,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21704,Observer construction,Specific observer construction,0.348346,0.328613,0.378087,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21705,Observer construction,Dynamic observer construction,23.5666,22.8594,25.0509,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21706,Observer construction,Specific observer construction + as_dynamic,48.6969,24.4518,166.971,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21707,OnNext,Specific observer OnNext,0.38424,0.357961,0.455005,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21708,OnNext,Dynamic observer OnNext,2.4006,2.26649,2.57393,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21709,Subscriber construction,Make subsriber,66.2197,61.6268,76.7857,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21710,Subscriber construction,Make copy of subscriber,8.05291,7.62218,8.9978,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21711,Subscriber construction,Transform subsriber to dynamic,26.6326,25.7848,28.0165,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21712,Observable subscribe,Specific observable subscribe specific observer,357.509,338.687,394.446,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21713,Observable subscribe,Specific observable subscribe dynamic observer,434.961,424.405,462.656,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21714,Observable subscribe,Dynamic observable subscribe specific observer,500.351,476.119,562.787,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21715,Observable subscribe,Dynamic observable subscribe dynamic observer,468.474,430.917,597.061,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21716,Observable lift,Specific observable lift specific observer,322.102,319.546,330.269,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21717,Observable lift,Specific observable lift dynamic observer,531.475,470.032,679.647,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21718,Observable lift,Dynamic observable lift specific observer,482.144,471.785,502.754,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21719,Observable lift,Dynamic observable lift dynamic observer,457.869,441.778,488.959,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21720,Operators,map construction from observable via dot + subscribe,458.089,443.146,493.246,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21721,Subscription,composite_subscription create,59.6852,57.1525,66.7853,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21722,Subscription,composite_subscription add,19.3039,18.2306,22.137,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21723,Subscription,composite_subscription unsubscribe,19.096,12.4456,51.2517,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21724,foundamental sources,empty,57.0587,54.9163,62.1686,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21725,foundamental sources,error,113.436,103.825,133.647,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21726,foundamental sources,never,377.704,352.076,410.109,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21727,just,just send int,59.4968,55.8754,65.8558,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21728,just,just send variadic,52.8759,51.2344,55.7252,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21729,from,from vector with int,80.4337,76.8744,86.2136,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21730,merge,merge,176.226,168.173,189.556,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21731,merge,merge_with,450.09,419.929,518.779,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21732,publish_subject callbacks,on_next,11.0595,10.695,11.905,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21733,publish_subject callbacks,on_error,16.1025,15.7846,16.6492,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21734,publish_subject callbacks,on_completed,0.707254,0.676115,0.748489,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21735,publish_subject routines,construct,219.824,208.147,245.759,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21736,publish_subject routines,get_observable,53.3493,51.0758,59.2386,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21737,publish_subject routines,get_subscriber,25.4661,23.8433,28.8684,0.95,Linux GCC,remove code-coverage... (3cdb3f9a),rxcpp
+21738,Observable construction,Specific observable construction,0.804828,0.802947,0.812722,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21739,Observable construction,Dynamic observable construction,34.935,34.0515,36.0742,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21740,Observable construction,Specific observable construction + as_dynamic,31.7693,31.079,32.7465,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21741,Observable subscribe #2,Specific observable subscribe lambda,67.7585,66.6675,69.5512,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21742,Observable subscribe #2,Dynamic observable subscribe lambda,106.24,104.857,108.621,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21743,Observable subscribe #2,Specific observable subscribe lambda without subscription,70.6355,70.1191,71.8355,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21744,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,105.472,103.49,109.225,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21745,Observable subscribe #2,Specific observable subscribe specific subscriber,19.2093,18.8055,19.8288,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21746,Observable subscribe #2,Dynamic observable subscribe specific subscriber,73.8085,72.8297,75.5799,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21747,Observable subscribe #2,Specific observable subscribe dynamic observer,16.1708,16.1664,16.1759,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21748,Observable subscribe #2,Dynamic observable subscribe dynamic observer,19.3499,19.1155,19.787,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21749,Observer construction,Specific observer construction,0.804504,0.802866,0.81221,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21750,Observer construction,Dynamic observer construction,37.6272,36.774,38.9976,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21751,Observer construction,Specific observer construction + as_dynamic,32.511,32.2367,33.0911,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21752,OnNext,Specific observer OnNext,0.813158,0.800919,0.836542,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21753,OnNext,Dynamic observer OnNext,2.11304,2.07539,2.16895,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21754,Subscriber construction,Make subsriber,53.6501,52.9358,54.8548,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21755,Subscriber construction,Make copy of subscriber,18.8968,18.4254,20.0597,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21756,Subscriber construction,Transform subsriber to dynamic,50.3463,49.1029,52.224,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21757,Observable subscribe,Specific observable subscribe specific observer,68.6573,67.716,70.1848,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21758,Observable subscribe,Specific observable subscribe dynamic observer,82.6062,81.5045,84.1969,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21759,Observable subscribe,Dynamic observable subscribe specific observer,107.536,106.506,109.438,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21760,Observable subscribe,Dynamic observable subscribe dynamic observer,83.6385,83.0373,85.0598,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21761,Observable lift,Specific observable lift specific observer,93.4175,92.1352,95.6013,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21762,Observable lift,Specific observable lift dynamic observer,132.042,129.214,139.009,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21763,Observable lift,Dynamic observable lift specific observer,182.379,179.923,186.826,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21764,Observable lift,Dynamic observable lift dynamic observer,193.968,190.384,200.677,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21765,Operators,map construction from observable via dot + subscribe,97.0945,94.2929,100.279,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21766,Subscription,composite_subscription create,35.7608,35.4471,36.2197,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21767,Subscription,composite_subscription add,70.0913,68.9543,71.9875,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21768,Subscription,composite_subscription unsubscribe,6.77404,6.72652,6.91686,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21769,foundamental sources,empty,21.8512,21.5212,22.3606,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21770,foundamental sources,error,56.7271,56.143,57.6803,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21771,foundamental sources,never,18.3454,18.1153,18.6822,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21772,just,just send int,22.905,22.4023,23.5105,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21773,just,just send variadic,43.798,42.9991,45.2065,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21774,from,from vector with int,37.4518,37.1188,38.1345,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21775,merge,merge,467.343,458.355,480.818,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21776,merge,merge_with,406.607,399.945,414.812,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21777,publish_subject callbacks,on_next,55.9517,55.5213,56.5039,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21778,publish_subject callbacks,on_error,3.18796,3.15644,3.21166,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21779,publish_subject callbacks,on_completed,2.33989,2.29757,2.3981,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21780,publish_subject routines,construct,283.458,281.422,290.191,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21781,publish_subject routines,get_observable,48.6069,48.5331,48.9546,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21782,publish_subject routines,get_subscriber,74.2912,73.0641,75.778,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rpp
+21783,Observable construction,Specific observable construction,0.402539,0.40166,0.40577,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21784,Observable construction,Dynamic observable construction,30.0577,29.5696,30.814,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21785,Observable construction,Specific observable construction + as_dynamic,27.3269,27.0038,27.8038,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21786,Observable subscribe #2,Specific observable subscribe lambda,311.532,307.541,315.446,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21787,Observable subscribe #2,Dynamic observable subscribe lambda,370.276,363.027,379.97,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21788,Observable subscribe #2,Specific observable subscribe lambda without subscription,308.176,303.975,313.868,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21789,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,385.231,381.868,389.664,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21790,Observable subscribe #2,Specific observable subscribe specific subscriber,219.408,217.07,229.882,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21791,Observable subscribe #2,Dynamic observable subscribe specific subscriber,287.717,281.592,294.834,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21792,Observable subscribe #2,Specific observable subscribe dynamic observer,276.126,272.503,285.224,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21793,Observable subscribe #2,Dynamic observable subscribe dynamic observer,316.38,315.893,318.225,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21794,Observer construction,Specific observer construction,0.403168,0.399171,0.41293,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21795,Observer construction,Dynamic observer construction,26.9889,26.7129,27.5269,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21796,Observer construction,Specific observer construction + as_dynamic,27.2241,26.7321,27.9392,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21797,OnNext,Specific observer OnNext,0.742584,0.732374,0.758563,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21798,OnNext,Dynamic observer OnNext,2.83851,2.82598,2.8601,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21799,Subscriber construction,Make subsriber,78.3356,77.2317,80.1704,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21800,Subscriber construction,Make copy of subscriber,5.72945,5.63768,5.89574,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21801,Subscriber construction,Transform subsriber to dynamic,32.5661,31.954,33.6039,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21802,Observable subscribe,Specific observable subscribe specific observer,346.606,342.858,352.83,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21803,Observable subscribe,Specific observable subscribe dynamic observer,318.533,308.395,329.406,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21804,Observable subscribe,Dynamic observable subscribe specific observer,428.517,422.802,436.779,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21805,Observable subscribe,Dynamic observable subscribe dynamic observer,384.204,383.238,387.782,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21806,Observable lift,Specific observable lift specific observer,351.347,349.367,357.398,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21807,Observable lift,Specific observable lift dynamic observer,364.056,358.545,372.974,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21808,Observable lift,Dynamic observable lift specific observer,396.637,391.385,411.923,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21809,Observable lift,Dynamic observable lift dynamic observer,361.549,355.237,369.404,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21810,Operators,map construction from observable via dot + subscribe,294.111,290.937,302.623,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21811,Subscription,composite_subscription create,63.2343,62.6053,64.4922,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21812,Subscription,composite_subscription add,25.0746,25.0696,25.0825,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21813,Subscription,composite_subscription unsubscribe,12.7229,12.5358,13.0248,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21814,foundamental sources,empty,42.9858,42.5238,43.8204,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21815,foundamental sources,error,93.9165,93.247,95.4663,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21816,foundamental sources,never,259.495,258.899,261.528,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21817,just,just send int,44.1349,43.6441,44.94,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21818,just,just send variadic,50.1302,49.6654,51.0977,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21819,from,from vector with int,68.3233,67.4168,69.6058,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21820,merge,merge,139.399,138.176,141.71,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21821,merge,merge_with,357.743,353.265,365.041,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21822,publish_subject callbacks,on_next,12.1008,11.9936,12.3031,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21823,publish_subject callbacks,on_error,21.69,21.3842,22.1638,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21824,publish_subject callbacks,on_completed,0.773405,0.758198,0.797747,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21825,publish_subject routines,construct,206.056,204.322,209.149,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21826,publish_subject routines,get_observable,60.0354,59.3751,61.2763,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
+21827,publish_subject routines,get_subscriber,16.2606,16.0338,16.6434,0.95,Linux CLANG,remove code-coverage... (3cdb3f9a),rxcpp
