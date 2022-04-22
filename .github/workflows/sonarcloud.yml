@@ -26,6 +26,9 @@ jobs:
           java-version: 11
       - name: Setup cache
         uses: mikehardy/buildcache-action@v1
+
+      - name: Install lcov
+        run: sudo apt-get install lcov gcovr
        
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
@@ -54,8 +57,14 @@ jobs:
           CXX: g++-10
         run: |
           mkdir build
-          cmake -S . -B build -DBUILD_TESTS=1 -DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache
+          cmake -S . -B build -DBUILD_TESTS=1 -DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache -DCODE_COVERAGE=1
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release --parallel 2
+      - name: Test
+        working-directory: ${{github.workspace}}/build
+        run: |
+          ctest -C Release
+          gcovr --xml coverage.xml -r .. --object-directory=.
+
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
