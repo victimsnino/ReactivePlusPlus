@@ -63,7 +63,9 @@ jobs:
         working-directory: ${{github.workspace}}/build
         run: |
           ctest -C Release
-          gcovr --xml coverage.xml -r .. --object-directory=.
+          mkdir reports
+          cd reports
+          find .. -iname "*.gcno" -o -iname "*.gcda" | xargs gcov
 
       - name: Run sonar-scanner
         env:
