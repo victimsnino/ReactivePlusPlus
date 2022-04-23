@@ -74,12 +74,9 @@ jobs:
         run_name: ${{ matrix.config.name }}
         use_build_cache: matrix.config.os != 'windows-latest'
         cmake_defs: '-DBUILD_SAMPLES=1 -DBUILD_TESTS=1 -DAUTOTESTS=1'
-        build_type: 'Release'
-      
-    - name: Test
-      working-directory: ${{github.workspace}}/build
-      run: ctest -C ${{env.BUILD_TYPE}}
-      
+        build_type: ${{env.BUILD_TYPE}}
+        run_tests: true
+            
     - name: Test Report ${{ matrix.config.name }}
       uses: dorny/test-reporter@v1
       if: success() || failure()

@@ -14,6 +14,9 @@ inputs:
   build_type:
     required: true
     default: 'Release'
+  run_tests:
+    required: true
+    default: true
 runs:
   using: "composite"
   steps:
@@ -29,4 +32,10 @@ runs:
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{inputs.build_type}} --parallel 2
+      shell: pwsh
+    
+    - name: Test
+      if: ${{inputs.run_tests}}
+      working-directory: ${{github.workspace}}/build
+      run: ctest -C ${{inputs.build_type}}
       shell: pwsh
