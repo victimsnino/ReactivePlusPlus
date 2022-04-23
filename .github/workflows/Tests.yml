@@ -69,7 +69,7 @@ jobs:
       env:
         CC: ${{ matrix.config.cc }}
         CXX: ${{ matrix.config.cxx }}
-      uses: ./.github/actions/build.yml
+      uses: ./.github/actions/build
       with:
         run_name: ${{ matrix.config.name }}
         use_build_cache: matrix.config.os != 'windows-latest'
