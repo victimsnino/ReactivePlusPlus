@@ -1,0 +1,43 @@
+name: 'build'
+inputs:
+  run_name:
+    description: 'Specify run name to be able to use it for cache, packages and etc'
+    required: true
+  use_build_cache: 
+    description: 'Specify where to use build cache or not'
+    required: true
+    default: true
+  cmake_defs: 
+    description: 'Specify compile definitions like -DBUILD_TESTS=1 and etc'
+    required: true
+  run_tests:
+    required: true
+    default: true
+  build_type:
+    required: false
+    default: 'Release'
+  prefix_for_build_command:
+    required: false
+    default: ''
+runs:
+  using: "composite"
+  steps:
+    - name: Setup cache
+      uses: mikehardy/buildcache-action@v1
+      if: ${{ inputs.use_build_cache }}
+      with:
+        cache_key: ${{ inputs.run_name }}
+
+    - name: Configure CMake
+      run: cmake -B ${{github.workspace}}/build ${{ inputs.cmake_defs }} -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_BUILD_TYPE=${{inputs.build_type}} ${{ inputs.use_build_cache && '-DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache' || '' }} 
+      shell: pwsh
+
+    - name: Build
+      run: ${{inputs.prefix_for_build_command}} cmake --build ${{github.workspace}}/build --config ${{inputs.build_type}} --parallel 2
+      shell: pwsh
+    
+    - name: Test
+      if: ${{inputs.run_tests}}
+      working-directory: ${{github.workspace}}/build
+      run: ctest -C ${{inputs.build_type}}
+      shell: pwsh
