@@ -17,6 +17,9 @@ inputs:
   run_tests:
     required: true
     default: true
+  prefix_for_build_command:
+    required: false
+    default: ''
 runs:
   using: "composite"
   steps:
@@ -31,7 +34,7 @@ runs:
       shell: pwsh
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{inputs.build_type}} --parallel 2
+      run: ${{inputs.prefix_for_build_command}} cmake --build ${{github.workspace}}/build --config ${{inputs.build_type}} --parallel 2
       shell: pwsh
     
     - name: Test
