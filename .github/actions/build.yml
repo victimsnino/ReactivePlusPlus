@@ -17,12 +17,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: true
-        token: ${{ secrets.GITHUB_TOKEN }}
-        fetch-depth: 0
-
     - name: Setup cache
       uses: mikehardy/buildcache-action@v1
       if: ${{ inputs.use_build_cache }}

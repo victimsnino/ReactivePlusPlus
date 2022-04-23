@@ -53,6 +53,12 @@ jobs:
 
     steps:
       
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
       if: matrix.config.name == 'Linux CLANG'
