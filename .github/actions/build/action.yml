@@ -25,6 +25,8 @@ runs:
 
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build ${{ inputs.cmake_defs }} -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_BUILD_TYPE=${{inputs.build_type}} -DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache
-        
+      shell: bash
+
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{inputs.build_type}} --parallel 2
+      shell: bash
