@@ -7,16 +7,15 @@ inputs:
     description: 'Specify where to use build cache or not'
     required: true
     default: true
-    type: boolean
   cmake_defs: 
     description: 'Specify compile definitions like -DBUILD_TESTS=1 and etc'
     required: true
-  build_type:
-    required: true
-    default: 'Release'
   run_tests:
     required: true
     default: true
+  build_type:
+    required: false
+    default: 'Release'
   prefix_for_build_command:
     required: false
     default: ''
