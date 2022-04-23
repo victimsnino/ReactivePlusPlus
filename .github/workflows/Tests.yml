@@ -18,11 +18,6 @@ on:
       - 'submodules/**'
     types: [opened, reopened, synchronize, ready_for_review]
     
-
-env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
-
 jobs:
   build:
     if: github.event.pull_request.draft == false
@@ -65,16 +60,16 @@ jobs:
       with:
         languages: cpp
 
-    - name: Build sources
+    - name: Build sources and run tests
       env:
         CC: ${{ matrix.config.cc }}
         CXX: ${{ matrix.config.cxx }}
-      uses: ./.github/actions/build
+      uses: ./.github/actions/build_and_test
       with:
         run_name: ${{ matrix.config.name }}
         use_build_cache: matrix.config.os != 'windows-latest'
         cmake_defs: '-DBUILD_SAMPLES=1 -DBUILD_TESTS=1 -DAUTOTESTS=1'
-        build_type: ${{env.BUILD_TYPE}}
+        build_type: 'Release'
         run_tests: true
             
     - name: Test Report ${{ matrix.config.name }}
