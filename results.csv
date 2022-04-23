@@ -24025,7 +24025,7 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 24023,just,just send variadic,41.6601,41.3727,42.3826,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rpp
 24024,from,from vector with int,89.6007,89.3675,90.1731,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rpp
 24025,merge,merge,573.809,570.468,587.277,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rpp
-24026,merge,merge_with,787.114,781,813.886,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rpp
+24026,merge,merge_with,787.114,781.0,813.886,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rpp
 24027,publish_subject callbacks,on_next,32.4898,32.2805,32.8794,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rpp
 24028,publish_subject callbacks,on_error,3.16269,3.13325,3.19607,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rpp
 24029,publish_subject callbacks,on_completed,2.40878,2.39301,2.43378,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rpp
@@ -24048,7 +24048,7 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 24046,Observer construction,Specific observer construction + as_dynamic,114.865,114.5,115.536,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rxcpp
 24047,OnNext,Specific observer OnNext,0.673649,0.670642,0.680852,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rxcpp
 24048,OnNext,Dynamic observer OnNext,1.70951,1.70316,1.71757,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rxcpp
-24049,Subscriber construction,Make subsriber,346,344.671,349.452,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rxcpp
+24049,Subscriber construction,Make subsriber,346.0,344.671,349.452,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rxcpp
 24050,Subscriber construction,Make copy of subscriber,31.6239,31.4784,31.963,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rxcpp
 24051,Subscriber construction,Transform subsriber to dynamic,154.404,153.741,156.271,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rxcpp
 24052,Observable subscribe,Specific observable subscribe specific observer,1197.36,1183.23,1246.32,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rxcpp
@@ -24057,7 +24057,7 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 24055,Observable subscribe,Dynamic observable subscribe dynamic observer,1265.29,1251.19,1311.62,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rxcpp
 24056,Observable lift,Specific observable lift specific observer,1284.76,1237.71,1385.76,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rxcpp
 24057,Observable lift,Specific observable lift dynamic observer,1282.55,1267.55,1334.65,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rxcpp
-24058,Observable lift,Dynamic observable lift specific observer,1424.63,1408,1481.05,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rxcpp
+24058,Observable lift,Dynamic observable lift specific observer,1424.63,1408.0,1481.05,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rxcpp
 24059,Observable lift,Dynamic observable lift dynamic observer,1326.2,1310.45,1396.6,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rxcpp
 24060,Operators,map construction from observable via dot + subscribe,1009.27,1002.88,1033.35,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rxcpp
 24061,Subscription,composite_subscription create,340.079,337.921,348.5,0.95,Windows MSVC,Bump actions/setup-j... (16e4083e),rxcpp
@@ -24257,3 +24257,273 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 24255,publish_subject routines,construct,181.475,180.556,184.989,0.95,Linux CLANG,Bump actions/setup-j... (16e4083e),rxcpp
 24256,publish_subject routines,get_observable,51.9833,51.8777,52.1063,0.95,Linux CLANG,Bump actions/setup-j... (16e4083e),rxcpp
 24257,publish_subject routines,get_subscriber,14.4941,14.4084,14.5947,0.95,Linux CLANG,Bump actions/setup-j... (16e4083e),rxcpp
+24258,Observable construction,Specific observable construction,0.67096,0.669397,0.674459,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24259,Observable construction,Dynamic observable construction,81.582,81.3151,82.1029,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24260,Observable construction,Specific observable construction + as_dynamic,81.5049,81.288,82.0162,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24261,Observable subscribe #2,Specific observable subscribe lambda,121,120.689,121.656,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24262,Observable subscribe #2,Dynamic observable subscribe lambda,203.544,202.664,205.64,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24263,Observable subscribe #2,Specific observable subscribe lambda without subscription,119.344,119.067,119.938,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24264,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,206.736,204.328,212.752,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24265,Observable subscribe #2,Specific observable subscribe specific subscriber,16.7591,16.7221,16.8389,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24266,Observable subscribe #2,Dynamic observable subscribe specific subscriber,116.291,115,120.295,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24267,Observable subscribe #2,Specific observable subscribe dynamic observer,16.7429,16.7132,16.8182,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24268,Observable subscribe #2,Dynamic observable subscribe dynamic observer,17.4283,17.3898,17.5086,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24269,Observer construction,Specific observer construction,0.670329,0.668978,0.673346,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24270,Observer construction,Dynamic observer construction,81.6375,81.3172,82.4725,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24271,Observer construction,Specific observer construction + as_dynamic,81.4721,81.1934,82.1279,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24272,OnNext,Specific observer OnNext,0.670544,0.669196,0.673611,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24273,OnNext,Dynamic observer OnNext,2.01226,2.00799,2.02184,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24274,Subscriber construction,Make subsriber,102.502,102.008,103.703,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24275,Subscriber construction,Make copy of subscriber,16.7792,16.7262,16.9282,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24276,Subscriber construction,Transform subsriber to dynamic,96.5573,96.0954,98.1565,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24277,Observable subscribe,Specific observable subscribe specific observer,120.601,120.293,121.183,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24278,Observable subscribe,Specific observable subscribe dynamic observer,135.925,135.385,137.187,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24279,Observable subscribe,Dynamic observable subscribe specific observer,202.871,202.347,204.226,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24280,Observable subscribe,Dynamic observable subscribe dynamic observer,136.21,135.882,136.839,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24281,Observable lift,Specific observable lift specific observer,155.716,154.907,157.525,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24282,Observable lift,Specific observable lift dynamic observer,182.784,182.281,183.712,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24283,Observable lift,Dynamic observable lift specific observer,263.34,262.299,266.082,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24284,Observable lift,Dynamic observable lift dynamic observer,224.239,223.416,226.053,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24285,Operators,map construction from observable via dot + subscribe,91.4552,91.2258,91.871,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24286,Subscription,composite_subscription create,87.7647,87.5848,88.2076,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24287,Subscription,composite_subscription add,91.1174,89.8182,97.0909,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24288,Subscription,composite_subscription unsubscribe,8.28887,8.15781,8.35985,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24289,foundamental sources,empty,18.5058,18.431,18.6824,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24290,foundamental sources,error,51.0478,50.9143,51.2908,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24291,foundamental sources,never,16.7601,16.7212,16.8365,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24292,just,just send int,27.6052,25.8437,35.0792,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24293,just,just send variadic,41.3425,41.2419,41.5308,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24294,from,from vector with int,89.486,89.1853,90.0594,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24295,merge,merge,577.609,573.413,587.435,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24296,merge,merge_with,782.343,778.057,796.514,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24297,publish_subject callbacks,on_next,32.3047,32.1531,32.6064,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24298,publish_subject callbacks,on_error,3.11835,3.09635,3.14629,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24299,publish_subject callbacks,on_completed,2.49546,2.47266,2.51797,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24300,publish_subject routines,construct,427.609,421.348,456.522,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24301,publish_subject routines,get_observable,35.8688,35.7919,36.0377,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24302,publish_subject routines,get_subscriber,58.259,58.0048,58.7962,0.95,Windows MSVC,try to extract actio... (46387ff6),rpp
+24303,Observable construction,Specific observable construction,0.672716,0.669911,0.679398,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24304,Observable construction,Dynamic observable construction,123.566,123.22,124.444,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24305,Observable construction,Specific observable construction + as_dynamic,123.985,123.275,125.335,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24306,Observable subscribe #2,Specific observable subscribe lambda,1173.86,1164.59,1212.64,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24307,Observable subscribe #2,Dynamic observable subscribe lambda,1367.11,1359.47,1381.53,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24308,Observable subscribe #2,Specific observable subscribe lambda without subscription,1175.59,1164.05,1226.82,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24309,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,1355.74,1350.58,1365.63,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24310,Observable subscribe #2,Specific observable subscribe specific subscriber,845.677,843.194,851.935,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24311,Observable subscribe #2,Dynamic observable subscribe specific subscriber,1025,1021.6,1032.08,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24312,Observable subscribe #2,Specific observable subscribe dynamic observer,884.931,880.793,897.828,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24313,Observable subscribe #2,Dynamic observable subscribe dynamic observer,919.25,913,941.25,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24314,Observer construction,Specific observer construction,1.50607,1.50327,1.51303,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24315,Observer construction,Dynamic observer construction,115.418,115.145,116.036,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24316,Observer construction,Specific observer construction + as_dynamic,115.096,114.872,115.615,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24317,OnNext,Specific observer OnNext,0.67103,0.669658,0.674092,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24318,OnNext,Dynamic observer OnNext,1.72177,1.71117,1.73825,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24319,Subscriber construction,Make subsriber,345.836,344.603,349.219,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24320,Subscriber construction,Make copy of subscriber,31.5242,31.4473,31.6741,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24321,Subscriber construction,Transform subsriber to dynamic,154.873,154.006,156.509,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24322,Observable subscribe,Specific observable subscribe specific observer,1181.64,1171.95,1218.73,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24323,Observable subscribe,Specific observable subscribe dynamic observer,1210.95,1203.95,1228.29,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24324,Observable subscribe,Dynamic observable subscribe specific observer,1357.95,1353.32,1368,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24325,Observable subscribe,Dynamic observable subscribe dynamic observer,1249.05,1238.76,1290.43,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24326,Observable lift,Specific observable lift specific observer,1226.52,1213.29,1263.1,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24327,Observable lift,Specific observable lift dynamic observer,1267.95,1264.52,1276.24,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24328,Observable lift,Dynamic observable lift specific observer,1411.17,1397.22,1472.5,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24329,Observable lift,Dynamic observable lift dynamic observer,1311.2,1300.85,1351,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24330,Operators,map construction from observable via dot + subscribe,1001.69,995.038,1027.23,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24331,Subscription,composite_subscription create,342.6,341.013,347.44,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24332,Subscription,composite_subscription add,63.2155,63.0351,63.5539,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24333,Subscription,composite_subscription unsubscribe,23.2431,23.1798,23.3642,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24334,foundamental sources,empty,191.667,190.437,196.062,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24335,foundamental sources,error,206.141,205.037,210.148,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24336,foundamental sources,never,850.767,845.4,864.367,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24337,just,just send int,191.338,190.103,193.979,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24338,just,just send variadic,194.154,192.671,198.161,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24339,from,from vector with int,263.695,261.638,272.571,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24340,merge,merge,683.755,677.453,708.604,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24341,merge,merge_with,1427.19,1415.27,1473.85,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24342,publish_subject callbacks,on_next,32.5567,32.4974,32.6985,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24343,publish_subject callbacks,on_error,17.3995,17.3394,17.5466,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24344,publish_subject callbacks,on_completed,0.679588,0.678123,0.682843,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24345,publish_subject routines,construct,591.844,586.938,610.469,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24346,publish_subject routines,get_observable,159.614,159.228,160.424,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24347,publish_subject routines,get_subscriber,90.2438,89.8057,91.0636,0.95,Windows MSVC,try to extract actio... (46387ff6),rxcpp
+24348,Observable construction,Specific observable construction,0.426675,0.425719,0.430461,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24349,Observable construction,Dynamic observable construction,17.6773,17.6462,17.8028,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24350,Observable construction,Specific observable construction + as_dynamic,17.6931,17.6578,17.8196,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24351,Observable subscribe #2,Specific observable subscribe lambda,22.3084,22.2444,22.5232,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24352,Observable subscribe #2,Dynamic observable subscribe lambda,47.0757,46.9687,47.4079,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24353,Observable subscribe #2,Specific observable subscribe lambda without subscription,23.6761,23.4112,23.9402,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24354,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,47.9001,47.6538,48.2777,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24355,Observable subscribe #2,Specific observable subscribe specific subscriber,6.02123,6.01107,6.06208,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24356,Observable subscribe #2,Dynamic observable subscribe specific subscriber,23.7206,23.6543,23.837,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24357,Observable subscribe #2,Specific observable subscribe dynamic observer,5.98208,5.92185,6.01241,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24358,Observable subscribe #2,Dynamic observable subscribe dynamic observer,6.00215,6.00006,6.00425,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24359,Observer construction,Specific observer construction,0.426729,0.425922,0.430489,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24360,Observer construction,Dynamic observer construction,18.4996,18.4618,18.654,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24361,Observer construction,Specific observer construction + as_dynamic,18.0985,18.0699,18.2122,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24362,OnNext,Specific observer OnNext,0.428757,0.42582,0.432355,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24363,OnNext,Dynamic observer OnNext,2.00888,2.00514,2.02687,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24364,Subscriber construction,Make subsriber,32.04,31.8763,32.2111,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24365,Subscriber construction,Make copy of subscriber,6.08598,6.06892,6.11289,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24366,Subscriber construction,Transform subsriber to dynamic,19.9176,19.7338,20.154,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24367,Observable subscribe,Specific observable subscribe specific observer,21.8438,21.755,22.083,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24368,Observable subscribe,Specific observable subscribe dynamic observer,25.8653,25.846,25.8856,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24369,Observable subscribe,Dynamic observable subscribe specific observer,47.9924,47.8926,48.1438,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24370,Observable subscribe,Dynamic observable subscribe dynamic observer,37.147,37.0737,37.3806,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24371,Observable lift,Specific observable lift specific observer,32.6749,32.6007,32.7335,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24372,Observable lift,Specific observable lift dynamic observer,32.801,32.7233,32.9982,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24373,Observable lift,Dynamic observable lift specific observer,62.7525,62.72,62.7896,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24374,Observable lift,Dynamic observable lift dynamic observer,56.0758,55.8828,56.4489,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24375,Operators,map construction from observable via dot + subscribe,28.4523,28.3934,28.6704,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24376,Subscription,composite_subscription create,20.0541,20.0485,20.0618,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24377,Subscription,composite_subscription add,30.8069,30.668,31.4152,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24378,Subscription,composite_subscription unsubscribe,8.02282,8.01979,8.02698,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24379,foundamental sources,empty,5.68134,5.57472,5.77488,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24380,foundamental sources,error,41.0049,40.865,41.363,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24381,foundamental sources,never,5.94557,5.9095,5.96361,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24382,just,just send int,5.82683,5.79596,5.86474,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24383,just,just send variadic,13.2792,13.2723,13.2874,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24384,from,from vector with int,24.1254,24.1165,24.1467,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24385,merge,merge,143.385,142.875,144.856,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24386,merge,merge_with,200.712,200.319,201.105,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24387,publish_subject callbacks,on_next,13.0249,12.9732,13.244,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24388,publish_subject callbacks,on_error,0.808168,0.806344,0.81539,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24389,publish_subject callbacks,on_completed,0.80671,0.805243,0.813344,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24390,publish_subject routines,construct,120.205,119.151,123.61,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24391,publish_subject routines,get_observable,12.0483,12.0176,12.167,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24392,publish_subject routines,get_subscriber,16.3535,16.3157,16.4833,0.95,Linux GCC,try to extract actio... (46387ff6),rpp
+24393,Observable construction,Specific observable construction,0.401294,0.401196,0.401418,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24394,Observable construction,Dynamic observable construction,21.8547,21.8002,22.0025,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24395,Observable construction,Specific observable construction + as_dynamic,21.8285,21.7823,22.0092,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24396,Observable subscribe #2,Specific observable subscribe lambda,337.579,337.222,337.958,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24397,Observable subscribe #2,Dynamic observable subscribe lambda,420.934,420.619,421.378,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24398,Observable subscribe #2,Specific observable subscribe lambda without subscription,337.936,337.222,340.177,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24399,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,388.834,387.492,393.057,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24400,Observable subscribe #2,Specific observable subscribe specific subscriber,281.504,280.859,283.859,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24401,Observable subscribe #2,Dynamic observable subscribe specific subscriber,364.425,363.313,368.845,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24402,Observable subscribe #2,Specific observable subscribe dynamic observer,291.658,290.806,293.667,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24403,Observable subscribe #2,Dynamic observable subscribe dynamic observer,307.848,307.201,310.025,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24404,Observer construction,Specific observer construction,0.402417,0.401245,0.408101,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24405,Observer construction,Dynamic observer construction,18.3957,18.3539,18.5127,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24406,Observer construction,Specific observer construction + as_dynamic,18.4935,18.4507,18.6618,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24407,OnNext,Specific observer OnNext,0.429893,0.427603,0.434033,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24408,OnNext,Dynamic observer OnNext,2.00879,2.005,2.02155,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24409,Subscriber construction,Make subsriber,53.8187,53.6826,54.2764,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24410,Subscriber construction,Make copy of subscriber,12.1265,12.1118,12.1679,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24411,Subscriber construction,Transform subsriber to dynamic,27.8713,27.7656,28.0596,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24412,Observable subscribe,Specific observable subscribe specific observer,344.44,343.711,346.933,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24413,Observable subscribe,Specific observable subscribe dynamic observer,357.737,357.31,358.199,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24414,Observable subscribe,Dynamic observable subscribe specific observer,395.485,395.018,396.431,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24415,Observable subscribe,Dynamic observable subscribe dynamic observer,365.655,365.079,366.792,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24416,Observable lift,Specific observable lift specific observer,349.588,348.303,354.492,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24417,Observable lift,Specific observable lift dynamic observer,359.773,359.054,362.187,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24418,Observable lift,Dynamic observable lift specific observer,414.907,413.512,420.02,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24419,Observable lift,Dynamic observable lift dynamic observer,389.242,388.267,392.926,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24420,Operators,map construction from observable via dot + subscribe,361.141,360.449,363.535,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24421,Subscription,composite_subscription create,51.2288,51.0796,51.6025,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24422,Subscription,composite_subscription add,14.144,14.1087,14.1962,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24423,Subscription,composite_subscription unsubscribe,10.8679,10.8371,10.9961,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24424,foundamental sources,empty,47.3382,47.2161,47.4729,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24425,foundamental sources,error,85.6487,85.4395,86.2393,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24426,foundamental sources,never,282.071,281.398,284.129,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24427,just,just send int,51.9015,51.5025,53.0769,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24428,just,just send variadic,47.7749,47.5713,48.1945,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24429,from,from vector with int,71.5045,71.2228,72.4736,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24430,merge,merge,133.232,132.826,134.113,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24431,merge,merge_with,366.264,364.982,368.568,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24432,publish_subject callbacks,on_next,8.81277,8.67073,9.17784,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24433,publish_subject callbacks,on_error,16.1383,16.1279,16.1765,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24434,publish_subject callbacks,on_completed,0.80642,0.804763,0.813902,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24435,publish_subject routines,construct,152.779,151.56,156.625,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24436,publish_subject routines,get_observable,44.981,44.8936,45.2735,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24437,publish_subject routines,get_subscriber,21.1394,21.0518,21.3119,0.95,Linux GCC,try to extract actio... (46387ff6),rxcpp
+24438,Observable construction,Specific observable construction,0.63225,0.619968,0.654836,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24439,Observable construction,Dynamic observable construction,24.6594,24.2566,25.5693,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24440,Observable construction,Specific observable construction + as_dynamic,23.9821,23.9689,24.0172,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24441,Observable subscribe #2,Specific observable subscribe lambda,57.9822,54.8189,67.5708,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24442,Observable subscribe #2,Dynamic observable subscribe lambda,74.7001,73.639,79.7409,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24443,Observable subscribe #2,Specific observable subscribe lambda without subscription,51.5995,49.8364,59.0815,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24444,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,73.6303,73.5557,73.9049,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24445,Observable subscribe #2,Specific observable subscribe specific subscriber,14.4843,14.4784,14.4913,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24446,Observable subscribe #2,Dynamic observable subscribe specific subscriber,51.4673,51.2579,52.2579,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24447,Observable subscribe #2,Specific observable subscribe dynamic observer,14.4791,14.4722,14.4867,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24448,Observable subscribe #2,Dynamic observable subscribe dynamic observer,18.1978,17.5791,19.9378,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24449,Observer construction,Specific observer construction,0.59087,0.562103,0.721568,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24450,Observer construction,Dynamic observer construction,25.9961,24.8134,29.3787,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24451,Observer construction,Specific observer construction + as_dynamic,24.0507,23.9928,24.2099,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24452,OnNext,Specific observer OnNext,0.558163,0.557042,0.563127,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24453,OnNext,Dynamic observer OnNext,1.85535,1.73725,2.1475,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24454,Subscriber construction,Make subsriber,44.9249,42.6423,49.9939,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24455,Subscriber construction,Make copy of subscriber,14.7751,14.7615,14.8282,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24456,Subscriber construction,Transform subsriber to dynamic,39.9124,39.3236,41.4049,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24457,Observable subscribe,Specific observable subscribe specific observer,53.5855,51.372,60.1154,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24458,Observable subscribe,Specific observable subscribe dynamic observer,61.5521,61.5108,61.6732,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24459,Observable subscribe,Dynamic observable subscribe specific observer,88.5144,86.0191,93.8142,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24460,Observable subscribe,Dynamic observable subscribe dynamic observer,72.1868,68.1409,80.5338,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24461,Observable lift,Specific observable lift specific observer,76.6131,74.8296,80.6301,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24462,Observable lift,Specific observable lift dynamic observer,98.6841,97.3945,101.912,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24463,Observable lift,Dynamic observable lift specific observer,177.635,142.951,340.736,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24464,Observable lift,Dynamic observable lift dynamic observer,143.681,141.597,148.473,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24465,Operators,map construction from observable via dot + subscribe,81.2093,76.8933,94.3718,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24466,Subscription,composite_subscription create,26.3023,25.9204,27.2544,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24467,Subscription,composite_subscription add,53.8481,53.1196,56.752,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24468,Subscription,composite_subscription unsubscribe,5.82267,5.57787,6.68261,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24469,foundamental sources,empty,19.6978,18.7788,21.1549,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24470,foundamental sources,error,47.1096,44.6893,52.9668,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24471,foundamental sources,never,17.0748,16.0414,18.9827,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24472,just,just send int,20.1478,19.5533,21.2049,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24473,just,just send variadic,62.5655,31.9187,213.285,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24474,from,from vector with int,30.0069,29.5365,31.1401,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24475,merge,merge,325.331,324.253,328.041,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24476,merge,merge_with,375.391,373.555,380.017,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24477,publish_subject callbacks,on_next,45.4566,43.6944,48.2766,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24478,publish_subject callbacks,on_error,2.52231,2.39923,2.72105,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24479,publish_subject callbacks,on_completed,2.87036,2.58663,3.73508,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24480,publish_subject routines,construct,215.316,212.811,224.983,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24481,publish_subject routines,get_observable,39.2007,38.3064,40.9037,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24482,publish_subject routines,get_subscriber,60.3301,57.6798,66.4659,0.95,Linux CLANG,try to extract actio... (46387ff6),rpp
+24483,Observable construction,Specific observable construction,0.28437,0.279712,0.296221,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24484,Observable construction,Dynamic observable construction,20.5946,20.2659,21.4307,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24485,Observable construction,Specific observable construction + as_dynamic,20.1126,20.0843,20.2388,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24486,Observable subscribe #2,Specific observable subscribe lambda,263.186,254.604,278.848,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24487,Observable subscribe #2,Dynamic observable subscribe lambda,289.907,285.219,301.502,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24488,Observable subscribe #2,Specific observable subscribe lambda without subscription,286.367,272.273,318.565,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24489,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,302.991,292.771,322.497,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24490,Observable subscribe #2,Specific observable subscribe specific subscriber,236.815,226.45,251.75,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24491,Observable subscribe #2,Dynamic observable subscribe specific subscriber,245.822,239.261,261.092,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24492,Observable subscribe #2,Specific observable subscribe dynamic observer,273.786,258.011,299.169,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24493,Observable subscribe #2,Dynamic observable subscribe dynamic observer,247.703,240.187,259.496,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24494,Observer construction,Specific observer construction,0.626053,0.325297,2.09902,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24495,Observer construction,Dynamic observer construction,19.0883,18.4139,20.7011,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24496,Observer construction,Specific observer construction + as_dynamic,19.7754,18.6723,22.4152,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24497,OnNext,Specific observer OnNext,0.763483,0.748737,0.788079,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24498,OnNext,Dynamic observer OnNext,1.99827,1.96979,2.06523,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24499,Subscriber construction,Make subsriber,54.2736,54.2025,54.5084,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24500,Subscriber construction,Make copy of subscriber,6.65284,5.42399,12.5298,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24501,Subscriber construction,Transform subsriber to dynamic,30.0835,29.5198,31.0905,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24502,Observable subscribe,Specific observable subscribe specific observer,322.571,315.023,335.476,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24503,Observable subscribe,Specific observable subscribe dynamic observer,304.526,274.38,423.015,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24504,Observable subscribe,Dynamic observable subscribe specific observer,327.156,316.079,348.13,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24505,Observable subscribe,Dynamic observable subscribe dynamic observer,350.08,332.214,403.803,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24506,Observable lift,Specific observable lift specific observer,322.578,308.951,341.719,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24507,Observable lift,Specific observable lift dynamic observer,327.913,323.503,338.964,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24508,Observable lift,Dynamic observable lift specific observer,329.96,321.339,344.846,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24509,Observable lift,Dynamic observable lift dynamic observer,408.49,387.502,470.701,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24510,Operators,map construction from observable via dot + subscribe,278.247,259.09,338.434,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24511,Subscription,composite_subscription create,64.361,62.2918,67.5936,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24512,Subscription,composite_subscription add,19.752,19.3356,20.8144,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24513,Subscription,composite_subscription unsubscribe,11.399,10.8962,12.0914,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24514,foundamental sources,empty,38.7855,37.9519,40.218,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24515,foundamental sources,error,85.1157,80.4614,94.0129,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24516,foundamental sources,never,315.225,261.805,526.762,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24517,just,just send int,38.4695,36.6341,41.1484,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24518,just,just send variadic,35.1441,34.9693,35.9675,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24519,from,from vector with int,49.3489,48.9359,50.3779,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24520,merge,merge,145.532,137.277,168.2,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24521,merge,merge_with,312.043,295.487,341.083,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24522,publish_subject callbacks,on_next,10.8918,10.4282,11.5848,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24523,publish_subject callbacks,on_error,16.5245,16.0688,17.2518,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24524,publish_subject callbacks,on_completed,0.444123,0.43305,0.463056,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24525,publish_subject routines,construct,157.524,153.032,179.4,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24526,publish_subject routines,get_observable,43.7609,43.0388,45.4851,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
+24527,publish_subject routines,get_subscriber,12.3511,12.0457,12.8838,0.95,Linux CLANG,try to extract actio... (46387ff6),rxcpp
