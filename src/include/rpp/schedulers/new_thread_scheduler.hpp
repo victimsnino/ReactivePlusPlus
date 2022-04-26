@@ -122,7 +122,7 @@ public:
 
             bool extract_schedulable_under_lock(const std::stop_token& token, std::function<void()>& out)
             {
-                std::lock_guard lock{ mutex };
+                std::unique_lock lock{ mutex };
 
                 if (!cv.wait(lock, token, [&] { return !queue.empty(); }))
                     return false;;
