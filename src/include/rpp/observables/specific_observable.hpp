@@ -113,7 +113,7 @@ private:
         return subscriber.get_subscription();
     }
 private:
-    OnSubscribeFn m_state;
+    [[no_unique_address]] OnSubscribeFn m_state;
 };
 
 template<typename OnSub>
