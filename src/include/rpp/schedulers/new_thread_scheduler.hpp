@@ -90,14 +90,17 @@ public:
         {
             void defer_at(time_point time_point, std::invocable auto&& fn)
             {
-                if (!sub->is_subscribed())
-                    return;
-
+                if (sub->is_subscribed())
                 {
-                    std::lock_guard lock{mutex};
-                    queue.emplace(time_point, ++current_id, std::forward<decltype(fn)>(fn));
+                    emplace_under_lock(time_point, std::forward<decltype(fn)>(fn));
+                    cv.notify_one();
                 }
-                cv.notify_one();
+            }
+
+            void emplace_under_lock(time_point time_point, std::invocable auto&& fn)
+            {
+                std::lock_guard lock{ mutex };
+                queue.emplace(time_point, ++current_id, std::forward<decltype(fn)>(fn));
             }
 
             void data_thread(const std::stop_token& token)
@@ -105,27 +108,31 @@ public:
                 std::function<void()> fn{};
                 while (!token.stop_requested())
                 {
-                    std::unique_lock lock{ mutex };
-
-                    if (!cv.wait(lock, token, [&] { return !queue.empty(); }))
-                        continue;
-
-                    if (!cv.wait_until(lock, token, queue.top().GetTimePoint(), [&] { return !queue.empty() && queue.top().GetTimePoint() <= clock_type::now(); }))
-                        continue;
-
-                    fn = std::move(queue.top().ExtractFunction());
-                    queue.pop();
-
-                    lock.unlock();
-
-                    fn();
-                    fn = {};
+                    if (extract_schedulable_under_lock(token, fn))
+                    {
+                        fn();
+                        fn = {};
+                    }
                 }
 
                 // clear
+                std::lock_guard lock{ mutex };
+                queue = std::priority_queue<schedulable>{};
+            }
+
+            bool extract_schedulable_under_lock(const std::stop_token& token, std::function<void()>& out)
+            {
                 std::unique_lock lock{ mutex };
 
-                queue = std::priority_queue<schedulable>{};
+                if (!cv.wait(lock, token, [&] { return !queue.empty(); }))
+                    return false;
+
+                if (!cv.wait_until(lock, token, queue.top().GetTimePoint(), [&] { return !queue.empty() && queue.top().GetTimePoint() <= clock_type::now(); }))
+                    return false;
+
+                out = std::move(queue.top().ExtractFunction());
+                queue.pop();
+                return true;
             }
 
             std::mutex                       mutex{};

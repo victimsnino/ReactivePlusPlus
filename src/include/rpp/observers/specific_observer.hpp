@@ -63,9 +63,9 @@ public:
     [[nodiscard]] auto as_dynamic() &&      { return dynamic_observer<T>{std::move(*this)}; }
 
 private:
-    OnNext      m_on_next{};
-    OnError     m_on_err{};
-    OnCompleted m_on_completed{};
+    [[no_unique_address]] OnNext      m_on_next{};
+    [[no_unique_address]] OnError     m_on_err{};
+    [[no_unique_address]] OnCompleted m_on_completed{};
 };
 
 template<typename OnNext>
