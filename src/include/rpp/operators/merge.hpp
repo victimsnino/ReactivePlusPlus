@@ -61,27 +61,6 @@ auto create_proxy_subscriber(constraint::subscriber auto&&   subscriber,
                                               std::forward<decltype(on_completed)>(on_completed));
 }
 
-auto wrap_under_guard_with_state(const std::shared_ptr<state_t> &state)
-{
-    return [state](const auto &callable)
-    {
-        return [state, callable](auto &&...args)
-        {
-            std::lock_guard lock{state->mutex};
-            callable(std::forward<decltype(args)>(args)...);
-        };
-    };
-}
-
-auto merge_on_completed(const std::shared_ptr<state_t> &state)
-{
-    return [=](const constraint::subscriber auto &sub)
-    {
-        if (--(state->count_of_on_completed) == 0)
-            sub.on_completed();
-    };
-}
-
 template<constraint::decayed_type Type, typename SpecificObservable>
 auto member_overload<Type, SpecificObservable, merge_tag>::merge_impl()
 {
@@ -91,16 +70,36 @@ auto member_overload<Type, SpecificObservable, merge_tag>::merge_impl()
     {
         auto state = std::make_shared<state_t>();
 
-        auto wrap_under_guard = wrap_under_guard_with_state(state);
-        auto on_completed = merge_on_completed(state);
+        auto wrap_under_guard = [state](const auto& callable)
+        {
+            return [state, callable](auto&&...args)
+            {
+                std::lock_guard lock{ state->mutex };
+                callable(std::forward<decltype(args)>(args)...);
+            };
+        };
+
+        auto on_completed = [=](const constraint::subscriber auto& sub)
+        {
+            if (--(state->count_of_on_completed) == 0)
+                sub.on_completed();
+        };
 
         auto on_new_observable = [=]<constraint::observable TObs>(TObs&& new_observable,
                                                                   const constraint::subscriber auto& sub)
         {
-            std::forward<TObs>(new_observable).subscribe(create_proxy_subscriber<ValueType>(sub, state, wrap_under_guard(forwarding_on_next{}), wrap_under_guard(forwarding_on_error{}), on_completed));
+            std::forward<TObs>(new_observable).subscribe(create_proxy_subscriber<ValueType>(sub,
+                                                                                            state,
+                                                                                            wrap_under_guard(forwarding_on_next{}),
+                                                                                            wrap_under_guard(forwarding_on_error{}),
+                                                                                            on_completed));
         };
 
-        return create_proxy_subscriber<Type>(std::forward<TSub>(subscriber), state, std::move(on_new_observable), wrap_under_guard(forwarding_on_error{}), on_completed);
+        return create_proxy_subscriber<Type>(std::forward<TSub>(subscriber),
+                                             state,
+                                             std::move(on_new_observable),
+                                             wrap_under_guard(forwarding_on_error{}),
+                                             on_completed);
     };
 }
 
