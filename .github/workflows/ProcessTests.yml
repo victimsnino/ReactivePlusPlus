@@ -11,14 +11,24 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion != 'skipped'
     steps:
+    - uses: haya14busa/action-workflow_run-status@v1
+    
     - uses: actions/checkout@v2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Download all workflow run artifacts
-      uses: actions/download-artifact@v3
+      uses: dawidd6/action-download-artifact@v2
       with:
         path: artifacts
+        workflow: Tests.yml
+        run_id: ${{ github.event.workflow_run.id }}
+        
+    - name: Read the pr_num file
+      id: pr_num_reader
+      uses: juliangruber/read-file-action@v1.0.0
+      with:
+        path: ./artifacts/pr_num/pr_num.txt
 
     - name: Test Report
       uses: dorny/test-reporter@v1
@@ -54,7 +64,7 @@ jobs:
       id: fc
       if: ${{ github.event.workflow_run.event == 'pull_request' }}
       with:
-        issue-number: ${{ github.event.pull_request.number }}
+        issue-number: ${{ steps.pr_num_reader.outputs.content }}
         comment-author: 'github-actions[bot]'
         body-includes: GCC
         
@@ -69,7 +79,7 @@ jobs:
       if: ${{ github.event.workflow_run.event == 'pull_request' }}
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
-        issue-number: ${{ github.event.pull_request.number }}
+        issue-number: ${{ steps.pr_num_reader.outputs.content }}
         body: ${{ steps.results.outputs.body }}
         edit-mode: replace
 
