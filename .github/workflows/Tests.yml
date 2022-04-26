@@ -9,13 +9,8 @@ on:
   pull_request_target:
     branches:
       - main
-    paths:
-      - 'submodules/**'
-  pull_request:
-    branches:
-      - main
     paths-ignore:
-      - 'submodules/**'
+      - '**.md'
     types: [opened, reopened, synchronize, ready_for_review]
     
 
@@ -56,6 +51,8 @@ jobs:
       with:
         submodules: true
         token: ${{ secrets.GITHUB_TOKEN }}
+        ref: ${{github.event.pull_request.head.ref}}
+        repository: ${{github.event.pull_request.head.repo.full_name}}
 
     - name: Setup cache
       uses: mikehardy/buildcache-action@v1
