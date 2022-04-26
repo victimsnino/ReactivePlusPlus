@@ -23,7 +23,7 @@ struct empty_function_t
 
 struct rethrow_error_t
 {
-    void operator()(const std::exception_ptr &err) const { std::rethrow_exception(err); }
+    [[noreturn]] void operator()(const std::exception_ptr &err) const { std::rethrow_exception(err); }
 };
 
 template<typename Observer>

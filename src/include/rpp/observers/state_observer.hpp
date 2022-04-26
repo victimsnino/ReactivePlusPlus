@@ -66,10 +66,10 @@ public:
     void on_completed() const override                          { m_on_completed(m_state);         }
 
 private:
-    State       m_state;
-    OnNext      m_on_next;
-    OnError     m_on_err;
-    OnCompleted m_on_completed;
+    State                             m_state;
+    [[no_unique_address]] OnNext      m_on_next;
+    [[no_unique_address]] OnError     m_on_err;
+    [[no_unique_address]] OnCompleted m_on_completed;
 };
 
 template<typename TState, typename TOnNext, typename ...Args>
