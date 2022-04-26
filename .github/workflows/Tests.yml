@@ -6,11 +6,16 @@ on:
       - main
     paths-ignore:
       - '**.md'
+  pull_request_target:
+    branches:
+      - main
+    paths:
+      - 'submodules/**'
   pull_request:
     branches:
       - main
     paths-ignore:
-      - '**.md'
+      - 'submodules/**'
     types: [opened, reopened, synchronize, ready_for_review]
     
 
@@ -77,30 +82,109 @@ jobs:
       working-directory: ${{github.workspace}}/build
       run: ctest -C ${{env.BUILD_TYPE}}
       
+    - name: Test Report ${{ matrix.config.name }}
+      uses: dorny/test-reporter@v1
+      if: success() || failure()
+      with:
+        name: Test report ${{ matrix.config.name }} 
+        path: ./build/test_results/*.xml
+        reporter: java-junit
+
     - name: Run benchmarks only
       run: |
         ${{github.workspace}}/${{ matrix.config.relative_path_bench }} -r xml -o ${{github.workspace}}/build/test_results/rpp_benchmark_result.txt
         ${{github.workspace}}/${{ matrix.config.relative_path_rxcpp_bench }} -r xml -o ${{github.workspace}}/build/test_results/rxcpp_benchmark_result.txt
-    
-    - name: Save the PR number in an artifact
-      shell: bash
-      env:
-        PR_NUM: ${{ github.event.number }}
-      run: echo $PR_NUM > pr_num.txt
-
-    - name: Upload the PR number
-      uses: actions/upload-artifact@v2
-      with:
-        name: pr_num
-        path: ./pr_num.txt
 
     - name: Upload parsed results
       uses: actions/upload-artifact@v3
-      if: always()
       with:
         name: ${{ matrix.config.name }}
-        path: ${{github.workspace}}/build/test_results/
-
+        path: | 
+          ${{github.workspace}}/build/test_results/rpp_benchmark_result.txt
+          ${{github.workspace}}/build/test_results/rxcpp_benchmark_result.txt
+    
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       if: matrix.config.name == 'Linux CLANG'
+
+  process:
+    name: Process benchmark results
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v3
+      with:
+        path: artifacts
+    
+    - uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        token: ${{ secrets.GITHUB_TOKEN }}
+        path: gh-pages
+
+    - name: Install deps
+      run: pip3 install pandas
+
+    - name: Process benchmarks
+      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${GITHUB_SHA::8} "${{github.event.head_commit.message}}"
+
+    - name: Compare results
+      run: |
+        python3 ${{github.workspace}}/ci/compare_results.py > comment-body.txt
+        body=$(cat comment-body.txt)
+        body="${body//'%'/'%25'}"
+        body="${body//$'\n'/'%0A'}"
+        body="${body//$'\r'/'%0D'}" 
+        echo ::set-output name=body::$body
+      id: results
+      
+    - name: Find Comment
+      uses: peter-evans/find-comment@v2
+      id: fc
+      if: github.event_name != 'push'
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        comment-author: 'github-actions[bot]'
+        body-includes: GCC
+        
+    - name: Create comment
+      if: github.event_name == 'push'
+      uses: peter-evans/commit-comment@v2
+      with:
+        body: ${{ steps.results.outputs.body }}
+        
+    - name: Update comment
+      uses: peter-evans/create-or-update-comment@v2
+      if: github.event_name != 'push'
+      with:
+        comment-id: ${{ steps.fc.outputs.comment-id }}
+        issue-number: ${{ github.event.pull_request.number }}
+        body: ${{ steps.results.outputs.body }}
+        edit-mode: replace
+
+    - name: Install deps
+      run: pip3 install plotly
+      if: github.event_name == 'push'
+
+    - name: Create html
+      run: python3 ${{github.workspace}}/ci/create_graphs_for_benchmark_data.py 
+      if: github.event_name == 'push'
+
+    - name: Upload html
+      uses: actions/upload-artifact@v3
+      if: github.event_name == 'push'
+      with:
+        name: benchmark.html
+        path: ./gh-pages/benchmark.html
+
+    - name: Deploy to github pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.event_name == 'push'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./gh-pages
