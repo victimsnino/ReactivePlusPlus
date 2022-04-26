@@ -50,7 +50,7 @@ template<constraint::decayed_type                  Type,
          std::invocable<Type, State>               OnNext, 
          std::invocable<std::exception_ptr, State> OnError, 
          std::invocable<State>                     OnCompleted>
-auto create_subscriber_with_state(Type&&        state,
+auto create_subscriber_with_state(State&&        state,
                                   OnNext&&      on_next,
                                   OnError&&     on_error,
                                   OnCompleted&& on_completed)
