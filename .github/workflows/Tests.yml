@@ -64,7 +64,7 @@ jobs:
         cache_key: ${{ matrix.config.name }}
         
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v1
+      uses: github/codeql-action/init@v2
       if: matrix.config.name == 'Linux CLANG'
       with:
         languages: cpp
@@ -104,7 +104,7 @@ jobs:
           ${{github.workspace}}/build/test_results/rxcpp_benchmark_result.txt
     
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v1
+      uses: github/codeql-action/analyze@v2
       if: matrix.config.name == 'Linux CLANG'
 
   process:
