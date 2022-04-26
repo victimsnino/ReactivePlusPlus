@@ -10,9 +10,8 @@
 
 #pragma once
 
-#include <rpp/subscribers.hpp>                       // subscribe with all types
+#include <rpp/subscribers.hpp>                      // subscribe with all types
 #include <rpp/observables/interface_observable.hpp> // base_class
-
 
 #include <utility>
 
@@ -27,12 +26,14 @@ namespace rpp
  * \ingroup observables
  */
 template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
-class specific_observable final : public interface_observable<Type, specific_observable<Type, OnSubscribeFn>>
+class specific_observable : public interface_observable<Type, specific_observable<Type, OnSubscribeFn>>
 {
 public:
-    specific_observable(constraint::decayed_same_as<OnSubscribeFn> auto&& on_subscribe)
-        : m_state{std::forward<decltype(on_subscribe)>(on_subscribe)} {}
+    specific_observable(OnSubscribeFn&& on_subscribe)
+        : m_state{std::move(on_subscribe)} {}
 
+    specific_observable(const OnSubscribeFn& on_subscribe)
+        : m_state{on_subscribe} {}
 
     specific_observable(const specific_observable<Type, OnSubscribeFn>&)     = default;
     specific_observable(specific_observable<Type, OnSubscribeFn>&&) noexcept = default;
@@ -43,7 +44,7 @@ public:
     [[nodiscard]] auto as_dynamic() const & { return rpp::dynamic_observable<Type>{*this};            }
     [[nodiscard]] auto as_dynamic() &&      { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
-    composite_subscription subscribe(const dynamic_subscriber<Type>& subscriber) const override
+    composite_subscription subscribe(const dynamic_subscriber<Type>& subscriber) const final
     {
         return subscribe_impl(subscriber);
     }
@@ -117,5 +118,5 @@ private:
 };
 
 template<typename OnSub>
-specific_observable(OnSub on_subscribe) -> specific_observable<utils::extract_subscriber_type_t<utils::function_argument_t<OnSub>>, OnSub>;
+specific_observable(OnSub on_subscribe) -> specific_observable<utils::extract_subscriber_type_t<utils::decayed_function_argument_t<OnSub>>, OnSub>;
 } // namespace rpp

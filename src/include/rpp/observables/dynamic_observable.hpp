@@ -10,11 +10,32 @@
 
 #pragma once
 
-#include <rpp/observables/interface_observable.hpp> // base class
 #include <rpp/observables/specific_observable.hpp>  // m_observable
 #include <rpp/observables/type_traits.hpp>          // extract_observable_type
 
 #include <memory>
+
+namespace rpp::details
+{
+template<constraint::decayed_type Type>
+class observable_wrapper
+{
+public:
+    observable_wrapper(constraint::on_subscribe_fn<Type> auto&& on_subscribe)
+        : observable_wrapper{std::make_shared<specific_observable<Type, std::decay_t<decltype(on_subscribe)>>>(on_subscribe)} {}
+
+    observable_wrapper(std::shared_ptr<virtual_observable<Type>>&& original)
+        : m_original{std::move(original)} {}
+
+    composite_subscription operator()(const dynamic_subscriber<Type>& subscriber) const
+    {
+        return m_original->subscribe(subscriber);
+    }
+
+private:
+    std::shared_ptr<virtual_observable<Type>> m_original;
+};
+} // namespace rpp::details
 
 namespace rpp
 {
@@ -27,41 +48,23 @@ namespace rpp
  * \ingroup observables
  */
 template<constraint::decayed_type Type>
-class dynamic_observable final : public interface_observable<Type, dynamic_observable<Type>>
+class dynamic_observable final : public specific_observable<Type, details::observable_wrapper<Type>>
 {
 public:
-    dynamic_observable(constraint::on_subscribe_fn<Type> auto&& on_subscribe)
-        : m_observable{std::make_shared<specific_observable<Type, std::decay_t<decltype(on_subscribe)>>>(on_subscribe)} {}
+    using base = specific_observable<Type, details::observable_wrapper<Type>>;
+    using base::base;
 
     template<constraint::observable TObs>
         requires (!std::is_same_v<std::decay_t<TObs>, dynamic_observable<Type>>)
     dynamic_observable(TObs&& observable)
-        : m_observable{ std::make_shared<std::decay_t<TObs>>(std::forward<TObs>(observable)) } {}
-
-    dynamic_observable(const dynamic_observable<Type>&)     = default;
-    dynamic_observable(dynamic_observable<Type>&&) noexcept = default;
-
-    composite_subscription subscribe(const dynamic_subscriber<Type>& subscriber) const override
-    {
-        return m_observable->subscribe(subscriber);
-    }
-
-    template<typename ...Args>
-        requires (std::is_constructible_v<dynamic_subscriber<Type>, Args...> && !constraint::variadic_is_same_type<dynamic_subscriber<Type>, Args...>)
-    composite_subscription subscribe(Args&&...args) const
-    {
-        return m_observable->subscribe(dynamic_subscriber<Type>{std::forward<Args>(args)...});
-    }
+        : base{ details::observable_wrapper<Type>{std::make_shared<std::decay_t<TObs>>(std::forward<TObs>(observable))}} {}
 
     const dynamic_observable<Type>& as_dynamic() const { return *this; }
-
-private:
-    std::shared_ptr<virtual_observable<Type>> m_observable{};
 };
 
 template<constraint::observable TObs>
 dynamic_observable(TObs obs) -> dynamic_observable<utils::extract_observable_type_t<TObs>>;
 
 template<typename OnSub>
-dynamic_observable(OnSub on_subscribe) -> dynamic_observable<utils::extract_subscriber_type_t<utils::function_argument_t<OnSub>>>;
+dynamic_observable(OnSub on_subscribe) -> dynamic_observable<utils::extract_subscriber_type_t<utils::decayed_function_argument_t<OnSub>>>;
 } // namespace rpp
