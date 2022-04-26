@@ -52,9 +52,9 @@
 \DoxyCodeLine{63     [[nodiscard]] \textcolor{keyword}{auto} \mbox{\hyperlink{classrpp_1_1specific__observer_af503ea3bf4385f8ec4d1cc25beb39633}{as\_dynamic}}() \&\&      \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}}\{std::move(*\textcolor{keyword}{this})\}; \}}
 \DoxyCodeLine{64 }
 \DoxyCodeLine{65 \textcolor{keyword}{private}:}
-\DoxyCodeLine{66     OnNext      m\_on\_next\{\};}
-\DoxyCodeLine{67     OnError     m\_on\_err\{\};}
-\DoxyCodeLine{68     OnCompleted m\_on\_completed\{\};}
+\DoxyCodeLine{66     [[no\_unique\_address]] OnNext      m\_on\_next\{\};}
+\DoxyCodeLine{67     [[no\_unique\_address]] OnError     m\_on\_err\{\};}
+\DoxyCodeLine{68     [[no\_unique\_address]] OnCompleted m\_on\_completed\{\};}
 \DoxyCodeLine{69 \};}
 \DoxyCodeLine{70 }
 \DoxyCodeLine{71 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext>}

@@ -23,45 +23,66 @@
 \DoxyCodeLine{19 }
 \DoxyCodeLine{20 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{21 \{}
-\DoxyCodeLine{22 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} OnNext, \textcolor{keyword}{typename} OnError, \textcolor{keyword}{typename} OnCompleted>}
-\DoxyCodeLine{23 \textcolor{keyword}{auto} create\_subscriber\_with\_state(\textcolor{keyword}{auto}\&\&        state,}
-\DoxyCodeLine{24                                   OnNext\&\&      on\_next,}
-\DoxyCodeLine{25                                   OnError\&\&     on\_error,}
-\DoxyCodeLine{26                                   OnCompleted\&\& on\_completed)}
-\DoxyCodeLine{27 \{}
-\DoxyCodeLine{28     \textcolor{keywordflow}{return} specific\_subscriber<Type, state\_observer<Type,}
-\DoxyCodeLine{29                                                     std::decay\_t<\textcolor{keyword}{decltype}(state)>,}
-\DoxyCodeLine{30                                                     std::decay\_t<OnNext>,}
-\DoxyCodeLine{31                                                     std::decay\_t<OnError>,}
-\DoxyCodeLine{32                                                     std::decay\_t<OnCompleted>>>}
-\DoxyCodeLine{33     \{}
-\DoxyCodeLine{34         std::forward<decltype(state)>(state),}
-\DoxyCodeLine{35         on\_next,}
-\DoxyCodeLine{36         on\_error,}
-\DoxyCodeLine{37         on\_completed}
-\DoxyCodeLine{38     \};}
-\DoxyCodeLine{39 \}}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{41 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} OnNext, \textcolor{keyword}{typename} OnError, \textcolor{keyword}{typename} OnCompleted>}
-\DoxyCodeLine{42 \textcolor{keyword}{auto} create\_subscriber\_with\_state(constraint::decayed\_same\_as<composite\_subscription> \textcolor{keyword}{auto}\&\& sub,}
-\DoxyCodeLine{43                                   \textcolor{keyword}{auto}\&\&                                                     state,}
-\DoxyCodeLine{44                                   OnNext\&\&                                                   on\_next,}
-\DoxyCodeLine{45                                   OnError\&\&                                                  on\_error,}
-\DoxyCodeLine{46                                   OnCompleted\&\&                                              on\_completed)}
-\DoxyCodeLine{47 \{}
-\DoxyCodeLine{48     \textcolor{keywordflow}{return} specific\_subscriber<Type, state\_observer<Type,}
-\DoxyCodeLine{49                                                     std::decay\_t<\textcolor{keyword}{decltype}(state)>,}
-\DoxyCodeLine{50                                                     std::decay\_t<OnNext>,}
-\DoxyCodeLine{51                                                     std::decay\_t<OnError>,}
-\DoxyCodeLine{52                                                     std::decay\_t<OnCompleted>>>}
-\DoxyCodeLine{53     \{}
-\DoxyCodeLine{54         std::forward<decltype(sub)>(sub),}
-\DoxyCodeLine{55         std::forward<decltype(state)>(state),}
-\DoxyCodeLine{56         on\_next,}
-\DoxyCodeLine{57         on\_error,}
-\DoxyCodeLine{58         on\_completed}
-\DoxyCodeLine{59     \};}
-\DoxyCodeLine{60 \}}
-\DoxyCodeLine{61 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{22 \textcolor{keyword}{template}<constraint::decayed\_type                            Type, }
+\DoxyCodeLine{23          \textcolor{keyword}{typename}                                            State,}
+\DoxyCodeLine{24          std::invocable<Type, State>                         OnNext, }
+\DoxyCodeLine{25          std::invocable<std::exception\_ptr, State>           OnError, }
+\DoxyCodeLine{26          std::invocable<State>                               OnCompleted, }
+\DoxyCodeLine{27          constraint::decayed\_same\_as<composite\_subscription> Subscription = composite\_subscription>}
+\DoxyCodeLine{28 \textcolor{keyword}{auto} create\_subscriber\_with\_state\_impl(State\&\&        state,}
+\DoxyCodeLine{29                                        OnNext\&\&       on\_next,}
+\DoxyCodeLine{30                                        OnError\&\&      on\_error,}
+\DoxyCodeLine{31                                        OnCompleted\&\&  on\_completed,}
+\DoxyCodeLine{32                                        Subscription\&\& sub = composite\_subscription\{\})}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34     \textcolor{keywordflow}{return} specific\_subscriber<Type, state\_observer<Type,}
+\DoxyCodeLine{35                                                     std::decay\_t<State>,}
+\DoxyCodeLine{36                                                     std::decay\_t<OnNext>,}
+\DoxyCodeLine{37                                                     std::decay\_t<OnError>,}
+\DoxyCodeLine{38                                                     std::decay\_t<OnCompleted>>>}
+\DoxyCodeLine{39     \{}
+\DoxyCodeLine{40         std::forward<Subscription>(sub),}
+\DoxyCodeLine{41         std::forward<State>(state),}
+\DoxyCodeLine{42         std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{43         std::forward<OnError>(on\_error),}
+\DoxyCodeLine{44         std::forward<OnCompleted>(on\_completed)}
+\DoxyCodeLine{45     \};}
+\DoxyCodeLine{46 \}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{keyword}{template}<constraint::decayed\_type                  Type, }
+\DoxyCodeLine{49          \textcolor{keyword}{typename}                                  State,}
+\DoxyCodeLine{50          std::invocable<Type, State>               OnNext, }
+\DoxyCodeLine{51          std::invocable<std::exception\_ptr, State> OnError, }
+\DoxyCodeLine{52          std::invocable<State>                     OnCompleted>}
+\DoxyCodeLine{53 \textcolor{keyword}{auto} create\_subscriber\_with\_state(State\&\&        state,}
+\DoxyCodeLine{54                                   OnNext\&\&      on\_next,}
+\DoxyCodeLine{55                                   OnError\&\&     on\_error,}
+\DoxyCodeLine{56                                   OnCompleted\&\& on\_completed)}
+\DoxyCodeLine{57 \{}
+\DoxyCodeLine{58     \textcolor{keywordflow}{return} create\_subscriber\_with\_state\_impl<Type>(std::forward<State>(state),}
+\DoxyCodeLine{59                                                    std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{60                                                    std::forward<OnError>(on\_error),}
+\DoxyCodeLine{61                                                    std::forward<OnCompleted>(on\_completed));}
+\DoxyCodeLine{62 \}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 \textcolor{keyword}{template}<constraint::decayed\_type                            Type, }
+\DoxyCodeLine{65          constraint::decayed\_same\_as<composite\_subscription> Subscription,}
+\DoxyCodeLine{66          \textcolor{keyword}{typename}                                            State,}
+\DoxyCodeLine{67          std::invocable<Type, State>                         OnNext, }
+\DoxyCodeLine{68          std::invocable<std::exception\_ptr, State>           OnError, }
+\DoxyCodeLine{69          std::invocable<State>                               OnCompleted>}
+\DoxyCodeLine{70 \textcolor{keyword}{auto} create\_subscriber\_with\_state(Subscription\&\& sub,}
+\DoxyCodeLine{71                                   State\&\&        state,}
+\DoxyCodeLine{72                                   OnNext\&\&       on\_next,}
+\DoxyCodeLine{73                                   OnError\&\&      on\_error,}
+\DoxyCodeLine{74                                   OnCompleted\&\&  on\_completed)}
+\DoxyCodeLine{75 \{}
+\DoxyCodeLine{76     \textcolor{keywordflow}{return} create\_subscriber\_with\_state\_impl<Type>(std::forward<State>(state),}
+\DoxyCodeLine{77                                                    std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{78                                                    std::forward<OnError>(on\_error),}
+\DoxyCodeLine{79                                                    std::forward<OnCompleted>(on\_completed),}
+\DoxyCodeLine{80                                                    std::forward<Subscription>(sub));}
+\DoxyCodeLine{81 \}}
+\DoxyCodeLine{82 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

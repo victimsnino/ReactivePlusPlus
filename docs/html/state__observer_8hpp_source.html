@@ -134,10 +134,10 @@ $(function() {
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">   66</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">on_completed</a>()<span class="keyword"> const override                          </span>{ m_on_completed(m_state);         }</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    State       m_state;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    OnNext      m_on_next;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    OnError     m_on_err;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    OnCompleted m_on_completed;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    State                             m_state;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    [[no_unique_address]] OnNext      m_on_next;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    [[no_unique_address]] OnError     m_on_err;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    [[no_unique_address]] OnCompleted m_on_completed;</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>};</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TState, <span class="keyword">typename</span> TOnNext, <span class="keyword">typename</span> ...Args&gt;</div>
