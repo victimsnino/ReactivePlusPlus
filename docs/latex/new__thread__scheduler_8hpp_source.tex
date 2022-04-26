@@ -125,7 +125,7 @@
 \DoxyCodeLine{125                 std::unique\_lock lock\{ mutex \};}
 \DoxyCodeLine{126 }
 \DoxyCodeLine{127                 \textcolor{keywordflow}{if} (!cv.wait(lock, token, [\&] \{ return !queue.empty(); \}))}
-\DoxyCodeLine{128                     \textcolor{keywordflow}{return} \textcolor{keyword}{false};;}
+\DoxyCodeLine{128                     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{129 }
 \DoxyCodeLine{130                 \textcolor{keywordflow}{if} (!cv.wait\_until(lock, token, queue.top().GetTimePoint(), [\&] \{ return !queue.empty() \&\& queue.top().GetTimePoint() <= clock\_type::now(); \}))}
 \DoxyCodeLine{131                     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}

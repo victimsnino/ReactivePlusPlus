@@ -192,7 +192,7 @@ $(function() {
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                std::unique_lock lock{ mutex };</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                <span class="keywordflow">if</span> (!cv.wait(lock, token, [&amp;] { return !queue.empty(); }))</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                    <span class="keywordflow">return</span> <span class="keyword">false</span>;;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                <span class="keywordflow">if</span> (!cv.wait_until(lock, token, queue.top().GetTimePoint(), [&amp;] { return !queue.empty() &amp;&amp; queue.top().GetTimePoint() &lt;= clock_type::now(); }))</div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
