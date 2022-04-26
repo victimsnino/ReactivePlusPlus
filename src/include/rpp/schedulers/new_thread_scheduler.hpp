@@ -125,7 +125,7 @@ public:
                 std::unique_lock lock{ mutex };
 
                 if (!cv.wait(lock, token, [&] { return !queue.empty(); }))
-                    return false;;
+                    return false;
 
                 if (!cv.wait_until(lock, token, queue.top().GetTimePoint(), [&] { return !queue.empty() && queue.top().GetTimePoint() <= clock_type::now(); }))
                     return false;
