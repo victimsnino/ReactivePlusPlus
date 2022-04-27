@@ -16,7 +16,6 @@
 #include <rpp/subscriptions/constraints.hpp>
 
 #include <algorithm>
-#include <mutex>
 #include <vector>
 
 namespace rpp
@@ -121,8 +120,7 @@ private:
                 DepsState expected{ DepsState::None };
                 if (m_state.compare_exchange_strong(expected, DepsState::Edit))
                 {
-                    auto [begin, end] = std::ranges::remove(m_deps, sub);
-                    m_deps.erase(begin, end);
+                    std::erase(m_deps, sub);
 
                     m_state.store(DepsState::None);
                     return;
