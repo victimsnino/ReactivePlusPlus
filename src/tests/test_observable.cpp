@@ -432,4 +432,71 @@ SCENARIO("connectable observable")
             }
         }
     }
+    GIVEN("subject as source and connectable observable from it")
+    {
+        auto source = rpp::subjects::publish_subject<int>();
+        auto connectable = rpp::connectable_observable{ source.get_observable(), rpp::subjects::publish_subject<int>{} };
+        WHEN("subscribe on connectable and connect")
+        {
+            auto sub = connectable.subscribe(mock);
+            auto sub_connectable = connectable.connect();
+
+            AND_WHEN("unsubscribe connected subscription before any values from source")
+            {
+                sub_connectable.unsubscribe();
+                source.get_subscriber().on_next(1);
+                THEN("subscriber obtains nothing")
+                {
+                    CHECK(mock.get_total_on_next_count() == 0);
+                    CHECK(mock.get_on_error_count() == 0);
+                    CHECK(mock.get_on_completed_count() == 0);
+                    CHECK(sub.is_subscribed());
+                    CHECK(!sub_connectable.is_subscribed());
+                    CHECK(source.get_subscriber().is_subscribed());
+                }
+                AND_WHEN("connect again and send values")
+                {
+                    auto new_sub_connectable = connectable.connect();
+                    source.get_subscriber().on_next(1);
+
+                    THEN("subscriber obtains values")
+                    {
+                        CHECK(mock.get_total_on_next_count() == 1);
+                        CHECK(mock.get_on_error_count() == 0);
+                        CHECK(mock.get_on_completed_count() == 0);
+                        CHECK(sub.is_subscribed());
+                        CHECK(new_sub_connectable.is_subscribed());
+                        CHECK(source.get_subscriber().is_subscribed());
+                    }
+                }
+            }
+            AND_WHEN("obtain on_completed")
+            {
+                // hack but dont break subscription of this subject
+                source.get_subscriber().get_observer().on_completed();
+                THEN("subscribe obtains on_completed and unsubscribe initiated")
+                {
+                    CHECK(mock.get_total_on_next_count() == 0);
+                    CHECK(mock.get_on_error_count() == 0);
+                    CHECK(mock.get_on_completed_count() == 1);
+                    CHECK(!sub.is_subscribed());
+                    CHECK(!sub_connectable.is_subscribed());
+                }
+                AND_WHEN("connect again and send values")
+                {
+                    auto new_sub_connectable = connectable.connect();
+                    source.get_subscriber().on_next(1);
+                    THEN("subscriber obtains nothing")
+                    {
+                        CHECK(mock.get_total_on_next_count() == 0);
+                        CHECK(mock.get_on_error_count() == 0);
+                        CHECK(mock.get_on_completed_count() == 1);
+                        CHECK(!sub.is_subscribed());
+                        CHECK(!sub_connectable.is_subscribed());
+                        CHECK(!new_sub_connectable.is_subscribed());
+                    }
+                }
+            }
+        }
+    }
 }

@@ -47,8 +47,17 @@ public:
             m_state->sub = subscriber.get_subscription().add(subscription);
         }
 
-        m_original_observable.subscribe(subscriber);
-        subscription.add([] { });
+        m_original_observable.subscribe(m_state->sub, subscriber.get_observer());
+        std::weak_ptr weak = m_state;
+        subscription.add([weak]
+        {
+            if (auto state = weak.lock())
+            {
+                std::lock_guard lock(state->mutex);
+                state->sub.unsubscribe();
+                state->sub = composite_subscription::empty();
+            }
+        });
 
         return subscription;
     }
