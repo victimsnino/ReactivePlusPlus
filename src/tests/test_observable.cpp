@@ -467,7 +467,20 @@ SCENARIO("connectable observable")
         {
             auto sub = connectable.subscribe(mock);
             auto sub_connectable = connectable.connect();
+            AND_WHEN("call connect again and send value")
+            {
+                auto new_sub_connectable = connectable.connect();
+                source.get_subscriber().on_next(1);
 
+                THEN("observer obtains values only once")
+                {
+                    CHECK(mock.get_received_values() == std::vector{ 1 });
+                    CHECK(mock.get_on_error_count() == 0);
+                    CHECK(mock.get_on_completed_count() == 0);
+                    CHECK(sub.is_subscribed() == true);
+                    CHECK(sub_connectable.is_subscribed() == true);
+                }
+            }
             AND_WHEN("unsubscribe connected subscription before any values from source")
             {
                 sub_connectable.unsubscribe();
