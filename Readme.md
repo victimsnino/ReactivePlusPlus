@@ -43,6 +43,21 @@ Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ
 - **ReactivePlusPlus** keeps balance between performance and type-erasing mechanism: Read about it in  [**"Performance vs Flexibility: Specific vs Dynamic"**](./docs/Specific%20vs%20Dynamic.md)
 - **ReactivePlusPlus** is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks show that RPP faster that RxCPP in most cases: [Continous benchmarking results](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
 
+## Usage
+
+To use ReactivePlusPlus just add it as submodule/place folder and add to project via CMake's `add_subfolder`.
+
+In source files add
+```cpp
+#include <rpp/rpp.hpp>
+```
+or include each required part separately in any way
+```cpp
+#include <rpp/observables/specific_observable.hpp> // include specific class implementation
+#include <rpp/observers.hpp>                       // include family of classes/functions
+#include <rpp/operators/fwd.h>                     // include forwarding of family of classes/functions
+```
+
 ## Useful links
 - [Docs](https://github.com/victimsnino/ReactivePlusPlus/tree/main/docs/Readme.md)
 - [Doxygen documentation](https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html)
