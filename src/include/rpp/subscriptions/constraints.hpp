@@ -9,17 +9,14 @@
 
 #pragma once
 
-#include <rpp/subscribers/constraints.hpp>
-#include <rpp/utils/constraints.hpp>
+#include "rpp/utils/constraints.hpp"
+
 #include <rpp/subscriptions/fwd.hpp>
 
-namespace rpp::subjects::details
-{
-struct subject_tag;
-} // namespace rpp::subjects::details
+#include <concepts>
 
-namespace rpp::subjects
+namespace rpp::constraint
 {
-template<rpp::constraint::decayed_type T>
-class publish_subject;
-} // namespace rpp::subjects
+template<typename T>
+concept subscription = std::derived_from<T, subscription_base> || decayed_same_as<T, subscription_base>;
+} // namespace rpp::constraint

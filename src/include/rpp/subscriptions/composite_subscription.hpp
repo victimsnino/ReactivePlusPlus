@@ -13,6 +13,7 @@
 #include <rpp/subscriptions/subscription_base.hpp>
 #include <rpp/subscriptions/callback_subscription.hpp>
 #include <rpp/utils/constraints.hpp>
+#include <rpp/subscriptions/constraints.hpp>
 
 #include <algorithm>
 #include <mutex>
@@ -30,15 +31,18 @@ public:
     explicit composite_subscription(const Subs&...subs) requires (!rpp::constraint::variadic_is_same_type< composite_subscription>)
         : subscription_base{std::make_shared<state>(std::vector<subscription_base>{subs...})} {}
 
-    composite_subscription(const composite_subscription&)     = default;
-    composite_subscription(composite_subscription&&) noexcept = default;
+    composite_subscription(const composite_subscription&)                      = default;
+    composite_subscription(composite_subscription&&) noexcept                  = default;
+    composite_subscription& operator=(const composite_subscription& other)     = default;
+    composite_subscription& operator=(composite_subscription&& other) noexcept = default;
 
     /**
      * \brief Add any other subscription to this as dependent
      */
-    subscription_base add(const subscription_base& sub = subscription_base{}) const
+    template<constraint::subscription TSub = subscription_base>
+    TSub add(const TSub& sub = TSub{}) const
     {
-        if (&sub != this)
+        if (static_cast<const subscription_base *>(&sub) != static_cast<const subscription_base*>(this))
         {
             if (const auto pstate = get_state())
                 static_cast<state*>(pstate)->add(sub);
@@ -49,9 +53,9 @@ public:
     /**
      * \brief Add callback/function subscription to this as dependent
      */
-    subscription_base add(const callback_subscription& sub) const
+    callback_subscription add(const callback_subscription& sub) const
     {
-        return add(static_cast<const subscription_base&>(sub));
+        return add<callback_subscription>(sub);
     }
 
     composite_subscription make_child() const
@@ -61,7 +65,22 @@ public:
         return ret;
     }
 
+    bool is_empty() const
+    {
+        return !get_state();
+    }
+
+    static composite_subscription empty()
+    {
+        return composite_subscription{empty_tag{}};
+    }
+
 private:
+    struct empty_tag{};
+
+    composite_subscription(const empty_tag&)
+        : subscription_base{std::shared_ptr<details::subscription_state>{}} {}
+
     class state final : public details::subscription_state
     {
     public:

@@ -14,9 +14,12 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/subscribers/fwd.hpp>
 #include <rpp/subscriptions/composite_subscription.hpp>
+#include <rpp/subjects/fwd.hpp>
 
 namespace rpp::subjects::details
 {
+struct subject_tag{};
+
 template<typename Strategy, typename T>
 concept subject_strategy = std::constructible_from<Strategy, rpp::composite_subscription> && requires(Strategy t)
 {
@@ -24,8 +27,8 @@ concept subject_strategy = std::constructible_from<Strategy, rpp::composite_subs
     t.on_subscribe(std::declval<rpp::dynamic_subscriber<T>>());
 };
 
-template<constraint::decayed_type T, subject_strategy<T> Strategy>
-class base_subject
+template<rpp::constraint::decayed_type T, subject_strategy<T> Strategy>
+class base_subject : public subject_tag
 {
 public:
     base_subject(const composite_subscription& sub = composite_subscription{})
