@@ -20,7 +20,7 @@
 
 namespace rpp::subjects::details::states
 {
-template<constraint::decayed_type T>
+template<rpp::constraint::decayed_type T>
 struct state_interface : public std::enable_shared_from_this<state_interface<T>>
 {
     state_interface() = default;
@@ -36,7 +36,7 @@ struct state_interface : public std::enable_shared_from_this<state_interface<T>>
     virtual void on_completed() const {}
 };
 
-template<constraint::decayed_type T>
+template<rpp::constraint::decayed_type T>
 class error final : public state_interface<T>
 {
 public:
@@ -53,7 +53,7 @@ private:
     const std::exception_ptr m_err;
 };
 
-template<constraint::decayed_type T>
+template<rpp::constraint::decayed_type T>
 struct completed final : public state_interface<T>
 {
     std::shared_ptr<const state_interface<T>> on_subscribe(const dynamic_subscriber<T>& sub) const override
@@ -69,7 +69,7 @@ struct completed final : public state_interface<T>
     }
 };
 
-template<constraint::decayed_type T>
+template<rpp::constraint::decayed_type T>
 struct unsubscribed final : public state_interface<T>
 {
     std::shared_ptr<const state_interface<T>> on_subscribe(const dynamic_subscriber<T>& sub) const override
@@ -85,7 +85,7 @@ struct unsubscribed final : public state_interface<T>
     }
 };
 
-template<constraint::decayed_type T>
+template<rpp::constraint::decayed_type T>
 class active final : public state_interface<T>
 {
 public:
@@ -145,7 +145,7 @@ private:
 
 namespace rpp::subjects::details
 {
-template<constraint::decayed_type T>
+template<rpp::constraint::decayed_type T>
 class subject_state : public std::enable_shared_from_this<subject_state<T>>
 {
 public:
@@ -230,6 +230,6 @@ private:
     }
 
 private:
-    utils::atomic_shared_ptr<const states::state_interface<T>> m_state = std::make_shared<states::active<T>>();
+    rpp::utils::atomic_shared_ptr<const states::state_interface<T>> m_state = std::make_shared<states::active<T>>();
 };
 } // namespace rpp::subjects::details

@@ -13,9 +13,9 @@
 #include <rpp/subscriptions/subscription_base.hpp>
 #include <rpp/subscriptions/callback_subscription.hpp>
 #include <rpp/utils/constraints.hpp>
+#include <rpp/subscriptions/constraints.hpp>
 
 #include <algorithm>
-#include <mutex>
 #include <vector>
 
 namespace rpp
@@ -30,15 +30,18 @@ public:
     explicit composite_subscription(const Subs&...subs) requires (!rpp::constraint::variadic_is_same_type< composite_subscription>)
         : subscription_base{std::make_shared<state>(std::vector<subscription_base>{subs...})} {}
 
-    composite_subscription(const composite_subscription&)     = default;
-    composite_subscription(composite_subscription&&) noexcept = default;
+    composite_subscription(const composite_subscription&)                      = default;
+    composite_subscription(composite_subscription&&) noexcept                  = default;
+    composite_subscription& operator=(const composite_subscription& other)     = default;
+    composite_subscription& operator=(composite_subscription&& other) noexcept = default;
 
     /**
      * \brief Add any other subscription to this as dependent
      */
-    subscription_base add(const subscription_base& sub = subscription_base{}) const
+    template<constraint::subscription TSub = subscription_base>
+    TSub add(const TSub& sub = TSub{}) const
     {
-        if (&sub != this)
+        if (static_cast<const subscription_base *>(&sub) != static_cast<const subscription_base*>(this))
         {
             if (const auto pstate = get_state())
                 static_cast<state*>(pstate)->add(sub);
@@ -49,9 +52,9 @@ public:
     /**
      * \brief Add callback/function subscription to this as dependent
      */
-    subscription_base add(const callback_subscription& sub) const
+    callback_subscription add(const callback_subscription& sub) const
     {
-        return add(static_cast<const subscription_base&>(sub));
+        return add<callback_subscription>(sub);
     }
 
     composite_subscription make_child() const
@@ -61,7 +64,28 @@ public:
         return ret;
     }
 
+    void remove(const subscription_base& sub) const
+    {
+        if (const auto pstate = get_state())
+            static_cast<state*>(pstate)->remove(sub);
+    }
+
+    bool is_empty() const
+    {
+        return !get_state();
+    }
+
+    static composite_subscription empty()
+    {
+        return composite_subscription{empty_tag{}};
+    }
+
 private:
+    struct empty_tag{};
+
+    composite_subscription(const empty_tag&)
+        : subscription_base{std::shared_ptr<details::subscription_state>{}} {}
+
     class state final : public details::subscription_state
     {
     public:
@@ -73,7 +97,7 @@ private:
             while (true)
             {
                 DepsState expected{DepsState::None};
-                if (m_state.compare_exchange_strong(expected, DepsState::Add))
+                if (m_state.compare_exchange_strong(expected, DepsState::Edit))
                 {
                     m_deps.push_back(sub);
 
@@ -86,6 +110,24 @@ private:
                     sub.unsubscribe();
                     return;
                 }
+            }
+        }
+
+        void remove(const subscription_base& sub)
+        {
+            while (true)
+            {
+                DepsState expected{ DepsState::None };
+                if (m_state.compare_exchange_strong(expected, DepsState::Edit))
+                {
+                    std::erase(m_deps, sub);
+
+                    m_state.store(DepsState::None);
+                    return;
+                }
+
+                if (expected == DepsState::Unsubscribed)
+                    return;
             }
         }
 
@@ -108,7 +150,7 @@ private:
         enum class DepsState : uint8_t
         {
             None,        //< default state
-            Add,         //< set it during adding new element into deps. After success -> FallBack to None
+            Edit,        //< set it during adding new element into deps or removing. After success -> FallBack to None
             Unsubscribed //< permanent state after unsubscribe
         };
 

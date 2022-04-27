@@ -27,7 +27,7 @@ namespace rpp
  * \ingroup observables
  */
 template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
-class specific_observable final : public interface_observable<Type, specific_observable<Type, OnSubscribeFn>>
+class specific_observable : public interface_observable<Type, specific_observable<Type, OnSubscribeFn>>
 {
 public:
     specific_observable(constraint::decayed_same_as<OnSubscribeFn> auto&& on_subscribe)
@@ -43,7 +43,7 @@ public:
     [[nodiscard]] auto as_dynamic() const & { return rpp::dynamic_observable<Type>{*this};            }
     [[nodiscard]] auto as_dynamic() &&      { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
-    composite_subscription subscribe(const dynamic_subscriber<Type>& subscriber) const override
+    composite_subscription subscribe(const dynamic_subscriber<Type>& subscriber) const final
     {
         return subscribe_impl(subscriber);
     }

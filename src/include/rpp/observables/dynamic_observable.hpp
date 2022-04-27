@@ -27,7 +27,7 @@ namespace rpp
  * \ingroup observables
  */
 template<constraint::decayed_type Type>
-class dynamic_observable final : public interface_observable<Type, dynamic_observable<Type>>
+class dynamic_observable : public interface_observable<Type, dynamic_observable<Type>>
 {
 public:
     dynamic_observable(constraint::on_subscribe_fn<Type> auto&& on_subscribe)
@@ -41,7 +41,7 @@ public:
     dynamic_observable(const dynamic_observable<Type>&)     = default;
     dynamic_observable(dynamic_observable<Type>&&) noexcept = default;
 
-    composite_subscription subscribe(const dynamic_subscriber<Type>& subscriber) const override
+    composite_subscription subscribe(const dynamic_subscriber<Type>& subscriber) const final
     {
         return m_observable->subscribe(subscriber);
     }

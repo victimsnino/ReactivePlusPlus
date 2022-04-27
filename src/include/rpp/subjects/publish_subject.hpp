@@ -17,7 +17,7 @@
 
 namespace rpp::subjects::details
 {
-template<constraint::decayed_type T>
+template<rpp::constraint::decayed_type T>
 class publish_strategy
 {
 public:
@@ -70,6 +70,6 @@ namespace rpp::subjects
  * \see https://reactivex.io/documentation/subject.html
  * \ingroup subjects
  */
-template<constraint::decayed_type T>
+template<rpp::constraint::decayed_type T>
 class publish_subject final : public details::base_subject<T, details::publish_strategy<T>>{};
 } // namespace rpp::subjects

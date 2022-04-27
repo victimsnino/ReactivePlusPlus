@@ -12,6 +12,7 @@
 
 namespace rpp
 {
+class subscription_base;
 class callback_subscription;
 class composite_subscription;
 class subscription_guard;

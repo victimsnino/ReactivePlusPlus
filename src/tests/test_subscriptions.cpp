@@ -96,5 +96,27 @@ SCENARIO("subscriptions works as expected")
                 REQUIRE(new_sub.is_subscribed() == false);
             }
         }
+        WHEN("remove subscription and call unsubscribe")
+        {
+            composite.remove(sub);
+            composite.unsubscribe();
+            THEN("removed subscription is still active")
+            {
+                CHECK(sub.is_subscribed() == true);
+                CHECK(composite.is_subscribed() == false);
+                CHECK(callback_subscription.is_subscribed() == false);
+            }
+        }
+        WHEN("call unsubscribe and remove subscription")
+        {
+            composite.unsubscribe();
+            composite.remove(sub);
+            THEN("all subscriptions unsubscribed")
+            {
+                CHECK(sub.is_subscribed() == false);
+                CHECK(composite.is_subscribed() == false);
+                CHECK(callback_subscription.is_subscribed() == false);
+            }
+        }
     }
 }
