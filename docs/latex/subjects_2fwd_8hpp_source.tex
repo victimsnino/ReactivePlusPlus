@@ -13,13 +13,19 @@
 \DoxyCodeLine{9 }
 \DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <rpp/utils/constraints.hpp>}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 }
-\DoxyCodeLine{15 \textcolor{keyword}{namespace }rpp::subjects}
-\DoxyCodeLine{16 \{}
-\DoxyCodeLine{17 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type T>}
-\DoxyCodeLine{18 \textcolor{keyword}{class }publish\_subject;}
-\DoxyCodeLine{19 \} \textcolor{comment}{// namespace rpp::subjects}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/utils/constraints.hpp>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/subscriptions/fwd.hpp>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }rpp::subjects::details}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18 \textcolor{keyword}{struct }subject\_tag;}
+\DoxyCodeLine{19 \} \textcolor{comment}{// namespace rpp::subjects::details}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::subjects}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{24 \textcolor{keyword}{class }publish\_subject;}
+\DoxyCodeLine{25 \} \textcolor{comment}{// namespace rpp::subjects}}
 
 \end{DoxyCode}

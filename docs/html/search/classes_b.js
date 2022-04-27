@@ -10,9 +10,10 @@ var searchData=
   ['state_5fobserver_7',['state_observer',['../classrpp_1_1details_1_1state__observer.html',1,'rpp::details']]],
   ['state_5ft_8',['state_t',['../structrpp_1_1details_1_1state__t.html',1,'rpp::details']]],
   ['subject_5fstate_9',['subject_state',['../classrpp_1_1subjects_1_1details_1_1subject__state.html',1,'rpp::subjects::details']]],
-  ['subscriber_5fbase_10',['subscriber_base',['../classrpp_1_1details_1_1subscriber__base.html',1,'rpp::details']]],
-  ['subscriber_5ftag_11',['subscriber_tag',['../structrpp_1_1details_1_1subscriber__tag.html',1,'rpp::details']]],
-  ['subscription_5fbase_12',['subscription_base',['../classrpp_1_1subscription__base.html',1,'rpp']]],
-  ['subscription_5fguard_13',['subscription_guard',['../classrpp_1_1subscription__guard.html',1,'rpp']]],
-  ['subscription_5fstate_14',['subscription_state',['../classrpp_1_1details_1_1subscription__state.html',1,'rpp::details']]]
+  ['subject_5ftag_10',['subject_tag',['../structrpp_1_1subjects_1_1details_1_1subject__tag.html',1,'rpp::subjects::details']]],
+  ['subscriber_5fbase_11',['subscriber_base',['../classrpp_1_1details_1_1subscriber__base.html',1,'rpp::details']]],
+  ['subscriber_5ftag_12',['subscriber_tag',['../structrpp_1_1details_1_1subscriber__tag.html',1,'rpp::details']]],
+  ['subscription_5fbase_13',['subscription_base',['../classrpp_1_1subscription__base.html',1,'rpp']]],
+  ['subscription_5fguard_14',['subscription_guard',['../classrpp_1_1subscription__guard.html',1,'rpp']]],
+  ['subscription_5fstate_15',['subscription_state',['../classrpp_1_1details_1_1subscription__state.html',1,'rpp::details']]]
 ];

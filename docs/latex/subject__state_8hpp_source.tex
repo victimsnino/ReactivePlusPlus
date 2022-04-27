@@ -24,7 +24,7 @@
 \DoxyCodeLine{20 }
 \DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::subjects::details::states}
 \DoxyCodeLine{22 \{}
-\DoxyCodeLine{23 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{23 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T>}
 \DoxyCodeLine{24 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1states_1_1state__interface}{state\_interface}} : \textcolor{keyword}{public} std::enable\_shared\_from\_this<state\_interface<T>>}
 \DoxyCodeLine{25 \{}
 \DoxyCodeLine{26     \mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1states_1_1state__interface}{state\_interface}}() = \textcolor{keywordflow}{default};}
@@ -40,7 +40,7 @@
 \DoxyCodeLine{36     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} on\_completed()\textcolor{keyword}{ const }\{\}}
 \DoxyCodeLine{37 \};}
 \DoxyCodeLine{38 }
-\DoxyCodeLine{39 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{39 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T>}
 \DoxyCodeLine{40 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1states_1_1error}{error}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1states_1_1state__interface}{state\_interface}}<T>}
 \DoxyCodeLine{41 \{}
 \DoxyCodeLine{42 \textcolor{keyword}{public}:}
@@ -57,7 +57,7 @@
 \DoxyCodeLine{53     \textcolor{keyword}{const} std::exception\_ptr m\_err;}
 \DoxyCodeLine{54 \};}
 \DoxyCodeLine{55 }
-\DoxyCodeLine{56 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{56 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T>}
 \DoxyCodeLine{57 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1states_1_1completed}{completed}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1states_1_1state__interface}{state\_interface}}<T>}
 \DoxyCodeLine{58 \{}
 \DoxyCodeLine{59     std::shared\_ptr<const state\_interface<T>> on\_subscribe(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<T>}}\& sub)\textcolor{keyword}{ const override}}
@@ -73,7 +73,7 @@
 \DoxyCodeLine{69     \}}
 \DoxyCodeLine{70 \};}
 \DoxyCodeLine{71 }
-\DoxyCodeLine{72 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{72 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T>}
 \DoxyCodeLine{73 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1states_1_1unsubscribed}{unsubscribed}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1states_1_1state__interface}{state\_interface}}<T>}
 \DoxyCodeLine{74 \{}
 \DoxyCodeLine{75     std::shared\_ptr<const state\_interface<T>> on\_subscribe(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<T>}}\& sub)\textcolor{keyword}{ const override}}
@@ -89,7 +89,7 @@
 \DoxyCodeLine{85     \}}
 \DoxyCodeLine{86 \};}
 \DoxyCodeLine{87 }
-\DoxyCodeLine{88 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{88 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T>}
 \DoxyCodeLine{89 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1states_1_1active}{active}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1states_1_1state__interface}{state\_interface}}<T>}
 \DoxyCodeLine{90 \{}
 \DoxyCodeLine{91 \textcolor{keyword}{public}:}
@@ -149,7 +149,7 @@
 \DoxyCodeLine{145 }
 \DoxyCodeLine{146 \textcolor{keyword}{namespace }rpp::subjects::details}
 \DoxyCodeLine{147 \{}
-\DoxyCodeLine{148 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{148 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T>}
 \DoxyCodeLine{149 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1subject__state}{subject\_state}} : \textcolor{keyword}{public} std::enable\_shared\_from\_this<subject\_state<T>>}
 \DoxyCodeLine{150 \{}
 \DoxyCodeLine{151 \textcolor{keyword}{public}:}
@@ -169,7 +169,7 @@
 \DoxyCodeLine{165             \textcolor{keywordflow}{if} (std::atomic\_compare\_exchange\_strong(\&m\_state, \&current\_state, new\_state))}
 \DoxyCodeLine{166             \{}
 \DoxyCodeLine{167                 \textcolor{keyword}{auto} weak = this-\/>weak\_from\_this();}
-\DoxyCodeLine{168                 \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{subscriber}}.get\_subscription().\mbox{\hyperlink{classrpp_1_1composite__subscription_a7fddaca7e9bfe0e7cdf23e477770fd8a}{add}}([weak]}
+\DoxyCodeLine{168                 \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{subscriber}}.get\_subscription().\mbox{\hyperlink{classrpp_1_1composite__subscription_a7ea8553bdf67bbceab87dd14b7c42e3c}{add}}([weak]}
 \DoxyCodeLine{169                 \{}
 \DoxyCodeLine{170                     \textcolor{keywordflow}{while} (\textcolor{keyword}{auto} shared = weak.lock())}
 \DoxyCodeLine{171                     \{}
@@ -234,7 +234,7 @@
 \DoxyCodeLine{230     \}}
 \DoxyCodeLine{231 }
 \DoxyCodeLine{232 \textcolor{keyword}{private}:}
-\DoxyCodeLine{233     utils::atomic\_shared\_ptr<const states::state\_interface<T>> m\_state = std::make\_shared<states::active<T>>();}
+\DoxyCodeLine{233     rpp::utils::atomic\_shared\_ptr<const states::state\_interface<T>> m\_state = std::make\_shared<states::active<T>>();}
 \DoxyCodeLine{234 \};}
 \DoxyCodeLine{235 \} \textcolor{comment}{// namespace rpp::subjects::details}}
 

@@ -21,7 +21,7 @@
 \DoxyCodeLine{17 }
 \DoxyCodeLine{18 \textcolor{keyword}{namespace }rpp::subjects::details}
 \DoxyCodeLine{19 \{}
-\DoxyCodeLine{20 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{20 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T>}
 \DoxyCodeLine{21 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1publish__strategy}{publish\_strategy}}}
 \DoxyCodeLine{22 \{}
 \DoxyCodeLine{23 \textcolor{keyword}{public}:}
@@ -29,7 +29,7 @@
 \DoxyCodeLine{25         : m\_sub\{sub\}}
 \DoxyCodeLine{26     \{}
 \DoxyCodeLine{27         std::weak\_ptr weak = m\_state;}
-\DoxyCodeLine{28         m\_sub.\mbox{\hyperlink{classrpp_1_1composite__subscription_a7fddaca7e9bfe0e7cdf23e477770fd8a}{add}}([weak]}
+\DoxyCodeLine{28         m\_sub.\mbox{\hyperlink{classrpp_1_1composite__subscription_a7ea8553bdf67bbceab87dd14b7c42e3c}{add}}([weak]}
 \DoxyCodeLine{29         \{}
 \DoxyCodeLine{30             \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} state = weak.lock())}
 \DoxyCodeLine{31                 state-\/>on\_unsubscribe();}
@@ -66,7 +66,7 @@
 \DoxyCodeLine{62 }
 \DoxyCodeLine{63 \textcolor{keyword}{namespace }rpp::subjects}
 \DoxyCodeLine{64 \{}
-\DoxyCodeLine{73 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{73 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T>}
 \DoxyCodeLine{74 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{publish\_subject}} final : \textcolor{keyword}{public} \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<T, details::publish\_strategy<T>>\{\};}
 \DoxyCodeLine{75 \} \textcolor{comment}{// namespace rpp::subjects}}
 

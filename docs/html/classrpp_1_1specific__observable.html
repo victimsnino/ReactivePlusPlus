@@ -113,9 +113,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>as_dynamic</b> () con
 <tr class="memitem:a9a84fcd45ddbf53d932ef16af2e24eab"><td class="memItemLeft" align="right" valign="top"><a id="a9a84fcd45ddbf53d932ef16af2e24eab" name="a9a84fcd45ddbf53d932ef16af2e24eab"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>as_dynamic</b> () &amp;&amp;</td></tr>
 <tr class="separator:a9a84fcd45ddbf53d932ef16af2e24eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fae249a7e75f72965dfa71e714fe8e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1specific__observable.html#a5fae249a7e75f72965dfa71e714fe8e0">subscribe</a> (const <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; Type &gt; &amp;subscriber) const override</td></tr>
-<tr class="memdesc:a5fae249a7e75f72965dfa71e714fe8e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="classrpp_1_1specific__observable.html#a5fae249a7e75f72965dfa71e714fe8e0">More...</a><br /></td></tr>
-<tr class="separator:a5fae249a7e75f72965dfa71e714fe8e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ae825f99cc81032f5b7b98217c61dc1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1specific__observable.html#a8ae825f99cc81032f5b7b98217c61dc1">subscribe</a> (const <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; Type &gt; &amp;subscriber) const final</td></tr>
+<tr class="memdesc:a8ae825f99cc81032f5b7b98217c61dc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="classrpp_1_1specific__observable.html#a8ae825f99cc81032f5b7b98217c61dc1">More...</a><br /></td></tr>
+<tr class="separator:a8ae825f99cc81032f5b7b98217c61dc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44268a9c975acf137f43cd2337717f34"><td class="memTemplParams" colspan="2">template&lt;constraint::subscriber_of_type&lt; Type &gt; TSub&gt; <br />
 requires (!constraint::decayed_same_as&lt;TSub, <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;Type&gt;&gt;)</td></tr>
 <tr class="memitem:a44268a9c975acf137f43cd2337717f34"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1specific__observable.html#a44268a9c975acf137f43cd2337717f34">subscribe</a> (TSub &amp;&amp;subscriber) const</td></tr>
@@ -218,8 +218,8 @@ requires (std::is_constructible_v&lt;<a class="el" href="classrpp_1_1dynamic__su
 
 </div>
 </div>
-<a id="a5fae249a7e75f72965dfa71e714fe8e0" name="a5fae249a7e75f72965dfa71e714fe8e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5fae249a7e75f72965dfa71e714fe8e0">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[2/5]</span></h2>
+<a id="a8ae825f99cc81032f5b7b98217c61dc1" name="a8ae825f99cc81032f5b7b98217c61dc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ae825f99cc81032f5b7b98217c61dc1">&#9670;&nbsp;</a></span>subscribe() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -239,7 +239,7 @@ template&lt;constraint::decayed_type Type, constraint::on_subscribe_fn&lt; Type 
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

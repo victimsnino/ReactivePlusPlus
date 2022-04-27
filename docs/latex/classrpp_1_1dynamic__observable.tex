@@ -24,7 +24,7 @@ Inheritance diagram for rpp\+::dynamic\+\_\+observable\texorpdfstring{$<$}{<} Ty
 \mbox{\Hypertarget{classrpp_1_1dynamic__observable_a2a2874e4fbeb7aeba94d371aceaef1de}\label{classrpp_1_1dynamic__observable_a2a2874e4fbeb7aeba94d371aceaef1de}} 
 {\bfseries dynamic\+\_\+observable} (\mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\+\_\+observable}}$<$ Type $>$ \&\&) noexcept=default
 \item 
-\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable_a07c7692532edb8c791a9154af7ca7154}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ Type $>$ \&subscriber) const override
+\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable_ae762d2c7cf948e197b26aac476ca0ed6}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ Type $>$ \&subscriber) const final
 \begin{DoxyCompactList}\small\item\em Main function of observable. Initiates subscription for provided subscriber and calls stored On\+Subscribe function. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrpp_1_1dynamic__observable_a476024a6d4d8d2b80a4cf1632eaf8309}\label{classrpp_1_1dynamic__observable_a476024a6d4d8d2b80a4cf1632eaf8309}} 
 {\footnotesize template$<$typename ... Args$>$ \newline
@@ -54,12 +54,12 @@ It uses type-\/erasure mechanism to hide type of On\+Subscribe\+Fn. But it has h
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classrpp_1_1dynamic__observable_a07c7692532edb8c791a9154af7ca7154}\label{classrpp_1_1dynamic__observable_a07c7692532edb8c791a9154af7ca7154}} 
+\mbox{\Hypertarget{classrpp_1_1dynamic__observable_ae762d2c7cf948e197b26aac476ca0ed6}\label{classrpp_1_1dynamic__observable_ae762d2c7cf948e197b26aac476ca0ed6}} 
 \index{rpp::dynamic\_observable$<$ Type $>$@{rpp::dynamic\_observable$<$ Type $>$}!subscribe@{subscribe}}
 \index{subscribe@{subscribe}!rpp::dynamic\_observable$<$ Type $>$@{rpp::dynamic\_observable$<$ Type $>$}}
 \doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
-\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable}}$<$ Type $>$\+::subscribe (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ Type $>$ \&}]{subscriber }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable}}$<$ Type $>$\+::subscribe (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ Type $>$ \&}]{subscriber }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
 
 
 

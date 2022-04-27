@@ -17,9 +17,9 @@
 \DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/subscriptions/subscription\_base.hpp>}}
 \DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/subscriptions/callback\_subscription.hpp>}}
 \DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/utils/constraints.hpp>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <algorithm>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <mutex>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/subscriptions/constraints.hpp>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <algorithm>}}
 \DoxyCodeLine{19 \textcolor{preprocessor}{\#include <vector>}}
 \DoxyCodeLine{20 }
 \DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp}
@@ -31,86 +31,128 @@
 \DoxyCodeLine{30     \textcolor{keyword}{explicit} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}(\textcolor{keyword}{const} Subs\&...subs) \textcolor{keyword}{requires} (!rpp::constraint::variadic\_is\_same\_type< composite\_subscription>)}
 \DoxyCodeLine{31         : \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}\{std::make\_shared<state>(std::vector<subscription\_base>\{subs...\})\} \{\}}
 \DoxyCodeLine{32 }
-\DoxyCodeLine{33     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\&)     = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{34     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}(\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\&\&) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{39     \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}} \mbox{\hyperlink{classrpp_1_1composite__subscription_a7fddaca7e9bfe0e7cdf23e477770fd8a}{add}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}\& sub = \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}\{\}) \textcolor{keyword}{const}}
-\DoxyCodeLine{40     \{}
-\DoxyCodeLine{41         \textcolor{keywordflow}{if} (\&sub != \textcolor{keyword}{this})}
-\DoxyCodeLine{42         \{}
-\DoxyCodeLine{43             \textcolor{keywordflow}{if} (\textcolor{keyword}{const} \textcolor{keyword}{auto} pstate = get\_state())}
-\DoxyCodeLine{44                 \textcolor{keyword}{static\_cast<}state*\textcolor{keyword}{>}(pstate)-\/>\mbox{\hyperlink{classrpp_1_1composite__subscription_a7fddaca7e9bfe0e7cdf23e477770fd8a}{add}}(sub);}
-\DoxyCodeLine{45         \}}
-\DoxyCodeLine{46         \textcolor{keywordflow}{return} sub;}
-\DoxyCodeLine{47     \}}
-\DoxyCodeLine{48 }
-\DoxyCodeLine{52     \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}} \mbox{\hyperlink{classrpp_1_1composite__subscription_a9f21fbd5c5272b2d2c06a056262fa5e2}{add}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1callback__subscription}{callback\_subscription}}\& sub)\textcolor{keyword}{ const}}
-\DoxyCodeLine{53 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{54         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1composite__subscription_a7fddaca7e9bfe0e7cdf23e477770fd8a}{add}}(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }\mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}\&\textcolor{keyword}{>}(sub));}
-\DoxyCodeLine{55     \}}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{57     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}} make\_child()\textcolor{keyword}{ const}}
-\DoxyCodeLine{58 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{59         \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}} ret\{\};}
-\DoxyCodeLine{60         \mbox{\hyperlink{classrpp_1_1composite__subscription_a7fddaca7e9bfe0e7cdf23e477770fd8a}{add}}(ret);}
-\DoxyCodeLine{61         \textcolor{keywordflow}{return} ret;}
-\DoxyCodeLine{62     \}}
-\DoxyCodeLine{63 }
-\DoxyCodeLine{64 \textcolor{keyword}{private}:}
-\DoxyCodeLine{65     \textcolor{keyword}{class }state final : \textcolor{keyword}{public} details::subscription\_state}
-\DoxyCodeLine{66     \{}
-\DoxyCodeLine{67     \textcolor{keyword}{public}:}
-\DoxyCodeLine{68         state(std::vector<subscription\_base>\&\& deps)}
-\DoxyCodeLine{69             : m\_deps\{std::move(deps)\} \{\}}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{71         \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1composite__subscription_a7fddaca7e9bfe0e7cdf23e477770fd8a}{add}}(\textcolor{keyword}{const} subscription\_base\& sub)}
-\DoxyCodeLine{72         \{}
-\DoxyCodeLine{73             \textcolor{keywordflow}{while} (\textcolor{keyword}{true})}
-\DoxyCodeLine{74             \{}
-\DoxyCodeLine{75                 DepsState expected\{DepsState::None\};}
-\DoxyCodeLine{76                 \textcolor{keywordflow}{if} (m\_state.compare\_exchange\_strong(expected, DepsState::Add))}
-\DoxyCodeLine{77                 \{}
-\DoxyCodeLine{78                     m\_deps.push\_back(sub);}
-\DoxyCodeLine{79 }
-\DoxyCodeLine{80                     m\_state.store(DepsState::None);}
-\DoxyCodeLine{81                     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{82                 \}}
-\DoxyCodeLine{83 }
-\DoxyCodeLine{84                 \textcolor{keywordflow}{if} (expected == DepsState::Unsubscribed)}
-\DoxyCodeLine{85                 \{}
-\DoxyCodeLine{86                     sub.\mbox{\hyperlink{classrpp_1_1subscription__base_af07ca7cdfb9758441c0729cbe3e6d19d}{unsubscribe}}();}
-\DoxyCodeLine{87                     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{88                 \}}
-\DoxyCodeLine{89             \}}
-\DoxyCodeLine{90         \}}
-\DoxyCodeLine{91 }
-\DoxyCodeLine{92     \textcolor{keyword}{private}:}
-\DoxyCodeLine{93         \textcolor{keywordtype}{void} on\_unsubscribe()\textcolor{keyword}{ override}}
-\DoxyCodeLine{94 \textcolor{keyword}{        }\{}
-\DoxyCodeLine{95             \textcolor{keywordflow}{while} (\textcolor{keyword}{true})}
-\DoxyCodeLine{96             \{}
-\DoxyCodeLine{97                 DepsState expected\{DepsState::None\};}
-\DoxyCodeLine{98                 \textcolor{keywordflow}{if} (m\_state.compare\_exchange\_strong(expected, DepsState::Unsubscribed))}
-\DoxyCodeLine{99                 \{}
-\DoxyCodeLine{100                     std::ranges::for\_each(m\_deps, \&\mbox{\hyperlink{classrpp_1_1subscription__base_af07ca7cdfb9758441c0729cbe3e6d19d}{subscription\_base::unsubscribe}});}
-\DoxyCodeLine{101                     m\_deps.clear();}
-\DoxyCodeLine{102                     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{103                 \}}
-\DoxyCodeLine{104             \}}
-\DoxyCodeLine{105         \}}
-\DoxyCodeLine{106 }
-\DoxyCodeLine{107     \textcolor{keyword}{private}:}
-\DoxyCodeLine{108         \textcolor{keyword}{enum class} DepsState : uint8\_t}
-\DoxyCodeLine{109         \{}
-\DoxyCodeLine{110             None,        \textcolor{comment}{//< default state}}
-\DoxyCodeLine{111             Add,         \textcolor{comment}{//< set it during adding new element into deps. After success -\/> FallBack to None}}
-\DoxyCodeLine{112             Unsubscribed \textcolor{comment}{//< permanent state after unsubscribe}}
-\DoxyCodeLine{113         \};}
-\DoxyCodeLine{114 }
-\DoxyCodeLine{115         std::atomic<DepsState>         m\_state\{DepsState::None\};}
-\DoxyCodeLine{116         std::vector<subscription\_base> m\_deps\{\};}
-\DoxyCodeLine{117     \};}
-\DoxyCodeLine{118 \};}
-\DoxyCodeLine{119 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{33     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\&)                      = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{34     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}(\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\&\&) \textcolor{keyword}{noexcept}                  = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{35     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\& operator=(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\& other)     = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{36     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\& operator=(\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\&\& other) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{41     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscription TSub = subscription\_base>}
+\DoxyCodeLine{42     TSub \mbox{\hyperlink{classrpp_1_1composite__subscription_a7ea8553bdf67bbceab87dd14b7c42e3c}{add}}(\textcolor{keyword}{const} TSub\& sub = TSub\{\}) \textcolor{keyword}{const}}
+\DoxyCodeLine{43     \{}
+\DoxyCodeLine{44         \textcolor{keywordflow}{if} (\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }\mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}} *\textcolor{keyword}{>}(\&sub) != \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }\mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}*\textcolor{keyword}{>}(\textcolor{keyword}{this}))}
+\DoxyCodeLine{45         \{}
+\DoxyCodeLine{46             \textcolor{keywordflow}{if} (\textcolor{keyword}{const} \textcolor{keyword}{auto} pstate = get\_state())}
+\DoxyCodeLine{47                 \textcolor{keyword}{static\_cast<}state*\textcolor{keyword}{>}(pstate)-\/>\mbox{\hyperlink{classrpp_1_1composite__subscription_a7ea8553bdf67bbceab87dd14b7c42e3c}{add}}(sub);}
+\DoxyCodeLine{48         \}}
+\DoxyCodeLine{49         \textcolor{keywordflow}{return} sub;}
+\DoxyCodeLine{50     \}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{55     \mbox{\hyperlink{classrpp_1_1callback__subscription}{callback\_subscription}} \mbox{\hyperlink{classrpp_1_1composite__subscription_a7cc3afb512eeb0dfaedae5b48e8a4602}{add}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1callback__subscription}{callback\_subscription}}\& sub)\textcolor{keyword}{ const}}
+\DoxyCodeLine{56 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{57         \textcolor{keywordflow}{return} add<callback\_subscription>(sub);}
+\DoxyCodeLine{58     \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}} make\_child()\textcolor{keyword}{ const}}
+\DoxyCodeLine{61 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{62         \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}} ret\{\};}
+\DoxyCodeLine{63         \mbox{\hyperlink{classrpp_1_1composite__subscription_a7ea8553bdf67bbceab87dd14b7c42e3c}{add}}(ret);}
+\DoxyCodeLine{64         \textcolor{keywordflow}{return} ret;}
+\DoxyCodeLine{65     \}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67     \textcolor{keywordtype}{void} remove(\textcolor{keyword}{const} subscription\_base\& sub)\textcolor{keyword}{ const}}
+\DoxyCodeLine{68 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{69         \textcolor{keywordflow}{if} (\textcolor{keyword}{const} \textcolor{keyword}{auto} pstate = get\_state())}
+\DoxyCodeLine{70             \textcolor{keyword}{static\_cast<}state*\textcolor{keyword}{>}(pstate)-\/>remove(sub);}
+\DoxyCodeLine{71     \}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73     \textcolor{keywordtype}{bool} is\_empty()\textcolor{keyword}{ const}}
+\DoxyCodeLine{74 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{75         \textcolor{keywordflow}{return} !get\_state();}
+\DoxyCodeLine{76     \}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78     \textcolor{keyword}{static} composite\_subscription empty()}
+\DoxyCodeLine{79     \{}
+\DoxyCodeLine{80         \textcolor{keywordflow}{return} composite\_subscription\{empty\_tag\{\}\};}
+\DoxyCodeLine{81     \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 \textcolor{keyword}{private}:}
+\DoxyCodeLine{84     \textcolor{keyword}{struct }empty\_tag\{\};}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86     composite\_subscription(\textcolor{keyword}{const} empty\_tag\&)}
+\DoxyCodeLine{87         : subscription\_base\{std::shared\_ptr<details::subscription\_state>\{\}\} \{\}}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89     \textcolor{keyword}{class }state final : \textcolor{keyword}{public} details::subscription\_state}
+\DoxyCodeLine{90     \{}
+\DoxyCodeLine{91     \textcolor{keyword}{public}:}
+\DoxyCodeLine{92         state(std::vector<subscription\_base>\&\& deps)}
+\DoxyCodeLine{93             : m\_deps\{std::move(deps)\} \{\}}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95         \textcolor{keywordtype}{void} add(\textcolor{keyword}{const} subscription\_base\& sub)}
+\DoxyCodeLine{96         \{}
+\DoxyCodeLine{97             \textcolor{keywordflow}{while} (\textcolor{keyword}{true})}
+\DoxyCodeLine{98             \{}
+\DoxyCodeLine{99                 DepsState expected\{DepsState::None\};}
+\DoxyCodeLine{100                 \textcolor{keywordflow}{if} (m\_state.compare\_exchange\_strong(expected, DepsState::Edit))}
+\DoxyCodeLine{101                 \{}
+\DoxyCodeLine{102                     m\_deps.push\_back(sub);}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104                     m\_state.store(DepsState::None);}
+\DoxyCodeLine{105                     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{106                 \}}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108                 \textcolor{keywordflow}{if} (expected == DepsState::Unsubscribed)}
+\DoxyCodeLine{109                 \{}
+\DoxyCodeLine{110                     sub.unsubscribe();}
+\DoxyCodeLine{111                     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{112                 \}}
+\DoxyCodeLine{113             \}}
+\DoxyCodeLine{114         \}}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116         \textcolor{keywordtype}{void} remove(\textcolor{keyword}{const} subscription\_base\& sub)}
+\DoxyCodeLine{117         \{}
+\DoxyCodeLine{118             \textcolor{keywordflow}{while} (\textcolor{keyword}{true})}
+\DoxyCodeLine{119             \{}
+\DoxyCodeLine{120                 DepsState expected\{ DepsState::None \};}
+\DoxyCodeLine{121                 \textcolor{keywordflow}{if} (m\_state.compare\_exchange\_strong(expected, DepsState::Edit))}
+\DoxyCodeLine{122                 \{}
+\DoxyCodeLine{123                     std::erase(m\_deps, sub);}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{125                     m\_state.store(DepsState::None);}
+\DoxyCodeLine{126                     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{127                 \}}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129                 \textcolor{keywordflow}{if} (expected == DepsState::Unsubscribed)}
+\DoxyCodeLine{130                     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{131             \}}
+\DoxyCodeLine{132         \}}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134     \textcolor{keyword}{private}:}
+\DoxyCodeLine{135         \textcolor{keywordtype}{void} on\_unsubscribe()\textcolor{keyword}{ override}}
+\DoxyCodeLine{136 \textcolor{keyword}{        }\{}
+\DoxyCodeLine{137             \textcolor{keywordflow}{while} (\textcolor{keyword}{true})}
+\DoxyCodeLine{138             \{}
+\DoxyCodeLine{139                 DepsState expected\{DepsState::None\};}
+\DoxyCodeLine{140                 \textcolor{keywordflow}{if} (m\_state.compare\_exchange\_strong(expected, DepsState::Unsubscribed))}
+\DoxyCodeLine{141                 \{}
+\DoxyCodeLine{142                     std::ranges::for\_each(m\_deps, \&\mbox{\hyperlink{classrpp_1_1subscription__base_af07ca7cdfb9758441c0729cbe3e6d19d}{subscription\_base::unsubscribe}});}
+\DoxyCodeLine{143                     m\_deps.clear();}
+\DoxyCodeLine{144                     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{145                 \}}
+\DoxyCodeLine{146             \}}
+\DoxyCodeLine{147         \}}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{149     \textcolor{keyword}{private}:}
+\DoxyCodeLine{150         \textcolor{keyword}{enum class} DepsState : uint8\_t}
+\DoxyCodeLine{151         \{}
+\DoxyCodeLine{152             None,        \textcolor{comment}{//< default state}}
+\DoxyCodeLine{153             Edit,        \textcolor{comment}{//< set it during adding new element into deps or removing. After success -\/> FallBack to None}}
+\DoxyCodeLine{154             Unsubscribed \textcolor{comment}{//< permanent state after unsubscribe}}
+\DoxyCodeLine{155         \};}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{157         std::atomic<DepsState>         m\_state\{DepsState::None\};}
+\DoxyCodeLine{158         std::vector<subscription\_base> m\_deps\{\};}
+\DoxyCodeLine{159     \};}
+\DoxyCodeLine{160 \};}
+\DoxyCodeLine{161 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

@@ -70,7 +70,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classrpp_1_1dynamic__observable-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::dynamic_observable&lt; Type &gt; Class Template Reference<span class="mlabels"><span class="mlabel">final</span></span><div class="ingroups"><a class="el" href="group__observables.html">Observables</a></div></div></div>
+  <div class="headertitle"><div class="title">rpp::dynamic_observable&lt; Type &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__observables.html">Observables</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -104,9 +104,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2a2874e4fbeb7aeba94d371aceaef1de"><td class="memItemLeft" align="right" valign="top"><a id="a2a2874e4fbeb7aeba94d371aceaef1de" name="a2a2874e4fbeb7aeba94d371aceaef1de"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>dynamic_observable</b> (<a class="el" href="classrpp_1_1dynamic__observable.html">dynamic_observable</a>&lt; Type &gt; &amp;&amp;) noexcept=default</td></tr>
 <tr class="separator:a2a2874e4fbeb7aeba94d371aceaef1de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07c7692532edb8c791a9154af7ca7154"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1dynamic__observable.html#a07c7692532edb8c791a9154af7ca7154">subscribe</a> (const <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; Type &gt; &amp;subscriber) const override</td></tr>
-<tr class="memdesc:a07c7692532edb8c791a9154af7ca7154"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="classrpp_1_1dynamic__observable.html#a07c7692532edb8c791a9154af7ca7154">More...</a><br /></td></tr>
-<tr class="separator:a07c7692532edb8c791a9154af7ca7154"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae762d2c7cf948e197b26aac476ca0ed6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1dynamic__observable.html#ae762d2c7cf948e197b26aac476ca0ed6">subscribe</a> (const <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; Type &gt; &amp;subscriber) const final</td></tr>
+<tr class="memdesc:ae762d2c7cf948e197b26aac476ca0ed6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="classrpp_1_1dynamic__observable.html#ae762d2c7cf948e197b26aac476ca0ed6">More...</a><br /></td></tr>
+<tr class="separator:ae762d2c7cf948e197b26aac476ca0ed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a476024a6d4d8d2b80a4cf1632eaf8309"><td class="memTemplParams" colspan="2"><a id="a476024a6d4d8d2b80a4cf1632eaf8309" name="a476024a6d4d8d2b80a4cf1632eaf8309"></a>
 template&lt;typename ... Args&gt; <br />
 requires (std::is_constructible_v&lt;<a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;Type&gt;, Args...&gt; &amp;&amp; !constraint::variadic_is_same_type&lt;<a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt;Type&gt;, Args...&gt;)</td></tr>
@@ -171,8 +171,8 @@ class rpp::dynamic_observable&lt; Type &gt;</div><p >type-erased alternative of 
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a07c7692532edb8c791a9154af7ca7154" name="a07c7692532edb8c791a9154af7ca7154"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07c7692532edb8c791a9154af7ca7154">&#9670;&nbsp;</a></span>subscribe()</h2>
+<a id="ae762d2c7cf948e197b26aac476ca0ed6" name="ae762d2c7cf948e197b26aac476ca0ed6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae762d2c7cf948e197b26aac476ca0ed6">&#9670;&nbsp;</a></span>subscribe()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -192,7 +192,7 @@ template&lt;constraint::decayed_type Type&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

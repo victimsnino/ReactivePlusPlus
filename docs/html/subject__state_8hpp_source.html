@@ -91,7 +91,7 @@ $(function() {
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span>rpp::subjects::details::states</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="structrpp_1_1subjects_1_1details_1_1states_1_1state__interface.html">   24</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1subjects_1_1details_1_1states_1_1state__interface.html">state_interface</a> : <span class="keyword">public</span> std::enable_shared_from_this&lt;state_interface&lt;T&gt;&gt;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_struct" href="structrpp_1_1subjects_1_1details_1_1states_1_1state__interface.html">state_interface</a>() = <span class="keywordflow">default</span>;</div>
@@ -107,7 +107,7 @@ $(function() {
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> on_completed()<span class="keyword"> const </span>{}</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>};</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="classrpp_1_1subjects_1_1details_1_1states_1_1error.html">   40</a></span><span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1subjects_1_1details_1_1states_1_1error.html">error</a> final : <span class="keyword">public</span> <a class="code hl_struct" href="structrpp_1_1subjects_1_1details_1_1states_1_1state__interface.html">state_interface</a>&lt;T&gt;</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>{</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">public</span>:</div>
@@ -124,7 +124,7 @@ $(function() {
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">const</span> std::exception_ptr m_err;</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="structrpp_1_1subjects_1_1details_1_1states_1_1completed.html">   57</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1subjects_1_1details_1_1states_1_1completed.html">completed</a> final : <span class="keyword">public</span> <a class="code hl_struct" href="structrpp_1_1subjects_1_1details_1_1states_1_1state__interface.html">state_interface</a>&lt;T&gt;</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    std::shared_ptr&lt;const state_interface&lt;T&gt;&gt; on_subscribe(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber&lt;T&gt;</a>&amp; sub)<span class="keyword"> const override</span></div>
@@ -140,7 +140,7 @@ $(function() {
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>};</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="structrpp_1_1subjects_1_1details_1_1states_1_1unsubscribed.html">   73</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1subjects_1_1details_1_1states_1_1unsubscribed.html">unsubscribed</a> final : <span class="keyword">public</span> <a class="code hl_struct" href="structrpp_1_1subjects_1_1details_1_1states_1_1state__interface.html">state_interface</a>&lt;T&gt;</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>{</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    std::shared_ptr&lt;const state_interface&lt;T&gt;&gt; on_subscribe(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber&lt;T&gt;</a>&amp; sub)<span class="keyword"> const override</span></div>
@@ -156,7 +156,7 @@ $(function() {
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    }</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>};</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="classrpp_1_1subjects_1_1details_1_1states_1_1active.html">   89</a></span><span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1subjects_1_1details_1_1states_1_1active.html">active</a> final : <span class="keyword">public</span> <a class="code hl_struct" href="structrpp_1_1subjects_1_1details_1_1states_1_1state__interface.html">state_interface</a>&lt;T&gt;</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>{</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keyword">public</span>:</div>
@@ -216,7 +216,7 @@ $(function() {
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="keyword">namespace </span>rpp::subjects::details</div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>{</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="classrpp_1_1subjects_1_1details_1_1subject__state.html">  149</a></span><span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1subjects_1_1details_1_1subject__state.html">subject_state</a> : <span class="keyword">public</span> std::enable_shared_from_this&lt;subject_state&lt;T&gt;&gt;</div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>{</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="keyword">public</span>:</div>
@@ -236,7 +236,7 @@ $(function() {
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            <span class="keywordflow">if</span> (std::atomic_compare_exchange_strong(&amp;m_state, &amp;current_state, new_state))</div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            {</div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                <span class="keyword">auto</span> weak = this-&gt;weak_from_this();</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                <a class="code hl_class" href="classrpp_1_1dynamic__subscriber.html">subscriber</a>.get_subscription().<a class="code hl_function" href="classrpp_1_1composite__subscription.html#a7fddaca7e9bfe0e7cdf23e477770fd8a">add</a>([weak]</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                <a class="code hl_class" href="classrpp_1_1dynamic__subscriber.html">subscriber</a>.get_subscription().<a class="code hl_function" href="classrpp_1_1composite__subscription.html#a7ea8553bdf67bbceab87dd14b7c42e3c">add</a>([weak]</div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>                {</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                    <span class="keywordflow">while</span> (<span class="keyword">auto</span> shared = weak.lock())</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>                    {</div>
@@ -301,10 +301,10 @@ $(function() {
 <div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    }</div>
 <div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
 <div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    utils::atomic_shared_ptr&lt;const states::state_interface&lt;T&gt;&gt; m_state = std::make_shared&lt;states::active&lt;T&gt;&gt;();</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    rpp::utils::atomic_shared_ptr&lt;const states::state_interface&lt;T&gt;&gt; m_state = std::make_shared&lt;states::active&lt;T&gt;&gt;();</div>
 <div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>};</div>
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>} <span class="comment">// namespace rpp::subjects::details</span></div>
-<div class="ttc" id="aclassrpp_1_1composite__subscription_html_a7fddaca7e9bfe0e7cdf23e477770fd8a"><div class="ttname"><a href="classrpp_1_1composite__subscription.html#a7fddaca7e9bfe0e7cdf23e477770fd8a">rpp::composite_subscription::add</a></div><div class="ttdeci">subscription_base add(const subscription_base &amp;sub=subscription_base{}) const</div><div class="ttdoc">Add any other subscription to this as dependent.</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:39</div></div>
+<div class="ttc" id="aclassrpp_1_1composite__subscription_html_a7ea8553bdf67bbceab87dd14b7c42e3c"><div class="ttname"><a href="classrpp_1_1composite__subscription.html#a7ea8553bdf67bbceab87dd14b7c42e3c">rpp::composite_subscription::add</a></div><div class="ttdeci">TSub add(const TSub &amp;sub=TSub{}) const</div><div class="ttdoc">Add any other subscription to this as dependent.</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:42</div></div>
 <div class="ttc" id="aclassrpp_1_1details_1_1subscriber__base_html_a85ef4e79f7f9d82d5899dc2524a7289a"><div class="ttname"><a href="classrpp_1_1details_1_1subscriber__base.html#a85ef4e79f7f9d82d5899dc2524a7289a">rpp::details::subscriber_base::on_completed</a></div><div class="ttdeci">void on_completed() const final</div><div class="ttdoc">Observable calls this method to notify observer about finish of work.</div><div class="ttdef"><b>Definition:</b> subscriber_base.hpp:79</div></div>
 <div class="ttc" id="aclassrpp_1_1details_1_1subscriber__base_html_ae9532294156f8acf86d1cf39d4c1cc15"><div class="ttname"><a href="classrpp_1_1details_1_1subscriber__base.html#ae9532294156f8acf86d1cf39d4c1cc15">rpp::details::subscriber_base::on_error</a></div><div class="ttdeci">void on_error(const std::exception_ptr &amp;err) const final</div><div class="ttdoc">Observable calls this method to notify observer about some error during generation next data.</div><div class="ttdef"><b>Definition:</b> subscriber_base.hpp:70</div></div>
 <div class="ttc" id="aclassrpp_1_1dynamic__subscriber_html"><div class="ttname"><a href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber</a></div><div class="ttdoc">subscriber which uses dynamic_observer&lt;T&gt; to hide original callbacks</div><div class="ttdef"><b>Definition:</b> dynamic_subscriber.hpp:24</div></div>
