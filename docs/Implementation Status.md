@@ -4,6 +4,8 @@
 - [x] Observables
   - [x] Specific Observable
   - [x] Dynamic Observable
+  - [x] Blocking Observable
+  - [x] Connectable Observable
 - [x] Observers
   - [x] Specific Observer
   - [x] Dynamic Observer
