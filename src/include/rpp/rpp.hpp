@@ -16,3 +16,4 @@
 #include <rpp/schedulers.hpp>
 #include <rpp/sources.hpp>
 #include <rpp/subscribers.hpp>
+#include <rpp/subjects.hpp>
