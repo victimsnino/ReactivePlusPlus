@@ -431,6 +431,19 @@ SCENARIO("connectable observable")
                     CHECK(sub_connectable.is_subscribed() == false);
                 }
             }
+            AND_WHEN("call connect multiple times")
+            {
+                auto sub_connectable = connectable.connect();
+                connectable.connect();
+                THEN("observer obtains values")
+                {
+                    CHECK(mock.get_received_values() == std::vector{ 1 });
+                    CHECK(mock.get_on_error_count() == 0);
+                    CHECK(mock.get_on_completed_count() == 1);
+                    CHECK(sub.is_subscribed() == false);
+                    CHECK(sub_connectable.is_subscribed() == false);
+                }
+            }
         }
         WHEN("subscribe on connecatble via map and connect")
         {
