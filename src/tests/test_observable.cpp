@@ -20,6 +20,7 @@
 #include <rpp/subscribers.hpp>
 #include <rpp/subjects.hpp>
 #include <rpp/observables/dynamic_observable.hpp>
+#include <rpp/operators/map.hpp>
 
 #include <array>
 #include <future>
@@ -423,12 +424,25 @@ SCENARIO("connectable observable")
                 auto sub_connectable = connectable.connect();
                 THEN("observer obtains values")
                 {
-                    CHECK(mock.get_total_on_next_count() == 1);
+                    CHECK(mock.get_received_values() == std::vector{ 1 });
                     CHECK(mock.get_on_error_count() == 0);
                     CHECK(mock.get_on_completed_count() == 1);
                     CHECK(sub.is_subscribed() == false);
                     CHECK(sub_connectable.is_subscribed() == false);
                 }
+            }
+        }
+        WHEN("subscribe on connecatble via map and connect")
+        {
+            auto sub = connectable.map([](int val) {return val * 10; }).subscribe(mock);
+            auto sub_connectable = connectable.connect();
+            THEN("observer obtains modified values")
+            {
+                CHECK(mock.get_received_values() == std::vector{10});
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+                CHECK(sub.is_subscribed() == false);
+                CHECK(sub_connectable.is_subscribed() == false);
             }
         }
     }
