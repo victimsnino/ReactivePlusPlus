@@ -98,13 +98,20 @@ Why ReactivePlusPlus?</h1>
 <li><b>ReactivePlusPlus</b> is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks show that RPP faster that RxCPP in most cases: <a href="https://victimsnino.github.io/ReactivePlusPlus/benchmark">Continous benchmarking results</a></li>
 </ul>
 <h1><a class="anchor" id="autotoc_md3"></a>
+Usage</h1>
+<p >To use ReactivePlusPlus just add it as submodule/place folder and add to project via CMake's <code>add_subfolder</code>.</p>
+<p >In source files add </p><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/rpp.hpp&gt;</span></div>
+</div><!-- fragment --><p> or include each required part separately in any way </p><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/observables/specific_observable.hpp&gt;</span> <span class="comment">// include specific class implementation</span></div>
+<div class="line"><span class="preprocessor">#include &lt;rpp/observers.hpp&gt;</span>                       <span class="comment">// include family of classes/functions</span></div>
+<div class="line"><span class="preprocessor">#include &lt;rpp/operators/fwd.h&gt;</span>                     <span class="comment">// include forwarding of family of classes/functions</span></div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md4"></a>
 Useful links</h1>
 <ul>
 <li><a href="https://github.com/victimsnino/ReactivePlusPlus/tree/main/docs/Readme.md">Docs</a></li>
 <li><a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html">Doxygen documentation</a></li>
 <li><a href="https://victimsnino.github.io/ReactivePlusPlus/benchmark">Continous benchmarking results, comparison of <code>dynamic</code> and <code>specific</code> and comparison with RxCpp</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md5"></a>
 Credits:</h1>
 <p >ReactivePlusPlus library uses:</p><ul>
 <li><a href="https://github.com/catchorg/Catch2">Catch2</a> for unit testing only, you can avoid cloning it if you don't need unit-tests</li>

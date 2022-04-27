@@ -39,13 +39,28 @@ Another implementation of RX for c++\+: \href{https://github.com/CODIANZ/another
 \end{DoxyItemize}
 \item {\bfseries{Reactive\+Plus\+Plus}} keeps balance between performance and type-\/erasing mechanism\+: Read about it in ./docs/\+Specific\%20vs\%20\+Dynamic.\+md \char`\"{}$\ast$$\ast$\char`\"{}Performance vs Flexibility\+: Specific vs Dynamic\char`\"{}$\ast$$\ast$\char`\"{}
 \item {\bfseries{Reactive\+Plus\+Plus}} is fast\+: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks show that RPP faster that Rx\+CPP in most cases\+: \href{https://victimsnino.github.io/ReactivePlusPlus/benchmark}{\texttt{ Continous benchmarking results}}
-\end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysection{Useful links}\label{index_autotoc_md3}
+\end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysection{Usage}\label{index_autotoc_md3}
+To use Reactive\+Plus\+Plus just add it as submodule/place folder and add to project via CMake\textquotesingle{}s {\ttfamily add\+\_\+subfolder}.
+
+In source files add 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
+
+\end{DoxyCode}
+ or include each required part separately in any way 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/observables/specific\_observable.hpp>} \textcolor{comment}{// include specific class implementation}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/observers.hpp>}                       \textcolor{comment}{// include family of classes/functions}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/operators/fwd.h>}                     \textcolor{comment}{// include forwarding of family of classes/functions}}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md4}{}\doxysection{Useful links}\label{index_autotoc_md4}
 
 \begin{DoxyItemize}
 \item \href{https://github.com/victimsnino/ReactivePlusPlus/tree/main/docs/Readme.md}{\texttt{ Docs}}
 \item \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html}{\texttt{ Doxygen documentation}}
 \item \href{https://victimsnino.github.io/ReactivePlusPlus/benchmark}{\texttt{ Continous benchmarking results, comparison of {\ttfamily dynamic} and {\ttfamily specific} and comparison with Rx\+Cpp}}
-\end{DoxyItemize}\hypertarget{index_autotoc_md4}{}\doxysection{Credits\+:}\label{index_autotoc_md4}
+\end{DoxyItemize}\hypertarget{index_autotoc_md5}{}\doxysection{Credits\+:}\label{index_autotoc_md5}
 Reactive\+Plus\+Plus library uses\+:
 \begin{DoxyItemize}
 \item \href{https://github.com/catchorg/Catch2}{\texttt{ Catch2}} for unit testing only, you can avoid cloning it if you don\textquotesingle{}t need unit-\/tests
