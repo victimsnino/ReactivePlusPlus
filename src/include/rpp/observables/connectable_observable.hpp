@@ -36,7 +36,8 @@ public:
 
     composite_subscription connect(const composite_subscription& subscription = composite_subscription{}) const
     {
-        auto subscriber = m_subject.get_subscriber();
+        auto subscriber              = m_subject.get_subscriber();
+        auto subscriber_subscription = subscriber.get_subscription();
 
         {
             std::lock_guard lock(m_state->mutex);
@@ -44,20 +45,25 @@ public:
             if (!m_state->sub.is_empty())
                 return subscription;
 
-            m_state->sub = subscriber.get_subscription().add(subscription);
+            m_state->sub = subscriber_subscription.add(subscription);
         }
 
-        m_original_observable.subscribe(m_state->sub, subscriber.get_observer());
         std::weak_ptr weak = m_state;
-        subscription.add([weak]
+        subscription.add([weak, subscriber_subscription]
         {
             if (auto state = weak.lock())
             {
-                std::lock_guard lock(state->mutex);
-                state->sub.unsubscribe();
-                state->sub = composite_subscription::empty();
+                auto current_sub = composite_subscription::empty();
+                {
+                    std::lock_guard lock(state->mutex);
+                    std::swap(current_sub, state->sub);
+                }
+                current_sub.unsubscribe();
+                subscriber_subscription.remove(current_sub);
             }
         });
+
+        m_original_observable.subscribe(m_state->sub, subscriber.get_observer());
 
         return subscription;
     }

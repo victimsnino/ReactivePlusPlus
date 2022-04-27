@@ -31,6 +31,11 @@ public:
     subscription_base()
         : m_state{std::make_shared<details::subscription_state>()} {}
 
+    bool operator==(const subscription_base& rhs) const
+    {
+        return m_state == rhs.m_state;
+    }
+    
     virtual ~subscription_base() = default;
 
     static subscription_base empty() { return subscription_base{ nullptr }; }

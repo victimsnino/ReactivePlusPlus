@@ -65,6 +65,12 @@ public:
         return ret;
     }
 
+    void remove(const subscription_base& sub) const
+    {
+        if (const auto pstate = get_state())
+            static_cast<state*>(pstate)->remove(sub);
+    }
+
     bool is_empty() const
     {
         return !get_state();
@@ -92,7 +98,7 @@ private:
             while (true)
             {
                 DepsState expected{DepsState::None};
-                if (m_state.compare_exchange_strong(expected, DepsState::Add))
+                if (m_state.compare_exchange_strong(expected, DepsState::Edit))
                 {
                     m_deps.push_back(sub);
 
@@ -105,6 +111,25 @@ private:
                     sub.unsubscribe();
                     return;
                 }
+            }
+        }
+
+        void remove(const subscription_base& sub)
+        {
+            while (true)
+            {
+                DepsState expected{ DepsState::None };
+                if (m_state.compare_exchange_strong(expected, DepsState::Edit))
+                {
+                    auto [begin, end] = std::ranges::remove(m_deps, sub);
+                    m_deps.erase(begin, end);
+
+                    m_state.store(DepsState::None);
+                    return;
+                }
+
+                if (expected == DepsState::Unsubscribed)
+                    return;
             }
         }
 
@@ -127,7 +152,7 @@ private:
         enum class DepsState : uint8_t
         {
             None,        //< default state
-            Add,         //< set it during adding new element into deps. After success -> FallBack to None
+            Edit,        //< set it during adding new element into deps or removing. After success -> FallBack to None
             Unsubscribed //< permanent state after unsubscribe
         };
 
