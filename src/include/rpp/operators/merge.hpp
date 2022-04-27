@@ -54,12 +54,7 @@ auto create_proxy_subscriber(constraint::subscriber auto&&   subscriber,
     ++(state->count_of_on_completed);
 
     auto subscription = subscriber.get_subscription();
-    auto child_sub    = subscription.make_child();
-    child_sub.add([subscription, child_sub]
-    {
-        subscription.remove(child_sub);
-    });
-    return create_subscriber_with_state<Type>(std::move(child_sub),
+    return create_subscriber_with_state<Type>(subscription.make_child(),
                                               std::forward<decltype(subscriber)>(subscriber),
                                               std::forward<decltype(on_next)>(on_next),
                                               std::forward<decltype(on_error)>(on_error),
