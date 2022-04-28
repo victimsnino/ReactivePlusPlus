@@ -17,7 +17,7 @@
 namespace rpp::subjects::constraint
 {
 template<typename T>
-concept subject = std::derived_from<T, details::subject_tag>;
+concept subject = std::derived_from<std::decay_t<T>, details::subject_tag>;
 
 template<typename T, typename Type>
 concept subject_of_type = subject<T> && std::same_as<utils::extract_subject_type_t<T>, Type>;
