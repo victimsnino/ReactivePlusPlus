@@ -15,7 +15,7 @@ auto observe_on(TScheduler&& scheduler) requires details::is_header_included<det
 {
     return [scheduler = std::forward<TScheduler>(scheduler)]<constraint::observable TObservable>(TObservable && observable)
     {
-        return observable.observe_on(scheduler);
+        return std::forward<TObservable>(observable).observe_on(scheduler);
     };
 }
 } // namespace rpp::operators

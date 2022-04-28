@@ -24,7 +24,7 @@ auto take_while(Predicate&& predicate) requires details::is_header_included<deta
 {
     return [predicate = std::forward<Predicate>(predicate)]<constraint::observable TObservable>(TObservable && observable)
     {
-        return observable.take_while(predicate);
+        return std::forward<TObservable>(observable).take_while(predicate);
     };
 }
 } // namespace rpp::operators

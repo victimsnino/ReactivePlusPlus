@@ -28,7 +28,7 @@ auto take(size_t count) requires details::is_header_included<details::take_tag, 
 {
     return [count]<constraint::observable TObservable>(TObservable&& observable)
     {
-        return observable.take(count);
+        return std::forward<TObservable>(observable).take(count);
     };
 }
 } // namespace rpp::operators
