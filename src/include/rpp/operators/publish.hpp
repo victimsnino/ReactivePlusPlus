@@ -2,7 +2,8 @@
 
 #include <rpp/observables/constraints.hpp>
 #include <rpp/operators/fwd/publish.hpp>
-#include <rpp/observables/connectable_observable.hpp>
+#include <rpp/operators/multicast.hpp>
+
 IMPLEMENTATION_FILE(publish_tag);
 
 namespace rpp::operators
@@ -23,6 +24,6 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 template<constraint::decayed_same_as<SpecificObservable> TThis>
 auto member_overload<Type, SpecificObservable, publish_tag>::publish_impl(TThis&& observable)
 {
-    return connectable_observable<Type, rpp::subjects::publish_subject<Type>, SpecificObservable>{std::forward<TThis>(observable)};
+    return std::forward<TThis>(observable).multicast(rpp::subjects::publish_subject<Type>{});
 }
 } // namespace rpp::details

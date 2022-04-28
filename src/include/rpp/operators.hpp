@@ -16,4 +16,5 @@
 #include <rpp/operators/take_while.hpp>
 #include <rpp/operators/merge.hpp>
 #include <rpp/operators/observe_on.hpp>
+#include <rpp/operators/multicast.hpp>
 #include <rpp/operators/publish.hpp>

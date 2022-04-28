@@ -10,14 +10,16 @@
 
 #pragma once
 
-#include <rpp/subjects/base_subject.hpp>
+#include <rpp/subjects/fwd.hpp>
 
-namespace rpp::subjects::utils { namespace details
-    {
-        template<typename T, typename Strategy>
-        T extract_subject_type(const subjects::details::base_subject<T, Strategy>&);
-    } // namespace details
+namespace rpp::subjects::utils
+{
+namespace details
+{
+    template<typename T, typename Strategy>
+    T extract_subject_type(const subjects::details::base_subject<T, Strategy>&);
+} // namespace details
 
-    template<typename T>
-    using extract_subject_type_t = decltype(details::extract_subject_type(std::declval<std::decay_t<T>>()));
+template<typename T>
+using extract_subject_type_t = decltype(details::extract_subject_type(std::declval<std::decay_t<T>>()));
 } // namespace rpp::subjects::utils
