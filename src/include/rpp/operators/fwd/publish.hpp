@@ -35,7 +35,7 @@ struct member_overload<Type, SpecificObservable, publish_tag>
     template<typename ...Args>
     auto publish() const& requires is_header_included<publish_tag, Args...>
     {
-        return publish_impl(static_cast<const SpecificObservable*>(this));
+        return publish_impl(*static_cast<const SpecificObservable*>(this));
     }
 
     template<typename ...Args>
