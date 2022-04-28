@@ -16,3 +16,4 @@
 #include <rpp/operators/fwd/take_while.hpp>
 #include <rpp/operators/fwd/merge.hpp>
 #include <rpp/operators/fwd/observe_on.hpp>
+#include <rpp/operators/fwd/publish.hpp>

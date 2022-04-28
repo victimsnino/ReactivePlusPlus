@@ -27,7 +27,7 @@ auto filter(Predicate&& predicate) requires details::is_header_included<details:
 {
     return [predicate = std::forward<Predicate>(predicate)]<constraint::observable TObservable>(TObservable && observable)
     {
-        return observable.filter(predicate);
+        return std::forward<TObservable>(observable).filter(predicate);
     };
 }
 } // namespace rpp::operators

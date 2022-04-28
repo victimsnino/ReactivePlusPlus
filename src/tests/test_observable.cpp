@@ -21,6 +21,7 @@
 #include <rpp/subjects.hpp>
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/operators/map.hpp>
+#include <rpp/operators/publish.hpp>
 
 #include <array>
 #include <future>
@@ -536,6 +537,18 @@ SCENARIO("connectable observable")
                         CHECK(!new_sub_connectable.is_subscribed());
                     }
                 }
+            }
+        }
+    }
+    GIVEN("observable")
+    {
+        auto source = rpp::source::just(1);
+        WHEN("call publish on it")
+        {
+            auto published = source.publish();
+            THEN("published observable is same as Connectable with publish_subject")
+            {
+                static_assert(rpp::constraint::decayed_same_as<decltype(published), rpp::connectable_observable<int, rpp::subjects::publish_subject<int>, decltype(source)>>);
             }
         }
     }

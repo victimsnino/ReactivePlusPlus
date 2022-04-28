@@ -26,7 +26,7 @@ auto map(Callable&& callable) requires details::is_header_included<details::map_
 {
     return [callable = std::forward<Callable>(callable)]<constraint::observable TObservable>(TObservable&& observable)
     {
-        return observable.map(callable);
+        return std::forward<TObservable>(observable).map(callable);
     };
 }
 } // namespace rpp::operators
