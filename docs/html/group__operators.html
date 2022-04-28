@@ -97,6 +97,11 @@ requires (is_header_included&lt;merge_tag, TObservables...&gt;&amp;&amp; sizeof.
 <tr class="memitem:gafa55b14eec1c6c40b8655e20c6edf5b2"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#gafa55b14eec1c6c40b8655e20c6edf5b2">rpp::details::member_overload&lt; Type, SpecificObservable, merge_tag &gt;::merge_with</a> (TObservables &amp;&amp;... observables) const &amp;</td></tr>
 <tr class="memdesc:gafa55b14eec1c6c40b8655e20c6edf5b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">combine submissions from current observable with other observables into one  <a href="group__operators.html#gafa55b14eec1c6c40b8655e20c6edf5b2">More...</a><br /></td></tr>
 <tr class="separator:gafa55b14eec1c6c40b8655e20c6edf5b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gade414a17091e966ce725374b631cab77"><td class="memTemplParams" colspan="2">template&lt;rpp::subjects::constraint::subject_of_type&lt; Type &gt; TSubject&gt; <br />
+requires is_header_included&lt;multicast_tag, TSubject&gt;</td></tr>
+<tr class="memitem:gade414a17091e966ce725374b631cab77"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#gade414a17091e966ce725374b631cab77">rpp::details::member_overload&lt; Type, SpecificObservable, multicast_tag &gt;::multicast</a> (TSubject &amp;&amp;subject) const &amp;</td></tr>
+<tr class="memdesc:gade414a17091e966ce725374b631cab77"><td class="mdescLeft">&#160;</td><td class="mdescRight">converts ordinary observable to Connectable Observable with help of provided subject  <a href="group__operators.html#gade414a17091e966ce725374b631cab77">More...</a><br /></td></tr>
+<tr class="separator:gade414a17091e966ce725374b631cab77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga374d453301a31f00fed7024be4327934"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler&gt; <br />
 requires is_header_included&lt;observe_on_tag, TScheduler&gt;</td></tr>
 <tr class="memitem:ga374d453301a31f00fed7024be4327934"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga374d453301a31f00fed7024be4327934">rpp::details::member_overload&lt; Type, SpecificObservable, observe_on_tag &gt;::observe_on</a> (TScheduler &amp;&amp;scheduler) const &amp;</td></tr>
@@ -320,6 +325,56 @@ requires (is_header_included&lt;merge_tag, TObservables...&gt;&amp;&amp; sizeof.
 </div><!-- fragment --> <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/merge.hpptml">https://reactivex.io/documentation/operators/merge.hpptml</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the merge operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="merge_8hpp_source.html">rpp/operators/merge.hpp</a>&gt; </dd></dl>
+
+</div>
+</div>
+<a id="gade414a17091e966ce725374b631cab77" name="gade414a17091e966ce725374b631cab77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gade414a17091e966ce725374b631cab77">&#9670;&nbsp;</a></span>multicast()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;rpp::subjects::constraint::subject_of_type&lt; Type &gt; TSubject&gt; <br />
+requires is_header_included&lt;multicast_tag, TSubject&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, multicast_tag &gt;::multicast </td>
+          <td>(</td>
+          <td class="paramtype">TSubject &amp;&amp;&#160;</td>
+          <td class="paramname"><em>subject</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>converts ordinary observable to Connectable Observable with help of provided subject </p>
+<p >Connectable observable is common observable, but actually it starts emissions of items only after call "connect", "ref_count" or any other available way. Also it uses subject to multicast values to subscribers</p>
+<div class="fragment"><div class="line">    <span class="keyword">auto</span> subject = <a class="code hl_class" href="classrpp_1_1subjects_1_1publish__subject.html">rpp::subjects::publish_subject&lt;int&gt;</a>{};</div>
+<div class="line">    <span class="keyword">auto</span> observable = <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(1, 2, 3).multicast(subject);</div>
+<div class="line">    observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#1 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#2 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    observable.connect();</div>
+<div class="line">    <span class="comment">// Output:</span></div>
+<div class="line">    <span class="comment">// #1 1</span></div>
+<div class="line">    <span class="comment">// #2 1</span></div>
+<div class="line">    <span class="comment">// #1 2</span></div>
+<div class="line">    <span class="comment">// #2 2</span></div>
+<div class="line">    <span class="comment">// #1 3</span></div>
+<div class="line">    <span class="comment">// #2 3</span></div>
+<div class="ttc" id="aclassrpp_1_1subjects_1_1publish__subject_html"><div class="ttname"><a href="classrpp_1_1subjects_1_1publish__subject.html">rpp::subjects::publish_subject</a></div><div class="ttdoc">Subject which just multicasts values to observers subscribed on it. It contains two parts: subscriber...</div><div class="ttdef"><b>Definition:</b> publish_subject.hpp:74</div></div>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/publish.html">https://reactivex.io/documentation/operators/publish.html</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the multicast operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;rpp/operators/multicast.h&gt; </dd></dl>
 
 </div>
 </div>

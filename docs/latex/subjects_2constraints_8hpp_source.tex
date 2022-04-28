@@ -21,7 +21,7 @@
 \DoxyCodeLine{17 \textcolor{keyword}{namespace }rpp::subjects::constraint}
 \DoxyCodeLine{18 \{}
 \DoxyCodeLine{19 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{20 \textcolor{keyword}{concept }subject = std::derived\_from<T, details::subject\_tag>;}
+\DoxyCodeLine{20 \textcolor{keyword}{concept }subject = std::derived\_from<std::decay\_t<T>, details::subject\_tag>;}
 \DoxyCodeLine{21 }
 \DoxyCodeLine{22 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Type>}
 \DoxyCodeLine{23 \textcolor{keyword}{concept }subject\_of\_type = subject<T> \&\& std::same\_as<utils::extract\_subject\_type\_t<T>, Type>;}

@@ -1,0 +1,35 @@
+\hypertarget{multicast_8hpp_source}{}\doxysection{multicast.\+hpp}
+\label{multicast_8hpp_source}\index{src/include/rpp/operators/multicast.hpp@{src/include/rpp/operators/multicast.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <rpp/operators/fwd/multicast.hpp>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <rpp/observables/connectable\_observable.hpp>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 IMPLEMENTATION\_FILE(multicast\_tag);}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{namespace }rpp::operators}
+\DoxyCodeLine{10 \{}
+\DoxyCodeLine{11 \textcolor{keyword}{template}<rpp::subjects::constra\textcolor{keywordtype}{int}::subject TSubject>}
+\DoxyCodeLine{12 \textcolor{keyword}{auto} multicast(TSubject\&\& subject) \textcolor{keyword}{requires} details::is\_header\_included<details::multicast\_tag, TSubject>}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14     \textcolor{keywordflow}{return} [subject = std::forward<TSubject>(subject)]<constraint::observable TObservable>(TObservable \&\& observable)}
+\DoxyCodeLine{15     \{}
+\DoxyCodeLine{16         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).multicast(subject);}
+\DoxyCodeLine{17     \};}
+\DoxyCodeLine{18 \}}
+\DoxyCodeLine{19 \} \textcolor{comment}{// namespace rpp::operators}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{24 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_same\_as<SpecificObservable> TThis, rpp::subjects::constra\textcolor{keywordtype}{int}::subject\_of\_type<Type> TSubject>}
+\DoxyCodeLine{25 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, multicast\_tag>::multicast\_impl(TThis\&\& observable, TSubject\&\& subject)}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27     \textcolor{keywordflow}{return} connectable\_observable<Type, std::decay\_t<TSubject>, SpecificObservable>\{std::forward<TThis>(observable), std::forward<TSubject>(subject)\};}
+\DoxyCodeLine{28 \}}
+\DoxyCodeLine{29 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

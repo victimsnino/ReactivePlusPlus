@@ -24,36 +24,29 @@
 \DoxyCodeLine{20 \{}
 \DoxyCodeLine{21 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1subject__tag}{subject\_tag}}\{\};}
 \DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Strategy, \textcolor{keyword}{typename} T>}
-\DoxyCodeLine{24 \textcolor{keyword}{concept }subject\_strategy = std::constructible\_from<Strategy, rpp::composite\_subscription> \&\& \textcolor{keyword}{requires}(Strategy t)}
+\DoxyCodeLine{23 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T, subject\_strategy<T> Strategy>}
+\DoxyCodeLine{24 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{base\_subject}} : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1subject__tag}{subject\_tag}}}
 \DoxyCodeLine{25 \{}
-\DoxyCodeLine{26     \{t.get\_subscriber()\} -\/> rpp::constraint::subscriber;}
-\DoxyCodeLine{27     t.on\_subscribe(std::declval<\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp::dynamic\_subscriber<T>}}>());}
-\DoxyCodeLine{28 \};}
+\DoxyCodeLine{26 \textcolor{keyword}{public}:}
+\DoxyCodeLine{27     \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{base\_subject}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\& sub = \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\{\})}
+\DoxyCodeLine{28         : m\_strategy\{sub\} \{\}}
 \DoxyCodeLine{29 }
-\DoxyCodeLine{30 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T, subject\_strategy<T> Strategy>}
-\DoxyCodeLine{31 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{base\_subject}} : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1subject__tag}{subject\_tag}}}
-\DoxyCodeLine{32 \{}
-\DoxyCodeLine{33 \textcolor{keyword}{public}:}
-\DoxyCodeLine{34     \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{base\_subject}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\& sub = \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\{\})}
-\DoxyCodeLine{35         : m\_strategy\{sub\} \{\}}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37     \textcolor{keyword}{auto} get\_subscriber()\textcolor{keyword}{ const}}
-\DoxyCodeLine{38 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{39         \textcolor{keywordflow}{return} m\_strategy.get\_subscriber();}
-\DoxyCodeLine{40     \}}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42     \textcolor{keyword}{auto} get\_observable()\textcolor{keyword}{ const}}
-\DoxyCodeLine{43 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{44         \textcolor{keywordflow}{return} source::create<T>([strategy = this-\/>m\_strategy](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{45         \{}
-\DoxyCodeLine{46             strategy.on\_subscribe(sub);}
-\DoxyCodeLine{47         \});}
-\DoxyCodeLine{48     \}}
-\DoxyCodeLine{49 }
-\DoxyCodeLine{50 \textcolor{keyword}{private}:}
-\DoxyCodeLine{51     Strategy m\_strategy\{\};}
-\DoxyCodeLine{52 \};}
-\DoxyCodeLine{53 \} \textcolor{comment}{// namespace rpp::subjects::details}}
+\DoxyCodeLine{30     \textcolor{keyword}{auto} get\_subscriber()\textcolor{keyword}{ const}}
+\DoxyCodeLine{31 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{32         \textcolor{keywordflow}{return} m\_strategy.get\_subscriber();}
+\DoxyCodeLine{33     \}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \textcolor{keyword}{auto} get\_observable()\textcolor{keyword}{ const}}
+\DoxyCodeLine{36 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{37         \textcolor{keywordflow}{return} source::create<T>([strategy = this-\/>m\_strategy](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{38         \{}
+\DoxyCodeLine{39             strategy.on\_subscribe(sub);}
+\DoxyCodeLine{40         \});}
+\DoxyCodeLine{41     \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{keyword}{private}:}
+\DoxyCodeLine{44     Strategy m\_strategy\{\};}
+\DoxyCodeLine{45 \};}
+\DoxyCodeLine{46 \} \textcolor{comment}{// namespace rpp::subjects::details}}
 
 \end{DoxyCode}
