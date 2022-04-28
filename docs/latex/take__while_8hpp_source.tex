@@ -28,7 +28,7 @@
 \DoxyCodeLine{24 \{}
 \DoxyCodeLine{25     \textcolor{keywordflow}{return} [predicate = std::forward<Predicate>(predicate)]<constraint::observable TObservable>(TObservable \&\& observable)}
 \DoxyCodeLine{26     \{}
-\DoxyCodeLine{27         \textcolor{keywordflow}{return} observable.take\_while(predicate);}
+\DoxyCodeLine{27         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).take\_while(predicate);}
 \DoxyCodeLine{28     \};}
 \DoxyCodeLine{29 \}}
 \DoxyCodeLine{30 \} \textcolor{comment}{// namespace rpp::operators}}

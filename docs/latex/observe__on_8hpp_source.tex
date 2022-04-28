@@ -19,7 +19,7 @@
 \DoxyCodeLine{15 \{}
 \DoxyCodeLine{16     \textcolor{keywordflow}{return} [scheduler = std::forward<TScheduler>(scheduler)]<constraint::observable TObservable>(TObservable \&\& observable)}
 \DoxyCodeLine{17     \{}
-\DoxyCodeLine{18         \textcolor{keywordflow}{return} observable.observe\_on(scheduler);}
+\DoxyCodeLine{18         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).observe\_on(scheduler);}
 \DoxyCodeLine{19     \};}
 \DoxyCodeLine{20 \}}
 \DoxyCodeLine{21 \} \textcolor{comment}{// namespace rpp::operators}}

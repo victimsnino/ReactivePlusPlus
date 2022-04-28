@@ -102,6 +102,11 @@ requires is_header_included&lt;observe_on_tag, TScheduler&gt;</td></tr>
 <tr class="memitem:ga374d453301a31f00fed7024be4327934"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga374d453301a31f00fed7024be4327934">rpp::details::member_overload&lt; Type, SpecificObservable, observe_on_tag &gt;::observe_on</a> (TScheduler &amp;&amp;scheduler) const &amp;</td></tr>
 <tr class="memdesc:ga374d453301a31f00fed7024be4327934"><td class="mdescLeft">&#160;</td><td class="mdescRight">transfer emissions of items to provided scheduler  <a href="group__operators.html#ga374d453301a31f00fed7024be4327934">More...</a><br /></td></tr>
 <tr class="separator:ga374d453301a31f00fed7024be4327934"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga87aa80f556399c86bafcab5f7b4a7473"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; <br />
+requires is_header_included&lt;publish_tag, Args...&gt;</td></tr>
+<tr class="memitem:ga87aa80f556399c86bafcab5f7b4a7473"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga87aa80f556399c86bafcab5f7b4a7473">rpp::details::member_overload&lt; Type, SpecificObservable, publish_tag &gt;::publish</a> () const &amp;</td></tr>
+<tr class="memdesc:ga87aa80f556399c86bafcab5f7b4a7473"><td class="mdescLeft">&#160;</td><td class="mdescRight">converts ordinary observable to Connectable Observable with help of <a class="el" href="classrpp_1_1subjects_1_1publish__subject.html" title="Subject which just multicasts values to observers subscribed on it. It contains two parts: subscriber...">rpp::subjects::publish_subject</a>  <a href="group__operators.html#ga87aa80f556399c86bafcab5f7b4a7473">More...</a><br /></td></tr>
+<tr class="separator:ga87aa80f556399c86bafcab5f7b4a7473"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; <br />
 requires is_header_included&lt;take_tag, Args...&gt;</td></tr>
 <tr class="memitem:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a> (size_t count) const &amp;</td></tr>
@@ -402,6 +407,53 @@ template&lt;details::op_fn&lt; SpecificObservable &gt; OperatorFn&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> of NewType </dd></dl>
+
+</div>
+</div>
+<a id="ga87aa80f556399c86bafcab5f7b4a7473" name="ga87aa80f556399c86bafcab5f7b4a7473"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga87aa80f556399c86bafcab5f7b4a7473">&#9670;&nbsp;</a></span>publish()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename ... Args&gt; <br />
+requires is_header_included&lt;publish_tag, Args...&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, publish_tag &gt;::publish </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>converts ordinary observable to Connectable Observable with help of <a class="el" href="classrpp_1_1subjects_1_1publish__subject.html" title="Subject which just multicasts values to observers subscribed on it. It contains two parts: subscriber...">rpp::subjects::publish_subject</a> </p>
+<p >Connectable observable is common observable, but actually it starts emissions of items only after call "connect", "ref_count" or any other available way. Also it uses subject to multicast values to subscribers</p>
+<div class="fragment"><div class="line">    <span class="keyword">auto</span> observable = <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(1,2,3).publish();</div>
+<div class="line">    observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#1 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#2 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    observable.connect();</div>
+<div class="line">    <span class="comment">// Output:</span></div>
+<div class="line">    <span class="comment">// #1 1</span></div>
+<div class="line">    <span class="comment">// #2 1</span></div>
+<div class="line">    <span class="comment">// #1 2</span></div>
+<div class="line">    <span class="comment">// #2 2</span></div>
+<div class="line">    <span class="comment">// #1 3</span></div>
+<div class="line">    <span class="comment">// #2 3</span></div>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/publish.html">https://reactivex.io/documentation/operators/publish.html</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the publish operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;rpp/operators/publish.h&gt; </dd></dl>
 
 </div>
 </div>

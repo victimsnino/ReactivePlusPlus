@@ -1,0 +1,34 @@
+\hypertarget{publish_8hpp_source}{}\doxysection{publish.\+hpp}
+\label{publish_8hpp_source}\index{src/include/rpp/operators/publish.hpp@{src/include/rpp/operators/publish.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <rpp/operators/fwd/publish.hpp>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <rpp/observables/connectable\_observable.hpp>}}
+\DoxyCodeLine{6 IMPLEMENTATION\_FILE(publish\_tag);}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{namespace }rpp::operators}
+\DoxyCodeLine{9 \{}
+\DoxyCodeLine{10 \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{11 \textcolor{keyword}{auto} publish() \textcolor{keyword}{requires} details::is\_header\_included<details::publish\_tag, Args...>}
+\DoxyCodeLine{12 \{}
+\DoxyCodeLine{13     \textcolor{keywordflow}{return} []<constraint::observable TObservable>(TObservable\&\& observable)}
+\DoxyCodeLine{14     \{}
+\DoxyCodeLine{15         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).publish();}
+\DoxyCodeLine{16     \};}
+\DoxyCodeLine{17 \}}
+\DoxyCodeLine{18 \} \textcolor{comment}{// namespace rpp::operators}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{23 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_same\_as<SpecificObservable> TThis>}
+\DoxyCodeLine{24 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, publish\_tag>::publish\_impl(TThis\&\& observable)}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26     \textcolor{keywordflow}{return} connectable\_observable<Type, rpp::subjects::publish\_subject<Type>, SpecificObservable>\{std::forward<TThis>(observable)\};}
+\DoxyCodeLine{27 \}}
+\DoxyCodeLine{28 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

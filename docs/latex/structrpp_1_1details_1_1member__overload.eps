@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 265.306122
+%%BoundingBox: 0 0 500 306.122437
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,12 +19,12 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 1.884615 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 1.633333 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 13 def
+/rows 15 def
 /cols 2 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
@@ -180,6 +180,8 @@ boxfont setfont
 (rpp::interface_observable< Type, dynamic_observable< Type > >) cw
 (rpp::interface_observable< Type, dynamic_observable< Type > >) cw
 (rpp::interface_observable< Type, dynamic_observable< Type > >) cw
+(rpp::interface_observable< Type, dynamic_observable< Type > >) cw
+(rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) cw
 (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) cw
 (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) cw
 (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) cw
@@ -197,7 +199,11 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (rpp::details::member_overload< Type, SpecificObservable, MemberTag >) 0.000000 12.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, MemberTag >) 0.000000 14.000000 box
+ (rpp::interface_observable< Type, dynamic_observable< Type > >) 1.000000 13.000000 box
+1.000000 13.000000 mark
+ (rpp::interface_observable< Type, dynamic_observable< Type > >) 1.000000 12.000000 box
+1.000000 12.000000 mark
  (rpp::interface_observable< Type, dynamic_observable< Type > >) 1.000000 11.000000 box
 1.000000 11.000000 mark
  (rpp::interface_observable< Type, dynamic_observable< Type > >) 1.000000 10.000000 box
@@ -208,7 +214,7 @@ boundx scalefactor div boundy scalefactor div scale
 1.000000 8.000000 mark
  (rpp::interface_observable< Type, dynamic_observable< Type > >) 1.000000 7.000000 box
 1.000000 7.000000 mark
- (rpp::interface_observable< Type, dynamic_observable< Type > >) 1.000000 6.000000 box
+ (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) 1.000000 6.000000 box
 1.000000 6.000000 mark
  (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) 1.000000 5.000000 box
 1.000000 5.000000 mark
@@ -226,7 +232,11 @@ boundx scalefactor div boundy scalefactor div scale
 % ----- relations -----
 
 solid
-1 0.000000 11.250000 out
+1 0.000000 13.250000 out
+solid
+0 0.000000 13.500000 hedge
+solid
+0 0.000000 12.500000 hedge
 solid
 0 0.000000 11.500000 hedge
 solid
@@ -252,4 +262,4 @@ solid
 solid
 0 0.000000 0.500000 hedge
 solid
-0.000000 12.000000 0.500000 vedge
+0.000000 14.000000 0.500000 vedge

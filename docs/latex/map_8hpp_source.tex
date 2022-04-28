@@ -30,7 +30,7 @@
 \DoxyCodeLine{26 \{}
 \DoxyCodeLine{27     \textcolor{keywordflow}{return} [callable = std::forward<Callable>(callable)]<constraint::observable TObservable>(TObservable\&\& observable)}
 \DoxyCodeLine{28     \{}
-\DoxyCodeLine{29         \textcolor{keywordflow}{return} observable.map(callable);}
+\DoxyCodeLine{29         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).map(callable);}
 \DoxyCodeLine{30     \};}
 \DoxyCodeLine{31 \}}
 \DoxyCodeLine{32 \} \textcolor{comment}{// namespace rpp::operators}}

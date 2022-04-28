@@ -31,7 +31,7 @@
 \DoxyCodeLine{27 \{}
 \DoxyCodeLine{28     \textcolor{keywordflow}{return} [predicate = std::forward<Predicate>(predicate)]<constraint::observable TObservable>(TObservable \&\& observable)}
 \DoxyCodeLine{29     \{}
-\DoxyCodeLine{30         \textcolor{keywordflow}{return} observable.filter(predicate);}
+\DoxyCodeLine{30         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).filter(predicate);}
 \DoxyCodeLine{31     \};}
 \DoxyCodeLine{32 \}}
 \DoxyCodeLine{33 \} \textcolor{comment}{// namespace rpp::operators}}
