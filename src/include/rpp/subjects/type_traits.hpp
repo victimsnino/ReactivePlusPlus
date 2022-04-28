@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <rpp/subjects/base_subject.hpp>
+#include <rpp/subjects/fwd.hpp>
 
 namespace rpp::subjects::utils
 {

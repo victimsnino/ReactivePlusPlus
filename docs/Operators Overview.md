@@ -148,3 +148,24 @@ rpp::source::just(10, 15, 20)
 // [TH2]: 15
 // [TH2]: 20
 ```
+
+## Connectable
+### multicast
+Converts common Observable to ConnectableObservable via provided subject. It means, that each submission will be multicasted to all observers subscribed till current moment + emissions will be started only after call of connect, ref_count or something like this.
+```cpp
+auto subject = rpp::subjects::publish_subject<int>{};
+auto observable = rpp::source::just(1, 2, 3).multicast(subject);
+observable.subscribe([](int v) {std::cout << "#1 " << v << std::endl; });
+observable.subscribe([](int v) {std::cout << "#2 " << v << std::endl; });
+observable.connect();
+// Output:
+// #1 1
+// #2 1
+// #1 2
+// #2 2
+// #1 3
+// #2 3
+```
+
+### publish
+Same as multicast, but it uses publish_subject by default.
