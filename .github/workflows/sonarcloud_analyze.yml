@@ -5,7 +5,7 @@ on:
     types: [completed]
 jobs:
   sonar:
-    name: SonarCloud Analyze
+    name: Analyze results
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion == 'success'
     env:
@@ -14,6 +14,8 @@ jobs:
       SONAR_SERVER_URL: "https://sonarcloud.io"
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
     steps:
+      - uses: haya14busa/action-workflow_run-status@v1
+
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -32,8 +34,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar-tool
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
 
       - name: Download and set up sonar-scanner
         env:

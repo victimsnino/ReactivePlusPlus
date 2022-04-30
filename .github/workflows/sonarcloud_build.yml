@@ -5,7 +5,7 @@ on:
       - main
     paths-ignore:
       - '**.md'
-  pull_request_target:
+  pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
     branches:
       - main
@@ -13,11 +13,9 @@ on:
       - '**.md'
 jobs:
   build:
-    name: Build
+    name: Build and Collect Data
     runs-on: ubuntu-latest
     env:
-      SONAR_SCANNER_VERSION: 4.7.0.2747 # Find the latest version in the "Linux" link on this page:
-                                        # https://sonarcloud.io/documentation/analysis/scan/sonarscanner/
       SONAR_SERVER_URL: "https://sonarcloud.io"
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
     steps:
@@ -31,8 +29,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar-tool
+          key: ${{ runner.os }}-sonar-wrapper
+          restore-keys: ${{ runner.os }}-sonar-wrapper
 
       - name: Download and set up build-wrapper
         env:
