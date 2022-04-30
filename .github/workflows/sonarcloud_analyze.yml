@@ -4,7 +4,7 @@ on:
     workflows: [SonarCloud Build]
     types: [completed]
 jobs:
-  sonar:
+  analyze_results:
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion == 'success'
     env:
@@ -22,6 +22,9 @@ jobs:
           fetch-depth: 0
           repository: ${{ github.event.workflow_run.head_repository.full_name }}
           ref: ${{ github.event.workflow_run.head_branch }}
+      
+      - name: Cmake
+        run: cmake -S . -B build -DBUILD_TESTS=1
       
       - name: Set up JDK 11
         uses: actions/setup-java@v3
