@@ -24,11 +24,9 @@ public:
     publish_strategy(const composite_subscription& sub)
         : m_sub{sub}
     {
-        std::weak_ptr weak = m_state;
-        m_sub.add([weak]
+        m_sub.add([state = m_state]
         {
-            if (auto state = weak.lock())
-                state->on_unsubscribe();
+            state->on_unsubscribe();
         });
     }
 

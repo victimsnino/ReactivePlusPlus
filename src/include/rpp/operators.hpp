@@ -18,3 +18,4 @@
 #include <rpp/operators/observe_on.hpp>
 #include <rpp/operators/multicast.hpp>
 #include <rpp/operators/publish.hpp>
+#include <rpp/operators/ref_count.hpp>
