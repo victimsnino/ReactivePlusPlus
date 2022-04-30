@@ -14,13 +14,16 @@
 #include <rpp/subjects/constraints.hpp>
 #include <rpp/subjects/type_traits.hpp>
 #include <rpp/utils/utilities.hpp>
+#include <rpp/operators/fwd/ref_count.hpp>
 
 namespace rpp
 {
 template<constraint::decayed_type                    Type,
          subjects::constraint::subject_of_type<Type> Subject,
          constraint::observable_of_type<Type>        OriginalObservable>
-class connectable_observable : public decltype(std::declval<Subject>().get_observable())
+class connectable_observable
+    : public decltype(std::declval<Subject>().get_observable())
+    , public details::member_overload<Type, connectable_observable<Type, Subject, OriginalObservable>, details::ref_count_tag>
 {
     using base = decltype(std::declval<Subject>().get_observable());
 public:
@@ -46,24 +49,20 @@ public:
                 return subscription;
 
             m_state->sub = subscriber_subscription.add(subscription);
+            m_original_observable.subscribe(m_state->sub, subscriber.get_observer());
         }
 
-        std::weak_ptr weak = m_state;
-        subscription.add([weak, subscriber_subscription]
+        subscription.add([state = m_state, subscriber_subscription]
         {
-            if (auto state = weak.lock())
+            auto current_sub = composite_subscription::empty();
             {
-                auto current_sub = composite_subscription::empty();
-                {
-                    std::lock_guard lock(state->mutex);
-                    std::swap(current_sub, state->sub);
-                }
-                current_sub.unsubscribe();
-                subscriber_subscription.remove(current_sub);
+                std::lock_guard lock(state->mutex);
+                std::swap(current_sub, state->sub);
             }
+            current_sub.unsubscribe();
+            subscriber_subscription.remove(current_sub);
         });
 
-        m_original_observable.subscribe(m_state->sub, subscriber.get_observer());
 
         return subscription;
     }
