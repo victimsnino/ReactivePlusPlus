@@ -28,46 +28,44 @@
 \DoxyCodeLine{24     \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1publish__strategy}{publish\_strategy}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\& sub)}
 \DoxyCodeLine{25         : m\_sub\{sub\}}
 \DoxyCodeLine{26     \{}
-\DoxyCodeLine{27         std::weak\_ptr weak = m\_state;}
-\DoxyCodeLine{28         m\_sub.\mbox{\hyperlink{classrpp_1_1composite__subscription_a7ea8553bdf67bbceab87dd14b7c42e3c}{add}}([weak]}
-\DoxyCodeLine{29         \{}
-\DoxyCodeLine{30             \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} state = weak.lock())}
-\DoxyCodeLine{31                 state-\/>on\_unsubscribe();}
-\DoxyCodeLine{32         \});}
-\DoxyCodeLine{33     \}}
-\DoxyCodeLine{34 }
-\DoxyCodeLine{35     \textcolor{keywordtype}{void} on\_subscribe(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<T>}}\& sub)\textcolor{keyword}{ const}}
-\DoxyCodeLine{36 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{37         m\_state-\/>on\_subscribe(sub);}
-\DoxyCodeLine{38     \}}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{40     \textcolor{keyword}{auto} get\_subscriber()\textcolor{keyword}{ const}}
-\DoxyCodeLine{41 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{42         \textcolor{keywordflow}{return} rpp::make\_specific\_subscriber<T>(m\_sub,}
-\DoxyCodeLine{43                                                 [state = m\_state](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& v)}
-\DoxyCodeLine{44                                                 \{}
-\DoxyCodeLine{45                                                     state-\/>on\_next(v);}
-\DoxyCodeLine{46                                                 \},}
-\DoxyCodeLine{47                                                 [state = m\_state](\textcolor{keyword}{const} std::exception\_ptr\& err)}
-\DoxyCodeLine{48                                                 \{}
-\DoxyCodeLine{49                                                     state-\/>on\_error(err);}
-\DoxyCodeLine{50                                                 \},}
-\DoxyCodeLine{51                                                 [state = m\_state]()}
-\DoxyCodeLine{52                                                 \{}
-\DoxyCodeLine{53                                                     state-\/>on\_completed();}
-\DoxyCodeLine{54                                                 \});}
-\DoxyCodeLine{55     \}}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{57 \textcolor{keyword}{private}:}
-\DoxyCodeLine{58     std::shared\_ptr<subject\_state<T>> m\_state = std::make\_shared<subject\_state<T>>();}
-\DoxyCodeLine{59     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}            m\_sub\{\};}
-\DoxyCodeLine{60 \};}
-\DoxyCodeLine{61 \} \textcolor{comment}{// namespace rpp::subjects::details}}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{63 \textcolor{keyword}{namespace }rpp::subjects}
-\DoxyCodeLine{64 \{}
-\DoxyCodeLine{73 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T>}
-\DoxyCodeLine{74 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{publish\_subject}} final : \textcolor{keyword}{public} \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<T, details::publish\_strategy<T>>\{\};}
-\DoxyCodeLine{75 \} \textcolor{comment}{// namespace rpp::subjects}}
+\DoxyCodeLine{27         m\_sub.\mbox{\hyperlink{classrpp_1_1composite__subscription_a7ea8553bdf67bbceab87dd14b7c42e3c}{add}}([state = m\_state]}
+\DoxyCodeLine{28         \{}
+\DoxyCodeLine{29             state-\/>on\_unsubscribe();}
+\DoxyCodeLine{30         \});}
+\DoxyCodeLine{31     \}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \textcolor{keywordtype}{void} on\_subscribe(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<T>}}\& sub)\textcolor{keyword}{ const}}
+\DoxyCodeLine{34 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{35         m\_state-\/>on\_subscribe(sub);}
+\DoxyCodeLine{36     \}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38     \textcolor{keyword}{auto} get\_subscriber()\textcolor{keyword}{ const}}
+\DoxyCodeLine{39 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{40         \textcolor{keywordflow}{return} rpp::make\_specific\_subscriber<T>(m\_sub,}
+\DoxyCodeLine{41                                                 [state = m\_state](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& v)}
+\DoxyCodeLine{42                                                 \{}
+\DoxyCodeLine{43                                                     state-\/>on\_next(v);}
+\DoxyCodeLine{44                                                 \},}
+\DoxyCodeLine{45                                                 [state = m\_state](\textcolor{keyword}{const} std::exception\_ptr\& err)}
+\DoxyCodeLine{46                                                 \{}
+\DoxyCodeLine{47                                                     state-\/>on\_error(err);}
+\DoxyCodeLine{48                                                 \},}
+\DoxyCodeLine{49                                                 [state = m\_state]()}
+\DoxyCodeLine{50                                                 \{}
+\DoxyCodeLine{51                                                     state-\/>on\_completed();}
+\DoxyCodeLine{52                                                 \});}
+\DoxyCodeLine{53     \}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55 \textcolor{keyword}{private}:}
+\DoxyCodeLine{56     std::shared\_ptr<subject\_state<T>> m\_state = std::make\_shared<subject\_state<T>>();}
+\DoxyCodeLine{57     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}            m\_sub\{\};}
+\DoxyCodeLine{58 \};}
+\DoxyCodeLine{59 \} \textcolor{comment}{// namespace rpp::subjects::details}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{keyword}{namespace }rpp::subjects}
+\DoxyCodeLine{62 \{}
+\DoxyCodeLine{71 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{72 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{publish\_subject}} final : \textcolor{keyword}{public} \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<T, details::publish\_strategy<T>>\{\};}
+\DoxyCodeLine{73 \} \textcolor{comment}{// namespace rpp::subjects}}
 
 \end{DoxyCode}

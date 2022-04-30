@@ -31,6 +31,9 @@ requires is\+\_\+header\+\_\+included$<$observe\+\_\+on\+\_\+tag, TScheduler$>$}
 {\footnotesize template$<$typename ... Args$>$ \newline
 requires is\+\_\+header\+\_\+included$<$publish\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__operators_ga87aa80f556399c86bafcab5f7b4a7473}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, publish\+\_\+tag $>$\+::publish}} () const \&
 \begin{DoxyCompactList}\small\item\em converts ordinary observable to Connectable Observable with help of \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp\+::subjects\+::publish\+\_\+subject}} \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$ref\+\_\+count\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__operators_gac1991f003be32f5432ecb084be506c15}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, ref\+\_\+count\+\_\+tag $>$\+::ref\+\_\+count}} () const \&
+\begin{DoxyCompactList}\small\item\em Forces connectable observable to behave like common observable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename... Args$>$ \newline
 requires is\+\_\+header\+\_\+included$<$take\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__operators_ga0dcb41decfa8d5ded95f828a7e65ffee}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, take\+\_\+tag $>$\+::take}} (size\+\_\+t count) const \&
 \begin{DoxyCompactList}\small\item\em emit only first Count items provided by observable \end{DoxyCompactList}\item 
@@ -362,6 +365,48 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
 \#include \texorpdfstring{$<$}{<}rpp/operators/publish.\+h\texorpdfstring{$>$}{>} 
+\end{DoxyWarning}
+\mbox{\Hypertarget{group__operators_gac1991f003be32f5432ecb084be506c15}\label{group__operators_gac1991f003be32f5432ecb084be506c15}} 
+\index{Operators@{Operators}!ref\_count@{ref\_count}}
+\index{ref\_count@{ref\_count}!Operators@{Operators}}
+\doxysubsubsection{\texorpdfstring{ref\_count()}{ref\_count()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$typename ... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$ref\+\_\+count\+\_\+tag, Args...$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, ref\+\_\+count\+\_\+tag $>$\+::ref\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Forces connectable observable to behave like common observable. 
+
+Connects Connectable Observable on the first subscription and unsubscribes on last unsubscription
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keyword}{auto} observable = \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(1, 2, 3).publish();}
+\DoxyCodeLine{    observable.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << \textcolor{stringliteral}{"{}\#1 "{}} << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// No Output}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    observable.ref\_count().subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << \textcolor{stringliteral}{"{}\#2 "{}} << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output:}}
+\DoxyCodeLine{    \textcolor{comment}{// \#1 1}}
+\DoxyCodeLine{    \textcolor{comment}{// \#2 1}}
+\DoxyCodeLine{    \textcolor{comment}{// \#1 2}}
+\DoxyCodeLine{    \textcolor{comment}{// \#2 2}}
+\DoxyCodeLine{    \textcolor{comment}{// \#1 3}}
+\DoxyCodeLine{    \textcolor{comment}{// \#2 3}}
+
+\end{DoxyCodeInclude}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/refcount.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/refcount.\+html}}
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the ref\+\_\+count operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}rpp/operators/ref\+\_\+count.\+h\texorpdfstring{$>$}{>} 
 \end{DoxyWarning}
 \mbox{\Hypertarget{group__operators_ga0dcb41decfa8d5ded95f828a7e65ffee}\label{group__operators_ga0dcb41decfa8d5ded95f828a7e65ffee}} 
 \index{Operators@{Operators}!take@{take}}

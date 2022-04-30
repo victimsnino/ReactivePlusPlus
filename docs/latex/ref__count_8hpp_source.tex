@@ -1,0 +1,59 @@
+\hypertarget{ref__count_8hpp_source}{}\doxysection{ref\+\_\+count.\+hpp}
+\label{ref__count_8hpp_source}\index{src/include/rpp/operators/ref\_count.hpp@{src/include/rpp/operators/ref\_count.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <rpp/operators/fwd/ref\_count.hpp>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{create_8hpp}{rpp/sources/create.hpp}}>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 IMPLEMENTATION\_FILE(ref\_count\_tag);}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{namespace }rpp::operators}
+\DoxyCodeLine{12 \{}
+\DoxyCodeLine{13 \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{14 \textcolor{keyword}{auto} ref\_count() \textcolor{keyword}{requires} details::is\_header\_included<details::ref\_count\_tag, Args...>}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16     \textcolor{keywordflow}{return} []<constraint::observable TObservable>(TObservable \&\& observable)}
+\DoxyCodeLine{17     \{}
+\DoxyCodeLine{18         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).ref\_count();}
+\DoxyCodeLine{19     \};}
+\DoxyCodeLine{20 \}}
+\DoxyCodeLine{21 \} \textcolor{comment}{// namespace rpp::operators}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{24 \{}
+\DoxyCodeLine{25 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{26 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_same\_as<SpecificObservable> TThis>}
+\DoxyCodeLine{27 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, ref\_count\_tag>::ref\_count\_impl(TThis\&\& observable)}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29     \textcolor{keyword}{struct }state\_t}
+\DoxyCodeLine{30     \{}
+\DoxyCodeLine{31         \textcolor{keywordtype}{size\_t}                 count\_of\_active\_subs\{\};}
+\DoxyCodeLine{32         composite\_subscription sub = composite\_subscription::empty();}
+\DoxyCodeLine{33         std::mutex             mutex\{\};}
+\DoxyCodeLine{34     \};}
+\DoxyCodeLine{35     \textcolor{keywordflow}{return} source::create<Type>([observable = std::forward<TThis>(observable), state = std::make\_shared<state\_t>()](\textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{36     \{}
+\DoxyCodeLine{37         \{}
+\DoxyCodeLine{38             std::lock\_guard lock\{ state-\/>mutex \};}
+\DoxyCodeLine{39             \textcolor{keyword}{const} \textcolor{keywordtype}{bool}      need\_to\_connect = ++state-\/>count\_of\_active\_subs == 1;}
+\DoxyCodeLine{40             observable.subscribe(subscriber);}
+\DoxyCodeLine{41             \textcolor{keywordflow}{if} (need\_to\_connect)}
+\DoxyCodeLine{42                 state-\/>sub = observable.connect();}
+\DoxyCodeLine{43         \}}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45         subscriber.get\_subscription().add([state = state]}
+\DoxyCodeLine{46         \{}
+\DoxyCodeLine{47             std::lock\_guard lock\{ state-\/>mutex \};}
+\DoxyCodeLine{48             \textcolor{keywordflow}{if} (-\/-\/state-\/>count\_of\_active\_subs == 0)}
+\DoxyCodeLine{49                 state-\/>sub.unsubscribe();}
+\DoxyCodeLine{50         \});}
+\DoxyCodeLine{51     \});}
+\DoxyCodeLine{52 \}}
+\DoxyCodeLine{53 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

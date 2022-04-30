@@ -112,6 +112,11 @@ requires is_header_included&lt;publish_tag, Args...&gt;</td></tr>
 <tr class="memitem:ga87aa80f556399c86bafcab5f7b4a7473"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga87aa80f556399c86bafcab5f7b4a7473">rpp::details::member_overload&lt; Type, SpecificObservable, publish_tag &gt;::publish</a> () const &amp;</td></tr>
 <tr class="memdesc:ga87aa80f556399c86bafcab5f7b4a7473"><td class="mdescLeft">&#160;</td><td class="mdescRight">converts ordinary observable to Connectable Observable with help of <a class="el" href="classrpp_1_1subjects_1_1publish__subject.html" title="Subject which just multicasts values to observers subscribed on it. It contains two parts: subscriber...">rpp::subjects::publish_subject</a>  <a href="group__operators.html#ga87aa80f556399c86bafcab5f7b4a7473">More...</a><br /></td></tr>
 <tr class="separator:ga87aa80f556399c86bafcab5f7b4a7473"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac1991f003be32f5432ecb084be506c15"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; <br />
+requires is_header_included&lt;ref_count_tag, Args...&gt;</td></tr>
+<tr class="memitem:gac1991f003be32f5432ecb084be506c15"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#gac1991f003be32f5432ecb084be506c15">rpp::details::member_overload&lt; Type, SpecificObservable, ref_count_tag &gt;::ref_count</a> () const &amp;</td></tr>
+<tr class="memdesc:gac1991f003be32f5432ecb084be506c15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forces connectable observable to behave like common observable.  <a href="group__operators.html#gac1991f003be32f5432ecb084be506c15">More...</a><br /></td></tr>
+<tr class="separator:gac1991f003be32f5432ecb084be506c15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; <br />
 requires is_header_included&lt;take_tag, Args...&gt;</td></tr>
 <tr class="memitem:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a> (size_t count) const &amp;</td></tr>
@@ -371,7 +376,7 @@ requires is_header_included&lt;multicast_tag, TSubject&gt;</div>
 <div class="line">    <span class="comment">// #2 2</span></div>
 <div class="line">    <span class="comment">// #1 3</span></div>
 <div class="line">    <span class="comment">// #2 3</span></div>
-<div class="ttc" id="aclassrpp_1_1subjects_1_1publish__subject_html"><div class="ttname"><a href="classrpp_1_1subjects_1_1publish__subject.html">rpp::subjects::publish_subject</a></div><div class="ttdoc">Subject which just multicasts values to observers subscribed on it. It contains two parts: subscriber...</div><div class="ttdef"><b>Definition:</b> publish_subject.hpp:74</div></div>
+<div class="ttc" id="aclassrpp_1_1subjects_1_1publish__subject_html"><div class="ttname"><a href="classrpp_1_1subjects_1_1publish__subject.html">rpp::subjects::publish_subject</a></div><div class="ttdoc">Subject which just multicasts values to observers subscribed on it. It contains two parts: subscriber...</div><div class="ttdef"><b>Definition:</b> publish_subject.hpp:72</div></div>
 </div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/publish.html">https://reactivex.io/documentation/operators/publish.html</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the multicast operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;rpp/operators/multicast.h&gt; </dd></dl>
@@ -509,6 +514,54 @@ requires is_header_included&lt;publish_tag, Args...&gt;</div>
 </div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/publish.html">https://reactivex.io/documentation/operators/publish.html</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the publish operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;rpp/operators/publish.h&gt; </dd></dl>
+
+</div>
+</div>
+<a id="gac1991f003be32f5432ecb084be506c15" name="gac1991f003be32f5432ecb084be506c15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac1991f003be32f5432ecb084be506c15">&#9670;&nbsp;</a></span>ref_count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename ... Args&gt; <br />
+requires is_header_included&lt;ref_count_tag, Args...&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, ref_count_tag &gt;::ref_count </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Forces connectable observable to behave like common observable. </p>
+<p >Connects Connectable Observable on the first subscription and unsubscribes on last unsubscription</p>
+<div class="fragment"><div class="line">    <span class="keyword">auto</span> observable = <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(1, 2, 3).publish();</div>
+<div class="line">    observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#1 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// No Output</span></div>
+<div class="line"> </div>
+<div class="line">    observable.ref_count().subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#2 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output:</span></div>
+<div class="line">    <span class="comment">// #1 1</span></div>
+<div class="line">    <span class="comment">// #2 1</span></div>
+<div class="line">    <span class="comment">// #1 2</span></div>
+<div class="line">    <span class="comment">// #2 2</span></div>
+<div class="line">    <span class="comment">// #1 3</span></div>
+<div class="line">    <span class="comment">// #2 3</span></div>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/refcount.html">https://reactivex.io/documentation/operators/refcount.html</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the ref_count operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;rpp/operators/ref_count.h&gt; </dd></dl>
 
 </div>
 </div>

@@ -18,75 +18,74 @@
 \DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/subjects/constraints.hpp>}}
 \DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/subjects/type\_traits.hpp>}}
 \DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}}
-\DoxyCodeLine{17 }
-\DoxyCodeLine{18 \textcolor{keyword}{namespace }rpp}
-\DoxyCodeLine{19 \{}
-\DoxyCodeLine{20 \textcolor{keyword}{template}<constraint::decayed\_type                    Type,}
-\DoxyCodeLine{21          subjects::constraint::subject\_of\_type<Type> Subject,}
-\DoxyCodeLine{22          constraint::observable\_of\_type<Type>        OriginalObservable>}
-\DoxyCodeLine{23 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}} : \textcolor{keyword}{public} decltype(std::declval<Subject>().get\_observable())}
-\DoxyCodeLine{24 \{}
-\DoxyCodeLine{25     \textcolor{keyword}{using} base = \textcolor{keyword}{decltype}(std::declval<Subject>().get\_observable());}
-\DoxyCodeLine{26 \textcolor{keyword}{public}:}
-\DoxyCodeLine{27     \mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}(\textcolor{keyword}{const} OriginalObservable\& original\_observable, \textcolor{keyword}{const} Subject\& subject = Subject\{\})}
-\DoxyCodeLine{28         : base\{subject.get\_observable()\}}
-\DoxyCodeLine{29         , m\_original\_observable\{original\_observable\}}
-\DoxyCodeLine{30         , m\_subject\{subject\} \{\}}
-\DoxyCodeLine{31 }
-\DoxyCodeLine{32     \mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}(OriginalObservable\&\& original\_observable, \textcolor{keyword}{const} Subject\& subject = Subject\{\})}
-\DoxyCodeLine{33         : base\{subject.get\_observable()\}}
-\DoxyCodeLine{34         , m\_original\_observable\{std::move(original\_observable)\}}
-\DoxyCodeLine{35         , m\_subject\{subject\} \{\}}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}} connect(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\& subscription = \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\{\}) \textcolor{keyword}{const}}
-\DoxyCodeLine{38     \{}
-\DoxyCodeLine{39         \textcolor{keyword}{auto} subscriber              = m\_subject.get\_subscriber();}
-\DoxyCodeLine{40         \textcolor{keyword}{auto} subscriber\_subscription = subscriber.get\_subscription();}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42         \{}
-\DoxyCodeLine{43             std::lock\_guard lock(m\_state-\/>mutex);}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/operators/fwd/ref\_count.hpp>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }rpp}
+\DoxyCodeLine{20 \{}
+\DoxyCodeLine{21 \textcolor{keyword}{template}<constraint::decayed\_type                    Type,}
+\DoxyCodeLine{22          subjects::constraint::subject\_of\_type<Type> Subject,}
+\DoxyCodeLine{23          constraint::observable\_of\_type<Type>        OriginalObservable>}
+\DoxyCodeLine{24 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}}
+\DoxyCodeLine{25     : \textcolor{keyword}{public} decltype(std::declval<Subject>().get\_observable())}
+\DoxyCodeLine{26     , \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, connectable\_observable<Type, Subject, OriginalObservable>, details::ref\_count\_tag>}
+\DoxyCodeLine{27 \{}
+\DoxyCodeLine{28     \textcolor{keyword}{using} base = \textcolor{keyword}{decltype}(std::declval<Subject>().get\_observable());}
+\DoxyCodeLine{29 \textcolor{keyword}{public}:}
+\DoxyCodeLine{30     \mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}(\textcolor{keyword}{const} OriginalObservable\& original\_observable, \textcolor{keyword}{const} Subject\& subject = Subject\{\})}
+\DoxyCodeLine{31         : base\{subject.get\_observable()\}}
+\DoxyCodeLine{32         , m\_original\_observable\{original\_observable\}}
+\DoxyCodeLine{33         , m\_subject\{subject\} \{\}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}(OriginalObservable\&\& original\_observable, \textcolor{keyword}{const} Subject\& subject = Subject\{\})}
+\DoxyCodeLine{36         : base\{subject.get\_observable()\}}
+\DoxyCodeLine{37         , m\_original\_observable\{std::move(original\_observable)\}}
+\DoxyCodeLine{38         , m\_subject\{subject\} \{\}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}} connect(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\& subscription = \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\{\}) \textcolor{keyword}{const}}
+\DoxyCodeLine{41     \{}
+\DoxyCodeLine{42         \textcolor{keyword}{auto} subscriber              = m\_subject.get\_subscriber();}
+\DoxyCodeLine{43         \textcolor{keyword}{auto} subscriber\_subscription = subscriber.get\_subscription();}
 \DoxyCodeLine{44 }
-\DoxyCodeLine{45             \textcolor{keywordflow}{if} (!m\_state-\/>sub.is\_empty())}
-\DoxyCodeLine{46                 \textcolor{keywordflow}{return} subscription;}
+\DoxyCodeLine{45         \{}
+\DoxyCodeLine{46             std::lock\_guard lock(m\_state-\/>mutex);}
 \DoxyCodeLine{47 }
-\DoxyCodeLine{48             m\_state-\/>sub = subscriber\_subscription.add(subscription);}
-\DoxyCodeLine{49         \}}
+\DoxyCodeLine{48             \textcolor{keywordflow}{if} (!m\_state-\/>sub.is\_empty())}
+\DoxyCodeLine{49                 \textcolor{keywordflow}{return} subscription;}
 \DoxyCodeLine{50 }
-\DoxyCodeLine{51         std::weak\_ptr weak = m\_state;}
-\DoxyCodeLine{52         subscription.add([weak, subscriber\_subscription]}
-\DoxyCodeLine{53         \{}
-\DoxyCodeLine{54             \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} state = weak.lock())}
-\DoxyCodeLine{55             \{}
-\DoxyCodeLine{56                 auto current\_sub = composite\_subscription::empty();}
-\DoxyCodeLine{57                 \{}
-\DoxyCodeLine{58                     std::lock\_guard lock(state-\/>mutex);}
-\DoxyCodeLine{59                     std::swap(current\_sub, state-\/>sub);}
-\DoxyCodeLine{60                 \}}
-\DoxyCodeLine{61                 current\_sub.unsubscribe();}
-\DoxyCodeLine{62                 subscriber\_subscription.remove(current\_sub);}
-\DoxyCodeLine{63             \}}
+\DoxyCodeLine{51             m\_state-\/>sub = subscriber\_subscription.add(subscription);}
+\DoxyCodeLine{52             m\_original\_observable.subscribe(m\_state-\/>sub, subscriber.get\_observer());}
+\DoxyCodeLine{53         \}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55         subscription.add([state = m\_state, subscriber\_subscription]}
+\DoxyCodeLine{56         \{}
+\DoxyCodeLine{57             \textcolor{keyword}{auto} current\_sub = composite\_subscription::empty();}
+\DoxyCodeLine{58             \{}
+\DoxyCodeLine{59                 std::lock\_guard lock(state-\/>mutex);}
+\DoxyCodeLine{60                 std::swap(current\_sub, state-\/>sub);}
+\DoxyCodeLine{61             \}}
+\DoxyCodeLine{62             current\_sub.unsubscribe();}
+\DoxyCodeLine{63             subscriber\_subscription.remove(current\_sub);}
 \DoxyCodeLine{64         \});}
 \DoxyCodeLine{65 }
-\DoxyCodeLine{66         m\_original\_observable.subscribe(m\_state-\/>sub, subscriber.get\_observer());}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{68         \textcolor{keywordflow}{return} subscription;}
-\DoxyCodeLine{69     \}}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{71 \textcolor{keyword}{private}:}
-\DoxyCodeLine{72     OriginalObservable m\_original\_observable;}
-\DoxyCodeLine{73     Subject            m\_subject;}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{75     \textcolor{keyword}{struct }state\_t}
-\DoxyCodeLine{76     \{}
-\DoxyCodeLine{77         std::mutex             mutex\{\};}
-\DoxyCodeLine{78         composite\_subscription sub = composite\_subscription::empty();}
-\DoxyCodeLine{79     \};}
-\DoxyCodeLine{80 }
-\DoxyCodeLine{81     std::shared\_ptr<state\_t> m\_state = std::make\_shared<state\_t>();}
-\DoxyCodeLine{82 \};}
-\DoxyCodeLine{83 }
-\DoxyCodeLine{84 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable OriginalObservable, subjects::constra\textcolor{keywordtype}{int}::subject Subject>}
-\DoxyCodeLine{85 connectable\_observable(\textcolor{keyword}{const} OriginalObservable\&, \textcolor{keyword}{const} Subject\&) -\/> connectable\_observable<subjects::utils::extract\_subject\_type\_t<Subject>, Subject, OriginalObservable>;}
-\DoxyCodeLine{86 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67         \textcolor{keywordflow}{return} subscription;}
+\DoxyCodeLine{68     \}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70 \textcolor{keyword}{private}:}
+\DoxyCodeLine{71     OriginalObservable m\_original\_observable;}
+\DoxyCodeLine{72     Subject            m\_subject;}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74     \textcolor{keyword}{struct }state\_t}
+\DoxyCodeLine{75     \{}
+\DoxyCodeLine{76         std::mutex             mutex\{\};}
+\DoxyCodeLine{77         \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}} sub = composite\_subscription::empty();}
+\DoxyCodeLine{78     \};}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80     std::shared\_ptr<state\_t> m\_state = std::make\_shared<state\_t>();}
+\DoxyCodeLine{81 \};}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable OriginalObservable, subjects::constra\textcolor{keywordtype}{int}::subject Subject>}
+\DoxyCodeLine{84 \mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}(\textcolor{keyword}{const} OriginalObservable\&, \textcolor{keyword}{const} Subject\&) -\/> \mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable<subjects::utils::extract\_subject\_type\_t<Subject>}}, Subject, OriginalObservable>;}
+\DoxyCodeLine{85 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}
