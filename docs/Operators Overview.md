@@ -169,3 +169,20 @@ observable.connect();
 
 ### publish
 Same as multicast, but it uses publish_subject by default.
+
+### ref_count
+Forces connectable observable to behave like common observable.  Connects Connectable Observable on the first subscription and unsubscribes on last unsubscription
+```cpp
+auto observable = rpp::source::just(1, 2, 3).publish();
+observable.subscribe([](int v) {std::cout << "#1 " << v << std::endl; });
+// No Output
+
+observable.ref_count().subscribe([](int v) {std::cout << "#2 " << v << std::endl; });
+// Output:
+// #1 1
+// #2 1
+// #1 2
+// #2 2
+// #1 3
+// #2 3
+```

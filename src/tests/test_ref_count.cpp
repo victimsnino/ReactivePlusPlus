@@ -78,7 +78,7 @@ SCENARIO("ref_count")
                     validate(observer_2);
                 }
             }
-            AND_WHEN("unsubscribe observr with ref_count and send value")
+            AND_WHEN("unsubscribe observer with ref_count and send value")
             {
                 sub.unsubscribe();
                 subj.get_subscriber().on_next(1);
@@ -132,7 +132,7 @@ SCENARIO("ref_count")
                     validate(observer_2);
                 }
             }
-            AND_WHEN("unsubscribe 1 observr with ref_count and send value")
+            AND_WHEN("unsubscribe 1 observer with ref_count and send value")
             {
                 sub.unsubscribe();
                 subj.get_subscriber().on_next(1);
