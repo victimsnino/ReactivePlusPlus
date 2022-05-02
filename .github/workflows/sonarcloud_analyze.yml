@@ -49,7 +49,7 @@ jobs:
           echo "$HOME/.sonar/sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-linux/bin" >> $GITHUB_PATH
 
       - name: Download results
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
