@@ -30239,7 +30239,7 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 30237,publish_subject callbacks,on_next,32.326,32.1752,32.5772,0.95,Windows MSVC,fix (f44ae728),rpp
 30238,publish_subject callbacks,on_error,2.10354,2.09789,2.11693,0.95,Windows MSVC,fix (f44ae728),rpp
 30239,publish_subject callbacks,on_completed,2.14364,2.12268,2.17111,0.95,Windows MSVC,fix (f44ae728),rpp
-30240,publish_subject routines,construct,327.854,322.708,350,0.95,Windows MSVC,fix (f44ae728),rpp
+30240,publish_subject routines,construct,327.854,322.708,350.0,0.95,Windows MSVC,fix (f44ae728),rpp
 30241,publish_subject routines,get_observable,34.0466,33.9534,34.2099,0.95,Windows MSVC,fix (f44ae728),rpp
 30242,publish_subject routines,get_subscriber,51.4559,51.2753,51.7312,0.95,Windows MSVC,fix (f44ae728),rpp
 30243,Observable construction,Specific observable construction,0.592673,0.590382,0.598471,0.95,Windows MSVC,fix (f44ae728),rxcpp
@@ -30270,7 +30270,7 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 30268,Observable lift,Dynamic observable lift specific observer,1251.5,1235.44,1312.78,0.95,Windows MSVC,fix (f44ae728),rxcpp
 30269,Observable lift,Dynamic observable lift dynamic observer,1314.05,1302.45,1363.91,0.95,Windows MSVC,fix (f44ae728),rxcpp
 30270,Operators,map construction from observable via dot + subscribe,885.72,878.8,904.92,0.95,Windows MSVC,fix (f44ae728),rxcpp
-30271,Subscription,composite_subscription create,340.429,339.143,344,0.95,Windows MSVC,fix (f44ae728),rxcpp
+30271,Subscription,composite_subscription create,340.429,339.143,344.0,0.95,Windows MSVC,fix (f44ae728),rxcpp
 30272,Subscription,composite_subscription add,56.3109,55.956,57.0855,0.95,Windows MSVC,fix (f44ae728),rxcpp
 30273,Subscription,composite_subscription unsubscribe,29.478,29.4046,29.6164,0.95,Windows MSVC,fix (f44ae728),rxcpp
 30274,foundamental sources,empty,169.482,168.18,173.496,0.95,Windows MSVC,fix (f44ae728),rxcpp
@@ -30467,3 +30467,273 @@ id,benchmark_name,test_case,value,lowerBound,upperBound,ci,platform,commit,sourc
 30465,publish_subject routines,construct,178.397,177.2,183.395,0.95,Linux CLANG,fix (f44ae728),rxcpp
 30466,publish_subject routines,get_observable,51.3895,51.22,51.7595,0.95,Linux CLANG,fix (f44ae728),rxcpp
 30467,publish_subject routines,get_subscriber,13.9266,13.8647,13.9961,0.95,Linux CLANG,fix (f44ae728),rxcpp
+30468,Observable construction,Specific observable construction,0.672903,0.669887,0.679763,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30469,Observable construction,Dynamic observable construction,84.3787,84.0266,85.1927,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30470,Observable construction,Specific observable construction + as_dynamic,84.3533,84.0733,84.96,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30471,Observable subscribe #2,Specific observable subscribe lambda,119.664,119.237,120.602,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30472,Observable subscribe #2,Dynamic observable subscribe lambda,204.488,203.595,207.19,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30473,Observable subscribe #2,Specific observable subscribe lambda without subscription,119.829,119.436,120.896,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30474,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,205.144,203.68,209.6,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30475,Observable subscribe #2,Specific observable subscribe specific subscriber,16.7605,16.7265,16.8357,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30476,Observable subscribe #2,Dynamic observable subscribe specific subscriber,115.619,114.968,117.284,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30477,Observable subscribe #2,Specific observable subscribe dynamic observer,16.8167,16.7452,17.0351,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30478,Observable subscribe #2,Dynamic observable subscribe dynamic observer,17.4313,17.3954,17.5107,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30479,Observer construction,Specific observer construction,0.670461,0.668948,0.673963,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30480,Observer construction,Dynamic observer construction,83.7508,83.3123,84.5947,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30481,Observer construction,Specific observer construction + as_dynamic,83.5415,83.2691,84.1096,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30482,OnNext,Specific observer OnNext,0.673093,0.670186,0.680186,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30483,OnNext,Dynamic observer OnNext,1.8575,1.84309,1.88786,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30484,Subscriber construction,Make subsriber,102.588,102.004,103.63,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30485,Subscriber construction,Make copy of subscriber,19.3667,19.2999,19.5391,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30486,Subscriber construction,Transform subsriber to dynamic,97.861,97.5174,98.6602,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30487,Observable subscribe,Specific observable subscribe specific observer,118.224,117.85,119.159,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30488,Observable subscribe,Specific observable subscribe dynamic observer,135.946,135.538,136.93,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30489,Observable subscribe,Dynamic observable subscribe specific observer,205.105,204,207.746,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30490,Observable subscribe,Dynamic observable subscribe dynamic observer,135.735,135,137.281,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30491,Observable lift,Specific observable lift specific observer,157.245,156.66,158.616,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30492,Observable lift,Specific observable lift dynamic observer,186.234,185.343,188.219,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30493,Observable lift,Dynamic observable lift specific observer,274.87,273.62,277.804,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30494,Observable lift,Dynamic observable lift dynamic observer,235.962,235.377,237.104,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30495,Operators,map construction from observable via dot + subscribe,91.5863,91.0576,93.295,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30496,Subscription,composite_subscription create,98.4961,97.9225,99.624,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30497,Subscription,composite_subscription add,88.9593,87.3519,94.8296,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30498,Subscription,composite_subscription unsubscribe,8.39233,8.361,8.47333,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30499,foundamental sources,empty,18.6115,18.5155,18.7932,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30500,foundamental sources,error,51.4968,51.1799,52.0193,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30501,foundamental sources,never,16.7894,16.7213,16.9626,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30502,just,just send int,25.857,25.7959,26.0124,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30503,just,just send variadic,41.768,41.4837,42.2206,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30504,from,from vector with int,90.2183,89.9577,90.7183,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30505,merge,merge,520.882,517.843,531.627,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30506,merge,merge_with,732.892,728.054,751.054,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30507,publish_subject callbacks,on_next,32.3308,32.1711,32.6424,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30508,publish_subject callbacks,on_error,2.38871,2.37914,2.41047,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30509,publish_subject callbacks,on_completed,2.56177,2.52819,2.59405,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30510,publish_subject routines,construct,349.587,343.913,373.674,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30511,publish_subject routines,get_observable,38.6384,38.489,38.9261,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30512,publish_subject routines,get_subscriber,58.3666,58.0719,59.1276,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rpp
+30513,Observable construction,Specific observable construction,0.671318,0.669758,0.675334,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30514,Observable construction,Dynamic observable construction,125.149,124.743,126.173,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30515,Observable construction,Specific observable construction + as_dynamic,124.72,124.29,125.56,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30516,Observable subscribe #2,Specific observable subscribe lambda,1201.32,1187.68,1256.59,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30517,Observable subscribe #2,Dynamic observable subscribe lambda,1385.84,1368.58,1437.05,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30518,Observable subscribe #2,Specific observable subscribe lambda without subscription,1199.91,1188.23,1240.64,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30519,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,1398.68,1383.26,1447.79,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30520,Observable subscribe #2,Specific observable subscribe specific subscriber,849.452,845.419,859.742,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30521,Observable subscribe #2,Dynamic observable subscribe specific subscriber,1029.44,1025.28,1039.64,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30522,Observable subscribe #2,Specific observable subscribe dynamic observer,893.793,890.862,899.276,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30523,Observable subscribe #2,Dynamic observable subscribe dynamic observer,933.179,925.75,961.214,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30524,Observer construction,Specific observer construction,1.51221,1.50579,1.52749,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30525,Observer construction,Dynamic observer construction,112.634,112.132,113.855,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30526,Observer construction,Specific observer construction + as_dynamic,112.391,112.084,113.093,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30527,OnNext,Specific observer OnNext,0.670512,0.669133,0.673695,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30528,OnNext,Dynamic observer OnNext,1.71592,1.70734,1.72657,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30529,Subscriber construction,Make subsriber,350.589,348.959,356.493,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30530,Subscriber construction,Make copy of subscriber,31.5006,31.4359,31.6451,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30531,Subscriber construction,Transform subsriber to dynamic,175.982,174.958,177.874,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30532,Observable subscribe,Specific observable subscribe specific observer,1196.14,1184.5,1245.14,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30533,Observable subscribe,Specific observable subscribe dynamic observer,1234.86,1222.86,1276.81,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30534,Observable subscribe,Dynamic observable subscribe specific observer,1376.74,1362.74,1434.26,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30535,Observable subscribe,Dynamic observable subscribe dynamic observer,1264.29,1252.43,1312.14,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30536,Observable lift,Specific observable lift specific observer,1216.19,1213.29,1222,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30537,Observable lift,Specific observable lift dynamic observer,1269.05,1264.57,1278.86,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30538,Observable lift,Dynamic observable lift specific observer,1428.67,1413.89,1489.33,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30539,Observable lift,Dynamic observable lift dynamic observer,1336.4,1322.9,1393.65,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30540,Operators,map construction from observable via dot + subscribe,1000.27,992.615,1023.62,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30541,Subscription,composite_subscription create,344.52,342.6,350.947,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30542,Subscription,composite_subscription add,67.9,66.66,70.5375,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30543,Subscription,composite_subscription unsubscribe,25.534,25.475,25.672,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30544,foundamental sources,empty,191.922,190.596,196.865,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30545,foundamental sources,error,207.682,206.403,212.132,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30546,foundamental sources,never,855.2,848.867,877.933,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30547,just,just send int,193.007,190.931,197.75,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30548,just,just send variadic,194.083,192.889,197.847,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30549,from,from vector with int,264.533,262.695,271.419,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30550,merge,merge,682.667,675.574,712.685,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30551,merge,merge_with,1451.35,1439.38,1497.04,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30552,publish_subject callbacks,on_next,36.345,35.5233,38.3333,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30553,publish_subject callbacks,on_error,17.4208,17.3378,17.6372,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30554,publish_subject callbacks,on_completed,0.690239,0.68105,0.712029,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30555,publish_subject routines,construct,609.424,602.788,630.182,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30556,publish_subject routines,get_observable,159.466,159.075,160.54,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30557,publish_subject routines,get_subscriber,91.7518,91.5144,92.2122,0.95,Windows MSVC,Bump actions/github-... (e87e11f2),rxcpp
+30558,Observable construction,Specific observable construction,0.384877,0.375777,0.397385,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30559,Observable construction,Dynamic observable construction,21.9714,21.3704,23.5033,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30560,Observable construction,Specific observable construction + as_dynamic,21.6649,21.2592,23.3622,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30561,Observable subscribe #2,Specific observable subscribe lambda,26.2868,25.482,27.627,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30562,Observable subscribe #2,Dynamic observable subscribe lambda,53.7934,53.2418,54.833,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30563,Observable subscribe #2,Specific observable subscribe lambda without subscription,26.0132,25.6337,27.3454,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30564,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,49.7525,49.4954,50.6964,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30565,Observable subscribe #2,Specific observable subscribe specific subscriber,4.98925,4.91675,5.098,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30566,Observable subscribe #2,Dynamic observable subscribe specific subscriber,26.0816,25.7894,26.6501,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30567,Observable subscribe #2,Specific observable subscribe dynamic observer,4.70631,4.63431,4.83138,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30568,Observable subscribe #2,Dynamic observable subscribe dynamic observer,4.1796,4.17586,4.19265,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30569,Observer construction,Specific observer construction,0.381288,0.37359,0.397628,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30570,Observer construction,Dynamic observer construction,18.1207,18.0869,18.225,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30571,Observer construction,Specific observer construction + as_dynamic,19.908,19.2586,21.186,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30572,OnNext,Specific observer OnNext,0.323081,0.32296,0.323214,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30573,OnNext,Dynamic observer OnNext,2.23047,2.19385,2.30364,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30574,Subscriber construction,Make subsriber,28.1427,28.0427,28.5097,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30575,Subscriber construction,Make copy of subscriber,5.06831,4.90771,5.33486,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30576,Subscriber construction,Transform subsriber to dynamic,21.1224,21.0795,21.2688,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30577,Observable subscribe,Specific observable subscribe specific observer,24.1442,23.6497,25.7755,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30578,Observable subscribe,Specific observable subscribe dynamic observer,29.6299,27.1831,41.4951,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30579,Observable subscribe,Dynamic observable subscribe specific observer,56.3373,54.8918,58.2046,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30580,Observable subscribe,Dynamic observable subscribe dynamic observer,33.8537,33.1424,35.4876,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30581,Observable lift,Specific observable lift specific observer,28.6025,28.4698,29.1668,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30582,Observable lift,Specific observable lift dynamic observer,40.4422,39.418,43.0275,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30583,Observable lift,Dynamic observable lift specific observer,75.727,71.1413,87.5943,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30584,Observable lift,Dynamic observable lift dynamic observer,55.6541,55.4103,56.7341,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30585,Operators,map construction from observable via dot + subscribe,24.7628,24.6728,25.1414,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30586,Subscription,composite_subscription create,22.7127,22.6798,22.7611,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30587,Subscription,composite_subscription add,33.8181,30.8995,39.6367,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30588,Subscription,composite_subscription unsubscribe,6.58878,6.23083,7.80439,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30589,foundamental sources,empty,5.01119,4.84447,5.39446,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30590,foundamental sources,error,36.6601,36.5324,37.2129,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30591,foundamental sources,never,3.99307,3.93734,4.0902,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30592,just,just send int,6.73448,6.58913,6.98489,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30593,just,just send variadic,16.9308,16.6512,17.7596,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30594,from,from vector with int,26.6602,25.8372,28.4857,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30595,merge,merge,155.327,154.478,157.79,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30596,merge,merge_with,281.611,221.486,574.221,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30597,publish_subject callbacks,on_next,13.8302,13.672,14.3104,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30598,publish_subject callbacks,on_error,0.657515,0.650126,0.688944,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30599,publish_subject callbacks,on_completed,0.769998,0.749746,0.835824,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30600,publish_subject routines,construct,135.614,133.724,143.342,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30601,publish_subject routines,get_observable,9.28032,9.02966,9.85248,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30602,publish_subject routines,get_subscriber,15.8007,15.4173,16.9193,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rpp
+30603,Observable construction,Specific observable construction,0.33675,0.328958,0.364183,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30604,Observable construction,Dynamic observable construction,26.8614,26.3371,28.6933,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30605,Observable construction,Specific observable construction + as_dynamic,25.5526,24.9397,28.0078,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30606,Observable subscribe #2,Specific observable subscribe lambda,361.409,354.102,372.182,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30607,Observable subscribe #2,Dynamic observable subscribe lambda,438.753,431.784,460.383,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30608,Observable subscribe #2,Specific observable subscribe lambda without subscription,356.036,347.146,371.42,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30609,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,456.354,442.728,475.34,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30610,Observable subscribe #2,Specific observable subscribe specific subscriber,296.153,288.403,323.591,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30611,Observable subscribe #2,Dynamic observable subscribe specific subscriber,392.959,358.565,544.507,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30612,Observable subscribe #2,Specific observable subscribe dynamic observer,292.367,291.569,296.042,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30613,Observable subscribe #2,Dynamic observable subscribe dynamic observer,330.041,319.586,353.241,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30614,Observer construction,Specific observer construction,0.372553,0.358001,0.3957,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30615,Observer construction,Dynamic observer construction,25.6929,23.4552,35.6766,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30616,Observer construction,Specific observer construction + as_dynamic,22.6953,21.7526,25.652,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30617,OnNext,Specific observer OnNext,0.337405,0.328624,0.360365,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30618,OnNext,Dynamic observer OnNext,2.16242,2.08772,2.31567,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30619,Subscriber construction,Make subsriber,67.0737,66.8329,67.7179,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30620,Subscriber construction,Make copy of subscriber,4.81265,4.80435,4.84671,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30621,Subscriber construction,Transform subsriber to dynamic,31.7676,30.3698,35.052,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30622,Observable subscribe,Specific observable subscribe specific observer,396.805,389.528,422.853,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30623,Observable subscribe,Specific observable subscribe dynamic observer,369.293,358.429,395.281,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30624,Observable subscribe,Dynamic observable subscribe specific observer,389.734,386.95,396.734,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30625,Observable subscribe,Dynamic observable subscribe dynamic observer,388.01,379.337,408.249,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30626,Observable lift,Specific observable lift specific observer,368.876,356.581,415.73,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30627,Observable lift,Specific observable lift dynamic observer,396.789,381.715,432.436,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30628,Observable lift,Dynamic observable lift specific observer,468.088,456.611,482.75,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30629,Observable lift,Dynamic observable lift dynamic observer,403.038,396.746,413.288,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30630,Operators,map construction from observable via dot + subscribe,365.556,359.316,379.569,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30631,Subscription,composite_subscription create,61.0135,58.9634,66.0679,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30632,Subscription,composite_subscription add,18.5137,17.8869,19.3702,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30633,Subscription,composite_subscription unsubscribe,11.7825,11.5021,12.5477,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30634,foundamental sources,empty,48.5864,47.3569,51.4798,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30635,foundamental sources,error,85.2417,83.221,92.3157,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30636,foundamental sources,never,331.33,317.275,377.198,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30637,just,just send int,51.4827,50.571,53.3698,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30638,just,just send variadic,51.5468,50.3526,53.4639,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30639,from,from vector with int,69.5236,68.3748,71.2872,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30640,merge,merge,169.466,155.144,219.87,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30641,merge,merge_with,365.3,360.555,376.369,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30642,publish_subject callbacks,on_next,10.8728,10.8287,11.087,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30643,publish_subject callbacks,on_error,19.1843,17.7228,23.0481,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30644,publish_subject callbacks,on_completed,0.756204,0.746533,0.795862,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30645,publish_subject routines,construct,214.505,201.476,246.432,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30646,publish_subject routines,get_observable,51.3708,50.3821,53.0144,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30647,publish_subject routines,get_subscriber,28.1575,27.0811,31.2593,0.95,Linux GCC,Bump actions/github-... (e87e11f2),rxcpp
+30648,Observable construction,Specific observable construction,0.712826,0.691634,0.75906,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30649,Observable construction,Dynamic observable construction,45.7921,32.8949,107.651,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30650,Observable construction,Specific observable construction + as_dynamic,31.6458,31.2449,32.4177,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30651,Observable subscribe #2,Specific observable subscribe lambda,65.7632,64.0071,70.4099,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30652,Observable subscribe #2,Dynamic observable subscribe lambda,102.473,99.2019,110.59,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30653,Observable subscribe #2,Specific observable subscribe lambda without subscription,67.9629,67.0138,70.1262,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30654,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,88.104,86.7905,90.5341,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30655,Observable subscribe #2,Specific observable subscribe specific subscriber,19.679,19.1734,20.3767,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30656,Observable subscribe #2,Dynamic observable subscribe specific subscriber,65.7815,63.8389,68.7261,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30657,Observable subscribe #2,Specific observable subscribe dynamic observer,19.1791,18.5312,20.0528,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30658,Observable subscribe #2,Dynamic observable subscribe dynamic observer,19.6904,19.2901,20.263,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30659,Observer construction,Specific observer construction,0.697662,0.680442,0.722079,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30660,Observer construction,Dynamic observer construction,36.4806,32.604,53.9982,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30661,Observer construction,Specific observer construction + as_dynamic,32.8377,32.1974,34.1105,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30662,OnNext,Specific observer OnNext,0.679304,0.665655,0.705829,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30663,OnNext,Dynamic observer OnNext,2.3788,2.27071,2.59042,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30664,Subscriber construction,Make subsriber,52.9576,50.5957,62.4835,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30665,Subscriber construction,Make copy of subscriber,19.2668,18.8614,19.9982,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30666,Subscriber construction,Transform subsriber to dynamic,52.8366,51.2398,57.2711,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30667,Observable subscribe,Specific observable subscribe specific observer,67.4344,65.1937,70.4767,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30668,Observable subscribe,Specific observable subscribe dynamic observer,78.9693,77.5273,81.8644,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30669,Observable subscribe,Dynamic observable subscribe specific observer,100.876,97.5038,107.853,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30670,Observable subscribe,Dynamic observable subscribe dynamic observer,88.1913,86.2048,91.8069,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30671,Observable lift,Specific observable lift specific observer,100.82,92.2309,135.36,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30672,Observable lift,Specific observable lift dynamic observer,129.66,127.016,134.82,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30673,Observable lift,Dynamic observable lift specific observer,172.048,169.248,176.648,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30674,Observable lift,Dynamic observable lift dynamic observer,190.897,187.498,196.428,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30675,Operators,map construction from observable via dot + subscribe,99.2421,97.2217,109.259,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30676,Subscription,composite_subscription create,34.0668,32.9152,37.4953,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30677,Subscription,composite_subscription add,75.6313,70.7956,91.7205,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30678,Subscription,composite_subscription unsubscribe,7.28154,7.02922,7.63998,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30679,foundamental sources,empty,21.4117,21.2055,21.8695,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30680,foundamental sources,error,53.4125,50.8385,62.8734,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30681,foundamental sources,never,21.017,19.69,26.019,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30682,just,just send int,23.1667,23.0799,23.5624,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30683,just,just send variadic,37.4367,36.7362,38.5412,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30684,from,from vector with int,34.2755,33.5583,35.5356,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30685,merge,merge,358.21,353.125,367.015,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30686,merge,merge_with,406.731,402.987,414.473,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30687,publish_subject callbacks,on_next,50.1134,48.9873,52.0874,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30688,publish_subject callbacks,on_error,2.1537,2.11974,2.2362,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30689,publish_subject callbacks,on_completed,2.34178,2.28384,2.41687,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30690,publish_subject routines,construct,221.38,215.472,234.598,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30691,publish_subject routines,get_observable,52.361,48.2755,63.992,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30692,publish_subject routines,get_subscriber,70.6464,70.5795,70.9014,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rpp
+30693,Observable construction,Specific observable construction,0.325143,0.323766,0.330357,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30694,Observable construction,Dynamic observable construction,37.0945,35.9221,38.6773,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30695,Observable construction,Specific observable construction + as_dynamic,31.3874,31.0413,32.2033,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30696,Observable subscribe #2,Specific observable subscribe lambda,314.089,305.968,327.243,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30697,Observable subscribe #2,Dynamic observable subscribe lambda,375.268,364.002,392.47,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30698,Observable subscribe #2,Specific observable subscribe lambda without subscription,362.758,333.397,437.271,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30699,Observable subscribe #2,Dynamic observable subscribe lambda without subscription,348.502,342.575,359.136,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30700,Observable subscribe #2,Specific observable subscribe specific subscriber,234.756,231.018,243.62,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30701,Observable subscribe #2,Dynamic observable subscribe specific subscriber,305.239,292.033,348.826,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30702,Observable subscribe #2,Specific observable subscribe dynamic observer,261.216,254.627,270.475,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30703,Observable subscribe #2,Dynamic observable subscribe dynamic observer,280.352,274.812,288.852,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30704,Observer construction,Specific observer construction,0.324044,0.323558,0.325278,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30705,Observer construction,Dynamic observer construction,25.9889,25.1809,27.1904,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30706,Observer construction,Specific observer construction + as_dynamic,20.8356,20.7813,20.9742,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30707,OnNext,Specific observer OnNext,0.763232,0.741114,0.793326,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30708,OnNext,Dynamic observer OnNext,2.18999,2.14894,2.25394,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30709,Subscriber construction,Make subsriber,67.9129,66.0705,71.1504,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30710,Subscriber construction,Make copy of subscriber,5.66288,5.49353,6.00799,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30711,Subscriber construction,Transform subsriber to dynamic,26.351,26.3312,26.4253,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30712,Observable subscribe,Specific observable subscribe specific observer,368.7,333.293,529.783,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30713,Observable subscribe,Specific observable subscribe dynamic observer,326.795,314.013,352.577,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30714,Observable subscribe,Dynamic observable subscribe specific observer,384.24,363.978,463.897,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30715,Observable subscribe,Dynamic observable subscribe dynamic observer,335.308,325.66,368.238,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30716,Observable lift,Specific observable lift specific observer,316.584,301.727,372.013,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30717,Observable lift,Specific observable lift dynamic observer,339.347,329.336,354.691,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30718,Observable lift,Dynamic observable lift specific observer,413.2,396.267,446.726,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30719,Observable lift,Dynamic observable lift dynamic observer,356.508,340.211,416.063,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30720,Operators,map construction from observable via dot + subscribe,270.572,263.908,287.834,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30721,Subscription,composite_subscription create,50.1353,50.0863,50.2906,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30722,Subscription,composite_subscription add,21.2643,21.1447,21.7343,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30723,Subscription,composite_subscription unsubscribe,10.7813,10.5803,11.1442,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30724,foundamental sources,empty,39.9755,39.0445,41.3375,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30725,foundamental sources,error,74.2155,73.3009,75.9904,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30726,foundamental sources,never,278.766,275.355,293.177,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30727,just,just send int,39.0769,38.0134,40.7017,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30728,just,just send variadic,52.5641,50.2083,55.7303,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30729,from,from vector with int,56.1626,55.1849,58.2091,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30730,merge,merge,165.52,154.006,202.783,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30731,merge,merge_with,369.723,358.035,386.561,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30732,publish_subject callbacks,on_next,11.1143,10.7985,11.5859,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30733,publish_subject callbacks,on_error,19.3119,18.9394,19.878,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30734,publish_subject callbacks,on_completed,0.608382,0.561689,0.724334,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30735,publish_subject routines,construct,190.474,180.615,233.685,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30736,publish_subject routines,get_observable,56.6011,54.7452,61.4284,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
+30737,publish_subject routines,get_subscriber,12.7684,12.762,12.7779,0.95,Linux CLANG,Bump actions/github-... (e87e11f2),rxcpp
