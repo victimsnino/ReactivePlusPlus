@@ -23,12 +23,15 @@
 
 cmake_minimum_required(VERSION 3.12)
 
-project(ReactivePlusPlus VERSION 0.1 LANGUAGES C CXX)
+if(DEFINED PROJECT_NAME)
+  set(IS_SUBPROJECT ON)
+else()
+  set(IS_SUBPROJECT OFF)
+endif()
+
+project(ReactivePlusPlus VERSION 0.1 LANGUAGES CXX)
 
 # ================== CONFIG ===================
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
