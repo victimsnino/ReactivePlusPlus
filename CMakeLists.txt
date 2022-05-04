@@ -23,23 +23,33 @@
 
 cmake_minimum_required(VERSION 3.12)
 
-project(ReactivePlusPlus VERSION 0.1 LANGUAGES C CXX)
+if(DEFINED PROJECT_NAME)
+  set(IS_SUBPROJECT ON)
+else()
+  set(IS_SUBPROJECT OFF)
+endif()
+
+project(ReactivePlusPlus VERSION 0.1 LANGUAGES CXX)
 
 # ================== CONFIG ===================
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+if (NOT IS_SUBPROJECT)
+  set(CMAKE_CXX_STANDARD 20)
+  set(CMAKE_CXX_STANDARD_REQUIRED ON)
+  set(CMAKE_CXX_EXTENSIONS OFF)
 
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+  set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+endif()
+
 find_package(Threads REQUIRED)
 
 # ======================= OPTIONS ================================
-set(BUILD_TESTS     OFF  CACHE BOOL "Enable unit tests building")
-set(BUILD_SAMPLES   OFF  CACHE BOOL "Enable samples building")
+set(BUILD_TESTS     OFF CACHE BOOL "Enable unit tests building")
+set(BUILD_SAMPLES   OFF CACHE BOOL "Enable samples building")
 set(CODE_COVERAGE   OFF CACHE BOOL "Enable coverage reporting")
 
 # ======================= CI =========================
