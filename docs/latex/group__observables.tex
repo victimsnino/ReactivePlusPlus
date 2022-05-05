@@ -21,14 +21,16 @@ class \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+ob
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits no items but terminates normally. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\auto \mbox{\hyperlink{group__observables_ga6ec535e9c756e3bf8be5b7f64fc55380}{rpp\+::observable\+::error}} (const std\+::exception\+\_\+ptr \&err)
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits no items and terminates with an error. \end{DoxyCompactList}\item 
-{\footnotesize template$<$memory\+\_\+model memory\+\_\+model, schedulers\+::constraint\+::scheduler TScheduler$>$ }\\auto \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{rpp\+::observable\+::from}} (std\+::ranges\+::range auto \&\&iterable, const TScheduler \&scheduler)
-\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits a items from provided iterable. \end{DoxyCompactList}\item 
-{\footnotesize template$<$memory\+\_\+model memory\+\_\+model = memory\+\_\+model\+::use\+\_\+stack, typename T , typename ... Ts$>$ \newline
+{\footnotesize template$<$memory\+\_\+model memory\+\_\+model, typename T , typename ... Ts$>$ \newline
 requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp\+::observable\+::just}} (const schedulers\+::constraint\+::scheduler auto \&scheduler, T \&\&item, Ts \&\&...items)
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits a particular items and completes. \end{DoxyCompactList}\item 
-{\footnotesize template$<$memory\+\_\+model memory\+\_\+model = memory\+\_\+model\+::use\+\_\+stack, typename T , typename ... Ts$>$ \newline
+{\footnotesize template$<$memory\+\_\+model memory\+\_\+model, typename T , typename ... Ts$>$ \newline
 requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__observables_ga9b6fdbec2962d28ae4284811e6971f27}{rpp\+::observable\+::just}} (T \&\&item, Ts \&\&...items)
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits a particular items and completes. \end{DoxyCompactList}\item 
+{\footnotesize template$<$memory\+\_\+model memory\+\_\+model, schedulers\+::constraint\+::scheduler TScheduler$>$ }\\auto \mbox{\hyperlink{group__observables_ga688c67a9b816125b0e69a663c528f836}{rpp\+::observable\+::from\+\_\+iterable}} (std\+::ranges\+::range auto \&\&iterable, const TScheduler \&scheduler)
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits a items from provided iterable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$memory\+\_\+model memory\+\_\+model$>$ }\\auto \mbox{\hyperlink{group__observables_gaf574d9dd582ee9b59553e3705e8793cd}{rpp\+::observable\+::from\+\_\+callable}} (std\+::invocable$<$$>$ auto \&\&callable)
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that calls provided callable and emits resulting value. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\auto \mbox{\hyperlink{group__observables_ga091f1a238b4d205f0a1dff22b971c880}{rpp\+::observable\+::never}} ()
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits no items and does not terminate. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -37,7 +39,7 @@ requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \m
 Observable is the source of any Reactive Stream. Observable provides ability to subscribe observer on some events. 
 
 \begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/observable.hpptml}{\texttt{ https\+://reactivex.\+io/documentation/observable.\+hpptml}} 
+\href{https://reactivex.io/documentation/observable.html}{\texttt{ https\+://reactivex.\+io/documentation/observable.\+html}} 
 \end{DoxySeeAlso}
 
 
@@ -99,7 +101,7 @@ Examples\+:
 
 
 \begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators/create.hpptml}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+hpptml}}
+\href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}}
 \end{DoxySeeAlso}
 
 \begin{DoxyTemplParams}{Template Parameters}
@@ -145,7 +147,7 @@ Examples\+:
 
 
 \begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators/create.hpptml}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+hpptml}} 
+\href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}} 
 \end{DoxySeeAlso}
 \begin{Desc}
 \item[Examples]\par
@@ -167,7 +169,7 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \hline
 \end{DoxyTemplParams}
 \begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators/empty-never-throw.hpptml}{\texttt{ https\+://reactivex.\+io/documentation/operators/empty-\/never-\/throw.\+hpptml}} 
+\href{https://reactivex.io/documentation/operators/empty-never-throw.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/empty-\/never-\/throw.\+html}} 
 \end{DoxySeeAlso}
 \mbox{\Hypertarget{group__observables_ga6ec535e9c756e3bf8be5b7f64fc55380}\label{group__observables_ga6ec535e9c756e3bf8be5b7f64fc55380}} 
 \index{Observables@{Observables}!error@{error}}
@@ -191,14 +193,44 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \hline
 \end{DoxyParams}
 \begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators/empty-never-throw.hpptml}{\texttt{ https\+://reactivex.\+io/documentation/operators/empty-\/never-\/throw.\+hpptml}} 
+\href{https://reactivex.io/documentation/operators/empty-never-throw.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/empty-\/never-\/throw.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__observables_ga59e99a150529fe274de8ea48e0cc0913}\label{group__observables_ga59e99a150529fe274de8ea48e0cc0913}} 
-\index{Observables@{Observables}!from@{from}}
-\index{from@{from}!Observables@{Observables}}
-\doxysubsubsection{\texorpdfstring{from()}{from()}}
+\mbox{\Hypertarget{group__observables_gaf574d9dd582ee9b59553e3705e8793cd}\label{group__observables_gaf574d9dd582ee9b59553e3705e8793cd}} 
+\index{Observables@{Observables}!from\_callable@{from\_callable}}
+\index{from\_callable@{from\_callable}!Observables@{Observables}}
+\doxysubsubsection{\texorpdfstring{from\_callable()}{from\_callable()}}
+{\footnotesize\ttfamily template$<$memory\+\_\+model memory\+\_\+model$>$ \\
+auto rpp\+::observable\+::from\+\_\+callable (\begin{DoxyParamCaption}\item[{std\+::invocable$<$$>$ auto \&\&}]{callable }\end{DoxyParamCaption})}
+
+
+
+Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that calls provided callable and emits resulting value. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em memory\+\_\+model} & rpp\+::memory\+\_\+model strategy used to handle callable\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{        \mbox{\hyperlink{group__observables_gaf574d9dd582ee9b59553e3705e8793cd}{rpp::source::from\_callable}}([]() \{\textcolor{keywordflow}{return} 49; \}).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{        \textcolor{comment}{// Output: 49}}
+
+\end{DoxyCodeInclude}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/from.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/from.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{from_8cpp-example}{from.\+cpp}}.\end{Desc}
+\mbox{\Hypertarget{group__observables_ga688c67a9b816125b0e69a663c528f836}\label{group__observables_ga688c67a9b816125b0e69a663c528f836}} 
+\index{Observables@{Observables}!from\_iterable@{from\_iterable}}
+\index{from\_iterable@{from\_iterable}!Observables@{Observables}}
+\doxysubsubsection{\texorpdfstring{from\_iterable()}{from\_iterable()}}
 {\footnotesize\ttfamily template$<$memory\+\_\+model memory\+\_\+model, schedulers\+::constraint\+::scheduler TScheduler$>$ \\
-auto rpp\+::observable\+::from (\begin{DoxyParamCaption}\item[{std\+::ranges\+::range auto \&\&}]{iterable,  }\item[{const TScheduler \&}]{scheduler }\end{DoxyParamCaption})}
+auto rpp\+::observable\+::from\+\_\+iterable (\begin{DoxyParamCaption}\item[{std\+::ranges\+::range auto \&\&}]{iterable,  }\item[{const TScheduler \&}]{scheduler }\end{DoxyParamCaption})}
 
 
 
@@ -206,7 +238,7 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em memory\+\_\+model} & rpp\+::memory\+\_\+model startegy used to handle provided iterable \\
+{\em memory\+\_\+model} & rpp\+::memory\+\_\+model strategy used to handle provided iterable \\
 \hline
 {\em TScheduler} & type of scheduler used for scheduling of submissions\+: next item will be submitted to scheduler when previous one is executed \\
 \hline
@@ -219,25 +251,25 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
-\DoxyCodeLine{        \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{rpp::source::from}}(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{        \mbox{\hyperlink{group__observables_ga688c67a9b816125b0e69a663c528f836}{rpp::source::from\_iterable}}(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
-\DoxyCodeLine{        rpp::source::from<rpp::memory\_model::use\_shared>(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{        rpp::source::from\_iterable<rpp::memory\_model::use\_shared>(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
-\DoxyCodeLine{        \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{rpp::source::from}}(vals, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{        \mbox{\hyperlink{group__observables_ga688c67a9b816125b0e69a663c528f836}{rpp::source::from\_iterable}}(vals, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}).as\_blocking().subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 
 \end{DoxyCodeInclude}
 
 
 \begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators/from.hpptml}{\texttt{ https\+://reactivex.\+io/documentation/operators/from.\+hpptml}} 
+\href{https://reactivex.io/documentation/operators/from.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/from.\+html}} 
 \end{DoxySeeAlso}
 \begin{Desc}
 \item[Examples]\par
@@ -246,7 +278,7 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \index{Observables@{Observables}!just@{just}}
 \index{just@{just}!Observables@{Observables}}
 \doxysubsubsection{\texorpdfstring{just()}{just()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$memory\+\_\+model memory\+\_\+model = memory\+\_\+model\+::use\+\_\+stack, typename T , typename ... Ts$>$ \newline
+{\footnotesize\ttfamily template$<$memory\+\_\+model memory\+\_\+model, typename T , typename ... Ts$>$ \newline
 requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)\\
 auto rpp\+::observable\+::just (\begin{DoxyParamCaption}\item[{const schedulers\+::constraint\+::scheduler auto \&}]{scheduler,  }\item[{T \&\&}]{item,  }\item[{Ts \&\&...}]{items }\end{DoxyParamCaption})}
 
@@ -292,7 +324,7 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 
 
 \begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators/just.hpptml}{\texttt{ https\+://reactivex.\+io/documentation/operators/just.\+hpptml}} 
+\href{https://reactivex.io/documentation/operators/just.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/just.\+html}} 
 \end{DoxySeeAlso}
 \begin{Desc}
 \item[Examples]\par
@@ -301,7 +333,7 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \index{Observables@{Observables}!just@{just}}
 \index{just@{just}!Observables@{Observables}}
 \doxysubsubsection{\texorpdfstring{just()}{just()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$memory\+\_\+model memory\+\_\+model = memory\+\_\+model\+::use\+\_\+stack, typename T , typename ... Ts$>$ \newline
+{\footnotesize\ttfamily template$<$memory\+\_\+model memory\+\_\+model, typename T , typename ... Ts$>$ \newline
 requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)\\
 auto rpp\+::observable\+::just (\begin{DoxyParamCaption}\item[{T \&\&}]{item,  }\item[{Ts \&\&...}]{items }\end{DoxyParamCaption})}
 
@@ -345,7 +377,7 @@ this overloading uses immediate scheduler as default
 
 
 \begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators/just.hpptml}{\texttt{ https\+://reactivex.\+io/documentation/operators/just.\+hpptml}} 
+\href{https://reactivex.io/documentation/operators/just.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/just.\+html}} 
 \end{DoxySeeAlso}
 \mbox{\Hypertarget{group__observables_ga091f1a238b4d205f0a1dff22b971c880}\label{group__observables_ga091f1a238b4d205f0a1dff22b971c880}} 
 \index{Observables@{Observables}!never@{never}}
@@ -364,5 +396,5 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \hline
 \end{DoxyTemplParams}
 \begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators/empty-never-throw.hpptml}{\texttt{ https\+://reactivex.\+io/documentation/operators/empty-\/never-\/throw.\+hpptml}} 
+\href{https://reactivex.io/documentation/operators/empty-never-throw.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/empty-\/never-\/throw.\+html}} 
 \end{DoxySeeAlso}

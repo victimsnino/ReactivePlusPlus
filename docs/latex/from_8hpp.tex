@@ -11,20 +11,40 @@ This file contains implementation of {\ttfamily from} function to create \mbox{\
 {\ttfamily \#include $<$rpp/sources/create.\+hpp$>$}\newline
 {\ttfamily \#include $<$rpp/sources/fwd.\+hpp$>$}\newline
 {\ttfamily \#include $<$rpp/utils/utilities.\+hpp$>$}\newline
+{\ttfamily \#include $<$rpp/operators/map.\+hpp$>$}\newline
 {\ttfamily \#include $<$array$>$}\newline
 {\ttfamily \#include $<$ranges$>$}\newline
 {\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classrpp_1_1observable_1_1details_1_1iterate__impl}{rpp\+::observable\+::details\+::iterate\+\_\+impl$<$ Packed\+Iterable, TScheduler $>$}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{from_8hpp_ab7ef90926003394725fec08ddbc43b91}\label{from_8hpp_ab7ef90926003394725fec08ddbc43b91}} 
-void {\bfseries rpp\+::observable\+::details\+::iterate} (const auto \&iterable, const schedulers\+::constraint\+::scheduler auto \&scheduler, const constraint\+::subscriber auto \&subscriber)
+\mbox{\Hypertarget{from_8hpp_ab8266d4fc976a9cd4417ee6effa8eb61}\label{from_8hpp_ab8266d4fc976a9cd4417ee6effa8eb61}} 
+{\footnotesize template$<$typename T $>$ }\\auto {\bfseries rpp\+::observable\+::details\+::extract\+\_\+iterable\+\_\+from\+\_\+packed} (const T \&v) -\/$>$ const auto \&
+\item 
+\mbox{\Hypertarget{from_8hpp_a302d43e1c9a308067ddcfdf3e4f787c0}\label{from_8hpp_a302d43e1c9a308067ddcfdf3e4f787c0}} 
+{\footnotesize template$<$typename Value\+Extract\+Strategy  = std\+::identity$>$ }\\void {\bfseries rpp\+::observable\+::details\+::iterate} (const auto \&iterable, const schedulers\+::constraint\+::scheduler auto \&scheduler, const constraint\+::subscriber auto \&subscriber)
 \item 
 \mbox{\Hypertarget{from_8hpp_a1158aaefe44b1c5cf49b6d2eb690a13a}\label{from_8hpp_a1158aaefe44b1c5cf49b6d2eb690a13a}} 
 {\footnotesize template$<$memory\+\_\+model memory\+\_\+model, std\+::ranges\+::range Container, typename ... Ts$>$ }\\auto {\bfseries rpp\+::observable\+::details\+::pack\+\_\+to\+\_\+container} (Ts \&\&...items)
 \item 
-{\footnotesize template$<$memory\+\_\+model memory\+\_\+model, schedulers\+::constraint\+::scheduler TScheduler$>$ }\\auto \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{rpp\+::observable\+::from}} (std\+::ranges\+::range auto \&\&iterable, const TScheduler \&scheduler)
-\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits a items from provided iterable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\Hypertarget{from_8hpp_a3a12b7d5732c1809ebc708704060d542}\label{from_8hpp_a3a12b7d5732c1809ebc708704060d542}} 
+{\footnotesize template$<$memory\+\_\+model memory\+\_\+model, constraint\+::decayed\+\_\+type T, typename ... Ts$>$ }\\auto {\bfseries rpp\+::observable\+::details\+::pack\+\_\+variadic} (Ts \&\&...items)
+\item 
+{\footnotesize template$<$memory\+\_\+model memory\+\_\+model, typename T , typename ... Ts$>$ \newline
+requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp\+::observable\+::just}} (const schedulers\+::constraint\+::scheduler auto \&scheduler, T \&\&item, Ts \&\&...items)
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits a particular items and completes. \end{DoxyCompactList}\item 
+{\footnotesize template$<$memory\+\_\+model memory\+\_\+model, typename T , typename ... Ts$>$ \newline
+requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__observables_ga9b6fdbec2962d28ae4284811e6971f27}{rpp\+::observable\+::just}} (T \&\&item, Ts \&\&...items)
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits a particular items and completes. \end{DoxyCompactList}\item 
+{\footnotesize template$<$memory\+\_\+model memory\+\_\+model, schedulers\+::constraint\+::scheduler TScheduler$>$ }\\auto \mbox{\hyperlink{group__observables_ga688c67a9b816125b0e69a663c528f836}{rpp\+::observable\+::from\+\_\+iterable}} (std\+::ranges\+::range auto \&\&iterable, const TScheduler \&scheduler)
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits a items from provided iterable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$memory\+\_\+model memory\+\_\+model$>$ }\\auto \mbox{\hyperlink{group__observables_gaf574d9dd582ee9b59553e3705e8793cd}{rpp\+::observable\+::from\+\_\+callable}} (std\+::invocable$<$$>$ auto \&\&callable)
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that calls provided callable and emits resulting value. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -33,23 +53,11 @@ This file contains implementation of {\ttfamily from} function to create \mbox{\
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
-\DoxyCodeLine{        \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{rpp::source::from}}(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
-
-\end{DoxyCodeInclude}
- 
-\begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
-\DoxyCodeLine{        rpp::source::from<rpp::memory\_model::use\_shared>(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
-
-\end{DoxyCodeInclude}
- 
-\begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
-\DoxyCodeLine{        \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{rpp::source::from}}(vals, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{        \mbox{\hyperlink{group__observables_ga688c67a9b816125b0e69a663c528f836}{rpp::source::from\_iterable}}(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 
 \end{DoxyCodeInclude}
 
 
 \begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators/from.hpptml}{\texttt{ https\+://reactivex.\+io/documentation/operators/from.\+hpptml}} 
+\href{https://reactivex.io/documentation/operators/from.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/from.\+html}} 
 \end{DoxySeeAlso}

@@ -25,26 +25,27 @@
 \DoxyCodeLine{25 \textcolor{keyword}{public}:}
 \DoxyCodeLine{26     \textcolor{keyword}{using} \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber<T, dynamic\_observer<T>}}>\mbox{\hyperlink{classrpp_1_1specific__subscriber}{::specific\_subscriber}};}
 \DoxyCodeLine{27 }
-\DoxyCodeLine{28     \textcolor{keyword}{template}<\textcolor{keyword}{typename} Obs>}
-\DoxyCodeLine{29     \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber<T, Obs>}}\& subscriber)}
-\DoxyCodeLine{30         : \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber<T, dynamic\_observer<T>}}>\{subscriber.get\_subscription(),}
-\DoxyCodeLine{31                                                       subscriber.get\_observer()\} \{\}}
-\DoxyCodeLine{32 \};}
-\DoxyCodeLine{33 }
-\DoxyCodeLine{34 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer TObs>}
-\DoxyCodeLine{35 \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber}}(TObs observer) -\/> \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<utils::extract\_observer\_type\_t<TObs>}}>;}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer TObs>}
-\DoxyCodeLine{38 \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber}}(\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}, TObs observer) -\/> \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<utils::extract\_observer\_type\_t<TObs>}}>;}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{40 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Obs>}
-\DoxyCodeLine{41 \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber}}(\mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber<T, Obs>}}) -\/> \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<T>}};}
-\DoxyCodeLine{42 }
-\DoxyCodeLine{43 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext, \textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{44 \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber}}(\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}, OnNext, Args...) -\/> \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<std::decay\_t<utils::function\_argument\_t<OnNext>}}>>;}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{46 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext, \textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{47 \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber}}(OnNext, Args ...) -\/> \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<std::decay\_t<utils::function\_argument\_t<OnNext>}}>>;}
-\DoxyCodeLine{48 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{28     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<T> TSub>}
+\DoxyCodeLine{29         \textcolor{keyword}{requires} (!std::is\_same\_v<std::decay\_t<TSub>, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<T>}}>)}
+\DoxyCodeLine{30     \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber}}(\textcolor{keyword}{const} TSub\& subscriber)}
+\DoxyCodeLine{31         : \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber<T, dynamic\_observer<T>}}>\{subscriber.get\_subscription(),}
+\DoxyCodeLine{32                                                       subscriber.get\_observer()\} \{\}}
+\DoxyCodeLine{33 \};}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer TObs>}
+\DoxyCodeLine{36 \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber}}(TObs observer) -\/> \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<utils::extract\_observer\_type\_t<TObs>}}>;}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer TObs>}
+\DoxyCodeLine{39 \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber}}(\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}, TObs observer) -\/> \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<utils::extract\_observer\_type\_t<TObs>}}>;}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Obs>}
+\DoxyCodeLine{42 \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber}}(\mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\_subscriber<T, Obs>}}) -\/> \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<T>}};}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{45 \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber}}(\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}, OnNext, Args...) -\/> \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<std::decay\_t<utils::function\_argument\_t<OnNext>}}>>;}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{48 \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber}}(OnNext, Args ...) -\/> \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<std::decay\_t<utils::function\_argument\_t<OnNext>}}>>;}
+\DoxyCodeLine{49 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

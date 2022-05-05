@@ -45,21 +45,23 @@
 \DoxyCodeLine{41 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
 \DoxyCodeLine{42 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga6ec535e9c756e3bf8be5b7f64fc55380}{error}}(\textcolor{keyword}{const} std::exception\_ptr\& err);}
 \DoxyCodeLine{43 }
-\DoxyCodeLine{44 \textcolor{comment}{//*************************** JUST ********************//}}
+\DoxyCodeLine{44 \textcolor{comment}{//************************** FROM ***********************//}}
 \DoxyCodeLine{45 \textcolor{keyword}{template}<memory\_model memory\_model = memory\_model::use\_stack, \textcolor{keyword}{typename} T, \textcolor{keyword}{typename} ...Ts>}
-\DoxyCodeLine{46 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga9b6fdbec2962d28ae4284811e6971f27}{just}}(\textcolor{keyword}{const} schedulers::constraint::scheduler \textcolor{keyword}{auto}\& scheduler, T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (constraint::decayed\_same\_as<T, Ts> \&\& ...);}
+\DoxyCodeLine{46 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{just}}(\textcolor{keyword}{const} schedulers::constraint::scheduler \textcolor{keyword}{auto}\& scheduler, T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (constraint::decayed\_same\_as<T, Ts> \&\& ...);}
 \DoxyCodeLine{47 }
 \DoxyCodeLine{48 \textcolor{keyword}{template}<memory\_model memory\_model = memory\_model::use\_stack, \textcolor{keyword}{typename} T, \textcolor{keyword}{typename} ...Ts>}
-\DoxyCodeLine{49 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga9b6fdbec2962d28ae4284811e6971f27}{just}}(T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (constraint::decayed\_same\_as<T, Ts> \&\& ...);}
+\DoxyCodeLine{49 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{just}}(T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (constraint::decayed\_same\_as<T, Ts> \&\& ...);}
 \DoxyCodeLine{50 }
-\DoxyCodeLine{51 \textcolor{comment}{//************************** FROM ***********************//}}
-\DoxyCodeLine{52 \textcolor{keyword}{template}<memory\_model memory\_model= memory\_model::use\_stack, schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler = rpp::schedulers::immediate>}
-\DoxyCodeLine{53 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga59e99a150529fe274de8ea48e0cc0913}{from}}(std::ranges::range \textcolor{keyword}{auto}\&\& iterable, \textcolor{keyword}{const} TScheduler\& scheduler = TScheduler\{\});}
-\DoxyCodeLine{54 \} \textcolor{comment}{// namespace rpp::observable}}
-\DoxyCodeLine{55 }
-\DoxyCodeLine{56 \textcolor{keyword}{namespace }rpp}
-\DoxyCodeLine{57 \{}
-\DoxyCodeLine{58 \textcolor{keyword}{namespace }source = observable;}
-\DoxyCodeLine{59 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{51 \textcolor{keyword}{template}<memory\_model memory\_model= memory\_model::use\_stack, schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler = rpp::schedulers::immediate>}
+\DoxyCodeLine{52 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga688c67a9b816125b0e69a663c528f836}{from\_iterable}}(std::ranges::range \textcolor{keyword}{auto}\&\& iterable, \textcolor{keyword}{const} TScheduler\& scheduler = TScheduler\{\});}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{keyword}{template}<memory\_model memory\_model = memory\_model::use\_stack>}
+\DoxyCodeLine{55 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gaf574d9dd582ee9b59553e3705e8793cd}{from\_callable}}(std::invocable<> \textcolor{keyword}{auto}\&\& callable);}
+\DoxyCodeLine{56 \} \textcolor{comment}{// namespace rpp::observable}}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{keyword}{namespace }rpp}
+\DoxyCodeLine{59 \{}
+\DoxyCodeLine{60 \textcolor{keyword}{namespace }source = observable;}
+\DoxyCodeLine{61 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

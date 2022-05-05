@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: just.cpp</title>
+<title>ReactivePlusPlus: rpp::observable::details::iterate_impl&lt; PackedIterable, TScheduler &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -46,7 +46,6 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,29 +60,35 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><b>rpp</b></li><li class="navelem"><b>observable</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="classrpp_1_1observable_1_1details_1_1iterate__impl.html">iterate_impl</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">just.cpp</div></div>
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="classrpp_1_1observable_1_1details_1_1iterate__impl-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">rpp::observable::details::iterate_impl&lt; PackedIterable, TScheduler &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/rpp.hpp&gt;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> main()</div>
-<div class="line">{</div>
-<div class="line">    <a id="a0" name="a0"></a><a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
-<div class="line">    <span class="comment">// Output: 42 53 10 1</span></div>
-<div class="line"><span class="comment"></span> </div>
-<div class="line">    std::array&lt;int, 100&gt; cheap_to_copy_1{};</div>
-<div class="line">    std::array&lt;int, 100&gt; cheap_to_copy_2{};</div>
-<div class="line">    rpp::source::just&lt;rpp::memory_model::use_shared&gt;(cheap_to_copy_1, cheap_to_copy_2).subscribe();</div>
-<div class="line"> </div>
-<div class="line">    <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(<a id="_a1" name="_a1"></a><a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}, 42, 53).subscribe();</div>
-<div class="line">}</div>
-<div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">scheduler which schedule execution of via queueing tasks to another thread with priority to time_poin...</div><div class="ttdef"><b>Definition:</b> new_thread_scheduler.hpp:60</div></div>
-<div class="ttc" id="agroup__observables_html_ga819797b9fb7452311dedc62aa94d1f7b"><div class="ttname"><a href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:139</div></div>
-</div><!-- fragment --> </div><!-- contents -->
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:adc5a989b9ae10bf739c34d03e05e5a75"><td class="memItemLeft" align="right" valign="top"><a id="adc5a989b9ae10bf739c34d03e05e5a75" name="adc5a989b9ae10bf739c34d03e05e5a75"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>iterate_impl</b> (const PackedIterable &amp;iterable, const TScheduler &amp;scheduler)</td></tr>
+<tr class="separator:adc5a989b9ae10bf739c34d03e05e5a75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba11f14040cc40643de892e3edb96391"><td class="memItemLeft" align="right" valign="top"><a id="aba11f14040cc40643de892e3edb96391" name="aba11f14040cc40643de892e3edb96391"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>iterate_impl</b> (PackedIterable &amp;&amp;iterable, const TScheduler &amp;scheduler)</td></tr>
+<tr class="separator:aba11f14040cc40643de892e3edb96391"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30be7cbaf7ff6f1ee0bba64bc0b6d24c"><td class="memItemLeft" align="right" valign="top"><a id="a30be7cbaf7ff6f1ee0bba64bc0b6d24c" name="a30be7cbaf7ff6f1ee0bba64bc0b6d24c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>operator()</b> (const constraint::subscriber auto &amp;subscriber) const</td></tr>
+<tr class="separator:a30be7cbaf7ff6f1ee0bba64bc0b6d24c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>src/include/rpp/sources/<a class="el" href="from_8hpp_source.html">from.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2

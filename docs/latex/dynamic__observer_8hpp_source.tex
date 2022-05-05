@@ -42,7 +42,7 @@
 \DoxyCodeLine{45                            utils::rethrow\_error\_t\{\},}
 \DoxyCodeLine{46                            std::forward<decltype(on\_completed)>(\mbox{\hyperlink{classrpp_1_1dynamic__observer_aebd2d9f021a23ce98a2eac7d49d8f254}{on\_completed}})\} \{\}}
 \DoxyCodeLine{47 }
-\DoxyCodeLine{48     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer TObserver> }
+\DoxyCodeLine{48     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_of\_type<T> TObserver> }
 \DoxyCodeLine{49         \textcolor{keyword}{requires} (!std::is\_same\_v<std::decay\_t<TObserver>, \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}}>)}
 \DoxyCodeLine{50     \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}(TObserver\&\& obs)}
 \DoxyCodeLine{51         : m\_state\{std::make\_shared<std::decay\_t<TObserver>>(std::forward<TObserver>(obs))\} \{\}}

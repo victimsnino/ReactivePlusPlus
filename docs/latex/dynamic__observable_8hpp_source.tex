@@ -29,7 +29,7 @@
 \DoxyCodeLine{33     \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable}}(constraint::on\_subscribe\_fn<Type> \textcolor{keyword}{auto}\&\& on\_subscribe)}
 \DoxyCodeLine{34         : m\_observable\{std::make\_shared<\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}<Type, std::decay\_t<\textcolor{keyword}{decltype}(on\_subscribe)>>>(on\_subscribe)\} \{\}}
 \DoxyCodeLine{35 }
-\DoxyCodeLine{36     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs>}
+\DoxyCodeLine{36     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs>}
 \DoxyCodeLine{37         \textcolor{keyword}{requires} (!std::is\_same\_v<std::decay\_t<TObs>, \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable<Type>}}>)}
 \DoxyCodeLine{38     \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable}}(TObs\&\& observable)}
 \DoxyCodeLine{39         : m\_observable\{ std::make\_shared<std::decay\_t<TObs>>(std::forward<TObs>(observable)) \} \{\}}

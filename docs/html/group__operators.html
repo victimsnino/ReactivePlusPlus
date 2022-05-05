@@ -130,7 +130,7 @@ requires is_header_included&lt;take_while_tag, Predicate&gt;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p >Operators is way to modify observables and extend with some extra custom logic. </p>
-<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.hpptml">https://reactivex.io/documentation/operators.hpptml</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html">https://reactivex.io/documentation/operators.html</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gae2695326a24fb8534f17f0d228d3b7f2" name="gae2695326a24fb8534f17f0d228d3b7f2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gae2695326a24fb8534f17f0d228d3b7f2">&#9670;&nbsp;</a></span>filter()</h2>
@@ -172,7 +172,7 @@ requires is_header_included&lt;filter_tag, Predicate&gt;</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 2 4 6 8</span></div>
 <div class="ttc" id="agroup__operators_html_gae2695326a24fb8534f17f0d228d3b7f2"><div class="ttname"><a href="group__operators.html#gae2695326a24fb8534f17f0d228d3b7f2">rpp::details::member_overload&lt; Type, SpecificObservable, filter_tag &gt;::filter</a></div><div class="ttdeci">auto filter(Predicate &amp;&amp;predicate) const &amp;</div><div class="ttdoc">emit only those items from an Observable that satisfies a predicate</div><div class="ttdef"><b>Definition:</b> filter.hpp:49</div></div>
-</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/filter.hpptml">https://reactivex.io/documentation/operators/filter.hpptml</a></dd></dl>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/filter.html">https://reactivex.io/documentation/operators/filter.html</a></dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Predicate</td><td>type of predicate used to check emitted itemss </td></tr>
@@ -237,7 +237,7 @@ requires is_header_included&lt;map_tag, Callable&gt;</div>
 <div class="line">            })</div>
 <div class="line">            .subscribe([](std::string v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 42 VAL</span></div>
-</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/map.hpptml">https://reactivex.io/documentation/operators/map.hpptml</a></dd></dl>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/map.html">https://reactivex.io/documentation/operators/map.html</a></dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Callable</td><td>type of callable used to provide this transformation </td></tr>
@@ -278,15 +278,15 @@ requires (is_header_included&lt;merge_tag, Args...&gt; &amp;&amp; rpp::constrain
 </div><div class="memdoc">
 
 <p>combine submissions from observables inside this observable into one </p>
-<p >this overloading of Merge operator can be applied for observable of observables and will merge emissions of observables inside root observable \warn According to observable contract (<a href="https://reactivex.io/documentation/contract.hpptml">https://reactivex.io/documentation/contract.hpptml</a>) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement</p>
+<p >this overloading of Merge operator can be applied for observable of observables and will merge emissions of observables inside root observable \warn According to observable contract (<a href="https://reactivex.io/documentation/contract.html">https://reactivex.io/documentation/contract.html</a>) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement</p>
 <p >Example: </p><div class="fragment"><div class="line">    <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(<a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(1).as_dynamic(),</div>
 <div class="line">                      rpp::source::never&lt;int&gt;().as_dynamic(),</div>
 <div class="line">                      <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(2).as_dynamic())</div>
 <div class="line">            .merge()</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1 2</span></div>
-<div class="ttc" id="agroup__observables_html_ga819797b9fb7452311dedc62aa94d1f7b"><div class="ttname"><a href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> just.hpp:60</div></div>
-</div><!-- fragment --> <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/merge.hpptml">https://reactivex.io/documentation/operators/merge.hpptml</a></dd></dl>
+<div class="ttc" id="agroup__observables_html_ga819797b9fb7452311dedc62aa94d1f7b"><div class="ttname"><a href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:139</div></div>
+</div><!-- fragment --> <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/merge.html">https://reactivex.io/documentation/operators/merge.html</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the merge operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="merge_8hpp_source.html">rpp/operators/merge.hpp</a>&gt; </dd></dl>
 
@@ -322,12 +322,12 @@ requires (is_header_included&lt;merge_tag, TObservables...&gt;&amp;&amp; sizeof.
 </div><div class="memdoc">
 
 <p>combine submissions from current observable with other observables into one </p>
-<p >this overloading of Merge operator can be applied to any observable to merge emissions with other observables from arguments \warn According to observable contract (<a href="https://reactivex.io/documentation/contract.hpptml">https://reactivex.io/documentation/contract.hpptml</a>) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement</p>
+<p >this overloading of Merge operator can be applied to any observable to merge emissions with other observables from arguments \warn According to observable contract (<a href="https://reactivex.io/documentation/contract.html">https://reactivex.io/documentation/contract.html</a>) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement</p>
 <p >Example: </p><div class="fragment"><div class="line">    <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(1)</div>
 <div class="line">            .merge_with(<a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(2))</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1 2</span></div>
-</div><!-- fragment --> <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/merge.hpptml">https://reactivex.io/documentation/operators/merge.hpptml</a></dd></dl>
+</div><!-- fragment --> <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/merge.html">https://reactivex.io/documentation/operators/merge.html</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the merge operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="merge_8hpp_source.html">rpp/operators/merge.hpp</a>&gt; </dd></dl>
 
@@ -425,7 +425,7 @@ requires is_header_included&lt;observe_on_tag, TScheduler&gt;</div>
 <div class="line">    <span class="comment">// [TH2]: 15</span></div>
 <div class="line">    <span class="comment">// [TH2]: 20</span></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">scheduler which schedule execution of via queueing tasks to another thread with priority to time_poin...</div><div class="ttdef"><b>Definition:</b> new_thread_scheduler.hpp:60</div></div>
-</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/observeon.hpptml">https://reactivex.io/documentation/operators/observeon.hpptml</a></dd></dl>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/observeon.html">https://reactivex.io/documentation/operators/observeon.html</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the observe_on operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="observe__on_8hpp_source.html">rpp/operators/observe_on.hpp</a>&gt; </dd></dl>
 
@@ -604,7 +604,7 @@ requires is_header_included&lt;take_tag, Args...&gt;</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 1</span></div>
 <div class="ttc" id="agroup__operators_html_ga0dcb41decfa8d5ded95f828a7e65ffee"><div class="ttname"><a href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a></div><div class="ttdeci">auto take(size_t count) const &amp;</div><div class="ttdoc">emit only first Count items provided by observable</div><div class="ttdef"><b>Definition:</b> take.hpp:47</div></div>
-</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/take.hpptml">https://reactivex.io/documentation/operators/take.hpptml</a></dd></dl>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/take.html">https://reactivex.io/documentation/operators/take.html</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the Take operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="take_8hpp_source.html">rpp/operators/take.hpp</a>&gt; </dd></dl>
 
@@ -649,7 +649,7 @@ requires is_header_included&lt;take_while_tag, Predicate&gt;</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span>  v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 1 2 3 4</span></div>
 <div class="ttc" id="agroup__operators_html_ga47773bfb0298bba2ec71502c1984cc95"><div class="ttname"><a href="group__operators.html#ga47773bfb0298bba2ec71502c1984cc95">rpp::details::member_overload&lt; Type, SpecificObservable, take_while_tag &gt;::take_while</a></div><div class="ttdeci">auto take_while(Predicate &amp;&amp;predicate) const &amp;</div><div class="ttdoc">sends items provided by observable while satisfies predicate. When condition becomes false -&gt; termina...</div><div class="ttdef"><b>Definition:</b> take_while.hpp:46</div></div>
-</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/takewhile.hpptml">https://reactivex.io/documentation/operators/takewhile.hpptml</a></dd></dl>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/takewhile.html">https://reactivex.io/documentation/operators/takewhile.html</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the take_while operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="take__while_8hpp_source.html">rpp/operators/take_while.hpp</a>&gt; </dd></dl>
 
