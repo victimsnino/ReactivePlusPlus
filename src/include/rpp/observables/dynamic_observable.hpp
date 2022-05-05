@@ -33,7 +33,7 @@ public:
     dynamic_observable(constraint::on_subscribe_fn<Type> auto&& on_subscribe)
         : m_observable{std::make_shared<specific_observable<Type, std::decay_t<decltype(on_subscribe)>>>(on_subscribe)} {}
 
-    template<constraint::observable TObs>
+    template<constraint::observable_of_type<Type> TObs>
         requires (!std::is_same_v<std::decay_t<TObs>, dynamic_observable<Type>>)
     dynamic_observable(TObs&& observable)
         : m_observable{ std::make_shared<std::decay_t<TObs>>(std::forward<TObs>(observable)) } {}
