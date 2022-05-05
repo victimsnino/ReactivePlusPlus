@@ -41,16 +41,18 @@ auto never();
 template<constraint::decayed_type Type>
 auto error(const std::exception_ptr& err);
 
-//*************************** JUST ********************//
+//************************** FROM ***********************//
 template<memory_model memory_model = memory_model::use_stack, typename T, typename ...Ts>
 auto just(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...);
 
 template<memory_model memory_model = memory_model::use_stack, typename T, typename ...Ts>
 auto just(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...);
 
-//************************** FROM ***********************//
 template<memory_model memory_model= memory_model::use_stack, schedulers::constraint::scheduler TScheduler = rpp::schedulers::immediate>
-auto from(std::ranges::range auto&& iterable, const TScheduler& scheduler = TScheduler{});
+auto from_iterable(std::ranges::range auto&& iterable, const TScheduler& scheduler = TScheduler{});
+
+template<memory_model memory_model = memory_model::use_stack>
+auto from_callable(std::invocable<> auto&& callable);
 } // namespace rpp::observable
 
 namespace rpp

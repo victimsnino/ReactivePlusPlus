@@ -24,7 +24,7 @@ SCENARIO("observe_on transfers emssions to scheduler")
     GIVEN("observable with item")
     {
         auto vals = std::vector<std::string>{"2", "3"};
-        auto obs  = rpp::source::from(vals);
+        auto obs  = rpp::source::from_iterable(vals);
 
         WHEN("subscribe on observable via observe_on with immediate scheduler")
         {

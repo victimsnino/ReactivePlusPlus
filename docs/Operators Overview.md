@@ -52,7 +52,12 @@ Creates observable from some another complex type:
   iterates over provided iterable and emits each value (something similar to just(...)). Can be configured with memory_model and scheduler
   ```cpp
     std::vector<int> vals{ 1,2,3 };
-    rpp::source::from<rpp::memory_model::use_shared>(vals, rpp::schedulers::new_thread{}).subscribe([](int v) {std::cout << v << " "; });
+    rpp::source::from_iterable<rpp::memory_model::use_shared>(vals, rpp::schedulers::new_thread{}).subscribe([](int v) {std::cout << v << " "; });
+  ```
+- **callable**
+  invoke callable and sends returning value Can be configured with memory_model
+  ```cpp
+    rpp::source::from_callable<rpp::memory_model::use_shared>([](){return 42;}).subscribe([](int v) {std::cout << v << " "; });
   ```
 
 ## Transforming

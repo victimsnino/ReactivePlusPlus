@@ -44,7 +44,7 @@ struct member_overload<Type, SpecificObservable, map_tag>
      * Example with changed type:
      * \snippet map.cpp Changed type
      *
-     * \see https://reactivex.io/documentation/operators/map.hpptml
+     * \see https://reactivex.io/documentation/operators/map.html
      *
      * \tparam Callable type of callable used to provide this transformation
      * \return new specific_observable with the Map operator as most recent operator.

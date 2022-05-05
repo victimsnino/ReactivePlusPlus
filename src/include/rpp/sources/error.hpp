@@ -14,7 +14,7 @@
  * \file
  * \brief This file contains implementation of `error` functions to create rpp::specific_observable
  *
- * \see https://reactivex.io/documentation/operators/empty-never-throw.hpptml
+ * \see https://reactivex.io/documentation/operators/empty-never-throw.html
  **/
 
 #include <rpp/sources/create.hpp>
@@ -31,7 +31,7 @@ namespace rpp::observable
   * \tparam Type type of value to specify observable
   * \param err exception ptr to be sent to subscriber
   *
-  * \see https://reactivex.io/documentation/operators/empty-never-throw.hpptml
+  * \see https://reactivex.io/documentation/operators/empty-never-throw.html
   */
 template<constraint::decayed_type Type>
 auto error(const std::exception_ptr& err)

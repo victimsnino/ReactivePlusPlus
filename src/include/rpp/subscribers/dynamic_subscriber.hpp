@@ -25,8 +25,9 @@ class dynamic_subscriber final : public specific_subscriber<T, dynamic_observer<
 public:
     using specific_subscriber<T, dynamic_observer<T>>::specific_subscriber;
 
-    template<typename Obs>
-    dynamic_subscriber(const specific_subscriber<T, Obs>& subscriber)
+    template<constraint::subscriber_of_type<T> TSub>
+        requires (!std::is_same_v<std::decay_t<TSub>, dynamic_subscriber<T>>)
+    dynamic_subscriber(const TSub& subscriber)
         : specific_subscriber<T, dynamic_observer<T>>{subscriber.get_subscription(),
                                                       subscriber.get_observer()} {}
 };

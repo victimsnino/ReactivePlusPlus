@@ -45,7 +45,7 @@ public:
                            utils::rethrow_error_t{},
                            std::forward<decltype(on_completed)>(on_completed)} {}
 
-    template<constraint::observer TObserver> 
+    template<constraint::observer_of_type<T> TObserver> 
         requires (!std::is_same_v<std::decay_t<TObserver>, dynamic_observer<T>>)
     dynamic_observer(TObserver&& obs)
         : m_state{std::make_shared<std::decay_t<TObserver>>(std::forward<TObserver>(obs))} {}

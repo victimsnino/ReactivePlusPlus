@@ -14,7 +14,7 @@
  * \file
  * \brief This file contains implementation of `never` functions to create rpp::specific_observable
  *
- * \see https://reactivex.io/documentation/operators/empty-never-throw.hpptml
+ * \see https://reactivex.io/documentation/operators/empty-never-throw.html
  **/
 
 #include <rpp/sources/create.hpp>
@@ -29,7 +29,7 @@ namespace rpp::observable
  * \brief Creates rpp::specific_observable that emits no items and does not terminate
  * \tparam Type type of value to specify observable
  *
- * \see https://reactivex.io/documentation/operators/empty-never-throw.hpptml
+ * \see https://reactivex.io/documentation/operators/empty-never-throw.html
  */
 template<constraint::decayed_type Type>
 auto never()

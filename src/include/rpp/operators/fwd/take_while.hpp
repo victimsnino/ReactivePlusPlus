@@ -36,7 +36,7 @@ struct member_overload<Type, SpecificObservable, take_while_tag>
      * Example:
      * \snippet take_while.cpp take_while
      *
-     * \see https://reactivex.io/documentation/operators/takewhile.hpptml
+     * \see https://reactivex.io/documentation/operators/takewhile.html
      *
      * \return new specific_observable with the take_while operator as most recent operator.
      * \warning #include <rpp/operators/take_while.hpp>

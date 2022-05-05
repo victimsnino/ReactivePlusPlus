@@ -38,7 +38,7 @@ namespace rpp::details
          * Example:
          * \snippet filter.cpp Filter
          *
-         * \see https://reactivex.io/documentation/operators/filter.hpptml
+         * \see https://reactivex.io/documentation/operators/filter.html
          *
          * \tparam Predicate type of predicate used to check emitted itemss
          * \return new specific_observable with the Filter operator as most recent operator.

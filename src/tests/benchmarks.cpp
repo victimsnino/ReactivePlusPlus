@@ -290,7 +290,7 @@ TEST_CASE("from")
         auto sub = rpp::make_specific_subscriber<int>();
 
         std::vector vec{ 1 };
-        meter.measure([&] {return rpp::source::from(vec).subscribe(sub); });
+        meter.measure([&] {return rpp::source::from_iterable(vec).subscribe(sub); });
     };
 }
 
