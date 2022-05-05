@@ -62,8 +62,10 @@
 - [x] publish
 - [x] multicast
 - [x] connect
-- [ ] ref_count
+- [x] ref_count
 - [ ] replay
+
+
 ## Subjects
 - [x] publish_subject
 - [ ] serialized_subject
