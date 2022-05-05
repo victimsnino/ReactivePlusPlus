@@ -31,7 +31,7 @@
   - [x] iterable
   - [ ] future
   - [ ] promise
-  - [ ] callback
+  - [x] callable
   - [ ] async
 - [ ] defer
 - [ ] interval
