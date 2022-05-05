@@ -196,6 +196,11 @@ auto from_iterable(std::ranges::range auto&& iterable, const TScheduler& schedul
 template<memory_model memory_model>
 auto from_callable(std::invocable<> auto&& callable)
 {
-    return just<memory_model>(std::forward<decltype(callable)>(callable)).map([](const auto& fn) {return fn(); });
+    auto obs = just<memory_model>(std::forward<decltype(callable)>(callable));
+
+    if constexpr (std::same_as<std::invoke_result_t<decltype(callable)>, void>)
+        return std::move(obs).map([](const auto& fn) { fn(); return utils::none{};});
+    else
+        return std::move(obs).map([](const auto& fn) { return fn(); });
 }
 } // namespace rpp::observable

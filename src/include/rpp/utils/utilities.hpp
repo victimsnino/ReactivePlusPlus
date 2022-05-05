@@ -29,4 +29,6 @@ using atomic_shared_ptr = std::atomic<std::shared_ptr<T>>;
 template<typename T>
 using atomic_shared_ptr = std::shared_ptr<T>;
 #endif
+
+struct none{};
 } // namespace rpp::utils
