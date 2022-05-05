@@ -19,7 +19,7 @@
  * \snippet create.cpp create with capture
  * \snippet create.cpp create type deduction
  *
- * \see https://reactivex.io/documentation/operators/create.hpptml
+ * \see https://reactivex.io/documentation/operators/create.html
  **/
 
 #include <rpp/sources/fwd.hpp>
@@ -40,7 +40,7 @@ namespace rpp::observable
  * \snippet create.cpp create with capture
  * \snippet create.cpp create type deduction
  *
- * \see https://reactivex.io/documentation/operators/create.hpptml
+ * \see https://reactivex.io/documentation/operators/create.html
  */
 template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
 auto create(OnSubscribeFn&& on_subscribe)
@@ -60,7 +60,7 @@ auto create(OnSubscribeFn&& on_subscribe)
  * \snippet create.cpp create with capture
  * \snippet create.cpp create type deduction
  *
- * \see https://reactivex.io/documentation/operators/create.hpptml
+ * \see https://reactivex.io/documentation/operators/create.html
  */
 template<utils::is_callable OnSubscribeFn, constraint::decayed_type Type>
 auto create(OnSubscribeFn&& on_subscribe)

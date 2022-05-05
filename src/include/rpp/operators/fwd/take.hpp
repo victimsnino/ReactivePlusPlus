@@ -37,7 +37,7 @@ struct member_overload<Type, SpecificObservable, take_tag>
      * Example:
      * \snippet take.cpp take
      *
-     * \see https://reactivex.io/documentation/operators/take.hpptml
+     * \see https://reactivex.io/documentation/operators/take.html
      *
      * \return new specific_observable with the Take operator as most recent operator.
      * \warning #include <rpp/operators/take.hpp>

@@ -36,11 +36,11 @@ struct member_overload<Type, SpecificObservable, merge_tag>
     * \brief combine submissions from observables inside this observable into one
     *
     * \details this overloading of Merge operator can be applied for observable of observables and will merge emissions of observables inside root observable
-    * \warn According to observable contract (https://reactivex.io/documentation/contract.hpptml) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
+    * \warn According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
     *	
     * Example:
     * \snippet merge.cpp merge
-    * \see https://reactivex.io/documentation/operators/merge.hpptml
+    * \see https://reactivex.io/documentation/operators/merge.html
     *
     * \return new specific_observable with the merge operator as most recent operator.
     * \warning #include <rpp/operators/merge.hpp>
@@ -62,11 +62,11 @@ struct member_overload<Type, SpecificObservable, merge_tag>
     * \brief combine submissions from current observable with other observables into one
     *
     * \details this overloading of Merge operator can be applied to any observable to merge emissions with other observables from arguments
-    * \warn According to observable contract (https://reactivex.io/documentation/contract.hpptml) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
+    * \warn According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
     *
     * Example:
     * \snippet merge.cpp merge_with
-    * \see https://reactivex.io/documentation/operators/merge.hpptml
+    * \see https://reactivex.io/documentation/operators/merge.html
     *
     * \return new specific_observable with the merge operator as most recent operator.
     * \warning #include <rpp/operators/merge.hpp>
