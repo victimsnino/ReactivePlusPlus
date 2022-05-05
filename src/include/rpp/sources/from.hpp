@@ -39,7 +39,7 @@ auto extract_iterable_from_packed(const T & v) -> const auto&
         return v;
     else
         return *v;
-};
+}
 
 template<typename ValueExtractStrategy = std::identity>
 void iterate(const auto&                                   iterable,
