@@ -67,9 +67,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="structrpp_1_1virtual__observable-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::virtual_observable&lt; Type &gt; Struct Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+  <div class="headertitle"><div class="title">rpp::virtual_observable&lt; Type &gt; Struct Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -84,20 +83,13 @@ Inheritance diagram for rpp::virtual_observable&lt; Type &gt;:</div>
   <img src="structrpp_1_1virtual__observable.png" usemap="#rpp::virtual_5Fobservable_3C_20Type_20_3E_map" alt=""/>
   <map id="rpp::virtual_5Fobservable_3C_20Type_20_3E_map" name="rpp::virtual_5Fobservable_3C_20Type_20_3E_map">
 <area href="structrpp_1_1details_1_1observable__tag.html" alt="rpp::details::observable_tag" shape="rect" coords="492,0,974,24"/>
-<area href="structrpp_1_1interface__observable.html" alt="rpp::interface_observable&lt; Type, dynamic_observable&lt; Type &gt; &gt;" shape="rect" coords="0,112,482,136"/>
-<area href="structrpp_1_1interface__observable.html" alt="rpp::interface_observable&lt; Type, specific_observable&lt; Type, OnSubscribeFn &gt; &gt;" shape="rect" coords="492,112,974,136"/>
-<area href="structrpp_1_1interface__observable.html" title="Base part of observable. Mostly used to provide some interface functions used by all observables." alt="rpp::interface_observable&lt; Type, SpecificObservable &gt;" shape="rect" coords="984,112,1466,136"/>
-<area href="classrpp_1_1dynamic__observable.html" title="type-erased alternative of observable (comparing to rpp::specific_observable)." alt="rpp::dynamic_observable&lt; Type &gt;" shape="rect" coords="0,168,482,192"/>
+<area href="structrpp_1_1interface__observable.html" alt="rpp::interface_observable&lt; Type, specific_observable&lt; Type, OnSubscribeFn &gt; &gt;" shape="rect" coords="246,112,728,136"/>
+<area href="structrpp_1_1interface__observable.html" title="Base part of observable. Mostly used to provide some interface functions used by all observables." alt="rpp::interface_observable&lt; Type, SpecificObservable &gt;" shape="rect" coords="738,112,1220,136"/>
+<area href="classrpp_1_1specific__observable.html" alt="rpp::specific_observable&lt; Type, details::dynamic_observable_state&lt; Type &gt; &gt;" shape="rect" coords="0,168,482,192"/>
 <area href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ..." alt="rpp::specific_observable&lt; Type, OnSubscribeFn &gt;" shape="rect" coords="492,168,974,192"/>
+<area href="classrpp_1_1dynamic__observable.html" title="type-erased alternative of observable (comparing to rpp::specific_observable)." alt="rpp::dynamic_observable&lt; Type &gt;" shape="rect" coords="0,224,482,248"/>
   </map>
 </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a1b64dbf3f79ccc497fd6de3f6c26f350"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrpp_1_1virtual__observable.html#a1b64dbf3f79ccc497fd6de3f6c26f350">subscribe</a> (const <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; Type &gt; &amp;subscriber) const =0</td></tr>
-<tr class="memdesc:a1b64dbf3f79ccc497fd6de3f6c26f350"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function.  <a href="structrpp_1_1virtual__observable.html#a1b64dbf3f79ccc497fd6de3f6c26f350">More...</a><br /></td></tr>
-<tr class="separator:a1b64dbf3f79ccc497fd6de3f6c26f350"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;constraint::decayed_type Type&gt;<br />
 struct rpp::virtual_observable&lt; Type &gt;</div><p >Interface of observable. </p>
@@ -107,41 +99,7 @@ struct rpp::virtual_observable&lt; Type &gt;</div><p >Interface of observable. <
   </table>
   </dd>
 </dl>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1b64dbf3f79ccc497fd6de3f6c26f350" name="a1b64dbf3f79ccc497fd6de3f6c26f350"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b64dbf3f79ccc497fd6de3f6c26f350">&#9670;&nbsp;</a></span>subscribe()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;constraint::decayed_type Type&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> <a class="el" href="structrpp_1_1virtual__observable.html">rpp::virtual_observable</a>&lt; Type &gt;::subscribe </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; Type &gt; &amp;&#160;</td>
-          <td class="paramname"><em>subscriber</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function. </p>
-<dl class="section return"><dt>Returns</dt><dd>subscription on this observable which can be used to unsubscribe </dd></dl>
-
-<p>Implemented in <a class="el" href="classrpp_1_1dynamic__observable.html#ae762d2c7cf948e197b26aac476ca0ed6">rpp::dynamic_observable&lt; Type &gt;</a>, and <a class="el" href="classrpp_1_1specific__observable.html#a8ae825f99cc81032f5b7b98217c61dc1">rpp::specific_observable&lt; Type, OnSubscribeFn &gt;</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
+</div><hr/>The documentation for this struct was generated from the following files:<ul>
 <li>src/include/rpp/observables/<a class="el" href="observables_2fwd_8hpp_source.html">fwd.hpp</a></li>
 <li>src/include/rpp/observables/<a class="el" href="interface__observable_8hpp_source.html">interface_observable.hpp</a></li>
 </ul>

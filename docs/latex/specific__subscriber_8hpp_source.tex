@@ -103,6 +103,15 @@
 \DoxyCodeLine{107     \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1specific__subscriber}{rpp::specific\_subscriber<Type, decltype(observer)>}}(std::forward<\textcolor{keyword}{decltype}(sub)>(sub), std::move(observer));}
 \DoxyCodeLine{108 \}}
 \DoxyCodeLine{109 }
-\DoxyCodeLine{110 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{110 \textcolor{keyword}{namespace }constraint}
+\DoxyCodeLine{111 \{}
+\DoxyCodeLine{112     \textcolor{keyword}{template}<\textcolor{keyword}{typename} Type, \textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{113     \textcolor{keyword}{concept }specific\_subscriber\_constructible = \textcolor{keyword}{requires}(Args...args)}
+\DoxyCodeLine{114     \{}
+\DoxyCodeLine{115         make\_specific\_subscriber<Type>(args...);}
+\DoxyCodeLine{116     \};}
+\DoxyCodeLine{117 \}}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}
