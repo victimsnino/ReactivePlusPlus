@@ -24,12 +24,7 @@ public:
     template<constraint::observable_of_type<Type> TObs>
     dynamic_observable_state(TObs&& obs)
         : m_impl{std::make_shared<dynamic_observable_state_impl<std::decay_t<TObs>>>(std::forward<TObs>(obs))} {}
-
-    template<constraint::on_subscribe_fn<Type> TOnSub>
-        requires (!constraint::decayed_same_as<TOnSub, dynamic_observable_state<Type>>)
-    dynamic_observable_state(TOnSub&& on_sub)
-        : m_impl{ std::make_shared<dynamic_observable_state_impl<specific_observable<Type, std::decay_t<TOnSub>>>>(std::forward<TOnSub>(on_sub)) } {}
-
+    
     dynamic_observable_state(const dynamic_observable_state<Type>&) = default;
     dynamic_observable_state(dynamic_observable_state<Type>&&) noexcept = default;
 
@@ -85,8 +80,9 @@ public:
     using base = specific_observable<Type, details::dynamic_observable_state<Type>>;
     using base::base;
 
-    dynamic_observable(constraint::on_subscribe_fn<Type> auto&& on_subscribe)
-        : base{std::forward<decltype(on_subscribe)>(on_subscribe)} {}
+    template<constraint::on_subscribe_fn<Type> TOnSub>
+    dynamic_observable(TOnSub&& on_subscribe)
+        : base{ specific_observable<Type, std::decay_t<TOnSub>>{std::forward<TOnSub>(on_subscribe)} } {}
 
     template<constraint::observable_of_type<Type> TObs>
         requires (!std::is_same_v<std::decay_t<TObs>, dynamic_observable<Type>>)
