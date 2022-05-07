@@ -51,9 +51,9 @@ public:
      * \return subscription on this observable which can be used to unsubscribe
      */
     template<constraint::subscriber_of_type<Type> TSub>
-    composite_subscription subscribe(TSub&& subscriber) const
+    composite_subscription subscribe(const TSub& subscriber) const
     {
-        return subscribe_impl(std::forward<TSub>(subscriber));
+        return subscribe_impl(subscriber);
     }
 
      /**
