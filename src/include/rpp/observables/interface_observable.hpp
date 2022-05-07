@@ -71,7 +71,7 @@ namespace rpp
 template<constraint::decayed_type Type>
 struct virtual_observable : public details::observable_tag
 {
-    virtual              ~virtual_observable() = default;
+    virtual ~virtual_observable() = default;
 };
 
 /**
