@@ -25,7 +25,12 @@ public:
     dynamic_observable_state(TObs&& obs)
         : m_impl{std::make_shared<dynamic_observable_state_impl<std::decay_t<TObs>>>(std::forward<TObs>(obs))} {}
 
-    dynamic_observable_state(const dynamic_observable_state<Type>&)     = default;
+    template<constraint::on_subscribe_fn<Type> TOnSub>
+        requires (!constraint::decayed_same_as<TOnSub, dynamic_observable_state<Type>>)
+    dynamic_observable_state(TOnSub&& on_sub)
+        : m_impl{ std::make_shared<dynamic_observable_state_impl<specific_observable<Type, std::decay_t<TOnSub>>>>(std::forward<TOnSub>(on_sub)) } {}
+
+    dynamic_observable_state(const dynamic_observable_state<Type>&) = default;
     dynamic_observable_state(dynamic_observable_state<Type>&&) noexcept = default;
 
     composite_subscription operator()(const dynamic_subscriber<Type>& subscriber) const
