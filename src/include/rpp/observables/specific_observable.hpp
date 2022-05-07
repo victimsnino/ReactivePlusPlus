@@ -30,9 +30,11 @@ template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubs
 class specific_observable : public interface_observable<Type, specific_observable<Type, OnSubscribeFn>>
 {
 public:
-    specific_observable(constraint::decayed_same_as<OnSubscribeFn> auto&& on_subscribe)
-        : m_state{std::forward<decltype(on_subscribe)>(on_subscribe)} {}
+    specific_observable(OnSubscribeFn&& on_subscribe)
+        : m_state{ std::move(on_subscribe) } {}
 
+    specific_observable(const OnSubscribeFn& on_subscribe)
+        : m_state{ on_subscribe } {}
 
     specific_observable(const specific_observable<Type, OnSubscribeFn>&)     = default;
     specific_observable(specific_observable<Type, OnSubscribeFn>&&) noexcept = default;
