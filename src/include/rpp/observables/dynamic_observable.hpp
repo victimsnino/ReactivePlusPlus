@@ -25,6 +25,9 @@ public:
     dynamic_observable_state(TObs&& obs)
         : m_impl{std::make_shared<dynamic_observable_state_impl<std::decay_t<TObs>>>(std::forward<TObs>(obs))} {}
 
+    dynamic_observable_state(const dynamic_observable_state<Type>&)     = default;
+    dynamic_observable_state(dynamic_observable_state<Type>&&) noexcept = default;
+
     composite_subscription operator()(const dynamic_subscriber<Type>& subscriber) const
     {
         return (*m_impl)(subscriber);
