@@ -10,8 +10,7 @@
 
 #pragma once
 
-#include <rpp/observables/interface_observable.hpp> // base class
-#include <rpp/observables/specific_observable.hpp>  // m_observable
+#include <rpp/observables/specific_observable.hpp>  // base
 #include <rpp/observables/type_traits.hpp>          // extract_observable_type
 
 #include <memory>
@@ -23,19 +22,41 @@ class dynamic_observable_state
 {
 public:
     template<constraint::observable_of_type<Type> TObs>
-    dynamic_observable_state(std::shared_ptr<TObs> observable)
-        : m_observable{std::move(observable)} {}
-
-    dynamic_observable_state(const dynamic_observable_state&)     = default;
-    dynamic_observable_state(dynamic_observable_state&&) noexcept = default;
+    dynamic_observable_state(TObs&& obs)
+        : m_impl{std::make_shared<dynamic_observable_state_impl<std::decay_t<TObs>>>(std::forward<TObs>(obs))} {}
 
     composite_subscription operator()(const dynamic_subscriber<Type>& subscriber) const
     {
-        return m_observable->subscribe(subscriber);
+        return (*m_impl)(subscriber);
     }
-
 private:
-    std::shared_ptr<virtual_observable<Type>> m_observable{};
+    struct interface_dynamic_observable_state_impl
+    {
+        virtual ~interface_dynamic_observable_state_impl() = default;
+
+        virtual composite_subscription operator()(const dynamic_subscriber<Type>& subscriber) const = 0;
+    };
+
+    template<constraint::observable TObs>
+    class dynamic_observable_state_impl : public interface_dynamic_observable_state_impl
+    {
+    public:
+        dynamic_observable_state_impl(TObs&& observable)
+            : m_observable{std::move(observable)} {}
+
+        dynamic_observable_state_impl(const TObs& observable)
+            : m_observable{observable} {}
+
+        composite_subscription operator()(const dynamic_subscriber<Type>& subscriber) const override
+        {
+            return m_observable.subscribe(subscriber);
+        }
+
+    private:
+        TObs m_observable{};
+    };
+
+    std::shared_ptr<interface_dynamic_observable_state_impl> m_impl{};
 };
 } // namespace rpp::details
 
@@ -57,12 +78,12 @@ public:
     using base::base;
 
     dynamic_observable(constraint::on_subscribe_fn<Type> auto&& on_subscribe)
-        : base{std::make_shared<specific_observable<Type, std::decay_t<decltype(on_subscribe)>>>(on_subscribe)} {}
+        : base{specific_observable<Type, std::decay_t<decltype(on_subscribe)>>(on_subscribe)} {}
 
     template<constraint::observable_of_type<Type> TObs>
         requires (!std::is_same_v<std::decay_t<TObs>, dynamic_observable<Type>>)
     dynamic_observable(TObs&& observable)
-        : base{std::make_shared<std::decay_t<TObs>>(std::forward<TObs>(observable))} {}
+        : base{std::forward<TObs>(observable)} {}
 };
 
 template<constraint::observable TObs>

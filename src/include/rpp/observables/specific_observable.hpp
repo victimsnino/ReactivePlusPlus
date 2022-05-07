@@ -45,7 +45,7 @@ public:
     [[nodiscard]] auto as_dynamic() const & { return rpp::dynamic_observable<Type>{*this};            }
     [[nodiscard]] auto as_dynamic() &&      { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
-    composite_subscription subscribe(const dynamic_subscriber<Type>& subscriber) const final
+    composite_subscription subscribe(const dynamic_subscriber<Type>& subscriber) const
     {
         return subscribe_impl(subscriber);
     }
