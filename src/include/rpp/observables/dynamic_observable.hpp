@@ -10,11 +10,63 @@
 
 #pragma once
 
-#include <rpp/observables/interface_observable.hpp> // base class
-#include <rpp/observables/specific_observable.hpp>  // m_observable
+#include <rpp/observables/specific_observable.hpp>  // base
 #include <rpp/observables/type_traits.hpp>          // extract_observable_type
 
 #include <memory>
+
+namespace rpp::details
+{
+template<constraint::decayed_type Type>
+class dynamic_observable_state
+{
+public:
+    template<constraint::observable_of_type<Type> TObs>
+    dynamic_observable_state(TObs&& obs)
+        : m_impl{std::make_shared<dynamic_observable_state_impl<std::decay_t<TObs>>>(std::forward<TObs>(obs))} {}
+
+    template<constraint::on_subscribe_fn<Type> TOnSub>
+        requires (!constraint::decayed_same_as<TOnSub, dynamic_observable_state<Type>>)
+    dynamic_observable_state(TOnSub&& on_sub)
+        : m_impl{ std::make_shared<dynamic_observable_state_impl<specific_observable<Type, std::decay_t<TOnSub>>>>(std::forward<TOnSub>(on_sub)) } {}
+
+    dynamic_observable_state(const dynamic_observable_state<Type>&) = default;
+    dynamic_observable_state(dynamic_observable_state<Type>&&) noexcept = default;
+
+    composite_subscription operator()(const dynamic_subscriber<Type>& subscriber) const
+    {
+        return (*m_impl)(subscriber);
+    }
+private:
+    struct interface_dynamic_observable_state_impl
+    {
+        virtual ~interface_dynamic_observable_state_impl() = default;
+
+        virtual composite_subscription operator()(const dynamic_subscriber<Type>& subscriber) const = 0;
+    };
+
+    template<constraint::observable TObs>
+    class dynamic_observable_state_impl final : public interface_dynamic_observable_state_impl
+    {
+    public:
+        dynamic_observable_state_impl(TObs&& observable)
+            : m_observable{std::move(observable)} {}
+
+        dynamic_observable_state_impl(const TObs& observable)
+            : m_observable{observable} {}
+
+        composite_subscription operator()(const dynamic_subscriber<Type>& subscriber) const override
+        {
+            return m_observable.subscribe(subscriber);
+        }
+
+    private:
+        TObs m_observable{};
+    };
+
+    std::shared_ptr<interface_dynamic_observable_state_impl> m_impl{};
+};
+} // namespace rpp::details
 
 namespace rpp
 {
@@ -27,36 +79,19 @@ namespace rpp
  * \ingroup observables
  */
 template<constraint::decayed_type Type>
-class dynamic_observable : public interface_observable<Type, dynamic_observable<Type>>
+class dynamic_observable : public specific_observable<Type, details::dynamic_observable_state<Type>>
 {
 public:
+    using base = specific_observable<Type, details::dynamic_observable_state<Type>>;
+    using base::base;
+
     dynamic_observable(constraint::on_subscribe_fn<Type> auto&& on_subscribe)
-        : m_observable{std::make_shared<specific_observable<Type, std::decay_t<decltype(on_subscribe)>>>(on_subscribe)} {}
+        : base{std::forward<decltype(on_subscribe)>(on_subscribe)} {}
 
     template<constraint::observable_of_type<Type> TObs>
         requires (!std::is_same_v<std::decay_t<TObs>, dynamic_observable<Type>>)
     dynamic_observable(TObs&& observable)
-        : m_observable{ std::make_shared<std::decay_t<TObs>>(std::forward<TObs>(observable)) } {}
-
-    dynamic_observable(const dynamic_observable<Type>&)     = default;
-    dynamic_observable(dynamic_observable<Type>&&) noexcept = default;
-
-    composite_subscription subscribe(const dynamic_subscriber<Type>& subscriber) const final
-    {
-        return m_observable->subscribe(subscriber);
-    }
-
-    template<typename ...Args>
-        requires (std::is_constructible_v<dynamic_subscriber<Type>, Args...> && !constraint::variadic_is_same_type<dynamic_subscriber<Type>, Args...>)
-    composite_subscription subscribe(Args&&...args) const
-    {
-        return m_observable->subscribe(dynamic_subscriber<Type>{std::forward<Args>(args)...});
-    }
-
-    const dynamic_observable<Type>& as_dynamic() const { return *this; }
-
-private:
-    std::shared_ptr<virtual_observable<Type>> m_observable{};
+        : base{std::forward<TObs>(observable)} {}
 };
 
 template<constraint::observable TObs>

@@ -71,13 +71,7 @@ namespace rpp
 template<constraint::decayed_type Type>
 struct virtual_observable : public details::observable_tag
 {
-    virtual              ~virtual_observable() = default;
-
-    /**
-     * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
-     * \return subscription on this observable which can be used to unsubscribe
-     */
-    virtual composite_subscription subscribe(const dynamic_subscriber<Type>& subscriber) const = 0;
+    virtual ~virtual_observable() = default;
 };
 
 /**

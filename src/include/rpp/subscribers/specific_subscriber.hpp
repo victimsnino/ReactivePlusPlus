@@ -107,4 +107,13 @@ auto make_specific_subscriber(constraint::decayed_same_as<composite_subscription
     return rpp::specific_subscriber<Type, decltype(observer)>(std::forward<decltype(sub)>(sub), std::move(observer));
 }
 
+namespace constraint
+{
+    template<typename Type, typename...Args>
+    concept specific_subscriber_constructible = requires(Args...args)
+    {
+        make_specific_subscriber<Type>(args...);
+    };
+}
+
 } // namespace rpp
