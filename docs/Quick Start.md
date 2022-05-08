@@ -10,11 +10,7 @@ Observables are sources of your future streams. First of all you need to create 
 
 For example, 
 ```cpp
-rpp::source::create<char>([](const auto& sub)
-{
-    while (sub.is_subscribed())
-        sub.on_next(std::getchar());
-})
+rpp::source::from_callable(&::getchar)
 ```
 observable which emits chars from `cin`.
 
@@ -22,7 +18,13 @@ Action inside observable happens ONLY after subscription on this observable and 
 
 ### 2) Chain observable
 
-When you have some source of data you need to extend it somehow to make it useful! For example, let's filters out digits, transform rest chars to upper. We need to add
+When you have some source of data you need to extend it somehow to make it useful! For example, let's make it infinite instead of emitting one value:
+```cpp
+rpp::source::from_callable(&::getchar)
+   .repeat()
+```
+
+Also we can filters out digits, transform rest chars to upper. We need to add
 
 ```cpp
 ...
@@ -41,11 +43,8 @@ How long do we want to obtain values? let's say, till '0' char.
 What we want to do with resulting values? Let's dump it to console. Resulting code looks like:
 
 ```cpp
-rpp::source::create<char>([](const auto& sub)
-{
-    while (sub.is_subscribed())
-        sub.on_next(std::getchar());
-})
+rpp::source::from_callable(&::getchar)
+    .repeat()
     .take_while([](char v) { return v != '0'; })
     .filter(std::not_fn(&::isdigit))
     .map(&::toupper)
@@ -58,15 +57,3 @@ Subscribe function applies any from:
 - (optional) subscription, `on_next`, `on_completed`
 - (optional) subscription, `on_next`, `on_error`  `on_completed`
 - (optional) subscription, observer
-
-
-## Advanced:
-It is better to avoid usage of `create` function as is. Prefer usage of pre-defined operators/sources. For example, our example can be re-written in the following way:
-```cpp
-rpp::source::from_callable(&::getchar)
-   .repeat()
-   .take_while([](char v) { return v != '0'; })
-   .filter(std::not_fn(&::isdigit))
-   .map(&::toupper)
-   .subscribe([](char v) { std::cout << v; });
-```
