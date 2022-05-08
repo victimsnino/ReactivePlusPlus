@@ -1,0 +1,31 @@
+\hypertarget{repeat_8cpp-example}{}\doxysection{repeat.\+cpp}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(1, 2, 3)}
+\DoxyCodeLine{            .repeat(2)}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \},}
+\DoxyCodeLine{                       []()}
+\DoxyCodeLine{                       \{}
+\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"{}completed"{}} << std::endl;}
+\DoxyCodeLine{                       \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2 3 1 2 3 completed}}
+\DoxyCodeLine{\textcolor{comment}{}}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(1, 2, 3)}
+\DoxyCodeLine{            .repeat()}
+\DoxyCodeLine{            .take(10)}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \},}
+\DoxyCodeLine{                       []()}
+\DoxyCodeLine{                       \{}
+\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"{}completed"{}} << std::endl;}
+\DoxyCodeLine{                       \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2 3 1 2 3 1 2 3 1 completed}}
+\DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

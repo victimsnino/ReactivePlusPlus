@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 183.206100
+%%BoundingBox: 0 0 500 198.473282
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,12 +19,12 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 2.729167 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 2.519231 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 12 def
+/rows 13 def
 /cols 2 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
@@ -185,6 +185,7 @@ boxfont setfont
 (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::observe_on_tag >) cw
 (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::publish_tag >) cw
 (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::multicast_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::repeat_tag >) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
 /yspacing boxheight disty add def
@@ -199,16 +200,17 @@ boundx scalefactor div boundy scalefactor div scale
  (rpp::dynamic_observable< Type >) 0.000000 0.000000 box
  (rpp::specific_observable< Type, details::dynamic_observable_state< Type > >) 0.000000 1.000000 box
  (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) 0.000000 2.000000 box
- (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::multicast_tag >) 1.000000 3.000000 box
- (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::publish_tag >) 1.000000 4.000000 box
- (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::observe_on_tag >) 1.000000 5.000000 box
- (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::merge_tag >) 1.000000 6.000000 box
- (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::take_while_tag >) 1.000000 7.000000 box
- (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::take_tag >) 1.000000 8.000000 box
- (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::filter_tag >) 1.000000 9.000000 box
- (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::map_tag >) 1.000000 10.000000 box
- (rpp::virtual_observable< Type >) 1.000000 11.000000 box
-1.000000 11.000000 mark
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::repeat_tag >) 1.000000 3.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::multicast_tag >) 1.000000 4.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::publish_tag >) 1.000000 5.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::observe_on_tag >) 1.000000 6.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::merge_tag >) 1.000000 7.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::take_while_tag >) 1.000000 8.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::take_tag >) 1.000000 9.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::filter_tag >) 1.000000 10.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::map_tag >) 1.000000 11.000000 box
+ (rpp::virtual_observable< Type >) 1.000000 12.000000 box
+1.000000 12.000000 mark
 
 % ----- relations -----
 
@@ -241,4 +243,6 @@ solid
 solid
 1 0.000000 11.500000 hedge
 solid
-0.000000 3.000000 11.500000 vedge
+1 0.000000 12.500000 hedge
+solid
+0.000000 3.000000 12.500000 vedge

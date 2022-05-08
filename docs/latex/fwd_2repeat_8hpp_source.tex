@@ -1,0 +1,60 @@
+\hypertarget{fwd_2repeat_8hpp_source}{}\doxysection{repeat.\+hpp}
+\label{fwd_2repeat_8hpp_source}\index{src/include/rpp/operators/fwd/repeat.hpp@{src/include/rpp/operators/fwd/repeat.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <rpp/observables/member\_overload.hpp>}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{6 \{}
+\DoxyCodeLine{7 \textcolor{keyword}{struct }repeat\_tag;}
+\DoxyCodeLine{8 \}}
+\DoxyCodeLine{9 \textcolor{keyword}{namespace }rpp::operators}
+\DoxyCodeLine{10 \{}
+\DoxyCodeLine{14 \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{15 \textcolor{keyword}{auto} repeat(\textcolor{keywordtype}{size\_t} count) \textcolor{keyword}{requires} details::is\_header\_included<details::repeat\_tag, Args...>;}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{20 \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{21 \textcolor{keyword}{auto} repeat() \textcolor{keyword}{requires} details::is\_header\_included<details::repeat\_tag, Args...>;}
+\DoxyCodeLine{22 \} \textcolor{comment}{// namespace rpp::operators}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 namespace rpp::details}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{27 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, repeat\_tag>}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{44     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{45     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga2a165810b188f9cf9b77255ed725e31a}{repeat}}(\textcolor{keywordtype}{size\_t} count) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<repeat\_tag, Args...>}
+\DoxyCodeLine{46     \{}
+\DoxyCodeLine{47         \textcolor{keywordflow}{return} repeat\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), count);}
+\DoxyCodeLine{48     \}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{51     \textcolor{keyword}{auto} repeat(\textcolor{keywordtype}{size\_t} count) \&\& \textcolor{keyword}{requires} is\_header\_included<repeat\_tag, Args...>}
+\DoxyCodeLine{52     \{}
+\DoxyCodeLine{53         \textcolor{keywordflow}{return} repeat\_impl(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})), count);}
+\DoxyCodeLine{54     \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{67     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{68     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga152a343d0ea926ee04cf64ebb78c5d5e}{repeat}}() const\& requires is\_header\_included<repeat\_tag, Args...>}
+\DoxyCodeLine{69     \{}
+\DoxyCodeLine{70         \textcolor{keywordflow}{return} repeat\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{71     \}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{74     \textcolor{keyword}{auto} repeat() \&\& \textcolor{keyword}{requires} is\_header\_included<repeat\_tag, Args...>}
+\DoxyCodeLine{75     \{}
+\DoxyCodeLine{76         \textcolor{keywordflow}{return} repeat\_impl(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})));}
+\DoxyCodeLine{77     \}}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 \textcolor{keyword}{private}:}
+\DoxyCodeLine{80     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_same\_as<SpecificObservable> TThis>}
+\DoxyCodeLine{81     \textcolor{keyword}{static} \textcolor{keyword}{auto} repeat\_impl(TThis\&\& observable, \textcolor{keywordtype}{size\_t} count);}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_same\_as<SpecificObservable> TThis>}
+\DoxyCodeLine{84     \textcolor{keyword}{static} \textcolor{keyword}{auto} repeat\_impl(TThis\&\& observable);}
+\DoxyCodeLine{85 \};}
+\DoxyCodeLine{86 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

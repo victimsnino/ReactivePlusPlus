@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['schedulable_0',['schedulable',['../structrpp_1_1schedulable.html',1,'rpp::schedulable'],['../classrpp_1_1schedulers_1_1schedulable.html',1,'rpp::schedulers::schedulable']]],
+  ['schedulable_0',['schedulable',['../classrpp_1_1schedulers_1_1schedulable.html',1,'rpp::schedulers']]],
   ['scheduler_5ftag_1',['scheduler_tag',['../structrpp_1_1schedulers_1_1details_1_1scheduler__tag.html',1,'rpp::schedulers::details']]],
   ['specific_5fobservable_2',['specific_observable',['../classrpp_1_1specific__observable.html',1,'rpp']]],
   ['specific_5fobservable_3c_20type_2c_20details_3a_3adynamic_5fobservable_5fstate_3c_20type_20_3e_20_3e_3',['specific_observable&lt; Type, details::dynamic_observable_state&lt; Type &gt; &gt;',['../classrpp_1_1specific__observable.html',1,'rpp']]],

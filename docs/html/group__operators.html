@@ -117,6 +117,16 @@ requires is_header_included&lt;ref_count_tag, Args...&gt;</td></tr>
 <tr class="memitem:gac1991f003be32f5432ecb084be506c15"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#gac1991f003be32f5432ecb084be506c15">rpp::details::member_overload&lt; Type, SpecificObservable, ref_count_tag &gt;::ref_count</a> () const &amp;</td></tr>
 <tr class="memdesc:gac1991f003be32f5432ecb084be506c15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forces connectable observable to behave like common observable.  <a href="group__operators.html#gac1991f003be32f5432ecb084be506c15">More...</a><br /></td></tr>
 <tr class="separator:gac1991f003be32f5432ecb084be506c15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2a165810b188f9cf9b77255ed725e31a"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; <br />
+requires is_header_included&lt;repeat_tag, Args...&gt;</td></tr>
+<tr class="memitem:ga2a165810b188f9cf9b77255ed725e31a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga2a165810b188f9cf9b77255ed725e31a">rpp::details::member_overload&lt; Type, SpecificObservable, repeat_tag &gt;::repeat</a> (size_t count) const &amp;</td></tr>
+<tr class="memdesc:ga2a165810b188f9cf9b77255ed725e31a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forces observable to re-subscribe observer to this observable after on_completed provided amount of times.  <a href="group__operators.html#ga2a165810b188f9cf9b77255ed725e31a">More...</a><br /></td></tr>
+<tr class="separator:ga2a165810b188f9cf9b77255ed725e31a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga152a343d0ea926ee04cf64ebb78c5d5e"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; <br />
+requires is_header_included&lt;repeat_tag, Args...&gt;</td></tr>
+<tr class="memitem:ga152a343d0ea926ee04cf64ebb78c5d5e"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga152a343d0ea926ee04cf64ebb78c5d5e">rpp::details::member_overload&lt; Type, SpecificObservable, repeat_tag &gt;::repeat</a> () const &amp;</td></tr>
+<tr class="memdesc:ga152a343d0ea926ee04cf64ebb78c5d5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forces observable to re-subscribe observer to this observable after on_completed infinitely.  <a href="group__operators.html#ga152a343d0ea926ee04cf64ebb78c5d5e">More...</a><br /></td></tr>
+<tr class="separator:ga152a343d0ea926ee04cf64ebb78c5d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; <br />
 requires is_header_included&lt;take_tag, Args...&gt;</td></tr>
 <tr class="memitem:ga0dcb41decfa8d5ded95f828a7e65ffee"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a> (size_t count) const &amp;</td></tr>
@@ -285,7 +295,7 @@ requires (is_header_included&lt;merge_tag, Args...&gt; &amp;&amp; rpp::constrain
 <div class="line">            .merge()</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1 2</span></div>
-<div class="ttc" id="agroup__observables_html_ga819797b9fb7452311dedc62aa94d1f7b"><div class="ttname"><a href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:139</div></div>
+<div class="ttc" id="agroup__observables_html_ga819797b9fb7452311dedc62aa94d1f7b"><div class="ttname"><a href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:145</div></div>
 </div><!-- fragment --> <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/merge.html">https://reactivex.io/documentation/operators/merge.html</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the merge operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="merge_8hpp_source.html">rpp/operators/merge.hpp</a>&gt; </dd></dl>
@@ -562,6 +572,105 @@ requires is_header_included&lt;ref_count_tag, Args...&gt;</div>
 </div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/refcount.html">https://reactivex.io/documentation/operators/refcount.html</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the ref_count operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;rpp/operators/ref_count.h&gt; </dd></dl>
+
+</div>
+</div>
+<a id="ga152a343d0ea926ee04cf64ebb78c5d5e" name="ga152a343d0ea926ee04cf64ebb78c5d5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga152a343d0ea926ee04cf64ebb78c5d5e">&#9670;&nbsp;</a></span>repeat() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename... Args&gt; <br />
+requires is_header_included&lt;repeat_tag, Args...&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, repeat_tag &gt;::repeat </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Forces observable to re-subscribe observer to this observable after on_completed infinitely. </p>
+<div class="fragment"><div class="line">    <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(1, 2, 3)</div>
+<div class="line">            .repeat()</div>
+<div class="line">            .take(10)</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; },</div>
+<div class="line">                       []()</div>
+<div class="line">                       {</div>
+<div class="line">                           std::cout &lt;&lt; <span class="stringliteral">&quot;completed&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">                       });</div>
+<div class="line">    <span class="comment">// Output: 1 2 3 1 2 3 1 2 3 1 completed</span></div>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/repeat.html">https://reactivex.io/documentation/operators/repeat.html</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the repeat operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;rpp/operators/repeat.h&gt; </dd></dl>
+
+</div>
+</div>
+<a id="ga2a165810b188f9cf9b77255ed725e31a" name="ga2a165810b188f9cf9b77255ed725e31a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2a165810b188f9cf9b77255ed725e31a">&#9670;&nbsp;</a></span>repeat() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename... Args&gt; <br />
+requires is_header_included&lt;repeat_tag, Args...&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, repeat_tag &gt;::repeat </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Forces observable to re-subscribe observer to this observable after on_completed provided amount of times. </p>
+<div class="fragment"><div class="line">    <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(1, 2, 3)</div>
+<div class="line">            .repeat(2)</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; },</div>
+<div class="line">                       []()</div>
+<div class="line">                       {</div>
+<div class="line">                           std::cout &lt;&lt; <span class="stringliteral">&quot;completed&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">                       });</div>
+<div class="line">    <span class="comment">// Output: 1 2 3 1 2 3 completed</span></div>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/repeat.html">https://reactivex.io/documentation/operators/repeat.html</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">count</td><td>total amoun of times subscription happens. For example:<ul>
+<li><code>count(0)</code> - means no any subscription at all</li>
+<li><code>count(1)</code> - behave like ordinal observable</li>
+<li><code>count(10)</code> - 1 normal subscription and 9 re-subscriptions during on_completed </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the repeat operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;rpp/operators/repeat.h&gt; </dd></dl>
 
 </div>
 </div>

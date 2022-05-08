@@ -35,6 +35,12 @@ requires is\+\_\+header\+\_\+included$<$publish\+\_\+tag, Args...$>$}\\auto \mbo
 requires is\+\_\+header\+\_\+included$<$ref\+\_\+count\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__operators_gac1991f003be32f5432ecb084be506c15}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, ref\+\_\+count\+\_\+tag $>$\+::ref\+\_\+count}} () const \&
 \begin{DoxyCompactList}\small\item\em Forces connectable observable to behave like common observable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$repeat\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__operators_ga2a165810b188f9cf9b77255ed725e31a}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, repeat\+\_\+tag $>$\+::repeat}} (size\+\_\+t count) const \&
+\begin{DoxyCompactList}\small\item\em Forces observable to re-\/subscribe observer to this observable after on\+\_\+completed provided amount of times. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$repeat\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__operators_ga152a343d0ea926ee04cf64ebb78c5d5e}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, repeat\+\_\+tag $>$\+::repeat}} () const \&
+\begin{DoxyCompactList}\small\item\em Forces observable to re-\/subscribe observer to this observable after on\+\_\+completed infinitely. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... Args$>$ \newline
 requires is\+\_\+header\+\_\+included$<$take\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__operators_ga0dcb41decfa8d5ded95f828a7e65ffee}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, take\+\_\+tag $>$\+::take}} (size\+\_\+t count) const \&
 \begin{DoxyCompactList}\small\item\em emit only first Count items provided by observable \end{DoxyCompactList}\item 
 {\footnotesize template$<$std\+::predicate$<$ const Type \& $>$ Predicate$>$ \newline
@@ -407,6 +413,89 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
 \#include \texorpdfstring{$<$}{<}rpp/operators/ref\+\_\+count.\+h\texorpdfstring{$>$}{>} 
+\end{DoxyWarning}
+\mbox{\Hypertarget{group__operators_ga152a343d0ea926ee04cf64ebb78c5d5e}\label{group__operators_ga152a343d0ea926ee04cf64ebb78c5d5e}} 
+\index{Operators@{Operators}!repeat@{repeat}}
+\index{repeat@{repeat}!Operators@{Operators}}
+\doxysubsubsection{\texorpdfstring{repeat()}{repeat()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$typename... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$repeat\+\_\+tag, Args...$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, repeat\+\_\+tag $>$\+::repeat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Forces observable to re-\/subscribe observer to this observable after on\+\_\+completed infinitely. 
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(1, 2, 3)}
+\DoxyCodeLine{            .repeat()}
+\DoxyCodeLine{            .take(10)}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \},}
+\DoxyCodeLine{                       []()}
+\DoxyCodeLine{                       \{}
+\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"{}completed"{}} << std::endl;}
+\DoxyCodeLine{                       \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2 3 1 2 3 1 2 3 1 completed}}
+
+\end{DoxyCodeInclude}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/repeat.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/repeat.\+html}}
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the repeat operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}rpp/operators/repeat.\+h\texorpdfstring{$>$}{>} 
+\end{DoxyWarning}
+\mbox{\Hypertarget{group__operators_ga2a165810b188f9cf9b77255ed725e31a}\label{group__operators_ga2a165810b188f9cf9b77255ed725e31a}} 
+\index{Operators@{Operators}!repeat@{repeat}}
+\index{repeat@{repeat}!Operators@{Operators}}
+\doxysubsubsection{\texorpdfstring{repeat()}{repeat()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$typename... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$repeat\+\_\+tag, Args...$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, repeat\+\_\+tag $>$\+::repeat (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Forces observable to re-\/subscribe observer to this observable after on\+\_\+completed provided amount of times. 
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(1, 2, 3)}
+\DoxyCodeLine{            .repeat(2)}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \},}
+\DoxyCodeLine{                       []()}
+\DoxyCodeLine{                       \{}
+\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"{}completed"{}} << std::endl;}
+\DoxyCodeLine{                       \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2 3 1 2 3 completed}}
+
+\end{DoxyCodeInclude}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/repeat.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/repeat.\+html}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em count} & total amoun of times subscription happens. For example\+:
+\begin{DoxyItemize}
+\item {\ttfamily count(0)} -\/ means no any subscription at all
+\item {\ttfamily count(1)} -\/ behave like ordinal observable
+\item {\ttfamily count(10)} -\/ 1 normal subscription and 9 re-\/subscriptions during on\+\_\+completed 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the repeat operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}rpp/operators/repeat.\+h\texorpdfstring{$>$}{>} 
 \end{DoxyWarning}
 \mbox{\Hypertarget{group__operators_ga0dcb41decfa8d5ded95f828a7e65ffee}\label{group__operators_ga0dcb41decfa8d5ded95f828a7e65ffee}} 
 \index{Operators@{Operators}!take@{take}}

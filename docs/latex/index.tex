@@ -6,11 +6,8 @@ Reactive\+Plus\+Plus is reactive programming library for C++ language inspired b
 
 In short\+: Reactive\+Plus\+Plus is library for building asynchronous event-\/driven streams of data with help of sequences of primitive operators in the declarative form. For example\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{rpp::source::create<char>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{   \{}
-\DoxyCodeLine{     \textcolor{keywordflow}{while} (sub.is\_subscribed())}
-\DoxyCodeLine{         sub.on\_next(std::getchar());}
-\DoxyCodeLine{   \})}
+\DoxyCodeLine{\mbox{\hyperlink{group__observables_gaf574d9dd582ee9b59553e3705e8793cd}{rpp::source::from\_callable}}(\&::getchar)}
+\DoxyCodeLine{   .repeat()}
 \DoxyCodeLine{   .take\_while([](\textcolor{keywordtype}{char} v) \{ \textcolor{keywordflow}{return} v != \textcolor{charliteral}{'0'}; \})}
 \DoxyCodeLine{   .filter(std::not\_fn(\&::isdigit))}
 \DoxyCodeLine{   .map(\&::toupper)}
