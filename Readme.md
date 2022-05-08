@@ -9,18 +9,6 @@ ReactivePlusPlus is reactive programming library for C++ language inspired by "o
 
 In short: ReactivePlusPlus is library for building asynchronous event-driven streams of data with help of sequences of primitive operators in the declarative form. For example:
 ```cpp
-rpp::source::create<char>([](const auto& sub)
-   {
-     while (sub.is_subscribed())
-         sub.on_next(std::getchar());
-   })
-   .take_while([](char v) { return v != '0'; })
-   .filter(std::not_fn(&::isdigit))
-   .map(&::toupper)
-   .subscribe([](char v) { std::cout << v; });
-```
-or even better:
-```cpp
 rpp::source::from_callable(&::getchar)
    .repeat()
    .take_while([](char v) { return v != '0'; })
