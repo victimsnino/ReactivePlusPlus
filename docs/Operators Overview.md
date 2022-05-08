@@ -153,6 +153,31 @@ rpp::source::just(10, 15, 20)
 // [TH2]: 15
 // [TH2]: 20
 ```
+### repeat
+Forces observable to re-subscribe observer to this observable after on_completed...
+- with provided count
+  ```cpp
+  rpp::source::just(1, 2, 3)
+          .repeat(2)
+          .subscribe([](int v) { std::cout << v << " "; },
+                      []()
+                      {
+                          std::cout << "completed" << std::endl;
+                      });
+  // Output: 1 2 3 1 2 3 completed
+  ```
+- infinitely
+  ```cpp
+  rpp::source::just(1, 2, 3)
+            .repeat()
+            .take(10)
+            .subscribe([](int v) { std::cout << v << " "; },
+                       []()
+                       {
+                           std::cout << "completed" << std::endl;
+                       });
+    // Output: 1 2 3 1 2 3 1 2 3 1 completed
+  ```
 
 ## Connectable
 ### multicast

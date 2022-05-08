@@ -19,3 +19,4 @@
 #include <rpp/operators/fwd/multicast.hpp>
 #include <rpp/operators/fwd/publish.hpp>
 #include <rpp/operators/fwd/ref_count.hpp>
+#include <rpp/operators/fwd/repeat.hpp>
