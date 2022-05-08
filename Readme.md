@@ -19,6 +19,15 @@ rpp::source::create<char>([](const auto& sub)
    .map(&::toupper)
    .subscribe([](char v) { std::cout << v; });
 ```
+or even better:
+```cpp
+rpp::source::from_callable(&::getchar)
+   .repeat()
+   .take_while([](char v) { return v != '0'; })
+   .filter(std::not_fn(&::isdigit))
+   .map(&::toupper)
+   .subscribe([](char v) { std::cout << v; });
+```
 
 
 Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. As a result it is fast, readable, easy to use and well-documented.

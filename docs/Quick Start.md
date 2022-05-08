@@ -58,3 +58,15 @@ Subscribe function applies any from:
 - (optional) subscription, `on_next`, `on_completed`
 - (optional) subscription, `on_next`, `on_error`  `on_completed`
 - (optional) subscription, observer
+
+
+## Advanced:
+It is better to avoid usage of `create` function as is. Prefer usage of pre-defined operators/sources. For example, our example can be re-written in the following way:
+```cpp
+rpp::source::from_callable(&::getchar)
+   .repeat()
+   .take_while([](char v) { return v != '0'; })
+   .filter(std::not_fn(&::isdigit))
+   .map(&::toupper)
+   .subscribe([](char v) { std::cout << v; });
+```
