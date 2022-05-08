@@ -27,14 +27,16 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, repeat_tag>
 {
     /**
-    * \brief
-    *
-    * \details
+    * \brief Forces observable to re-subscribe observer to this observable after on_completed provided amount of times
     *	
-    * Example:
+    * \snippet repeat.cpp repeat
     *
-    * \see 
+    * \see https://reactivex.io/documentation/operators/repeat.html
     *
+    * \param count total amoun of times subscription happens. For example:
+    *  - `count(0)`  -  means no any subscription at all
+    *  - `count(1)`  - behave like ordinal observable
+    *  - `count(10)` - 1 normal subscription and 9 re-subscriptions during on_completed
     * \return new specific_observable with the repeat operator as most recent operator.
     * \warning #include <rpp/operators/repeat.h>
     * \ingroup operators
@@ -52,13 +54,11 @@ struct member_overload<Type, SpecificObservable, repeat_tag>
     }
 
     /**
-    * \brief
+    * \brief Forces observable to re-subscribe observer to this observable after on_completed infinitely
     *
-    * \details
+    * \snippet repeat.cpp repeat_infinitely
     *
-    * Example:
-    *
-    * \see
+    * \see https://reactivex.io/documentation/operators/repeat.html
     *
     * \return new specific_observable with the repeat operator as most recent operator.
     * \warning #include <rpp/operators/repeat.h>
