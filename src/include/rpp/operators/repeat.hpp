@@ -43,13 +43,13 @@ public:
 
     void operator()(const auto& sub) const
     {
-        if (!sub.is_subscribed())
-            return;
-
-        if (m_predicate())
-            subscribe_subscriber_for_repeat(sub);
-        else
-            sub.on_completed();
+        if (sub.is_subscribed() 
+        {
+            if (m_predicate())
+                subscribe_subscriber_for_repeat(sub);
+            else
+                sub.on_completed();
+        }
     }
 
 private:

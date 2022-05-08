@@ -60,26 +60,26 @@ void iterate(const auto&                                   iterable,
         auto worker = scheduler.create_worker(subscriber.get_subscription());
         worker.schedule([=, index = size_t{0}]() mutable-> schedulers::optional_duration
         {
-            if (!subscriber.is_subscribed())
-                return schedulers::optional_duration{};
-
-            const auto& extracted_iterable = extract_iterable_from_packed(iterable);
-            const auto  end                = std::cend(extracted_iterable);
-            auto        itr                = std::cbegin(extracted_iterable);
-
-            std::ranges::advance(itr, static_cast<int64_t>(index), end);
-
-            if (itr != end)
+            if (subscriber.is_subscribed())
             {
-                subscriber.on_next(utils::as_const(*itr));
-                if (std::next(itr) != end) // it was not last
-                {
-                    ++index;
-                    return schedulers::duration{}; // re-schedule this
-                }
-            }
+                const auto& extracted_iterable = extract_iterable_from_packed(iterable);
+                const auto  end = std::cend(extracted_iterable);
+                auto        itr = std::cbegin(extracted_iterable);
 
-            subscriber.on_completed();
+                std::ranges::advance(itr, static_cast<int64_t>(index), end);
+
+                if (itr != end)
+                {
+                    subscriber.on_next(utils::as_const(*itr));
+                    if (std::next(itr) != end) // it was not last
+                    {
+                        ++index;
+                        return schedulers::duration{}; // re-schedule this
+                    }
+                }
+
+                subscriber.on_completed();
+            }
             return schedulers::optional_duration{};
         });
     }
