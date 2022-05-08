@@ -49,7 +49,10 @@ void iterate(const auto&                                   iterable,
     if constexpr (constraint::decayed_same_as<decltype(scheduler), schedulers::immediate>)
     {
         for (const auto& v : extract_iterable_from_packed(iterable))
-            subscriber.on_next(utils::as_const(v));
+        {
+            if (subscriber.is_subscribed())
+                subscriber.on_next(utils::as_const(v));
+        }
         subscriber.on_completed();
     }
     else
@@ -57,6 +60,9 @@ void iterate(const auto&                                   iterable,
         auto worker = scheduler.create_worker(subscriber.get_subscription());
         worker.schedule([=, index = size_t{0}]() mutable-> schedulers::optional_duration
         {
+            if (!subscriber.is_subscribed())
+                return {};
+
             const auto& extracted_iterable = extract_iterable_from_packed(iterable);
             const auto  end                = std::cend(extracted_iterable);
             auto        itr                = std::cbegin(extracted_iterable);
