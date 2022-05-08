@@ -61,7 +61,7 @@ void iterate(const auto&                                   iterable,
         worker.schedule([=, index = size_t{0}]() mutable-> schedulers::optional_duration
         {
             if (!subscriber.is_subscribed())
-                return {};
+                return schedulers::optional_duration{};
 
             const auto& extracted_iterable = extract_iterable_from_packed(iterable);
             const auto  end                = std::cend(extracted_iterable);
@@ -80,7 +80,7 @@ void iterate(const auto&                                   iterable,
             }
 
             subscriber.on_completed();
-            return {};
+            return schedulers::optional_duration{};
         });
     }
 }
