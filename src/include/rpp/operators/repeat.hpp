@@ -43,7 +43,7 @@ public:
 
     void operator()(const auto& sub) const
     {
-        if (sub.is_subscribed() 
+        if (sub.is_subscribed())
         {
             if (m_predicate())
                 subscribe_subscriber_for_repeat(sub);
