@@ -52,6 +52,8 @@ void iterate(const auto&                                   iterable,
         {
             if (subscriber.is_subscribed())
                 subscriber.on_next(utils::as_const(v));
+            else
+                return;
         }
         subscriber.on_completed();
     }
