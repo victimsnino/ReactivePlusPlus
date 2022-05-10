@@ -63,6 +63,7 @@ auto create(OnSubscribeFn&& on_subscribe)
  * \see https://reactivex.io/documentation/operators/create.html
  */
 template<utils::is_callable OnSubscribeFn, constraint::decayed_type Type>
+    requires constraint::on_subscribe_fn<OnSubscribeFn, Type>
 auto create(OnSubscribeFn&& on_subscribe)
 {
     return create<Type>(std::forward<OnSubscribeFn>(on_subscribe));

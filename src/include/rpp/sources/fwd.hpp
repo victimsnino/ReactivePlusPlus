@@ -27,6 +27,7 @@ template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubs
 auto create(OnSubscribeFn&& on_subscribe);
 
 template<utils::is_callable OnSubscribeFn, constraint::decayed_type Type = utils::extract_subscriber_type_t<utils::function_argument_t<OnSubscribeFn>>>
+    requires constraint::on_subscribe_fn<OnSubscribeFn, Type>
 auto create(OnSubscribeFn&& on_subscribe);
 
 //**************************** EMPTY *****************//
