@@ -27,10 +27,11 @@
 \DoxyCodeLine{49 \}}
 \DoxyCodeLine{50 }
 \DoxyCodeLine{65 \textcolor{keyword}{template}<utils::is\_callable OnSubscribeFn, constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{66 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{create}}(OnSubscribeFn\&\& on\_subscribe)}
-\DoxyCodeLine{67 \{}
-\DoxyCodeLine{68     \textcolor{keywordflow}{return} create<Type>(std::forward<OnSubscribeFn>(on\_subscribe));}
-\DoxyCodeLine{69 \}}
-\DoxyCodeLine{70 \} \textcolor{comment}{// namespace rpp::observable}}
+\DoxyCodeLine{66     \textcolor{keyword}{requires} constraint::on\_subscribe\_fn<OnSubscribeFn, Type>}
+\DoxyCodeLine{67 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{create}}(OnSubscribeFn\&\& on\_subscribe)}
+\DoxyCodeLine{68 \{}
+\DoxyCodeLine{69     \textcolor{keywordflow}{return} create<Type>(std::forward<OnSubscribeFn>(on\_subscribe));}
+\DoxyCodeLine{70 \}}
+\DoxyCodeLine{71 \} \textcolor{comment}{// namespace rpp::observable}}
 
 \end{DoxyCode}
