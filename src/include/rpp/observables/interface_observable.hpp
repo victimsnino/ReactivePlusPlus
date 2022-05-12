@@ -60,6 +60,17 @@ concept lift_fn = constraint::subscriber<std::invoke_result_t<T, dynamic_subscri
 
 template<typename T, typename TObservable>
 concept op_fn = constraint::observable<std::invoke_result_t<T, TObservable>>;
+
+template<constraint::decayed_type NewType, details::lift_fn<NewType> OperatorFn, typename FwdThis>
+auto lift_impl(OperatorFn&& op, FwdThis&& _this)
+{
+    auto action = [new_this = std::forward<FwdThis>(_this), op = std::forward<OperatorFn>(op)](auto&& subscriber)
+    {
+        new_this.subscribe(op(std::forward<decltype(subscriber)>(subscriber)));
+    };
+
+    return specific_observable<NewType, decltype(action)>(std::move(action));
+}
 } // namespace rpp::details
 
 namespace rpp
@@ -103,13 +114,13 @@ public:
     template<constraint::decayed_type NewType>
     auto lift(details::lift_fn<NewType> auto&& op) const &
     {
-        return lift_impl<NewType>(std::forward<decltype(op)>(op), CastThis());
+        return details::lift_impl<NewType>(std::forward<decltype(op)>(op), CastThis());
     }
 
     template<constraint::decayed_type NewType>
     auto lift(details::lift_fn<NewType> auto&& op) &&
     {
-        return lift_impl<NewType>(std::forward<decltype(op)>(op), MoveThis());
+        return details::lift_impl<NewType>(std::forward<decltype(op)>(op), MoveThis());
     }
 
     // ********************************* LIFT OPERATOR: SUBSCRIBER -> SUBSCRIBER ******************//
@@ -147,13 +158,13 @@ public:
     template<constraint::decayed_type                                        NewType,
              std::invocable<Type, dynamic_subscriber<NewType>>               OnNext,
              std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError = details::forwarding_on_error,
-             std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = details::forwarding_on_completed>
+             std::invocable<dynamic_subscriber<NewType>> OnCompleted = details::forwarding_on_completed>
     auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const &
     {
-        return lift_impl<NewType>(details::make_lift_action_by_callbacks<Type>(std::forward<OnNext>(on_next),
-                                                                               std::forward<OnError>(on_error),
-                                                                               std::forward<OnCompleted>(on_completed)),
-                                  CastThis());
+        return details::lift_impl<NewType>(details::make_lift_action_by_callbacks<Type>(std::forward<OnNext>(on_next),
+                                                                                        std::forward<OnError>(on_error),
+                                                                                        std::forward<OnCompleted>(on_completed)),
+                                           CastThis());
     }
 
     template<constraint::decayed_type                                        NewType,
@@ -162,10 +173,10 @@ public:
              std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = details::forwarding_on_completed>
     auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) &&
     {
-        return lift_impl<NewType>(details::make_lift_action_by_callbacks<Type>(std::forward<OnNext>(on_next),
-                                                                               std::forward<OnError>(on_error),
-                                                                               std::forward<OnCompleted>(on_completed)),
-                                  MoveThis());
+        return details::lift_impl<NewType>(details::make_lift_action_by_callbacks<Type>(std::forward<OnNext>(on_next),
+                                                                                        std::forward<OnError>(on_error),
+                                                                                        std::forward<OnCompleted>(on_completed)),
+                                           MoveThis());
     }
 
     // ********************************* LIFT OnNext, Onerror, OnCompleted ******************//
@@ -245,21 +256,10 @@ private:
     {
         return std::move(*static_cast<SpecificObservable*>(this));
     }
-
-    template<constraint::decayed_type NewType, details::lift_fn<NewType> OperatorFn, typename FwdThis>
-    static auto lift_impl(OperatorFn&& op, FwdThis&& _this)
-    {
-        auto action = [new_this = std::forward<FwdThis>(_this), op = std::forward<OperatorFn>(op)](auto&& subscriber)
-        {
-            new_this.subscribe(op(std::forward<decltype(subscriber)>(subscriber)));
-        };
-
-        return specific_observable<NewType, decltype(action)>(std::move(action));
-    }
 };
 
-template<constraint::observable              Observable,
-    details::op_fn<Observable> Operator>
+template<constraint::observable      Observable,
+         details::op_fn<Observable> Operator>
 auto operator |(Observable&& observable, Operator&& op)
 {
     return std::forward<Observable>(observable).op(std::forward<Operator>(op));
