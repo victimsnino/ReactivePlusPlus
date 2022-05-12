@@ -1,6 +1,7 @@
 #pragma once
 
 #include <rpp/observables/member_overload.hpp>
+#include <rpp/observables/constraints.hpp>
 
 namespace rpp::details
 {
@@ -12,11 +13,20 @@ namespace rpp::operators
  * \copydoc rpp::details::member_overload::publish
  */
 template<typename ...Args>
-auto publish() requires details::is_header_included<details::publish_tag, Args...>;
+auto publish() requires details::is_header_included<details::publish_tag, Args...>
+{
+    return[]<constraint::observable TObservable>(TObservable && observable)
+    {
+        return std::forward<TObservable>(observable).publish();
+    };
+}
 } // namespace rpp::operators
 
 namespace rpp::details
 {
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs>
+auto publish_impl(TObs&& observable);
+
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, publish_tag>
 {
@@ -35,17 +45,13 @@ struct member_overload<Type, SpecificObservable, publish_tag>
     template<typename ...Args>
     auto publish() const& requires is_header_included<publish_tag, Args...>
     {
-        return publish_impl(*static_cast<const SpecificObservable*>(this));
+        return publish_impl<Type>(*static_cast<const SpecificObservable*>(this));
     }
 
     template<typename ...Args>
     auto publish() && requires is_header_included<publish_tag, Args...>
     {
-        return publish_impl(std::move(*static_cast<SpecificObservable*>(this)));
+        return publish_impl<Type>(std::move(*static_cast<SpecificObservable*>(this)));
     }
-
-private:
-    template<constraint::decayed_same_as<SpecificObservable> TThis>
-    static auto publish_impl(TThis&& observable);
 };
 } // namespace rpp::details
