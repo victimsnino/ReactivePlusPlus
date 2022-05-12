@@ -28,6 +28,9 @@ auto map(Callable&& callable) requires details::is_header_included<details::map_
 
 namespace rpp::details
 {
+template<constraint::decayed_type Type, std::invocable<Type> Callable>
+auto map_impl(Callable&& callable);
+
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, map_tag>
 {
@@ -54,17 +57,13 @@ struct member_overload<Type, SpecificObservable, map_tag>
     template<std::invocable<Type> Callable>
     auto map(Callable&& callable) const & requires is_header_included<map_tag, Callable>
     {
-        return static_cast<const SpecificObservable*>(this)->template lift<std::invoke_result_t<Callable, Type>>(map_impl(std::forward<Callable>(callable)));
+        return static_cast<const SpecificObservable*>(this)->template lift<std::invoke_result_t<Callable, Type>>(map_impl<Type>(std::forward<Callable>(callable)));
     }
 
     template<std::invocable<Type> Callable>
     auto map(Callable&& callable) && requires is_header_included<map_tag, Callable>
     {
-        return std::move(*static_cast<SpecificObservable*>(this)).template lift<std::invoke_result_t<Callable, Type>>(map_impl(std::forward<Callable>(callable)));
+        return std::move(*static_cast<SpecificObservable*>(this)).template lift<std::invoke_result_t<Callable, Type>>(map_impl<Type>(std::forward<Callable>(callable)));
     }
-
-private:
-    template<std::invocable<Type> Callable>
-    static auto map_impl(Callable&& callable);
 };
 } // namespace rpp::details

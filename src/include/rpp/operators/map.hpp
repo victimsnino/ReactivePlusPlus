@@ -33,9 +33,8 @@ auto map(Callable&& callable) requires details::is_header_included<details::map_
 
 namespace rpp::details
 {
-template<constraint::decayed_type Type, typename SpecificObservable>
-template<std::invocable<Type> Callable>
-auto member_overload<Type, SpecificObservable, map_tag>::map_impl(Callable&& callable)
+template<constraint::decayed_type Type, std::invocable<Type> Callable>
+auto map_impl(Callable&& callable)
 {
     return [callable = std::forward<Callable>(callable)](auto&& value, const constraint::subscriber_of_type<std::invoke_result_t<Callable, Type>> auto& subscriber)
     {
