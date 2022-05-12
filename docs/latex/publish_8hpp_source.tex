@@ -10,26 +10,13 @@
 \DoxyCodeLine{6 }
 \DoxyCodeLine{7 IMPLEMENTATION\_FILE(publish\_tag);}
 \DoxyCodeLine{8 }
-\DoxyCodeLine{9 \textcolor{keyword}{namespace }rpp::operators}
+\DoxyCodeLine{9 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{10 \{}
-\DoxyCodeLine{11 \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{12 \textcolor{keyword}{auto} publish() \textcolor{keyword}{requires} details::is\_header\_included<details::publish\_tag, Args...>}
+\DoxyCodeLine{11 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs>}
+\DoxyCodeLine{12 \textcolor{keyword}{auto} publish\_impl(TObs\&\& observable)}
 \DoxyCodeLine{13 \{}
-\DoxyCodeLine{14     \textcolor{keywordflow}{return} []<constraint::observable TObservable>(TObservable\&\& observable)}
-\DoxyCodeLine{15     \{}
-\DoxyCodeLine{16         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).publish();}
-\DoxyCodeLine{17     \};}
-\DoxyCodeLine{18 \}}
-\DoxyCodeLine{19 \} \textcolor{comment}{// namespace rpp::operators}}
-\DoxyCodeLine{20 }
-\DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{22 \{}
-\DoxyCodeLine{23 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{24 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_same\_as<SpecificObservable> TThis>}
-\DoxyCodeLine{25 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, publish\_tag>::publish\_impl(TThis\&\& observable)}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27     \textcolor{keywordflow}{return} std::forward<TThis>(observable).multicast(\mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<Type>}}\{\});}
-\DoxyCodeLine{28 \}}
-\DoxyCodeLine{29 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{14     \textcolor{keywordflow}{return} std::forward<TObs>(observable).multicast(\mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<Type>}}\{\});}
+\DoxyCodeLine{15 \}}
+\DoxyCodeLine{16 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

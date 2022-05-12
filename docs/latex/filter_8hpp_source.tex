@@ -19,34 +19,21 @@
 \DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
 \DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}}
 \DoxyCodeLine{17 }
-\DoxyCodeLine{18 }
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <utility>}}
-\DoxyCodeLine{20 }
-\DoxyCodeLine{21 IMPLEMENTATION\_FILE(filter\_tag);}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{keyword}{namespace }rpp::operators}
-\DoxyCodeLine{24 \{}
-\DoxyCodeLine{25 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Predicate>}
-\DoxyCodeLine{26 \textcolor{keyword}{auto} filter(Predicate\&\& predicate) \textcolor{keyword}{requires} details::is\_header\_included<details::filter\_tag, Predicate>}
-\DoxyCodeLine{27 \{}
-\DoxyCodeLine{28     \textcolor{keywordflow}{return} [predicate = std::forward<Predicate>(predicate)]<constraint::observable TObservable>(TObservable \&\& observable)}
-\DoxyCodeLine{29     \{}
-\DoxyCodeLine{30         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).filter(predicate);}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 IMPLEMENTATION\_FILE(filter\_tag);}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, std::predicate<const Type\&> Predicate>}
+\DoxyCodeLine{25 \textcolor{keyword}{auto} filter\_impl(Predicate\&\& predicate)}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27     \textcolor{keywordflow}{return} [predicate = std::forward<Predicate>(predicate)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{28     \{}
+\DoxyCodeLine{29         \textcolor{keywordflow}{if} (predicate(utils::as\_const(value)))}
+\DoxyCodeLine{30             subscriber.on\_next(std::forward<\textcolor{keyword}{decltype}(value)>(value));}
 \DoxyCodeLine{31     \};}
 \DoxyCodeLine{32 \}}
-\DoxyCodeLine{33 \} \textcolor{comment}{// namespace rpp::operators}}
-\DoxyCodeLine{34 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{35 \{}
-\DoxyCodeLine{36 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{37 \textcolor{keyword}{template}<std::predicate<const Type\&> Predicate>}
-\DoxyCodeLine{38 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, filter\_tag>::filter\_impl(Predicate\&\& predicate)}
-\DoxyCodeLine{39 \{}
-\DoxyCodeLine{40     \textcolor{keywordflow}{return} [predicate = std::forward<Predicate>(predicate)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
-\DoxyCodeLine{41     \{}
-\DoxyCodeLine{42         \textcolor{keywordflow}{if} (predicate(utils::as\_const(value)))}
-\DoxyCodeLine{43             subscriber.on\_next(std::forward<\textcolor{keyword}{decltype}(value)>(value));}
-\DoxyCodeLine{44     \};}
-\DoxyCodeLine{45 \}}
-\DoxyCodeLine{46 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{33 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

@@ -12,52 +12,40 @@
 \DoxyCodeLine{8 }
 \DoxyCodeLine{9 IMPLEMENTATION\_FILE(observe\_on\_tag);}
 \DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{keyword}{namespace }rpp::operators}
-\DoxyCodeLine{12 \{}
-\DoxyCodeLine{13 \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
-\DoxyCodeLine{14 \textcolor{keyword}{auto} observe\_on(TScheduler\&\& scheduler) \textcolor{keyword}{requires} details::is\_header\_included<details::observe\_on\_tag, TScheduler>}
-\DoxyCodeLine{15 \{}
-\DoxyCodeLine{16     \textcolor{keywordflow}{return} [scheduler = std::forward<TScheduler>(scheduler)]<constraint::observable TObservable>(TObservable \&\& observable)}
-\DoxyCodeLine{17     \{}
-\DoxyCodeLine{18         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).observe\_on(scheduler);}
-\DoxyCodeLine{19     \};}
-\DoxyCodeLine{20 \}}
-\DoxyCodeLine{21 \} \textcolor{comment}{// namespace rpp::operators}}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{24 \{}
-\DoxyCodeLine{25 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{26 \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
-\DoxyCodeLine{27 \textcolor{keyword}{auto} member\_overload<Type, SpecificObservable, observe\_on\_tag>::observe\_on\_impl(TScheduler\&\& scheduler)}
-\DoxyCodeLine{28 \{}
-\DoxyCodeLine{29     \textcolor{keywordflow}{return}[scheduler = std::forward<TScheduler>(scheduler)]<constraint::subscriber\_of\_type<Type> TSub>(TSub \&\& subscriber)}
-\DoxyCodeLine{30     \{}
-\DoxyCodeLine{31         \textcolor{comment}{// convert it to dynamic due to expected amount of copies == amount of items}}
-\DoxyCodeLine{32         \textcolor{keyword}{auto} dynamic\_subscriber = std::forward<TSub>(subscriber).as\_dynamic();}
-\DoxyCodeLine{33         \textcolor{keyword}{auto} subscription = dynamic\_subscriber.get\_subscription();}
-\DoxyCodeLine{34         \textcolor{keyword}{auto} worker = scheduler.create\_worker(subscription);}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{36         \textcolor{keyword}{auto} on\_next = [worker](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{37         \{}
-\DoxyCodeLine{38             worker.schedule([value = std::forward<\textcolor{keyword}{decltype}(value)>(value), sub]()-\/>schedulers::optional\_duration}
-\DoxyCodeLine{39             \{}
-\DoxyCodeLine{40                 sub.on\_next(std::move(value));}
-\DoxyCodeLine{41                 \textcolor{keywordflow}{return} \{\};}
-\DoxyCodeLine{42             \});}
-\DoxyCodeLine{43         \};}
-\DoxyCodeLine{44 }
-\DoxyCodeLine{45         \textcolor{keyword}{auto} on\_completed = [worker](\textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{46         \{}
-\DoxyCodeLine{47             worker.schedule([sub]()-\/>schedulers::optional\_duration}
-\DoxyCodeLine{48             \{}
-\DoxyCodeLine{49                 sub.on\_completed();}
-\DoxyCodeLine{50                 \textcolor{keywordflow}{return} \{\};}
-\DoxyCodeLine{51             \});}
-\DoxyCodeLine{52         \};}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{54         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(subscription.make\_child(), std::move(dynamic\_subscriber), std::move(on\_next), forwarding\_on\_error\{\}, std::move(on\_completed));}
-\DoxyCodeLine{55     \};}
-\DoxyCodeLine{56 \}}
-\DoxyCodeLine{57 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
+\DoxyCodeLine{15 \textcolor{keyword}{auto} observe\_on\_impl(TScheduler\&\& scheduler)}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17     \textcolor{keywordflow}{return}[scheduler = std::forward<TScheduler>(scheduler)]<constraint::subscriber\_of\_type<Type> TSub>(TSub \&\& subscriber)}
+\DoxyCodeLine{18     \{}
+\DoxyCodeLine{19         \textcolor{comment}{// convert it to dynamic due to expected amount of copies == amount of items}}
+\DoxyCodeLine{20         \textcolor{keyword}{auto} dynamic\_subscriber = std::forward<TSub>(subscriber).as\_dynamic();}
+\DoxyCodeLine{21         \textcolor{keyword}{auto} subscription = dynamic\_subscriber.get\_subscription();}
+\DoxyCodeLine{22         \textcolor{keyword}{auto} worker = scheduler.create\_worker(subscription);}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24         \textcolor{keyword}{auto} on\_next = [worker](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{25         \{}
+\DoxyCodeLine{26             worker.schedule([value = std::forward<\textcolor{keyword}{decltype}(value)>(value), sub]()-\/>schedulers::optional\_duration}
+\DoxyCodeLine{27             \{}
+\DoxyCodeLine{28                 sub.on\_next(std::move(value));}
+\DoxyCodeLine{29                 \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{30             \});}
+\DoxyCodeLine{31         \};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33         \textcolor{keyword}{auto} on\_completed = [worker](\textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{34         \{}
+\DoxyCodeLine{35             worker.schedule([sub]()-\/>schedulers::optional\_duration}
+\DoxyCodeLine{36             \{}
+\DoxyCodeLine{37                 sub.on\_completed();}
+\DoxyCodeLine{38                 \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{39             \});}
+\DoxyCodeLine{40         \};}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(subscription.make\_child(), std::move(dynamic\_subscriber), std::move(on\_next), forwarding\_on\_error\{\}, std::move(on\_completed));}
+\DoxyCodeLine{43     \};}
+\DoxyCodeLine{44 \}}
+\DoxyCodeLine{45 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}
