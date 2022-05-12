@@ -12,11 +12,20 @@ namespace rpp::operators
  * \copydoc rpp::details::member_overload::ref_count
  */
 template<typename ...Args>
-auto ref_count() requires details::is_header_included<details::ref_count_tag, Args...>;
+auto ref_count() requires details::is_header_included<details::ref_count_tag, Args...>
+{
+    return[]<constraint::observable TObservable>(TObservable && observable)
+    {
+        return std::forward<TObservable>(observable).ref_count();
+    };
+}
 } // namespace rpp::operators
 
 namespace rpp::details
 {
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs>
+auto ref_count_impl(TObs&& observable);
+
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, ref_count_tag>
 {
@@ -35,17 +44,13 @@ struct member_overload<Type, SpecificObservable, ref_count_tag>
     template<typename ...Args>
     auto ref_count() const& requires is_header_included<ref_count_tag, Args...>
     {
-        return ref_count_impl(*static_cast<const SpecificObservable*>(this));
+        return ref_count_impl<Type>(*static_cast<const SpecificObservable*>(this));
     }
 
     template<typename ...Args>
     auto ref_count() && requires is_header_included<ref_count_tag, Args...>
     {
-        return ref_count_impl(std::move(*static_cast<SpecificObservable*>(this)));
+        return ref_count_impl<Type>(std::move(*static_cast<SpecificObservable*>(this)));
     }
-
-private:
-    template<constraint::decayed_same_as<SpecificObservable> TThis>
-    static auto ref_count_impl(TThis&& observable);
 };
 } // namespace rpp::details
