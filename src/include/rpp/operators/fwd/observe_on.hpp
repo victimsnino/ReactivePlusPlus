@@ -13,11 +13,20 @@ namespace rpp::operators
  * \copydoc rpp::details::member_overload::observe_on
  */
 template<schedulers::constraint::scheduler TScheduler>
-auto observe_on(TScheduler&& scheduler) requires details::is_header_included<details::observe_on_tag, TScheduler>;
+auto observe_on(TScheduler&& scheduler) requires details::is_header_included<details::observe_on_tag, TScheduler>
+{
+    return[scheduler = std::forward<TScheduler>(scheduler)]<constraint::observable TObservable>(TObservable && observable)
+    {
+        return std::forward<TObservable>(observable).observe_on(scheduler);
+    };
+}
 } // namespace rpp::operators
 
 namespace rpp::details
 {
+template<constraint::decayed_type Type, schedulers::constraint::scheduler TScheduler>
+auto observe_on_impl(TScheduler&& scheduler);
+
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, observe_on_tag>
 {
@@ -38,17 +47,13 @@ struct member_overload<Type, SpecificObservable, observe_on_tag>
     template<schedulers::constraint::scheduler TScheduler>
     auto observe_on(TScheduler&& scheduler) const& requires is_header_included<observe_on_tag, TScheduler>
     {
-        return static_cast<const SpecificObservable*>(this)->template lift<Type>(observe_on_impl(std::forward<TScheduler>(scheduler)));
+        return static_cast<const SpecificObservable*>(this)->template lift<Type>(observe_on_impl<Type>(std::forward<TScheduler>(scheduler)));
     }
 
     template<schedulers::constraint::scheduler TScheduler>
     auto observe_on(TScheduler&& scheduler) && requires is_header_included<observe_on_tag, TScheduler>
     {
-        return std::move(*static_cast<SpecificObservable*>(this)).template lift<Type>(observe_on_impl(std::forward<TScheduler>(scheduler)));
+        return std::move(*static_cast<SpecificObservable*>(this)).template lift<Type>(observe_on_impl<Type>(std::forward<TScheduler>(scheduler)));
     }
-
-private:
-    template<schedulers::constraint::scheduler TScheduler>
-    static auto observe_on_impl(TScheduler&& scheduler);
 };
 } // namespace rpp::details
