@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/observables/member_overload.hpp>
+#include <rpp/observables/constraints.hpp>
 
 namespace rpp::details
 {
@@ -23,7 +24,13 @@ namespace rpp::operators
  * \copydoc rpp::details::member_overload::map
  */
 template<typename Callable>
-auto map(Callable&& callable) requires details::is_header_included<details::map_tag, Callable>;
+auto map(Callable&& callable) requires details::is_header_included<details::map_tag, Callable>
+{
+    return[callable = std::forward<Callable>(callable)]<constraint::observable TObservable>(TObservable && observable)
+    {
+        return std::forward<TObservable>(observable).map(callable);
+    };
+}
 } // namespace rpp::operators
 
 namespace rpp::details
