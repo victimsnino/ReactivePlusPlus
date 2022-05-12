@@ -7,27 +7,6 @@
 
 IMPLEMENTATION_FILE(repeat_tag);
 
-namespace rpp::operators
-{
-template<typename ...Args>
-auto repeat(size_t count) requires details::is_header_included<details::repeat_tag, Args...>
-{
-    return [count]<constraint::observable TObservable>(TObservable && observable)
-    {
-        return std::forward<TObservable>(observable).repeat(count);
-    };
-}
-
-template<typename ...Args>
-auto repeat() requires details::is_header_included<details::repeat_tag, Args...>
-{
-    return[]<constraint::observable TObservable>(TObservable&& observable)
-    {
-        return std::forward<TObservable>(observable).repeat();
-    };
-}
-} // namespace rpp::operators
-
 namespace rpp::details
 {
 template<constraint::decayed_type Type, typename SpecificObservable, typename Predicate>
@@ -66,30 +45,28 @@ private:
     [[no_unique_address]] Predicate     m_predicate;
 };
 
-template<constraint::decayed_type Type, typename SpecificObservable>
-template<constraint::decayed_same_as<SpecificObservable> TThis>
-auto member_overload<Type, SpecificObservable, repeat_tag>::repeat_impl(TThis&& observable, size_t count)
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs>
+auto repeat_impl(TObs&& observable, size_t count)
 {
-    auto shared_observable = std::make_shared<SpecificObservable>(std::forward<TThis>(observable));
+    auto shared_observable = std::make_shared<std::decay_t<TObs>>(std::forward<TObs>(observable));
     return rpp::source::create<Type>([shared_observable, count](const constraint::subscriber_of_type<Type> auto& subscriber)
     {
         auto predicate = [shared_count = std::make_shared<size_t>(count)]()
         {
             return *shared_count && (*shared_count)--;
         };
-        repeat_on_completed<Type, SpecificObservable, decltype(predicate)>{shared_observable, std::move(predicate)}(subscriber);
+        repeat_on_completed<Type, std::decay_t<TObs>, decltype(predicate)>{shared_observable, std::move(predicate)}(subscriber);
     });
 }
 
-template<constraint::decayed_type Type, typename SpecificObservable>
-template<constraint::decayed_same_as<SpecificObservable> TThis>
-auto member_overload<Type, SpecificObservable, repeat_tag>::repeat_impl(TThis&& observable)
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs>
+auto repeat_impl(TObs&& observable)
 {
-    auto shared_observable = std::make_shared<SpecificObservable>(std::forward<TThis>(observable));
+    auto shared_observable = std::make_shared<std::decay_t<TObs>>(std::forward<TObs>(observable));
     return rpp::source::create<Type>([shared_observable](const constraint::subscriber_of_type<Type> auto& subscriber)
     {
         auto predicate = []() { return true; };
-        repeat_on_completed<Type, SpecificObservable, decltype(predicate)>{shared_observable, std::move(predicate)}(subscriber);
+        repeat_on_completed<Type, std::decay_t<TObs>, decltype(predicate)>{shared_observable, std::move(predicate)}(subscriber);
     });
 }
 } // namespace rpp::details
