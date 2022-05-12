@@ -21,14 +21,38 @@ struct merge_tag;
 namespace rpp::operators
 {
 /**
- * \copydoc rpp::details::member_overload::merge
+ * \copydoc rpp::details::member_overload::merge_with
  */
 template<constraint::observable ...TObservables>
-auto merge(TObservables&&... observables) requires details::is_header_included<details::merge_tag, TObservables...>;
+auto merge_with(TObservables&&... observables) requires details::is_header_included<details::merge_tag, TObservables...>
+{
+    return[...observables = std::forward<TObservables>(observables)]<constraint::observable TObservable>(TObservable && observable)
+    {
+        return std::forward<TObservable>(observable).merge_with(observables...);
+    };
+}
+
+/**
+ * \copydoc rpp::details::member_overload::merge
+ */
+template<typename ...Args>
+auto merge() requires details::is_header_included<details::merge_tag, Args...>
+{
+    return[]<constraint::observable TObservable>(TObservable && observable)
+    {
+        return std::forward<TObservable>(observable).merge();
+    };
+}
 } // namespace rpp::operators
 
 namespace rpp::details
 {
+template<constraint::decayed_type Type>
+auto merge_impl();
+
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> ...TObservables>
+auto merge_with_impl(TObservables&& ...observables) requires (sizeof...(TObservables) >= 1);
+
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, merge_tag>
 {
@@ -49,13 +73,13 @@ struct member_overload<Type, SpecificObservable, merge_tag>
     template<typename ...Args>
     auto merge() const& requires (is_header_included<merge_tag, Args...> && rpp::constraint::observable<Type>)
     {
-        return static_cast<const SpecificObservable*>(this)->template lift<utils::extract_observable_type_t<Type>>(merge_impl());
+        return static_cast<const SpecificObservable*>(this)->template lift<utils::extract_observable_type_t<Type>>(merge_impl<Type>());
     }
 
     template<typename ...Args>
     auto merge() && requires (is_header_included<merge_tag, Args...>&& rpp::constraint::observable<Type>)
     {
-        return std::move(*static_cast<SpecificObservable*>(this)).template lift<utils::extract_observable_type_t<Type>>(merge_impl());
+        return std::move(*static_cast<SpecificObservable*>(this)).template lift<utils::extract_observable_type_t<Type>>(merge_impl<Type>());
     }
 
     /**
@@ -75,19 +99,13 @@ struct member_overload<Type, SpecificObservable, merge_tag>
     template<constraint::observable_of_type<Type> ...TObservables>
     auto merge_with(TObservables&&... observables) const& requires (is_header_included<merge_tag, TObservables...>&& sizeof...(TObservables) >= 1)
     {
-        return static_cast<const SpecificObservable*>(this)->op(merge_with_impl(std::forward<TObservables>(observables)...));
+        return static_cast<const SpecificObservable*>(this)->op(merge_with_impl<Type>(std::forward<TObservables>(observables)...));
     }
 
     template<constraint::observable_of_type<Type> ...TObservables>
     auto merge_with(TObservables&&... observables) && requires (is_header_included<merge_tag, TObservables...> && sizeof...(TObservables) >= 1)
     {
-        return std::move(*static_cast<SpecificObservable*>(this)).op(merge_with_impl(std::forward<TObservables>(observables)...));
+        return std::move(*static_cast<SpecificObservable*>(this)).op(merge_with_impl<Type>(std::forward<TObservables>(observables)...));
     }
-
-private:
-    static auto merge_impl();
-
-    template<constraint::observable_of_type<Type> ...TObservables>
-    static auto merge_with_impl(TObservables&& ...observables) requires (sizeof...(TObservables) >= 1);
 };
 } // namespace rpp::details
