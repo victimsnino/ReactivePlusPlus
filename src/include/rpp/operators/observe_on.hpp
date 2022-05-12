@@ -8,23 +8,11 @@
 
 IMPLEMENTATION_FILE(observe_on_tag);
 
-namespace rpp::operators
-{
-template<schedulers::constraint::scheduler TScheduler>
-auto observe_on(TScheduler&& scheduler) requires details::is_header_included<details::observe_on_tag, TScheduler>
-{
-    return [scheduler = std::forward<TScheduler>(scheduler)]<constraint::observable TObservable>(TObservable && observable)
-    {
-        return std::forward<TObservable>(observable).observe_on(scheduler);
-    };
-}
-} // namespace rpp::operators
 
 namespace rpp::details
 {
-template<constraint::decayed_type Type, typename SpecificObservable>
-template<schedulers::constraint::scheduler TScheduler>
-auto member_overload<Type, SpecificObservable, observe_on_tag>::observe_on_impl(TScheduler&& scheduler)
+template<constraint::decayed_type Type, schedulers::constraint::scheduler TScheduler>
+auto observe_on_impl(TScheduler&& scheduler)
 {
     return[scheduler = std::forward<TScheduler>(scheduler)]<constraint::subscriber_of_type<Type> TSub>(TSub && subscriber)
     {

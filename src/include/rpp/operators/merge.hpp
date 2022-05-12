@@ -24,18 +24,6 @@
 
 IMPLEMENTATION_FILE(merge_tag);
 
-namespace rpp::operators
-{
-template<constraint::observable ...TObservables>
-auto merge(TObservables&&...observables) requires details::is_header_included<details::merge_tag, TObservables...>
-{
-    return [...observables = std::forward<TObservables>(observables)]<constraint::observable TObservable>(TObservable && observable)
-    {
-        return std::forward<TObservable>(observable).merge(observables...);
-    };
-}
-} // namespace rpp::operators
-
 namespace rpp::details
 {
 struct state_t
@@ -61,8 +49,8 @@ auto create_proxy_subscriber(constraint::subscriber auto&&   subscriber,
                                               std::forward<decltype(on_completed)>(on_completed));
 }
 
-template<constraint::decayed_type Type, typename SpecificObservable>
-auto member_overload<Type, SpecificObservable, merge_tag>::merge_impl()
+template<constraint::decayed_type Type>
+auto merge_impl()
 {
     using ValueType = utils::extract_observable_type_t<Type>;
 
@@ -103,9 +91,8 @@ auto member_overload<Type, SpecificObservable, merge_tag>::merge_impl()
     };
 }
 
-template<constraint::decayed_type Type, typename SpecificObservable>
-template<constraint::observable_of_type<Type> ... TObservables>
-auto member_overload<Type, SpecificObservable, merge_tag>::merge_with_impl(TObservables&&... observables) requires (sizeof...(TObservables) >= 1)
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> ... TObservables>
+auto merge_with_impl(TObservables&&... observables) requires (sizeof...(TObservables) >= 1)
 {
     return [...observables = std::forward<TObservables>(observables)]<constraint::observable TObs>(TObs&& obs)
     {

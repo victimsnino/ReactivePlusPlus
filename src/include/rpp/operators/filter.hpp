@@ -15,27 +15,14 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/utils/utilities.hpp>
 
-
 #include <utility>
 
 IMPLEMENTATION_FILE(filter_tag);
 
-namespace rpp::operators
-{
-template<typename Predicate>
-auto filter(Predicate&& predicate) requires details::is_header_included<details::filter_tag, Predicate>
-{
-    return [predicate = std::forward<Predicate>(predicate)]<constraint::observable TObservable>(TObservable && observable)
-    {
-        return std::forward<TObservable>(observable).filter(predicate);
-    };
-}
-} // namespace rpp::operators
 namespace rpp::details
 {
-template<constraint::decayed_type Type, typename SpecificObservable>
-template<std::predicate<const Type&> Predicate>
-auto member_overload<Type, SpecificObservable, filter_tag>::filter_impl(Predicate&& predicate)
+template<constraint::decayed_type Type, std::predicate<const Type&> Predicate>
+auto filter_impl(Predicate&& predicate)
 {
     return [predicate = std::forward<Predicate>(predicate)](auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber)
     {

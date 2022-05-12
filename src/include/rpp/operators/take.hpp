@@ -21,22 +21,10 @@
 
 IMPLEMENTATION_FILE(take_tag);
 
-namespace rpp::operators
-{
-template<typename...Args>
-auto take(size_t count) requires details::is_header_included<details::take_tag, Args...>
-{
-    return [count]<constraint::observable TObservable>(TObservable&& observable)
-    {
-        return std::forward<TObservable>(observable).take(count);
-    };
-}
-} // namespace rpp::operators
-
 namespace rpp::details
 {
-template<constraint::decayed_type Type, typename SpecificObservable>
-auto member_overload<Type, SpecificObservable, take_tag>::take_impl(size_t count)
+template<constraint::decayed_type Type>
+auto take_impl(size_t count)
 {
     return [count]<constraint::subscriber_of_type<Type> TSub>(TSub&& subscriber)
     {

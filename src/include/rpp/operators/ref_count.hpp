@@ -8,23 +8,10 @@
 
 IMPLEMENTATION_FILE(ref_count_tag);
 
-namespace rpp::operators
-{
-template<typename ...Args>
-auto ref_count() requires details::is_header_included<details::ref_count_tag, Args...>
-{
-    return []<constraint::observable TObservable>(TObservable && observable)
-    {
-        return std::forward<TObservable>(observable).ref_count();
-    };
-}
-} // namespace rpp::operators
-
 namespace rpp::details
 {
-template<constraint::decayed_type Type, typename SpecificObservable>
-template<constraint::decayed_same_as<SpecificObservable> TThis>
-auto member_overload<Type, SpecificObservable, ref_count_tag>::ref_count_impl(TThis&& observable)
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs>
+auto ref_count_impl(TObs&& observable)
 {
     struct state_t
     {
@@ -32,7 +19,7 @@ auto member_overload<Type, SpecificObservable, ref_count_tag>::ref_count_impl(TT
         composite_subscription sub = composite_subscription::empty();
         std::mutex             mutex{};
     };
-    return source::create<Type>([observable = std::forward<TThis>(observable), state = std::make_shared<state_t>()](const constraint::subscriber_of_type<Type> auto& subscriber)
+    return source::create<Type>([observable = std::forward<TObs>(observable), state = std::make_shared<state_t>()](const constraint::subscriber_of_type<Type> auto& subscriber)
     {
         {
             std::lock_guard lock{ state->mutex };

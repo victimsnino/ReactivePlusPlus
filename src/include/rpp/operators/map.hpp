@@ -19,23 +19,10 @@
 
 IMPLEMENTATION_FILE(map_tag);
 
-namespace rpp::operators
-{
-template<typename Callable>
-auto map(Callable&& callable) requires details::is_header_included<details::map_tag, Callable>
-{
-    return [callable = std::forward<Callable>(callable)]<constraint::observable TObservable>(TObservable&& observable)
-    {
-        return std::forward<TObservable>(observable).map(callable);
-    };
-}
-} // namespace rpp::operators
-
 namespace rpp::details
 {
-template<constraint::decayed_type Type, typename SpecificObservable>
-template<std::invocable<Type> Callable>
-auto member_overload<Type, SpecificObservable, map_tag>::map_impl(Callable&& callable)
+template<constraint::decayed_type Type, std::invocable<Type> Callable>
+auto map_impl(Callable&& callable)
 {
     return [callable = std::forward<Callable>(callable)](auto&& value, const constraint::subscriber_of_type<std::invoke_result_t<Callable, Type>> auto& subscriber)
     {

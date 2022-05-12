@@ -1,6 +1,7 @@
 #pragma once
 
 #include <rpp/observables/member_overload.hpp>
+#include <rpp/observables/constraints.hpp>
 
 namespace rpp::details
 {
@@ -12,17 +13,35 @@ namespace rpp::operators
  * \copydoc rpp::details::member_overload::repeat
  */
 template<typename ...Args>
-auto repeat(size_t count) requires details::is_header_included<details::repeat_tag, Args...>;
+auto repeat(size_t count) requires details::is_header_included<details::repeat_tag, Args...>
+{
+    return[count]<constraint::observable TObservable>(TObservable && observable)
+    {
+        return std::forward<TObservable>(observable).repeat(count);
+    };
+}
 
 /**
  * \copydoc rpp::details::member_overload::repeat
  */
 template<typename ...Args>
-auto repeat() requires details::is_header_included<details::repeat_tag, Args...>;
+auto repeat() requires details::is_header_included<details::repeat_tag, Args...>
+{
+    return[]<constraint::observable TObservable>(TObservable && observable)
+    {
+        return std::forward<TObservable>(observable).repeat();
+    };
+}
 } // namespace rpp::operators
 
 namespace rpp::details
 {
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs>
+auto repeat_impl(TObs&& observable, size_t count);
+
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs>
+auto repeat_impl(TObs&& observable);
+
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, repeat_tag>
 {
@@ -44,13 +63,13 @@ struct member_overload<Type, SpecificObservable, repeat_tag>
     template<typename...Args>
     auto repeat(size_t count) const& requires is_header_included<repeat_tag, Args...>
     {
-        return repeat_impl(*static_cast<const SpecificObservable*>(this), count);
+        return repeat_impl<Type>(*static_cast<const SpecificObservable*>(this), count);
     }
 
     template<typename...Args>
     auto repeat(size_t count) && requires is_header_included<repeat_tag, Args...>
     {
-        return repeat_impl(std::move(*static_cast<SpecificObservable*>(this)), count);
+        return repeat_impl<Type>(std::move(*static_cast<SpecificObservable*>(this)), count);
     }
 
     /**
@@ -67,20 +86,13 @@ struct member_overload<Type, SpecificObservable, repeat_tag>
     template<typename...Args>
     auto repeat() const& requires is_header_included<repeat_tag, Args...>
     {
-        return repeat_impl(*static_cast<const SpecificObservable*>(this));
+        return repeat_impl<Type>(*static_cast<const SpecificObservable*>(this));
     }
 
     template<typename...Args>
     auto repeat() && requires is_header_included<repeat_tag, Args...>
     {
-        return repeat_impl(std::move(*static_cast<SpecificObservable*>(this)));
+        return repeat_impl<Type>(std::move(*static_cast<SpecificObservable*>(this)));
     }
-
-private:
-    template<constraint::decayed_same_as<SpecificObservable> TThis>
-    static auto repeat_impl(TThis&& observable, size_t count);
-
-    template<constraint::decayed_same_as<SpecificObservable> TThis>
-    static auto repeat_impl(TThis&& observable);
 };
 } // namespace rpp::details

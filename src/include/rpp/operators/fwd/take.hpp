@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/observables/member_overload.hpp>
+#include <rpp/observables/constraints.hpp>
 
 namespace rpp::details
 {
@@ -23,11 +24,20 @@ namespace rpp::operators
  * \copydoc rpp::details::member_overload::take
  */
 template<typename...Args>
-auto take(size_t count) requires details::is_header_included<details::take_tag, Args...>;
+auto take(size_t count) requires details::is_header_included<details::take_tag, Args...>
+{
+    return[count]<constraint::observable TObservable>(TObservable && observable)
+    {
+        return std::forward<TObservable>(observable).take(count);
+    };
+}
 } // namespace rpp::operators
 
 namespace rpp::details
 {
+template<constraint::decayed_type Type>
+auto take_impl(size_t count);
+
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, take_tag>
 {
@@ -46,16 +56,13 @@ struct member_overload<Type, SpecificObservable, take_tag>
     template<typename...Args>
     auto take(size_t count) const & requires is_header_included<take_tag, Args...>
     {
-        return static_cast<const SpecificObservable*>(this)->template lift<Type>(take_impl(count));
+        return static_cast<const SpecificObservable*>(this)->template lift<Type>(take_impl<Type>(count));
     }
 
     template<typename...Args>
     auto take(size_t count) && requires is_header_included<take_tag, Args...>
     {
-        return std::move(*static_cast<SpecificObservable*>(this)).template lift<Type>(take_impl(count));
+        return std::move(*static_cast<SpecificObservable*>(this)).template lift<Type>(take_impl<Type>(count));
     }
-
-private:
-    static auto take_impl(size_t count);
 };
 } // namespace rpp::details
