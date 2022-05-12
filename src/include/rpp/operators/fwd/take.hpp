@@ -64,7 +64,5 @@ struct member_overload<Type, SpecificObservable, take_tag>
     {
         return std::move(*static_cast<SpecificObservable*>(this)).template lift<Type>(take_impl<Type>(count));
     }
-
-private:
 };
 } // namespace rpp::details
