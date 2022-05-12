@@ -17,23 +17,10 @@
 
 IMPLEMENTATION_FILE(take_while_tag);
 
-namespace rpp::operators
-{
-template<typename Predicate>
-auto take_while(Predicate&& predicate) requires details::is_header_included<details::take_while_tag, Predicate>
-{
-    return [predicate = std::forward<Predicate>(predicate)]<constraint::observable TObservable>(TObservable && observable)
-    {
-        return std::forward<TObservable>(observable).take_while(predicate);
-    };
-}
-} // namespace rpp::operators
-
 namespace rpp::details
 {
-template<constraint::decayed_type Type, typename SpecificObservable>
-template<std::predicate<const Type&> Predicate>
-auto member_overload<Type, SpecificObservable, take_while_tag>::take_while_impl(Predicate&& predicate)
+template<constraint::decayed_type Type, std::predicate<const Type&> Predicate>
+auto take_while_impl(Predicate&& predicate)
 {
     return [predicate = std::forward<Predicate>(predicate)](auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber)
     {

@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/observables/member_overload.hpp>
+#include <rpp/observables/constraints.hpp>
 
 namespace rpp::details
 {
@@ -22,11 +23,20 @@ namespace rpp::operators
  * \copydoc rpp::details::member_overload::take_while
  */
 template<typename Predicate>
-auto take_while(Predicate&& predicate) requires details::is_header_included<details::take_while_tag, Predicate>;
+auto take_while(Predicate&& predicate) requires details::is_header_included<details::take_while_tag, Predicate>
+{
+    return[predicate = std::forward<Predicate>(predicate)]<constraint::observable TObservable>(TObservable && observable)
+    {
+        return std::forward<TObservable>(observable).take_while(predicate);
+    };
+}
 } // namespace rpp::operators
 
 namespace rpp::details
 {
+template<constraint::decayed_type Type, std::predicate<const Type&> Predicate>
+auto take_while_impl(Predicate&& predicate);
+
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, take_while_tag>
 {
@@ -45,17 +55,13 @@ struct member_overload<Type, SpecificObservable, take_while_tag>
     template<std::predicate<const Type&> Predicate>
     auto take_while(Predicate&& predicate) const& requires is_header_included<take_while_tag, Predicate>
     {
-        return static_cast<const SpecificObservable*>(this)->template lift<Type>(take_while_impl(std::forward<Predicate>(predicate)));
+        return static_cast<const SpecificObservable*>(this)->template lift<Type>(take_while_impl<Type>(std::forward<Predicate>(predicate)));
     }
 
     template<std::predicate<const Type&> Predicate>
     auto take_while(Predicate&& predicate) && requires is_header_included<take_while_tag, Predicate>
     {
-        return std::move(*static_cast<SpecificObservable*>(this)).template lift<Type>(take_while_impl(std::forward<Predicate>(predicate)));
+        return std::move(*static_cast<SpecificObservable*>(this)).template lift<Type>(take_while_impl<Type>(std::forward<Predicate>(predicate)));
     }
-
-private:
-    template<std::predicate<const Type&> Predicate>
-    static auto take_while_impl(Predicate&& predicate);
 };
 } // namespace rpp::details

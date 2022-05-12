@@ -2,6 +2,8 @@
 
 #include <rpp/observables/member_overload.hpp>
 #include <rpp/schedulers/constraints.hpp>
+#include <rpp/observables/constraints.hpp>
+
 
 namespace rpp::details
 {
