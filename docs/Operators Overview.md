@@ -23,6 +23,7 @@ rpp::source::create<int>([](const auto& sub)
 
 **Performance tip:** prefer usage `const auto&` as type of subscriber to avoid implicit conversion.
 **Usage tip:** avoid usage of this function and prefer built-in functions
+See: https://reactivex.io/documentation/operators/create.html
 
 
 ### just
@@ -44,7 +45,7 @@ Additionally, can be configured with:
     rpp::source::just(rpp::schedulers::new_thread{}, 42, 53).subscribe();
     ```
     in this case values will be sent via scheduler when next value will be scheduled after previous one is successfuly sent.
-    
+See: https://reactivex.io/documentation/operators/just.html
 
 ### from
 Creates observable from some another complex type:
@@ -59,6 +60,7 @@ Creates observable from some another complex type:
   ```cpp
     rpp::source::from_callable<rpp::memory_model::use_shared>([](){return 42;}).subscribe([](int v) {std::cout << v << " "; });
   ```
+See: https://reactivex.io/documentation/operators/from.html
 
 ## Transforming
 ### map
@@ -74,6 +76,7 @@ rpp::source::create<int>([](const auto& sub)
     })
     .subscribe([](std::string v) { std::cout << v << std::endl; });
 ```
+See: https://reactivex.io/documentation/operators/map.html
 
 ## Filtering
 ### filter
@@ -88,6 +91,7 @@ rpp::source::create<int>([](const auto& sub)
         .subscribe([](int v) { std::cout << v << " "; });
 // Output: 0 2 4 6 8
 ```
+See: https://reactivex.io/documentation/operators/filter.html
 
 ### take
 Limits amount of submission to provided count and then sends `on_completed`
@@ -101,6 +105,7 @@ rpp::source::create<int>([](const auto& sub)
         .subscribe([](int v) { std::cout << v << " "; });
 // Output: 0 1
 ```
+See: https://reactivex.io/documentation/operators/take.html
 
 ### take_while
 Emits items from underlying observable while predicate satisfied. On first false sends `on_completed`
@@ -114,6 +119,7 @@ rpp::source::create<int>([](const auto& sub)
         .subscribe([](int  v) { std::cout << v << " "; });
 // Output: 0 1 2 3 4
 ```
+See: https://reactivex.io/documentation/operators/takewhile.html
 
 ## Combining
 ### merge
@@ -137,6 +143,7 @@ There is two overloadings:
         .subscribe([](int v) { std::cout << v << " "; });
   // Output: 1 2
   ```
+See: https://reactivex.io/documentation/operators/merge.html
 
 ## Utility
 ### observe_on
@@ -153,6 +160,8 @@ rpp::source::just(10, 15, 20)
 // [TH2]: 15
 // [TH2]: 20
 ```
+See: https://reactivex.io/documentation/operators/observeon.html
+
 ### repeat
 Forces observable to re-subscribe observer to this observable after on_completed...
 - with provided count
@@ -178,6 +187,7 @@ Forces observable to re-subscribe observer to this observable after on_completed
                        });
     // Output: 1 2 3 1 2 3 1 2 3 1 completed
   ```
+See: https://reactivex.io/documentation/operators/repeat.html
 
 ## Connectable
 ### multicast
@@ -196,9 +206,11 @@ observable.connect();
 // #1 3
 // #2 3
 ```
+See: https://reactivex.io/documentation/operators/publish.html
 
 ### publish
 Same as multicast, but it uses publish_subject by default.
+See: https://reactivex.io/documentation/operators/publish.html
 
 ### ref_count
 Forces connectable observable to behave like common observable.  Connects Connectable Observable on the first subscription and unsubscribes on last unsubscription
@@ -216,3 +228,4 @@ observable.ref_count().subscribe([](int v) {std::cout << "#2 " << v << std::endl
 // #1 3
 // #2 3
 ```
+See: https://reactivex.io/documentation/operators/refcount.html
