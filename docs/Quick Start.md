@@ -12,7 +12,7 @@ For example,
 ```cpp
 rpp::source::from_callable(&::getchar)
 ```
-observable which emits chars from `cin`.
+observable which emits one char from `cin` via invoking of provided function once after subscription 
 
 Action inside observable happens ONLY after subscription on this observable and ONLY for provided subscriber/observer. It means, that you can subscribe on the same observable multiple times!
 
