@@ -9,6 +9,7 @@ def rindex(lst, value):
     
 dashboard = open("./gh-pages/benchmark.html", 'w')
 dashboard.write("<html><head></head><body>" + "\n")
+dashboard.write("<p> TIP: Each graph can be zoomed in via selection of interested region! Double-click to return to original zoom mode </p>")
 add_js = True
 
 def dump_plot(fig):
