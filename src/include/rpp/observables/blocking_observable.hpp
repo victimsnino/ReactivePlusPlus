@@ -11,7 +11,7 @@
 
 #include <rpp/observables/constraints.hpp>
 #include <rpp/observers/state_observer.hpp>
-#include <rpp/observables/utils.hpp>
+#include <rpp/observables/details/utils.hpp>
 
 #include <future>
 

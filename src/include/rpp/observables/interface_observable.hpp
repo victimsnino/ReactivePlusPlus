@@ -18,7 +18,7 @@
 #include <rpp/utils/constraints.hpp>              // general constraints
 #include <rpp/operators/fwd.hpp>
 #include <rpp/observables/blocking_observable.hpp>
-#include <rpp/observables/utils.hpp>
+#include <rpp/observables/details/utils.hpp>
 
 #include <type_traits>
 
