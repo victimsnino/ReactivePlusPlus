@@ -11,7 +11,7 @@
 #pragma once
 
 #include <rpp/schedulers/fwd.hpp>
-#include <rpp/schedulers/worker.hpp>
+#include <rpp/schedulers/details/worker.hpp>
 #include <rpp/subscriptions/subscription_base.hpp>
 
 #include <chrono>
