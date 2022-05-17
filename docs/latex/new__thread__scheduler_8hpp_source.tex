@@ -15,142 +15,94 @@
 \DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{12 }
 \DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/schedulers/fwd.hpp>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/schedulers/worker.hpp>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/schedulers/details/worker.hpp>}}
 \DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/subscriptions/composite\_subscription.hpp>}}
 \DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/subscriptions/subscription\_guard.hpp>}}
-\DoxyCodeLine{17 }
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <concepts>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <chrono>}}
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <condition\_variable>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/schedulers/details/queue\_worker\_state.hpp>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <concepts>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <chrono>}}
 \DoxyCodeLine{21 \textcolor{preprocessor}{\#include <functional>}}
-\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <mutex>}}
-\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <queue>}}
-\DoxyCodeLine{24 \textcolor{preprocessor}{\#include <thread>}}
-\DoxyCodeLine{25 }
-\DoxyCodeLine{26 \textcolor{keyword}{namespace }rpp::schedulers}
-\DoxyCodeLine{27 \{}
-\DoxyCodeLine{28 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable}{schedulable}}}
-\DoxyCodeLine{29 \{}
-\DoxyCodeLine{30 \textcolor{keyword}{public}:}
-\DoxyCodeLine{31     \mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable}{schedulable}}(time\_point time\_point, \textcolor{keywordtype}{size\_t} \textcolor{keywordtype}{id}, std::invocable \textcolor{keyword}{auto}\&\& fn)}
-\DoxyCodeLine{32         : m\_time\_point\{time\_point\}}
-\DoxyCodeLine{33         , m\_id\{\textcolor{keywordtype}{id}\}}
-\DoxyCodeLine{34         , m\_function\{std::forward<decltype(fn)>(fn)\} \{\}}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{36     \mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable}{schedulable}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable}{schedulable}}\& other)                = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{37     \mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable}{schedulable}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable}{schedulable}}\&\& other) \textcolor{keyword}{noexcept}            = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{38     \mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable}{schedulable}}\& operator=(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable}{schedulable}}\& other)     = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{39     \mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable}{schedulable}}\& operator=(\mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable}{schedulable}}\&\& other) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{41     \textcolor{keywordtype}{bool} operator<(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable}{schedulable}}\& other)\textcolor{keyword}{ const}}
-\DoxyCodeLine{42 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{43         \textcolor{keywordflow}{return} std::tie(m\_time\_point, m\_id) > std::tie(other.m\_time\_point, other.m\_id);}
-\DoxyCodeLine{44     \}}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{46     time\_point              GetTimePoint()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_time\_point; \}}
-\DoxyCodeLine{47     std::function<void()>\&\& ExtractFunction()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} std::move(m\_function); \}}
-\DoxyCodeLine{48 }
-\DoxyCodeLine{49 \textcolor{keyword}{private}:}
-\DoxyCodeLine{50     time\_point                    m\_time\_point;}
-\DoxyCodeLine{51     \textcolor{keywordtype}{size\_t}                        m\_id;}
-\DoxyCodeLine{52     \textcolor{keyword}{mutable} std::function<void()> m\_function;}
-\DoxyCodeLine{53 \};}
-\DoxyCodeLine{54 }
-\DoxyCodeLine{59 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{new\_thread}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1scheduler__tag}{details::scheduler\_tag}}}
-\DoxyCodeLine{60 \{}
-\DoxyCodeLine{61 \textcolor{keyword}{public}:}
-\DoxyCodeLine{62     \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy}{worker\_strategy}}}
-\DoxyCodeLine{63     \{}
-\DoxyCodeLine{64     \textcolor{keyword}{public}:}
-\DoxyCodeLine{65         \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy}{worker\_strategy}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{rpp::composite\_subscription}}\& sub)}
-\DoxyCodeLine{66             : m\_state\{std::make\_shared<state>()\}}
-\DoxyCodeLine{67         \{}
-\DoxyCodeLine{68             m\_state-\/>thread = std::jthread\{[state = m\_state](\textcolor{keyword}{const} std::stop\_token\& token)}
-\DoxyCodeLine{69             \{}
-\DoxyCodeLine{70                 state-\/>data\_thread(token);}
-\DoxyCodeLine{71             \}\};}
-\DoxyCodeLine{72             m\_state-\/>sub.reset(sub.\mbox{\hyperlink{classrpp_1_1composite__subscription_a7ea8553bdf67bbceab87dd14b7c42e3c}{add}}([state = m\_state]}
-\DoxyCodeLine{73             \{}
-\DoxyCodeLine{74                 state-\/>thread.request\_stop();}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <thread>}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{keyword}{namespace }rpp::schedulers}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{30 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{new\_thread}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1scheduler__tag}{details::scheduler\_tag}}}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{32 \textcolor{keyword}{public}:}
+\DoxyCodeLine{33     \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy}{worker\_strategy}}}
+\DoxyCodeLine{34     \{}
+\DoxyCodeLine{35     \textcolor{keyword}{public}:}
+\DoxyCodeLine{36         \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy}{worker\_strategy}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{rpp::composite\_subscription}}\& sub)}
+\DoxyCodeLine{37             : m\_state\{std::make\_shared<state>()\}}
+\DoxyCodeLine{38         \{}
+\DoxyCodeLine{39             m\_state-\/>init\_thread(sub);}
+\DoxyCodeLine{40         \}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42         \textcolor{keywordtype}{void} defer\_at(time\_point time\_point, std::invocable \textcolor{keyword}{auto}\&\& fn)\textcolor{keyword}{ const}}
+\DoxyCodeLine{43 \textcolor{keyword}{        }\{}
+\DoxyCodeLine{44             m\_state-\/>defer\_at(time\_point, std::forward<\textcolor{keyword}{decltype}(fn)>(fn));}
+\DoxyCodeLine{45         \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{keyword}{private}:}
+\DoxyCodeLine{48         \textcolor{keyword}{class }state : \textcolor{keyword}{public} std::enable\_shared\_from\_this<state>}
+\DoxyCodeLine{49         \{}
+\DoxyCodeLine{50         \textcolor{keyword}{public}:}
+\DoxyCodeLine{51             \textcolor{keywordtype}{void} defer\_at(time\_point time\_point, std::invocable \textcolor{keyword}{auto}\&\& fn)}
+\DoxyCodeLine{52             \{}
+\DoxyCodeLine{53                 \textcolor{keywordflow}{if} (m\_sub-\/>is\_subscribed())}
+\DoxyCodeLine{54                     m\_queue.emplace(time\_point, std::forward<\textcolor{keyword}{decltype}(fn)>(fn));}
+\DoxyCodeLine{55             \}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57             \textcolor{keywordtype}{void} init\_thread(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{rpp::composite\_subscription}}\& sub)}
+\DoxyCodeLine{58             \{}
+\DoxyCodeLine{59                 \textcolor{keyword}{auto} as\_shared = shared\_from\_this();}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61                 m\_thread = std::jthread\{[state = as\_shared](\textcolor{keyword}{const} std::stop\_token\& token)}
+\DoxyCodeLine{62                 \{}
+\DoxyCodeLine{63                     state-\/>data\_thread(token);}
+\DoxyCodeLine{64                 \}\};}
+\DoxyCodeLine{65                 m\_sub.reset(sub.\mbox{\hyperlink{classrpp_1_1composite__subscription_a7ea8553bdf67bbceab87dd14b7c42e3c}{add}}([state = as\_shared]}
+\DoxyCodeLine{66                 \{}
+\DoxyCodeLine{67                     state-\/>m\_thread.request\_stop();}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69                     if (state-\/>m\_thread.get\_id() != std::this\_thread::get\_id())}
+\DoxyCodeLine{70                         state-\/>m\_thread.join();}
+\DoxyCodeLine{71                     else}
+\DoxyCodeLine{72                         state-\/>m\_thread.detach();}
+\DoxyCodeLine{73                 \}));}
+\DoxyCodeLine{74             \}}
 \DoxyCodeLine{75 }
-\DoxyCodeLine{76                 if (state-\/>thread.get\_id() != std::this\_thread::get\_id())}
-\DoxyCodeLine{77                     state-\/>thread.join();}
-\DoxyCodeLine{78                 else}
-\DoxyCodeLine{79                     state-\/>thread.detach();}
-\DoxyCodeLine{80             \}));}
-\DoxyCodeLine{81         \}}
-\DoxyCodeLine{82 }
-\DoxyCodeLine{83         \textcolor{keywordtype}{void} defer\_at(time\_point time\_point, std::invocable \textcolor{keyword}{auto}\&\& fn)\textcolor{keyword}{ const}}
-\DoxyCodeLine{84 \textcolor{keyword}{        }\{}
-\DoxyCodeLine{85             m\_state-\/>defer\_at(time\_point, std::forward<\textcolor{keyword}{decltype}(fn)>(fn));}
-\DoxyCodeLine{86         \}}
-\DoxyCodeLine{87 }
-\DoxyCodeLine{88     \textcolor{keyword}{private}:}
-\DoxyCodeLine{89         \textcolor{keyword}{struct }state}
-\DoxyCodeLine{90         \{}
-\DoxyCodeLine{91             \textcolor{keywordtype}{void} defer\_at(time\_point time\_point, std::invocable \textcolor{keyword}{auto}\&\& fn)}
-\DoxyCodeLine{92             \{}
-\DoxyCodeLine{93                 \textcolor{keywordflow}{if} (sub-\/>\mbox{\hyperlink{classrpp_1_1subscription__base_ad9c07157024e7f68ce815d971c3faaf2}{is\_subscribed}}())}
-\DoxyCodeLine{94                 \{}
-\DoxyCodeLine{95                     emplace\_under\_lock(time\_point, std::forward<\textcolor{keyword}{decltype}(fn)>(fn));}
-\DoxyCodeLine{96                     cv.notify\_one();}
-\DoxyCodeLine{97                 \}}
-\DoxyCodeLine{98             \}}
-\DoxyCodeLine{99 }
-\DoxyCodeLine{100             \textcolor{keywordtype}{void} emplace\_under\_lock(time\_point time\_point, std::invocable \textcolor{keyword}{auto}\&\& fn)}
-\DoxyCodeLine{101             \{}
-\DoxyCodeLine{102                 std::lock\_guard lock\{ mutex \};}
-\DoxyCodeLine{103                 queue.emplace(time\_point, ++current\_id, std::forward<\textcolor{keyword}{decltype}(fn)>(fn));}
-\DoxyCodeLine{104             \}}
-\DoxyCodeLine{105 }
-\DoxyCodeLine{106             \textcolor{keywordtype}{void} data\_thread(\textcolor{keyword}{const} std::stop\_token\& token)}
-\DoxyCodeLine{107             \{}
-\DoxyCodeLine{108                 std::function<void()> fn\{\};}
-\DoxyCodeLine{109                 \textcolor{keywordflow}{while} (!token.stop\_requested())}
-\DoxyCodeLine{110                 \{}
-\DoxyCodeLine{111                     \textcolor{keywordflow}{if} (extract\_schedulable\_under\_lock(token, fn))}
-\DoxyCodeLine{112                     \{}
-\DoxyCodeLine{113                         fn();}
-\DoxyCodeLine{114                         fn = \{\};}
-\DoxyCodeLine{115                     \}}
-\DoxyCodeLine{116                 \}}
-\DoxyCodeLine{117 }
-\DoxyCodeLine{118                 \textcolor{comment}{// clear}}
-\DoxyCodeLine{119                 std::lock\_guard lock\{ mutex \};}
-\DoxyCodeLine{120                 queue = std::priority\_queue<schedulable>\{\};}
-\DoxyCodeLine{121             \}}
-\DoxyCodeLine{122 }
-\DoxyCodeLine{123             \textcolor{keywordtype}{bool} extract\_schedulable\_under\_lock(\textcolor{keyword}{const} std::stop\_token\& token, std::function<\textcolor{keywordtype}{void}()>\& out)}
-\DoxyCodeLine{124             \{}
-\DoxyCodeLine{125                 std::unique\_lock lock\{ mutex \};}
-\DoxyCodeLine{126 }
-\DoxyCodeLine{127                 \textcolor{keywordflow}{if} (!cv.wait(lock, token, [\&] \{ return !queue.empty(); \}))}
-\DoxyCodeLine{128                     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{129 }
-\DoxyCodeLine{130                 \textcolor{keywordflow}{if} (!cv.wait\_until(lock, token, queue.top().GetTimePoint(), [\&] \{ return !queue.empty() \&\& queue.top().GetTimePoint() <= clock\_type::now(); \}))}
-\DoxyCodeLine{131                     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{132 }
-\DoxyCodeLine{133                 out = std::move(queue.top().ExtractFunction());}
-\DoxyCodeLine{134                 queue.pop();}
-\DoxyCodeLine{135                 \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{136             \}}
-\DoxyCodeLine{137 }
-\DoxyCodeLine{138             std::mutex                       mutex\{\};}
-\DoxyCodeLine{139             std::condition\_variable\_any      cv\{\};}
-\DoxyCodeLine{140             std::priority\_queue<schedulable> queue\{\};}
-\DoxyCodeLine{141             \textcolor{keywordtype}{size\_t}                           current\_id\{\};}
-\DoxyCodeLine{142             std::jthread                     thread\{\};}
-\DoxyCodeLine{143             \mbox{\hyperlink{classrpp_1_1subscription__guard}{rpp::subscription\_guard}}          sub = rpp::subscription\_base::empty();}
-\DoxyCodeLine{144         \};}
-\DoxyCodeLine{145 }
-\DoxyCodeLine{146         std::shared\_ptr<state> m\_state\{\};}
-\DoxyCodeLine{147     \};}
-\DoxyCodeLine{148 }
-\DoxyCodeLine{149     \textcolor{keyword}{static} \textcolor{keyword}{auto} create\_worker(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{rpp::composite\_subscription}}\& sub = \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\{\})}
-\DoxyCodeLine{150     \{}
-\DoxyCodeLine{151         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker<worker\_strategy>}}\{sub\};}
-\DoxyCodeLine{152     \}}
-\DoxyCodeLine{153 \};}
-\DoxyCodeLine{154 \} \textcolor{comment}{// namespace rpp::schedulers}}
+\DoxyCodeLine{76         \textcolor{keyword}{private}:}
+\DoxyCodeLine{77             \textcolor{keywordtype}{void} data\_thread(\textcolor{keyword}{const} std::stop\_token\& token)}
+\DoxyCodeLine{78             \{}
+\DoxyCodeLine{79                 std::function<void()> fn\{\};}
+\DoxyCodeLine{80                 \textcolor{keywordflow}{while} (!token.stop\_requested())}
+\DoxyCodeLine{81                 \{}
+\DoxyCodeLine{82                     \textcolor{keywordflow}{if} (m\_queue.pop\_with\_wait(fn, token))}
+\DoxyCodeLine{83                     \{}
+\DoxyCodeLine{84                         fn();}
+\DoxyCodeLine{85                         fn = \{\};}
+\DoxyCodeLine{86                     \}}
+\DoxyCodeLine{87                 \}}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89                 \textcolor{comment}{// clear}}
+\DoxyCodeLine{90                 m\_queue.reset();}
+\DoxyCodeLine{91             \}}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93             \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1queue__worker__state}{details::queue\_worker\_state}} m\_queue\{\};}
+\DoxyCodeLine{94             std::jthread                m\_thread\{\};}
+\DoxyCodeLine{95             \mbox{\hyperlink{classrpp_1_1subscription__guard}{rpp::subscription\_guard}}     m\_sub = rpp::subscription\_base::empty();}
+\DoxyCodeLine{96         \};}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98         std::shared\_ptr<state> m\_state\{\};}
+\DoxyCodeLine{99     \};}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101     \textcolor{keyword}{static} \textcolor{keyword}{auto} create\_worker(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{rpp::composite\_subscription}}\& sub = \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\{\})}
+\DoxyCodeLine{102     \{}
+\DoxyCodeLine{103         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker<worker\_strategy>}}\{sub\};}
+\DoxyCodeLine{104     \}}
+\DoxyCodeLine{105 \};}
+\DoxyCodeLine{106 \} \textcolor{comment}{// namespace rpp::schedulers}}
 
 \end{DoxyCode}

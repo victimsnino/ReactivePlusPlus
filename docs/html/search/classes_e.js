@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['virtual_5fobservable_0',['virtual_observable',['../structrpp_1_1virtual__observable.html',1,'rpp']]]
+  ['unsubscribed_0',['unsubscribed',['../structrpp_1_1subjects_1_1details_1_1states_1_1unsubscribed.html',1,'rpp::subjects::details::states']]]
 ];
