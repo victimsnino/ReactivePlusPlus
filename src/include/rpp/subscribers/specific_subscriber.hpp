@@ -12,7 +12,7 @@
 
 #include <rpp/fwd.hpp>
 #include <rpp/observers/specific_observer.hpp>
-#include <rpp/subscribers/subscriber_base.hpp>
+#include <rpp/subscribers/details/subscriber_base.hpp>
 #include <rpp/utils/function_traits.hpp>
 
 namespace rpp
