@@ -28,6 +28,7 @@ public:
     void emplace(time_point time_point, std::invocable auto&& fn)
     {
         emplace_safe(time_point, std::forward<decltype(fn)>(fn));
+        m_cv.notify_one();
     }
 
     bool is_empty() const
