@@ -12,8 +12,8 @@
 #include <rpp/subjects/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/subscribers/dynamic_subscriber.hpp>
-#include <rpp/subjects/subject_state.hpp>
-#include <rpp/subjects/base_subject.hpp>
+#include <rpp/subjects/details/subject_state.hpp>
+#include <rpp/subjects/details/base_subject.hpp>
 
 namespace rpp::subjects::details
 {
