@@ -9,9 +9,8 @@
 
 #pragma once
 
-#include "rpp/subscriptions/subscription_guard.hpp"
-
 #include <rpp/schedulers/fwd.hpp>
+#include <rpp/subscriptions/subscription_guard.hpp>
 
 #include <mutex>
 #include <condition_variable>
