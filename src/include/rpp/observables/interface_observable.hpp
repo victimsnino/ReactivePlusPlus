@@ -102,6 +102,7 @@ struct interface_observable
     , details::member_overload<Type, SpecificObservable, details::publish_tag>
     , details::member_overload<Type, SpecificObservable, details::multicast_tag>
     , details::member_overload<Type, SpecificObservable, details::repeat_tag>
+    , details::member_overload<Type, SpecificObservable, details::subscribe_on_tag>
 {
 public:
     // ********************************* LIFT DIRECT TYPE + OPERATOR: SUBSCRIBER -> SUBSCRIBER ******************//

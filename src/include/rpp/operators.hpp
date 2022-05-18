@@ -20,3 +20,4 @@
 #include <rpp/operators/publish.hpp>
 #include <rpp/operators/ref_count.hpp>
 #include <rpp/operators/repeat.hpp>
+#include <rpp/operators/subscribe_on.hpp>
