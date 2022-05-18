@@ -58,6 +58,7 @@
 ### Utility
 - [x] observe_on
 - [x] repeat
+- [x] subscribe_on
 ### Connectable
 - [x] publish
 - [x] multicast
