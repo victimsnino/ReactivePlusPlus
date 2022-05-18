@@ -10,11 +10,10 @@
 
 #pragma once
 
-#include <rpp/observers/interface_observer.hpp>
-#include <rpp/subscribers/constraints.hpp>
-#include <rpp/utils/constraints.hpp>
-#include <rpp/utils/function_traits.hpp>
-#include <rpp/subscribers/specific_subscriber.hpp>
+#include <rpp/observers/interface_observer.hpp>     // base class
+#include <rpp/subscribers/constraints.hpp>          // default forwarding functors
+#include <rpp/utils/function_traits.hpp>            // extract argument type
+#include <rpp/subscribers/specific_subscriber.hpp>  // create proxy subscriber
 
 #include <exception>
 

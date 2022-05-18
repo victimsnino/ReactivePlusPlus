@@ -10,9 +10,9 @@
 
 #pragma once
 
-#include <rpp/observers/interface_observer.hpp>
-#include <rpp/utils/function_traits.hpp>
-#include <rpp/utils/functors.hpp>
+#include <rpp/observers/interface_observer.hpp> // base class 
+#include <rpp/utils/function_traits.hpp>        // extract function args
+#include <rpp/utils/functors.hpp>               // default arguments
 
 namespace rpp
 {
