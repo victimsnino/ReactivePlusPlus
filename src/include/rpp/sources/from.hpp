@@ -19,7 +19,6 @@
  **/
 
 #include <rpp/memory_model.hpp>
-#include <rpp/schedulers/constraints.hpp>
 #include <rpp/schedulers/immediate_scheduler.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/sources/fwd.hpp>
@@ -41,7 +40,6 @@ auto extract_iterable_from_packed(const T & v) -> const auto&
         return *v;
 }
 
-template<typename ValueExtractStrategy = std::identity>
 void iterate(const auto&                                   iterable,
              const schedulers::constraint::scheduler auto& scheduler,
              const constraint::subscriber auto&            subscriber)
