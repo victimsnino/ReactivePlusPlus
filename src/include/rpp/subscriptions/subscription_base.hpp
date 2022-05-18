@@ -12,7 +12,6 @@
 
 #include <rpp/subscriptions/details/subscription_state.hpp>
 
-#include <atomic>
 #include <memory>
 
 namespace rpp
