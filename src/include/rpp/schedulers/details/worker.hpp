@@ -10,8 +10,8 @@
 
 #pragma once
 
-#include <rpp/schedulers/constraints.hpp>
-#include <rpp/schedulers/fwd.hpp>
+#include <rpp/schedulers/constraints.hpp> // schedulable_fn
+#include <rpp/schedulers/fwd.hpp>         // own forwarding
 #include <rpp/utils/constraints.hpp>
 
 namespace rpp::schedulers

@@ -10,9 +10,9 @@
 
 #pragma once
 
-#include <rpp/schedulers/fwd.hpp>
-#include <rpp/schedulers/details/worker.hpp>
-#include <rpp/subscriptions/subscription_base.hpp>
+#include <rpp/schedulers/fwd.hpp>                   // own forwarding
+#include <rpp/schedulers/details/worker.hpp>        // worker
+#include <rpp/subscriptions/subscription_base.hpp>  // lifetime
 
 #include <chrono>
 #include <concepts>
