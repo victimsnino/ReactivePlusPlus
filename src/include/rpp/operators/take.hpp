@@ -13,7 +13,7 @@
 #include <rpp/operators/fwd/take.hpp>
 #include <rpp/observables/constraints.hpp>
 #include <rpp/subscribers/constraints.hpp>
-#include <rpp/observables/details/utils.hpp>
+#include <rpp/observers/state_observer.hpp>
 
 
 #include <atomic>

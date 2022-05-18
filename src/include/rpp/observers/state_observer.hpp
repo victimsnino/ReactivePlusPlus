@@ -14,6 +14,7 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/utils/function_traits.hpp>
+#include <rpp/subscribers/specific_subscriber.hpp>
 
 #include <exception>
 
@@ -74,4 +75,65 @@ private:
 
 template<typename TState, typename TOnNext, typename ...Args>
 state_observer(TState, TOnNext, Args...) -> state_observer<std::decay_t<utils::function_argument_t<TOnNext>>, TState, TOnNext, Args...>;
+
+template<constraint::decayed_type                            Type, 
+         typename                                            State,
+         std::invocable<Type, State>                         OnNext, 
+         std::invocable<std::exception_ptr, State>           OnError, 
+         std::invocable<State>                               OnCompleted, 
+         constraint::decayed_same_as<composite_subscription> Subscription = composite_subscription>
+auto create_subscriber_with_state_impl(State&&        state,
+                                       OnNext&&       on_next,
+                                       OnError&&      on_error,
+                                       OnCompleted&&  on_completed,
+                                       Subscription&& sub = composite_subscription{})
+{
+    return specific_subscriber<Type, state_observer<Type,
+                                                    std::decay_t<State>,
+                                                    std::decay_t<OnNext>,
+                                                    std::decay_t<OnError>,
+                                                    std::decay_t<OnCompleted>>>
+    {
+        std::forward<Subscription>(sub),
+        std::forward<State>(state),
+        std::forward<OnNext>(on_next),
+        std::forward<OnError>(on_error),
+        std::forward<OnCompleted>(on_completed)
+    };
+}
+
+template<constraint::decayed_type                  Type, 
+         typename                                  State,
+         std::invocable<Type, State>               OnNext, 
+         std::invocable<std::exception_ptr, State> OnError, 
+         std::invocable<State>                     OnCompleted>
+auto create_subscriber_with_state(State&&        state,
+                                  OnNext&&      on_next,
+                                  OnError&&     on_error,
+                                  OnCompleted&& on_completed)
+{
+    return create_subscriber_with_state_impl<Type>(std::forward<State>(state),
+                                                   std::forward<OnNext>(on_next),
+                                                   std::forward<OnError>(on_error),
+                                                   std::forward<OnCompleted>(on_completed));
+}
+
+template<constraint::decayed_type                            Type, 
+         constraint::decayed_same_as<composite_subscription> Subscription,
+         typename                                            State,
+         std::invocable<Type, State>                         OnNext, 
+         std::invocable<std::exception_ptr, State>           OnError, 
+         std::invocable<State>                               OnCompleted>
+auto create_subscriber_with_state(Subscription&& sub,
+                                  State&&        state,
+                                  OnNext&&       on_next,
+                                  OnError&&      on_error,
+                                  OnCompleted&&  on_completed)
+{
+    return create_subscriber_with_state_impl<Type>(std::forward<State>(state),
+                                                   std::forward<OnNext>(on_next),
+                                                   std::forward<OnError>(on_error),
+                                                   std::forward<OnCompleted>(on_completed),
+                                                   std::forward<Subscription>(sub));
+}
 } // namespace rpp::details

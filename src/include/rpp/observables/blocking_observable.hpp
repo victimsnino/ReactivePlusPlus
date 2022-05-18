@@ -9,8 +9,9 @@
 
 #pragma once
 
-#include <rpp/observables/constraints.hpp>   // OriginalObservable type
-#include <rpp/observables/details/utils.hpp> // Wrap original subscriber
+#include <rpp/observables/constraints.hpp>         // OriginalObservable type
+#include <rpp/subscribers/specific_subscriber.hpp> // create subscriber
+#include <rpp/observers/state_observer.hpp>        // wrap subscribers
 
 #include <future>
 
