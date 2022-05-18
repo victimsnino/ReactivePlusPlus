@@ -1,0 +1,32 @@
+\hypertarget{subscribe__on_8hpp_source}{}\doxysection{subscribe\+\_\+on.\+hpp}
+\label{subscribe__on_8hpp_source}\index{src/include/rpp/operators/subscribe\_on.hpp@{src/include/rpp/operators/subscribe\_on.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <rpp/operators/fwd/subscribe\_on.hpp>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{create_8hpp}{rpp/sources/create.hpp}}>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <rpp/schedulers/fwd.hpp>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 IMPLEMENTATION\_FILE (subscribe\_on\_tag);}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{12 \{}
+\DoxyCodeLine{13 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs, schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
+\DoxyCodeLine{14 \textcolor{keyword}{auto} subscribe\_on\_impl(TObs\&\& obs, \textcolor{keyword}{const} TScheduler\& scheduler)}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16     \textcolor{keywordflow}{return} source::create<Type>([obs = std::forward<TObs>(obs), scheduler]<constraint::subscriber\_of\_type<Type> TSub>(TSub\&\& subscriber)}
+\DoxyCodeLine{17     \{}
+\DoxyCodeLine{18         \textcolor{keyword}{auto} worker = scheduler.create\_worker(subscriber.get\_subscription());}
+\DoxyCodeLine{19         worker.schedule([obs, subscriber = std::forward<TSub>(subscriber)]() mutable -\/>schedulers::optional\_duration}
+\DoxyCodeLine{20         \{}
+\DoxyCodeLine{21             obs.subscribe(std::move(subscriber));}
+\DoxyCodeLine{22             return \{\};}
+\DoxyCodeLine{23         \});}
+\DoxyCodeLine{24     \});}
+\DoxyCodeLine{25 \}}
+\DoxyCodeLine{26 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

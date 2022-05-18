@@ -13,9 +13,10 @@ var searchData=
   ['subject_5ftag_10',['subject_tag',['../structrpp_1_1subjects_1_1details_1_1subject__tag.html',1,'rpp::subjects::details']]],
   ['subjects_11',['Subjects',['../group__subjects.html',1,'']]],
   ['subscribe_12',['subscribe',['../classrpp_1_1specific__observable.html#aa506227788360389ba0d2f40b65246e5',1,'rpp::specific_observable::subscribe(const TSub &amp;subscriber) const'],['../classrpp_1_1specific__observable.html#afa5d845bea82cfb167498164f434e303',1,'rpp::specific_observable::subscribe(TObserver &amp;&amp;observer) const'],['../classrpp_1_1specific__observable.html#a5ec1483dcaf86e1c1bfb4e335c068ddd',1,'rpp::specific_observable::subscribe(constraint::decayed_same_as&lt; composite_subscription &gt; auto &amp;&amp;sub, TObserver &amp;&amp;observer) const'],['../classrpp_1_1specific__observable.html#a358bbbc2c0004e15d77c0e7e953ca233',1,'rpp::specific_observable::subscribe(Args &amp;&amp;...args) const']]],
-  ['subscriber_5fbase_13',['subscriber_base',['../classrpp_1_1details_1_1subscriber__base.html',1,'rpp::details']]],
-  ['subscriber_5ftag_14',['subscriber_tag',['../structrpp_1_1details_1_1subscriber__tag.html',1,'rpp::details']]],
-  ['subscription_5fbase_15',['subscription_base',['../classrpp_1_1subscription__base.html',1,'rpp']]],
-  ['subscription_5fguard_16',['subscription_guard',['../classrpp_1_1subscription__guard.html',1,'rpp']]],
-  ['subscription_5fstate_17',['subscription_state',['../classrpp_1_1details_1_1subscription__state.html',1,'rpp::details']]]
+  ['subscribe_5fon_13',['subscribe_on',['../group__operators.html#ga2272435c76e0830c70e111b3270cd3d4',1,'rpp::details::member_overload&lt; Type, SpecificObservable, subscribe_on_tag &gt;']]],
+  ['subscriber_5fbase_14',['subscriber_base',['../classrpp_1_1details_1_1subscriber__base.html',1,'rpp::details']]],
+  ['subscriber_5ftag_15',['subscriber_tag',['../structrpp_1_1details_1_1subscriber__tag.html',1,'rpp::details']]],
+  ['subscription_5fbase_16',['subscription_base',['../classrpp_1_1subscription__base.html',1,'rpp']]],
+  ['subscription_5fguard_17',['subscription_guard',['../classrpp_1_1subscription__guard.html',1,'rpp']]],
+  ['subscription_5fstate_18',['subscription_state',['../classrpp_1_1details_1_1subscription__state.html',1,'rpp::details']]]
 ];
