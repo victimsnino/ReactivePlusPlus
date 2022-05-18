@@ -10,8 +10,8 @@
 
 #pragma once
 
-#include <rpp/subscribers/fwd.hpp>
-#include <rpp/utils/constraints.hpp>
+#include <rpp/subscribers/fwd.hpp>   // on_subscribe_fn
+#include <rpp/utils/constraints.hpp> // decayed type
 
 namespace rpp::details
 {

@@ -14,7 +14,6 @@
 #include <rpp/subjects/constraints.hpp>                 // type of subject used
 #include <rpp/subjects/type_traits.hpp>                 // deduce observable type by subject type
 #include <rpp/subscriptions/composite_subscription.hpp> // lifetime
-#include <rpp/utils/constraints.hpp>                    // decayed_type
 
 #include <memory>
 #include <mutex>

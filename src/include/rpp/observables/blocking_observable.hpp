@@ -11,7 +11,6 @@
 
 #include <rpp/observables/constraints.hpp>   // OriginalObservable type
 #include <rpp/observables/details/utils.hpp> // Wrap original subscriber
-#include <rpp/utils/constraints.hpp>         // decayed_type
 
 #include <future>
 

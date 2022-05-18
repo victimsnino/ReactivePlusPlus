@@ -11,7 +11,6 @@
 #pragma once
 
 #include <rpp/observables/specific_observable.hpp> // base
-#include <rpp/observables/type_traits.hpp>         // extract_observable_type
 
 #include <memory>
 
