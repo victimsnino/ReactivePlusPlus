@@ -18,7 +18,7 @@ auto subscribe_on_impl(TObs&& obs, const TScheduler& scheduler)
         auto worker = scheduler.create_worker(subscriber.get_subscription());
         worker.schedule([obs, subscriber = std::forward<TSub>(subscriber)]() mutable ->schedulers::optional_duration
         {
-            obs.subscribe(std::forward<TSub>(subscriber));
+            obs.subscribe(std::move(subscriber));
             return {};
         });
     });
