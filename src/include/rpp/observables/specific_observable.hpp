@@ -10,9 +10,9 @@
 
 #pragma once
 
-#include <rpp/subscribers.hpp>                       // subscribe with all types
 #include <rpp/observables/interface_observable.hpp> // base_class
-
+#include <rpp/observers/constraints.hpp>            // subscribe concept
+#include <rpp/subscribers/specific_subscriber.hpp>  // subscribe concept
 
 #include <utility>
 
