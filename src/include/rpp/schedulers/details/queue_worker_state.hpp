@@ -9,8 +9,7 @@
 
 #pragma once
 
-#include <rpp/schedulers/fwd.hpp>
-#include <rpp/subscriptions/subscription_guard.hpp>
+#include <rpp/schedulers/fwd.hpp>  // own forwarding
 
 #include <mutex>
 #include <condition_variable>

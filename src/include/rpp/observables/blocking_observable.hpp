@@ -9,18 +9,19 @@
 
 #pragma once
 
-#include <rpp/observables/constraints.hpp>
-#include <rpp/observers/state_observer.hpp>
-#include <rpp/observables/details/utils.hpp>
+#include <rpp/observables/constraints.hpp>         // OriginalObservable type
+#include <rpp/subscribers/specific_subscriber.hpp> // create subscriber
+#include <rpp/observers/state_observer.hpp>        // wrap subscribers
 
 #include <future>
 
 namespace rpp
 {
 /**
- * \brief blocking alternative of observable: provides interface where each function do blocking subscribe on original observable (till on_completed)
+ * \brief blocking alternative of observable: provides interface where each function do blocking subscribe on original observable (waits till on_completed and provides value)
  * \tparam Type type of values emitted by this observable
  * \tparam OriginalObservable original observable wrapped by this observable
+ * \ingroup observables
  */
 template<constraint::decayed_type Type, constraint::observable_of_type<Type> OriginalObservable>
 class blocking_observable final

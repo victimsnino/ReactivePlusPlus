@@ -16,7 +16,7 @@
 #include <rpp/subscriptions/composite_subscription.hpp>
 #include <rpp/observers/state_observer.hpp>
 #include <rpp/sources/just.hpp>
-#include <rpp/observables/details/utils.hpp>
+#include <rpp/observers/state_observer.hpp>
 
 
 #include <atomic>

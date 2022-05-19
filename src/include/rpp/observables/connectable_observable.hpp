@@ -9,15 +9,25 @@
 
 #pragma once
 
-#include <rpp/observables/constraints.hpp>
-#include <rpp/subscribers/constraints.hpp>
-#include <rpp/subjects/constraints.hpp>
-#include <rpp/subjects/type_traits.hpp>
-#include <rpp/utils/utilities.hpp>
-#include <rpp/operators/fwd/ref_count.hpp>
+#include <rpp/observables/constraints.hpp>              // OriginalObservable type
+#include <rpp/operators/fwd/ref_count.hpp>              // include forwarding for member_overload
+#include <rpp/subjects/constraints.hpp>                 // type of subject used
+#include <rpp/subjects/type_traits.hpp>                 // deduce observable type by subject type
+#include <rpp/subscriptions/composite_subscription.hpp> // lifetime
+
+#include <memory>
+#include <mutex>
 
 namespace rpp
 {
+/**
+ * \brief connectable alternative of observable: extends interface with extra functionality.
+ *  Common subscription will subscribe on underlying subject, but connect/ref_count will initiate subscription on original observable
+ * \tparam Type type of values emitted by this observable
+ * \tparam OriginalObservable original observable wrapped by this observable
+ * \see https://reactivex.io/documentation/operators/publish.html
+ * \ingroup observables
+ */
 template<constraint::decayed_type                    Type,
          subjects::constraint::subject_of_type<Type> Subject,
          constraint::observable_of_type<Type>        OriginalObservable>

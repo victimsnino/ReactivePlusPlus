@@ -13,11 +13,11 @@
 #include <rpp/observables/fwd.hpp>
 #include <rpp/observables/type_traits.hpp>
 
-#include <type_traits>
+#include <concepts>
 
 namespace rpp::constraint
 {
-template<typename T> concept observable = std::is_base_of_v<details::observable_tag, std::decay_t<T>>;
+template<typename T> concept observable = std::derived_from<std::decay_t<T>, details::observable_tag>;
 
-template<typename T, typename Type> concept observable_of_type = observable<T> && std::is_same_v<utils::extract_observable_type_t<T>, Type>;
+template<typename T, typename Type> concept observable_of_type = observable<T> && std::same_as<utils::extract_observable_type_t<T>, Type>;
 } // namespace rpp::constraint

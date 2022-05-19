@@ -10,10 +10,9 @@
 
 #pragma once
 
-#include <rpp/observers/fwd.hpp>
+#include <rpp/observers/fwd.hpp> // own forwarding
 
 #include <exception>
-
 
 /**
  * \defgroup observers Observers

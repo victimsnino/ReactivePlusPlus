@@ -10,11 +10,11 @@
 
 #pragma once
 
-#include <rpp/schedulers/fwd.hpp>
-#include <rpp/schedulers/details/worker.hpp>
-#include <rpp/subscriptions/composite_subscription.hpp>
-#include <rpp/subscriptions/subscription_guard.hpp>
-#include <rpp/schedulers/details/queue_worker_state.hpp>
+#include <rpp/schedulers/fwd.hpp>                       // own forwarding
+#include <rpp/schedulers/details/worker.hpp>            // worker
+#include <rpp/subscriptions/composite_subscription.hpp> // lifetime
+#include <rpp/subscriptions/subscription_guard.hpp>     // lifetime
+#include <rpp/schedulers/details/queue_worker_state.hpp>// state
 
 #include <concepts>
 #include <chrono>
