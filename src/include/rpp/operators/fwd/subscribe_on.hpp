@@ -10,21 +10,6 @@ namespace rpp::details
 struct subscribe_on_tag;
 }
 
-namespace rpp::operators
-{
-/**
- * \copydoc rpp::details::member_overload::subscribe_on
- */
-template<schedulers::constraint::scheduler TScheduler>
-auto subscribe_on(const TScheduler& scheduler) requires details::is_header_included<details::subscribe_on_tag, TScheduler>
-{
-    return [scheduler]<constraint::observable TObservable>(TObservable&& observable)
-    {
-        return std::forward<TObservable>(observable).subscribe_on(scheduler);
-    };
-}
-} // namespace rpp::operators
-
 namespace rpp::details
 {
 template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs, schedulers::constraint::scheduler TScheduler>

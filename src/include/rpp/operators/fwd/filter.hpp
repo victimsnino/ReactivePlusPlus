@@ -11,28 +11,11 @@
 #pragma once
 
 #include <rpp/observables/details/member_overload.hpp>
-#include <rpp/observables/constraints.hpp>
 
 namespace rpp::details
 {
 struct filter_tag;
 }
-
-namespace rpp::operators
-{
-/**
- * \copydoc rpp::details::member_overload::filter
- */
-template<typename Predicate>
-auto filter(Predicate&& predicate) requires details::is_header_included<details::filter_tag, Predicate>
-{
-    return[predicate = std::forward<Predicate>(predicate)]<constraint::observable TObservable>(TObservable && observable)
-    {
-        return std::forward<TObservable>(observable).filter(predicate);
-    };
-}
-
-} // namespace rpp::operators
 
 namespace rpp::details
 {

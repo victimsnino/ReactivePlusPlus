@@ -12,7 +12,6 @@
 
 #include <rpp/observables/constraints.hpp>
 #include <rpp/subscribers/constraints.hpp>
-#include <rpp/observables/type_traits.hpp>
 #include <rpp/operators/fwd/map.hpp>
 #include <rpp/utils/utilities.hpp>
 #include <utility>
@@ -24,9 +23,9 @@ namespace rpp::details
 template<constraint::decayed_type Type, std::invocable<Type> Callable>
 auto map_impl(Callable&& callable)
 {
-    return [callable = std::forward<Callable>(callable)](auto&& value, const constraint::subscriber_of_type<std::invoke_result_t<Callable, Type>> auto& subscriber)
+    return [callable = std::forward<Callable>(callable)]<typename TVal, constraint::subscriber_of_type<std::invoke_result_t<Callable, Type>> TSub>(TVal&& value, const TSub& subscriber)
     {
-        subscriber.on_next(callable(utils::as_const(std::forward<decltype(value)>(value))));
+        subscriber.on_next(callable(utils::as_const(std::forward<TVal>(value))));
     };
 }
 } // namespace rpp::details

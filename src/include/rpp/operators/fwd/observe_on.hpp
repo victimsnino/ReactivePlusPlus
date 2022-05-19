@@ -2,27 +2,12 @@
 
 #include <rpp/observables/details/member_overload.hpp>
 #include <rpp/schedulers/constraints.hpp>
-#include <rpp/observables/constraints.hpp>
 
 
 namespace rpp::details
 {
 struct observe_on_tag;
 }
-namespace rpp::operators
-{
-/**
- * \copydoc rpp::details::member_overload::observe_on
- */
-template<schedulers::constraint::scheduler TScheduler>
-auto observe_on(TScheduler&& scheduler) requires details::is_header_included<details::observe_on_tag, TScheduler>
-{
-    return[scheduler = std::forward<TScheduler>(scheduler)]<constraint::observable TObservable>(TObservable && observable)
-    {
-        return std::forward<TObservable>(observable).observe_on(scheduler);
-    };
-}
-} // namespace rpp::operators
 
 namespace rpp::details
 {

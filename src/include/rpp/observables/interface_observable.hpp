@@ -114,11 +114,4 @@ private:
         return std::move(*static_cast<SpecificObservable*>(this));
     }
 };
-
-template<constraint::observable      Observable,
-         details::op_fn<Observable> Operator>
-auto operator |(Observable&& observable, Operator&& op)
-{
-    return std::forward<Observable>(observable).op(std::forward<Operator>(op));
-}
 } // namespace rpp

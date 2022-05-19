@@ -7,32 +7,6 @@ namespace rpp::details
 {
 struct repeat_tag;
 }
-namespace rpp::operators
-{
-/**
- * \copydoc rpp::details::member_overload::repeat
- */
-template<typename ...Args>
-auto repeat(size_t count) requires details::is_header_included<details::repeat_tag, Args...>
-{
-    return[count]<constraint::observable TObservable>(TObservable && observable)
-    {
-        return std::forward<TObservable>(observable).repeat(count);
-    };
-}
-
-/**
- * \copydoc rpp::details::member_overload::repeat
- */
-template<typename ...Args>
-auto repeat() requires details::is_header_included<details::repeat_tag, Args...>
-{
-    return[]<constraint::observable TObservable>(TObservable && observable)
-    {
-        return std::forward<TObservable>(observable).repeat();
-    };
-}
-} // namespace rpp::operators
 
 namespace rpp::details
 {

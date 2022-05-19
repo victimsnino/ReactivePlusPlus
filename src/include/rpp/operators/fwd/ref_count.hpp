@@ -7,20 +7,6 @@ namespace rpp::details
 {
 struct ref_count_tag;
 }
-namespace rpp::operators
-{
-/**
- * \copydoc rpp::details::member_overload::ref_count
- */
-template<typename ...Args>
-auto ref_count() requires details::is_header_included<details::ref_count_tag, Args...>
-{
-    return[]<constraint::observable TObservable>(TObservable && observable)
-    {
-        return std::forward<TObservable>(observable).ref_count();
-    };
-}
-} // namespace rpp::operators
 
 namespace rpp::details
 {

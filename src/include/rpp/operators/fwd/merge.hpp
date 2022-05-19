@@ -18,32 +18,6 @@ namespace rpp::details
 {
 struct merge_tag;
 }
-namespace rpp::operators
-{
-/**
- * \copydoc rpp::details::member_overload::merge_with
- */
-template<constraint::observable ...TObservables>
-auto merge_with(TObservables&&... observables) requires details::is_header_included<details::merge_tag, TObservables...>
-{
-    return[...observables = std::forward<TObservables>(observables)]<constraint::observable TObservable>(TObservable && observable)
-    {
-        return std::forward<TObservable>(observable).merge_with(observables...);
-    };
-}
-
-/**
- * \copydoc rpp::details::member_overload::merge
- */
-template<typename ...Args>
-auto merge() requires details::is_header_included<details::merge_tag, Args...>
-{
-    return[]<constraint::observable TObservable>(TObservable && observable)
-    {
-        return std::forward<TObservable>(observable).merge();
-    };
-}
-} // namespace rpp::operators
 
 namespace rpp::details
 {

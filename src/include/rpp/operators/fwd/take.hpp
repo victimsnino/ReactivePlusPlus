@@ -11,27 +11,11 @@
 #pragma once
 
 #include <rpp/observables/details/member_overload.hpp>
-#include <rpp/observables/constraints.hpp>
 
 namespace rpp::details
 {
 struct take_tag;
 }
-
-namespace rpp::operators
-{
-/**
- * \copydoc rpp::details::member_overload::take
- */
-template<typename...Args>
-auto take(size_t count) requires details::is_header_included<details::take_tag, Args...>
-{
-    return[count]<constraint::observable TObservable>(TObservable && observable)
-    {
-        return std::forward<TObservable>(observable).take(count);
-    };
-}
-} // namespace rpp::operators
 
 namespace rpp::details
 {
