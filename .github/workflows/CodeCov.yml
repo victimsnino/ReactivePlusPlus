@@ -42,7 +42,7 @@ jobs:
       env:
         CC: gcc-10
         CXX: g++-10
-      run: cmake -B ${{github.workspace}}/build -DAUTOTESTS=1 -DBUILD_TESTS=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCODE_COVERAGE=1
+      run: cmake -B ${{github.workspace}}/build -DAUTOTESTS=1 -DRPP_BUILD_TESTS=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DRPP_CODE_COVERAGE=1
         
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 4

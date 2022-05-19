@@ -10,10 +10,10 @@
 
 add_subdirectory(include)
 
-if(BUILD_TESTS)
+if(RPP_BUILD_TESTS)
     add_subdirectory(tests)
 endif()
 
-if(BUILD_SAMPLES)
+if(RPP_BUILD_SAMPLES)
     add_subdirectory(samples)
 endif()

@@ -24,7 +24,7 @@ jobs:
         CC: gcc-10
         CXX: g++-10
       run: |
-        cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_SAMPLES=1 -DBUILD_TESTS=1
+        cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DRPP_BUILD_SAMPLES=1 -DRPP_BUILD_TESTS=1
         cmake --build build --parallel 2 --config Release
     - name: Create results directory
       run: |

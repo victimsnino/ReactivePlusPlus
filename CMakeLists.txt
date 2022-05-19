@@ -48,15 +48,15 @@ endif()
 find_package(Threads REQUIRED)
 
 # ======================= OPTIONS ================================
-set(BUILD_TESTS     OFF CACHE BOOL "Enable unit tests building")
-set(BUILD_SAMPLES   OFF CACHE BOOL "Enable samples building")
-set(CODE_COVERAGE   OFF CACHE BOOL "Enable coverage reporting")
+set(RPP_BUILD_TESTS     OFF CACHE BOOL "Enable unit tests building")
+set(RPP_BUILD_SAMPLES   OFF CACHE BOOL "Enable samples building")
+set(RPP_CODE_COVERAGE   OFF CACHE BOOL "Enable coverage reporting")
 
 # ======================= CI =========================
 # Code Coverage Configuration
 add_library(coverage_config INTERFACE)
 
-if(CODE_COVERAGE)
+if(RPP_CODE_COVERAGE)
   # Add required flags (GCC & LLVM/Clang)
   target_compile_options(coverage_config INTERFACE
     -O0        # no optimization
@@ -71,7 +71,7 @@ if(CODE_COVERAGE)
     target_link_libraries(coverage_config INTERFACE --coverage)
   endif()
   target_link_libraries(coverage_config INTERFACE gcov)
-endif(CODE_COVERAGE)
+endif(RPP_CODE_COVERAGE)
 
 if (AUTOTESTS)
   Include(FetchContent)
@@ -91,7 +91,7 @@ endif()
 
 # ================== TESTS ==================
 
-if (BUILD_TESTS)
+if (RPP_BUILD_TESTS)
   enable_testing()
   set(TEST_RESULTS_DIR  ${CMAKE_BINARY_DIR}/test_results)
 
@@ -104,7 +104,7 @@ endif()
 
 # ================== SOURCES =============
 
-if (BUILD_TESTS)
+if (RPP_BUILD_TESTS)
   add_subdirectory(submodules)
 endif()
 add_subdirectory(src)
