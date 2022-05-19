@@ -7,20 +7,6 @@ namespace rpp::details
 {
 struct publish_tag;
 }
-namespace rpp::operators
-{
-/**
- * \copydoc rpp::details::member_overload::publish
- */
-template<typename ...Args>
-auto publish() requires details::is_header_included<details::publish_tag, Args...>
-{
-    return[]<constraint::observable TObservable>(TObservable && observable)
-    {
-        return std::forward<TObservable>(observable).publish();
-    };
-}
-} // namespace rpp::operators
 
 namespace rpp::details
 {

@@ -1,9 +1,7 @@
 #pragma once
 
-#include <rpp/observables/constraints.hpp>
 #include <rpp/operators/fwd/observe_on.hpp>
 #include <rpp/subscribers/constraints.hpp>
-#include <rpp/utils/utilities.hpp>
 #include <rpp/observers/state_observer.hpp>
 
 IMPLEMENTATION_FILE(observe_on_tag);

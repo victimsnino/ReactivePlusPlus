@@ -13,11 +13,8 @@
 #include <rpp/observables/constraints.hpp>
 #include <rpp/operators/fwd/merge.hpp>
 #include <rpp/subscribers/constraints.hpp>
-#include <rpp/subscriptions/composite_subscription.hpp>
 #include <rpp/observers/state_observer.hpp>
 #include <rpp/sources/just.hpp>
-#include <rpp/observers/state_observer.hpp>
-
 
 #include <atomic>
 #include <memory>
