@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['callback_5fsubscription_0',['callback_subscription',['../classrpp_1_1callback__subscription.html',1,'rpp']]],
-  ['completed_1',['completed',['../structrpp_1_1subjects_1_1details_1_1states_1_1completed.html',1,'rpp::subjects::details::states']]],
-  ['composite_5fsubscription_2',['composite_subscription',['../classrpp_1_1composite__subscription.html',1,'rpp']]],
-  ['connectable_5fobservable_3',['connectable_observable',['../classrpp_1_1connectable__observable.html',1,'rpp']]]
+  ['dynamic_5fobservable_0',['dynamic_observable',['../classrpp_1_1dynamic__observable.html',1,'rpp']]],
+  ['dynamic_5fobservable_5fstate_1',['dynamic_observable_state',['../classrpp_1_1details_1_1dynamic__observable__state.html',1,'rpp::details']]],
+  ['dynamic_5fobserver_2',['dynamic_observer',['../classrpp_1_1dynamic__observer.html',1,'rpp']]],
+  ['dynamic_5fsubscriber_3',['dynamic_subscriber',['../classrpp_1_1dynamic__subscriber.html',1,'rpp']]]
 ];

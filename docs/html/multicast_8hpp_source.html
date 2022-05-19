@@ -79,7 +79,7 @@ $(function() {
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>rpp::details</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; TObs, rpp::subjects::constra<span class="keywordtype">int</span>::subject_of_type&lt;Type&gt; TSubject&gt;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; TObs, subjects::constra<span class="keywordtype">int</span>::subject_of_type&lt;Type&gt; TSubject&gt;</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">auto</span> multicast_impl(TObs&amp;&amp; observable, TSubject&amp;&amp; subject)</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">return</span> connectable_observable&lt;Type, std::decay_t&lt;TSubject&gt;, std::decay_t&lt;TObs&gt;&gt;{std::forward&lt;TObs&gt;(observable), std::forward&lt;TSubject&gt;(subject)};</div>

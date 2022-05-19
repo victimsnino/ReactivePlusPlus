@@ -7,40 +7,39 @@
 \DoxyCodeLine{3 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
 \DoxyCodeLine{4 \textcolor{preprocessor}{\#include <rpp/operators/fwd/ref\_count.hpp>}}
 \DoxyCodeLine{5 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
-\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}}
-\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{create_8hpp}{rpp/sources/create.hpp}}>}}
-\DoxyCodeLine{8 }
-\DoxyCodeLine{9 IMPLEMENTATION\_FILE(ref\_count\_tag);}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{12 \{}
-\DoxyCodeLine{13 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs>}
-\DoxyCodeLine{14 \textcolor{keyword}{auto} ref\_count\_impl(TObs\&\& observable)}
-\DoxyCodeLine{15 \{}
-\DoxyCodeLine{16     \textcolor{keyword}{struct }state\_t}
-\DoxyCodeLine{17     \{}
-\DoxyCodeLine{18         \textcolor{keywordtype}{size\_t}                 count\_of\_active\_subs\{\};}
-\DoxyCodeLine{19         composite\_subscription sub = composite\_subscription::empty();}
-\DoxyCodeLine{20         std::mutex             mutex\{\};}
-\DoxyCodeLine{21     \};}
-\DoxyCodeLine{22     \textcolor{keywordflow}{return} source::create<Type>([observable = std::forward<TObs>(observable), state = std::make\_shared<state\_t>()](\textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
-\DoxyCodeLine{23     \{}
-\DoxyCodeLine{24         \{}
-\DoxyCodeLine{25             std::lock\_guard lock\{ state-\/>mutex \};}
-\DoxyCodeLine{26             \textcolor{keyword}{const} \textcolor{keywordtype}{bool}      need\_to\_connect = ++state-\/>count\_of\_active\_subs == 1;}
-\DoxyCodeLine{27             observable.subscribe(subscriber);}
-\DoxyCodeLine{28             \textcolor{keywordflow}{if} (need\_to\_connect)}
-\DoxyCodeLine{29                 state-\/>sub = observable.connect();}
-\DoxyCodeLine{30         \}}
-\DoxyCodeLine{31 }
-\DoxyCodeLine{32         subscriber.get\_subscription().add([state = state]}
-\DoxyCodeLine{33         \{}
-\DoxyCodeLine{34             std::lock\_guard lock\{ state-\/>mutex \};}
-\DoxyCodeLine{35             \textcolor{keywordflow}{if} (-\/-\/state-\/>count\_of\_active\_subs == 0)}
-\DoxyCodeLine{36                 state-\/>sub.unsubscribe();}
-\DoxyCodeLine{37         \});}
-\DoxyCodeLine{38     \});}
-\DoxyCodeLine{39 \}}
-\DoxyCodeLine{40 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{create_8hpp}{rpp/sources/create.hpp}}>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 IMPLEMENTATION\_FILE(ref\_count\_tag);}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs>}
+\DoxyCodeLine{13 \textcolor{keyword}{auto} ref\_count\_impl(TObs\&\& observable)}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15     \textcolor{keyword}{struct }state\_t}
+\DoxyCodeLine{16     \{}
+\DoxyCodeLine{17         \textcolor{keywordtype}{size\_t}                 count\_of\_active\_subs\{\};}
+\DoxyCodeLine{18         composite\_subscription sub = composite\_subscription::empty();}
+\DoxyCodeLine{19         std::mutex             mutex\{\};}
+\DoxyCodeLine{20     \};}
+\DoxyCodeLine{21     \textcolor{keywordflow}{return} source::create<Type>([observable = std::forward<TObs>(observable), state = std::make\_shared<state\_t>()](\textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{22     \{}
+\DoxyCodeLine{23         \{}
+\DoxyCodeLine{24             std::lock\_guard lock\{ state-\/>mutex \};}
+\DoxyCodeLine{25             \textcolor{keyword}{const} \textcolor{keywordtype}{bool}      need\_to\_connect = ++state-\/>count\_of\_active\_subs == 1;}
+\DoxyCodeLine{26             observable.subscribe(subscriber);}
+\DoxyCodeLine{27             \textcolor{keywordflow}{if} (need\_to\_connect)}
+\DoxyCodeLine{28                 state-\/>sub = observable.connect();}
+\DoxyCodeLine{29         \}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31         subscriber.get\_subscription().add([state = state]}
+\DoxyCodeLine{32         \{}
+\DoxyCodeLine{33             std::lock\_guard lock\{ state-\/>mutex \};}
+\DoxyCodeLine{34             \textcolor{keywordflow}{if} (-\/-\/state-\/>count\_of\_active\_subs == 0)}
+\DoxyCodeLine{35                 state-\/>sub.unsubscribe();}
+\DoxyCodeLine{36         \});}
+\DoxyCodeLine{37     \});}
+\DoxyCodeLine{38 \}}
+\DoxyCodeLine{39 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

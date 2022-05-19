@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['dynamic_5fobservable_0',['dynamic_observable',['../classrpp_1_1dynamic__observable.html',1,'rpp']]],
-  ['dynamic_5fobservable_5fstate_1',['dynamic_observable_state',['../classrpp_1_1details_1_1dynamic__observable__state.html',1,'rpp::details']]],
-  ['dynamic_5fobserver_2',['dynamic_observer',['../classrpp_1_1dynamic__observer.html',1,'rpp']]],
-  ['dynamic_5fsubscriber_3',['dynamic_subscriber',['../classrpp_1_1dynamic__subscriber.html',1,'rpp']]]
+  ['forwarding_5fon_5fcompleted_0',['forwarding_on_completed',['../structrpp_1_1details_1_1forwarding__on__completed.html',1,'rpp::details']]],
+  ['forwarding_5fon_5ferror_1',['forwarding_on_error',['../structrpp_1_1details_1_1forwarding__on__error.html',1,'rpp::details']]],
+  ['forwarding_5fon_5fnext_2',['forwarding_on_next',['../structrpp_1_1details_1_1forwarding__on__next.html',1,'rpp::details']]]
 ];

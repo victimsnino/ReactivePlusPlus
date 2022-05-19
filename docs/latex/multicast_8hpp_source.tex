@@ -12,7 +12,7 @@
 \DoxyCodeLine{8 }
 \DoxyCodeLine{9 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{10 \{}
-\DoxyCodeLine{11 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs, rpp::subjects::constra\textcolor{keywordtype}{int}::subject\_of\_type<Type> TSubject>}
+\DoxyCodeLine{11 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs, subjects::constra\textcolor{keywordtype}{int}::subject\_of\_type<Type> TSubject>}
 \DoxyCodeLine{12 \textcolor{keyword}{auto} multicast\_impl(TObs\&\& observable, TSubject\&\& subject)}
 \DoxyCodeLine{13 \{}
 \DoxyCodeLine{14     \textcolor{keywordflow}{return} connectable\_observable<Type, std::decay\_t<TSubject>, std::decay\_t<TObs>>\{std::forward<TObs>(observable), std::forward<TSubject>(subject)\};}

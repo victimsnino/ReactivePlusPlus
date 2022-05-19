@@ -11,38 +11,27 @@
 \DoxyCodeLine{7 \{}
 \DoxyCodeLine{8 \textcolor{keyword}{struct }publish\_tag;}
 \DoxyCodeLine{9 \}}
-\DoxyCodeLine{10 \textcolor{keyword}{namespace }rpp::operators}
-\DoxyCodeLine{11 \{}
-\DoxyCodeLine{15 \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{16 \textcolor{keyword}{auto} publish() \textcolor{keyword}{requires} details::is\_header\_included<details::publish\_tag, Args...>}
-\DoxyCodeLine{17 \{}
-\DoxyCodeLine{18     \textcolor{keywordflow}{return}[]<constraint::observable TObservable>(TObservable \&\& observable)}
-\DoxyCodeLine{19     \{}
-\DoxyCodeLine{20         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).publish();}
-\DoxyCodeLine{21     \};}
-\DoxyCodeLine{22 \}}
-\DoxyCodeLine{23 \} \textcolor{comment}{// namespace rpp::operators}}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs>}
-\DoxyCodeLine{28 \textcolor{keyword}{auto} publish\_impl(TObs\&\& observable);}
-\DoxyCodeLine{29 }
-\DoxyCodeLine{30 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{31 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, publish\_tag>}
-\DoxyCodeLine{32 \{}
-\DoxyCodeLine{45     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{46     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga87aa80f556399c86bafcab5f7b4a7473}{publish}}() const\& requires is\_header\_included<publish\_tag, Args...>}
-\DoxyCodeLine{47     \{}
-\DoxyCodeLine{48         \textcolor{keywordflow}{return} publish\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
-\DoxyCodeLine{49     \}}
-\DoxyCodeLine{50 }
-\DoxyCodeLine{51     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{52     \textcolor{keyword}{auto} publish() \&\& \textcolor{keyword}{requires} is\_header\_included<publish\_tag, Args...>}
-\DoxyCodeLine{53     \{}
-\DoxyCodeLine{54         \textcolor{keywordflow}{return} publish\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})));}
-\DoxyCodeLine{55     \}}
-\DoxyCodeLine{56 \};}
-\DoxyCodeLine{57 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{12 \{}
+\DoxyCodeLine{13 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs>}
+\DoxyCodeLine{14 \textcolor{keyword}{auto} publish\_impl(TObs\&\& observable);}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{17 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, publish\_tag>}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{31     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{32     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga87aa80f556399c86bafcab5f7b4a7473}{publish}}() const\& requires is\_header\_included<publish\_tag, Args...>}
+\DoxyCodeLine{33     \{}
+\DoxyCodeLine{34         \textcolor{keywordflow}{return} publish\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{35     \}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{38     \textcolor{keyword}{auto} publish() \&\& \textcolor{keyword}{requires} is\_header\_included<publish\_tag, Args...>}
+\DoxyCodeLine{39     \{}
+\DoxyCodeLine{40         \textcolor{keywordflow}{return} publish\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})));}
+\DoxyCodeLine{41     \}}
+\DoxyCodeLine{42 \};}
+\DoxyCodeLine{43 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

@@ -14,26 +14,25 @@
 \DoxyCodeLine{10 }
 \DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/operators/fwd/take\_while.hpp>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}}
-\DoxyCodeLine{17 }
-\DoxyCodeLine{18 IMPLEMENTATION\_FILE(take\_while\_tag);}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{21 \{}
-\DoxyCodeLine{22 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, std::predicate<const Type\&> Predicate>}
-\DoxyCodeLine{23 \textcolor{keyword}{auto} take\_while\_impl(Predicate\&\& predicate)}
-\DoxyCodeLine{24 \{}
-\DoxyCodeLine{25     \textcolor{keywordflow}{return} [predicate = std::forward<Predicate>(predicate)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
-\DoxyCodeLine{26     \{}
-\DoxyCodeLine{27         \textcolor{keywordflow}{if} (predicate(utils::as\_const(value)))}
-\DoxyCodeLine{28             subscriber.on\_next(std::forward<\textcolor{keyword}{decltype}(value)>(value));}
-\DoxyCodeLine{29         \textcolor{keywordflow}{else}}
-\DoxyCodeLine{30             subscriber.on\_completed();}
-\DoxyCodeLine{31     \};}
-\DoxyCodeLine{32 \}}
-\DoxyCodeLine{33 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/operators/fwd/take\_while.hpp>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 IMPLEMENTATION\_FILE(take\_while\_tag);}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{20 \{}
+\DoxyCodeLine{21 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, std::predicate<const Type\&> Predicate>}
+\DoxyCodeLine{22 \textcolor{keyword}{auto} take\_while\_impl(Predicate\&\& predicate)}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24     \textcolor{keywordflow}{return} [predicate = std::forward<Predicate>(predicate)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{25     \{}
+\DoxyCodeLine{26         \textcolor{keywordflow}{if} (predicate(utils::as\_const(value)))}
+\DoxyCodeLine{27             subscriber.on\_next(std::forward<\textcolor{keyword}{decltype}(value)>(value));}
+\DoxyCodeLine{28         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{29             subscriber.on\_completed();}
+\DoxyCodeLine{30     \};}
+\DoxyCodeLine{31 \}}
+\DoxyCodeLine{32 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

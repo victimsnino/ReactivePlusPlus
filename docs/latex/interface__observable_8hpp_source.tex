@@ -87,13 +87,6 @@
 \DoxyCodeLine{114         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
 \DoxyCodeLine{115     \}}
 \DoxyCodeLine{116 \};}
-\DoxyCodeLine{117 }
-\DoxyCodeLine{118 \textcolor{keyword}{template}<constraint::observable      Observable,}
-\DoxyCodeLine{119          details::op\_fn<Observable> Operator>}
-\DoxyCodeLine{120 \textcolor{keyword}{auto} operator |(Observable\&\& observable, Operator\&\& op)}
-\DoxyCodeLine{121 \{}
-\DoxyCodeLine{122     \textcolor{keywordflow}{return} std::forward<Observable>(observable).op(std::forward<Operator>(op));}
-\DoxyCodeLine{123 \}}
-\DoxyCodeLine{124 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{117 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

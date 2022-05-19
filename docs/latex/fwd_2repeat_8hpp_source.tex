@@ -11,62 +11,42 @@
 \DoxyCodeLine{7 \{}
 \DoxyCodeLine{8 \textcolor{keyword}{struct }repeat\_tag;}
 \DoxyCodeLine{9 \}}
-\DoxyCodeLine{10 \textcolor{keyword}{namespace }rpp::operators}
-\DoxyCodeLine{11 \{}
-\DoxyCodeLine{15 \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{16 \textcolor{keyword}{auto} repeat(\textcolor{keywordtype}{size\_t} count) \textcolor{keyword}{requires} details::is\_header\_included<details::repeat\_tag, Args...>}
-\DoxyCodeLine{17 \{}
-\DoxyCodeLine{18     \textcolor{keywordflow}{return}[count]<constraint::observable TObservable>(TObservable \&\& observable)}
-\DoxyCodeLine{19     \{}
-\DoxyCodeLine{20         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).repeat(count);}
-\DoxyCodeLine{21     \};}
-\DoxyCodeLine{22 \}}
-\DoxyCodeLine{23 }
-\DoxyCodeLine{27 \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{28 \textcolor{keyword}{auto} repeat() \textcolor{keyword}{requires} details::is\_header\_included<details::repeat\_tag, Args...>}
-\DoxyCodeLine{29 \{}
-\DoxyCodeLine{30     \textcolor{keywordflow}{return}[]<constraint::observable TObservable>(TObservable \&\& observable)}
-\DoxyCodeLine{31     \{}
-\DoxyCodeLine{32         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).repeat();}
-\DoxyCodeLine{33     \};}
-\DoxyCodeLine{34 \}}
-\DoxyCodeLine{35 \} \textcolor{comment}{// namespace rpp::operators}}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{38 \{}
-\DoxyCodeLine{39 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs>}
-\DoxyCodeLine{40 \textcolor{keyword}{auto} repeat\_impl(TObs\&\& observable, \textcolor{keywordtype}{size\_t} count);}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs>}
-\DoxyCodeLine{43 \textcolor{keyword}{auto} repeat\_impl(TObs\&\& observable);}
-\DoxyCodeLine{44 }
-\DoxyCodeLine{45 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{46 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, repeat\_tag>}
-\DoxyCodeLine{47 \{}
-\DoxyCodeLine{63     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
-\DoxyCodeLine{64     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga2a165810b188f9cf9b77255ed725e31a}{repeat}}(\textcolor{keywordtype}{size\_t} count) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<repeat\_tag, Args...>}
-\DoxyCodeLine{65     \{}
-\DoxyCodeLine{66         \textcolor{keywordflow}{return} repeat\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), count);}
-\DoxyCodeLine{67     \}}
-\DoxyCodeLine{68 }
-\DoxyCodeLine{69     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
-\DoxyCodeLine{70     \textcolor{keyword}{auto} repeat(\textcolor{keywordtype}{size\_t} count) \&\& \textcolor{keyword}{requires} is\_header\_included<repeat\_tag, Args...>}
-\DoxyCodeLine{71     \{}
-\DoxyCodeLine{72         \textcolor{keywordflow}{return} repeat\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})), count);}
-\DoxyCodeLine{73     \}}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{86     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
-\DoxyCodeLine{87     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga152a343d0ea926ee04cf64ebb78c5d5e}{repeat}}() const\& requires is\_header\_included<repeat\_tag, Args...>}
-\DoxyCodeLine{88     \{}
-\DoxyCodeLine{89         \textcolor{keywordflow}{return} repeat\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
-\DoxyCodeLine{90     \}}
-\DoxyCodeLine{91 }
-\DoxyCodeLine{92     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
-\DoxyCodeLine{93     \textcolor{keyword}{auto} repeat() \&\& \textcolor{keyword}{requires} is\_header\_included<repeat\_tag, Args...>}
-\DoxyCodeLine{94     \{}
-\DoxyCodeLine{95         \textcolor{keywordflow}{return} repeat\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})));}
-\DoxyCodeLine{96     \}}
-\DoxyCodeLine{97 \};}
-\DoxyCodeLine{98 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{12 \{}
+\DoxyCodeLine{13 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs>}
+\DoxyCodeLine{14 \textcolor{keyword}{auto} repeat\_impl(TObs\&\& observable, \textcolor{keywordtype}{size\_t} count);}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs>}
+\DoxyCodeLine{17 \textcolor{keyword}{auto} repeat\_impl(TObs\&\& observable);}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{20 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, repeat\_tag>}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{37     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{38     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga2a165810b188f9cf9b77255ed725e31a}{repeat}}(\textcolor{keywordtype}{size\_t} count) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<repeat\_tag, Args...>}
+\DoxyCodeLine{39     \{}
+\DoxyCodeLine{40         \textcolor{keywordflow}{return} repeat\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), count);}
+\DoxyCodeLine{41     \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{44     \textcolor{keyword}{auto} repeat(\textcolor{keywordtype}{size\_t} count) \&\& \textcolor{keyword}{requires} is\_header\_included<repeat\_tag, Args...>}
+\DoxyCodeLine{45     \{}
+\DoxyCodeLine{46         \textcolor{keywordflow}{return} repeat\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})), count);}
+\DoxyCodeLine{47     \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{60     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{61     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga152a343d0ea926ee04cf64ebb78c5d5e}{repeat}}() const\& requires is\_header\_included<repeat\_tag, Args...>}
+\DoxyCodeLine{62     \{}
+\DoxyCodeLine{63         \textcolor{keywordflow}{return} repeat\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{64     \}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{67     \textcolor{keyword}{auto} repeat() \&\& \textcolor{keyword}{requires} is\_header\_included<repeat\_tag, Args...>}
+\DoxyCodeLine{68     \{}
+\DoxyCodeLine{69         \textcolor{keywordflow}{return} repeat\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})));}
+\DoxyCodeLine{70     \}}
+\DoxyCodeLine{71 \};}
+\DoxyCodeLine{72 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

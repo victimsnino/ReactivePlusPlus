@@ -22,7 +22,7 @@ requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, Args...$>$ \&\& rpp\+::
 {\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... TObservables$>$ \newline
 requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, TObservables...$>$\&\& sizeof...(TObservables) $>$= 1)}\\auto \mbox{\hyperlink{group__operators_gafa55b14eec1c6c40b8655e20c6edf5b2}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge\+\_\+with}} (TObservables \&\&... observables) const \&
 \begin{DoxyCompactList}\small\item\em combine submissions from current observable with other observables into one \end{DoxyCompactList}\item 
-{\footnotesize template$<$rpp\+::subjects\+::constraint\+::subject\+\_\+of\+\_\+type$<$ Type $>$ TSubject$>$ \newline
+{\footnotesize template$<$subjects\+::constraint\+::subject\+\_\+of\+\_\+type$<$ Type $>$ TSubject$>$ \newline
 requires is\+\_\+header\+\_\+included$<$multicast\+\_\+tag, TSubject$>$}\\auto \mbox{\hyperlink{group__operators_gade414a17091e966ce725374b631cab77}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, multicast\+\_\+tag $>$\+::multicast}} (TSubject \&\&subject) const \&
 \begin{DoxyCompactList}\small\item\em converts ordinary observable to Connectable Observable with help of provided subject \end{DoxyCompactList}\item 
 {\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \newline
@@ -237,7 +237,7 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \index{multicast@{multicast}!Operators@{Operators}}
 \doxysubsubsection{\texorpdfstring{multicast()}{multicast()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$rpp\+::subjects\+::constraint\+::subject\+\_\+of\+\_\+type$<$ Type $>$ TSubject$>$ \newline
+template$<$subjects\+::constraint\+::subject\+\_\+of\+\_\+type$<$ Type $>$ TSubject$>$ \newline
 requires is\+\_\+header\+\_\+included$<$multicast\+\_\+tag, TSubject$>$\\
 auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, multicast\+\_\+tag $>$\+::multicast (\begin{DoxyParamCaption}\item[{TSubject \&\&}]{subject }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 

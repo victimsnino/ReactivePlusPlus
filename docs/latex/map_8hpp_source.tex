@@ -16,23 +16,22 @@
 \DoxyCodeLine{12 }
 \DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
 \DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/observables/type\_traits.hpp>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/operators/fwd/map.hpp>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <utility>}}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20 IMPLEMENTATION\_FILE(map\_tag);}
-\DoxyCodeLine{21 }
-\DoxyCodeLine{22 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{23 \{}
-\DoxyCodeLine{24 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, std::invocable<Type> Callable>}
-\DoxyCodeLine{25 \textcolor{keyword}{auto} map\_impl(Callable\&\& callable)}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27     \textcolor{keywordflow}{return} [callable = std::forward<Callable>(callable)](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber\_of\_type<std::invoke\_result\_t<Callable, Type>> \textcolor{keyword}{auto}\& subscriber)}
-\DoxyCodeLine{28     \{}
-\DoxyCodeLine{29         subscriber.on\_next(callable(utils::as\_const(std::forward<\textcolor{keyword}{decltype}(value)>(value))));}
-\DoxyCodeLine{30     \};}
-\DoxyCodeLine{31 \}}
-\DoxyCodeLine{32 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/operators/fwd/map.hpp>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 IMPLEMENTATION\_FILE(map\_tag);}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, std::invocable<Type> Callable>}
+\DoxyCodeLine{24 \textcolor{keyword}{auto} map\_impl(Callable\&\& callable)}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26     \textcolor{keywordflow}{return} [callable = std::forward<Callable>(callable)]<\textcolor{keyword}{typename} TVal, constraint::subscriber\_of\_type<std::invoke\_result\_t<Callable, Type>> TSub>(TVal\&\& value, \textcolor{keyword}{const} TSub\& subscriber)}
+\DoxyCodeLine{27     \{}
+\DoxyCodeLine{28         subscriber.on\_next(callable(utils::as\_const(std::forward<TVal>(value))));}
+\DoxyCodeLine{29     \};}
+\DoxyCodeLine{30 \}}
+\DoxyCodeLine{31 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

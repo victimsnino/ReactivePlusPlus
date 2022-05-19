@@ -109,7 +109,7 @@ $(function() {
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">auto</span> get_subscriber()<span class="keyword"> const</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordflow">return</span> rpp::make_specific_subscriber&lt;T&gt;(m_sub,</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                                                [state = m_state](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; v)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                                                [state = m_state](<span class="keyword">const</span> T&amp; v)</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                                                {</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                                                    state-&gt;on_next(v);</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                                                },</div>

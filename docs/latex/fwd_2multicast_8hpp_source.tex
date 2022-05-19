@@ -12,38 +12,27 @@
 \DoxyCodeLine{8 \{}
 \DoxyCodeLine{9 \textcolor{keyword}{struct }multicast\_tag;}
 \DoxyCodeLine{10 \}}
-\DoxyCodeLine{11 \textcolor{keyword}{namespace }rpp::operators}
-\DoxyCodeLine{12 \{}
-\DoxyCodeLine{16 \textcolor{keyword}{template}<rpp::subjects::constra\textcolor{keywordtype}{int}::subject TSubject>}
-\DoxyCodeLine{17 \textcolor{keyword}{auto} multicast(TSubject\&\& subject) \textcolor{keyword}{requires} details::is\_header\_included<details::multicast\_tag, TSubject>}
-\DoxyCodeLine{18 \{}
-\DoxyCodeLine{19     \textcolor{keywordflow}{return}[subject = std::forward<TSubject>(subject)]<constraint::observable TObservable>(TObservable \&\& observable)}
-\DoxyCodeLine{20     \{}
-\DoxyCodeLine{21         \textcolor{keywordflow}{return} std::forward<TObservable>(observable).multicast(subject);}
-\DoxyCodeLine{22     \};}
-\DoxyCodeLine{23 \}}
-\DoxyCodeLine{24 \} \textcolor{comment}{// namespace rpp::operators}}
-\DoxyCodeLine{25 }
-\DoxyCodeLine{26 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{27 \{}
-\DoxyCodeLine{28 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs, rpp::subjects::constra\textcolor{keywordtype}{int}::subject\_of\_type<Type> TSubject>}
-\DoxyCodeLine{29 \textcolor{keyword}{auto} multicast\_impl(TObs\&\& observable, TSubject\&\& subject);}
-\DoxyCodeLine{30 }
-\DoxyCodeLine{31 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{32 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, multicast\_tag>}
-\DoxyCodeLine{33 \{}
-\DoxyCodeLine{46     \textcolor{keyword}{template}<rpp::subjects::constra\textcolor{keywordtype}{int}::subject\_of\_type<Type> TSubject>}
-\DoxyCodeLine{47     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_gade414a17091e966ce725374b631cab77}{multicast}}(TSubject\&\& subject) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<multicast\_tag, TSubject>}
-\DoxyCodeLine{48     \{}
-\DoxyCodeLine{49         \textcolor{keywordflow}{return} multicast\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<TSubject>(subject));}
-\DoxyCodeLine{50     \}}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{52     \textcolor{keyword}{template}<rpp::subjects::constra\textcolor{keywordtype}{int}::subject\_of\_type<Type> TSubject>}
-\DoxyCodeLine{53     \textcolor{keyword}{auto} multicast(TSubject\&\& subject) \&\& \textcolor{keyword}{requires} is\_header\_included<multicast\_tag, TSubject>}
-\DoxyCodeLine{54     \{}
-\DoxyCodeLine{55         \textcolor{keywordflow}{return} multicast\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})), std::forward<TSubject>(subject));}
-\DoxyCodeLine{56     \}}
-\DoxyCodeLine{57 \};}
-\DoxyCodeLine{58 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs, subjects::constra\textcolor{keywordtype}{int}::subject\_of\_type<Type> TSubject>}
+\DoxyCodeLine{15 \textcolor{keyword}{auto} multicast\_impl(TObs\&\& observable, TSubject\&\& subject);}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{18 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, multicast\_tag>}
+\DoxyCodeLine{19 \{}
+\DoxyCodeLine{32     \textcolor{keyword}{template}<subjects::constra\textcolor{keywordtype}{int}::subject\_of\_type<Type> TSubject>}
+\DoxyCodeLine{33     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_gade414a17091e966ce725374b631cab77}{multicast}}(TSubject\&\& subject) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<multicast\_tag, TSubject>}
+\DoxyCodeLine{34     \{}
+\DoxyCodeLine{35         \textcolor{keywordflow}{return} multicast\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<TSubject>(subject));}
+\DoxyCodeLine{36     \}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38     \textcolor{keyword}{template}<subjects::constra\textcolor{keywordtype}{int}::subject\_of\_type<Type> TSubject>}
+\DoxyCodeLine{39     \textcolor{keyword}{auto} multicast(TSubject\&\& subject) \&\& \textcolor{keyword}{requires} is\_header\_included<multicast\_tag, TSubject>}
+\DoxyCodeLine{40     \{}
+\DoxyCodeLine{41         \textcolor{keywordflow}{return} multicast\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})), std::forward<TSubject>(subject));}
+\DoxyCodeLine{42     \}}
+\DoxyCodeLine{43 \};}
+\DoxyCodeLine{44 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}
