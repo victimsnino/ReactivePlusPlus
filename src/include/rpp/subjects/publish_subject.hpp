@@ -38,7 +38,7 @@ public:
     auto get_subscriber() const
     {
         return rpp::make_specific_subscriber<T>(m_sub,
-                                                [state = m_state](const auto& v)
+                                                [state = m_state](const T& v)
                                                 {
                                                     state->on_next(v);
                                                 },

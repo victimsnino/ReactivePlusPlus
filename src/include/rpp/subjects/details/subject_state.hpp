@@ -68,57 +68,26 @@ public:
 
     void on_next(const T& v)
     {
-        std::unique_lock lock{m_mutex};
-
-        process_state(m_state,
-                      [&](shared_subscribers subs)
-                      {
-                          lock.unlock();
-
-                          std::ranges::for_each(*subs, [&](const auto& sub) { sub.on_next(v); });
-                      });
+        if (auto subs = extract_subscribers_under_lock_if_there())
+            std::ranges::for_each(*subs, [&](const auto& sub) { sub.on_next(v); });
     }
 
     void on_error(const std::exception_ptr& err)
     {
-        std::unique_lock lock{m_mutex};
-
-        process_state(m_state,
-                      [&](shared_subscribers subs)
-                      {
-                          m_state = err;
-                          lock.unlock();
-
-                          std::ranges::for_each(*subs, [&](const auto& sub) { sub.on_error(err); });
-                      });
+        if (auto subs = exchange_subscribers_under_lock_if_there(state_t{err}))
+            std::ranges::for_each(*subs, [&](const auto& sub) { sub.on_error(err); });
     }
 
     void on_completed()
     {
-        std::unique_lock lock{m_mutex};
-
-        process_state(m_state,
-                      [&](shared_subscribers subs)
-                      {
-                          m_state = completed{};
-                          lock.unlock();
-
-                          std::ranges::for_each(*subs, std::mem_fn(&dynamic_subscriber<T>::on_completed));
-                      });
+        if (auto subs = exchange_subscribers_under_lock_if_there(completed{}))
+            std::ranges::for_each(*subs, std::mem_fn(&dynamic_subscriber<T>::on_completed));
     }
 
     void on_unsubscribe()
     {
-        std::unique_lock lock{m_mutex};
-
-        process_state(m_state,
-                      [&](shared_subscribers subs)
-                      {
-                          m_state = unsubscribed{};
-                          lock.unlock();
-
-                          std::ranges::for_each(*subs, std::mem_fn(&dynamic_subscriber<T>::unsubscribe));
-                      });
+        if (auto subs = exchange_subscribers_under_lock_if_there(unsubscribed{}))
+            std::ranges::for_each(*subs, std::mem_fn(&dynamic_subscriber<T>::unsubscribe));
     }
 
 private:
@@ -155,6 +124,30 @@ private:
         });
     }
 
+    shared_subscribers extract_subscribers_under_lock_if_there()
+    {
+        std::unique_lock lock{ m_mutex };
+
+        if (!std::holds_alternative<shared_subscribers>(m_state))
+            return {};
+
+        auto subs = std::get<shared_subscribers>(m_state);
+        lock.unlock();
+        return subs;
+    }
+
+    shared_subscribers exchange_subscribers_under_lock_if_there(state_t&& new_val)
+    {
+        std::unique_lock lock{ m_mutex };
+
+        if (!std::holds_alternative<shared_subscribers>(m_state))
+            return {};
+
+        auto subs = std::get<shared_subscribers>(m_state);
+        m_state = std::move(new_val);
+        lock.unlock();
+        return subs;
+    }
 private:
     std::mutex m_mutex{};
     state_t    m_state = std::make_shared<std::vector<subscriber>>();
