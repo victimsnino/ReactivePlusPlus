@@ -60,6 +60,13 @@ jobs:
       with:
         cache_key: ${{ matrix.config.name }}
         
+    - name: install_dependencies
+      if: matrix.config.os != 'windows-latest'
+      run: |
+        sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu `lsb_release -sc` main universe restricted multiverse"
+        sudo apt-get update -y -qq
+        sudo apt-get install libsdl2-dev
+        
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       if: matrix.config.name == 'Linux CLANG'
@@ -70,9 +77,7 @@ jobs:
       env:
         CC: ${{ matrix.config.cc }}
         CXX: ${{ matrix.config.cxx }}
-      run: |
-        sudo apt-get install libsdl2-dev
-        cmake -B ${{github.workspace}}/build -DBUILD_SAMPLES=1 -DBUILD_TESTS=1 -DAUTOTESTS=1 -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache
+      run: cmake -B ${{github.workspace}}/build -DBUILD_SAMPLES=1 -DBUILD_TESTS=1 -DAUTOTESTS=1 -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache
         
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 4
