@@ -11,225 +11,152 @@
 
 #include <rpp/subscribers/dynamic_subscriber.hpp>
 #include <rpp/utils/constraints.hpp>
-#include <rpp/utils/utilities.hpp>
+#include <rpp/utils/overloaded.hpp>
 
-#include <atomic>
 #include <functional>
 #include <memory>
+#include <mutex>
+#include <variant>
 #include <vector>
-
-namespace rpp::subjects::details::states
-{
-template<rpp::constraint::decayed_type T>
-struct state_interface : public std::enable_shared_from_this<state_interface<T>>
-{
-    state_interface() = default;
-
-    virtual                                        ~state_interface() = default;
-    virtual std::shared_ptr<const state_interface<T>> on_subscribe(const dynamic_subscriber<T>& sub) const = 0;
-    virtual std::shared_ptr<const state_interface<T>> on_subscriber_unsubscribed() const { return this->shared_from_this(); }
-    virtual bool is_terminated() const { return true; }
-
-    virtual void on_next(const T&) const {}
-    virtual void on_error(const std::exception_ptr&) const {}
-    virtual void on_unsubscribe() const {  }
-    virtual void on_completed() const {}
-};
-
-template<rpp::constraint::decayed_type T>
-class error final : public state_interface<T>
-{
-public:
-    error(const std::exception_ptr& err)
-        : m_err{err} {}
-
-    std::shared_ptr<const state_interface<T>> on_subscribe(const dynamic_subscriber<T>& sub) const override
-    {
-        sub.on_error(m_err);
-        return this->shared_from_this();
-    }
-
-private:
-    const std::exception_ptr m_err;
-};
-
-template<rpp::constraint::decayed_type T>
-struct completed final : public state_interface<T>
-{
-    std::shared_ptr<const state_interface<T>> on_subscribe(const dynamic_subscriber<T>& sub) const override
-    {
-        sub.on_completed();
-        return this->shared_from_this();
-    }
-
-    static auto make()
-    {
-        static std::shared_ptr<completed> result = std::make_shared<completed>();
-        return result;
-    }
-};
-
-template<rpp::constraint::decayed_type T>
-struct unsubscribed final : public state_interface<T>
-{
-    std::shared_ptr<const state_interface<T>> on_subscribe(const dynamic_subscriber<T>& sub) const override
-    {
-        sub.unsubscribe();
-        return this->shared_from_this();
-    }
-
-    static auto make()
-    {
-        static std::shared_ptr<unsubscribed> result = std::make_shared<unsubscribed>();
-        return result;
-    }
-};
-
-template<rpp::constraint::decayed_type T>
-class active final : public state_interface<T>
-{
-public:
-    active(std::vector<dynamic_subscriber<T>>&& subs = {})
-        : m_subs{std::move(subs)} {}
-
-    bool is_terminated() const override { return false; }
-
-    std::shared_ptr<const state_interface<T>> on_subscribe(const dynamic_subscriber<T>& sub) const override
-    {
-        auto subs = make_copy_of_subscribed_subs(m_subs.size() + 1);
-        subs.push_back(sub);
-        return std::make_shared<active>(std::move(subs));
-    }
-
-    std::shared_ptr<const state_interface<T>> on_subscriber_unsubscribed() const override
-    {
-        if (m_subs.empty())
-            return this->shared_from_this();
-
-        return std::make_shared<active>(make_copy_of_subscribed_subs(m_subs.size() - 1));
-    }
-
-    void on_next(const T& v) const override
-    {
-        std::ranges::for_each(m_subs, [&](const dynamic_subscriber<T>& sub) {sub.on_next(v); });
-    }
-
-    void on_error(const std::exception_ptr& err) const override
-    {
-        std::ranges::for_each(m_subs, [&](const dynamic_subscriber<T>& sub) {sub.on_error(err); });
-    }
-
-    void on_completed() const override
-    {
-        std::ranges::for_each(m_subs, std::mem_fn(&dynamic_subscriber<T>::on_completed));
-    }
-
-    void on_unsubscribe() const override
-    {
-        std::ranges::for_each(m_subs, std::mem_fn(&dynamic_subscriber<T>::unsubscribe));
-    }
-
-private:
-    std::vector<dynamic_subscriber<T>> make_copy_of_subscribed_subs(size_t expected_size) const
-    {
-        std::vector<dynamic_subscriber<T>> subs{};
-        subs.reserve(expected_size);
-        std::ranges::copy_if(m_subs, std::back_inserter(subs), std::mem_fn(&dynamic_subscriber<T>::is_subscribed));
-        return subs;
-    }
-
-private:
-    const std::vector<dynamic_subscriber<T>> m_subs{};
-};
-} // namespace rpp::subjects::details::states
 
 namespace rpp::subjects::details
 {
+struct completed {};
+struct unsubscribed {};
+
 template<rpp::constraint::decayed_type T>
 class subject_state : public std::enable_shared_from_this<subject_state<T>>
 {
-public:
     using subscriber = dynamic_subscriber<T>;
+    using shared_subscribers = std::shared_ptr<std::vector<subscriber>>;
+    using state_t = std::variant<shared_subscribers, std::exception_ptr, completed, unsubscribed>;
 
+public:
     subject_state() = default;
 
     void on_subscribe(const subscriber& subscriber)
     {
-        while (true)
-        {
-            auto current_state = std::atomic_load(&m_state);
-            auto new_state     = current_state->on_subscribe(subscriber);
-            if (current_state == new_state)
-                return;
+        std::unique_lock lock{m_mutex};
 
-            if (std::atomic_compare_exchange_strong(&m_state, &current_state, new_state))
-            {
-                auto weak = this->weak_from_this();
-                subscriber.get_subscription().add([weak]
-                {
-                    while (auto shared = weak.lock())
-                    {
-                        if (shared->try_to_update_state(&states::state_interface<T>::on_subscriber_unsubscribed))
-                            return;
-                    }
-                });
-                return;
-            }
-        }
+        process_state(m_state,
+                      [&](shared_subscribers subs)
+                      {
+                          auto new_subs = make_copy_of_subscribed_subs(subs->size() + 1, subs);
+                          new_subs->push_back(subscriber);
+                          m_state = new_subs;
+
+                          lock.unlock();
+
+                          add_callback_on_unsubscribe(subscriber);
+                      },
+                      [&](std::exception_ptr err)
+                      {
+                          lock.unlock();
+                          subscriber.on_error(err);
+                      },
+                      [&](completed)
+                      {
+                          lock.unlock();
+                          subscriber.on_completed();
+                      },
+                      [&](unsubscribed)
+                      {
+                          lock.unlock();
+                          subscriber.unsubscribe();
+                      });
     }
 
     void on_next(const T& v)
     {
-        std::atomic_load(&m_state)->on_next(v);
+        std::unique_lock lock{m_mutex};
+
+        process_state(m_state,
+                      [&](shared_subscribers subs)
+                      {
+                          lock.unlock();
+
+                          std::ranges::for_each(*subs, [&](const auto& sub) { sub.on_next(v); });
+                      });
     }
 
     void on_error(const std::exception_ptr& err)
     {
-        update_state_if_not_terminated(std::make_shared<states::error<T>>(err), [&](const auto& state) { state->on_error(err); });
+        std::unique_lock lock{m_mutex};
+
+        process_state(m_state,
+                      [&](shared_subscribers subs)
+                      {
+                          m_state = err;
+                          lock.unlock();
+
+                          std::ranges::for_each(*subs, [&](const auto& sub) { sub.on_error(err); });
+                      });
     }
 
     void on_completed()
     {
-        update_state_if_not_terminated(states::completed<T>::make(), &states::state_interface<T>::on_completed);
+        std::unique_lock lock{m_mutex};
+
+        process_state(m_state,
+                      [&](shared_subscribers subs)
+                      {
+                          m_state = completed{};
+                          lock.unlock();
+
+                          std::ranges::for_each(*subs, std::mem_fn(&dynamic_subscriber<T>::on_completed));
+                      });
     }
 
     void on_unsubscribe()
     {
-        update_state_if_not_terminated(states::unsubscribed<T>::make(), &states::state_interface<T>::on_unsubscribe);
+        std::unique_lock lock{m_mutex};
+
+        process_state(m_state,
+                      [&](shared_subscribers subs)
+                      {
+                          m_state = unsubscribed{};
+                          lock.unlock();
+
+                          std::ranges::for_each(*subs, std::mem_fn(&dynamic_subscriber<T>::unsubscribe));
+                      });
     }
 
 private:
-    using state_interface_transition_fn = std::shared_ptr<const states::state_interface<T>>(states::state_interface<T>::*)() const;
-    bool try_to_update_state(state_interface_transition_fn function)
+    static void process_state(const state_t& state, const auto&...actions)
     {
-        auto current_state = std::atomic_load(&m_state);
-        auto new_state = std::invoke(function, current_state);
-
-        return try_to_update_state(current_state, new_state);
+        std::visit(rpp::utils::overloaded{ actions..., [](auto) {} }, state);
     }
 
-    bool try_to_update_state(std::shared_ptr<const states::state_interface<T>> old, std::shared_ptr<const states::state_interface<T>> new_state)
+    static shared_subscribers make_copy_of_subscribed_subs(size_t expected_size, shared_subscribers current_subs)
     {
-        return old == new_state || std::atomic_compare_exchange_strong(&m_state, &old, new_state);
+        auto subs = std::make_shared<std::vector<dynamic_subscriber<T>>>();
+        subs->reserve(expected_size);
+        std::ranges::copy_if(*current_subs,
+                             std::back_inserter(*subs),
+                             std::mem_fn(&dynamic_subscriber<T>::is_subscribed));
+        return subs;
     }
 
-    void update_state_if_not_terminated(std::shared_ptr<const states::state_interface<T>> new_state, const auto& state_callback)
+    void add_callback_on_unsubscribe(const dynamic_subscriber<T>& subscriber)
     {
-        while (true)
+        auto weak = this->weak_from_this();
+        subscriber.get_subscription().add([weak]
         {
-            auto current_state = std::atomic_load(&m_state);
-            if (current_state->is_terminated())
-                return;
-
-            if (try_to_update_state(current_state, new_state))
+            if (auto shared = weak.lock())
             {
-                std::invoke(state_callback, current_state);
-                return;
+                std::unique_lock lock{shared->m_mutex};
+                process_state(shared->m_state,
+                              [&](const shared_subscribers& subs)
+                              {
+                                  auto new_size = std::max(subs->size(), size_t{1}) - 1;
+                                  shared->m_state = shared->make_copy_of_subscribed_subs(new_size, subs);
+                              });
             }
-        }
+        });
     }
 
 private:
-    rpp::utils::atomic_shared_ptr<const states::state_interface<T>> m_state = std::make_shared<states::active<T>>();
+    std::mutex m_mutex{};
+    state_t    m_state = std::make_shared<std::vector<subscriber>>();
 };
 } // namespace rpp::subjects::details
