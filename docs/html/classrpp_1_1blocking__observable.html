@@ -69,11 +69,11 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classrpp_1_1blocking__observable-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::blocking_observable&lt; Type, OriginalObservable &gt; Class Template Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
+  <div class="headertitle"><div class="title">rpp::blocking_observable&lt; Type, OriginalObservable &gt; Class Template Reference<span class="mlabels"><span class="mlabel">final</span></span><div class="ingroups"><a class="el" href="group__observables.html">Observables</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>blocking alternative of observable: provides interface where each function do blocking subscribe on original observable (till on_completed)  
+<p>blocking alternative of observable: provides interface where each function do blocking subscribe on original observable (waits till on_completed and provides value)  
  <a href="classrpp_1_1blocking__observable.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="blocking__observable_8hpp_source.html">blocking_observable.hpp</a>&gt;</code></p>
@@ -102,7 +102,7 @@ requires (std::is_constructible_v&lt;<a class="el" href="classrpp_1_1dynamic__su
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;constraint::decayed_type Type, constraint::observable_of_type&lt; Type &gt; OriginalObservable&gt;<br />
-class rpp::blocking_observable&lt; Type, OriginalObservable &gt;</div><p >blocking alternative of observable: provides interface where each function do blocking subscribe on original observable (till on_completed) </p>
+class rpp::blocking_observable&lt; Type, OriginalObservable &gt;</div><p >blocking alternative of observable: provides interface where each function do blocking subscribe on original observable (waits till on_completed and provides value) </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Type</td><td>type of values emitted by this observable </td></tr>

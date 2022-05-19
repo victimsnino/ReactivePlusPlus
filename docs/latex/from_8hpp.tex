@@ -6,7 +6,6 @@ This file contains implementation of {\ttfamily from} function to create \mbox{\
 
 
 {\ttfamily \#include $<$rpp/memory\+\_\+model.\+hpp$>$}\newline
-{\ttfamily \#include $<$rpp/schedulers/constraints.\+hpp$>$}\newline
 {\ttfamily \#include $<$rpp/schedulers/immediate\+\_\+scheduler.\+hpp$>$}\newline
 {\ttfamily \#include $<$rpp/sources/create.\+hpp$>$}\newline
 {\ttfamily \#include $<$rpp/sources/fwd.\+hpp$>$}\newline
@@ -42,8 +41,8 @@ class \mbox{\hyperlink{classrpp_1_1observable_1_1details_1_1iterate__impl}{rpp\+
 \mbox{\Hypertarget{from_8hpp_ab8266d4fc976a9cd4417ee6effa8eb61}\label{from_8hpp_ab8266d4fc976a9cd4417ee6effa8eb61}} 
 {\footnotesize template$<$typename T $>$ }\\auto {\bfseries rpp\+::observable\+::details\+::extract\+\_\+iterable\+\_\+from\+\_\+packed} (const T \&v) -\/$>$ const auto \&
 \item 
-\mbox{\Hypertarget{from_8hpp_a302d43e1c9a308067ddcfdf3e4f787c0}\label{from_8hpp_a302d43e1c9a308067ddcfdf3e4f787c0}} 
-{\footnotesize template$<$typename Value\+Extract\+Strategy  = std\+::identity$>$ }\\void {\bfseries rpp\+::observable\+::details\+::iterate} (const auto \&iterable, const schedulers\+::constraint\+::scheduler auto \&scheduler, const constraint\+::subscriber auto \&subscriber)
+\mbox{\Hypertarget{from_8hpp_ab7ef90926003394725fec08ddbc43b91}\label{from_8hpp_ab7ef90926003394725fec08ddbc43b91}} 
+void {\bfseries rpp\+::observable\+::details\+::iterate} (const auto \&iterable, const schedulers\+::constraint\+::scheduler auto \&scheduler, const constraint\+::subscriber auto \&subscriber)
 \item 
 \mbox{\Hypertarget{from_8hpp_a1158aaefe44b1c5cf49b6d2eb690a13a}\label{from_8hpp_a1158aaefe44b1c5cf49b6d2eb690a13a}} 
 {\footnotesize template$<$memory\+\_\+model memory\+\_\+model, std\+::ranges\+::range Container, typename ... Ts$>$ }\\auto {\bfseries rpp\+::observable\+::details\+::pack\+\_\+to\+\_\+container} (Ts \&\&...items)

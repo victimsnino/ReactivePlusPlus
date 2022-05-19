@@ -70,15 +70,20 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classrpp_1_1connectable__observable-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::connectable_observable&lt; Type, Subject, OriginalObservable &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">rpp::connectable_observable&lt; Type, Subject, OriginalObservable &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__observables.html">Observables</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>connectable alternative of observable: extends interface with extra functionality. Common subscription will subscribe on underlying subject, but connect/ref_count will initiate subscription on original observable  
+ <a href="classrpp_1_1connectable__observable.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="connectable__observable_8hpp_source.html">connectable_observable.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for rpp::connectable_observable&lt; Type, Subject, OriginalObservable &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classrpp_1_1connectable__observable__inherit__graph.png" border="0" usemap="#arpp_1_1connectable__observable_3_01_type_00_01_subject_00_01_original_observable_01_4_inherit__map" alt="Inheritance graph"/></div>
 <map name="arpp_1_1connectable__observable_3_01_type_00_01_subject_00_01_original_observable_01_4_inherit__map" id="arpp_1_1connectable__observable_3_01_type_00_01_subject_00_01_original_observable_01_4_inherit__map">
-<area shape="rect" title=" " alt="" coords="248,49,488,91"/>
+<area shape="rect" title="connectable alternative of observable: extends interface with extra functionality...." alt="" coords="248,49,488,91"/>
 <area shape="rect" title=" " alt="" coords="15,5,191,47"/>
 <area shape="rect" href="structrpp_1_1details_1_1member__overload.html" title=" " alt="" coords="5,71,200,157"/>
 </map>
@@ -88,7 +93,7 @@ Collaboration diagram for rpp::connectable_observable&lt; Type, Subject, Origina
 <div class="dyncontent">
 <div class="center"><img src="classrpp_1_1connectable__observable__coll__graph.png" border="0" usemap="#arpp_1_1connectable__observable_3_01_type_00_01_subject_00_01_original_observable_01_4_coll__map" alt="Collaboration graph"/></div>
 <map name="arpp_1_1connectable__observable_3_01_type_00_01_subject_00_01_original_observable_01_4_coll__map" id="arpp_1_1connectable__observable_3_01_type_00_01_subject_00_01_original_observable_01_4_coll__map">
-<area shape="rect" title=" " alt="" coords="248,49,488,91"/>
+<area shape="rect" title="connectable alternative of observable: extends interface with extra functionality...." alt="" coords="248,49,488,91"/>
 <area shape="rect" title=" " alt="" coords="15,5,191,47"/>
 <area shape="rect" href="structrpp_1_1details_1_1member__overload.html" title=" " alt="" coords="5,71,200,157"/>
 </map>
@@ -106,7 +111,18 @@ Public Member Functions</h2></td></tr>
 <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memItemRight" valign="bottom"><b>connect</b> (const <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> &amp;subscription=<a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>{}) const</td></tr>
 <tr class="separator:a4e8b9459794c32521b730cf25ac757f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;constraint::decayed_type Type, subjects::constraint::subject_of_type&lt; Type &gt; Subject, constraint::observable_of_type&lt; Type &gt; OriginalObservable&gt;<br />
+class rpp::connectable_observable&lt; Type, Subject, OriginalObservable &gt;</div><p >connectable alternative of observable: extends interface with extra functionality. Common subscription will subscribe on underlying subject, but connect/ref_count will initiate subscription on original observable </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Type</td><td>type of values emitted by this observable </td></tr>
+    <tr><td class="paramname">OriginalObservable</td><td>original observable wrapped by this observable </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/publish.html">https://reactivex.io/documentation/operators/publish.html</a> </dd></dl>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/include/rpp/observables/<a class="el" href="connectable__observable_8hpp_source.html">connectable_observable.hpp</a></li>
 </ul>
 </div><!-- contents -->

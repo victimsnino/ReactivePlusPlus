@@ -2,6 +2,15 @@
 \label{classrpp_1_1connectable__observable}\index{rpp::connectable\_observable$<$ Type, Subject, OriginalObservable $>$@{rpp::connectable\_observable$<$ Type, Subject, OriginalObservable $>$}}
 
 
+connectable alternative of observable\+: extends interface with extra functionality. Common subscription will subscribe on underlying subject, but connect/ref\+\_\+count will initiate subscription on original observable  
+
+
+
+
+{\ttfamily \#include $<$connectable\+\_\+observable.\+hpp$>$}
+
+
+
 Inheritance diagram for rpp\+::connectable\+\_\+observable\texorpdfstring{$<$}{<} Type, Subject, Original\+Observable \texorpdfstring{$>$}{>}\+:
 \nopagebreak
 \begin{figure}[H]
@@ -32,6 +41,23 @@ Collaboration diagram for rpp\+::connectable\+\_\+observable\texorpdfstring{$<$}
 \mbox{\Hypertarget{classrpp_1_1connectable__observable_a4e8b9459794c32521b730cf25ac757f3}\label{classrpp_1_1connectable__observable_a4e8b9459794c32521b730cf25ac757f3}} 
 \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} {\bfseries connect} (const \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} \&subscription=\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}}\{\}) const
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$constraint\+::decayed\+\_\+type Type, subjects\+::constraint\+::subject\+\_\+of\+\_\+type$<$ Type $>$ Subject, constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ Original\+Observable$>$\newline
+class rpp\+::connectable\+\_\+observable$<$ Type, Subject, Original\+Observable $>$}
+connectable alternative of observable\+: extends interface with extra functionality. Common subscription will subscribe on underlying subject, but connect/ref\+\_\+count will initiate subscription on original observable 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & type of values emitted by this observable \\
+\hline
+{\em Original\+Observable} & original observable wrapped by this observable \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/publish.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/publish.\+html}} 
+\end{DoxySeeAlso}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

@@ -8,6 +8,10 @@ Observable is the source of any Reactive Stream. Observable provides ability to 
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
+class \mbox{\hyperlink{classrpp_1_1blocking__observable}{rpp\+::blocking\+\_\+observable$<$ Type, Original\+Observable $>$}}
+\begin{DoxyCompactList}\small\item\em blocking alternative of observable\+: provides interface where each function do blocking subscribe on original observable (waits till on\+\_\+completed and provides value) \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable$<$ Type, Subject, Original\+Observable $>$}}
+\begin{DoxyCompactList}\small\item\em connectable alternative of observable\+: extends interface with extra functionality. Common subscription will subscribe on underlying subject, but connect/ref\+\_\+count will initiate subscription on original observable \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable$<$ Type $>$}}
 \begin{DoxyCompactList}\small\item\em type-\/erased alternative of observable (comparing to \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}). \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable$<$ Type, On\+Subscribe\+Fn $>$}}

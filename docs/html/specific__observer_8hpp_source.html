@@ -81,9 +81,9 @@ $(function() {
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;rpp/observers/interface_observer.hpp&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;rpp/utils/function_traits.hpp&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;rpp/utils/functors.hpp&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;rpp/observers/interface_observer.hpp&gt;</span> <span class="comment">// base class </span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;rpp/utils/function_traits.hpp&gt;</span>        <span class="comment">// extract function args</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;rpp/utils/functors.hpp&gt;</span>               <span class="comment">// default arguments</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>rpp</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
@@ -186,7 +186,7 @@ $(function() {
 <div class="ttc" id="aclassrpp_1_1specific__observer_html_a6e81d90a6985ee8b9161564c71f713e1"><div class="ttname"><a href="classrpp_1_1specific__observer.html#a6e81d90a6985ee8b9161564c71f713e1">rpp::specific_observer::on_completed</a></div><div class="ttdeci">void on_completed() const override</div><div class="ttdoc">Observable calls this method to notify observer about finish of work.</div><div class="ttdef"><b>Definition:</b> specific_observer.hpp:56</div></div>
 <div class="ttc" id="aclassrpp_1_1specific__observer_html_af503ea3bf4385f8ec4d1cc25beb39633"><div class="ttname"><a href="classrpp_1_1specific__observer.html#af503ea3bf4385f8ec4d1cc25beb39633">rpp::specific_observer::as_dynamic</a></div><div class="ttdeci">auto as_dynamic() const &amp;</div><div class="ttdoc">Converting current rpp::specific_observer to rpp::dynamic_observer alternative with erasing of type (...</div><div class="ttdef"><b>Definition:</b> specific_observer.hpp:62</div></div>
 <div class="ttc" id="aclassrpp_1_1specific__observer_html_af96eb0933f734772dda7d273ea4d1c27"><div class="ttname"><a href="classrpp_1_1specific__observer.html#af96eb0933f734772dda7d273ea4d1c27">rpp::specific_observer::on_next</a></div><div class="ttdeci">void on_next(T &amp;&amp;v) const override</div><div class="ttdoc">Observable calls this methods to notify observer about new value.</div><div class="ttdef"><b>Definition:</b> specific_observer.hpp:54</div></div>
-<div class="ttc" id="astructrpp_1_1interface__observer_html"><div class="ttname"><a href="structrpp_1_1interface__observer.html">rpp::interface_observer</a></div><div class="ttdoc">Interface of any observer type. Describes base interface in terms of Reactive Programming.</div><div class="ttdef"><b>Definition:</b> interface_observer.hpp:36</div></div>
+<div class="ttc" id="astructrpp_1_1interface__observer_html"><div class="ttname"><a href="structrpp_1_1interface__observer.html">rpp::interface_observer</a></div><div class="ttdoc">Interface of any observer type. Describes base interface in terms of Reactive Programming.</div><div class="ttdef"><b>Definition:</b> interface_observer.hpp:35</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

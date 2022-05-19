@@ -13,70 +13,70 @@
 \DoxyCodeLine{9 }
 \DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observers/state\_observer.hpp>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observables/details/utils.hpp>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}         \textcolor{comment}{// OriginalObservable type}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/subscribers/specific\_subscriber.hpp>} \textcolor{comment}{// create subscriber}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observers/state\_observer.hpp>}        \textcolor{comment}{// wrap subscribers}}
 \DoxyCodeLine{15 }
 \DoxyCodeLine{16 \textcolor{preprocessor}{\#include <future>}}
 \DoxyCodeLine{17 }
 \DoxyCodeLine{18 \textcolor{keyword}{namespace }rpp}
 \DoxyCodeLine{19 \{}
-\DoxyCodeLine{25 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> OriginalObservable>}
-\DoxyCodeLine{26 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}} final}
-\DoxyCodeLine{27 \{}
-\DoxyCodeLine{28 \textcolor{keyword}{public}:}
-\DoxyCodeLine{29     \mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}(\textcolor{keyword}{const} OriginalObservable\& original)}
-\DoxyCodeLine{30         : m\_original\{original\} \{\}}
-\DoxyCodeLine{31 }
-\DoxyCodeLine{32     \mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}(OriginalObservable\&\& original)}
-\DoxyCodeLine{33         : m\_original\{std::move(original)\} \{\}}
-\DoxyCodeLine{34 }
+\DoxyCodeLine{26 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> OriginalObservable>}
+\DoxyCodeLine{27 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}} final}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29 \textcolor{keyword}{public}:}
+\DoxyCodeLine{30     \mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}(\textcolor{keyword}{const} OriginalObservable\& original)}
+\DoxyCodeLine{31         : m\_original\{original\} \{\}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}(OriginalObservable\&\& original)}
+\DoxyCodeLine{34         : m\_original\{std::move(original)\} \{\}}
 \DoxyCodeLine{35 }
-\DoxyCodeLine{36     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type> TSub>}
-\DoxyCodeLine{37     \textcolor{keywordtype}{void} subscribe(TSub\&\& subscriber) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{38     \{}
-\DoxyCodeLine{39         subscribe\_impl(subscriber);}
-\DoxyCodeLine{40     \}}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_of\_type<Type> TObserver>}
-\DoxyCodeLine{43     \textcolor{keywordtype}{void} subscribe(TObserver\&\& observer) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{44     \{}
-\DoxyCodeLine{45         \textcolor{keywordflow}{return} subscribe\_impl(\mbox{\hyperlink{classrpp_1_1specific__subscriber}{rpp::specific\_subscriber}}<Type, std::decay\_t<TObserver>>\{std::forward<TObserver>(observer)\});}
-\DoxyCodeLine{46     \}}
-\DoxyCodeLine{47 }
-\DoxyCodeLine{48     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{49         \textcolor{keyword}{requires} (std::is\_constructible\_v<dynamic\_subscriber<Type>, std::decay\_t<Args>...> \&\& !constraint::variadic\_is\_same\_type<dynamic\_subscriber<Type>, Args...>)}
-\DoxyCodeLine{50     \textcolor{keywordtype}{void} subscribe(Args\&\&...args) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{51     \{}
-\DoxyCodeLine{52         subscribe\_impl(rpp::make\_specific\_subscriber<Type>(std::forward<Args>(args)...));}
-\DoxyCodeLine{53     \}}
-\DoxyCodeLine{54 \textcolor{keyword}{private}:}
-\DoxyCodeLine{55     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type> TSub>}
-\DoxyCodeLine{56     \textcolor{keywordtype}{void} subscribe\_impl(TSub\&\& subscriber) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{57     \{}
-\DoxyCodeLine{58         std::promise<bool> is\_success\{\};}
-\DoxyCodeLine{59         \textcolor{keyword}{const} \textcolor{keyword}{auto}         future = is\_success.get\_future();}
-\DoxyCodeLine{60         m\_original.subscribe(create\_subscriber\_with\_state<Type>(subscriber,}
-\DoxyCodeLine{61                                                                 \mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__next}{details::forwarding\_on\_next}}\{\},}
-\DoxyCodeLine{62                                                                 [\&](\textcolor{keyword}{const} std::exception\_ptr\& err, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{63                                                                 \{}
-\DoxyCodeLine{64                                                                     sub.on\_error(err);}
-\DoxyCodeLine{65                                                                     is\_success.set\_value(\textcolor{keyword}{false});}
-\DoxyCodeLine{66                                                                 \},}
-\DoxyCodeLine{67                                                                 [\&](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{68                                                                 \{}
-\DoxyCodeLine{69                                                                     sub.on\_completed();}
-\DoxyCodeLine{70                                                                     is\_success.set\_value(\textcolor{keyword}{true});}
-\DoxyCodeLine{71                                                                 \}));}
-\DoxyCodeLine{72         future.wait();}
-\DoxyCodeLine{73     \}}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{75 \textcolor{keyword}{private}:}
-\DoxyCodeLine{76     OriginalObservable m\_original;}
-\DoxyCodeLine{77 \};}
-\DoxyCodeLine{78 }
-\DoxyCodeLine{79 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs>}
-\DoxyCodeLine{80 \mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}(\textcolor{keyword}{const} TObs\&)-\/>blocking\_observable<rpp::utils::extract\_observable\_type\_t<TObs>, TObs>;}
-\DoxyCodeLine{81 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type> TSub>}
+\DoxyCodeLine{38     \textcolor{keywordtype}{void} subscribe(TSub\&\& subscriber) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{39     \{}
+\DoxyCodeLine{40         subscribe\_impl(subscriber);}
+\DoxyCodeLine{41     \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_of\_type<Type> TObserver>}
+\DoxyCodeLine{44     \textcolor{keywordtype}{void} subscribe(TObserver\&\& observer) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{45     \{}
+\DoxyCodeLine{46         \textcolor{keywordflow}{return} subscribe\_impl(\mbox{\hyperlink{classrpp_1_1specific__subscriber}{rpp::specific\_subscriber}}<Type, std::decay\_t<TObserver>>\{std::forward<TObserver>(observer)\});}
+\DoxyCodeLine{47     \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{50         \textcolor{keyword}{requires} (std::is\_constructible\_v<dynamic\_subscriber<Type>, std::decay\_t<Args>...> \&\& !constraint::variadic\_is\_same\_type<dynamic\_subscriber<Type>, Args...>)}
+\DoxyCodeLine{51     \textcolor{keywordtype}{void} subscribe(Args\&\&...args) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{52     \{}
+\DoxyCodeLine{53         subscribe\_impl(rpp::make\_specific\_subscriber<Type>(std::forward<Args>(args)...));}
+\DoxyCodeLine{54     \}}
+\DoxyCodeLine{55 \textcolor{keyword}{private}:}
+\DoxyCodeLine{56     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type> TSub>}
+\DoxyCodeLine{57     \textcolor{keywordtype}{void} subscribe\_impl(TSub\&\& subscriber) \textcolor{keyword}{const} \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{58     \{}
+\DoxyCodeLine{59         std::promise<bool> is\_success\{\};}
+\DoxyCodeLine{60         \textcolor{keyword}{const} \textcolor{keyword}{auto}         future = is\_success.get\_future();}
+\DoxyCodeLine{61         m\_original.subscribe(create\_subscriber\_with\_state<Type>(subscriber,}
+\DoxyCodeLine{62                                                                 \mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__next}{details::forwarding\_on\_next}}\{\},}
+\DoxyCodeLine{63                                                                 [\&](\textcolor{keyword}{const} std::exception\_ptr\& err, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{64                                                                 \{}
+\DoxyCodeLine{65                                                                     sub.on\_error(err);}
+\DoxyCodeLine{66                                                                     is\_success.set\_value(\textcolor{keyword}{false});}
+\DoxyCodeLine{67                                                                 \},}
+\DoxyCodeLine{68                                                                 [\&](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{69                                                                 \{}
+\DoxyCodeLine{70                                                                     sub.on\_completed();}
+\DoxyCodeLine{71                                                                     is\_success.set\_value(\textcolor{keyword}{true});}
+\DoxyCodeLine{72                                                                 \}));}
+\DoxyCodeLine{73         future.wait();}
+\DoxyCodeLine{74     \}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76 \textcolor{keyword}{private}:}
+\DoxyCodeLine{77     OriginalObservable m\_original;}
+\DoxyCodeLine{78 \};}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs>}
+\DoxyCodeLine{81 \mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}(\textcolor{keyword}{const} TObs\&)-\/>blocking\_observable<rpp::utils::extract\_observable\_type\_t<TObs>, TObs>;}
+\DoxyCodeLine{82 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

@@ -84,13 +84,13 @@ $(function() {
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;rpp/observables/fwd.hpp&gt;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;rpp/observables/type_traits.hpp&gt;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;concepts&gt;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span>rpp::constraint</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">concept </span>observable = std::is_base_of_v&lt;details::observable_tag, std::decay_t&lt;T&gt;&gt;;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">concept </span>observable = std::derived_from&lt;std::decay_t&lt;T&gt;, details::observable_tag&gt;;</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Type&gt; <span class="keyword">concept </span>observable_of_type = observable&lt;T&gt; &amp;&amp; std::is_same_v&lt;utils::extract_observable_type_t&lt;T&gt;, Type&gt;;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Type&gt; <span class="keyword">concept </span>observable_of_type = observable&lt;T&gt; &amp;&amp; std::same_as&lt;utils::extract_observable_type_t&lt;T&gt;, Type&gt;;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>} <span class="comment">// namespace rpp::constraint</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
