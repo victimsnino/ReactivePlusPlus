@@ -47,6 +47,8 @@ endif()
 
 find_package(Threads REQUIRED)
 
+find_package(SDL2 REQUIRED)
+
 # ======================= OPTIONS ================================
 set(BUILD_TESTS     OFF CACHE BOOL "Enable unit tests building")
 set(BUILD_SAMPLES   OFF CACHE BOOL "Enable samples building")
