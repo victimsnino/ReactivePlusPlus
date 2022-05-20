@@ -1,5 +1,5 @@
 \hypertarget{ref__count_8hpp_source}{}\doxysection{ref\+\_\+count.\+hpp}
-\label{ref__count_8hpp_source}\index{src/include/rpp/operators/ref\_count.hpp@{src/include/rpp/operators/ref\_count.hpp}}
+\label{ref__count_8hpp_source}\index{src/rpp/rpp/operators/ref\_count.hpp@{src/rpp/rpp/operators/ref\_count.hpp}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
@@ -24,22 +24,26 @@
 \DoxyCodeLine{20     \};}
 \DoxyCodeLine{21     \textcolor{keywordflow}{return} source::create<Type>([observable = std::forward<TObs>(observable), state = std::make\_shared<state\_t>()](\textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
 \DoxyCodeLine{22     \{}
-\DoxyCodeLine{23         \{}
-\DoxyCodeLine{24             std::lock\_guard lock\{ state-\/>mutex \};}
-\DoxyCodeLine{25             \textcolor{keyword}{const} \textcolor{keywordtype}{bool}      need\_to\_connect = ++state-\/>count\_of\_active\_subs == 1;}
-\DoxyCodeLine{26             observable.subscribe(subscriber);}
+\DoxyCodeLine{23         \textcolor{keywordtype}{bool} need\_to\_connect = \textcolor{keyword}{false};}
+\DoxyCodeLine{24         \{}
+\DoxyCodeLine{25             std::lock\_guard lock\{state-\/>mutex\};}
+\DoxyCodeLine{26             need\_to\_connect = ++state-\/>count\_of\_active\_subs == 1;}
 \DoxyCodeLine{27             \textcolor{keywordflow}{if} (need\_to\_connect)}
-\DoxyCodeLine{28                 state-\/>sub = observable.connect();}
+\DoxyCodeLine{28                 state-\/>sub = composite\_subscription\{\};}
 \DoxyCodeLine{29         \}}
 \DoxyCodeLine{30 }
 \DoxyCodeLine{31         subscriber.get\_subscription().add([state = state]}
 \DoxyCodeLine{32         \{}
-\DoxyCodeLine{33             std::lock\_guard lock\{ state-\/>mutex \};}
+\DoxyCodeLine{33             std::lock\_guard lock\{state-\/>mutex\};}
 \DoxyCodeLine{34             \textcolor{keywordflow}{if} (-\/-\/state-\/>count\_of\_active\_subs == 0)}
 \DoxyCodeLine{35                 state-\/>sub.unsubscribe();}
 \DoxyCodeLine{36         \});}
-\DoxyCodeLine{37     \});}
-\DoxyCodeLine{38 \}}
-\DoxyCodeLine{39 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38         observable.subscribe(subscriber);}
+\DoxyCodeLine{39         \textcolor{keywordflow}{if} (need\_to\_connect)}
+\DoxyCodeLine{40             observable.connect(state-\/>sub);}
+\DoxyCodeLine{41     \});}
+\DoxyCodeLine{42 \}}
+\DoxyCodeLine{43 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

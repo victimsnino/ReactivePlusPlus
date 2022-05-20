@@ -1,5 +1,5 @@
 \hypertarget{connectable__observable_8hpp_source}{}\doxysection{connectable\+\_\+observable.\+hpp}
-\label{connectable__observable_8hpp_source}\index{src/include/rpp/observables/connectable\_observable.hpp@{src/include/rpp/observables/connectable\_observable.hpp}}
+\label{connectable__observable_8hpp_source}\index{src/rpp/rpp/observables/connectable\_observable.hpp@{src/rpp/rpp/observables/connectable\_observable.hpp}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{//                   ReactivePlusPlus library}}
@@ -55,20 +55,20 @@
 \DoxyCodeLine{59                 \textcolor{keywordflow}{return} subscription;}
 \DoxyCodeLine{60 }
 \DoxyCodeLine{61             m\_state-\/>sub = subscriber\_subscription.add(subscription);}
-\DoxyCodeLine{62             m\_original\_observable.subscribe(m\_state-\/>sub, subscriber.get\_observer());}
-\DoxyCodeLine{63         \}}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{65         subscription.add([state = m\_state, subscriber\_subscription]}
-\DoxyCodeLine{66         \{}
-\DoxyCodeLine{67             \textcolor{keyword}{auto} current\_sub = composite\_subscription::empty();}
-\DoxyCodeLine{68             \{}
-\DoxyCodeLine{69                 std::lock\_guard lock(state-\/>mutex);}
-\DoxyCodeLine{70                 std::swap(current\_sub, state-\/>sub);}
-\DoxyCodeLine{71             \}}
-\DoxyCodeLine{72             current\_sub.unsubscribe();}
-\DoxyCodeLine{73             subscriber\_subscription.remove(current\_sub);}
-\DoxyCodeLine{74         \});}
-\DoxyCodeLine{75 }
+\DoxyCodeLine{62         \}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64         subscription.add([state = m\_state, subscriber\_subscription]}
+\DoxyCodeLine{65         \{}
+\DoxyCodeLine{66             \textcolor{keyword}{auto} current\_sub = composite\_subscription::empty();}
+\DoxyCodeLine{67             \{}
+\DoxyCodeLine{68                 std::lock\_guard lock(state-\/>mutex);}
+\DoxyCodeLine{69                 std::swap(current\_sub, state-\/>sub);}
+\DoxyCodeLine{70             \}}
+\DoxyCodeLine{71             current\_sub.unsubscribe();}
+\DoxyCodeLine{72             subscriber\_subscription.remove(current\_sub);}
+\DoxyCodeLine{73         \});}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75         m\_original\_observable.subscribe(m\_state-\/>sub, subscriber.get\_observer());}
 \DoxyCodeLine{76 }
 \DoxyCodeLine{77         \textcolor{keywordflow}{return} subscription;}
 \DoxyCodeLine{78     \}}

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: src/include/rpp/operators/ref_count.hpp Source File</title>
+<title>ReactivePlusPlus: src/rpp/rpp/operators/ref_count.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b0856f6b0d80ccb263b2f415c91f9e17.html">include</a></li><li class="navelem"><a class="el" href="dir_a0ebbe362f10a27da1664c4cb43bfc1a.html">rpp</a></li><li class="navelem"><a class="el" href="dir_2f8a5d9b550c8058be8c453e9150c12a.html">operators</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_adaf39b9fc4fffd972703658707b0113.html">rpp</a></li><li class="navelem"><a class="el" href="dir_0afe0b2d744d0bd4513ad200b3c712f0.html">rpp</a></li><li class="navelem"><a class="el" href="dir_3591f6ab25936dd3deeec05839e478ca.html">operators</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -91,23 +91,27 @@ $(function() {
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    };</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">return</span> source::create&lt;Type&gt;([observable = std::forward&lt;TObs&gt;(observable), state = std::make_shared&lt;state_t&gt;()](<span class="keyword">const</span> constraint::subscriber_of_type&lt;Type&gt; <span class="keyword">auto</span>&amp; subscriber)</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            std::lock_guard lock{ state-&gt;mutex };</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <span class="keyword">const</span> <span class="keywordtype">bool</span>      need_to_connect = ++state-&gt;count_of_active_subs == 1;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            observable.subscribe(subscriber);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordtype">bool</span> need_to_connect = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            std::lock_guard lock{state-&gt;mutex};</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            need_to_connect = ++state-&gt;count_of_active_subs == 1;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="keywordflow">if</span> (need_to_connect)</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                state-&gt;sub = observable.connect();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                state-&gt;sub = composite_subscription{};</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        }</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        subscriber.get_subscription().add([state = state]</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            std::lock_guard lock{ state-&gt;mutex };</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            std::lock_guard lock{state-&gt;mutex};</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keywordflow">if</span> (--state-&gt;count_of_active_subs == 0)</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                state-&gt;sub.unsubscribe();</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        });</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    });</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        observable.subscribe(subscriber);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordflow">if</span> (need_to_connect)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            observable.connect(state-&gt;sub);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    });</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>} <span class="comment">// namespace rpp::details</span></div>
 <div class="ttc" id="acreate_8hpp_html"><div class="ttname"><a href="create_8hpp.html">create.hpp</a></div><div class="ttdoc">This file contains implementation of create function to create rpp::specific_observable with OnSubscr...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
