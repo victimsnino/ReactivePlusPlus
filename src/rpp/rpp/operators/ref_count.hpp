@@ -20,20 +20,24 @@ auto ref_count_impl(TObs&& observable)
     };
     return source::create<Type>([observable = std::forward<TObs>(observable), state = std::make_shared<state_t>()](const constraint::subscriber_of_type<Type> auto& subscriber)
     {
+        bool need_to_connect = false;
         {
-            std::lock_guard lock{ state->mutex };
-            const bool      need_to_connect = ++state->count_of_active_subs == 1;
-            observable.subscribe(subscriber);
+            std::lock_guard lock{state->mutex};
+            need_to_connect = ++state->count_of_active_subs == 1;
             if (need_to_connect)
-                state->sub = observable.connect();
+                state->sub = composite_subscription{};
         }
 
         subscriber.get_subscription().add([state = state]
         {
-            std::lock_guard lock{ state->mutex };
+            std::lock_guard lock{state->mutex};
             if (--state->count_of_active_subs == 0)
                 state->sub.unsubscribe();
         });
+
+        observable.subscribe(subscriber);
+        if (need_to_connect)
+            observable.connect(state->sub);
     });
 }
 } // namespace rpp::details

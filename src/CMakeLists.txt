@@ -8,7 +8,7 @@
 # Project home: https://github.com/victimsnino/ReactivePlusPlus
 #
 
-add_subdirectory(include)
+add_subdirectory(rpp)
 
 if(RPP_BUILD_TESTS)
     add_subdirectory(tests)
