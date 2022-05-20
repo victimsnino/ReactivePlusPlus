@@ -59,7 +59,6 @@ public:
                 return subscription;
 
             m_state->sub = subscriber_subscription.add(subscription);
-            m_original_observable.subscribe(m_state->sub, subscriber.get_observer());
         }
 
         subscription.add([state = m_state, subscriber_subscription]
@@ -73,6 +72,7 @@ public:
             subscriber_subscription.remove(current_sub);
         });
 
+        m_original_observable.subscribe(m_state->sub, subscriber.get_observer());
 
         return subscription;
     }
