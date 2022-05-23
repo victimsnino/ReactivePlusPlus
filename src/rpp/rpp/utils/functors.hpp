@@ -12,6 +12,7 @@
 
 #include <exception>
 #include <utility>
+#include <tuple>
 
 namespace rpp::utils
 {
