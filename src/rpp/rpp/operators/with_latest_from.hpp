@@ -49,43 +49,47 @@ void with_latest_from_subscribe_observables(std::index_sequence<I...>,
     (with_latest_from_subscribe<I>(state_ptr, observables, subscriber), ...);
 }
 
-template<constraint::decayed_type Type, constraint::observable ...TObservables, std::invocable<
-    Type, utils::extract_observable_type_t<TObservables>...> TSelector>
-auto with_latest_from_impl(TSelector&& selector, [[maybe_unused]] TObservables&&...observables)
+
+template<constraint::decayed_type Type, constraint::observable ...TObservables, std::invocable<Type, utils::extract_observable_type_t<TObservables>...> TSelector>
+auto with_latest_from_impl(TSelector&& selector, TObservables&&...observables)
 {
     using ResultType = std::invoke_result_t<TSelector, Type, utils::extract_observable_type_t<TObservables>...>;
 
-
-    return [selector=std::forward<TSelector>(selector), ...observables=std::forward<TObservables>(observables)]<
-            constraint::subscriber_of_type<ResultType> TSub>(TSub&& subscriber)
+    return [selector=std::forward<TSelector>(selector), ...observables=std::forward<TObservables>(observables)]<constraint::subscriber_of_type<ResultType> TSub>(TSub&& subscriber)
     {
         struct state_t
         {
             std::array<std::shared_mutex, sizeof...(TObservables)>                       mutexes{};
             std::tuple<std::optional<utils::extract_observable_type_t<TObservables>>...> vals{};
+
+            auto apply_under_lock(const auto& selector)
+            {
+                auto lock = lock_all();
+                return std::apply(selector,vals);
+            }
+
+        private:
+            auto lock_all()
+            {
+                return std::apply([](auto& ...mutexes) { return std::scoped_lock{mutexes...}; }, mutexes);
+            }
         };
 
         auto state = std::make_shared<state_t>();
 
-        with_latest_from_subscribe_observables(std::make_index_sequence<sizeof...(TObservables)>{},
-                                               state,
-                                               subscriber,
-                                               observables...);
+        with_latest_from_subscribe_observables(std::make_index_sequence<sizeof...(TObservables)>{}, state, subscriber, observables...);
 
         auto on_next = [state, selector](auto&& v, const auto& sub)
         {
-            auto lock_all = std::apply([](auto& ...mutexes)
-                                       {
-                                           return std::scoped_lock{mutexes...};
-                                       },
-                                       state->mutexes);
+            auto result = state->apply_under_lock([&](const auto& ...args) -> std::optional<ResultType>
+            {
+                if ((args.has_value() && ...))
+                    return selector(std::forward<decltype(v)>(v), args.value()...);
+                return std::nullopt;
+            });
 
-            std::apply([&](const auto& ...args)
-                       {
-                           if ((args.has_value() && ...))
-                               sub.on_next(selector(std::forward<decltype(v)>(v), args.value()...));
-                       },
-                       state->vals);
+            if (result.has_value())
+                sub.on_next(std::move(result.value()));
         };
 
         return create_subscriber_with_state<Type>(std::forward<TSub>(subscriber),
