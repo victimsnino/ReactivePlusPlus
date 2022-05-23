@@ -1,0 +1,106 @@
+\hypertarget{with__latest__from_8hpp_source}{}\doxysection{with\+\_\+latest\+\_\+from.\+hpp}
+\label{with__latest__from_8hpp_source}\index{src/rpp/rpp/operators/with\_latest\_from.hpp@{src/rpp/rpp/operators/with\_latest\_from.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                   ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{//           Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{//  Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//     (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//           https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{// }}
+\DoxyCodeLine{8 \textcolor{comment}{//  Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <rpp/observers/state\_observer.hpp>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/operators/fwd/with\_latest\_from.hpp>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/utils/functors.hpp>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <mutex>}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <array>}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 IMPLEMENTATION\_FILE(with\_latest\_from\_tag);}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27 \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t} I, constra\textcolor{keywordtype}{int}::observable TObs>}
+\DoxyCodeLine{28 \textcolor{keywordtype}{void} with\_latest\_from\_subscribe(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& state\_ptr, \textcolor{keyword}{const} TObs\& observable, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30     \textcolor{keyword}{using} Type = utils::extract\_observable\_type\_t<TObs>;}
+\DoxyCodeLine{31     observable.subscribe(create\_subscriber\_with\_state<Type>(subscriber.get\_subscription().make\_child(),}
+\DoxyCodeLine{32                                                             subscriber,}
+\DoxyCodeLine{33                                                             [state\_ptr](\textcolor{keyword}{auto}\&\& v, \textcolor{keyword}{const} \textcolor{keyword}{auto}\&)}
+\DoxyCodeLine{34                                                             \{}
+\DoxyCodeLine{35                                                                 std::lock\_guard lock\{state\_ptr-\/>mutexes[I]\};}
+\DoxyCodeLine{36                                                                 std::get<I>(state\_ptr-\/>vals) = std::forward<\textcolor{keyword}{decltype}(v)>(v);}
+\DoxyCodeLine{37                                                             \},}
+\DoxyCodeLine{38                                                             forwarding\_on\_error\{\},}
+\DoxyCodeLine{39                                                             [](\textcolor{keyword}{const} \textcolor{keyword}{auto}\&)\{\}));}
+\DoxyCodeLine{40 \}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}...I>}
+\DoxyCodeLine{43 \textcolor{keywordtype}{void} with\_latest\_from\_subscribe\_observables(std::index\_sequence<I...>,}
+\DoxyCodeLine{44                                             \textcolor{keyword}{const} \textcolor{keyword}{auto}\&              state\_ptr,}
+\DoxyCodeLine{45                                             \textcolor{keyword}{const} \textcolor{keyword}{auto}\&              subscriber,}
+\DoxyCodeLine{46                                             \textcolor{keyword}{const} \textcolor{keyword}{auto}\&...           observables)}
+\DoxyCodeLine{47 \{}
+\DoxyCodeLine{48     (with\_latest\_from\_subscribe<I>(state\_ptr, observables, subscriber), ...);}
+\DoxyCodeLine{49 \}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{keyword}{template}<constraint::observable ...TObservables>}
+\DoxyCodeLine{52 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__state__t}{with\_latest\_from\_state\_t}}}
+\DoxyCodeLine{53 \{}
+\DoxyCodeLine{54     std::array<std::mutex, \textcolor{keyword}{sizeof}...(TObservables)>                              mutexes\{\};}
+\DoxyCodeLine{55     std::tuple<std::optional<utils::extract\_observable\_type\_t<TObservables>>...> vals\{\};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57     \textcolor{keyword}{auto} apply\_under\_lock(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& selector)}
+\DoxyCodeLine{58     \{}
+\DoxyCodeLine{59         \textcolor{keyword}{auto} lock = lock\_all();}
+\DoxyCodeLine{60         \textcolor{keywordflow}{return} std::apply(selector, vals);}
+\DoxyCodeLine{61     \}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63 \textcolor{keyword}{private}:}
+\DoxyCodeLine{64     \textcolor{keyword}{auto} lock\_all()}
+\DoxyCodeLine{65     \{}
+\DoxyCodeLine{66         \textcolor{keywordflow}{return} std::apply([](\textcolor{keyword}{auto}\& ...mutexes) \{ \textcolor{keywordflow}{return} std::scoped\_lock\{ mutexes... \}; \}, mutexes);}
+\DoxyCodeLine{67     \}}
+\DoxyCodeLine{68 \};}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70 \textcolor{keyword}{template}<constraint::decayed\_type Type, constraint::observable ...TObservables, std::invocable<Type, utils::extract\_observable\_type\_t<TObservables>...> TSelector>}
+\DoxyCodeLine{71 \textcolor{keyword}{auto} with\_latest\_from\_impl(TSelector\&\& selector, TObservables\&\&...observables)}
+\DoxyCodeLine{72 \{}
+\DoxyCodeLine{73     \textcolor{keyword}{using} ResultType = std::invoke\_result\_t<TSelector, Type, utils::extract\_observable\_type\_t<TObservables>...>;}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75     \textcolor{keywordflow}{return} [selector=std::forward<TSelector>(selector), ...observables=std::forward<TObservables>(observables)]<constraint::subscriber\_of\_type<ResultType> TSub>(TSub\&\& subscriber)}
+\DoxyCodeLine{76     \{}
+\DoxyCodeLine{77         \textcolor{keyword}{auto} state = std::make\_shared<\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__state__t}{with\_latest\_from\_state\_t}}<TObservables...>>();}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79         with\_latest\_from\_subscribe\_observables(std::make\_index\_sequence<\textcolor{keyword}{sizeof}...(TObservables)>\{\}, state, subscriber, observables...);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81         \textcolor{keyword}{auto} on\_next = [state, selector](\textcolor{keyword}{auto}\&\& v, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{82         \{}
+\DoxyCodeLine{83             \textcolor{keyword}{auto} result = state-\/>apply\_under\_lock([\&](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& ...args) -\/> std::optional<ResultType>}
+\DoxyCodeLine{84             \{}
+\DoxyCodeLine{85                 \textcolor{keywordflow}{if} ((args.has\_value() \&\& ...))}
+\DoxyCodeLine{86                     \textcolor{keywordflow}{return} selector(std::forward<\textcolor{keyword}{decltype}(v)>(v), args.value()...);}
+\DoxyCodeLine{87                 \textcolor{keywordflow}{return} std::nullopt;}
+\DoxyCodeLine{88             \});}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90             \textcolor{keywordflow}{if} (result.has\_value())}
+\DoxyCodeLine{91                 sub.on\_next(std::move(result.value()));}
+\DoxyCodeLine{92         \};}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(std::forward<TSub>(subscriber),}
+\DoxyCodeLine{95                                                   std::move(on\_next),}
+\DoxyCodeLine{96                                                   forwarding\_on\_error\{\},}
+\DoxyCodeLine{97                                                   forwarding\_on\_completed\{\});}
+\DoxyCodeLine{98     \};}
+\DoxyCodeLine{99 \}}
+\DoxyCodeLine{100 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

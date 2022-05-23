@@ -48,7 +48,10 @@ requires is\+\_\+header\+\_\+included$<$take\+\_\+tag, Args...$>$}\\auto \mbox{\
 \begin{DoxyCompactList}\small\item\em emit only first Count items provided by observable \end{DoxyCompactList}\item 
 {\footnotesize template$<$std\+::predicate$<$ const Type \& $>$ Predicate$>$ \newline
 requires is\+\_\+header\+\_\+included$<$take\+\_\+while\+\_\+tag, Predicate$>$}\\auto \mbox{\hyperlink{group__operators_ga47773bfb0298bba2ec71502c1984cc95}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, take\+\_\+while\+\_\+tag $>$\+::take\+\_\+while}} (Predicate \&\&predicate) const \&
-\begin{DoxyCompactList}\small\item\em sends items provided by observable while satisfies predicate. When condition becomes false -\/\texorpdfstring{$>$}{>} terminates \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em sends items provided by observable while satisfies predicate. When condition becomes false -\/\texorpdfstring{$>$}{>} terminates \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::observable ... TObservables, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ TObservables $>$... $>$ TSelector$>$ \newline
+requires is\+\_\+header\+\_\+included$<$with\+\_\+latest\+\_\+from\+\_\+tag, TObservables...$>$}\\auto \mbox{\hyperlink{group__operators_ga805656c8847d81ace55ebc71d0598e44}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, with\+\_\+latest\+\_\+from\+\_\+tag $>$\+::with\+\_\+latest\+\_\+from}} (TSelector \&\&selector, TObservables \&\&...observables) const \&
+\begin{DoxyCompactList}\small\item\em combines latest emissions from multiple observables, but sends to observer only when root observable sends values \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -613,4 +616,48 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
 \#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{take__while_8hpp_source}{rpp/operators/take\+\_\+while.\+hpp}}\texorpdfstring{$>$}{>} 
+\end{DoxyWarning}
+\mbox{\Hypertarget{group__operators_ga805656c8847d81ace55ebc71d0598e44}\label{group__operators_ga805656c8847d81ace55ebc71d0598e44}} 
+\index{Operators@{Operators}!with\_latest\_from@{with\_latest\_from}}
+\index{with\_latest\_from@{with\_latest\_from}!Operators@{Operators}}
+\doxysubsubsection{\texorpdfstring{with\_latest\_from()}{with\_latest\_from()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$constraint\+::observable ... TObservables, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ TObservables $>$... $>$ TSelector$>$ \newline
+requires is\+\_\+header\+\_\+included$<$with\+\_\+latest\+\_\+from\+\_\+tag, TObservables...$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, with\+\_\+latest\+\_\+from\+\_\+tag $>$\+::with\+\_\+latest\+\_\+from (\begin{DoxyParamCaption}\item[{TSelector \&\&}]{selector,  }\item[{TObservables \&\&...}]{observables }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+combines latest emissions from multiple observables, but sends to observer only when root observable sends values 
+
+when observables from arguments send some value, then these values cached/replaced, but when root observable sends value, then this value aggregated together with cached by default selector creates tuple of values
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(1, 2, 3).with\_latest\_from(\mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(3, 4, 5, 6))}
+\DoxyCodeLine{        .subscribe([](std::tuple<int,int> v) \{ std::cout << std::get<0>(v) << \textcolor{stringliteral}{"{}:"{}} << std::get<1>(v) << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1:6 2:6 3:6}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(1, 2, 3).with\_latest\_from([](\textcolor{keywordtype}{int} left, \textcolor{keywordtype}{int} right) \{ \textcolor{keywordflow}{return} left + right; \},}
+\DoxyCodeLine{                                                \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(3, 4, 5, 6))}
+\DoxyCodeLine{                              .subscribe([](\textcolor{keywordtype}{int} v)}
+\DoxyCodeLine{                              \{}
+\DoxyCodeLine{                                  std::cout << v << \textcolor{stringliteral}{"{} "{}};}
+\DoxyCodeLine{                              \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 7 8 9}}
+
+\end{DoxyCodeInclude}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/combinelatest.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/combinelatest.\+html}}
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the with\+\_\+latest\+\_\+from operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}rpp/operators/with\+\_\+latest\+\_\+from.\+h\texorpdfstring{$>$}{>} 
 \end{DoxyWarning}

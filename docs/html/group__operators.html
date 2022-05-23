@@ -142,6 +142,11 @@ requires is_header_included&lt;take_while_tag, Predicate&gt;</td></tr>
 <tr class="memitem:ga47773bfb0298bba2ec71502c1984cc95"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga47773bfb0298bba2ec71502c1984cc95">rpp::details::member_overload&lt; Type, SpecificObservable, take_while_tag &gt;::take_while</a> (Predicate &amp;&amp;predicate) const &amp;</td></tr>
 <tr class="memdesc:ga47773bfb0298bba2ec71502c1984cc95"><td class="mdescLeft">&#160;</td><td class="mdescRight">sends items provided by observable while satisfies predicate. When condition becomes false -&gt; terminates  <a href="group__operators.html#ga47773bfb0298bba2ec71502c1984cc95">More...</a><br /></td></tr>
 <tr class="separator:ga47773bfb0298bba2ec71502c1984cc95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga805656c8847d81ace55ebc71d0598e44"><td class="memTemplParams" colspan="2">template&lt;constraint::observable ... TObservables, std::invocable&lt; Type, utils::extract_observable_type_t&lt; TObservables &gt;... &gt; TSelector&gt; <br />
+requires is_header_included&lt;with_latest_from_tag, TObservables...&gt;</td></tr>
+<tr class="memitem:ga805656c8847d81ace55ebc71d0598e44"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__operators.html#ga805656c8847d81ace55ebc71d0598e44">rpp::details::member_overload&lt; Type, SpecificObservable, with_latest_from_tag &gt;::with_latest_from</a> (TSelector &amp;&amp;selector, TObservables &amp;&amp;...observables) const &amp;</td></tr>
+<tr class="memdesc:ga805656c8847d81ace55ebc71d0598e44"><td class="mdescLeft">&#160;</td><td class="mdescRight">combines latest emissions from multiple observables, but sends to observer only when root observable sends values  <a href="group__operators.html#ga805656c8847d81ace55ebc71d0598e44">More...</a><br /></td></tr>
+<tr class="separator:ga805656c8847d81ace55ebc71d0598e44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p >Operators is way to modify observables and extend with some extra custom logic. </p>
@@ -723,7 +728,7 @@ requires is_header_included&lt;subscribe_on_tag, TScheduler&gt;</div>
 <div class="line">    <span class="comment">// TH1</span></div>
 <div class="line">    <span class="comment">// on_subscribe thread TH2</span></div>
 <div class="line">    <span class="comment">// [TH2]: 1</span></div>
-<div class="ttc" id="agroup__operators_html_ga2272435c76e0830c70e111b3270cd3d4"><div class="ttname"><a href="group__operators.html#ga2272435c76e0830c70e111b3270cd3d4">rpp::details::member_overload&lt; Type, SpecificObservable, subscribe_on_tag &gt;::subscribe_on</a></div><div class="ttdeci">auto subscribe_on(const TScheduler &amp;scheduler) const &amp;</div><div class="ttdoc">forces observable to operate in provided scheduler (on_subscribe called via scheduling)</div><div class="ttdef"><b>Definition:</b> subscribe_on.hpp:34</div></div>
+<div class="ttc" id="agroup__operators_html_ga2272435c76e0830c70e111b3270cd3d4"><div class="ttname"><a href="group__operators.html#ga2272435c76e0830c70e111b3270cd3d4">rpp::details::member_overload&lt; Type, SpecificObservable, subscribe_on_tag &gt;::subscribe_on</a></div><div class="ttdeci">auto subscribe_on(const TScheduler &amp;scheduler) const &amp;</div><div class="ttdoc">forces observable to operate in provided scheduler (on_subscribe called via scheduling)</div><div class="ttdef"><b>Definition:</b> subscribe_on.hpp:44</div></div>
 </div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/subscribeon.html">https://reactivex.io/documentation/operators/subscribeon.html</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the subscribe_on operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;rpp/operators/subscribe_on.h&gt; </dd></dl>
@@ -817,6 +822,63 @@ requires is_header_included&lt;take_while_tag, Predicate&gt;</div>
 </div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/takewhile.html">https://reactivex.io/documentation/operators/takewhile.html</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the take_while operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="take__while_8hpp_source.html">rpp/operators/take_while.hpp</a>&gt; </dd></dl>
+
+</div>
+</div>
+<a id="ga805656c8847d81ace55ebc71d0598e44" name="ga805656c8847d81ace55ebc71d0598e44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga805656c8847d81ace55ebc71d0598e44">&#9670;&nbsp;</a></span>with_latest_from()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;constraint::observable ... TObservables, std::invocable&lt; Type, utils::extract_observable_type_t&lt; TObservables &gt;... &gt; TSelector&gt; <br />
+requires is_header_included&lt;with_latest_from_tag, TObservables...&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, with_latest_from_tag &gt;::with_latest_from </td>
+          <td>(</td>
+          <td class="paramtype">TSelector &amp;&amp;&#160;</td>
+          <td class="paramname"><em>selector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TObservables &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>observables</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>combines latest emissions from multiple observables, but sends to observer only when root observable sends values </p>
+<p >when observables from arguments send some value, then these values cached/replaced, but when root observable sends value, then this value aggregated together with cached by default selector creates tuple of values</p>
+<div class="fragment"><div class="line">    <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(1, 2, 3).with_latest_from(<a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(3, 4, 5, 6))</div>
+<div class="line">        .subscribe([](std::tuple&lt;int,int&gt; v) { std::cout &lt;&lt; std::get&lt;0&gt;(v) &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; std::get&lt;1&gt;(v) &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 1:6 2:6 3:6</span></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(1, 2, 3).with_latest_from([](<span class="keywordtype">int</span> left, <span class="keywordtype">int</span> right) { <span class="keywordflow">return</span> left + right; },</div>
+<div class="line">                                                <a class="code hl_function" href="group__observables.html#ga819797b9fb7452311dedc62aa94d1f7b">rpp::source::just</a>(3, 4, 5, 6))</div>
+<div class="line">                              .subscribe([](<span class="keywordtype">int</span> v)</div>
+<div class="line">                              {</div>
+<div class="line">                                  std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>;</div>
+<div class="line">                              });</div>
+<div class="line">    <span class="comment">// Output: 7 8 9</span></div>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/combinelatest.html">https://reactivex.io/documentation/operators/combinelatest.html</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the with_latest_from operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;rpp/operators/with_latest_from.h&gt; </dd></dl>
 
 </div>
 </div>

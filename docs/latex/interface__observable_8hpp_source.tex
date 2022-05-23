@@ -52,41 +52,42 @@
 \DoxyCodeLine{69     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::multicast\_tag>}
 \DoxyCodeLine{70     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::repeat\_tag>}
 \DoxyCodeLine{71     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::subscribe\_on\_tag>}
-\DoxyCodeLine{72 \{}
-\DoxyCodeLine{73 \textcolor{keyword}{public}:}
-\DoxyCodeLine{81     \textcolor{keyword}{template}<details::op\_fn<SpecificObservable> OperatorFn>}
-\DoxyCodeLine{82     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}(OperatorFn\&\& fn) \textcolor{keyword}{const} \&}
-\DoxyCodeLine{83     \{}
-\DoxyCodeLine{84         \textcolor{keywordflow}{return} fn(CastThis());}
-\DoxyCodeLine{85     \}}
-\DoxyCodeLine{86 }
-\DoxyCodeLine{87     \textcolor{keyword}{template}<details::op\_fn<SpecificObservable> OperatorFn>}
-\DoxyCodeLine{88     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}(OperatorFn\&\& fn) \&\&}
-\DoxyCodeLine{89     \{}
-\DoxyCodeLine{90         \textcolor{keywordflow}{return} fn(MoveThis());}
-\DoxyCodeLine{91     \}}
-\DoxyCodeLine{92 }
-\DoxyCodeLine{96     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_a1aed1c6edd83e7091c2bdc3b15b2beee}{as\_blocking}}() const \&}
-\DoxyCodeLine{97     \{}
-\DoxyCodeLine{98         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}\{ CastThis ()\};}
-\DoxyCodeLine{99     \}}
-\DoxyCodeLine{100 }
-\DoxyCodeLine{101     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_a1aed1c6edd83e7091c2bdc3b15b2beee}{as\_blocking}}()\&\&}
-\DoxyCodeLine{102     \{}
-\DoxyCodeLine{103         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}\{ MoveThis() \};}
-\DoxyCodeLine{104     \}}
-\DoxyCodeLine{105     }
-\DoxyCodeLine{106 \textcolor{keyword}{private}:}
-\DoxyCodeLine{107     \textcolor{keyword}{const} SpecificObservable\& CastThis()\textcolor{keyword}{ const}}
-\DoxyCodeLine{108 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{109         \textcolor{keywordflow}{return} *\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
-\DoxyCodeLine{110     \}}
-\DoxyCodeLine{111 }
-\DoxyCodeLine{112     SpecificObservable\&\& MoveThis()}
-\DoxyCodeLine{113     \{}
-\DoxyCodeLine{114         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
-\DoxyCodeLine{115     \}}
-\DoxyCodeLine{116 \};}
-\DoxyCodeLine{117 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{72     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::with\_latest\_from\_tag>}
+\DoxyCodeLine{73 \{}
+\DoxyCodeLine{74 \textcolor{keyword}{public}:}
+\DoxyCodeLine{82     \textcolor{keyword}{template}<details::op\_fn<SpecificObservable> OperatorFn>}
+\DoxyCodeLine{83     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}(OperatorFn\&\& fn) \textcolor{keyword}{const} \&}
+\DoxyCodeLine{84     \{}
+\DoxyCodeLine{85         \textcolor{keywordflow}{return} fn(CastThis());}
+\DoxyCodeLine{86     \}}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88     \textcolor{keyword}{template}<details::op\_fn<SpecificObservable> OperatorFn>}
+\DoxyCodeLine{89     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}(OperatorFn\&\& fn) \&\&}
+\DoxyCodeLine{90     \{}
+\DoxyCodeLine{91         \textcolor{keywordflow}{return} fn(MoveThis());}
+\DoxyCodeLine{92     \}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{97     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_a1aed1c6edd83e7091c2bdc3b15b2beee}{as\_blocking}}() const \&}
+\DoxyCodeLine{98     \{}
+\DoxyCodeLine{99         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}\{ CastThis ()\};}
+\DoxyCodeLine{100     \}}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_a1aed1c6edd83e7091c2bdc3b15b2beee}{as\_blocking}}()\&\&}
+\DoxyCodeLine{103     \{}
+\DoxyCodeLine{104         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}\{ MoveThis() \};}
+\DoxyCodeLine{105     \}}
+\DoxyCodeLine{106     }
+\DoxyCodeLine{107 \textcolor{keyword}{private}:}
+\DoxyCodeLine{108     \textcolor{keyword}{const} SpecificObservable\& CastThis()\textcolor{keyword}{ const}}
+\DoxyCodeLine{109 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{110         \textcolor{keywordflow}{return} *\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
+\DoxyCodeLine{111     \}}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113     SpecificObservable\&\& MoveThis()}
+\DoxyCodeLine{114     \{}
+\DoxyCodeLine{115         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{116     \}}
+\DoxyCodeLine{117 \};}
+\DoxyCodeLine{118 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

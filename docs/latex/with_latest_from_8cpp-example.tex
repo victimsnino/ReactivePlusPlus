@@ -1,0 +1,24 @@
+\hypertarget{with_latest_from_8cpp-example}{}\doxysection{with\+\_\+latest\+\_\+from.\+cpp}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(1, 2, 3).with\_latest\_from(\mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(3, 4, 5, 6))}
+\DoxyCodeLine{        .subscribe([](std::tuple<int,int> v) \{ std::cout << std::get<0>(v) << \textcolor{stringliteral}{"{}:"{}} << std::get<1>(v) << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1:6 2:6 3:6}}
+\DoxyCodeLine{\textcolor{comment}{}}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(1, 2, 3).with\_latest\_from([](\textcolor{keywordtype}{int} left, \textcolor{keywordtype}{int} right) \{ \textcolor{keywordflow}{return} left + right; \},}
+\DoxyCodeLine{                                                \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(3, 4, 5, 6))}
+\DoxyCodeLine{                              .subscribe([](\textcolor{keywordtype}{int} v)}
+\DoxyCodeLine{                              \{}
+\DoxyCodeLine{                                  std::cout << v << \textcolor{stringliteral}{"{} "{}};}
+\DoxyCodeLine{                              \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 7 8 9}}
+\DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 
