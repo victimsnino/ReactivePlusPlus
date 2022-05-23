@@ -11,6 +11,7 @@
 
 #include <rpp/observables/details/member_overload.hpp>
 #include <rpp/observables/constraints.hpp>
+#include <rpp/utils/functors.hpp>
 
 #include <tuple>
 
@@ -21,10 +22,6 @@ struct with_latest_from_tag;
 
 namespace rpp::details
 {
-struct pack_to_tuple
-{
-    auto operator()(auto&& ...vals) const { return std::make_tuple(std::forward<decltype(vals)>(vals)...); }
-};
 template<constraint::decayed_type Type, constraint::observable ...TObservables, std::invocable<Type, utils::extract_observable_type_t<TObservables>...> TSelector >
 static auto with_latest_from_impl(TSelector&& selector, TObservables&&...observables);
 
@@ -32,13 +29,15 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, with_latest_from_tag>
 {
     /**
-    * \brief
+    * \brief combines latest emissions from multiple observables, but sends to observer only when root observable sends values
     *
-    * \details
-    *	
-    * Example:
+    * \details when observables from arguments send some value, then these values cached/replaced, but when root observable sends value, then this value aggregated together with cached
+    * by default selector creates tuple of values
     *
-    * \see 
+    * \snippet with_latest_from.cpp with_latest_from
+    * \snippet with_latest_from.cpp with_latest_from custom selector
+    *
+    * \see https://reactivex.io/documentation/operators/combinelatest.html
     *
     * \return new specific_observable with the with_latest_from operator as most recent operator.
     * \warning #include <rpp/operators/with_latest_from.h>
@@ -59,13 +58,13 @@ struct member_overload<Type, SpecificObservable, with_latest_from_tag>
     template<constraint::observable ...TObservables>
     auto with_latest_from(TObservables&&...observables) const& requires is_header_included<with_latest_from_tag, TObservables...>
     {
-        return static_cast<const SpecificObservable*>(this)->with_latest_from(pack_to_tuple{}, std::forward<TObservables>(observables)...);
+        return static_cast<const SpecificObservable*>(this)->with_latest_from(utils::pack_to_tuple{}, std::forward<TObservables>(observables)...);
     }
 
     template<constraint::observable ...TObservables>
     auto with_latest_from(TObservables&&...observables) && requires is_header_included<with_latest_from_tag, TObservables...>
     {
-        return std::move(*static_cast<SpecificObservable*>(this)).with_latest_from(pack_to_tuple{}, std::forward<TObservables>(observables)...);
+        return std::move(*static_cast<SpecificObservable*>(this)).with_latest_from(utils::pack_to_tuple{}, std::forward<TObservables>(observables)...);
     }
 };
 } // namespace rpp::details
