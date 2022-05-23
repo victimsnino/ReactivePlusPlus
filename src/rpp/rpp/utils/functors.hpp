@@ -12,6 +12,7 @@
 
 #include <exception>
 #include <utility>
+#include <tuple>
 
 namespace rpp::utils
 {
@@ -43,4 +44,9 @@ auto make_forwarding_on_completed(const Observer& obs)
 {
     return [obs](){obs.on_completed();};
 }
+
+struct pack_to_tuple
+{
+    auto operator()(auto&& ...vals) const { return std::make_tuple(std::forward<decltype(vals)>(vals)...); }
+};
 } // namespace rpp::utils

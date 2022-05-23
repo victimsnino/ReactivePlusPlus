@@ -21,3 +21,4 @@
 #include <rpp/operators/fwd/ref_count.hpp>
 #include <rpp/operators/fwd/repeat.hpp>
 #include <rpp/operators/fwd/subscribe_on.hpp>
+#include <rpp/operators/fwd/with_latest_from.hpp>
