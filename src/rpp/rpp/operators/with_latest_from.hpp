@@ -17,8 +17,7 @@
 #include <rpp/utils/utilities.hpp>
 #include <rpp/utils/functors.hpp>
 
-
-#include <shared_mutex>
+#include <mutex>
 #include <array>
 
 IMPLEMENTATION_FILE(with_latest_from_tag);
