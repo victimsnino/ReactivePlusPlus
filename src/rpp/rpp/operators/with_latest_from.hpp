@@ -51,7 +51,7 @@ void with_latest_from_subscribe_observables(std::index_sequence<I...>,
 template<constraint::observable ...TObservables>
 struct with_latest_from_state_t
 {
-    std::array<std::shared_mutex, sizeof...(TObservables)>                       mutexes{};
+    std::array<std::mutex, sizeof...(TObservables)>                              mutexes{};
     std::tuple<std::optional<utils::extract_observable_type_t<TObservables>>...> vals{};
 
     auto apply_under_lock(const auto& selector)
