@@ -27,4 +27,5 @@ using optional_duration = std::optional<duration>;
 
 class immediate;
 class new_thread;
+class run_loop;
 } // namespace rpp::schedulers

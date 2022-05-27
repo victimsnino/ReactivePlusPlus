@@ -13,6 +13,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <rpp/schedulers/immediate_scheduler.hpp>
 #include <rpp/schedulers/new_thread_scheduler.hpp>
+#include <rpp/schedulers/run_loop_scheduler.hpp>
 
 #include <future>
 
@@ -294,6 +295,50 @@ SCENARIO("New thread scheduler depends on subscription")
                 sub.unsubscribe();
                 REQUIRE(future.wait_for(diff)==std::future_status::timeout);
                 CHECK(future.valid());
+            }
+        }
+    }
+}
+
+SCENARIO("RunLoop scheduler dispatches tasks only manually")
+{
+    GIVEN("run loop scheduler")
+    {
+        auto scheduler = rpp::schedulers::run_loop{};
+        WHEN("submit work to it")
+        {
+            size_t schedulable_1_executed_count{};
+            size_t schedulable_2_executed_count{};
+            scheduler.create_worker().schedule([&]() -> rpp::schedulers::optional_duration {++schedulable_1_executed_count; return {}; });
+            scheduler.create_worker().schedule([&]() -> rpp::schedulers::optional_duration {++schedulable_2_executed_count; return {}; });
+            THEN("nothing happens but scheduler has schedulable to dispatch")
+            {
+                CHECK(schedulable_1_executed_count == 0);
+                CHECK(schedulable_2_executed_count == 0);
+                CHECK(scheduler.is_empty() == false);
+                CHECK(scheduler.is_any_ready_schedulable() == true);
+            }
+            AND_WHEN("call dispatch")
+            {
+                scheduler.dispatch_if_ready();
+                THEN("only first schedulable dispatched")
+                {
+                    CHECK(schedulable_1_executed_count == 1);
+                    CHECK(schedulable_2_executed_count == 0);
+                    CHECK(scheduler.is_empty() == false);
+                    CHECK(scheduler.is_any_ready_schedulable() == true);
+                }
+                AND_WHEN("call dispatch again")
+                {
+                    scheduler.dispatch_if_ready();
+                    THEN("both schedulable dispatched")
+                    {
+                        CHECK(schedulable_1_executed_count == 1);
+                        CHECK(schedulable_2_executed_count == 1);
+                        CHECK(scheduler.is_empty() == true);
+                        CHECK(scheduler.is_any_ready_schedulable() == false);
+                    }
+                }
             }
         }
     }
