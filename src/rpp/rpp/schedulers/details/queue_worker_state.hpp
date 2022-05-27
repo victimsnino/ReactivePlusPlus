@@ -35,6 +35,12 @@ public:
         return m_queue.empty();
     }
 
+    bool is_any_ready_schedulable() const
+    {
+        std::lock_guard lock{ m_mutex };
+        return is_any_ready_schedulable_unsafe();
+    }
+
     bool pop_if_ready(std::function<void()>& out)
     {
         std::lock_guard lock{ m_mutex };
