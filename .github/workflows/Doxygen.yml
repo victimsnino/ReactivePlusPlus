@@ -11,6 +11,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Install deps
+      run: pip3 install rxmarbles
+    
+    - name: Generate marbles
+      run: python3  ${{github.workspace}}/ci/generate_marbles.py
         
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1.9.2
