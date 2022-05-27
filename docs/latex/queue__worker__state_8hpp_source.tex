@@ -39,90 +39,96 @@
 \DoxyCodeLine{35         \textcolor{keywordflow}{return} m\_queue.empty();}
 \DoxyCodeLine{36     \}}
 \DoxyCodeLine{37 }
-\DoxyCodeLine{38     \textcolor{keywordtype}{bool} pop\_if\_ready(std::function<\textcolor{keywordtype}{void}()>\& out)}
-\DoxyCodeLine{39     \{}
+\DoxyCodeLine{38     \textcolor{keywordtype}{bool} is\_any\_ready\_schedulable()\textcolor{keyword}{ const}}
+\DoxyCodeLine{39 \textcolor{keyword}{    }\{}
 \DoxyCodeLine{40         std::lock\_guard lock\{ m\_mutex \};}
-\DoxyCodeLine{41         \textcolor{keywordflow}{if} (!is\_any\_ready\_schedulable\_unsafe())}
-\DoxyCodeLine{42             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{41         \textcolor{keywordflow}{return} is\_any\_ready\_schedulable\_unsafe();}
+\DoxyCodeLine{42     \}}
 \DoxyCodeLine{43 }
-\DoxyCodeLine{44         out = std::move(m\_queue.top().ExtractFunction());}
-\DoxyCodeLine{45         m\_queue.pop();}
-\DoxyCodeLine{46         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{47     \}}
-\DoxyCodeLine{48 }
-\DoxyCodeLine{49     \textcolor{keywordtype}{bool} pop\_with\_wait(std::function<\textcolor{keywordtype}{void}()>\& out, \textcolor{keyword}{const} std::stop\_token\& token)}
-\DoxyCodeLine{50     \{}
-\DoxyCodeLine{51         \textcolor{keywordflow}{while} (!token.stop\_requested())}
-\DoxyCodeLine{52         \{}
-\DoxyCodeLine{53             std::unique\_lock lock\{m\_mutex\};}
+\DoxyCodeLine{44     \textcolor{keywordtype}{bool} pop\_if\_ready(std::function<\textcolor{keywordtype}{void}()>\& out)}
+\DoxyCodeLine{45     \{}
+\DoxyCodeLine{46         std::lock\_guard lock\{ m\_mutex \};}
+\DoxyCodeLine{47         \textcolor{keywordflow}{if} (!is\_any\_ready\_schedulable\_unsafe())}
+\DoxyCodeLine{48             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50         out = std::move(m\_queue.top().ExtractFunction());}
+\DoxyCodeLine{51         m\_queue.pop();}
+\DoxyCodeLine{52         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{53     \}}
 \DoxyCodeLine{54 }
-\DoxyCodeLine{55             \textcolor{keywordflow}{if} (!m\_cv.wait(lock, token, [\&] \{ return !m\_queue.empty(); \}))}
-\DoxyCodeLine{56                 \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{57 }
-\DoxyCodeLine{58             \textcolor{keywordflow}{if} (!m\_cv.wait\_until(lock,}
-\DoxyCodeLine{59                                  token,}
-\DoxyCodeLine{60                                  m\_queue.top().GetTimePoint(),}
-\DoxyCodeLine{61                                  std::bind\_front(\&queue\_worker\_state::is\_any\_ready\_schedulable\_unsafe, \textcolor{keyword}{this})))}
+\DoxyCodeLine{55     \textcolor{keywordtype}{bool} pop\_with\_wait(std::function<\textcolor{keywordtype}{void}()>\& out, \textcolor{keyword}{const} std::stop\_token\& token)}
+\DoxyCodeLine{56     \{}
+\DoxyCodeLine{57         \textcolor{keywordflow}{while} (!token.stop\_requested())}
+\DoxyCodeLine{58         \{}
+\DoxyCodeLine{59             std::unique\_lock lock\{m\_mutex\};}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61             \textcolor{keywordflow}{if} (!m\_cv.wait(lock, token, [\&] \{ return !m\_queue.empty(); \}))}
 \DoxyCodeLine{62                 \textcolor{keywordflow}{continue};}
 \DoxyCodeLine{63 }
-\DoxyCodeLine{64             out = std::move(m\_queue.top().ExtractFunction());}
-\DoxyCodeLine{65             m\_queue.pop();}
-\DoxyCodeLine{66             \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{67         \}}
-\DoxyCodeLine{68         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{69     \}}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{71     \textcolor{keywordtype}{void} reset()}
-\DoxyCodeLine{72     \{}
-\DoxyCodeLine{73         std::lock\_guard lock\{ m\_mutex \};}
-\DoxyCodeLine{74         m\_queue = std::priority\_queue<schedulable>\{\};}
+\DoxyCodeLine{64             \textcolor{keywordflow}{if} (!m\_cv.wait\_until(lock,}
+\DoxyCodeLine{65                                  token,}
+\DoxyCodeLine{66                                  m\_queue.top().GetTimePoint(),}
+\DoxyCodeLine{67                                  std::bind\_front(\&queue\_worker\_state::is\_any\_ready\_schedulable\_unsafe, \textcolor{keyword}{this})))}
+\DoxyCodeLine{68                 \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70             out = std::move(m\_queue.top().ExtractFunction());}
+\DoxyCodeLine{71             m\_queue.pop();}
+\DoxyCodeLine{72             \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{73         \}}
+\DoxyCodeLine{74         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{75     \}}
 \DoxyCodeLine{76 }
-\DoxyCodeLine{77 \textcolor{keyword}{private}:}
-\DoxyCodeLine{78     \textcolor{keywordtype}{void} emplace\_safe(time\_point time\_point, std::invocable \textcolor{keyword}{auto}\&\& fn)}
-\DoxyCodeLine{79     \{}
-\DoxyCodeLine{80         std::lock\_guard lock\{ m\_mutex \};}
-\DoxyCodeLine{81         m\_queue.emplace(time\_point, ++m\_current\_id, std::forward<\textcolor{keyword}{decltype}(fn)>(fn));}
-\DoxyCodeLine{82     \}}
-\DoxyCodeLine{83 }
-\DoxyCodeLine{84     \textcolor{keywordtype}{bool} is\_any\_ready\_schedulable\_unsafe()\textcolor{keyword}{ const}}
-\DoxyCodeLine{85 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{86         \textcolor{keywordflow}{return} !m\_queue.empty() \&\& m\_queue.top().GetTimePoint() <= clock\_type::now();}
-\DoxyCodeLine{87     \}}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{89 \textcolor{keyword}{private}:}
-\DoxyCodeLine{90     \textcolor{keyword}{class }schedulable}
-\DoxyCodeLine{91     \{}
-\DoxyCodeLine{92     \textcolor{keyword}{public}:}
-\DoxyCodeLine{93         schedulable(time\_point time\_point, \textcolor{keywordtype}{size\_t} \textcolor{keywordtype}{id}, std::invocable \textcolor{keyword}{auto}\&\& fn)}
-\DoxyCodeLine{94             : m\_time\_point\{ time\_point \}}
-\DoxyCodeLine{95             , m\_id\{ \textcolor{keywordtype}{id} \}}
-\DoxyCodeLine{96             , m\_function\{ std::forward<decltype(fn)>(fn) \} \{\}}
-\DoxyCodeLine{97 }
-\DoxyCodeLine{98         schedulable(\textcolor{keyword}{const} schedulable\& other) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{99         schedulable(schedulable\&\& other) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{100         schedulable\& operator=(\textcolor{keyword}{const} schedulable\& other) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{101         schedulable\& operator=(schedulable\&\& other) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{102 }
-\DoxyCodeLine{103         \textcolor{keywordtype}{bool} operator<(\textcolor{keyword}{const} schedulable\& other)\textcolor{keyword}{ const}}
-\DoxyCodeLine{104 \textcolor{keyword}{        }\{}
-\DoxyCodeLine{105             \textcolor{keywordflow}{return} std::tie(m\_time\_point, m\_id) >= std::tie(other.m\_time\_point, other.m\_id);}
-\DoxyCodeLine{106         \}}
-\DoxyCodeLine{107 }
-\DoxyCodeLine{108         time\_point              GetTimePoint()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_time\_point; \}}
-\DoxyCodeLine{109         std::function<void()>\&\& ExtractFunction()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} std::move(m\_function); \}}
-\DoxyCodeLine{110 }
-\DoxyCodeLine{111     \textcolor{keyword}{private}:}
-\DoxyCodeLine{112         time\_point                    m\_time\_point;}
-\DoxyCodeLine{113         \textcolor{keywordtype}{size\_t}                        m\_id;}
-\DoxyCodeLine{114         \textcolor{keyword}{mutable} std::function<void()> m\_function;}
-\DoxyCodeLine{115     \};}
+\DoxyCodeLine{77     \textcolor{keywordtype}{void} reset()}
+\DoxyCodeLine{78     \{}
+\DoxyCodeLine{79         std::lock\_guard lock\{ m\_mutex \};}
+\DoxyCodeLine{80         m\_queue = std::priority\_queue<schedulable>\{\};}
+\DoxyCodeLine{81     \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 \textcolor{keyword}{private}:}
+\DoxyCodeLine{84     \textcolor{keywordtype}{void} emplace\_safe(time\_point time\_point, std::invocable \textcolor{keyword}{auto}\&\& fn)}
+\DoxyCodeLine{85     \{}
+\DoxyCodeLine{86         std::lock\_guard lock\{ m\_mutex \};}
+\DoxyCodeLine{87         m\_queue.emplace(time\_point, ++m\_current\_id, std::forward<\textcolor{keyword}{decltype}(fn)>(fn));}
+\DoxyCodeLine{88     \}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90     \textcolor{keywordtype}{bool} is\_any\_ready\_schedulable\_unsafe()\textcolor{keyword}{ const}}
+\DoxyCodeLine{91 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{92         \textcolor{keywordflow}{return} !m\_queue.empty() \&\& m\_queue.top().GetTimePoint() <= clock\_type::now();}
+\DoxyCodeLine{93     \}}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95 \textcolor{keyword}{private}:}
+\DoxyCodeLine{96     \textcolor{keyword}{class }schedulable}
+\DoxyCodeLine{97     \{}
+\DoxyCodeLine{98     \textcolor{keyword}{public}:}
+\DoxyCodeLine{99         schedulable(time\_point time\_point, \textcolor{keywordtype}{size\_t} \textcolor{keywordtype}{id}, std::invocable \textcolor{keyword}{auto}\&\& fn)}
+\DoxyCodeLine{100             : m\_time\_point\{ time\_point \}}
+\DoxyCodeLine{101             , m\_id\{ \textcolor{keywordtype}{id} \}}
+\DoxyCodeLine{102             , m\_function\{ std::forward<decltype(fn)>(fn) \} \{\}}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104         schedulable(\textcolor{keyword}{const} schedulable\& other) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{105         schedulable(schedulable\&\& other) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{106         schedulable\& operator=(\textcolor{keyword}{const} schedulable\& other) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{107         schedulable\& operator=(schedulable\&\& other) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{109         \textcolor{keywordtype}{bool} operator<(\textcolor{keyword}{const} schedulable\& other)\textcolor{keyword}{ const}}
+\DoxyCodeLine{110 \textcolor{keyword}{        }\{}
+\DoxyCodeLine{111             \textcolor{keywordflow}{return} std::tie(m\_time\_point, m\_id) >= std::tie(other.m\_time\_point, other.m\_id);}
+\DoxyCodeLine{112         \}}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114         time\_point              GetTimePoint()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_time\_point; \}}
+\DoxyCodeLine{115         std::function<void()>\&\& ExtractFunction()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} std::move(m\_function); \}}
 \DoxyCodeLine{116 }
-\DoxyCodeLine{117     \textcolor{keyword}{mutable} std::mutex               m\_mutex\{\};}
-\DoxyCodeLine{118     std::condition\_variable\_any      m\_cv\{\};}
-\DoxyCodeLine{119     std::priority\_queue<schedulable> m\_queue\{\};}
-\DoxyCodeLine{120     \textcolor{keywordtype}{size\_t}                           m\_current\_id\{\};}
-\DoxyCodeLine{121 \};}
-\DoxyCodeLine{122 \} \textcolor{comment}{// namespace rpp::schedulers::details}}
+\DoxyCodeLine{117     \textcolor{keyword}{private}:}
+\DoxyCodeLine{118         time\_point                    m\_time\_point;}
+\DoxyCodeLine{119         \textcolor{keywordtype}{size\_t}                        m\_id;}
+\DoxyCodeLine{120         \textcolor{keyword}{mutable} std::function<void()> m\_function;}
+\DoxyCodeLine{121     \};}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{123     \textcolor{keyword}{mutable} std::mutex               m\_mutex\{\};}
+\DoxyCodeLine{124     std::condition\_variable\_any      m\_cv\{\};}
+\DoxyCodeLine{125     std::priority\_queue<schedulable> m\_queue\{\};}
+\DoxyCodeLine{126     \textcolor{keywordtype}{size\_t}                           m\_current\_id\{\};}
+\DoxyCodeLine{127 \};}
+\DoxyCodeLine{128 \} \textcolor{comment}{// namespace rpp::schedulers::details}}
 
 \end{DoxyCode}
