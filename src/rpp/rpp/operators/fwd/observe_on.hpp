@@ -28,18 +28,17 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, observe_on_tag>
 {
     /**
-    * \brief transfer emissions of items to provided scheduler
-    *
-    * \details after applying this operator all next emissions will be provided via scheduler
-    *	
-    * Example:
-    * \snippet observe_on.cpp observe_on
-    *
-    * \see https://reactivex.io/documentation/operators/observeon.html
-    *
+    * \brief Emit emissions of observable starting from this point via provided scheduler
+    * 
+    * \param scheduler is scheduler used for scheduling of OnNext
     * \return new specific_observable with the observe_on operator as most recent operator.
     * \warning #include <rpp/operators/observe_on.hpp>
-    * \ingroup operators
+    * 
+    * \par Example:
+    * \snippet observe_on.cpp observe_on
+    *
+    * \ingroup utility_operators
+    * \see https://reactivex.io/documentation/operators/observeon.html
     */
     template<schedulers::constraint::scheduler TScheduler>
     auto observe_on(TScheduler&& scheduler) const& requires is_header_included<observe_on_tag, TScheduler>
