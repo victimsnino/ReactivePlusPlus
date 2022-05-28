@@ -38,7 +38,7 @@ struct member_overload<Type, SpecificObservable, filter_tag>
      * \return new specific_observable with the Filter operator as most recent operator.
      * \warning #include <rpp/operators/filter.hpp>
      * 
-     * Example:
+     * \par Example:
      * \snippet filter.cpp Filter
      *
      * \ingroup filtering_operators
