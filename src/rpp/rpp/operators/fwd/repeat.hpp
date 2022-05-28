@@ -41,7 +41,7 @@ struct member_overload<Type, SpecificObservable, repeat_tag>
     *  - `count(1)`  - behave like ordinal observable
     *  - `count(10)` - 1 normal subscription and 9 re-subscriptions during on_completed
     * \return new specific_observable with the repeat operator as most recent operator.
-    * \warning #include <rpp/operators/repeat.h>
+    * \warning #include <rpp/operators/repeat.hpp>
     * \ingroup operators
     */
     template<typename...Args>
@@ -64,7 +64,7 @@ struct member_overload<Type, SpecificObservable, repeat_tag>
     * \see https://reactivex.io/documentation/operators/repeat.html
     *
     * \return new specific_observable with the repeat operator as most recent operator.
-    * \warning #include <rpp/operators/repeat.h>
+    * \warning #include <rpp/operators/repeat.hpp>
     * \ingroup operators
     */
     template<typename...Args>

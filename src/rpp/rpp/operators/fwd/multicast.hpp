@@ -36,7 +36,7 @@ struct member_overload<Type, SpecificObservable, multicast_tag>
     * \see https://reactivex.io/documentation/operators/publish.html
     *
     * \return new specific_observable with the multicast operator as most recent operator.
-    * \warning #include <rpp/operators/multicast.h>
+    * \warning #include <rpp/operators/multicast.hpp>
     * \ingroup operators
     */
     template<subjects::constraint::subject_of_type<Type> TSubject>

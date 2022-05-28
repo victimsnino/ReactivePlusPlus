@@ -35,7 +35,7 @@ struct member_overload<Type, SpecificObservable, merge_tag>
     *
     * \warning According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
     * 
-    * \marble{merge,
+    * \marble merge
         {
             source observable                : 
             {   
@@ -43,7 +43,7 @@ struct member_overload<Type, SpecificObservable, merge_tag>
                 .....+4--6-|
             }
             operator "merge" : +--1-243-6-|
-        }}
+        }
     *
     * \return new specific_observable with the merge operator as most recent operator.
     * \warning #include <rpp/operators/merge.hpp>
@@ -71,17 +71,17 @@ struct member_overload<Type, SpecificObservable, merge_tag>
     *
     * \warning According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
     *
-    * \marble{merge_with,
+    * \marble merge_with
         {
             source original_observable: +--1-2-3-|
             source second: +-----4--6-|
             operator "merge_with" : +--1-243-6-|
-        }}
+        }
     * \param observables are observables whose emissions would be merged with current observable
     * \return new specific_observable with the merge operator as most recent operator.
     * \warning #include <rpp/operators/merge.hpp>
     * 
-    * Example:
+    * \par Example:
     * \snippet merge.cpp merge_with
     *
     * \ingroup combining_operators

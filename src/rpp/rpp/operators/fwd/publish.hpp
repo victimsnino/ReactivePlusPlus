@@ -35,7 +35,7 @@ struct member_overload<Type, SpecificObservable, publish_tag>
     * \see https://reactivex.io/documentation/operators/publish.html
     *
     * \return new specific_observable with the publish operator as most recent operator.
-    * \warning #include <rpp/operators/publish.h>
+    * \warning #include <rpp/operators/publish.hpp>
     * \ingroup operators
     */
     template<typename ...Args>

@@ -35,7 +35,7 @@ struct member_overload<Type, SpecificObservable, ref_count_tag>
     * \see https://reactivex.io/documentation/operators/refcount.html
     *
     * \return new specific_observable with the ref_count operator as most recent operator.
-    * \warning #include <rpp/operators/ref_count.h>
+    * \warning #include <rpp/operators/ref_count.hpp>
     * \ingroup operators
     */
     template<typename ...Args>

@@ -29,11 +29,11 @@ struct member_overload<Type, SpecificObservable, map_tag>
      * \brief Transform the items emitted by an Observable via applying a function to each item and emitting result
      * \note The Map operator can keep same type of value or change it to some another type.
      * 
-     * \marble{map,
+     * \marble map
         {
             source observable       : +--1   -2   --3   -|
             operator "map: x=>x+10" : +--(10)-(12)--(13)-|
-        }}
+        }
      *
      * \param callable is callable used to provide this transformation. Should accept Type of original observable and return type for new observable
      * \return new specific_observable with the Map operator as most recent operator.

@@ -28,11 +28,11 @@ struct member_overload<Type, SpecificObservable, take_tag>
     /**
      * \brief Emit only first `count` items provided by observable, then send `on_completed`
      *
-     * \marble{take,
+     * \marble take
         {
             source observable  : +--1-2-3-4-5-6-|
             operator "take(3)" : +--1-2-3|
-        }}
+        }
      * \param count amount of items to be emitted. 0 - instant complete
      * \return new specific_observable with the Take operator as most recent operator.
      * \warning #include <rpp/operators/take.hpp>

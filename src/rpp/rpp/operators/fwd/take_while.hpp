@@ -28,11 +28,11 @@ struct member_overload<Type, SpecificObservable, take_while_tag>
     /**
      * \brief Sends items provided by observable while items are satisfy predicate. When condition becomes false -> sends `on_completed`
      *
-     * \marble{take_while,
+     * \marble take_while
         {
             source observable                : +--1-2-3-4-5-6-|
             operator "take_while: x => x!=3" : +--1-2-|
-        }}
+        }
      * \param predicate is predicate used to check items
      * \return new specific_observable with the take_while operator as most recent operator.
      * \warning #include <rpp/operators/take_while.hpp>

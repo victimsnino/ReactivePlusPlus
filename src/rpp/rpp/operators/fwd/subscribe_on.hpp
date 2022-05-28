@@ -37,7 +37,7 @@ struct member_overload<Type, SpecificObservable, subscribe_on_tag>
     * \see https://reactivex.io/documentation/operators/subscribeon.html
     *
     * \return new specific_observable with the subscribe_on operator as most recent operator.
-    * \warning #include <rpp/operators/subscribe_on.h>
+    * \warning #include <rpp/operators/subscribe_on.hpp>
     * \ingroup operators
     */
     template<schedulers::constraint::scheduler TScheduler>

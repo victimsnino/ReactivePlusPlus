@@ -28,11 +28,11 @@ struct member_overload<Type, SpecificObservable, filter_tag>
     /**
      * \brief Emit only those items from an Observable that satisfies a provided predicate
      * 
-     * \marble{filter,
+     * \marble filter
         {
             source observable            : +--1-2-3-4-|
             operator "filter: x=>x%2==0" : +----2---4-|
-        }}
+        }
      * 
      * \param predicate is predicate used to check emitted items. true -> items satisfies condition, false -> not
      * \return new specific_observable with the Filter operator as most recent operator.
