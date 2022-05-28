@@ -35,7 +35,7 @@ struct member_overload<Type, SpecificObservable, map_tag>
             operator "map: x=>x+10" : +--(10)-(12)--(13)-|
         }}
      *
-     * \tparam Callable type of callable used to provide this transformation. Should accept Type of original observable and return type for new observable
+     * \param callable is callable used to provide this transformation. Should accept Type of original observable and return type for new observable
      * \return new specific_observable with the Map operator as most recent operator.
      * \warning #include <rpp/operators/map.hpp>
      * 

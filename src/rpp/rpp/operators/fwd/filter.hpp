@@ -34,7 +34,7 @@ struct member_overload<Type, SpecificObservable, filter_tag>
             operator "filter: x=>x%2==0" : +----2---4-|
         }}
      * 
-     * \tparam Predicate type of predicate used to check emitted items. true -> items satisfies condition, false -> not
+     * \param predicate is predicate used to check emitted items. true -> items satisfies condition, false -> not
      * \return new specific_observable with the Filter operator as most recent operator.
      * \warning #include <rpp/operators/filter.hpp>
      * 

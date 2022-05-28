@@ -77,7 +77,7 @@ struct member_overload<Type, SpecificObservable, merge_tag>
             source second: +-----4--6-|
             operator "merge_with" : +--1-243-6-|
         }}
-    * 
+    * \param observables are observables whose emissions would be merged with current observable
     * \return new specific_observable with the merge operator as most recent operator.
     * \warning #include <rpp/operators/merge.hpp>
     * 

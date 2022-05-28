@@ -33,7 +33,7 @@ struct member_overload<Type, SpecificObservable, take_while_tag>
             source observable                : +--1-2-3-4-5-6-|
             operator "take_while: x => x!=3" : +--1-2-|
         }}
-     * \tparam Predicate type of predicate used to check items
+     * \param predicate is predicate used to check items
      * \return new specific_observable with the take_while operator as most recent operator.
      * \warning #include <rpp/operators/take_while.hpp>
      * 
