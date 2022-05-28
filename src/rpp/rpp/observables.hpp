@@ -10,6 +10,12 @@
 
 #pragma once
 
+/**
+ * \defgroup observables Observables
+ * \brief Observable is the source of any Reactive Stream. Observable provides ability to subscribe observer on some events.
+ * \see https://reactivex.io/documentation/observable.html
+ */
+
 #include <rpp/observables/specific_observable.hpp>
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/observables/blocking_observable.hpp>

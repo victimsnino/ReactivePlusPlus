@@ -29,7 +29,12 @@ struct member_overload<Type, SpecificObservable, map_tag>
      * \brief transform the items emitted by an Observable by applying a function to each item
      *
      * \details The Map operator applies a function of your choosing to each item emitted by the source Observable, and returns an Observable that emits the results of these function applications.
-     *
+     * 
+     * \marble{map,
+        {
+            source observable       : +--1   -2   --3   -|
+            operator "map: x=>x*10" : +--(10)-(20)--(30)-|
+        }}
      * The Map operator can keep same type of value or change it to some another type.
      *
      * Example with same type:
@@ -40,10 +45,11 @@ struct member_overload<Type, SpecificObservable, map_tag>
      *
      * \see https://reactivex.io/documentation/operators/map.html
      *
+     *
      * \tparam Callable type of callable used to provide this transformation
      * \return new specific_observable with the Map operator as most recent operator.
      * \warning #include <rpp/operators/map.hpp>
-     * \ingroup operators
+     * \ingroup chain
      */
     template<std::invocable<Type> Callable>
     auto map(Callable&& callable) const & requires is_header_included<map_tag, Callable>

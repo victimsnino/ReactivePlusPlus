@@ -14,11 +14,6 @@
 
 #include <exception>
 
-/**
- * \defgroup observers Observers
- * \brief Observer subscribe on observable and obtains values provided by observable.
- */
-
 namespace rpp
 {
 namespace details
