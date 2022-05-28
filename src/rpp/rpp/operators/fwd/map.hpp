@@ -26,7 +26,7 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, map_tag>
 {
     /**
-     * \brief transform the items emitted by an Observable via applying a function to each item and emitting result
+     * \brief Transform the items emitted by an Observable via applying a function to each item and emitting result
      * \note The Map operator can keep same type of value or change it to some another type.
      * 
      * \marble{map,
