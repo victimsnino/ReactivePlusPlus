@@ -64,15 +64,22 @@ struct member_overload<Type, SpecificObservable, repeat_tag>
     }
 
     /**
-    * \brief Forces observable to re-subscribe observer to this observable after on_completed infinitely
+    * \brief Re-subscribes on current observable during `on_completed` infinitely
     *
-    * \snippet repeat.cpp repeat_infinitely
-    *
-    * \see https://reactivex.io/documentation/operators/repeat.html
+    * \marble repeat_infinitely
+      {
+          source observable : +-1-2-3-|
+          operator "repeat" : +-1-2-3-1-2-3-1-2-3>
+      }	
     *
     * \return new specific_observable with the repeat operator as most recent operator.
     * \warning #include <rpp/operators/repeat.hpp>
-    * \ingroup operators
+    * 
+    * \par Examples:
+    * \snippet repeat.cpp repeat_infinitely
+    *
+    * \ingroup utility_operators
+    * \see https://reactivex.io/documentation/operators/repeat.html
     */
     template<typename...Args>
     auto repeat() const& requires is_header_included<repeat_tag, Args...>

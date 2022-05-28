@@ -27,16 +27,17 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, ref_count_tag>
 {
     /**
-    * \brief Forces connectable observable to behave like common observable
-    * \details Connects Connectable Observable on the first subscription and unsubscribes on last unsubscription
+    * \brief Forces rpp::connectable_observable to behave like common observable
+    * \details Connects rpp::connectable_observable on the first subscription and unsubscribes on last unsubscription
     *	
-    * \snippet ref_count.cpp ref_count
-    *
-    * \see https://reactivex.io/documentation/operators/refcount.html
-    *
     * \return new specific_observable with the ref_count operator as most recent operator.
     * \warning #include <rpp/operators/ref_count.hpp>
-    * \ingroup operators
+    * 
+    * \par Example
+    * \snippet ref_count.cpp ref_count
+    * 
+    * \ingroup connectable_operators
+    * \see https://reactivex.io/documentation/operators/refcount.html
     */
     template<typename ...Args>
     auto ref_count() const& requires is_header_included<ref_count_tag, Args...>
