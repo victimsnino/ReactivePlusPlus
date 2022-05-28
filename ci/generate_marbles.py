@@ -3,9 +3,11 @@ import importlib
 import os
 import fnmatch
 import re
+import shutil
 
 theme = importlib.import_module('rxmarbles.theme.default')
 gen_images_folder= os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'gen_images'))
+shutil.rmtree(gen_images_folder)
 os.makedirs(gen_images_folder, exist_ok=True)
 
 def generate_svg(name, text):
