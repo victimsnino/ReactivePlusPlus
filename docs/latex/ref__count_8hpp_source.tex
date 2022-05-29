@@ -1,0 +1,59 @@
+\hypertarget{ref__count_8hpp_source}{}\doxysection{ref\+\_\+count.\+hpp}
+\label{ref__count_8hpp_source}\index{src/rpp/rpp/operators/ref\_count.hpp@{src/rpp/rpp/operators/ref\_count.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/operators/fwd/ref\_count.hpp>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/sources/create.hpp>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 IMPLEMENTATION\_FILE(ref\_count\_tag);}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs>}
+\DoxyCodeLine{23 \textcolor{keyword}{auto} ref\_count\_impl(TObs\&\& observable)}
+\DoxyCodeLine{24 \{}
+\DoxyCodeLine{25     \textcolor{keyword}{struct }state\_t}
+\DoxyCodeLine{26     \{}
+\DoxyCodeLine{27         \textcolor{keywordtype}{size\_t}                 count\_of\_active\_subs\{\};}
+\DoxyCodeLine{28         composite\_subscription sub = composite\_subscription::empty();}
+\DoxyCodeLine{29         std::mutex             mutex\{\};}
+\DoxyCodeLine{30     \};}
+\DoxyCodeLine{31     \textcolor{keywordflow}{return} source::create<Type>([observable = std::forward<TObs>(observable), state = std::make\_shared<state\_t>()](\textcolor{keyword}{const} constraint::subscriber\_of\_type<Type> \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{32     \{}
+\DoxyCodeLine{33         \textcolor{keywordtype}{bool} need\_to\_connect = \textcolor{keyword}{false};}
+\DoxyCodeLine{34         \{}
+\DoxyCodeLine{35             std::lock\_guard lock\{state-\/>mutex\};}
+\DoxyCodeLine{36             need\_to\_connect = ++state-\/>count\_of\_active\_subs == 1;}
+\DoxyCodeLine{37             \textcolor{keywordflow}{if} (need\_to\_connect)}
+\DoxyCodeLine{38                 state-\/>sub = composite\_subscription\{\};}
+\DoxyCodeLine{39         \}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41         subscriber.get\_subscription().add([state = state]}
+\DoxyCodeLine{42         \{}
+\DoxyCodeLine{43             std::lock\_guard lock\{state-\/>mutex\};}
+\DoxyCodeLine{44             \textcolor{keywordflow}{if} (-\/-\/state-\/>count\_of\_active\_subs == 0)}
+\DoxyCodeLine{45                 state-\/>sub.unsubscribe();}
+\DoxyCodeLine{46         \});}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48         observable.subscribe(subscriber);}
+\DoxyCodeLine{49         \textcolor{keywordflow}{if} (need\_to\_connect)}
+\DoxyCodeLine{50             observable.connect(state-\/>sub);}
+\DoxyCodeLine{51     \});}
+\DoxyCodeLine{52 \}}
+\DoxyCodeLine{53 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

@@ -1,0 +1,53 @@
+\hypertarget{subscription__guard_8hpp_source}{}\doxysection{subscription\+\_\+guard.\+hpp}
+\label{subscription__guard_8hpp_source}\index{src/rpp/rpp/subscriptions/subscription\_guard.hpp@{src/rpp/rpp/subscriptions/subscription\_guard.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/subscriptions/subscription\_base.hpp>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }rpp}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{20 \textcolor{keyword}{class }subscription\_guard}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22 \textcolor{keyword}{public}:}
+\DoxyCodeLine{23     subscription\_guard(\textcolor{keyword}{const} subscription\_base\& sub)}
+\DoxyCodeLine{24         : m\_sub\{sub\} \{\}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26     subscription\_guard(\textcolor{keyword}{const} subscription\_guard\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28     subscription\_guard\& operator=(\textcolor{keyword}{const} subscription\_guard\& other)}
+\DoxyCodeLine{29     \{}
+\DoxyCodeLine{30         m\_sub.unsubscribe();}
+\DoxyCodeLine{31         m\_sub = other.m\_sub;}
+\DoxyCodeLine{32         \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{33     \}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \textcolor{keywordtype}{void} reset(\textcolor{keyword}{const} subscription\_base\& other)}
+\DoxyCodeLine{36     \{}
+\DoxyCodeLine{37         m\_sub.unsubscribe();}
+\DoxyCodeLine{38         m\_sub = other;}
+\DoxyCodeLine{39     \}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41     \string~subscription\_guard()}
+\DoxyCodeLine{42     \{}
+\DoxyCodeLine{43         m\_sub.unsubscribe();}
+\DoxyCodeLine{44     \}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46     \textcolor{keyword}{const} subscription\_base* operator-\/>()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \&m\_sub; \}}
+\DoxyCodeLine{47 \textcolor{keyword}{private}:}
+\DoxyCodeLine{48     subscription\_base m\_sub;}
+\DoxyCodeLine{49 \};}
+\DoxyCodeLine{50 \} \textcolor{comment}{// namespace rpp}}
+
+\end{DoxyCode}

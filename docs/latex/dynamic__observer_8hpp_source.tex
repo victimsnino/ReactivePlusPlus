@@ -1,0 +1,77 @@
+\hypertarget{dynamic__observer_8hpp_source}{}\doxysection{dynamic\+\_\+observer.\+hpp}
+\label{dynamic__observer_8hpp_source}\index{src/rpp/rpp/observers/dynamic\_observer.hpp@{src/rpp/rpp/observers/dynamic\_observer.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observers/constraints.hpp>}        \textcolor{comment}{// wrapping constructor}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observers/interface\_observer.hpp>} \textcolor{comment}{// base class}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/observers/specific\_observer.hpp>}  \textcolor{comment}{// state}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/observers/type\_traits.hpp>}        \textcolor{comment}{// extract observer type}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/utils/function\_traits.hpp>}        \textcolor{comment}{// extract function args}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/utils/functors.hpp>}               \textcolor{comment}{// default arguments}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }rpp}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{31 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{32 \textcolor{keyword}{class }dynamic\_observer final : \textcolor{keyword}{public} interface\_observer<T>}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34 \textcolor{keyword}{public}:}
+\DoxyCodeLine{35     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_next\_fn<T>   OnNext      = utils::empty\_function\_t<T>,}
+\DoxyCodeLine{36              constra\textcolor{keywordtype}{int}::on\_error\_fn     OnError     = utils::rethrow\_error\_t,}
+\DoxyCodeLine{37              constra\textcolor{keywordtype}{int}::on\_completed\_fn OnCompleted = utils::empty\_function\_t<>>}
+\DoxyCodeLine{38     dynamic\_observer(OnNext\&\& on\_next = \{\}, OnError\&\& on\_error = \{\}, OnCompleted\&\& on\_completed = \{\})}
+\DoxyCodeLine{39         : m\_state\{make\_shared\_state(std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{40                                     std::forward<OnError>(on\_error),}
+\DoxyCodeLine{41                                     std::forward<OnCompleted>(on\_completed))\} \{ \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43     dynamic\_observer(constraint::on\_next\_fn<T> \textcolor{keyword}{auto}\&\& on\_next, constraint::on\_completed\_fn \textcolor{keyword}{auto}\&\& on\_completed)}
+\DoxyCodeLine{44         : dynamic\_observer\{std::forward<decltype(on\_next)>(on\_next),}
+\DoxyCodeLine{45                            utils::rethrow\_error\_t\{\},}
+\DoxyCodeLine{46                            std::forward<decltype(on\_completed)>(on\_completed)\} \{\}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_of\_type<T> TObserver> }
+\DoxyCodeLine{49         \textcolor{keyword}{requires} (!std::is\_same\_v<std::decay\_t<TObserver>, dynamic\_observer<T>>)}
+\DoxyCodeLine{50     dynamic\_observer(TObserver\&\& obs)}
+\DoxyCodeLine{51         : m\_state\{std::make\_shared<std::decay\_t<TObserver>>(std::forward<TObserver>(obs))\} \{\}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53     dynamic\_observer(\textcolor{keyword}{const} dynamic\_observer<T>\&)     = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{54     dynamic\_observer(dynamic\_observer<T>\&\&) noexcept = default;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56     \textcolor{keywordtype}{void} on\_next(const T\& v)\textcolor{keyword}{ const override                     }\{ m\_state-\/>on\_next(v);              \}}
+\DoxyCodeLine{57     \textcolor{keywordtype}{void} on\_next(T\&\& v)\textcolor{keyword}{ const override                          }\{ m\_state-\/>on\_next(std::move(v));   \}}
+\DoxyCodeLine{58     \textcolor{keywordtype}{void} on\_error(\textcolor{keyword}{const} std::exception\_ptr\& err)\textcolor{keyword}{ const override }\{ m\_state-\/>on\_error(err);           \}}
+\DoxyCodeLine{59     \textcolor{keywordtype}{void} on\_completed()\textcolor{keyword}{ const override                          }\{ m\_state-\/>on\_completed();          \}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{64     \textcolor{keyword}{const} dynamic\_observer<T>\& as\_dynamic()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \textcolor{keyword}{private}:}
+\DoxyCodeLine{67     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{68     \textcolor{keyword}{static} \textcolor{keyword}{auto} make\_shared\_state(Args\&\&...args)}
+\DoxyCodeLine{69     \{}
+\DoxyCodeLine{70         \textcolor{keywordflow}{return} std::make\_shared<specific\_observer<T, std::decay\_t<Args>...>>(std::forward<Args>(args)...);}
+\DoxyCodeLine{71     \}}
+\DoxyCodeLine{72     }
+\DoxyCodeLine{73     std::shared\_ptr<interface\_observer<T>> m\_state;}
+\DoxyCodeLine{74 \};}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer TObserver>}
+\DoxyCodeLine{77 dynamic\_observer(TObserver) -\/> dynamic\_observer<utils::extract\_observer\_type\_t<TObserver>>;}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnNext, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{80 dynamic\_observer(OnNext, Args...) -\/> dynamic\_observer<utils::decayed\_function\_argument\_t<OnNext>>;}
+\DoxyCodeLine{81 \} \textcolor{comment}{// namespace rpp}}
+
+\end{DoxyCode}

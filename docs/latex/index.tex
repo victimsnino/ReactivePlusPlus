@@ -1,15 +1,18 @@
+\label{index_md_Readme}%
+\Hypertarget{index_md_Readme}%
 \href{https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/Tests.yml}{\texttt{ }} \href{https://codecov.io/gh/victimsnino/ReactivePlusPlus}{\texttt{ }} \href{https://gitter.im/ReactivePlusPlus/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge}{\texttt{ }} \href{https://sonarcloud.io/summary/new_code?id=victimsnino_ReactivePlusPlus}{\texttt{ }} \href{https://sonarcloud.io/summary/new_code?id=victimsnino_ReactivePlusPlus}{\texttt{ }}
 
 Reactive\+Plus\+Plus is reactive programming library for C++ language inspired by \char`\"{}official implementation\char`\"{} (\href{https://github.com/ReactiveX/RxCpp}{\texttt{ Rx\+Cpp}}) and original idea (\href{https://reactivex.io/}{\texttt{ ReactiveX}})
 
 In short\+: Reactive\+Plus\+Plus is library for building asynchronous event-\/driven streams of data with help of sequences of primitive operators in the declarative form. For example\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{group__observables_gaf574d9dd582ee9b59553e3705e8793cd}{rpp::source::from\_callable}}(\&::getchar)}
+\DoxyCodeLine{rpp::source::from\_callable(\&::getchar)}
 \DoxyCodeLine{   .repeat()}
 \DoxyCodeLine{   .take\_while([](\textcolor{keywordtype}{char} v) \{ \textcolor{keywordflow}{return} v != \textcolor{charliteral}{'0'}; \})}
 \DoxyCodeLine{   .filter(std::not\_fn(\&::isdigit))}
 \DoxyCodeLine{   .map(\&::toupper)}
 \DoxyCodeLine{   .subscribe([](\textcolor{keywordtype}{char} v) \{ std::cout << v; \});}
+
 \end{DoxyCode}
 
 
@@ -19,7 +22,7 @@ Reactive programming is excelent programming paradigm and approach for creation 
 \href{https://github.com/ReactiveX/RxCpp}{\texttt{ Rx\+Cpp}} is great and awesome library and perfect implementation of ReactiveX approach. However Rx\+Cpp has some disadvantages\+:
 \begin{DoxyItemize}
 \item It is a bit $\ast$$\ast$\char`\"{}old\char`\"{} library written in C++11$\ast$$\ast$ with some parts written in the {\bfseries{pre-\/\+C++11 style}} (mess of old-\/style classes and wrappers)
-\item {\bfseries{Issue}} with {\bfseries{template parameters}}\+: {\ttfamily rxcpp\+::observable} contains {\bfseries{full chain of operators}} as second template parameter... where each operator has a bunch of another template parameters itself. It forces {\bfseries{I\+D\+Es}} works {\bfseries{slower}} while parsing resulting type of observable. Also it forces to generate {\bfseries{heavier binaries and debug symbols and slower build time}}.
+\item {\bfseries{Issue}} with {\bfseries{template parameters}}\+: {\ttfamily rxcpp\+::observable} contains {\bfseries{full chain of operators}} as second template parameter... where each operator has a bunch of another template parameters itself. It forces {\bfseries{IDEs}} works {\bfseries{slower}} while parsing resulting type of observable. Also it forces to generate {\bfseries{heavier binaries and debug symbols and slower build time}}.
 \item It has high perfomance cost due to tremendous amount of usage of heap
 \end{DoxyItemize}
 
@@ -28,25 +31,25 @@ Another implementation of RX for c++\+: \href{https://github.com/CODIANZ/another
 \begin{DoxyItemize}
 \item {\bfseries{Reactive\+Plus\+Plus}} written in {\bfseries{Modern C++ (C++20)}} with concepts which makes code-\/base a lot more understandable and clean\+:
 \begin{DoxyItemize}
-\item Concepts provide more clear errors and checks\+: you will understand that pass something incorrect before compilation in I\+DE or during compilation with understandable errors instead of \+\_\+\char`\"{}invalid template class map\+\_\+invalid\+\_\+t\char`\"{}\+\_\+
+\item Concepts provide more clear errors and checks\+: you will understand that pass something incorrect before compilation in IDE or during compilation with understandable errors instead of \+\_\+\char`\"{}invalid template class map\+\_\+invalid\+\_\+t\char`\"{}\+\_\+
 \item Everywhere while possible used deduction of template arguments, for example, type of values of observable by type of subscriber used in on\+\_\+subscribe and etc
 \end{DoxyItemize}
 \item {\bfseries{Reactive\+Plus\+Plus}} keeps balance between performance and type-\/erasing mechanism\+: Read about it in ./docs/\+Specific\%20vs\%20\+Dynamic.\+md \char`\"{}$\ast$$\ast$\char`\"{}Performance vs Flexibility\+: Specific vs Dynamic\char`\"{}$\ast$$\ast$\char`\"{}
-\item {\bfseries{Reactive\+Plus\+Plus}} is fast\+: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks show that R\+PP faster that Rx\+C\+PP in most cases\+: \href{https://victimsnino.github.io/ReactivePlusPlus/benchmark}{\texttt{ Continous benchmarking results}}
+\item {\bfseries{Reactive\+Plus\+Plus}} is fast\+: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks show that RPP faster that Rx\+CPP in most cases\+: \href{https://victimsnino.github.io/ReactivePlusPlus/benchmark}{\texttt{ Continous benchmarking results}}
 \end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysection{Usage}\label{index_autotoc_md3}
-To use Reactive\+Plus\+Plus just add it as submodule/place folder and add to project via C\+Make\textquotesingle{}s {\ttfamily add\+\_\+subfolder}.
+To use Reactive\+Plus\+Plus just add it as submodule/place folder and add to project via CMake\textquotesingle{}s {\ttfamily add\+\_\+subfolder}.
 
 In source files add 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
+
 \end{DoxyCode}
-
-
-or include each required part separately in any way 
+ or include each required part separately in any way 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/observables/specific\_observable.hpp>} \textcolor{comment}{// include specific class implementation}}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/observers.hpp>}                       \textcolor{comment}{// include family of classes/functions}}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/operators/fwd.h>}                     \textcolor{comment}{// include forwarding of family of classes/functions}}
+
 \end{DoxyCode}
 \hypertarget{index_autotoc_md4}{}\doxysection{Useful links}\label{index_autotoc_md4}
 
@@ -58,7 +61,7 @@ or include each required part separately in any way
 Reactive\+Plus\+Plus library uses\+:
 \begin{DoxyItemize}
 \item \href{https://github.com/catchorg/Catch2}{\texttt{ Catch2}} for unit testing only, you can avoid cloning it if you don\textquotesingle{}t need unit-\/tests
-\item \href{https://github.com/ReactiveX/RxCpp}{\texttt{ Rx\+Cpp}} only for comparison of performance between R\+PP and Rx\+Cpp in CI benchmarks. Used as cmake dependency under option
-\item \href{https://reactivex.io}{\texttt{ reactivex.\+io}} as source for insipration and definition of entities used in R\+PP. Some comments used in R\+PP source code taken from \href{https://reactivex.io}{\texttt{ reactivex.\+io}}
+\item \href{https://github.com/ReactiveX/RxCpp}{\texttt{ Rx\+Cpp}} only for comparison of performance between RPP and Rx\+Cpp in CI benchmarks. Used as cmake dependency under option
+\item \href{https://reactivex.io}{\texttt{ reactivex.\+io}} as source for insipration and definition of entities used in RPP. Some comments used in RPP source code taken from \href{https://reactivex.io}{\texttt{ reactivex.\+io}}
 \item \href{https://pypi.org/project/rxmarbles/}{\texttt{ rxmarbles python}} as generator of marbles graphs in doxygen documentation 
 \end{DoxyItemize}

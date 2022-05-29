@@ -1,0 +1,29 @@
+\hypertarget{observables_2constraints_8hpp_source}{}\doxysection{constraints.\+hpp}
+\label{observables_2constraints_8hpp_source}\index{src/rpp/rpp/observables/constraints.hpp@{src/rpp/rpp/observables/constraints.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/fwd.hpp>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observables/type\_traits.hpp>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <concepts>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }rpp::constraint}
+\DoxyCodeLine{19 \{}
+\DoxyCodeLine{20 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }observable = std::derived\_from<std::decay\_t<T>, details::observable\_tag>;}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Type> \textcolor{keyword}{concept }observable\_of\_type = observable<T> \&\& std::same\_as<utils::extract\_observable\_type\_t<T>, Type>;}
+\DoxyCodeLine{23 \} \textcolor{comment}{// namespace rpp::constraint}}
+
+\end{DoxyCode}

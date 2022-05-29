@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['reactiveplusplus_243',['ReactivePlusPlus',['../index.html',1,'']]]
+  ['reactiveplusplus_0',['ReactivePlusPlus',['../index.html',1,'']]]
 ];

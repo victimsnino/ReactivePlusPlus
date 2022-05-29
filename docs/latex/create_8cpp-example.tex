@@ -14,7 +14,7 @@
 \DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
 \DoxyCodeLine{\textcolor{comment}{}}
-\DoxyCodeLine{    \mbox{\hyperlink{group__observables_gaa70991953a96a64c95d7566ff7069f6b}{rpp::source::create}}([](\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp::dynamic\_subscriber<int>}}\& sub)}
+\DoxyCodeLine{    rpp::source::create([](\textcolor{keyword}{const} rpp::dynamic\_subscriber<int>\& sub)}
 \DoxyCodeLine{            \{}
 \DoxyCodeLine{                sub.on\_next(42);}
 \DoxyCodeLine{            \})}
@@ -29,5 +29,6 @@
 \DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
 \DoxyCodeLine{\textcolor{comment}{}\}}
+
 \end{DoxyCodeInclude}
  

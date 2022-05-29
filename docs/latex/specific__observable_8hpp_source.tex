@@ -1,0 +1,92 @@
+\hypertarget{specific__observable_8hpp_source}{}\doxysection{specific\+\_\+observable.\+hpp}
+\label{specific__observable_8hpp_source}\index{src/rpp/rpp/observables/specific\_observable.hpp@{src/rpp/rpp/observables/specific\_observable.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/interface\_observable.hpp>} \textcolor{comment}{// base\_class}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observers/constraints.hpp>}            \textcolor{comment}{// subscribe concept}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/subscribers/specific\_subscriber.hpp>}  \textcolor{comment}{// subscribe concept}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/subscribers/dynamic\_subscriber.hpp>}   \textcolor{comment}{// subscribe concept}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }rpp}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{30 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::on\_subscribe\_fn<Type> OnSubscribeFn>}
+\DoxyCodeLine{31 \textcolor{keyword}{class }specific\_observable : \textcolor{keyword}{public} interface\_observable<Type, specific\_observable<Type, OnSubscribeFn>>}
+\DoxyCodeLine{32 \{}
+\DoxyCodeLine{33 \textcolor{keyword}{public}:}
+\DoxyCodeLine{34     specific\_observable(OnSubscribeFn\&\& on\_subscribe)}
+\DoxyCodeLine{35         : m\_state\{ std::move(on\_subscribe) \} \{\}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     specific\_observable(\textcolor{keyword}{const} OnSubscribeFn\& on\_subscribe)}
+\DoxyCodeLine{38         : m\_state\{ on\_subscribe \} \{\}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40     specific\_observable(\textcolor{keyword}{const} specific\_observable<Type, OnSubscribeFn>\&)     = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{41     specific\_observable(specific\_observable<Type, OnSubscribeFn>\&\&) noexcept = default;}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{46     [[nodiscard]] auto as\_dynamic() const \& \{ \textcolor{keywordflow}{return} rpp::dynamic\_observable<Type>\{*\textcolor{keyword}{this}\};            \}}
+\DoxyCodeLine{47     [[nodiscard]] \textcolor{keyword}{auto} as\_dynamic() \&\&      \{ \textcolor{keywordflow}{return} rpp::dynamic\_observable<Type>\{std::move(*\textcolor{keyword}{this})\}; \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{54     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type> TSub>}
+\DoxyCodeLine{55     composite\_subscription subscribe(\textcolor{keyword}{const} TSub\& subscriber)\textcolor{keyword}{ const}}
+\DoxyCodeLine{56 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{57         \textcolor{keywordflow}{return} subscribe\_impl(subscriber);}
+\DoxyCodeLine{58     \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{65     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_of\_type<Type> TObserver>}
+\DoxyCodeLine{66     composite\_subscription subscribe(TObserver\&\& observer)\textcolor{keyword}{ const}}
+\DoxyCodeLine{67 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{68         \textcolor{keywordflow}{return} subscribe\_impl<std::decay\_t<TObserver>>(std::forward<TObserver>(observer));}
+\DoxyCodeLine{69     \}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{76     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_of\_type<Type> TObserver>}
+\DoxyCodeLine{77     composite\_subscription subscribe(constraint::decayed\_same\_as<composite\_subscription> \textcolor{keyword}{auto}\&\& sub, TObserver\&\& observer)\textcolor{keyword}{ const}}
+\DoxyCodeLine{78 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{79         \textcolor{keywordflow}{return} subscribe\_impl(specific\_subscriber<Type, std::decay\_t<TObserver>>\{std::forward<decltype(sub)>(sub), std::forward<TObserver>(observer)\});}
+\DoxyCodeLine{80     \}}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{87     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{88         \textcolor{keyword}{requires} constraint::specific\_subscriber\_constructible<Type, std::decay\_t<Args>...>}
+\DoxyCodeLine{89     composite\_subscription subscribe(Args\&\&...args)\textcolor{keyword}{ const}}
+\DoxyCodeLine{90 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{91         \textcolor{keywordflow}{return} subscribe\_impl(rpp::make\_specific\_subscriber<Type>(std::forward<Args>(args)...));}
+\DoxyCodeLine{92     \}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94 \textcolor{keyword}{private}:}
+\DoxyCodeLine{95     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_of\_type<Type> Obs>}
+\DoxyCodeLine{96     composite\_subscription subscribe\_impl(\textcolor{keyword}{const} specific\_subscriber<Type, Obs>\& subscriber)\textcolor{keyword}{ const}}
+\DoxyCodeLine{97 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{98         \textcolor{keywordflow}{try}}
+\DoxyCodeLine{99         \{}
+\DoxyCodeLine{100             m\_state(subscriber);}
+\DoxyCodeLine{101         \}}
+\DoxyCodeLine{102         \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} std::runtime\_error\& exc)}
+\DoxyCodeLine{103         \{}
+\DoxyCodeLine{104             \textcolor{keywordflow}{if} (subscriber.is\_subscribed())}
+\DoxyCodeLine{105                 subscriber.on\_error(std::make\_exception\_ptr(exc));}
+\DoxyCodeLine{106             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{107                 \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{108         \}}
+\DoxyCodeLine{109         \textcolor{keywordflow}{return} subscriber.get\_subscription();}
+\DoxyCodeLine{110     \}}
+\DoxyCodeLine{111 \textcolor{keyword}{private}:}
+\DoxyCodeLine{112     [[no\_unique\_address]] OnSubscribeFn m\_state;}
+\DoxyCodeLine{113 \};}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnSub>}
+\DoxyCodeLine{116 specific\_observable(OnSub on\_subscribe) -\/> specific\_observable<utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OnSub>>, OnSub>;}
+\DoxyCodeLine{117 \} \textcolor{comment}{// namespace rpp}}
+
+\end{DoxyCode}

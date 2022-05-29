@@ -1,0 +1,37 @@
+\hypertarget{map_8hpp_source}{}\doxysection{map.\+hpp}
+\label{map_8hpp_source}\index{src/rpp/rpp/operators/map.hpp@{src/rpp/rpp/operators/map.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/operators/fwd/map.hpp>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 IMPLEMENTATION\_FILE(map\_tag);}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, std::invocable<Type> Callable>}
+\DoxyCodeLine{24 \textcolor{keyword}{auto} map\_impl(Callable\&\& callable)}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26     \textcolor{keywordflow}{return} [callable = std::forward<Callable>(callable)]<\textcolor{keyword}{typename} TVal, constraint::subscriber\_of\_type<std::invoke\_result\_t<Callable, Type>> TSub>(TVal\&\& value, \textcolor{keyword}{const} TSub\& subscriber)}
+\DoxyCodeLine{27     \{}
+\DoxyCodeLine{28         subscriber.on\_next(callable(utils::as\_const(std::forward<TVal>(value))));}
+\DoxyCodeLine{29     \};}
+\DoxyCodeLine{30 \}}
+\DoxyCodeLine{31 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

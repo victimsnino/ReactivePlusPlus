@@ -1,0 +1,46 @@
+\hypertarget{fwd_2take_8hpp_source}{}\doxysection{take.\+hpp}
+\label{fwd_2take_8hpp_source}\index{src/rpp/rpp/operators/fwd/take.hpp@{src/rpp/rpp/operators/fwd/take.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/details/member\_overload.hpp>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17 \textcolor{keyword}{struct }take\_tag;}
+\DoxyCodeLine{18 \}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{23 \textcolor{keyword}{auto} take\_impl(\textcolor{keywordtype}{size\_t} count);}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{26 \textcolor{keyword}{struct }member\_overload<Type, SpecificObservable, take\_tag>}
+\DoxyCodeLine{27 \{}
+\DoxyCodeLine{46     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{47     \textcolor{keyword}{auto} take(\textcolor{keywordtype}{size\_t} count) \textcolor{keyword}{const} \& \textcolor{keyword}{requires} is\_header\_included<take\_tag, Args...>}
+\DoxyCodeLine{48     \{}
+\DoxyCodeLine{49         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<Type>(take\_impl<Type>(count));}
+\DoxyCodeLine{50     \}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{53     \textcolor{keyword}{auto} take(\textcolor{keywordtype}{size\_t} count) \&\& \textcolor{keyword}{requires} is\_header\_included<take\_tag, Args...>}
+\DoxyCodeLine{54     \{}
+\DoxyCodeLine{55         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template lift<Type>(take\_impl<Type>(count));}
+\DoxyCodeLine{56     \}}
+\DoxyCodeLine{57 \};}
+\DoxyCodeLine{58 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}
