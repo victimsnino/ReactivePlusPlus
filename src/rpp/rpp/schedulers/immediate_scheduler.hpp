@@ -22,6 +22,7 @@ namespace rpp::schedulers
 {
 /**
  * \brief immediately calls provided schedulable or waits for time_point (in the caller-thread)
+ * \ingroup schedulers
  */
 class immediate final : public details::scheduler_tag
 {

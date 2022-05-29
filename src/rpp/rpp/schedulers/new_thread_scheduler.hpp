@@ -24,8 +24,9 @@
 namespace rpp::schedulers
 {
 /**
- * \brief scheduler which schedule execution of via queueing tasks to another thread with priority to time_point and order
- * \details Creates new thread for each "create_worker" call. Any scheduled task will be queued to created thread for execution with respect to time_point and number of task
+ * \brief scheduler which schedules execution of schedulables via queueing tasks to another thread with priority to time_point and order
+ * \warning Creates new thread for each "create_worker" call. Any scheduled task will be queued to created thread for execution with respect to time_point and number of task
+ * \ingroup schedulers
  */
 class new_thread final : public details::scheduler_tag
 {

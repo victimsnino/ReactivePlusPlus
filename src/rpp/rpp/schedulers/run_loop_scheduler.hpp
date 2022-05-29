@@ -19,6 +19,12 @@ namespace rpp::schedulers
 {
 /**
  * \brief scheduler which schedules execution via queueing tasks, but execution of tasks should be manually dispatched
+ * \warning you need manually dispatch events for this scheduler in some thread.
+ * 
+ * \par Example
+ * \snippet run_loop.cpp run_loop
+ * 
+ * \ingroup schedulers
  */
 class run_loop final : public details::scheduler_tag
 {

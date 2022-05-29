@@ -10,6 +10,12 @@
 
 #pragma once
 
+/**
+ * \defgroup schedulers Schedulers
+ * \brief Scheduler is the way to introduce multi-threading in your application via RPP
+ * \see https://reactivex.io/documentation/scheduler.html
+ */
+
 #include <rpp/schedulers/immediate_scheduler.hpp>
 #include <rpp/schedulers/new_thread_scheduler.hpp>
 #include <rpp/schedulers/run_loop_scheduler.hpp>
