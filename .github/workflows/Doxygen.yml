@@ -13,7 +13,9 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Install deps
-      run: pip install rxmarbles
+      run: |
+        pip install rxmarbles
+        apt install python3 python-is-python3
 
     - name: Change executable
       run: chmod +x ./ci/generate_marbles.py
