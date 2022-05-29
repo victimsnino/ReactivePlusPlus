@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: src/rpp/rpp/schedulers.hpp Source File</title>
+<title>ReactivePlusPlus: run_loop.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -72,7 +72,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('schedulers_8hpp_source.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('run_loop_8cpp-example.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -92,30 +92,39 @@ $(document).ready(function(){initNavTree('schedulers_8hpp_source.html',''); init
 
 <div class="header">
   <div class="headertitle">
-<div class="title">schedulers.hpp</div>  </div>
+<div class="title">run_loop.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//                  ReactivePlusPlus library</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//          Copyright Aleksey Loginov 2022 - present.</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">// Distributed under the Boost Software License, Version 1.0.</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//    (See accompanying file LICENSE_1_0.txt or copy at</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//          https://www.boost.org/LICENSE_1_0.txt)</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// Project home: https://github.com/victimsnino/ReactivePlusPlus</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;rpp/schedulers/immediate_scheduler.hpp&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;rpp/schedulers/new_thread_scheduler.hpp&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;rpp/schedulers/run_loop_scheduler.hpp&gt;</span></div>
-</div><!-- fragment --></div><!-- contents -->
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/rpp.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main()</div>
+<div class="line">{</div>
+<div class="line">    <span class="keyword">auto</span> run_loop = <a name="_a0"></a><a class="code" href="classrpp_1_1schedulers_1_1run__loop.html">rpp::schedulers::run_loop</a>{};</div>
+<div class="line">    <span class="keyword">auto</span> sub = <a name="a1"></a><a class="code" href="group__creational__operators.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::source::just</a>(10, 15, 20)</div>
+<div class="line">        .observe_on(run_loop)</div>
+<div class="line">        .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt;  v &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; });</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// No output</span></div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">while</span> (sub.is_subscribed())</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">while</span> (run_loop.is_any_ready_schedulable())</div>
+<div class="line">            run_loop.dispatch();</div>
+<div class="line">    }</div>
+<div class="line">    <span class="comment">// Output:</span></div>
+<div class="line">    <span class="comment">// 10</span></div>
+<div class="line">    <span class="comment">// 15</span></div>
+<div class="line">    <span class="comment">// 20</span></div>
+<div class="line"><span class="comment"></span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="agroup__creational__operators_html_gae8ac01568a0e057e97cf9b474dca12d3"><div class="ttname"><a href="group__creational__operators.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:141</div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1run__loop_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1run__loop.html">rpp::schedulers::run_loop</a></div><div class="ttdoc">scheduler which schedules execution via queueing tasks, but execution of tasks should be manually dis...</div><div class="ttdef"><b>Definition:</b> run_loop_scheduler.hpp:29</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_adaf39b9fc4fffd972703658707b0113.html">rpp</a></li><li class="navelem"><a class="el" href="dir_0afe0b2d744d0bd4513ad200b3c712f0.html">rpp</a></li><li class="navelem"><b>schedulers.hpp</b></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>

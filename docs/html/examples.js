@@ -11,6 +11,7 @@ var examples =
     [ "publish.cpp", "publish_8cpp-example.html", null ],
     [ "ref_count.cpp", "ref_count_8cpp-example.html", null ],
     [ "repeat.cpp", "repeat_8cpp-example.html", null ],
+    [ "run_loop.cpp", "run_loop_8cpp-example.html", null ],
     [ "subscribe_on.cpp", "subscribe_on_8cpp-example.html", null ],
     [ "take.cpp", "take_8cpp-example.html", null ],
     [ "take_while.cpp", "take_while_8cpp-example.html", null ],

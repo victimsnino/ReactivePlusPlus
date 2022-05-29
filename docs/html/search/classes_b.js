@@ -1,18 +1,18 @@
 var searchData=
 [
-  ['scheduler_5ftag_172',['scheduler_tag',['../structrpp_1_1schedulers_1_1details_1_1scheduler__tag.html',1,'rpp::schedulers::details']]],
-  ['specific_5fobservable_173',['specific_observable',['../classrpp_1_1specific__observable.html',1,'rpp']]],
-  ['specific_5fobservable_3c_20type_2c_20details_3a_3adynamic_5fobservable_5fstate_3c_20type_20_3e_20_3e_174',['specific_observable&lt; Type, details::dynamic_observable_state&lt; Type &gt; &gt;',['../classrpp_1_1specific__observable.html',1,'rpp']]],
-  ['specific_5fobserver_175',['specific_observer',['../classrpp_1_1specific__observer.html',1,'rpp']]],
-  ['specific_5fsubscriber_176',['specific_subscriber',['../classrpp_1_1specific__subscriber.html',1,'rpp']]],
-  ['specific_5fsubscriber_3c_20t_2c_20dynamic_5fobserver_3c_20t_20_3e_20_3e_177',['specific_subscriber&lt; T, dynamic_observer&lt; T &gt; &gt;',['../classrpp_1_1specific__subscriber.html',1,'rpp']]],
-  ['state_5fobserver_178',['state_observer',['../classrpp_1_1details_1_1state__observer.html',1,'rpp::details']]],
-  ['state_5ft_179',['state_t',['../structrpp_1_1details_1_1state__t.html',1,'rpp::details']]],
-  ['subject_5fstate_180',['subject_state',['../classrpp_1_1subjects_1_1details_1_1subject__state.html',1,'rpp::subjects::details']]],
-  ['subject_5ftag_181',['subject_tag',['../structrpp_1_1subjects_1_1details_1_1subject__tag.html',1,'rpp::subjects::details']]],
-  ['subscriber_5fbase_182',['subscriber_base',['../classrpp_1_1details_1_1subscriber__base.html',1,'rpp::details']]],
-  ['subscriber_5ftag_183',['subscriber_tag',['../structrpp_1_1details_1_1subscriber__tag.html',1,'rpp::details']]],
-  ['subscription_5fbase_184',['subscription_base',['../classrpp_1_1subscription__base.html',1,'rpp']]],
-  ['subscription_5fguard_185',['subscription_guard',['../classrpp_1_1subscription__guard.html',1,'rpp']]],
-  ['subscription_5fstate_186',['subscription_state',['../classrpp_1_1details_1_1subscription__state.html',1,'rpp::details']]]
+  ['scheduler_5ftag_173',['scheduler_tag',['../structrpp_1_1schedulers_1_1details_1_1scheduler__tag.html',1,'rpp::schedulers::details']]],
+  ['specific_5fobservable_174',['specific_observable',['../classrpp_1_1specific__observable.html',1,'rpp']]],
+  ['specific_5fobservable_3c_20type_2c_20details_3a_3adynamic_5fobservable_5fstate_3c_20type_20_3e_20_3e_175',['specific_observable&lt; Type, details::dynamic_observable_state&lt; Type &gt; &gt;',['../classrpp_1_1specific__observable.html',1,'rpp']]],
+  ['specific_5fobserver_176',['specific_observer',['../classrpp_1_1specific__observer.html',1,'rpp']]],
+  ['specific_5fsubscriber_177',['specific_subscriber',['../classrpp_1_1specific__subscriber.html',1,'rpp']]],
+  ['specific_5fsubscriber_3c_20t_2c_20dynamic_5fobserver_3c_20t_20_3e_20_3e_178',['specific_subscriber&lt; T, dynamic_observer&lt; T &gt; &gt;',['../classrpp_1_1specific__subscriber.html',1,'rpp']]],
+  ['state_5fobserver_179',['state_observer',['../classrpp_1_1details_1_1state__observer.html',1,'rpp::details']]],
+  ['state_5ft_180',['state_t',['../structrpp_1_1details_1_1state__t.html',1,'rpp::details']]],
+  ['subject_5fstate_181',['subject_state',['../classrpp_1_1subjects_1_1details_1_1subject__state.html',1,'rpp::subjects::details']]],
+  ['subject_5ftag_182',['subject_tag',['../structrpp_1_1subjects_1_1details_1_1subject__tag.html',1,'rpp::subjects::details']]],
+  ['subscriber_5fbase_183',['subscriber_base',['../classrpp_1_1details_1_1subscriber__base.html',1,'rpp::details']]],
+  ['subscriber_5ftag_184',['subscriber_tag',['../structrpp_1_1details_1_1subscriber__tag.html',1,'rpp::details']]],
+  ['subscription_5fbase_185',['subscription_base',['../classrpp_1_1subscription__base.html',1,'rpp']]],
+  ['subscription_5fguard_186',['subscription_guard',['../classrpp_1_1subscription__guard.html',1,'rpp']]],
+  ['subscription_5fstate_187',['subscription_state',['../classrpp_1_1details_1_1subscription__state.html',1,'rpp::details']]]
 ];

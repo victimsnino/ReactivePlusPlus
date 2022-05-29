@@ -17,9 +17,14 @@ class rpp\+::subjects\+::publish\+\_\+subject$<$ T $>$}
 
 Subject which just multicasts values to observers subscribed on it. It contains two parts\+: subscriber and observable at the same time. 
 
-Each subscriber obtains only values which emitter after corresponding subscribe. on\+\_\+error/on\+\_\+completer/unsubscribe cached and provided to new subscribers if any \textbackslash{}warn this subject is not synchronized/serialized! It means, that expected to call callbacks of subscriber in the serialized way to follow observable contract\+: \char`\"{}\+Observables must issue notifications to observers serially (not in parallel).\char`\"{}. If you are not sure or need extra serialization, please, use serialized\+\_\+subject. 
+Each subscriber obtains only values which emitted after corresponding subscribe. on\+\_\+error/on\+\_\+completer/unsubscribe cached and provided to new subscribers if any
+
+\begin{DoxyWarning}{Warning}
+this subject is not synchronized/serialized! It means, that expected to call callbacks of subscriber in the serialized way to follow observable contract\+: \char`\"{}\+Observables must issue notifications to observers serially (not in parallel).\char`\"{}. If you are not sure or need extra serialization, please, use serialized\+\_\+subject.
+\end{DoxyWarning}
+
 \begin{DoxyTemplParams}{Template Parameters}
-{\em T} & value provided by this subject \\
+{\em T} & value provided by this subject\\
 \hline
 \end{DoxyTemplParams}
 \begin{DoxySeeAlso}{See also}

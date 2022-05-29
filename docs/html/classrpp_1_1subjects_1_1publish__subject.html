@@ -105,9 +105,11 @@ $(document).ready(function(){initNavTree('classrpp_1_1subjects_1_1publish__subje
 class rpp::subjects::publish_subject&lt; T &gt;</h3>
 
 <p>Subject which just multicasts values to observers subscribed on it. It contains two parts: subscriber and observable at the same time. </p>
-<p>Each subscriber obtains only values which emitter after corresponding subscribe. on_error/on_completer/unsubscribe cached and provided to new subscribers if any \warn this subject is not synchronized/serialized! It means, that expected to call callbacks of subscriber in the serialized way to follow observable contract: "Observables must issue notifications to observers serially (not in parallel).". If you are not sure or need extra serialization, please, use serialized_subject. </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+<p>Each subscriber obtains only values which emitted after corresponding subscribe. on_error/on_completer/unsubscribe cached and provided to new subscribers if any</p>
+<dl class="section warning"><dt>Warning</dt><dd>this subject is not synchronized/serialized! It means, that expected to call callbacks of subscriber in the serialized way to follow observable contract: "Observables must issue notifications to observers serially (not in parallel).". If you are not sure or need extra serialization, please, use serialized_subject.</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>value provided by this subject </td></tr>
+    <tr><td class="paramname">T</td><td>value provided by this subject</td></tr>
   </table>
   </dd>
 </dl>
