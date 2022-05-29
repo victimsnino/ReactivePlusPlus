@@ -11,11 +11,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+        
     - name: Install deps
-      run: |
-        sudo apt-get install python3 python-is-python3
-        pip3 install rxmarbles
+      run: pip3 install rxmarbles
     
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1.9.2
