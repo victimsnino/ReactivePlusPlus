@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['reactiveplusplus_237',['ReactivePlusPlus',['../index.html',1,'']]]
+  ['advanced_20guide_242',['Advanced Guide',['../advanced.html',1,'docs']]]
 ];

@@ -23,11 +23,7 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "ReactivePlusPlus", "index.html", [
-    [ "What about existing Reactive Extension libraries for C++?", "index.html#autotoc_md1", null ],
-    [ "Why ReactivePlusPlus?", "index.html#autotoc_md2", null ],
-    [ "Usage", "index.html#autotoc_md3", null ],
-    [ "Useful links", "index.html#autotoc_md4", null ],
-    [ "Credits:", "index.html#autotoc_md5", null ],
+    [ "Docs", "docs.html", "docs" ],
     [ "API reference", "modules.html", "modules" ],
     [ "Class List", "annotated.html", "annotated" ],
     [ "Class Index", "classes.html", null ],
@@ -44,7 +40,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"group__combining__operators.html#gaa02153df55aab3d790a7102a245dfd2f"
+"group__combining__operators.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

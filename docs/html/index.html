@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: ReactivePlusPlus</title>
+<title>ReactivePlusPlus: Main Page</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -32,6 +32,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ReactivePlusPlus
    </div>
+   <div id="projectbrief">One more implementation of ReactiveX approach in C++ with care about performance and templates in mind</div>
   </td>
    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -92,64 +93,19 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">ReactivePlusPlus </div>  </div>
+<div class="title">ReactivePlusPlus Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a href="https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/Tests.yml"><object type="image/svg+xml" data="https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/Tests.yml/badge.svg?branch=main" style="pointer-events: none;">Unit tests</object></a> <a href="https://codecov.io/gh/victimsnino/ReactivePlusPlus"><object type="image/svg+xml" data="https://codecov.io/gh/victimsnino/ReactivePlusPlus/branch/main/graph/badge.svg?token=INEHPRF18E" style="pointer-events: none;">codecov</object></a> <a href="https://gitter.im/ReactivePlusPlus/community?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><object type="image/svg+xml" data="https://badges.gitter.im/ReactivePlusPlus/community.svg" style="pointer-events: none;">Join the chat at https://gitter.im/ReactivePlusPlus/community</object></a> <a href="https://sonarcloud.io/summary/new_code?id=victimsnino_ReactivePlusPlus"><img src="https://sonarcloud.io/api/project_badges/measure?project=victimsnino_ReactivePlusPlus&amp;metric=ncloc" alt="Lines of Code" class="inline"/></a> <a href="https://sonarcloud.io/summary/new_code?id=victimsnino_ReactivePlusPlus"><img src="https://sonarcloud.io/api/project_badges/measure?project=victimsnino_ReactivePlusPlus&amp;metric=sqale_rating" alt="Maintainability Rating" class="inline"/></a></p>
-<p>ReactivePlusPlus is reactive programming library for C++ language inspired by "official implementation" (<a href="https://github.com/ReactiveX/RxCpp">RxCpp</a>) and original idea (<a href="https://reactivex.io/">ReactiveX</a>)</p>
-<p>In short: ReactivePlusPlus is library for building asynchronous event-driven streams of data with help of sequences of primitive operators in the declarative form. For example: </p><div class="fragment"><div class="line"><a class="code" href="group__creational__operators.html#gaf574d9dd582ee9b59553e3705e8793cd">rpp::source::from_callable</a>(&amp;::getchar)</div>
-<div class="line">   .repeat()</div>
-<div class="line">   .take_while([](<span class="keywordtype">char</span> v) { <span class="keywordflow">return</span> v != <span class="charliteral">&#39;0&#39;</span>; })</div>
-<div class="line">   .filter(std::not_fn(&amp;::isdigit))</div>
-<div class="line">   .map(&amp;::toupper)</div>
-<div class="line">   .subscribe([](<span class="keywordtype">char</span> v) { std::cout &lt;&lt; v; });</div>
-</div><!-- fragment --><p>Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. As a result it is fast, readable, easy to use and well-documented.</p>
-<h1><a class="anchor" id="autotoc_md1"></a>
-What about existing Reactive Extension libraries for C++?</h1>
-<p>Reactive programming is excelent programming paradigm and approach for creation of multi-threading and real-time programs which reacts on some events. Unfortunately, there is only one stable and fully-implemented library at the moment of creation of ReactivePlusPlus - <a href="https://github.com/ReactiveX/RxCpp">RxCpp</a>.</p>
-<p><a href="https://github.com/ReactiveX/RxCpp">RxCpp</a> is great and awesome library and perfect implementation of ReactiveX approach. However RxCpp has some disadvantages:</p><ul>
-<li>It is a bit **"old" library written in C++11** with some parts written in the <b>pre-C++11 style</b> (mess of old-style classes and wrappers)</li>
-<li><b>Issue</b> with <b>template parameters</b>: <code>rxcpp::observable</code> contains <b>full chain of operators</b> as second template parameter... where each operator has a bunch of another template parameters itself. It forces <b>IDEs</b> works <b>slower</b> while parsing resulting type of observable. Also it forces to generate <b>heavier binaries and debug symbols and slower build time</b>.</li>
-<li>It has high perfomance cost due to tremendous amount of usage of heap</li>
-</ul>
-<p>Another implementation of RX for c++: <a href="https://github.com/CODIANZ/another-rxcpp">another-rxcpp</a>. It partly solves issues of RxCpp via <b>eliminating of template parameter</b> with help of <b>type-erasing</b> and making each callback as <code>std::function</code>. As a result issue with templates resvoled, but this approach has disadvantages related to runtime: resulting size of observers/observables becomes greater due to heavy <code>std::function</code> object, usage of heap for storing everything causes perfomance issues, implementation is just pretty simple and provides a lot of copies of passed objects.</p>
-<h1><a class="anchor" id="autotoc_md2"></a>
-Why ReactivePlusPlus?</h1>
-<p><b>ReactivePlusPlus</b> tries to solve all mentioned issues:</p><ul>
-<li><b>ReactivePlusPlus</b> written in <b>Modern C++ (C++20)</b> with concepts which makes code-base a lot more understandable and clean:<ul>
-<li>Concepts provide more clear errors and checks: you will understand that pass something incorrect before compilation in IDE or during compilation with understandable errors instead of _"invalid template class map_invalid_t"_</li>
-<li>Everywhere while possible used deduction of template arguments, for example, type of values of observable by type of subscriber used in on_subscribe and etc</li>
-</ul>
-</li>
-<li><b>ReactivePlusPlus</b> keeps balance between performance and type-erasing mechanism: Read about it in ./docs/Specific%20vs%20Dynamic.md "**"Performance vs Flexibility: Specific vs Dynamic"**"</li>
-<li><b>ReactivePlusPlus</b> is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks show that RPP faster that RxCPP in most cases: <a href="https://victimsnino.github.io/ReactivePlusPlus/benchmark">Continous benchmarking results</a></li>
-</ul>
-<h1><a class="anchor" id="autotoc_md3"></a>
-Usage</h1>
-<p>To use ReactivePlusPlus just add it as submodule/place folder and add to project via CMake's <code>add_subfolder</code>.</p>
-<p>In source files add </p><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/rpp.hpp&gt;</span></div>
-</div><!-- fragment --><p>or include each required part separately in any way </p><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/observables/specific_observable.hpp&gt;</span> <span class="comment">// include specific class implementation</span></div>
-<div class="line"><span class="preprocessor">#include &lt;rpp/observers.hpp&gt;</span>                       <span class="comment">// include family of classes/functions</span></div>
-<div class="line"><span class="preprocessor">#include &lt;rpp/operators/fwd.h&gt;</span>                     <span class="comment">// include forwarding of family of classes/functions</span></div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md4"></a>
-Useful links</h1>
+<div class="textblock"><p>It is doxygen page of <a href="https://github.com/victimsnino/ReactivePlusPlus">ReactivePlusPlus library</a>.</p>
+<p>There list of content:</p>
 <ul>
-<li><a href="https://github.com/victimsnino/ReactivePlusPlus/tree/main/docs/Readme.md">Docs</a></li>
-<li><a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html">Doxygen documentation</a></li>
-<li><a href="https://victimsnino.github.io/ReactivePlusPlus/benchmark">Continous benchmarking results, comparison of <code>dynamic</code> and <code>specific</code> and comparison with RxCpp</a></li>
-</ul>
-<h1><a class="anchor" id="autotoc_md5"></a>
-Credits:</h1>
-<p>ReactivePlusPlus library uses:</p><ul>
-<li><a href="https://github.com/catchorg/Catch2">Catch2</a> for unit testing only, you can avoid cloning it if you don't need unit-tests</li>
-<li><a href="https://github.com/ReactiveX/RxCpp">RxCpp</a> only for comparison of performance between RPP and RxCpp in CI benchmarks. Used as cmake dependency under option</li>
-<li><a href="https://reactivex.io">reactivex.io</a> as source for insipration and definition of entities used in RPP. Some comments used in RPP source code taken from <a href="https://reactivex.io">reactivex.io</a></li>
-<li><a href="https://pypi.org/project/rxmarbles/">rxmarbles python</a> as generator of marbles graphs in doxygen documentation </li>
+<li><a class="el" href="docs.html">Docs</a> - manual documentation, tutorials, guides and etc</li>
+<li><a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/modules.html">API reference</a> - API reference for all functions and operators split into groups with marble diagrams for most</li>
+<li><a href="https://victimsnino.github.io/ReactivePlusPlus/benchmark">Continous Benchmarking results</a> - graph with benchmark results per commit </li>
 </ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agroup__creational__operators_html_gaf574d9dd582ee9b59553e3705e8793cd"><div class="ttname"><a href="group__creational__operators.html#gaf574d9dd582ee9b59553e3705e8793cd">rpp::observable::from_callable</a></div><div class="ttdeci">auto from_callable(std::invocable&lt;&gt; auto &amp;&amp;callable)</div><div class="ttdoc">Creates rpp::specific_observable that calls provided callable and emits resulting value of this calla...</div><div class="ttdef"><b>Definition:</b> from.hpp:211</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
