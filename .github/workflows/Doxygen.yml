@@ -14,15 +14,14 @@ jobs:
     - uses: actions/setup-python@v3
       with:
         python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
-        
+
     - name: Install deps
-      run: pip3 install rxmarbles
+      run: |
+        pip3 install rxmarbles
+        sudo apt-get install doxygen
     
-    - name: Doxygen Action
-      uses: mattnotmitt/doxygen-action@v1.9.2
-      with:
-        doxyfile-path: "./Doxyfile"
-        working-directory: "." 
+    - name: Doxygen
+      run: doxygen ./Doxyfile
     
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
