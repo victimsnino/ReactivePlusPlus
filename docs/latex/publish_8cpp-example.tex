@@ -6,9 +6,9 @@
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int} main()}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    \textcolor{keyword}{auto} observable = rpp::source::just(1,2,3).publish();}
-\DoxyCodeLine{    observable.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << \textcolor{stringliteral}{"{}\#1 "{}} << v << std::endl; \});}
-\DoxyCodeLine{    observable.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << \textcolor{stringliteral}{"{}\#2 "{}} << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{keyword}{auto} observable = \mbox{\hyperlink{group__observables_gae8ac01568a0e057e97cf9b474dca12d3}{rpp::source::just}}(1,2,3).publish();}
+\DoxyCodeLine{    observable.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << \textcolor{stringliteral}{"\#1 "} << v << std::endl; \});}
+\DoxyCodeLine{    observable.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << \textcolor{stringliteral}{"\#2 "} << v << std::endl; \});}
 \DoxyCodeLine{    observable.connect();}
 \DoxyCodeLine{    \textcolor{comment}{// Output:}}
 \DoxyCodeLine{    \textcolor{comment}{// \#1 1}}
@@ -19,6 +19,5 @@
 \DoxyCodeLine{    \textcolor{comment}{// \#2 3}}
 \DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
 \DoxyCodeLine{\}}
-
 \end{DoxyCodeInclude}
  

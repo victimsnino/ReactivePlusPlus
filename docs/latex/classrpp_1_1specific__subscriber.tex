@@ -1,0 +1,71 @@
+\hypertarget{classrpp_1_1specific__subscriber}{}\doxysection{rpp\+::specific\+\_\+subscriber$<$ Type, Observer $>$ Class Template Reference}
+\label{classrpp_1_1specific__subscriber}\index{rpp::specific\_subscriber$<$ Type, Observer $>$@{rpp::specific\_subscriber$<$ Type, Observer $>$}}
+
+
+specific version of subscriber which stores type of observer used inside to prevent extra allocations  
+
+
+
+
+{\ttfamily \#include $<$specific\+\_\+subscriber.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a9c5d21b7a8ac5eaa0c750e907c6ca83b}\label{classrpp_1_1specific__subscriber_a9c5d21b7a8ac5eaa0c750e907c6ca83b}} 
+{\footnotesize template$<$typename ... Types$>$ }\\{\bfseries specific\+\_\+subscriber} (Types \&\&...vals) requires std
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a336c57ad96d9c1b9371b72a0487ca40c}\label{classrpp_1_1specific__subscriber_a336c57ad96d9c1b9371b72a0487ca40c}} 
+{\footnotesize template$<$typename ... Types$>$ }\\{\bfseries specific\+\_\+subscriber} (constraint\+::decayed\+\_\+same\+\_\+as$<$ \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} $>$ auto \&\&sub, Types \&\&...vals) requires std
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a21e776b2239b3ad3f2e88d2f6fddb26c}\label{classrpp_1_1specific__subscriber_a21e776b2239b3ad3f2e88d2f6fddb26c}} 
+{\bfseries specific\+\_\+subscriber} (const \mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\+\_\+subscriber}} \&)=default
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_ab8a550401de39767b542ae00747348d5}\label{classrpp_1_1specific__subscriber_ab8a550401de39767b542ae00747348d5}} 
+{\bfseries specific\+\_\+subscriber} (\mbox{\hyperlink{classrpp_1_1specific__subscriber}{specific\+\_\+subscriber}} \&\&) noexcept=default
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_ad983070fe0ecc37a3a8d5b923bfe7553}\label{classrpp_1_1specific__subscriber_ad983070fe0ecc37a3a8d5b923bfe7553}} 
+const Observer \& {\bfseries get\+\_\+observer} () const
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a4829de9237a909ad3df3f5392ac89dad}\label{classrpp_1_1specific__subscriber_a4829de9237a909ad3df3f5392ac89dad}} 
+auto {\bfseries as\+\_\+dynamic} () const \&
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a68ae9a88277c2a707d71cbc2942c77b4}\label{classrpp_1_1specific__subscriber_a68ae9a88277c2a707d71cbc2942c77b4}} 
+auto {\bfseries as\+\_\+dynamic} () \&\&
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a2939eb190689d992f3d62fc723f2fd72}\label{classrpp_1_1specific__subscriber_a2939eb190689d992f3d62fc723f2fd72}} 
+void {\bfseries on\+\_\+next\+\_\+impl} (const Type \&val) const final
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a9283587cc920b70c8a6c2011755d6df1}\label{classrpp_1_1specific__subscriber_a9283587cc920b70c8a6c2011755d6df1}} 
+void {\bfseries on\+\_\+next\+\_\+impl} (Type \&\&val) const final
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a5626085e6f482bf9bd1b2b7accf53774}\label{classrpp_1_1specific__subscriber_a5626085e6f482bf9bd1b2b7accf53774}} 
+void {\bfseries on\+\_\+error\+\_\+impl} (const std\+::exception\+\_\+ptr \&err) const final
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__subscriber_a71eb686df33cd01a5fc27cfa349c1632}\label{classrpp_1_1specific__subscriber_a71eb686df33cd01a5fc27cfa349c1632}} 
+void {\bfseries on\+\_\+completed\+\_\+impl} () const final
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$constraint\+::decayed\+\_\+type Type, constraint\+::decayed\+\_\+observer Observer$>$\newline
+class rpp\+::specific\+\_\+subscriber$<$ Type, Observer $>$}
+
+specific version of subscriber which stores type of observer used inside to prevent extra allocations 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & type of values expected by this subscriber \\
+\hline
+{\em Observer} & observer which was wrapped by this subscriber \\
+\hline
+\end{DoxyTemplParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/subscribers/fwd.\+hpp\item 
+src/rpp/rpp/subscribers/specific\+\_\+subscriber.\+hpp\end{DoxyCompactItemize}

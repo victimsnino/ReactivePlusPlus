@@ -1,0 +1,58 @@
+\hypertarget{group__operators}{}\doxysection{Operators}
+\label{group__operators}\index{Operators@{Operators}}
+
+
+Operators is way to modify observables and extend with some extra custom logic.  
+
+
+\doxysubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{group__transforming__operators}{Transforming Operators}}
+\begin{DoxyCompactList}\small\item\em Transforming operators are operators that transform items provided by observable. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{group__filtering__operators}{Filtering Operators}}
+\begin{DoxyCompactList}\small\item\em Filtering operators are operators that emit only part of items that satisfies some condition. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{group__conditional__operators}{Conditional Operators}}
+\begin{DoxyCompactList}\small\item\em Conditional operators are operators that emit items based on some condition including condition of items from other observables. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{group__combining__operators}{Combining Operators}}
+\begin{DoxyCompactList}\small\item\em Combining operators are operators that combines emissions of multiple observables into same observable by some rule. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{group__utility__operators}{Utility Operators}}
+\begin{DoxyCompactList}\small\item\em Utility operators are operators that provide some extra functionality without changing of original values, but changing of behaviour. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{group__connectable__operators}{Connectable Operators}}
+\begin{DoxyCompactList}\small\item\em Connectable operators are operators that provide extra functionality for multicasting of controlling of subscription. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$details\+::op\+\_\+fn$<$ Specific\+Observable $>$ Operator\+Fn$>$ }\\auto \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{rpp\+::interface\+\_\+observable$<$ Type, Specific\+Observable $>$\+::op}} (Operator\+Fn \&\&fn) const \&
+\begin{DoxyCompactList}\small\item\em The apply function to observable which returns observable of another type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Operators is way to modify observables and extend with some extra custom logic. 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators.html}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__operators_ga381218c46daf100859858d88743d058d}\label{group__operators_ga381218c46daf100859858d88743d058d}} 
+\index{Operators@{Operators}!op@{op}}
+\index{op@{op}!Operators@{Operators}}
+\doxysubsubsection{\texorpdfstring{op()}{op()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$details\+::op\+\_\+fn$<$ Specific\+Observable $>$ Operator\+Fn$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1interface__observable}{rpp\+::interface\+\_\+observable}}$<$ Type, Specific\+Observable $>$\+::op (\begin{DoxyParamCaption}\item[{Operator\+Fn \&\&}]{fn }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The apply function to observable which returns observable of another type. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Operator\+Fn} & type of function which applies to this observable \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} of New\+Type 
+\end{DoxyReturn}

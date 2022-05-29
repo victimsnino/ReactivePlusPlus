@@ -1,0 +1,86 @@
+\hypertarget{group__transforming__operators}{}\doxysection{Transforming Operators}
+\label{group__transforming__operators}\index{Transforming Operators@{Transforming Operators}}
+
+
+Transforming operators are operators that transform items provided by observable.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$std\+::invocable$<$ Type $>$ Callable$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_ga2215c20ce73e16977568e7db1900ce65}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, map\+\_\+tag $>$\+::map}} (Callable \&\&callable) const \&requires is\+\_\+header\+\_\+included$<$ map\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Transform the items emitted by an Observable via applying a function to each item and emitting result. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Transforming operators are operators that transform items provided by observable. 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators.html\#transforming}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html\#transforming}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__transforming__operators_ga2215c20ce73e16977568e7db1900ce65}\label{group__transforming__operators_ga2215c20ce73e16977568e7db1900ce65}} 
+\index{Transforming Operators@{Transforming Operators}!map@{map}}
+\index{map@{map}!Transforming Operators@{Transforming Operators}}
+\doxysubsubsection{\texorpdfstring{map()}{map()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$std\+::invocable$<$ Type $>$ Callable$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, map\+\_\+tag $>$\+::map (\begin{DoxyParamCaption}\item[{Callable \&\&}]{callable }\end{DoxyParamCaption}) const \&}
+
+
+
+Transform the items emitted by an Observable via applying a function to each item and emitting result. 
+
+\begin{DoxyNote}{Note}
+The Map operator can keep same type of value or change it to some another type.
+\end{DoxyNote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em callable} & is callable used to provide this transformation. Should accept Type of original observable and return type for new observable \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the Map operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{map_8hpp_source}{rpp/operators/map.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example with same type\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                sub.on\_next(42);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .\mbox{\hyperlink{group__transforming__operators_ga2215c20ce73e16977568e7db1900ce65}{map}}([](\textcolor{keywordtype}{int} value)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                \textcolor{keywordflow}{return} value + 10;}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 52}}
+\end{DoxyCodeInclude}
+ 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Example with changed type\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                sub.on\_next(42);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .\mbox{\hyperlink{group__transforming__operators_ga2215c20ce73e16977568e7db1900ce65}{map}}([](\textcolor{keywordtype}{int} value)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                \textcolor{keywordflow}{return} std::to\_string(value) + \textcolor{stringliteral}{" VAL"};}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe([](std::string v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42 VAL}}
+\end{DoxyCodeInclude}
+ 
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/map.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/map.\+html}} 
+\end{DoxySeeAlso}

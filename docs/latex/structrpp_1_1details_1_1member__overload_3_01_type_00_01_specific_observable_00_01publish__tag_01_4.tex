@@ -1,0 +1,36 @@
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01publish__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, publish\+\_\+tag $>$ Struct Template Reference}
+\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01publish__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, publish\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, publish\_tag $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename ... Args$>$ }\\auto \mbox{\hyperlink{group__connectable__operators_ga9ab3cec576cbf5f9384c717eed57a6d6}{publish}} () const \&requires is\+\_\+header\+\_\+included$<$ publish\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Converts ordinary observable to \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} with help of \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp\+::subjects\+::publish\+\_\+subject}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01publish__tag_01_4_a9658820dd8a74a72f2fbfbdcac24dcd0}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01publish__tag_01_4_a9658820dd8a74a72f2fbfbdcac24dcd0}} 
+{\footnotesize template$<$typename ... Args$>$ }\\auto {\bfseries publish} () \&\&requires is\+\_\+header\+\_\+included$<$ publish\+\_\+tag
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+auto {\bfseries Args}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01publish__tag_01_4_affc68757e05b2d36b1c97fca8ffb2896}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01publish__tag_01_4_affc68757e05b2d36b1c97fca8ffb2896}} 
+\index{rpp::details::member\_overload$<$ Type, SpecificObservable, publish\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, publish\_tag $>$}!Args@{Args}}
+\index{Args@{Args}!rpp::details::member\_overload$<$ Type, SpecificObservable, publish\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, publish\_tag $>$}}
+\doxysubsubsection{\texorpdfstring{Args}{Args}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, publish\+\_\+tag $>$\+::Args}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} publish\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}))}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/fwd/publish.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,35 @@
+\hypertarget{classrpp_1_1subjects_1_1publish__subject}{}\doxysection{rpp\+::subjects\+::publish\+\_\+subject$<$ T $>$ Class Template Reference}
+\label{classrpp_1_1subjects_1_1publish__subject}\index{rpp::subjects::publish\_subject$<$ T $>$@{rpp::subjects::publish\_subject$<$ T $>$}}
+
+
+Subject which just multicasts values to observers subscribed on it. It contains two parts\+: subscriber and observable at the same time.  
+
+
+
+
+{\ttfamily \#include $<$publish\+\_\+subject.\+hpp$>$}
+
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$rpp\+::constraint\+::decayed\+\_\+type T$>$\newline
+class rpp\+::subjects\+::publish\+\_\+subject$<$ T $>$}
+
+Subject which just multicasts values to observers subscribed on it. It contains two parts\+: subscriber and observable at the same time. 
+
+Each subscriber obtains only values which emitter after corresponding subscribe. on\+\_\+error/on\+\_\+completer/unsubscribe cached and provided to new subscribers if any \textbackslash{}warn this subject is not synchronized/serialized! It means, that expected to call callbacks of subscriber in the serialized way to follow observable contract\+: \char`\"{}\+Observables must issue notifications to observers serially (not in parallel).\char`\"{}. If you are not sure or need extra serialization, please, use serialized\+\_\+subject. 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & value provided by this subject \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/subject.html}{\texttt{ https\+://reactivex.\+io/documentation/subject.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{multicast_8cpp-example}{multicast.\+cpp}}.\end{Desc}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/subjects/fwd.\+hpp\end{DoxyCompactItemize}

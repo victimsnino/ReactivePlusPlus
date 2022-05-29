@@ -1,0 +1,36 @@
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, take\+\_\+tag $>$ Struct Template Reference}
+\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, take\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, take\_tag $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_gaef1d69d29be545c479d3126993eed494}{take}} (size\+\_\+t count) const \&requires is\+\_\+header\+\_\+included$<$ take\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Emit only first {\ttfamily count} items provided by observable, then send {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__tag_01_4_a6396558abb1933a2263a5b6a109dd140}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__tag_01_4_a6396558abb1933a2263a5b6a109dd140}} 
+{\footnotesize template$<$typename... Args$>$ }\\auto {\bfseries take} (size\+\_\+t count) \&\&requires is\+\_\+header\+\_\+included$<$ take\+\_\+tag
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+auto {\bfseries Args}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__tag_01_4_a6d53ee74150180765f9f6c6466f8cfb3}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__tag_01_4_a6d53ee74150180765f9f6c6466f8cfb3}} 
+\index{rpp::details::member\_overload$<$ Type, SpecificObservable, take\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, take\_tag $>$}!Args@{Args}}
+\index{Args@{Args}!rpp::details::member\_overload$<$ Type, SpecificObservable, take\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, take\_tag $>$}}
+\doxysubsubsection{\texorpdfstring{Args}{Args}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, take\+\_\+tag $>$\+::Args}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<Type>(take\_impl<Type>(count))}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/fwd/take.\+hpp\end{DoxyCompactItemize}

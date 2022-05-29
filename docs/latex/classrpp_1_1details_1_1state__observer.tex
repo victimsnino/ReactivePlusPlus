@@ -1,0 +1,128 @@
+\hypertarget{classrpp_1_1details_1_1state__observer}{}\doxysection{rpp\+::details\+::state\+\_\+observer$<$ T, State, On\+Next, On\+Error, On\+Completed $>$ Class Template Reference}
+\label{classrpp_1_1details_1_1state__observer}\index{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}}
+
+
+Special type of \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\+\_\+observer}} which has some state which this observer stores and pass to each callback. Used for storing subscriber without extra copies.  
+
+
+
+
+{\ttfamily \#include $<$state\+\_\+observer.\+hpp$>$}
+
+Inheritance diagram for rpp\+::details\+::state\+\_\+observer$<$ T, State, On\+Next, On\+Error, On\+Completed $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classrpp_1_1details_1_1state__observer}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1details_1_1state__observer_a31b0d3897250ada216011d6d6557beba}\label{classrpp_1_1details_1_1state__observer_a31b0d3897250ada216011d6d6557beba}} 
+{\bfseries state\+\_\+observer} (constraint\+::decayed\+\_\+same\+\_\+as$<$ State $>$ auto \&\&state, std\+::invocable$<$ T, State $>$ auto \&\&\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a0e00117dd1c6fc7e1cf296c3b42a86ee}{on\+\_\+next}}, std\+::invocable$<$ std\+::exception\+\_\+ptr, State $>$ auto \&\&\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a96d063f55c73076809134f706a8d19dd}{on\+\_\+error}}, std\+::invocable$<$ State $>$ auto \&\&\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a7d24b5c70f82c0a4c1f756caf54df267}{on\+\_\+completed}})
+\item 
+\mbox{\Hypertarget{classrpp_1_1details_1_1state__observer_a0c34c587ff110e6fdc3eb8dbf56f5f53}\label{classrpp_1_1details_1_1state__observer_a0c34c587ff110e6fdc3eb8dbf56f5f53}} 
+{\bfseries state\+\_\+observer} (const \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\+\_\+observer}}$<$ T, State, On\+Next, On\+Error, On\+Completed $>$ \&other)=default
+\item 
+\mbox{\Hypertarget{classrpp_1_1details_1_1state__observer_a7a3bdd42bb778f3abc5aa9bbc8b39644}\label{classrpp_1_1details_1_1state__observer_a7a3bdd42bb778f3abc5aa9bbc8b39644}} 
+{\bfseries state\+\_\+observer} (\mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\+\_\+observer}}$<$ T, State, On\+Next, On\+Error, On\+Completed $>$ \&\&other) noexcept=default
+\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a0e00117dd1c6fc7e1cf296c3b42a86ee}{on\+\_\+next}} (const T \&v) const override
+\begin{DoxyCompactList}\small\item\em Observable calls this methods to notify observer about new value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_aeb292b8b8b42cbd39aaad8ed1db5e645}{on\+\_\+next}} (T \&\&v) const override
+\begin{DoxyCompactList}\small\item\em Observable calls this methods to notify observer about new value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a96d063f55c73076809134f706a8d19dd}{on\+\_\+error}} (const std\+::exception\+\_\+ptr \&err) const override
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about some error during generation next data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a7d24b5c70f82c0a4c1f756caf54df267}{on\+\_\+completed}} () const override
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about finish of work. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$constraint\+::decayed\+\_\+type T, constraint\+::decayed\+\_\+type State, std\+::invocable$<$ T, State $>$ On\+Next = forwarding\+\_\+on\+\_\+next, std\+::invocable$<$ std\+::exception\+\_\+ptr, State $>$ On\+Error = forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ State $>$ On\+Completed = forwarding\+\_\+on\+\_\+completed$>$\newline
+class rpp\+::details\+::state\+\_\+observer$<$ T, State, On\+Next, On\+Error, On\+Completed $>$}
+
+Special type of \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\+\_\+observer}} which has some state which this observer stores and pass to each callback. Used for storing subscriber without extra copies. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrpp_1_1details_1_1state__observer_a7d24b5c70f82c0a4c1f756caf54df267}\label{classrpp_1_1details_1_1state__observer_a7d24b5c70f82c0a4c1f756caf54df267}} 
+\index{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}!on\_completed@{on\_completed}}
+\index{on\_completed@{on\_completed}!rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}}
+\doxysubsubsection{\texorpdfstring{on\_completed()}{on\_completed()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type T, constraint\+::decayed\+\_\+type State, std\+::invocable$<$ T, State $>$ On\+Next = forwarding\+\_\+on\+\_\+next, std\+::invocable$<$ std\+::exception\+\_\+ptr, State $>$ On\+Error = forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ State $>$ On\+Completed = forwarding\+\_\+on\+\_\+completed$>$ \\
+void \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{rpp\+::details\+::state\+\_\+observer}}$<$ T, State, On\+Next, On\+Error, On\+Completed $>$\+::on\+\_\+completed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Observable calls this method to notify observer about finish of work. 
+
+\begin{DoxyWarning}{Warning}
+Obtaining this call means no any further on\+\_\+next calls 
+\end{DoxyWarning}
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__observer_a33ab3fa364e11b58e4225afd9c071ad1}{rpp\+::interface\+\_\+observer$<$ T $>$}}.
+
+\mbox{\Hypertarget{classrpp_1_1details_1_1state__observer_a96d063f55c73076809134f706a8d19dd}\label{classrpp_1_1details_1_1state__observer_a96d063f55c73076809134f706a8d19dd}} 
+\index{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}!on\_error@{on\_error}}
+\index{on\_error@{on\_error}!rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}}
+\doxysubsubsection{\texorpdfstring{on\_error()}{on\_error()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type T, constraint\+::decayed\+\_\+type State, std\+::invocable$<$ T, State $>$ On\+Next = forwarding\+\_\+on\+\_\+next, std\+::invocable$<$ std\+::exception\+\_\+ptr, State $>$ On\+Error = forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ State $>$ On\+Completed = forwarding\+\_\+on\+\_\+completed$>$ \\
+void \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{rpp\+::details\+::state\+\_\+observer}}$<$ T, State, On\+Next, On\+Error, On\+Completed $>$\+::on\+\_\+error (\begin{DoxyParamCaption}\item[{const std\+::exception\+\_\+ptr \&}]{err }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Observable calls this method to notify observer about some error during generation next data. 
+
+\begin{DoxyWarning}{Warning}
+Obtaining this call means no any further on\+\_\+next or on\+\_\+completed calls 
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em err} & details of error \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__observer_a75f46a05b81cdc26b9d7d52efede9cf0}{rpp\+::interface\+\_\+observer$<$ T $>$}}.
+
+\mbox{\Hypertarget{classrpp_1_1details_1_1state__observer_a0e00117dd1c6fc7e1cf296c3b42a86ee}\label{classrpp_1_1details_1_1state__observer_a0e00117dd1c6fc7e1cf296c3b42a86ee}} 
+\index{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}!on\_next@{on\_next}}
+\index{on\_next@{on\_next}!rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}}
+\doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type T, constraint\+::decayed\+\_\+type State, std\+::invocable$<$ T, State $>$ On\+Next = forwarding\+\_\+on\+\_\+next, std\+::invocable$<$ std\+::exception\+\_\+ptr, State $>$ On\+Error = forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ State $>$ On\+Completed = forwarding\+\_\+on\+\_\+completed$>$ \\
+void \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{rpp\+::details\+::state\+\_\+observer}}$<$ T, State, On\+Next, On\+Error, On\+Completed $>$\+::on\+\_\+next (\begin{DoxyParamCaption}\item[{const T \&}]{v }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Observable calls this methods to notify observer about new value. 
+
+\begin{DoxyNote}{Note}
+obtains value by const-\/reference to original object. 
+\end{DoxyNote}
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__observer_aa434bd87b9be8e727ef38dcac14e7e27}{rpp\+::interface\+\_\+observer$<$ T $>$}}.
+
+\mbox{\Hypertarget{classrpp_1_1details_1_1state__observer_aeb292b8b8b42cbd39aaad8ed1db5e645}\label{classrpp_1_1details_1_1state__observer_aeb292b8b8b42cbd39aaad8ed1db5e645}} 
+\index{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}!on\_next@{on\_next}}
+\index{on\_next@{on\_next}!rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$@{rpp::details::state\_observer$<$ T, State, OnNext, OnError, OnCompleted $>$}}
+\doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type T, constraint\+::decayed\+\_\+type State, std\+::invocable$<$ T, State $>$ On\+Next = forwarding\+\_\+on\+\_\+next, std\+::invocable$<$ std\+::exception\+\_\+ptr, State $>$ On\+Error = forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ State $>$ On\+Completed = forwarding\+\_\+on\+\_\+completed$>$ \\
+void \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{rpp\+::details\+::state\+\_\+observer}}$<$ T, State, On\+Next, On\+Error, On\+Completed $>$\+::on\+\_\+next (\begin{DoxyParamCaption}\item[{T \&\&}]{v }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Observable calls this methods to notify observer about new value. 
+
+\begin{DoxyNote}{Note}
+obtains value by rvalue-\/reference to original object 
+\end{DoxyNote}
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__observer_a3780d41600d3dacd8ae6536fb65614d6}{rpp\+::interface\+\_\+observer$<$ T $>$}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/observers/state\+\_\+observer.\+hpp\end{DoxyCompactItemize}

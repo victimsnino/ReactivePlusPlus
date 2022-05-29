@@ -1,0 +1,202 @@
+\hypertarget{group__utility__operators}{}\doxysection{Utility Operators}
+\label{group__utility__operators}\index{Utility Operators@{Utility Operators}}
+
+
+Utility operators are operators that provide some extra functionality without changing of original values, but changing of behaviour.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler T\+Scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga0cacdca66e79d7d6de87fa5aacc6c972}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, observe\+\_\+on\+\_\+tag $>$\+::observe\+\_\+on}} (T\+Scheduler \&\&scheduler) const \&requires is\+\_\+header\+\_\+included$<$ observe\+\_\+on\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Emit emissions of observable starting from this point via provided scheduler. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... Args$>$ }\\auto \mbox{\hyperlink{group__utility__operators_gaf8859f765d0f97e28957f3416e688f7a}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, repeat\+\_\+tag $>$\+::repeat}} (size\+\_\+t count) const \&requires is\+\_\+header\+\_\+included$<$ repeat\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Re-\/subscribes on current observable during {\ttfamily on\+\_\+completed} provided amount of times. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... Args$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga0a1b02a8b65c4413bdda609683e63417}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, repeat\+\_\+tag $>$\+::repeat}} () const \&requires is\+\_\+header\+\_\+included$<$ repeat\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Re-\/subscribes on current observable during {\ttfamily on\+\_\+completed} infinitely. \end{DoxyCompactList}\item 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler T\+Scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga0608a5ced9a5b3b57f4c97a9b2f634f4}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, subscribe\+\_\+on\+\_\+tag $>$\+::subscribe\+\_\+on}} (const T\+Scheduler \&scheduler) const \&requires is\+\_\+header\+\_\+included$<$ subscribe\+\_\+on\+\_\+tag
+\begin{DoxyCompactList}\small\item\em On\+Subscribe function for this observable will be scheduled via provided scheduler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Utility operators are operators that provide some extra functionality without changing of original values, but changing of behaviour. 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators.html\#utility}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html\#utility}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__utility__operators_ga0cacdca66e79d7d6de87fa5aacc6c972}\label{group__utility__operators_ga0cacdca66e79d7d6de87fa5aacc6c972}} 
+\index{Utility Operators@{Utility Operators}!observe\_on@{observe\_on}}
+\index{observe\_on@{observe\_on}!Utility Operators@{Utility Operators}}
+\doxysubsubsection{\texorpdfstring{observe\_on()}{observe\_on()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$schedulers\+::constraint\+::scheduler T\+Scheduler$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, observe\+\_\+on\+\_\+tag $>$\+::observe\+\_\+on (\begin{DoxyParamCaption}\item[{T\+Scheduler \&\&}]{scheduler }\end{DoxyParamCaption}) const \&}
+
+
+
+Emit emissions of observable starting from this point via provided scheduler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scheduler} & is scheduler used for scheduling of On\+Next \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the observe\+\_\+on operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{observe__on_8hpp_source}{rpp/operators/observe\+\_\+on.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    std::cout << std::this\_thread::get\_id() << std::endl;}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_gae8ac01568a0e057e97cf9b474dca12d3}{rpp::source::just}}(10, 15, 20)}
+\DoxyCodeLine{            .observe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{            .as\_blocking()}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"["} << std::this\_thread::get\_id() << \textcolor{stringliteral}{"] : "} << v << \textcolor{stringliteral}{"\(\backslash\)n"}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Template for output:}}
+\DoxyCodeLine{    \textcolor{comment}{// TH1}}
+\DoxyCodeLine{    \textcolor{comment}{// [TH2]: 10}}
+\DoxyCodeLine{    \textcolor{comment}{// [TH2]: 15}}
+\DoxyCodeLine{    \textcolor{comment}{// [TH2]: 20}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/observeon.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/observeon.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__utility__operators_ga0a1b02a8b65c4413bdda609683e63417}\label{group__utility__operators_ga0a1b02a8b65c4413bdda609683e63417}} 
+\index{Utility Operators@{Utility Operators}!repeat@{repeat}}
+\index{repeat@{repeat}!Utility Operators@{Utility Operators}}
+\doxysubsubsection{\texorpdfstring{repeat()}{repeat()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$typename... Args$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, repeat\+\_\+tag $>$\+::repeat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&}
+
+
+
+Re-\/subscribes on current observable during {\ttfamily on\+\_\+completed} infinitely. 
+
+
+
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the repeat operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{repeat_8hpp_source}{rpp/operators/repeat.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Examples\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_gae8ac01568a0e057e97cf9b474dca12d3}{rpp::source::just}}(1, 2, 3)}
+\DoxyCodeLine{            .repeat()}
+\DoxyCodeLine{            .take(10)}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \},}
+\DoxyCodeLine{                       []()}
+\DoxyCodeLine{                       \{}
+\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"completed"} << std::endl;}
+\DoxyCodeLine{                       \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2 3 1 2 3 1 2 3 1 completed}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/repeat.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/repeat.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__utility__operators_gaf8859f765d0f97e28957f3416e688f7a}\label{group__utility__operators_gaf8859f765d0f97e28957f3416e688f7a}} 
+\index{Utility Operators@{Utility Operators}!repeat@{repeat}}
+\index{repeat@{repeat}!Utility Operators@{Utility Operators}}
+\doxysubsubsection{\texorpdfstring{repeat()}{repeat()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$typename... Args$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, repeat\+\_\+tag $>$\+::repeat (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption}) const \&}
+
+
+
+Re-\/subscribes on current observable during {\ttfamily on\+\_\+completed} provided amount of times. 
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em count} & total amount of times subscription happens. For example\+:
+\begin{DoxyItemize}
+\item {\ttfamily count(0)} -\/ means no any subscription at all
+\item {\ttfamily count(1)} -\/ behave like ordinal observable
+\item {\ttfamily count(10)} -\/ 1 normal subscription and 9 re-\/subscriptions during on\+\_\+completed 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the repeat operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{repeat_8hpp_source}{rpp/operators/repeat.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Examples\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__observables_gae8ac01568a0e057e97cf9b474dca12d3}{rpp::source::just}}(1, 2, 3)}
+\DoxyCodeLine{            .repeat(2)}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \},}
+\DoxyCodeLine{                       []()}
+\DoxyCodeLine{                       \{}
+\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"completed"} << std::endl;}
+\DoxyCodeLine{                       \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2 3 1 2 3 completed}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/repeat.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/repeat.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__utility__operators_ga0608a5ced9a5b3b57f4c97a9b2f634f4}\label{group__utility__operators_ga0608a5ced9a5b3b57f4c97a9b2f634f4}} 
+\index{Utility Operators@{Utility Operators}!subscribe\_on@{subscribe\_on}}
+\index{subscribe\_on@{subscribe\_on}!Utility Operators@{Utility Operators}}
+\doxysubsubsection{\texorpdfstring{subscribe\_on()}{subscribe\_on()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$schedulers\+::constraint\+::scheduler T\+Scheduler$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, subscribe\+\_\+on\+\_\+tag $>$\+::subscribe\+\_\+on (\begin{DoxyParamCaption}\item[{const T\+Scheduler \&}]{scheduler }\end{DoxyParamCaption}) const \&}
+
+
+
+On\+Subscribe function for this observable will be scheduled via provided scheduler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scheduler} & is scheduler used for scheduling of On\+Subscribe \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the subscribe\+\_\+on operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{subscribe__on_8hpp_source}{rpp/operators/subscribe\+\_\+on.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    std::cout << std::this\_thread::get\_id() << std::endl;}
+\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                std::cout << \textcolor{stringliteral}{"on\_subscribe thread "} << std::this\_thread::get\_id() << std::endl;}
+\DoxyCodeLine{                sub.on\_next(1);}
+\DoxyCodeLine{                sub.on\_completed();}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .\mbox{\hyperlink{group__utility__operators_ga0608a5ced9a5b3b57f4c97a9b2f634f4}{subscribe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{            .as\_blocking()}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"["} << std::this\_thread::get\_id() << \textcolor{stringliteral}{"] : "} << v << \textcolor{stringliteral}{"\(\backslash\)n"}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Template for output:}}
+\DoxyCodeLine{    \textcolor{comment}{// TH1}}
+\DoxyCodeLine{    \textcolor{comment}{// on\_subscribe thread TH2}}
+\DoxyCodeLine{    \textcolor{comment}{// [TH2]: 1}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/subscribeon.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/subscribeon.\+html}} 
+\end{DoxySeeAlso}
