@@ -81,11 +81,46 @@ It means, that\+:
 
 
 \begin{DoxyEnumerate}
-\item All operators implemented in R\+PP is following this contract and emissions from observables/operators built-\/in in R\+PP are serialized
+\item All operators implemented in R\+PP are following this contract and emissions from observables/operators built-\/in in R\+PP are serialized
 \item All logic inside operator\textquotesingle{}s callbacks and observer can be not thread-\/safe due to thread-\/safety is guaranteed. (for example, {\ttfamily take} operator doesn\textquotesingle{}t use mutexes or atomics due to underlying observable {\bfseries{M\+U\+ST}} emit items serialized)
 \item When you implement your own operator via {\ttfamily create} be careful to {\bfseries{follow this contract}}!
 \item it is true {\bfseries{E\+X\+C\+E\+PT F\+OR}} subjects if they are used manually due to users can use subjects for its own purposes there is potentially place for breaking this concept. Be careful and use synchronized subjects!
-\end{DoxyEnumerate}\hypertarget{advanced_autotoc_md1}{}\doxysubsection{Observable}\label{advanced_autotoc_md1}
+\end{DoxyEnumerate}
+
+It means, that for example\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{auto} s1 = \mbox{\hyperlink{group__creational__operators_gae8ac01568a0e057e97cf9b474dca12d3}{rpp::source::just}}(1).repeat().subscribe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\});}
+\DoxyCodeLine{\textcolor{keyword}{auto} s2 = \mbox{\hyperlink{group__creational__operators_gae8ac01568a0e057e97cf9b474dca12d3}{rpp::source::just}}(2).repeat().subscribe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\});}
+\DoxyCodeLine{s1.merge\_with(s2).map([](\textcolor{keywordtype}{int} v)\{}
+\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{"enter "} << v << std::endl;}
+\DoxyCodeLine{    std::this\_thread::sleep\_for(std::chrono::seconds\{1\});}
+\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{"exit "} << v << std::endl;}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} v;}
+\DoxyCodeLine{\}).as\_blocking().subscribe([](\textcolor{keywordtype}{int})\{\});}
+\end{DoxyCode}
+
+
+will never produce something like 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{enter 1}
+\DoxyCodeLine{enter 2}
+\DoxyCodeLine{exit 2}
+\DoxyCodeLine{exit 1}
+\end{DoxyCode}
+
+
+only serialized 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{enter 1}
+\DoxyCodeLine{exit 1}
+\DoxyCodeLine{enter 1}
+\DoxyCodeLine{exit 1}
+\DoxyCodeLine{enter 2}
+\DoxyCodeLine{exit 2}
+\DoxyCodeLine{enter 2}
+\DoxyCodeLine{exit 2}
+\end{DoxyCode}
+\hypertarget{advanced_autotoc_md1}{}\doxysubsection{Observable}\label{advanced_autotoc_md1}
 Observables are just wrappers over callback function with ability to be extended via operators. Everytime you apply some operator to observable, observable is copied (or moved). As a result, whole its state is copied/moved too\+:
 
 

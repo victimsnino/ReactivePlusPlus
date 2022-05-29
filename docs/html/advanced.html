@@ -105,12 +105,32 @@ Beforehand</h1>
 </blockquote>
 <p>It means, that:</p>
 <ol type="1">
-<li>All operators implemented in RPP is following this contract and emissions from observables/operators built-in in RPP are serialized</li>
+<li>All operators implemented in RPP are following this contract and emissions from observables/operators built-in in RPP are serialized</li>
 <li>All logic inside operator's callbacks and observer can be not thread-safe due to thread-safety is guaranteed. (for example, <code>take</code> operator doesn't use mutexes or atomics due to underlying observable <b>MUST</b> emit items serialized)</li>
 <li>When you implement your own operator via <code>create</code> be careful to <b>follow this contract</b>!</li>
 <li>it is true <b>EXCEPT FOR</b> subjects if they are used manually due to users can use subjects for its own purposes there is potentially place for breaking this concept. Be careful and use synchronized subjects!</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md1"></a>
+<p>It means, that for example: </p><div class="fragment"><div class="line"><span class="keyword">auto</span> s1 = <a class="code" href="group__creational__operators.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::source::just</a>(1).repeat().subscribe_on(<a class="code" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{});</div>
+<div class="line"><span class="keyword">auto</span> s2 = <a class="code" href="group__creational__operators.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::source::just</a>(2).repeat().subscribe_on(<a class="code" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{});</div>
+<div class="line">s1.merge_with(s2).map([](<span class="keywordtype">int</span> v){</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;enter &quot;</span> &lt;&lt; v &lt;&lt; std::endl;</div>
+<div class="line">    std::this_thread::sleep_for(std::chrono::seconds{1});</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;exit &quot;</span> &lt;&lt; v &lt;&lt; std::endl;</div>
+<div class="line">    <span class="keywordflow">return</span> v;</div>
+<div class="line">}).as_blocking().subscribe([](<span class="keywordtype">int</span>){});</div>
+</div><!-- fragment --><p>will never produce something like </p><div class="fragment"><div class="line">enter 1</div>
+<div class="line">enter 2</div>
+<div class="line">exit 2</div>
+<div class="line">exit 1</div>
+</div><!-- fragment --><p>only serialized </p><div class="fragment"><div class="line">enter 1</div>
+<div class="line">exit 1</div>
+<div class="line">enter 1</div>
+<div class="line">exit 1</div>
+<div class="line">enter 2</div>
+<div class="line">exit 2</div>
+<div class="line">enter 2</div>
+<div class="line">exit 2</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md1"></a>
 Observable</h1>
 <p>Observables are just wrappers over callback function with ability to be extended via operators. Everytime you apply some operator to observable, observable is copied (or moved). As a result, whole its state is copied/moved too:</p>
 <ul>
@@ -132,6 +152,8 @@ Subscriber</h1>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">scheduler which schedules execution of schedulables via queueing tasks to another thread with priorit...</div><div class="ttdef"><b>Definition:</b> new_thread_scheduler.hpp:31</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gae8ac01568a0e057e97cf9b474dca12d3"><div class="ttname"><a href="group__creational__operators.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:141</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
