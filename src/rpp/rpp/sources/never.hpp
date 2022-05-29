@@ -10,13 +10,6 @@
 
 #pragma once
 
-/**
- * \file
- * \brief This file contains implementation of `never` functions to create rpp::specific_observable
- *
- * \see https://reactivex.io/documentation/operators/empty-never-throw.html
- **/
-
 #include <rpp/sources/create.hpp>
 #include <rpp/sources/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
@@ -25,10 +18,15 @@
 namespace rpp::observable
 {
 /**
- * \ingroup observables
  * \brief Creates rpp::specific_observable that emits no items and does not terminate
+ * 
+ * \marble never
+   {
+       operator "never": +>
+   }
  * \tparam Type type of value to specify observable
  *
+ * \ingroup creational_operators
  * \see https://reactivex.io/documentation/operators/empty-never-throw.html
  */
 template<constraint::decayed_type Type>

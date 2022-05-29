@@ -10,14 +10,6 @@
 
 #pragma once
 
-/**
- * \file
- * \brief This file contains implementation of `from` function to create rpp::specific_observable that constructed from provided items
- * \snippet from.cpp from_iterable
- *
- * \see https://reactivex.io/documentation/operators/from.html
- **/
-
 #include <rpp/memory_model.hpp>
 #include <rpp/schedulers/immediate_scheduler.hpp>
 #include <rpp/sources/create.hpp>
@@ -127,18 +119,25 @@ private:
 namespace rpp::observable
 {
 /**
- * \ingroup observables
  * \brief Creates rpp::specific_observable that emits a particular items and completes
+ * 
+ * \marble just
+   {
+       operator "just(1,2,3,5)": +-1-2-3-5-|
+   }
+ *
  * \tparam memory_model rpp::memory_model startegy used to handle provided items
  * \tparam Scheduler type of scheduler used for scheduling of submissions: next item will be submitted to scheduler when previous one is executed
  * \param item first value to be sent
  * \param items rest values to be sent
  * \return rpp::specific_observable with provided item
  *
+ * \par Examples:
  * \snippet just.cpp just
  * \snippet just.cpp just memory model
  * \snippet just.cpp just scheduler
  *
+ * \ingroup creational_operators
  * \see https://reactivex.io/documentation/operators/just.html
  */
 template<memory_model memory_model, typename T, typename ...Ts>
@@ -149,18 +148,25 @@ auto just(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&
 }
 
 /**
- * \ingroup observables
  * \brief Creates rpp::specific_observable that emits a particular items and completes
- * \details this overloading uses immediate scheduler as default
+ * \warning this overloading uses immediate scheduler as default
+ * 
+ * \marble just
+   {
+       operator "just(1,2,3,5)": +-1-2-3-5-|
+   }
+ * 
  * \tparam memory_model rpp::memory_model startegy used to handle provided items
  * \param item first value to be sent
  * \param items rest values to be sent
  * \return rpp::specific_observable with provided item
  *
+ * \par Examples:
  * \snippet just.cpp just
  * \snippet just.cpp just memory model
  * \snippet just.cpp just scheduler
  *
+ * \ingroup creational_operators
  * \see https://reactivex.io/documentation/operators/just.html
  */
 template<memory_model memory_model, typename T, typename ...Ts>
@@ -170,16 +176,23 @@ auto just(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> 
 }
 
 /**
- * \ingroup observables
  * \brief Creates rpp::specific_observable that emits a items from provided iterable
+ * 
+ * \marble from_iterable
+   {
+       operator "from_iterable({1,2,3,5})": +-1-2-3-5-|
+   }
+ *
  * \tparam memory_model rpp::memory_model strategy used to handle provided iterable
- * \tparam TScheduler type of scheduler used for scheduling of submissions: next item will be submitted to scheduler when previous one is executed
+ * \param scheduler is scheduler used for scheduling of submissions: next item will be submitted to scheduler when previous one is executed
  * \param iterable container with values which will be flattened
  *
+ * \par Examples:
  * \snippet from.cpp from_iterable
  * \snippet from.cpp from_iterable with model
  * \snippet from.cpp from_iterable with scheduler
  *
+ * \ingroup creational_operators
  * \see https://reactivex.io/documentation/operators/from.html
 */
 template<memory_model memory_model, schedulers::constraint::scheduler TScheduler>
@@ -191,12 +204,19 @@ auto from_iterable(std::ranges::range auto&& iterable, const TScheduler& schedul
 }
 
 /**
- * \ingroup observables
- * \brief Creates rpp::specific_observable that calls provided callable and emits resulting value
+ * \brief Creates rpp::specific_observable that calls provided callable and emits resulting value of this callable
+ * 
+ * \marble from_callable
+   {
+       operator "from_callable: [](){return 42;}": +-(42)--|
+   }
+ *
  * \tparam memory_model rpp::memory_model strategy used to handle callable
  *
+ * \par Example
  * \snippet from.cpp from_callable
  *
+ * \ingroup creational_operators
  * \see https://reactivex.io/documentation/operators/from.html
 */
 template<memory_model memory_model>

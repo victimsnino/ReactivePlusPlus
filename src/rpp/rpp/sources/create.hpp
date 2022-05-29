@@ -10,18 +10,6 @@
 
 #pragma once
 
-/**
- * \file
- * \brief This file contains implementation of `create` function to create rpp::specific_observable with OnSubscribe callback
- *
- * Examples:
- * \snippet create.cpp create
- * \snippet create.cpp create with capture
- * \snippet create.cpp create type deduction
- *
- * \see https://reactivex.io/documentation/operators/create.html
- **/
-
 #include <rpp/sources/fwd.hpp>
 #include <rpp/observables/specific_observable.hpp>
 #include <type_traits>
@@ -29,17 +17,23 @@
 namespace rpp::observable
 {
 /**
- * \ingroup observables
  * \brief Creates rpp::specific_observable with passed action as OnSubscribe
+ * 
+ * \marble create
+   {
+       operator "create:  on_next(1), on_next(3), on_completed()": +--1--3--|
+   }
+ * 
  * \tparam Type manually specified type of value provided by this observable
- * \tparam OnSubscribeFn action called after subscription on this observable
+ * \param on_subscribe is action called after subscription on this observable
  * \return rpp::specific_observable with passed action
  *
- * Examples:
+ * \par Examples:
  * \snippet create.cpp create
  * \snippet create.cpp create with capture
  * \snippet create.cpp create type deduction
  *
+ * \ingroup creational_operators
  * \see https://reactivex.io/documentation/operators/create.html
  */
 template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
@@ -49,17 +43,24 @@ auto create(OnSubscribeFn&& on_subscribe)
 }
 
 /**
- * \ingroup observables
- * \brief Creates specific_observable with passed action as OnSubscribe and deduce type of observable by this function
- * \tparam OnSubscribeFn action called after subscription on this observable
- * \tparam Type type of values deduced by argument of function
- * \return specific_observable with passed action
+ * \brief Creates rpp::specific_observable with passed action as OnSubscribe
+ * 
+ * \warning this overloading deduce type of observable from passed function argument
+ * 
+ * \marble create
+   {
+       operator "create:  on_next(1), on_next(3), on_completed()": +--1--3--|
+   }
+ * 
+ * \param on_subscribe is action called after subscription on this observable
+ * \return rpp::specific_observable with passed action
  *
- * Examples:
+ * \par Examples:
  * \snippet create.cpp create
  * \snippet create.cpp create with capture
  * \snippet create.cpp create type deduction
  *
+ * \ingroup creational_operators
  * \see https://reactivex.io/documentation/operators/create.html
  */
 template<utils::is_callable OnSubscribeFn, constraint::decayed_type Type>
