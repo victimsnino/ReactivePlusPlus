@@ -11,10 +11,40 @@ Let's review this one in details:
 
 It means, that:
 
-1. All operators implemented in RPP is following this contract and emissions from observables/operators built-in in RPP are serialized
+1. All operators implemented in RPP are following this contract and emissions from observables/operators built-in in RPP are serialized
 2. All logic inside operator's callbacks and observer can be not thread-safe due to thread-safety is guaranteed. (for example, `take` operator doesn't use mutexes or atomics due to underlying observable **MUST** emit items serialized)
 3. When you implement your own operator via `create` be careful to **follow this contract**!
 4. it is true **EXCEPT FOR** subjects if they are used manually due to users can use subjects for its own purposes there is potentially place for breaking this concept. Be careful and use synchronized subjects! 
+
+It means, that for example:
+```cpp
+    auto s1 = rpp::source::just(1).repeat().subscribe_on(rpp::schedulers::new_thread{});
+    auto s2 = rpp::source::just(2).repeat().subscribe_on(rpp::schedulers::new_thread{});
+    s1.merge_with(s2).map([](int v){
+        std::cout << "enter " << v << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds{1});
+        std::cout << "exit " << v << std::endl;
+        return v;
+    }).as_blocking().subscribe([](int){});
+```
+will never produce something like 
+```
+enter 1
+enter 2
+exit 2
+exit 1
+```
+only serialized
+```
+enter 1
+exit 1
+enter 1
+exit 1
+enter 2
+exit 2
+enter 2
+exit 2
+```
 
 ## Observable
 
