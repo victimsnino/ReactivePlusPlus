@@ -25,20 +25,20 @@
 \DoxyCodeLine{21 }
 \DoxyCodeLine{22 \textcolor{keyword}{namespace }rpp::subjects::details}
 \DoxyCodeLine{23 \{}
-\DoxyCodeLine{24 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1completed}{completed}} \{\};}
-\DoxyCodeLine{25 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1unsubscribed}{unsubscribed}} \{\};}
+\DoxyCodeLine{24 \textcolor{keyword}{struct }completed \{\};}
+\DoxyCodeLine{25 \textcolor{keyword}{struct }unsubscribed \{\};}
 \DoxyCodeLine{26 }
 \DoxyCodeLine{27 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T>}
-\DoxyCodeLine{28 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1subject__state}{subject\_state}} : \textcolor{keyword}{public} std::enable\_shared\_from\_this<subject\_state<T>>}
+\DoxyCodeLine{28 \textcolor{keyword}{class }subject\_state : \textcolor{keyword}{public} std::enable\_shared\_from\_this<subject\_state<T>>}
 \DoxyCodeLine{29 \{}
-\DoxyCodeLine{30     \textcolor{keyword}{using} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{subscriber}} = \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<T>}};}
+\DoxyCodeLine{30     \textcolor{keyword}{using} subscriber = dynamic\_subscriber<T>;}
 \DoxyCodeLine{31     \textcolor{keyword}{using} shared\_subscribers = std::shared\_ptr<std::vector<subscriber>>;}
 \DoxyCodeLine{32     \textcolor{keyword}{using} state\_t = std::variant<shared\_subscribers, std::exception\_ptr, completed, unsubscribed>;}
 \DoxyCodeLine{33 }
 \DoxyCodeLine{34 \textcolor{keyword}{public}:}
-\DoxyCodeLine{35     \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1subject__state}{subject\_state}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{35     subject\_state() = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{36 }
-\DoxyCodeLine{37     \textcolor{keywordtype}{void} on\_subscribe(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{subscriber}}\& \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{subscriber}})}
+\DoxyCodeLine{37     \textcolor{keywordtype}{void} on\_subscribe(\textcolor{keyword}{const} subscriber\& subscriber)}
 \DoxyCodeLine{38     \{}
 \DoxyCodeLine{39         std::unique\_lock lock\{m\_mutex\};}
 \DoxyCodeLine{40 }
@@ -46,27 +46,27 @@
 \DoxyCodeLine{42                       [\&](shared\_subscribers subs)}
 \DoxyCodeLine{43                       \{}
 \DoxyCodeLine{44                           \textcolor{keyword}{auto} new\_subs = make\_copy\_of\_subscribed\_subs(subs-\/>size() + 1, subs);}
-\DoxyCodeLine{45                           new\_subs-\/>push\_back(\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{subscriber}});}
+\DoxyCodeLine{45                           new\_subs-\/>push\_back(subscriber);}
 \DoxyCodeLine{46                           m\_state = new\_subs;}
 \DoxyCodeLine{47 }
 \DoxyCodeLine{48                           lock.unlock();}
 \DoxyCodeLine{49 }
-\DoxyCodeLine{50                           add\_callback\_on\_unsubscribe(\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{subscriber}});}
+\DoxyCodeLine{50                           add\_callback\_on\_unsubscribe(subscriber);}
 \DoxyCodeLine{51                       \},}
 \DoxyCodeLine{52                       [\&](std::exception\_ptr err)}
 \DoxyCodeLine{53                       \{}
 \DoxyCodeLine{54                           lock.unlock();}
-\DoxyCodeLine{55                           \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{subscriber}}.\mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_ae9532294156f8acf86d1cf39d4c1cc15}{on\_error}}(err);}
+\DoxyCodeLine{55                           subscriber.on\_error(err);}
 \DoxyCodeLine{56                       \},}
-\DoxyCodeLine{57                       [\&](\mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1completed}{completed}})}
+\DoxyCodeLine{57                       [\&](completed)}
 \DoxyCodeLine{58                       \{}
 \DoxyCodeLine{59                           lock.unlock();}
-\DoxyCodeLine{60                           \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{subscriber}}.\mbox{\hyperlink{classrpp_1_1details_1_1subscriber__base_a85ef4e79f7f9d82d5899dc2524a7289a}{on\_completed}}();}
+\DoxyCodeLine{60                           subscriber.on\_completed();}
 \DoxyCodeLine{61                       \},}
-\DoxyCodeLine{62                       [\&](\mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1unsubscribed}{unsubscribed}})}
+\DoxyCodeLine{62                       [\&](unsubscribed)}
 \DoxyCodeLine{63                       \{}
 \DoxyCodeLine{64                           lock.unlock();}
-\DoxyCodeLine{65                           \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{subscriber}}.unsubscribe();}
+\DoxyCodeLine{65                           subscriber.unsubscribe();}
 \DoxyCodeLine{66                       \});}
 \DoxyCodeLine{67     \}}
 \DoxyCodeLine{68 }
@@ -84,14 +84,14 @@
 \DoxyCodeLine{80 }
 \DoxyCodeLine{81     \textcolor{keywordtype}{void} on\_completed()}
 \DoxyCodeLine{82     \{}
-\DoxyCodeLine{83         \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} subs = exchange\_subscribers\_under\_lock\_if\_there(\mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1completed}{completed}}\{\}))}
-\DoxyCodeLine{84             std::ranges::for\_each(*subs, std::mem\_fn(\&\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<T>::on\_completed}}));}
+\DoxyCodeLine{83         \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} subs = exchange\_subscribers\_under\_lock\_if\_there(completed\{\}))}
+\DoxyCodeLine{84             std::ranges::for\_each(*subs, std::mem\_fn(\&dynamic\_subscriber<T>::on\_completed));}
 \DoxyCodeLine{85     \}}
 \DoxyCodeLine{86 }
 \DoxyCodeLine{87     \textcolor{keywordtype}{void} on\_unsubscribe()}
 \DoxyCodeLine{88     \{}
-\DoxyCodeLine{89         \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} subs = exchange\_subscribers\_under\_lock\_if\_there(\mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1unsubscribed}{unsubscribed}}\{\}))}
-\DoxyCodeLine{90             std::ranges::for\_each(*subs, std::mem\_fn(\&\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<T>::unsubscribe}}));}
+\DoxyCodeLine{89         \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} subs = exchange\_subscribers\_under\_lock\_if\_there(unsubscribed\{\}))}
+\DoxyCodeLine{90             std::ranges::for\_each(*subs, std::mem\_fn(\&dynamic\_subscriber<T>::unsubscribe));}
 \DoxyCodeLine{91     \}}
 \DoxyCodeLine{92 }
 \DoxyCodeLine{93 \textcolor{keyword}{private}:}
@@ -106,14 +106,14 @@
 \DoxyCodeLine{102         subs-\/>reserve(expected\_size);}
 \DoxyCodeLine{103         std::ranges::copy\_if(*current\_subs,}
 \DoxyCodeLine{104                              std::back\_inserter(*subs),}
-\DoxyCodeLine{105                              std::mem\_fn(\&\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<T>::is\_subscribed}}));}
+\DoxyCodeLine{105                              std::mem\_fn(\&dynamic\_subscriber<T>::is\_subscribed));}
 \DoxyCodeLine{106         \textcolor{keywordflow}{return} subs;}
 \DoxyCodeLine{107     \}}
 \DoxyCodeLine{108 }
-\DoxyCodeLine{109     \textcolor{keywordtype}{void} add\_callback\_on\_unsubscribe(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<T>}}\& \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{subscriber}})}
+\DoxyCodeLine{109     \textcolor{keywordtype}{void} add\_callback\_on\_unsubscribe(\textcolor{keyword}{const} dynamic\_subscriber<T>\& subscriber)}
 \DoxyCodeLine{110     \{}
 \DoxyCodeLine{111         \textcolor{keyword}{auto} weak = this-\/>weak\_from\_this();}
-\DoxyCodeLine{112         \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{subscriber}}.get\_subscription().\mbox{\hyperlink{classrpp_1_1composite__subscription_a7ea8553bdf67bbceab87dd14b7c42e3c}{add}}([weak]}
+\DoxyCodeLine{112         subscriber.get\_subscription().add([weak]}
 \DoxyCodeLine{113         \{}
 \DoxyCodeLine{114             \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} shared = weak.lock())}
 \DoxyCodeLine{115             \{}

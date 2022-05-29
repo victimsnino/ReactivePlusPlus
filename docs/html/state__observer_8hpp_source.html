@@ -9,9 +9,18 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -24,6 +33,21 @@
    <div id="projectname">ReactivePlusPlus
    </div>
   </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.svg"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -35,17 +59,23 @@
 var searchBox = new SearchBox("searchBox", "search",'Search','.html');
 /* @license-end */
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
+$(document).ready(function(){initNavTree('state__observer_8hpp_source.html',''); initResizable(); });
 /* @license-end */
 </script>
-<div id="main-nav"></div>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +90,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_adaf39b9fc4fffd972703658707b0113.html">rpp</a></li><li class="navelem"><a class="el" href="dir_0afe0b2d744d0bd4513ad200b3c712f0.html">rpp</a></li><li class="navelem"><a class="el" href="dir_e63f0449bda065f7452c9bd88dfaa92f.html">observers</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">state_observer.hpp</div></div>
 </div><!--header-->
@@ -90,19 +115,19 @@ $(function() {
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span>rpp::details</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1forwarding__on__next.html">   22</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1forwarding__on__next.html">forwarding_on_next</a></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">struct </span>forwarding_on_next</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber TSub&gt;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordtype">void</span> operator()(<span class="keyword">auto</span>&amp;&amp; v, TSub&amp;&amp; sub)<span class="keyword"> const </span>{ sub.on_next(std::forward&lt;<span class="keyword">decltype</span>(v)&gt;(v)); }</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1forwarding__on__error.html">   28</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1forwarding__on__error.html">forwarding_on_error</a></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">struct </span>forwarding_on_error</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>{</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber TSub&gt;</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> std::exception_ptr&amp; err, TSub&amp;&amp; sub)<span class="keyword"> const </span>{sub.on_error(err);}</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>};</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1forwarding__on__completed.html">   34</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1forwarding__on__completed.html">forwarding_on_completed</a></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">struct </span>forwarding_on_completed</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>{</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber TSub&gt;</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">void</span> operator()(TSub&amp;&amp; sub)<span class="keyword"> const </span>{sub.on_completed();}</div>
@@ -110,28 +135,28 @@ $(function() {
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">template</span>&lt;constraint::decayed_type T,</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>         constraint::decayed_type State,</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>         std::invocable&lt;T, State&gt;                  OnNext = <a class="code hl_struct" href="structrpp_1_1details_1_1forwarding__on__next.html">forwarding_on_next</a>,</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>         std::invocable&lt;std::exception_ptr, State&gt; OnError = <a class="code hl_struct" href="structrpp_1_1details_1_1forwarding__on__error.html">forwarding_on_error</a>,</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>         std::invocable&lt;State&gt;                     OnCompleted= <a class="code hl_struct" href="structrpp_1_1details_1_1forwarding__on__completed.html">forwarding_on_completed</a>&gt;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1state__observer.html">   48</a></span><span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1details_1_1state__observer.html">state_observer</a> final : <span class="keyword">public</span> <a class="code hl_struct" href="structrpp_1_1interface__observer.html">interface_observer</a>&lt;T&gt;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>         std::invocable&lt;T, State&gt;                  OnNext = forwarding_on_next,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>         std::invocable&lt;std::exception_ptr, State&gt; OnError = forwarding_on_error,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>         std::invocable&lt;State&gt;                     OnCompleted= forwarding_on_completed&gt;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">class </span>state_observer final : <span class="keyword">public</span> interface_observer&lt;T&gt;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>{</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_class" href="classrpp_1_1details_1_1state__observer.html">state_observer</a>(constraint::decayed_same_as&lt;State&gt; <span class="keyword">auto</span>&amp;&amp;        state,</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                   std::invocable&lt;T, State&gt; <span class="keyword">auto</span>&amp;&amp;                  <a class="code hl_function" href="classrpp_1_1details_1_1state__observer.html#a0e00117dd1c6fc7e1cf296c3b42a86ee">on_next</a>,</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                   std::invocable&lt;std::exception_ptr, State&gt; <span class="keyword">auto</span>&amp;&amp; <a class="code hl_function" href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">on_error</a>,</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                   std::invocable&lt;State&gt; <span class="keyword">auto</span>&amp;&amp;                     <a class="code hl_function" href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">on_completed</a>)</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    state_observer(constraint::decayed_same_as&lt;State&gt; <span class="keyword">auto</span>&amp;&amp;        state,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                   std::invocable&lt;T, State&gt; <span class="keyword">auto</span>&amp;&amp;                  on_next,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                   std::invocable&lt;std::exception_ptr, State&gt; <span class="keyword">auto</span>&amp;&amp; on_error,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                   std::invocable&lt;State&gt; <span class="keyword">auto</span>&amp;&amp;                     on_completed)</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        : m_state{std::forward&lt;decltype(state)&gt;(state)}</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        , m_on_next{std::forward&lt;decltype(on_next)&gt;(<a class="code hl_function" href="classrpp_1_1details_1_1state__observer.html#a0e00117dd1c6fc7e1cf296c3b42a86ee">on_next</a>)}</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        , m_on_err{std::forward&lt;decltype(on_error)&gt;(<a class="code hl_function" href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">on_error</a>)}</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        , m_on_completed{std::forward&lt;decltype(on_completed)&gt;(<a class="code hl_function" href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">on_completed</a>)} {}</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        , m_on_next{std::forward&lt;decltype(on_next)&gt;(on_next)}</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        , m_on_err{std::forward&lt;decltype(on_error)&gt;(on_error)}</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        , m_on_completed{std::forward&lt;decltype(on_completed)&gt;(on_completed)} {}</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_class" href="classrpp_1_1details_1_1state__observer.html">state_observer</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1details_1_1state__observer.html">state_observer&lt;T, State, OnNext, OnError, OnCompleted&gt;</a>&amp; other)     = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <a class="code hl_class" href="classrpp_1_1details_1_1state__observer.html">state_observer</a>(<a class="code hl_class" href="classrpp_1_1details_1_1state__observer.html">state_observer&lt;T, State, OnNext, OnError, OnCompleted&gt;</a>&amp;&amp; other) <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    state_observer(<span class="keyword">const</span> state_observer&lt;T, State, OnNext, OnError, OnCompleted&gt;&amp; other)     = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    state_observer(state_observer&lt;T, State, OnNext, OnError, OnCompleted&gt;&amp;&amp; other) <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1state__observer.html#a0e00117dd1c6fc7e1cf296c3b42a86ee">   63</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classrpp_1_1details_1_1state__observer.html#a0e00117dd1c6fc7e1cf296c3b42a86ee">on_next</a>(<span class="keyword">const</span> T&amp; v)<span class="keyword"> const override                     </span>{ m_on_next(v, m_state);             }</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1state__observer.html#aeb292b8b8b42cbd39aaad8ed1db5e645">   64</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classrpp_1_1details_1_1state__observer.html#aeb292b8b8b42cbd39aaad8ed1db5e645">on_next</a>(T&amp;&amp; v)<span class="keyword"> const override                          </span>{ m_on_next(std::move(v), m_state);  }</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">   65</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">on_error</a>(<span class="keyword">const</span> std::exception_ptr&amp; err)<span class="keyword"> const override </span>{ m_on_err(err, m_state);            }</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">   66</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">on_completed</a>()<span class="keyword"> const override                          </span>{ m_on_completed(m_state);         }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">void</span> on_next(<span class="keyword">const</span> T&amp; v)<span class="keyword"> const override                     </span>{ m_on_next(v, m_state);             }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordtype">void</span> on_next(T&amp;&amp; v)<span class="keyword"> const override                          </span>{ m_on_next(std::move(v), m_state);  }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">void</span> on_error(<span class="keyword">const</span> std::exception_ptr&amp; err)<span class="keyword"> const override </span>{ m_on_err(err, m_state);            }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">void</span> on_completed()<span class="keyword"> const override                          </span>{ m_on_completed(m_state);         }</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword">private</span>:</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    State                             m_state;</div>
@@ -148,12 +173,12 @@ $(function() {
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>         std::invocable&lt;Type, State&gt;                         OnNext, </div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>         std::invocable&lt;std::exception_ptr, State&gt;           OnError, </div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>         std::invocable&lt;State&gt;                               OnCompleted, </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>         constraint::decayed_same_as&lt;composite_subscription&gt; Subscription = <a class="code hl_class" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&gt;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>         constraint::decayed_same_as&lt;composite_subscription&gt; Subscription = composite_subscription&gt;</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">auto</span> create_subscriber_with_state_impl(State&amp;&amp;        state,</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                                       OnNext&amp;&amp;       on_next,</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                                       OnError&amp;&amp;      on_error,</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                                       OnCompleted&amp;&amp;  on_completed,</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                                       Subscription&amp;&amp; sub = <a class="code hl_class" href="classrpp_1_1composite__subscription.html">composite_subscription</a>{})</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                                       Subscription&amp;&amp; sub = composite_subscription{})</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>{</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">return</span> specific_subscriber&lt;Type, state_observer&lt;Type,</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                                                    std::decay_t&lt;State&gt;,</div>
@@ -204,20 +229,14 @@ $(function() {
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                                                   std::forward&lt;Subscription&gt;(sub));</div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>}</div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>} <span class="comment">// namespace rpp::details</span></div>
-<div class="ttc" id="aclassrpp_1_1composite__subscription_html"><div class="ttname"><a href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a></div><div class="ttdoc">rpp::subscription_base with ability to add some dependent subscriptions as a part of this one: in cas...</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:27</div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1state__observer_html"><div class="ttname"><a href="classrpp_1_1details_1_1state__observer.html">rpp::details::state_observer</a></div><div class="ttdoc">Special type of specific_observer which has some state which this observer stores and pass to each ca...</div><div class="ttdef"><b>Definition:</b> state_observer.hpp:49</div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1state__observer_html_a0e00117dd1c6fc7e1cf296c3b42a86ee"><div class="ttname"><a href="classrpp_1_1details_1_1state__observer.html#a0e00117dd1c6fc7e1cf296c3b42a86ee">rpp::details::state_observer::on_next</a></div><div class="ttdeci">void on_next(const T &amp;v) const override</div><div class="ttdoc">Observable calls this methods to notify observer about new value.</div><div class="ttdef"><b>Definition:</b> state_observer.hpp:63</div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1state__observer_html_a7d24b5c70f82c0a4c1f756caf54df267"><div class="ttname"><a href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">rpp::details::state_observer::on_completed</a></div><div class="ttdeci">void on_completed() const override</div><div class="ttdoc">Observable calls this method to notify observer about finish of work.</div><div class="ttdef"><b>Definition:</b> state_observer.hpp:66</div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1state__observer_html_a96d063f55c73076809134f706a8d19dd"><div class="ttname"><a href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">rpp::details::state_observer::on_error</a></div><div class="ttdeci">void on_error(const std::exception_ptr &amp;err) const override</div><div class="ttdoc">Observable calls this method to notify observer about some error during generation next data.</div><div class="ttdef"><b>Definition:</b> state_observer.hpp:65</div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1state__observer_html_aeb292b8b8b42cbd39aaad8ed1db5e645"><div class="ttname"><a href="classrpp_1_1details_1_1state__observer.html#aeb292b8b8b42cbd39aaad8ed1db5e645">rpp::details::state_observer::on_next</a></div><div class="ttdeci">void on_next(T &amp;&amp;v) const override</div><div class="ttdoc">Observable calls this methods to notify observer about new value.</div><div class="ttdef"><b>Definition:</b> state_observer.hpp:64</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1forwarding__on__completed_html"><div class="ttname"><a href="structrpp_1_1details_1_1forwarding__on__completed.html">rpp::details::forwarding_on_completed</a></div><div class="ttdef"><b>Definition:</b> state_observer.hpp:35</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1forwarding__on__error_html"><div class="ttname"><a href="structrpp_1_1details_1_1forwarding__on__error.html">rpp::details::forwarding_on_error</a></div><div class="ttdef"><b>Definition:</b> state_observer.hpp:29</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1forwarding__on__next_html"><div class="ttname"><a href="structrpp_1_1details_1_1forwarding__on__next.html">rpp::details::forwarding_on_next</a></div><div class="ttdef"><b>Definition:</b> state_observer.hpp:23</div></div>
-<div class="ttc" id="astructrpp_1_1interface__observer_html"><div class="ttname"><a href="structrpp_1_1interface__observer.html">rpp::interface_observer</a></div><div class="ttdoc">Interface of any observer type. Describes base interface in terms of Reactive Programming.</div><div class="ttdef"><b>Definition:</b> interface_observer.hpp:35</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_adaf39b9fc4fffd972703658707b0113.html">rpp</a></li><li class="navelem"><a class="el" href="dir_0afe0b2d744d0bd4513ad200b3c712f0.html">rpp</a></li><li class="navelem"><a class="el" href="dir_e63f0449bda065f7452c9bd88dfaa92f.html">observers</a></li><li class="navelem"><b>state_observer.hpp</b></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -20,29 +20,29 @@
 \DoxyCodeLine{16 }
 \DoxyCodeLine{17 \textcolor{keyword}{namespace }rpp}
 \DoxyCodeLine{18 \{}
-\DoxyCodeLine{22 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}}
+\DoxyCodeLine{22 \textcolor{keyword}{class }subscription\_base}
 \DoxyCodeLine{23 \{}
 \DoxyCodeLine{24 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{25     \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}(std::shared\_ptr<details::subscription\_state> state)}
+\DoxyCodeLine{25     subscription\_base(std::shared\_ptr<details::subscription\_state> state)}
 \DoxyCodeLine{26         : m\_state\{std::move(state)\} \{\}}
 \DoxyCodeLine{27 }
-\DoxyCodeLine{28     \mbox{\hyperlink{classrpp_1_1details_1_1subscription__state}{details::subscription\_state}}* get\_state()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_state.get(); \}}
+\DoxyCodeLine{28     details::subscription\_state* get\_state()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_state.get(); \}}
 \DoxyCodeLine{29 \textcolor{keyword}{public}:}
-\DoxyCodeLine{30     \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}()}
+\DoxyCodeLine{30     subscription\_base()}
 \DoxyCodeLine{31         : m\_state\{std::make\_shared<details::subscription\_state>()\} \{\}}
 \DoxyCodeLine{32 }
-\DoxyCodeLine{33     \textcolor{keywordtype}{bool} operator==(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}\& rhs) \textcolor{keyword}{const} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{33     \textcolor{keywordtype}{bool} operator==(\textcolor{keyword}{const} subscription\_base\& rhs) \textcolor{keyword}{const} = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{34 }
-\DoxyCodeLine{35     \textcolor{keyword}{virtual} \mbox{\hyperlink{classrpp_1_1subscription__base}{\string~subscription\_base}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{35     \textcolor{keyword}{virtual} \string~subscription\_base() = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{36 }
-\DoxyCodeLine{37     \textcolor{keyword}{static} \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}} empty() \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}\{ \textcolor{keyword}{nullptr} \}; \}}
+\DoxyCodeLine{37     \textcolor{keyword}{static} subscription\_base empty() \{ \textcolor{keywordflow}{return} subscription\_base\{ \textcolor{keyword}{nullptr} \}; \}}
 \DoxyCodeLine{38 }
-\DoxyCodeLine{42     [[nodiscard]] \textcolor{keywordtype}{bool} \mbox{\hyperlink{classrpp_1_1subscription__base_ad9c07157024e7f68ce815d971c3faaf2}{is\_subscribed}}()\textcolor{keyword}{ const}}
+\DoxyCodeLine{42     [[nodiscard]] \textcolor{keywordtype}{bool} is\_subscribed()\textcolor{keyword}{ const}}
 \DoxyCodeLine{43 \textcolor{keyword}{    }\{}
 \DoxyCodeLine{44         \textcolor{keywordflow}{return} m\_state \&\& m\_state-\/>is\_subscribed();}
 \DoxyCodeLine{45     \}}
 \DoxyCodeLine{46 }
-\DoxyCodeLine{50     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1subscription__base_af07ca7cdfb9758441c0729cbe3e6d19d}{unsubscribe}}()\textcolor{keyword}{ const}}
+\DoxyCodeLine{50     \textcolor{keywordtype}{void} unsubscribe()\textcolor{keyword}{ const}}
 \DoxyCodeLine{51 \textcolor{keyword}{    }\{}
 \DoxyCodeLine{52         \textcolor{keywordflow}{if} (m\_state)}
 \DoxyCodeLine{53             m\_state-\/>unsubscribe();}

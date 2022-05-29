@@ -24,33 +24,33 @@
 \DoxyCodeLine{20 }
 \DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::schedulers}
 \DoxyCodeLine{22 \{}
-\DoxyCodeLine{26 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{immediate}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1scheduler__tag}{details::scheduler\_tag}}}
+\DoxyCodeLine{26 \textcolor{keyword}{class }immediate final : \textcolor{keyword}{public} details::scheduler\_tag}
 \DoxyCodeLine{27 \{}
 \DoxyCodeLine{28 \textcolor{keyword}{public}:}
-\DoxyCodeLine{29     \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate_1_1worker__strategy}{worker\_strategy}}}
+\DoxyCodeLine{29     \textcolor{keyword}{class }worker\_strategy}
 \DoxyCodeLine{30     \{}
 \DoxyCodeLine{31     \textcolor{keyword}{public}:}
-\DoxyCodeLine{32         \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate_1_1worker__strategy}{worker\_strategy}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}}\& sub)}
+\DoxyCodeLine{32         worker\_strategy(\textcolor{keyword}{const} rpp::subscription\_base\& sub)}
 \DoxyCodeLine{33             : m\_sub\{sub\} \{\}}
 \DoxyCodeLine{34 }
 \DoxyCodeLine{35         \textcolor{keywordtype}{void} defer\_at(time\_point time\_point, std::invocable \textcolor{keyword}{auto}\&\& fn)\textcolor{keyword}{ const}}
 \DoxyCodeLine{36 \textcolor{keyword}{        }\{}
-\DoxyCodeLine{37             \textcolor{keywordflow}{if} (!m\_sub.\mbox{\hyperlink{classrpp_1_1subscription__base_ad9c07157024e7f68ce815d971c3faaf2}{is\_subscribed}}())}
+\DoxyCodeLine{37             \textcolor{keywordflow}{if} (!m\_sub.is\_subscribed())}
 \DoxyCodeLine{38                 \textcolor{keywordflow}{return};}
 \DoxyCodeLine{39 }
 \DoxyCodeLine{40             std::this\_thread::sleep\_until(time\_point);}
 \DoxyCodeLine{41 }
-\DoxyCodeLine{42             \textcolor{keywordflow}{if} (m\_sub.\mbox{\hyperlink{classrpp_1_1subscription__base_ad9c07157024e7f68ce815d971c3faaf2}{is\_subscribed}}())}
+\DoxyCodeLine{42             \textcolor{keywordflow}{if} (m\_sub.is\_subscribed())}
 \DoxyCodeLine{43                 fn();}
 \DoxyCodeLine{44         \}}
 \DoxyCodeLine{45 }
 \DoxyCodeLine{46     \textcolor{keyword}{private}:}
-\DoxyCodeLine{47         \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}} m\_sub;}
+\DoxyCodeLine{47         rpp::subscription\_base m\_sub;}
 \DoxyCodeLine{48     \};}
 \DoxyCodeLine{49 }
-\DoxyCodeLine{50     \textcolor{keyword}{static} \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker<worker\_strategy>}} create\_worker(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}}\& sub = \{\})}
+\DoxyCodeLine{50     \textcolor{keyword}{static} worker<worker\_strategy> create\_worker(\textcolor{keyword}{const} rpp::subscription\_base\& sub = \{\})}
 \DoxyCodeLine{51     \{}
-\DoxyCodeLine{52         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker<worker\_strategy>}}\{sub\};}
+\DoxyCodeLine{52         \textcolor{keywordflow}{return} worker<worker\_strategy>\{sub\};}
 \DoxyCodeLine{53     \}}
 \DoxyCodeLine{54 \};}
 \DoxyCodeLine{55 \} \textcolor{comment}{// namespace rpp::schedulers}}

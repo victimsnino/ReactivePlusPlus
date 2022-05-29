@@ -28,20 +28,20 @@
 \DoxyCodeLine{24 \textcolor{keyword}{auto} ref\_count\_impl(TObs\&\& observable);}
 \DoxyCodeLine{25 }
 \DoxyCodeLine{26 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{27 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, ref\_count\_tag>}
+\DoxyCodeLine{27 \textcolor{keyword}{struct }member\_overload<Type, SpecificObservable, ref\_count\_tag>}
 \DoxyCodeLine{28 \{}
-\DoxyCodeLine{41     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{42     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_gac1991f003be32f5432ecb084be506c15}{ref\_count}}() const\& requires is\_header\_included<ref\_count\_tag, Args...>}
-\DoxyCodeLine{43     \{}
-\DoxyCodeLine{44         \textcolor{keywordflow}{return} ref\_count\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
-\DoxyCodeLine{45     \}}
-\DoxyCodeLine{46 }
-\DoxyCodeLine{47     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{48     \textcolor{keyword}{auto} ref\_count() \&\& \textcolor{keyword}{requires} is\_header\_included<ref\_count\_tag, Args...>}
-\DoxyCodeLine{49     \{}
-\DoxyCodeLine{50         \textcolor{keywordflow}{return} ref\_count\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})));}
-\DoxyCodeLine{51     \}}
-\DoxyCodeLine{52 \};}
-\DoxyCodeLine{53 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{42     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{43     \textcolor{keyword}{auto} ref\_count() const\& requires is\_header\_included<ref\_count\_tag, Args...>}
+\DoxyCodeLine{44     \{}
+\DoxyCodeLine{45         \textcolor{keywordflow}{return} ref\_count\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{46     \}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{49     \textcolor{keyword}{auto} ref\_count() \&\& \textcolor{keyword}{requires} is\_header\_included<ref\_count\_tag, Args...>}
+\DoxyCodeLine{50     \{}
+\DoxyCodeLine{51         \textcolor{keywordflow}{return} ref\_count\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})));}
+\DoxyCodeLine{52     \}}
+\DoxyCodeLine{53 \};}
+\DoxyCodeLine{54 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

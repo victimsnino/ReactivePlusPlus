@@ -59,10 +59,10 @@
 \DoxyCodeLine{55 \}}
 \DoxyCodeLine{56 }
 \DoxyCodeLine{57 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{58 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, lift\_tag>}
+\DoxyCodeLine{58 \textcolor{keyword}{struct }member\_overload<Type, SpecificObservable, lift\_tag>}
 \DoxyCodeLine{59 \{}
 \DoxyCodeLine{66     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType>}
-\DoxyCodeLine{67     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_acce176c87badd3c81a4af88e833e9c66}{lift}}(lift\_fn<NewType> \textcolor{keyword}{auto}\&\& op) \textcolor{keyword}{const}\&}
+\DoxyCodeLine{67     \textcolor{keyword}{auto} lift(lift\_fn<NewType> \textcolor{keyword}{auto}\&\& op) \textcolor{keyword}{const}\&}
 \DoxyCodeLine{68     \{}
 \DoxyCodeLine{69         \textcolor{keywordflow}{return} details::lift\_impl<NewType>(std::forward<\textcolor{keyword}{decltype}(op)>(op), CastThis());}
 \DoxyCodeLine{70     \}}
@@ -76,7 +76,7 @@
 \DoxyCodeLine{78     \textcolor{comment}{// ********************************* LIFT OPERATOR: SUBSCRIBER -\/> SUBSCRIBER ******************//}}
 \DoxyCodeLine{86 \textcolor{comment}{}    \textcolor{keyword}{template}<\textcolor{keyword}{typename} OperatorFn,}
 \DoxyCodeLine{87              constraint::decayed\_type NewType = utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OperatorFn>>>}
-\DoxyCodeLine{88     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a1e56528c19eaf4f6beac06562f75f151}{lift}}(OperatorFn\&\& op) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} details::lift\_fn<OperatorFn, NewType>}
+\DoxyCodeLine{88     \textcolor{keyword}{auto} lift(OperatorFn\&\& op) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} details::lift\_fn<OperatorFn, NewType>}
 \DoxyCodeLine{89     \{}
 \DoxyCodeLine{90         \textcolor{keywordflow}{return} details::lift\_impl<NewType>(std::forward<\textcolor{keyword}{decltype}(op)>(op), CastThis());}
 \DoxyCodeLine{91     \}}
@@ -93,7 +93,7 @@
 \DoxyCodeLine{111              std::invocable<Type, dynamic\_subscriber<NewType>>               OnNext,}
 \DoxyCodeLine{112              std::invocable<std::exception\_ptr, dynamic\_subscriber<NewType>> OnError     = forwarding\_on\_error,}
 \DoxyCodeLine{113              std::invocable<dynamic\_subscriber<NewType>>                     OnCompleted = forwarding\_on\_completed>}
-\DoxyCodeLine{114     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_aba4aace7b26ebaaaef0251eadafaa2ca}{lift}}(OnNext\&\& on\_next, OnError\&\& on\_error = \{\}, OnCompleted\&\& on\_completed = \{\}) \textcolor{keyword}{const}\&}
+\DoxyCodeLine{114     \textcolor{keyword}{auto} lift(OnNext\&\& on\_next, OnError\&\& on\_error = \{\}, OnCompleted\&\& on\_completed = \{\}) \textcolor{keyword}{const}\&}
 \DoxyCodeLine{115     \{}
 \DoxyCodeLine{116         \textcolor{keywordflow}{return} details::lift\_impl<NewType>(details::make\_lift\_action\_by\_callbacks<Type>(std::forward<OnNext>(on\_next),}
 \DoxyCodeLine{117                                                                                         std::forward<OnError>(on\_error),}
@@ -120,7 +120,7 @@
 \DoxyCodeLine{146              std::invocable<std::exception\_ptr, dynamic\_subscriber<NewType>> OnError = forwarding\_on\_error,}
 \DoxyCodeLine{147              std::invocable<dynamic\_subscriber<NewType>>                     OnCompleted = forwarding\_on\_completed>}
 \DoxyCodeLine{148         \textcolor{keyword}{requires} std::invocable<OnNext, Type, dynamic\_subscriber<NewType>>}
-\DoxyCodeLine{149     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a43477e5caf319a3e69573250d3986ffe}{lift}}(OnNext\&\& on\_next, OnError\&\& on\_error = \{\}, OnCompleted\&\& on\_completed = \{\}) \textcolor{keyword}{const}\&}
+\DoxyCodeLine{149     \textcolor{keyword}{auto} lift(OnNext\&\& on\_next, OnError\&\& on\_error = \{\}, OnCompleted\&\& on\_completed = \{\}) \textcolor{keyword}{const}\&}
 \DoxyCodeLine{150     \{}
 \DoxyCodeLine{151         \textcolor{keywordflow}{return} details::lift\_impl<NewType>(details::make\_lift\_action\_by\_callbacks<Type>(std::forward<OnNext>(on\_next),}
 \DoxyCodeLine{152                                                                                         std::forward<OnError>(on\_error),}

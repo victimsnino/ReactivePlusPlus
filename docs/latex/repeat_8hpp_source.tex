@@ -17,22 +17,22 @@
 \DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
 \DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/operators/fwd/repeat.hpp>}}
 \DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{create_8hpp}{rpp/sources/create.hpp}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/sources/create.hpp>}}
 \DoxyCodeLine{17 }
 \DoxyCodeLine{18 IMPLEMENTATION\_FILE(repeat\_tag);}
 \DoxyCodeLine{19 }
 \DoxyCodeLine{20 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{21 \{}
 \DoxyCodeLine{22 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable, \textcolor{keyword}{typename} Predicate>}
-\DoxyCodeLine{23 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1details_1_1repeat__on__completed}{repeat\_on\_completed}}}
+\DoxyCodeLine{23 \textcolor{keyword}{class }repeat\_on\_completed}
 \DoxyCodeLine{24 \{}
 \DoxyCodeLine{25 \textcolor{keyword}{public}:}
-\DoxyCodeLine{26     \mbox{\hyperlink{classrpp_1_1details_1_1repeat__on__completed}{repeat\_on\_completed}}(std::shared\_ptr<SpecificObservable> shared\_observable,}
+\DoxyCodeLine{26     repeat\_on\_completed(std::shared\_ptr<SpecificObservable> shared\_observable,}
 \DoxyCodeLine{27                         Predicate                           predicate)}
 \DoxyCodeLine{28         : m\_shared\_observable\{std::move(shared\_observable)\}}
 \DoxyCodeLine{29         , m\_predicate\{std::move(predicate)\} \{\}}
 \DoxyCodeLine{30 }
-\DoxyCodeLine{31     \mbox{\hyperlink{classrpp_1_1details_1_1repeat__on__completed}{repeat\_on\_completed}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1details_1_1repeat__on__completed}{repeat\_on\_completed<Type, SpecificObservable, Predicate>}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{31     repeat\_on\_completed(\textcolor{keyword}{const} repeat\_on\_completed<Type, SpecificObservable, Predicate>\&) = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{32 }
 \DoxyCodeLine{33     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)\textcolor{keyword}{ const}}
 \DoxyCodeLine{34 \textcolor{keyword}{    }\{}
@@ -50,8 +50,8 @@
 \DoxyCodeLine{46 \textcolor{keyword}{    }\{}
 \DoxyCodeLine{47         m\_shared\_observable-\/>subscribe(create\_subscriber\_with\_state<Type>(subscriber.get\_subscription().make\_child(),}
 \DoxyCodeLine{48                                                                           subscriber,}
-\DoxyCodeLine{49                                                                           \mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__next}{forwarding\_on\_next}}\{\},}
-\DoxyCodeLine{50                                                                           \mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__error}{forwarding\_on\_error}}\{\},}
+\DoxyCodeLine{49                                                                           forwarding\_on\_next\{\},}
+\DoxyCodeLine{50                                                                           forwarding\_on\_error\{\},}
 \DoxyCodeLine{51                                                                           *\textcolor{keyword}{this}));}
 \DoxyCodeLine{52     \}}
 \DoxyCodeLine{53 }

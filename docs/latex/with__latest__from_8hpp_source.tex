@@ -53,7 +53,7 @@
 \DoxyCodeLine{49 \}}
 \DoxyCodeLine{50 }
 \DoxyCodeLine{51 \textcolor{keyword}{template}<constraint::observable ...TObservables>}
-\DoxyCodeLine{52 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__state__t}{with\_latest\_from\_state\_t}}}
+\DoxyCodeLine{52 \textcolor{keyword}{struct }with\_latest\_from\_state\_t}
 \DoxyCodeLine{53 \{}
 \DoxyCodeLine{54     std::array<std::mutex, \textcolor{keyword}{sizeof}...(TObservables)>                              mutexes\{\};}
 \DoxyCodeLine{55     std::tuple<std::optional<utils::extract\_observable\_type\_t<TObservables>>...> vals\{\};}
@@ -78,7 +78,7 @@
 \DoxyCodeLine{74 }
 \DoxyCodeLine{75     \textcolor{keywordflow}{return} [selector=std::forward<TSelector>(selector), ...observables=std::forward<TObservables>(observables)]<constraint::subscriber\_of\_type<ResultType> TSub>(TSub\&\& subscriber)}
 \DoxyCodeLine{76     \{}
-\DoxyCodeLine{77         \textcolor{keyword}{auto} state = std::make\_shared<\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__state__t}{with\_latest\_from\_state\_t}}<TObservables...>>();}
+\DoxyCodeLine{77         \textcolor{keyword}{auto} state = std::make\_shared<with\_latest\_from\_state\_t<TObservables...>>();}
 \DoxyCodeLine{78 }
 \DoxyCodeLine{79         with\_latest\_from\_subscribe\_observables(std::make\_index\_sequence<\textcolor{keyword}{sizeof}...(TObservables)>\{\}, state, subscriber, observables...);}
 \DoxyCodeLine{80 }

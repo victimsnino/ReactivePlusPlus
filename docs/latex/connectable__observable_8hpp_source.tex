@@ -27,23 +27,23 @@
 \DoxyCodeLine{31 \textcolor{keyword}{template}<constraint::decayed\_type                    Type,}
 \DoxyCodeLine{32          subjects::constraint::subject\_of\_type<Type> Subject,}
 \DoxyCodeLine{33          constraint::observable\_of\_type<Type>        OriginalObservable>}
-\DoxyCodeLine{34 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}}
+\DoxyCodeLine{34 \textcolor{keyword}{class }connectable\_observable}
 \DoxyCodeLine{35     : \textcolor{keyword}{public} decltype(std::declval<Subject>().get\_observable())}
-\DoxyCodeLine{36     , \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, connectable\_observable<Type, Subject, OriginalObservable>, details::ref\_count\_tag>}
+\DoxyCodeLine{36     , \textcolor{keyword}{public} details::member\_overload<Type, connectable\_observable<Type, Subject, OriginalObservable>, details::ref\_count\_tag>}
 \DoxyCodeLine{37 \{}
 \DoxyCodeLine{38     \textcolor{keyword}{using} base = \textcolor{keyword}{decltype}(std::declval<Subject>().get\_observable());}
 \DoxyCodeLine{39 \textcolor{keyword}{public}:}
-\DoxyCodeLine{40     \mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}(\textcolor{keyword}{const} OriginalObservable\& original\_observable, \textcolor{keyword}{const} Subject\& subject = Subject\{\})}
+\DoxyCodeLine{40     connectable\_observable(\textcolor{keyword}{const} OriginalObservable\& original\_observable, \textcolor{keyword}{const} Subject\& subject = Subject\{\})}
 \DoxyCodeLine{41         : base\{subject.get\_observable()\}}
 \DoxyCodeLine{42         , m\_original\_observable\{original\_observable\}}
 \DoxyCodeLine{43         , m\_subject\{subject\} \{\}}
 \DoxyCodeLine{44 }
-\DoxyCodeLine{45     \mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}(OriginalObservable\&\& original\_observable, \textcolor{keyword}{const} Subject\& subject = Subject\{\})}
+\DoxyCodeLine{45     connectable\_observable(OriginalObservable\&\& original\_observable, \textcolor{keyword}{const} Subject\& subject = Subject\{\})}
 \DoxyCodeLine{46         : base\{subject.get\_observable()\}}
 \DoxyCodeLine{47         , m\_original\_observable\{std::move(original\_observable)\}}
 \DoxyCodeLine{48         , m\_subject\{subject\} \{\}}
 \DoxyCodeLine{49 }
-\DoxyCodeLine{50     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}} connect(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\& subscription = \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\{\}) \textcolor{keyword}{const}}
+\DoxyCodeLine{50     composite\_subscription connect(\textcolor{keyword}{const} composite\_subscription\& subscription = composite\_subscription\{\}) \textcolor{keyword}{const}}
 \DoxyCodeLine{51     \{}
 \DoxyCodeLine{52         \textcolor{keyword}{auto} subscriber              = m\_subject.get\_subscriber();}
 \DoxyCodeLine{53         \textcolor{keyword}{auto} subscriber\_subscription = subscriber.get\_subscription();}
@@ -80,14 +80,14 @@
 \DoxyCodeLine{84     \textcolor{keyword}{struct }state\_t}
 \DoxyCodeLine{85     \{}
 \DoxyCodeLine{86         std::mutex             mutex\{\};}
-\DoxyCodeLine{87         \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}} sub = composite\_subscription::empty();}
+\DoxyCodeLine{87         composite\_subscription sub = composite\_subscription::empty();}
 \DoxyCodeLine{88     \};}
 \DoxyCodeLine{89 }
 \DoxyCodeLine{90     std::shared\_ptr<state\_t> m\_state = std::make\_shared<state\_t>();}
 \DoxyCodeLine{91 \};}
 \DoxyCodeLine{92 }
 \DoxyCodeLine{93 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable OriginalObservable, subjects::constra\textcolor{keywordtype}{int}::subject Subject>}
-\DoxyCodeLine{94 \mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}(\textcolor{keyword}{const} OriginalObservable\&, \textcolor{keyword}{const} Subject\&) -\/> \mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable<subjects::utils::extract\_subject\_type\_t<Subject>}}, Subject, OriginalObservable>;}
+\DoxyCodeLine{94 connectable\_observable(\textcolor{keyword}{const} OriginalObservable\&, \textcolor{keyword}{const} Subject\&) -\/> connectable\_observable<subjects::utils::extract\_subject\_type\_t<Subject>, Subject, OriginalObservable>;}
 \DoxyCodeLine{95 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

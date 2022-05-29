@@ -27,13 +27,13 @@
 \DoxyCodeLine{23 }
 \DoxyCodeLine{24 \textcolor{keyword}{namespace }rpp::schedulers}
 \DoxyCodeLine{25 \{}
-\DoxyCodeLine{30 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{new\_thread}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1scheduler__tag}{details::scheduler\_tag}}}
+\DoxyCodeLine{30 \textcolor{keyword}{class }new\_thread final : \textcolor{keyword}{public} details::scheduler\_tag}
 \DoxyCodeLine{31 \{}
 \DoxyCodeLine{32 \textcolor{keyword}{public}:}
-\DoxyCodeLine{33     \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy}{worker\_strategy}}}
+\DoxyCodeLine{33     \textcolor{keyword}{class }worker\_strategy}
 \DoxyCodeLine{34     \{}
 \DoxyCodeLine{35     \textcolor{keyword}{public}:}
-\DoxyCodeLine{36         \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy}{worker\_strategy}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{rpp::composite\_subscription}}\& sub)}
+\DoxyCodeLine{36         worker\_strategy(\textcolor{keyword}{const} rpp::composite\_subscription\& sub)}
 \DoxyCodeLine{37             : m\_state\{std::make\_shared<state>()\}}
 \DoxyCodeLine{38         \{}
 \DoxyCodeLine{39             m\_state-\/>init\_thread(sub);}
@@ -54,7 +54,7 @@
 \DoxyCodeLine{54                     m\_queue.emplace(time\_point, std::forward<\textcolor{keyword}{decltype}(fn)>(fn));}
 \DoxyCodeLine{55             \}}
 \DoxyCodeLine{56 }
-\DoxyCodeLine{57             \textcolor{keywordtype}{void} init\_thread(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{rpp::composite\_subscription}}\& sub)}
+\DoxyCodeLine{57             \textcolor{keywordtype}{void} init\_thread(\textcolor{keyword}{const} rpp::composite\_subscription\& sub)}
 \DoxyCodeLine{58             \{}
 \DoxyCodeLine{59                 \textcolor{keyword}{auto} as\_shared = shared\_from\_this();}
 \DoxyCodeLine{60 }
@@ -62,7 +62,7 @@
 \DoxyCodeLine{62                 \{}
 \DoxyCodeLine{63                     state-\/>data\_thread(token);}
 \DoxyCodeLine{64                 \}\};}
-\DoxyCodeLine{65                 m\_sub.reset(sub.\mbox{\hyperlink{classrpp_1_1composite__subscription_a7ea8553bdf67bbceab87dd14b7c42e3c}{add}}([state = as\_shared]}
+\DoxyCodeLine{65                 m\_sub.reset(sub.add([state = as\_shared]}
 \DoxyCodeLine{66                 \{}
 \DoxyCodeLine{67                     state-\/>m\_thread.request\_stop();}
 \DoxyCodeLine{68 }
@@ -90,17 +90,17 @@
 \DoxyCodeLine{90                 m\_queue.reset();}
 \DoxyCodeLine{91             \}}
 \DoxyCodeLine{92 }
-\DoxyCodeLine{93             \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1queue__worker__state}{details::queue\_worker\_state}} m\_queue\{\};}
+\DoxyCodeLine{93             details::queue\_worker\_state m\_queue\{\};}
 \DoxyCodeLine{94             std::jthread                m\_thread\{\};}
-\DoxyCodeLine{95             \mbox{\hyperlink{classrpp_1_1subscription__guard}{rpp::subscription\_guard}}     m\_sub = rpp::subscription\_base::empty();}
+\DoxyCodeLine{95             rpp::subscription\_guard     m\_sub = rpp::subscription\_base::empty();}
 \DoxyCodeLine{96         \};}
 \DoxyCodeLine{97 }
 \DoxyCodeLine{98         std::shared\_ptr<state> m\_state\{\};}
 \DoxyCodeLine{99     \};}
 \DoxyCodeLine{100 }
-\DoxyCodeLine{101     \textcolor{keyword}{static} \textcolor{keyword}{auto} create\_worker(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{rpp::composite\_subscription}}\& sub = \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\{\})}
+\DoxyCodeLine{101     \textcolor{keyword}{static} \textcolor{keyword}{auto} create\_worker(\textcolor{keyword}{const} rpp::composite\_subscription\& sub = composite\_subscription\{\})}
 \DoxyCodeLine{102     \{}
-\DoxyCodeLine{103         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker<worker\_strategy>}}\{sub\};}
+\DoxyCodeLine{103         \textcolor{keywordflow}{return} worker<worker\_strategy>\{sub\};}
 \DoxyCodeLine{104     \}}
 \DoxyCodeLine{105 \};}
 \DoxyCodeLine{106 \} \textcolor{comment}{// namespace rpp::schedulers}}

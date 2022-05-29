@@ -25,7 +25,7 @@
 \DoxyCodeLine{21 \textcolor{keyword}{concept }subject\_strategy = std::constructible\_from<Strategy, rpp::composite\_subscription> \&\& \textcolor{keyword}{requires}(Strategy t)}
 \DoxyCodeLine{22 \{}
 \DoxyCodeLine{23     \{t.get\_subscriber()\} -\/> rpp::constraint::subscriber;}
-\DoxyCodeLine{24     t.on\_subscribe(std::declval<\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp::dynamic\_subscriber<T>}}>());}
+\DoxyCodeLine{24     t.on\_subscribe(std::declval<rpp::dynamic\_subscriber<T>>());}
 \DoxyCodeLine{25 \};}
 \DoxyCodeLine{26 }
 \DoxyCodeLine{27 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T, subject\_strategy<T> Strategy>}

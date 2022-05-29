@@ -22,72 +22,72 @@
 \DoxyCodeLine{18 }
 \DoxyCodeLine{19 \textcolor{preprocessor}{\#include <type\_traits>}}
 \DoxyCodeLine{20 }
-\DoxyCodeLine{33 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{34 \{}
-\DoxyCodeLine{35 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1observable__tag}{observable\_tag}} \{\};}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} TObservable>}
-\DoxyCodeLine{38 \textcolor{keyword}{concept }op\_fn = constraint::observable<std::invoke\_result\_t<T, TObservable>>;}
-\DoxyCodeLine{39 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \textcolor{keyword}{struct }observable\_tag \{\};}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} TObservable>}
+\DoxyCodeLine{26 \textcolor{keyword}{concept }op\_fn = constraint::observable<std::invoke\_result\_t<T, TObservable>>;}
+\DoxyCodeLine{27 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{keyword}{namespace }rpp}
+\DoxyCodeLine{30 \{}
+\DoxyCodeLine{35 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{36 \textcolor{keyword}{struct }virtual\_observable : \textcolor{keyword}{public} details::observable\_tag}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38     \textcolor{keyword}{virtual} \string~virtual\_observable() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{39 \};}
 \DoxyCodeLine{40 }
-\DoxyCodeLine{41 \textcolor{keyword}{namespace }rpp}
-\DoxyCodeLine{42 \{}
-\DoxyCodeLine{47 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{48 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1virtual__observable}{virtual\_observable}} : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1details_1_1observable__tag}{details::observable\_tag}}}
-\DoxyCodeLine{49 \{}
-\DoxyCodeLine{50     \textcolor{keyword}{virtual} \mbox{\hyperlink{structrpp_1_1virtual__observable}{\string~virtual\_observable}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{51 \};}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{58 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{59 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1interface__observable}{interface\_observable}}}
-\DoxyCodeLine{60     : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1virtual__observable}{virtual\_observable}}<Type>}
-\DoxyCodeLine{61     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::lift\_tag>}
-\DoxyCodeLine{62     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::map\_tag>}
-\DoxyCodeLine{63     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::filter\_tag>}
-\DoxyCodeLine{64     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::take\_tag>}
-\DoxyCodeLine{65     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::take\_while\_tag>}
-\DoxyCodeLine{66     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::merge\_tag>}
-\DoxyCodeLine{67     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::observe\_on\_tag>}
-\DoxyCodeLine{68     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::publish\_tag>}
-\DoxyCodeLine{69     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::multicast\_tag>}
-\DoxyCodeLine{70     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::repeat\_tag>}
-\DoxyCodeLine{71     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::subscribe\_on\_tag>}
-\DoxyCodeLine{72     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::with\_latest\_from\_tag>}
-\DoxyCodeLine{73 \{}
-\DoxyCodeLine{74 \textcolor{keyword}{public}:}
-\DoxyCodeLine{82     \textcolor{keyword}{template}<details::op\_fn<SpecificObservable> OperatorFn>}
-\DoxyCodeLine{83     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}(OperatorFn\&\& fn) \textcolor{keyword}{const} \&}
-\DoxyCodeLine{84     \{}
-\DoxyCodeLine{85         \textcolor{keywordflow}{return} fn(CastThis());}
-\DoxyCodeLine{86     \}}
-\DoxyCodeLine{87 }
-\DoxyCodeLine{88     \textcolor{keyword}{template}<details::op\_fn<SpecificObservable> OperatorFn>}
-\DoxyCodeLine{89     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}(OperatorFn\&\& fn) \&\&}
-\DoxyCodeLine{90     \{}
-\DoxyCodeLine{91         \textcolor{keywordflow}{return} fn(MoveThis());}
-\DoxyCodeLine{92     \}}
-\DoxyCodeLine{93 }
-\DoxyCodeLine{97     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_a1aed1c6edd83e7091c2bdc3b15b2beee}{as\_blocking}}() const \&}
-\DoxyCodeLine{98     \{}
-\DoxyCodeLine{99         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}\{ CastThis ()\};}
-\DoxyCodeLine{100     \}}
-\DoxyCodeLine{101 }
-\DoxyCodeLine{102     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_a1aed1c6edd83e7091c2bdc3b15b2beee}{as\_blocking}}()\&\&}
-\DoxyCodeLine{103     \{}
-\DoxyCodeLine{104         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}\{ MoveThis() \};}
-\DoxyCodeLine{105     \}}
-\DoxyCodeLine{106     }
-\DoxyCodeLine{107 \textcolor{keyword}{private}:}
-\DoxyCodeLine{108     \textcolor{keyword}{const} SpecificObservable\& CastThis()\textcolor{keyword}{ const}}
-\DoxyCodeLine{109 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{110         \textcolor{keywordflow}{return} *\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
-\DoxyCodeLine{111     \}}
-\DoxyCodeLine{112 }
-\DoxyCodeLine{113     SpecificObservable\&\& MoveThis()}
-\DoxyCodeLine{114     \{}
-\DoxyCodeLine{115         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
-\DoxyCodeLine{116     \}}
-\DoxyCodeLine{117 \};}
-\DoxyCodeLine{118 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{46 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{47 \textcolor{keyword}{struct }interface\_observable}
+\DoxyCodeLine{48     : \textcolor{keyword}{public} virtual\_observable<Type>}
+\DoxyCodeLine{49     , details::member\_overload<Type, SpecificObservable, details::lift\_tag>}
+\DoxyCodeLine{50     , details::member\_overload<Type, SpecificObservable, details::map\_tag>}
+\DoxyCodeLine{51     , details::member\_overload<Type, SpecificObservable, details::filter\_tag>}
+\DoxyCodeLine{52     , details::member\_overload<Type, SpecificObservable, details::take\_tag>}
+\DoxyCodeLine{53     , details::member\_overload<Type, SpecificObservable, details::take\_while\_tag>}
+\DoxyCodeLine{54     , details::member\_overload<Type, SpecificObservable, details::merge\_tag>}
+\DoxyCodeLine{55     , details::member\_overload<Type, SpecificObservable, details::observe\_on\_tag>}
+\DoxyCodeLine{56     , details::member\_overload<Type, SpecificObservable, details::publish\_tag>}
+\DoxyCodeLine{57     , details::member\_overload<Type, SpecificObservable, details::multicast\_tag>}
+\DoxyCodeLine{58     , details::member\_overload<Type, SpecificObservable, details::repeat\_tag>}
+\DoxyCodeLine{59     , details::member\_overload<Type, SpecificObservable, details::subscribe\_on\_tag>}
+\DoxyCodeLine{60     , details::member\_overload<Type, SpecificObservable, details::with\_latest\_from\_tag>}
+\DoxyCodeLine{61 \{}
+\DoxyCodeLine{62 \textcolor{keyword}{public}:}
+\DoxyCodeLine{70     \textcolor{keyword}{template}<details::op\_fn<SpecificObservable> OperatorFn>}
+\DoxyCodeLine{71     \textcolor{keyword}{auto} op(OperatorFn\&\& fn) \textcolor{keyword}{const} \&}
+\DoxyCodeLine{72     \{}
+\DoxyCodeLine{73         \textcolor{keywordflow}{return} fn(CastThis());}
+\DoxyCodeLine{74     \}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76     \textcolor{keyword}{template}<details::op\_fn<SpecificObservable> OperatorFn>}
+\DoxyCodeLine{77     \textcolor{keyword}{auto} op(OperatorFn\&\& fn) \&\&}
+\DoxyCodeLine{78     \{}
+\DoxyCodeLine{79         \textcolor{keywordflow}{return} fn(MoveThis());}
+\DoxyCodeLine{80     \}}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{85     \textcolor{keyword}{auto} as\_blocking() const \&}
+\DoxyCodeLine{86     \{}
+\DoxyCodeLine{87         \textcolor{keywordflow}{return} blocking\_observable\{ CastThis ()\};}
+\DoxyCodeLine{88     \}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90     \textcolor{keyword}{auto} as\_blocking()\&\&}
+\DoxyCodeLine{91     \{}
+\DoxyCodeLine{92         \textcolor{keywordflow}{return} blocking\_observable\{ MoveThis() \};}
+\DoxyCodeLine{93     \}}
+\DoxyCodeLine{94     }
+\DoxyCodeLine{95 \textcolor{keyword}{private}:}
+\DoxyCodeLine{96     \textcolor{keyword}{const} SpecificObservable\& CastThis()\textcolor{keyword}{ const}}
+\DoxyCodeLine{97 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{98         \textcolor{keywordflow}{return} *\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
+\DoxyCodeLine{99     \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101     SpecificObservable\&\& MoveThis()}
+\DoxyCodeLine{102     \{}
+\DoxyCodeLine{103         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{104     \}}
+\DoxyCodeLine{105 \};}
+\DoxyCodeLine{106 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

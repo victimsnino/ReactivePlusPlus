@@ -6,15 +6,15 @@
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int} main()}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(\mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(1).as\_dynamic(),}
+\DoxyCodeLine{    rpp::source::just(rpp::source::just(1).as\_dynamic(),}
 \DoxyCodeLine{                      rpp::source::never<int>().as\_dynamic(),}
-\DoxyCodeLine{                      \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(2).as\_dynamic())}
+\DoxyCodeLine{                      rpp::source::just(2).as\_dynamic())}
 \DoxyCodeLine{            .merge()}
 \DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 1 2}}
 \DoxyCodeLine{\textcolor{comment}{}}
-\DoxyCodeLine{    \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(1)}
-\DoxyCodeLine{            .merge\_with(\mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(2))}
+\DoxyCodeLine{    rpp::source::just(1)}
+\DoxyCodeLine{            .merge\_with(rpp::source::just(2))}
 \DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 1 2}}
 \DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}

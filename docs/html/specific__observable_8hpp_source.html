@@ -9,9 +9,18 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -24,6 +33,21 @@
    <div id="projectname">ReactivePlusPlus
    </div>
   </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.svg"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -35,17 +59,23 @@
 var searchBox = new SearchBox("searchBox", "search",'Search','.html');
 /* @license-end */
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
+$(document).ready(function(){initNavTree('specific__observable_8hpp_source.html',''); initResizable(); });
 /* @license-end */
 </script>
-<div id="main-nav"></div>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +90,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_adaf39b9fc4fffd972703658707b0113.html">rpp</a></li><li class="navelem"><a class="el" href="dir_0afe0b2d744d0bd4513ad200b3c712f0.html">rpp</a></li><li class="navelem"><a class="el" href="dir_d8204008f15e4407f14e8533ec49a8b6.html">observables</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">specific_observable.hpp</div></div>
 </div><!--header-->
@@ -91,49 +116,49 @@ $(function() {
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span>rpp</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::on_subscribe_fn&lt;Type&gt; OnSubscribeFn&gt;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classrpp_1_1specific__observable.html">   31</a></span><span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1specific__observable.html">specific_observable</a> : <span class="keyword">public</span> <a class="code hl_struct" href="structrpp_1_1interface__observable.html">interface_observable</a>&lt;Type, specific_observable&lt;Type, OnSubscribeFn&gt;&gt;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">class </span>specific_observable : <span class="keyword">public</span> interface_observable&lt;Type, specific_observable&lt;Type, OnSubscribeFn&gt;&gt;</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>{</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_class" href="classrpp_1_1specific__observable.html">specific_observable</a>(OnSubscribeFn&amp;&amp; on_subscribe)</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    specific_observable(OnSubscribeFn&amp;&amp; on_subscribe)</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        : m_state{ std::move(on_subscribe) } {}</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_class" href="classrpp_1_1specific__observable.html">specific_observable</a>(<span class="keyword">const</span> OnSubscribeFn&amp; on_subscribe)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    specific_observable(<span class="keyword">const</span> OnSubscribeFn&amp; on_subscribe)</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        : m_state{ on_subscribe } {}</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_class" href="classrpp_1_1specific__observable.html">specific_observable</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1specific__observable.html">specific_observable&lt;Type, OnSubscribeFn&gt;</a>&amp;)     = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_class" href="classrpp_1_1specific__observable.html">specific_observable</a>(<a class="code hl_class" href="classrpp_1_1specific__observable.html">specific_observable&lt;Type, OnSubscribeFn&gt;</a>&amp;&amp;) <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    specific_observable(<span class="keyword">const</span> specific_observable&lt;Type, OnSubscribeFn&gt;&amp;)     = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    specific_observable(specific_observable&lt;Type, OnSubscribeFn&gt;&amp;&amp;) noexcept = default;</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="classrpp_1_1specific__observable.html#ac4eef9b11b0b4005baad6e8420d90100">   46</a></span>    [[nodiscard]] <span class="keyword">auto</span> <a class="code hl_function" href="classrpp_1_1specific__observable.html#ac4eef9b11b0b4005baad6e8420d90100">as_dynamic</a>() const &amp; { <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable&lt;Type&gt;</a>{*<span class="keyword">this</span>};            }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    [[nodiscard]] <span class="keyword">auto</span> <a class="code hl_function" href="classrpp_1_1specific__observable.html#ac4eef9b11b0b4005baad6e8420d90100">as_dynamic</a>() &amp;&amp;      { <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable&lt;Type&gt;</a>{std::move(*<span class="keyword">this</span>)}; }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    [[nodiscard]] auto as_dynamic() const &amp; { <span class="keywordflow">return</span> rpp::dynamic_observable&lt;Type&gt;{*<span class="keyword">this</span>};            }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    [[nodiscard]] <span class="keyword">auto</span> as_dynamic() &amp;&amp;      { <span class="keywordflow">return</span> rpp::dynamic_observable&lt;Type&gt;{std::move(*<span class="keyword">this</span>)}; }</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber_of_type&lt;Type&gt; TSub&gt;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="classrpp_1_1specific__observable.html#aa506227788360389ba0d2f40b65246e5">   55</a></span>    <a class="code hl_class" href="classrpp_1_1composite__subscription.html">composite_subscription</a> <a class="code hl_function" href="classrpp_1_1specific__observable.html#aa506227788360389ba0d2f40b65246e5">subscribe</a>(<span class="keyword">const</span> TSub&amp; subscriber)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    composite_subscription subscribe(<span class="keyword">const</span> TSub&amp; subscriber)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">return</span> subscribe_impl(subscriber);</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observer_of_type&lt;Type&gt; TObserver&gt;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="classrpp_1_1specific__observable.html#afa5d845bea82cfb167498164f434e303">   66</a></span>    <a class="code hl_class" href="classrpp_1_1composite__subscription.html">composite_subscription</a> <a class="code hl_function" href="classrpp_1_1specific__observable.html#afa5d845bea82cfb167498164f434e303">subscribe</a>(TObserver&amp;&amp; observer)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    composite_subscription subscribe(TObserver&amp;&amp; observer)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">return</span> subscribe_impl&lt;std::decay_t&lt;TObserver&gt;&gt;(std::forward&lt;TObserver&gt;(observer));</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observer_of_type&lt;Type&gt; TObserver&gt;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classrpp_1_1specific__observable.html#a5ec1483dcaf86e1c1bfb4e335c068ddd">   77</a></span>    <a class="code hl_class" href="classrpp_1_1composite__subscription.html">composite_subscription</a> <a class="code hl_function" href="classrpp_1_1specific__observable.html#a5ec1483dcaf86e1c1bfb4e335c068ddd">subscribe</a>(constraint::decayed_same_as&lt;composite_subscription&gt; <span class="keyword">auto</span>&amp;&amp; sub, TObserver&amp;&amp; observer)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    composite_subscription subscribe(constraint::decayed_same_as&lt;composite_subscription&gt; <span class="keyword">auto</span>&amp;&amp; sub, TObserver&amp;&amp; observer)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">return</span> subscribe_impl(<a class="code hl_class" href="classrpp_1_1specific__subscriber.html">specific_subscriber</a>&lt;Type, std::decay_t&lt;TObserver&gt;&gt;{std::forward&lt;decltype(sub)&gt;(sub), std::forward&lt;TObserver&gt;(observer)});</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">return</span> subscribe_impl(specific_subscriber&lt;Type, std::decay_t&lt;TObserver&gt;&gt;{std::forward&lt;decltype(sub)&gt;(sub), std::forward&lt;TObserver&gt;(observer)});</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keyword">requires</span> constraint::specific_subscriber_constructible&lt;Type, std::decay_t&lt;Args&gt;...&gt;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="classrpp_1_1specific__observable.html#a358bbbc2c0004e15d77c0e7e953ca233">   89</a></span>    <a class="code hl_class" href="classrpp_1_1composite__subscription.html">composite_subscription</a> <a class="code hl_function" href="classrpp_1_1specific__observable.html#a358bbbc2c0004e15d77c0e7e953ca233">subscribe</a>(Args&amp;&amp;...args)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    composite_subscription subscribe(Args&amp;&amp;...args)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">return</span> subscribe_impl(rpp::make_specific_subscriber&lt;Type&gt;(std::forward&lt;Args&gt;(args)...));</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    }</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">private</span>:</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observer_of_type&lt;Type&gt; Obs&gt;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <a class="code hl_class" href="classrpp_1_1composite__subscription.html">composite_subscription</a> subscribe_impl(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1specific__subscriber.html">specific_subscriber&lt;Type, Obs&gt;</a>&amp; subscriber)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    composite_subscription subscribe_impl(<span class="keyword">const</span> specific_subscriber&lt;Type, Obs&gt;&amp; subscriber)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordflow">try</span></div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        {</div>
@@ -142,7 +167,7 @@ $(function() {
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::runtime_error&amp; exc)</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        {</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <span class="keywordflow">if</span> (subscriber.is_subscribed())</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                subscriber.<a class="code hl_function" href="classrpp_1_1details_1_1subscriber__base.html#ae9532294156f8acf86d1cf39d4c1cc15">on_error</a>(std::make_exception_ptr(exc));</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                subscriber.on_error(std::make_exception_ptr(exc));</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                <span class="keywordflow">throw</span>;</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        }</div>
@@ -155,21 +180,14 @@ $(function() {
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> OnSub&gt;</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>specific_observable(OnSub on_subscribe) -&gt; specific_observable&lt;utils::extract_subscriber_type_t&lt;utils::function_argument_t&lt;OnSub&gt;&gt;, OnSub&gt;;</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>} <span class="comment">// namespace rpp</span></div>
-<div class="ttc" id="aclassrpp_1_1composite__subscription_html"><div class="ttname"><a href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a></div><div class="ttdoc">rpp::subscription_base with ability to add some dependent subscriptions as a part of this one: in cas...</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:27</div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1subscriber__base_html_ae9532294156f8acf86d1cf39d4c1cc15"><div class="ttname"><a href="classrpp_1_1details_1_1subscriber__base.html#ae9532294156f8acf86d1cf39d4c1cc15">rpp::details::subscriber_base::on_error</a></div><div class="ttdeci">void on_error(const std::exception_ptr &amp;err) const final</div><div class="ttdoc">Observable calls this method to notify observer about some error during generation next data.</div><div class="ttdef"><b>Definition:</b> subscriber_base.hpp:70</div></div>
-<div class="ttc" id="aclassrpp_1_1dynamic__observable_html"><div class="ttname"><a href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable</a></div><div class="ttdoc">type-erased alternative of observable (comparing to rpp::specific_observable).</div><div class="ttdef"><b>Definition:</b> dynamic_observable.hpp:82</div></div>
-<div class="ttc" id="aclassrpp_1_1specific__observable_html"><div class="ttname"><a href="classrpp_1_1specific__observable.html">rpp::specific_observable</a></div><div class="ttdoc">observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...</div><div class="ttdef"><b>Definition:</b> specific_observable.hpp:32</div></div>
-<div class="ttc" id="aclassrpp_1_1specific__observable_html_a358bbbc2c0004e15d77c0e7e953ca233"><div class="ttname"><a href="classrpp_1_1specific__observable.html#a358bbbc2c0004e15d77c0e7e953ca233">rpp::specific_observable::subscribe</a></div><div class="ttdeci">composite_subscription subscribe(Args &amp;&amp;...args) const</div><div class="ttdoc">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscr...</div><div class="ttdef"><b>Definition:</b> specific_observable.hpp:89</div></div>
-<div class="ttc" id="aclassrpp_1_1specific__observable_html_a5ec1483dcaf86e1c1bfb4e335c068ddd"><div class="ttname"><a href="classrpp_1_1specific__observable.html#a5ec1483dcaf86e1c1bfb4e335c068ddd">rpp::specific_observable::subscribe</a></div><div class="ttdeci">composite_subscription subscribe(constraint::decayed_same_as&lt; composite_subscription &gt; auto &amp;&amp;sub, TObserver &amp;&amp;observer) const</div><div class="ttdoc">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscr...</div><div class="ttdef"><b>Definition:</b> specific_observable.hpp:77</div></div>
-<div class="ttc" id="aclassrpp_1_1specific__observable_html_aa506227788360389ba0d2f40b65246e5"><div class="ttname"><a href="classrpp_1_1specific__observable.html#aa506227788360389ba0d2f40b65246e5">rpp::specific_observable::subscribe</a></div><div class="ttdeci">composite_subscription subscribe(const TSub &amp;subscriber) const</div><div class="ttdoc">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscr...</div><div class="ttdef"><b>Definition:</b> specific_observable.hpp:55</div></div>
-<div class="ttc" id="aclassrpp_1_1specific__observable_html_ac4eef9b11b0b4005baad6e8420d90100"><div class="ttname"><a href="classrpp_1_1specific__observable.html#ac4eef9b11b0b4005baad6e8420d90100">rpp::specific_observable::as_dynamic</a></div><div class="ttdeci">auto as_dynamic() const &amp;</div><div class="ttdoc">Converts rpp::specific_observable to rpp::dynamic_observable via type-erasure mechanism.</div><div class="ttdef"><b>Definition:</b> specific_observable.hpp:46</div></div>
-<div class="ttc" id="aclassrpp_1_1specific__observable_html_afa5d845bea82cfb167498164f434e303"><div class="ttname"><a href="classrpp_1_1specific__observable.html#afa5d845bea82cfb167498164f434e303">rpp::specific_observable::subscribe</a></div><div class="ttdeci">composite_subscription subscribe(TObserver &amp;&amp;observer) const</div><div class="ttdoc">Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscr...</div><div class="ttdef"><b>Definition:</b> specific_observable.hpp:66</div></div>
-<div class="ttc" id="aclassrpp_1_1specific__subscriber_html"><div class="ttname"><a href="classrpp_1_1specific__subscriber.html">rpp::specific_subscriber</a></div><div class="ttdoc">specific version of subscriber which stores type of observer used inside to prevent extra allocations</div><div class="ttdef"><b>Definition:</b> specific_subscriber.hpp:27</div></div>
-<div class="ttc" id="astructrpp_1_1interface__observable_html"><div class="ttname"><a href="structrpp_1_1interface__observable.html">rpp::interface_observable</a></div><div class="ttdoc">Base part of observable. Mostly used to provide some interface functions used by all observables.</div><div class="ttdef"><b>Definition:</b> interface_observable.hpp:73</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_adaf39b9fc4fffd972703658707b0113.html">rpp</a></li><li class="navelem"><a class="el" href="dir_0afe0b2d744d0bd4513ad200b3c712f0.html">rpp</a></li><li class="navelem"><a class="el" href="dir_d8204008f15e4407f14e8533ec49a8b6.html">observables</a></li><li class="navelem"><b>specific_observable.hpp</b></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
+  </ul>
+</div>
 </body>
 </html>

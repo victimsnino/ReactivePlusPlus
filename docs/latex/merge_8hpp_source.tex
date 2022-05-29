@@ -27,7 +27,7 @@
 \DoxyCodeLine{23 }
 \DoxyCodeLine{24 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{25 \{}
-\DoxyCodeLine{26 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1state__t}{state\_t}}}
+\DoxyCodeLine{26 \textcolor{keyword}{struct }state\_t}
 \DoxyCodeLine{27 \{}
 \DoxyCodeLine{28     std::atomic\_size\_t count\_of\_on\_completed\{\};}
 \DoxyCodeLine{29     std::mutex         mutex\{\};}
@@ -97,7 +97,7 @@
 \DoxyCodeLine{93 \{}
 \DoxyCodeLine{94     \textcolor{keywordflow}{return} [...observables = std::forward<TObservables>(observables)]<constraint::observable TObs>(TObs\&\& obs)}
 \DoxyCodeLine{95     \{}
-\DoxyCodeLine{96         \textcolor{keywordflow}{return} \mbox{\hyperlink{group__observables_ga819797b9fb7452311dedc62aa94d1f7b}{rpp::source::just}}(std::forward<TObs>(obs).as\_dynamic(), std::move(observables).as\_dynamic()...).merge();}
+\DoxyCodeLine{96         \textcolor{keywordflow}{return} rpp::source::just(std::forward<TObs>(obs).as\_dynamic(), std::move(observables).as\_dynamic()...).merge();}
 \DoxyCodeLine{97     \};}
 \DoxyCodeLine{98 \}}
 \DoxyCodeLine{99 \} \textcolor{comment}{// namespace rpp::details}}

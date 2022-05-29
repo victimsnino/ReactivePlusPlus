@@ -27,20 +27,20 @@
 \DoxyCodeLine{23 \textcolor{keyword}{auto} take\_while\_impl(Predicate\&\& predicate);}
 \DoxyCodeLine{24 }
 \DoxyCodeLine{25 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{26 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, take\_while\_tag>}
+\DoxyCodeLine{26 \textcolor{keyword}{struct }member\_overload<Type, SpecificObservable, take\_while\_tag>}
 \DoxyCodeLine{27 \{}
-\DoxyCodeLine{40     \textcolor{keyword}{template}<std::predicate<const Type\&> Predicate>}
-\DoxyCodeLine{41     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga47773bfb0298bba2ec71502c1984cc95}{take\_while}}(Predicate\&\& predicate) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<take\_while\_tag, Predicate>}
-\DoxyCodeLine{42     \{}
-\DoxyCodeLine{43         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<Type>(take\_while\_impl<Type>(std::forward<Predicate>(predicate)));}
-\DoxyCodeLine{44     \}}
-\DoxyCodeLine{45 }
 \DoxyCodeLine{46     \textcolor{keyword}{template}<std::predicate<const Type\&> Predicate>}
-\DoxyCodeLine{47     \textcolor{keyword}{auto} take\_while(Predicate\&\& predicate) \&\& \textcolor{keyword}{requires} is\_header\_included<take\_while\_tag, Predicate>}
+\DoxyCodeLine{47     \textcolor{keyword}{auto} take\_while(Predicate\&\& predicate) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<take\_while\_tag, Predicate>}
 \DoxyCodeLine{48     \{}
-\DoxyCodeLine{49         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template lift<Type>(take\_while\_impl<Type>(std::forward<Predicate>(predicate)));}
+\DoxyCodeLine{49         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<Type>(take\_while\_impl<Type>(std::forward<Predicate>(predicate)));}
 \DoxyCodeLine{50     \}}
-\DoxyCodeLine{51 \};}
-\DoxyCodeLine{52 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52     \textcolor{keyword}{template}<std::predicate<const Type\&> Predicate>}
+\DoxyCodeLine{53     \textcolor{keyword}{auto} take\_while(Predicate\&\& predicate) \&\& \textcolor{keyword}{requires} is\_header\_included<take\_while\_tag, Predicate>}
+\DoxyCodeLine{54     \{}
+\DoxyCodeLine{55         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template lift<Type>(take\_while\_impl<Type>(std::forward<Predicate>(predicate)));}
+\DoxyCodeLine{56     \}}
+\DoxyCodeLine{57 \};}
+\DoxyCodeLine{58 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

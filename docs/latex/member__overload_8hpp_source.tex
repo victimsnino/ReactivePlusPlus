@@ -19,16 +19,16 @@
 \DoxyCodeLine{15 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{16 \{}
 \DoxyCodeLine{17 \textcolor{keyword}{template}<\textcolor{keyword}{class }Tag, \textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{18 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1operator__declaration}{operator\_declaration}}}
+\DoxyCodeLine{18 \textcolor{keyword}{struct }operator\_declaration}
 \DoxyCodeLine{19 \{}
 \DoxyCodeLine{20     \textcolor{keyword}{static} std::false\_type header\_included();}
 \DoxyCodeLine{21 \};}
 \DoxyCodeLine{22 }
 \DoxyCodeLine{23 \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{24 \textcolor{keyword}{concept }is\_header\_included = \textcolor{keyword}{decltype}(\mbox{\hyperlink{structrpp_1_1details_1_1operator__declaration}{operator\_declaration<Args...>::header\_included}}())::value;}
+\DoxyCodeLine{24 \textcolor{keyword}{concept }is\_header\_included = \textcolor{keyword}{decltype}(operator\_declaration<Args...>::header\_included())::value;}
 \DoxyCodeLine{25 }
 \DoxyCodeLine{26 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable, \textcolor{keyword}{typename} MemberTag>}
-\DoxyCodeLine{27 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}};}
+\DoxyCodeLine{27 \textcolor{keyword}{struct }member\_overload;}
 \DoxyCodeLine{28 }
 \DoxyCodeLine{29 \textcolor{preprocessor}{\#define IMPLEMENTATION\_FILE(tag)                        \(\backslash\)}}
 \DoxyCodeLine{30 \textcolor{preprocessor}{template<typename ...Args>                              \(\backslash\)}}

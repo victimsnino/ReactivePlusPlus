@@ -22,16 +22,16 @@
 \DoxyCodeLine{18 }
 \DoxyCodeLine{19 \textcolor{keyword}{namespace }rpp}
 \DoxyCodeLine{20 \{}
-\DoxyCodeLine{24 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1callback__subscription}{callback\_subscription}} final : \textcolor{keyword}{public} \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}}
+\DoxyCodeLine{24 \textcolor{keyword}{class }callback\_subscription final : \textcolor{keyword}{public} subscription\_base}
 \DoxyCodeLine{25 \{}
 \DoxyCodeLine{26 \textcolor{keyword}{public}:}
 \DoxyCodeLine{27     \textcolor{keyword}{template}<std::invocable Fn>}
-\DoxyCodeLine{28     \mbox{\hyperlink{classrpp_1_1callback__subscription}{callback\_subscription}}(Fn\&\& fn)}
-\DoxyCodeLine{29         : \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\_base}}\{std::make\_shared<state<std::decay\_t<Fn>>>(std::forward<Fn>(fn))\} \{ \}}
+\DoxyCodeLine{28     callback\_subscription(Fn\&\& fn)}
+\DoxyCodeLine{29         : subscription\_base\{std::make\_shared<state<std::decay\_t<Fn>>>(std::forward<Fn>(fn))\} \{ \}}
 \DoxyCodeLine{30 }
 \DoxyCodeLine{31 \textcolor{keyword}{private}:}
 \DoxyCodeLine{32     \textcolor{keyword}{template}<std::invocable Fn>}
-\DoxyCodeLine{33     \textcolor{keyword}{class }state final : \textcolor{keyword}{public} \mbox{\hyperlink{classrpp_1_1details_1_1subscription__state}{details::subscription\_state}}}
+\DoxyCodeLine{33     \textcolor{keyword}{class }state final : \textcolor{keyword}{public} details::subscription\_state}
 \DoxyCodeLine{34     \{}
 \DoxyCodeLine{35     \textcolor{keyword}{public}:}
 \DoxyCodeLine{36         state(\textcolor{keyword}{const} Fn\& fn)}

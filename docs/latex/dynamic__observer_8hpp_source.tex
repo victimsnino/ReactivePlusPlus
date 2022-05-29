@@ -26,36 +26,36 @@
 \DoxyCodeLine{22 \textcolor{keyword}{namespace }rpp}
 \DoxyCodeLine{23 \{}
 \DoxyCodeLine{31 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type T>}
-\DoxyCodeLine{32 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1interface__observer}{interface\_observer}}<T>}
+\DoxyCodeLine{32 \textcolor{keyword}{class }dynamic\_observer final : \textcolor{keyword}{public} interface\_observer<T>}
 \DoxyCodeLine{33 \{}
 \DoxyCodeLine{34 \textcolor{keyword}{public}:}
 \DoxyCodeLine{35     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_next\_fn<T>   OnNext      = utils::empty\_function\_t<T>,}
 \DoxyCodeLine{36              constra\textcolor{keywordtype}{int}::on\_error\_fn     OnError     = utils::rethrow\_error\_t,}
 \DoxyCodeLine{37              constra\textcolor{keywordtype}{int}::on\_completed\_fn OnCompleted = utils::empty\_function\_t<>>}
-\DoxyCodeLine{38     \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}(OnNext\&\& \mbox{\hyperlink{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}{on\_next}} = \{\}, OnError\&\& \mbox{\hyperlink{classrpp_1_1dynamic__observer_a1e8abba013fb85e23518ee93a3524e0c}{on\_error}} = \{\}, OnCompleted\&\& \mbox{\hyperlink{classrpp_1_1dynamic__observer_aebd2d9f021a23ce98a2eac7d49d8f254}{on\_completed}} = \{\})}
-\DoxyCodeLine{39         : m\_state\{make\_shared\_state(std::forward<OnNext>(\mbox{\hyperlink{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}{on\_next}}),}
-\DoxyCodeLine{40                                     std::forward<OnError>(\mbox{\hyperlink{classrpp_1_1dynamic__observer_a1e8abba013fb85e23518ee93a3524e0c}{on\_error}}),}
-\DoxyCodeLine{41                                     std::forward<OnCompleted>(\mbox{\hyperlink{classrpp_1_1dynamic__observer_aebd2d9f021a23ce98a2eac7d49d8f254}{on\_completed}}))\} \{ \}}
+\DoxyCodeLine{38     dynamic\_observer(OnNext\&\& on\_next = \{\}, OnError\&\& on\_error = \{\}, OnCompleted\&\& on\_completed = \{\})}
+\DoxyCodeLine{39         : m\_state\{make\_shared\_state(std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{40                                     std::forward<OnError>(on\_error),}
+\DoxyCodeLine{41                                     std::forward<OnCompleted>(on\_completed))\} \{ \}}
 \DoxyCodeLine{42 }
-\DoxyCodeLine{43     \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}(constraint::on\_next\_fn<T> \textcolor{keyword}{auto}\&\& \mbox{\hyperlink{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}{on\_next}}, constraint::on\_completed\_fn \textcolor{keyword}{auto}\&\& \mbox{\hyperlink{classrpp_1_1dynamic__observer_aebd2d9f021a23ce98a2eac7d49d8f254}{on\_completed}})}
-\DoxyCodeLine{44         : \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}\{std::forward<decltype(on\_next)>(\mbox{\hyperlink{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}{on\_next}}),}
+\DoxyCodeLine{43     dynamic\_observer(constraint::on\_next\_fn<T> \textcolor{keyword}{auto}\&\& on\_next, constraint::on\_completed\_fn \textcolor{keyword}{auto}\&\& on\_completed)}
+\DoxyCodeLine{44         : dynamic\_observer\{std::forward<decltype(on\_next)>(on\_next),}
 \DoxyCodeLine{45                            utils::rethrow\_error\_t\{\},}
-\DoxyCodeLine{46                            std::forward<decltype(on\_completed)>(\mbox{\hyperlink{classrpp_1_1dynamic__observer_aebd2d9f021a23ce98a2eac7d49d8f254}{on\_completed}})\} \{\}}
+\DoxyCodeLine{46                            std::forward<decltype(on\_completed)>(on\_completed)\} \{\}}
 \DoxyCodeLine{47 }
 \DoxyCodeLine{48     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_of\_type<T> TObserver> }
-\DoxyCodeLine{49         \textcolor{keyword}{requires} (!std::is\_same\_v<std::decay\_t<TObserver>, \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}}>)}
-\DoxyCodeLine{50     \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}(TObserver\&\& obs)}
+\DoxyCodeLine{49         \textcolor{keyword}{requires} (!std::is\_same\_v<std::decay\_t<TObserver>, dynamic\_observer<T>>)}
+\DoxyCodeLine{50     dynamic\_observer(TObserver\&\& obs)}
 \DoxyCodeLine{51         : m\_state\{std::make\_shared<std::decay\_t<TObserver>>(std::forward<TObserver>(obs))\} \{\}}
 \DoxyCodeLine{52 }
-\DoxyCodeLine{53     \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}}\&)     = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{54     \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}(\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}}\&\&) \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{53     dynamic\_observer(\textcolor{keyword}{const} dynamic\_observer<T>\&)     = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{54     dynamic\_observer(dynamic\_observer<T>\&\&) noexcept = default;}
 \DoxyCodeLine{55 }
-\DoxyCodeLine{56     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1dynamic__observer_a96f78e9685e54bccb428fbacf068a6fc}{on\_next}}(\textcolor{keyword}{const} T\& v)\textcolor{keyword}{ const override                     }\{ m\_state-\/>on\_next(v);              \}}
-\DoxyCodeLine{57     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1dynamic__observer_a16f5d34af9d7c4096b1c4535a866dab2}{on\_next}}(T\&\& v)\textcolor{keyword}{ const override                          }\{ m\_state-\/>on\_next(std::move(v));   \}}
-\DoxyCodeLine{58     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1dynamic__observer_a1e8abba013fb85e23518ee93a3524e0c}{on\_error}}(\textcolor{keyword}{const} std::exception\_ptr\& err)\textcolor{keyword}{ const override }\{ m\_state-\/>on\_error(err);           \}}
-\DoxyCodeLine{59     \textcolor{keywordtype}{void} \mbox{\hyperlink{classrpp_1_1dynamic__observer_aebd2d9f021a23ce98a2eac7d49d8f254}{on\_completed}}()\textcolor{keyword}{ const override                          }\{ m\_state-\/>on\_completed();          \}}
+\DoxyCodeLine{56     \textcolor{keywordtype}{void} on\_next(const T\& v)\textcolor{keyword}{ const override                     }\{ m\_state-\/>on\_next(v);              \}}
+\DoxyCodeLine{57     \textcolor{keywordtype}{void} on\_next(T\&\& v)\textcolor{keyword}{ const override                          }\{ m\_state-\/>on\_next(std::move(v));   \}}
+\DoxyCodeLine{58     \textcolor{keywordtype}{void} on\_error(\textcolor{keyword}{const} std::exception\_ptr\& err)\textcolor{keyword}{ const override }\{ m\_state-\/>on\_error(err);           \}}
+\DoxyCodeLine{59     \textcolor{keywordtype}{void} on\_completed()\textcolor{keyword}{ const override                          }\{ m\_state-\/>on\_completed();          \}}
 \DoxyCodeLine{60 }
-\DoxyCodeLine{64     \textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}}\& \mbox{\hyperlink{classrpp_1_1dynamic__observer_add7053ccfed71413c07b74cc34a564f8}{as\_dynamic}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
+\DoxyCodeLine{64     \textcolor{keyword}{const} dynamic\_observer<T>\& as\_dynamic()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
 \DoxyCodeLine{65 }
 \DoxyCodeLine{66 \textcolor{keyword}{private}:}
 \DoxyCodeLine{67     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}

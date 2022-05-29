@@ -25,7 +25,7 @@
 \DoxyCodeLine{21 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs>}
 \DoxyCodeLine{22 \textcolor{keyword}{auto} publish\_impl(TObs\&\& observable)}
 \DoxyCodeLine{23 \{}
-\DoxyCodeLine{24     \textcolor{keywordflow}{return} std::forward<TObs>(observable).multicast(\mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<Type>}}\{\});}
+\DoxyCodeLine{24     \textcolor{keywordflow}{return} std::forward<TObs>(observable).multicast(rpp::subjects::publish\_subject<Type>\{\});}
 \DoxyCodeLine{25 \}}
 \DoxyCodeLine{26 \} \textcolor{comment}{// namespace rpp::details}}
 

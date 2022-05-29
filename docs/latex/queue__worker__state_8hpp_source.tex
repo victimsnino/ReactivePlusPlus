@@ -22,10 +22,10 @@
 \DoxyCodeLine{18 }
 \DoxyCodeLine{19 \textcolor{keyword}{namespace }rpp::schedulers::details}
 \DoxyCodeLine{20 \{}
-\DoxyCodeLine{21 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1queue__worker__state}{queue\_worker\_state}}}
+\DoxyCodeLine{21 \textcolor{keyword}{class }queue\_worker\_state}
 \DoxyCodeLine{22 \{}
 \DoxyCodeLine{23 \textcolor{keyword}{public}:}
-\DoxyCodeLine{24     \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1queue__worker__state}{queue\_worker\_state}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{24     queue\_worker\_state() = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{25 }
 \DoxyCodeLine{26     \textcolor{keywordtype}{void} emplace(time\_point time\_point, std::invocable \textcolor{keyword}{auto}\&\& fn)}
 \DoxyCodeLine{27     \{}
@@ -102,7 +102,7 @@
 \DoxyCodeLine{98     \textcolor{keyword}{public}:}
 \DoxyCodeLine{99         schedulable(time\_point time\_point, \textcolor{keywordtype}{size\_t} \textcolor{keywordtype}{id}, std::invocable \textcolor{keyword}{auto}\&\& fn)}
 \DoxyCodeLine{100             : m\_time\_point\{ time\_point \}}
-\DoxyCodeLine{101             , m\_id\{ \textcolor{keywordtype}{id} \}}
+\DoxyCodeLine{101             , m\_id\{ id \}}
 \DoxyCodeLine{102             , m\_function\{ std::forward<decltype(fn)>(fn) \} \{\}}
 \DoxyCodeLine{103 }
 \DoxyCodeLine{104         schedulable(\textcolor{keyword}{const} schedulable\& other) = \textcolor{keywordflow}{default};}

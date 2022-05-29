@@ -1,6 +1,6 @@
 \hypertarget{from_8hpp_source}{}\doxysection{from.\+hpp}
 \label{from_8hpp_source}\index{src/rpp/rpp/sources/from.hpp@{src/rpp/rpp/sources/from.hpp}}
-\mbox{\hyperlink{from_8hpp}{Go to the documentation of this file.}}
+
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
 \DoxyCodeLine{2 \textcolor{comment}{//}}
@@ -16,7 +16,7 @@
 \DoxyCodeLine{12 }
 \DoxyCodeLine{21 \textcolor{preprocessor}{\#include <rpp/memory\_model.hpp>}}
 \DoxyCodeLine{22 \textcolor{preprocessor}{\#include <rpp/schedulers/immediate\_scheduler.hpp>}}
-\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{create_8hpp}{rpp/sources/create.hpp}}>}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <rpp/sources/create.hpp>}}
 \DoxyCodeLine{24 \textcolor{preprocessor}{\#include <rpp/sources/fwd.hpp>}}
 \DoxyCodeLine{25 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}}
 \DoxyCodeLine{26 \textcolor{preprocessor}{\#include <rpp/operators/map.hpp>}}
@@ -98,14 +98,14 @@
 \DoxyCodeLine{102 \}}
 \DoxyCodeLine{103 }
 \DoxyCodeLine{104 \textcolor{keyword}{template}<\textcolor{keyword}{typename} PackedIterable, schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
-\DoxyCodeLine{105 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1observable_1_1details_1_1iterate__impl}{iterate\_impl}}}
+\DoxyCodeLine{105 \textcolor{keyword}{class }iterate\_impl}
 \DoxyCodeLine{106 \{}
 \DoxyCodeLine{107 \textcolor{keyword}{public}:}
-\DoxyCodeLine{108     \mbox{\hyperlink{classrpp_1_1observable_1_1details_1_1iterate__impl}{iterate\_impl}}(\textcolor{keyword}{const} PackedIterable\& iterable, \textcolor{keyword}{const} TScheduler\& scheduler)}
+\DoxyCodeLine{108     iterate\_impl(\textcolor{keyword}{const} PackedIterable\& iterable, \textcolor{keyword}{const} TScheduler\& scheduler)}
 \DoxyCodeLine{109         : m\_iterable\{iterable\}}
 \DoxyCodeLine{110         , m\_scheduler\{scheduler\} \{\}}
 \DoxyCodeLine{111 }
-\DoxyCodeLine{112     \mbox{\hyperlink{classrpp_1_1observable_1_1details_1_1iterate__impl}{iterate\_impl}}(PackedIterable\&\& iterable, \textcolor{keyword}{const} TScheduler\& scheduler)}
+\DoxyCodeLine{112     iterate\_impl(PackedIterable\&\& iterable, \textcolor{keyword}{const} TScheduler\& scheduler)}
 \DoxyCodeLine{113         : m\_iterable\{std::move(iterable)\}}
 \DoxyCodeLine{114         , m\_scheduler\{scheduler\} \{\}}
 \DoxyCodeLine{115 }
@@ -123,28 +123,28 @@
 \DoxyCodeLine{127 \textcolor{keyword}{namespace }rpp::observable}
 \DoxyCodeLine{128 \{}
 \DoxyCodeLine{144 \textcolor{keyword}{template}<memory\_model memory\_model, \textcolor{keyword}{typename} T, \textcolor{keyword}{typename} ...Ts>}
-\DoxyCodeLine{145 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga9b6fdbec2962d28ae4284811e6971f27}{just}}(\textcolor{keyword}{const} schedulers::constraint::scheduler \textcolor{keyword}{auto}\& scheduler, T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (constraint::decayed\_same\_as<T, Ts> \&\& ...)}
+\DoxyCodeLine{145 \textcolor{keyword}{auto} just(\textcolor{keyword}{const} schedulers::constraint::scheduler \textcolor{keyword}{auto}\& scheduler, T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (constraint::decayed\_same\_as<T, Ts> \&\& ...)}
 \DoxyCodeLine{146 \{}
 \DoxyCodeLine{147     \textcolor{keyword}{using} DT = std::decay\_t<T>;}
-\DoxyCodeLine{148     \textcolor{keywordflow}{return} create<DT>(\mbox{\hyperlink{classrpp_1_1observable_1_1details_1_1iterate__impl}{details::iterate\_impl}}\{details::pack\_variadic<memory\_model, DT>(std::forward<T>(item), std::forward<Ts>(items)...), scheduler \});}
+\DoxyCodeLine{148     \textcolor{keywordflow}{return} create<DT>(details::iterate\_impl\{details::pack\_variadic<memory\_model, DT>(std::forward<T>(item), std::forward<Ts>(items)...), scheduler \});}
 \DoxyCodeLine{149 \}}
 \DoxyCodeLine{150 }
 \DoxyCodeLine{166 \textcolor{keyword}{template}<memory\_model memory\_model, \textcolor{keyword}{typename} T, \textcolor{keyword}{typename} ...Ts>}
-\DoxyCodeLine{167 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga9b6fdbec2962d28ae4284811e6971f27}{just}}(T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (constraint::decayed\_same\_as<T, Ts> \&\& ...)}
+\DoxyCodeLine{167 \textcolor{keyword}{auto} just(T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (constraint::decayed\_same\_as<T, Ts> \&\& ...)}
 \DoxyCodeLine{168 \{}
-\DoxyCodeLine{169     \textcolor{keywordflow}{return} just<memory\_model>(\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{schedulers::immediate}}\{\}, std::forward<T>(item), std::forward<Ts>(items)...);}
+\DoxyCodeLine{169     \textcolor{keywordflow}{return} just<memory\_model>(schedulers::immediate\{\}, std::forward<T>(item), std::forward<Ts>(items)...);}
 \DoxyCodeLine{170 \}}
 \DoxyCodeLine{171 }
 \DoxyCodeLine{185 \textcolor{keyword}{template}<memory\_model memory\_model, schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
-\DoxyCodeLine{186 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_ga688c67a9b816125b0e69a663c528f836}{from\_iterable}}(std::ranges::range \textcolor{keyword}{auto}\&\& iterable, \textcolor{keyword}{const} TScheduler\& scheduler)}
+\DoxyCodeLine{186 \textcolor{keyword}{auto} from\_iterable(std::ranges::range \textcolor{keyword}{auto}\&\& iterable, \textcolor{keyword}{const} TScheduler\& scheduler)}
 \DoxyCodeLine{187 \{}
 \DoxyCodeLine{188     \textcolor{keyword}{using} Container = std::decay\_t<\textcolor{keyword}{decltype}(iterable)>;}
 \DoxyCodeLine{189     \textcolor{keyword}{using} Type = std::ranges::range\_value\_t<Container>;}
-\DoxyCodeLine{190     \textcolor{keywordflow}{return} create<Type>(\mbox{\hyperlink{classrpp_1_1observable_1_1details_1_1iterate__impl}{details::iterate\_impl}}\{ details::pack\_to\_container<memory\_model, Container>(std::forward<\textcolor{keyword}{decltype}(iterable)>(iterable)), scheduler \});}
+\DoxyCodeLine{190     \textcolor{keywordflow}{return} create<Type>(details::iterate\_impl\{ details::pack\_to\_container<memory\_model, Container>(std::forward<\textcolor{keyword}{decltype}(iterable)>(iterable)), scheduler \});}
 \DoxyCodeLine{191 \}}
 \DoxyCodeLine{192 }
 \DoxyCodeLine{202 \textcolor{keyword}{template}<memory\_model memory\_model>}
-\DoxyCodeLine{203 \textcolor{keyword}{auto} \mbox{\hyperlink{group__observables_gaf574d9dd582ee9b59553e3705e8793cd}{from\_callable}}(std::invocable<> \textcolor{keyword}{auto}\&\& callable)}
+\DoxyCodeLine{203 \textcolor{keyword}{auto} from\_callable(std::invocable<> \textcolor{keyword}{auto}\&\& callable)}
 \DoxyCodeLine{204 \{}
 \DoxyCodeLine{205     \textcolor{keyword}{auto} obs = just<memory\_model>(std::forward<\textcolor{keyword}{decltype}(callable)>(callable));}
 \DoxyCodeLine{206 }

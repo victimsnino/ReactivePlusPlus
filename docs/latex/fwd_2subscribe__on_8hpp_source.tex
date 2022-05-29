@@ -30,20 +30,20 @@
 \DoxyCodeLine{26 \textcolor{keyword}{auto} subscribe\_on\_impl(TObs\&\& obs, TScheduler\&\& scheduler);}
 \DoxyCodeLine{27 }
 \DoxyCodeLine{28 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{29 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, subscribe\_on\_tag>}
+\DoxyCodeLine{29 \textcolor{keyword}{struct }member\_overload<Type, SpecificObservable, subscribe\_on\_tag>}
 \DoxyCodeLine{30 \{}
-\DoxyCodeLine{43     \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
-\DoxyCodeLine{44     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga2272435c76e0830c70e111b3270cd3d4}{subscribe\_on}}(\textcolor{keyword}{const} TScheduler\& scheduler) \textcolor{keyword}{const} \& \textcolor{keyword}{requires} is\_header\_included<subscribe\_on\_tag, TScheduler>}
-\DoxyCodeLine{45     \{}
-\DoxyCodeLine{46         \textcolor{keywordflow}{return} subscribe\_on\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), scheduler);}
-\DoxyCodeLine{47     \}}
-\DoxyCodeLine{48     }
-\DoxyCodeLine{49     \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
-\DoxyCodeLine{50     \textcolor{keyword}{auto} subscribe\_on(\textcolor{keyword}{const} TScheduler\& scheduler) \&\& \textcolor{keyword}{requires} is\_header\_included<subscribe\_on\_tag, TScheduler>}
-\DoxyCodeLine{51     \{}
-\DoxyCodeLine{52         \textcolor{keywordflow}{return} subscribe\_on\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})), scheduler);}
-\DoxyCodeLine{53     \}}
-\DoxyCodeLine{54 \};}
-\DoxyCodeLine{55 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{44     \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
+\DoxyCodeLine{45     \textcolor{keyword}{auto} subscribe\_on(\textcolor{keyword}{const} TScheduler\& scheduler) \textcolor{keyword}{const} \& \textcolor{keyword}{requires} is\_header\_included<subscribe\_on\_tag, TScheduler>}
+\DoxyCodeLine{46     \{}
+\DoxyCodeLine{47         \textcolor{keywordflow}{return} subscribe\_on\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), scheduler);}
+\DoxyCodeLine{48     \}}
+\DoxyCodeLine{49     }
+\DoxyCodeLine{50     \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
+\DoxyCodeLine{51     \textcolor{keyword}{auto} subscribe\_on(\textcolor{keyword}{const} TScheduler\& scheduler) \&\& \textcolor{keyword}{requires} is\_header\_included<subscribe\_on\_tag, TScheduler>}
+\DoxyCodeLine{52     \{}
+\DoxyCodeLine{53         \textcolor{keywordflow}{return} subscribe\_on\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})), scheduler);}
+\DoxyCodeLine{54     \}}
+\DoxyCodeLine{55 \};}
+\DoxyCodeLine{56 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}
