@@ -1,0 +1,36 @@
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01observe__on__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, observe\+\_\+on\+\_\+tag $>$ Struct Template Reference}
+\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01observe__on__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, observe\_on\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, observe\_on\_tag $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler T\+Scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga0cacdca66e79d7d6de87fa5aacc6c972}{observe\+\_\+on}} (T\+Scheduler \&\&scheduler) const \&requires is\+\_\+header\+\_\+included$<$ observe\+\_\+on\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Emit emissions of observable starting from this point via provided scheduler. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01observe__on__tag_01_4_a10af1c202510bc064ac0c964b0451443}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01observe__on__tag_01_4_a10af1c202510bc064ac0c964b0451443}} 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler T\+Scheduler$>$ }\\auto {\bfseries observe\+\_\+on} (T\+Scheduler \&\&scheduler) \&\&requires is\+\_\+header\+\_\+included$<$ observe\+\_\+on\+\_\+tag
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+auto {\bfseries T\+Scheduler}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01observe__on__tag_01_4_a9304e7db8c3cda5a69603439f02c8be8}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01observe__on__tag_01_4_a9304e7db8c3cda5a69603439f02c8be8}} 
+\index{rpp::details::member\_overload$<$ Type, SpecificObservable, observe\_on\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, observe\_on\_tag $>$}!TScheduler@{TScheduler}}
+\index{TScheduler@{TScheduler}!rpp::details::member\_overload$<$ Type, SpecificObservable, observe\_on\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, observe\_on\_tag $>$}}
+\doxysubsubsection{\texorpdfstring{TScheduler}{TScheduler}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, observe\+\_\+on\+\_\+tag $>$\+::T\+Scheduler}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<Type>(observe\_on\_impl<Type>(std::forward<TScheduler>(scheduler)))}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/fwd/observe\+\_\+on.\+hpp\end{DoxyCompactItemize}

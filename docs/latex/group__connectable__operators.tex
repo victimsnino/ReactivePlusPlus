@@ -1,0 +1,154 @@
+\hypertarget{group__connectable__operators}{}\doxysection{Connectable Operators}
+\label{group__connectable__operators}\index{Connectable Operators@{Connectable Operators}}
+
+
+Connectable operators are operators that provide extra functionality for multicasting of controlling of subscription.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$subjects\+::constraint\+::subject\+\_\+of\+\_\+type$<$ Type $>$ T\+Subject$>$ }\\auto \mbox{\hyperlink{group__connectable__operators_ga5b9bbad79c751b61e3f8ed9cebb636bb}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, multicast\+\_\+tag $>$\+::multicast}} (T\+Subject \&\&subject) const \&requires is\+\_\+header\+\_\+included$<$ multicast\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Converts ordinary observable to \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} with help of provided subject. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ... Args$>$ }\\auto \mbox{\hyperlink{group__connectable__operators_ga9ab3cec576cbf5f9384c717eed57a6d6}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, publish\+\_\+tag $>$\+::publish}} () const \&requires is\+\_\+header\+\_\+included$<$ publish\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Converts ordinary observable to \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} with help of \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp\+::subjects\+::publish\+\_\+subject}}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ... Args$>$ }\\auto \mbox{\hyperlink{group__connectable__operators_ga37ff1997452889d3aa64ea732564a89f}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, ref\+\_\+count\+\_\+tag $>$\+::ref\+\_\+count}} () const \&requires is\+\_\+header\+\_\+included$<$ ref\+\_\+count\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Forces \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} to behave like common observable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Connectable operators are operators that provide extra functionality for multicasting of controlling of subscription. 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators.html\#connectable}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html\#connectable}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__connectable__operators_ga5b9bbad79c751b61e3f8ed9cebb636bb}\label{group__connectable__operators_ga5b9bbad79c751b61e3f8ed9cebb636bb}} 
+\index{Connectable Operators@{Connectable Operators}!multicast@{multicast}}
+\index{multicast@{multicast}!Connectable Operators@{Connectable Operators}}
+\doxysubsubsection{\texorpdfstring{multicast()}{multicast()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$subjects\+::constraint\+::subject\+\_\+of\+\_\+type$<$ Type $>$ T\+Subject$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, multicast\+\_\+tag $>$\+::multicast (\begin{DoxyParamCaption}\item[{T\+Subject \&\&}]{subject }\end{DoxyParamCaption}) const \&}
+
+
+
+Converts ordinary observable to \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} with help of provided subject. 
+
+Connectable observable is common observable, but actually it starts emissions of items only after call \char`\"{}connect\char`\"{}, \char`\"{}ref\+\_\+count\char`\"{} or any other available way. Also it uses subject to multicast values to subscribers
+
+
+\begin{DoxyParams}{Parameters}
+{\em subject} & is subject used to create \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the multicast operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{multicast_8hpp_source}{rpp/operators/multicast.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keyword}{auto} subject = \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<int>}}\{\};}
+\DoxyCodeLine{    \textcolor{keyword}{auto} observable = \mbox{\hyperlink{group__observables_gae8ac01568a0e057e97cf9b474dca12d3}{rpp::source::just}}(1, 2, 3).multicast(subject);}
+\DoxyCodeLine{    observable.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << \textcolor{stringliteral}{"\#1 "} << v << std::endl; \});}
+\DoxyCodeLine{    observable.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << \textcolor{stringliteral}{"\#2 "} << v << std::endl; \});}
+\DoxyCodeLine{    observable.connect();}
+\DoxyCodeLine{    \textcolor{comment}{// Output:}}
+\DoxyCodeLine{    \textcolor{comment}{// \#1 1}}
+\DoxyCodeLine{    \textcolor{comment}{// \#2 1}}
+\DoxyCodeLine{    \textcolor{comment}{// \#1 2}}
+\DoxyCodeLine{    \textcolor{comment}{// \#2 2}}
+\DoxyCodeLine{    \textcolor{comment}{// \#1 3}}
+\DoxyCodeLine{    \textcolor{comment}{// \#2 3}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/publish.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/publish.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__connectable__operators_ga9ab3cec576cbf5f9384c717eed57a6d6}\label{group__connectable__operators_ga9ab3cec576cbf5f9384c717eed57a6d6}} 
+\index{Connectable Operators@{Connectable Operators}!publish@{publish}}
+\index{publish@{publish}!Connectable Operators@{Connectable Operators}}
+\doxysubsubsection{\texorpdfstring{publish()}{publish()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$typename ... Args$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, publish\+\_\+tag $>$\+::publish (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&}
+
+
+
+Converts ordinary observable to \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} with help of \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp\+::subjects\+::publish\+\_\+subject}}. 
+
+Connectable observable is common observable, but actually it starts emissions of items only after call \char`\"{}connect\char`\"{}, \char`\"{}ref\+\_\+count\char`\"{} or any other available way. Also it uses subject to multicast values to subscribers
+
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the publish operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{publish_8hpp_source}{rpp/operators/publish.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keyword}{auto} observable = \mbox{\hyperlink{group__observables_gae8ac01568a0e057e97cf9b474dca12d3}{rpp::source::just}}(1,2,3).publish();}
+\DoxyCodeLine{    observable.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << \textcolor{stringliteral}{"\#1 "} << v << std::endl; \});}
+\DoxyCodeLine{    observable.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << \textcolor{stringliteral}{"\#2 "} << v << std::endl; \});}
+\DoxyCodeLine{    observable.connect();}
+\DoxyCodeLine{    \textcolor{comment}{// Output:}}
+\DoxyCodeLine{    \textcolor{comment}{// \#1 1}}
+\DoxyCodeLine{    \textcolor{comment}{// \#2 1}}
+\DoxyCodeLine{    \textcolor{comment}{// \#1 2}}
+\DoxyCodeLine{    \textcolor{comment}{// \#2 2}}
+\DoxyCodeLine{    \textcolor{comment}{// \#1 3}}
+\DoxyCodeLine{    \textcolor{comment}{// \#2 3}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/publish.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/publish.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__connectable__operators_ga37ff1997452889d3aa64ea732564a89f}\label{group__connectable__operators_ga37ff1997452889d3aa64ea732564a89f}} 
+\index{Connectable Operators@{Connectable Operators}!ref\_count@{ref\_count}}
+\index{ref\_count@{ref\_count}!Connectable Operators@{Connectable Operators}}
+\doxysubsubsection{\texorpdfstring{ref\_count()}{ref\_count()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$typename ... Args$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, ref\+\_\+count\+\_\+tag $>$\+::ref\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&}
+
+
+
+Forces \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} to behave like common observable. 
+
+Connects \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} on the first subscription and unsubscribes on last unsubscription
+
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the ref\+\_\+count operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{ref__count_8hpp_source}{rpp/operators/ref\+\_\+count.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keyword}{auto} observable = \mbox{\hyperlink{group__observables_gae8ac01568a0e057e97cf9b474dca12d3}{rpp::source::just}}(1, 2, 3).publish();}
+\DoxyCodeLine{    observable.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << \textcolor{stringliteral}{"\#1 "} << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// No Output}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    observable.ref\_count().subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << \textcolor{stringliteral}{"\#2 "} << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output:}}
+\DoxyCodeLine{    \textcolor{comment}{// \#1 1}}
+\DoxyCodeLine{    \textcolor{comment}{// \#2 1}}
+\DoxyCodeLine{    \textcolor{comment}{// \#1 2}}
+\DoxyCodeLine{    \textcolor{comment}{// \#2 2}}
+\DoxyCodeLine{    \textcolor{comment}{// \#1 3}}
+\DoxyCodeLine{    \textcolor{comment}{// \#2 3}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/refcount.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/refcount.\+html}} 
+\end{DoxySeeAlso}

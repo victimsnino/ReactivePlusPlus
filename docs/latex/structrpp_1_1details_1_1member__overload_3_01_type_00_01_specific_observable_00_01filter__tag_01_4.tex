@@ -1,0 +1,36 @@
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01filter__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, filter\+\_\+tag $>$ Struct Template Reference}
+\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01filter__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, filter\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, filter\_tag $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$std\+::predicate$<$ const Type \& $>$ Predicate$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_ga87eb036453a17e9b5e59c920399d1d14}{filter}} (Predicate \&\&predicate) const \&requires is\+\_\+header\+\_\+included$<$ filter\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Emit only those items from an Observable that satisfies a provided predicate. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01filter__tag_01_4_a6658a10b2a36556140d9534a2ad5a250}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01filter__tag_01_4_a6658a10b2a36556140d9534a2ad5a250}} 
+{\footnotesize template$<$std\+::predicate$<$ const Type \& $>$ Predicate$>$ }\\auto {\bfseries filter} (Predicate \&\&predicate) \&\&requires is\+\_\+header\+\_\+included$<$ filter\+\_\+tag
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+auto {\bfseries Predicate}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01filter__tag_01_4_ab106d23bcc520009c61ce71f05b715c9}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01filter__tag_01_4_ab106d23bcc520009c61ce71f05b715c9}} 
+\index{rpp::details::member\_overload$<$ Type, SpecificObservable, filter\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, filter\_tag $>$}!Predicate@{Predicate}}
+\index{Predicate@{Predicate}!rpp::details::member\_overload$<$ Type, SpecificObservable, filter\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, filter\_tag $>$}}
+\doxysubsubsection{\texorpdfstring{Predicate}{Predicate}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, filter\+\_\+tag $>$\+::Predicate}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift <Type>(filter\_impl<Type>(std::forward<Predicate>(predicate)))}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/fwd/filter.\+hpp\end{DoxyCompactItemize}
