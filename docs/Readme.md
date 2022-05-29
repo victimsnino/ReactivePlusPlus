@@ -1,9 +1,7 @@
-# ReactivePlusPlus documentation
+It is doxygen page of [ReactivePlusPlus library](https://github.com/victimsnino/ReactivePlusPlus).
 
-## Table of Content
-- [Quick Start](./Quick%20Start.md) - fast overview how to work with RPP
-- [Advanced](./Advanced.md) - everything about RPP in details
-- [Specific vs Dynamic](./Specific%20vs%20Dynamic.md) - overview of the concept of `specific_` and `dynamic_` types used in **RPP** and how it affects performance
-- [memory_model of operators](./MemoryModel.md) - overview of new concept used in RPP related to copy/move/heap usage for objects passed inside RPP
-- [Implementation Status](./Implementation%20Status.md)
-- [Operators Overview](./Operators%20Overview.md)
+There list of content:
+
+- \ref docs - manual documentation, tutorials, guides  and etc
+- [API reference](https://victimsnino.github.io/ReactivePlusPlus/docs/html/modules.html) - API reference for all functions and operators split into groups with marble diagrams for most
+- [Continous Benchmarking results](https://victimsnino.github.io/ReactivePlusPlus/benchmark) - graph with benchmark results per commit

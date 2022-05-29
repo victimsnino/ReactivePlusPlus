@@ -1,4 +1,6 @@
-## Performance vs Flexibility: Specific vs Dynamic
+# Performance vs Flexibility: Specific vs Dynamic {#specific_vs_dynamic}
+
+## Brief overview
 
 In general Reactive Extensions can be split into three main parts from the objects perspective:
 - observable
@@ -7,17 +9,18 @@ In general Reactive Extensions can be split into three main parts from the objec
 
 Each of this objects obtains user-defined callbacks to call when some event happens (on_subscribe, on_next/on_error/on_completed and etc). To store it in C++ we have two ways with its own prons and cons:
 - store it explicitly via template type
-  - :heavy_check_mark: No heap allocations
-  - :heavy_check_mark: Fast invoking (with possible inlining)
-  - :x: Template parameter makes each instance "uniq"
-  - :x: No way to store it somehow in containers/class members without pain
+  - \emoji :heavy_check_mark: No heap allocations
+  - \emoji :heavy_check_mark: Fast invoking (with possible inlining)
+  - \emoji :x: Template parameter makes each instance "uniq"
+  - \emoji :x: No way to store it somehow in containers/class members without pain
 - use type-erasure mechanism 
-  - :heavy_check_mark: Avoiding of template parameters
-  - :heavy_check_mark: Easy to store in containers/class members/input arguments of functions
-  - :x: In most cases heap allocation during constrution
-  - :x: More usage of memory even for cheap objects (std::function or pointer to allocated type)
-  - :x: Indirect invoking (most probably via pointer or virtual functions)
+  - \emoji :heavy_check_mark: Avoiding of template parameters
+  - \emoji :heavy_check_mark: Easy to store in containers/class members/input arguments of functions
+  - \emoji :x: In most cases heap allocation during constrution
+  - \emoji :x: More usage of memory even for cheap objects (std::function or pointer to allocated type)
+  - \emoji :x: Indirect invoking (most probably via pointer or virtual functions)
 
+## ReactivePlusPlus solution
 
 ReactivePlusPlus provides ability to use both of this ways to make usage experience optimal! Each of mentioned above core parts has two different specifications: `specific_` and `dynamic_`.
 
@@ -34,6 +37,8 @@ There detailed list with explanations:
 - subscribers:
   - [rpp::specific_subscriber<T, Observer>](https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1specific__subscriber.html) - stores explicit underlying type of observer as `Observer` template type to avoid construction of [rpp::dynamic_observer](https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observer.html). 
   - [rpp::dynamic_subscriber<T>](https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__subscriber.html) - uses [rpp::dynamic_observer](https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observer.html) type as underlying type for observer.
+
+## Examples
 
 So, to achieve best performance avoid usage of `dynamic_` specialization till you really need it or you want to avoid extra copies/moves of original objects captured inside callbacks and prefer one-time `shared_ptr` allication instead. For example, 
 ```cpp

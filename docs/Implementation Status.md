@@ -1,6 +1,7 @@
-# Implementation status
+# Implementation status {#status}
 
 ## Foundamentals
+
 - [x] Observables
   - [x] Specific Observable
   - [x] Dynamic Observable
@@ -19,10 +20,11 @@
   - [x] Immediate
   - [x] New Thread
   - [ ] CurrentThread/Trampoline
-  - [ ] RunLoop
+  - [x] RunLoop
   - [ ] EventLoop
 
 ## Creating Observables
+
 - [x] Create
 - [x] Just 
   - [x] + memory_model
@@ -41,6 +43,7 @@
 
 ## Operators
 ### Transforming
+
 - [x] map
 
 ### Filtering
@@ -48,18 +51,22 @@
 - [x] take
 
 ### Conditional
+
 - [x] take_while
 ### Combining
+
 - [x] merge
   - [x] observable of observables
   - [x] merge with
   - [ ] merge delay error
 
 ### Utility
+
 - [x] observe_on
 - [x] repeat
 - [x] subscribe_on
 ### Connectable
+
 - [x] publish
 - [x] multicast
 - [x] connect
@@ -68,6 +75,7 @@
 
 
 ## Subjects
+
 - [x] publish_subject
 - [ ] serialized_subject
 - [ ] replay_subject
