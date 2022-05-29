@@ -14,8 +14,8 @@ jobs:
 
     - name: Install deps
       run: |
-        pip install rxmarbles
-        apt install python3 python-is-python3
+        apt-get install python3 python-is-python3
+        pip3 install rxmarbles
 
     - name: Change executable
       run: chmod +x ./ci/generate_marbles.py
