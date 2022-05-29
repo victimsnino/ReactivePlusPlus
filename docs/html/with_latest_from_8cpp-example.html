@@ -100,21 +100,21 @@ $(document).ready(function(){initNavTree('with_latest_from_8cpp-example.html',''
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
-<div class="line">    <a name="a0"></a><a class="code" href="group__observables.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::source::just</a>(1, 2, 3)</div>
-<div class="line">        .with_latest_from(<a class="code" href="group__observables.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::source::just</a>(3, 4, 5, 6))</div>
+<div class="line">    <a name="a0"></a><a class="code" href="group__creational__operators.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::source::just</a>(1, 2, 3)</div>
+<div class="line">        .with_latest_from(<a class="code" href="group__creational__operators.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::source::just</a>(3, 4, 5, 6))</div>
 <div class="line">        .subscribe([](std::tuple&lt;int,int&gt; v) { std::cout &lt;&lt; std::get&lt;0&gt;(v) &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; std::get&lt;1&gt;(v) &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1:6 2:6 3:6</span></div>
 <div class="line"><span class="comment"></span> </div>
-<div class="line">    <a class="code" href="group__observables.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::source::just</a>(1, 2, 3)</div>
+<div class="line">    <a class="code" href="group__creational__operators.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::source::just</a>(1, 2, 3)</div>
 <div class="line">        .with_latest_from([](<span class="keywordtype">int</span> left, <span class="keywordtype">int</span> right) { <span class="keywordflow">return</span> left + right; },</div>
-<div class="line">                          <a class="code" href="group__observables.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::source::just</a>(3, 4, 5, 6))</div>
+<div class="line">                          <a class="code" href="group__creational__operators.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::source::just</a>(3, 4, 5, 6))</div>
 <div class="line">        .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 7 8 9</span></div>
 <div class="line"><span class="comment"></span>    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agroup__observables_html_gae8ac01568a0e057e97cf9b474dca12d3"><div class="ttname"><a href="group__observables.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:145</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gae8ac01568a0e057e97cf9b474dca12d3"><div class="ttname"><a href="group__creational__operators.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:141</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

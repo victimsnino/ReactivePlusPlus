@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('multicast_8cpp-example.html',''); init
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
 <div class="line">    <span class="keyword">auto</span> subject = <a name="_a0"></a><a class="code" href="classrpp_1_1subjects_1_1publish__subject.html">rpp::subjects::publish_subject&lt;int&gt;</a>{};</div>
-<div class="line">    <span class="keyword">auto</span> observable = <a name="a1"></a><a class="code" href="group__observables.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::source::just</a>(1, 2, 3).multicast(subject);</div>
+<div class="line">    <span class="keyword">auto</span> observable = <a name="a1"></a><a class="code" href="group__creational__operators.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::source::just</a>(1, 2, 3).multicast(subject);</div>
 <div class="line">    observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#1 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#2 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    observable.connect();</div>
@@ -116,8 +116,8 @@ $(document).ready(function(){initNavTree('multicast_8cpp-example.html',''); init
 <div class="line">}</div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agroup__observables_html_gae8ac01568a0e057e97cf9b474dca12d3"><div class="ttname"><a href="group__observables.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:145</div></div>
 <div class="ttc" id="aclassrpp_1_1subjects_1_1publish__subject_html"><div class="ttname"><a href="classrpp_1_1subjects_1_1publish__subject.html">rpp::subjects::publish_subject</a></div><div class="ttdoc">Subject which just multicasts values to observers subscribed on it. It contains two parts: subscriber...</div><div class="ttdef"><b>Definition:</b> fwd.hpp:34</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gae8ac01568a0e057e97cf9b474dca12d3"><div class="ttname"><a href="group__creational__operators.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:141</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

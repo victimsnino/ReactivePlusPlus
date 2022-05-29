@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('observe_on_8cpp-example.html',''); ini
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
 <div class="line">    std::cout &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;</div>
-<div class="line">    <a name="a0"></a><a class="code" href="group__observables.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::source::just</a>(10, 15, 20)</div>
+<div class="line">    <a name="a0"></a><a class="code" href="group__creational__operators.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::source::just</a>(10, 15, 20)</div>
 <div class="line">            .observe_on(<a name="_a1"></a><a class="code" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{})</div>
 <div class="line">            .as_blocking()</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;] : &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; });</div>
@@ -115,7 +115,7 @@ $(document).ready(function(){initNavTree('observe_on_8cpp-example.html',''); ini
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">scheduler which schedule execution of via queueing tasks to another thread with priority to time_poin...</div><div class="ttdef"><b>Definition:</b> new_thread_scheduler.hpp:30</div></div>
-<div class="ttc" id="agroup__observables_html_gae8ac01568a0e057e97cf9b474dca12d3"><div class="ttname"><a href="group__observables.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:145</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gae8ac01568a0e057e97cf9b474dca12d3"><div class="ttname"><a href="group__creational__operators.html#gae8ac01568a0e057e97cf9b474dca12d3">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:141</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

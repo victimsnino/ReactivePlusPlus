@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('from_8cpp-example.html',''); initResiz
 <div class="line">{</div>
 <div class="line">    {</div>
 <div class="line">        std::vector&lt;int&gt; vals{ 1,2,3 };</div>
-<div class="line">        <a name="a0"></a><a class="code" href="group__observables.html#ga688c67a9b816125b0e69a663c528f836">rpp::source::from_iterable</a>(vals).subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">        <a name="a0"></a><a class="code" href="group__creational__operators.html#ga688c67a9b816125b0e69a663c528f836">rpp::source::from_iterable</a>(vals).subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    }</div>
 <div class="line"> </div>
 <div class="line">    {</div>
@@ -113,20 +113,20 @@ $(document).ready(function(){initNavTree('from_8cpp-example.html',''); initResiz
 <div class="line"> </div>
 <div class="line">    {</div>
 <div class="line">        std::vector&lt;int&gt; vals{ 1,2,3 };</div>
-<div class="line">        <a class="code" href="group__observables.html#ga688c67a9b816125b0e69a663c528f836">rpp::source::from_iterable</a>(vals, <a name="_a1"></a><a class="code" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}).as_blocking().subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">        <a class="code" href="group__creational__operators.html#ga688c67a9b816125b0e69a663c528f836">rpp::source::from_iterable</a>(vals, <a name="_a1"></a><a class="code" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}).as_blocking().subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    }</div>
 <div class="line"> </div>
 <div class="line">    {</div>
-<div class="line">        <a name="a2"></a><a class="code" href="group__observables.html#gaf574d9dd582ee9b59553e3705e8793cd">rpp::source::from_callable</a>([]() {<span class="keywordflow">return</span> 49; }).subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">        <a name="a2"></a><a class="code" href="group__creational__operators.html#gaf574d9dd582ee9b59553e3705e8793cd">rpp::source::from_callable</a>([]() {<span class="keywordflow">return</span> 49; }).subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">        <span class="comment">// Output: 49</span></div>
 <div class="line"><span class="comment"></span>    }</div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="agroup__creational__operators_html_gaf574d9dd582ee9b59553e3705e8793cd"><div class="ttname"><a href="group__creational__operators.html#gaf574d9dd582ee9b59553e3705e8793cd">rpp::observable::from_callable</a></div><div class="ttdeci">auto from_callable(std::invocable&lt;&gt; auto &amp;&amp;callable)</div><div class="ttdoc">Creates rpp::specific_observable that calls provided callable and emits resulting value of this calla...</div><div class="ttdef"><b>Definition:</b> from.hpp:211</div></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">scheduler which schedule execution of via queueing tasks to another thread with priority to time_poin...</div><div class="ttdef"><b>Definition:</b> new_thread_scheduler.hpp:30</div></div>
-<div class="ttc" id="agroup__observables_html_ga688c67a9b816125b0e69a663c528f836"><div class="ttname"><a href="group__observables.html#ga688c67a9b816125b0e69a663c528f836">rpp::observable::from_iterable</a></div><div class="ttdeci">auto from_iterable(std::ranges::range auto &amp;&amp;iterable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Creates rpp::specific_observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition:</b> from.hpp:186</div></div>
-<div class="ttc" id="agroup__observables_html_gaf574d9dd582ee9b59553e3705e8793cd"><div class="ttname"><a href="group__observables.html#gaf574d9dd582ee9b59553e3705e8793cd">rpp::observable::from_callable</a></div><div class="ttdeci">auto from_callable(std::invocable&lt;&gt; auto &amp;&amp;callable)</div><div class="ttdoc">Creates rpp::specific_observable that calls provided callable and emits resulting value.</div><div class="ttdef"><b>Definition:</b> from.hpp:203</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga688c67a9b816125b0e69a663c528f836"><div class="ttname"><a href="group__creational__operators.html#ga688c67a9b816125b0e69a663c528f836">rpp::observable::from_iterable</a></div><div class="ttdeci">auto from_iterable(std::ranges::range auto &amp;&amp;iterable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Creates rpp::specific_observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition:</b> from.hpp:190</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
