@@ -14,11 +14,8 @@ jobs:
 
     - name: Install deps
       run: |
-        apt-get install python3 python-is-python3
+        sudo apt-get install python3 python-is-python3
         pip3 install rxmarbles
-
-    - name: Change executable
-      run: chmod +x ./ci/generate_marbles.py
     
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1.9.2
