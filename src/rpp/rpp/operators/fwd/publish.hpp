@@ -27,16 +27,17 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, publish_tag>
 {
     /**
-    * \brief converts ordinary observable to Connectable Observable with help of rpp::subjects::publish_subject
+    * \brief Converts ordinary observable to rpp::connectable_observable with help of rpp::subjects::publish_subject
     * \details Connectable observable is common observable, but actually it starts emissions of items only after call "connect", "ref_count" or any other available way. Also it uses subject to multicast values to subscribers
     *
+    * \return new specific_observable with the publish operator as most recent operator.
+    * \warning #include <rpp/operators/publish.hpp>
+    * 
+    * \par Example
     * \snippet publish.cpp publish
     *
+    * \ingroup connectable_operators
     * \see https://reactivex.io/documentation/operators/publish.html
-    *
-    * \return new specific_observable with the publish operator as most recent operator.
-    * \warning #include <rpp/operators/publish.h>
-    * \ingroup operators
     */
     template<typename ...Args>
     auto publish() const& requires is_header_included<publish_tag, Args...>

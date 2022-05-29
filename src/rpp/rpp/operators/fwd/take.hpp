@@ -26,16 +26,22 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, take_tag>
 {
     /**
-     * \brief emit only first Count items provided by observable
+     * \brief Emit only first `count` items provided by observable, then send `on_completed`
      *
-     * Example:
-     * \snippet take.cpp take
-     *
-     * \see https://reactivex.io/documentation/operators/take.html
-     *
+     * \marble take
+        {
+            source observable  : +--1-2-3-4-5-6-|
+            operator "take(3)" : +--1-2-3|
+        }
+     * \param count amount of items to be emitted. 0 - instant complete
      * \return new specific_observable with the Take operator as most recent operator.
      * \warning #include <rpp/operators/take.hpp>
-     * \ingroup operators
+     * 
+     * \par Example:
+     * \snippet take.cpp take
+     *
+     * \ingroup filtering_operators
+     * \see https://reactivex.io/documentation/operators/take.html
      */
     template<typename...Args>
     auto take(size_t count) const & requires is_header_included<take_tag, Args...>

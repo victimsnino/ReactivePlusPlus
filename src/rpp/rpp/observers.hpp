@@ -10,5 +10,10 @@
 
 #pragma once
 
+/**
+ * \defgroup observers Observers
+ * \brief Observer subscribe on observable and obtains values provided by observable.
+ */
+
 #include <rpp/observers/specific_observer.hpp>
 #include <rpp/observers/dynamic_observer.hpp>

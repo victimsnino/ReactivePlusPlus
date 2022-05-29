@@ -18,18 +18,6 @@
 
 #include <type_traits>
 
-/**
- * \defgroup observables Observables
- * \brief Observable is the source of any Reactive Stream. Observable provides ability to subscribe observer on some events.
- * \see https://reactivex.io/documentation/observable.html
- */
-
-/**
-* \defgroup operators Operators
-* \brief Operators is way to modify observables and extend with some extra custom logic
-* \see https://reactivex.io/documentation/operators.html 
-*/
-
 namespace rpp::details
 {
 struct observable_tag {};

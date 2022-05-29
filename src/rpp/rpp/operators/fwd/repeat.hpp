@@ -30,19 +30,26 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, repeat_tag>
 {
     /**
-    * \brief Forces observable to re-subscribe observer to this observable after on_completed provided amount of times
-    *	
-    * \snippet repeat.cpp repeat
+    * \brief Re-subscribes on current observable during `on_completed` provided amount of times
     *
-    * \see https://reactivex.io/documentation/operators/repeat.html
+    * \marble repeat
+      {
+          source observable    : +-1-2-3-|
+          operator "repeat(2)" : +-1-2-3-1-2-3-|
+      }	
     *
-    * \param count total amoun of times subscription happens. For example:
-    *  - `count(0)`  -  means no any subscription at all
+    * \param count total amount of times subscription happens. For example:
+    *  - `count(0)`  - means no any subscription at all
     *  - `count(1)`  - behave like ordinal observable
     *  - `count(10)` - 1 normal subscription and 9 re-subscriptions during on_completed
     * \return new specific_observable with the repeat operator as most recent operator.
-    * \warning #include <rpp/operators/repeat.h>
-    * \ingroup operators
+    * \warning #include <rpp/operators/repeat.hpp>
+    * 
+    * \par Examples:
+    * \snippet repeat.cpp repeat
+    *
+    * \ingroup utility_operators
+    * \see https://reactivex.io/documentation/operators/repeat.html
     */
     template<typename...Args>
     auto repeat(size_t count) const& requires is_header_included<repeat_tag, Args...>
@@ -57,15 +64,22 @@ struct member_overload<Type, SpecificObservable, repeat_tag>
     }
 
     /**
-    * \brief Forces observable to re-subscribe observer to this observable after on_completed infinitely
+    * \brief Re-subscribes on current observable during `on_completed` infinitely
     *
-    * \snippet repeat.cpp repeat_infinitely
-    *
-    * \see https://reactivex.io/documentation/operators/repeat.html
+    * \marble repeat_infinitely
+      {
+          source observable : +-1-2-3-|
+          operator "repeat" : +-1-2-3-1-2-3-1-2-3>
+      }	
     *
     * \return new specific_observable with the repeat operator as most recent operator.
-    * \warning #include <rpp/operators/repeat.h>
-    * \ingroup operators
+    * \warning #include <rpp/operators/repeat.hpp>
+    * 
+    * \par Examples:
+    * \snippet repeat.cpp repeat_infinitely
+    *
+    * \ingroup utility_operators
+    * \see https://reactivex.io/documentation/operators/repeat.html
     */
     template<typename...Args>
     auto repeat() const& requires is_header_included<repeat_tag, Args...>

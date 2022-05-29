@@ -11,7 +11,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-        
+
+    - name: Install deps
+      run: pip install rxmarbles
+    
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1.9.2
       with:

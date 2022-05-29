@@ -29,16 +29,17 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, subscribe_on_tag>
 {
     /**
-    * \brief forces observable to operate in provided scheduler (on_subscribe called via scheduling)
-    *
-    * Example:
-    * \snippet subscribe_on.cpp subscribe_on
-    *
-    * \see https://reactivex.io/documentation/operators/subscribeon.html
-    *
+    * \brief OnSubscribe function for this observable will be scheduled via provided scheduler
+    * 
+    * \param scheduler is scheduler used for scheduling of OnSubscribe
     * \return new specific_observable with the subscribe_on operator as most recent operator.
-    * \warning #include <rpp/operators/subscribe_on.h>
-    * \ingroup operators
+    * \warning #include <rpp/operators/subscribe_on.hpp>
+    * 
+    * \par Example:
+    * \snippet subscribe_on.cpp subscribe_on
+    * 
+    * \ingroup utility_operators
+    * \see https://reactivex.io/documentation/operators/subscribeon.html
     */
     template<schedulers::constraint::scheduler TScheduler>
     auto subscribe_on(const TScheduler& scheduler) const & requires is_header_included<subscribe_on_tag, TScheduler>

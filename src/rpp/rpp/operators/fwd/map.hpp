@@ -26,24 +26,26 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, map_tag>
 {
     /**
-     * \brief transform the items emitted by an Observable by applying a function to each item
+     * \brief Transform the items emitted by an Observable via applying a function to each item and emitting result
+     * \note The Map operator can keep same type of value or change it to some another type.
+     * 
+     * \marble map
+        {
+            source observable       : +--1   -2   --3   -|
+            operator "map: x=>x+10" : +--(10)-(12)--(13)-|
+        }
      *
-     * \details The Map operator applies a function of your choosing to each item emitted by the source Observable, and returns an Observable that emits the results of these function applications.
-     *
-     * The Map operator can keep same type of value or change it to some another type.
-     *
-     * Example with same type:
-     * \snippet map.cpp Same type
-     *
-     * Example with changed type:
-     * \snippet map.cpp Changed type
-     *
-     * \see https://reactivex.io/documentation/operators/map.html
-     *
-     * \tparam Callable type of callable used to provide this transformation
+     * \param callable is callable used to provide this transformation. Should accept Type of original observable and return type for new observable
      * \return new specific_observable with the Map operator as most recent operator.
      * \warning #include <rpp/operators/map.hpp>
-     * \ingroup operators
+     * 
+     * \par Example with same type:
+     * \snippet map.cpp Same type
+     *
+     * \par Example with changed type:
+     * \snippet map.cpp Changed type
+     * \ingroup transforming_operators
+     * \see https://reactivex.io/documentation/operators/map.html
      */
     template<std::invocable<Type> Callable>
     auto map(Callable&& callable) const & requires is_header_included<map_tag, Callable>

@@ -31,18 +31,28 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, merge_tag>
 {
     /**
-    * \brief combine submissions from observables inside this observable into one
+    * \brief Converts observable of observables of items into observable of items via merging emissions.
     *
-    * \details this overloading of Merge operator can be applied for observable of observables and will merge emissions of observables inside root observable
-    * \warn According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
-    *	
-    * Example:
-    * \snippet merge.cpp merge
-    * \see https://reactivex.io/documentation/operators/merge.html
+    * \warning According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
+    * 
+    * \marble merge
+        {
+            source observable                : 
+            {   
+                +--1-2-3-|
+                .....+4--6-|
+            }
+            operator "merge" : +--1-243-6-|
+        }
     *
     * \return new specific_observable with the merge operator as most recent operator.
     * \warning #include <rpp/operators/merge.hpp>
-    * \ingroup operators
+    * 
+    * \par Example:
+    * \snippet merge.cpp merge
+    * 
+    * \ingroup combining_operators
+    * \see https://reactivex.io/documentation/operators/merge.html
     */
     template<typename ...Args>
     auto merge() const& requires (is_header_included<merge_tag, Args...> && rpp::constraint::observable<Type>)
@@ -57,18 +67,26 @@ struct member_overload<Type, SpecificObservable, merge_tag>
     }
 
     /**
-    * \brief combine submissions from current observable with other observables into one
+    * \brief Combines submissions from current observable with other observables into one
     *
-    * \details this overloading of Merge operator can be applied to any observable to merge emissions with other observables from arguments
-    * \warn According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
+    * \warning According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
     *
-    * Example:
-    * \snippet merge.cpp merge_with
-    * \see https://reactivex.io/documentation/operators/merge.html
-    *
+    * \marble merge_with
+        {
+            source original_observable: +--1-2-3-|
+            source second: +-----4--6-|
+            operator "merge_with" : +--1-243-6-|
+        }
+    * 
+    * \param observables are observables whose emissions would be merged with current observable
     * \return new specific_observable with the merge operator as most recent operator.
     * \warning #include <rpp/operators/merge.hpp>
-    * \ingroup operators
+    * 
+    * \par Example:
+    * \snippet merge.cpp merge_with
+    *
+    * \ingroup combining_operators
+    * \see https://reactivex.io/documentation/operators/merge.html
     */
     template<constraint::observable_of_type<Type> ...TObservables>
     auto merge_with(TObservables&&... observables) const& requires (is_header_included<merge_tag, TObservables...>&& sizeof...(TObservables) >= 1)

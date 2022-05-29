@@ -29,19 +29,25 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, with_latest_from_tag>
 {
     /**
-    * \brief combines latest emissions from multiple observables, but sends to observer only when root observable sends values
+    * \brief Combines latest emissions from observables with emission from current observable when it sends new value via applying selector
+    * 
+    * \marble with_latest_from
+      {
+          source observable                                 : +------1    -2    -3    -|
+          source other_observable                           : +-5-6-7-    --    8-    -|
+          operator "with_latest_from: x,y =>std::pair{x,y}" : +------{1,5}-{2,7}-{3,8}-|
+      }
+    * 
+    * \param selector is applied to current emission of current observable and latests emissions from observables
+    * \param observables are observables whose emissions would be combined when current observable sends new value
+    * \return new specific_observable with the with_latest_from operator as most recent operator.
+    * \warning #include <rpp/operators/with_latest_from.hpp>
     *
-    * \details when observables from arguments send some value, then these values cached/replaced, but when root observable sends value, then this value aggregated together with cached
-    * by default selector creates tuple of values
-    *
-    * \snippet with_latest_from.cpp with_latest_from
+    * \par Examples
     * \snippet with_latest_from.cpp with_latest_from custom selector
     *
+    * \ingroup combining_operators
     * \see https://reactivex.io/documentation/operators/combinelatest.html
-    *
-    * \return new specific_observable with the with_latest_from operator as most recent operator.
-    * \warning #include <rpp/operators/with_latest_from.h>
-    * \ingroup operators
     */
     template<constraint::observable ...TObservables, std::invocable<Type, utils::extract_observable_type_t<TObservables>...> TSelector>
     auto with_latest_from(TSelector&& selector, TObservables&&...observables) const& requires is_header_included<with_latest_from_tag, TObservables...>
@@ -55,6 +61,26 @@ struct member_overload<Type, SpecificObservable, with_latest_from_tag>
         return std::move(*static_cast<SpecificObservable*>(this)).template lift<std::invoke_result_t<TSelector, Type, utils::extract_observable_type_t<TObservables>...>>(with_latest_from_impl<Type>(std::forward<TSelector>(selector), std::forward<TObservables>(observables)...));
     }
 
+    /**
+    * \brief Combines latest emissions from observables with emission from current observable when it sends new value via making tuple
+    * 
+    * \marble with_latest_from
+      {
+          source observable                       : +------1    -2    -3    -|
+          source other_observable                 : +-5-6-7-    --    8-    -|
+          operator "with_latest_from: make_tuple" : +------{1,5}-{2,7}-{3,8}-|
+      }
+    * 
+    * \param observables are observables whose emissions would be combined when current observable sends new value
+    * \return new specific_observable with the with_latest_from operator as most recent operator.
+    * \warning #include <rpp/operators/with_latest_from.hpp>
+    *
+    * \par Examples
+    * \snippet with_latest_from.cpp with_latest_from
+    *
+    * \ingroup combining_operators
+    * \see https://reactivex.io/documentation/operators/combinelatest.html
+    */
     template<constraint::observable ...TObservables>
     auto with_latest_from(TObservables&&...observables) const& requires is_header_included<with_latest_from_tag, TObservables...>
     {

@@ -26,19 +26,23 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, filter_tag>
 {
     /**
-     * \brief emit only those items from an Observable that satisfies a predicate
-     *
-     * \details The Filter operator applies a provided predicate to each item emitted by the Observable, and returns an Observable that emits only items passed provided predicate
-     *
-     * Example:
-     * \snippet filter.cpp Filter
-     *
-     * \see https://reactivex.io/documentation/operators/filter.html
-     *
-     * \tparam Predicate type of predicate used to check emitted itemss
+     * \brief Emit only those items from an Observable that satisfies a provided predicate
+     * 
+     * \marble filter
+        {
+            source observable            : +--1-2-3-4-|
+            operator "filter: x=>x%2==0" : +----2---4-|
+        }
+     * 
+     * \param predicate is predicate used to check emitted items. true -> items satisfies condition, false -> not
      * \return new specific_observable with the Filter operator as most recent operator.
      * \warning #include <rpp/operators/filter.hpp>
-     * \ingroup operators
+     * 
+     * \par Example:
+     * \snippet filter.cpp Filter
+     *
+     * \ingroup filtering_operators
+     * \see https://reactivex.io/documentation/operators/filter.html
      */
     template<std::predicate<const Type&> Predicate>
     auto filter(Predicate&& predicate) const& requires is_header_included<filter_tag, Predicate>
