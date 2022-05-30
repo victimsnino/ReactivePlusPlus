@@ -23,7 +23,7 @@ struct with_latest_from_tag;
 namespace rpp::details
 {
 template<constraint::decayed_type Type, constraint::observable ...TObservables, std::invocable<Type, utils::extract_observable_type_t<TObservables>...> TSelector >
-static auto with_latest_from_impl(TSelector&& selector, TObservables&&...observables);
+auto with_latest_from_impl(TSelector&& selector, TObservables&&...observables);
 
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, with_latest_from_tag>
