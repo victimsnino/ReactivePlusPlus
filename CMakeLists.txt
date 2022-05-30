@@ -73,7 +73,7 @@ if(RPP_CODE_COVERAGE)
   target_link_libraries(coverage_config INTERFACE gcov)
 endif(RPP_CODE_COVERAGE)
 
-if (AUTOTESTS)
+if (RPP_AUTOTESTS)
   Include(FetchContent)
 
   FetchContent_Declare(

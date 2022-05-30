@@ -35,7 +35,7 @@ target_link_libraries(${TARGET} PRIVATE rpp Catch2WithMain)
 set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 
 
-if (AUTOTESTS)
+if (RPP_AUTOTESTS)
   set(TARGET rxcpp_benchmark)
 
   add_executable(${TARGET} 
