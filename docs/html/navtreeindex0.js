@@ -181,11 +181,13 @@ var NAVTREEINDEX0 =
 "classrpp_1_1subjects_1_1details_1_1publish__strategy.html#ace42e88adda6b7f41257447d8076feb2":[2,0,0,3,0,2,1],
 "classrpp_1_1subjects_1_1details_1_1subject__state.html":[2,0,0,3,0,3],
 "classrpp_1_1subjects_1_1details_1_1subject__state.html#a0957f8f875a1398a4a8b47c2da866367":[2,0,0,3,0,3,0],
-"classrpp_1_1subjects_1_1details_1_1subject__state.html#a108a0e3ebfd9b174b50f585233eb9b3a":[2,0,0,3,0,3,1],
-"classrpp_1_1subjects_1_1details_1_1subject__state.html#a1b5b2bfb23af3afed6e9c0191cab6ee4":[2,0,0,3,0,3,4],
-"classrpp_1_1subjects_1_1details_1_1subject__state.html#a6dc7c34660f94c830a1f283a190f4d9d":[2,0,0,3,0,3,2],
-"classrpp_1_1subjects_1_1details_1_1subject__state.html#a8285b078ecf507733c1e61eae603990b":[2,0,0,3,0,3,3],
-"classrpp_1_1subjects_1_1details_1_1subject__state.html#aee5358e58b4194013476b02d5515f62b":[2,0,0,3,0,3,5],
+"classrpp_1_1subjects_1_1details_1_1subject__state.html#a108a0e3ebfd9b174b50f585233eb9b3a":[2,0,0,3,0,3,3],
+"classrpp_1_1subjects_1_1details_1_1subject__state.html#a1b5b2bfb23af3afed6e9c0191cab6ee4":[2,0,0,3,0,3,6],
+"classrpp_1_1subjects_1_1details_1_1subject__state.html#a6dc7c34660f94c830a1f283a190f4d9d":[2,0,0,3,0,3,4],
+"classrpp_1_1subjects_1_1details_1_1subject__state.html#a8285b078ecf507733c1e61eae603990b":[2,0,0,3,0,3,5],
+"classrpp_1_1subjects_1_1details_1_1subject__state.html#a9092a1f22ebf90fd6341b76a8001930d":[2,0,0,3,0,3,1],
+"classrpp_1_1subjects_1_1details_1_1subject__state.html#ae530702d318c6a19cb20eadc9966e95b":[2,0,0,3,0,3,2],
+"classrpp_1_1subjects_1_1details_1_1subject__state.html#aee5358e58b4194013476b02d5515f62b":[2,0,0,3,0,3,7],
 "classrpp_1_1subjects_1_1publish__subject.html":[1,4,0],
 "classrpp_1_1subscription__base.html":[2,0,0,16],
 "classrpp_1_1subscription__base.html#a71f0c151f4ee842f1d6d9124a61030ed":[2,0,0,16,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "fwd_2repeat_8hpp_source.html":[3,0,0,0,0,2,0,7],
 "fwd_2subscribe__on_8hpp_source.html":[3,0,0,0,0,2,0,8],
 "fwd_2take_8hpp_source.html":[3,0,0,0,0,2,0,9],
-"fwd_2take__while_8hpp_source.html":[3,0,0,0,0,2,0,10],
-"fwd_2with__latest__from_8hpp_source.html":[3,0,0,0,0,2,0,11],
-"fwd_8hpp_source.html":[3,0,0,0,0,8]
+"fwd_2take__while_8hpp_source.html":[3,0,0,0,0,2,0,10]
 };

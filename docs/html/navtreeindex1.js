@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"fwd_2with__latest__from_8hpp_source.html":[3,0,0,0,0,2,0,11],
+"fwd_8hpp_source.html":[3,0,0,0,0,8],
 "group__combining__operators.html":[1,2,3],
 "group__combining__operators.html#ga3341a36b0971c0cf59001fa65aeb36a4":[2,0,0,0,8,2],
 "group__combining__operators.html#ga3341a36b0971c0cf59001fa65aeb36a4":[1,2,3,1],
