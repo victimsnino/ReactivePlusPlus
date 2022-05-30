@@ -25,14 +25,18 @@ var NAVTREE =
   [ "ReactivePlusPlus", "index.html", [
     [ "Docs", "docs.html", "docs" ],
     [ "API reference", "modules.html", "modules" ],
-    [ "Class List", "annotated.html", "annotated" ],
-    [ "Class Index", "classes.html", null ],
-    [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
-    [ "Class Members", "functions.html", [
-      [ "All", "functions.html", null ],
-      [ "Functions", "functions_func.html", null ]
+    [ "Classes", "annotated.html", [
+      [ "Class List", "annotated.html", "annotated_dup" ],
+      [ "Class Index", "classes.html", null ],
+      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
+      [ "Class Members", "functions.html", [
+        [ "All", "functions.html", null ],
+        [ "Functions", "functions_func.html", null ]
+      ] ]
     ] ],
-    [ "File List", "files.html", "files" ],
+    [ "Files", "files.html", [
+      [ "File List", "files.html", "files_dup" ]
+    ] ],
     [ "Examples", "examples.html", "examples" ]
   ] ]
 ];

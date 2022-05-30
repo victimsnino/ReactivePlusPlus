@@ -1,4 +1,4 @@
-var annotated =
+var annotated_dup =
 [
     [ "rpp", null, [
       [ "details", null, [
