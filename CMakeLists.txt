@@ -29,7 +29,7 @@ else()
   set(IS_SUBPROJECT OFF)
 endif()
 
-project(ReactivePlusPlus VERSION 0.1.0 LANGUAGES CXX)
+project(ReactivePlusPlus VERSION 0.0.2 LANGUAGES CXX)
 
 # ================== CONFIG ===================
 
