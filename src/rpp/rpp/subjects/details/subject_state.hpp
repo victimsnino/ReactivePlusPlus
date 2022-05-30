@@ -33,6 +33,8 @@ class subject_state : public std::enable_shared_from_this<subject_state<T>>
 
 public:
     subject_state() = default;
+    subject_state(const subject_state&) = delete;
+    subject_state(subject_state&&) noexcept = delete;
 
     void on_subscribe(const subscriber& subscriber)
     {

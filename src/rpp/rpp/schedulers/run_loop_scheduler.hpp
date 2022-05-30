@@ -35,6 +35,9 @@ private:
         state(const composite_subscription& sub = composite_subscription{})
             : m_sub{sub} { }
 
+        state(const state&) = delete;
+        state(state&&) noexcept = delete;
+
         ~state()
         {
             m_source.request_stop();

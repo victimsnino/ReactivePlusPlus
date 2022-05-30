@@ -49,6 +49,10 @@ public:
         class state : public std::enable_shared_from_this<state>
         {
         public:
+            state() = default;
+            state(const state&) = delete;
+            state(state&&) noexcept = delete;
+
             void defer_at(time_point time_point, std::invocable auto&& fn)
             {
                 if (m_sub->is_subscribed())
