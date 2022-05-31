@@ -129,4 +129,21 @@ SCENARIO("from callable")
             }
         }
     }
+    GIVEN("observable from callable with error")
+    {
+        volatile bool none{true};
+        auto callable = [&]() -> int { if (none) throw std::runtime_error{ "" }; return 0; };
+        auto observable = rpp::source::from_callable(callable);
+        WHEN("subscribe on this observable")
+        {
+            auto mock = mock_observer<int>{};
+            observable.subscribe(mock);
+            THEN("observer obtains error")
+            {
+                CHECK(mock.get_total_on_next_count() == 0);
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
+    }
 }
