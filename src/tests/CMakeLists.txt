@@ -11,12 +11,26 @@
 file(GLOB_RECURSE FILES "test_*.cpp")
 
 set(EXECUTABLE_TARGET rpp_tests)
-add_executable(${EXECUTABLE_TARGET} ${FILES} mock_observer.hpp copy_count_tracker.hpp)
+add_executable(${EXECUTABLE_TARGET} ${FILES} null.cpp)
 
 target_link_libraries(${EXECUTABLE_TARGET} PRIVATE rpp Catch2WithMain coverage_config)
 set_target_properties(${EXECUTABLE_TARGET} PROPERTIES FOLDER Tests)
 
 add_ctest(${EXECUTABLE_TARGET})
+
+foreach(SOURCE ${FILES}) 
+  get_filename_component(BASE_NAME ${SOURCE} NAME_WE)
+  set(TARGET ${BASE_NAME})
+  add_library(${TARGET} STATIC ${SOURCE} mock_observer.hpp copy_count_tracker.hpp)
+  target_link_libraries(${TARGET} PRIVATE rpp Catch2 coverage_config)
+  set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites)
+
+  if(MSVC)
+    target_link_options(${EXECUTABLE_TARGET} PRIVATE /WHOLEARCHIVE:$<TARGET_FILE:${TARGET}>)
+  else()
+    target_link_libraries(${EXECUTABLE_TARGET} PRIVATE -Wl,--whole-archive ${TARGET} -Wl,--no-whole-archive)
+  endif()
+endforeach()
 
 if(MSVC)
   target_compile_options(${EXECUTABLE_TARGET} PRIVATE /W4 /WX)
