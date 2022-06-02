@@ -64,7 +64,7 @@ SCENARIO("Filter provides only satisfied items", "[operators][filter]")
                 return v % 2 == 0;
             }).subscribe(mock);
 
-            THEN("obtained nothing")
+            THEN("obtained error")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 1);

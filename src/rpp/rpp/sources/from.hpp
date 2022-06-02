@@ -54,23 +54,31 @@ void iterate(const auto&                                   iterable,
         {
             if (subscriber.is_subscribed())
             {
-                const auto& extracted_iterable = extract_iterable_from_packed(iterable);
-                const auto  end = std::cend(extracted_iterable);
-                auto        itr = std::cbegin(extracted_iterable);
-
-                std::ranges::advance(itr, static_cast<int64_t>(index), end);
-
-                if (itr != end)
+                try
                 {
-                    subscriber.on_next(utils::as_const(*itr));
-                    if (std::next(itr) != end) // it was not last
-                    {
-                        ++index;
-                        return schedulers::duration{}; // re-schedule this
-                    }
-                }
+                    const auto& extracted_iterable = extract_iterable_from_packed(iterable);
+                    const auto  end = std::cend(extracted_iterable);
+                    auto        itr = std::cbegin(extracted_iterable);
 
-                subscriber.on_completed();
+                    std::ranges::advance(itr, static_cast<int64_t>(index), end);
+
+                    if (itr != end)
+                    {
+                        subscriber.on_next(utils::as_const(*itr));
+                        if (std::next(itr) != end) // it was not last
+                        {
+                            ++index;
+                            return schedulers::duration{}; // re-schedule this
+                        }
+                    }
+
+                    subscriber.on_completed();
+                }
+                catch(...)
+                {
+                    subscriber.on_error(std::current_exception());
+                    return schedulers::optional_duration{};
+                }
             }
             return schedulers::optional_duration{};
         });

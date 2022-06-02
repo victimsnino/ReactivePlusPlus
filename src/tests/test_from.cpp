@@ -10,12 +10,21 @@
 
 #include "copy_count_tracker.hpp"
 #include "mock_observer.hpp"
+#include "rpp/schedulers/run_loop_scheduler.hpp"
 
 #include <rpp/sources/from.hpp>
 #include <rpp/schedulers/new_thread_scheduler.hpp>
+#include <rpp/schedulers/run_loop_scheduler.hpp>
 #include <catch2/catch_test_macros.hpp>
 
-SCENARIO("from iterable")
+
+struct my_container_with_error : std::vector<int>
+{
+    using std::vector<int>::vector;
+    std::vector<int>::const_iterator begin() const { throw std::runtime_error{""}; }
+};
+
+SCENARIO("from iterable", "[source][from]")
 {
     auto mock = mock_observer<int>();
     GIVEN("observable from iterable")
@@ -34,21 +43,51 @@ SCENARIO("from iterable")
     }
     GIVEN("observable from iterable with scheduler")
     {
-        auto vals = std::vector{ 1, 2, 3, 4, 5, 6 };
-        auto obs = rpp::source::from_iterable(vals, rpp::schedulers::new_thread{}).as_blocking();
-        WHEN("subscribe on it")
+        auto vals     = std::vector{1, 2, 3, 4, 5, 6};
+        auto run_loop = rpp::schedulers::run_loop{};
+        auto obs      = rpp::source::from_iterable(vals, run_loop);
+        WHEN("subscribe on it and dispatch once")
         {
             obs.subscribe(mock);
-            THEN("observer obtains values in the same order")
+            run_loop.dispatch();
+            THEN("observer obtains first value")
             {
-                CHECK(mock.get_received_values() == vals);
-                CHECK(mock.get_on_completed_count() == 1);
+                CHECK(mock.get_received_values() == std::vector{1});
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 0);
+            }
+            AND_WHEN("dispatch till no events")
+            {
+                while (!run_loop.is_empty())
+                    run_loop.dispatch();
+
+                THEN("observer obtains values in the same order")
+                {
+                    CHECK(mock.get_received_values() == vals);
+                    CHECK(mock.get_on_completed_count() == 1);
+                }
+            }
+        }
+    }
+    GIVEN("observable from iterable with exceiption on begin")
+    {
+        auto run_loop = rpp::schedulers::run_loop{};
+        auto obs = rpp::source::from_iterable(my_container_with_error{}, run_loop);
+        WHEN("subscribe on it and dispatch once")
+        {
+            obs.subscribe(mock);
+            run_loop.dispatch();
+            THEN("observer obtains error")
+            {
+                CHECK(mock.get_total_on_next_count() == 0);
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
             }
         }
     }
 }
 
-SCENARIO("from iterable", "[track_copy]")
+SCENARIO("from iterable", "[source][from][track_copy]")
 {
     copy_count_tracker tracker{};
     auto               vals         = std::array{tracker};
@@ -110,7 +149,7 @@ SCENARIO("from iterable", "[track_copy]")
     }
 }
 
-SCENARIO("from callable")
+SCENARIO("from callable", "[source][from]")
 {
     GIVEN("observable from callable")
     {
