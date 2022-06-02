@@ -14,6 +14,7 @@
 #include <rpp/sources/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
 
+IMPLEMENTATION_FILE(never_tag);
 
 namespace rpp::observable
 {
@@ -30,7 +31,7 @@ namespace rpp::observable
  * \see https://reactivex.io/documentation/operators/empty-never-throw.html
  */
 template<constraint::decayed_type Type>
-auto never()
+auto never() requires rpp::details::is_header_included<rpp::details::never_tag, Type>
 {
     return create<Type>([](const auto&) { });
 }

@@ -14,6 +14,7 @@
 #include <rpp/sources/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
 
+IMPLEMENTATION_FILE(empty_tag);
 
 namespace rpp::observable
 {
@@ -31,7 +32,7 @@ namespace rpp::observable
  * \see https://reactivex.io/documentation/operators/empty-never-throw.html
  */
 template<constraint::decayed_type Type>
-auto empty()
+auto empty() requires rpp::details::is_header_included<rpp::details::empty_tag, Type>
 {
     return create<Type>([](const auto& sub)
     {
