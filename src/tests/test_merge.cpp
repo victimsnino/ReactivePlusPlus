@@ -8,6 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
+#include "copy_count_tracker.hpp"
 #include "mock_observer.hpp"
 
 #include <catch2/catch_test_macros.hpp>
@@ -16,7 +17,7 @@
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/schedulers/new_thread_scheduler.hpp>
 
-SCENARIO("merge for observable of observables")
+SCENARIO("merge for observable of observables", "[operators][merge]")
 {
     auto mock = mock_observer<int>();
     GIVEN("observable of observables")
@@ -106,7 +107,8 @@ SCENARIO("merge for observable of observables")
         }
     }
 }
-SCENARIO("merge_with")
+
+SCENARIO("merge_with", "[operators][merge]")
 {
     auto mock = mock_observer<int>();
     GIVEN("2 observables")
@@ -170,7 +172,7 @@ SCENARIO("merge_with")
     }
 }
 
-SCENARIO("merge serializes emissions")
+SCENARIO("merge serializes emissions", "[operators][merge]")
 {
     GIVEN("observables from different threads")
     {
@@ -197,3 +199,43 @@ SCENARIO("merge serializes emissions")
         }
     }
 }
+
+SCENARIO("merge doesn't produce extra copies", "[operators][merge][track_copy]")
+{
+    GIVEN("observable and subscriber")
+    {
+        copy_count_tracker verifier{};
+        auto          obs = rpp::source::just(verifier.get_observable()).merge();
+        WHEN("subscribe")
+        {
+            obs.subscribe([](copy_count_tracker){});
+            THEN("no extra copies")
+            {
+                // 1 copy to final lambda
+                REQUIRE(verifier.get_copy_count() == 1);
+                REQUIRE(verifier.get_move_count() == 0);
+            }
+        }
+    }
+}
+
+
+SCENARIO("merge doesn't produce copies for move", "[operators][merge][track_copy]")
+{
+    GIVEN("observable and subscriber")
+    {
+        copy_count_tracker verifier{};
+        auto          obs = rpp::source::just(verifier.get_observable_for_move()).merge();
+        WHEN("subscribe")
+        {
+            obs.subscribe([](copy_count_tracker) {});
+            THEN("no extra copies")
+            {
+                REQUIRE(verifier.get_copy_count() == 0);
+                // 1 move to final lambda
+                REQUIRE(verifier.get_move_count() == 1);
+            }
+        }
+    }
+}
+
