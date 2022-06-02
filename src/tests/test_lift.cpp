@@ -9,6 +9,7 @@
 //
 
 #include "copy_count_tracker.hpp"
+#include "mock_observer.hpp"
 
 #include <catch2/catch_test_macros.hpp>
 #include <rpp/observables.hpp>
@@ -45,6 +46,27 @@ SCENARIO("Observable can be lifted")
                 {
                     CHECK(calls_internal == 0);
                     CHECK(calls_external == 0);
+                }
+            }
+        }
+        WHEN("Call lift with exception")
+        {
+            int calls_internal = 0;
+
+            auto new_observable = observable.template lift<int>([&calls_internal](int, const auto& )
+            {
+                throw std::runtime_error{""};
+            });
+
+            AND_WHEN("subscribe subscriber")
+            {
+                auto mock = mock_observer<int>{};
+                new_observable.subscribe(mock);
+                THEN("subscriber obtais on error")
+                {
+                    CHECK(mock.get_total_on_next_count() == 0);
+                    CHECK(mock.get_on_error_count() == 1);
+                    CHECK(mock.get_on_completed_count() == 0);
                 }
             }
         }
