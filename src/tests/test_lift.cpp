@@ -53,7 +53,7 @@ SCENARIO("Observable can be lifted")
         {
             int calls_internal = 0;
 
-            auto new_observable = observable.template lift<int>([&calls_internal](int, const auto& )
+            auto new_observable = observable.template lift<int>([](int, const auto& )
             {
                 throw std::runtime_error{""};
             });
