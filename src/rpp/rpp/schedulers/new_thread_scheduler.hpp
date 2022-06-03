@@ -45,6 +45,8 @@ public:
             m_state->defer_at(time_point, std::forward<decltype(fn)>(fn));
         }
 
+        static time_point now() { return clock_type::now(); }
+
     private:
         class state : public std::enable_shared_from_this<state>
         {

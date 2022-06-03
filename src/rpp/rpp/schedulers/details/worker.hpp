@@ -35,7 +35,7 @@ public:
 
     void schedule(constraint::schedulable_fn auto&& fn) const
     {
-        schedule(std::chrono::high_resolution_clock::now(), std::forward<decltype(fn)>(fn));
+        schedule(m_strategy.now(), std::forward<decltype(fn)>(fn));
     }
 
     void schedule(time_point time_point, constraint::schedulable_fn auto&& fn) const

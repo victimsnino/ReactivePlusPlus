@@ -69,6 +69,8 @@ public:
                 m_queue->emplace(time_point, std::forward<decltype(fn)>(fn));
         }
 
+        static time_point now() { return clock_type::now(); }
+
     private:
         std::shared_ptr<details::queue_worker_state> m_queue{};
         composite_subscription                       m_sub{};

@@ -15,7 +15,7 @@ foreach(SOURCE ${FILES})
 
   set(TARGET ${BASE_NAME})
 
-  add_executable(${TARGET} ${SOURCE} mock_observer.hpp copy_count_tracker.hpp)
+  add_executable(${TARGET} ${SOURCE} mock_observer.hpp copy_count_tracker.hpp test_scheduler.hpp)
   target_link_libraries(${TARGET} PRIVATE rpp Catch2WithMain coverage_config)
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites)
 
