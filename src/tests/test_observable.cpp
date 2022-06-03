@@ -114,7 +114,7 @@ SCENARIO("Observable with exception", "[observable]")
             obs.subscribe(mock);
             THEN("exception provided")
             {
-                CHECK(mock.get_total_on_next_count() == 1);
+                CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 1);
                 CHECK(mock.get_on_completed_count() == 0);
             }
