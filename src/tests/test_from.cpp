@@ -68,6 +68,32 @@ SCENARIO("from iterable", "[source][from]")
                 }
             }
         }
+        WHEN("subscribe on it, unsubscribe on first on next and dispatch till not empty")
+        {
+            rpp::composite_subscription sub{};
+            obs.subscribe(sub,
+                          [&](const auto& v)
+                          {
+                              mock.on_next(v);
+                              sub.unsubscribe();
+                          });
+
+            size_t dispatch_count{};
+            while (!run_loop.is_empty())
+            {
+                ++dispatch_count;
+                run_loop.dispatch();
+            }
+
+            THEN("observer obtains first value")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 1 });
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 0);
+                CHECK(sub.is_subscribed() == false);
+                CHECK(dispatch_count == 1);
+            }
+        }
     }
     GIVEN("observable from iterable with exceiption on begin")
     {
