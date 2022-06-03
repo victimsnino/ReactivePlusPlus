@@ -51,8 +51,6 @@ SCENARIO("Observable can be lifted")
         }
         WHEN("Call lift with exception")
         {
-            int calls_internal = 0;
-
             auto new_observable = observable.template lift<int>([](int, const auto& )
             {
                 throw std::runtime_error{""};

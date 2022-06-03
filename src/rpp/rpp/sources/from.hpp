@@ -55,35 +55,35 @@ void iterate(const auto&                                   iterable,
         auto worker = scheduler.create_worker(subscriber.get_subscription());
         worker.schedule([=, index = size_t{0}]() mutable-> schedulers::optional_duration
         {
-            if (subscriber.is_subscribed())
+            if (!subscriber.is_subscribed())
+                return std::nullopt;
+            
+            try
             {
-                try
+                const auto& extracted_iterable = extract_iterable_from_packed(iterable);
+                const auto  end = std::cend(extracted_iterable);
+                auto        itr = std::cbegin(extracted_iterable);
+
+                std::ranges::advance(itr, static_cast<int64_t>(index), end);
+
+                if (itr != end)
                 {
-                    const auto& extracted_iterable = extract_iterable_from_packed(iterable);
-                    const auto  end = std::cend(extracted_iterable);
-                    auto        itr = std::cbegin(extracted_iterable);
-
-                    std::ranges::advance(itr, static_cast<int64_t>(index), end);
-
-                    if (itr != end)
+                    subscriber.on_next(utils::as_const(*itr));
+                    if (std::next(itr) != end) // it was not last
                     {
-                        subscriber.on_next(utils::as_const(*itr));
-                        if (std::next(itr) != end) // it was not last
-                        {
-                            ++index;
-                            return schedulers::duration{}; // re-schedule this
-                        }
+                        ++index;
+                        return schedulers::duration{}; // re-schedule this
                     }
+                }
 
-                    subscriber.on_completed();
-                }
-                catch(...)
-                {
-                    subscriber.on_error(std::current_exception());
-                    return schedulers::optional_duration{};
-                }
+                subscriber.on_completed();
             }
-            return schedulers::optional_duration{};
+            catch(...)
+            {
+                subscriber.on_error(std::current_exception());
+            }
+            return std::nullopt;
+
         });
     }
 }
