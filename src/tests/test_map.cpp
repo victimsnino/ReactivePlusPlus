@@ -146,7 +146,7 @@ SCENARIO("Map doesn't produce extra copies", "[operators][map][track_copy]")
 
         WHEN("subscribe on observable with return from map by copy")
         {
-            rpp::source::just(1).map([&](const auto&) {return tracker; }).subscribe([](copy_count_tracker tracker){});
+            rpp::source::just(1).map([&](const auto&) {return tracker; }).subscribe([](copy_count_tracker){});
             THEN("only one copy from map and move to lambda")
             {
                 CHECK(tracker.get_copy_count() == 1);

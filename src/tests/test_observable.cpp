@@ -104,7 +104,7 @@ SCENARIO("Observable with exception", "[observable]")
 {
     GIVEN("Observable with error")
     {
-        auto obs = rpp::source::create<int>([](const auto& sub)
+        auto obs = rpp::source::create<int>([](const auto&)
         {
                 throw std::runtime_error{ "" };
         });
