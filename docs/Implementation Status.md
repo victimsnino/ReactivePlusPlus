@@ -45,6 +45,8 @@
 ### Transforming
 
 - [x] map
+- [ ] group_by
+- [ ] window
 
 ### Filtering
 - [x] filter
@@ -59,6 +61,7 @@
   - [x] observable of observables
   - [x] merge with
   - [ ] merge delay error
+- [ ] switch
 
 ### Utility
 
