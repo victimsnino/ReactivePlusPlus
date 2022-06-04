@@ -22,7 +22,6 @@ var annotated_dup =
         [ "member_overload< Type, SpecificObservable, with_latest_from_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01with__latest__from__tag_01_4.html", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01with__latest__from__tag_01_4" ],
         [ "observable_tag", "structrpp_1_1details_1_1observable__tag.html", null ],
         [ "observer_tag", "structrpp_1_1details_1_1observer__tag.html", null ],
-        [ "operator_declaration", "structrpp_1_1details_1_1operator__declaration.html", null ],
         [ "repeat_on_completed", "classrpp_1_1details_1_1repeat__on__completed.html", "classrpp_1_1details_1_1repeat__on__completed" ],
         [ "state_observer", "classrpp_1_1details_1_1state__observer.html", "classrpp_1_1details_1_1state__observer" ],
         [ "state_t", "structrpp_1_1details_1_1state__t.html", "structrpp_1_1details_1_1state__t" ],

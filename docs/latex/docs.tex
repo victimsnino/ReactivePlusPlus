@@ -14,7 +14,7 @@ Observables are sources of your future streams. First of all you need to create 
 
 For example, 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gaf574d9dd582ee9b59553e3705e8793cd}{rpp::source::from\_callable}}(\&::getchar)}
+\DoxyCodeLine{rpp::source::from\_callable(\&::getchar)}
 \end{DoxyCode}
 
 
@@ -23,7 +23,7 @@ observable which emits one char from {\ttfamily cin} via invoking of provided fu
 Action inside observable happens O\+N\+LY after subscription on this observable and O\+N\+LY for provided subscriber/observer. It means, that you can subscribe on the same observable multiple times!\hypertarget{quick_start_autotoc_md19}{}\doxysubsubsection{2) Chain observable}\label{quick_start_autotoc_md19}
 When you have some source of data you need to extend it somehow to make it useful! For example, let\textquotesingle{}s make it infinite instead of emitting one value\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gaf574d9dd582ee9b59553e3705e8793cd}{rpp::source::from\_callable}}(\&::getchar)}
+\DoxyCodeLine{rpp::source::from\_callable(\&::getchar)}
 \DoxyCodeLine{   .repeat()}
 \end{DoxyCode}
 
@@ -50,7 +50,7 @@ What we want to do with resulting values? Let\textquotesingle{}s dump it to cons
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gaf574d9dd582ee9b59553e3705e8793cd}{rpp::source::from\_callable}}(\&::getchar)}
+\DoxyCodeLine{rpp::source::from\_callable(\&::getchar)}
 \DoxyCodeLine{    .repeat()}
 \DoxyCodeLine{    .take\_while([](\textcolor{keywordtype}{char} v) \{ \textcolor{keywordflow}{return} v != \textcolor{charliteral}{'0'}; \})}
 \DoxyCodeLine{    .filter(std::not\_fn(\&::isdigit))}
@@ -89,8 +89,8 @@ It means, that\+:
 
 It means, that for example\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{auto} s1 = \mbox{\hyperlink{group__creational__operators_gae8ac01568a0e057e97cf9b474dca12d3}{rpp::source::just}}(1).repeat().subscribe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\});}
-\DoxyCodeLine{\textcolor{keyword}{auto} s2 = \mbox{\hyperlink{group__creational__operators_gae8ac01568a0e057e97cf9b474dca12d3}{rpp::source::just}}(2).repeat().subscribe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\});}
+\DoxyCodeLine{\textcolor{keyword}{auto} s1 = \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1).repeat().subscribe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\});}
+\DoxyCodeLine{\textcolor{keyword}{auto} s2 = \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(2).repeat().subscribe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\});}
 \DoxyCodeLine{s1.merge\_with(s2).map([](\textcolor{keywordtype}{int} v)\{}
 \DoxyCodeLine{    std::cout << \textcolor{stringliteral}{"enter "} << v << std::endl;}
 \DoxyCodeLine{    std::this\_thread::sleep\_for(std::chrono::seconds\{1\});}
@@ -243,7 +243,7 @@ For example, {\ttfamily rpp\+::source\+::just}
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gae8ac01568a0e057e97cf9b474dca12d3}{rpp::source::just}}(my\_custom\_variable);}
+\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(my\_custom\_variable);}
 \end{DoxyCode}
 
 

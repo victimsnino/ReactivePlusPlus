@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['create_201',['create',['../group__creational__operators.html#gaa70991953a96a64c95d7566ff7069f6b',1,'rpp::observable']]]
+  ['filter_193',['filter',['../group__filtering__operators.html#ga87eb036453a17e9b5e59c920399d1d14',1,'rpp::details::member_overload&lt; Type, SpecificObservable, filter_tag &gt;']]]
 ];

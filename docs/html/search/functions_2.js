@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['empty_202',['empty',['../group__creational__operators.html#ga98063c4d7ae8a8222b8d4ff1eacd6517',1,'rpp::observable']]],
-  ['error_203',['error',['../group__creational__operators.html#ga6ec535e9c756e3bf8be5b7f64fc55380',1,'rpp::observable']]]
+  ['is_5fsubscribed_194',['is_subscribed',['../classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2',1,'rpp::subscription_base']]]
 ];

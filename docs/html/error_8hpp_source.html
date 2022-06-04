@@ -114,20 +114,21 @@ $(document).ready(function(){initNavTree('error_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;exception&gt;</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span>rpp::observable</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">auto</span> <a class="code" href="group__creational__operators.html#ga6ec535e9c756e3bf8be5b7f64fc55380">error</a>(<span class="keyword">const</span> std::exception_ptr&amp; err)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">return</span> create&lt;Type&gt;([err](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        sub.on_error(err);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    });</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace rpp::observable</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;IMPLEMENTATION_FILE(error_tag);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>rpp::observable</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">auto</span> error(<span class="keyword">const</span> std::exception_ptr&amp; err) requires rpp::details::is_header_included&lt;rpp::details::error_tag, Type&gt;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> create&lt;Type&gt;([err](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        sub.on_error(err);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    });</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace rpp::observable</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agroup__creational__operators_html_ga6ec535e9c756e3bf8be5b7f64fc55380"><div class="ttname"><a href="group__creational__operators.html#ga6ec535e9c756e3bf8be5b7f64fc55380">rpp::observable::error</a></div><div class="ttdeci">auto error(const std::exception_ptr &amp;err)</div><div class="ttdoc">Creates rpp::specific_observable that emits no items and terminates with an error.</div><div class="ttdef"><b>Definition:</b> error.hpp:32</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

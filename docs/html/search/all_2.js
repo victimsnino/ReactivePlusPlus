@@ -7,6 +7,5 @@ var searchData=
   ['conditional_20operators_10',['Conditional Operators',['../group__conditional__operators.html',1,'']]],
   ['connectable_5fobservable_11',['connectable_observable',['../classrpp_1_1connectable__observable.html',1,'rpp']]],
   ['connectable_20operators_12',['Connectable Operators',['../group__connectable__operators.html',1,'']]],
-  ['create_13',['create',['../group__creational__operators.html#gaa70991953a96a64c95d7566ff7069f6b',1,'rpp::observable']]],
-  ['creational_20operators_14',['Creational Operators',['../group__creational__operators.html',1,'']]]
+  ['creational_20operators_13',['Creational Operators',['../group__creational__operators.html',1,'']]]
 ];
