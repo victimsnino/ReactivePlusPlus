@@ -17,7 +17,7 @@
 
 #include "mock_observer.hpp"
 
-SCENARIO("ref_count")
+SCENARIO("ref_count", "[operators][ref_count]")
 {
     auto observer_1 = mock_observer<int>{};
     auto observer_2 = mock_observer<int>{};

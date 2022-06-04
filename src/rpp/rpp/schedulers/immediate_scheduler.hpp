@@ -44,6 +44,8 @@ public:
                 fn();
         }
 
+        static time_point now() { return clock_type::now();  }
+
     private:
         rpp::subscription_base m_sub;
     };

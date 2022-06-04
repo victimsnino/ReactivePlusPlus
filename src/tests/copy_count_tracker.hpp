@@ -10,6 +10,8 @@
 
 #pragma once
 
+#include "rpp/sources/create.hpp"
+
 #include <memory>
 
 class copy_count_tracker
@@ -46,6 +48,26 @@ public:
         _state = other._state;
         ++_state->move_count;
         return *this;
+    }
+
+    auto get_observable(size_t count = 1)
+    {
+        return rpp::source::create<copy_count_tracker>([this, count](const auto& sub)
+        {
+            for (size_t i = 0; i < count; ++i)
+                sub.on_next(*this);
+            sub.on_completed();
+        });
+    }
+
+    auto get_observable_for_move(size_t count = 1)
+    {
+        return rpp::source::create<copy_count_tracker>([this, count](const auto& sub)
+        {
+            for (size_t i = 0; i < count; ++i)
+                sub.on_next(std::move(*this));
+            sub.on_completed();
+        });
     }
 
     int get_copy_count() const { return _state->copy_count; }

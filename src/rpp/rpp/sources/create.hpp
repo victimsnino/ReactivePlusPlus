@@ -14,6 +14,8 @@
 #include <rpp/observables/specific_observable.hpp>
 #include <type_traits>
 
+IMPLEMENTATION_FILE(create_tag);
+
 namespace rpp::observable
 {
 /**
@@ -37,7 +39,7 @@ namespace rpp::observable
  * \see https://reactivex.io/documentation/operators/create.html
  */
 template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
-auto create(OnSubscribeFn&& on_subscribe)
+auto create(OnSubscribeFn&& on_subscribe) requires rpp::details::is_header_included<rpp::details::create_tag, Type, OnSubscribeFn>
 {
     return specific_observable<Type, std::decay_t<OnSubscribeFn>>{std::forward<OnSubscribeFn>(on_subscribe)};
 }
@@ -65,7 +67,7 @@ auto create(OnSubscribeFn&& on_subscribe)
  */
 template<utils::is_callable OnSubscribeFn, constraint::decayed_type Type>
     requires constraint::on_subscribe_fn<OnSubscribeFn, Type>
-auto create(OnSubscribeFn&& on_subscribe)
+auto create(OnSubscribeFn&& on_subscribe) requires rpp::details::is_header_included<rpp::details::create_tag, Type, OnSubscribeFn>
 {
     return create<Type>(std::forward<OnSubscribeFn>(on_subscribe));
 }

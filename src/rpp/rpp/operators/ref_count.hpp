@@ -24,30 +24,42 @@ auto ref_count_impl(TObs&& observable)
 {
     struct state_t
     {
-        size_t                 count_of_active_subs{};
-        composite_subscription sub = composite_subscription::empty();
-        std::mutex             mutex{};
+        bool on_subscribe()
+        {
+            std::lock_guard lock{m_mutex};
+            if (++m_count_of_active_subs != 1)
+                return false;
+
+            m_sub = composite_subscription{};
+            return true;
+        }
+
+        void on_unsubscribe()
+        {
+            std::lock_guard lock{ m_mutex };
+            if (--m_count_of_active_subs == 0)
+                m_sub.unsubscribe();
+        }
+
+        const composite_subscription& get_subscription() const { return m_sub; }
+
+    private:
+        size_t                 m_count_of_active_subs{};
+        composite_subscription m_sub = composite_subscription::empty();
+        std::mutex             m_mutex{};
     };
     return source::create<Type>([observable = std::forward<TObs>(observable), state = std::make_shared<state_t>()](const constraint::subscriber_of_type<Type> auto& subscriber)
     {
-        bool need_to_connect = false;
-        {
-            std::lock_guard lock{state->mutex};
-            need_to_connect = ++state->count_of_active_subs == 1;
-            if (need_to_connect)
-                state->sub = composite_subscription{};
-        }
+        const bool need_to_connect = state->on_subscribe();
 
         subscriber.get_subscription().add([state = state]
         {
-            std::lock_guard lock{state->mutex};
-            if (--state->count_of_active_subs == 0)
-                state->sub.unsubscribe();
+            state->on_unsubscribe();
         });
 
         observable.subscribe(subscriber);
         if (need_to_connect)
-            observable.connect(state->sub);
+            observable.connect(state->get_subscription());
     });
 }
 } // namespace rpp::details

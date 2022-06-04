@@ -16,7 +16,7 @@
 #include <rpp/observers/state_observer.hpp>
 #include <rpp/subscribers/dynamic_subscriber.hpp>
 
-SCENARIO("on_next, on_error and on_completed can be obtained")
+SCENARIO("on_next, on_error and on_completed can be obtained", "[observer]")
 {
     size_t on_next_count{}, on_error_count{}, on_completed_count{};
 
@@ -73,7 +73,7 @@ SCENARIO("on_next, on_error and on_completed can be obtained")
     }
 }
 
-SCENARIO("observer by default rethrow exceptions")
+SCENARIO("observer by default rethrow exceptions", "[observer]")
 {
     GIVEN("observer with only on_next callback")
     {
@@ -90,7 +90,7 @@ SCENARIO("observer by default rethrow exceptions")
     }
 }
 
-SCENARIO("Any observer can be casted to dynamic_observer")
+SCENARIO("Any observer can be casted to dynamic_observer", "[observer]")
 {
     auto validate_observer =[](const auto& observer)
     {
@@ -131,7 +131,7 @@ SCENARIO("Any observer can be casted to dynamic_observer")
     }
 }
 
-SCENARIO("State observer copy-count for state")
+SCENARIO("State observer copy-count for state", "[observer]")
 {
     GIVEN("state")
     {
@@ -145,7 +145,6 @@ SCENARIO("State observer copy-count for state")
             static_assert(std::is_same_v<rpp::utils::extract_observer_type_t<decltype(observer)>, int>);
 
             observer.on_next(1);
-            observer.on_error(std::make_exception_ptr(std::exception{}));
             observer.on_completed();
         };
 
@@ -172,7 +171,7 @@ SCENARIO("State observer copy-count for state")
     }
 }
 
-SCENARIO("State proxy calls to subscriber")
+SCENARIO("State proxy calls to subscriber", "[observer]")
 {
     auto observer = mock_observer<int>{};
     auto subscriber = rpp::dynamic_subscriber{ observer };

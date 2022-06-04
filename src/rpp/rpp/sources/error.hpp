@@ -16,6 +16,8 @@
 
 #include <exception>
 
+IMPLEMENTATION_FILE(error_tag);
+
 namespace rpp::observable
 {
 /**
@@ -32,7 +34,7 @@ namespace rpp::observable
   * \see https://reactivex.io/documentation/operators/empty-never-throw.html
   */
 template<constraint::decayed_type Type>
-auto error(const std::exception_ptr& err)
+auto error(const std::exception_ptr& err) requires rpp::details::is_header_included<rpp::details::error_tag, Type>
 {
     return create<Type>([err](const auto& sub)
     {
