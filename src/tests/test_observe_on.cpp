@@ -18,45 +18,6 @@
 #include <rpp/sources.hpp>
 #include <set>
 
-SCENARIO("scheduler's worker uses time")
-{
-    GIVEN("test scheduler")
-    {
-        auto scheduler = test_scheduler{};
-        WHEN("Schedule action without time")
-        {
-            scheduler.create_worker().schedule([]() { return rpp::schedulers::optional_duration{}; });
-            THEN("worker obtains schedulable once with current time")
-            {
-                CHECK(scheduler.get_schedulings() == std::vector{ s_current_time });
-            }
-        }
-        WHEN("Schedule action with some time")
-        {
-            auto time = rpp::schedulers::clock_type::now();
-            scheduler.create_worker().schedule(time, []() { return rpp::schedulers::optional_duration{}; });
-            THEN("worker obtains schedulable once with provided time")
-            {
-                CHECK(scheduler.get_schedulings() == std::vector{ time });
-            }
-        }
-        WHEN("Schedule action with repeat")
-        {
-            int                                 count = 0;
-            constexpr rpp::schedulers::duration dur   = std::chrono::seconds{3};
-            scheduler.create_worker().schedule([&]() -> rpp::schedulers::optional_duration
-            {
-                if (++count > 2)
-                    return std::nullopt;
-                return dur;
-            });
-            THEN("worker obtains schedulable three times with current time and time+diff")
-            {
-                CHECK(scheduler.get_schedulings() == std::vector{ s_current_time, s_current_time + dur , s_current_time + dur + dur });
-            }
-        }
-    }
-}
 
 SCENARIO("observe_on transfers emssions to scheduler", "[operators][observe_on]")
 {
