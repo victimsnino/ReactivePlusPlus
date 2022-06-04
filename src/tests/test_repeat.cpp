@@ -14,7 +14,7 @@
 #include <rpp/operators/take.hpp>
 #include <catch2/catch_test_macros.hpp>
 
-SCENARIO("repeat resubscribes")
+SCENARIO("repeat resubscribes", "[operators][repeat]")
 {
     auto observer = mock_observer<int>();
     GIVEN("observable with value")
@@ -88,6 +88,26 @@ SCENARIO("repeat resubscribes")
                 CHECK(observer.get_total_on_next_count() == 0);
                 CHECK(observer.get_on_error_count() == 1);
                 CHECK(observer.get_on_completed_count() == 0);
+            }
+        }
+    }
+    GIVEN("observable with on_completed")
+    {
+        size_t subscribe_count = 0;
+        auto   observable = rpp::source::create<int>([&subscribe_count](const auto& sub)
+            {
+                ++subscribe_count;
+                sub.on_completed();
+            });
+        WHEN("subscribe on it via repeat(10)")
+        {
+            observable.repeat(10).subscribe(observer);
+            THEN("on_ompleted once")
+            {
+                CHECK(subscribe_count == 10);
+                CHECK(observer.get_total_on_next_count() == 0);
+                CHECK(observer.get_on_error_count() == 0);
+                CHECK(observer.get_on_completed_count() == 1);
             }
         }
     }
