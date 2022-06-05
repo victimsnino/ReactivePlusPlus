@@ -120,6 +120,26 @@ SCENARIO("switch_on_next switches observable after obtaining new one", "[operato
                         CHECK(mock.get_on_completed_count() == 0);
                     }
                 }
+                AND_WHEN("original subject completes but provided send value")
+                {
+                    subj_of_subjects.get_subscriber().on_completed();
+                    subj_1.get_subscriber().on_next(1);
+                    subj_2.get_subscriber().on_next(2);
+                    THEN("value obtained")
+                    {
+                        CHECK(mock.get_received_values() == std::vector{1});
+                        CHECK(mock.get_on_error_count() == 0);
+                        CHECK(mock.get_on_completed_count() == 0);
+                    }
+                    AND_WHEN("subject sends on_completed")
+                    {
+                        subj_1.get_subscriber().on_completed();
+                        THEN("subsriber completed")
+                        {
+                            CHECK(mock.get_on_completed_count() == 1);
+                        }
+                    }
+                }
             }
         }
     }
