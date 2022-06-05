@@ -12,6 +12,8 @@ Combining operators are operators that combines emissions of multiple observable
 \begin{DoxyCompactList}\small\item\em Converts observable of observables of items into observable of items via merging emissions. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... T\+Observables$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga3341a36b0971c0cf59001fa65aeb36a4}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge\+\_\+with}} (T\+Observables \&\&... observables) const \&requires(is\+\_\+header\+\_\+included$<$ merge\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ... Args$>$ }\\auto \mbox{\hyperlink{group__combining__operators_gac9a4fd5e39aef8493fa07e2437066aad}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, switch\+\_\+on\+\_\+next\+\_\+tag $>$\+::switch\+\_\+on\+\_\+next}} () const \&requires(is\+\_\+header\+\_\+included$<$ switch\+\_\+on\+\_\+next\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Converts observable of observables into observable of values which emits values from most recent underlying observable till new observable obtained. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::observable ... T\+Observables, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ T\+Observables $>$... $>$ T\+Selector$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga3881bcfd0f283b89e20dcb3b48c08fe4}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, with\+\_\+latest\+\_\+from\+\_\+tag $>$\+::with\+\_\+latest\+\_\+from}} (T\+Selector \&\&selector, T\+Observables \&\&...observables) const \&requires is\+\_\+header\+\_\+included$<$ with\+\_\+latest\+\_\+from\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Combines latest emissions from observables with emission from current observable when it sends new value via applying selector. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::observable ... T\+Observables$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga41f62df9b82778838be353be69981f82}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, with\+\_\+latest\+\_\+from\+\_\+tag $>$\+::with\+\_\+latest\+\_\+from}} (T\+Observables \&\&...observables) const \&requires is\+\_\+header\+\_\+included$<$ with\+\_\+latest\+\_\+from\+\_\+tag
@@ -105,6 +107,41 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/merge.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/merge.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__combining__operators_gac9a4fd5e39aef8493fa07e2437066aad}\label{group__combining__operators_gac9a4fd5e39aef8493fa07e2437066aad}} 
+\index{Combining Operators@{Combining Operators}!switch\_on\_next@{switch\_on\_next}}
+\index{switch\_on\_next@{switch\_on\_next}!Combining Operators@{Combining Operators}}
+\doxysubsubsection{\texorpdfstring{switch\_on\_next()}{switch\_on\_next()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$typename ... Args$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, switch\+\_\+on\+\_\+next\+\_\+tag $>$\+::switch\+\_\+on\+\_\+next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&}
+
+
+
+Converts observable of observables into observable of values which emits values from most recent underlying observable till new observable obtained. 
+
+
+
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the switch\+\_\+on\+\_\+next operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{switch__on__next_8hpp_source}{rpp/operators/switch\+\_\+on\+\_\+next.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(\mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1).as\_dynamic(),}
+\DoxyCodeLine{                      rpp::source::never<int>().as\_dynamic(),}
+\DoxyCodeLine{                      \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(2).as\_dynamic())}
+\DoxyCodeLine{            .switch\_on\_next()}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/switch.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/switch.\+html}} 
 \end{DoxySeeAlso}
 \mbox{\Hypertarget{group__combining__operators_ga41f62df9b82778838be353be69981f82}\label{group__combining__operators_ga41f62df9b82778838be353be69981f82}} 
 \index{Combining Operators@{Combining Operators}!with\_latest\_from@{with\_latest\_from}}

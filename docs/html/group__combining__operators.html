@@ -112,6 +112,10 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3341a36b0971c0cf59001fa65aeb36a4"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga3341a36b0971c0cf59001fa65aeb36a4">rpp::details::member_overload&lt; Type, SpecificObservable, merge_tag &gt;::merge_with</a> (TObservables &amp;&amp;... observables) const &amp;requires(is_header_included&lt; merge_tag</td></tr>
 <tr class="memdesc:ga3341a36b0971c0cf59001fa65aeb36a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines submissions from current observable with other observables into one.  <a href="group__combining__operators.html#ga3341a36b0971c0cf59001fa65aeb36a4">More...</a><br /></td></tr>
 <tr class="separator:ga3341a36b0971c0cf59001fa65aeb36a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac9a4fd5e39aef8493fa07e2437066aad"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
+<tr class="memitem:gac9a4fd5e39aef8493fa07e2437066aad"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#gac9a4fd5e39aef8493fa07e2437066aad">rpp::details::member_overload&lt; Type, SpecificObservable, switch_on_next_tag &gt;::switch_on_next</a> () const &amp;requires(is_header_included&lt; switch_on_next_tag</td></tr>
+<tr class="memdesc:gac9a4fd5e39aef8493fa07e2437066aad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts observable of observables into observable of values which emits values from most recent underlying observable till new observable obtained.  <a href="group__combining__operators.html#gac9a4fd5e39aef8493fa07e2437066aad">More...</a><br /></td></tr>
+<tr class="separator:gac9a4fd5e39aef8493fa07e2437066aad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3881bcfd0f283b89e20dcb3b48c08fe4"><td class="memTemplParams" colspan="2">template&lt;constraint::observable ... TObservables, std::invocable&lt; Type, utils::extract_observable_type_t&lt; TObservables &gt;... &gt; TSelector&gt; </td></tr>
 <tr class="memitem:ga3881bcfd0f283b89e20dcb3b48c08fe4"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga3881bcfd0f283b89e20dcb3b48c08fe4">rpp::details::member_overload&lt; Type, SpecificObservable, with_latest_from_tag &gt;::with_latest_from</a> (TSelector &amp;&amp;selector, TObservables &amp;&amp;...observables) const &amp;requires is_header_included&lt; with_latest_from_tag</td></tr>
 <tr class="memdesc:ga3881bcfd0f283b89e20dcb3b48c08fe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines latest emissions from observables with emission from current observable when it sends new value via applying selector.  <a href="group__combining__operators.html#ga3881bcfd0f283b89e20dcb3b48c08fe4">More...</a><br /></td></tr>
@@ -201,6 +205,42 @@ template&lt;constraint::observable_of_type&lt; Type &gt; ... TObservables&gt; </
 <div class="line">    <span class="comment">// Output: 1 2</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/merge.html">https://reactivex.io/documentation/operators/merge.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="gac9a4fd5e39aef8493fa07e2437066aad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac9a4fd5e39aef8493fa07e2437066aad">&#9670;&nbsp;</a></span>switch_on_next()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename ... Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, switch_on_next_tag &gt;::switch_on_next </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts observable of observables into observable of values which emits values from most recent underlying observable till new observable obtained. </p>
+<div class="image">
+<object type="image/svg+xml" data="switch_on_next.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the switch_on_next operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="switch__on__next_8hpp_source.html">rpp/operators/switch_on_next.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(<a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1).as_dynamic(),</div>
+<div class="line">                      rpp::source::never&lt;int&gt;().as_dynamic(),</div>
+<div class="line">                      <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(2).as_dynamic())</div>
+<div class="line">            .switch_on_next()</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 1 2</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/switch.html">https://reactivex.io/documentation/operators/switch.html</a> </dd></dl>
 
 </div>
 </div>

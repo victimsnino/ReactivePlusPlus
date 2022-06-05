@@ -13,6 +13,7 @@ var examples =
     [ "repeat.cpp", "repeat_8cpp-example.html", null ],
     [ "run_loop.cpp", "run_loop_8cpp-example.html", null ],
     [ "subscribe_on.cpp", "subscribe_on_8cpp-example.html", null ],
+    [ "switch_on_next.cpp", "switch_on_next_8cpp-example.html", null ],
     [ "take.cpp", "take_8cpp-example.html", null ],
     [ "take_while.cpp", "take_while_8cpp-example.html", null ],
     [ "with_latest_from.cpp", "with_latest_from_8cpp-example.html", null ]
