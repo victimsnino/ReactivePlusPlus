@@ -11,8 +11,11 @@
 #pragma once
 
 #include <rpp/observables/specific_observable.hpp> // base
+#include <rpp/utils/operator_declaration.hpp>      // for header include
 
 #include <memory>
+
+IMPLEMENTATION_FILE(dynamic_observable_tag);
 
 namespace rpp::details
 {

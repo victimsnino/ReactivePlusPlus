@@ -10,11 +10,12 @@
 
 #pragma once
 
+#include <rpp/observables/fwd.hpp>
 #include <rpp/observables/interface_observable.hpp> // base_class
 #include <rpp/observers/constraints.hpp>            // subscribe concept
 #include <rpp/subscribers/specific_subscriber.hpp>  // subscribe concept
 #include <rpp/subscribers/dynamic_subscriber.hpp>   // subscribe concept
-
+#include <rpp/utils/operator_declaration.hpp>      // for header include
 #include <utility>
 
 namespace rpp
@@ -43,8 +44,8 @@ public:
     /**
      * \brief Converts rpp::specific_observable to rpp::dynamic_observable via type-erasure mechanism.
      */
-    [[nodiscard]] auto as_dynamic() const & { return rpp::dynamic_observable<Type>{*this};            }
-    [[nodiscard]] auto as_dynamic() &&      { return rpp::dynamic_observable<Type>{std::move(*this)}; }
+    [[nodiscard]] auto as_dynamic() const & requires details::is_header_included<details::dynamic_observable_tag> { return rpp::dynamic_observable<Type>{*this};            }
+    [[nodiscard]] auto as_dynamic() && requires details::is_header_included<details::dynamic_observable_tag>    { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
     /**
      * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
