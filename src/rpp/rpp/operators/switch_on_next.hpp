@@ -30,7 +30,7 @@ struct switch_on_next_state_t
     rpp::composite_subscription current_inner_observable = rpp::composite_subscription::empty();
 };
 
-auto on_new_observable_switch(std::shared_ptr<switch_on_next_state_t> state)
+inline auto on_new_observable_switch(std::shared_ptr<switch_on_next_state_t> state)
 {
     auto count_of_on_completed = std::shared_ptr<std::atomic_size_t>(state, &state->count_of_on_completed);
 
