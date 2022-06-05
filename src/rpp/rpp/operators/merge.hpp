@@ -38,7 +38,7 @@ auto merge_impl()
     return []<constraint::subscriber_of_type<ValueType> TSub>(TSub&& subscriber)
     {
         auto state = std::make_shared<merge_state_t>();
-        auto count_of_on_completed = std::shared_ptr{ state, &state->count_of_on_completed};
+        auto count_of_on_completed = std::shared_ptr<std::atomic_size_t>{ state, &state->count_of_on_completed};
 
         auto wrap_under_guard = [state](const auto& callable)
         {
