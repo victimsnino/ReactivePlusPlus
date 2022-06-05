@@ -28,12 +28,18 @@ namespace rpp::details
     struct member_overload<Type, SpecificObservable, switch_on_next_tag>
     {
         /**
-        * \brief 
+        * \brief Converts observable of observables into observable of values which emits values from most recent underlying observable till new observable obtained
         *
         * \marble switch_on_next
             {
-                
+            source observable                : 
+            {   
+                +--1-2-3-5--|
+                .....+4--6-9|
+                .......+7-8-|
             }
+            operator "switch_on_next" : +--1-24-7-8|
+        }
         *
         * \return new specific_observable with the switch_on_next operator as most recent operator.
         * \warning #include <rpp/operators/switch_on_next.hpp>

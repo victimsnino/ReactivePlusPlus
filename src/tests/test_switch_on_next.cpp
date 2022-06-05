@@ -13,6 +13,7 @@
 
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/operators/switch_on_next.hpp>
+#include <rpp/subjects/publish_subject.hpp>
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -81,6 +82,47 @@ SCENARIO("switch_on_next switches observable after obtaining new one", "[operato
             }
         }
     }
+    GIVEN("subject of just subjects")
+    {
+        auto subj_1           = rpp::subjects::publish_subject<int>();
+        auto subj_2           = rpp::subjects::publish_subject<int>();
+        auto subj_of_subjects = rpp::subjects::publish_subject<rpp::dynamic_observable<int>>();
+
+        WHEN("subscribe on it via switch_on_next")
+        {
+            subj_of_subjects.get_observable().switch_on_next().subscribe(mock);
+            AND_WHEN("send first subject and send values for all subjects")
+            {
+                subj_1.get_subscriber().on_next(0);
+
+                subj_of_subjects.get_subscriber().on_next(subj_1.get_observable().as_dynamic());
+
+                THEN("Only value from first subject obtained")
+                {
+                    subj_1.get_subscriber().on_next(1);
+                    subj_2.get_subscriber().on_next(2);
+
+                    CHECK(mock.get_received_values() == std::vector{1});
+                    CHECK(mock.get_on_error_count() == 0);
+                    CHECK(mock.get_on_completed_count() == 0);
+                }
+                AND_WHEN("send second subject and send values for all subjects")
+                {
+                    subj_of_subjects.get_subscriber().on_next(subj_2.get_observable().as_dynamic());
+
+                    THEN("Only value from second subject obtained")
+                    {
+                        subj_1.get_subscriber().on_next(1);
+                        subj_2.get_subscriber().on_next(2);
+
+                        CHECK(mock.get_received_values() == std::vector{2});
+                        CHECK(mock.get_on_error_count() == 0);
+                        CHECK(mock.get_on_completed_count() == 0);
+                    }
+                }
+            }
+        }
+    }
 }
 
 SCENARIO("switch_on_next doesn't produce extra copies", "[operators][switch_on_next][track_copy]")
@@ -100,7 +142,6 @@ SCENARIO("switch_on_next doesn't produce extra copies", "[operators][switch_on_n
         }
     }
 }
-
 
 SCENARIO("switch_on_next doesn't produce extra copies for move", "[operators][switch_on_next][track_copy]")
 {
