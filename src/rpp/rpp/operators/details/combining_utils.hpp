@@ -10,7 +10,9 @@
 #pragma once
 
 #include <rpp/subscribers/constraints.hpp>
+#include <rpp/subscriptions/composite_subscription.hpp>
 
+#include <atomic>
 #include <memory>
 
 namespace rpp::details::combining
