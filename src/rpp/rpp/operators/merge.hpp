@@ -15,6 +15,7 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/observers/state_observer.hpp>
 #include <rpp/sources/just.hpp>
+#include <rpp/operators/details/combining_utils.hpp>
 
 #include <atomic>
 #include <memory>
@@ -23,28 +24,11 @@ IMPLEMENTATION_FILE(merge_tag);
 
 namespace rpp::details
 {
-struct state_t
+struct merge_state_t
 {
     std::atomic_size_t count_of_on_completed{};
     std::mutex         mutex{};
 };
-
-template<constraint::decayed_type Type>
-auto create_proxy_subscriber(constraint::subscriber auto&&   subscriber,
-                             const std::shared_ptr<state_t>& state,
-                             auto&&                          on_next,
-                             auto&&                          on_error,
-                             auto&&                          on_completed)
-{
-    ++(state->count_of_on_completed);
-
-    auto subscription = subscriber.get_subscription();
-    return create_subscriber_with_state<Type>(subscription.make_child(),
-                                              std::forward<decltype(subscriber)>(subscriber),
-                                              std::forward<decltype(on_next)>(on_next),
-                                              std::forward<decltype(on_error)>(on_error),
-                                              std::forward<decltype(on_completed)>(on_completed));
-}
 
 template<constraint::decayed_type Type>
 auto merge_impl()
@@ -53,7 +37,8 @@ auto merge_impl()
 
     return []<constraint::subscriber_of_type<ValueType> TSub>(TSub&& subscriber)
     {
-        auto state = std::make_shared<state_t>();
+        auto state = std::make_shared<merge_state_t>();
+        auto count_of_on_completed = std::shared_ptr{ state, &state->count_of_on_completed};
 
         auto wrap_under_guard = [state](const auto& callable)
         {
@@ -66,25 +51,25 @@ auto merge_impl()
 
         auto on_completed = [=](const constraint::subscriber auto& sub)
         {
-            if (--(state->count_of_on_completed) == 0)
+            if (--(*count_of_on_completed) == 0)
                 sub.on_completed();
         };
 
         auto on_new_observable = [=]<constraint::observable TObs>(TObs&& new_observable,
                                                                   const constraint::subscriber auto& sub)
         {
-            std::forward<TObs>(new_observable).subscribe(create_proxy_subscriber<ValueType>(sub,
-                                                                                            state,
-                                                                                            wrap_under_guard(forwarding_on_next{}),
-                                                                                            wrap_under_guard(forwarding_on_error{}),
-                                                                                            on_completed));
+            std::forward<TObs>(new_observable).subscribe(combining::create_proxy_subscriber<ValueType>(sub,
+                                                                                                       count_of_on_completed,
+                                                                                                       wrap_under_guard(forwarding_on_next{}),
+                                                                                                       wrap_under_guard(forwarding_on_error{}),
+                                                                                                       on_completed));
         };
 
-        return create_proxy_subscriber<Type>(std::forward<TSub>(subscriber),
-                                             state,
-                                             std::move(on_new_observable),
-                                             wrap_under_guard(forwarding_on_error{}),
-                                             on_completed);
+        return combining::create_proxy_subscriber<Type>(std::forward<TSub>(subscriber),
+                                                        count_of_on_completed,
+                                                        std::move(on_new_observable),
+                                                        wrap_under_guard(forwarding_on_error{}),
+                                                        on_completed);
     };
 }
 
