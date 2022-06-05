@@ -44,7 +44,9 @@ public:
     /**
      * \brief Converts rpp::specific_observable to rpp::dynamic_observable via type-erasure mechanism.
      */
+    template <typename...Args>
     [[nodiscard]] auto as_dynamic() const & requires details::is_header_included<details::dynamic_observable_tag> { return rpp::dynamic_observable<Type>{*this};            }
+    template <typename...Args>
     [[nodiscard]] auto as_dynamic() && requires details::is_header_included<details::dynamic_observable_tag>    { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
     /**
