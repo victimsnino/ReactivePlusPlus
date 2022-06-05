@@ -11,8 +11,11 @@
 #pragma once
 
 #include <rpp/observables/specific_observable.hpp> // base
+#include <rpp/utils/operator_declaration.hpp>      // for header include
 
 #include <memory>
+
+IMPLEMENTATION_FILE(dynamic_observable_tag);
 
 namespace rpp::details
 {
@@ -84,7 +87,7 @@ public:
     using base = specific_observable<Type, details::dynamic_observable_state<Type>>;
     using base::base;
 
-    dynamic_observable(constraint::on_subscribe_fn<Type> auto&& on_subscribe)
+    explicit dynamic_observable(constraint::on_subscribe_fn<Type> auto&& on_subscribe)
         : base{std::forward<decltype(on_subscribe)>(on_subscribe)} {}
 
     template<constraint::observable_of_type<Type> TObs>

@@ -22,3 +22,4 @@
 #include <rpp/operators/fwd/repeat.hpp>
 #include <rpp/operators/fwd/subscribe_on.hpp>
 #include <rpp/operators/fwd/with_latest_from.hpp>
+#include <rpp/operators/fwd/switch_on_next.hpp>

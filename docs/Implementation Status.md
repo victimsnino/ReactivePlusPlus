@@ -62,6 +62,8 @@
   - [x] merge with
   - [ ] merge delay error
 - [ ] switch
+  - [ ] switch_on_next
+  - [ ] switch_if_empty
 
 ### Utility
 

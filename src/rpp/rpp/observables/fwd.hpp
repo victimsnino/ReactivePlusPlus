@@ -16,6 +16,7 @@
 namespace rpp::details
 {
 struct observable_tag;
+struct dynamic_observable_tag;
 } // namespace rpp::details
 
 namespace rpp::constraint

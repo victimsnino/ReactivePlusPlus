@@ -58,6 +58,7 @@ struct interface_observable
     , details::member_overload<Type, SpecificObservable, details::repeat_tag>
     , details::member_overload<Type, SpecificObservable, details::subscribe_on_tag>
     , details::member_overload<Type, SpecificObservable, details::with_latest_from_tag>
+    , details::member_overload<Type, SpecificObservable, details::switch_on_next_tag>
 {
 public:
     /**
