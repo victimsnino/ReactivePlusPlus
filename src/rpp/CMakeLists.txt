@@ -10,13 +10,8 @@
 
 file(GLOB_RECURSE FILES "*.hpp")
 
-if(${CMAKE_VERSION} VERSION_LESS "3.19.0")
-  add_library(rpp INTERFACE)
-else()
-  add_library(rpp INTERFACE ${FILES})
-endif()
+add_library(rpp INTERFACE)
 
-target_sources(rpp INTERFACE ${FILES})
 target_include_directories(rpp INTERFACE .)
 target_link_libraries(rpp INTERFACE coverage_config Threads::Threads)
 
