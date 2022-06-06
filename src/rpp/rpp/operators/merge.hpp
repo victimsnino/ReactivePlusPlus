@@ -38,7 +38,6 @@ auto merge_impl()
     return []<constraint::subscriber_of_type<ValueType> TSub>(TSub&& subscriber)
     {
         auto state = std::make_shared<merge_state_t>();
-        auto count_of_on_completed = std::shared_ptr<std::atomic_size_t>{ state, &state->count_of_on_completed};
 
         auto wrap_under_guard = [state](const auto& callable)
         {
@@ -51,7 +50,7 @@ auto merge_impl()
 
         auto on_completed = [=](const constraint::subscriber auto& sub)
         {
-            if (--(*count_of_on_completed) == 0)
+            if (--(state->count_of_on_completed) == 0)
                 sub.on_completed();
         };
 
@@ -59,14 +58,14 @@ auto merge_impl()
                                                                   const constraint::subscriber auto& sub)
         {
             std::forward<TObs>(new_observable).subscribe(combining::create_proxy_subscriber<ValueType>(sub,
-                                                                                                       count_of_on_completed,
+                                                                                                       state->count_of_on_completed,
                                                                                                        wrap_under_guard(forwarding_on_next{}),
                                                                                                        wrap_under_guard(forwarding_on_error{}),
                                                                                                        on_completed));
         };
 
         return combining::create_proxy_subscriber<Type>(std::forward<TSub>(subscriber),
-                                                        count_of_on_completed,
+                                                        state->count_of_on_completed,
                                                         std::move(on_new_observable),
                                                         wrap_under_guard(forwarding_on_error{}),
                                                         on_completed);

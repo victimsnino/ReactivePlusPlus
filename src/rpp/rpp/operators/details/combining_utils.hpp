@@ -13,19 +13,18 @@
 #include <rpp/subscriptions/composite_subscription.hpp>
 
 #include <atomic>
-#include <memory>
 
 namespace rpp::details::combining
 {
 template<constraint::decayed_type Type>
 auto create_proxy_subscriber(rpp::composite_subscription subscription,
                              constraint::subscriber auto&& subscriber,
-                             const std::shared_ptr<std::atomic_size_t>& count_of_on_completed_required,
+                             std::atomic_size_t& count_of_on_completed_required,
                              auto&& on_next,
                              auto&& on_error,
                              auto&& on_completed)
 {
-    ++(*count_of_on_completed_required);
+    ++count_of_on_completed_required;
 
     return create_subscriber_with_state<Type>(std::move(subscription),
                                               std::forward<decltype(subscriber)>(subscriber),
@@ -36,7 +35,7 @@ auto create_proxy_subscriber(rpp::composite_subscription subscription,
 
 template<constraint::decayed_type Type>
 auto create_proxy_subscriber(constraint::subscriber auto&& subscriber,
-                             const std::shared_ptr<std::atomic_size_t>& count_of_on_completed_required,
+                             std::atomic_size_t& count_of_on_completed_required,
                              auto&& on_next,
                              auto&& on_error,
                              auto&& on_completed)
