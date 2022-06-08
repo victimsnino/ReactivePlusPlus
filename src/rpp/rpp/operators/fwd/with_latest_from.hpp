@@ -31,7 +31,7 @@ struct member_overload<Type, SpecificObservable, with_latest_from_tag>
     /**
     * \brief Combines latest emissions from observables with emission from current observable when it sends new value via applying selector
     * 
-    * \marble with_latest_from
+    * \marble with_latest_from_custom_selector
       {
           source observable                                 : +------1    -2    -3    -|
           source other_observable                           : +-5-6-7-    --    8-    -|
