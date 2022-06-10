@@ -20,7 +20,7 @@ struct filter_tag;
 namespace rpp::details
 {
 template<constraint::decayed_type Type, std::predicate<const Type&> Predicate>
-auto filter_impl(Predicate&& predicate);
+struct filter_impl;
 
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, filter_tag>
@@ -47,13 +47,13 @@ struct member_overload<Type, SpecificObservable, filter_tag>
     template<std::predicate<const Type&> Predicate>
     auto filter(Predicate&& predicate) const& requires is_header_included<filter_tag, Predicate>
     {
-        return static_cast<const SpecificObservable*>(this)->template lift <Type>(filter_impl<Type>(std::forward<Predicate>(predicate)));
+        return static_cast<const SpecificObservable*>(this)->template lift <Type>(filter_impl<Type, std::decay_t<Predicate>>{std::forward<Predicate>(predicate)});
     }
 
     template<std::predicate<const Type&> Predicate>
     auto filter(Predicate&& predicate) && requires is_header_included<filter_tag, Predicate>
     {
-        return std::move(*static_cast<SpecificObservable*>(this)).template lift<Type>(filter_impl<Type>(std::forward<Predicate>(predicate)));
+        return std::move(*static_cast<SpecificObservable*>(this)).template lift<Type>(filter_impl<Type, std::decay_t<Predicate>>{std::forward<Predicate>(predicate)});
     }
 };
 } // namespace rpp::details

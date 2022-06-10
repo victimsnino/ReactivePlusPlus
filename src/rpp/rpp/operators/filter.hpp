@@ -22,12 +22,15 @@ IMPLEMENTATION_FILE(filter_tag);
 namespace rpp::details
 {
 template<constraint::decayed_type Type, std::predicate<const Type&> Predicate>
-auto filter_impl(Predicate&& predicate)
+struct filter_impl
 {
-    return [predicate = std::forward<Predicate>(predicate)](auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber)
+    void operator()(auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber) const
     {
         if (predicate(utils::as_const(value)))
             subscriber.on_next(std::forward<decltype(value)>(value));
-    };
-}
+    }
+
+    Predicate predicate{};
+};
+
 } // namespace rpp::details
