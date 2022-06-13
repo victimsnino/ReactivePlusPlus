@@ -17,6 +17,7 @@
 #include <rpp/sources/just.hpp>
 #include <rpp/operators/details/combining_utils.hpp>
 
+#include <array>
 #include <atomic>
 #include <memory>
 
@@ -64,11 +65,12 @@ private:
 };
 
 template<constraint::decayed_type Type>
-auto merge_impl()
+struct merge_impl
 {
     using ValueType = utils::extract_observable_type_t<Type>;
 
-    return []<constraint::subscriber_of_type<ValueType> TSub>(TSub&& subscriber)
+    template<constraint::subscriber_of_type<ValueType> TSub>
+    auto operator()(TSub&& subscriber) const
     {
         const auto state = std::make_shared<merge_state_t>();
 
@@ -78,14 +80,27 @@ auto merge_impl()
                                                         state->wrap_under_guard(forwarding_on_error{}),
                                                         state->get_on_completed());
     };
-}
+};
 
-template<constraint::decayed_type Type, constraint::observable_of_type<Type> ... TObservables>
-auto merge_with_impl(TObservables&&... observables) requires (sizeof...(TObservables) >= 1)
+template<constraint::decayed_type Type, size_t observables_count>
+class merge_with_impl
 {
-    return [...observables = std::forward<TObservables>(observables)]<constraint::observable TObs>(TObs&& obs)
+public:
+    template<constraint::observable_of_type<Type> ...TObservables>
+    merge_with_impl(TObservables&& ...observables)
+        : m_observables{std::forward<TObservables>(observables).as_dynamic()...} {}
+
+    template<constraint::observable_of_type<Type> TObs>
+    auto operator()(TObs&& obs) const
     {
-        return rpp::source::just(std::forward<TObs>(obs).as_dynamic(), std::move(observables).as_dynamic()...).merge();
+        return std::apply([&](const auto& ...observables)
+                          {
+                              return rpp::source::just(std::forward<TObs>(obs).as_dynamic(), observables...).merge();
+                          },
+                          m_observables);
     };
-}
+
+private:
+    std::array<dynamic_observable<Type>, observables_count> m_observables;
+};
 } // namespace rpp::details
