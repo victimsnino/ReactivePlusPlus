@@ -91,13 +91,13 @@ struct member_overload<Type, SpecificObservable, merge_tag>
     template<constraint::observable_of_type<Type> ...TObservables>
     auto merge_with(TObservables&&... observables) const& requires (is_header_included<merge_tag, TObservables...>&& sizeof...(TObservables) >= 1)
     {
-        return merge_with_impl<Type>(*static_cast<const SpecificObservable*>(this), std::forward<TObservables>(observables)...);
+        return merge_with_impl<Type>(static_cast<const SpecificObservable*>(this)->as_dynamic(), std::forward<TObservables>(observables).as_dynamic()...);
     }
 
     template<constraint::observable_of_type<Type> ...TObservables>
     auto merge_with(TObservables&&... observables) && requires (is_header_included<merge_tag, TObservables...> && sizeof...(TObservables) >= 1)
     {
-        return merge_with_impl<Type>(std::move(*static_cast<SpecificObservable*>(this)), std::forward<TObservables>(observables)...);
+        return merge_with_impl<Type>(std::move(*static_cast<SpecificObservable*>(this)).as_dynamic(), std::forward<TObservables>(observables).as_dynamic()...);
     }
 };
 } // namespace rpp::details
