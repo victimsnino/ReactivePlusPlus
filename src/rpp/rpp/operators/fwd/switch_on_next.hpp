@@ -22,7 +22,7 @@ namespace rpp::details
 namespace rpp::details
 {
     template<constraint::decayed_type Type>
-    auto switch_on_next_impl();
+    struct switch_on_next_impl;
 
     template<constraint::decayed_type Type, typename SpecificObservable>
     struct member_overload<Type, SpecificObservable, switch_on_next_tag>

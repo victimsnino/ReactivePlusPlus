@@ -24,54 +24,58 @@ IMPLEMENTATION_FILE(switch_on_next_tag);
 
 namespace rpp::details
 {
-struct switch_on_next_state_t
+struct switch_on_next_state_t : public std::enable_shared_from_this<switch_on_next_state_t>
 {
+    auto on_new_observable_switch()
+    {
+        auto state        = shared_from_this();
+        auto on_completed = [=](const constraint::subscriber auto& sub)
+        {
+            if (state->count_of_on_completed == 1) // 1 because decrement happens in composite_subscription_callback
+                sub.on_completed();
+        };
+
+        return [=]<constraint::observable TObs>(TObs&& new_observable, const constraint::subscriber auto& sub)
+        {
+            using ValueType = utils::extract_observable_type_t<TObs>;
+
+            state->current_inner_observable.unsubscribe();
+            state->current_inner_observable = sub.get_subscription().make_child();
+            state->current_inner_observable.add([state, remove_from = sub.get_subscription()]
+            {
+                remove_from.remove(state->current_inner_observable);
+                --(state->count_of_on_completed);
+            });
+
+
+            std::forward<TObs>(new_observable).subscribe(combining::create_proxy_subscriber<
+                                                             ValueType>(state->current_inner_observable,
+                                                                        sub,
+                                                                        state->count_of_on_completed,
+                                                                        forwarding_on_next{},
+                                                                        forwarding_on_error{},
+                                                                        on_completed));
+        };
+    }
+
     std::atomic_size_t          count_of_on_completed{};
     rpp::composite_subscription current_inner_observable = rpp::composite_subscription::empty();
 };
 
-inline auto on_new_observable_switch(const std::shared_ptr<switch_on_next_state_t>& state)
-{
-    auto on_completed = [=](const constraint::subscriber auto& sub)
-    {
-        if (state->count_of_on_completed == 1) // 1 because decrement happens in composite_subscription_callback
-            sub.on_completed();
-    };
-
-    return [=]<constraint::observable TObs>(TObs&& new_observable, const constraint::subscriber auto& sub)
-    {
-        using ValueType = utils::extract_observable_type_t<TObs>;
-
-        state->current_inner_observable.unsubscribe();
-        state->current_inner_observable = sub.get_subscription().make_child();
-        state->current_inner_observable.add([state, remove_from = sub.get_subscription()]
-                                            {
-                                                remove_from.remove(state->current_inner_observable);
-                                                --(state->count_of_on_completed);
-                                            });
-
-
-        std::forward<TObs>(new_observable).subscribe(combining::create_proxy_subscriber<ValueType>(state->current_inner_observable,
-                                                                                                   sub,
-                                                                                                   state->count_of_on_completed,
-                                                                                                   forwarding_on_next{},
-                                                                                                   forwarding_on_error{},
-                                                                                                   on_completed));
-    };
-}
 
 template<constraint::decayed_type Type>
-auto switch_on_next_impl()
+struct switch_on_next_impl
 {
     using ValueType = utils::extract_observable_type_t<Type>;
 
-    return []<constraint::subscriber_of_type<ValueType> TSub>(TSub&& subscriber)
+    template<constraint::subscriber_of_type<ValueType> TSub>
+    auto operator()(TSub&& subscriber) const
     {
         const auto state = std::make_shared<switch_on_next_state_t>();
 
         return combining::create_proxy_subscriber<Type>(std::forward<TSub>(subscriber),
                                                         state->count_of_on_completed,
-                                                        on_new_observable_switch(state),
+                                                        state->on_new_observable_switch(),
                                                         forwarding_on_error{},
                                                         [=](const constraint::subscriber auto& sub)
         {
@@ -79,5 +83,5 @@ auto switch_on_next_impl()
                 sub.on_completed();
         });
     };
-}
+};
 } // namespace rpp::details
