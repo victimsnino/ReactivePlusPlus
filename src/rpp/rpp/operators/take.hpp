@@ -21,11 +21,21 @@ IMPLEMENTATION_FILE(take_tag);
 namespace rpp::details
 {
 template<constraint::decayed_type Type>
-auto take_impl(size_t count)
+struct take_impl
 {
-    return [count]<constraint::subscriber_of_type<Type> TSub>(TSub&& subscriber)
+    template<constraint::subscriber_of_type<Type> TSub>
+    auto operator()(TSub&& subscriber) const
     {
-        auto action = [shared_count = std::make_shared<size_t>(count)](auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber)
+        auto subscription = subscriber.get_subscription();
+        return create_subscriber_with_state<Type>(std::move(subscription), std::forward<TSub>(subscriber), make_action(), forwarding_on_error{}, forwarding_on_completed{});
+    };
+
+    size_t count;
+
+private:
+    auto make_action() const
+    {
+        return [shared_count = std::make_shared<size_t>(count)](auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber)
         {
             if (*shared_count > 0)
             {
@@ -36,9 +46,6 @@ auto take_impl(size_t count)
             if (*shared_count == 0)
                 subscriber.on_completed();
         };
-
-        auto subscription = subscriber.get_subscription();
-        return create_subscriber_with_state<Type>(std::move(subscription), std::forward<TSub>(subscriber), std::move(action), forwarding_on_error{}, forwarding_on_completed{});
-    };
-}
+    }
+};
 } // namespace rpp::details

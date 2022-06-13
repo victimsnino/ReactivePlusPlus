@@ -20,7 +20,7 @@ struct take_tag;
 namespace rpp::details
 {
 template<constraint::decayed_type Type>
-auto take_impl(size_t count);
+struct take_impl;
 
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, take_tag>
