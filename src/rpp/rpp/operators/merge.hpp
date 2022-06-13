@@ -24,9 +24,42 @@ IMPLEMENTATION_FILE(merge_tag);
 
 namespace rpp::details
 {
-struct merge_state_t
+struct merge_state_t : public std::enable_shared_from_this<merge_state_t>
 {
+    auto wrap_under_guard(const auto& callable)
+    {
+        return [state = shared_from_this(), callable](auto&&...args)
+        {
+            std::lock_guard lock{state->mutex};
+            callable(std::forward<decltype(args)>(args)...);
+        };
+    }
+
+    auto get_on_completed()
+    {
+        return [state = shared_from_this()](const constraint::subscriber auto& sub)
+        {
+            if (--(state->count_of_on_completed) == 0)
+                sub.on_completed();
+        };
+    }
+
+    auto get_on_new_observable()
+    {
+        return  [state = shared_from_this()]<constraint::observable TObs>(TObs&& new_observable, const constraint::subscriber auto& sub)
+        {
+            using ValueType = utils::extract_observable_type_t<TObs>;
+
+            std::forward<TObs>(new_observable).subscribe(combining::create_proxy_subscriber<ValueType>(sub,
+                                                                                                       state->count_of_on_completed,
+                                                                                                       state->wrap_under_guard(forwarding_on_next{}),
+                                                                                                       state->wrap_under_guard(forwarding_on_error{}),
+                                                                                                       state->get_on_completed()));
+        };
+    }
+
     std::atomic_size_t count_of_on_completed{};
+private:
     std::mutex         mutex{};
 };
 
@@ -37,38 +70,13 @@ auto merge_impl()
 
     return []<constraint::subscriber_of_type<ValueType> TSub>(TSub&& subscriber)
     {
-        auto state = std::make_shared<merge_state_t>();
-
-        auto wrap_under_guard = [state](const auto& callable)
-        {
-            return [state, callable](auto&&...args)
-            {
-                std::lock_guard lock{ state->mutex };
-                callable(std::forward<decltype(args)>(args)...);
-            };
-        };
-
-        auto on_completed = [=](const constraint::subscriber auto& sub)
-        {
-            if (--(state->count_of_on_completed) == 0)
-                sub.on_completed();
-        };
-
-        auto on_new_observable = [=]<constraint::observable TObs>(TObs&& new_observable,
-                                                                  const constraint::subscriber auto& sub)
-        {
-            std::forward<TObs>(new_observable).subscribe(combining::create_proxy_subscriber<ValueType>(sub,
-                                                                                                       state->count_of_on_completed,
-                                                                                                       wrap_under_guard(forwarding_on_next{}),
-                                                                                                       wrap_under_guard(forwarding_on_error{}),
-                                                                                                       on_completed));
-        };
+        const auto state = std::make_shared<merge_state_t>();
 
         return combining::create_proxy_subscriber<Type>(std::forward<TSub>(subscriber),
                                                         state->count_of_on_completed,
-                                                        std::move(on_new_observable),
-                                                        wrap_under_guard(forwarding_on_error{}),
-                                                        on_completed);
+                                                        state->get_on_new_observable(),
+                                                        state->wrap_under_guard(forwarding_on_error{}),
+                                                        state->get_on_completed());
     };
 }
 
