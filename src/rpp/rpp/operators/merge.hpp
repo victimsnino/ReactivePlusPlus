@@ -82,25 +82,9 @@ struct merge_impl
     };
 };
 
-template<constraint::decayed_type Type, size_t observables_count>
-class merge_with_impl
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> ... TObservables>
+auto merge_with_impl(TObservables&&... observables)
 {
-public:
-    template<constraint::observable_of_type<Type> ...TObservables>
-    merge_with_impl(TObservables&& ...observables)
-        : m_observables{std::forward<TObservables>(observables).as_dynamic()...} {}
-
-    template<constraint::observable_of_type<Type> TObs>
-    auto operator()(TObs&& obs) const
-    {
-        return std::apply([&](const auto& ...observables)
-                          {
-                              return rpp::source::just(std::forward<TObs>(obs).as_dynamic(), observables...).merge();
-                          },
-                          m_observables);
-    };
-
-private:
-    std::array<dynamic_observable<Type>, observables_count> m_observables;
-};
+    return rpp::source::just(std::forward<TObservables>(observables).as_dynamic()...).merge();
+}
 } // namespace rpp::details
