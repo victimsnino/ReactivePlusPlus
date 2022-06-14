@@ -21,7 +21,7 @@ namespace rpp::details
 template<constraint::decayed_type Type, std::predicate<const Type&> Predicate>
 struct take_while_impl
 {
-    Predicate predicate;
+    [[no_unique_address]] Predicate predicate;
 
     void operator()(auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber) const
     {
