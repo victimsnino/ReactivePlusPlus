@@ -58,6 +58,7 @@ struct switch_on_next_state_t : public std::enable_shared_from_this<switch_on_ne
     }
 
     std::atomic_size_t          count_of_on_completed{};
+private:
     rpp::composite_subscription current_inner_observable = rpp::composite_subscription::empty();
 };
 

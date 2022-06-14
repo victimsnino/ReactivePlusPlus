@@ -30,6 +30,10 @@ concept lift_fn = constraint::subscriber<std::invoke_result_t<T, dynamic_subscri
 template<constraint::decayed_type Type, constraint::decayed_type OnNext, constraint::decayed_type OnError, constraint::decayed_type OnCompleted>
 struct lift_action_by_callbacks
 {
+    OnNext      on_next;
+    OnError     on_error;
+    OnCompleted on_completed;
+
     template<constraint::subscriber TSub>
     auto operator()(TSub&& subscriber) const
     {
@@ -40,10 +44,6 @@ struct lift_action_by_callbacks
                                                   on_error,
                                                   on_completed);
     }
-
-    OnNext      on_next;
-    OnError     on_error;
-    OnCompleted on_completed;
 };
 
 template<typename... Types>

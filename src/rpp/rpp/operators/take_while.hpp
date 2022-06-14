@@ -21,6 +21,8 @@ namespace rpp::details
 template<constraint::decayed_type Type, std::predicate<const Type&> Predicate>
 struct take_while_impl
 {
+    Predicate predicate;
+
     void operator()(auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber) const
     {
         if (predicate(utils::as_const(value)))
@@ -28,7 +30,5 @@ struct take_while_impl
         else
             subscriber.on_completed();
     };
-
-    Predicate predicate;
 };
 } // namespace rpp::details

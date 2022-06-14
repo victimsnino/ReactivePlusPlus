@@ -23,14 +23,14 @@ namespace rpp::details
 template<constraint::decayed_type Type>
 struct take_impl
 {
+    size_t count;
+
     template<constraint::subscriber_of_type<Type> TSub>
     auto operator()(TSub&& subscriber) const
     {
         auto subscription = subscriber.get_subscription();
         return create_subscriber_with_state<Type>(std::move(subscription), std::forward<TSub>(subscriber), make_action(), forwarding_on_error{}, forwarding_on_completed{});
     };
-
-    size_t count;
 
 private:
     auto make_action() const

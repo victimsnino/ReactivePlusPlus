@@ -24,13 +24,13 @@ namespace rpp::details
 template<constraint::decayed_type Type, std::predicate<const Type&> Predicate>
 struct filter_impl
 {
+    Predicate predicate;
+
     void operator()(auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber) const
     {
         if (predicate(utils::as_const(value)))
             subscriber.on_next(std::forward<decltype(value)>(value));
     }
-
-    Predicate predicate{};
 };
 
 } // namespace rpp::details
