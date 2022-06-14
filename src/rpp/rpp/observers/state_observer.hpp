@@ -84,7 +84,7 @@ auto create_subscriber_with_state_impl(State&&                     state,
                                        OnNext&&                    on_next,
                                        OnError&&                   on_error,
                                        OnCompleted&&               on_completed,
-                                       rpp::composite_subscription sub = composite_subscription{})
+                                       rpp::composite_subscription&& sub = composite_subscription{})
 {
     return specific_subscriber<Type, state_observer<Type,
                                                     std::decay_t<State>,
