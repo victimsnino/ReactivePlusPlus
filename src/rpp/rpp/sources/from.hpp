@@ -120,12 +120,12 @@ public:
 
     void operator()(const constraint::subscriber auto& subscriber) const &
     {
-        details::iterate(m_iterable, m_scheduler, subscriber);
+        details::iterate(m_iterable, m_scheduler, std::forward<decltype(subscriber)>(subscriber));
     }
 
     void operator()(constraint::subscriber auto&& subscriber) const &&
     {
-        details::iterate(std::move(m_iterable), m_scheduler, std::move(subscriber));
+        details::iterate(std::move(m_iterable), m_scheduler, std::forward<decltype(subscriber)>(subscriber));
     }
 
 private:
