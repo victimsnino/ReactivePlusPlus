@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['forwarding_5fon_5fcompleted_130',['forwarding_on_completed',['../structrpp_1_1details_1_1forwarding__on__completed.html',1,'rpp::details']]],
-  ['forwarding_5fon_5ferror_131',['forwarding_on_error',['../structrpp_1_1details_1_1forwarding__on__error.html',1,'rpp::details']]],
-  ['forwarding_5fon_5fnext_132',['forwarding_on_next',['../structrpp_1_1details_1_1forwarding__on__next.html',1,'rpp::details']]]
+  ['extract_5fobservable_5ftype_143',['extract_observable_type',['../structrpp_1_1utils_1_1details_1_1extract__observable__type.html',1,'rpp::utils::details']]],
+  ['extract_5fobserver_5ftype_144',['extract_observer_type',['../structrpp_1_1utils_1_1details_1_1extract__observer__type.html',1,'rpp::utils::details']]],
+  ['extract_5fsubject_5ftype_145',['extract_subject_type',['../structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html',1,'rpp::subjects::utils::details']]],
+  ['extract_5fsubscriber_5ftype_146',['extract_subscriber_type',['../structrpp_1_1utils_1_1details_1_1extract__subscriber__type.html',1,'rpp::utils::details']]]
 ];

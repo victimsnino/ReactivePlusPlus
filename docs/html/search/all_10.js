@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['unsubscribe_112',['unsubscribe',['../classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d',1,'rpp::subscription_base']]],
-  ['unsubscribed_113',['unsubscribed',['../structrpp_1_1subjects_1_1details_1_1unsubscribed.html',1,'rpp::subjects::details']]],
-  ['utility_20operators_114',['Utility Operators',['../group__utility__operators.html',1,'']]]
+  ['take_120',['take',['../group__filtering__operators.html#gaef1d69d29be545c479d3126993eed494',1,'rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;']]],
+  ['take_5fimpl_121',['take_impl',['../structrpp_1_1details_1_1take__impl.html',1,'rpp::details']]],
+  ['take_5fwhile_122',['take_while',['../group__conditional__operators.html#ga68ea040e75df34c47cdffd164d2a7c3d',1,'rpp::details::member_overload&lt; Type, SpecificObservable, take_while_tag &gt;']]],
+  ['take_5fwhile_5fimpl_123',['take_while_impl',['../structrpp_1_1details_1_1take__while__impl.html',1,'rpp::details']]],
+  ['transforming_20operators_124',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
 ];

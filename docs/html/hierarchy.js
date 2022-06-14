@@ -7,8 +7,15 @@ var hierarchy =
     ] ],
     [ "rpp::details::dynamic_observable_state< Type >", "classrpp_1_1details_1_1dynamic__observable__state.html", null ],
     [ "enable_shared_from_this", null, [
+      [ "rpp::details::merge_state_t", "structrpp_1_1details_1_1merge__state__t.html", null ],
+      [ "rpp::details::switch_on_next_state_t", "structrpp_1_1details_1_1switch__on__next__state__t.html", null ],
       [ "rpp::subjects::details::subject_state< T >", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
     ] ],
+    [ "rpp::utils::details::extract_observable_type< T >", "structrpp_1_1utils_1_1details_1_1extract__observable__type.html", null ],
+    [ "rpp::utils::details::extract_observer_type< T >", "structrpp_1_1utils_1_1details_1_1extract__observer__type.html", null ],
+    [ "rpp::subjects::utils::details::extract_subject_type< T >", "structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html", null ],
+    [ "rpp::utils::details::extract_subscriber_type< T >", "structrpp_1_1utils_1_1details_1_1extract__subscriber__type.html", null ],
+    [ "rpp::details::filter_impl< Type, Predicate >", "structrpp_1_1details_1_1filter__impl.html", null ],
     [ "rpp::details::forwarding_on_completed", "structrpp_1_1details_1_1forwarding__on__completed.html", null ],
     [ "rpp::details::forwarding_on_error", "structrpp_1_1details_1_1forwarding__on__error.html", null ],
     [ "rpp::details::forwarding_on_next", "structrpp_1_1details_1_1forwarding__on__next.html", null ],
@@ -20,6 +27,8 @@ var hierarchy =
       [ "rpp::details::subscriber_base< Type >", "classrpp_1_1details_1_1subscriber__base.html", null ]
     ] ],
     [ "rpp::observable::details::iterate_impl< PackedIterable, TScheduler >", "classrpp_1_1observable_1_1details_1_1iterate__impl.html", null ],
+    [ "rpp::details::lift_action_by_callbacks< Type, OnNext, OnError, OnCompleted >", "structrpp_1_1details_1_1lift__action__by__callbacks.html", null ],
+    [ "rpp::details::map_impl< Type, Callable >", "structrpp_1_1details_1_1map__impl.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, MemberTag >", "structrpp_1_1details_1_1member__overload.html", null ],
     [ "rpp::details::member_overload< Type, connectable_observable< Type, Subject, OriginalObservable >, details::ref_count_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::connectable_observable< Type, Subject, OriginalObservable >", "classrpp_1_1connectable__observable.html", null ]
@@ -77,12 +86,14 @@ var hierarchy =
     [ "rpp::details::member_overload< Type, SpecificObservable, take_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, take_while_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__while__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, with_latest_from_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01with__latest__from__tag_01_4.html", null ],
-    [ "rpp::details::merge_state_t", "structrpp_1_1details_1_1merge__state__t.html", null ],
+    [ "rpp::details::merge_impl< Type >", "structrpp_1_1details_1_1merge__impl.html", null ],
     [ "rpp::details::observable_tag", "structrpp_1_1details_1_1observable__tag.html", null ],
+    [ "rpp::details::observe_on_impl< Type, TScheduler >", "structrpp_1_1details_1_1observe__on__impl.html", null ],
     [ "rpp::details::observer_tag", "structrpp_1_1details_1_1observer__tag.html", null ],
     [ "rpp::subjects::details::publish_strategy< T >", "classrpp_1_1subjects_1_1details_1_1publish__strategy.html", null ],
     [ "rpp::subjects::publish_subject< T >", "classrpp_1_1subjects_1_1publish__subject.html", null ],
     [ "rpp::schedulers::details::queue_worker_state", "classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html", null ],
+    [ "rpp::details::ref_count_state_t", "structrpp_1_1details_1_1ref__count__state__t.html", null ],
     [ "rpp::details::repeat_on_completed< Type, SpecificObservable, Predicate >", "classrpp_1_1details_1_1repeat__on__completed.html", null ],
     [ "rpp::schedulers::details::scheduler_tag", "structrpp_1_1schedulers_1_1details_1_1scheduler__tag.html", [
       [ "rpp::schedulers::immediate", "classrpp_1_1schedulers_1_1immediate.html", null ],
@@ -110,14 +121,16 @@ var hierarchy =
     ] ],
     [ "rpp::subscription_guard", "classrpp_1_1subscription__guard.html", null ],
     [ "rpp::details::subscription_state", "classrpp_1_1details_1_1subscription__state.html", null ],
-    [ "rpp::details::switch_on_next_state_t", "structrpp_1_1details_1_1switch__on__next__state__t.html", null ],
+    [ "rpp::details::switch_on_next_impl< Type >", "structrpp_1_1details_1_1switch__on__next__impl.html", null ],
+    [ "rpp::details::take_impl< Type >", "structrpp_1_1details_1_1take__impl.html", null ],
+    [ "rpp::details::take_while_impl< Type, Predicate >", "structrpp_1_1details_1_1take__while__impl.html", null ],
     [ "rpp::subjects::details::unsubscribed", "structrpp_1_1subjects_1_1details_1_1unsubscribed.html", null ],
     [ "rpp::virtual_observable< Type >", "structrpp_1_1virtual__observable.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
     [ "rpp::details::with_latest_from_state_t< TObservables >", "structrpp_1_1details_1_1with__latest__from__state__t.html", null ],
     [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ],
-    [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::run_loop::worker_strategy", "classrpp_1_1schedulers_1_1run__loop_1_1worker__strategy.html", null ],
+    [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ]
 ];

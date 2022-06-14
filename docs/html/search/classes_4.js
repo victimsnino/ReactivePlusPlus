@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['immediate_133',['immediate',['../classrpp_1_1schedulers_1_1immediate.html',1,'rpp::schedulers']]],
-  ['interface_5fobservable_134',['interface_observable',['../structrpp_1_1interface__observable.html',1,'rpp']]],
-  ['interface_5fobserver_135',['interface_observer',['../structrpp_1_1interface__observer.html',1,'rpp']]],
-  ['interface_5fobserver_3c_20type_20_3e_136',['interface_observer&lt; Type &gt;',['../structrpp_1_1interface__observer.html',1,'rpp']]],
-  ['iterate_5fimpl_137',['iterate_impl',['../classrpp_1_1observable_1_1details_1_1iterate__impl.html',1,'rpp::observable::details']]]
+  ['filter_5fimpl_147',['filter_impl',['../structrpp_1_1details_1_1filter__impl.html',1,'rpp::details']]],
+  ['forwarding_5fon_5fcompleted_148',['forwarding_on_completed',['../structrpp_1_1details_1_1forwarding__on__completed.html',1,'rpp::details']]],
+  ['forwarding_5fon_5ferror_149',['forwarding_on_error',['../structrpp_1_1details_1_1forwarding__on__error.html',1,'rpp::details']]],
+  ['forwarding_5fon_5fnext_150',['forwarding_on_next',['../structrpp_1_1details_1_1forwarding__on__next.html',1,'rpp::details']]]
 ];

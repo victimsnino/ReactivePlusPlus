@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: src/rpp/rpp/observers/type_traits.hpp Source File</title>
+<title>ReactivePlusPlus: rpp::utils::details::extract_observer_type&lt; T &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -73,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('observers_2type__traits_8hpp_source.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('structrpp_1_1utils_1_1details_1_1extract__observer__type.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -92,40 +92,37 @@ $(document).ready(function(){initNavTree('observers_2type__traits_8hpp_source.ht
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="structrpp_1_1utils_1_1details_1_1extract__observer__type-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">type_traits.hpp</div>  </div>
+<div class="title">rpp::utils::details::extract_observer_type&lt; T &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//                  ReactivePlusPlus library</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//          Copyright Aleksey Loginov 2022 - present.</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">// Distributed under the Boost Software License, Version 1.0.</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//    (See accompanying file LICENSE_1_0.txt or copy at</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//          https://www.boost.org/LICENSE_1_0.txt)</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// Project home: https://github.com/victimsnino/ReactivePlusPlus</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;rpp/observers/fwd.hpp&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>rpp::utils</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>details</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    T extract_observer_type(<span class="keyword">const</span> interface_observer&lt;T&gt;&amp;);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace details</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">using</span> extract_observer_type_t = decltype(details::extract_observer_type(std::declval&lt;std::decay_t&lt;T&gt;&gt;()));</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace rpp::utils</span></div>
-</div><!-- fragment --></div><!-- contents -->
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a4a443a7ecce6a865be8106ae0d081bed"><td class="memItemLeft" align="right" valign="top"><a id="a4a443a7ecce6a865be8106ae0d081bed"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>type</b> = decltype(deduce(std::declval&lt; std::decay_t&lt; T &gt; &gt;()))</td></tr>
+<tr class="separator:a4a443a7ecce6a865be8106ae0d081bed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a8ef8bdb62ffba41ad8556720dd3b39b6"><td class="memTemplParams" colspan="2"><a id="a8ef8bdb62ffba41ad8556720dd3b39b6"></a>
+template&lt;typename TT &gt; </td></tr>
+<tr class="memitem:a8ef8bdb62ffba41ad8556720dd3b39b6"><td class="memTemplItemLeft" align="right" valign="top">static TT&#160;</td><td class="memTemplItemRight" valign="bottom"><b>deduce</b> (const <a class="el" href="structrpp_1_1interface__observer.html">interface_observer</a>&lt; TT &gt; &amp;)</td></tr>
+<tr class="separator:a8ef8bdb62ffba41ad8556720dd3b39b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>src/rpp/rpp/observers/<a class="el" href="observers_2constraints_8hpp_source.html">constraints.hpp</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_adaf39b9fc4fffd972703658707b0113.html">rpp</a></li><li class="navelem"><a class="el" href="dir_0afe0b2d744d0bd4513ad200b3c712f0.html">rpp</a></li><li class="navelem"><a class="el" href="dir_e63f0449bda065f7452c9bd88dfaa92f.html">observers</a></li><li class="navelem"><b>type_traits.hpp</b></li>
+    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>utils</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="structrpp_1_1utils_1_1details_1_1extract__observer__type.html">extract_observer_type</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>

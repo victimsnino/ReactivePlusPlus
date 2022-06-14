@@ -3,9 +3,12 @@ var annotated_dup =
     [ "rpp", null, [
       [ "details", null, [
         [ "dynamic_observable_state", "classrpp_1_1details_1_1dynamic__observable__state.html", "classrpp_1_1details_1_1dynamic__observable__state" ],
+        [ "filter_impl", "structrpp_1_1details_1_1filter__impl.html", "structrpp_1_1details_1_1filter__impl" ],
         [ "forwarding_on_completed", "structrpp_1_1details_1_1forwarding__on__completed.html", "structrpp_1_1details_1_1forwarding__on__completed" ],
         [ "forwarding_on_error", "structrpp_1_1details_1_1forwarding__on__error.html", "structrpp_1_1details_1_1forwarding__on__error" ],
         [ "forwarding_on_next", "structrpp_1_1details_1_1forwarding__on__next.html", "structrpp_1_1details_1_1forwarding__on__next" ],
+        [ "lift_action_by_callbacks", "structrpp_1_1details_1_1lift__action__by__callbacks.html", "structrpp_1_1details_1_1lift__action__by__callbacks" ],
+        [ "map_impl", "structrpp_1_1details_1_1map__impl.html", "structrpp_1_1details_1_1map__impl" ],
         [ "member_overload", "structrpp_1_1details_1_1member__overload.html", null ],
         [ "member_overload< Type, SpecificObservable, filter_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01filter__tag_01_4.html", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01filter__tag_01_4" ],
         [ "member_overload< Type, SpecificObservable, lift_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4.html", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4" ],
@@ -21,15 +24,21 @@ var annotated_dup =
         [ "member_overload< Type, SpecificObservable, take_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__tag_01_4.html", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__tag_01_4" ],
         [ "member_overload< Type, SpecificObservable, take_while_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__while__tag_01_4.html", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__while__tag_01_4" ],
         [ "member_overload< Type, SpecificObservable, with_latest_from_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01with__latest__from__tag_01_4.html", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01with__latest__from__tag_01_4" ],
+        [ "merge_impl", "structrpp_1_1details_1_1merge__impl.html", "structrpp_1_1details_1_1merge__impl" ],
         [ "merge_state_t", "structrpp_1_1details_1_1merge__state__t.html", "structrpp_1_1details_1_1merge__state__t" ],
         [ "observable_tag", "structrpp_1_1details_1_1observable__tag.html", null ],
+        [ "observe_on_impl", "structrpp_1_1details_1_1observe__on__impl.html", "structrpp_1_1details_1_1observe__on__impl" ],
         [ "observer_tag", "structrpp_1_1details_1_1observer__tag.html", null ],
+        [ "ref_count_state_t", "structrpp_1_1details_1_1ref__count__state__t.html", "structrpp_1_1details_1_1ref__count__state__t" ],
         [ "repeat_on_completed", "classrpp_1_1details_1_1repeat__on__completed.html", "classrpp_1_1details_1_1repeat__on__completed" ],
         [ "state_observer", "classrpp_1_1details_1_1state__observer.html", "classrpp_1_1details_1_1state__observer" ],
         [ "subscriber_base", "classrpp_1_1details_1_1subscriber__base.html", "classrpp_1_1details_1_1subscriber__base" ],
         [ "subscriber_tag", "structrpp_1_1details_1_1subscriber__tag.html", null ],
         [ "subscription_state", "classrpp_1_1details_1_1subscription__state.html", "classrpp_1_1details_1_1subscription__state" ],
+        [ "switch_on_next_impl", "structrpp_1_1details_1_1switch__on__next__impl.html", "structrpp_1_1details_1_1switch__on__next__impl" ],
         [ "switch_on_next_state_t", "structrpp_1_1details_1_1switch__on__next__state__t.html", "structrpp_1_1details_1_1switch__on__next__state__t" ],
+        [ "take_impl", "structrpp_1_1details_1_1take__impl.html", "structrpp_1_1details_1_1take__impl" ],
+        [ "take_while_impl", "structrpp_1_1details_1_1take__while__impl.html", "structrpp_1_1details_1_1take__while__impl" ],
         [ "with_latest_from_state_t", "structrpp_1_1details_1_1with__latest__from__state__t.html", "structrpp_1_1details_1_1with__latest__from__state__t" ]
       ] ],
       [ "observable", null, [
@@ -56,7 +65,19 @@ var annotated_dup =
           [ "subject_tag", "structrpp_1_1subjects_1_1details_1_1subject__tag.html", null ],
           [ "unsubscribed", "structrpp_1_1subjects_1_1details_1_1unsubscribed.html", null ]
         ] ],
+        [ "utils", null, [
+          [ "details", null, [
+            [ "extract_subject_type", "structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html", "structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type" ]
+          ] ]
+        ] ],
         [ "publish_subject", "classrpp_1_1subjects_1_1publish__subject.html", null ]
+      ] ],
+      [ "utils", null, [
+        [ "details", null, [
+          [ "extract_observable_type", "structrpp_1_1utils_1_1details_1_1extract__observable__type.html", "structrpp_1_1utils_1_1details_1_1extract__observable__type" ],
+          [ "extract_observer_type", "structrpp_1_1utils_1_1details_1_1extract__observer__type.html", "structrpp_1_1utils_1_1details_1_1extract__observer__type" ],
+          [ "extract_subscriber_type", "structrpp_1_1utils_1_1details_1_1extract__subscriber__type.html", "structrpp_1_1utils_1_1details_1_1extract__subscriber__type" ]
+        ] ]
       ] ],
       [ "blocking_observable", "classrpp_1_1blocking__observable.html", "classrpp_1_1blocking__observable" ],
       [ "callback_subscription", "classrpp_1_1callback__subscription.html", "classrpp_1_1callback__subscription" ],

@@ -4,5 +4,5 @@ var dir_67f63fdc2698966b0d1fbb08295790d9 =
     [ "constraints.hpp", "subjects_2constraints_8hpp_source.html", null ],
     [ "fwd.hpp", "subjects_2fwd_8hpp_source.html", null ],
     [ "publish_subject.hpp", "publish__subject_8hpp_source.html", null ],
-    [ "type_traits.hpp", "subjects_2type__traits_8hpp_source.html", null ]
+    [ "type_traits.hpp", "type__traits_8hpp_source.html", null ]
 ];

@@ -1,4 +1,10 @@
 var searchData=
 [
-  ['just_31',['just',['../group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c',1,'rpp::observable::just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp'],['../group__creational__operators.html#ga3dbc86391138a75da37b119ab4b785d2',1,'rpp::observable::just(T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp']]]
+  ['immediate_29',['immediate',['../classrpp_1_1schedulers_1_1immediate.html',1,'rpp::schedulers']]],
+  ['interface_5fobservable_30',['interface_observable',['../structrpp_1_1interface__observable.html',1,'rpp']]],
+  ['interface_5fobserver_31',['interface_observer',['../structrpp_1_1interface__observer.html',1,'rpp']]],
+  ['interface_5fobserver_3c_20type_20_3e_32',['interface_observer&lt; Type &gt;',['../structrpp_1_1interface__observer.html',1,'rpp']]],
+  ['is_5fsubscribed_33',['is_subscribed',['../classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2',1,'rpp::subscription_base']]],
+  ['iterate_5fimpl_34',['iterate_impl',['../classrpp_1_1observable_1_1details_1_1iterate__impl.html',1,'rpp::observable::details']]],
+  ['implementation_20status_35',['Implementation status',['../status.html',1,'docs']]]
 ];

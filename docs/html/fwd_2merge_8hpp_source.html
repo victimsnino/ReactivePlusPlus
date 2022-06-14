@@ -110,52 +110,52 @@ $(document).ready(function(){initNavTree('fwd_2merge_8hpp_source.html',''); init
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;rpp/observables/constraints.hpp&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;rpp/observables/details/member_overload.hpp&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;rpp/observables/type_traits.hpp&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">struct </span>merge_tag;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">auto</span> merge_impl();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; ...TObservables&gt;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">auto</span> merge_with_impl(TObservables&amp;&amp; ...observables) requires (<span class="keyword">sizeof</span>...(TObservables) &gt;= 1);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, <span class="keyword">typename</span> SpecificObservable&gt;</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01merge__tag_01_4.html">   31</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1member__overload.html">member_overload</a>&lt;Type, SpecificObservable, merge_tag&gt;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">auto</span> merge() <span class="keyword">const</span>&amp; requires (is_header_included&lt;merge_tag, Args...&gt; &amp;&amp; rpp::constraint::observable&lt;Type&gt;)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;<span class="keyword">template</span> lift&lt;utils::extract_observable_type_t&lt;Type&gt;&gt;(merge_impl&lt;Type&gt;());</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">auto</span> merge() &amp;&amp; requires (is_header_included&lt;merge_tag, Args...&gt;&amp;&amp; rpp::constraint::observable&lt;Type&gt;)</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    {</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">return</span> std::move(*<span class="keyword">static_cast&lt;</span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)).template lift&lt;utils::extract_observable_type_t&lt;Type&gt;&gt;(merge_impl&lt;Type&gt;());</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; ...TObservables&gt;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">auto</span> merge_with(TObservables&amp;&amp;... observables) <span class="keyword">const</span>&amp; requires (is_header_included&lt;merge_tag, TObservables...&gt;&amp;&amp; <span class="keyword">sizeof</span>...(TObservables) &gt;= 1)</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;op(merge_with_impl&lt;Type&gt;(std::forward&lt;TObservables&gt;(observables)...));</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; ...TObservables&gt;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">auto</span> merge_with(TObservables&amp;&amp;... observables) &amp;&amp; requires (is_header_included&lt;merge_tag, TObservables...&gt; &amp;&amp; <span class="keyword">sizeof</span>...(TObservables) &gt;= 1)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    {</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">return</span> std::move(*<span class="keyword">static_cast&lt;</span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)).op(merge_with_impl&lt;Type&gt;(std::forward&lt;TObservables&gt;(observables)...));</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;};</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">struct </span>merge_tag;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1merge__impl.html">   24</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1merge__impl.html">merge_impl</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; ... TObservables&gt;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">auto</span> merge_with_impl(TObservables&amp;&amp;... observables);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, <span class="keyword">typename</span> SpecificObservable&gt;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01merge__tag_01_4.html">   30</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1member__overload.html">member_overload</a>&lt;Type, SpecificObservable, merge_tag&gt;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">auto</span> merge() <span class="keyword">const</span>&amp; requires (is_header_included&lt;merge_tag, Args...&gt; &amp;&amp; rpp::constraint::observable&lt;Type&gt;)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;<span class="keyword">template</span> lift&lt;utils::extract_observable_type_t&lt;Type&gt;&gt;(<a class="code" href="structrpp_1_1details_1_1merge__impl.html">merge_impl&lt;Type&gt;</a>{});</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">auto</span> merge() &amp;&amp; requires (is_header_included&lt;merge_tag, Args...&gt;&amp;&amp; rpp::constraint::observable&lt;Type&gt;)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">return</span> std::move(*<span class="keyword">static_cast&lt;</span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)).template lift&lt;utils::extract_observable_type_t&lt;Type&gt;&gt;(<a class="code" href="structrpp_1_1details_1_1merge__impl.html">merge_impl&lt;Type&gt;</a>{});</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; ...TObservables&gt;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">auto</span> merge_with(TObservables&amp;&amp;... observables) <span class="keyword">const</span>&amp; requires (is_header_included&lt;merge_tag, TObservables...&gt;&amp;&amp; <span class="keyword">sizeof</span>...(TObservables) &gt;= 1)</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">return</span> merge_with_impl&lt;Type&gt;(<span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;as_dynamic(), std::forward&lt;TObservables&gt;(observables).as_dynamic()...);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; ...TObservables&gt;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">auto</span> merge_with(TObservables&amp;&amp;... observables) &amp;&amp; requires (is_header_included&lt;merge_tag, TObservables...&gt; &amp;&amp; <span class="keyword">sizeof</span>...(TObservables) &gt;= 1)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">return</span> merge_with_impl&lt;Type&gt;(std::move(*<span class="keyword">static_cast&lt;</span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)).as_dynamic(), std::forward&lt;TObservables&gt;(observables).as_dynamic()...);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;};</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructrpp_1_1details_1_1member__overload_html"><div class="ttname"><a href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a></div><div class="ttdef"><b>Definition:</b> member_overload.hpp:19</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1merge__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1merge__impl.html">rpp::details::merge_impl</a></div><div class="ttdef"><b>Definition:</b> merge.hpp:24</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

@@ -4,6 +4,5 @@ var dir_00eb4775263b341d794d9fc7de7eec24 =
     [ "constraints.hpp", "subscribers_2constraints_8hpp_source.html", null ],
     [ "dynamic_subscriber.hpp", "dynamic__subscriber_8hpp_source.html", null ],
     [ "fwd.hpp", "subscribers_2fwd_8hpp_source.html", null ],
-    [ "specific_subscriber.hpp", "specific__subscriber_8hpp_source.html", null ],
-    [ "type_traits.hpp", "subscribers_2type__traits_8hpp_source.html", null ]
+    [ "specific_subscriber.hpp", "specific__subscriber_8hpp_source.html", null ]
 ];

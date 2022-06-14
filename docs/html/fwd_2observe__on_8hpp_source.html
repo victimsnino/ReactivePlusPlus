@@ -120,7 +120,7 @@ $(document).ready(function(){initNavTree('fwd_2observe__on_8hpp_source.html','')
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">auto</span> observe_on_impl(TScheduler&amp;&amp; scheduler);</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1observe__on__impl.html">   25</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1observe__on__impl.html">observe_on_impl</a>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, <span class="keyword">typename</span> SpecificObservable&gt;</div>
 <div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01observe__on__tag_01_4.html">   28</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1member__overload.html">member_overload</a>&lt;Type, SpecificObservable, observe_on_tag&gt;</div>
@@ -128,18 +128,19 @@ $(document).ready(function(){initNavTree('fwd_2observe__on_8hpp_source.html','')
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">template</span>&lt;schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">auto</span> observe_on(TScheduler&amp;&amp; scheduler) <span class="keyword">const</span>&amp; requires is_header_included&lt;observe_on_tag, TScheduler&gt;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;<span class="keyword">template</span> lift&lt;Type&gt;(observe_on_impl&lt;Type&gt;(std::forward&lt;TScheduler&gt;(scheduler)));</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;<span class="keyword">template</span> lift&lt;Type&gt;(<a class="code" href="structrpp_1_1details_1_1observe__on__impl.html">observe_on_impl</a>&lt;Type, std::decay_t&lt;TScheduler&gt;&gt;{std::forward&lt;TScheduler&gt;(scheduler)});</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">template</span>&lt;schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">auto</span> observe_on(TScheduler&amp;&amp; scheduler) &amp;&amp; requires is_header_included&lt;observe_on_tag, TScheduler&gt;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">return</span> std::move(*<span class="keyword">static_cast&lt;</span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)).template lift&lt;Type&gt;(observe_on_impl&lt;Type&gt;(std::forward&lt;TScheduler&gt;(scheduler)));</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">return</span> std::move(*<span class="keyword">static_cast&lt;</span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)).template lift&lt;Type&gt;(<a class="code" href="structrpp_1_1details_1_1observe__on__impl.html">observe_on_impl</a>&lt;Type, std::decay_t&lt;TScheduler&gt;&gt;{std::forward&lt;TScheduler&gt;(scheduler)});</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;};</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="astructrpp_1_1details_1_1observe__on__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1observe__on__impl.html">rpp::details::observe_on_impl</a></div><div class="ttdef"><b>Definition:</b> observe_on.hpp:25</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1member__overload_html"><div class="ttname"><a href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a></div><div class="ttdef"><b>Definition:</b> member_overload.hpp:19</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

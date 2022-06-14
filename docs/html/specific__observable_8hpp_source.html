@@ -149,9 +149,9 @@ $(document).ready(function(){initNavTree('specific__observable_8hpp_source.html'
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observer_of_type&lt;Type&gt; TObserver&gt;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    composite_subscription subscribe(constraint::decayed_same_as&lt;composite_subscription&gt; <span class="keyword">auto</span>&amp;&amp; sub, TObserver&amp;&amp; observer)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    composite_subscription subscribe(composite_subscription sub, TObserver&amp;&amp; observer)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">return</span> subscribe_impl(specific_subscriber&lt;Type, std::decay_t&lt;TObserver&gt;&gt;{std::forward&lt;decltype(sub)&gt;(sub), std::forward&lt;TObserver&gt;(observer)});</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">return</span> subscribe_impl(specific_subscriber&lt;Type, std::decay_t&lt;TObserver&gt;&gt;{std::move(sub), std::forward&lt;TObserver&gt;(observer)});</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
