@@ -17,8 +17,15 @@ namespace rpp::utils
 namespace details
 {
     template<typename T>
-    T extract_observer_type(const interface_observer<T>&);
+    struct extract_observer_type
+    {
+        template<typename TT>
+        static TT deduce(const interface_observer<TT>&);
+
+        using type = decltype(deduce(std::declval<std::decay_t<T>>()));
+    };
+
 } // namespace details
 template<typename T>
-using extract_observer_type_t = decltype(details::extract_observer_type(std::declval<std::decay_t<T>>()));
+using extract_observer_type_t = typename details::extract_observer_type<T>::type;
 } // namespace rpp::utils

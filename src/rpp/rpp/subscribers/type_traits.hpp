@@ -13,15 +13,22 @@
 #include <rpp/subscribers/fwd.hpp>
 
 #include <type_traits>
+#include <utility>
 
 namespace rpp::utils
 {
 namespace details
 {
     template<typename T>
-    T extract_subscriber_type(const rpp::details::subscriber_base<T>&);
+    struct extract_subscriber_type
+    {
+        template<typename TT>
+        static TT deduce(const rpp::details::subscriber_base<TT>&);
+
+        using type = decltype(deduce(std::declval<std::decay_t<T>>()));
+    };
 } // namespace details
 
 template<typename T>
-using extract_subscriber_type_t = decltype(details::extract_subscriber_type(std::declval<std::decay_t<T>>()));
+using extract_subscriber_type_t = typename details::extract_subscriber_type<T>::type;
 } // namespace rpp::utils

@@ -19,9 +19,15 @@ namespace rpp::utils
 namespace details
 {
     template<typename T>
-    T extract_observable_type(const virtual_observable<T>&);
+    struct extract_observable_type
+    {
+        template<typename TT>
+        static TT deduce(const virtual_observable<TT>&);
+
+        using type = decltype(deduce(std::declval<std::decay_t<T>>()));
+    };
 } // namespace details
 
 template<typename T>
-using extract_observable_type_t = decltype(details::extract_observable_type(std::declval<std::decay_t<T>>()));
+using extract_observable_type_t = typename details::extract_observable_type<T>::type;
 } // namespace rpp::utils
