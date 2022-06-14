@@ -35,7 +35,7 @@ struct switch_on_next_state_t : public std::enable_shared_from_this<switch_on_ne
                 sub.on_completed();
         };
 
-        return [=]<constraint::observable TObs>(TObs&& new_observable, const constraint::subscriber auto& sub)
+        return [=]<constraint::observable TObs>(const TObs& new_observable, const constraint::subscriber auto& sub)
         {
             using ValueType = utils::extract_observable_type_t<TObs>;
 
@@ -48,13 +48,12 @@ struct switch_on_next_state_t : public std::enable_shared_from_this<switch_on_ne
             });
 
 
-            std::forward<TObs>(new_observable).subscribe(combining::create_proxy_subscriber<
-                                                             ValueType>(state->current_inner_observable,
-                                                                        sub,
-                                                                        state->count_of_on_completed,
-                                                                        forwarding_on_next{},
-                                                                        forwarding_on_error{},
-                                                                        on_completed));
+            new_observable.subscribe(combining::create_proxy_subscriber<ValueType>(state->current_inner_observable,
+                                                                                   sub,
+                                                                                   state->count_of_on_completed,
+                                                                                   forwarding_on_next{},
+                                                                                   forwarding_on_error{},
+                                                                                   on_completed));
         };
     }
 

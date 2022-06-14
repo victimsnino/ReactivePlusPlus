@@ -47,15 +47,15 @@ struct merge_state_t : public std::enable_shared_from_this<merge_state_t>
 
     auto get_on_new_observable()
     {
-        return  [state = shared_from_this()]<constraint::observable TObs>(TObs&& new_observable, const constraint::subscriber auto& sub)
+        return  [state = shared_from_this()]<constraint::observable TObs>(const TObs& new_observable, const constraint::subscriber auto& sub)
         {
             using ValueType = utils::extract_observable_type_t<TObs>;
 
-            std::forward<TObs>(new_observable).subscribe(combining::create_proxy_subscriber<ValueType>(sub,
-                                                                                                       state->count_of_on_completed,
-                                                                                                       state->wrap_under_guard(forwarding_on_next{}),
-                                                                                                       state->wrap_under_guard(forwarding_on_error{}),
-                                                                                                       state->get_on_completed()));
+            new_observable.subscribe(combining::create_proxy_subscriber<ValueType>(sub,
+                                                                                   state->count_of_on_completed,
+                                                                                   state->wrap_under_guard(forwarding_on_next{}),
+                                                                                   state->wrap_under_guard(forwarding_on_error{}),
+                                                                                   state->get_on_completed()));
         };
     }
 
