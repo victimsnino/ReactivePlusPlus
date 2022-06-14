@@ -57,13 +57,13 @@ struct member_overload<Type, SpecificObservable, merge_tag>
     template<typename ...Args>
     auto merge() const& requires (is_header_included<merge_tag, Args...> && rpp::constraint::observable<Type>)
     {
-        return static_cast<const SpecificObservable*>(this)->template lift<utils::extract_observable_type_t<Type>>(merge_impl<Type>());
+        return static_cast<const SpecificObservable*>(this)->template lift<utils::extract_observable_type_t<Type>>(merge_impl<Type>{});
     }
 
     template<typename ...Args>
     auto merge() && requires (is_header_included<merge_tag, Args...>&& rpp::constraint::observable<Type>)
     {
-        return std::move(*static_cast<SpecificObservable*>(this)).template lift<utils::extract_observable_type_t<Type>>(merge_impl<Type>());
+        return std::move(*static_cast<SpecificObservable*>(this)).template lift<utils::extract_observable_type_t<Type>>(merge_impl<Type>{});
     }
 
     /**
