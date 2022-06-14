@@ -43,13 +43,13 @@ struct member_overload<Type, SpecificObservable, observe_on_tag>
     template<schedulers::constraint::scheduler TScheduler>
     auto observe_on(TScheduler&& scheduler) const& requires is_header_included<observe_on_tag, TScheduler>
     {
-        return static_cast<const SpecificObservable*>(this)->template lift<Type>(observe_on_impl<Type, std::decay_t<TScheduler>>(std::forward<TScheduler>(scheduler)));
+        return static_cast<const SpecificObservable*>(this)->template lift<Type>(observe_on_impl<Type, std::decay_t<TScheduler>>{std::forward<TScheduler>(scheduler)});
     }
 
     template<schedulers::constraint::scheduler TScheduler>
     auto observe_on(TScheduler&& scheduler) && requires is_header_included<observe_on_tag, TScheduler>
     {
-        return std::move(*static_cast<SpecificObservable*>(this)).template lift<Type>(observe_on_impl<Type, std::decay_t<TScheduler>>(std::forward<TScheduler>(scheduler)));
+        return std::move(*static_cast<SpecificObservable*>(this)).template lift<Type>(observe_on_impl<Type, std::decay_t<TScheduler>>{std::forward<TScheduler>(scheduler)});
     }
 };
 } // namespace rpp::details
