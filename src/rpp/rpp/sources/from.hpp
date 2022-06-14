@@ -118,7 +118,7 @@ public:
         : m_iterable{std::move(iterable)}
         , m_scheduler{scheduler} {}
 
-    void operator()(const constraint::subscriber auto& subscriber) const &
+    void operator()(constraint::subscriber auto&& subscriber) const &
     {
         details::iterate(m_iterable, m_scheduler, std::forward<decltype(subscriber)>(subscriber));
     }
