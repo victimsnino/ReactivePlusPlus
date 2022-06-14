@@ -14,7 +14,7 @@
 #include <rpp/schedulers/constraints.hpp>
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/utils/function_traits.hpp>
-#include <rpp/subscribers/type_traits.hpp>
+#include <rpp/subscribers/constraints.hpp>
 #include <rpp/utils/operator_declaration.hpp>
 
 #include <rpp/observables/fwd.hpp>

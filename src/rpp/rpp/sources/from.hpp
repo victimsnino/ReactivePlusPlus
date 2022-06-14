@@ -35,9 +35,9 @@ auto extract_iterable_from_packed(const T & v) -> const auto&
         return *v;
 }
 
-void iterate(const auto&                                   iterable,
+void iterate(auto&&                                        iterable,
              const schedulers::constraint::scheduler auto& scheduler,
-             const constraint::subscriber auto&            subscriber)
+             constraint::subscriber auto&&                 subscriber)
 {
     if constexpr (constraint::decayed_same_as<decltype(scheduler), schedulers::immediate>)
     {
@@ -53,7 +53,9 @@ void iterate(const auto&                                   iterable,
     else
     {
         auto worker = scheduler.create_worker(subscriber.get_subscription());
-        worker.schedule([=, index = size_t{0}]() mutable-> schedulers::optional_duration
+        worker.schedule([iterable=std::forward<decltype(iterable)>(iterable), 
+                         subscriber=std::forward<decltype(subscriber)>(subscriber), 
+                         index = size_t{0}]() mutable-> schedulers::optional_duration
         {
             if (!subscriber.is_subscribed())
                 return std::nullopt;
@@ -116,14 +118,19 @@ public:
         : m_iterable{std::move(iterable)}
         , m_scheduler{scheduler} {}
 
-    void operator()(const constraint::subscriber auto& subscriber) const
+    void operator()(constraint::subscriber auto&& subscriber) const &
     {
-        details::iterate(m_iterable, m_scheduler, subscriber);
+        details::iterate(m_iterable, m_scheduler, std::forward<decltype(subscriber)>(subscriber));
+    }
+
+    void operator()(constraint::subscriber auto&& subscriber) const &&
+    {
+        details::iterate(std::move(m_iterable), m_scheduler, std::forward<decltype(subscriber)>(subscriber));
     }
 
 private:
-    PackedIterable m_iterable;
-    TScheduler     m_scheduler;
+    mutable PackedIterable m_iterable;
+    TScheduler             m_scheduler;
 };
 } // namespace rpp::observable::details
 

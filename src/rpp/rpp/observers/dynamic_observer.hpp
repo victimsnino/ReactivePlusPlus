@@ -13,7 +13,6 @@
 #include <rpp/observers/constraints.hpp>        // wrapping constructor
 #include <rpp/observers/interface_observer.hpp> // base class
 #include <rpp/observers/specific_observer.hpp>  // state
-#include <rpp/observers/type_traits.hpp>        // extract observer type
 #include <rpp/utils/function_traits.hpp>        // extract function args
 #include <rpp/utils/functors.hpp>               // default arguments
 

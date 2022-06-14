@@ -30,6 +30,11 @@ public:
     subscription_base()
         : m_state{std::make_shared<details::subscription_state>()} {}
 
+    subscription_base(const subscription_base&)                      = default;
+    subscription_base(subscription_base&&) noexcept                  = default;
+    subscription_base& operator=(const subscription_base& other)     = default;
+    subscription_base& operator=(subscription_base&& other) noexcept = default;
+
     bool operator==(const subscription_base& rhs) const = default;
 
     virtual ~subscription_base() = default;

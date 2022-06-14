@@ -50,13 +50,33 @@ SCENARIO("observe_on transfers emssions to scheduler", "[operators][observe_on]"
         WHEN("subscribe on observable via observe_on with test scheduler")
         {
             auto res = obs.observe_on(scheduler);
-            THEN("obtain error without scheduling")
+            THEN("obtain error with scheduling")
             {
                 res.subscribe(mock);
 
                 CHECK(mock.get_on_error_count() == 1);
                 CHECK(mock.get_on_completed_count() == 0);
-                CHECK(scheduler.get_schedulings().empty());
+                CHECK(scheduler.get_schedulings() == std::vector{ s_current_time });
+
+            }
+        }
+    }
+
+    GIVEN("observable with completed")
+    {
+        auto obs = rpp::source::empty<std::string>();
+
+        WHEN("subscribe on observable via observe_on with test scheduler")
+        {
+            auto res = obs.observe_on(scheduler);
+            THEN("obtain error with scheduling")
+            {
+                res.subscribe(mock);
+
+                CHECK(mock.get_total_on_next_count() == 0);
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+                CHECK(scheduler.get_schedulings() == std::vector{ s_current_time });
 
             }
         }

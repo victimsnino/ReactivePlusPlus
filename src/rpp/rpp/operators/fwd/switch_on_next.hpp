@@ -12,7 +12,6 @@
 
 #include <rpp/observables/constraints.hpp>
 #include <rpp/observables/details/member_overload.hpp>
-#include <rpp/observables/type_traits.hpp>
 
 namespace rpp::details
 {
@@ -22,7 +21,7 @@ namespace rpp::details
 namespace rpp::details
 {
     template<constraint::decayed_type Type>
-    auto switch_on_next_impl();
+    struct switch_on_next_impl;
 
     template<constraint::decayed_type Type, typename SpecificObservable>
     struct member_overload<Type, SpecificObservable, switch_on_next_tag>

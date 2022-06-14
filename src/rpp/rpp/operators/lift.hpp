@@ -27,12 +27,15 @@ namespace rpp::details
 template<typename T, typename NewType>
 concept lift_fn = constraint::subscriber<std::invoke_result_t<T, dynamic_subscriber<NewType>>>;
 
-template<constraint::decayed_type Type, typename OnNext, typename OnError, typename OnCompleted>
-auto make_lift_action_by_callbacks(OnNext&& on_next, OnError&& on_error, OnCompleted&& on_completed)
+template<constraint::decayed_type Type, constraint::decayed_type OnNext, constraint::decayed_type OnError, constraint::decayed_type OnCompleted>
+struct lift_action_by_callbacks
 {
-    return [on_next      = std::forward<OnNext>(on_next),
-            on_error     = std::forward<OnError>(on_error),
-            on_completed = std::forward<OnCompleted>(on_completed)]<constraint::subscriber TSub>(TSub&& subscriber)
+    [[no_unique_address]] OnNext      on_next;
+    [[no_unique_address]] OnError     on_error;
+    [[no_unique_address]] OnCompleted on_completed;
+
+    template<constraint::subscriber TSub>
+    auto operator()(TSub&& subscriber) const
     {
         auto subscription = subscriber.get_subscription();
         return create_subscriber_with_state<Type>(std::move(subscription),
@@ -40,18 +43,25 @@ auto make_lift_action_by_callbacks(OnNext&& on_next, OnError&& on_error, OnCompl
                                                   on_next,
                                                   on_error,
                                                   on_completed);
+    }
+};
+
+template<typename... Types>
+using decayed_lift_action_by_callbacks = lift_action_by_callbacks<std::decay_t<Types>...>;
+
+template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename TObs>
+auto lift_action(TObs&& _this, OperatorFn&& op)
+{
+    return [_this = std::forward<TObs>(_this), op = std::forward<OperatorFn>(op)]<constraint::subscriber_of_type<NewType> TSub>(TSub&& subscriber)
+    {
+        _this.subscribe(op(std::forward<TSub>(subscriber)));
     };
 }
 
 template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename TObs>
-auto lift_impl(OperatorFn&& op, TObs&& _this)
+auto lift_impl(OperatorFn&& op, TObs&& _this) -> specific_observable<NewType, decltype(lift_action<NewType>(std::forward<TObs>(_this), std::forward<OperatorFn>(op)))>
 {
-    auto action = [_this = std::forward<TObs>(_this), op = std::forward<OperatorFn>(op)]<constraint::subscriber_of_type<NewType> TSub>(TSub&& subscriber)
-    {
-        _this.subscribe(op(std::forward<TSub>(subscriber)));
-    };
-
-    return specific_observable<NewType, decltype(action)>(std::move(action));
+    return {lift_action<NewType>(std::forward<TObs>(_this), std::forward<OperatorFn>(op))};
 }
 
 template<constraint::decayed_type Type, typename SpecificObservable>
@@ -113,9 +123,9 @@ struct member_overload<Type, SpecificObservable, lift_tag>
              std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = forwarding_on_completed>
     auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const&
     {
-        return details::lift_impl<NewType>(details::make_lift_action_by_callbacks<Type>(std::forward<OnNext>(on_next),
-                                                                                        std::forward<OnError>(on_error),
-                                                                                        std::forward<OnCompleted>(on_completed)),
+        return details::lift_impl<NewType>(details::decayed_lift_action_by_callbacks<Type, OnNext, OnError, OnCompleted>{std::forward<OnNext>(on_next),
+                                                                                                                         std::forward<OnError>(on_error),
+                                                                                                                         std::forward<OnCompleted>(on_completed)},
                                            CastThis());
     }
 
@@ -125,9 +135,9 @@ struct member_overload<Type, SpecificObservable, lift_tag>
              std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = forwarding_on_completed>
     auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {})&&
     {
-        return details::lift_impl<NewType>(details::make_lift_action_by_callbacks<Type>(std::forward<OnNext>(on_next),
-                                                                                        std::forward<OnError>(on_error),
-                                                                                        std::forward<OnCompleted>(on_completed)),
+        return details::lift_impl<NewType>(details::decayed_lift_action_by_callbacks<Type, OnNext, OnError, OnCompleted>{std::forward<OnNext>(on_next),
+                                                                                                                         std::forward<OnError>(on_error),
+                                                                                                                         std::forward<OnCompleted>(on_completed)},
                                            MoveThis());
     }
 
@@ -148,9 +158,9 @@ struct member_overload<Type, SpecificObservable, lift_tag>
         requires std::invocable<OnNext, Type, dynamic_subscriber<NewType>>
     auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const&
     {
-        return details::lift_impl<NewType>(details::make_lift_action_by_callbacks<Type>(std::forward<OnNext>(on_next),
-                                                                                        std::forward<OnError>(on_error),
-                                                                                        std::forward<OnCompleted>(on_completed)),
+        return details::lift_impl<NewType>(details::decayed_lift_action_by_callbacks<Type, OnNext, OnError, OnCompleted>{std::forward<OnNext>(on_next),
+                                                                                                                         std::forward<OnError>(on_error),
+                                                                                                                         std::forward<OnCompleted>(on_completed)},
                                            CastThis());
     }
 
@@ -161,9 +171,9 @@ struct member_overload<Type, SpecificObservable, lift_tag>
         requires std::invocable<OnNext, Type, dynamic_subscriber<NewType>>
     auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {})&&
     {
-        return details::lift_impl<NewType>(details::make_lift_action_by_callbacks<Type>(std::forward<OnNext>(on_next),
-                                                                                        std::forward<OnError>(on_error),
-                                                                                        std::forward<OnCompleted>(on_completed)),
+        return details::lift_impl<NewType>(details::decayed_lift_action_by_callbacks<Type, OnNext, OnError, OnCompleted>{std::forward<OnNext>(on_next),
+                                                                                                                         std::forward<OnError>(on_error),
+                                                                                                                         std::forward<OnCompleted>(on_completed)},
                                            MoveThis());
     }
 

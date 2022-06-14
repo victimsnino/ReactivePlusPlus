@@ -77,9 +77,9 @@ public:
      * \return subscription on this observable which can be used to unsubscribe
      */
     template<constraint::observer_of_type<Type> TObserver>
-    composite_subscription subscribe(constraint::decayed_same_as<composite_subscription> auto&& sub, TObserver&& observer) const
+    composite_subscription subscribe(composite_subscription sub, TObserver&& observer) const
     {
-        return subscribe_impl(specific_subscriber<Type, std::decay_t<TObserver>>{std::forward<decltype(sub)>(sub), std::forward<TObserver>(observer)});
+        return subscribe_impl(specific_subscriber<Type, std::decay_t<TObserver>>{std::move(sub), std::forward<TObserver>(observer)});
     }
 
     /**

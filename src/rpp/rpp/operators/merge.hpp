@@ -17,6 +17,7 @@
 #include <rpp/sources/just.hpp>
 #include <rpp/operators/details/combining_utils.hpp>
 
+#include <array>
 #include <atomic>
 #include <memory>
 
@@ -24,61 +25,66 @@ IMPLEMENTATION_FILE(merge_tag);
 
 namespace rpp::details
 {
-struct merge_state_t
+struct merge_state_t : public std::enable_shared_from_this<merge_state_t>
 {
+    auto wrap_under_guard(const auto& callable)
+    {
+        return [state = shared_from_this(), callable](auto&&...args)
+        {
+            std::lock_guard lock{state->mutex};
+            callable(std::forward<decltype(args)>(args)...);
+        };
+    }
+
+    auto get_on_completed()
+    {
+        return [state = shared_from_this()](const constraint::subscriber auto& sub)
+        {
+            if (--(state->count_of_on_completed) == 0)
+                sub.on_completed();
+        };
+    }
+
+    auto get_on_new_observable()
+    {
+        return  [state = shared_from_this()]<constraint::observable TObs>(const TObs& new_observable, const constraint::subscriber auto& sub)
+        {
+            using ValueType = utils::extract_observable_type_t<TObs>;
+
+            new_observable.subscribe(combining::create_proxy_subscriber<ValueType>(sub,
+                                                                                   state->count_of_on_completed,
+                                                                                   state->wrap_under_guard(forwarding_on_next{}),
+                                                                                   state->wrap_under_guard(forwarding_on_error{}),
+                                                                                   state->get_on_completed()));
+        };
+    }
+
     std::atomic_size_t count_of_on_completed{};
+private:
     std::mutex         mutex{};
 };
 
 template<constraint::decayed_type Type>
-auto merge_impl()
+struct merge_impl
 {
     using ValueType = utils::extract_observable_type_t<Type>;
 
-    return []<constraint::subscriber_of_type<ValueType> TSub>(TSub&& subscriber)
+    template<constraint::subscriber_of_type<ValueType> TSub>
+    auto operator()(TSub&& subscriber) const
     {
-        auto state = std::make_shared<merge_state_t>();
-        auto count_of_on_completed = std::shared_ptr<std::atomic_size_t>{ state, &state->count_of_on_completed};
-
-        auto wrap_under_guard = [state](const auto& callable)
-        {
-            return [state, callable](auto&&...args)
-            {
-                std::lock_guard lock{ state->mutex };
-                callable(std::forward<decltype(args)>(args)...);
-            };
-        };
-
-        auto on_completed = [=](const constraint::subscriber auto& sub)
-        {
-            if (--(*count_of_on_completed) == 0)
-                sub.on_completed();
-        };
-
-        auto on_new_observable = [=]<constraint::observable TObs>(TObs&& new_observable,
-                                                                  const constraint::subscriber auto& sub)
-        {
-            std::forward<TObs>(new_observable).subscribe(combining::create_proxy_subscriber<ValueType>(sub,
-                                                                                                       count_of_on_completed,
-                                                                                                       wrap_under_guard(forwarding_on_next{}),
-                                                                                                       wrap_under_guard(forwarding_on_error{}),
-                                                                                                       on_completed));
-        };
+        const auto state = std::make_shared<merge_state_t>();
 
         return combining::create_proxy_subscriber<Type>(std::forward<TSub>(subscriber),
-                                                        count_of_on_completed,
-                                                        std::move(on_new_observable),
-                                                        wrap_under_guard(forwarding_on_error{}),
-                                                        on_completed);
-    };
-}
+                                                        state->count_of_on_completed,
+                                                        state->get_on_new_observable(),
+                                                        state->wrap_under_guard(forwarding_on_error{}),
+                                                        state->get_on_completed());
+    }
+};
 
 template<constraint::decayed_type Type, constraint::observable_of_type<Type> ... TObservables>
-auto merge_with_impl(TObservables&&... observables) requires (sizeof...(TObservables) >= 1)
+auto merge_with_impl(TObservables&&... observables)
 {
-    return [...observables = std::forward<TObservables>(observables)]<constraint::observable TObs>(TObs&& obs)
-    {
-        return rpp::source::just(std::forward<TObs>(obs).as_dynamic(), std::move(observables).as_dynamic()...).merge();
-    };
+    return rpp::source::just(std::forward<TObservables>(observables).as_dynamic()...).merge();
 }
 } // namespace rpp::details
