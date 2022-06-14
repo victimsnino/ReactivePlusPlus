@@ -79,7 +79,7 @@ struct merge_impl
                                                         state->get_on_new_observable(),
                                                         state->wrap_under_guard(forwarding_on_error{}),
                                                         state->get_on_completed());
-    };
+    }
 };
 
 template<constraint::decayed_type Type, constraint::observable_of_type<Type> ... TObservables>

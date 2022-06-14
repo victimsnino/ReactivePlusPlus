@@ -30,7 +30,7 @@ struct take_impl
     {
         auto subscription = subscriber.get_subscription();
         return create_subscriber_with_state<Type>(std::move(subscription), std::forward<TSub>(subscriber), make_action(), forwarding_on_error{}, forwarding_on_completed{});
-    };
+    }
 
 private:
     auto make_action() const

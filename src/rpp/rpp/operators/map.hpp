@@ -29,6 +29,6 @@ struct map_impl
     void operator()(TVal&& value, const TSub& subscriber) const
     {
         subscriber.on_next(callable(utils::as_const(std::forward<TVal>(value))));
-    };
+    }
 };
 } // namespace rpp::details

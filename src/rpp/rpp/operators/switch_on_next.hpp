@@ -82,6 +82,6 @@ struct switch_on_next_impl
             if (--(state->count_of_on_completed) == 0) 
                 sub.on_completed();
         });
-    };
+    }
 };
 } // namespace rpp::details

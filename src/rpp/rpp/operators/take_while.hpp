@@ -29,6 +29,6 @@ struct take_while_impl
             subscriber.on_next(std::forward<decltype(value)>(value));
         else
             subscriber.on_completed();
-    };
+    }
 };
 } // namespace rpp::details
