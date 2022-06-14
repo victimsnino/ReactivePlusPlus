@@ -11,13 +11,33 @@
 #pragma once
 
 #include <rpp/observables/fwd.hpp>
-#include <rpp/observables/type_traits.hpp>
 
 #include <concepts>
 
 namespace rpp::constraint
 {
 template<typename T> concept observable = std::derived_from<std::decay_t<T>, details::observable_tag>;
+}
 
+namespace rpp::utils
+{
+namespace details
+{
+    template<rpp::constraint::observable T>
+    struct extract_observable_type
+    {
+        template<typename TT>
+        static TT deduce(const virtual_observable<TT>&);
+
+        using type = decltype(deduce(std::declval<std::decay_t<T>>()));
+    };
+} // namespace details
+
+template<rpp::constraint::observable T>
+using extract_observable_type_t = typename details::extract_observable_type<T>::type;
+} // namespace rpp::utils
+
+namespace rpp::constraint
+{
 template<typename T, typename Type> concept observable_of_type = observable<T> && std::same_as<utils::extract_observable_type_t<T>, Type>;
 } // namespace rpp::constraint

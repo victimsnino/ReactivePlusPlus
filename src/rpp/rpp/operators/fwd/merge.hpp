@@ -12,7 +12,6 @@
 
 #include <rpp/observables/constraints.hpp>
 #include <rpp/observables/details/member_overload.hpp>
-#include <rpp/observables/type_traits.hpp>
 
 namespace rpp::details
 {
