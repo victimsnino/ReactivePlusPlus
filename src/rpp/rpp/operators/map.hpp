@@ -23,7 +23,7 @@ namespace rpp::details
 template<constraint::decayed_type Type, std::invocable<Type> Callable>
 struct map_impl
 {
-    Callable callable;
+    [[no_unique_address]] Callable callable;
 
     template<typename TVal, constraint::subscriber_of_type<std::invoke_result_t<Callable, Type>> TSub>
     void operator()(TVal&& value, const TSub& subscriber) const
