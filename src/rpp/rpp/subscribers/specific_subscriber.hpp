@@ -94,15 +94,15 @@ specific_subscriber(OnNext, Args ...) -> specific_subscriber<Type, details::dedu
  * \brief Creation of rpp::specific_subscriber with manual providing of type of subscriber. In case of ability to determine type of subscriber by function -> use constructor
  */
 template<typename Type, typename ...Args>
-auto make_specific_subscriber(Args&& ...args) -> specific_subscriber<Type, decltype(rpp::make_specific_observer<Type>(std::forward<Args>(args)...))>
+auto make_specific_subscriber(Args&& ...args) -> specific_subscriber<Type, details::deduce_specific_observer_type_t<Type, Args...>>
 {
-    return {rpp::make_specific_observer<Type>(std::forward<Args>(args)...)};
+    return {std::forward<Args>(args)...};
 }
 
 template<typename Type, typename ...Args>
-auto make_specific_subscriber(constraint::decayed_same_as<composite_subscription> auto&& sub, Args&& ...args)  -> specific_subscriber<Type, decltype(rpp::make_specific_observer<Type>(std::forward<Args>(args)...))>
+auto make_specific_subscriber(composite_subscription sub, Args&& ...args)  -> specific_subscriber<Type, details::deduce_specific_observer_type_t<Type, Args...>>
 {
-    return {std::forward<decltype(sub)>(sub), rpp::make_specific_observer<Type>(std::forward<Args>(args)...)};
+    return {std::move(sub), std::forward<Args>(args)...};
 }
 
 namespace constraint
