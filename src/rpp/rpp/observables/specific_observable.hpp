@@ -100,7 +100,10 @@ private:
     {
         try
         {
-            m_state(subscriber);
+            if (subscriber.is_subscribed())
+            {
+                m_state(subscriber);
+            }
         }
         catch (...)
         {
