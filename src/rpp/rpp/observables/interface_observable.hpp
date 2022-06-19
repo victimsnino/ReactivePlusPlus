@@ -46,6 +46,7 @@ struct virtual_observable : public details::observable_tag
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct interface_observable
     : public virtual_observable<Type>
+    , details::member_overload<Type, SpecificObservable, details::subscribe_tag>
     , details::member_overload<Type, SpecificObservable, details::lift_tag>
     , details::member_overload<Type, SpecificObservable, details::map_tag>
     , details::member_overload<Type, SpecificObservable, details::filter_tag>

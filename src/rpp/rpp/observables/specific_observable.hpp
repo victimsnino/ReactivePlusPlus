@@ -11,11 +11,9 @@
 #pragma once
 
 #include <rpp/observables/fwd.hpp>
-#include <rpp/observables/interface_observable.hpp> // base_class
-#include <rpp/observers/constraints.hpp>            // subscribe concept
-#include <rpp/subscribers/specific_subscriber.hpp>  // subscribe concept
-#include <rpp/subscribers/dynamic_subscriber.hpp>   // subscribe concept
-#include <rpp/utils/operator_declaration.hpp>      // for header include
+#include <rpp/observables/interface_observable.hpp>            // base_class
+#include <rpp/utils/operator_declaration.hpp>                  // for header include
+#include <rpp/subscribers/dynamic_subscriber.hpp>
 #include <utility>
 
 namespace rpp
@@ -49,52 +47,11 @@ public:
     template <typename...Args>
     [[nodiscard]] auto as_dynamic() && requires details::is_header_included<details::dynamic_observable_tag, Args...>    { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
-    /**
-     * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
-     * \details this overloading accepts subscriber as is to avoid construction of dynamic_subscriber
-     * \return subscription on this observable which can be used to unsubscribe
-     */
-    template<constraint::subscriber_of_type<Type> TSub>
-    composite_subscription subscribe(const TSub& subscriber) const
-    {
-        return subscribe_impl(subscriber);
-    }
-
-     /**
-     * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
-     * \details this overloading accepts observer to construct specific_subscriber without extra overheads
-     * \return subscription on this observable which can be used to unsubscribe
-     */
-    template<constraint::observer_of_type<Type> TObserver>
-    composite_subscription subscribe(TObserver&& observer) const
-    {
-        return subscribe_impl<std::decay_t<TObserver>>(std::forward<TObserver>(observer));
-    }
-
-    /**
-     * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
-     * \details this overloading accepts subscription and observer to construct specific_subscriber without extra overheads
-     * \return subscription on this observable which can be used to unsubscribe
-     */
-    template<constraint::observer_of_type<Type> TObserver>
-    composite_subscription subscribe(composite_subscription sub, TObserver&& observer) const
-    {
-        return subscribe_impl(specific_subscriber<Type, std::decay_t<TObserver>>{std::move(sub), std::forward<TObserver>(observer)});
-    }
-
-    /**
-     * \brief Main function of observable. Initiates subscription for provided subscriber and calls stored OnSubscribe function
-     * \details this overloading accepts raw functions to construct specific subscriber with specific observer
-     * \return subscription on this observable which can be used to unsubscribe
-     */
-    template<typename ...Args>
-        requires constraint::specific_subscriber_constructible<Type, std::decay_t<Args>...>
-    composite_subscription subscribe(Args&&...args) const
-    {
-        return subscribe_impl(rpp::make_specific_subscriber<Type>(std::forward<Args>(args)...));
-    }
+    friend struct details::member_overload<Type, specific_observable<Type, OnSubscribeFn>, details::subscribe_tag>;
 
 private:
+
+    // used by rpp::details::member_overload<Type, specific_observable<Type, OnSubscribeFn>, rpp::details::subscribe_tag>;
     template<constraint::observer_of_type<Type> Obs>
     composite_subscription subscribe_impl(const specific_subscriber<Type, Obs>& subscriber) const
     {
@@ -111,6 +68,7 @@ private:
         }
         return subscriber.get_subscription();
     }
+
 private:
     [[no_unique_address]] OnSubscribeFn m_state;
 };
