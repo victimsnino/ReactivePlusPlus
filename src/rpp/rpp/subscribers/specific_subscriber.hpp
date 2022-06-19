@@ -32,8 +32,8 @@ public:
         , m_observer{ std::forward<Types>(vals)... } {}
 
     template<typename ...Types>
-    specific_subscriber(constraint::decayed_same_as<composite_subscription> auto&& sub, Types&&...vals) requires std::constructible_from<Observer, Types...>
-        : details::subscriber_base<Type>{ std::forward<decltype(sub)>(sub )}
+    specific_subscriber(composite_subscription sub, Types&&...vals) requires std::constructible_from<Observer, Types...>
+        : details::subscriber_base<Type>{ std::move(sub)}
         , m_observer{ std::forward<Types>(vals)... } {}
 
     // ************* Copy/Move ************************* //

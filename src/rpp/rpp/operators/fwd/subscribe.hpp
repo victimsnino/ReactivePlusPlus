@@ -3,6 +3,7 @@
 #include <rpp/observables/details/member_overload.hpp>
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/subscribers/specific_subscriber.hpp>
+#include <rpp/subscriptions/composite_subscription.hpp>
 
 
 namespace rpp::details
