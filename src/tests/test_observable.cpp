@@ -333,7 +333,7 @@ SCENARIO("blocking observable", "[observable]")
     }
 }
 
-TEST_CASE("Observable size should be equal to state + vtable", "[observable]")
+TEST_CASE("Observable size should be equal to size of state", "[observable]")
 {
     SECTION("specific_observable")
     {
