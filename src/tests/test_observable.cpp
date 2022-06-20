@@ -251,7 +251,7 @@ SCENARIO("Verify copy when observer take const lvalue& from const lvalue&", "[ob
     TestObserverTypes<const copy_count_tracker&,false, true>("no copies", 0, 0);
 }
 
-SCENARIO("base observables")
+SCENARIO("base observables", "[observable]")
 {
     mock_observer<int> mock{ };
 
@@ -299,7 +299,7 @@ SCENARIO("base observables")
     }
 }
 
-SCENARIO("blocking observable")
+SCENARIO("blocking observable", "[observable]")
 {
     GIVEN("observable with wait")
     {
@@ -330,5 +330,21 @@ SCENARIO("blocking observable")
                 CHECK(mock.get_on_error_count() == 1);
             }
         }
+    }
+}
+
+TEST_CASE("Observable size should be equal to state + vtable", "[observable]")
+{
+    SECTION("specific_observable")
+    {
+        auto action     = [](const auto&) {};
+        auto observable = rpp::source::create<int>(action);
+        CHECK(sizeof(observable) == sizeof(action));
+    }
+
+    SECTION("dynamic_observable")
+    {
+        auto observable = rpp::source::create<int>([](const auto&) {}).as_dynamic<>();
+        CHECK(sizeof(observable) == sizeof(std::shared_ptr<int>));
     }
 }
