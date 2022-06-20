@@ -32,8 +32,8 @@ public:
         , m_observer{ std::forward<Types>(vals)... } {}
 
     template<typename ...Types>
-    specific_subscriber(constraint::decayed_same_as<composite_subscription> auto&& sub, Types&&...vals) requires std::constructible_from<Observer, Types...>
-        : details::subscriber_base<Type>{ std::forward<decltype(sub)>(sub )}
+    specific_subscriber(composite_subscription sub, Types&&...vals) requires std::constructible_from<Observer, Types...>
+        : details::subscriber_base<Type>{ std::move(sub)}
         , m_observer{ std::forward<Types>(vals)... } {}
 
     // ************* Copy/Move ************************* //
@@ -94,17 +94,15 @@ specific_subscriber(OnNext, Args ...) -> specific_subscriber<Type, details::dedu
  * \brief Creation of rpp::specific_subscriber with manual providing of type of subscriber. In case of ability to determine type of subscriber by function -> use constructor
  */
 template<typename Type, typename ...Args>
-auto make_specific_subscriber(Args&& ...args) -> specific_subscriber<Type, decltype(rpp::make_specific_observer<Type>(std::declval<Args>()...))>
+auto make_specific_subscriber(Args&& ...args) -> specific_subscriber<Type, details::deduce_specific_observer_type_t<Type, Args...>>
 {
-    auto observer = rpp::make_specific_observer<Type>(std::forward<Args>(args)...);
-    return rpp::specific_subscriber<Type, decltype(observer)>(std::move(observer));
+    return {std::forward<Args>(args)...};
 }
 
 template<typename Type, typename ...Args>
-auto make_specific_subscriber(constraint::decayed_same_as<composite_subscription> auto&& sub, Args&& ...args)  -> specific_subscriber<Type, decltype(rpp::make_specific_observer<Type>(std::declval<Args>()...))>
+auto make_specific_subscriber(composite_subscription sub, Args&& ...args)  -> specific_subscriber<Type, details::deduce_specific_observer_type_t<Type, Args...>>
 {
-    auto observer = rpp::make_specific_observer<Type>(std::forward<Args>(args)...);
-    return rpp::specific_subscriber<Type, decltype(observer)>(std::forward<decltype(sub)>(sub), std::move(observer));
+    return {std::move(sub), std::forward<Args>(args)...};
 }
 
 namespace constraint

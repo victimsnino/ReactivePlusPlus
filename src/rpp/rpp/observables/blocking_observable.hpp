@@ -13,6 +13,10 @@
 #include <rpp/subscribers/specific_subscriber.hpp> // create subscriber
 #include <rpp/observers/state_observer.hpp>        // wrap subscribers
 
+#include <rpp/observables/details/member_overload.hpp> // overload operators
+#include <rpp/operators/fwd.hpp>                    // forwarding of member_overaloads
+
+
 #include <future>
 
 namespace rpp
@@ -24,7 +28,7 @@ namespace rpp
  * \ingroup observables
  */
 template<constraint::decayed_type Type, constraint::observable_of_type<Type> OriginalObservable>
-class blocking_observable final
+class blocking_observable final : public details::member_overload<Type, blocking_observable<Type, OriginalObservable>, details::subscribe_tag>
 {
 public:
     blocking_observable(const OriginalObservable& original)
@@ -33,32 +37,15 @@ public:
     blocking_observable(OriginalObservable&& original)
         : m_original{std::move(original)} {}
 
+    friend struct details::member_overload<Type, blocking_observable<Type, OriginalObservable>, details::subscribe_tag>;
 
-    template<constraint::subscriber_of_type<Type> TSub>
-    void subscribe(TSub&& subscriber) const noexcept
-    {
-        subscribe_impl(subscriber);
-    }
-
-    template<constraint::observer_of_type<Type> TObserver>
-    void subscribe(TObserver&& observer) const noexcept
-    {
-        return subscribe_impl(rpp::specific_subscriber<Type, std::decay_t<TObserver>>{std::forward<TObserver>(observer)});
-    }
-
-    template<typename ...Args>
-        requires (std::is_constructible_v<dynamic_subscriber<Type>, std::decay_t<Args>...> && !constraint::variadic_is_same_type<dynamic_subscriber<Type>, Args...>)
-    void subscribe(Args&&...args) const noexcept
-    {
-        subscribe_impl(rpp::make_specific_subscriber<Type>(std::forward<Args>(args)...));
-    }
 private:
     template<constraint::subscriber_of_type<Type> TSub>
     void subscribe_impl(TSub&& subscriber) const noexcept
     {
         std::promise<bool> is_success{};
         const auto         future = is_success.get_future();
-        m_original.subscribe(create_subscriber_with_state<Type>(subscriber,
+        m_original.subscribe(create_subscriber_with_state<Type>(std::forward<TSub>(subscriber),
                                                                 details::forwarding_on_next{},
                                                                 [&](const std::exception_ptr& err, const auto& sub)
                                                                 {
