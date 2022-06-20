@@ -16,14 +16,9 @@
 #include <rpp/operators/lift.hpp>                   // must-have operators
 #include <rpp/observables/blocking_observable.hpp>  // as_blocking
 
-#include <type_traits>
+#include <rpp/defs.hpp>                             // RPP_EMPTY_BASES
 
-// MSVC has bad support for the empty base clases, but provides specificator to enable full support. GCC/Clang works as expected
-#if defined(_MSC_VER) && _MSC_FULL_VER >= 190023918
-#  define RPP_EMPTY_BASES __declspec(empty_bases)
-#else
-#  define RPP_EMPTY_BASES
-#endif
+#include <type_traits>
 
 namespace rpp::details
 {

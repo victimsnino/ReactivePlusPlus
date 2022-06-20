@@ -14,6 +14,8 @@
 #include <rpp/subjects/constraints.hpp>                 // type of subject used
 #include <rpp/subjects/type_traits.hpp>                 // deduce observable type by subject type
 #include <rpp/subscriptions/composite_subscription.hpp> // lifetime
+#include <rpp/defs.hpp>                                 // RPP_EMPTY_BASES
+
 
 #include <memory>
 #include <mutex>
@@ -31,7 +33,7 @@ namespace rpp
 template<constraint::decayed_type                    Type,
          subjects::constraint::subject_of_type<Type> Subject,
          constraint::observable_of_type<Type>        OriginalObservable>
-class connectable_observable
+class RPP_EMPTY_BASES connectable_observable
     : public decltype(std::declval<Subject>().get_observable())
     , public details::member_overload<Type, connectable_observable<Type, Subject, OriginalObservable>, details::ref_count_tag>
 {
