@@ -8,7 +8,7 @@
 # Project home: https://github.com/victimsnino/ReactivePlusPlus
 #
 
-file(GLOB_RECURSE FILES "*.hpp")
+file(GLOB_RECURSE FILES "*.hpp" "*.inl")
 
 if(${CMAKE_VERSION} VERSION_LESS "3.19.0")
   add_library(rpp INTERFACE)

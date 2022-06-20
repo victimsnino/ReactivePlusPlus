@@ -14,6 +14,7 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/operators/fwd/map.hpp>
 #include <rpp/utils/utilities.hpp>
+#include <rpp/utils/operator_declaration.hpp>
 #include <utility>
 
 IMPLEMENTATION_FILE(map_tag);

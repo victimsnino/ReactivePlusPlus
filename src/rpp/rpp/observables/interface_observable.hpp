@@ -48,7 +48,6 @@ struct interface_observable
     : public virtual_observable<Type>
     , details::member_overload<Type, SpecificObservable, details::subscribe_tag>
     , details::member_overload<Type, SpecificObservable, details::lift_tag>
-    , details::member_overload<Type, SpecificObservable, details::map_tag>
     , details::member_overload<Type, SpecificObservable, details::filter_tag>
     , details::member_overload<Type, SpecificObservable, details::take_tag>
     , details::member_overload<Type, SpecificObservable, details::take_while_tag>
@@ -62,6 +61,9 @@ struct interface_observable
     , details::member_overload<Type, SpecificObservable, details::switch_on_next_tag>
 {
 public:
+
+    #include <rpp/operators/inl/map.inl>
+
     /**
     * \brief The apply function to observable which returns observable of another type
     * \tparam OperatorFn type of function which applies to this observable
