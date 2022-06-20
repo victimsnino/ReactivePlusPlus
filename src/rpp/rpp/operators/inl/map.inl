@@ -23,11 +23,11 @@
 template<std::invocable<Type> Callable>
 auto map(Callable&& callable) const & requires rpp::details::is_header_included<rpp::details::map_tag, Callable>
 {
-    return CastThis().lift<std::invoke_result_t<Callable, Type>>(rpp::details::map_impl<Type, std::decay_t<Callable>>{std::forward<Callable>(callable)});
+    return CastThis().template lift<std::invoke_result_t<Callable, Type>>(rpp::details::map_impl<Type, std::decay_t<Callable>>{std::forward<Callable>(callable)});
 }
 
 template<std::invocable<Type> Callable>
 auto map(Callable&& callable) && requires rpp::details::is_header_included<rpp::details::map_tag, Callable>
 {
-    return MoveThis().lift<std::invoke_result_t<Callable, Type>>(rpp::details::map_impl<Type, std::decay_t<Callable>>{std::forward<Callable>(callable)});
+    return MoveThis().template lift<std::invoke_result_t<Callable, Type>>(rpp::details::map_impl<Type, std::decay_t<Callable>>{std::forward<Callable>(callable)});
 }
