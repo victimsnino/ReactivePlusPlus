@@ -1,6 +1,5 @@
 var hierarchy =
 [
-    [ "rpp::blocking_observable< Type, OriginalObservable >", "classrpp_1_1blocking__observable.html", null ],
     [ "rpp::subjects::details::completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
     [ "declvalget_observable", null, [
       [ "rpp::connectable_observable< Type, Subject, OriginalObservable >", "classrpp_1_1connectable__observable.html", null ]
@@ -30,6 +29,9 @@ var hierarchy =
     [ "rpp::details::lift_action_by_callbacks< Type, OnNext, OnError, OnCompleted >", "structrpp_1_1details_1_1lift__action__by__callbacks.html", null ],
     [ "rpp::details::map_impl< Type, Callable >", "structrpp_1_1details_1_1map__impl.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, MemberTag >", "structrpp_1_1details_1_1member__overload.html", null ],
+    [ "rpp::details::member_overload< Type, blocking_observable< Type, OriginalObservable >, details::subscribe_tag >", "structrpp_1_1details_1_1member__overload.html", [
+      [ "rpp::blocking_observable< Type, OriginalObservable >", "classrpp_1_1blocking__observable.html", null ]
+    ] ],
     [ "rpp::details::member_overload< Type, connectable_observable< Type, Subject, OriginalObservable >, details::ref_count_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::connectable_observable< Type, Subject, OriginalObservable >", "classrpp_1_1connectable__observable.html", null ]
     ] ],
@@ -60,6 +62,9 @@ var hierarchy =
     [ "rpp::details::member_overload< Type, SpecificObservable, details::subscribe_on_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, details::subscribe_tag >", "structrpp_1_1details_1_1member__overload.html", [
+      [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
+    ] ],
     [ "rpp::details::member_overload< Type, SpecificObservable, details::switch_on_next_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
@@ -82,6 +87,7 @@ var hierarchy =
     [ "rpp::details::member_overload< Type, SpecificObservable, ref_count_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01ref__count__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, repeat_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01repeat__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, subscribe_on_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01subscribe__on__tag_01_4.html", null ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, subscribe_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01subscribe__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, switch_on_next_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__on__next__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, take_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, take_while_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__while__tag_01_4.html", null ],

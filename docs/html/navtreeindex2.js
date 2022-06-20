@@ -1,10 +1,17 @@
 var NAVTREEINDEX2 =
 {
+"structrpp_1_1utils_1_1details_1_1extract__observable__type.html#a327f38147057dfdc3d433b6c84785d86":[2,0,0,4,0,0,0],
+"structrpp_1_1utils_1_1details_1_1extract__observer__type.html":[2,0,0,4,0,1],
+"structrpp_1_1utils_1_1details_1_1extract__observer__type.html#a4a443a7ecce6a865be8106ae0d081bed":[2,0,0,4,0,1,0],
+"structrpp_1_1utils_1_1details_1_1extract__subscriber__type.html":[2,0,0,4,0,2],
+"structrpp_1_1utils_1_1details_1_1extract__subscriber__type.html#a1f84c83aa1419da37179441e7700ab79":[2,0,0,4,0,2,0],
+"structrpp_1_1virtual__observable.html":[2,0,0,19],
 "structrpp_1_1virtual__observable.html#a2a15909cf48f0fb478ed784bb64717a2":[2,0,0,19,0],
 "subject__state_8hpp_source.html":[3,0,0,0,0,5,0,1],
 "subjects_2constraints_8hpp_source.html":[3,0,0,0,0,5,1],
 "subjects_2fwd_8hpp_source.html":[3,0,0,0,0,5,2],
 "subjects_8hpp_source.html":[3,0,0,0,0,16],
+"subscribe_8hpp_source.html":[3,0,0,0,0,2,1,8],
 "subscribe__on_8hpp_source.html":[3,0,0,0,0,2,12],
 "subscribe_on_8cpp-example.html":[4,12],
 "subscriber__base_8hpp_source.html":[3,0,0,0,0,6,0,0],

@@ -111,73 +111,59 @@ $(document).ready(function(){initNavTree('blocking__observable_8hpp_source.html'
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;rpp/subscribers/specific_subscriber.hpp&gt;</span> <span class="comment">// create subscriber</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;rpp/observers/state_observer.hpp&gt;</span>        <span class="comment">// wrap subscribers</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;future&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>rpp</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; OriginalObservable&gt;</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classrpp_1_1blocking__observable.html">   27</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1blocking__observable.html">blocking_observable</a> final</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="classrpp_1_1blocking__observable.html">blocking_observable</a>(<span class="keyword">const</span> OriginalObservable&amp; original)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        : m_original{original} {}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="classrpp_1_1blocking__observable.html">blocking_observable</a>(OriginalObservable&amp;&amp; original)</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        : m_original{std::move(original)} {}</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;rpp/observables/details/member_overload.hpp&gt;</span> <span class="comment">// overload operators</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/fwd.hpp&gt;</span>                    <span class="comment">// forwarding of member_overaloads</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;future&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>rpp</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; OriginalObservable&gt;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classrpp_1_1blocking__observable.html">   31</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1blocking__observable.html">blocking_observable</a> final : <span class="keyword">public</span> <a class="code" href="structrpp_1_1details_1_1member__overload.html">details::member_overload</a>&lt;Type, blocking_observable&lt;Type, OriginalObservable&gt;, details::subscribe_tag&gt;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="classrpp_1_1blocking__observable.html">blocking_observable</a>(<span class="keyword">const</span> OriginalObservable&amp; original)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        : m_original{original} {}</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber_of_type&lt;Type&gt; TSub&gt;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> subscribe(TSub&amp;&amp; subscriber) <span class="keyword">const</span> noexcept</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        subscribe_impl(subscriber);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observer_of_type&lt;Type&gt; TObserver&gt;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> subscribe(TObserver&amp;&amp; observer) <span class="keyword">const</span> noexcept</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="classrpp_1_1blocking__observable.html">blocking_observable</a>(OriginalObservable&amp;&amp; original)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        : m_original{std::move(original)} {}</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1member__overload.html">details::member_overload</a>&lt;Type, <a class="code" href="classrpp_1_1blocking__observable.html">blocking_observable</a>&lt;Type, OriginalObservable&gt;, details::subscribe_tag&gt;;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    template&lt;constraint::subscriber_of_type&lt;Type&gt; TSub&gt;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    void subscribe_impl(TSub&amp;&amp; subscriber) const noexcept</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">return</span> subscribe_impl(<a class="code" href="classrpp_1_1specific__subscriber.html">rpp::specific_subscriber</a>&lt;Type, std::decay_t&lt;TObserver&gt;&gt;{std::forward&lt;TObserver&gt;(observer)});</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        requires (std::is_constructible_v&lt;<a class="code" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber&lt;Type&gt;</a>, std::decay_t&lt;Args&gt;...&gt; &amp;&amp; !constraint::variadic_is_same_type&lt;<a class="code" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber&lt;Type&gt;</a>, Args...&gt;)</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> subscribe(Args&amp;&amp;...args) <span class="keyword">const</span> noexcept</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        subscribe_impl(rpp::make_specific_subscriber&lt;Type&gt;(std::forward&lt;Args&gt;(args)...));</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber_of_type&lt;Type&gt; TSub&gt;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> subscribe_impl(TSub&amp;&amp; subscriber) <span class="keyword">const</span> noexcept</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        std::promise&lt;bool&gt; is_success{};</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>         future = is_success.get_future();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        m_original.subscribe(create_subscriber_with_state&lt;Type&gt;(subscriber,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                                                <a class="code" href="structrpp_1_1details_1_1forwarding__on__next.html">details::forwarding_on_next</a>{},</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                                                [&amp;](<span class="keyword">const</span> std::exception_ptr&amp; err, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                                                {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                                                                    sub.on_error(err);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                                                    is_success.set_value(<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                                                                },</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                                                                [&amp;](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                                                {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                                                                    sub.on_completed();</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                                                                    is_success.set_value(<span class="keyword">true</span>);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                                                                }));</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        future.wait();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    OriginalObservable m_original;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;};</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable TObs&gt;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<a class="code" href="classrpp_1_1blocking__observable.html">blocking_observable</a>(<span class="keyword">const</span> TObs&amp;)-&gt;blocking_observable&lt;rpp::utils::extract_observable_type_t&lt;TObs&gt;, TObs&gt;;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace rpp</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        std::promise&lt;bool&gt; is_success{};</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>         future = is_success.get_future();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        m_original.subscribe(create_subscriber_with_state&lt;Type&gt;(std::forward&lt;TSub&gt;(subscriber),</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                                                                <a class="code" href="structrpp_1_1details_1_1forwarding__on__next.html">details::forwarding_on_next</a>{},</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                                                                [&amp;](<span class="keyword">const</span> std::exception_ptr&amp; err, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                                                                {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                                                                    sub.on_error(err);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                                                                    is_success.set_value(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                                                                },</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                                                                [&amp;](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                                                {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                                                                    sub.on_completed();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                                                                    is_success.set_value(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                                                }));</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        future.wait();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    OriginalObservable m_original;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable TObs&gt;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<a class="code" href="classrpp_1_1blocking__observable.html">blocking_observable</a>(<span class="keyword">const</span> TObs&amp;)-&gt;blocking_observable&lt;rpp::utils::extract_observable_type_t&lt;TObs&gt;, TObs&gt;;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace rpp</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassrpp_1_1specific__subscriber_html"><div class="ttname"><a href="classrpp_1_1specific__subscriber.html">rpp::specific_subscriber</a></div><div class="ttdoc">specific version of subscriber which stores type of observer used inside to prevent extra allocations</div><div class="ttdef"><b>Definition:</b> fwd.hpp:27</div></div>
-<div class="ttc" id="aclassrpp_1_1dynamic__subscriber_html"><div class="ttname"><a href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber</a></div><div class="ttdoc">subscriber which uses dynamic_observer&lt;T&gt; to hide original callbacks</div><div class="ttdef"><b>Definition:</b> dynamic_subscriber.hpp:23</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1member__overload_html"><div class="ttname"><a href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a></div><div class="ttdef"><b>Definition:</b> member_overload.hpp:19</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1forwarding__on__next_html"><div class="ttname"><a href="structrpp_1_1details_1_1forwarding__on__next.html">rpp::details::forwarding_on_next</a></div><div class="ttdef"><b>Definition:</b> state_observer.hpp:22</div></div>
-<div class="ttc" id="aclassrpp_1_1blocking__observable_html"><div class="ttname"><a href="classrpp_1_1blocking__observable.html">rpp::blocking_observable</a></div><div class="ttdoc">blocking alternative of observable: provides interface where each function do blocking subscribe on o...</div><div class="ttdef"><b>Definition:</b> blocking_observable.hpp:27</div></div>
+<div class="ttc" id="aclassrpp_1_1blocking__observable_html"><div class="ttname"><a href="classrpp_1_1blocking__observable.html">rpp::blocking_observable</a></div><div class="ttdoc">blocking alternative of observable: provides interface where each function do blocking subscribe on o...</div><div class="ttdef"><b>Definition:</b> blocking_observable.hpp:31</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

@@ -94,6 +94,7 @@ $(document).ready(function(){initNavTree('classrpp_1_1blocking__observable.html'
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classrpp_1_1blocking__observable-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">rpp::blocking_observable&lt; Type, OriginalObservable &gt; Class Template Reference<span class="mlabels"><span class="mlabel">final</span></span><div class="ingroups"><a class="el" href="group__observables.html">Observables</a></div></div>  </div>
@@ -104,6 +105,15 @@ $(document).ready(function(){initNavTree('classrpp_1_1blocking__observable.html'
  <a href="classrpp_1_1blocking__observable.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="blocking__observable_8hpp_source.html">blocking_observable.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for rpp::blocking_observable&lt; Type, OriginalObservable &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classrpp_1_1blocking__observable.png" usemap="#rpp::blocking_5Fobservable_3C_20Type_2C_20OriginalObservable_20_3E_map" alt=""/>
+  <map id="rpp::blocking_5Fobservable_3C_20Type_2C_20OriginalObservable_20_3E_map" name="rpp::blocking_5Fobservable_3C_20Type_2C_20OriginalObservable_20_3E_map">
+<area href="structrpp_1_1details_1_1member__overload.html" alt="rpp::details::member_overload&lt; Type, blocking_observable&lt; Type, OriginalObservable &gt;, details::subscribe_tag &gt;" shape="rect" coords="0,0,660,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -113,18 +123,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae4e678d9edc7d342a6fd662305aec16d"><td class="memItemLeft" align="right" valign="top"><a id="ae4e678d9edc7d342a6fd662305aec16d"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>blocking_observable</b> (OriginalObservable &amp;&amp;original)</td></tr>
 <tr class="separator:ae4e678d9edc7d342a6fd662305aec16d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f570bf8e342ab1754ceff054d7c09cc"><td class="memTemplParams" colspan="2"><a id="a1f570bf8e342ab1754ceff054d7c09cc"></a>
-template&lt;constraint::subscriber_of_type&lt; Type &gt; TSub&gt; </td></tr>
-<tr class="memitem:a1f570bf8e342ab1754ceff054d7c09cc"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (TSub &amp;&amp;subscriber) const noexcept</td></tr>
-<tr class="separator:a1f570bf8e342ab1754ceff054d7c09cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae211a43e54427a323d426a878f9b1e27"><td class="memTemplParams" colspan="2"><a id="ae211a43e54427a323d426a878f9b1e27"></a>
-template&lt;constraint::observer_of_type&lt; Type &gt; TObserver&gt; </td></tr>
-<tr class="memitem:ae211a43e54427a323d426a878f9b1e27"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (TObserver &amp;&amp;observer) const noexcept</td></tr>
-<tr class="separator:ae211a43e54427a323d426a878f9b1e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a5c898437124a02fe3320d8f96b30cd"><td class="memTemplParams" colspan="2"><a id="a7a5c898437124a02fe3320d8f96b30cd"></a>
-template&lt;typename ... Args&gt; </td></tr>
-<tr class="memitem:a7a5c898437124a02fe3320d8f96b30cd"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>requires</b> (std::is_constructible_v&lt; <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; Type &gt;, std::decay_t&lt; Args &gt;... &gt; &amp;&amp;!constraint::variadic_is_same_type&lt; <a class="el" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>&lt; Type &gt;, Args... &gt;) void subscribe(Args &amp;&amp;...args) const noexcept</td></tr>
-<tr class="separator:a7a5c898437124a02fe3320d8f96b30cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:acd016cd6014ad2a7e935cdf036916656"><td class="memItemLeft" align="right" valign="top"><a id="acd016cd6014ad2a7e935cdf036916656"></a>
+struct&#160;</td><td class="memItemRight" valign="bottom"><b>details::member_overload&lt; Type, blocking_observable&lt; Type, OriginalObservable &gt;, details::subscribe_tag &gt;</b></td></tr>
+<tr class="separator:acd016cd6014ad2a7e935cdf036916656"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;constraint::decayed_type Type, constraint::observable_of_type&lt; Type &gt; OriginalObservable&gt;<br />
