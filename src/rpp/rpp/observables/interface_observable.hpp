@@ -18,6 +18,13 @@
 
 #include <type_traits>
 
+// MSVC has bad support for the empty base clases, but provides specificator to enable full support. GCC/Clang works as expected
+#if defined(_MSC_VER) && _MSC_FULL_VER >= 190023918
+#  define RPP_EMPTY_BASES __declspec(empty_bases)
+#else
+#  define RPP_EMPTY_BASES
+#endif
+
 namespace rpp::details
 {
 struct observable_tag {};
@@ -35,7 +42,7 @@ namespace rpp
 template<constraint::decayed_type Type>
 struct virtual_observable : public details::observable_tag
 {
-    virtual ~virtual_observable() = default;
+    //virtual ~virtual_observable() = default;
 };
 
 /**
@@ -44,7 +51,7 @@ struct virtual_observable : public details::observable_tag
  * \tparam SpecificObservable final type of observable inherited from this observable to successfully copy/move it
  */
 template<constraint::decayed_type Type, typename SpecificObservable>
-struct interface_observable
+struct RPP_EMPTY_BASES interface_observable
     : public virtual_observable<Type>
     , details::member_overload<Type, SpecificObservable, details::subscribe_tag>
     , details::member_overload<Type, SpecificObservable, details::lift_tag>
@@ -62,6 +69,7 @@ struct interface_observable
     , details::member_overload<Type, SpecificObservable, details::switch_on_next_tag>
 {
 public:
+
     /**
     * \brief The apply function to observable which returns observable of another type
     * \tparam OperatorFn type of function which applies to this observable
