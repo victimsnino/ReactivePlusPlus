@@ -16,6 +16,8 @@
 #include <rpp/operators/lift.hpp>                   // must-have operators
 #include <rpp/observables/blocking_observable.hpp>  // as_blocking
 
+#include <rpp/defs.hpp>                             // RPP_EMPTY_BASES
+
 #include <type_traits>
 
 namespace rpp::details
@@ -35,7 +37,7 @@ namespace rpp
 template<constraint::decayed_type Type>
 struct virtual_observable : public details::observable_tag
 {
-    virtual ~virtual_observable() = default;
+    //virtual ~virtual_observable() = default;
 };
 
 /**
@@ -44,7 +46,7 @@ struct virtual_observable : public details::observable_tag
  * \tparam SpecificObservable final type of observable inherited from this observable to successfully copy/move it
  */
 template<constraint::decayed_type Type, typename SpecificObservable>
-struct interface_observable
+struct RPP_EMPTY_BASES interface_observable
     : public virtual_observable<Type>
     , details::member_overload<Type, SpecificObservable, details::subscribe_tag>
     , details::member_overload<Type, SpecificObservable, details::lift_tag>
@@ -62,6 +64,7 @@ struct interface_observable
     , details::member_overload<Type, SpecificObservable, details::switch_on_next_tag>
 {
 public:
+
     /**
     * \brief The apply function to observable which returns observable of another type
     * \tparam OperatorFn type of function which applies to this observable

@@ -15,6 +15,7 @@
 
 #include <rpp/observables/details/member_overload.hpp> // overload operators
 #include <rpp/operators/fwd.hpp>                    // forwarding of member_overaloads
+#include <rpp/defs.hpp>                             // RPP_EMPTY_BASES
 
 
 #include <future>
@@ -28,7 +29,7 @@ namespace rpp
  * \ingroup observables
  */
 template<constraint::decayed_type Type, constraint::observable_of_type<Type> OriginalObservable>
-class blocking_observable final : public details::member_overload<Type, blocking_observable<Type, OriginalObservable>, details::subscribe_tag>
+class RPP_EMPTY_BASES blocking_observable final : public details::member_overload<Type, blocking_observable<Type, OriginalObservable>, details::subscribe_tag>
 {
 public:
     blocking_observable(const OriginalObservable& original)
