@@ -210,6 +210,7 @@ var NAVTREEINDEX0 =
 "connectable__observable_8hpp_source.html":[3,0,0,0,0,0,2],
 "create_8cpp-example.html":[4,0],
 "create_8hpp_source.html":[3,0,0,0,0,4,0],
+"defs_8hpp_source.html":[3,0,0,0,0,8],
 "dir_00eb4775263b341d794d9fc7de7eec24.html":[3,0,0,0,0,6],
 "dir_0afe0b2d744d0bd4513ad200b3c712f0.html":[3,0,0,0,0],
 "dir_0d0da1fb4197fa3caa994cbb6099370d.html":[3,0,0,0,0,2,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "fwd_2multicast_8hpp_source.html":[3,0,0,0,0,2,1,3],
 "fwd_2observe__on_8hpp_source.html":[3,0,0,0,0,2,1,4],
 "fwd_2publish_8hpp_source.html":[3,0,0,0,0,2,1,5],
-"fwd_2ref__count_8hpp_source.html":[3,0,0,0,0,2,1,6],
-"fwd_2repeat_8hpp_source.html":[3,0,0,0,0,2,1,7]
+"fwd_2ref__count_8hpp_source.html":[3,0,0,0,0,2,1,6]
 };
