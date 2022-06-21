@@ -29,6 +29,7 @@ class subject_state : public std::enable_shared_from_this<subject_state<T>>
 {
     using subscriber = dynamic_subscriber<T>;
     using shared_subscribers = std::shared_ptr<std::vector<subscriber>>;
+    using weak_subscribers = std::weak_ptr<std::vector<subscriber>>;
     using state_t = std::variant<shared_subscribers, std::exception_ptr, completed, unsubscribed>;
 
 public:
@@ -46,6 +47,7 @@ public:
                           auto new_subs = make_copy_of_subscribed_subs(subs->size() + 1, subs);
                           new_subs->push_back(subscriber);
                           m_state = new_subs;
+                          m_weak_subscribers = new_subs;
 
                           lock.unlock();
 
@@ -128,12 +130,17 @@ private:
 
     shared_subscribers extract_subscribers_under_lock_if_there()
     {
+        if (auto locked = m_weak_subscribers.lock())
+            return locked;
+
         std::unique_lock lock{ m_mutex };
 
         if (!std::holds_alternative<shared_subscribers>(m_state))
             return {};
 
         auto subs = std::get<shared_subscribers>(m_state);
+        m_weak_subscribers = subs;
+
         lock.unlock();
         return subs;
     }
@@ -147,11 +154,13 @@ private:
 
         auto subs = std::get<shared_subscribers>(m_state);
         m_state = std::move(new_val);
+
         lock.unlock();
         return subs;
     }
 private:
-    std::mutex m_mutex{};
-    state_t    m_state = std::make_shared<std::vector<subscriber>>();
+    std::mutex       m_mutex{};
+    state_t          m_state = std::make_shared<std::vector<subscriber>>();
+    weak_subscribers m_weak_subscribers = std::get<shared_subscribers>(m_state);
 };
 } // namespace rpp::subjects::details
