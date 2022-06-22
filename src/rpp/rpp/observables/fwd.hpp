@@ -34,4 +34,9 @@ class specific_observable;
 
 template<constraint::decayed_type Type>
 class dynamic_observable;
+
+template<constraint::decayed_type KeyType,
+         constraint::decayed_type Type,
+         constraint::on_subscribe_fn<Type> OnSubscribeFn>
+class grouped_observable;
 } // namespace rpp

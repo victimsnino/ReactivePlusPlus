@@ -70,4 +70,7 @@ using function_argument_t = typename function_traits<T>::template argument<i>;
 template<typename T, size_t i = 0>
 using decayed_function_argument_t = std::decay_t<function_argument_t<T, i>>;
 
+template<typename Fn, typename ...Args>
+using decayed_invoke_result_t = std::decay_t<std::invoke_result_t<Fn, Args...>>;
+
 } // namespace rpp::utils
