@@ -17,17 +17,36 @@
 SCENARIO("group_by emits grouped seqences of values", "[group_by]")
 {
     auto obs = mock_observer<rpp::grouped_observable<int, int, rpp::details::group_by_on_subscribe<int>>>{};
+    std::map<int, mock_observer<int>> grouped_mocks{};
     GIVEN("observable of values")
     {
         auto observable = rpp::source::just(1, 2, 3, 4, 4, 3, 2, 1);
         WHEN("subscribe on it via group_by with identity")
         {
-            observable.group_by(std::identity{}).subscribe(obs);
+            auto gr_by_obs = observable.group_by(std::identity{});
             THEN("Obtained same amount of grouped observables as amount of unique values")
             {
+                gr_by_obs.subscribe(obs);
                 CHECK(obs.get_total_on_next_count() == 4);
                 CHECK(obs.get_on_error_count() == 0);
                 CHECK(obs.get_on_completed_count() == 1);
+            }
+            THEN("each grouped observable emits only same values")
+            {
+                gr_by_obs.subscribe([&](const auto& grouped)
+                {
+                    REQUIRE(grouped_mocks.contains(grouped.get_key()) == false);
+                    grouped.subscribe(grouped_mocks[grouped.get_key()]);
+                });
+
+                CHECK(grouped_mocks.size() == 4);
+                for(const auto& [key, observer] : grouped_mocks)
+                {
+                    CHECK(std::ranges::all_of(observer.get_received_values(), [&](int v){return v == key;}));
+                    CHECK(observer.get_total_on_next_count() == 2);
+                    CHECK(observer.get_on_error_count() == 0);
+                    CHECK(observer.get_on_completed_count() == 1);
+                }
             }
         }
     }
