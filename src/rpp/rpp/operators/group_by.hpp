@@ -17,7 +17,7 @@ namespace rpp::details
 template<constraint::decayed_type  Type>
 struct group_by_on_subscribe
 {
-    rpp::subjects::publish_subject<Type> subject;
+    subjects::publish_subject<Type> subject;
 
     void operator()(auto&& subscriber) const
     {
@@ -28,11 +28,28 @@ struct group_by_on_subscribe
 template<constraint::decayed_type  TKey,
          constraint::decayed_type  Type,
          std::relation<TKey, TKey> KeyComparator>
-struct group_by_state
+struct group_by_state : std::enable_shared_from_this<group_by_state<TKey, Type, KeyComparator>>
 {
-    group_by_state(const KeyComparator& comparator) : key_to_subject{comparator} {}
+    group_by_state(const KeyComparator& comparator)
+        : key_to_subject{comparator} {}
 
     std::map<TKey, subjects::publish_subject<Type>, KeyComparator> key_to_subject;
+
+    void on_subscribe(const composite_subscription& dest)
+    {
+        ++subscribers;
+        dest.add([state = this->shared_from_this()]
+        {
+            if (--state->subscribers == 0)
+                state->lifetime.unsubscribe();
+        });
+    }
+
+    auto get_source_lifetime() const {return lifetime;}
+
+private:
+    composite_subscription lifetime{};
+    std::atomic_size_t     subscribers{};
 };
 
 template<constraint::decayed_type  Type,
@@ -42,62 +59,70 @@ template<constraint::decayed_type  Type,
          std::relation<TKey, TKey> KeyComparator>
 struct group_by_lift_impl
 {
-    using ValueType = rpp::utils::decayed_invoke_result_t<ValueSelector, Type>;
+    using ValueType = utils::decayed_invoke_result_t<ValueSelector, Type>;
+    using StateType = group_by_state<TKey, utils::decayed_invoke_result_t<ValueSelector, Type>, KeyComparator>;
 
     [[no_unique_address]] KeySelector   key_selector;
     [[no_unique_address]] ValueSelector value_selector;
     [[no_unique_address]] KeyComparator comparator;
 
     template<constraint::subscriber TSub>
-    auto operator()(TSub&& subscriber) const
+    class group_by_observer final : public interface_observer<Type>
     {
-        auto subscription = subscriber.get_subscription();
+    public:
+        group_by_observer(const std::shared_ptr<StateType>& state,
+                          const TSub&                       subscriber,
+                          const KeySelector&                key_selector,
+                          const ValueSelector&              value_selector)
+            : state{state}
+            , subscriber{subscriber}
+            , key_selector{key_selector}
+            , value_selector{value_selector} {}
 
-        auto state = std::make_shared<group_by_state<TKey, ValueType, KeyComparator>>(comparator);
 
-        return create_subscriber_with_state<Type>(std::move(subscription),
-                                                  std::forward<TSub>(subscriber),
-                                                  get_on_next(state),
-                                                  get_on_error(state),
-                                                  get_on_completed(state));
-    }
+        void on_next(const Type& v) const override                  { on_next_impl(v);                                            }
+        void on_next(Type&& v) const override                       { on_next_impl(std::move(v));                                 }
+        void on_error(const std::exception_ptr& err) const override { broadcast([&err](const auto& sub) { sub.on_error(err); });  }
+        void on_completed() const override                          { broadcast([](const auto& sub)     { sub.on_completed(); }); }
 
-private:
-    auto get_on_next(const std::shared_ptr<group_by_state<TKey, ValueType, KeyComparator>>& state) const
-    {
-        return [state, value_selector=value_selector, key_selector=key_selector](auto&& val, const auto& subscriber)
+    private:
+        void on_next_impl(auto&& val) const
         {
             auto key = key_selector(utils::as_const(val));
             auto [itr, inserted] = state->key_to_subject.try_emplace(key);
+
+            // need to handle unsubscribe like ref_count
             if (inserted)
             {
                 subscriber.on_next(rpp::grouped_observable<TKey, ValueType, group_by_on_subscribe<ValueType>>{key, group_by_on_subscribe<ValueType>{itr->second}});
             }
 
             itr->second.get_subscriber().on_next(value_selector(std::forward<decltype(val)>(val)));
-        };
-    }
+        }
 
-    auto get_on_error(const std::shared_ptr<group_by_state<TKey, ValueType, KeyComparator>>& state) const
-    {
-        return [state](const std::exception_ptr& err, const auto& subscriber)
+        void broadcast(const auto& action) const
         {
-            for(const auto& [_, subject] : state->key_to_subject)
-                subject.get_subscriber().on_error(err);
+            for (const auto& [_, subject] : state->key_to_subject)
+                action(subject.get_subscriber());
 
-            subscriber.on_error(err);
-        };
-    }
+            action(subscriber);
+        }
 
-    auto get_on_completed(const std::shared_ptr<group_by_state<TKey, ValueType, KeyComparator>>& state) const
+        std::shared_ptr<StateType>          state;
+        TSub                                subscriber;
+        [[no_unique_address]] KeySelector   key_selector;
+        [[no_unique_address]] ValueSelector value_selector;
+    };
+
+
+    template<constraint::subscriber TSub>
+    auto operator()(TSub&& subscriber) const
     {
-        return [state](const auto& subscriber)
-        {
-            for(const auto& [_, subject] : state->key_to_subject)
-                subject.get_subscriber().on_completed();
+        auto state = std::make_shared<StateType>(comparator);
 
-            subscriber.on_completed();
-        };
+        state->on_subscribe(subscriber.get_subscription());
+
+        return specific_subscriber{state->get_source_lifetime(), group_by_observer<std::decay_t<TSub>>{state, std::forward<TSub>(subscriber), key_selector, value_selector}};
     }
 };
 
@@ -109,6 +134,6 @@ template<constraint::decayed_type  Type,
 auto group_by_impl(auto&& observable, KeySelector&& key_selector, ValueSelector&& value_selector, KeyComparator&& comparator)
 {
     using ResValue = utils::decayed_invoke_result_t<ValueSelector, Type>;
-    return std::forward<decltype(observable)>(observable).template lift<rpp::grouped_observable<TKey, ResValue, group_by_on_subscribe<ResValue>>>(group_by_lift_impl<Type, TKey, std::decay_t<KeySelector>, std::decay_t<ValueSelector>, std::decay_t<KeyComparator>>{std::forward<KeySelector>(key_selector), std::forward<ValueSelector>(value_selector), std::forward<KeyComparator>(comparator)});
+    return std::forward<decltype(observable)>(observable).template lift<grouped_observable<TKey, ResValue, group_by_on_subscribe<ResValue>>>(group_by_lift_impl<Type, TKey, std::decay_t<KeySelector>, std::decay_t<ValueSelector>, std::decay_t<KeyComparator>>{std::forward<KeySelector>(key_selector), std::forward<ValueSelector>(value_selector), std::forward<KeyComparator>(comparator)});
 }
 } // namespace rpp::details
