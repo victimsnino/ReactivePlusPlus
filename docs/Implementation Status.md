@@ -45,7 +45,7 @@
 ### Transforming
 
 - [x] map
-- [ ] group_by
+- [x] group_by
 - [ ] window
 
 ### Filtering

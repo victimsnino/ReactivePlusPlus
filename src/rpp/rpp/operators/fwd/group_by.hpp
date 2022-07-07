@@ -25,17 +25,33 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, group_by_tag>
 {
     /**
-    * \brief
+    * \brief Divide original observable into multiple observables where each new observable emits some group of values from original observable.
     *
-    * \details
-    *	
-    * Example:
+    * \marble group_by
+       {
+            source observable              : +--1-2-3-4-5-6-|
+            operator "group_by(x=>x%2==0)" :
+            {
+                                             ..+1---3---5---|
+                                             ....+2---4---6-|
+            }
+       }
     *
-    * \see 
+    *
+    * \details Original observable applies `key_selector` to obtain key and split values to sub-groups based on these keys and then send rpp::grouped_observable with this key. Such an grouped observables emit values which has same value of key.
+    *
+    * \param key_selector Function which determines key for provided item
+    * \param value_selector Function which determines value to be emitted to grouped observable
+    * \param comparator Function to provide relation between key types
     *
     * \return new specific_observable with the group_by operator as most recent operator.
     * \warning #include <rpp/operators/group_by.hpp>
-    * \ingroup operators
+    *
+    * \par Example:
+    * \snippet group_by.cpp group_by
+    *
+    * \ingroup transforming_operators
+    * \see https://reactivex.io/documentation/operators/groupby.html
     */
     template<std::invocable<Type>      KeySelector,
              std::invocable<Type>      ValueSelector = std::identity,
