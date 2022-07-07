@@ -44,7 +44,7 @@ SCENARIO("group_by emits grouped seqences of values", "[group_by]")
                 CHECK(grouped_mocks.size() == 4);
                 for(const auto& [key, observer] : grouped_mocks)
                 {
-                    CHECK(std::ranges::all_of(observer.get_received_values(), [&](int v){return v == key;}));
+                    CHECK(std::ranges::all_of(observer.get_received_values(), [key](int v){return v == key;}));
                     CHECK(observer.get_total_on_next_count() == 2);
                     CHECK(observer.get_on_error_count() == 0);
                     CHECK(observer.get_on_completed_count() == 1);
@@ -68,7 +68,7 @@ SCENARIO("group_by emits grouped seqences of values", "[group_by]")
                     CHECK(grouped_mocks.size() == 4);
                     for(const auto& [key, observer] : grouped_mocks)
                     {
-                        CHECK(std::ranges::all_of(observer.get_received_values(), [&](int v){return v == key;}));
+                        CHECK(std::ranges::all_of(observer.get_received_values(), [key](int v){return v == key;}));
                         if (key == 4)
                             CHECK(observer.get_total_on_next_count() == 1);
                         else
@@ -90,7 +90,7 @@ SCENARIO("group_by emits grouped seqences of values", "[group_by]")
 
                     for(const auto& [key, observer] : grouped_mocks)
                     {
-                        CHECK(std::ranges::all_of(observer.get_received_values(), [&](int v){return v == key;}));
+                        CHECK(std::ranges::all_of(observer.get_received_values(), [key](int v){return v == key;}));
                         CHECK(observer.get_total_on_next_count() == 2);
                         CHECK(observer.get_on_error_count() == 0);
                         CHECK(observer.get_on_completed_count() == 1);
