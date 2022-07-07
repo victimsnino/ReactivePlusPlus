@@ -159,3 +159,79 @@ SCENARIO("group_by keeps subscription till anyone subscribed", "[group_by]")
         }
     }
 }
+
+SCENARIO("group_by selectors affects types", "[group_by]")
+{
+
+    GIVEN("observable")
+    {
+        auto obs = rpp::observable::just(1,2,3,1,2,3);
+        WHEN("subscribe on it via group_by with const key selector")
+        {
+            std::vector<int> keys{};
+            obs.group_by([](int){return 1;}).subscribe([&](const auto& grouped)
+            {
+                keys.push_back(grouped.get_key());
+            });
+
+            THEN("only one unique key obtained")
+            {
+                CHECK(keys == std::vector{1});
+            }
+        }
+        WHEN("subscribe on it via group_by with identity key selector")
+        {
+            std::vector<int> keys{};
+            obs.group_by(std::identity{}).subscribe([&](const auto& grouped)
+            {
+                keys.push_back(grouped.get_key());
+            });
+
+            THEN("all values obtained as keys")
+            {
+                CHECK(keys == std::vector{1,2,3});
+            }
+        }
+        WHEN("subscribe on it via group_by with value selector")
+        {
+            auto mock = mock_observer<std::string>{};
+            obs.group_by(std::identity{}, [](int v){return std::to_string(v);}).subscribe([&](const auto& grouped)
+            {
+                grouped.subscribe(mock);
+            });
+
+            THEN("grouped observables provides modified values")
+            {
+                using namespace std::string_literals;
+
+                CHECK(mock.get_received_values() == std::vector{"1"s, "2"s, "3"s, "1"s, "2"s, "3"s});
+            }
+        }
+        WHEN("subscribe on it via group_by with comparator as all similar")
+        {
+            std::vector<int> keys{};
+            obs.group_by(std::identity{}, std::identity{}, [](int, int){return false;}).subscribe([&](const auto& grouped)
+            {
+                keys.push_back(grouped.get_key());
+            });
+
+            THEN("comparator interpets keys as similar")
+            {
+                CHECK(keys == std::vector{1});
+            }
+        }
+        WHEN("subscribe on it via group_by with comparator as all different")
+        {
+            std::vector<int> keys{};
+            obs.group_by(std::identity{}, std::identity{}, [](int, int){return true;}).subscribe([&](const auto& grouped)
+            {
+                keys.push_back(grouped.get_key());
+            });
+
+            THEN("comparator interpets keys as different")
+            {
+                CHECK(keys == std::vector{1,2,3,1,2,3});
+            }
+        }
+    }
+}

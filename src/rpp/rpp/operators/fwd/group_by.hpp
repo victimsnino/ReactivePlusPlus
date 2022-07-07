@@ -44,8 +44,6 @@ struct member_overload<Type, SpecificObservable, group_by_tag>
     auto group_by(KeySelector&& key_selector, ValueSelector&& value_selector = {}, KeyComparator&& comparator = {}) const& requires is_header_included<group_by_tag, KeySelector, ValueSelector, TKey, KeyComparator>
     {
         return group_by_impl<Type, TKey>(*static_cast<const SpecificObservable*>(this), std::forward<KeySelector>(key_selector), std::forward<ValueSelector>(value_selector), std::forward<KeyComparator>(comparator));
-        /*using Result = rpp::grouped_observable<TKey, std::invoke_result_t<ValueSelector, Type>>;
-        return static_cast<const SpecificObservable*>(this)->template lift<Result>(group_by_impl<Type, std::decay_t<KeySelector>, std::decay_t<ValueSelector>, std::decay_t<KeyComparator>>{std::forward<KeySelector>(key_selector), std::forward<ValueSelector>(value_selector), std::forward<KeyComparator>(comparator)});*/
     }
 
     template<std::invocable<Type>      KeySelector,
@@ -55,9 +53,6 @@ struct member_overload<Type, SpecificObservable, group_by_tag>
     auto group_by(KeySelector&& key_selector, ValueSelector&& value_selector = {}, KeyComparator&& comparator = {}) && requires is_header_included<group_by_tag, KeySelector, ValueSelector, TKey, KeyComparator>
     {
         return group_by_impl<Type, TKey>(std::move(*static_cast<SpecificObservable*>(this)), std::forward<KeySelector>(key_selector), std::forward<ValueSelector>(value_selector), std::forward<KeyComparator>(comparator));
-
- /*       using Result = rpp::grouped_observable<TKey, std::invoke_result_t<ValueSelector, Type>>;
-        return std::move(*static_cast<SpecificObservable*>(this)).template lift<Result>(group_by_impl<Type, std::decay_t<KeySelector>, std::decay_t<ValueSelector>, std::decay_t<KeyComparator>>{std::forward<KeySelector>(key_selector), std::forward<ValueSelector>(value_selector), std::forward<KeyComparator>(comparator)});*/
     }    
 };
 } // namespace rpp::details
