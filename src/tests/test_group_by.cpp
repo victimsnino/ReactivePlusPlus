@@ -44,7 +44,7 @@ SCENARIO("group_by emits grouped seqences of values", "[group_by]")
                 CHECK(grouped_mocks.size() == 4);
                 for(const auto& [key, observer] : grouped_mocks)
                 {
-                    CHECK(std::ranges::all_of(observer.get_received_values(), [key](int v){return v == key;}));
+                    CHECK(std::ranges::all_of(observer.get_received_values(), [key=key](int v){return v == key;}));
                     CHECK(observer.get_total_on_next_count() == 2);
                     CHECK(observer.get_on_error_count() == 0);
                     CHECK(observer.get_on_completed_count() == 1);
@@ -58,9 +58,9 @@ SCENARIO("group_by emits grouped seqences of values", "[group_by]")
                     REQUIRE(grouped_mocks.contains(key) == false);
 
                     if (key == 4)
-                        grouped.take(1).subscribe(grouped_mocks[key]);
+                        grouped.take(1).subscribe(grouped_mocks[key=key]);
                     else
-                        grouped.subscribe(grouped_mocks[key]);
+                        grouped.subscribe(grouped_mocks[key=key]);
                 });
 
                 THEN("all except of key 4 obtains as before, but key 4 obtained once")
@@ -68,7 +68,7 @@ SCENARIO("group_by emits grouped seqences of values", "[group_by]")
                     CHECK(grouped_mocks.size() == 4);
                     for(const auto& [key, observer] : grouped_mocks)
                     {
-                        CHECK(std::ranges::all_of(observer.get_received_values(), [key](int v){return v == key;}));
+                        CHECK(std::ranges::all_of(observer.get_received_values(), [key=key](int v){return v == key;}));
                         if (key == 4)
                             CHECK(observer.get_total_on_next_count() == 1);
                         else
@@ -90,7 +90,7 @@ SCENARIO("group_by emits grouped seqences of values", "[group_by]")
 
                     for(const auto& [key, observer] : grouped_mocks)
                     {
-                        CHECK(std::ranges::all_of(observer.get_received_values(), [key](int v){return v == key;}));
+                        CHECK(std::ranges::all_of(observer.get_received_values(), [key=key](int v){return v == key;}));
                         CHECK(observer.get_total_on_next_count() == 2);
                         CHECK(observer.get_on_error_count() == 0);
                         CHECK(observer.get_on_completed_count() == 1);
