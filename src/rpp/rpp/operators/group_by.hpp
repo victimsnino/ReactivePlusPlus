@@ -30,7 +30,7 @@ public:
         });
     }
 
-    const auto& get_source_lifetime() const {return lifetime; }
+    const auto& get_source_lifetime() const { return lifetime; }
 
 private:
     composite_subscription lifetime{};
@@ -61,10 +61,16 @@ struct group_by_on_subscribe
         subject.get_observable().subscribe(subscriber);
     }
 };
+} // namespace rpp::details
 
+namespace rpp
+{
 template<constraint::decayed_type TKey, constraint::decayed_type ResValue>
-using grouped_observable_group_by = grouped_observable<TKey, ResValue, group_by_on_subscribe<ResValue>>;
+using grouped_observable_group_by = grouped_observable<TKey, ResValue, details::group_by_on_subscribe<ResValue>>;
+}
 
+namespace rpp::details
+{
 template<constraint::decayed_type  Type,
          constraint::decayed_type  TKey,
          std::invocable<Type>      KeySelector,

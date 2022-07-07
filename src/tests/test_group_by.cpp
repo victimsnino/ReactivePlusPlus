@@ -17,8 +17,9 @@
 
 SCENARIO("group_by emits grouped seqences of values", "[group_by]")
 {
-    auto obs = mock_observer<rpp::grouped_observable<int, int, rpp::details::group_by_on_subscribe<int>>>{};
+    auto obs = mock_observer<rpp::grouped_observable_group_by<int, int>>{};
     std::map<int, mock_observer<int>> grouped_mocks{};
+
     GIVEN("observable of values")
     {
         auto observable = rpp::source::just(1, 2, 3, 4, 4, 3, 2, 1);
@@ -62,7 +63,7 @@ SCENARIO("group_by emits grouped seqences of values", "[group_by]")
                         grouped.subscribe(grouped_mocks[key]);
                 });
 
-                THEN("all expect key 4 obtains as before, but key 4 obtains once")
+                THEN("all except of key 4 obtains as before, but key 4 obtained once")
                 {
                     CHECK(grouped_mocks.size() == 4);
                     for(const auto& [key, observer] : grouped_mocks)
@@ -93,6 +94,65 @@ SCENARIO("group_by emits grouped seqences of values", "[group_by]")
                         CHECK(observer.get_total_on_next_count() == 2);
                         CHECK(observer.get_on_error_count() == 0);
                         CHECK(observer.get_on_completed_count() == 1);
+                    }
+                }
+            }
+        }
+    }
+}
+
+SCENARIO("group_by keeps subscription till anyone subscribed", "[group_by]")
+{
+    GIVEN("subject of values")
+    {
+        auto obs = rpp::subjects::publish_subject<int>{};
+        WHEN("subscribe on it via group_by")
+        {
+            auto                                     grouped = obs.get_observable().group_by(std::identity{});
+            std::vector<rpp::composite_subscription> sub_subscriptions{};
+            auto                                     sub = grouped.subscribe([&](const auto& observable)
+            {
+                sub_subscriptions.push_back(observable.subscribe());
+            });
+
+            THEN("subscription is alive")
+            {
+                CHECK(sub.is_subscribed());
+            }
+            AND_WHEN("send values")
+            {
+                obs.get_subscriber().on_next(1);
+                obs.get_subscriber().on_next(2);
+                THEN("subscription and sub-subscriptions are alive")
+                {
+                    CHECK(sub.is_subscribed());
+                    CHECK(sub_subscriptions.size() == 2);
+                    CHECK(std::ranges::all_of(sub_subscriptions, [](const auto& sub){return sub.is_subscribed();}));
+                    AND_WHEN("unsubscribe root")
+                    {
+                        sub.unsubscribe();
+                        THEN("sub-subscriptions are still alive")
+                        {
+                            CHECK(std::ranges::all_of(sub_subscriptions, [](const auto& sub){return sub.is_subscribed();}));
+                        }
+                    }
+                    AND_WHEN("unsubscribe sub-subscriptions")
+                    {
+                        std::ranges::for_each(sub_subscriptions, &rpp::composite_subscription::unsubscribe);
+                        THEN("root subscription is still alive")
+                        {
+                            CHECK(sub.is_subscribed());
+                        }
+                    }
+                    AND_WHEN("unsubscribe all")
+                    {
+                        sub.unsubscribe();
+                        std::ranges::for_each(sub_subscriptions, &rpp::composite_subscription::unsubscribe);
+                        THEN("no any active subscriptions")
+                        {
+                            CHECK(!sub.is_subscribed());
+                            CHECK(std::ranges::all_of(sub_subscriptions, [](const auto& sub){return !sub.is_subscribed();}));
+                        }
                     }
                 }
             }

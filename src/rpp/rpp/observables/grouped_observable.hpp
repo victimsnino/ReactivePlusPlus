@@ -19,8 +19,12 @@ template<constraint::decayed_type KeyType,
 class grouped_observable final : public specific_observable<Type, OnSubscribeFn>
 {
 public:
-    grouped_observable(KeyType key, constraint::on_subscribe_fn<Type> auto&& on_subscribe)
-        : specific_observable<Type, OnSubscribeFn>{std::forward<decltype(on_subscribe)>(on_subscribe)}
+    grouped_observable(KeyType key, const OnSubscribeFn& on_subscribe)
+        : specific_observable<Type, OnSubscribeFn>{on_subscribe}
+        , m_key{std::move(key)} {}
+
+    grouped_observable(KeyType key, OnSubscribeFn&& on_subscribe)
+        : specific_observable<Type, OnSubscribeFn>{std::move(on_subscribe)}
         , m_key{std::move(key)} {}
 
     const KeyType& get_key() const { return m_key; }
