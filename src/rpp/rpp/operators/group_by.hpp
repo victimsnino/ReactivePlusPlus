@@ -97,7 +97,9 @@ struct group_by_lift_impl
                 subscriber.on_next(rpp::grouped_observable<TKey, ValueType, group_by_on_subscribe<ValueType>>{key, group_by_on_subscribe<ValueType>{itr->second}});
             }
 
-            itr->second.get_subscriber().on_next(value_selector(std::forward<decltype(val)>(val)));
+            const auto& subject_sub = itr->second.get_subscriber();
+            if (subject_sub.is_subscribed())
+                subject_sub.on_next(value_selector(std::forward<decltype(val)>(val)));
         }
 
         void broadcast(const auto& action) const
