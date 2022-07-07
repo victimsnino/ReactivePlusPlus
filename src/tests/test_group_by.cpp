@@ -110,10 +110,14 @@ SCENARIO("group_by keeps subscription till anyone subscribed", "[group_by]")
         {
             auto                                     grouped = obs.get_observable().group_by(std::identity{});
             std::vector<rpp::composite_subscription> sub_subscriptions{};
+            size_t on_error_count = 0;
+            size_t on_completed_count = 0;
+            auto on_error = [&](std::exception_ptr){++on_error_count;};
+            auto on_completed = [&](){++on_completed_count;};
             auto                                     sub = grouped.subscribe([&](const auto& observable)
             {
-                sub_subscriptions.push_back(observable.subscribe());
-            });
+                sub_subscriptions.push_back(observable.subscribe([](auto){}, on_error, on_completed));
+            }, on_error, on_completed);
 
             THEN("subscription is alive")
             {
@@ -154,6 +158,27 @@ SCENARIO("group_by keeps subscription till anyone subscribed", "[group_by]")
                             CHECK(std::ranges::all_of(sub_subscriptions, [](const auto& sub){return !sub.is_subscribed();}));
                         }
                     }
+                    AND_WHEN("send on_error")
+                    {
+                        obs.get_subscriber().on_error(std::make_exception_ptr(std::runtime_error{""}));
+                        THEN("no any active subscriptions")
+                        {
+                            CHECK(!sub.is_subscribed());
+                            CHECK(std::ranges::all_of(sub_subscriptions, [](const auto& sub){return !sub.is_subscribed();}));
+                            CHECK(on_error_count == sub_subscriptions.size()+1);
+                        }
+                    }
+                     AND_WHEN("send on_completed")
+                    {
+                        obs.get_subscriber().on_completed();
+                        THEN("no any active subscriptions")
+                        {
+                            CHECK(!sub.is_subscribed());
+                            CHECK(std::ranges::all_of(sub_subscriptions, [](const auto& sub){return !sub.is_subscribed();}));
+                            CHECK(on_completed_count == sub_subscriptions.size()+1);
+
+                        }
+                    }
                 }
             }
         }
@@ -162,7 +187,6 @@ SCENARIO("group_by keeps subscription till anyone subscribed", "[group_by]")
 
 SCENARIO("group_by selectors affects types", "[group_by]")
 {
-
     GIVEN("observable")
     {
         auto obs = rpp::observable::just(1,2,3,1,2,3);
@@ -231,6 +255,29 @@ SCENARIO("group_by selectors affects types", "[group_by]")
             THEN("comparator interpets keys as different")
             {
                 CHECK(keys == std::vector{1,2,3,1,2,3});
+            }
+        }
+        auto mock = mock_observer<rpp::grouped_observable_group_by<int, int>>{};
+
+        WHEN("subscribe on it via group_by with key selector with exception")
+        {
+            obs.group_by([](int) -> int {throw std::runtime_error{""};}).subscribe(mock);
+            THEN("on_error obtained once")
+            {
+                CHECK(mock.get_total_on_next_count() == 0);
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
+
+        WHEN("subscribe on it via group_by with value selector with exception")
+        {
+            obs.group_by(std::identity{}, [](int) -> int {throw std::runtime_error{""};}).subscribe(mock);
+            THEN("on_error obtained once")
+            {
+                CHECK(mock.get_total_on_next_count() == 1);
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
             }
         }
     }
