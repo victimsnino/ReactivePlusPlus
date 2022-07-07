@@ -58,9 +58,9 @@ SCENARIO("group_by emits grouped seqences of values", "[group_by]")
                     REQUIRE(grouped_mocks.contains(key) == false);
 
                     if (key == 4)
-                        grouped.take(1).subscribe(grouped_mocks[key=key]);
+                        grouped.take(1).subscribe(grouped_mocks[key]);
                     else
-                        grouped.subscribe(grouped_mocks[key=key]);
+                        grouped.subscribe(grouped_mocks[key]);
                 });
 
                 THEN("all except of key 4 obtains as before, but key 4 obtained once")
