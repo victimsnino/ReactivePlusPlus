@@ -40,7 +40,7 @@ private:
 template<constraint::decayed_type  TKey,
          constraint::decayed_type  Type,
          std::relation<TKey, TKey> KeyComparator>
-struct group_by_state : group_by_state_base
+struct group_by_state final : group_by_state_base
 {
     group_by_state(const KeyComparator& comparator)
         : group_by_state_base{}
