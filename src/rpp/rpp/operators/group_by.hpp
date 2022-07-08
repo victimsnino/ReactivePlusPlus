@@ -58,7 +58,7 @@ struct group_by_on_subscribe
     void operator()(auto&& subscriber) const
     {
         state->on_subscribe(subscriber.get_subscription());
-        subject.get_observable().subscribe(subscriber);
+        subject.get_observable().subscribe(std::forward<decltype(subscriber)>(subscriber));
     }
 };
 } // namespace rpp::details
