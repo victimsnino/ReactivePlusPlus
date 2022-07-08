@@ -24,6 +24,7 @@
  */
 
 #include <rpp/operators/map.hpp>
+#include <rpp/operators/group_by.hpp>
 
 /**
  * \defgroup filtering_operators Filtering Operators

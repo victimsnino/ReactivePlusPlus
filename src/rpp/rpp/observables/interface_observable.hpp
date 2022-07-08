@@ -62,6 +62,7 @@ struct RPP_EMPTY_BASES interface_observable
     , details::member_overload<Type, SpecificObservable, details::subscribe_on_tag>
     , details::member_overload<Type, SpecificObservable, details::with_latest_from_tag>
     , details::member_overload<Type, SpecificObservable, details::switch_on_next_tag>
+    , details::member_overload<Type, SpecificObservable, details::group_by_tag>
 {
 public:
 

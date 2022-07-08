@@ -24,3 +24,4 @@
 #include <rpp/operators/fwd/with_latest_from.hpp>
 #include <rpp/operators/fwd/switch_on_next.hpp>
 #include <rpp/operators/fwd/subscribe.hpp>
+#include <rpp/operators/fwd/group_by.hpp>
