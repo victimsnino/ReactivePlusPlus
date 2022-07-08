@@ -49,6 +49,7 @@ struct member_overload<Type, SpecificObservable, group_by_tag>
     *
     * \par Example:
     * \snippet group_by.cpp group_by
+    * \snippet group_by.cpp group_by selector
     *
     * \ingroup transforming_operators
     * \see https://reactivex.io/documentation/operators/groupby.html

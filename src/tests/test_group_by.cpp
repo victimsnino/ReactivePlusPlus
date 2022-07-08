@@ -7,11 +7,13 @@
 // 
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
+#include "copy_count_tracker.hpp"
 #include "mock_observer.hpp"
 
 #include <catch2/catch_test_macros.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/operators/take.hpp>
+#include <rpp/operators/merge.hpp>
 
 #include <rpp/operators/group_by.hpp>
 
@@ -278,6 +280,50 @@ SCENARIO("group_by selectors affects types", "[group_by]")
                 CHECK(mock.get_total_on_next_count() == 1);
                 CHECK(mock.get_on_error_count() == 1);
                 CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
+    }
+}
+
+SCENARIO("group_by doesn't produce extra copies", "[group_by][track_copy]")
+{
+    GIVEN("observable and subscriber")
+    {
+        copy_count_tracker verifier{};
+        auto               obs = verifier.get_observable()
+                                         .group_by([](const auto&) { return true; }, 
+                                                [](copy_count_tracker){return 1;})
+                                         .merge();
+        WHEN("subscribe")
+        {
+            obs.subscribe();
+            THEN("no extra copies")
+            {
+                // 1 copy to value selector
+                REQUIRE(verifier.get_copy_count() == 1);
+                REQUIRE(verifier.get_move_count() == 0);
+            }
+        }
+    }
+}
+
+SCENARIO("group_by doesn't produce extra copies for move", "[group_by][track_copy]")
+{
+    GIVEN("observable and subscriber")
+    {
+        copy_count_tracker verifier{};
+        auto               obs = verifier.get_observable_for_move()
+                                         .group_by([](const auto&) { return true; }, 
+                                              [](copy_count_tracker){return 1;})
+                                         .merge();
+        WHEN("subscribe")
+        {
+            obs.subscribe();
+            THEN("no extra copies")
+            {
+                REQUIRE(verifier.get_copy_count() == 0);
+                // 1 move to value selector
+                REQUIRE(verifier.get_move_count() == 1);
             }
         }
     }
