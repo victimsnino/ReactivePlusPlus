@@ -6,6 +6,9 @@ var hierarchy =
     ] ],
     [ "rpp::details::dynamic_observable_state< Type >", "classrpp_1_1details_1_1dynamic__observable__state.html", null ],
     [ "enable_shared_from_this", null, [
+      [ "rpp::details::group_by_state_base", "classrpp_1_1details_1_1group__by__state__base.html", [
+        [ "rpp::details::group_by_state< TKey, Type, KeyComparator >", "structrpp_1_1details_1_1group__by__state.html", null ]
+      ] ],
       [ "rpp::details::merge_state_t", "structrpp_1_1details_1_1merge__state__t.html", null ],
       [ "rpp::details::switch_on_next_state_t", "structrpp_1_1details_1_1switch__on__next__state__t.html", null ],
       [ "rpp::subjects::details::subject_state< T >", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
@@ -18,11 +21,15 @@ var hierarchy =
     [ "rpp::details::forwarding_on_completed", "structrpp_1_1details_1_1forwarding__on__completed.html", null ],
     [ "rpp::details::forwarding_on_error", "structrpp_1_1details_1_1forwarding__on__error.html", null ],
     [ "rpp::details::forwarding_on_next", "structrpp_1_1details_1_1forwarding__on__next.html", null ],
+    [ "rpp::details::group_by_lift_impl< Type, TKey, KeySelector, ValueSelector, KeyComparator >", "structrpp_1_1details_1_1group__by__lift__impl.html", null ],
+    [ "rpp::details::group_by_on_subscribe< Type >", "structrpp_1_1details_1_1group__by__on__subscribe.html", null ],
+    [ "rpp::grouped_observable< KeyType, Type, OnSubscribeFn >", "classrpp_1_1grouped__observable.html", null ],
     [ "rpp::interface_observer< T >", "structrpp_1_1interface__observer.html", [
       [ "rpp::details::state_observer< T, State, OnNext, OnError, OnCompleted >", "classrpp_1_1details_1_1state__observer.html", null ],
       [ "rpp::dynamic_observer< T >", "classrpp_1_1dynamic__observer.html", null ]
     ] ],
     [ "rpp::interface_observer< Type >", "structrpp_1_1interface__observer.html", [
+      [ "rpp::details::group_by_lift_impl< Type, TKey, KeySelector, ValueSelector, KeyComparator >::group_by_observer< TSub >", "classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html", null ],
       [ "rpp::details::subscriber_base< Type >", "classrpp_1_1details_1_1subscriber__base.html", null ]
     ] ],
     [ "rpp::observable::details::iterate_impl< PackedIterable, TScheduler >", "classrpp_1_1observable_1_1details_1_1iterate__impl.html", null ],
@@ -36,6 +43,9 @@ var hierarchy =
       [ "rpp::connectable_observable< Type, Subject, OriginalObservable >", "classrpp_1_1connectable__observable.html", null ]
     ] ],
     [ "rpp::details::member_overload< Type, SpecificObservable, details::filter_tag >", "structrpp_1_1details_1_1member__overload.html", [
+      [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
+    ] ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, details::group_by_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
     [ "rpp::details::member_overload< Type, SpecificObservable, details::lift_tag >", "structrpp_1_1details_1_1member__overload.html", [
@@ -78,6 +88,7 @@ var hierarchy =
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
     [ "rpp::details::member_overload< Type, SpecificObservable, filter_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01filter__tag_01_4.html", null ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, group_by_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01group__by__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, lift_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, map_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01map__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, merge_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01merge__tag_01_4.html", null ],
@@ -98,6 +109,7 @@ var hierarchy =
     [ "rpp::details::observer_tag", "structrpp_1_1details_1_1observer__tag.html", null ],
     [ "rpp::subjects::details::publish_strategy< T >", "classrpp_1_1subjects_1_1details_1_1publish__strategy.html", null ],
     [ "rpp::subjects::publish_subject< T >", "classrpp_1_1subjects_1_1publish__subject.html", null ],
+    [ "rpp::subjects::publish_subject< Type >", "classrpp_1_1subjects_1_1publish__subject.html", null ],
     [ "rpp::schedulers::details::queue_worker_state", "classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html", null ],
     [ "rpp::details::ref_count_state_t", "structrpp_1_1details_1_1ref__count__state__t.html", null ],
     [ "rpp::details::repeat_on_completed< Type, SpecificObservable, Predicate >", "classrpp_1_1details_1_1repeat__on__completed.html", null ],
@@ -136,7 +148,7 @@ var hierarchy =
     ] ],
     [ "rpp::details::with_latest_from_state_t< TObservables >", "structrpp_1_1details_1_1with__latest__from__state__t.html", null ],
     [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ],
+    [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::run_loop::worker_strategy", "classrpp_1_1schedulers_1_1run__loop_1_1worker__strategy.html", null ],
-    [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
-    [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ]
+    [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ]
 ];

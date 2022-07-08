@@ -4,6 +4,7 @@ var dir_3591f6ab25936dd3deeec05839e478ca =
     [ "fwd", "dir_b39606649fae5912634cd95bf9ef094c.html", "dir_b39606649fae5912634cd95bf9ef094c" ],
     [ "filter.hpp", "filter_8hpp_source.html", null ],
     [ "fwd.hpp", "operators_2fwd_8hpp_source.html", null ],
+    [ "group_by.hpp", "group__by_8hpp_source.html", null ],
     [ "lift.hpp", "lift_8hpp_source.html", null ],
     [ "map.hpp", "map_8hpp_source.html", null ],
     [ "merge.hpp", "merge_8hpp_source.html", null ],

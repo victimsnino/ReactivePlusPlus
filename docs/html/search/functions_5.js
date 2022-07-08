@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['map_236',['map',['../group__transforming__operators.html#ga2215c20ce73e16977568e7db1900ce65',1,'rpp::details::member_overload&lt; Type, SpecificObservable, map_tag &gt;']]],
-  ['merge_237',['merge',['../group__combining__operators.html#gaa02153df55aab3d790a7102a245dfd2f',1,'rpp::details::member_overload&lt; Type, SpecificObservable, merge_tag &gt;']]],
-  ['merge_5fwith_238',['merge_with',['../group__combining__operators.html#ga3341a36b0971c0cf59001fa65aeb36a4',1,'rpp::details::member_overload&lt; Type, SpecificObservable, merge_tag &gt;']]],
-  ['multicast_239',['multicast',['../group__connectable__operators.html#ga5b9bbad79c751b61e3f8ed9cebb636bb',1,'rpp::details::member_overload&lt; Type, SpecificObservable, multicast_tag &gt;']]]
+  ['lift_255',['lift',['../structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4.html#acce176c87badd3c81a4af88e833e9c66',1,'rpp::details::member_overload&lt; Type, SpecificObservable, lift_tag &gt;::lift(lift_fn&lt; NewType &gt; auto &amp;&amp;op) const &amp;'],['../structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4.html#accf6d13775b8e679fe74d36a63142196',1,'rpp::details::member_overload&lt; Type, SpecificObservable, lift_tag &gt;::lift(OperatorFn &amp;&amp;op) const &amp;requires details'],['../structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4.html#a06cd71457ec76a42c41fdccef3e32819',1,'rpp::details::member_overload&lt; Type, SpecificObservable, lift_tag &gt;::lift(OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const &amp;']]]
 ];

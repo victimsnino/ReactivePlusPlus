@@ -132,10 +132,16 @@ $(document).ready(function(){initNavTree('observables_2fwd_8hpp_source.html','')
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable</a>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace rpp</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type KeyType,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;         constraint::decayed_type Type,</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;         constraint::on_subscribe_fn&lt;Type&gt; OnSubscribeFn&gt;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classrpp_1_1grouped__observable.html">   41</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1grouped__observable.html">grouped_observable</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace rpp</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructrpp_1_1virtual__observable_html"><div class="ttname"><a href="structrpp_1_1virtual__observable.html">rpp::virtual_observable</a></div><div class="ttdoc">Interface of observable.</div><div class="ttdef"><b>Definition:</b> fwd.hpp:30</div></div>
+<div class="ttc" id="aclassrpp_1_1grouped__observable_html"><div class="ttname"><a href="classrpp_1_1grouped__observable.html">rpp::grouped_observable</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:41</div></div>
 <div class="ttc" id="aclassrpp_1_1specific__observable_html"><div class="ttname"><a href="classrpp_1_1specific__observable.html">rpp::specific_observable</a></div><div class="ttdoc">observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...</div><div class="ttdef"><b>Definition:</b> fwd.hpp:33</div></div>
 <div class="ttc" id="aclassrpp_1_1dynamic__observable_html"><div class="ttname"><a href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable</a></div><div class="ttdoc">type-erased alternative of observable (comparing to rpp::specific_observable).</div><div class="ttdef"><b>Definition:</b> dynamic_observable.hpp:84</div></div>
 <!-- start footer part -->

@@ -1,0 +1,57 @@
+\hypertarget{classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer}{}\doxysection{rpp\+::details\+::group\+\_\+by\+\_\+lift\+\_\+impl$<$ Type, T\+Key, Key\+Selector, Value\+Selector, Key\+Comparator $>$\+::group\+\_\+by\+\_\+observer$<$ T\+Sub $>$ Class Template Reference}
+\label{classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer}\index{rpp::details::group\_by\_lift\_impl$<$ Type, TKey, KeySelector, ValueSelector, KeyComparator $>$::group\_by\_observer$<$ TSub $>$@{rpp::details::group\_by\_lift\_impl$<$ Type, TKey, KeySelector, ValueSelector, KeyComparator $>$::group\_by\_observer$<$ TSub $>$}}
+Inheritance diagram for rpp\+::details\+::group\+\_\+by\+\_\+lift\+\_\+impl$<$ Type, T\+Key, Key\+Selector, Value\+Selector, Key\+Comparator $>$\+::group\+\_\+by\+\_\+observer$<$ T\+Sub $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.566434cm]{classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer_a6ad426cd9fde19f2b86c22e3fe1bf97b}\label{classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer_a6ad426cd9fde19f2b86c22e3fe1bf97b}} 
+{\bfseries group\+\_\+by\+\_\+observer} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structrpp_1_1details_1_1group__by__state}{State\+Type}} $>$ \&state, const T\+Sub \&subscriber, const Key\+Selector \&key\+\_\+selector, const Value\+Selector \&value\+\_\+selector)
+\item 
+\mbox{\Hypertarget{classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer_a2074cc3c3c7c0e300f0def5ba2745051}\label{classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer_a2074cc3c3c7c0e300f0def5ba2745051}} 
+void {\bfseries on\+\_\+next} (const Type \&v) const override
+\item 
+\mbox{\Hypertarget{classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer_a21ed5bbebab6e721993b05679adf61a4}\label{classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer_a21ed5bbebab6e721993b05679adf61a4}} 
+void {\bfseries on\+\_\+next} (Type \&\&v) const override
+\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer_a64b2ff69a10fc7c8190c6abf882e4429}{on\+\_\+error}} (const std\+::exception\+\_\+ptr \&err) const override
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about some error during generation next data. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer_a928cf472df30344439dad244081da5de}\label{classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer_a928cf472df30344439dad244081da5de}} 
+void {\bfseries on\+\_\+completed} () const override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer_a64b2ff69a10fc7c8190c6abf882e4429}\label{classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer_a64b2ff69a10fc7c8190c6abf882e4429}} 
+\index{rpp::details::group\_by\_lift\_impl$<$ Type, TKey, KeySelector, ValueSelector, KeyComparator $>$::group\_by\_observer$<$ TSub $>$@{rpp::details::group\_by\_lift\_impl$<$ Type, TKey, KeySelector, ValueSelector, KeyComparator $>$::group\_by\_observer$<$ TSub $>$}!on\_error@{on\_error}}
+\index{on\_error@{on\_error}!rpp::details::group\_by\_lift\_impl$<$ Type, TKey, KeySelector, ValueSelector, KeyComparator $>$::group\_by\_observer$<$ TSub $>$@{rpp::details::group\_by\_lift\_impl$<$ Type, TKey, KeySelector, ValueSelector, KeyComparator $>$::group\_by\_observer$<$ TSub $>$}}
+\doxysubsubsection{\texorpdfstring{on\_error()}{on\_error()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::decayed\+\_\+type T\+Key, std\+::invocable$<$ Type $>$ Key\+Selector, std\+::invocable$<$ Type $>$ Value\+Selector, std\+::relation$<$ T\+Key, T\+Key $>$ Key\+Comparator$>$ \\
+template$<$constraint\+::subscriber T\+Sub$>$ \\
+void \mbox{\hyperlink{structrpp_1_1details_1_1group__by__lift__impl}{rpp\+::details\+::group\+\_\+by\+\_\+lift\+\_\+impl}}$<$ Type, T\+Key, Key\+Selector, Value\+Selector, Key\+Comparator $>$\+::\mbox{\hyperlink{classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer}{group\+\_\+by\+\_\+observer}}$<$ T\+Sub $>$\+::on\+\_\+error (\begin{DoxyParamCaption}\item[{const std\+::exception\+\_\+ptr \&}]{err }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Observable calls this method to notify observer about some error during generation next data. 
+
+\begin{DoxyWarning}{Warning}
+Obtaining this call means no any further on\+\_\+next or on\+\_\+completed calls 
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em err} & details of error \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__observer_a75f46a05b81cdc26b9d7d52efede9cf0}{rpp\+::interface\+\_\+observer$<$ Type $>$}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/group\+\_\+by.\+hpp\end{DoxyCompactItemize}

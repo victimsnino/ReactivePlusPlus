@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['immediate_29',['immediate',['../classrpp_1_1schedulers_1_1immediate.html',1,'rpp::schedulers']]],
-  ['interface_5fobservable_30',['interface_observable',['../structrpp_1_1interface__observable.html',1,'rpp']]],
-  ['interface_5fobserver_31',['interface_observer',['../structrpp_1_1interface__observer.html',1,'rpp']]],
-  ['interface_5fobserver_3c_20type_20_3e_32',['interface_observer&lt; Type &gt;',['../structrpp_1_1interface__observer.html',1,'rpp']]],
-  ['is_5fsubscribed_33',['is_subscribed',['../classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2',1,'rpp::subscription_base']]],
-  ['iterate_5fimpl_34',['iterate_impl',['../classrpp_1_1observable_1_1details_1_1iterate__impl.html',1,'rpp::observable::details']]],
-  ['implementation_20status_35',['Implementation status',['../status.html',1,'docs']]]
+  ['group_5fby_29',['group_by',['../group__transforming__operators.html#gaf3399da92ac6a0a4c392107b5b405a60',1,'rpp::details::member_overload&lt; Type, SpecificObservable, group_by_tag &gt;']]],
+  ['group_5fby_5flift_5fimpl_30',['group_by_lift_impl',['../structrpp_1_1details_1_1group__by__lift__impl.html',1,'rpp::details']]],
+  ['group_5fby_5fobserver_31',['group_by_observer',['../classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html',1,'rpp::details::group_by_lift_impl']]],
+  ['group_5fby_5fon_5fsubscribe_32',['group_by_on_subscribe',['../structrpp_1_1details_1_1group__by__on__subscribe.html',1,'rpp::details']]],
+  ['group_5fby_5fstate_33',['group_by_state',['../structrpp_1_1details_1_1group__by__state.html',1,'rpp::details']]],
+  ['group_5fby_5fstate_5fbase_34',['group_by_state_base',['../classrpp_1_1details_1_1group__by__state__base.html',1,'rpp::details']]],
+  ['grouped_5fobservable_35',['grouped_observable',['../classrpp_1_1grouped__observable.html',1,'rpp']]]
 ];

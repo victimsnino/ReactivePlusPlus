@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['unsubscribed_224',['unsubscribed',['../structrpp_1_1subjects_1_1details_1_1unsubscribed.html',1,'rpp::subjects::details']]]
+  ['take_5fimpl_241',['take_impl',['../structrpp_1_1details_1_1take__impl.html',1,'rpp::details']]],
+  ['take_5fwhile_5fimpl_242',['take_while_impl',['../structrpp_1_1details_1_1take__while__impl.html',1,'rpp::details']]]
 ];
