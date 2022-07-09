@@ -8,6 +8,8 @@ Transforming operators are operators that transform items provided by observable
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+{\footnotesize template$<$flat\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gae4d30f7ae23a7d62aa761f26abf18008}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, flat\+\_\+map\+\_\+tag $>$\+::flat\+\_\+map}} (Callable \&\&callable) const \&requires is\+\_\+header\+\_\+included$<$ flat\+\_\+map\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Transform emissions to observables via provided function and then merge emissions from such an observables. \end{DoxyCompactList}\item 
 {\footnotesize template$<$std\+::invocable$<$ Type $>$ Key\+Selector, std\+::invocable$<$ Type $>$ Value\+Selector = std\+::identity, typename T\+Key  = rpp\+::utils\+::decayed\+\_\+invoke\+\_\+result\+\_\+t$<$\+Key\+Selector, Type$>$, std\+::relation$<$ T\+Key, T\+Key $>$ Key\+Comparator = std\+::less$<$\+T\+Key$>$$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gaf3399da92ac6a0a4c392107b5b405a60}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, group\+\_\+by\+\_\+tag $>$\+::group\+\_\+by}} (Key\+Selector \&\&key\+\_\+selector, Value\+Selector \&\&value\+\_\+selector=\{\}, Key\+Comparator \&\&comparator=\{\}) const \&requires is\+\_\+header\+\_\+included$<$ group\+\_\+by\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Divide original observable into multiple observables where each new observable emits some group of values from original observable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$std\+::invocable$<$ Type $>$ Callable$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_ga2215c20ce73e16977568e7db1900ce65}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, map\+\_\+tag $>$\+::map}} (Callable \&\&callable) const \&requires is\+\_\+header\+\_\+included$<$ map\+\_\+tag
@@ -23,6 +25,49 @@ Transforming operators are operators that transform items provided by observable
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__transforming__operators_gae4d30f7ae23a7d62aa761f26abf18008}\label{group__transforming__operators_gae4d30f7ae23a7d62aa761f26abf18008}} 
+\index{Transforming Operators@{Transforming Operators}!flat\_map@{flat\_map}}
+\index{flat\_map@{flat\_map}!Transforming Operators@{Transforming Operators}}
+\doxysubsubsection{\texorpdfstring{flat\_map()}{flat\_map()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$flat\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, flat\+\_\+map\+\_\+tag $>$\+::flat\+\_\+map (\begin{DoxyParamCaption}\item[{Callable \&\&}]{callable }\end{DoxyParamCaption}) const \&}
+
+
+
+Transform emissions to observables via provided function and then merge emissions from such an observables. 
+
+\begin{DoxyWarning}{Warning}
+According to observable contract (\href{https://reactivex.io/documentation/contract.html}{\texttt{ https\+://reactivex.\+io/documentation/contract.\+html}}) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
+\end{DoxyWarning}
+
+
+Actually it makes {\ttfamily map} and then {\ttfamily merge}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em callable} & Function to transform item to observable \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the flat\+\_\+map operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{flat__map_8hpp_source}{rpp/operators/flat\+\_\+map.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)}
+\DoxyCodeLine{            .flat\_map([](\textcolor{keywordtype}{int} val) \{ \textcolor{keywordflow}{return} rpp::source::from\_iterable(std::vector(val, val)); \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2 2 3 3 3}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/flatmap.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/flatmap.\+html}} 
+\end{DoxySeeAlso}
 \mbox{\Hypertarget{group__transforming__operators_gaf3399da92ac6a0a4c392107b5b405a60}\label{group__transforming__operators_gaf3399da92ac6a0a4c392107b5b405a60}} 
 \index{Transforming Operators@{Transforming Operators}!group\_by@{group\_by}}
 \index{group\_by@{group\_by}!Transforming Operators@{Transforming Operators}}

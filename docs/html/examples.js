@@ -2,6 +2,7 @@ var examples =
 [
     [ "create.cpp", "create_8cpp-example.html", null ],
     [ "filter.cpp", "filter_8cpp-example.html", null ],
+    [ "flat_map.cpp", "flat_map_8cpp-example.html", null ],
     [ "from.cpp", "from_8cpp-example.html", null ],
     [ "group_by.cpp", "group_by_8cpp-example.html", null ],
     [ "just.cpp", "just_8cpp-example.html", null ],
