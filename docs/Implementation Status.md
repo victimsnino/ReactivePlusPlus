@@ -46,6 +46,7 @@
 
 - [x] map
 - [x] group_by
+- [x] flat_map
 - [ ] window
 
 ### Filtering
