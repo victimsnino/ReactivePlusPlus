@@ -95,51 +95,27 @@ auto get_events_observable(sf::RenderWindow& window)
     });
 }
 
-template<typename State>
-void handle_presents(const rpp::specific_observable<CustomEvent, State>& events_observable, sf::RenderWindow& window)
-{
-    auto presents = events_observable.filter([](const CustomEvent& ev)
-                                     {
-                                         return std::holds_alternative<PresentEvent>(ev);
-                                     })
-                                     .map([](const CustomEvent& ev)
-                                     {
-                                         return std::get<PresentEvent>(ev);
-                                     });
-
-    presents.filter([](const PresentEvent& ev)
-            {
-                return ev.is_begin;
-            })
-            .subscribe([&window](const auto& ev)
-            {
-                window.clear(sf::Color{deduce_color_smoothly(ev.frame_number * 1), 
-                                       deduce_color_smoothly(ev.frame_number * 2),
-                                       deduce_color_smoothly(ev.frame_number * 3)});
-            });
-
-    presents.filter([](const PresentEvent& ev)
-            {
-                return !ev.is_begin;
-            })
-            .subscribe([&window](const auto&)
-            {
-                window.display();
-            });
-}
-
-template<typename State>
-void handle_ball_position(const rpp::specific_observable<CustomEvent, State>& events_observable)
+void handle_ball_position(const rpp::dynamic_observable<CustomEvent>& events_observable, sf::RenderWindow& window, sf::CircleShape& ball_shape, sf::Text& text_shape)
 {
     auto end_presents = events_observable
                     .filter([](const CustomEvent& ev)
                     {
-                        return std::holds_alternative<PresentEvent>(ev);
-                    })
-                    .filter([](const CustomEvent& ev)
-                    {
-                        return std::get<PresentEvent>(ev).is_begin == false;
+                        return std::holds_alternative<PresentEvent>(ev) && std::get<PresentEvent>(ev).is_begin == false;
                     });
+
+    end_presents
+            .with_latest_from([](const auto&, const auto& pair){return pair;}, rpp::source::just(std::pair<float,float>{20, 30}))
+            .subscribe([&](const std::pair<float,float>& coords)
+            {
+                auto [x,y] = coords;
+
+                ball_shape.setPosition(sf::Vector2f{x, y});
+                text_shape.setPosition(sf::Vector2f{x, y - ball_shape.getRadius()});
+                text_shape.setString("(" + to_string_with_presision(x) + ", " + to_string_with_presision(y) + ")");
+
+                window.draw(ball_shape);
+                window.draw(text_shape);
+            });
 }
 
 int main()
@@ -157,8 +133,24 @@ int main()
 
     auto events = get_events_observable(window).publish();
 
-    // clear on begin, display on end
-    handle_presents(events, window);
+    auto presents = events.filter([](const CustomEvent& ev) { return std::holds_alternative<PresentEvent>(ev); })
+                          .map([](const CustomEvent& ev) { return std::get<PresentEvent>(ev); });
+
+    presents.filter([](const PresentEvent&   ev) { return ev.is_begin; })
+            .subscribe([&window](const auto& ev)
+            {
+                window.clear(sf::Color{deduce_color_smoothly(ev.frame_number * 1),
+                                       deduce_color_smoothly(ev.frame_number * 2),
+                                       deduce_color_smoothly(ev.frame_number * 3)});
+            });
+
+    handle_ball_position(events, window, ball_shape, text_shape);
+
+    presents.filter([](const PresentEvent&  ev) { return !ev.is_begin; })
+            .subscribe([&window](const auto&)
+            {
+                window.display();
+            });
 
     // this one will be blocking call and it will unblock when close requested
     events.ref_count()
