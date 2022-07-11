@@ -6,10 +6,10 @@
 \item \mbox{\hyperlink{memory_model}{Memory Model}} -\/ overview of new concept used in R\+PP related to copy/move/heap usage for objects passed inside R\+PP
 \item \mbox{\hyperlink{status}{Implementation status}} -\/ current implementation status 
 \end{DoxyItemize}\hypertarget{quick_start}{}\doxysection{Quick Start}\label{quick_start}
-\hypertarget{quick_start_autotoc_md17}{}\doxysubsection{Brief workflow}\label{quick_start_autotoc_md17}
+\hypertarget{quick_start_autotoc_md20}{}\doxysubsection{Brief workflow}\label{quick_start_autotoc_md20}
 For the brief overview of the Reactive pattern read \href{https://reactivex.io/}{\texttt{ https\+://reactivex.\+io/}}.
 
-In short, creation of programs with help of Reactive\+Plus\+Plus split into several parts\+:\hypertarget{quick_start_autotoc_md18}{}\doxysubsubsection{1) Define observables}\label{quick_start_autotoc_md18}
+In short, creation of programs with help of Reactive\+Plus\+Plus split into several parts\+:\hypertarget{quick_start_autotoc_md21}{}\doxysubsubsection{1) Define observables}\label{quick_start_autotoc_md21}
 Observables are sources of your future streams. First of all you need to create some observable which emits values. You can select from some \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/group__observables.html}{\texttt{ predefined}} or built your own.
 
 For example, 
@@ -20,7 +20,7 @@ For example,
 
 observable which emits one char from {\ttfamily cin} via invoking of provided function once after subscription
 
-Action inside observable happens O\+N\+LY after subscription on this observable and O\+N\+LY for provided subscriber/observer. It means, that you can subscribe on the same observable multiple times!\hypertarget{quick_start_autotoc_md19}{}\doxysubsubsection{2) Chain observable}\label{quick_start_autotoc_md19}
+Action inside observable happens O\+N\+LY after subscription on this observable and O\+N\+LY for provided subscriber/observer. It means, that you can subscribe on the same observable multiple times!\hypertarget{quick_start_autotoc_md22}{}\doxysubsubsection{2) Chain observable}\label{quick_start_autotoc_md22}
 When you have some source of data you need to extend it somehow to make it useful! For example, let\textquotesingle{}s make it infinite instead of emitting one value\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{rpp::source::from\_callable(\&::getchar)}
@@ -45,7 +45,7 @@ How long do we want to obtain values? let\textquotesingle{}s say, till \textquot
 \DoxyCodeLine{.filter(std::not\_fn(\&::isdigit))}
 \DoxyCodeLine{.map(\&::toupper)}
 \end{DoxyCode}
-\hypertarget{quick_start_autotoc_md20}{}\doxysubsubsection{3) Subscription}\label{quick_start_autotoc_md20}
+\hypertarget{quick_start_autotoc_md23}{}\doxysubsubsection{3) Subscription}\label{quick_start_autotoc_md23}
 What we want to do with resulting values? Let\textquotesingle{}s dump it to console. Resulting code looks like\+:
 
 
@@ -136,7 +136,7 @@ To achieve better performance use {\ttfamily specific\+\_\+observable} while it 
 By default, functional programming deals with immutable data and \char`\"{}pure functions\char`\"{}. Observer follow this principle, so, it can accept only const functions for callbacks.\hypertarget{advanced_autotoc_md3}{}\doxysubsection{Operators}\label{advanced_autotoc_md3}
 For better compilation speed each operator placed in each own header. Due to great desire to have dot operations inside observable, observable inherits implementation of operators via {\ttfamily member\+\_\+overload} hack\+: it forwards interface, but implementation placed in another file. It looks like wide-\/spread separation to cpp/hpp files.\hypertarget{advanced_autotoc_md4}{}\doxysubsection{Subscriber}\label{advanced_autotoc_md4}
 Subscriber is just wrapper over observer with subscription. Everytime callback received, subscriber checks for subscription state and emits value to observer if subscription is still active. \hypertarget{specific_vs_dynamic}{}\doxysection{Performance vs Flexibility\+: Specific vs Dynamic}\label{specific_vs_dynamic}
-\hypertarget{specific_vs_dynamic_autotoc_md21}{}\doxysubsection{Brief overview}\label{specific_vs_dynamic_autotoc_md21}
+\hypertarget{specific_vs_dynamic_autotoc_md24}{}\doxysubsection{Brief overview}\label{specific_vs_dynamic_autotoc_md24}
 In general Reactive Extensions can be split into three main parts from the objects perspective\+:
 \begin{DoxyItemize}
 \item observable
@@ -161,7 +161,7 @@ Each of this objects obtains user-\/defined callbacks to call when some event ha
 \item \doxygenemoji{\+:x\+:}{x} More usage of memory even for cheap objects (std\+::function or pointer to allocated type)
 \item \doxygenemoji{\+:x\+:}{x} Indirect invoking (most probably via pointer or virtual functions)
 \end{DoxyItemize}
-\end{DoxyItemize}\hypertarget{specific_vs_dynamic_autotoc_md22}{}\doxysubsection{Reactive\+Plus\+Plus solution}\label{specific_vs_dynamic_autotoc_md22}
+\end{DoxyItemize}\hypertarget{specific_vs_dynamic_autotoc_md25}{}\doxysubsection{Reactive\+Plus\+Plus solution}\label{specific_vs_dynamic_autotoc_md25}
 Reactive\+Plus\+Plus provides ability to use both of this ways to make usage experience optimal! Each of mentioned above core parts has two different specifications\+: {\ttfamily specific\+\_\+} and {\ttfamily dynamic\+\_\+}.
 
 {\ttfamily specific\+\_\+} is default specialization which uses fully template approach to have best performance and memory consumption\+: each callback/used type specific as template parameter of this class {\ttfamily dynamic\+\_\+} specialization uses type-\/erasure mechanism with all resulting peformance and memory hits, but this specialization is useful if you want to store type as class member or place it inside containers and etc.
@@ -183,7 +183,7 @@ There detailed list with explanations\+:
 \item \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1specific__subscriber.html}{\texttt{ rpp\+::specific\+\_\+subscriber$<$\+T, Observer$>$}} -\/ stores explicit underlying type of observer as {\ttfamily Observer} template type to avoid construction of \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observer.html}{\texttt{ rpp\+::dynamic\+\_\+observer}}.
 \item \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__subscriber.html}{\texttt{ rpp\+::dynamic\+\_\+subscriber$<$\+T$>$}} -\/ uses \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observer.html}{\texttt{ rpp\+::dynamic\+\_\+observer}} type as underlying type for observer.
 \end{DoxyItemize}
-\end{DoxyItemize}\hypertarget{specific_vs_dynamic_autotoc_md23}{}\doxysubsection{Examples}\label{specific_vs_dynamic_autotoc_md23}
+\end{DoxyItemize}\hypertarget{specific_vs_dynamic_autotoc_md26}{}\doxysubsection{Examples}\label{specific_vs_dynamic_autotoc_md26}
 So, to achieve best performance avoid usage of {\ttfamily dynamic\+\_\+} specialization till you really need it or you want to avoid extra copies/moves of original objects captured inside callbacks and prefer one-\/time {\ttfamily shared\+\_\+ptr} allication instead. For example, 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{auto} observable = rpp::observable::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber)}
@@ -233,12 +233,12 @@ all this samples uses extra heap allocations\+:
 \end{DoxyEnumerate}
 
 For detailed comparison of performance of different operations for {\ttfamily specific\+\_\+} and {\ttfamily dynamic\+\_\+} you can find in \href{https://victimsnino.github.io/ReactivePlusPlus/benchmark}{\texttt{ Continuous Benchmarking}} \hypertarget{memory_model}{}\doxysection{Memory Model}\label{memory_model}
-\hypertarget{memory_model_autotoc_md15}{}\doxysubsection{Overview}\label{memory_model_autotoc_md15}
+\hypertarget{memory_model_autotoc_md18}{}\doxysubsection{Overview}\label{memory_model_autotoc_md18}
 In Reactive\+Plus\+Plus there is new concept unique for this implementation\+: rpp\+::memory\+\_\+model\+:
 
 Some of the operators and sources like {\ttfamily rpp\+::source\+::just} or {\ttfamily rpp\+::operators\+::start\+\_\+with} accepts user\textquotesingle{}s variables for usage. Some of this types can be such an expensive to copy or move and it would be preferable to copy it once to heap, but some other types (like P\+OD) are cheap enough and usage of heap would be overkill. But these variables should be saved inside somehow!
 
-So, R\+PP provides ability to select strategy \char`\"{}how to deal with such a variables\char`\"{} via {\ttfamily rpp\+::memory\+\_\+model} enum.\hypertarget{memory_model_autotoc_md16}{}\doxysubsection{Examples}\label{memory_model_autotoc_md16}
+So, R\+PP provides ability to select strategy \char`\"{}how to deal with such a variables\char`\"{} via {\ttfamily rpp\+::memory\+\_\+model} enum.\hypertarget{memory_model_autotoc_md19}{}\doxysubsection{Examples}\label{memory_model_autotoc_md19}
 For example, {\ttfamily rpp\+::source\+::just}
 
 
@@ -320,16 +320,36 @@ As a a result, users can select preferable way of handling of their types. \hype
 \item \mbox{[}x\mbox{]} map
 \item \mbox{[}x\mbox{]} group\+\_\+by
 \item \mbox{[}x\mbox{]} flat\+\_\+map
+\item \mbox{[} \mbox{]} buffer
+\item \mbox{[} \mbox{]} scan
 \item \mbox{[} \mbox{]} window
 \end{DoxyItemize}\hypertarget{status_autotoc_md9}{}\doxysubsubsection{Filtering}\label{status_autotoc_md9}
 
 \begin{DoxyItemize}
 \item \mbox{[}x\mbox{]} filter
 \item \mbox{[}x\mbox{]} take
+\item \mbox{[} \mbox{]} debounce
+\item \mbox{[} \mbox{]} distinct
+\item \mbox{[} \mbox{]} element\+\_\+at
+\item \mbox{[} \mbox{]} first
+\item \mbox{[} \mbox{]} ignore\+\_\+elements
+\item \mbox{[} \mbox{]} last
+\item \mbox{[} \mbox{]} sample
+\item \mbox{[} \mbox{]} skip
+\item \mbox{[} \mbox{]} skip\+\_\+last
+\item \mbox{[} \mbox{]} take\+\_\+last
 \end{DoxyItemize}\hypertarget{status_autotoc_md10}{}\doxysubsubsection{Conditional}\label{status_autotoc_md10}
 
 \begin{DoxyItemize}
-\item \mbox{[}x\mbox{]} take\+\_\+while 
+\item \mbox{[}x\mbox{]} take\+\_\+while
+\item \mbox{[} \mbox{]} all
+\item \mbox{[} \mbox{]} amb
+\item \mbox{[} \mbox{]} contains
+\item \mbox{[} \mbox{]} default\+\_\+if\+\_\+empty
+\item \mbox{[} \mbox{]} sequence\+\_\+equal
+\item \mbox{[} \mbox{]} skip\+\_\+until
+\item \mbox{[} \mbox{]} skip\+\_\+while
+\item \mbox{[} \mbox{]} take\+\_\+until 
 \end{DoxyItemize}\hypertarget{status_autotoc_md11}{}\doxysubsubsection{Combining}\label{status_autotoc_md11}
 
 \begin{DoxyItemize}
@@ -344,13 +364,43 @@ As a a result, users can select preferable way of handling of their types. \hype
 \item \mbox{[}x\mbox{]} switch\+\_\+on\+\_\+next
 \item \mbox{[} \mbox{]} switch\+\_\+if\+\_\+empty
 \end{DoxyItemize}
-\end{DoxyItemize}\hypertarget{status_autotoc_md12}{}\doxysubsubsection{Utility}\label{status_autotoc_md12}
+\item \mbox{[}x\mbox{]} with\+\_\+latest\+\_\+from
+\item \mbox{[} \mbox{]} combine\+\_\+latest
+\item \mbox{[} \mbox{]} start\+\_\+with
+\item \mbox{[} \mbox{]} zip
+\end{DoxyItemize}\hypertarget{status_autotoc_md12}{}\doxysubsubsection{Aggregate}\label{status_autotoc_md12}
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} average
+\item \mbox{[} \mbox{]} concat
+\item \mbox{[} \mbox{]} count
+\item \mbox{[} \mbox{]} max
+\item \mbox{[} \mbox{]} min
+\item \mbox{[} \mbox{]} reduce
+\item \mbox{[} \mbox{]} sum
+\end{DoxyItemize}\hypertarget{status_autotoc_md13}{}\doxysubsubsection{Backpressure}\label{status_autotoc_md13}
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} backpressure ???
+\end{DoxyItemize}\hypertarget{status_autotoc_md14}{}\doxysubsubsection{Error handling}\label{status_autotoc_md14}
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} catch
+\item \mbox{[} \mbox{]} retry
+\end{DoxyItemize}\hypertarget{status_autotoc_md15}{}\doxysubsubsection{Utility}\label{status_autotoc_md15}
 
 \begin{DoxyItemize}
 \item \mbox{[}x\mbox{]} observe\+\_\+on
 \item \mbox{[}x\mbox{]} repeat
-\item \mbox{[}x\mbox{]} subscribe\+\_\+on 
-\end{DoxyItemize}\hypertarget{status_autotoc_md13}{}\doxysubsubsection{Connectable}\label{status_autotoc_md13}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} scheduling (by default current\+\_\+thread ?)
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} subscribe\+\_\+on
+\item \mbox{[} \mbox{]} delay
+\item \mbox{[} \mbox{]} do/tap
+\item \mbox{[} \mbox{]} timeout
+\item \mbox{[} \mbox{]} 
+\end{DoxyItemize}\hypertarget{status_autotoc_md16}{}\doxysubsubsection{Connectable}\label{status_autotoc_md16}
 
 \begin{DoxyItemize}
 \item \mbox{[}x\mbox{]} publish
@@ -358,7 +408,7 @@ As a a result, users can select preferable way of handling of their types. \hype
 \item \mbox{[}x\mbox{]} connect
 \item \mbox{[}x\mbox{]} ref\+\_\+count
 \item \mbox{[} \mbox{]} replay
-\end{DoxyItemize}\hypertarget{status_autotoc_md14}{}\doxysubsection{Subjects}\label{status_autotoc_md14}
+\end{DoxyItemize}\hypertarget{status_autotoc_md17}{}\doxysubsection{Subjects}\label{status_autotoc_md17}
 
 \begin{DoxyItemize}
 \item \mbox{[}x\mbox{]} publish\+\_\+subject

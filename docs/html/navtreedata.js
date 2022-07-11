@@ -45,7 +45,7 @@ var NAVTREEINDEX =
 [
 ".html",
 "examples.html",
-"structrpp_1_1details_1_1merge__impl.html#a82c4e8a472beee4355a9b27f06927ec9"
+"structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01with__latest__from__tag_01_4.html#a54a762749c290eee92baa6e5cc5c105e"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

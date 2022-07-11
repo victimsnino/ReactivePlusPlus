@@ -161,6 +161,8 @@ Transforming</h2>
 <li>[x] map</li>
 <li>[x] group_by</li>
 <li>[x] flat_map</li>
+<li>[ ] buffer</li>
+<li>[ ] scan</li>
 <li>[ ] window</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md9"></a>
@@ -168,11 +170,29 @@ Filtering</h2>
 <ul>
 <li>[x] filter</li>
 <li>[x] take</li>
+<li>[ ] debounce</li>
+<li>[ ] distinct</li>
+<li>[ ] element_at</li>
+<li>[ ] first</li>
+<li>[ ] ignore_elements</li>
+<li>[ ] last</li>
+<li>[ ] sample</li>
+<li>[ ] skip</li>
+<li>[ ] skip_last</li>
+<li>[ ] take_last</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md10"></a>
 Conditional</h2>
 <ul>
-<li>[x] take_while </li>
+<li>[x] take_while</li>
+<li>[ ] all</li>
+<li>[ ] amb</li>
+<li>[ ] contains</li>
+<li>[ ] default_if_empty</li>
+<li>[ ] sequence_equal</li>
+<li>[ ] skip_until</li>
+<li>[ ] skip_while</li>
+<li>[ ] take_until </li>
 </ul>
 <h2><a class="anchor" id="autotoc_md11"></a>
 Combining</h2>
@@ -188,15 +208,48 @@ Combining</h2>
 <li>[ ] switch_if_empty</li>
 </ul>
 </li>
+<li>[x] with_latest_from</li>
+<li>[ ] combine_latest</li>
+<li>[ ] start_with</li>
+<li>[ ] zip</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md12"></a>
+Aggregate</h2>
+<ul>
+<li>[ ] average</li>
+<li>[ ] concat</li>
+<li>[ ] count</li>
+<li>[ ] max</li>
+<li>[ ] min</li>
+<li>[ ] reduce</li>
+<li>[ ] sum</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md13"></a>
+Backpressure</h2>
+<ul>
+<li>[ ] backpressure ???</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md14"></a>
+Error handling</h2>
+<ul>
+<li>[ ] catch</li>
+<li>[ ] retry</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md15"></a>
 Utility</h2>
 <ul>
 <li>[x] observe_on</li>
-<li>[x] repeat</li>
-<li>[x] subscribe_on </li>
+<li>[x] repeat<ul>
+<li>[ ] scheduling (by default current_thread ?)</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md13"></a>
+</li>
+<li>[x] subscribe_on</li>
+<li>[ ] delay</li>
+<li>[ ] do/tap</li>
+<li>[ ] timeout</li>
+<li>[ ] </li>
+</ul>
+<h2><a class="anchor" id="autotoc_md16"></a>
 Connectable</h2>
 <ul>
 <li>[x] publish</li>
@@ -205,7 +258,7 @@ Connectable</h2>
 <li>[x] ref_count</li>
 <li>[ ] replay</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md17"></a>
 Subjects</h1>
 <ul>
 <li>[x] publish_subject</li>

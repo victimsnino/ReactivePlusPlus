@@ -1,5 +1,8 @@
 var NAVTREEINDEX2 =
 {
+"structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01with__latest__from__tag_01_4.html#a54a762749c290eee92baa6e5cc5c105e":[2,0,0,0,28,2],
+"structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01with__latest__from__tag_01_4.html#a6a60eb53b4746176ae892781626eb869":[2,0,0,0,28,0],
+"structrpp_1_1details_1_1merge__impl.html":[2,0,0,0,29],
 "structrpp_1_1details_1_1merge__impl.html#a82c4e8a472beee4355a9b27f06927ec9":[2,0,0,0,29,0],
 "structrpp_1_1details_1_1merge__impl.html#aa3c457360a819efbfb21d5f8505038d8":[2,0,0,0,29,1],
 "structrpp_1_1details_1_1merge__state__t.html":[2,0,0,0,30],
