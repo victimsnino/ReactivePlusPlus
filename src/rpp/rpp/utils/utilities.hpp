@@ -30,5 +30,6 @@ template<typename T>
 using atomic_shared_ptr = std::shared_ptr<T>;
 #endif
 
+// used as interpetation of "void"
 struct none{};
 } // namespace rpp::utils

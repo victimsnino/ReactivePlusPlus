@@ -307,8 +307,10 @@ SCENARIO("Subscriber obtains on_error when exception", "[subscriber]")
 {
     GIVEN("observer and observable with exception")
     {
-        auto observable = rpp::observable::create<int>([](const auto&)
+        size_t subscription_count = 0;
+        auto observable = rpp::observable::create<int>([&](const auto&)
         {
+            ++subscription_count;
             throw std::runtime_error("Test");
         });
 
@@ -321,6 +323,7 @@ SCENARIO("Subscriber obtains on_error when exception", "[subscriber]")
                 auto subscription = observable.subscribe(sub);
                 THEN("on_error called once only")
                 {
+                    CHECK(subscription_count == 1);
                     CHECK(observer.get_total_on_next_count() == 0);
                     CHECK(observer.get_on_error_count() == 1);
                     CHECK(observer.get_on_completed_count() == 0);
@@ -330,9 +333,10 @@ SCENARIO("Subscriber obtains on_error when exception", "[subscriber]")
             WHEN("observer subscribes with unsubscribed subscription")
             {
                 sub.unsubscribe();
-                CHECK_THROWS(observable.subscribe(sub));
-                THEN("no on_error call")
+                CHECK_NOTHROW(observable.subscribe(sub));
+                THEN("no on_error call and no subscriptions at all")
                 {
+                    CHECK(subscription_count == 0);
                     CHECK(observer.get_total_on_next_count() == 0);
                     CHECK(observer.get_on_error_count() == 0);
                     CHECK(observer.get_on_completed_count() == 0);

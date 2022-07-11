@@ -55,6 +55,9 @@ private:
     template<constraint::observer_of_type<Type> Obs>
     composite_subscription subscribe_impl(const specific_subscriber<Type, Obs>& subscriber) const
     {
+        if (!subscriber.is_subscribed())
+            return subscriber.get_subscription();
+
         try
         {
             m_state(subscriber);
