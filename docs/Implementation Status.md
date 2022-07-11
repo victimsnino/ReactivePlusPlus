@@ -47,15 +47,35 @@
 - [x] map
 - [x] group_by
 - [x] flat_map
+- [ ] buffer
+- [ ] scan
 - [ ] window
 
 ### Filtering
 - [x] filter
 - [x] take
+- [ ] debounce
+- [ ] distinct
+- [ ] element_at
+- [ ] first
+- [ ] ignore_elements
+- [ ] last
+- [ ] sample
+- [ ] skip
+- [ ] skip_last
+- [ ] take_last
 
 ### Conditional
 
 - [x] take_while
+- [ ] all
+- [ ] amb
+- [ ] contains
+- [ ] default_if_empty
+- [ ] sequence_equal
+- [ ] skip_until
+- [ ] skip_while
+- [ ] take_until
 ### Combining
 
 - [x] merge
@@ -65,12 +85,39 @@
 - [ ] switch
   - [x] switch_on_next
   - [ ] switch_if_empty
+- [x] with_latest_from
+- [ ] combine_latest
+- [ ] start_with
+- [ ] zip
+
+### Aggregate
+
+- [ ] average
+- [ ] concat
+- [ ] count
+- [ ] max 
+- [ ] min
+- [ ] reduce
+- [ ] sum
+
+### Backpressure
+
+- [ ] backpressure ???
+
+### Error handling
+- [ ] catch
+- [ ] retry
 
 ### Utility
 
 - [x] observe_on
 - [x] repeat
+  - [ ] scheduling (by default current_thread ?)
 - [x] subscribe_on
+- [ ] delay
+- [ ] do/tap
+- [ ] timeout
+- [ ] 
 ### Connectable
 
 - [x] publish
