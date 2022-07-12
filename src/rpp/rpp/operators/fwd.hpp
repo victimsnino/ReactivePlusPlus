@@ -26,3 +26,4 @@
 #include <rpp/operators/fwd/subscribe.hpp>
 #include <rpp/operators/fwd/group_by.hpp>
 #include <rpp/operators/fwd/flat_map.hpp>
+#include <rpp/operators/fwd/scan.hpp>
