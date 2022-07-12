@@ -14,6 +14,8 @@
 #include <rpp/operators/fwd/scan.hpp>
 #include <rpp/observers/state_observer.hpp>
 
+#include <rpp/utils/utilities.hpp>
+
 #include <memory>
 
 IMPLEMENTATION_FILE (scan_tag);
@@ -27,7 +29,7 @@ struct scan_impl
     [[no_unique_address]] AccumulatorFn accumulator;
 
     template<constraint::subscriber_of_type<Result> TSub>
-    void operator()(TSub&& subscriber) const
+    auto operator()(TSub&& subscriber) const
     {
         auto state = std::make_shared<Result>(initial_value);
 
@@ -37,7 +39,7 @@ struct scan_impl
                                                   [state, accumulator=accumulator](auto&& value, const auto& sub)
                                                   {
                                                       *state = accumulator(std::move(*state), std::forward<decltype(value)>(value));
-                                                      sub.on_next(*state);
+                                                      sub.on_next(utils::as_const(*state));
                                                   },
                                                   forwarding_on_error{},
                                                   forwarding_on_completed{});
