@@ -35,7 +35,7 @@ struct scan_impl
 
         auto subscription = subscriber.get_subscription();
         return create_subscriber_with_state<Type>(std::move(subscription),
-                                                  std::move(subscriber),
+                                                  std::forward<TSub>(subscriber),
                                                   [state, accumulator=accumulator](auto&& value, const auto& sub)
                                                   {
                                                       *state = accumulator(std::move(*state), std::forward<decltype(value)>(value));
