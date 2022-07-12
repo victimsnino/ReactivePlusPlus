@@ -13,7 +13,9 @@ Transforming operators are operators that transform items provided by observable
 {\footnotesize template$<$std\+::invocable$<$ Type $>$ Key\+Selector, std\+::invocable$<$ Type $>$ Value\+Selector = std\+::identity, typename T\+Key  = rpp\+::utils\+::decayed\+\_\+invoke\+\_\+result\+\_\+t$<$\+Key\+Selector, Type$>$, std\+::relation$<$ T\+Key, T\+Key $>$ Key\+Comparator = std\+::less$<$\+T\+Key$>$$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gaf3399da92ac6a0a4c392107b5b405a60}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, group\+\_\+by\+\_\+tag $>$\+::group\+\_\+by}} (Key\+Selector \&\&key\+\_\+selector, Value\+Selector \&\&value\+\_\+selector=\{\}, Key\+Comparator \&\&comparator=\{\}) const \&requires is\+\_\+header\+\_\+included$<$ group\+\_\+by\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Divide original observable into multiple observables where each new observable emits some group of values from original observable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$std\+::invocable$<$ Type $>$ Callable$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_ga2215c20ce73e16977568e7db1900ce65}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, map\+\_\+tag $>$\+::map}} (Callable \&\&callable) const \&requires is\+\_\+header\+\_\+included$<$ map\+\_\+tag
-\begin{DoxyCompactList}\small\item\em Transform the items emitted by an Observable via applying a function to each item and emitting result. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Transform the items emitted by an Observable via applying a function to each item and emitting result. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Result , scan\+\_\+accumulator$<$ Result, Type $>$ Accumulator\+Fn$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gad4cf46a565f1081cd7b8bc26aa99e640}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, scan\+\_\+tag $>$\+::scan}} (Result \&\&initial\+\_\+value, Accumulator\+Fn \&\&accumulator) const \&requires is\+\_\+header\+\_\+included$<$ scan\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -220,4 +222,63 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/map.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/map.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__transforming__operators_gad4cf46a565f1081cd7b8bc26aa99e640}\label{group__transforming__operators_gad4cf46a565f1081cd7b8bc26aa99e640}} 
+\index{Transforming Operators@{Transforming Operators}!scan@{scan}}
+\index{scan@{scan}!Transforming Operators@{Transforming Operators}}
+\doxysubsubsection{\texorpdfstring{scan()}{scan()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$typename Result , scan\+\_\+accumulator$<$ Result, Type $>$ Accumulator\+Fn$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, scan\+\_\+tag $>$\+::scan (\begin{DoxyParamCaption}\item[{Result \&\&}]{initial\+\_\+value,  }\item[{Accumulator\+Fn \&\&}]{accumulator }\end{DoxyParamCaption}) const \&}
+
+
+
+Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. 
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em initial\+\_\+value} & initial value for seed which will be applied for first value from observable (instead of emitting this as first value). Then it will be replaced with result and etc. \\
+\hline
+{\em accumulator} & function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-\/reference.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the scan operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{scan_8hpp_source}{rpp/operators/scan.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1,2,3)}
+\DoxyCodeLine{            .scan(0, std::plus<int>\{\})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1 3 6}}
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1,2,3)}
+\DoxyCodeLine{            .scan(std::vector<int>\{\}, [](std::vector<int>\&\& seed, \textcolor{keywordtype}{int} new\_value) -\/> std::vector<int>\&\&}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                seed.push\_back(new\_value);}
+\DoxyCodeLine{                \textcolor{keywordflow}{return} std::move(seed);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keyword}{const} std::vector<int>\& v)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                std::cout << \textcolor{stringliteral}{"vector: "};}
+\DoxyCodeLine{                \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} val : v)}
+\DoxyCodeLine{                    std::cout << val << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{                std::cout << std::endl;}
+\DoxyCodeLine{            \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: vector: 1}}
+\DoxyCodeLine{    \textcolor{comment}{//         vector: 1 2}}
+\DoxyCodeLine{    \textcolor{comment}{//         vector: 1 2 3}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/scan.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/scan.\+html}} 
 \end{DoxySeeAlso}

@@ -153,50 +153,51 @@ $(document).ready(function(){initNavTree('interface__observable_8hpp_source.html
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    , <a class="code" href="structrpp_1_1details_1_1member__overload.html">details::member_overload</a>&lt;Type, SpecificObservable, details::switch_on_next_tag&gt;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    , <a class="code" href="structrpp_1_1details_1_1member__overload.html">details::member_overload</a>&lt;Type, SpecificObservable, details::group_by_tag&gt;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    , <a class="code" href="structrpp_1_1details_1_1member__overload.html">details::member_overload</a>&lt;Type, SpecificObservable, details::flat_map_tag&gt;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;{</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">template</span>&lt;details::op_fn&lt;SpecificObservable&gt; OperatorFn&gt;</div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="group__operators.html#ga381218c46daf100859858d88743d058d">   78</a></span>&#160;    <span class="keyword">auto</span> <a class="code" href="group__operators.html#ga381218c46daf100859858d88743d058d">op</a>(OperatorFn&amp;&amp; fn) <span class="keyword">const</span> &amp;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">return</span> fn(CastThis());</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">template</span>&lt;details::op_fn&lt;SpecificObservable&gt; OperatorFn&gt;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">auto</span> op(OperatorFn&amp;&amp; fn) &amp;&amp;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">return</span> fn(MoveThis());</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="structrpp_1_1interface__observable.html#a1aed1c6edd83e7091c2bdc3b15b2beee">   92</a></span>&#160;    <span class="keyword">auto</span> <a class="code" href="structrpp_1_1interface__observable.html#a1aed1c6edd83e7091c2bdc3b15b2beee">as_blocking</a>() const &amp;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classrpp_1_1blocking__observable.html">blocking_observable</a>{ CastThis ()};</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">auto</span> as_blocking()&amp;&amp;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    {</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classrpp_1_1blocking__observable.html">blocking_observable</a>{ MoveThis() };</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keyword">const</span> SpecificObservable&amp; CastThis()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    SpecificObservable&amp;&amp; MoveThis()</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    {</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keywordflow">return</span> std::move(*<span class="keyword">static_cast&lt;</span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>));</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    }</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;};</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;} <span class="comment">// namespace rpp</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    , <a class="code" href="structrpp_1_1details_1_1member__overload.html">details::member_overload</a>&lt;Type, SpecificObservable, details::scan_tag&gt;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;{</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">template</span>&lt;details::op_fn&lt;SpecificObservable&gt; OperatorFn&gt;</div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="group__operators.html#ga381218c46daf100859858d88743d058d">   79</a></span>&#160;    <span class="keyword">auto</span> <a class="code" href="group__operators.html#ga381218c46daf100859858d88743d058d">op</a>(OperatorFn&amp;&amp; fn) <span class="keyword">const</span> &amp;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">return</span> fn(CastThis());</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">template</span>&lt;details::op_fn&lt;SpecificObservable&gt; OperatorFn&gt;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">auto</span> op(OperatorFn&amp;&amp; fn) &amp;&amp;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">return</span> fn(MoveThis());</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="structrpp_1_1interface__observable.html#a1aed1c6edd83e7091c2bdc3b15b2beee">   93</a></span>&#160;    <span class="keyword">auto</span> <a class="code" href="structrpp_1_1interface__observable.html#a1aed1c6edd83e7091c2bdc3b15b2beee">as_blocking</a>() const &amp;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classrpp_1_1blocking__observable.html">blocking_observable</a>{ CastThis ()};</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">auto</span> as_blocking()&amp;&amp;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classrpp_1_1blocking__observable.html">blocking_observable</a>{ MoveThis() };</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keyword">const</span> SpecificObservable&amp; CastThis()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    SpecificObservable&amp;&amp; MoveThis()</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">return</span> std::move(*<span class="keyword">static_cast&lt;</span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>));</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;};</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;} <span class="comment">// namespace rpp</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructrpp_1_1virtual__observable_html"><div class="ttname"><a href="structrpp_1_1virtual__observable.html">rpp::virtual_observable</a></div><div class="ttdoc">Interface of observable.</div><div class="ttdef"><b>Definition:</b> fwd.hpp:30</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1member__overload_html"><div class="ttname"><a href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a></div><div class="ttdef"><b>Definition:</b> member_overload.hpp:19</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1observable__tag_html"><div class="ttname"><a href="structrpp_1_1details_1_1observable__tag.html">rpp::details::observable_tag</a></div><div class="ttdef"><b>Definition:</b> interface_observable.hpp:25</div></div>
-<div class="ttc" id="astructrpp_1_1interface__observable_html_a1aed1c6edd83e7091c2bdc3b15b2beee"><div class="ttname"><a href="structrpp_1_1interface__observable.html#a1aed1c6edd83e7091c2bdc3b15b2beee">rpp::interface_observable::as_blocking</a></div><div class="ttdeci">auto as_blocking() const &amp;</div><div class="ttdoc">Converts existing observable to rpp::blocking_observable which has another interface and abilities.</div><div class="ttdef"><b>Definition:</b> interface_observable.hpp:92</div></div>
-<div class="ttc" id="agroup__operators_html_ga381218c46daf100859858d88743d058d"><div class="ttname"><a href="group__operators.html#ga381218c46daf100859858d88743d058d">rpp::interface_observable::op</a></div><div class="ttdeci">auto op(OperatorFn &amp;&amp;fn) const &amp;</div><div class="ttdoc">The apply function to observable which returns observable of another type.</div><div class="ttdef"><b>Definition:</b> interface_observable.hpp:78</div></div>
+<div class="ttc" id="astructrpp_1_1interface__observable_html_a1aed1c6edd83e7091c2bdc3b15b2beee"><div class="ttname"><a href="structrpp_1_1interface__observable.html#a1aed1c6edd83e7091c2bdc3b15b2beee">rpp::interface_observable::as_blocking</a></div><div class="ttdeci">auto as_blocking() const &amp;</div><div class="ttdoc">Converts existing observable to rpp::blocking_observable which has another interface and abilities.</div><div class="ttdef"><b>Definition:</b> interface_observable.hpp:93</div></div>
+<div class="ttc" id="agroup__operators_html_ga381218c46daf100859858d88743d058d"><div class="ttname"><a href="group__operators.html#ga381218c46daf100859858d88743d058d">rpp::interface_observable::op</a></div><div class="ttdeci">auto op(OperatorFn &amp;&amp;fn) const &amp;</div><div class="ttdoc">The apply function to observable which returns observable of another type.</div><div class="ttdef"><b>Definition:</b> interface_observable.hpp:79</div></div>
 <div class="ttc" id="aclassrpp_1_1blocking__observable_html"><div class="ttname"><a href="classrpp_1_1blocking__observable.html">rpp::blocking_observable</a></div><div class="ttdoc">blocking alternative of observable: provides interface where each function do blocking subscribe on o...</div><div class="ttdef"><b>Definition:</b> blocking_observable.hpp:32</div></div>
 <div class="ttc" id="astructrpp_1_1interface__observable_html"><div class="ttname"><a href="structrpp_1_1interface__observable.html">rpp::interface_observable</a></div><div class="ttdoc">Base part of observable. Mostly used to provide some interface functions used by all observables.</div><div class="ttdef"><b>Definition:</b> interface_observable.hpp:49</div></div>
 <!-- start footer part -->

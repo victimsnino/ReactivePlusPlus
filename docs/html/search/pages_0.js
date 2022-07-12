@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['advanced_20guide_294',['Advanced Guide',['../advanced.html',1,'docs']]]
+  ['advanced_20guide_302',['Advanced Guide',['../advanced.html',1,'docs']]]
 ];

@@ -116,6 +116,10 @@ Functions</h2></td></tr>
 <tr class="memitem:ga2215c20ce73e16977568e7db1900ce65"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#ga2215c20ce73e16977568e7db1900ce65">rpp::details::member_overload&lt; Type, SpecificObservable, map_tag &gt;::map</a> (Callable &amp;&amp;callable) const &amp;requires is_header_included&lt; map_tag</td></tr>
 <tr class="memdesc:ga2215c20ce73e16977568e7db1900ce65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform the items emitted by an Observable via applying a function to each item and emitting result.  <a href="group__transforming__operators.html#ga2215c20ce73e16977568e7db1900ce65">More...</a><br /></td></tr>
 <tr class="separator:ga2215c20ce73e16977568e7db1900ce65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad4cf46a565f1081cd7b8bc26aa99e640"><td class="memTemplParams" colspan="2">template&lt;typename Result , scan_accumulator&lt; Result, Type &gt; AccumulatorFn&gt; </td></tr>
+<tr class="memitem:gad4cf46a565f1081cd7b8bc26aa99e640"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gad4cf46a565f1081cd7b8bc26aa99e640">rpp::details::member_overload&lt; Type, SpecificObservable, scan_tag &gt;::scan</a> (Result &amp;&amp;initial_value, AccumulatorFn &amp;&amp;accumulator) const &amp;requires is_header_included&lt; scan_tag</td></tr>
+<tr class="memdesc:gad4cf46a565f1081cd7b8bc26aa99e640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value.  <a href="group__transforming__operators.html#gad4cf46a565f1081cd7b8bc26aa99e640">More...</a><br /></td></tr>
+<tr class="separator:gad4cf46a565f1081cd7b8bc26aa99e640"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Transforming operators are operators that transform items provided by observable. </p>
@@ -323,6 +327,74 @@ template&lt;std::invocable&lt; Type &gt; Callable&gt; </div>
 <div class="line">    <span class="comment">// Output: 42 VAL</span></div>
 </div><!-- fragment --> </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/map.html">https://reactivex.io/documentation/operators/map.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="gad4cf46a565f1081cd7b8bc26aa99e640"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad4cf46a565f1081cd7b8bc26aa99e640">&#9670;&nbsp;</a></span>scan()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename Result , scan_accumulator&lt; Result, Type &gt; AccumulatorFn&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, scan_tag &gt;::scan </td>
+          <td>(</td>
+          <td class="paramtype">Result &amp;&amp;&#160;</td>
+          <td class="paramname"><em>initial_value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AccumulatorFn &amp;&amp;&#160;</td>
+          <td class="paramname"><em>accumulator</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. </p>
+<div class="image">
+<object type="image/svg+xml" data="scan.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">initial_value</td><td>initial value for seed which will be applied for first value from observable (instead of emitting this as first value). Then it will be replaced with result and etc. </td></tr>
+    <tr><td class="paramname">accumulator</td><td>function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the scan operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="scan_8hpp_source.html">rpp/operators/scan.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1,2,3)</div>
+<div class="line">            .scan(0, std::plus&lt;int&gt;{})</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 1 3 6</span></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1,2,3)</div>
+<div class="line">            .scan(std::vector&lt;int&gt;{}, [](std::vector&lt;int&gt;&amp;&amp; seed, <span class="keywordtype">int</span> new_value) -&gt; std::vector&lt;int&gt;&amp;&amp;</div>
+<div class="line">            {</div>
+<div class="line">                seed.push_back(new_value);</div>
+<div class="line">                <span class="keywordflow">return</span> std::move(seed);</div>
+<div class="line">            })</div>
+<div class="line">            .subscribe([](<span class="keyword">const</span> std::vector&lt;int&gt;&amp; v)</div>
+<div class="line">            {</div>
+<div class="line">                std::cout &lt;&lt; <span class="stringliteral">&quot;vector: &quot;</span>;</div>
+<div class="line">                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> val : v)</div>
+<div class="line">                    std::cout &lt;&lt; val &lt;&lt; <span class="stringliteral">&quot; &quot;</span>;</div>
+<div class="line">                std::cout &lt;&lt; std::endl;</div>
+<div class="line">            });</div>
+<div class="line">    <span class="comment">// Output: vector: 1</span></div>
+<div class="line">    <span class="comment">//         vector: 1 2</span></div>
+<div class="line">    <span class="comment">//         vector: 1 2 3</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/scan.html">https://reactivex.io/documentation/operators/scan.html</a> </dd></dl>
 
 </div>
 </div>
