@@ -22,7 +22,7 @@ int main()
                 seed.push_back(new_value);
                 return std::move(seed);
             })
-            .subscribe([](std::vector<int> v)
+            .subscribe([](const std::vector<int> v)
             {
                 std::cout << "vector: ";
                 for(int val : v)
