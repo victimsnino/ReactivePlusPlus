@@ -30,18 +30,23 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, scan_tag>
 {
     /**
-     * \brief 
+     * \brief Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value
      * 
      * \marble scan
         {
-            
+            source observable                : +--1-2-3-|
+            operator "scan: s=1, (s,x)=>s+x" : +--2-4-7-|
         }
+     *
+     * \param initial_value initial value for seed which will be applied for first value from observable (instead of emitting this as first value). Then it will be replaced with result and etc. 
+     * \param accumulator function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.
      *
      * \return new specific_observable with the scan operator as most recent operator.
      * \warning #include <rpp/operators/scan.hpp>
      * 
      * \par Example
      * \snippet scan.cpp scan
+     * \snippet scan.cpp scan_vector
 	 *
      * \ingroup transforming_operators
      * \see https://reactivex.io/documentation/operators/scan.html
