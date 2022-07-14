@@ -59,6 +59,8 @@ or include each required part separately in any way
 #include <rpp/operators/fwd.h>                     // include forwarding of family of classes/functions
 ```
 
+**IMPORTANT**: rpp is header-only library, so, in cmake terms it is `INTERFACE` target. As a result, most types of "intellisense" parsers fails to parse this library it `rpp` **is not linked to any other static library or executable**. So, for better developer's experience firstly link it with your target library. If you developing something inside rpp I'm strongly recommend you to enable samples `-DRPP_BUILD_SAMPLES=1` or tests `-DRPP_BUILD_TESTS=1` to have correct intellisense results.
+
 ## Useful links
 - [Manual and doxygen documentation](https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html)
 - [Continous benchmarking results, comparison of `dynamic` and `specific` and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
