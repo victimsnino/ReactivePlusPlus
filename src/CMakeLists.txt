@@ -14,6 +14,6 @@ if(RPP_BUILD_TESTS)
     add_subdirectory(tests)
 endif()
 
-if(RPP_BUILD_SAMPLES)
-    add_subdirectory(samples)
-endif()
+# For IDE developers because both CLion and VSCode Intellisense may not support
+# interface target well.
+add_subdirectory(samples)
