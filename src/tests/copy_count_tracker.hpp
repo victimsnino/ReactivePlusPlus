@@ -54,11 +54,8 @@ public:
     {
         return rpp::source::create<copy_count_tracker>([this, count](const auto& sub)
         {
-            for (size_t i = 0; i < count; ++i) {
-                if (!sub.is_subscribed()) { break; }
-
+            for (size_t i = 0; i < count && sub.is_subscribed(); ++i)
                 sub.on_next(*this);
-            }
             sub.on_completed();
         });
     }
@@ -67,11 +64,8 @@ public:
     {
         return rpp::source::create<copy_count_tracker>([this, count](const auto& sub)
         {
-            for (size_t i = 0; i < count; ++i) {
-                if (!sub.is_subscribed()) { break; }
-
+            for (size_t i = 0; i < count && sub.is_subscribed(); ++i)
                 sub.on_next(std::move(*this));
-            }
             sub.on_completed();
         });
     }

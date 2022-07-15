@@ -21,7 +21,6 @@ class mock_observer : public rpp::interface_observer<Type>
 {
 public:
     explicit mock_observer(bool copy_values = true) : m_state{std::make_shared<State>(copy_values)} {}
-    ~mock_observer() noexcept = default;
 
     void on_next(const Type& v) const override
     {
