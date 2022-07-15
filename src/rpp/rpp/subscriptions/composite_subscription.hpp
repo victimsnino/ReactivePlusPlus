@@ -45,6 +45,8 @@ public:
         {
             if (const auto pstate = get_state())
                 static_cast<state*>(pstate)->add(sub);
+            else
+                sub.unsubscribe();
         }
         return sub;
     }
@@ -61,6 +63,12 @@ public:
     {
         composite_subscription ret{};
         add(ret);
+        add([ret, state = static_cast<state*>(get_state())]
+        {
+            // add cleanup
+            if (state)
+                state->remove(ret);
+        });
         return ret;
     }
 
