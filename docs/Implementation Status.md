@@ -83,6 +83,7 @@
   - [x] merge with
   - [ ] merge delay error
 - [ ] switch
+  - [x] switch_map
   - [x] switch_on_next
   - [ ] switch_if_empty
 - [x] with_latest_from
