@@ -9,6 +9,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
+#include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/operators/flat_map.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/error.hpp>
@@ -62,6 +63,30 @@ SCENARIO("flat_map transforms items and then merge emissions from underlying obs
                 CHECK(mock.get_on_completed_count() == 0);
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(sub.is_subscribed());
+            }
+        }
+        WHEN("subscribe on it via flat_map with mix of never and observable")
+        {
+            /**
+             * obs:      ---1---2---3--|>
+             * f_map:       +   +   +
+             *               \   \   \
+             *                1   2   never complete
+             *                v   v
+             * observer: -----1---2-----> no complete event
+             */
+            obs.flat_map([](int i) {
+                    if (i < 3) {
+                        return rpp::source::just(i).as_dynamic();
+                    }
+                    return rpp::source::never<int>().as_dynamic();
+                })
+                .subscribe(mock);
+            THEN("subscriber obtains values from observables obtained via flat_map")
+            {
+                CHECK(mock.get_total_on_next_count() == 2);
+                CHECK(mock.get_on_completed_count() == 0);
+                CHECK(mock.get_on_error_count() == 0);
             }
         }
     }
