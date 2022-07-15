@@ -33,6 +33,7 @@ namespace rpp::observable
 template<constraint::decayed_type Type>
 auto never() requires rpp::details::is_header_included<rpp::details::never_tag, Type>
 {
-    return create<Type>([](const auto&) { });
+    static auto never = create<Type>([](const auto&) { });
+    return never;
 }
 } // namespace rpp::observable
