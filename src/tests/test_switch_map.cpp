@@ -76,7 +76,7 @@ SCENARIO("switch_map acts like flat_map except it unsubscribes the previous sour
         }
         WHEN("subscribe on it via switch_map with [never, just...]")
         {
-            std::atomic_size_t count_of_unsubscribed{0};
+            size_t count_of_unsubscribed{0};
 
             obs.switch_map([&](int val) {
                     if (val == 1) {
@@ -102,7 +102,7 @@ SCENARIO("switch_map acts like flat_map except it unsubscribes the previous sour
             }
             THEN("the first never-observable shall be unsubscribed")
             {
-                CHECK(count_of_unsubscribed.load() == 1);
+                CHECK(count_of_unsubscribed == 1);
             }
         }
         WHEN("subscribe on it via switch_map with [just..., never]")
