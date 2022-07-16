@@ -16,6 +16,7 @@ var examples =
     [ "run_loop.cpp", "run_loop_8cpp-example.html", null ],
     [ "scan.cpp", "scan_8cpp-example.html", null ],
     [ "subscribe_on.cpp", "subscribe_on_8cpp-example.html", null ],
+    [ "switch_map.cpp", "switch_map_8cpp-example.html", null ],
     [ "switch_on_next.cpp", "switch_on_next_8cpp-example.html", null ],
     [ "take.cpp", "take_8cpp-example.html", null ],
     [ "take_while.cpp", "take_while_8cpp-example.html", null ],

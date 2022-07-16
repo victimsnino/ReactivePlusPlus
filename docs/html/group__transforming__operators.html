@@ -120,6 +120,10 @@ Functions</h2></td></tr>
 <tr class="memitem:gad4cf46a565f1081cd7b8bc26aa99e640"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gad4cf46a565f1081cd7b8bc26aa99e640">rpp::details::member_overload&lt; Type, SpecificObservable, scan_tag &gt;::scan</a> (Result &amp;&amp;initial_value, AccumulatorFn &amp;&amp;accumulator) const &amp;requires is_header_included&lt; scan_tag</td></tr>
 <tr class="memdesc:gad4cf46a565f1081cd7b8bc26aa99e640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value.  <a href="group__transforming__operators.html#gad4cf46a565f1081cd7b8bc26aa99e640">More...</a><br /></td></tr>
 <tr class="separator:gad4cf46a565f1081cd7b8bc26aa99e640"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga70e93b5ebd0da19d8acdf2af6497cb88"><td class="memTemplParams" colspan="2">template&lt;switch_map_callable&lt; Type &gt; Callable&gt; </td></tr>
+<tr class="memitem:ga70e93b5ebd0da19d8acdf2af6497cb88"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#ga70e93b5ebd0da19d8acdf2af6497cb88">rpp::details::member_overload&lt; Type, SpecificObservable, switch_map_tag &gt;::switch_map</a> (Callable &amp;&amp;callable) const &amp;requires is_header_included&lt; switch_map_tag</td></tr>
+<tr class="memdesc:ga70e93b5ebd0da19d8acdf2af6497cb88"><td class="mdescLeft">&#160;</td><td class="mdescRight">convert an Observable that emits Observables into a single Observable that emits the items emitted by the most-recently-emitted of those Observables  <a href="group__transforming__operators.html#ga70e93b5ebd0da19d8acdf2af6497cb88">More...</a><br /></td></tr>
+<tr class="separator:ga70e93b5ebd0da19d8acdf2af6497cb88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Transforming operators are operators that transform items provided by observable. </p>
@@ -398,9 +402,65 @@ template&lt;typename Result , scan_accumulator&lt; Result, Type &gt; Accumulator
 
 </div>
 </div>
+<a id="ga70e93b5ebd0da19d8acdf2af6497cb88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga70e93b5ebd0da19d8acdf2af6497cb88">&#9670;&nbsp;</a></span>switch_map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;switch_map_callable&lt; Type &gt; Callable&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, switch_map_tag &gt;::switch_map </td>
+          <td>(</td>
+          <td class="paramtype">Callable &amp;&amp;&#160;</td>
+          <td class="paramname"><em>callable</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>convert an Observable that emits Observables into a single Observable that emits the items emitted by the most-recently-emitted of those Observables </p>
+<div class="image">
+<object type="image/svg+xml" data="switch_map.svg" style="pointer-events: none;"></object>
+</div>
+<p>Actually it makes <code>map</code> and then <code>switch_on_next</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">callable</td><td>Function to transform item to observable </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the switch_map operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="switch__map_8hpp_source.html">rpp/operators/switch_map.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3)</div>
+<div class="line">            .switch_map([](<span class="keywordtype">int</span> val) {</div>
+<div class="line">                <span class="keywordflow">if</span> (val == 1)</div>
+<div class="line">                    <span class="keywordflow">return</span> rpp::source::never&lt;int&gt;()</div>
+<div class="line">                        .lift([&amp;](<a class="code" href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber&lt;int&gt;</a> sub) {</div>
+<div class="line">                            sub.get_subscription().add([&amp;]() {</div>
+<div class="line">                                std::cout &lt;&lt; <span class="stringliteral">&quot;x-&quot;</span>; <span class="comment">// x is notation for unsubscribed</span></div>
+<div class="line">                            });</div>
+<div class="line">                            <span class="keywordflow">return</span> sub;</div>
+<div class="line">                        })</div>
+<div class="line">                        .as_dynamic();</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordflow">return</span> rpp::source::from_iterable(std::vector{val, val})</div>
+<div class="line">                    .as_dynamic();</div>
+<div class="line">            })</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;-&quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: x-2-2-3-3-</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/switchmap.html">https://reactivex.io/documentation/operators/switchmap.html</a> </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="agroup__creational__operators_html_gabc5067fa9aefaa803f6e329b75faa00c"><div class="ttname"><a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:159</div></div>
+<div class="ttc" id="aclassrpp_1_1dynamic__subscriber_html"><div class="ttname"><a href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber</a></div><div class="ttdoc">subscriber which uses dynamic_observer&lt;T&gt; to hide original callbacks</div><div class="ttdef"><b>Definition:</b> dynamic_subscriber.hpp:23</div></div>
 <div class="ttc" id="agroup__transforming__operators_html_ga2215c20ce73e16977568e7db1900ce65"><div class="ttname"><a href="group__transforming__operators.html#ga2215c20ce73e16977568e7db1900ce65">rpp::details::member_overload&lt; Type, SpecificObservable, map_tag &gt;::map</a></div><div class="ttdeci">auto map(Callable &amp;&amp;callable) const &amp;requires is_header_included&lt; map_tag</div><div class="ttdoc">Transform the items emitted by an Observable via applying a function to each item and emitting result...</div></div>
 <div class="ttc" id="agroup__transforming__operators_html_gaf3399da92ac6a0a4c392107b5b405a60"><div class="ttname"><a href="group__transforming__operators.html#gaf3399da92ac6a0a4c392107b5b405a60">rpp::details::member_overload&lt; Type, SpecificObservable, group_by_tag &gt;::group_by</a></div><div class="ttdeci">auto group_by(KeySelector &amp;&amp;key_selector, ValueSelector &amp;&amp;value_selector={}, KeyComparator &amp;&amp;comparator={}) const &amp;requires is_header_included&lt; group_by_tag</div><div class="ttdoc">Divide original observable into multiple observables where each new observable emits some group of va...</div></div>
 <!-- start footer part -->

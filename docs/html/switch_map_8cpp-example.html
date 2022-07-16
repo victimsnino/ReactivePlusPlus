@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: Implementation status</title>
+<title>ReactivePlusPlus: switch_map.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -73,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('status.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('switch_map_8cpp-example.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -91,186 +91,39 @@ $(document).ready(function(){initNavTree('status.html',''); initResizable(); });
 </iframe>
 </div>
 
-<div class="PageDoc"><div class="header">
+<div class="header">
   <div class="headertitle">
-<div class="title">Implementation status </div>  </div>
+<div class="title">switch_map.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md5"></a>
-Foundamentals</h1>
-<ul>
-<li>[x] Observables<ul>
-<li>[x] Specific Observable</li>
-<li>[x] Dynamic Observable</li>
-<li>[x] Blocking Observable</li>
-<li>[x] Connectable Observable</li>
-</ul>
-</li>
-<li>[x] Observers<ul>
-<li>[x] Specific Observer</li>
-<li>[x] Dynamic Observer</li>
-</ul>
-</li>
-<li>[x] Subscribers<ul>
-<li>[x] Specific Subscriber</li>
-<li>[x] Dynamic Subscriber</li>
-</ul>
-</li>
-<li>[x] Subscriptions<ul>
-<li>[x] Composite Subscription</li>
-<li>[x] Callback Subscription</li>
-</ul>
-</li>
-<li>[ ] Schedulers<ul>
-<li>[x] Immediate</li>
-<li>[x] New Thread</li>
-<li>[ ] CurrentThread/Trampoline</li>
-<li>[x] RunLoop</li>
-<li>[ ] EventLoop</li>
-</ul>
-</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md6"></a>
-Creating Observables</h1>
-<ul>
-<li>[x] Create</li>
-<li>[x] Just<ul>
-<li>[x] + memory_model</li>
-</ul>
-</li>
-<li>[x] empty/never/error</li>
-<li>[ ] from<ul>
-<li>[x] iterable</li>
-<li>[ ] future</li>
-<li>[ ] promise</li>
-<li>[x] callable</li>
-<li>[ ] async</li>
-</ul>
-</li>
-<li>[ ] defer</li>
-<li>[ ] interval</li>
-<li>[ ] range</li>
-<li>[ ] repeat</li>
-<li>[ ] timer</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md7"></a>
-Operators</h1>
-<h2><a class="anchor" id="autotoc_md8"></a>
-Transforming</h2>
-<ul>
-<li>[x] map</li>
-<li>[x] group_by</li>
-<li>[x] flat_map</li>
-<li>[x] scan</li>
-<li>[ ] buffer</li>
-<li>[ ] window</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md9"></a>
-Filtering</h2>
-<ul>
-<li>[x] filter</li>
-<li>[x] take</li>
-<li>[ ] debounce</li>
-<li>[ ] distinct</li>
-<li>[ ] element_at</li>
-<li>[ ] first</li>
-<li>[ ] ignore_elements</li>
-<li>[ ] last</li>
-<li>[ ] sample</li>
-<li>[ ] skip</li>
-<li>[ ] skip_last</li>
-<li>[ ] take_last</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md10"></a>
-Conditional</h2>
-<ul>
-<li>[x] take_while</li>
-<li>[ ] all</li>
-<li>[ ] amb</li>
-<li>[ ] contains</li>
-<li>[ ] default_if_empty</li>
-<li>[ ] sequence_equal</li>
-<li>[ ] skip_until</li>
-<li>[ ] skip_while</li>
-<li>[ ] take_until </li>
-</ul>
-<h2><a class="anchor" id="autotoc_md11"></a>
-Combining</h2>
-<ul>
-<li>[x] merge<ul>
-<li>[x] observable of observables</li>
-<li>[x] merge with</li>
-<li>[ ] merge delay error</li>
-</ul>
-</li>
-<li>[ ] switch<ul>
-<li>[x] switch_map</li>
-<li>[x] switch_on_next</li>
-<li>[ ] switch_if_empty</li>
-</ul>
-</li>
-<li>[x] with_latest_from</li>
-<li>[ ] combine_latest</li>
-<li>[ ] start_with</li>
-<li>[ ] zip</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md12"></a>
-Aggregate</h2>
-<ul>
-<li>[ ] average</li>
-<li>[ ] concat</li>
-<li>[ ] count</li>
-<li>[ ] max</li>
-<li>[ ] min</li>
-<li>[ ] reduce</li>
-<li>[ ] sum</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md13"></a>
-Backpressure</h2>
-<ul>
-<li>[ ] backpressure ???</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md14"></a>
-Error handling</h2>
-<ul>
-<li>[ ] catch</li>
-<li>[ ] retry</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md15"></a>
-Utility</h2>
-<ul>
-<li>[x] observe_on</li>
-<li>[x] repeat<ul>
-<li>[ ] scheduling (by default current_thread ?)</li>
-</ul>
-</li>
-<li>[x] subscribe_on</li>
-<li>[ ] delay</li>
-<li>[ ] do/tap</li>
-<li>[ ] timeout</li>
-<li>[ ] </li>
-</ul>
-<h2><a class="anchor" id="autotoc_md16"></a>
-Connectable</h2>
-<ul>
-<li>[x] publish</li>
-<li>[x] multicast</li>
-<li>[x] connect</li>
-<li>[x] ref_count</li>
-<li>[ ] replay</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md17"></a>
-Subjects</h1>
-<ul>
-<li>[x] publish_subject</li>
-<li>[ ] serialized_subject</li>
-<li>[ ] replay_subject</li>
-<li>[ ] publish_subject</li>
-<li>[ ] async_subject </li>
-</ul>
-</div></div><!-- contents -->
-</div><!-- PageDoc -->
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/rpp.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main()</div>
+<div class="line">{</div>
+<div class="line">    <a name="a0"></a><a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3)</div>
+<div class="line">            .switch_map([](<span class="keywordtype">int</span> val) {</div>
+<div class="line">                <span class="keywordflow">if</span> (val == 1)</div>
+<div class="line">                    <span class="keywordflow">return</span> rpp::source::never&lt;int&gt;()</div>
+<div class="line">                        .lift([&amp;](<a name="_a1"></a><a class="code" href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber&lt;int&gt;</a> sub) {</div>
+<div class="line">                            sub.get_subscription().add([&amp;]() {</div>
+<div class="line">                                std::cout &lt;&lt; <span class="stringliteral">&quot;x-&quot;</span>; <span class="comment">// x is notation for unsubscribed</span></div>
+<div class="line">                            });</div>
+<div class="line">                            <span class="keywordflow">return</span> sub;</div>
+<div class="line">                        })</div>
+<div class="line">                        .as_dynamic();</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordflow">return</span> rpp::source::from_iterable(std::vector{val, val})</div>
+<div class="line">                    .as_dynamic();</div>
+<div class="line">            })</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;-&quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: x-2-2-3-3-</span></div>
+<div class="line"><span class="comment"></span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="agroup__creational__operators_html_gabc5067fa9aefaa803f6e329b75faa00c"><div class="ttname"><a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:159</div></div>
+<div class="ttc" id="aclassrpp_1_1dynamic__subscriber_html"><div class="ttname"><a href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber</a></div><div class="ttdoc">subscriber which uses dynamic_observer&lt;T&gt; to hide original callbacks</div><div class="ttdef"><b>Definition:</b> dynamic_subscriber.hpp:23</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
