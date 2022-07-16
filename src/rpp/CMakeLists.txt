@@ -21,7 +21,10 @@ target_include_directories(rpp INTERFACE .)
 target_link_libraries(rpp INTERFACE coverage_config Threads::Threads)
 
 target_compile_features(rpp INTERFACE cxx_std_20)
-target_compile_options(rpp INTERFACE -fsized-deallocation)
+
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  target_compile_options(rpp INTERFACE -fsized-deallocation)
+endif()
 
 foreach(FILE ${FILES}) 
   get_filename_component(PARENT_DIR "${FILE}" PATH)
