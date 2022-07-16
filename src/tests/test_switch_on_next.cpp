@@ -82,6 +82,22 @@ SCENARIO("switch_on_next switches observable after obtaining new one", "[operato
             }
         }
     }
+    GIVEN("just observable of just observables where last is never")
+    {
+        auto observable = rpp::source::just(rpp::source::just(1).as_dynamic(), 
+                                            rpp::source::just(3).as_dynamic(),
+                                            rpp::source::never<int>().as_dynamic());
+        WHEN("subscribe on it via switch_on_next")
+        {
+            observable.switch_on_next().subscribe(mock);
+            THEN("obtains values as from concat but no complete")
+            {
+                CHECK(mock.get_received_values() == std::vector{1,3});
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
+    }
     GIVEN("subject of just subjects")
     {
         auto subj_1           = rpp::subjects::publish_subject<int>();

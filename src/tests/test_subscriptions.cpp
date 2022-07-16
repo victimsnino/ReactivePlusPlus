@@ -119,4 +119,19 @@ SCENARIO("subscriptions works as expected")
             }
         }
     }
+
+    GIVEN("empty composite subscription")
+    {
+        auto composite = rpp::composite_subscription::empty();
+        WHEN("add new subscription")
+        {
+            rpp::subscription_base new_sub{};
+            composite.add(new_sub);
+
+            THEN("new sub unsubscribed immediately")
+            {
+                REQUIRE(new_sub.is_subscribed() == false);
+            }
+        }
+    }
 }
