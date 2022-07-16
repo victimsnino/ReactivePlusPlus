@@ -37,9 +37,10 @@ struct concat_state_t : public std::enable_shared_from_this<concat_state_t<Value
     {
         return[state = this->shared_from_this()]<constraint::observable TObs>(TObs&& new_observable, const constraint::subscriber auto & sub)
         {
+            if(state->m_inner_subscribed.exchange(true))
             {
                 std::lock_guard lock{ state->m_mutex };
-                if (std::exchange(state->m_inner_subscribed, true))
+                if (state->m_inner_subscribed.exchange(true, std::memory_order_relaxed))
                 {
                     state->m_observables_to_subscribe.push(std::forward<TObs>(new_observable).as_dynamic());
                     return;
@@ -48,16 +49,12 @@ struct concat_state_t : public std::enable_shared_from_this<concat_state_t<Value
             state->subscribe_inner_subscriber(new_observable, sub);
         };
     }
-    auto get_on_observable_completed()
+    auto get_on_observable_completed() const
     {
         return [state = this->shared_from_this()](const constraint::subscriber auto& sub)
         {
-            {
-                std::lock_guard lock{ state->m_mutex };
-                if (state->m_inner_subscribed)
-                    return;
-            }
-            sub.on_completed();
+            if (!state->m_inner_subscribed)
+                sub.on_completed();
         };
     }
 
@@ -73,17 +70,18 @@ private:
                                                   [state = this->shared_from_this()](const constraint::subscriber auto& sub)
                                                   {
                                                       {
-                                                          std::lock_guard lock{ state->m_mutex };
+                                                          std::unique_lock lock{ state->m_mutex };
                                                           if (!state->m_observables_to_subscribe.empty())
                                                           {
                                                               auto res = std::move(state->m_observables_to_subscribe.front());
                                                               state->m_observables_to_subscribe.pop();
+                                                              lock.unlock();
                                                               state->subscribe_inner_subscriber(res, sub);
                                                               return;
                                                           }
                                                           if (state->m_source_subscription.is_subscribed())
                                                           {
-                                                              state->m_inner_subscribed = false;
+                                                              state->m_inner_subscribed.store(false, std::memory_order_relaxed);
                                                               return;
                                                           }
                                                       }
@@ -96,7 +94,7 @@ private:
     const rpp::composite_subscription              m_source_subscription;
     std::mutex                                     m_mutex{};
     std::queue<rpp::dynamic_observable<ValueType>> m_observables_to_subscribe{};
-    bool                                           m_inner_subscribed{};
+    std::atomic_bool                               m_inner_subscribed{};
 };
 
 template<constraint::decayed_type Type>
