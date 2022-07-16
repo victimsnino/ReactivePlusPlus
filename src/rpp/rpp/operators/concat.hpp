@@ -16,6 +16,7 @@
 
 #include <rpp/subscriptions/composite_subscription.hpp>
 #include <rpp/observers/state_observer.hpp>
+#include <rpp/sources/just.hpp>
 
 #include <mutex>
 #include <memory>
@@ -117,4 +118,10 @@ struct concat_impl
                                              state->get_on_observable_completed());
     }
 };
+
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> ... TObservables>
+auto concat_with_impl(TObservables&&... observables)
+{
+    return rpp::source::just(std::forward<TObservables>(observables).as_dynamic()...).concat();
+}
 } // namespace rpp::details

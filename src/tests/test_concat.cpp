@@ -21,57 +21,72 @@
 TEST_CASE("concat merges emissions sequentially", "[concat]")
 {
     auto mock = mock_observer<int>{};
+
+    auto subj_1 = rpp::subjects::publish_subject<int>{};
+    auto subj_2 = rpp::subjects::publish_subject<int>{};
+
+    auto validate_concat_logic = [&]()
+    {
+        AND_WHEN("subjects are emit values")
+        {
+            subj_1.get_subscriber().on_next(1);
+            subj_2.get_subscriber().on_next(2);
+            THEN("only values from first subject obtained")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 1 });
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
+        AND_WHEN("first subject is completed")
+        {
+            subj_1.get_subscriber().on_completed();
+            THEN("no values and no complete")
+            {
+                CHECK(mock.get_total_on_next_count() == 0);
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 0);
+            }
+            AND_WHEN("subjects are emit values")
+            {
+                subj_1.get_subscriber().on_next(1);
+                subj_2.get_subscriber().on_next(2);
+                THEN("only values from second subject obtained and no complete")
+                {
+                    CHECK(mock.get_received_values() == std::vector{ 2 });
+                    CHECK(mock.get_on_error_count() == 0);
+                    CHECK(mock.get_on_completed_count() == 0);
+                }
+            }
+            AND_WHEN("second subject is completed")
+            {
+                subj_2.get_subscriber().on_completed();
+                THEN("subscriber completed")
+                {
+                    CHECK(mock.get_total_on_next_count() == 0);
+                    CHECK(mock.get_on_error_count() == 0);
+                    CHECK(mock.get_on_completed_count() == 1);
+                }
+            }
+        }
+    };
+
     GIVEN("observable of subjects")
     {
-        auto subj_1 = rpp::subjects::publish_subject<int>{};
-        auto subj_2 = rpp::subjects::publish_subject<int>{};
         auto obs = rpp::observable::just(subj_1.get_observable(), subj_2.get_observable());
 
         WHEN("subscribe on it via concat")
         {
             obs.concat().subscribe(mock);
-            AND_WHEN("subjects are emit values")
-            {
-                subj_1.get_subscriber().on_next(1);
-                subj_2.get_subscriber().on_next(2);
-                THEN("only values from first subject obtained")
-                {
-                    CHECK(mock.get_received_values() == std::vector{ 1 });
-                    CHECK(mock.get_on_error_count() == 0);
-                    CHECK(mock.get_on_completed_count() == 0);
-                }
-            }
-            AND_WHEN("first subject is completed")
-            {
-                subj_1.get_subscriber().on_completed();
-                THEN("no values and no complete")
-                {
-                    CHECK(mock.get_total_on_next_count() == 0);
-                    CHECK(mock.get_on_error_count() == 0);
-                    CHECK(mock.get_on_completed_count() == 0);
-                }
-                AND_WHEN("subjects are emit values")
-                {
-                    subj_1.get_subscriber().on_next(1);
-                    subj_2.get_subscriber().on_next(2);
-                    THEN("only values from second subject obtained and no complete")
-                    {
-                        CHECK(mock.get_received_values() == std::vector{ 2 });
-                        CHECK(mock.get_on_error_count() == 0);
-                        CHECK(mock.get_on_completed_count() == 0);
-                    }
-                }
-                AND_WHEN("second subject is completed")
-                {
-                    subj_2.get_subscriber().on_completed();
-                    THEN("subscriber completed")
-                    {
-                        CHECK(mock.get_total_on_next_count() == 0);
-                        CHECK(mock.get_on_error_count() == 0);
-                        CHECK(mock.get_on_completed_count() == 1);
-                    }
-                }
-            }
+            validate_concat_logic();
+        }
+    }
+    GIVEN("two subjects")
+    {
+        WHEN("subscribe on it via concat_with")
+        {
+            subj_1.get_observable().concat_with(subj_2.get_observable()).subscribe(mock);
+            validate_concat_logic();
         }
     }
 }
