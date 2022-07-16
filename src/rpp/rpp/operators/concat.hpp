@@ -62,31 +62,30 @@ struct concat_state_t : public std::enable_shared_from_this<concat_state_t<Value
 private:
     void subscribe_inner_subscriber(const auto& observable, const constraint::subscriber auto& subscriber)
     {
-        auto sub = subscriber.get_subscription().make_child();
-        observable.subscribe(create_subscriber_with_state<ValueType>(std::move(sub),
-                                                  std::forward<decltype(subscriber)>(subscriber),
-                                                  forwarding_on_next{},
-                                                  forwarding_on_error{},
-                                                  [state = this->shared_from_this()](const constraint::subscriber auto& sub)
-                                                  {
-                                                      {
-                                                          std::unique_lock lock{ state->m_mutex };
-                                                          if (!state->m_observables_to_subscribe.empty())
-                                                          {
-                                                              auto res = std::move(state->m_observables_to_subscribe.front());
-                                                              state->m_observables_to_subscribe.pop();
-                                                              lock.unlock();
-                                                              state->subscribe_inner_subscriber(res, sub);
-                                                              return;
-                                                          }
-                                                          if (state->m_source_subscription.is_subscribed())
-                                                          {
-                                                              state->m_inner_subscribed.store(false, std::memory_order_relaxed);
-                                                              return;
-                                                          }
-                                                      }
-                                                    sub.on_completed();
-                                                  }));
+        observable.subscribe(create_subscriber_with_state<ValueType>(subscriber.get_subscription().make_child(),
+                                                                     subscriber,
+                                                                     forwarding_on_next{},
+                                                                     forwarding_on_error{},
+                                                                     [state = this->shared_from_this()](const constraint::subscriber auto& sub)
+                                                                     {
+                                                                         {
+                                                                             std::unique_lock lock{ state->m_mutex };
+                                                                             if (!state->m_observables_to_subscribe.empty())
+                                                                             {
+                                                                                 auto res = std::move(state->m_observables_to_subscribe.front());
+                                                                                 state->m_observables_to_subscribe.pop();
+                                                                                 lock.unlock();
+                                                                                 state->subscribe_inner_subscriber(res, sub);
+                                                                                 return;
+                                                                             }
+                                                                             if (state->m_source_subscription.is_subscribed())
+                                                                             {
+                                                                                 state->m_inner_subscribed.store(false, std::memory_order_relaxed);
+                                                                                 return;
+                                                                             }
+                                                                         }
+                                                                         sub.on_completed();
+                                                                     }));
     }
 
 
