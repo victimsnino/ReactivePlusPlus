@@ -56,6 +56,7 @@
 
 #include <rpp/operators/merge.hpp>
 #include <rpp/operators/with_latest_from.hpp>
+#include <rpp/operators/switch_map.hpp>
 #include <rpp/operators/switch_on_next.hpp>
 
 /**
