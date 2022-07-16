@@ -33,12 +33,10 @@ struct member_overload<Type, SpecificObservable, switch_map_tag>
     /**
     * \brief convert an Observable that emits Observables into a single Observable that emits the items emitted by the most-recently-emitted of those Observables
     *
-    * \warning According to observable contract (https://reactivex.io/documentation/operators/switch.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
-    * 
     * \marble switch_map
         {
-            source observable                   : +-N---2---3---|
-            operator "switch_map: x=>just(x,x)" : +-----2-2-3-3-|
+            source observable                 : +--2-3-|
+            operator "switch_map: x=>x-x-x-|" : +--22333|
         }
     *
     * \details Actually it makes `map` and then `switch_on_next`.
