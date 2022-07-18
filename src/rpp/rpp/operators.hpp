@@ -60,6 +60,16 @@
 #include <rpp/operators/switch_on_next.hpp>
 
 /**
+* \defgroup aggregate_operators Aggregate Operators
+* \brief Aggregate operators are operators on the entire sequence of items provided by observable
+* \see https://reactivex.io/documentation/operators.html#mathematical
+* \ingroup operators
+*/
+
+#include <rpp/operators/concat.hpp>
+
+
+/**
  * \defgroup utility_operators Utility Operators
  * \brief Utility operators are operators that provide some extra functionality without changing of original values, but changing of behaviour
  * \see https://reactivex.io/documentation/operators.html#utility

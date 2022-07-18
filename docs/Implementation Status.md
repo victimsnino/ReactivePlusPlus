@@ -94,7 +94,7 @@
 ### Aggregate
 
 - [ ] average
-- [ ] concat
+- [x] concat
 - [ ] count
 - [ ] max 
 - [ ] min

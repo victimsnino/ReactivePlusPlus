@@ -66,6 +66,7 @@ struct RPP_EMPTY_BASES interface_observable
     , details::member_overload<Type, SpecificObservable, details::group_by_tag>
     , details::member_overload<Type, SpecificObservable, details::flat_map_tag>
     , details::member_overload<Type, SpecificObservable, details::scan_tag>
+    , details::member_overload<Type, SpecificObservable, details::concat_tag>
 {
 public:
 
