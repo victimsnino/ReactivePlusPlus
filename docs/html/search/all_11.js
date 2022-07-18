@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['take_144',['take',['../group__filtering__operators.html#gaef1d69d29be545c479d3126993eed494',1,'rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;']]],
-  ['take_5fimpl_145',['take_impl',['../structrpp_1_1details_1_1take__impl.html',1,'rpp::details']]],
-  ['take_5fwhile_146',['take_while',['../group__conditional__operators.html#ga68ea040e75df34c47cdffd164d2a7c3d',1,'rpp::details::member_overload&lt; Type, SpecificObservable, take_while_tag &gt;']]],
-  ['take_5fwhile_5fimpl_147',['take_while_impl',['../structrpp_1_1details_1_1take__while__impl.html',1,'rpp::details']]],
-  ['transforming_20operators_148',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
+  ['take_151',['take',['../group__filtering__operators.html#gaef1d69d29be545c479d3126993eed494',1,'rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;']]],
+  ['take_5fimpl_152',['take_impl',['../structrpp_1_1details_1_1take__impl.html',1,'rpp::details']]],
+  ['take_5fwhile_153',['take_while',['../group__conditional__operators.html#ga68ea040e75df34c47cdffd164d2a7c3d',1,'rpp::details::member_overload&lt; Type, SpecificObservable, take_while_tag &gt;']]],
+  ['take_5fwhile_5fimpl_154',['take_while_impl',['../structrpp_1_1details_1_1take__while__impl.html',1,'rpp::details']]],
+  ['transforming_20operators_155',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
 ];

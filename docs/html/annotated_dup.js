@@ -2,6 +2,8 @@ var annotated_dup =
 [
     [ "rpp", null, [
       [ "details", null, [
+        [ "concat_impl", "structrpp_1_1details_1_1concat__impl.html", "structrpp_1_1details_1_1concat__impl" ],
+        [ "concat_state_t", "structrpp_1_1details_1_1concat__state__t.html", "structrpp_1_1details_1_1concat__state__t" ],
         [ "dynamic_observable_state", "classrpp_1_1details_1_1dynamic__observable__state.html", "classrpp_1_1details_1_1dynamic__observable__state" ],
         [ "filter_impl", "structrpp_1_1details_1_1filter__impl.html", "structrpp_1_1details_1_1filter__impl" ],
         [ "forwarding_on_completed", "structrpp_1_1details_1_1forwarding__on__completed.html", "structrpp_1_1details_1_1forwarding__on__completed" ],
@@ -14,6 +16,7 @@ var annotated_dup =
         [ "lift_action_by_callbacks", "structrpp_1_1details_1_1lift__action__by__callbacks.html", "structrpp_1_1details_1_1lift__action__by__callbacks" ],
         [ "map_impl", "structrpp_1_1details_1_1map__impl.html", "structrpp_1_1details_1_1map__impl" ],
         [ "member_overload", "structrpp_1_1details_1_1member__overload.html", null ],
+        [ "member_overload< Type, SpecificObservable, concat_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01concat__tag_01_4.html", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01concat__tag_01_4" ],
         [ "member_overload< Type, SpecificObservable, filter_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01filter__tag_01_4.html", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01filter__tag_01_4" ],
         [ "member_overload< Type, SpecificObservable, flat_map_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01flat__map__tag_01_4.html", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01flat__map__tag_01_4" ],
         [ "member_overload< Type, SpecificObservable, group_by_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01group__by__tag_01_4.html", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01group__by__tag_01_4" ],

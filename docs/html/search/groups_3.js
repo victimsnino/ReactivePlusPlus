@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['schedulers_304',['Schedulers',['../group__schedulers.html',1,'']]],
-  ['subjects_305',['Subjects',['../group__subjects.html',1,'']]]
+  ['observables_315',['Observables',['../group__observables.html',1,'']]],
+  ['observers_316',['Observers',['../group__observers.html',1,'']]],
+  ['operators_317',['Operators',['../group__operators.html',1,'']]]
 ];

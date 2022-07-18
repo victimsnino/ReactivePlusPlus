@@ -1,5 +1,6 @@
 var examples =
 [
+    [ "concat.cpp", "concat_8cpp-example.html", null ],
     [ "create.cpp", "create_8cpp-example.html", null ],
     [ "filter.cpp", "filter_8cpp-example.html", null ],
     [ "flat_map.cpp", "flat_map_8cpp-example.html", null ],

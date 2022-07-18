@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['new_5fthread_95',['new_thread',['../classrpp_1_1schedulers_1_1new__thread.html',1,'rpp::schedulers']]]
+  ['new_5fthread_102',['new_thread',['../classrpp_1_1schedulers_1_1new__thread.html',1,'rpp::schedulers']]]
 ];

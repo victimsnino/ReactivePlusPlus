@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['transforming_20operators_306',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
+  ['schedulers_318',['Schedulers',['../group__schedulers.html',1,'']]],
+  ['subjects_319',['Subjects',['../group__subjects.html',1,'']]]
 ];
