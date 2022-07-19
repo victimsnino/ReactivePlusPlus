@@ -21,9 +21,15 @@ IMPLEMENTATION_FILE (start_with_tag);
 
 namespace rpp::details
 {
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> ...TObservables>
+auto start_with_impl(TObservables&&... observables)
+{
+    return concat_with_impl<Type>(std::forward<TObservables>(observables)...);
+}
+
 template<rpp::memory_model memory_model, constraint::decayed_type Type, constraint::decayed_same_as<Type> ...TTypes, constraint::observable_of_type<Type> TObservable>
 auto start_with_impl(TObservable&& observable, TTypes&& ...vals)
 {
-    return std::forward<TObservable>(observable).start_with(rpp::source::just<memory_model>(std::forward<TTypes>(vals)...));
+    return start_with_impl<Type>(rpp::source::just<memory_model>(std::forward<TTypes>(vals)...), std::forward<TObservable>(observable));
 }
 } // namespace rpp::details

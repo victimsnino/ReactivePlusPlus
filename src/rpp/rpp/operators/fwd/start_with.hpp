@@ -13,7 +13,6 @@
 #include <rpp/observables/constraints.hpp>
 #include <rpp/observables/details/member_overload.hpp>
 
-#include <rpp/operators/fwd/concat.hpp>
 #include <rpp/memory_model.hpp>
 
 namespace rpp::details
@@ -23,6 +22,9 @@ struct start_with_tag;
 
 namespace rpp::details
 {
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> ...TObservables>
+auto start_with_impl(TObservables&&... observables);
+
 template<rpp::memory_model memory_model, constraint::decayed_type Type, constraint::decayed_same_as<Type> ...TTypes, constraint::observable_of_type<Type> TObservable>
 auto start_with_impl(TObservable&& observable, TTypes&& ...vals);
 
@@ -89,13 +91,13 @@ struct member_overload<Type, SpecificObservable, start_with_tag>
     template<constraint::observable_of_type<Type> ...TObservables>
     auto start_with(TObservables&&...observables) const& requires is_header_included<start_with_tag, TObservables...>
     {
-        return concat_with_impl<Type>(std::forward<TObservables>(observables)..., *static_cast<const SpecificObservable*>(this));
+        return start_with_impl<Type>(std::forward<TObservables>(observables)..., *static_cast<const SpecificObservable*>(this));
     }
 
     template<constraint::observable_of_type<Type> ...TObservables>
     auto start_with(TObservables&&...observables) && requires is_header_included<start_with_tag, TObservables...>
     {
-        return concat_with_impl<Type>(std::forward<TObservables>(observables)..., std::move(*static_cast<SpecificObservable*>(this)));
+        return start_with_impl<Type>(std::forward<TObservables>(observables)..., std::move(*static_cast<SpecificObservable*>(this)));
     }
 };
 } // namespace rpp::details
