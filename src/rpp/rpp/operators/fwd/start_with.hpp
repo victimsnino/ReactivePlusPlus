@@ -22,11 +22,11 @@ struct start_with_tag;
 
 namespace rpp::details
 {
-template<constraint::decayed_type Type, constraint::observable_of_type<Type> ...TObservables>
-auto start_with_impl(TObservables&&... observables);
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObservable, constraint::observable_of_type<Type> ...TObservables>
+auto start_with_impl(TObservable&& observable, TObservables&&... observables_to_start_with);
 
 template<rpp::memory_model memory_model, constraint::decayed_type Type, constraint::decayed_same_as<Type> ...TTypes, constraint::observable_of_type<Type> TObservable>
-auto start_with_impl(TObservable&& observable, TTypes&& ...vals);
+auto start_with_impl(TObservable&& observable, TTypes&& ...vals_to_start_with);
 
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, start_with_tag>
@@ -55,15 +55,15 @@ struct member_overload<Type, SpecificObservable, start_with_tag>
     * \see https://reactivex.io/documentation/operators/startwith.html
      */
     template<rpp::memory_model memory_model = memory_model::use_stack, constraint::decayed_same_as<Type> ...TTypes>
-    auto start_with(TTypes&&...vals) const & requires is_header_included<start_with_tag, TTypes...>
+    auto start_with(TTypes&&...vals_to_start_with) const & requires is_header_included<start_with_tag, TTypes...>
     {
-        return start_with_impl<memory_model, Type>(*static_cast<const SpecificObservable*>(this), std::forward<TTypes>(vals)...);
+        return start_with_impl<memory_model, Type>(*static_cast<const SpecificObservable*>(this), std::forward<TTypes>(vals_to_start_with)...);
     }
 
     template<rpp::memory_model memory_model = memory_model::use_stack, constraint::decayed_same_as<Type> ...TTypes>
-    auto start_with(TTypes&&...vals) && requires (is_header_included<start_with_tag, TTypes...>&& constraint::variadic_is_same_type<Type, TTypes...>)
+    auto start_with(TTypes&&...vals_to_start_with) && requires (is_header_included<start_with_tag, TTypes...>&& constraint::variadic_is_same_type<Type, TTypes...>)
     {
-        return  start_with_impl<memory_model, Type>(std::move(*static_cast<SpecificObservable*>(this)), std::forward<TTypes>(vals)...);
+        return  start_with_impl<memory_model, Type>(std::move(*static_cast<SpecificObservable*>(this)), std::forward<TTypes>(vals_to_start_with)...);
     }
 
     /**
@@ -89,15 +89,15 @@ struct member_overload<Type, SpecificObservable, start_with_tag>
     * \see https://reactivex.io/documentation/operators/startwith.html
     */
     template<constraint::observable_of_type<Type> ...TObservables>
-    auto start_with(TObservables&&...observables) const& requires is_header_included<start_with_tag, TObservables...>
+    auto start_with(TObservables&&...observables_to_start_with) const& requires is_header_included<start_with_tag, TObservables...>
     {
-        return start_with_impl<Type>(std::forward<TObservables>(observables)..., *static_cast<const SpecificObservable*>(this));
+        return start_with_impl<Type>(*static_cast<const SpecificObservable*>(this), std::forward<TObservables>(observables_to_start_with)...);
     }
 
     template<constraint::observable_of_type<Type> ...TObservables>
-    auto start_with(TObservables&&...observables) && requires is_header_included<start_with_tag, TObservables...>
+    auto start_with(TObservables&&...observables_to_start_with) && requires is_header_included<start_with_tag, TObservables...>
     {
-        return start_with_impl<Type>(std::forward<TObservables>(observables)..., std::move(*static_cast<SpecificObservable*>(this)));
+        return start_with_impl<Type>(std::move(*static_cast<SpecificObservable*>(this)), std::forward<TObservables>(observables_to_start_with)...);
     }
 };
 } // namespace rpp::details
