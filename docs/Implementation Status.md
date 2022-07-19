@@ -87,8 +87,8 @@
   - [x] switch_on_next
   - [ ] switch_if_empty
 - [x] with_latest_from
+- [x] start_with
 - [ ] combine_latest
-- [ ] start_with
 - [ ] zip
 
 ### Aggregate

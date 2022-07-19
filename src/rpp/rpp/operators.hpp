@@ -58,6 +58,7 @@
 #include <rpp/operators/with_latest_from.hpp>
 #include <rpp/operators/switch_map.hpp>
 #include <rpp/operators/switch_on_next.hpp>
+#include <rpp/operators/start_with.hpp>
 
 /**
 * \defgroup aggregate_operators Aggregate Operators
