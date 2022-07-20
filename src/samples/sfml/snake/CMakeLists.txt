@@ -2,6 +2,10 @@ set(TARGET snake)
 
 add_executable(${TARGET}
     snake.cpp
+    snake.hpp
+    
+    canvas.hpp
+    canvas.cpp
 )
 
 target_link_libraries(${TARGET} PRIVATE rpp SFML::Graphics)

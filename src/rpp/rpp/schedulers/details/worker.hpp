@@ -69,7 +69,11 @@ private:
         {
             if (auto duration = m_fn())
             {
-                m_time_point += duration.value();
+                if (duration.value() != rpp::schedulers::duration::zero())
+                    m_time_point += duration.value();
+                else
+                    m_time_point = m_strategy.now();
+
                 auto time_to_schedule = m_time_point;
                 m_strategy.defer_at(time_to_schedule, std::move(*this));
             }
