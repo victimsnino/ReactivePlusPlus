@@ -150,8 +150,9 @@ var NAVTREEINDEX0 =
 "classrpp_1_1schedulers_1_1run__loop_1_1worker__strategy.html#a0d1a2cb098e0bc77f3d1c1c217a75792":[1,3,2,0,1],
 "classrpp_1_1schedulers_1_1run__loop_1_1worker__strategy.html#a16f33910e5b10cfb44df2f838630126d":[1,3,2,0,0],
 "classrpp_1_1schedulers_1_1worker.html":[2,0,0,2,4],
+"classrpp_1_1schedulers_1_1worker.html#a11df0fcedc4cdfb8eacd6239c6a4e1c5":[2,0,0,2,4,4],
 "classrpp_1_1schedulers_1_1worker.html#a30a71f1071b31090f2c71d7524c49770":[2,0,0,2,4,1],
-"classrpp_1_1schedulers_1_1worker.html#a33d7fe32869f2456b3bf7f577b53f8ea":[2,0,0,2,4,4],
+"classrpp_1_1schedulers_1_1worker.html#a33d7fe32869f2456b3bf7f577b53f8ea":[2,0,0,2,4,5],
 "classrpp_1_1schedulers_1_1worker.html#a3fafb316a2164c8cd4276e1e67d69401":[2,0,0,2,4,2],
 "classrpp_1_1schedulers_1_1worker.html#aa16a6a8ce8c2c9d1074a11855f32aca4":[2,0,0,2,4,0],
 "classrpp_1_1schedulers_1_1worker.html#ac7cae23450e9eaa58525c646e41574e3":[2,0,0,2,4,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "dir_e63f0449bda065f7452c9bd88dfaa92f.html":[3,0,0,0,0,1],
 "docs.html":[0],
 "dynamic__observable_8hpp_source.html":[3,0,0,0,0,0,4],
-"dynamic__observer_8hpp_source.html":[3,0,0,0,0,1,1],
-"dynamic__subscriber_8hpp_source.html":[3,0,0,0,0,6,2]
+"dynamic__observer_8hpp_source.html":[3,0,0,0,0,1,1]
 };

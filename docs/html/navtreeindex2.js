@@ -1,5 +1,8 @@
 var NAVTREEINDEX2 =
 {
+"structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01multicast__tag_01_4.html#aaabdf3a40d59d93e94f54a47cd7e1575":[2,0,0,0,21,2],
+"structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01observe__on__tag_01_4.html":[2,0,0,0,22],
+"structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01observe__on__tag_01_4.html#a10af1c202510bc064ac0c964b0451443":[2,0,0,0,22,0],
 "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01observe__on__tag_01_4.html#a9304e7db8c3cda5a69603439f02c8be8":[2,0,0,0,22,2],
 "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01publish__tag_01_4.html":[2,0,0,0,23],
 "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01publish__tag_01_4.html#a9658820dd8a74a72f2fbfbdcac24dcd0":[2,0,0,0,23,0],
@@ -113,7 +116,7 @@ var NAVTREEINDEX2 =
 "subjects_8hpp_source.html":[3,0,0,0,0,17],
 "subscribe_8hpp_source.html":[3,0,0,0,0,2,1,13],
 "subscribe__on_8hpp_source.html":[3,0,0,0,0,2,17],
-"subscribe_on_8cpp-example.html":[4,17],
+"subscribe_on_8cpp-example.html":[4,18],
 "subscriber__base_8hpp_source.html":[3,0,0,0,0,6,0,0],
 "subscribers_2constraints_8hpp_source.html":[3,0,0,0,0,6,1],
 "subscribers_2fwd_8hpp_source.html":[3,0,0,0,0,6,3],
@@ -125,14 +128,14 @@ var NAVTREEINDEX2 =
 "subscriptions_2fwd_8hpp_source.html":[3,0,0,0,0,7,4],
 "switch__map_8hpp_source.html":[3,0,0,0,0,2,18],
 "switch__on__next_8hpp_source.html":[3,0,0,0,0,2,19],
-"switch_map_8cpp-example.html":[4,18],
-"switch_on_next_8cpp-example.html":[4,19],
-"take_8cpp-example.html":[4,20],
+"switch_map_8cpp-example.html":[4,19],
+"switch_on_next_8cpp-example.html":[4,20],
+"take_8cpp-example.html":[4,21],
 "take_8hpp_source.html":[3,0,0,0,0,2,20],
 "take__while_8hpp_source.html":[3,0,0,0,0,2,21],
-"take_while_8cpp-example.html":[4,21],
+"take_while_8cpp-example.html":[4,22],
 "type__traits_8hpp_source.html":[3,0,0,0,0,5,4],
 "with__latest__from_8hpp_source.html":[3,0,0,0,0,2,22],
-"with_latest_from_8cpp-example.html":[4,22],
+"with_latest_from_8cpp-example.html":[4,23],
 "worker_8hpp_source.html":[3,0,0,0,0,3,0,1]
 };
