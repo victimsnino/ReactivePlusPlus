@@ -6,6 +6,8 @@ add_executable(${TARGET}
     snake.cpp
     snake.hpp
 
+    utils.hpp
+
     canvas.hpp
     canvas.cpp
 )

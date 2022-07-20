@@ -1,11 +1,13 @@
 #include "canvas.hpp"
+#include "snake.hpp"
+#include "utils.hpp"
 
-#include <SFML/Graphics.hpp>
 #include <rpp/rpp.hpp>
+#include <SFML/Graphics.hpp>
 
 #include <variant>
 
-auto get_events_observable(sf::RenderWindow& window)
+static auto get_events_observable(sf::RenderWindow& window)
 {
     return rpp::source::create<CustomEvent>([&window](const auto& sub)
         {
@@ -37,7 +39,6 @@ void display_screen_and_clear_on_present_begin(const auto& presents, sf::RenderW
                 window.clear(sf::Color{0, 128, 0});
             });
 }
-
 
 int main()
 {
