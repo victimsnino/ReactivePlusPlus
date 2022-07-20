@@ -50,6 +50,5 @@ public:
     const auto& get_schedulings() const { return *m_schedulings; }
 
 private:
-    std::shared_ptr<std::vector<rpp::schedulers::time_point>> m_schedulings = std::make_shared<std::vector<
-        rpp::schedulers::time_point>>();
+    std::shared_ptr<std::vector<rpp::schedulers::time_point>> m_schedulings = std::make_shared<std::vector<rpp::schedulers::time_point>>();
 };

@@ -29,6 +29,8 @@ struct never_tag;
 struct error_tag;
 struct just_tag;
 struct from_tag;
+struct interval_tag;
+
 } // rpp::observable::details
 
 namespace rpp::observable
@@ -60,12 +62,18 @@ auto just(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&
 template<memory_model memory_model = memory_model::use_stack, typename T, typename ...Ts>
 auto just(T&& item, Ts&& ...items) requires (rpp::details::is_header_included<rpp::details::just_tag, T, Ts...> && (constraint::decayed_same_as<T, Ts> && ...));
 
-template<memory_model memory_model= memory_model::use_stack, schedulers::constraint::scheduler TScheduler =
-    schedulers::immediate>
+template<memory_model memory_model= memory_model::use_stack, schedulers::constraint::scheduler TScheduler = schedulers::immediate>
 auto from_iterable(std::ranges::range auto&& iterable, const TScheduler& scheduler = TScheduler{}) requires rpp::details::is_header_included <rpp::details::from_tag, TScheduler > ;
 
 template<memory_model memory_model = memory_model::use_stack>
 auto from_callable(std::invocable<> auto&& callable) requires rpp::details::is_header_included<rpp::details::from_tag, decltype(callable)>;
+
+//************************ INTERVAL *********************//
+template<schedulers::constraint::scheduler TScheduler = schedulers::immediate>
+auto interval(schedulers::duration period, const TScheduler& scheduler = TScheduler{}) requires rpp::details::is_header_included<rpp::details::interval_tag, TScheduler>;
+
+template<schedulers::constraint::scheduler TScheduler = schedulers::immediate>
+auto interval(schedulers::duration first_delay, schedulers::duration period, const TScheduler& scheduler = TScheduler{}) requires rpp::details::is_header_included<rpp::details::interval_tag, TScheduler>;
 } // namespace rpp::observable
 
 namespace rpp

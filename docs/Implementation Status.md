@@ -36,7 +36,7 @@
   - [x] callable
   - [ ] async
 - [ ] defer
-- [ ] interval
+- [x] interval
 - [ ] range
 - [ ] repeat
 - [ ] timer
