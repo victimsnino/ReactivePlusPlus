@@ -1,9 +1,11 @@
 set(TARGET snake)
 
 add_executable(${TARGET}
+    main.cpp
+
     snake.cpp
     snake.hpp
-    
+
     canvas.hpp
     canvas.cpp
 )
