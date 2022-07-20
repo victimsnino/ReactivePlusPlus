@@ -54,7 +54,7 @@ void display_screen_and_clear_on_present_begin(const auto& presents, sf::RenderW
             .subscribe([&window](const auto&)
             {
                 window.display();
-                window.clear(sf::Color{0, 0, 0});
+                window.clear(sf::Color{0, 128, 0});
             });
 }
 
@@ -74,10 +74,10 @@ void game_logic(const rpp::dynamic_observable<CustomEvent>& events, sf::RenderWi
     using Direction = Coordinates;
 
     const std::map<sf::Keyboard::Key, Direction> key_to_direction{
-        {sf::Keyboard::Key::Left, {-1, 0}},
-        {sf::Keyboard::Key::Right, {1, 0}},
-        {sf::Keyboard::Key::Up, {0, 1}},
-        {sf::Keyboard::Key::Up, {0, -1}},
+        {sf::Keyboard::Key::Right, { 1,  0}},
+        {sf::Keyboard::Key::Left,  {-1,  0}},
+        {sf::Keyboard::Key::Down,  { 0,  1}},
+        {sf::Keyboard::Key::Up,    { 0, -1}},
     };
 
     const auto direction = key_event.filter([](const sf::Event::KeyEvent& key_event)
@@ -91,9 +91,26 @@ void game_logic(const rpp::dynamic_observable<CustomEvent>& events, sf::RenderWi
                                             return itr->second;
                                         return std::nullopt;
                                     })
-                                    .filter(&std::optional<Coordinates>::has_value)
+                                    .filter([](const auto& optional) { return optional.has_value();  })
                                     .map([](const auto& optional) { return optional.value(); })
-                                    .start_with();
+                                    .start_with(key_to_direction.begin()->second)
+                                    /*.distinct_until_changed()*/;
+
+    events.filter([](const CustomEvent&   ev) { return std::holds_alternative<PresentEvent>(ev); })
+          .map([](const CustomEvent&      ev) { return std::get<PresentEvent>(ev); })
+          .filter([](const PresentEvent&  ev) { return ev.is_begin; })
+          .with_latest_from([](const auto&, const Direction& direction) { return direction; }, direction)
+          .scan(Coordinates{20, 30},
+                [&window](Coordinates&& position, const Direction& direction) -> Coordinates&&
+                {
+                    position.x = (position.x + direction.x) % window.getSize().x;
+                    position.y = (position.y + direction.y) % window.getSize().y;
+                    return std::move(position);
+                })
+          .subscribe([&window](const Coordinates& coords)
+          {
+              window.draw(get_rectangle_at(sf::Vector2f{static_cast<float>(coords.x), static_cast<float>(coords.y)}, sf::Color::Red));
+          });
 }
 
 int main()
