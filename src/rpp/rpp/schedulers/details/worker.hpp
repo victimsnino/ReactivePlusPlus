@@ -38,6 +38,11 @@ public:
         schedule(m_strategy.now(), std::forward<decltype(fn)>(fn));
     }
 
+    void schedule(duration delay, constraint::schedulable_fn auto&& fn) const
+    {
+        schedule(m_strategy.now() + delay, std::forward<decltype(fn)>(fn));
+    }
+
     void schedule(time_point time_point, constraint::schedulable_fn auto&& fn) const
     {
         m_strategy.defer_at(time_point, scheduler_wrapper<std::decay_t<decltype(fn)>>{m_strategy, time_point, std::forward<decltype(fn)>(fn)});

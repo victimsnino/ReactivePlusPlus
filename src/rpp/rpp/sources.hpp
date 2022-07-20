@@ -23,3 +23,4 @@
 #include <rpp/sources/never.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/from.hpp>
+#include <rpp/sources/interval.hpp>

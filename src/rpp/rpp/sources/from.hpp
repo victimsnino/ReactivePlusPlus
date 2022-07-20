@@ -158,7 +158,7 @@ namespace rpp::observable
  * \ingroup creational_operators
  * \see https://reactivex.io/documentation/operators/just.html
  */
-template<memory_model memory_model, typename T, typename ...Ts>
+template<memory_model memory_model /* = memory_model::use_stack */, typename T, typename ...Ts>
 auto just(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&& ...items) requires (rpp::details::is_header_included<rpp::details::just_tag, T, Ts...> && (constraint::decayed_same_as<T, Ts> && ...))
 {
     using DT = std::decay_t<T>;
@@ -187,7 +187,7 @@ auto just(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&
  * \ingroup creational_operators
  * \see https://reactivex.io/documentation/operators/just.html
  */
-template<memory_model memory_model, typename T, typename ...Ts>
+template<memory_model memory_model /* = memory_model::use_stack */, typename T, typename ...Ts>
 auto just(T&& item, Ts&& ...items) requires (rpp::details::is_header_included<rpp::details::just_tag, T, Ts...> && (constraint::decayed_same_as<T, Ts> && ...))
 {
     return just<memory_model>(schedulers::immediate{}, std::forward<T>(item), std::forward<Ts>(items)...);
@@ -213,8 +213,8 @@ auto just(T&& item, Ts&& ...items) requires (rpp::details::is_header_included<rp
  * \ingroup creational_operators
  * \see https://reactivex.io/documentation/operators/from.html
 */
-template<memory_model memory_model, schedulers::constraint::scheduler TScheduler>
-auto from_iterable(std::ranges::range auto&& iterable, const TScheduler& scheduler) requires rpp::details::is_header_included<rpp::details::from_tag, TScheduler >
+template<memory_model memory_model /* = memory_model::use_stack */, schedulers::constraint::scheduler TScheduler /* = schedulers::immediate */>
+auto from_iterable(std::ranges::range auto&& iterable, const TScheduler& scheduler /* = TScheduler{} */) requires rpp::details::is_header_included<rpp::details::from_tag, TScheduler >
 {
     using Container = std::decay_t<decltype(iterable)>;
     using Type = std::ranges::range_value_t<Container>;
@@ -237,7 +237,7 @@ auto from_iterable(std::ranges::range auto&& iterable, const TScheduler& schedul
  * \ingroup creational_operators
  * \see https://reactivex.io/documentation/operators/from.html
 */
-template<memory_model memory_model>
+template<memory_model memory_model /* = memory_model::use_stack */>
 auto from_callable(std::invocable<> auto&& callable) requires rpp::details::is_header_included<rpp::details::from_tag, decltype(callable)>
 {
     auto obs = just<memory_model>(std::forward<decltype(callable)>(callable));
