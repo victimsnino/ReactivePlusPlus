@@ -32,7 +32,7 @@ struct member_overload<Type, SpecificObservable, map_tag>
      * \marble map
         {
             source observable       : +--1   -2   --3   -|
-            operator "map: x=>x+10" : +--(10)-(12)--(13)-|
+            operator "map: x=>x+10" : +--(11)-(12)--(13)-|
         }
      *
      * \param callable is callable used to provide this transformation. Should accept Type of original observable and return type for new observable

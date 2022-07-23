@@ -70,7 +70,7 @@ struct member_overload<Type, SpecificObservable, lift_tag>
     /**
     * \brief The lift operator provides ability to create your own operator and apply it to observable
     * \tparam NewType manually specified new type of observable after applying of fn
-    * \param fn represents operator logic in the form: accepts NEW subscriber and returns OLD subscriber
+    * \param op represents operator logic in the form: accepts NEW subscriber and returns OLD subscriber
     * \return new specific_observable of NewType
     */
     template<constraint::decayed_type NewType>
@@ -90,7 +90,7 @@ struct member_overload<Type, SpecificObservable, lift_tag>
     * \brief The lift operator provides ability to create your own operator and apply it to observable
     * \tparam OperatorFn type of your custom functor
     * \tparam NewType auto-deduced type of observable after applying of fn
-    * \param fn represents operator logic in the form: accepts NEW subscriber and returns OLD subscriber
+    * \param op represents operator logic in the form: accepts NEW subscriber and returns OLD subscriber
     * \return new specific_observable of NewType
     */
     template<typename OperatorFn,
