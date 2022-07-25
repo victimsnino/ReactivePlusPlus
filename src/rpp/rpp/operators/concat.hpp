@@ -35,7 +35,7 @@ struct concat_state_t : public std::enable_shared_from_this<concat_state_t<Value
 
     auto get_on_new_observable()
     {
-        return[state = this->shared_from_this()]<constraint::observable TObs>(TObs&& new_observable, const constraint::subscriber auto & sub)
+        return[state = this->shared_from_this()]<constraint::observable TObs, constraint::subscriber TSub>(TObs&& new_observable, const TSub & sub)
         {
             if(state->m_inner_subscribed.exchange(true))
             {
