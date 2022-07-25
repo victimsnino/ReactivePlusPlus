@@ -104,6 +104,10 @@ $(document).ready(function(){initNavTree('group__filtering__operators.html','');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga8bd33ef33a0bb57103781ddeef82fd92"><td class="memTemplParams" colspan="2">template&lt;std::equivalence_relation&lt; Type, Type &gt; EqualityFn = std::equal_to&lt;Type&gt;&gt; </td></tr>
+<tr class="memitem:ga8bd33ef33a0bb57103781ddeef82fd92"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga8bd33ef33a0bb57103781ddeef82fd92">rpp::details::member_overload&lt; Type, SpecificObservable, distinct_until_changed_tag &gt;::distinct_until_changed</a> (EqualityFn &amp;&amp;equality_fn=EqualityFn{}) const &amp;requires is_header_included&lt; distinct_until_changed_tag</td></tr>
+<tr class="memdesc:ga8bd33ef33a0bb57103781ddeef82fd92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suppress consecutive duplicates of emissions from original observable.  <a href="group__filtering__operators.html#ga8bd33ef33a0bb57103781ddeef82fd92">More...</a><br /></td></tr>
+<tr class="separator:ga8bd33ef33a0bb57103781ddeef82fd92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga87eb036453a17e9b5e59c920399d1d14"><td class="memTemplParams" colspan="2">template&lt;std::predicate&lt; const Type &amp; &gt; Predicate&gt; </td></tr>
 <tr class="memitem:ga87eb036453a17e9b5e59c920399d1d14"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga87eb036453a17e9b5e59c920399d1d14">rpp::details::member_overload&lt; Type, SpecificObservable, filter_tag &gt;::filter</a> (Predicate &amp;&amp;predicate) const &amp;requires is_header_included&lt; filter_tag</td></tr>
 <tr class="memdesc:ga87eb036453a17e9b5e59c920399d1d14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only those items from an Observable that satisfies a provided predicate.  <a href="group__filtering__operators.html#ga87eb036453a17e9b5e59c920399d1d14">More...</a><br /></td></tr>
@@ -117,6 +121,51 @@ Functions</h2></td></tr>
 <p>Filtering operators are operators that emit only part of items that satisfies some condition. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#filtering">https://reactivex.io/documentation/operators.html#filtering</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga8bd33ef33a0bb57103781ddeef82fd92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8bd33ef33a0bb57103781ddeef82fd92">&#9670;&nbsp;</a></span>distinct_until_changed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;std::equivalence_relation&lt; Type, Type &gt; EqualityFn = std::equal_to&lt;Type&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, distinct_until_changed_tag &gt;::distinct_until_changed </td>
+          <td>(</td>
+          <td class="paramtype">EqualityFn &amp;&amp;&#160;</td>
+          <td class="paramname"><em>equality_fn</em> = <code>EqualityFn{}</code></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Suppress consecutive duplicates of emissions from original observable. </p>
+<div class="image">
+<object type="image/svg+xml" data="distinct_until_changed.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">equality_fn</td><td>optional equality comparator function </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the distinct_until_changed operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="distinct__until__changed_8hpp_source.html">rpp/operators/distinct_until_changed.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 1, 2, 2, 3, 2, 1)</div>
+<div class="line">            .distinct_until_changed()</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> val) { std::cout &lt;&lt; val &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 1 2 3 2 1</span></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 1, 2, 2, 3, 2, 1)</div>
+<div class="line">        .distinct_until_changed([](<span class="keywordtype">int</span> left, <span class="keywordtype">int</span> right) {<span class="keywordflow">return</span> left != right; })</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> val) { std::cout &lt;&lt; val &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 1 1 1</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/distinct.html">https://reactivex.io/documentation/operators/distinct.html</a> </dd></dl>
+
+</div>
+</div>
 <a id="ga87eb036453a17e9b5e59c920399d1d14"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga87eb036453a17e9b5e59c920399d1d14">&#9670;&nbsp;</a></span>filter()</h2>
 
@@ -211,6 +260,7 @@ template&lt;typename... Args&gt; </div>
 </div><!-- doc-content -->
 <div class="ttc" id="agroup__filtering__operators_html_ga87eb036453a17e9b5e59c920399d1d14"><div class="ttname"><a href="group__filtering__operators.html#ga87eb036453a17e9b5e59c920399d1d14">rpp::details::member_overload&lt; Type, SpecificObservable, filter_tag &gt;::filter</a></div><div class="ttdeci">auto filter(Predicate &amp;&amp;predicate) const &amp;requires is_header_included&lt; filter_tag</div><div class="ttdoc">Emit only those items from an Observable that satisfies a provided predicate.</div></div>
 <div class="ttc" id="agroup__filtering__operators_html_gaef1d69d29be545c479d3126993eed494"><div class="ttname"><a href="group__filtering__operators.html#gaef1d69d29be545c479d3126993eed494">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a></div><div class="ttdeci">auto take(size_t count) const &amp;requires is_header_included&lt; take_tag</div><div class="ttdoc">Emit only first count items provided by observable, then send on_completed</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gabc5067fa9aefaa803f6e329b75faa00c"><div class="ttname"><a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:159</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

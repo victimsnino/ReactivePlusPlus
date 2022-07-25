@@ -1,0 +1,36 @@
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01distinct__until__changed__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, distinct\+\_\+until\+\_\+changed\+\_\+tag $>$ Struct Template Reference}
+\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01distinct__until__changed__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, distinct\_until\_changed\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, distinct\_until\_changed\_tag $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$std\+::equivalence\+\_\+relation$<$ Type, Type $>$ Equality\+Fn = std\+::equal\+\_\+to$<$\+Type$>$$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_ga8bd33ef33a0bb57103781ddeef82fd92}{distinct\+\_\+until\+\_\+changed}} (Equality\+Fn \&\&equality\+\_\+fn=Equality\+Fn\{\}) const \&requires is\+\_\+header\+\_\+included$<$ distinct\+\_\+until\+\_\+changed\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Suppress consecutive duplicates of emissions from original observable. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01distinct__until__changed__tag_01_4_a1eb6613249062ab7f697cd6ba7c4dd06}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01distinct__until__changed__tag_01_4_a1eb6613249062ab7f697cd6ba7c4dd06}} 
+{\footnotesize template$<$std\+::equivalence\+\_\+relation$<$ Type, Type $>$ Equality\+Fn = std\+::equal\+\_\+to$<$\+Type$>$$>$ }\\auto {\bfseries distinct\+\_\+until\+\_\+changed} (Equality\+Fn \&\&equality\+\_\+fn=Equality\+Fn\{\}) \&\&requires is\+\_\+header\+\_\+included$<$ distinct\+\_\+until\+\_\+changed\+\_\+tag
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+auto {\bfseries Equality\+Fn}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01distinct__until__changed__tag_01_4_a8849b502f52c4943d3cce0e2b69bb49d}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01distinct__until__changed__tag_01_4_a8849b502f52c4943d3cce0e2b69bb49d}} 
+\index{rpp::details::member\_overload$<$ Type, SpecificObservable, distinct\_until\_changed\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, distinct\_until\_changed\_tag $>$}!EqualityFn@{EqualityFn}}
+\index{EqualityFn@{EqualityFn}!rpp::details::member\_overload$<$ Type, SpecificObservable, distinct\_until\_changed\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, distinct\_until\_changed\_tag $>$}}
+\doxysubsubsection{\texorpdfstring{EqualityFn}{EqualityFn}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, distinct\+\_\+until\+\_\+changed\+\_\+tag $>$\+::Equality\+Fn}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<Type>(distinct\_until\_changed\_impl<Type, std::decay\_t<EqualityFn>>\{std::forward<EqualityFn>(equality\_fn)\})}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/fwd/distinct\+\_\+until\+\_\+changed.\+hpp\end{DoxyCompactItemize}

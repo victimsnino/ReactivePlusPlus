@@ -8,6 +8,8 @@ Filtering operators are operators that emit only part of items that satisfies so
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+{\footnotesize template$<$std\+::equivalence\+\_\+relation$<$ Type, Type $>$ Equality\+Fn = std\+::equal\+\_\+to$<$\+Type$>$$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_ga8bd33ef33a0bb57103781ddeef82fd92}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, distinct\+\_\+until\+\_\+changed\+\_\+tag $>$\+::distinct\+\_\+until\+\_\+changed}} (Equality\+Fn \&\&equality\+\_\+fn=Equality\+Fn\{\}) const \&requires is\+\_\+header\+\_\+included$<$ distinct\+\_\+until\+\_\+changed\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Suppress consecutive duplicates of emissions from original observable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$std\+::predicate$<$ const Type \& $>$ Predicate$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_ga87eb036453a17e9b5e59c920399d1d14}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, filter\+\_\+tag $>$\+::filter}} (Predicate \&\&predicate) const \&requires is\+\_\+header\+\_\+included$<$ filter\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Emit only those items from an Observable that satisfies a provided predicate. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename... Args$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_gaef1d69d29be545c479d3126993eed494}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, take\+\_\+tag $>$\+::take}} (size\+\_\+t count) const \&requires is\+\_\+header\+\_\+included$<$ take\+\_\+tag
@@ -23,6 +25,51 @@ Filtering operators are operators that emit only part of items that satisfies so
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__filtering__operators_ga8bd33ef33a0bb57103781ddeef82fd92}\label{group__filtering__operators_ga8bd33ef33a0bb57103781ddeef82fd92}} 
+\index{Filtering Operators@{Filtering Operators}!distinct\_until\_changed@{distinct\_until\_changed}}
+\index{distinct\_until\_changed@{distinct\_until\_changed}!Filtering Operators@{Filtering Operators}}
+\doxysubsubsection{\texorpdfstring{distinct\_until\_changed()}{distinct\_until\_changed()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$std\+::equivalence\+\_\+relation$<$ Type, Type $>$ Equality\+Fn = std\+::equal\+\_\+to$<$\+Type$>$$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, distinct\+\_\+until\+\_\+changed\+\_\+tag $>$\+::distinct\+\_\+until\+\_\+changed (\begin{DoxyParamCaption}\item[{Equality\+Fn \&\&}]{equality\+\_\+fn = {\ttfamily EqualityFn\{\}} }\end{DoxyParamCaption}) const \&}
+
+
+
+Suppress consecutive duplicates of emissions from original observable. 
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em equality\+\_\+fn} & optional equality comparator function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the distinct\+\_\+until\+\_\+changed operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{distinct__until__changed_8hpp_source}{rpp/operators/distinct\+\_\+until\+\_\+changed.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 1, 2, 2, 3, 2, 1)}
+\DoxyCodeLine{            .distinct\_until\_changed()}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} val) \{ std::cout << val << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2 3 2 1}}
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 1, 2, 2, 3, 2, 1)}
+\DoxyCodeLine{        .distinct\_until\_changed([](\textcolor{keywordtype}{int} left, \textcolor{keywordtype}{int} right) \{\textcolor{keywordflow}{return} left != right; \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} val) \{ std::cout << val << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1 1 1}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/distinct.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/distinct.\+html}} 
+\end{DoxySeeAlso}
 \mbox{\Hypertarget{group__filtering__operators_ga87eb036453a17e9b5e59c920399d1d14}\label{group__filtering__operators_ga87eb036453a17e9b5e59c920399d1d14}} 
 \index{Filtering Operators@{Filtering Operators}!filter@{filter}}
 \index{filter@{filter}!Filtering Operators@{Filtering Operators}}
