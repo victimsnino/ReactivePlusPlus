@@ -40,6 +40,23 @@ SCENARIO("scheduler's worker uses time")
                 CHECK(scheduler.get_schedulings() == std::vector{ time });
             }
         }
+        WHEN("Schedule action with zero duration")
+        {
+            const auto initial_time = s_current_time;
+            std::vector<rpp::schedulers::time_point> schedulings{};
+            scheduler.create_worker().schedule([&]() -> rpp::schedulers::optional_duration
+                {
+                    schedulings.push_back(s_current_time);
+                    s_current_time += std::chrono::seconds{1};
+                    if (schedulings.size() == 3)
+                        return std::nullopt;
+                    return rpp::schedulers::duration{};
+                });
+            THEN("worker obtains schedulable three times with current time and time+diff")
+            {
+                CHECK(scheduler.get_schedulings() == schedulings);
+            }
+        }
         WHEN("Schedule action with repeat")
         {
             int                                 count = 0;

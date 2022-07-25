@@ -49,4 +49,12 @@ struct pack_to_tuple
 {
     auto operator()(auto&& ...vals) const { return std::make_tuple(std::forward<decltype(vals)>(vals)...); }
 };
+
+
+template<size_t index>
+struct get
+{
+    template<typename ...Args>
+    auto operator()(Args&& ...args) const  { return std::get<index>(std::forward_as_tuple(std::forward<Args>(args)...)); }
+};
 } // namespace rpp::utils

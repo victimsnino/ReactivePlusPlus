@@ -13,6 +13,8 @@
 #include <rpp/observables/constraints.hpp>
 #include <rpp/observables/details/member_overload.hpp>
 
+#include <rpp/utils/function_traits.hpp>
+
 namespace rpp::details
 {
 struct flat_map_tag;
@@ -21,7 +23,7 @@ struct flat_map_tag;
 namespace rpp::details
 {
 template<typename Fn, typename Type>
-concept flat_map_callable = std::invocable<Fn, Type> && constraint::observable<std::invoke_result_t<Fn, Type>>;
+concept flat_map_callable = std::invocable<Fn, Type> && constraint::observable<utils::decayed_invoke_result_t<Fn, Type>>;
 
 template<constraint::decayed_type Type, flat_map_callable<Type> Callable>
 auto flat_map_impl(auto&& observable, Callable&& callable);

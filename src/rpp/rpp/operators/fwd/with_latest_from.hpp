@@ -12,6 +12,8 @@
 #include <rpp/observables/details/member_overload.hpp>
 #include <rpp/observables/constraints.hpp>
 #include <rpp/utils/functors.hpp>
+#include <rpp/utils/function_traits.hpp>
+
 
 #include <tuple>
 
@@ -22,8 +24,8 @@ struct with_latest_from_tag;
 
 namespace rpp::details
 {
-template<constraint::decayed_type Type, constraint::observable ...TObservables, std::invocable<Type, utils::extract_observable_type_t<TObservables>...> TSelector >
-auto with_latest_from_impl(TSelector&& selector, TObservables&&...observables);
+template<constraint::decayed_type Type, typename TSelector, constraint::observable ...TObservables>
+struct with_latest_from_impl;
 
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, with_latest_from_tag>
@@ -52,13 +54,13 @@ struct member_overload<Type, SpecificObservable, with_latest_from_tag>
     template<constraint::observable ...TObservables, std::invocable<Type, utils::extract_observable_type_t<TObservables>...> TSelector>
     auto with_latest_from(TSelector&& selector, TObservables&&...observables) const& requires is_header_included<with_latest_from_tag, TObservables...>
     {
-        return static_cast<const SpecificObservable*>(this)->template lift<std::invoke_result_t<TSelector, Type, utils::extract_observable_type_t<TObservables>...>>(with_latest_from_impl<Type>(std::forward<TSelector>(selector), std::forward<TObservables>(observables)...));
+        return static_cast<const SpecificObservable*>(this)->template lift<utils::decayed_invoke_result_t<TSelector, Type, utils::extract_observable_type_t<TObservables>...>>(with_latest_from_impl<Type, std::decay_t<TSelector>, std::decay_t<TObservables>...>{std::forward<TSelector>(selector), { std::forward<TObservables>(observables)... }});
     }
 
     template<constraint::observable ...TObservables, std::invocable<Type, utils::extract_observable_type_t<TObservables>...> TSelector>
     auto with_latest_from(TSelector&& selector, TObservables&&...observables) && requires is_header_included<with_latest_from_tag, TObservables...>
     {
-        return std::move(*static_cast<SpecificObservable*>(this)).template lift<std::invoke_result_t<TSelector, Type, utils::extract_observable_type_t<TObservables>...>>(with_latest_from_impl<Type>(std::forward<TSelector>(selector), std::forward<TObservables>(observables)...));
+        return std::move(*static_cast<SpecificObservable*>(this)).template lift<utils::decayed_invoke_result_t<TSelector, Type, utils::extract_observable_type_t<TObservables>...>>(with_latest_from_impl<Type, std::decay_t<TSelector>, std::decay_t<TObservables>...>{std::forward<TSelector>(selector), { std::forward<TObservables>(observables)... }});
     }
 
     /**

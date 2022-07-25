@@ -14,6 +14,8 @@
 #include <rpp/observables/interface_observable.hpp>            // base_class
 #include <rpp/utils/operator_declaration.hpp>                  // for header include
 #include <rpp/subscribers/dynamic_subscriber.hpp>
+#include <rpp/utils/utilities.hpp>                            // copy_assignable_callable
+
 #include <utility>
 
 namespace rpp
@@ -36,9 +38,10 @@ public:
     specific_observable(const OnSubscribeFn& on_subscribe)
         : m_state{ on_subscribe } {}
 
-    specific_observable(const specific_observable<Type, OnSubscribeFn>&)     = default;
-    specific_observable(specific_observable<Type, OnSubscribeFn>&&) noexcept = default;
-
+    specific_observable(const specific_observable& other)                    = default;
+    specific_observable(specific_observable&& other) noexcept                = default;
+    specific_observable& operator=(const specific_observable& other)         = default;
+    specific_observable& operator=(specific_observable&& other) noexcept     = default;
     /**
      * \brief Converts rpp::specific_observable to rpp::dynamic_observable via type-erasure mechanism.
      */
@@ -77,7 +80,7 @@ private:
     }
 
 private:
-    [[no_unique_address]] OnSubscribeFn m_state;
+    [[no_unique_address]] utils::copy_assignable_callable<OnSubscribeFn> m_state;
 };
 
 template<typename OnSub>

@@ -14,6 +14,8 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/operators/fwd/map.hpp>
 #include <rpp/utils/utilities.hpp>
+#include <rpp/utils/function_traits.hpp>
+
 #include <utility>
 
 IMPLEMENTATION_FILE(map_tag);
@@ -25,7 +27,7 @@ struct map_impl
 {
     [[no_unique_address]] Callable callable;
 
-    template<typename TVal, constraint::subscriber_of_type<std::invoke_result_t<Callable, Type>> TSub>
+    template<typename TVal, constraint::subscriber_of_type<utils::decayed_invoke_result_t<Callable, Type>> TSub>
     void operator()(TVal&& value, const TSub& subscriber) const
     {
         subscriber.on_next(callable(utils::as_const(std::forward<TVal>(value))));

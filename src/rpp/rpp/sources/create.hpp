@@ -41,7 +41,8 @@ namespace rpp::observable
 template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
 auto create(OnSubscribeFn&& on_subscribe) requires rpp::details::is_header_included<rpp::details::create_tag, Type, OnSubscribeFn>
 {
-    return specific_observable<Type, std::decay_t<OnSubscribeFn>>{std::forward<OnSubscribeFn>(on_subscribe)};
+    using CreatedOnSubscribeFn = std::decay_t<OnSubscribeFn>;
+    return specific_observable<Type, CreatedOnSubscribeFn>{std::forward<OnSubscribeFn>(on_subscribe)};
 }
 
 /**

@@ -47,20 +47,27 @@ private:
 };
 
 template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs>
-auto ref_count_impl(TObs&& observable)
+struct ref_count_on_subscribe
 {
-    return source::create<Type>([observable = std::forward<TObs>(observable), state = std::make_shared<ref_count_state_t>()](const constraint::subscriber_of_type<Type> auto& subscriber)
+    TObs observable;
+    std::shared_ptr<ref_count_state_t> state = std::make_shared<ref_count_state_t>();
+
+    template<constraint::subscriber_of_type<Type> TSub>
+    void operator()(const TSub &subscriber) const
     {
         const bool need_to_connect = state->on_subscribe();
 
-        subscriber.get_subscription().add([state = state]
-        {
-            state->on_unsubscribe();
-        });
+        subscriber.get_subscription().add([state = state]{ state->on_unsubscribe(); });
 
         observable.subscribe(subscriber);
         if (need_to_connect)
             observable.connect(state->get_subscription());
-    });
+    }
+};
+
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs>
+auto ref_count_impl(TObs&& observable)
+{
+    return rpp::source::create<Type>(ref_count_on_subscribe<Type, std::decay_t<TObs>>{std::forward<TObs>(observable)});
 }
 } // namespace rpp::details

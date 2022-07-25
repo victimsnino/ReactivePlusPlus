@@ -17,6 +17,8 @@
 #include <rpp/observables/blocking_observable.hpp>  // as_blocking
 
 #include <rpp/defs.hpp>                             // RPP_EMPTY_BASES
+#include <rpp/utils/function_traits.hpp>
+
 
 #include <type_traits>
 
@@ -25,7 +27,7 @@ namespace rpp::details
 struct observable_tag {};
 
 template<typename T, typename TObservable>
-concept op_fn = constraint::observable<std::invoke_result_t<T, TObservable>>;
+concept op_fn = constraint::observable<utils::decayed_invoke_result_t<T, TObservable>>;
 } // namespace rpp::details
 
 namespace rpp
