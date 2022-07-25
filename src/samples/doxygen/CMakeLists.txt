@@ -5,6 +5,6 @@ foreach(SOURCE ${FILES})
     set(TARGET ${BASE_NAME}_doxygen_sample)
     add_executable(${TARGET} ${SOURCE})
     target_link_libraries(${TARGET} PRIVATE rpp)
-    set_target_properties(${TARGET} PROPERTIES FOLDER DoxygenSamples)
+    set_target_properties(${TARGET} PROPERTIES FOLDER Samples/Doxygen)
 endforeach()
 

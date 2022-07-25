@@ -19,6 +19,7 @@
 
 #include <mutex>
 #include <array>
+#include <tuple>
 
 IMPLEMENTATION_FILE(with_latest_from_tag);
 
@@ -43,16 +44,16 @@ template<size_t...I>
 void with_latest_from_subscribe_observables(std::index_sequence<I...>,
                                             const auto&              state_ptr,
                                             const auto&              subscriber,
-                                            const auto&...           observables)
+                                            const auto&              observables_tuple)
 {
-    (with_latest_from_subscribe<I>(state_ptr, observables, subscriber), ...);
+    (with_latest_from_subscribe<I>(state_ptr, std::get<I>(observables_tuple), subscriber), ...);
 }
 
-template<constraint::observable ...TObservables>
+template<constraint::decayed_type ...ValueTypes>
 struct with_latest_from_state_t
 {
-    std::array<std::mutex, sizeof...(TObservables)>                              mutexes{};
-    std::tuple<std::optional<utils::extract_observable_type_t<TObservables>>...> vals{};
+    std::array<std::mutex, sizeof...(ValueTypes)> mutexes{};
+    std::tuple<std::optional<ValueTypes>...>      vals{};
 
     auto apply_under_lock(const auto& selector)
     {
@@ -63,27 +64,31 @@ struct with_latest_from_state_t
 private:
     auto lock_all()
     {
-        return std::apply([](auto& ...mutexes) { return std::scoped_lock{ mutexes... }; }, mutexes);
+        return std::apply([](auto& ...mutexes) { return std::scoped_lock{mutexes...}; }, mutexes);
     }
 };
 
-template<constraint::decayed_type Type, constraint::observable ...TObservables, std::invocable<Type, utils::extract_observable_type_t<TObservables>...> TSelector>
-auto with_latest_from_impl(TSelector&& selector, TObservables&&...observables)
+template<constraint::decayed_type Type, typename TSelector, constraint::observable ...TObservables>
+struct with_latest_from_impl
 {
-    using ResultType = std::invoke_result_t<TSelector, Type, utils::extract_observable_type_t<TObservables>...>;
+    using ResultType = utils::decayed_invoke_result_t<TSelector, Type, utils::extract_observable_type_t<TObservables>...>;
 
-    return [selector=std::forward<TSelector>(selector), ...observables=std::forward<TObservables>(observables)]<constraint::subscriber_of_type<ResultType> TSub>(TSub&& subscriber)
+    TSelector                   selector;
+    std::tuple<TObservables...> observables;
+
+    template<constraint::subscriber_of_type<ResultType> TSub>
+    auto operator()(TSub&& subscriber) const
     {
-        auto state = std::make_shared<with_latest_from_state_t<TObservables...>>();
+        auto state = std::make_shared<with_latest_from_state_t<utils::extract_observable_type_t<TObservables>...>>();
 
-        with_latest_from_subscribe_observables(std::make_index_sequence<sizeof...(TObservables)>{}, state, subscriber, observables...);
+        with_latest_from_subscribe_observables(std::index_sequence_for<TObservables...>{}, state, subscriber, observables);
 
-        auto on_next = [state, selector](auto&& v, const auto& sub)
+        auto on_next = [state, selector=selector]<typename T>(T&& v, const auto& sub)
         {
-            auto result = state->apply_under_lock([&](const auto& ...args) -> std::optional<ResultType>
+            auto result = state->apply_under_lock([&](const auto& ...current_cached_vals) -> std::optional<ResultType>
             {
-                if ((args.has_value() && ...))
-                    return selector(utils::as_const(std::forward<decltype(v)>(v)), utils::as_const(args.value())...);
+                if ((current_cached_vals.has_value() && ...))
+                    return selector(utils::as_const(std::forward<T>(v)), utils::as_const(current_cached_vals.value())...);
                 return std::nullopt;
             });
 
@@ -95,6 +100,6 @@ auto with_latest_from_impl(TSelector&& selector, TObservables&&...observables)
                                                   std::move(on_next),
                                                   forwarding_on_error{},
                                                   forwarding_on_completed{});
-    };
-}
+    }
+};
 } // namespace rpp::details

@@ -16,6 +16,8 @@
 #include <rpp/sources/fwd.hpp>
 #include <rpp/utils/utilities.hpp>
 #include <rpp/operators/map.hpp>
+#include <rpp/utils/function_traits.hpp>
+
 
 #include <array>
 #include <ranges>
@@ -161,8 +163,7 @@ namespace rpp::observable
 template<memory_model memory_model /* = memory_model::use_stack */, typename T, typename ...Ts>
 auto just(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&& ...items) requires (rpp::details::is_header_included<rpp::details::just_tag, T, Ts...> && (constraint::decayed_same_as<T, Ts> && ...))
 {
-    using DT = std::decay_t<T>;
-    return create<DT>(details::iterate_impl{details::pack_variadic<memory_model, DT>(std::forward<T>(item), std::forward<Ts>(items)...), scheduler });
+    return create<std::decay_t<T>>(details::iterate_impl{details::pack_variadic<memory_model, std::decay_t<T>>(std::forward<T>(item), std::forward<Ts>(items)...), scheduler });
 }
 
 /**
@@ -217,8 +218,7 @@ template<memory_model memory_model /* = memory_model::use_stack */, schedulers::
 auto from_iterable(std::ranges::range auto&& iterable, const TScheduler& scheduler /* = TScheduler{} */) requires rpp::details::is_header_included<rpp::details::from_tag, TScheduler >
 {
     using Container = std::decay_t<decltype(iterable)>;
-    using Type = std::ranges::range_value_t<Container>;
-    return create<Type>(details::iterate_impl{ details::pack_to_container<memory_model, Container>(std::forward<decltype(iterable)>(iterable)), scheduler });
+    return create<std::ranges::range_value_t<Container>>(details::iterate_impl{ details::pack_to_container<memory_model, Container>(std::forward<decltype(iterable)>(iterable)), scheduler });
 }
 
 /**
@@ -242,7 +242,7 @@ auto from_callable(std::invocable<> auto&& callable) requires rpp::details::is_h
 {
     auto obs = just<memory_model>(std::forward<decltype(callable)>(callable));
 
-    if constexpr (std::same_as<std::invoke_result_t<decltype(callable)>, void>)
+    if constexpr (std::same_as<utils::decayed_invoke_result_t<decltype(callable)>, void>)
         return std::move(obs).map([](const auto& fn) { fn(); return utils::none{};});
     else
         return std::move(obs).map([](const auto& fn) { return fn(); });

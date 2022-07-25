@@ -59,7 +59,7 @@ template<constraint::decayed_type Type, constraint::observable_of_type<Type> TOb
 auto repeat_impl(TObs&& observable, size_t count)
 {
     auto shared_observable = std::make_shared<std::decay_t<TObs>>(std::forward<TObs>(observable));
-    return rpp::source::create<Type>([shared_observable, count](const constraint::subscriber_of_type<Type> auto& subscriber)
+    return rpp::source::create<Type>([shared_observable, count]<constraint::subscriber_of_type<Type> TSub>(const TSub& subscriber)
     {
         auto predicate = [shared_count = std::make_shared<size_t>(count)]()
         {
@@ -73,7 +73,7 @@ template<constraint::decayed_type Type, constraint::observable_of_type<Type> TOb
 auto repeat_impl(TObs&& observable)
 {
     auto shared_observable = std::make_shared<std::decay_t<TObs>>(std::forward<TObs>(observable));
-    return rpp::source::create<Type>([shared_observable](const constraint::subscriber_of_type<Type> auto& subscriber)
+    return rpp::source::create<Type>([shared_observable]<constraint::subscriber_of_type<Type> TSub>(const TSub& subscriber)
     {
         auto predicate = []() { return true; };
         repeat_on_completed<Type, std::decay_t<TObs>, decltype(predicate)>{shared_observable, std::move(predicate)}(subscriber);

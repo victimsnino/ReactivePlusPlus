@@ -25,7 +25,7 @@ struct observe_on_impl
     [[no_unique_address]] TScheduler scheduler;
 
     template<constraint::subscriber_of_type<Type> TSub>
-    auto                             operator()(TSub&& subscriber) const
+    auto operator()(TSub&& subscriber) const
     {
         // convert it to dynamic due to expected amount of copies == amount of items
         auto dynamic_subscriber = std::forward<TSub>(subscriber).as_dynamic();

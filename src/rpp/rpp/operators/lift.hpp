@@ -25,7 +25,7 @@ IMPLEMENTATION_FILE(lift_tag);
 namespace rpp::details
 {
 template<typename T, typename NewType>
-concept lift_fn = constraint::subscriber<std::invoke_result_t<T, dynamic_subscriber<NewType>>>;
+concept lift_fn = constraint::subscriber<utils::decayed_invoke_result_t<T, dynamic_subscriber<NewType>>>;
 
 template<constraint::decayed_type Type, constraint::decayed_type OnNext, constraint::decayed_type OnError, constraint::decayed_type OnCompleted>
 struct lift_action_by_callbacks
@@ -50,18 +50,23 @@ template<typename... Types>
 using decayed_lift_action_by_callbacks = lift_action_by_callbacks<std::decay_t<Types>...>;
 
 template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename TObs>
-auto lift_action(TObs&& _this, OperatorFn&& op)
+struct lift_action
 {
-    return [_this = std::forward<TObs>(_this), op = std::forward<OperatorFn>(op)]<constraint::subscriber_of_type<NewType> TSub>(TSub&& subscriber)
+    [[no_unique_address]] TObs _this;
+    [[no_unique_address]] OperatorFn op;
+
+    template<constraint::subscriber_of_type<NewType> TSub>
+    void operator()(TSub&& subscriber)const
     {
         _this.subscribe(op(std::forward<TSub>(subscriber)));
-    };
-}
+    }
+};
 
 template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename TObs>
-auto lift_impl(OperatorFn&& op, TObs&& _this) -> specific_observable<NewType, decltype(lift_action<NewType>(std::forward<TObs>(_this), std::forward<OperatorFn>(op)))>
+auto lift_impl(OperatorFn&& op, TObs&& _this)
 {
-    return {lift_action<NewType>(std::forward<TObs>(_this), std::forward<OperatorFn>(op))};
+    using LiftedOnSubscribeFn = lift_action<NewType, std::decay_t<OperatorFn>, std::decay_t<TObs>>;
+    return specific_observable<NewType, LiftedOnSubscribeFn>{LiftedOnSubscribeFn{ std::forward<TObs>(_this), std::forward<OperatorFn>(op) }};
 }
 
 template<constraint::decayed_type Type, typename SpecificObservable>
