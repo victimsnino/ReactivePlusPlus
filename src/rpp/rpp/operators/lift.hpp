@@ -59,7 +59,7 @@ struct lift_action
     void operator()(TSub&& subscriber)const
     {
         _this.subscribe(op(std::forward<TSub>(subscriber)));
-    };
+    }
 };
 
 template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename TObs>
