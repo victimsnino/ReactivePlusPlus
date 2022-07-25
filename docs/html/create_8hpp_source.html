@@ -119,16 +119,17 @@ $(document).ready(function(){initNavTree('create_8hpp_source.html',''); initResi
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::on_subscribe_fn&lt;Type&gt; OnSubscribeFn&gt;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">auto</span> create(OnSubscribeFn&amp;&amp; on_subscribe) requires rpp::details::is_header_included&lt;rpp::details::create_tag, Type, OnSubscribeFn&gt;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">return</span> specific_observable&lt;Type, std::decay_t&lt;OnSubscribeFn&gt;&gt;{std::forward&lt;OnSubscribeFn&gt;(on_subscribe)};</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">template</span>&lt;utils::is_callable OnSubscribeFn, constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    requires constraint::on_subscribe_fn&lt;OnSubscribeFn, Type&gt;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">auto</span> create(OnSubscribeFn&amp;&amp; on_subscribe) requires rpp::details::is_header_included&lt;rpp::details::create_tag, Type, OnSubscribeFn&gt;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;{</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> create&lt;Type&gt;(std::forward&lt;OnSubscribeFn&gt;(on_subscribe));</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;} <span class="comment">// namespace rpp::observable</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">using</span> CreatedOnSubscribeFn = std::decay_t&lt;OnSubscribeFn&gt;;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> specific_observable&lt;Type, CreatedOnSubscribeFn&gt;{std::forward&lt;OnSubscribeFn&gt;(on_subscribe)};</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">template</span>&lt;utils::is_callable OnSubscribeFn, constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    requires constraint::on_subscribe_fn&lt;OnSubscribeFn, Type&gt;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">auto</span> create(OnSubscribeFn&amp;&amp; on_subscribe) requires rpp::details::is_header_included&lt;rpp::details::create_tag, Type, OnSubscribeFn&gt;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;{</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">return</span> create&lt;Type&gt;(std::forward&lt;OnSubscribeFn&gt;(on_subscribe));</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace rpp::observable</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

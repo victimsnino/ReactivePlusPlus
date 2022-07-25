@@ -140,7 +140,7 @@ template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </di
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">{</div>
-<div class="line">        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;<span class="keyword">template</span> lift&lt;std::invoke_result_t&lt;TSelector, Type, utils::extract_observable_type_t&lt;TObservables&gt;...&gt;&gt;(with_latest_from_impl&lt;Type&gt;(std::forward&lt;TSelector&gt;(selector), std::forward&lt;TObservables&gt;(observables)...))</div>
+<div class="line">        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;<span class="keyword">template</span> lift&lt;utils::decayed_invoke_result_t&lt;TSelector, Type, utils::extract_observable_type_t&lt;TObservables&gt;...&gt;&gt;(with_latest_from_impl&lt;Type, std::decay_t&lt;TSelector&gt;, std::decay_t&lt;TObservables&gt;...&gt;{std::forward&lt;TSelector&gt;(selector), { std::forward&lt;TObservables&gt;(observables)... }})</div>
 </div><!-- fragment -->
 </div>
 </div>

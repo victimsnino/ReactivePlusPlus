@@ -145,28 +145,36 @@ $(document).ready(function(){initNavTree('ref__count_8hpp_source.html',''); init
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;};</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; TObs&gt;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">auto</span> ref_count_impl(TObs&amp;&amp; observable)</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1ref__count__on__subscribe.html">   50</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1ref__count__on__subscribe.html">ref_count_on_subscribe</a></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">return</span> source::create&lt;Type&gt;([observable = std::forward&lt;TObs&gt;(observable), state = std::make_shared&lt;ref_count_state_t&gt;()](<span class="keyword">const</span> constraint::subscriber_of_type&lt;Type&gt; <span class="keyword">auto</span>&amp; subscriber)</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">bool</span> need_to_connect = state-&gt;on_subscribe();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        subscriber.get_subscription().add([state = state]</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            state-&gt;on_unsubscribe();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        });</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        observable.subscribe(subscriber);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">if</span> (need_to_connect)</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            observable.connect(state-&gt;get_subscription());</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    });</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    TObs observable;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    std::shared_ptr&lt;ref_count_state_t&gt; state = std::make_shared&lt;ref_count_state_t&gt;();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber_of_type&lt;Type&gt; TSub&gt;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> TSub &amp;subscriber)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">bool</span> need_to_connect = state-&gt;on_subscribe();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        subscriber.get_subscription().add([state = state]{ state-&gt;on_unsubscribe(); });</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        observable.subscribe(subscriber);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">if</span> (need_to_connect)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            observable.connect(state-&gt;get_subscription());</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;};</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; TObs&gt;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">auto</span> ref_count_impl(TObs&amp;&amp; observable)</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;{</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">return</span> rpp::source::create&lt;Type&gt;(<a class="code" href="structrpp_1_1details_1_1ref__count__on__subscribe.html">ref_count_on_subscribe</a>&lt;Type, std::decay_t&lt;TObs&gt;&gt;{std::forward&lt;TObs&gt;(observable)});</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassrpp_1_1composite__subscription_html"><div class="ttname"><a href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a></div><div class="ttdoc">rpp::subscription_base with ability to add some dependent subscriptions as a part of this one: in cas...</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:26</div></div>
 <div class="ttc" id="aclassrpp_1_1subscription__base_html_af07ca7cdfb9758441c0729cbe3e6d19d"><div class="ttname"><a href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">rpp::subscription_base::unsubscribe</a></div><div class="ttdeci">void unsubscribe() const</div><div class="ttdoc">initiates unsubscription process (if subscribed)</div><div class="ttdef"><b>Definition:</b> subscription_base.hpp:55</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1ref__count__state__t_html"><div class="ttname"><a href="structrpp_1_1details_1_1ref__count__state__t.html">rpp::details::ref_count_state_t</a></div><div class="ttdef"><b>Definition:</b> ref_count.hpp:22</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1ref__count__on__subscribe_html"><div class="ttname"><a href="structrpp_1_1details_1_1ref__count__on__subscribe.html">rpp::details::ref_count_on_subscribe</a></div><div class="ttdef"><b>Definition:</b> ref_count.hpp:50</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

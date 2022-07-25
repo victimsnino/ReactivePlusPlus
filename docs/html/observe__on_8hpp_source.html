@@ -123,7 +123,7 @@ $(document).ready(function(){initNavTree('observe__on_8hpp_source.html',''); ini
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    [[no_unique_address]] TScheduler scheduler;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber_of_type&lt;Type&gt; TSub&gt;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">auto</span>                             operator()(TSub&amp;&amp; subscriber)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">auto</span> operator()(TSub&amp;&amp; subscriber)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">    </span>{</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="comment">// convert it to dynamic due to expected amount of copies == amount of items</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">auto</span> dynamic_subscriber = std::forward&lt;TSub&gt;(subscriber).as_dynamic();</div>

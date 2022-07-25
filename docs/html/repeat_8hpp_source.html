@@ -157,7 +157,7 @@ $(document).ready(function(){initNavTree('repeat_8hpp_source.html',''); initResi
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">auto</span> repeat_impl(TObs&amp;&amp; observable, <span class="keywordtype">size_t</span> count)</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;{</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">auto</span> shared_observable = std::make_shared&lt;std::decay_t&lt;TObs&gt;&gt;(std::forward&lt;TObs&gt;(observable));</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">return</span> rpp::source::create&lt;Type&gt;([shared_observable, count](<span class="keyword">const</span> constraint::subscriber_of_type&lt;Type&gt; <span class="keyword">auto</span>&amp; subscriber)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">return</span> rpp::source::create&lt;Type&gt;([shared_observable, count]&lt;constraint::subscriber_of_type&lt;Type&gt; TSub&gt;(<span class="keyword">const</span> TSub&amp; subscriber)</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    {</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keyword">auto</span> predicate = [shared_count = std::make_shared&lt;size_t&gt;(count)]()</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        {</div>
@@ -171,7 +171,7 @@ $(document).ready(function(){initNavTree('repeat_8hpp_source.html',''); initResi
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">auto</span> repeat_impl(TObs&amp;&amp; observable)</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;{</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">auto</span> shared_observable = std::make_shared&lt;std::decay_t&lt;TObs&gt;&gt;(std::forward&lt;TObs&gt;(observable));</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">return</span> rpp::source::create&lt;Type&gt;([shared_observable](<span class="keyword">const</span> constraint::subscriber_of_type&lt;Type&gt; <span class="keyword">auto</span>&amp; subscriber)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">return</span> rpp::source::create&lt;Type&gt;([shared_observable]&lt;constraint::subscriber_of_type&lt;Type&gt; TSub&gt;(<span class="keyword">const</span> TSub&amp; subscriber)</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    {</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keyword">auto</span> predicate = []() { <span class="keywordflow">return</span> <span class="keyword">true</span>; };</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        repeat_on_completed&lt;Type, std::decay_t&lt;TObs&gt;, decltype(predicate)&gt;{shared_observable, std::move(predicate)}(subscriber);</div>

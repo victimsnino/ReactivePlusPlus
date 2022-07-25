@@ -167,20 +167,24 @@ $(document).ready(function(){initNavTree('worker_8hpp_source.html',''); initResi
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        {</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordflow">if</span> (<span class="keyword">auto</span> duration = m_fn())</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                m_time_point += duration.value();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                <span class="keyword">auto</span> time_to_schedule = m_time_point;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                m_strategy.defer_at(time_to_schedule, std::move(*<span class="keyword">this</span>));</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        Strategy   m_strategy;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        time_point m_time_point;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        Fn         m_fn{};</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    };</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    Strategy m_strategy;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;};</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;} <span class="comment">// namespace rpp::schedulers</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                <span class="keywordflow">if</span> (duration.value() != rpp::schedulers::duration::zero())</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                    m_time_point += duration.value();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                    m_time_point = m_strategy.now();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                <span class="keyword">auto</span> time_to_schedule = m_time_point;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                m_strategy.defer_at(time_to_schedule, std::move(*<span class="keyword">this</span>));</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        Strategy   m_strategy;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        time_point m_time_point;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        Fn         m_fn{};</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    };</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    Strategy m_strategy;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;};</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace rpp::schedulers</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1worker_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker</a></div><div class="ttdef"><b>Definition:</b> worker.hpp:26</div></div>

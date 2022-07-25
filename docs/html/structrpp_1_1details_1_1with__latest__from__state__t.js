@@ -1,6 +1,6 @@
 var structrpp_1_1details_1_1with__latest__from__state__t =
 [
-    [ "apply_under_lock", "structrpp_1_1details_1_1with__latest__from__state__t.html#a2d338aed3f336c5ef278ee8203da192a", null ],
-    [ "mutexes", "structrpp_1_1details_1_1with__latest__from__state__t.html#a1704e31988b3448f4e348df4bcecb10e", null ],
-    [ "vals", "structrpp_1_1details_1_1with__latest__from__state__t.html#abaadfc443c22bfa909ce75cb9d4d01f4", null ]
+    [ "apply_under_lock", "structrpp_1_1details_1_1with__latest__from__state__t.html#a2019138b1541099cbd152d4c98384323", null ],
+    [ "mutexes", "structrpp_1_1details_1_1with__latest__from__state__t.html#a95f5de0593e8fde5e6ad920830a9a455", null ],
+    [ "vals", "structrpp_1_1details_1_1with__latest__from__state__t.html#a44eea6685c2bdbc79aeb4352aded5ca0", null ]
 ];

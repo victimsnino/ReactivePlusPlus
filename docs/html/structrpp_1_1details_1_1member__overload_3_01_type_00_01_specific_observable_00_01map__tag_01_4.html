@@ -132,7 +132,7 @@ template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </di
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">{</div>
-<div class="line">        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;<span class="keyword">template</span> lift&lt;std::invoke_result_t&lt;Callable, Type&gt;&gt;(map_impl&lt;Type, std::decay_t&lt;Callable&gt;&gt;{std::forward&lt;Callable&gt;(callable)})</div>
+<div class="line">        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;<span class="keyword">template</span> lift&lt;utils::decayed_invoke_result_t&lt;Callable, Type&gt;&gt;(map_impl&lt;Type, std::decay_t&lt;Callable&gt;&gt;{std::forward&lt;Callable&gt;(callable)})</div>
 </div><!-- fragment -->
 </div>
 </div>

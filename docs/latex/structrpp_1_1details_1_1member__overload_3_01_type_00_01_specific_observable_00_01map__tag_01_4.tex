@@ -26,7 +26,7 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<std::invoke\_result\_t<Callable, Type>>(map\_impl<Type, std::decay\_t<Callable>>\{std::forward<Callable>(callable)\})}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<utils::decayed\_invoke\_result\_t<Callable, Type>>(map\_impl<Type, std::decay\_t<Callable>>\{std::forward<Callable>(callable)\})}
 
 \end{DoxyCode}
 
