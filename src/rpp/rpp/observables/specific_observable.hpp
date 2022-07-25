@@ -80,7 +80,7 @@ private:
     }
 
 private:
-    [[no_unique_address]] utils::copy_assignable_callable<OnSubscribeFn> m_state;
+    [[no_unique_address]] OnSubscribeFn m_state;
 };
 
 template<typename OnSub>

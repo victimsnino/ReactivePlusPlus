@@ -52,8 +52,8 @@ using decayed_lift_action_by_callbacks = lift_action_by_callbacks<std::decay_t<T
 template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename TObs>
 struct lift_action
 {
-    TObs _this;
-    OperatorFn op;
+    [[no_unique_address]] TObs _this;
+    [[no_unique_address]] OperatorFn op;
 
     template<constraint::subscriber_of_type<NewType> TSub>
     void operator()(TSub&& subscriber)const
