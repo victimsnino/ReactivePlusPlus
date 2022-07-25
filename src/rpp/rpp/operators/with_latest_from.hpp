@@ -100,6 +100,6 @@ struct with_latest_from_impl
                                                   std::move(on_next),
                                                   forwarding_on_error{},
                                                   forwarding_on_completed{});
-    };
+    }
 };
 } // namespace rpp::details
