@@ -66,7 +66,7 @@ template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename
 auto lift_impl(OperatorFn&& op, TObs&& _this)
 {
     using LiftedOnSubscribeFn = lift_action<NewType, std::decay_t<OperatorFn>, std::decay_t<TObs>>;
-    return specific_observable<NewType, LiftedOnSubscribeFn>{LiftedOnSubscribeFn(std::forward<TObs>(_this), std::forward<OperatorFn>(op))};
+    return specific_observable<NewType, LiftedOnSubscribeFn>{LiftedOnSubscribeFn{ std::forward<TObs>(_this), std::forward<OperatorFn>(op) }};
 }
 
 template<constraint::decayed_type Type, typename SpecificObservable>
