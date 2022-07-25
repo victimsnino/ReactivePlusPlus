@@ -83,7 +83,7 @@ auto with_latest_from_impl(TSelector&& selector, TObservables&&...observables)
             auto result = state->apply_under_lock([&](const auto& ...args) -> std::optional<ResultType>
             {
                 if ((args.has_value() && ...))
-                    return selector(std::forward<decltype(v)>(v), args.value()...);
+                    return selector(utils::as_const(std::forward<decltype(v)>(v)), utils::as_const(args.value())...);
                 return std::nullopt;
             });
 
