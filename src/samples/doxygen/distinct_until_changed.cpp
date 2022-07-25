@@ -14,5 +14,13 @@ int main()
             .subscribe([](int val) { std::cout << val << " "; });
     // Output: 1 2 3 2 1
     //! [distinct_until_changed]
+    
+    std::cout << std::endl;
+    //! [distinct_until_changed_with_comparator]
+    rpp::source::just(1, 1, 2, 2, 3, 2, 1)
+        .distinct_until_changed([](int left, int right) {return left != right; })
+            .subscribe([](int val) { std::cout << val << " "; });
+    // Output: 1 1 1
+    //! [distinct_until_changed_with_comparator]
     return 0;
 }

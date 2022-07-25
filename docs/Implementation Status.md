@@ -56,6 +56,8 @@
 - [x] take
 - [ ] debounce
 - [ ] distinct
+  - [ ] distinct
+  - [x] distinct_until_changed
 - [ ] element_at
 - [ ] first
 - [ ] ignore_elements

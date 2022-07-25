@@ -33,6 +33,16 @@ SCENARIO("distinct_until_changed filters out consecutive duplicates and send fir
                 CHECK(mock.get_on_completed_count() == 1);
             }
         }
+        WHEN("subscribe on it via distinct_until_changed with custom comparator")
+        {
+            obs.distinct_until_changed([](int old_value, int new_value) {return old_value + new_value == 3; }).subscribe(mock);
+            THEN("subscriber obtains values without consecutive duplicates")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 1, 1, 3, 2, 2});
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
     }
 
     GIVEN("subject of values")
