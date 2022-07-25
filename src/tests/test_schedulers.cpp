@@ -42,7 +42,6 @@ SCENARIO("scheduler's worker uses time")
         }
         WHEN("Schedule action with zero duration")
         {
-            const auto initial_time = s_current_time;
             std::vector<rpp::schedulers::time_point> schedulings{};
             scheduler.create_worker().schedule([&]() -> rpp::schedulers::optional_duration
                 {
