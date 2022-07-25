@@ -50,6 +50,13 @@ public:
         return *this;
     }
 
+    bool operator==(const copy_count_tracker& other) const
+    {
+        return _state == other._state;
+    }
+
+    bool operator!=(const copy_count_tracker& other) const { return !(*this == other); }
+
     auto get_observable(size_t count = 1)
     {
         return rpp::source::create<copy_count_tracker>([this, count](const auto& sub)

@@ -37,6 +37,7 @@
 
 #include <rpp/operators/filter.hpp>
 #include <rpp/operators/take.hpp>
+#include <rpp/operators/distinct_until_changed.hpp>
 
 /**
  * \defgroup conditional_operators Conditional Operators
