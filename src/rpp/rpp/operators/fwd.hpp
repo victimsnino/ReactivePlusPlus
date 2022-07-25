@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/operators/fwd/filter.hpp>
+#include <rpp/operators/fwd/buffer.hpp>
 #include <rpp/operators/fwd/map.hpp>
 #include <rpp/operators/fwd/take.hpp>
 #include <rpp/operators/fwd/take_while.hpp>

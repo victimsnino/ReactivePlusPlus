@@ -48,7 +48,7 @@
 - [x] group_by
 - [x] flat_map
 - [x] scan
-- [ ] buffer
+- [x] buffer
 - [ ] window
 
 ### Filtering

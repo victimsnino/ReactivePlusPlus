@@ -23,6 +23,7 @@
  * \ingroup operators
  */
 
+#include <rpp/operators/buffer.hpp>
 #include <rpp/operators/map.hpp>
 #include <rpp/operators/group_by.hpp>
 #include <rpp/operators/flat_map.hpp>
