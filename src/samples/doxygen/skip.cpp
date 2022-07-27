@@ -2,15 +2,15 @@
 #include <iostream>
 
 /**
- * \example take.cpp
+ * \example skip.cpp
  **/
 int main()
 {
-    //! [take]
-    rpp::source::just(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
-            .take(2)
+    //! [skip]
+    rpp::source::just(0,1,2,3,4,5)
+            .skip(2)
             .subscribe([](int v) { std::cout << v << " "; });
-    // Output: 0 1
-    //! [take]
+    // Output: 2 3 4 5
+    //! [skip]
     return 0;
 }

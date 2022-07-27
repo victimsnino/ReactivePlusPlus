@@ -7,11 +7,7 @@
 int main()
 {
     //! [Filter]
-    rpp::source::create<int>([](const auto& sub)
-            {
-                for (int i = 0; i < 10; ++i)
-                    sub.on_next(i);
-            })
+    rpp::source::just(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
             .filter([](int    v) { return v % 2 == 0; })
             .subscribe([](int v) { std::cout << v << " "; });
     // Output: 0 2 4 6 8

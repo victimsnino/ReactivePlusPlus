@@ -55,28 +55,55 @@ private:
     [[no_unique_address]] Predicate     m_predicate;
 };
 
+struct counted_repeat_predicate
+{
+    counted_repeat_predicate(size_t count)
+        : m_count{std::make_shared<size_t>(count)} {}
+
+    bool operator()() const { return *m_count && (*m_count)--; }
+private:
+    std::shared_ptr<size_t> m_count{};
+};
+
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs, typename CreatePredicateFn>
+struct repeat_on_subscribe
+{
+    repeat_on_subscribe(TObs&& observable, CreatePredicateFn&& create_predicate)
+        : m_shared_observable{std::make_shared<TObs>(std::move(observable))}
+        , m_create_predicate{std::move(create_predicate)} {}
+
+    repeat_on_subscribe(const TObs& observable, CreatePredicateFn&& create_predicate)
+        : m_shared_observable{ std::make_shared<TObs>(observable) }
+        , m_create_predicate{ std::move(create_predicate) } {}
+
+    template<constraint::subscriber_of_type<Type> TSub>
+    void operator()(const TSub& subscriber) const
+    {
+        auto predicate = m_create_predicate();
+        repeat_on_completed<Type, std::decay_t<TObs>, decltype(predicate)>{m_shared_observable, std::move(predicate)}(subscriber);
+    }
+
+private:
+    std::shared_ptr<TObs> m_shared_observable{};
+    CreatePredicateFn     m_create_predicate;
+};
+
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs, typename CreatePredicateFn>
+auto create_repeat_on_subscribe(TObs&& observable, CreatePredicateFn&& create_predicate)
+{
+    return source::create<Type>(repeat_on_subscribe<Type, std::decay_t<TObs>, std::decay_t<CreatePredicateFn>>(std::forward<TObs>(observable),
+                                                                                                               std::forward<CreatePredicateFn>(create_predicate)));
+}
+
 template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs>
 auto repeat_impl(TObs&& observable, size_t count)
 {
-    auto shared_observable = std::make_shared<std::decay_t<TObs>>(std::forward<TObs>(observable));
-    return rpp::source::create<Type>([shared_observable, count]<constraint::subscriber_of_type<Type> TSub>(const TSub& subscriber)
-    {
-        auto predicate = [shared_count = std::make_shared<size_t>(count)]()
-        {
-            return *shared_count && (*shared_count)--;
-        };
-        repeat_on_completed<Type, std::decay_t<TObs>, decltype(predicate)>{shared_observable, std::move(predicate)}(subscriber);
-    });
+    return create_repeat_on_subscribe<Type>(std::forward<TObs>(observable), [count] { return counted_repeat_predicate{count}; });
 }
 
 template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs>
 auto repeat_impl(TObs&& observable)
 {
-    auto shared_observable = std::make_shared<std::decay_t<TObs>>(std::forward<TObs>(observable));
-    return rpp::source::create<Type>([shared_observable]<constraint::subscriber_of_type<Type> TSub>(const TSub& subscriber)
-    {
-        auto predicate = []() { return true; };
-        repeat_on_completed<Type, std::decay_t<TObs>, decltype(predicate)>{shared_observable, std::move(predicate)}(subscriber);
-    });
+    return create_repeat_on_subscribe<Type>(std::forward<TObs>(observable), [] { return [] { return true; }; });
 }
 } // namespace rpp::details

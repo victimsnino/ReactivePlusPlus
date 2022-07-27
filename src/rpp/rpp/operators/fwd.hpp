@@ -31,3 +31,4 @@
 #include <rpp/operators/fwd/concat.hpp>
 #include <rpp/operators/fwd/start_with.hpp>
 #include <rpp/operators/fwd/distinct_until_changed.hpp>
+#include <rpp/operators/fwd/skip.hpp>

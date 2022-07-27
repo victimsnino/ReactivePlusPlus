@@ -14,7 +14,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <rpp/operators/take.hpp>
 
-SCENARIO("take limits count of items")
+SCENARIO("take limits count of items", "[take]")
 {
     auto mock = mock_observer<int>{};
     GIVEN("observable")

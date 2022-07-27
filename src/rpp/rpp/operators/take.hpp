@@ -20,6 +20,26 @@ IMPLEMENTATION_FILE(take_tag);
 
 namespace rpp::details
 {
+struct take_on_next
+{
+    take_on_next(size_t count) : m_shared_count{ std::make_shared<size_t>(count) } {}
+
+    void operator()(auto&& value, const constraint::subscriber auto& subscriber) const
+    {
+        if (*m_shared_count > 0)
+        {
+            --(*m_shared_count);
+            subscriber.on_next(std::forward<decltype(value)>(value));
+        }
+
+        if (*m_shared_count == 0)
+            subscriber.on_completed();
+    };
+
+private:
+    std::shared_ptr<size_t> m_shared_count;
+};
+
 template<constraint::decayed_type Type>
 struct take_impl
 {
@@ -29,23 +49,7 @@ struct take_impl
     auto operator()(TSub&& subscriber) const
     {
         auto subscription = subscriber.get_subscription();
-        return create_subscriber_with_state<Type>(std::move(subscription), std::forward<TSub>(subscriber), make_action(), forwarding_on_error{}, forwarding_on_completed{});
-    }
-
-private:
-    auto make_action() const
-    {
-        return [shared_count = std::make_shared<size_t>(count)](auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber)
-        {
-            if (*shared_count > 0)
-            {
-                --(*shared_count);
-                subscriber.on_next(std::forward<decltype(value)>(value));
-            }
-
-            if (*shared_count == 0)
-                subscriber.on_completed();
-        };
+        return create_subscriber_with_state<Type>(std::move(subscription), std::forward<TSub>(subscriber), take_on_next{ count }, forwarding_on_error{}, forwarding_on_completed{});
     }
 };
 } // namespace rpp::details

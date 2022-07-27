@@ -9,10 +9,7 @@
 int main()
 {
     //! [Same type]
-    rpp::source::create<int>([](const auto& sub)
-            {
-                sub.on_next(42);
-            })
+    rpp::source::just(42)
             .map([](int value)
             {
                 return value + 10;
@@ -22,10 +19,7 @@ int main()
     //! [Same type]
 
     //! [Changed type]
-    rpp::source::create<int>([](const auto& sub)
-            {
-                sub.on_next(42);
-            })
+    rpp::source::just(42)
             .map([](int value)
             {
                 return std::to_string(value) + " VAL";
