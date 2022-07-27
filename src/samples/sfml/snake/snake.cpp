@@ -65,6 +65,13 @@ static Coordinates update_apple_position_if_eat(Coordinates&& apple_position, co
     return Coordinates{ x_uni(rng), y_uni(rng) };
 }
 
+static Direction select_next_not_opposite_direction(Direction&& current_direction, const Direction& new_direction)
+{
+    if (current_direction.x == new_direction.x * -1 || current_direction.y ==
+        new_direction.y * -1)
+        return current_direction;
+    return new_direction;
+}
 rpp::dynamic_observable<sf::RectangleShape> get_shapes_to_draw(const rpp::dynamic_observable<CustomEvent>& events)
 {
     const auto key_event = events.filter([](const CustomEvent& ev) { return std::holds_alternative<sf::Event>(ev); })
@@ -94,18 +101,11 @@ rpp::dynamic_observable<sf::RectangleShape> get_shapes_to_draw(const rpp::dynami
                               })
                               .filter([](const auto& optional) { return optional.has_value(); })
                               .map([](const auto&    optional) { return optional.value(); })
-                              .start_with(initial_direction)
-                              .scan(initial_direction,
-                                    [](Direction&& current_direction, const Direction& new_direction)
-                                    {
-                                        if (current_direction.x == new_direction.x * -1 || current_direction.y == new_direction.y * -1)
-                                            return current_direction;
-                                        return new_direction;
-                                    });
+                              .start_with(initial_direction);
 
     auto initial_snake_body = generate_initial_snake_body();
 
-    auto snake_earn_points       = rpp::subjects::publish_subject<size_t>{};
+    const auto snake_earn_points       = rpp::subjects::publish_subject<size_t>{};
     auto snake_length_observable = snake_earn_points
                                    .get_observable()
                                    .start_with(initial_snake_body.size())
@@ -116,12 +116,9 @@ rpp::dynamic_observable<sf::RectangleShape> get_shapes_to_draw(const rpp::dynami
                                          });
 
     const auto snake_body = rpp::source::interval(std::chrono::milliseconds{200}, g_run_loop)
-                            .with_latest_from([](const auto&, const Direction& direction, size_t length)
-                                              {
-                                                  return std::make_tuple(direction, length);
-                                              },
-                                              std::move(direction),
-                                              snake_length_observable)
+                            .with_latest_from(rpp::utils::get<1>{}, std::move(direction))
+                            .scan(initial_direction, &select_next_not_opposite_direction)
+                            .with_latest_from(std::move(snake_length_observable))
                             .scan(std::move(initial_snake_body), &move_snake)
                             .take_while(&is_snake_eat_self)
                             .publish()
@@ -146,8 +143,7 @@ rpp::dynamic_observable<sf::RectangleShape> get_shapes_to_draw(const rpp::dynami
                             .map([](const Coordinates& coords)
                             {
                                 return get_rectangle_at(coords, sf::Color::Red);
-                            }))
-              .as_dynamic();
+                            }));
     }, apple_position);
 
     return get_presents_stream(events)
