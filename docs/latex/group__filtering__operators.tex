@@ -12,6 +12,8 @@ Filtering operators are operators that emit only part of items that satisfies so
 \begin{DoxyCompactList}\small\item\em Suppress consecutive duplicates of emissions from original observable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$std\+::predicate$<$ const Type \& $>$ Predicate$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_ga87eb036453a17e9b5e59c920399d1d14}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, filter\+\_\+tag $>$\+::filter}} (Predicate \&\&predicate) const \&requires is\+\_\+header\+\_\+included$<$ filter\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Emit only those items from an Observable that satisfies a provided predicate. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... Args$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_ga17352df47509ccf9970b3ef4dcaf90fb}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, skip\+\_\+tag $>$\+::skip}} (size\+\_\+t count) const \&requires is\+\_\+header\+\_\+included$<$ skip\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Skip first {\ttfamily count} items provided by observable then send rest items as expected. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename... Args$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_gaef1d69d29be545c479d3126993eed494}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, take\+\_\+tag $>$\+::take}} (size\+\_\+t count) const \&requires is\+\_\+header\+\_\+included$<$ take\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Emit only first {\ttfamily count} items provided by observable, then send {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -98,12 +100,8 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 10; ++i)}
-\DoxyCodeLine{                    sub.on\_next(i);}
-\DoxyCodeLine{            \})}
-\DoxyCodeLine{            .\mbox{\hyperlink{group__filtering__operators_ga87eb036453a17e9b5e59c920399d1d14}{filter}}([](\textcolor{keywordtype}{int}    v) \{ \textcolor{keywordflow}{return} v \% 2 == 0; \})}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)}
+\DoxyCodeLine{            .filter([](\textcolor{keywordtype}{int}    v) \{ \textcolor{keywordflow}{return} v \% 2 == 0; \})}
 \DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 0 2 4 6 8}}
 \end{DoxyCodeInclude}
@@ -111,6 +109,42 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/filter.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/filter.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__filtering__operators_ga17352df47509ccf9970b3ef4dcaf90fb}\label{group__filtering__operators_ga17352df47509ccf9970b3ef4dcaf90fb}} 
+\index{Filtering Operators@{Filtering Operators}!skip@{skip}}
+\index{skip@{skip}!Filtering Operators@{Filtering Operators}}
+\doxysubsubsection{\texorpdfstring{skip()}{skip()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$typename... Args$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, skip\+\_\+tag $>$\+::skip (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption}) const \&}
+
+
+
+Skip first {\ttfamily count} items provided by observable then send rest items as expected. 
+
+ 
+\begin{DoxyParams}{Parameters}
+{\em count} & amount of items to be skipped \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the skip operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{skip_8hpp_source}{rpp/operators/skip.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(0,1,2,3,4,5)}
+\DoxyCodeLine{            .skip(2)}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 2 3 4 5}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/skip.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/skip.\+html}} 
 \end{DoxySeeAlso}
 \mbox{\Hypertarget{group__filtering__operators_gaef1d69d29be545c479d3126993eed494}\label{group__filtering__operators_gaef1d69d29be545c479d3126993eed494}} 
 \index{Filtering Operators@{Filtering Operators}!take@{take}}
@@ -138,12 +172,8 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 10; ++i)}
-\DoxyCodeLine{                    sub.on\_next(i);}
-\DoxyCodeLine{            \})}
-\DoxyCodeLine{            .\mbox{\hyperlink{group__filtering__operators_gaef1d69d29be545c479d3126993eed494}{take}}(2)}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)}
+\DoxyCodeLine{            .take(2)}
 \DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 0 1}}
 \end{DoxyCodeInclude}

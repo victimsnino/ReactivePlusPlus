@@ -11,5 +11,6 @@ var searchData=
   ['conditional_20operators_15',['Conditional Operators',['../group__conditional__operators.html',1,'']]],
   ['connectable_5fobservable_16',['connectable_observable',['../classrpp_1_1connectable__observable.html',1,'rpp']]],
   ['connectable_20operators_17',['Connectable Operators',['../group__connectable__operators.html',1,'']]],
-  ['creational_20operators_18',['Creational Operators',['../group__creational__operators.html',1,'']]]
+  ['counted_5frepeat_5fpredicate_18',['counted_repeat_predicate',['../structrpp_1_1details_1_1counted__repeat__predicate.html',1,'rpp::details']]],
+  ['creational_20operators_19',['Creational Operators',['../group__creational__operators.html',1,'']]]
 ];

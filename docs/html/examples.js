@@ -18,6 +18,7 @@ var examples =
     [ "repeat.cpp", "repeat_8cpp-example.html", null ],
     [ "run_loop.cpp", "run_loop_8cpp-example.html", null ],
     [ "scan.cpp", "scan_8cpp-example.html", null ],
+    [ "skip.cpp", "skip_8cpp-example.html", null ],
     [ "start_with.cpp", "start_with_8cpp-example.html", null ],
     [ "subscribe_on.cpp", "subscribe_on_8cpp-example.html", null ],
     [ "switch_map.cpp", "switch_map_8cpp-example.html", null ],

@@ -7,10 +7,7 @@
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int} main()}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                sub.on\_next(42);}
-\DoxyCodeLine{            \})}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(42)}
 \DoxyCodeLine{            .map([](\textcolor{keywordtype}{int} value)}
 \DoxyCodeLine{            \{}
 \DoxyCodeLine{                \textcolor{keywordflow}{return} value + 10;}
@@ -18,10 +15,7 @@
 \DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 52}}
 \DoxyCodeLine{\textcolor{comment}{}}
-\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                sub.on\_next(42);}
-\DoxyCodeLine{            \})}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(42)}
 \DoxyCodeLine{            .map([](\textcolor{keywordtype}{int} value)}
 \DoxyCodeLine{            \{}
 \DoxyCodeLine{                \textcolor{keywordflow}{return} std::to\_string(value) + \textcolor{stringliteral}{" VAL"};}

@@ -145,12 +145,8 @@ template&lt;std::predicate&lt; const Type &amp; &gt; Predicate&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the take_while operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="take__while_8hpp_source.html">rpp/operators/take_while.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    rpp::source::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
-<div class="line">            {</div>
-<div class="line">                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 10; ++i)</div>
-<div class="line">                    sub.on_next(i);</div>
-<div class="line">            })</div>
-<div class="line">            .<a class="code" href="group__conditional__operators.html#ga68ea040e75df34c47cdffd164d2a7c3d">take_while</a>([](<span class="keywordtype">int</span> v) { <span class="keywordflow">return</span> v != 5; })</div>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)</div>
+<div class="line">            .take_while([](<span class="keywordtype">int</span> v) { <span class="keywordflow">return</span> v != 5; })</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span>  v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 1 2 3 4</span></div>
 </div><!-- fragment --></dd></dl>
@@ -160,7 +156,7 @@ template&lt;std::predicate&lt; const Type &amp; &gt; Predicate&gt; </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agroup__conditional__operators_html_ga68ea040e75df34c47cdffd164d2a7c3d"><div class="ttname"><a href="group__conditional__operators.html#ga68ea040e75df34c47cdffd164d2a7c3d">rpp::details::member_overload&lt; Type, SpecificObservable, take_while_tag &gt;::take_while</a></div><div class="ttdeci">auto take_while(Predicate &amp;&amp;predicate) const &amp;requires is_header_included&lt; take_while_tag</div><div class="ttdoc">Sends items provided by observable while items are satisfy predicate. When condition becomes false -&gt;...</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gabc5067fa9aefaa803f6e329b75faa00c"><div class="ttname"><a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:161</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

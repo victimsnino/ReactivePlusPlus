@@ -13,6 +13,7 @@ var dir_b39606649fae5912634cd95bf9ef094c =
     [ "ref_count.hpp", "fwd_2ref__count_8hpp_source.html", null ],
     [ "repeat.hpp", "fwd_2repeat_8hpp_source.html", null ],
     [ "scan.hpp", "fwd_2scan_8hpp_source.html", null ],
+    [ "skip.hpp", "fwd_2skip_8hpp_source.html", null ],
     [ "start_with.hpp", "fwd_2start__with_8hpp_source.html", null ],
     [ "subscribe.hpp", "subscribe_8hpp_source.html", null ],
     [ "subscribe_on.hpp", "fwd_2subscribe__on_8hpp_source.html", null ],

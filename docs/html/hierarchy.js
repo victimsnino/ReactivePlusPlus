@@ -2,6 +2,7 @@ var hierarchy =
 [
     [ "rpp::subjects::details::completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
     [ "rpp::details::concat_impl< Type >", "structrpp_1_1details_1_1concat__impl.html", null ],
+    [ "rpp::details::counted_repeat_predicate", "structrpp_1_1details_1_1counted__repeat__predicate.html", null ],
     [ "declvalget_observable", null, [
       [ "rpp::connectable_observable< Type, Subject, OriginalObservable >", "classrpp_1_1connectable__observable.html", null ]
     ] ],
@@ -86,6 +87,9 @@ var hierarchy =
     [ "rpp::details::member_overload< Type, SpecificObservable, details::scan_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, details::skip_tag >", "structrpp_1_1details_1_1member__overload.html", [
+      [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
+    ] ],
     [ "rpp::details::member_overload< Type, SpecificObservable, details::start_with_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
@@ -123,6 +127,7 @@ var hierarchy =
     [ "rpp::details::member_overload< Type, SpecificObservable, ref_count_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01ref__count__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, repeat_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01repeat__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, scan_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01scan__tag_01_4.html", null ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, skip_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01skip__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, start_with_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, subscribe_on_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01subscribe__on__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, subscribe_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01subscribe__tag_01_4.html", null ],
@@ -142,12 +147,15 @@ var hierarchy =
     [ "rpp::details::ref_count_on_subscribe< Type, TObs >", "structrpp_1_1details_1_1ref__count__on__subscribe.html", null ],
     [ "rpp::details::ref_count_state_t", "structrpp_1_1details_1_1ref__count__state__t.html", null ],
     [ "rpp::details::repeat_on_completed< Type, SpecificObservable, Predicate >", "classrpp_1_1details_1_1repeat__on__completed.html", null ],
+    [ "rpp::details::repeat_on_subscribe< Type, TObs, CreatePredicateFn >", "structrpp_1_1details_1_1repeat__on__subscribe.html", null ],
     [ "rpp::details::scan_impl< Type, Result, AccumulatorFn >", "structrpp_1_1details_1_1scan__impl.html", null ],
     [ "rpp::schedulers::details::scheduler_tag", "structrpp_1_1schedulers_1_1details_1_1scheduler__tag.html", [
       [ "rpp::schedulers::immediate", "classrpp_1_1schedulers_1_1immediate.html", null ],
       [ "rpp::schedulers::new_thread", "classrpp_1_1schedulers_1_1new__thread.html", null ],
       [ "rpp::schedulers::run_loop", "classrpp_1_1schedulers_1_1run__loop.html", null ]
     ] ],
+    [ "rpp::details::skip_impl< Type >", "structrpp_1_1details_1_1skip__impl.html", null ],
+    [ "rpp::details::skip_on_next", "structrpp_1_1details_1_1skip__on__next.html", null ],
     [ "rpp::specific_observable< Type, OnSubscribeFn >", "classrpp_1_1specific__observable.html", null ],
     [ "rpp::specific_observable< Type, details::dynamic_observable_state< Type > >", "classrpp_1_1specific__observable.html", [
       [ "rpp::dynamic_observable< Type >", "classrpp_1_1dynamic__observable.html", null ]
@@ -171,6 +179,7 @@ var hierarchy =
     [ "rpp::details::subscription_state", "classrpp_1_1details_1_1subscription__state.html", null ],
     [ "rpp::details::switch_on_next_impl< Type >", "structrpp_1_1details_1_1switch__on__next__impl.html", null ],
     [ "rpp::details::take_impl< Type >", "structrpp_1_1details_1_1take__impl.html", null ],
+    [ "rpp::details::take_on_next", "structrpp_1_1details_1_1take__on__next.html", null ],
     [ "rpp::details::take_while_impl< Type, Predicate >", "structrpp_1_1details_1_1take__while__impl.html", null ],
     [ "rpp::subjects::details::unsubscribed", "structrpp_1_1subjects_1_1details_1_1unsubscribed.html", null ],
     [ "rpp::virtual_observable< Type >", "structrpp_1_1virtual__observable.html", [
@@ -179,7 +188,7 @@ var hierarchy =
     [ "rpp::details::with_latest_from_impl< Type, TSelector, TObservables >", "structrpp_1_1details_1_1with__latest__from__impl.html", null ],
     [ "rpp::details::with_latest_from_state_t< ValueTypes >", "structrpp_1_1details_1_1with__latest__from__state__t.html", null ],
     [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ],
-    [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ],
+    [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::run_loop::worker_strategy", "classrpp_1_1schedulers_1_1run__loop_1_1worker__strategy.html", null ],
-    [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ]
+    [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ]
 ];

@@ -112,6 +112,10 @@ Functions</h2></td></tr>
 <tr class="memitem:ga87eb036453a17e9b5e59c920399d1d14"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga87eb036453a17e9b5e59c920399d1d14">rpp::details::member_overload&lt; Type, SpecificObservable, filter_tag &gt;::filter</a> (Predicate &amp;&amp;predicate) const &amp;requires is_header_included&lt; filter_tag</td></tr>
 <tr class="memdesc:ga87eb036453a17e9b5e59c920399d1d14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only those items from an Observable that satisfies a provided predicate.  <a href="group__filtering__operators.html#ga87eb036453a17e9b5e59c920399d1d14">More...</a><br /></td></tr>
 <tr class="separator:ga87eb036453a17e9b5e59c920399d1d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga17352df47509ccf9970b3ef4dcaf90fb"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:ga17352df47509ccf9970b3ef4dcaf90fb"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga17352df47509ccf9970b3ef4dcaf90fb">rpp::details::member_overload&lt; Type, SpecificObservable, skip_tag &gt;::skip</a> (size_t count) const &amp;requires is_header_included&lt; skip_tag</td></tr>
+<tr class="memdesc:ga17352df47509ccf9970b3ef4dcaf90fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip first <code>count</code> items provided by observable then send rest items as expected.  <a href="group__filtering__operators.html#ga17352df47509ccf9970b3ef4dcaf90fb">More...</a><br /></td></tr>
+<tr class="separator:ga17352df47509ccf9970b3ef4dcaf90fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaef1d69d29be545c479d3126993eed494"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
 <tr class="memitem:gaef1d69d29be545c479d3126993eed494"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#gaef1d69d29be545c479d3126993eed494">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a> (size_t count) const &amp;requires is_header_included&lt; take_tag</td></tr>
 <tr class="memdesc:gaef1d69d29be545c479d3126993eed494"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only first <code>count</code> items provided by observable, then send <code>on_completed</code>  <a href="group__filtering__operators.html#gaef1d69d29be545c479d3126993eed494">More...</a><br /></td></tr>
@@ -198,16 +202,53 @@ template&lt;std::predicate&lt; const Type &amp; &gt; Predicate&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the Filter operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="filter_8hpp_source.html">rpp/operators/filter.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    rpp::source::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
-<div class="line">            {</div>
-<div class="line">                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 10; ++i)</div>
-<div class="line">                    sub.on_next(i);</div>
-<div class="line">            })</div>
-<div class="line">            .<a class="code" href="group__filtering__operators.html#ga87eb036453a17e9b5e59c920399d1d14">filter</a>([](<span class="keywordtype">int</span>    v) { <span class="keywordflow">return</span> v % 2 == 0; })</div>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)</div>
+<div class="line">            .filter([](<span class="keywordtype">int</span>    v) { <span class="keywordflow">return</span> v % 2 == 0; })</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 2 4 6 8</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/filter.html">https://reactivex.io/documentation/operators/filter.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga17352df47509ccf9970b3ef4dcaf90fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga17352df47509ccf9970b3ef4dcaf90fb">&#9670;&nbsp;</a></span>skip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename... Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, skip_tag &gt;::skip </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Skip first <code>count</code> items provided by observable then send rest items as expected. </p>
+<div class="image">
+<object type="image/svg+xml" data="skip.svg" style="pointer-events: none;"></object>
+</div>
+ <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">count</td><td>amount of items to be skipped </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the skip operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="skip_8hpp_source.html">rpp/operators/skip.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(0,1,2,3,4,5)</div>
+<div class="line">            .skip(2)</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 2 3 4 5</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/skip.html">https://reactivex.io/documentation/operators/skip.html</a> </dd></dl>
 
 </div>
 </div>
@@ -243,12 +284,8 @@ template&lt;typename... Args&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the Take operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="take_8hpp_source.html">rpp/operators/take.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    rpp::source::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
-<div class="line">            {</div>
-<div class="line">                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 10; ++i)</div>
-<div class="line">                    sub.on_next(i);</div>
-<div class="line">            })</div>
-<div class="line">            .<a class="code" href="group__filtering__operators.html#gaef1d69d29be545c479d3126993eed494">take</a>(2)</div>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)</div>
+<div class="line">            .take(2)</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 1</span></div>
 </div><!-- fragment --></dd></dl>
@@ -258,8 +295,6 @@ template&lt;typename... Args&gt; </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agroup__filtering__operators_html_ga87eb036453a17e9b5e59c920399d1d14"><div class="ttname"><a href="group__filtering__operators.html#ga87eb036453a17e9b5e59c920399d1d14">rpp::details::member_overload&lt; Type, SpecificObservable, filter_tag &gt;::filter</a></div><div class="ttdeci">auto filter(Predicate &amp;&amp;predicate) const &amp;requires is_header_included&lt; filter_tag</div><div class="ttdoc">Emit only those items from an Observable that satisfies a provided predicate.</div></div>
-<div class="ttc" id="agroup__filtering__operators_html_gaef1d69d29be545c479d3126993eed494"><div class="ttname"><a href="group__filtering__operators.html#gaef1d69d29be545c479d3126993eed494">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a></div><div class="ttdeci">auto take(size_t count) const &amp;requires is_header_included&lt; take_tag</div><div class="ttdoc">Emit only first count items provided by observable, then send on_completed</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gabc5067fa9aefaa803f6e329b75faa00c"><div class="ttname"><a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:161</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
