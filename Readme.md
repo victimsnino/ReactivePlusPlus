@@ -44,9 +44,15 @@ Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ
 - **ReactivePlusPlus** keeps balance between performance and type-erasing mechanism: Read about it in  [**"Performance vs Flexibility: Specific vs Dynamic"**](https://victimsnino.github.io/ReactivePlusPlus/docs/html/specific_vs_dynamic.html)
 - **ReactivePlusPlus** is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks show that RPP faster that RxCPP in most cases: [Continous benchmarking results](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
 
-## Usage
+## Installation and usage
 
 To use ReactivePlusPlus just add it as submodule/place folder and add to project via CMake's `add_subfolder`.
+
+ReactivePlusPlus's CMake has several options to set:
+
+- RPP_BUILD_TESTS - build unit tests (default OFF)
+- RPP_BUILD_SAMPLES - build samples of usage of RPP (default OFF)
+- RPP_BUILD_SFML_CODE - build RPP code related to SFML or not (default OFF) - requires SFML v3
 
 In source files add
 ```cpp
