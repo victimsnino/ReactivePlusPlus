@@ -63,7 +63,7 @@
 - [ ] ignore_elements
 - [ ] last
 - [ ] sample
-- [ ] skip
+- [x] skip
 - [ ] skip_last
 - [ ] take_last
 
