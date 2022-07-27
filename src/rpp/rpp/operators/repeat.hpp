@@ -81,7 +81,7 @@ struct repeat_on_subscribe
     {
         auto predicate = m_create_predicate();
         repeat_on_completed<Type, std::decay_t<TObs>, decltype(predicate)>{m_shared_observable, std::move(predicate)}(subscriber);
-    };
+    }
 
 private:
     std::shared_ptr<TObs> m_shared_observable{};
