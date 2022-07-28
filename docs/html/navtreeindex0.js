@@ -45,11 +45,13 @@ var NAVTREEINDEX0 =
 "classrpp_1_1connectable__observable.html#a706ed78f272f2f34b99cbfcd7a9e9df9":[1,0,1,0],
 "classrpp_1_1connectable__observable.html#a7087f2dfd55880d9e709ae53a39d71fd":[1,0,1,1],
 "classrpp_1_1details_1_1dynamic__observable__state.html":[2,0,0,0,4],
-"classrpp_1_1details_1_1dynamic__observable__state.html#a4205a192a7fcf06e408592763e421622":[2,0,0,0,4,2],
+"classrpp_1_1details_1_1dynamic__observable__state.html#a0d69d671de305a0c9118564538458d3c":[2,0,0,0,4,4],
+"classrpp_1_1details_1_1dynamic__observable__state.html#a56c6caeae8a2d6d4ec3e609a3aaec124":[2,0,0,0,4,2],
+"classrpp_1_1details_1_1dynamic__observable__state.html#a76df3576f1f99a35132478933a767061":[2,0,0,0,4,1],
 "classrpp_1_1details_1_1dynamic__observable__state.html#ace6cf9ad6b141dbfbe0cf214d79b7116":[2,0,0,0,4,3],
 "classrpp_1_1details_1_1dynamic__observable__state.html#acf4efeea2067c7257954b3f6b21d736e":[2,0,0,0,4,0],
-"classrpp_1_1details_1_1dynamic__observable__state.html#ad53a0c3034336fac2f6d729f8d64c789":[2,0,0,0,4,1],
-"classrpp_1_1details_1_1dynamic__observable__state.html#af3a5240572172cbe21778874131d1b0d":[2,0,0,0,4,4],
+"classrpp_1_1details_1_1dynamic__observable__state.html#adaa48b2b6be749de26cdc26cf27ff6e5":[2,0,0,0,4,5],
+"classrpp_1_1details_1_1dynamic__observable__state.html#af3a5240572172cbe21778874131d1b0d":[2,0,0,0,4,6],
 "classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html":[2,0,0,0,9,0],
 "classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html#a2074cc3c3c7c0e300f0def5ba2745051":[2,0,0,0,9,0,3],
 "classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html#a21ed5bbebab6e721993b05679adf61a4":[2,0,0,0,9,0,4],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "dir_b74590698e221afff25b66eda0de4de6.html":[3,0,0,0,0,4],
 "dir_bbb3e9c260a1b296a4e76d6e3089c45e.html":[3,0,0,0,0,3,0],
 "dir_d51df0b48273f543583a63d874347c44.html":[3,0,0,0,0,6,0],
-"dir_d8204008f15e4407f14e8533ec49a8b6.html":[3,0,0,0,0,0],
-"dir_e63f0449bda065f7452c9bd88dfaa92f.html":[3,0,0,0,0,1],
-"distinct__until__changed_8hpp_source.html":[3,0,0,0,0,2,3]
+"dir_d8204008f15e4407f14e8533ec49a8b6.html":[3,0,0,0,0,0]
 };
