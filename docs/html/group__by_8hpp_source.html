@@ -135,9 +135,9 @@ $(document).ready(function(){initNavTree('group__by_8hpp_source.html',''); initR
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    std::atomic_size_t     subscribers{};</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type  TKey,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;         constraint::decayed_type  Type,</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;         std::relation&lt;TKey, TKey&gt; KeyComparator&gt;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type           TKey,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;         constraint::decayed_type           Type,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;         std::strict_weak_order&lt;TKey, TKey&gt; KeyComparator&gt;</div>
 <div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1group__by__state.html">   43</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1group__by__state.html">group_by_state</a> final : <a class="code" href="classrpp_1_1details_1_1group__by__state__base.html">group_by_state_base</a></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="structrpp_1_1details_1_1group__by__state.html">group_by_state</a>(<span class="keyword">const</span> KeyComparator&amp; comparator)</div>
@@ -169,11 +169,11 @@ $(document).ready(function(){initNavTree('group__by_8hpp_source.html',''); initR
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type  Type,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;         constraint::decayed_type  TKey,</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;         std::invocable&lt;Type&gt;      KeySelector,</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;         std::invocable&lt;Type&gt;      ValueSelector,</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;         std::relation&lt;TKey, TKey&gt; KeyComparator&gt;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type           Type,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;         constraint::decayed_type           TKey,</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;         std::invocable&lt;Type&gt;               KeySelector,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;         std::invocable&lt;Type&gt;               ValueSelector,</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;         std::strict_weak_order&lt;TKey, TKey&gt; KeyComparator&gt;</div>
 <div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1group__by__lift__impl.html">   79</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1group__by__lift__impl.html">group_by_lift_impl</a></div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;{</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">using</span> ValueType = utils::decayed_invoke_result_t&lt;ValueSelector, Type&gt;;</div>
@@ -244,11 +244,11 @@ $(document).ready(function(){initNavTree('group__by_8hpp_source.html',''); initR
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    }</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;};</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type  Type,</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;         constraint::decayed_type  TKey,</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;         std::invocable&lt;Type&gt;      KeySelector,</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;         std::invocable&lt;Type&gt;      ValueSelector,</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;         std::relation&lt;TKey, TKey&gt; KeyComparator&gt;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type           Type,</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;         constraint::decayed_type           TKey,</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;         std::invocable&lt;Type&gt;               KeySelector,</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;         std::invocable&lt;Type&gt;               ValueSelector,</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;         std::strict_weak_order&lt;TKey, TKey&gt; KeyComparator&gt;</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="keyword">auto</span> group_by_impl(<span class="keyword">auto</span>&amp;&amp;          observable,</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                   KeySelector&amp;&amp;   key_selector,</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                   ValueSelector&amp;&amp; value_selector,</div>

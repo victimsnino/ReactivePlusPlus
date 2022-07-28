@@ -108,7 +108,7 @@ Functions</h2></td></tr>
 <tr class="memitem:gae4d30f7ae23a7d62aa761f26abf18008"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gae4d30f7ae23a7d62aa761f26abf18008">rpp::details::member_overload&lt; Type, SpecificObservable, flat_map_tag &gt;::flat_map</a> (Callable &amp;&amp;callable) const &amp;requires is_header_included&lt; flat_map_tag</td></tr>
 <tr class="memdesc:gae4d30f7ae23a7d62aa761f26abf18008"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform emissions to observables via provided function and then merge emissions from such an observables.  <a href="group__transforming__operators.html#gae4d30f7ae23a7d62aa761f26abf18008">More...</a><br /></td></tr>
 <tr class="separator:gae4d30f7ae23a7d62aa761f26abf18008"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf3399da92ac6a0a4c392107b5b405a60"><td class="memTemplParams" colspan="2">template&lt;std::invocable&lt; Type &gt; KeySelector, std::invocable&lt; Type &gt; ValueSelector = std::identity, typename TKey  = rpp::utils::decayed_invoke_result_t&lt;KeySelector, Type&gt;, std::relation&lt; TKey, TKey &gt; KeyComparator = std::less&lt;TKey&gt;&gt; </td></tr>
+<tr class="memitem:gaf3399da92ac6a0a4c392107b5b405a60"><td class="memTemplParams" colspan="2">template&lt;std::invocable&lt; Type &gt; KeySelector, std::invocable&lt; Type &gt; ValueSelector = std::identity, typename TKey  = rpp::utils::decayed_invoke_result_t&lt;KeySelector, Type&gt;, std::strict_weak_order&lt; TKey, TKey &gt; KeyComparator = std::less&lt;TKey&gt;&gt; </td></tr>
 <tr class="memitem:gaf3399da92ac6a0a4c392107b5b405a60"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gaf3399da92ac6a0a4c392107b5b405a60">rpp::details::member_overload&lt; Type, SpecificObservable, group_by_tag &gt;::group_by</a> (KeySelector &amp;&amp;key_selector, ValueSelector &amp;&amp;value_selector={}, KeyComparator &amp;&amp;comparator={}) const &amp;requires is_header_included&lt; group_by_tag</td></tr>
 <tr class="memdesc:gaf3399da92ac6a0a4c392107b5b405a60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divide original observable into multiple observables where each new observable emits some group of values from original observable.  <a href="group__transforming__operators.html#gaf3399da92ac6a0a4c392107b5b405a60">More...</a><br /></td></tr>
 <tr class="separator:gaf3399da92ac6a0a4c392107b5b405a60"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -180,7 +180,7 @@ template&lt;flat_map_callable&lt; Type &gt; Callable&gt; </div>
 <div class="memtemplate">
 template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
 <div class="memtemplate">
-template&lt;std::invocable&lt; Type &gt; KeySelector, std::invocable&lt; Type &gt; ValueSelector = std::identity, typename TKey  = rpp::utils::decayed_invoke_result_t&lt;KeySelector, Type&gt;, std::relation&lt; TKey, TKey &gt; KeyComparator = std::less&lt;TKey&gt;&gt; </div>
+template&lt;std::invocable&lt; Type &gt; KeySelector, std::invocable&lt; Type &gt; ValueSelector = std::identity, typename TKey  = rpp::utils::decayed_invoke_result_t&lt;KeySelector, Type&gt;, std::strict_weak_order&lt; TKey, TKey &gt; KeyComparator = std::less&lt;TKey&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, group_by_tag &gt;::group_by </td>
@@ -217,7 +217,7 @@ template&lt;std::invocable&lt; Type &gt; KeySelector, std::invocable&lt; Type &g
   <table class="params">
     <tr><td class="paramname">key_selector</td><td>Function which determines key for provided item </td></tr>
     <tr><td class="paramname">value_selector</td><td>Function which determines value to be emitted to grouped observable </td></tr>
-    <tr><td class="paramname">comparator</td><td>Function to provide relation between key types</td></tr>
+    <tr><td class="paramname">comparator</td><td>Function to provide strict_weak_order between key types</td></tr>
   </table>
   </dd>
 </dl>

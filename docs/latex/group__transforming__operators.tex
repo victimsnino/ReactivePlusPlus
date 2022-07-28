@@ -10,7 +10,7 @@ Transforming operators are operators that transform items provided by observable
 \item 
 {\footnotesize template$<$flat\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gae4d30f7ae23a7d62aa761f26abf18008}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, flat\+\_\+map\+\_\+tag $>$\+::flat\+\_\+map}} (Callable \&\&callable) const \&requires is\+\_\+header\+\_\+included$<$ flat\+\_\+map\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Transform emissions to observables via provided function and then merge emissions from such an observables. \end{DoxyCompactList}\item 
-{\footnotesize template$<$std\+::invocable$<$ Type $>$ Key\+Selector, std\+::invocable$<$ Type $>$ Value\+Selector = std\+::identity, typename T\+Key  = rpp\+::utils\+::decayed\+\_\+invoke\+\_\+result\+\_\+t$<$\+Key\+Selector, Type$>$, std\+::relation$<$ T\+Key, T\+Key $>$ Key\+Comparator = std\+::less$<$\+T\+Key$>$$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gaf3399da92ac6a0a4c392107b5b405a60}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, group\+\_\+by\+\_\+tag $>$\+::group\+\_\+by}} (Key\+Selector \&\&key\+\_\+selector, Value\+Selector \&\&value\+\_\+selector=\{\}, Key\+Comparator \&\&comparator=\{\}) const \&requires is\+\_\+header\+\_\+included$<$ group\+\_\+by\+\_\+tag
+{\footnotesize template$<$std\+::invocable$<$ Type $>$ Key\+Selector, std\+::invocable$<$ Type $>$ Value\+Selector = std\+::identity, typename T\+Key  = rpp\+::utils\+::decayed\+\_\+invoke\+\_\+result\+\_\+t$<$\+Key\+Selector, Type$>$, std\+::strict\+\_\+weak\+\_\+order$<$ T\+Key, T\+Key $>$ Key\+Comparator = std\+::less$<$\+T\+Key$>$$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gaf3399da92ac6a0a4c392107b5b405a60}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, group\+\_\+by\+\_\+tag $>$\+::group\+\_\+by}} (Key\+Selector \&\&key\+\_\+selector, Value\+Selector \&\&value\+\_\+selector=\{\}, Key\+Comparator \&\&comparator=\{\}) const \&requires is\+\_\+header\+\_\+included$<$ group\+\_\+by\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Divide original observable into multiple observables where each new observable emits some group of values from original observable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$std\+::invocable$<$ Type $>$ Callable$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_ga2215c20ce73e16977568e7db1900ce65}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, map\+\_\+tag $>$\+::map}} (Callable \&\&callable) const \&requires is\+\_\+header\+\_\+included$<$ map\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Transform the items emitted by an Observable via applying a function to each item and emitting result. \end{DoxyCompactList}\item 
@@ -77,7 +77,7 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \index{group\_by@{group\_by}!Transforming Operators@{Transforming Operators}}
 \doxysubsubsection{\texorpdfstring{group\_by()}{group\_by()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$std\+::invocable$<$ Type $>$ Key\+Selector, std\+::invocable$<$ Type $>$ Value\+Selector = std\+::identity, typename T\+Key  = rpp\+::utils\+::decayed\+\_\+invoke\+\_\+result\+\_\+t$<$\+Key\+Selector, Type$>$, std\+::relation$<$ T\+Key, T\+Key $>$ Key\+Comparator = std\+::less$<$\+T\+Key$>$$>$ \\
+template$<$std\+::invocable$<$ Type $>$ Key\+Selector, std\+::invocable$<$ Type $>$ Value\+Selector = std\+::identity, typename T\+Key  = rpp\+::utils\+::decayed\+\_\+invoke\+\_\+result\+\_\+t$<$\+Key\+Selector, Type$>$, std\+::strict\+\_\+weak\+\_\+order$<$ T\+Key, T\+Key $>$ Key\+Comparator = std\+::less$<$\+T\+Key$>$$>$ \\
 auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, group\+\_\+by\+\_\+tag $>$\+::group\+\_\+by (\begin{DoxyParamCaption}\item[{Key\+Selector \&\&}]{key\+\_\+selector,  }\item[{Value\+Selector \&\&}]{value\+\_\+selector = {\ttfamily \{\}},  }\item[{Key\+Comparator \&\&}]{comparator = {\ttfamily \{\}} }\end{DoxyParamCaption}) const \&}
 
 
@@ -94,7 +94,7 @@ Original observable applies {\ttfamily key\+\_\+selector} to obtain key and spli
 \hline
 {\em value\+\_\+selector} & Function which determines value to be emitted to grouped observable \\
 \hline
-{\em comparator} & Function to provide relation between key types\\
+{\em comparator} & Function to provide strict\+\_\+weak\+\_\+order between key types\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
