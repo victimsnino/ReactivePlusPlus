@@ -100,7 +100,6 @@ TEST_CASE("Observable subscribe #2")
     };
 }
 
-
 TEST_CASE("Observer construction")
 {
     BENCHMARK("Specific observer construction")
@@ -198,26 +197,6 @@ TEST_CASE("Observable lift")
     validate_observable(MakeDynamicObservable(), "Dynamic");
 }
 
-TEST_CASE("Operators")
-{
-    BENCHMARK_ADVANCED("map construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
-    {
-        const auto obs = rpp::observable::create<int>([](const auto& sub)
-        {
-            sub.on_next(1);
-        });
-        auto sub = rpp::specific_subscriber{ [](const int&) {} };
-
-        meter.measure([&]
-                      {
-                          return obs.map([](const auto& v)
-                          {
-                              return v * 100;
-                          }).subscribe(sub);
-                      });
-    };
-}
-
 TEST_CASE("Subscription")
 {
     BENCHMARK("composite_subscription create")
@@ -265,6 +244,140 @@ TEST_CASE("foundamental sources")
     };
 }
 
+TEST_CASE("map")
+{
+    BENCHMARK_ADVANCED("map construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        const auto obs = rpp::observable::create<int>([](const auto& sub)
+        {
+            sub.on_next(1);
+        });
+        auto sub = rpp::specific_subscriber{[](const int&) {}};
+
+        meter.measure([&]
+        {
+            return obs.map([](const auto& v)
+            {
+                return v * 100;
+            }).subscribe(sub);
+        });
+    };
+}
+
+TEST_CASE("scan")
+{
+    BENCHMARK_ADVANCED("scan construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        const auto obs = rpp::observable::create<int>([](const auto& sub)
+        {
+            sub.on_next(1);
+        });
+        auto sub = rpp::specific_subscriber{[](const std::vector<int>&) {}};
+
+        meter.measure([&]
+        {
+            return obs.scan(std::vector<int>{},
+                            [](std::vector<int>&& seed, const auto& v)
+                            {
+                                return std::move(seed);
+                            }).subscribe(sub);
+        });
+    };
+}
+
+TEST_CASE("distinct_until_changed")
+{
+    BENCHMARK_ADVANCED("distinct_until_changed construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        const auto obs = rpp::observable::create<int>([](const auto& sub)
+        {
+            sub.on_next(1);
+            sub.on_next(1);
+            sub.on_next(1);
+        });
+        auto sub = rpp::specific_subscriber{[](const int&) {}};
+
+        meter.measure([&]
+        {
+            return obs.distinct_until_changed().subscribe(sub);
+        });
+    };
+}
+
+TEST_CASE("with_latest_from")
+{
+    BENCHMARK_ADVANCED("with_latest_from construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        const auto obs = rpp::observable::create<int>([](const auto& sub)
+        {
+            sub.on_next(1);
+        });
+        auto sub = rpp::specific_subscriber{[](const std::tuple<int,int,int>&) {}};
+
+        meter.measure([&]
+        {
+            return obs.with_latest_from(obs, obs).subscribe(sub);
+        });
+    };
+}
+
+TEST_CASE("switch_on_next")
+{
+    BENCHMARK_ADVANCED("switch_on_next construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        auto inner_source = rpp::source::just(1);
+        using inner_source_type = decltype(inner_source);
+        const auto obs = rpp::observable::create<inner_source_type>([&](const auto& sub)
+        {
+            sub.on_next(inner_source);
+            sub.on_next(inner_source);
+            sub.on_next(inner_source);
+        });
+        auto sub = rpp::specific_subscriber{[](const int&) {}};
+
+        meter.measure([&]
+        {
+            return obs.switch_on_next().subscribe(sub);
+        });
+    };
+}
+
+TEST_CASE("observe_on")
+{
+    BENCHMARK_ADVANCED("observe_on construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        const auto obs = rpp::observable::create<int>([](const auto& sub)
+        {
+            sub.on_next(1);
+            sub.on_next(1);
+            sub.on_next(1);
+        });
+        auto sub = rpp::specific_subscriber{[](const int&) {}};
+        auto scheduler = rpp::schedulers::immediate{};
+        meter.measure([&]
+        {
+            return obs.observe_on(scheduler).subscribe(sub);
+        });
+    };
+}
+
+TEST_CASE("repeat")
+{
+    BENCHMARK_ADVANCED("repeat construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        const auto obs = rpp::observable::create<int>([](const auto& sub)
+        {
+            sub.on_next(1);
+            sub.on_completed();
+        });
+        auto sub = rpp::specific_subscriber{[](const int&) {}};
+
+        meter.measure([&]
+        {
+            return obs.repeat(10).subscribe(sub);
+        });
+    };
+}
 
 TEST_CASE("just")
 {
@@ -316,6 +429,33 @@ TEST_CASE("merge")
         {
             return rpp::source::just(1)
                    .merge_with(rpp::source::just(2))
+                   .subscribe(sub);
+        });
+    };
+}
+
+TEST_CASE("concat")
+{
+    BENCHMARK_ADVANCED("concat")(Catch::Benchmark::Chronometer meter)
+    {
+        auto sub = rpp::make_specific_subscriber<int>();
+
+        meter.measure([&]
+        {
+            return rpp::source::just(rpp::source::just(1),
+                                     rpp::source::just(2))
+                   .concat()
+                   .subscribe(sub);
+        });
+    };
+    BENCHMARK_ADVANCED("concat_with")(Catch::Benchmark::Chronometer meter)
+    {
+        auto sub = rpp::make_specific_subscriber<int>();
+
+        meter.measure([&]
+        {
+            return rpp::source::just(1)
+                   .concat_with(rpp::source::just(2))
                    .subscribe(sub);
         });
     };
