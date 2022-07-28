@@ -44,7 +44,7 @@ SCENARIO("flat_map transforms items and then merge emissions from underlying obs
                 CHECK(mock.get_on_error_count() == 1);
             }
         }
-        WHEN("subscribe on it via flat_map with empty")
+        WHEN("subscribe on it via flat_map with all empty")
         {
             obs.flat_map([](int){return rpp::source::empty<int>();}).subscribe(mock);
             THEN("subscriber obtains values from observables obtained via flat_map")
@@ -54,7 +54,24 @@ SCENARIO("flat_map transforms items and then merge emissions from underlying obs
                 CHECK(mock.get_on_error_count() == 0);
             }
         }
-        WHEN("subscribe on it via flat_map with never")
+        WHEN("subscribe on it via flat_map with empty in the middle")
+        {
+            obs.flat_map([](int v) {
+                    if (v == 2) {
+                        return rpp::source::empty<int>().as_dynamic();
+                    } else {
+                        return rpp::source::just(v).as_dynamic();
+                    }
+                })
+                .subscribe(mock);
+            THEN("subscriber obtains values from observables obtained via flat_map")
+            {
+                CHECK(mock.get_received_values() == std::vector{1,3});
+                CHECK(mock.get_on_completed_count() == 1);
+                CHECK(mock.get_on_error_count() == 0);
+            }
+        }
+        WHEN("subscribe on it via flat_map with all never")
         {
             auto sub = obs.flat_map([](int){return rpp::source::never<int>();}).subscribe(mock);
             THEN("subscriber obtains values from observables obtained via flat_map")
@@ -62,6 +79,26 @@ SCENARIO("flat_map transforms items and then merge emissions from underlying obs
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_completed_count() == 0);
                 CHECK(mock.get_on_error_count() == 0);
+                CHECK(sub.is_subscribed());
+            }
+        }
+        WHEN("subscribe on it via flat_map with never in the middle")
+        {
+            auto sub = obs.flat_map([](int v) {
+                    if (v == 2) {
+                        return rpp::source::never<int>().as_dynamic();
+                    } else {
+                        return rpp::source::just(v).as_dynamic();
+                    }
+                })
+                .subscribe(mock);
+            THEN("subscriber obtains values from observables obtained via flat_map")
+            {
+                CHECK(mock.get_received_values() == std::vector{1,3});
+                CHECK(mock.get_on_completed_count() == 0);
+                CHECK(mock.get_on_error_count() == 0);
+                // The subscription is on subscribed because there's neither
+                // complete nor error.
                 CHECK(sub.is_subscribed());
             }
         }
