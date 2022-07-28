@@ -18,13 +18,13 @@ jobs:
     - name: Install clang-tidy
       run: |
         sudo apt-get update
-        sudo apt-get install -y clang-tidy
+        sudo apt-get install -y clang-tidy libsfml-dev
     - name: Prepare compile_commands.json
       env:
         CC: gcc-10
         CXX: g++-10
       run: |
-        cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DRPP_BUILD_SAMPLES=1 -DRPP_BUILD_TESTS=1
+        cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DRPP_BUILD_SAMPLES=1 -DRPP_BUILD_TESTS=1 -DRPP_BUILD_SFML_CODE=1
         cmake --build build --parallel 2 --config Release
     - name: Create results directory
       run: |
