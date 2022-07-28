@@ -52,7 +52,7 @@ ReactivePlusPlus's CMake has several options to set:
 
 - RPP_BUILD_TESTS - build unit tests (default OFF)
 - RPP_BUILD_SAMPLES - build samples of usage of RPP (default OFF)
-- RPP_BUILD_SFML_CODE - build RPP code related to SFML or not (default OFF) - requires SFML v3
+- RPP_BUILD_SFML_CODE - build RPP code related to SFML or not (default OFF) - requires SFML to be installed
 
 In source files add
 ```cpp

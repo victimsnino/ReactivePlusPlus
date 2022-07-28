@@ -42,7 +42,8 @@ void display_screen_and_clear_on_present_begin(const auto& presents, sf::RenderW
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(get_window_size(s_rows_count, s_columns_count)), "Snake");
+    auto window_size = get_window_size(s_rows_count, s_columns_count);
+    sf::RenderWindow window(sf::VideoMode(window_size.x, window_size.y), "Snake");
 
     const auto events = get_events_observable(window).publish();
     const auto presents = get_presents_stream(events);

@@ -54,7 +54,7 @@ set(RPP_CODE_COVERAGE   OFF CACHE BOOL "Enable coverage reporting")
 set(RPP_BUILD_SFML_CODE OFF CACHE BOOL "Enable SFML support in samples/code")
 
 if (RPP_BUILD_SFML_CODE)
-  find_package(SFML 3 COMPONENTS Graphics REQUIRED)
+  find_package(SFML COMPONENTS graphics system window REQUIRED)
 endif()
 
 # ======================= CI =========================
