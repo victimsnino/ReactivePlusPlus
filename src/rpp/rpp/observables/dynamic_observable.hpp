@@ -32,8 +32,10 @@ public:
     dynamic_observable_state(TOnSub&& on_sub)
         : m_impl{ std::make_shared<dynamic_observable_state_impl<specific_observable<Type, std::decay_t<TOnSub>>>>(std::forward<TOnSub>(on_sub)) } {}
 
-    dynamic_observable_state(const dynamic_observable_state<Type>&) = default;
-    dynamic_observable_state(dynamic_observable_state<Type>&&) noexcept = default;
+    dynamic_observable_state(const dynamic_observable_state& other)                = default;
+    dynamic_observable_state(dynamic_observable_state&& other) noexcept            = default;
+    dynamic_observable_state& operator=(const dynamic_observable_state& other)     = default;
+    dynamic_observable_state& operator=(dynamic_observable_state&& other) noexcept = default;
 
     composite_subscription operator()(const dynamic_subscriber<Type>& subscriber) const
     {

@@ -6,7 +6,7 @@ on:
       - main
     paths-ignore:
       - '**.md'
-  pull_request:
+  pull_request_target:
     branches:
       - main
     paths-ignore:
@@ -33,18 +33,21 @@ jobs:
            cxx: "g++-10"
            relative_path_bench: "build/bin/rpp_benchmark"
            relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
+           additional_cmake_args: "-DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache -DRPP_BUILD_SFML_CODE=1"
         -  name: "Linux CLANG"
            os: ubuntu-latest
            cc: "clang" 
            cxx: "clang++"
            relative_path_bench: "build/bin/rpp_benchmark"
            relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
+           additional_cmake_args: "-DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache -DRPP_BUILD_SFML_CODE=1"
         -  name: "Windows MSVC"
            os: windows-latest
            cc: "cl"
            cxx: "cl"
            relative_path_bench: "build/bin/Release/rpp_benchmark"
            relative_path_rxcpp_bench: "build/bin/Release/rxcpp_benchmark"
+           additional_cmake_args: ""
 
     steps:
     - uses: actions/checkout@v2
@@ -65,12 +68,18 @@ jobs:
       if: matrix.config.name == 'Linux CLANG'
       with:
         languages: cpp
+
+    - name: Install SFML
+      if: matrix.config.os != 'windows-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libsfml-dev
       
     - name: Configure CMake
       env:
         CC: ${{ matrix.config.cc }}
         CXX: ${{ matrix.config.cxx }}
-      run: cmake -B ${{github.workspace}}/build -DRPP_BUILD_SAMPLES=1 -DRPP_BUILD_TESTS=1 -DRPP_AUTOTESTS=1 -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache
+      run: cmake -B ${{github.workspace}}/build -DRPP_BUILD_SAMPLES=1 -DRPP_BUILD_TESTS=1 -DRPP_AUTOTESTS=1 -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ${{matrix.config.additional_cmake_args}}
         
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 4

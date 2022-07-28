@@ -51,6 +51,11 @@ find_package(Threads REQUIRED)
 set(RPP_BUILD_TESTS     OFF CACHE BOOL "Enable unit tests building")
 set(RPP_BUILD_SAMPLES   OFF CACHE BOOL "Enable samples building")
 set(RPP_CODE_COVERAGE   OFF CACHE BOOL "Enable coverage reporting")
+set(RPP_BUILD_SFML_CODE OFF CACHE BOOL "Enable SFML support in samples/code")
+
+if (RPP_BUILD_SFML_CODE)
+  find_package(SFML COMPONENTS graphics system window REQUIRED)
+endif()
 
 # ======================= CI =========================
 # Code Coverage Configuration
