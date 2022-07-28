@@ -30,7 +30,7 @@ static SnakeBody&& move_snake(SnakeBody&& body, const std::tuple<Direction, size
     const auto& [direction, length] = direction_and_length;
 
     if (length == body.size()) // no any changes
-        std::ranges::rotate(body, body.begin() + 1);
+        std::rotate(body.begin(), body.begin() + 1, body.end());
     else
         body.push_back(head);
 
