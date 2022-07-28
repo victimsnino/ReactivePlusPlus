@@ -241,18 +241,32 @@ TEST_CASE("map")
     BENCHMARK_ADVANCED("map construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
     {
         const auto obs = rxcpp::sources::create<int>([](const auto& sub)
-            {
-                sub.on_next(1);
-            });
+        {
+            sub.on_next(1);
+        });
         auto sub = rxcpp::make_subscriber<int>([](const int&) {});
 
         meter.measure([&]
+        {
+            return obs.map([](const auto& v)
             {
-                return obs.map([](const auto& v)
-                    {
-                        return v * 100;
-                    }).subscribe(sub);
+                return v * 100;
+            }).subscribe(sub);
+        });
+    };
+
+    BENCHMARK_ADVANCED("sending of values from observable via map to subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        rxcpp::sources::create<int>([&](const auto& sub)
+        {
+            meter.measure([&]
+            {
+                sub.on_next(1);
             });
+        }).map([](const auto& v)
+        {
+            return v * 100;
+        }).subscribe([](const auto&) {});
     };
 }
 
@@ -275,6 +289,23 @@ TEST_CASE("scan")
                             }).subscribe(sub);
         });
     };
+
+    BENCHMARK_ADVANCED("sending of values from observable via scan to subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        rxcpp::sources::create<int>([&](const auto& sub)
+                {
+                    meter.measure([&]
+                    {
+                        sub.on_next(1);
+                    });
+                })
+                .scan(std::vector<int>{},
+                      [](std::vector<int>&& seed, const auto& v)
+                      {
+                          return std::move(seed);
+                      })
+                .subscribe([](const auto&) {});
+    };
 }
 
 TEST_CASE("distinct_until_changed")
@@ -294,6 +325,19 @@ TEST_CASE("distinct_until_changed")
             return obs.distinct_until_changed().subscribe(sub);
         });
     };
+
+    BENCHMARK_ADVANCED("sending of values from observable via distinct_until_changed to subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        rxcpp::sources::create<int>([&](const auto& sub)
+                {
+                    meter.measure([&]
+                    {
+                        sub.on_next(1);
+                    });
+                })
+                .distinct_until_changed()
+                .subscribe([](const auto&) {});
+    };
 }
 
 TEST_CASE("with_latest_from")
@@ -310,6 +354,19 @@ TEST_CASE("with_latest_from")
         {
             return obs.with_latest_from(obs,obs).subscribe(sub);
         });
+    };
+
+    BENCHMARK_ADVANCED("sending of values from observable via with_latest_from to subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        rxcpp::sources::create<int>([&](const auto& sub)
+                {
+                    meter.measure([&]
+                    {
+                        sub.on_next(1);
+                    });
+                })
+                .with_latest_from(rxcpp::sources::just(1))
+                .subscribe([](const auto&) {});
     };
 }
 
@@ -333,6 +390,22 @@ TEST_CASE("switch_on_next")
             return obs.switch_on_next().subscribe(sub);
         });
     };
+
+    BENCHMARK_ADVANCED("sending of values from observable via switch_on_next to subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        auto inner_source = rxcpp::sources::just(1);
+        using inner_source_type = decltype(inner_source);
+
+        rxcpp::sources::create<inner_source_type>([&](const auto& sub)
+                {
+                    meter.measure([&]
+                    {
+                        sub.on_next(inner_source);
+                    });
+                })
+                .switch_on_next()
+                .subscribe([](const auto&) {});
+    };
 }
 
 TEST_CASE("observe_on")
@@ -351,6 +424,19 @@ TEST_CASE("observe_on")
         {
             return obs.observe_on(scheduler).subscribe(sub);
         });
+    };
+
+    BENCHMARK_ADVANCED("sending of values from observable via observe_on to subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        rxcpp::sources::create<int>([&](const auto& sub)
+                {
+                    meter.measure([&]
+                    {
+                        sub.on_next(1);
+                    });
+                })
+                .observe_on(rxcpp::identity_immediate())
+                .subscribe([](const auto&) {});
     };
 }
 
