@@ -233,30 +233,22 @@ SCENARIO("group_by selectors affects types", "[group_by]")
                 CHECK(mock.get_received_values() == std::vector{"1"s, "2"s, "3"s, "1"s, "2"s, "3"s});
             }
         }
-        WHEN("subscribe on it via group_by with comparator as all similar")
+        WHEN("subscribe on it via group_by with custom comparator")
         {
             std::vector<int> keys{};
-            obs.group_by(std::identity{}, std::identity{}, [](int, int){return false;}).subscribe([&](const auto& grouped)
+            obs.group_by(std::identity{},
+                        std::identity{},
+                        [](int f, int s)
+                        {
+                            return f % 2 < s %2;
+                        }).subscribe([&](const auto& grouped)
             {
                 keys.push_back(grouped.get_key());
             });
 
-            THEN("comparator interpets keys as similar")
+            THEN("only 2 types of keys interpreted as unique")
             {
-                CHECK(keys == std::vector{1});
-            }
-        }
-        WHEN("subscribe on it via group_by with comparator as all different")
-        {
-            std::vector<int> keys{};
-            obs.group_by(std::identity{}, std::identity{}, [](int, int){return true;}).subscribe([&](const auto& grouped)
-            {
-                keys.push_back(grouped.get_key());
-            });
-
-            THEN("comparator interpets keys as different")
-            {
-                CHECK(keys == std::vector{1,2,3,1,2,3});
+                CHECK(keys == std::vector{1,2});
             }
         }
         auto mock = mock_observer<rpp::grouped_observable_group_by<int, int>>{};

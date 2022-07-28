@@ -37,9 +37,9 @@ private:
     std::atomic_size_t     subscribers{};
 };
 
-template<constraint::decayed_type  TKey,
-         constraint::decayed_type  Type,
-         std::relation<TKey, TKey> KeyComparator>
+template<constraint::decayed_type           TKey,
+         constraint::decayed_type           Type,
+         std::strict_weak_order<TKey, TKey> KeyComparator>
 struct group_by_state final : group_by_state_base
 {
     group_by_state(const KeyComparator& comparator)
@@ -71,11 +71,11 @@ using grouped_observable_group_by = grouped_observable<TKey, ResValue, details::
 
 namespace rpp::details
 {
-template<constraint::decayed_type  Type,
-         constraint::decayed_type  TKey,
-         std::invocable<Type>      KeySelector,
-         std::invocable<Type>      ValueSelector,
-         std::relation<TKey, TKey> KeyComparator>
+template<constraint::decayed_type           Type,
+         constraint::decayed_type           TKey,
+         std::invocable<Type>               KeySelector,
+         std::invocable<Type>               ValueSelector,
+         std::strict_weak_order<TKey, TKey> KeyComparator>
 struct group_by_lift_impl
 {
     using ValueType = utils::decayed_invoke_result_t<ValueSelector, Type>;
@@ -146,11 +146,11 @@ struct group_by_lift_impl
     }
 };
 
-template<constraint::decayed_type  Type,
-         constraint::decayed_type  TKey,
-         std::invocable<Type>      KeySelector,
-         std::invocable<Type>      ValueSelector,
-         std::relation<TKey, TKey> KeyComparator>
+template<constraint::decayed_type           Type,
+         constraint::decayed_type           TKey,
+         std::invocable<Type>               KeySelector,
+         std::invocable<Type>               ValueSelector,
+         std::strict_weak_order<TKey, TKey> KeyComparator>
 auto group_by_impl(auto&&          observable,
                    KeySelector&&   key_selector,
                    ValueSelector&& value_selector,
