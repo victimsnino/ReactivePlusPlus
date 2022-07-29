@@ -1,6 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"dir_e63f0449bda065f7452c9bd88dfaa92f.html":[4,0,0,0,0,1],
 "distinct__until__changed_8hpp_source.html":[4,0,0,0,0,2,3],
 "distinct_until_changed_8cpp-example.html":[5,2],
 "docs.html":[1],
@@ -50,8 +49,8 @@ var NAVTREEINDEX1 =
 "group__combining__operators.html":[2,2,3],
 "group__combining__operators.html#ga3341a36b0971c0cf59001fa65aeb36a4":[2,2,3,1],
 "group__combining__operators.html#ga3341a36b0971c0cf59001fa65aeb36a4":[3,0,0,0,24,2],
-"group__combining__operators.html#ga35f7234aa6957c2c04afa6f1d8e71696":[2,2,3,2],
 "group__combining__operators.html#ga35f7234aa6957c2c04afa6f1d8e71696":[3,0,0,0,32,1],
+"group__combining__operators.html#ga35f7234aa6957c2c04afa6f1d8e71696":[2,2,3,2],
 "group__combining__operators.html#ga3881bcfd0f283b89e20dcb3b48c08fe4":[3,0,0,0,39,3],
 "group__combining__operators.html#ga3881bcfd0f283b89e20dcb3b48c08fe4":[2,2,3,6],
 "group__combining__operators.html#ga41f62df9b82778838be353be69981f82":[3,0,0,0,39,1],
@@ -98,8 +97,8 @@ var NAVTREEINDEX1 =
 "group__transforming__operators.html#ga70e93b5ebd0da19d8acdf2af6497cb88":[2,2,0,4],
 "group__transforming__operators.html#gad4cf46a565f1081cd7b8bc26aa99e640":[3,0,0,0,30,1],
 "group__transforming__operators.html#gad4cf46a565f1081cd7b8bc26aa99e640":[2,2,0,3],
-"group__transforming__operators.html#gae4d30f7ae23a7d62aa761f26abf18008":[3,0,0,0,20,1],
 "group__transforming__operators.html#gae4d30f7ae23a7d62aa761f26abf18008":[2,2,0,0],
+"group__transforming__operators.html#gae4d30f7ae23a7d62aa761f26abf18008":[3,0,0,0,20,1],
 "group__transforming__operators.html#gaf3399da92ac6a0a4c392107b5b405a60":[2,2,0,1],
 "group__transforming__operators.html#gaf3399da92ac6a0a4c392107b5b405a60":[3,0,0,0,21,1],
 "group__utility__operators.html":[2,2,5],
@@ -206,8 +205,8 @@ var NAVTREEINDEX1 =
 "structrpp_1_1details_1_1concat__state__t.html#a9ddd01d80ab14a9c47cb30ecf89d2477":[3,0,0,0,1,1],
 "structrpp_1_1details_1_1concat__state__t.html#af448f21848cec5c15e77b652cb8326ef":[3,0,0,0,1,0],
 "structrpp_1_1details_1_1counted__repeat__predicate.html":[3,0,0,0,2],
-"structrpp_1_1details_1_1counted__repeat__predicate.html#a59f8cc0b59706c0d758a950e97bc301c":[3,0,0,0,2,1],
 "structrpp_1_1details_1_1counted__repeat__predicate.html#a85dba6d178485dfb52f57ce1a570c111":[3,0,0,0,2,0],
+"structrpp_1_1details_1_1counted__repeat__predicate.html#ae3a2da2f8faaea122372b6044d13720b":[3,0,0,0,2,1],
 "structrpp_1_1details_1_1distinct__until__changed__impl.html":[3,0,0,0,3],
 "structrpp_1_1details_1_1distinct__until__changed__impl.html#a4d5abe4f76e0f9e6dddd1ab033d83ae0":[3,0,0,0,3,1],
 "structrpp_1_1details_1_1distinct__until__changed__impl.html#ace03a4af4bc244aa5c3846b1b3717021":[3,0,0,0,3,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX1 =
 "structrpp_1_1details_1_1member__overload.html":[3,0,0,0,16],
 "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01concat__tag_01_4.html":[3,0,0,0,17],
 "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01concat__tag_01_4.html#afdcf4e7a7b3104eca42730ddaba3786f":[3,0,0,0,17,0],
-"structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01distinct__until__changed__tag_01_4.html":[3,0,0,0,18]
+"structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01distinct__until__changed__tag_01_4.html":[3,0,0,0,18],
+"structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01distinct__until__changed__tag_01_4.html#a1eb6613249062ab7f697cd6ba7c4dd06":[3,0,0,0,18,0]
 };
