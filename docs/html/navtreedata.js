@@ -23,6 +23,7 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "ReactivePlusPlus", "index.html", [
+    [ "Articles", "md_docs__articles.html", null ],
     [ "Docs", "docs.html", "docs" ],
     [ "API reference", "modules.html", "modules" ],
     [ "Classes", "annotated.html", [
@@ -45,7 +46,7 @@ var NAVTREEINDEX =
 [
 ".html",
 "dir_e63f0449bda065f7452c9bd88dfaa92f.html",
-"structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01distinct__until__changed__tag_01_4.html#a8849b502f52c4943d3cce0e2b69bb49d"
+"structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01distinct__until__changed__tag_01_4.html#a1eb6613249062ab7f697cd6ba7c4dd06"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
