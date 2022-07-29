@@ -24,6 +24,10 @@ class repeat_on_completed
 {
     struct state_t
     {
+        state_t(const SpecificObservable& observable, Predicate&& predicate)
+            : observable{observable}
+            , predicate{std::move(predicate)} {}
+
         SpecificObservable              observable;
         [[no_unique_address]] Predicate predicate;
     };
