@@ -10,10 +10,10 @@
 
 #pragma once
 
-#include <rpp/fwd.hpp>
 #include <rpp/observers/specific_observer.hpp>
 #include <rpp/subscribers/details/subscriber_base.hpp>
 #include <rpp/utils/function_traits.hpp>
+#include <rpp/observers/constraints.hpp>
 
 namespace rpp
 {

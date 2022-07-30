@@ -23,15 +23,15 @@ struct buffer_tag;
 
 namespace rpp::details
 {
-template<constraint::decayed_type UpstreamType, constraint::decayed_type DownstreamType>
+template<constraint::decayed_type Type>
+using buffer_bundle_type = std::vector<Type>;
+
+template<constraint::decayed_type Type>
 struct buffer_impl;
 
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, buffer_tag>
 {
-    using UpstreamType = Type;
-    using DownstreamType = std::vector<Type>;
-
     /**
     * \brief periodically gather items emitted by an Observable into bundles and emit these bundles rather than emitting
     * the items one at a time
@@ -42,7 +42,7 @@ struct member_overload<Type, SpecificObservable, buffer_tag>
             operator "buffer(2)" : +---{12}-{3}-|
         }
     *
-    * \details the resulting bundle is std::vector.
+    * \details the resulting bundle is std::vector. Actually it is similar to `window` but it emits vectors instead of observables.
     *
     * \param count number of items being bundled.
     * \return new specific_observable with the buffer operator as most recent operator.
@@ -57,13 +57,13 @@ struct member_overload<Type, SpecificObservable, buffer_tag>
     template<typename ...Args>
     auto buffer(size_t count) const & requires is_header_included<buffer_tag, Args...>
     {
-        return CastThis()->template lift<DownstreamType>(buffer_impl<UpstreamType, DownstreamType>{count});
+        return CastThis()->template lift<buffer_bundle_type<Type>>(buffer_impl<Type>{count});
     }
 
     template<typename ...Args>
     auto buffer(size_t count) && requires is_header_included<buffer_tag, Args...>
     {
-        return MoveThis().template lift<DownstreamType>(buffer_impl<UpstreamType, DownstreamType>{count});
+        return MoveThis().template lift<buffer_bundle_type<Type>>(buffer_impl<Type>{count});
     }
 
 private:

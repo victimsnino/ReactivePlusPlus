@@ -50,6 +50,11 @@
 - [x] scan
 - [x] buffer
 - [ ] window
+  - [x] count
+    - [ ] skip
+  - [ ] time
+  - [ ] time_or_count
+  
 
 ### Filtering
 - [x] filter
