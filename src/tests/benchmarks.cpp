@@ -558,6 +558,46 @@ TEST_CASE("buffer")
                    .subscribe(sub);
         });
     };
+
+    BENCHMARK_ADVANCED("sending of values from observable via buffer to subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        rpp::observable::create<int>([&](const auto& sub)
+                {
+                    meter.measure([&]
+                    {
+                        sub.on_next(1);
+                    });
+                })
+                .buffer(1).subscribe([](const auto&) {});
+    };
+}
+
+TEST_CASE("window")
+{
+    BENCHMARK_ADVANCED("window")(Catch::Benchmark::Chronometer meter)
+    {
+        auto sub = rpp::make_specific_subscriber<rpp::windowed_observable<int>>();
+
+        meter.measure([&]
+            {
+                return rpp::source::just(1, 2, 3, 4, 5)
+                    .window(2)
+                    .subscribe(sub);
+            });
+    };
+
+    BENCHMARK_ADVANCED("sending of values from observable via window to subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        rpp::observable::create<int>([&](const auto& sub)
+                {
+                    meter.measure([&]
+                    {
+                        sub.on_next(1);
+                    });
+                })
+                .window(1)
+                .subscribe([](const auto&) {});
+    };
 }
 
 TEST_CASE("publish_subject callbacks")
