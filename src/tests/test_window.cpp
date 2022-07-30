@@ -111,15 +111,27 @@ SCENARIO("window subdivide observable into sub-observables", "[window]")
                         }
                     }
                 }
+
+                AND_WHEN("emit on_error")
+                {
+                    subj.get_subscriber().on_error(std::make_exception_ptr(std::runtime_error{""}));
+                    THEN("subscriber see error")
+                    {
+                        CHECK(mock.get_total_on_next_count() == 1);
+                        CHECK(mock.get_on_error_count() == 1);
+                        CHECK(mock.get_on_completed_count() == 0);
+                    }
+                }
             }
 
             AND_WHEN("emit first item")
             {
                 auto                          mock = mock_observer<int>{};
                 obs.subscribe([&](const auto& observable)
-                {
-                    observable.subscribe(mock);
-                });
+                              {
+                                  observable.subscribe(mock);
+                              },
+                              [](std::exception_ptr) {});
 
                 subj.get_subscriber().on_next(1);
                 THEN("inner subscriber see first value without complete")
@@ -138,6 +150,18 @@ SCENARIO("window subdivide observable into sub-observables", "[window]")
                         CHECK(mock.get_received_values() == std::vector{ 1 });
                         CHECK(mock.get_on_error_count() == 0);
                         CHECK(mock.get_on_completed_count() == 1);
+                    }
+                }
+
+                AND_WHEN("emit on_error")
+                {
+                    subj.get_subscriber().on_error(std::make_exception_ptr(std::runtime_error{""}));
+
+                    THEN("inner subscriber see error")
+                    {
+                        CHECK(mock.get_received_values() == std::vector{ 1 });
+                        CHECK(mock.get_on_error_count() == 1);
+                        CHECK(mock.get_on_completed_count() == 0);
                     }
                 }
 
