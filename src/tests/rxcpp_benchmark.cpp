@@ -540,6 +540,21 @@ TEST_CASE("concat")
     };
 }
 
+TEST_CASE("buffer")
+{
+    BENCHMARK_ADVANCED("buffer")(Catch::Benchmark::Chronometer meter)
+    {
+        auto sub = rxcpp::make_subscriber<std::vector<int>>();
+
+        meter.measure([&]
+            {
+                return rxcpp::observable<>::from(1,2,3,4,5)
+                    .buffer(2)
+                    .subscribe(sub);
+            });
+    };
+}
+
 TEST_CASE("publish_subject callbacks")
 {
     BENCHMARK_ADVANCED("on_next")(Catch::Benchmark::Chronometer meter)

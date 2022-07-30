@@ -17,6 +17,7 @@
 #include <rpp/subjects.hpp>
 
 #include <array>
+#include <vector>
 
 template<template<typename...> typename TObserver>
 auto MakeObserver()
@@ -539,6 +540,21 @@ TEST_CASE("concat")
         {
             return rpp::source::just(1)
                    .concat_with(rpp::source::just(2))
+                   .subscribe(sub);
+        });
+    };
+}
+
+TEST_CASE("buffer")
+{
+    BENCHMARK_ADVANCED("buffer")(Catch::Benchmark::Chronometer meter)
+    {
+        auto sub = rpp::make_specific_subscriber<std::vector<int>>();
+
+        meter.measure([&]
+        {
+            return rpp::source::just(1, 2, 3, 4, 5)
+                   .buffer(2)
                    .subscribe(sub);
         });
     };
