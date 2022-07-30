@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['distinct_5funtil_5fchanged_315',['distinct_until_changed',['../group__filtering__operators.html#ga8bd33ef33a0bb57103781ddeef82fd92',1,'rpp::details::member_overload&lt; Type, SpecificObservable, distinct_until_changed_tag &gt;']]]
+  ['concat_326',['concat',['../group__aggregate__operators.html#gae285d5bc977679959decfb4c04869b0d',1,'rpp::details::member_overload&lt; Type, SpecificObservable, concat_tag &gt;']]],
+  ['concat_5fwith_327',['concat_with',['../group__aggregate__operators.html#ga39eb8246898cc501a353eaa2d290a1db',1,'rpp::details::member_overload&lt; Type, SpecificObservable, concat_tag &gt;']]]
 ];

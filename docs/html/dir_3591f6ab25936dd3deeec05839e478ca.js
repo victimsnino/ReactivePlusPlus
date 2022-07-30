@@ -2,6 +2,7 @@ var dir_3591f6ab25936dd3deeec05839e478ca =
 [
     [ "details", "dir_0d0da1fb4197fa3caa994cbb6099370d.html", "dir_0d0da1fb4197fa3caa994cbb6099370d" ],
     [ "fwd", "dir_b39606649fae5912634cd95bf9ef094c.html", "dir_b39606649fae5912634cd95bf9ef094c" ],
+    [ "buffer.hpp", "buffer_8hpp_source.html", null ],
     [ "concat.hpp", "concat_8hpp_source.html", null ],
     [ "distinct_until_changed.hpp", "distinct__until__changed_8hpp_source.html", null ],
     [ "filter.hpp", "filter_8hpp_source.html", null ],

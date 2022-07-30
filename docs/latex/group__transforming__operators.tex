@@ -8,6 +8,8 @@ Transforming operators are operators that transform items provided by observable
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+{\footnotesize template$<$typename ... Args$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_ga247e5e6cf5d4fe048588046ad34180ee}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, buffer\+\_\+tag $>$\+::buffer}} (size\+\_\+t count) const \&requires is\+\_\+header\+\_\+included$<$ buffer\+\_\+tag
+\begin{DoxyCompactList}\small\item\em periodically gather items emitted by an Observable into bundles and emit these bundles rather than emitting the items one at a time \end{DoxyCompactList}\item 
 {\footnotesize template$<$flat\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gae4d30f7ae23a7d62aa761f26abf18008}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, flat\+\_\+map\+\_\+tag $>$\+::flat\+\_\+map}} (Callable \&\&callable) const \&requires is\+\_\+header\+\_\+included$<$ flat\+\_\+map\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Transform emissions to observables via provided function and then merge emissions from such an observables. \end{DoxyCompactList}\item 
 {\footnotesize template$<$std\+::invocable$<$ Type $>$ Key\+Selector, std\+::invocable$<$ Type $>$ Value\+Selector = std\+::identity, typename T\+Key  = rpp\+::utils\+::decayed\+\_\+invoke\+\_\+result\+\_\+t$<$\+Key\+Selector, Type$>$, std\+::strict\+\_\+weak\+\_\+order$<$ T\+Key, T\+Key $>$ Key\+Comparator = std\+::less$<$\+T\+Key$>$$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gaf3399da92ac6a0a4c392107b5b405a60}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, group\+\_\+by\+\_\+tag $>$\+::group\+\_\+by}} (Key\+Selector \&\&key\+\_\+selector, Value\+Selector \&\&value\+\_\+selector=\{\}, Key\+Comparator \&\&comparator=\{\}) const \&requires is\+\_\+header\+\_\+included$<$ group\+\_\+by\+\_\+tag
@@ -29,6 +31,51 @@ Transforming operators are operators that transform items provided by observable
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__transforming__operators_ga247e5e6cf5d4fe048588046ad34180ee}\label{group__transforming__operators_ga247e5e6cf5d4fe048588046ad34180ee}} 
+\index{Transforming Operators@{Transforming Operators}!buffer@{buffer}}
+\index{buffer@{buffer}!Transforming Operators@{Transforming Operators}}
+\doxysubsubsection{\texorpdfstring{buffer()}{buffer()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$typename ... Args$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, buffer\+\_\+tag $>$\+::buffer (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption}) const \&}
+
+
+
+periodically gather items emitted by an Observable into bundles and emit these bundles rather than emitting the items one at a time 
+
+
+
+the resulting bundle is std\+::vector.
+
+
+\begin{DoxyParams}{Parameters}
+{\em count} & number of items being bundled. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the buffer operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{buffer_8hpp_source}{rpp/operators/buffer.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{comment}{// The stream that uses rvalue overloads for operators}}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3, 4, 5)}
+\DoxyCodeLine{        .buffer(2)}
+\DoxyCodeLine{        .subscribe(}
+\DoxyCodeLine{            [](\textcolor{keyword}{const} std::vector<int> \&v) \{ std::cout << v << \textcolor{stringliteral}{"-\/"}; \},}
+\DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr \&error) \{\},}
+\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"|"} << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Source: -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
+\DoxyCodeLine{    \textcolor{comment}{// Output: \{1,2\}-\/\{3,4\}-\/\{5\}-\/|}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/buffer.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/buffer.\+html}} 
+\end{DoxySeeAlso}
 \mbox{\Hypertarget{group__transforming__operators_gae4d30f7ae23a7d62aa761f26abf18008}\label{group__transforming__operators_gae4d30f7ae23a7d62aa761f26abf18008}} 
 \index{Transforming Operators@{Transforming Operators}!flat\_map@{flat\_map}}
 \index{flat\_map@{flat\_map}!Transforming Operators@{Transforming Operators}}
