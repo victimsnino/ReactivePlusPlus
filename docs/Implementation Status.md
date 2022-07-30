@@ -48,7 +48,11 @@
 - [x] group_by
 - [x] flat_map
 - [x] scan
-- [x] buffer
+- [ ] buffer
+  - [x] count
+    - [ ] skip
+  - [ ] time
+  - [ ] time_or_count
 - [ ] window
   - [x] count
     - [ ] skip
