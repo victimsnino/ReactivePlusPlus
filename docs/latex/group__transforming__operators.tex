@@ -19,7 +19,9 @@ Transforming operators are operators that transform items provided by observable
 {\footnotesize template$<$typename Result , scan\+\_\+accumulator$<$ Result, Type $>$ Accumulator\+Fn$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gad4cf46a565f1081cd7b8bc26aa99e640}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, scan\+\_\+tag $>$\+::scan}} (Result \&\&initial\+\_\+value, Accumulator\+Fn \&\&accumulator) const \&requires is\+\_\+header\+\_\+included$<$ scan\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. \end{DoxyCompactList}\item 
 {\footnotesize template$<$switch\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_ga70e93b5ebd0da19d8acdf2af6497cb88}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, switch\+\_\+map\+\_\+tag $>$\+::switch\+\_\+map}} (Callable \&\&callable) const \&requires is\+\_\+header\+\_\+included$<$ switch\+\_\+map\+\_\+tag
-\begin{DoxyCompactList}\small\item\em convert an Observable that emits Observables into a single Observable that emits the items emitted by the most-\/recently-\/emitted of those Observables \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em convert an Observable that emits Observables into a single Observable that emits the items emitted by the most-\/recently-\/emitted of those Observables \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ... Args$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gadd87f1fff9640ec0bef5eda48c9d899b}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, window\+\_\+tag $>$\+::window}} (size\+\_\+t window\+\_\+size) const \&requires is\+\_\+header\+\_\+included$<$ window\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Subdivide original observable into sub-\/observables (windowed observables) and emit sub-\/observables of items instead of original items. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -45,7 +47,7 @@ periodically gather items emitted by an Observable into bundles and emit these b
 
 
 
-the resulting bundle is std\+::vector.
+the resulting bundle is std\+::vector. Actually it is similar to {\ttfamily window} but it emits vectors instead of observables.
 
 
 \begin{DoxyParams}{Parameters}
@@ -377,4 +379,47 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/switchmap.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/switchmap.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__transforming__operators_gadd87f1fff9640ec0bef5eda48c9d899b}\label{group__transforming__operators_gadd87f1fff9640ec0bef5eda48c9d899b}} 
+\index{Transforming Operators@{Transforming Operators}!window@{window}}
+\index{window@{window}!Transforming Operators@{Transforming Operators}}
+\doxysubsubsection{\texorpdfstring{window()}{window()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$typename ... Args$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, window\+\_\+tag $>$\+::window (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{window\+\_\+size }\end{DoxyParamCaption}) const \&}
+
+
+
+Subdivide original observable into sub-\/observables (windowed observables) and emit sub-\/observables of items instead of original items. 
+
+
+
+Actually it is similar to {\ttfamily buffer} but it emits observable instead of container.
+
+
+\begin{DoxyParams}{Parameters}
+{\em window\+\_\+size} & amount of items which every observable would have\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the window operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{window_8hpp_source}{rpp/operators/window.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1,2,3,4,5)}
+\DoxyCodeLine{        .window(3)}
+\DoxyCodeLine{        .subscribe([](\textcolor{keyword}{const} rpp::windowed\_observable<int>\& v) \{ std::cout << \textcolor{stringliteral}{"\(\backslash\)nNew observable "} << std::endl; v.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{" "}; \}); \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: New observable}}
+\DoxyCodeLine{    \textcolor{comment}{//         1 2 3}}
+\DoxyCodeLine{    \textcolor{comment}{//         New observable}}
+\DoxyCodeLine{    \textcolor{comment}{//         4 5}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/window.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/window.\+html}} 
 \end{DoxySeeAlso}

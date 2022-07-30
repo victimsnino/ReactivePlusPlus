@@ -1,14 +1,5 @@
 \hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, buffer\+\_\+tag $>$ Struct Template Reference}
 \label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, buffer\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, buffer\_tag $>$}}
-\doxysubsection*{Public Types}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4_a85a3f3ffb87e647384fb669278e5ea1d}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4_a85a3f3ffb87e647384fb669278e5ea1d}} 
-using {\bfseries Upstream\+Type} = Type
-\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4_a237161473573d036fb4551576134020d}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4_a237161473573d036fb4551576134020d}} 
-using {\bfseries Downstream\+Type} = std\+::vector$<$ Type $>$
-\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -35,7 +26,7 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} CastThis()-\/>template lift<DownstreamType>(buffer\_impl<UpstreamType, DownstreamType>\{count\})}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} CastThis()-\/>template lift<buffer\_bundle\_type<Type>>(buffer\_impl<Type>\{count\})}
 
 \end{DoxyCode}
 

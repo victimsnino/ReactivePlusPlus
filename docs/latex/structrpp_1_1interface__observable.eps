@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 445.632799
+%%BoundingBox: 0 0 500 463.458111
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,12 +19,12 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 1.122000 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 1.078846 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 25 def
+/rows 26 def
 /cols 2 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
@@ -198,6 +198,7 @@ boxfont setfont
 (rpp::details::member_overload< Type, SpecificObservable, details::start_with_tag >) cw
 (rpp::details::member_overload< Type, SpecificObservable, details::distinct_until_changed_tag >) cw
 (rpp::details::member_overload< Type, SpecificObservable, details::skip_tag >) cw
+(rpp::details::member_overload< Type, SpecificObservable, details::window_tag >) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
 /yspacing boxheight disty add def
@@ -210,30 +211,31 @@ boundx scalefactor div boundy scalefactor div scale
 % ----- classes -----
 
  (rpp::interface_observable< Type, SpecificObservable >) 0.000000 0.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::skip_tag >) 1.000000 1.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::distinct_until_changed_tag >) 1.000000 2.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::start_with_tag >) 1.000000 3.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::concat_tag >) 1.000000 4.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::scan_tag >) 1.000000 5.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::flat_map_tag >) 1.000000 6.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::group_by_tag >) 1.000000 7.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::switch_on_next_tag >) 1.000000 8.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::switch_map_tag >) 1.000000 9.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::with_latest_from_tag >) 1.000000 10.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::subscribe_on_tag >) 1.000000 11.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::repeat_tag >) 1.000000 12.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::multicast_tag >) 1.000000 13.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::publish_tag >) 1.000000 14.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::observe_on_tag >) 1.000000 15.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::merge_tag >) 1.000000 16.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::take_while_tag >) 1.000000 17.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::take_tag >) 1.000000 18.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::buffer_tag >) 1.000000 19.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::filter_tag >) 1.000000 20.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::map_tag >) 1.000000 21.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::lift_tag >) 1.000000 22.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::subscribe_tag >) 1.000000 23.000000 box
- (rpp::virtual_observable< Type >) 1.000000 24.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::window_tag >) 1.000000 1.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::skip_tag >) 1.000000 2.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::distinct_until_changed_tag >) 1.000000 3.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::start_with_tag >) 1.000000 4.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::concat_tag >) 1.000000 5.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::scan_tag >) 1.000000 6.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::flat_map_tag >) 1.000000 7.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::group_by_tag >) 1.000000 8.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::switch_on_next_tag >) 1.000000 9.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::switch_map_tag >) 1.000000 10.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::with_latest_from_tag >) 1.000000 11.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::subscribe_on_tag >) 1.000000 12.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::repeat_tag >) 1.000000 13.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::multicast_tag >) 1.000000 14.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::publish_tag >) 1.000000 15.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::observe_on_tag >) 1.000000 16.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::merge_tag >) 1.000000 17.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::take_while_tag >) 1.000000 18.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::take_tag >) 1.000000 19.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::buffer_tag >) 1.000000 20.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::filter_tag >) 1.000000 21.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::map_tag >) 1.000000 22.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::lift_tag >) 1.000000 23.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::subscribe_tag >) 1.000000 24.000000 box
+ (rpp::virtual_observable< Type >) 1.000000 25.000000 box
 
 % ----- relations -----
 
@@ -288,4 +290,6 @@ solid
 solid
 1 0.000000 24.500000 hedge
 solid
-0.000000 1.000000 24.500000 vedge
+1 0.000000 25.500000 hedge
+solid
+0.000000 1.000000 25.500000 vedge

@@ -128,6 +128,10 @@ Functions</h2></td></tr>
 <tr class="memitem:ga70e93b5ebd0da19d8acdf2af6497cb88"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#ga70e93b5ebd0da19d8acdf2af6497cb88">rpp::details::member_overload&lt; Type, SpecificObservable, switch_map_tag &gt;::switch_map</a> (Callable &amp;&amp;callable) const &amp;requires is_header_included&lt; switch_map_tag</td></tr>
 <tr class="memdesc:ga70e93b5ebd0da19d8acdf2af6497cb88"><td class="mdescLeft">&#160;</td><td class="mdescRight">convert an Observable that emits Observables into a single Observable that emits the items emitted by the most-recently-emitted of those Observables  <a href="group__transforming__operators.html#ga70e93b5ebd0da19d8acdf2af6497cb88">More...</a><br /></td></tr>
 <tr class="separator:ga70e93b5ebd0da19d8acdf2af6497cb88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd87f1fff9640ec0bef5eda48c9d899b"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
+<tr class="memitem:gadd87f1fff9640ec0bef5eda48c9d899b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gadd87f1fff9640ec0bef5eda48c9d899b">rpp::details::member_overload&lt; Type, SpecificObservable, window_tag &gt;::window</a> (size_t window_size) const &amp;requires is_header_included&lt; window_tag</td></tr>
+<tr class="memdesc:gadd87f1fff9640ec0bef5eda48c9d899b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subdivide original observable into sub-observables (windowed observables) and emit sub-observables of items instead of original items.  <a href="group__transforming__operators.html#gadd87f1fff9640ec0bef5eda48c9d899b">More...</a><br /></td></tr>
+<tr class="separator:gadd87f1fff9640ec0bef5eda48c9d899b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Transforming operators are operators that transform items provided by observable. </p>
@@ -157,7 +161,7 @@ template&lt;typename ... Args&gt; </div>
 <div class="image">
 <object type="image/svg+xml" data="buffer.svg" style="pointer-events: none;"></object>
 </div>
-<p>the resulting bundle is std::vector.</p>
+<p>the resulting bundle is std::vector. Actually it is similar to <code>window</code> but it emits vectors instead of observables.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">count</td><td>number of items being bundled. </td></tr>
@@ -499,6 +503,51 @@ template&lt;switch_map_callable&lt; Type &gt; Callable&gt; </div>
 <div class="line">    <span class="comment">// Output: x-2-2-3-3-</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/switchmap.html">https://reactivex.io/documentation/operators/switchmap.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="gadd87f1fff9640ec0bef5eda48c9d899b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadd87f1fff9640ec0bef5eda48c9d899b">&#9670;&nbsp;</a></span>window()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename ... Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, window_tag &gt;::window </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>window_size</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Subdivide original observable into sub-observables (windowed observables) and emit sub-observables of items instead of original items. </p>
+<div class="image">
+<object type="image/svg+xml" data="window.svg" style="pointer-events: none;"></object>
+</div>
+<p>Actually it is similar to <code>buffer</code> but it emits observable instead of container.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window_size</td><td>amount of items which every observable would have</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the window operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="window_8hpp_source.html">rpp/operators/window.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1,2,3,4,5)</div>
+<div class="line">        .window(3)</div>
+<div class="line">        .subscribe([](<span class="keyword">const</span> rpp::windowed_observable&lt;int&gt;&amp; v) { std::cout &lt;&lt; <span class="stringliteral">&quot;\nNew observable &quot;</span> &lt;&lt; std::endl; v.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; }); });</div>
+<div class="line">    <span class="comment">// Output: New observable</span></div>
+<div class="line">    <span class="comment">//         1 2 3</span></div>
+<div class="line">    <span class="comment">//         New observable</span></div>
+<div class="line">    <span class="comment">//         4 5</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/window.html">https://reactivex.io/documentation/operators/window.html</a> </dd></dl>
 
 </div>
 </div>

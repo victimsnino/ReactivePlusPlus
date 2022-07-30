@@ -93,7 +93,6 @@ $(document).ready(function(){initNavTree('structrpp_1_1details_1_1member__overlo
 
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4-members.html">List of all members</a>  </div>
@@ -102,15 +101,6 @@ $(document).ready(function(){initNavTree('structrpp_1_1details_1_1member__overlo
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a85a3f3ffb87e647384fb669278e5ea1d"><td class="memItemLeft" align="right" valign="top"><a id="a85a3f3ffb87e647384fb669278e5ea1d"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>UpstreamType</b> = Type</td></tr>
-<tr class="separator:a85a3f3ffb87e647384fb669278e5ea1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a237161473573d036fb4551576134020d"><td class="memItemLeft" align="right" valign="top"><a id="a237161473573d036fb4551576134020d"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>DownstreamType</b> = std::vector&lt; Type &gt;</td></tr>
-<tr class="separator:a237161473573d036fb4551576134020d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ga247e5e6cf5d4fe048588046ad34180ee"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
@@ -142,7 +132,7 @@ template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </di
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">{</div>
-<div class="line">        <span class="keywordflow">return</span> CastThis()-&gt;template lift&lt;DownstreamType&gt;(buffer_impl&lt;UpstreamType, DownstreamType&gt;{count})</div>
+<div class="line">        <span class="keywordflow">return</span> CastThis()-&gt;template lift&lt;buffer_bundle_type&lt;Type&gt;&gt;(buffer_impl&lt;Type&gt;{count})</div>
 </div><!-- fragment -->
 </div>
 </div>
