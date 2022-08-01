@@ -600,6 +600,36 @@ TEST_CASE("window")
     };
 }
 
+TEST_CASE("chains creation test")
+{
+    BENCHMARK_ADVANCED("long non-state chain creation + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        auto sub = rpp::make_specific_subscriber<int>();
+
+        meter.measure([&]
+        {
+            return rpp::source::never<int>()
+                   .map([](int       ) { return 0; })
+                   .filter([](int    ) { return true; })
+                   .take_while([](int) { return true; })
+                   .subscribe(sub);
+        });
+    };
+
+    BENCHMARK_ADVANCED("long stateful chain creation + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        auto sub   = rpp::make_specific_subscriber<int>();
+        meter.measure([&]
+        {
+            return rpp::source::never<int>().take(1)
+                                            .skip(1)
+                                            .distinct_until_changed()
+                                            .scan(int{}, [](int, int) { return 0; })
+                                            .subscribe(sub);
+        });
+    };
+}
+
 TEST_CASE("publish_subject callbacks")
 {
     BENCHMARK_ADVANCED("on_next")(Catch::Benchmark::Chronometer meter)
