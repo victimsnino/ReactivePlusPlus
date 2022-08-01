@@ -98,11 +98,9 @@ struct group_by_lift_impl
             , key_selector{key_selector}
             , value_selector{value_selector} {}
 
-
-        void on_next(const Type& v) const override                  { on_next_impl(v);                                            }
-        void on_next(Type&& v) const override                       { on_next_impl(std::move(v));                                 }
-        void on_error(const std::exception_ptr& err) const override { broadcast([&err](const auto& sub) { sub.on_error(err); });  }
-        void on_completed() const override                          { broadcast([](const auto& sub)     { sub.on_completed(); }); }
+        void on_next(auto&& v) const                       { on_next_impl(std::forward<decltype(v)>(v));                 }
+        void on_error(const std::exception_ptr& err) const { broadcast([&err](const auto& sub) { sub.on_error(err); });  }
+        void on_completed() const                          { broadcast([](const auto& sub)     { sub.on_completed(); }); }
 
     private:
         void on_next_impl(auto&& val) const
