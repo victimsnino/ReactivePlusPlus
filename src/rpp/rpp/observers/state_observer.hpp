@@ -38,10 +38,10 @@ public:
                    std::invocable<std::exception_ptr, States...> auto&& on_error,
                    std::invocable<States...> auto&&                     on_completed,
                    TStates&&                                            ...states)
-        : m_state{std::forward<TStates>(states)...}
-        , m_on_next{std::forward<decltype(on_next)>(on_next)}
+        : m_on_next{std::forward<decltype(on_next)>(on_next)}
         , m_on_err{std::forward<decltype(on_error)>(on_error)}
-        , m_on_completed{std::forward<decltype(on_completed)>(on_completed)} {}
+        , m_on_completed{std::forward<decltype(on_completed)>(on_completed)}
+        , m_state{std::forward<TStates>(states)...} {}
 
     /**
      * \brief Observable calls this methods to notify observer about new value.
@@ -83,10 +83,11 @@ public:
     }
 
 private:
-    [[no_unique_address]] std::tuple<States...> m_state;
-    [[no_unique_address]] OnNext                m_on_next;
-    [[no_unique_address]] OnError               m_on_err;
-    [[no_unique_address]] OnCompleted           m_on_completed;
+    [[msvc::no_unique_address]] OnNext                m_on_next;
+    [[msvc::no_unique_address]] OnError               m_on_err;
+    [[msvc::no_unique_address]] OnCompleted           m_on_completed;
+
+    [[msvc::no_unique_address]] std::tuple<States...> m_state;
 };
 
 template<typename TOnNext, typename ...Args>

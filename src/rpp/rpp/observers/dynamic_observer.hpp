@@ -45,27 +45,28 @@ struct dynamic_observer_state_base
     };
 };
 
+template<constraint::decayed_type T, constraint::observer_of_type<T> TObserver>
+class dynamic_observer_state final : public dynamic_observer_state_base<T>
+{
+public:
+    template<typename ...Args>
+        requires std::constructible_from<TObserver, Args...>
+    dynamic_observer_state(Args&& ...args)
+        : m_observer{ std::forward<Args>(args)... } {}
+
+    void on_next(const T& v) const override { m_observer.on_next(v); }
+    void on_next(T&& v) const override { m_observer.on_next(std::move(v)); }
+    void on_error(const std::exception_ptr& err) const override { m_observer.on_error(err); }
+    void on_completed() const override { m_observer.on_completed(); }
+
+private:
+    TObserver m_observer;
+};
+
 template<constraint::decayed_type T, constraint::observer_of_type<T> TObserver, typename ...Args>
 std::shared_ptr<dynamic_observer_state_base<T>> make_dynamic_observer_state(Args&& ...args) requires std::constructible_from<std::decay_t<TObserver>, Args...>
 {
-    using DecayedObserver = std::decay_t<TObserver>;
-
-    class dynamic_observer_state final : public dynamic_observer_state_base<T>
-    {
-    public:
-        dynamic_observer_state(Args&& ...args)
-            : m_observer{std::forward<Args>(args)...}{}
-
-        void on_next(const T& v) const override { m_observer.on_next(v); }
-        void on_next(T&& v) const override { m_observer.on_next(std::move(v)); }
-        void on_error(const std::exception_ptr& err) const override { m_observer.on_error(err); }
-        void on_completed() const override { m_observer.on_completed(); }
-
-    private:
-        DecayedObserver m_observer;
-    };
-
-    return std::make_shared<dynamic_observer_state>(std::forward<Args>(args)...);
+    return std::make_shared<dynamic_observer_state<T, std::decay_t<TObserver>>>(std::forward<Args>(args)...);
 }
 
 template<constraint::decayed_type T, typename ...Args>
