@@ -16,7 +16,7 @@ using windowed_observable = decltype(std::declval<rpp::subjects::publish_subject
 namespace rpp::details
 {
 template<constraint::decayed_type Type, constraint::subscriber TSub>
-class window_observer final : public interface_observer<Type>
+class window_observer final : public typed_observer<Type>
 {
     struct state_t
     {

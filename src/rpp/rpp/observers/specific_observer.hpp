@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include <rpp/observers/interface_observer.hpp> // base class 
 #include <rpp/utils/function_traits.hpp>        // extract function args
 #include <rpp/utils/functors.hpp>               // default arguments
 #include <rpp/observers/state_observer.hpp>     // base class 

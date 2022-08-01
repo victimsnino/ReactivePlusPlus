@@ -14,11 +14,6 @@
 
 #include <type_traits>
 
-namespace rpp::details
-{
-struct subscriber_tag;
-} // namespace rpp::details
-
 namespace rpp::constraint
 {
 template<typename T> concept observer_callbacks_exists = requires(const T t)
@@ -28,8 +23,7 @@ template<typename T> concept observer_callbacks_exists = requires(const T t)
     t.on_completed();
 };
 
-template<typename T> concept observer = std::is_base_of_v<details::observer_tag, std::decay_t<T>> && !std::is_base_of_v<details::subscriber_tag, std::decay_t<T>> && observer_callbacks_exists<T>;
-
+template<typename T> concept observer = std::is_base_of_v<details::observer_tag, std::decay_t<T>> && observer_callbacks_exists<T>;
 template<typename T> concept decayed_observer                = observer<T> && decayed_type<T>;
 }
 
@@ -41,7 +35,7 @@ namespace details
     struct extract_observer_type
     {
         template<typename TT>
-        static TT deduce(const interface_observer<TT>&);
+        static TT deduce(const typed_observer<TT>&);
 
         using type = decltype(deduce(std::declval<std::decay_t<T>>()));
     };

@@ -10,11 +10,10 @@
 
 #pragma once
 
-#include <rpp/observers/constraints.hpp>        // wrapping constructor
-#include <rpp/observers/interface_observer.hpp> // base class
-#include <rpp/observers/state_observer.hpp>  // state
-#include <rpp/utils/function_traits.hpp>        // extract function args
-#include <rpp/utils/functors.hpp>               // default arguments
+#include <rpp/observers/constraints.hpp>    // wrapping constructor
+#include <rpp/observers/state_observer.hpp> // base
+#include <rpp/utils/function_traits.hpp>    // extract function args
+#include <rpp/utils/functors.hpp>           // default arguments
 
 #include <memory>
 

@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <rpp/observers/interface_observer.hpp>
+#include <rpp/observers/fwd.hpp>
 #include <rpp/subscriptions/composite_subscription.hpp>
 #include <rpp/subscriptions/subscription_guard.hpp>
 
@@ -23,9 +23,7 @@ struct subscriber_tag {};
  * \tparam Type type of values expected by this subscriber
  */
 template<constraint::decayed_type Type>
-class subscriber_base
-        : public interface_observer<Type>
-        , public subscriber_tag
+class subscriber_base : public subscriber_tag
 {
 public:
     subscriber_base(composite_subscription&& subscription = composite_subscription{})
@@ -37,29 +35,14 @@ public:
     subscriber_base(const subscriber_base&)     = default;
     subscriber_base(subscriber_base&&) noexcept = default;
 
-    void on_next(const Type& val) const
+    void on_next(constraint::decayed_same_as<Type> auto&& val) const
     {
         if (!is_subscribed())
             return;
 
         try
         {
-            on_next_impl(val);
-        }
-        catch (...)
-        {
-            on_error(std::current_exception());
-        }
-    }
-
-    void on_next(Type&& val) const
-    {
-        if (!is_subscribed())
-            return;
-
-        try
-        {
-            on_next_impl(std::move(val));
+            on_next_impl(std::forward<decltype(val)>(val));
         }
         catch (...)
         {

@@ -12,12 +12,10 @@
 
 #include <rpp/observers/dynamic_observer.hpp>
 
-#include <rpp/observers/interface_observer.hpp>
-
 #include <vector>
 
 template<typename Type>
-class mock_observer : public rpp::interface_observer<Type>
+class mock_observer : public rpp::typed_observer<Type>
 {
 public:
     explicit mock_observer(bool copy_values = true) : m_state{std::make_shared<State>(copy_values)} {}

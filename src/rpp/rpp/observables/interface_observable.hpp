@@ -37,10 +37,7 @@ namespace rpp
  * \tparam Type type provided by this observable
  */
 template<constraint::decayed_type Type>
-struct virtual_observable : public details::observable_tag
-{
-    //virtual ~virtual_observable() = default;
-};
+struct virtual_observable : public details::observable_tag {};
 
 /**
  * \brief Base part of observable. Mostly used to provide some interface functions used by all observables

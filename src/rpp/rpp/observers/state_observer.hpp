@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <rpp/observers/interface_observer.hpp>     // base class
+#include <rpp/observers/fwd.hpp>
 #include <rpp/utils/function_traits.hpp>            // extract argument type
 
 #include <exception>
@@ -29,7 +29,7 @@ template<constraint::decayed_type T,
 requires (std::invocable<OnNext, T, States...> && 
           std::invocable<OnError, std::exception_ptr, States...> && 
           std::invocable<OnCompleted, States...>)
-class state_observer : public interface_observer<T>
+class state_observer : public typed_observer<T>
 {
 public:
     template<typename ...TStates>
