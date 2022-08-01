@@ -20,10 +20,11 @@ template<typename T>
 concept worker_strategy = std::copyable<T> && requires(const T t)
 {
     t.defer_at(time_point{}, std::declval<void(*)()>());
+    { t.now() } -> std::same_as<time_point>;
 };
 
 template<worker_strategy Strategy>
-class worker
+class worker final : public details::worker_tag
 {
 public:
     template<typename ...Args>
@@ -45,25 +46,25 @@ public:
 
     void schedule(time_point time_point, constraint::schedulable_fn auto&& fn) const
     {
-        m_strategy.defer_at(time_point, scheduler_wrapper<std::decay_t<decltype(fn)>>{m_strategy, time_point, std::forward<decltype(fn)>(fn)});
+        m_strategy.defer_at(time_point, schedulable_wrapper<std::decay_t<decltype(fn)>>{m_strategy, time_point, std::forward<decltype(fn)>(fn)});
     }
 
 private:
     template<constraint::schedulable_fn Fn>
-    struct scheduler_wrapper
+    struct schedulable_wrapper
     {
-        scheduler_wrapper(const Strategy& strategy, time_point time_point, const Fn& fn)
+        schedulable_wrapper(const Strategy& strategy, time_point time_point, const Fn& fn)
             : m_strategy{strategy}
             , m_time_point{time_point}
             , m_fn{fn} {}
 
-        scheduler_wrapper(const Strategy& strategy, time_point time_point, Fn&& fn)
+        schedulable_wrapper(const Strategy& strategy, time_point time_point, Fn&& fn)
             : m_strategy{strategy}
             , m_time_point{time_point}
             , m_fn{std::move(fn)} {}
 
-        scheduler_wrapper(const scheduler_wrapper&)                                               = default; // LCOV_EXCL_LINE
-        scheduler_wrapper(scheduler_wrapper&&) noexcept(std::is_nothrow_move_constructible_v<Fn>) = default;
+        schedulable_wrapper(const schedulable_wrapper&)                                               = default; // LCOV_EXCL_LINE
+        schedulable_wrapper(schedulable_wrapper&&) noexcept(std::is_nothrow_move_constructible_v<Fn>) = default;
 
         void operator()()
         {
