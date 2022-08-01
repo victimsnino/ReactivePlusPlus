@@ -16,6 +16,8 @@
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 #include <rpp/utils/functors.hpp>
 
+#include <rpp/defs.hpp>
+
 #include <rpp/utils/utilities.hpp>
 
 #include <memory>
@@ -29,7 +31,7 @@ namespace rpp::details
 template<constraint::decayed_type Type, std::equivalence_relation<Type, Type> EqualityFn>
 struct distinct_until_changed_impl
 {
-    [[no_unique_address]] EqualityFn equality_comparator;
+    RPP_NO_UNIQUE_ADDRESS EqualityFn equality_comparator;
 
     template<constraint::subscriber_of_type<Type> TSub>
     auto operator()(TSub&& subscriber) const

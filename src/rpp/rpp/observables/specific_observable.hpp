@@ -16,6 +16,8 @@
 #include <rpp/subscribers/dynamic_subscriber.hpp>
 #include <rpp/utils/utilities.hpp>                            // copy_assignable_callable
 
+#include <rpp/defs.hpp>
+
 #include <utility>
 
 namespace rpp
@@ -55,8 +57,8 @@ public:
 private:
 
     // used by rpp::details::member_overload<Type, specific_observable<Type, OnSubscribeFn>, rpp::details::subscribe_tag>;
-    template<constraint::observer_of_type<Type> Obs>
-    composite_subscription subscribe_impl(const specific_subscriber<Type, Obs>& subscriber) const
+    template<constraint::subscriber_of_type<Type> TSub>
+    composite_subscription subscribe_impl(const TSub& subscriber) const
     {
         if (subscriber.is_subscribed())
             actual_subscribe(subscriber);
@@ -64,7 +66,8 @@ private:
         return subscriber.get_subscription();
     }
 
-    void actual_subscribe(const auto& subscriber) const
+    template<constraint::subscriber_of_type<Type> TSub>
+    void actual_subscribe(const TSub& subscriber) const
     {
         try
         {
@@ -80,7 +83,7 @@ private:
     }
 
 private:
-    [[no_unique_address]] OnSubscribeFn m_state;
+    RPP_NO_UNIQUE_ADDRESS OnSubscribeFn m_state;
 };
 
 template<typename OnSub>

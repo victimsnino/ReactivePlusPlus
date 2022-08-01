@@ -15,6 +15,8 @@
 #include <rpp/subscribers/constraints.hpp>             // concept for lift_impl
 #include <rpp/utils/function_traits.hpp>               // extract subscriber type
 
+#include <rpp/defs.hpp>
+
 namespace rpp::details
 {
 struct lift_tag;
@@ -30,9 +32,9 @@ concept lift_fn = constraint::subscriber<utils::decayed_invoke_result_t<T, dynam
 template<constraint::decayed_type Type, constraint::decayed_type OnNext, constraint::decayed_type OnError, constraint::decayed_type OnCompleted>
 struct lift_action_by_callbacks
 {
-    [[no_unique_address]] OnNext      on_next;
-    [[no_unique_address]] OnError     on_error;
-    [[no_unique_address]] OnCompleted on_completed;
+    RPP_NO_UNIQUE_ADDRESS OnNext      on_next;
+    RPP_NO_UNIQUE_ADDRESS OnError     on_error;
+    RPP_NO_UNIQUE_ADDRESS OnCompleted on_completed;
 
     template<constraint::subscriber TSub>
     auto operator()(TSub&& subscriber) const
@@ -52,11 +54,11 @@ using decayed_lift_action_by_callbacks = lift_action_by_callbacks<std::decay_t<T
 template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename TObs>
 struct lift_action
 {
-    [[no_unique_address]] TObs _this;
-    [[no_unique_address]] OperatorFn op;
+    RPP_NO_UNIQUE_ADDRESS TObs _this;
+    RPP_NO_UNIQUE_ADDRESS OperatorFn op;
 
     template<constraint::subscriber_of_type<NewType> TSub>
-    void operator()(TSub&& subscriber)const
+    void operator()(TSub&& subscriber) const
     {
         _this.subscribe(op(std::forward<TSub>(subscriber)));
     }

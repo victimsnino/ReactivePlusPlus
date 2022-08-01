@@ -15,6 +15,9 @@
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 #include <rpp/utils/functors.hpp>
 
+#include <rpp/defs.hpp>
+
+
 
 #include <rpp/utils/utilities.hpp>
 
@@ -28,7 +31,7 @@ template<constraint::decayed_type Type, constraint::decayed_type Result, scan_ac
 struct scan_impl
 {
     Result                              initial_value;
-    [[no_unique_address]] AccumulatorFn accumulator;
+    RPP_NO_UNIQUE_ADDRESS AccumulatorFn accumulator;
 
     template<constraint::subscriber_of_type<Result> TSub>
     auto operator()(TSub&& subscriber) const

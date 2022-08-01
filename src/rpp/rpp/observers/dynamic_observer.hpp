@@ -54,10 +54,10 @@ public:
     dynamic_observer_state(Args&& ...args)
         : m_observer{ std::forward<Args>(args)... } {}
 
-    void on_next(const T& v) const override { m_observer.on_next(v); }
-    void on_next(T&& v) const override { m_observer.on_next(std::move(v)); }
-    void on_error(const std::exception_ptr& err) const override { m_observer.on_error(err); }
-    void on_completed() const override { m_observer.on_completed(); }
+    void on_next(const T& v) const override                     { m_observer.on_next(v);            }
+    void on_next(T&& v) const override                          { m_observer.on_next(std::move(v)); }
+    void on_error(const std::exception_ptr& err) const override { m_observer.on_error(err);         }
+    void on_completed() const override                          { m_observer.on_completed();        }
 
 private:
     TObserver m_observer;
@@ -87,7 +87,7 @@ using base_for_dynamic_observer = details::state_observer<T,
 /**
  * \brief Dynamic (type-erased) version of observer (comparing to specific_observer)
  * \details It uses type-erasure mechanism to hide types of OnNext, OnError and OnCompleted callbacks. But it has higher cost in the terms of performance due to usage of heap.
- * Use it only when you need to store observer as member variable or something like this. In other cases prefer using "auto" to avoid converting to dynamic_observer
+ * Use it only when you need to store observer as member variable or make copy of original subscriber. In other cases prefer using "auto" to avoid converting to dynamic_observer
  * \tparam T is type of value handled by this observer
  * \ingroup observers
  */

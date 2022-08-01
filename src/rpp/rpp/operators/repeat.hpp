@@ -16,6 +16,9 @@
 #include <rpp/sources/create.hpp>
 #include <rpp/utils/functors.hpp>
 
+#include <rpp/defs.hpp>
+
+
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 
 
@@ -33,7 +36,7 @@ class repeat_on_completed
             , predicate{std::move(predicate)} {}
 
         SpecificObservable              observable;
-        [[no_unique_address]] Predicate predicate;
+        RPP_NO_UNIQUE_ADDRESS Predicate predicate;
     };
 
 public:

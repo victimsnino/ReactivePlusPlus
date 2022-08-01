@@ -10,6 +10,9 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
+
+
 #include <atomic>
 #include <memory>
 #include <type_traits>
@@ -80,6 +83,6 @@ public:
     decltype(auto) operator()(auto&&...args) const { return (*m_callable)(std::forward<decltype(args)>(args)...); }
 
 private:
-    [[no_unique_address]] std::optional<Callable> m_callable;
+    RPP_NO_UNIQUE_ADDRESS std::optional<Callable> m_callable;
 };
 } // namespace rpp::utils

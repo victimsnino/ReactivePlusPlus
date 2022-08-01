@@ -12,6 +12,7 @@
 
 #include <rpp/observers/fwd.hpp>
 #include <rpp/utils/function_traits.hpp>            // extract argument type
+#include <rpp/defs.hpp>
 
 #include <exception>
 #include <tuple>
@@ -83,11 +84,11 @@ public:
     }
 
 private:
-    [[msvc::no_unique_address]] OnNext                m_on_next;
-    [[msvc::no_unique_address]] OnError               m_on_err;
-    [[msvc::no_unique_address]] OnCompleted           m_on_completed;
+    RPP_NO_UNIQUE_ADDRESS OnNext                m_on_next;
+    RPP_NO_UNIQUE_ADDRESS OnError               m_on_err;
+    RPP_NO_UNIQUE_ADDRESS OnCompleted           m_on_completed;
 
-    [[msvc::no_unique_address]] std::tuple<States...> m_state;
+    RPP_NO_UNIQUE_ADDRESS std::tuple<States...> m_state;
 };
 
 template<typename TOnNext, typename ...Args>

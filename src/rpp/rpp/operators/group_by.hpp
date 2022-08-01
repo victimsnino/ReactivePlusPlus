@@ -7,6 +7,8 @@
 #include <rpp/subjects/publish_subject.hpp>
 #include <rpp/observables/grouped_observable.hpp>
 
+#include <rpp/defs.hpp>
+
 #include <map>
 
 IMPLEMENTATION_FILE(group_by_tag);
@@ -81,9 +83,9 @@ struct group_by_lift_impl
     using ValueType = utils::decayed_invoke_result_t<ValueSelector, Type>;
     using StateType = group_by_state<TKey, utils::decayed_invoke_result_t<ValueSelector, Type>, KeyComparator>;
 
-    [[no_unique_address]] KeySelector   key_selector;
-    [[no_unique_address]] ValueSelector value_selector;
-    [[no_unique_address]] KeyComparator comparator;
+    RPP_NO_UNIQUE_ADDRESS KeySelector   key_selector;
+    RPP_NO_UNIQUE_ADDRESS ValueSelector value_selector;
+    RPP_NO_UNIQUE_ADDRESS KeyComparator comparator;
 
     template<constraint::subscriber TSub>
     class group_by_observer final : public typed_observer<Type>
@@ -128,8 +130,8 @@ struct group_by_lift_impl
 
         std::shared_ptr<StateType>          state;
         TSub                                subscriber;
-        [[no_unique_address]] KeySelector   key_selector;
-        [[no_unique_address]] ValueSelector value_selector;
+        RPP_NO_UNIQUE_ADDRESS KeySelector   key_selector;
+        RPP_NO_UNIQUE_ADDRESS ValueSelector value_selector;
     };
 
 

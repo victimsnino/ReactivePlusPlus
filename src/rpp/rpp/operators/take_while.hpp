@@ -14,6 +14,9 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/utils/utilities.hpp>
 
+#include <rpp/defs.hpp>
+
+
 IMPLEMENTATION_FILE(take_while_tag);
 
 namespace rpp::details
@@ -21,7 +24,7 @@ namespace rpp::details
 template<constraint::decayed_type Type, std::predicate<const Type&> Predicate>
 struct take_while_impl
 {
-    [[no_unique_address]] Predicate predicate;
+    RPP_NO_UNIQUE_ADDRESS Predicate predicate;
 
     void operator()(auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber) const
     {
