@@ -35,14 +35,29 @@ public:
     subscriber_base(const subscriber_base&)     = default;
     subscriber_base(subscriber_base&&) noexcept = default;
 
-    void on_next(constraint::decayed_same_as<Type> auto&& val) const
+    void on_next(const Type& val) const
     {
         if (!is_subscribed())
             return;
 
         try
         {
-            on_next_impl(std::forward<decltype(val)>(val));
+            on_next_impl(val);
+        }
+        catch (...)
+        {
+            on_error(std::current_exception());
+        }
+    }
+
+    void on_next(Type&& val) const
+    {
+        if (!is_subscribed())
+            return;
+
+        try
+        {
+            on_next_impl(std::move(val));
         }
         catch (...)
         {
