@@ -15,6 +15,9 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/sources/create.hpp>
 
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+
+
 IMPLEMENTATION_FILE(repeat_tag);
 
 namespace rpp::details

@@ -12,6 +12,8 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/subscriptions/composite_subscription.hpp>
 
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+
 #include <atomic>
 
 namespace rpp::details::combining

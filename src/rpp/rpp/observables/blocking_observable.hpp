@@ -17,6 +17,7 @@
 #include <rpp/operators/fwd.hpp>                    // forwarding of member_overaloads
 #include <rpp/defs.hpp>                             // RPP_EMPTY_BASES
 
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 
 #include <future>
 
@@ -47,7 +48,7 @@ private:
         std::promise<bool> is_success{};
         const auto         future = is_success.get_future();
         m_original.subscribe(create_subscriber_with_state<Type>(std::forward<TSub>(subscriber),
-                                                                details::forwarding_on_next{},
+                                                                utils::forwarding_on_next{},
                                                                 [&](const std::exception_ptr& err, const auto& sub)
                                                                 {
                                                                     sub.on_error(err);

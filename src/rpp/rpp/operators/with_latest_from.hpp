@@ -9,7 +9,8 @@
 
 #pragma once
 
-#include <rpp/observers/state_observer.hpp>
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+
 
 #include <rpp/observables/constraints.hpp>
 #include <rpp/operators/fwd/with_latest_from.hpp>

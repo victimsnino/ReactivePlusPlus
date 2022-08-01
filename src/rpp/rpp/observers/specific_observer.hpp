@@ -13,6 +13,7 @@
 #include <rpp/observers/interface_observer.hpp> // base class 
 #include <rpp/utils/function_traits.hpp>        // extract function args
 #include <rpp/utils/functors.hpp>               // default arguments
+#include <rpp/observers/state_observer.hpp>     // base class 
 
 namespace rpp
 {
@@ -31,50 +32,24 @@ template<constraint::decayed_type T,
          constraint::on_next_fn<T>   OnNext      = utils::empty_function_t<T>,
          constraint::on_error_fn     OnError     = utils::rethrow_error_t,
          constraint::on_completed_fn OnCompleted = utils::empty_function_t<>>
-class specific_observer : public interface_observer<T>
+class specific_observer : public details::state_observer<T, OnNext, OnError, OnCompleted>
 {
+    using base = details::state_observer<T, OnNext, OnError, OnCompleted>;
+
+    using base::base;
 public:
     template<constraint::on_next_fn<T>   TOnNext      = utils::empty_function_t<T>,
              constraint::on_error_fn     TOnError     = utils::rethrow_error_t,
              constraint::on_completed_fn TOnCompleted = utils::empty_function_t<>>
     specific_observer(TOnNext&& on_next = {}, TOnError&& on_error = {}, TOnCompleted&& on_completed = {})
-        : m_on_next{std::forward<TOnNext>(on_next)}
-        , m_on_err{std::forward<TOnError>(on_error)}
-        , m_on_completed{std::forward<TOnCompleted>(on_completed)} {}
+        : base{std::forward<TOnNext>(on_next),
+               std::forward<TOnError>(on_error),
+               std::forward<TOnCompleted>(on_completed)} {}
 
     specific_observer(constraint::on_next_fn<T> auto&& on_next, constraint::on_completed_fn auto&& on_completed)
-        : m_on_next{std::forward<decltype(on_next)>(on_next)}
-        , m_on_completed{std::forward<decltype(on_completed)>(on_completed)} {}
-
-    specific_observer(const specific_observer<T, OnNext, OnError, OnCompleted>& other)     = default;
-    specific_observer(specific_observer<T, OnNext, OnError, OnCompleted>&& other) noexcept = default;
-
-    /**
-     * \brief Observable calls this methods to notify observer about new value.
-     *
-     * \note obtains value by const-reference to original object.
-     */
-    void on_next(const T& v) const { m_on_next(v); }
-
-    /**
-     * \brief Observable calls this methods to notify observer about new value.
-     *
-     * \note obtains value by rvalue-reference to original object
-     */
-    void on_next(T&& v) const { m_on_next(std::move(v)); }
-
-    /**
-     * \brief Observable calls this method to notify observer about some error during generation next data.
-     * \warning Obtaining this call means no any further on_next or on_completed calls
-     * \param err details of error
-     */
-    void on_error(const std::exception_ptr& err) const { m_on_err(err); }
-
-    /**
-     * \brief Observable calls this method to notify observer about finish of work.
-     * \warning Obtaining this call means no any further on_next calls
-     */
-    void on_completed() const { m_on_completed(); }
+        : base{std::forward<decltype(on_next)>(on_next),
+               utils::rethrow_error_t{},
+               std::forward<decltype(on_completed)>(on_completed)} {}
 
     /**
      * \brief Converting current rpp::specific_observer to rpp::dynamic_observer alternative with erasing of type (and using heap)
@@ -82,11 +57,6 @@ public:
      */
     [[nodiscard]] auto as_dynamic() const& { return dynamic_observer<T>{*this}; }
     [[nodiscard]] auto as_dynamic()&& { return dynamic_observer<T>{std::move(*this)}; }
-
-private:
-    [[no_unique_address]] OnNext      m_on_next{};
-    [[no_unique_address]] OnError     m_on_err{};
-    [[no_unique_address]] OnCompleted m_on_completed{};
 };
 
 template<typename OnNext>

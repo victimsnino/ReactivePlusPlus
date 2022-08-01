@@ -15,7 +15,8 @@
 #include <rpp/observables/dynamic_observable.hpp>
 
 #include <rpp/subscriptions/composite_subscription.hpp>
-#include <rpp/observers/state_observer.hpp>
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+
 #include <rpp/sources/just.hpp>
 
 #include <mutex>

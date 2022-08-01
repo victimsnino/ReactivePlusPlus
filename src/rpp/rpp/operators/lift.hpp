@@ -11,7 +11,7 @@
 #pragma once
 
 #include <rpp/observables/details/member_overload.hpp> // override this
-#include <rpp/observers/state_observer.hpp>            // proxy observer
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 #include <rpp/subscribers/constraints.hpp>             // concept for lift_impl
 #include <rpp/utils/function_traits.hpp>               // extract subscriber type
 
@@ -124,8 +124,8 @@ struct member_overload<Type, SpecificObservable, lift_tag>
     */
     template<constraint::decayed_type                                        NewType,
              std::invocable<Type, dynamic_subscriber<NewType>>               OnNext,
-             std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError     = forwarding_on_error,
-             std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = forwarding_on_completed>
+             std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError     = utils::forwarding_on_error,
+             std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = utils::forwarding_on_completed>
     auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const&
     {
         return details::lift_impl<NewType>(details::decayed_lift_action_by_callbacks<Type, OnNext, OnError, OnCompleted>{std::forward<OnNext>(on_next),
@@ -136,8 +136,8 @@ struct member_overload<Type, SpecificObservable, lift_tag>
 
     template<constraint::decayed_type                                        NewType,
              std::invocable<Type, dynamic_subscriber<NewType>>               OnNext,
-             std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError     = forwarding_on_error,
-             std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = forwarding_on_completed>
+             std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError     = utils::forwarding_on_error,
+             std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = utils::forwarding_on_completed>
     auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {})&&
     {
         return details::lift_impl<NewType>(details::decayed_lift_action_by_callbacks<Type, OnNext, OnError, OnCompleted>{std::forward<OnNext>(on_next),
@@ -158,8 +158,8 @@ struct member_overload<Type, SpecificObservable, lift_tag>
     */
     template<typename                                                        OnNext,
              constraint::decayed_type                                        NewType = utils::extract_subscriber_type_t<std::decay_t<utils::function_argument_t<OnNext, 1>>>,
-             std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError = forwarding_on_error,
-             std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = forwarding_on_completed>
+             std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError = utils::forwarding_on_error,
+             std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = utils::forwarding_on_completed>
         requires std::invocable<OnNext, Type, dynamic_subscriber<NewType>>
     auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const&
     {
@@ -171,8 +171,8 @@ struct member_overload<Type, SpecificObservable, lift_tag>
 
     template<typename                                                        OnNext,
              constraint::decayed_type                                        NewType = utils::extract_subscriber_type_t<std::decay_t<utils::function_argument_t<OnNext, 1>>>,
-             std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError = forwarding_on_error,
-             std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = forwarding_on_completed>
+             std::invocable<std::exception_ptr, dynamic_subscriber<NewType>> OnError = utils::forwarding_on_error,
+             std::invocable<dynamic_subscriber<NewType>>                     OnCompleted = utils::forwarding_on_completed>
         requires std::invocable<OnNext, Type, dynamic_subscriber<NewType>>
     auto lift(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {})&&
     {

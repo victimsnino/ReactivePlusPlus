@@ -12,7 +12,8 @@
 
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/operators/fwd/scan.hpp>
-#include <rpp/observers/state_observer.hpp>
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+
 
 #include <rpp/utils/utilities.hpp>
 

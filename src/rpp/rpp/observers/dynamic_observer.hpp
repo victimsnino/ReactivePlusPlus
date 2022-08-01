@@ -12,7 +12,7 @@
 
 #include <rpp/observers/constraints.hpp>        // wrapping constructor
 #include <rpp/observers/interface_observer.hpp> // base class
-#include <rpp/observers/specific_observer.hpp>  // state
+#include <rpp/observers/state_observer.hpp>  // state
 #include <rpp/utils/function_traits.hpp>        // extract function args
 #include <rpp/utils/functors.hpp>               // default arguments
 
@@ -32,23 +32,17 @@ struct dynamic_observer_state_base
 
     struct forward_on_next
     {
-        std::shared_ptr<dynamic_observer_state_base<T>> state{};
-
-        void operator()(auto&& v) const { state->on_next(std::forward<decltype(v)>(v)); }
+        void operator()(auto&& v, const std::shared_ptr<dynamic_observer_state_base<T>>& state) const { state->on_next(std::forward<decltype(v)>(v)); }
     };
 
     struct forward_on_error
     {
-        std::shared_ptr<dynamic_observer_state_base<T>> state{};
-
-        void operator()(const std::exception_ptr& err) const { state->on_error(err); }
+        void operator()(const std::exception_ptr& err, const std::shared_ptr<dynamic_observer_state_base<T>>& state) const { state->on_error(err); }
     };
 
     struct forward_on_completed
     {
-        std::shared_ptr<dynamic_observer_state_base<T>> state{};
-
-        void operator()() const { state->on_completed(); }
+        void operator()(const std::shared_ptr<dynamic_observer_state_base<T>>& state) const  { state->on_completed(); }
     };
 };
 
@@ -85,10 +79,11 @@ std::shared_ptr<dynamic_observer_state_base<T>> make_dynamic_observer_state_from
 namespace rpp
 {
 template<constraint::decayed_type T>
-using base_for_dynamic_observer = specific_observer<T,
-                                                    typename details::dynamic_observer_state_base<T>::forward_on_next,
-                                                    typename details::dynamic_observer_state_base<T>::forward_on_error,
-                                                    typename details::dynamic_observer_state_base<T>::forward_on_completed>;
+using base_for_dynamic_observer = details::state_observer<T,
+                                                          typename details::dynamic_observer_state_base<T>::forward_on_next,
+                                                          typename details::dynamic_observer_state_base<T>::forward_on_error,
+                                                          typename details::dynamic_observer_state_base<T>::forward_on_completed,
+                                                          std::shared_ptr<details::dynamic_observer_state_base<T>>>;
 /**
  * \brief Dynamic (type-erased) version of observer (comparing to specific_observer)
  * \details It uses type-erasure mechanism to hide types of OnNext, OnError and OnCompleted callbacks. But it has higher cost in the terms of performance due to usage of heap.
@@ -124,10 +119,11 @@ public:
     const dynamic_observer<T>& as_dynamic() const { return *this; }
 
 private:
-    dynamic_observer(const std::shared_ptr<details::dynamic_observer_state_base<T>>& state)
-        : base_for_dynamic_observer<T>{typename details::dynamic_observer_state_base<T>::forward_on_next{state},
-                                       typename details::dynamic_observer_state_base<T>::forward_on_error{state},
-                                       typename details::dynamic_observer_state_base<T>::forward_on_completed{state} } {}
+    dynamic_observer(std::shared_ptr<details::dynamic_observer_state_base<T>>&& state)
+        : base_for_dynamic_observer<T>{typename details::dynamic_observer_state_base<T>::forward_on_next{},
+                                       typename details::dynamic_observer_state_base<T>::forward_on_error{},
+                                       typename details::dynamic_observer_state_base<T>::forward_on_completed{},
+                                       std::move(state)} {}
 };
 
 template<constraint::observer TObserver>

@@ -138,10 +138,10 @@ SCENARIO("State observer copy-count for state", "[observer]")
         auto state = copy_count_tracker{};
         auto make_observer = [](auto&& state)
         {
-              auto observer = rpp::details::state_observer{std::forward<decltype(state)>(state),
-                                                         [](int, const copy_count_tracker&) {},
+            auto observer = rpp::details::state_observer{[](int, const copy_count_tracker&) {},
                                                          [](const std::exception_ptr&, const copy_count_tracker&) {},
-                                                         [](const copy_count_tracker&) {}};
+                                                         [](const copy_count_tracker&) {},
+                                                         std::forward<decltype(state)>(state)};
             static_assert(std::is_same_v<rpp::utils::extract_observer_type_t<decltype(observer)>, int>);
 
             observer.on_next(1);
@@ -178,13 +178,13 @@ SCENARIO("State proxy calls to subscriber", "[observer]")
 
     GIVEN("state_observer")
     {
-        auto state_observer = rpp::details::state_observer{subscriber,
-                                                           [](int v, rpp::dynamic_subscriber<int> sub)
+        auto state_observer = rpp::details::state_observer{[](int v, rpp::dynamic_subscriber<int> sub)
                                                            {
                                                                sub.on_next(v);
                                                            },
-                                                           rpp::details::forwarding_on_error{},
-                                                           rpp::details::forwarding_on_completed{}};
+                                                           rpp::utils::forwarding_on_error{},
+                                                           rpp::utils::forwarding_on_completed{},
+                                                           subscriber };
         WHEN("call on_next")
         {
             state_observer.on_next(1);

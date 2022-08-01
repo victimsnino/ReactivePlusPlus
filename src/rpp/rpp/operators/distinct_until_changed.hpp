@@ -13,7 +13,8 @@
 #include <rpp/observables/constraints.hpp>
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/operators/fwd/distinct_until_changed.hpp>
-#include <rpp/observers/state_observer.hpp>
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+
 #include <rpp/utils/utilities.hpp>
 
 #include <memory>
