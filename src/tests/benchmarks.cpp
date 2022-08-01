@@ -547,13 +547,24 @@ TEST_CASE("concat")
 
 TEST_CASE("buffer")
 {
+    struct not_pod {
+        explicit not_pod(int i) : value(i) {};
+        not_pod(const not_pod&)                 = default;
+        not_pod(not_pod&&) noexcept             = default;
+
+        not_pod& operator=(const not_pod&)      = default;
+        not_pod& operator=(not_pod&&) noexcept  = default;
+
+        int value{0};
+    };
+
     BENCHMARK_ADVANCED("buffer")(Catch::Benchmark::Chronometer meter)
     {
-        auto sub = rpp::make_specific_subscriber<std::vector<int>>();
+        auto sub = rpp::make_specific_subscriber<std::vector<not_pod>>();
 
         meter.measure([&]
         {
-            return rpp::source::just(1, 2, 3, 4, 5)
+            return rpp::source::just(not_pod{1}, not_pod{2}, not_pod{3}, not_pod{4}, not_pod{5})
                    .buffer(2)
                    .subscribe(sub);
         });
