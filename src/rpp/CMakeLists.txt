@@ -22,7 +22,8 @@ target_link_libraries(rpp INTERFACE coverage_config Threads::Threads)
 
 target_compile_features(rpp INTERFACE cxx_std_20)
 
-if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR
+    CMAKE_CXX_COMPILER_ID MATCHES "GNU")
   target_compile_options(rpp INTERFACE -fsized-deallocation)
 endif()
 
