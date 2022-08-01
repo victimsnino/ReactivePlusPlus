@@ -22,22 +22,22 @@ class mock_observer : public rpp::interface_observer<Type>
 public:
     explicit mock_observer(bool copy_values = true) : m_state{std::make_shared<State>(copy_values)} {}
 
-    void on_next(const Type& v) const override
+    void on_next(const Type& v) const
     {
         ++m_state->m_on_next_const_ref_count;
         if (m_state->m_copy_values)
             m_state->vals.push_back(v);
     }
 
-    void on_next(Type&& v) const override
+    void on_next(Type&& v) const
     {
         ++m_state->m_on_next_move_count;
         if (m_state->m_copy_values)
             m_state->vals.push_back(std::move(v));
     }
 
-    void on_error(const std::exception_ptr&) const override { ++m_state->m_on_error_count; }
-    void on_completed() const override { ++m_state->m_on_completed_count; }
+    void on_error(const std::exception_ptr&) const { ++m_state->m_on_error_count; }
+    void on_completed() const { ++m_state->m_on_completed_count; }
 
     [[nodiscard]] size_t get_total_on_next_count() const { return m_state->m_on_next_const_ref_count + m_state->m_on_next_move_count; }
     [[nodiscard]] size_t get_on_next_const_ref_count() const { return m_state->m_on_next_const_ref_count; }

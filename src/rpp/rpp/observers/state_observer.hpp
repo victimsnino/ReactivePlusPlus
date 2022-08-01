@@ -60,10 +60,10 @@ public:
     state_observer(const state_observer<T, State, OnNext, OnError, OnCompleted>& other)     = default;
     state_observer(state_observer<T, State, OnNext, OnError, OnCompleted>&& other) noexcept = default;
 
-    void on_next(const T& v) const override                     { m_on_next(v, m_state);             }
-    void on_next(T&& v) const override                          { m_on_next(std::move(v), m_state);  }
-    void on_error(const std::exception_ptr& err) const override { m_on_err(err, m_state);            }
-    void on_completed() const override                          { m_on_completed(m_state);         }
+    void on_next(const T& v) const                     { m_on_next(v, m_state);             }
+    void on_next(T&& v) const                          { m_on_next(std::move(v), m_state);  }
+    void on_error(const std::exception_ptr& err) const { m_on_err(err, m_state);            }
+    void on_completed() const                          { m_on_completed(m_state);         }
 
 private:
     State                             m_state;

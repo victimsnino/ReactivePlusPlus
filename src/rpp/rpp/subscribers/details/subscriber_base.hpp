@@ -37,7 +37,7 @@ public:
     subscriber_base(const subscriber_base&)     = default;
     subscriber_base(subscriber_base&&) noexcept = default;
 
-    void on_next(const Type& val) const final
+    void on_next(const Type& val) const
     {
         if (!is_subscribed())
             return;
@@ -52,7 +52,7 @@ public:
         }
     }
 
-    void on_next(Type&& val) const final
+    void on_next(Type&& val) const
     {
         if (!is_subscribed())
             return;
@@ -67,7 +67,7 @@ public:
         }
     }
 
-    void on_error(const std::exception_ptr& err) const final
+    void on_error(const std::exception_ptr& err) const
     {
         if (!is_subscribed())
             return;
@@ -76,7 +76,7 @@ public:
         on_error_impl(err);
     }
 
-    void on_completed() const final
+    void on_completed() const
     {
         if (!is_subscribed())
             return;
