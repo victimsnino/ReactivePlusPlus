@@ -10,6 +10,8 @@
 #pragma once
 
 #include <rpp/observers/state_observer.hpp>
+#include <rpp/subscriptions/composite_subscription.hpp>
+#include <rpp/subscribers/specific_subscriber.hpp>
 
 namespace rpp::details
 {
