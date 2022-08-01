@@ -13,6 +13,7 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/operators/fwd/scan.hpp>
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+#include <rpp/utils/functors.hpp>
 
 
 #include <rpp/utils/utilities.hpp>
@@ -42,8 +43,8 @@ struct scan_impl
                                                       *state = accumulator(std::move(*state), std::forward<decltype(value)>(value));
                                                       sub.on_next(utils::as_const(*state));
                                                   },
-                                                  forwarding_on_error{},
-                                                  forwarding_on_completed{});
+                                                  utils::forwarding_on_error{},
+                                                  utils::forwarding_on_completed{});
     }
 };
 } // namespace rpp::details

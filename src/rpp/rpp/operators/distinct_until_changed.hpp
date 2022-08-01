@@ -14,6 +14,7 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/operators/fwd/distinct_until_changed.hpp>
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+#include <rpp/utils/functors.hpp>
 
 #include <rpp/utils/utilities.hpp>
 
@@ -47,8 +48,8 @@ struct distinct_until_changed_impl
                                                           sub.on_next(std::forward<decltype(new_value)>(new_value));
                                                       }
                                                   },
-                                                  forwarding_on_error{},
-                                                  forwarding_on_completed{});
+                                                  utils::forwarding_on_error{},
+                                                  utils::forwarding_on_completed{});
     }
 };
 } // namespace rpp::details

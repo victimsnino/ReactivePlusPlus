@@ -18,6 +18,7 @@
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 
 #include <rpp/sources/just.hpp>
+#include <rpp/utils/functors.hpp>
 
 #include <mutex>
 #include <memory>
@@ -65,8 +66,8 @@ private:
     {
         observable.subscribe(create_subscriber_with_state<ValueType>(subscriber.get_subscription().make_child(),
                                                                      subscriber,
-                                                                     forwarding_on_next{},
-                                                                     forwarding_on_error{},
+                                                                     utils::forwarding_on_next{},
+                                                                     utils::forwarding_on_error{},
                                                                      [state = this->shared_from_this()](const constraint::subscriber auto& sub)
                                                                      {
                                                                          {
@@ -112,7 +113,7 @@ struct concat_impl
         return create_subscriber_with_state<Type>(std::move(source_subscription),
                                              std::forward<TSub>(subscriber),
                                              state->get_on_new_observable(),
-                                             forwarding_on_error{},
+                                             utils::forwarding_on_error{},
                                              state->get_on_observable_completed());
     }
 };

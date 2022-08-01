@@ -14,6 +14,7 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 
+#include <rpp/utils/functors.hpp>
 
 #include <memory>
 
@@ -46,7 +47,7 @@ namespace rpp::details
         auto operator()(TSub&& subscriber) const
         {
             auto subscription = subscriber.get_subscription();
-            return create_subscriber_with_state<Type>(std::move(subscription), std::forward<TSub>(subscriber), skip_on_next{ count }, forwarding_on_error{}, forwarding_on_completed{});
+            return create_subscriber_with_state<Type>(std::move(subscription), std::forward<TSub>(subscriber), skip_on_next{ count }, utils::forwarding_on_error{}, utils::forwarding_on_completed{});
         }
     };
 } // namespace rpp::details

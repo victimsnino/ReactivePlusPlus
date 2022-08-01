@@ -205,3 +205,22 @@ SCENARIO("State proxy calls to subscriber", "[observer]")
         }
     }
 }
+
+//TEST_CASE("observer size should be equal to size of callbacks", "[observer]")
+//{
+//    auto on_next = [](const int&) {};
+//    auto on_error = [](const std::exception_ptr&) {};
+//    auto on_completed = []() {};
+//    auto observer = rpp::specific_observer{ on_next , on_error, on_completed };
+//
+//    SECTION("specific_observer")
+//    {
+//        CHECK(sizeof(observer) == sizeof(on_next) + sizeof(on_error) + sizeof(on_completed));
+//    }
+//
+//    SECTION("dynamic_observer")
+//    {
+//        auto dynamic = observer.as_dynamic();
+//        CHECK(sizeof(dynamic) == sizeof(std::shared_ptr<int>));
+//    }
+//}

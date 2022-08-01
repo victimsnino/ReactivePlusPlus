@@ -31,10 +31,10 @@ auto create_subscriber_with_state_impl(State&&                       state,
                                                     std::decay_t<State>>>
     {
         std::move(sub),
-        std::forward<State>(state),
         std::forward<OnNext>(on_next),
         std::forward<OnError>(on_error),
-        std::forward<OnCompleted>(on_completed)
+        std::forward<OnCompleted>(on_completed),
+        std::forward<State>(state)
     };
 }
 

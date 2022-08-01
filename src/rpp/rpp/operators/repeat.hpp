@@ -14,6 +14,7 @@
 #include <rpp/operators/fwd/repeat.hpp>
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/sources/create.hpp>
+#include <rpp/utils/functors.hpp>
 
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 
@@ -56,8 +57,8 @@ private:
     {
         m_state->observable.subscribe(create_subscriber_with_state<Type>(subscriber.get_subscription().make_child(),
                                                                           subscriber,
-                                                                          forwarding_on_next{},
-                                                                          forwarding_on_error{},
+                                                                          utils::forwarding_on_next{},
+                                                                          utils::forwarding_on_error{},
                                                                           *this));
     }
 
