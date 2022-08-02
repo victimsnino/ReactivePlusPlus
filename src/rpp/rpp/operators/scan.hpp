@@ -12,7 +12,12 @@
 
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/operators/fwd/scan.hpp>
-#include <rpp/observers/state_observer.hpp>
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+#include <rpp/utils/functors.hpp>
+
+#include <rpp/defs.hpp>
+
+
 
 #include <rpp/utils/utilities.hpp>
 
@@ -26,7 +31,7 @@ template<constraint::decayed_type Type, constraint::decayed_type Result, scan_ac
 struct scan_impl
 {
     Result                              initial_value;
-    [[no_unique_address]] AccumulatorFn accumulator;
+    RPP_NO_UNIQUE_ADDRESS AccumulatorFn accumulator;
 
     template<constraint::subscriber_of_type<Result> TSub>
     auto operator()(TSub&& subscriber) const
@@ -41,8 +46,8 @@ struct scan_impl
                                                       *state = accumulator(std::move(*state), std::forward<decltype(value)>(value));
                                                       sub.on_next(utils::as_const(*state));
                                                   },
-                                                  forwarding_on_error{},
-                                                  forwarding_on_completed{});
+                                                  utils::forwarding_on_error{},
+                                                  utils::forwarding_on_completed{});
     }
 };
 } // namespace rpp::details

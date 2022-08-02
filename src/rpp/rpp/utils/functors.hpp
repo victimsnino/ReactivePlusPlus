@@ -10,6 +10,8 @@
 
 #pragma once
 
+#include <rpp/subscribers/constraints.hpp>
+
 #include <exception>
 #include <utility>
 #include <tuple>
@@ -56,5 +58,35 @@ struct get
 {
     template<typename ...Args>
     auto operator()(Args&& ...args) const  { return std::get<index>(std::forward_as_tuple(std::forward<Args>(args)...)); }
+};
+
+struct forwarding_on_next
+{
+    void operator()(auto&& v, const auto& sub) const { sub.on_next(std::forward<decltype(v)>(v)); }
+};
+
+struct forwarding_on_error
+{
+    void operator()(const std::exception_ptr& err, const auto& sub) const { sub.on_error(err); }
+};
+
+struct forwarding_on_completed
+{
+    void operator()(const auto& sub) const { sub.on_completed(); }
+};
+
+struct forwarding_on_next_for_pointer
+{
+    void operator()(auto&& v, const auto& sub) const { sub->on_next(std::forward<decltype(v)>(v)); }
+};
+
+struct forwarding_on_error_for_pointer
+{
+    void operator()(const std::exception_ptr& err, const auto& sub) const { sub->on_error(err); }
+};
+
+struct forwarding_on_completed_for_pointer
+{
+    void operator()(const auto& sub) const { sub->on_completed(); }
 };
 } // namespace rpp::utils

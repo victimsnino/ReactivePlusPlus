@@ -14,7 +14,10 @@
 
 namespace rpp::details
 {
-struct observer_tag;
+struct observer_tag{};
+
+template<constraint::decayed_type T>
+struct typed_observer_tag : public observer_tag {};
 } // namespace rpp::details
 
 namespace rpp::constraint
@@ -26,9 +29,6 @@ template<typename Fn>                concept on_completed_fn = std::invocable<st
 
 namespace rpp
 {
-template<constraint::decayed_type T>
-struct interface_observer;
-
 template<constraint::decayed_type Type>
 class dynamic_observer;
 

@@ -14,6 +14,7 @@
 #include <rpp/operators/fwd/switch_on_next.hpp>
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/observers/state_observer.hpp>
+#include <rpp/utils/functors.hpp>
 
 #include <rpp/operators/details/combining_utils.hpp>
 
@@ -51,8 +52,8 @@ struct switch_on_next_state_t : public std::enable_shared_from_this<switch_on_ne
             new_observable.subscribe(combining::create_proxy_subscriber<ValueType>(state->current_inner_observable,
                                                                                    sub,
                                                                                    state->count_of_on_completed,
-                                                                                   forwarding_on_next{},
-                                                                                   forwarding_on_error{},
+                                                                                   utils::forwarding_on_next{},
+                                                                                   utils::forwarding_on_error{},
                                                                                    on_completed));
         };
     }
@@ -76,7 +77,7 @@ struct switch_on_next_impl
         return combining::create_proxy_subscriber<Type>(std::forward<TSub>(subscriber),
                                                         state->count_of_on_completed,
                                                         state->on_new_observable_switch(),
-                                                        forwarding_on_error{},
+                                                        utils::forwarding_on_error{},
                                                         [=](const constraint::subscriber auto& sub)
         {
             if (--(state->count_of_on_completed) == 0) 

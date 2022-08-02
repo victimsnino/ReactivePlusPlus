@@ -16,7 +16,7 @@
 
 namespace rpp::constraint
 {
-template<typename T> concept subscriber = std::is_base_of_v<details::subscriber_tag, std::decay_t<T>>;
+template<typename T> concept subscriber = std::is_base_of_v<details::subscriber_tag, std::decay_t<T>> && observer_callbacks_exists<T>;
 
 }
 
@@ -28,7 +28,7 @@ namespace details
     struct extract_subscriber_type
     {
         template<typename TT>
-        static TT deduce(const rpp::details::subscriber_base<TT>&);
+        static TT deduce(const rpp::details::typed_subscriber_tag<TT>&);
 
         using type = decltype(deduce(std::declval<std::decay_t<T>>()));
     };
@@ -40,6 +40,5 @@ using extract_subscriber_type_t = typename details::extract_subscriber_type<T>::
 
 namespace rpp::constraint
 {
-template<typename T, typename Type> concept subscriber_of_type = subscriber<T> && std::same_as<utils::extract_subscriber_type_t<T>, Type>;
-
+template<typename T, typename Type> concept subscriber_of_type = subscriber<T> && std::same_as<utils::extract_subscriber_type_t<T>, Type> && observer_on_next_exists<T, Type>;
 } // namespace rpp::constraint

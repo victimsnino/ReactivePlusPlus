@@ -15,10 +15,10 @@
 
 namespace rpp::details
 {
-struct subscriber_tag;
+struct subscriber_tag{};
 
 template<constraint::decayed_type Type>
-class subscriber_base;
+struct typed_subscriber_tag : public subscriber_tag{};
 } // namespace rpp::details
 
 namespace rpp

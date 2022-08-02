@@ -16,6 +16,10 @@
 #include <rpp/operators/fwd/buffer.hpp>
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/sources/create.hpp>
+#include <rpp/utils/functors.hpp>
+
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+
 
 IMPLEMENTATION_FILE(buffer_tag);
 
@@ -99,7 +103,7 @@ struct buffer_impl
                                                   std::forward<TSub>(subscriber),
                                                   // Get a copy of on_next that shares the same state.
                                                   state->get_on_next(),
-                                                  forwarding_on_error{},
+                                                  utils::forwarding_on_error{},
                                                   // Flush the bundle buffer on complete.
                                                   state->get_on_completed());
     }

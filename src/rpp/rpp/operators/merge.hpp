@@ -16,6 +16,7 @@
 #include <rpp/observers/state_observer.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/operators/details/combining_utils.hpp>
+#include <rpp/utils/functors.hpp>
 
 #include <array>
 #include <atomic>
@@ -53,8 +54,8 @@ struct merge_state_t : public std::enable_shared_from_this<merge_state_t>
 
             new_observable.subscribe(combining::create_proxy_subscriber<ValueType>(sub,
                                                                                    state->count_of_on_completed,
-                                                                                   state->wrap_under_guard(forwarding_on_next{}),
-                                                                                   state->wrap_under_guard(forwarding_on_error{}),
+                                                                                   state->wrap_under_guard(utils::forwarding_on_next{}),
+                                                                                   state->wrap_under_guard(utils::forwarding_on_error{}),
                                                                                    state->get_on_completed()));
         };
     }
@@ -77,7 +78,7 @@ struct merge_impl
         return combining::create_proxy_subscriber<Type>(std::forward<TSub>(subscriber),
                                                         state->count_of_on_completed,
                                                         state->get_on_new_observable(),
-                                                        state->wrap_under_guard(forwarding_on_error{}),
+                                                        state->wrap_under_guard(utils::forwarding_on_error{}),
                                                         state->get_on_completed());
     }
 };

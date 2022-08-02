@@ -15,7 +15,10 @@
 
 namespace rpp::details
 {
-struct observable_tag;
+struct observable_tag{};
+
+template<constraint::decayed_type Type>
+struct typed_observable_tag : public details::observable_tag {};
 struct dynamic_observable_tag;
 } // namespace rpp::details
 
@@ -26,9 +29,6 @@ template<typename Fn, typename T> concept on_subscribe_fn = std::invocable<std::
 
 namespace rpp
 {
-template<constraint::decayed_type Type>
-struct virtual_observable;
-
 template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
 class specific_observable;
 

@@ -59,7 +59,7 @@ private:
         dynamic_observable_state_impl(const TObs& observable)
             : m_observable{observable} {}
 
-        composite_subscription operator()(const dynamic_subscriber<Type>& subscriber) const override
+        composite_subscription operator()(const dynamic_subscriber<Type>& subscriber) const final
         {
             return m_observable.subscribe(subscriber);
         }

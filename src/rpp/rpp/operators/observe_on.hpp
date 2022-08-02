@@ -12,7 +12,10 @@
 
 #include <rpp/operators/fwd/observe_on.hpp>
 #include <rpp/subscribers/constraints.hpp>
-#include <rpp/observers/state_observer.hpp>
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+
+#include <rpp/defs.hpp>
+
 
 IMPLEMENTATION_FILE(observe_on_tag);
 
@@ -22,7 +25,7 @@ namespace rpp::details
 template<constraint::decayed_type Type, schedulers::constraint::scheduler TScheduler>
 struct observe_on_impl
 {
-    [[no_unique_address]] TScheduler scheduler;
+    RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
 
     template<constraint::subscriber_of_type<Type> TSub>
     auto operator()(TSub&& subscriber) const

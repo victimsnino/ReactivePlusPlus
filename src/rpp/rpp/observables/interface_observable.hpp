@@ -19,29 +19,16 @@
 #include <rpp/defs.hpp>                             // RPP_EMPTY_BASES
 #include <rpp/utils/function_traits.hpp>
 
-
 #include <type_traits>
 
 namespace rpp::details
 {
-struct observable_tag {};
-
 template<typename T, typename TObservable>
 concept op_fn = constraint::observable<utils::decayed_invoke_result_t<T, TObservable>>;
 } // namespace rpp::details
 
 namespace rpp
 {
-/** 
- * \brief Interface of observable
- * \tparam Type type provided by this observable
- */
-template<constraint::decayed_type Type>
-struct virtual_observable : public details::observable_tag
-{
-    //virtual ~virtual_observable() = default;
-};
-
 /**
  * \brief Base part of observable. Mostly used to provide some interface functions used by all observables
  * \tparam Type type provided by this observable 
@@ -49,7 +36,7 @@ struct virtual_observable : public details::observable_tag
  */
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct RPP_EMPTY_BASES interface_observable
-    : public virtual_observable<Type>
+    : public details::typed_observable_tag<Type>
     , details::member_overload<Type, SpecificObservable, details::subscribe_tag>
     , details::member_overload<Type, SpecificObservable, details::lift_tag>
     , details::member_overload<Type, SpecificObservable, details::map_tag>

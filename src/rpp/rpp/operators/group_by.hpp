@@ -7,6 +7,8 @@
 #include <rpp/subjects/publish_subject.hpp>
 #include <rpp/observables/grouped_observable.hpp>
 
+#include <rpp/defs.hpp>
+
 #include <map>
 
 IMPLEMENTATION_FILE(group_by_tag);
@@ -81,12 +83,12 @@ struct group_by_lift_impl
     using ValueType = utils::decayed_invoke_result_t<ValueSelector, Type>;
     using StateType = group_by_state<TKey, utils::decayed_invoke_result_t<ValueSelector, Type>, KeyComparator>;
 
-    [[no_unique_address]] KeySelector   key_selector;
-    [[no_unique_address]] ValueSelector value_selector;
-    [[no_unique_address]] KeyComparator comparator;
+    RPP_NO_UNIQUE_ADDRESS KeySelector   key_selector;
+    RPP_NO_UNIQUE_ADDRESS ValueSelector value_selector;
+    RPP_NO_UNIQUE_ADDRESS KeyComparator comparator;
 
     template<constraint::subscriber TSub>
-    class group_by_observer final : public interface_observer<Type>
+    class group_by_observer final : public details::typed_observer_tag<Type>
     {
     public:
         group_by_observer(const std::shared_ptr<StateType>& state,
@@ -98,11 +100,9 @@ struct group_by_lift_impl
             , key_selector{key_selector}
             , value_selector{value_selector} {}
 
-
-        void on_next(const Type& v) const override                  { on_next_impl(v);                                            }
-        void on_next(Type&& v) const override                       { on_next_impl(std::move(v));                                 }
-        void on_error(const std::exception_ptr& err) const override { broadcast([&err](const auto& sub) { sub.on_error(err); });  }
-        void on_completed() const override                          { broadcast([](const auto& sub)     { sub.on_completed(); }); }
+        void on_next(auto&& v) const                       { on_next_impl(std::forward<decltype(v)>(v));                 }
+        void on_error(const std::exception_ptr& err) const { broadcast([&err](const auto& sub) { sub.on_error(err); });  }
+        void on_completed() const                          { broadcast([](const auto& sub)     { sub.on_completed(); }); }
 
     private:
         void on_next_impl(auto&& val) const
@@ -130,8 +130,8 @@ struct group_by_lift_impl
 
         std::shared_ptr<StateType>          state;
         TSub                                subscriber;
-        [[no_unique_address]] KeySelector   key_selector;
-        [[no_unique_address]] ValueSelector value_selector;
+        RPP_NO_UNIQUE_ADDRESS KeySelector   key_selector;
+        RPP_NO_UNIQUE_ADDRESS ValueSelector value_selector;
     };
 
 

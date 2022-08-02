@@ -16,6 +16,7 @@
 namespace rpp::schedulers::details
 {
 struct scheduler_tag {};
+struct worker_tag {};
 } // namespace rpp::schedulers::details
 
 namespace rpp::schedulers

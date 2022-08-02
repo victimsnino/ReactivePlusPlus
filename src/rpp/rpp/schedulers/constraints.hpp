@@ -11,15 +11,22 @@
 #pragma once
 
 #include <rpp/schedulers/fwd.hpp>
+#include <rpp/subscriptions/fwd.hpp>
 
 #include <concepts>
 
 namespace rpp::schedulers::constraint
 {
-// returns nullopt in case of don't need to reshedule scheulable or some duration which will be added to "now" and resheduled
+// returns std::nullopt in case of don't need to re-schedule schedulable or some duration which will be added to "now" and re-scheduled
 template<typename T>
 concept schedulable_fn = std::is_invocable_r_v<optional_duration, T>;
 
 template<typename T>
-concept scheduler = std::is_base_of_v<details::scheduler_tag, std::decay_t<T>>;
+concept worker = std::is_base_of_v<details::worker_tag, std::decay_t<T>>;
+
+template<typename T>
+concept scheduler = std::is_base_of_v<details::scheduler_tag, std::decay_t<T>> && requires(const T t)
+{
+    {t.create_worker(std::declval<rpp::composite_subscription>())} -> worker;
+};
 } // namespace rpp::schedulers::constraint

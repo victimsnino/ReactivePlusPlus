@@ -9,7 +9,8 @@
 
 #pragma once
 
-#include <rpp/observers/state_observer.hpp>
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+
 
 #include <rpp/observables/constraints.hpp>
 #include <rpp/operators/fwd/with_latest_from.hpp>
@@ -36,7 +37,7 @@ void with_latest_from_subscribe(const auto& state_ptr, const TObs& observable, c
                                                                 std::lock_guard lock{state_ptr->mutexes[I]};
                                                                 std::get<I>(state_ptr->vals) = std::forward<decltype(v)>(v);
                                                             },
-                                                            forwarding_on_error{},
+                                                            utils::forwarding_on_error{},
                                                             [](const auto&){}));
 }
 
@@ -98,8 +99,8 @@ struct with_latest_from_impl
 
         return create_subscriber_with_state<Type>(std::forward<TSub>(subscriber),
                                                   std::move(on_next),
-                                                  forwarding_on_error{},
-                                                  forwarding_on_completed{});
+                                                  utils::forwarding_on_error{},
+                                                  utils::forwarding_on_completed{});
     }
 };
 } // namespace rpp::details

@@ -13,7 +13,11 @@
 #include <rpp/observables/constraints.hpp>
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/operators/fwd/distinct_until_changed.hpp>
-#include <rpp/observers/state_observer.hpp>
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+#include <rpp/utils/functors.hpp>
+
+#include <rpp/defs.hpp>
+
 #include <rpp/utils/utilities.hpp>
 
 #include <memory>
@@ -27,7 +31,7 @@ namespace rpp::details
 template<constraint::decayed_type Type, std::equivalence_relation<Type, Type> EqualityFn>
 struct distinct_until_changed_impl
 {
-    [[no_unique_address]] EqualityFn equality_comparator;
+    RPP_NO_UNIQUE_ADDRESS EqualityFn equality_comparator;
 
     template<constraint::subscriber_of_type<Type> TSub>
     auto operator()(TSub&& subscriber) const
@@ -46,8 +50,8 @@ struct distinct_until_changed_impl
                                                           sub.on_next(std::forward<decltype(new_value)>(new_value));
                                                       }
                                                   },
-                                                  forwarding_on_error{},
-                                                  forwarding_on_completed{});
+                                                  utils::forwarding_on_error{},
+                                                  utils::forwarding_on_completed{});
     }
 };
 } // namespace rpp::details
