@@ -94,7 +94,6 @@ $(document).ready(function(){initNavTree('classrpp_1_1specific__subscriber.html'
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classrpp_1_1specific__subscriber-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">rpp::specific_subscriber&lt; Type, Observer &gt; Class Template Reference</div>  </div>
@@ -116,36 +115,27 @@ template&lt;typename ... Types&gt; </td></tr>
 template&lt;typename ... Types&gt; </td></tr>
 <tr class="memitem:acbaaaf0b4c243626b0a6bd9b9e4930e6"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>specific_subscriber</b> (<a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> sub, Types &amp;&amp;...vals) requires std</td></tr>
 <tr class="separator:acbaaaf0b4c243626b0a6bd9b9e4930e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21e776b2239b3ad3f2e88d2f6fddb26c"><td class="memItemLeft" align="right" valign="top"><a id="a21e776b2239b3ad3f2e88d2f6fddb26c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>specific_subscriber</b> (const <a class="el" href="classrpp_1_1specific__subscriber.html">specific_subscriber</a> &amp;)=default</td></tr>
-<tr class="separator:a21e776b2239b3ad3f2e88d2f6fddb26c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8a550401de39767b542ae00747348d5"><td class="memItemLeft" align="right" valign="top"><a id="ab8a550401de39767b542ae00747348d5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>specific_subscriber</b> (<a class="el" href="classrpp_1_1specific__subscriber.html">specific_subscriber</a> &amp;&amp;) noexcept=default</td></tr>
-<tr class="separator:ab8a550401de39767b542ae00747348d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad983070fe0ecc37a3a8d5b923bfe7553"><td class="memItemLeft" align="right" valign="top"><a id="ad983070fe0ecc37a3a8d5b923bfe7553"></a>
 const Observer &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_observer</b> () const</td></tr>
 <tr class="separator:ad983070fe0ecc37a3a8d5b923bfe7553"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6223ba829292aaadaadb426035f2e896"><td class="memItemLeft" align="right" valign="top"><a id="a6223ba829292aaadaadb426035f2e896"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_next</b> (const Type &amp;val) const</td></tr>
+<tr class="separator:a6223ba829292aaadaadb426035f2e896"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a699d83f0416895850763bd5130d7ed66"><td class="memItemLeft" align="right" valign="top"><a id="a699d83f0416895850763bd5130d7ed66"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_next</b> (Type &amp;&amp;val) const</td></tr>
+<tr class="separator:a699d83f0416895850763bd5130d7ed66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68eacb2987b3c06f079807c07b1b11a1"><td class="memItemLeft" align="right" valign="top"><a id="a68eacb2987b3c06f079807c07b1b11a1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_error</b> (const std::exception_ptr &amp;err) const</td></tr>
+<tr class="separator:a68eacb2987b3c06f079807c07b1b11a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a284c6714731a215bcab19124d6be5a80"><td class="memItemLeft" align="right" valign="top"><a id="a284c6714731a215bcab19124d6be5a80"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_completed</b> () const</td></tr>
+<tr class="separator:a284c6714731a215bcab19124d6be5a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4829de9237a909ad3df3f5392ac89dad"><td class="memItemLeft" align="right" valign="top"><a id="a4829de9237a909ad3df3f5392ac89dad"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>as_dynamic</b> () const &amp;</td></tr>
 <tr class="separator:a4829de9237a909ad3df3f5392ac89dad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68ae9a88277c2a707d71cbc2942c77b4"><td class="memItemLeft" align="right" valign="top"><a id="a68ae9a88277c2a707d71cbc2942c77b4"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>as_dynamic</b> () &amp;&amp;</td></tr>
 <tr class="separator:a68ae9a88277c2a707d71cbc2942c77b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a2939eb190689d992f3d62fc723f2fd72"><td class="memItemLeft" align="right" valign="top"><a id="a2939eb190689d992f3d62fc723f2fd72"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>on_next_impl</b> (const Type &amp;val) const final</td></tr>
-<tr class="separator:a2939eb190689d992f3d62fc723f2fd72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9283587cc920b70c8a6c2011755d6df1"><td class="memItemLeft" align="right" valign="top"><a id="a9283587cc920b70c8a6c2011755d6df1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>on_next_impl</b> (Type &amp;&amp;val) const final</td></tr>
-<tr class="separator:a9283587cc920b70c8a6c2011755d6df1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5626085e6f482bf9bd1b2b7accf53774"><td class="memItemLeft" align="right" valign="top"><a id="a5626085e6f482bf9bd1b2b7accf53774"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>on_error_impl</b> (const std::exception_ptr &amp;err) const final</td></tr>
-<tr class="separator:a5626085e6f482bf9bd1b2b7accf53774"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71eb686df33cd01a5fc27cfa349c1632"><td class="memItemLeft" align="right" valign="top"><a id="a71eb686df33cd01a5fc27cfa349c1632"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>on_completed_impl</b> () const final</td></tr>
-<tr class="separator:a71eb686df33cd01a5fc27cfa349c1632"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;constraint::decayed_type Type, constraint::decayed_observer Observer&gt;<br />

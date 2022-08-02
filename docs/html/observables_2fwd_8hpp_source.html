@@ -113,20 +113,20 @@ $(document).ready(function(){initNavTree('observables_2fwd_8hpp_source.html','')
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">struct </span>observable_tag;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">struct </span>dynamic_observable_tag;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>rpp::constraint</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Fn, <span class="keyword">typename</span> T&gt; concept on_subscribe_fn = std::invocable&lt;std::decay_t&lt;Fn&gt;, dynamic_subscriber&lt;T&gt;&gt;;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace rpp::constraint</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">namespace </span>rpp</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structrpp_1_1virtual__observable.html">   30</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1virtual__observable.html">virtual_observable</a>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1observable__tag.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1observable__tag.html">observable_tag</a>{};</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1typed__observable__tag.html">   21</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1typed__observable__tag.html">typed_observable_tag</a> : <span class="keyword">public</span> <a class="code" href="structrpp_1_1details_1_1observable__tag.html">details::observable_tag</a> {};</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">struct </span>dynamic_observable_tag;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">namespace </span>rpp::constraint</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Fn, <span class="keyword">typename</span> T&gt; concept on_subscribe_fn = std::invocable&lt;std::decay_t&lt;Fn&gt;, <a class="code" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber&lt;T&gt;</a>&gt;;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace rpp::constraint</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">namespace </span>rpp</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::on_subscribe_fn&lt;Type&gt; OnSubscribeFn&gt;</div>
 <div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classrpp_1_1specific__observable.html">   33</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1specific__observable.html">specific_observable</a>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
@@ -140,9 +140,11 @@ $(document).ready(function(){initNavTree('observables_2fwd_8hpp_source.html','')
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace rpp</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="astructrpp_1_1virtual__observable_html"><div class="ttname"><a href="structrpp_1_1virtual__observable.html">rpp::virtual_observable</a></div><div class="ttdoc">Interface of observable.</div><div class="ttdef"><b>Definition:</b> fwd.hpp:30</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1observable__tag_html"><div class="ttname"><a href="structrpp_1_1details_1_1observable__tag.html">rpp::details::observable_tag</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:18</div></div>
 <div class="ttc" id="aclassrpp_1_1grouped__observable_html"><div class="ttname"><a href="classrpp_1_1grouped__observable.html">rpp::grouped_observable</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:41</div></div>
 <div class="ttc" id="aclassrpp_1_1specific__observable_html"><div class="ttname"><a href="classrpp_1_1specific__observable.html">rpp::specific_observable</a></div><div class="ttdoc">observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...</div><div class="ttdef"><b>Definition:</b> fwd.hpp:33</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1typed__observable__tag_html"><div class="ttname"><a href="structrpp_1_1details_1_1typed__observable__tag.html">rpp::details::typed_observable_tag</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:21</div></div>
+<div class="ttc" id="aclassrpp_1_1dynamic__subscriber_html"><div class="ttname"><a href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber</a></div><div class="ttdoc">subscriber which uses dynamic_observer&lt;T&gt; to hide original callbacks</div><div class="ttdef"><b>Definition:</b> dynamic_subscriber.hpp:23</div></div>
 <div class="ttc" id="aclassrpp_1_1dynamic__observable_html"><div class="ttname"><a href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable</a></div><div class="ttdoc">type-erased alternative of observable (comparing to rpp::specific_observable).</div><div class="ttdef"><b>Definition:</b> dynamic_observable.hpp:86</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

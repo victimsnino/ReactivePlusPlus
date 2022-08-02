@@ -9,10 +9,9 @@ var annotated_dup =
         [ "counted_repeat_predicate", "structrpp_1_1details_1_1counted__repeat__predicate.html", "structrpp_1_1details_1_1counted__repeat__predicate" ],
         [ "distinct_until_changed_impl", "structrpp_1_1details_1_1distinct__until__changed__impl.html", "structrpp_1_1details_1_1distinct__until__changed__impl" ],
         [ "dynamic_observable_state", "classrpp_1_1details_1_1dynamic__observable__state.html", "classrpp_1_1details_1_1dynamic__observable__state" ],
+        [ "dynamic_observer_state", "classrpp_1_1details_1_1dynamic__observer__state.html", "classrpp_1_1details_1_1dynamic__observer__state" ],
+        [ "dynamic_observer_state_base", "structrpp_1_1details_1_1dynamic__observer__state__base.html", "structrpp_1_1details_1_1dynamic__observer__state__base" ],
         [ "filter_impl", "structrpp_1_1details_1_1filter__impl.html", "structrpp_1_1details_1_1filter__impl" ],
-        [ "forwarding_on_completed", "structrpp_1_1details_1_1forwarding__on__completed.html", "structrpp_1_1details_1_1forwarding__on__completed" ],
-        [ "forwarding_on_error", "structrpp_1_1details_1_1forwarding__on__error.html", "structrpp_1_1details_1_1forwarding__on__error" ],
-        [ "forwarding_on_next", "structrpp_1_1details_1_1forwarding__on__next.html", "structrpp_1_1details_1_1forwarding__on__next" ],
         [ "group_by_lift_impl", "structrpp_1_1details_1_1group__by__lift__impl.html", "structrpp_1_1details_1_1group__by__lift__impl" ],
         [ "group_by_on_subscribe", "structrpp_1_1details_1_1group__by__on__subscribe.html", "structrpp_1_1details_1_1group__by__on__subscribe" ],
         [ "group_by_state", "structrpp_1_1details_1_1group__by__state.html", "structrpp_1_1details_1_1group__by__state" ],
@@ -58,7 +57,6 @@ var annotated_dup =
         [ "scan_impl", "structrpp_1_1details_1_1scan__impl.html", "structrpp_1_1details_1_1scan__impl" ],
         [ "skip_impl", "structrpp_1_1details_1_1skip__impl.html", "structrpp_1_1details_1_1skip__impl" ],
         [ "skip_on_next", "structrpp_1_1details_1_1skip__on__next.html", "structrpp_1_1details_1_1skip__on__next" ],
-        [ "state_observer", "classrpp_1_1details_1_1state__observer.html", "classrpp_1_1details_1_1state__observer" ],
         [ "subscriber_base", "classrpp_1_1details_1_1subscriber__base.html", "classrpp_1_1details_1_1subscriber__base" ],
         [ "subscriber_tag", "structrpp_1_1details_1_1subscriber__tag.html", null ],
         [ "subscription_state", "classrpp_1_1details_1_1subscription__state.html", "classrpp_1_1details_1_1subscription__state" ],
@@ -67,6 +65,9 @@ var annotated_dup =
         [ "take_impl", "structrpp_1_1details_1_1take__impl.html", "structrpp_1_1details_1_1take__impl" ],
         [ "take_on_next", "structrpp_1_1details_1_1take__on__next.html", "structrpp_1_1details_1_1take__on__next" ],
         [ "take_while_impl", "structrpp_1_1details_1_1take__while__impl.html", "structrpp_1_1details_1_1take__while__impl" ],
+        [ "typed_observable_tag", "structrpp_1_1details_1_1typed__observable__tag.html", null ],
+        [ "typed_observer_tag", "structrpp_1_1details_1_1typed__observer__tag.html", null ],
+        [ "typed_subscriber_tag", "structrpp_1_1details_1_1typed__subscriber__tag.html", null ],
         [ "window_lift_impl", "structrpp_1_1details_1_1window__lift__impl.html", "structrpp_1_1details_1_1window__lift__impl" ],
         [ "window_observer", "classrpp_1_1details_1_1window__observer.html", "classrpp_1_1details_1_1window__observer" ],
         [ "with_latest_from_impl", "structrpp_1_1details_1_1with__latest__from__impl.html", "structrpp_1_1details_1_1with__latest__from__impl" ],
@@ -80,7 +81,8 @@ var annotated_dup =
       [ "schedulers", null, [
         [ "details", null, [
           [ "queue_worker_state", "classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html", "classrpp_1_1schedulers_1_1details_1_1queue__worker__state" ],
-          [ "scheduler_tag", "structrpp_1_1schedulers_1_1details_1_1scheduler__tag.html", null ]
+          [ "scheduler_tag", "structrpp_1_1schedulers_1_1details_1_1scheduler__tag.html", null ],
+          [ "worker_tag", "structrpp_1_1schedulers_1_1details_1_1worker__tag.html", null ]
         ] ],
         [ "immediate", "classrpp_1_1schedulers_1_1immediate.html", "classrpp_1_1schedulers_1_1immediate" ],
         [ "new_thread", "classrpp_1_1schedulers_1_1new__thread.html", "classrpp_1_1schedulers_1_1new__thread" ],
@@ -119,12 +121,10 @@ var annotated_dup =
       [ "dynamic_subscriber", "classrpp_1_1dynamic__subscriber.html", "classrpp_1_1dynamic__subscriber" ],
       [ "grouped_observable", "classrpp_1_1grouped__observable.html", "classrpp_1_1grouped__observable" ],
       [ "interface_observable", "structrpp_1_1interface__observable.html", "structrpp_1_1interface__observable" ],
-      [ "interface_observer", "structrpp_1_1interface__observer.html", "structrpp_1_1interface__observer" ],
       [ "specific_observable", "classrpp_1_1specific__observable.html", "classrpp_1_1specific__observable" ],
       [ "specific_observer", "classrpp_1_1specific__observer.html", "classrpp_1_1specific__observer" ],
       [ "specific_subscriber", "classrpp_1_1specific__subscriber.html", "classrpp_1_1specific__subscriber" ],
       [ "subscription_base", "classrpp_1_1subscription__base.html", "classrpp_1_1subscription__base" ],
-      [ "subscription_guard", "classrpp_1_1subscription__guard.html", "classrpp_1_1subscription__guard" ],
-      [ "virtual_observable", "structrpp_1_1virtual__observable.html", null ]
+      [ "subscription_guard", "classrpp_1_1subscription__guard.html", "classrpp_1_1subscription__guard" ]
     ] ]
 ];

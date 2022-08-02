@@ -125,7 +125,7 @@ $(document).ready(function(){initNavTree('observables_2constraints_8hpp_source.h
 <div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="structrpp_1_1utils_1_1details_1_1extract__observable__type.html">   27</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structrpp_1_1utils_1_1details_1_1extract__observable__type.html">extract_observable_type</a></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    {</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TT&gt;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">static</span> TT deduce(<span class="keyword">const</span> <a class="code" href="structrpp_1_1virtual__observable.html">virtual_observable&lt;TT&gt;</a>&amp;);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">static</span> TT deduce(<span class="keyword">const</span> <a class="code" href="structrpp_1_1details_1_1typed__observable__tag.html">rpp::details::typed_observable_tag&lt;TT&gt;</a>&amp;);</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">using</span> type = decltype(deduce(std::declval&lt;std::decay_t&lt;T&gt;&gt;()));</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    };</div>
@@ -141,8 +141,8 @@ $(document).ready(function(){initNavTree('observables_2constraints_8hpp_source.h
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace rpp::constraint</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="astructrpp_1_1virtual__observable_html"><div class="ttname"><a href="structrpp_1_1virtual__observable.html">rpp::virtual_observable</a></div><div class="ttdoc">Interface of observable.</div><div class="ttdef"><b>Definition:</b> fwd.hpp:30</div></div>
 <div class="ttc" id="astructrpp_1_1utils_1_1details_1_1extract__observable__type_html"><div class="ttname"><a href="structrpp_1_1utils_1_1details_1_1extract__observable__type.html">rpp::utils::details::extract_observable_type</a></div><div class="ttdef"><b>Definition:</b> constraints.hpp:27</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1typed__observable__tag_html"><div class="ttname"><a href="structrpp_1_1details_1_1typed__observable__tag.html">rpp::details::typed_observable_tag</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:21</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

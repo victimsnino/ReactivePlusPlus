@@ -3,7 +3,7 @@
 Inheritance diagram for rpp\+::details\+::window\+\_\+observer$<$ Type, T\+Sub $>$\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{classrpp_1_1details_1_1window__observer}
+\includegraphics[height=3.000000cm]{classrpp_1_1details_1_1window__observer}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -15,43 +15,15 @@ Inheritance diagram for rpp\+::details\+::window\+\_\+observer$<$ Type, T\+Sub $
 \mbox{\Hypertarget{classrpp_1_1details_1_1window__observer_ae0d7723071f508b40665eac51dec7b6d}\label{classrpp_1_1details_1_1window__observer_ae0d7723071f508b40665eac51dec7b6d}} 
 {\bfseries window\+\_\+observer} (T\+Sub \&\&subscriber, size\+\_\+t window\+\_\+size)
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1window__observer_a4327d7495a540359dabb50ca31936e9e}\label{classrpp_1_1details_1_1window__observer_a4327d7495a540359dabb50ca31936e9e}} 
-void {\bfseries on\+\_\+next} (const Type \&v) const override
+\mbox{\Hypertarget{classrpp_1_1details_1_1window__observer_ae76bd3d6b8bfa9b6220f55172ebc3821}\label{classrpp_1_1details_1_1window__observer_ae76bd3d6b8bfa9b6220f55172ebc3821}} 
+void {\bfseries on\+\_\+next} (auto \&\&v) const
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1window__observer_afe5140dd4315a028db92460c989b69d3}\label{classrpp_1_1details_1_1window__observer_afe5140dd4315a028db92460c989b69d3}} 
-void {\bfseries on\+\_\+next} (Type \&\&v) const override
+\mbox{\Hypertarget{classrpp_1_1details_1_1window__observer_a282435a630a16f39b182f8d50e7b59f0}\label{classrpp_1_1details_1_1window__observer_a282435a630a16f39b182f8d50e7b59f0}} 
+void {\bfseries on\+\_\+error} (const std\+::exception\+\_\+ptr \&err) const
 \item 
-void \mbox{\hyperlink{classrpp_1_1details_1_1window__observer_a8a13889f81bafce34a41819ee444a90f}{on\+\_\+error}} (const std\+::exception\+\_\+ptr \&err) const override
-\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about some error during generation next data. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1window__observer_aa88d6b63bfc93b16ed2f861498543896}\label{classrpp_1_1details_1_1window__observer_aa88d6b63bfc93b16ed2f861498543896}} 
-void {\bfseries on\+\_\+completed} () const override
+\mbox{\Hypertarget{classrpp_1_1details_1_1window__observer_a91c93188a0d4b49dc196b4227fe21766}\label{classrpp_1_1details_1_1window__observer_a91c93188a0d4b49dc196b4227fe21766}} 
+void {\bfseries on\+\_\+completed} () const
 \end{DoxyCompactItemize}
-
-
-\doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classrpp_1_1details_1_1window__observer_a8a13889f81bafce34a41819ee444a90f}\label{classrpp_1_1details_1_1window__observer_a8a13889f81bafce34a41819ee444a90f}} 
-\index{rpp::details::window\_observer$<$ Type, TSub $>$@{rpp::details::window\_observer$<$ Type, TSub $>$}!on\_error@{on\_error}}
-\index{on\_error@{on\_error}!rpp::details::window\_observer$<$ Type, TSub $>$@{rpp::details::window\_observer$<$ Type, TSub $>$}}
-\doxysubsubsection{\texorpdfstring{on\_error()}{on\_error()}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::subscriber T\+Sub$>$ \\
-void \mbox{\hyperlink{classrpp_1_1details_1_1window__observer}{rpp\+::details\+::window\+\_\+observer}}$<$ Type, T\+Sub $>$\+::on\+\_\+error (\begin{DoxyParamCaption}\item[{const std\+::exception\+\_\+ptr \&}]{err }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Observable calls this method to notify observer about some error during generation next data. 
-
-\begin{DoxyWarning}{Warning}
-Obtaining this call means no any further on\+\_\+next or on\+\_\+completed calls 
-\end{DoxyWarning}
-
-\begin{DoxyParams}{Parameters}
-{\em err} & details of error \\
-\hline
-\end{DoxyParams}
-
-
-Implements \mbox{\hyperlink{structrpp_1_1interface__observer_a75f46a05b81cdc26b9d7d52efede9cf0}{rpp\+::interface\+\_\+observer$<$ Type $>$}}.
-
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

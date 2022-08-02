@@ -112,23 +112,23 @@ $(document).ready(function(){initNavTree('observers_2fwd_8hpp_source.html',''); 
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">struct </span>observer_tag;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>rpp::constraint</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Fn, <span class="keyword">typename</span> Type&gt; concept on_next_fn      = std::invocable&lt;std::decay_t&lt;Fn&gt;, Type&gt;;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Fn&gt;                concept on_error_fn     = std::invocable&lt;std::decay_t&lt;Fn&gt;, std::exception_ptr&gt;;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Fn&gt;                concept on_completed_fn = std::invocable&lt;std::decay_t&lt;Fn&gt;&gt;;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace rpp::constraint</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">namespace </span>rpp</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structrpp_1_1interface__observer.html">   30</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1interface__observer.html">interface_observer</a>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1observer__tag.html">   17</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1observer__tag.html">observer_tag</a>{};</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1typed__observer__tag.html">   20</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1typed__observer__tag.html">typed_observer_tag</a> : <span class="keyword">public</span> <a class="code" href="structrpp_1_1details_1_1observer__tag.html">observer_tag</a> {};</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span>rpp::constraint</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Fn, <span class="keyword">typename</span> Type&gt; concept on_next_fn      = std::invocable&lt;std::decay_t&lt;Fn&gt;, Type&gt;;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Fn&gt;                concept on_error_fn     = std::invocable&lt;std::decay_t&lt;Fn&gt;, std::exception_ptr&gt;;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Fn&gt;                concept on_completed_fn = std::invocable&lt;std::decay_t&lt;Fn&gt;&gt;;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace rpp::constraint</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">namespace </span>rpp</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1dynamic__observer.html">dynamic_observer</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">class </span>dynamic_observer;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type T,</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;         constraint::on_next_fn&lt;T&gt;   OnNext,</div>
@@ -138,9 +138,9 @@ $(document).ready(function(){initNavTree('observers_2fwd_8hpp_source.html',''); 
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace rpp</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassrpp_1_1dynamic__observer_html"><div class="ttname"><a href="classrpp_1_1dynamic__observer.html">rpp::dynamic_observer</a></div><div class="ttdoc">Dynamic (type-erased) version of observer (comparing to specific_observer)</div><div class="ttdef"><b>Definition:</b> dynamic_observer.hpp:31</div></div>
 <div class="ttc" id="aclassrpp_1_1specific__observer_html"><div class="ttname"><a href="classrpp_1_1specific__observer.html">rpp::specific_observer</a></div><div class="ttdoc">Observer specified with specific template types of callbacks to avoid extra heap usage.</div><div class="ttdef"><b>Definition:</b> fwd.hpp:39</div></div>
-<div class="ttc" id="astructrpp_1_1interface__observer_html"><div class="ttname"><a href="structrpp_1_1interface__observer.html">rpp::interface_observer</a></div><div class="ttdoc">Interface of any observer type. Describes base interface in terms of Reactive Programming.</div><div class="ttdef"><b>Definition:</b> fwd.hpp:30</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1observer__tag_html"><div class="ttname"><a href="structrpp_1_1details_1_1observer__tag.html">rpp::details::observer_tag</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:17</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1typed__observer__tag_html"><div class="ttname"><a href="structrpp_1_1details_1_1typed__observer__tag.html">rpp::details::typed_observer_tag</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:20</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

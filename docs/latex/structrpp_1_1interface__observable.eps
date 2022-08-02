@@ -174,7 +174,7 @@
 boxfont setfont
 1 boundaspect scale
 (rpp::interface_observable< Type, SpecificObservable >) cw
-(rpp::virtual_observable< Type >) cw
+(rpp::details::typed_observable_tag< Type >) cw
 (rpp::details::member_overload< Type, SpecificObservable, details::subscribe_tag >) cw
 (rpp::details::member_overload< Type, SpecificObservable, details::lift_tag >) cw
 (rpp::details::member_overload< Type, SpecificObservable, details::map_tag >) cw
@@ -235,7 +235,8 @@ boundx scalefactor div boundy scalefactor div scale
  (rpp::details::member_overload< Type, SpecificObservable, details::map_tag >) 1.000000 22.000000 box
  (rpp::details::member_overload< Type, SpecificObservable, details::lift_tag >) 1.000000 23.000000 box
  (rpp::details::member_overload< Type, SpecificObservable, details::subscribe_tag >) 1.000000 24.000000 box
- (rpp::virtual_observable< Type >) 1.000000 25.000000 box
+ (rpp::details::typed_observable_tag< Type >) 1.000000 25.000000 box
+1.000000 25.000000 mark
 
 % ----- relations -----
 

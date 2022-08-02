@@ -113,10 +113,10 @@ $(document).ready(function(){initNavTree('subscribers_2fwd_8hpp_source.html','')
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">struct </span>subscriber_tag;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1subscriber__tag.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1subscriber__tag.html">subscriber_tag</a>{};</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">class </span>subscriber_base;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1typed__subscriber__tag.html">   21</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1typed__subscriber__tag.html">typed_subscriber_tag</a> : <span class="keyword">public</span> <a class="code" href="structrpp_1_1details_1_1subscriber__tag.html">subscriber_tag</a>{};</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span>rpp</div>
@@ -129,8 +129,10 @@ $(document).ready(function(){initNavTree('subscribers_2fwd_8hpp_source.html','')
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace rpp</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="astructrpp_1_1details_1_1subscriber__tag_html"><div class="ttname"><a href="structrpp_1_1details_1_1subscriber__tag.html">rpp::details::subscriber_tag</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:18</div></div>
 <div class="ttc" id="aclassrpp_1_1specific__subscriber_html"><div class="ttname"><a href="classrpp_1_1specific__subscriber.html">rpp::specific_subscriber</a></div><div class="ttdoc">specific version of subscriber which stores type of observer used inside to prevent extra allocations</div><div class="ttdef"><b>Definition:</b> fwd.hpp:27</div></div>
 <div class="ttc" id="aclassrpp_1_1dynamic__subscriber_html"><div class="ttname"><a href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber</a></div><div class="ttdoc">subscriber which uses dynamic_observer&lt;T&gt; to hide original callbacks</div><div class="ttdef"><b>Definition:</b> dynamic_subscriber.hpp:23</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1typed__subscriber__tag_html"><div class="ttname"><a href="structrpp_1_1details_1_1typed__subscriber__tag.html">rpp::details::typed_subscriber_tag</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:21</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

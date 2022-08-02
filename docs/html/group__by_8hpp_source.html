@@ -105,102 +105,102 @@ $(document).ready(function(){initNavTree('group__by_8hpp_source.html',''); initR
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;rpp/subjects/publish_subject.hpp&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;rpp/observables/grouped_observable.hpp&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;rpp/defs.hpp&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;IMPLEMENTATION_FILE(group_by_tag);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1group__by__state__base.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1details_1_1group__by__state__base.html">group_by_state_base</a> : <span class="keyword">public</span> std::enable_shared_from_this&lt;group_by_state_base&gt;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;IMPLEMENTATION_FILE(group_by_tag);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="classrpp_1_1details_1_1group__by__state__base.html">group_by_state_base</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classrpp_1_1details_1_1group__by__state__base.html">group_by_state_base</a>() noexcept = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">void</span> on_subscribe(<span class="keyword">const</span> <a class="code" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&amp; dest)</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        ++subscribers;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        dest.<a class="code" href="classrpp_1_1composite__subscription.html#a7ea8553bdf67bbceab87dd14b7c42e3c">add</a>([state = this-&gt;shared_from_this()]</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="keywordflow">if</span> (--state-&gt;subscribers == 0)</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                state-&gt;lifetime.unsubscribe();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        });</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; get_source_lifetime()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> lifetime; }</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1group__by__state__base.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1details_1_1group__by__state__base.html">group_by_state_base</a> : <span class="keyword">public</span> std::enable_shared_from_this&lt;group_by_state_base&gt;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="classrpp_1_1details_1_1group__by__state__base.html">group_by_state_base</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classrpp_1_1details_1_1group__by__state__base.html">group_by_state_base</a>() noexcept = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">void</span> on_subscribe(<span class="keyword">const</span> <a class="code" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&amp; dest)</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        ++subscribers;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        dest.<a class="code" href="classrpp_1_1composite__subscription.html#a7ea8553bdf67bbceab87dd14b7c42e3c">add</a>([state = this-&gt;shared_from_this()]</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <span class="keywordflow">if</span> (--state-&gt;subscribers == 0)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                state-&gt;lifetime.unsubscribe();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        });</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="classrpp_1_1composite__subscription.html">composite_subscription</a> lifetime{};</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    std::atomic_size_t     subscribers{};</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type           TKey,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;         constraint::decayed_type           Type,</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;         std::strict_weak_order&lt;TKey, TKey&gt; KeyComparator&gt;</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1group__by__state.html">   43</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1group__by__state.html">group_by_state</a> final : <a class="code" href="classrpp_1_1details_1_1group__by__state__base.html">group_by_state_base</a></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="structrpp_1_1details_1_1group__by__state.html">group_by_state</a>(<span class="keyword">const</span> KeyComparator&amp; comparator)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        : <a class="code" href="classrpp_1_1details_1_1group__by__state__base.html">group_by_state_base</a>{}</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        , key_to_subject{comparator} {}</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    std::map&lt;TKey, subjects::publish_subject&lt;Type&gt;, KeyComparator&gt; key_to_subject;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1group__by__on__subscribe.html">   53</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1group__by__on__subscribe.html">group_by_on_subscribe</a></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;{</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="classrpp_1_1subjects_1_1publish__subject.html">subjects::publish_subject&lt;Type&gt;</a>      subject;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    std::shared_ptr&lt;group_by_state_base&gt; state;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">auto</span>&amp;&amp; subscriber)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        state-&gt;on_subscribe(subscriber.get_subscription());</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        subject.get_observable().subscribe(std::forward&lt;decltype(subscriber)&gt;(subscriber));</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;};</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">namespace </span>rpp</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;{</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type TKey, constra<span class="keywordtype">int</span>::decayed_type ResValue&gt;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">using</span> <a class="code" href="classrpp_1_1grouped__observable.html">grouped_observable_group_by</a> = <a class="code" href="classrpp_1_1grouped__observable.html">grouped_observable&lt;TKey, ResValue, details::group_by_on_subscribe&lt;ResValue&gt;</a>&gt;;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type           Type,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;         constraint::decayed_type           TKey,</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;         std::invocable&lt;Type&gt;               KeySelector,</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;         std::invocable&lt;Type&gt;               ValueSelector,</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;         std::strict_weak_order&lt;TKey, TKey&gt; KeyComparator&gt;</div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1group__by__lift__impl.html">   79</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1group__by__lift__impl.html">group_by_lift_impl</a></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;{</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">using</span> ValueType = utils::decayed_invoke_result_t&lt;ValueSelector, Type&gt;;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">using</span> <a class="code" href="structrpp_1_1details_1_1group__by__state.html">StateType</a> = <a class="code" href="structrpp_1_1details_1_1group__by__state.html">group_by_state&lt;TKey, utils::decayed_invoke_result_t&lt;ValueSelector, Type&gt;</a>, KeyComparator&gt;;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    [[no_unique_address]] KeySelector   key_selector;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    [[no_unique_address]] ValueSelector value_selector;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    [[no_unique_address]] KeyComparator comparator;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber TSub&gt;</div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html">   89</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html">group_by_observer</a> final : <span class="keyword">public</span> <a class="code" href="structrpp_1_1interface__observer.html">interface_observer</a>&lt;Type&gt;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <a class="code" href="classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html">group_by_observer</a>(<span class="keyword">const</span> std::shared_ptr&lt;StateType&gt;&amp; state,</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                          <span class="keyword">const</span> TSub&amp;                       subscriber,</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                          <span class="keyword">const</span> KeySelector&amp;                key_selector,</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                          <span class="keyword">const</span> ValueSelector&amp;              value_selector)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            : state{state}</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            , subscriber{subscriber}</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            , key_selector{key_selector}</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            , value_selector{value_selector} {}</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordtype">void</span> on_next(<span class="keyword">const</span> Type&amp; v)<span class="keyword"> const override                  </span>{ on_next_impl(v);                                            }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordtype">void</span> on_next(Type&amp;&amp; v)<span class="keyword"> const override                       </span>{ on_next_impl(std::move(v));                                 }</div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html#a64b2ff69a10fc7c8190c6abf882e4429">  104</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html#a64b2ff69a10fc7c8190c6abf882e4429">on_error</a>(<span class="keyword">const</span> std::exception_ptr&amp; err)<span class="keyword"> const override </span>{ broadcast([&amp;err](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub) { sub.on_error(err); });  }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordtype">void</span> on_completed()<span class="keyword"> const override                          </span>{ broadcast([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)     { sub.on_completed(); }); }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; get_source_lifetime()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> lifetime; }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="classrpp_1_1composite__subscription.html">composite_subscription</a> lifetime{};</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    std::atomic_size_t     subscribers{};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type           TKey,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;         constraint::decayed_type           Type,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;         std::strict_weak_order&lt;TKey, TKey&gt; KeyComparator&gt;</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1group__by__state.html">   45</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1group__by__state.html">group_by_state</a> final : <a class="code" href="classrpp_1_1details_1_1group__by__state__base.html">group_by_state_base</a></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;{</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="structrpp_1_1details_1_1group__by__state.html">group_by_state</a>(<span class="keyword">const</span> KeyComparator&amp; comparator)</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        : <a class="code" href="classrpp_1_1details_1_1group__by__state__base.html">group_by_state_base</a>{}</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        , key_to_subject{comparator} {}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    std::map&lt;TKey, subjects::publish_subject&lt;Type&gt;, KeyComparator&gt; key_to_subject;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1group__by__on__subscribe.html">   55</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1group__by__on__subscribe.html">group_by_on_subscribe</a></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;{</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="classrpp_1_1subjects_1_1publish__subject.html">subjects::publish_subject&lt;Type&gt;</a>      subject;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    std::shared_ptr&lt;group_by_state_base&gt; state;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">auto</span>&amp;&amp; subscriber)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        state-&gt;on_subscribe(subscriber.get_subscription());</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        subject.get_observable().subscribe(std::forward&lt;decltype(subscriber)&gt;(subscriber));</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">namespace </span>rpp</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;{</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type TKey, constra<span class="keywordtype">int</span>::decayed_type ResValue&gt;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">using</span> <a class="code" href="classrpp_1_1grouped__observable.html">grouped_observable_group_by</a> = <a class="code" href="classrpp_1_1grouped__observable.html">grouped_observable&lt;TKey, ResValue, details::group_by_on_subscribe&lt;ResValue&gt;</a>&gt;;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;{</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type           Type,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;         constraint::decayed_type           TKey,</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;         std::invocable&lt;Type&gt;               KeySelector,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;         std::invocable&lt;Type&gt;               ValueSelector,</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;         std::strict_weak_order&lt;TKey, TKey&gt; KeyComparator&gt;</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1group__by__lift__impl.html">   81</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1group__by__lift__impl.html">group_by_lift_impl</a></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;{</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">using</span> ValueType = utils::decayed_invoke_result_t&lt;ValueSelector, Type&gt;;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">using</span> <a class="code" href="structrpp_1_1details_1_1group__by__state.html">StateType</a> = <a class="code" href="structrpp_1_1details_1_1group__by__state.html">group_by_state&lt;TKey, utils::decayed_invoke_result_t&lt;ValueSelector, Type&gt;</a>, KeyComparator&gt;;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    RPP_NO_UNIQUE_ADDRESS KeySelector   key_selector;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    RPP_NO_UNIQUE_ADDRESS ValueSelector value_selector;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    RPP_NO_UNIQUE_ADDRESS KeyComparator comparator;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber TSub&gt;</div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html">   91</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html">group_by_observer</a> final : <span class="keyword">public</span> <a class="code" href="structrpp_1_1details_1_1typed__observer__tag.html">details::typed_observer_tag</a>&lt;Type&gt;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <a class="code" href="classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html">group_by_observer</a>(<span class="keyword">const</span> std::shared_ptr&lt;StateType&gt;&amp; state,</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                          <span class="keyword">const</span> TSub&amp;                       subscriber,</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                          <span class="keyword">const</span> KeySelector&amp;                key_selector,</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                          <span class="keyword">const</span> ValueSelector&amp;              value_selector)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            : state{state}</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            , subscriber{subscriber}</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            , key_selector{key_selector}</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            , value_selector{value_selector} {}</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordtype">void</span> on_next(<span class="keyword">auto</span>&amp;&amp; v)<span class="keyword"> const                       </span>{ on_next_impl(std::forward&lt;decltype(v)&gt;(v));                 }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordtype">void</span> on_error(<span class="keyword">const</span> std::exception_ptr&amp; err)<span class="keyword"> const </span>{ broadcast([&amp;err](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub) { sub.on_error(err); });  }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordtype">void</span> on_completed()<span class="keyword"> const                          </span>{ broadcast([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)     { sub.on_completed(); }); }</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordtype">void</span> on_next_impl(<span class="keyword">auto</span>&amp;&amp; val)<span class="keyword"> const</span></div>
@@ -210,7 +210,7 @@ $(document).ready(function(){initNavTree('group__by_8hpp_source.html',''); initR
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="keywordflow">if</span> (inserted)</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                subscriber.on_next(<a class="code" href="classrpp_1_1grouped__observable.html">grouped_observable_group_by&lt;TKey, ValueType&gt;</a>{key, group_by_on_subscribe&lt;ValueType&gt;{itr-&gt;second, state}});</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                subscriber.on_next(<a class="code" href="classrpp_1_1grouped__observable.html">grouped_observable_group_by&lt;TKey, ValueType&gt;</a>{key, <a class="code" href="structrpp_1_1details_1_1group__by__on__subscribe.html">group_by_on_subscribe&lt;ValueType&gt;</a>{itr-&gt;second, state}});</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            }</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; subject_sub = itr-&gt;second.get_subscriber();</div>
@@ -228,8 +228,8 @@ $(document).ready(function(){initNavTree('group__by_8hpp_source.html',''); initR
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        std::shared_ptr&lt;StateType&gt;          state;</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        TSub                                subscriber;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        [[no_unique_address]] KeySelector   key_selector;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        [[no_unique_address]] ValueSelector value_selector;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        RPP_NO_UNIQUE_ADDRESS KeySelector   key_selector;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        RPP_NO_UNIQUE_ADDRESS ValueSelector value_selector;</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    };</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
@@ -240,7 +240,7 @@ $(document).ready(function(){initNavTree('group__by_8hpp_source.html',''); initR
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        state-&gt;on_subscribe(subscriber.get_subscription());</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keywordflow">return</span> specific_subscriber{state-&gt;get_source_lifetime(), group_by_observer&lt;std::decay_t&lt;TSub&gt;&gt;{state, std::forward&lt;TSub&gt;(subscriber), key_selector, value_selector}};</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classrpp_1_1specific__subscriber.html">specific_subscriber</a>{state-&gt;get_source_lifetime(), <a class="code" href="classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html">group_by_observer&lt;std::decay_t&lt;TSub&gt;</a>&gt;{state, std::forward&lt;TSub&gt;(subscriber), key_selector, value_selector}};</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    }</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;};</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
@@ -267,15 +267,15 @@ $(document).ready(function(){initNavTree('group__by_8hpp_source.html',''); initR
 </div><!-- doc-content -->
 <div class="ttc" id="aclassrpp_1_1composite__subscription_html_a7ea8553bdf67bbceab87dd14b7c42e3c"><div class="ttname"><a href="classrpp_1_1composite__subscription.html#a7ea8553bdf67bbceab87dd14b7c42e3c">rpp::composite_subscription::add</a></div><div class="ttdeci">TSub add(const TSub &amp;sub=TSub{}) const</div><div class="ttdoc">Add any other subscription to this as dependent.</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:42</div></div>
 <div class="ttc" id="aclassrpp_1_1composite__subscription_html"><div class="ttname"><a href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a></div><div class="ttdoc">rpp::subscription_base with ability to add some dependent subscriptions as a part of this one: in cas...</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:26</div></div>
+<div class="ttc" id="aclassrpp_1_1specific__subscriber_html"><div class="ttname"><a href="classrpp_1_1specific__subscriber.html">rpp::specific_subscriber</a></div><div class="ttdoc">specific version of subscriber which stores type of observer used inside to prevent extra allocations</div><div class="ttdef"><b>Definition:</b> fwd.hpp:27</div></div>
 <div class="ttc" id="aclassrpp_1_1grouped__observable_html"><div class="ttname"><a href="classrpp_1_1grouped__observable.html">rpp::grouped_observable</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:41</div></div>
 <div class="ttc" id="aclassrpp_1_1subjects_1_1publish__subject_html"><div class="ttname"><a href="classrpp_1_1subjects_1_1publish__subject.html">rpp::subjects::publish_subject&lt; Type &gt;</a></div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer_html_a64b2ff69a10fc7c8190c6abf882e4429"><div class="ttname"><a href="classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html#a64b2ff69a10fc7c8190c6abf882e4429">rpp::details::group_by_lift_impl::group_by_observer::on_error</a></div><div class="ttdeci">void on_error(const std::exception_ptr &amp;err) const override</div><div class="ttdoc">Observable calls this method to notify observer about some error during generation next data.</div><div class="ttdef"><b>Definition:</b> group_by.hpp:104</div></div>
-<div class="ttc" id="astructrpp_1_1interface__observer_html"><div class="ttname"><a href="structrpp_1_1interface__observer.html">rpp::interface_observer</a></div><div class="ttdoc">Interface of any observer type. Describes base interface in terms of Reactive Programming.</div><div class="ttdef"><b>Definition:</b> fwd.hpp:30</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1group__by__lift__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1group__by__lift__impl.html">rpp::details::group_by_lift_impl</a></div><div class="ttdef"><b>Definition:</b> group_by.hpp:79</div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1group__by__state__base_html"><div class="ttname"><a href="classrpp_1_1details_1_1group__by__state__base.html">rpp::details::group_by_state_base</a></div><div class="ttdef"><b>Definition:</b> group_by.hpp:16</div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer_html"><div class="ttname"><a href="classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html">rpp::details::group_by_lift_impl::group_by_observer</a></div><div class="ttdef"><b>Definition:</b> group_by.hpp:89</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1group__by__on__subscribe_html"><div class="ttname"><a href="structrpp_1_1details_1_1group__by__on__subscribe.html">rpp::details::group_by_on_subscribe</a></div><div class="ttdef"><b>Definition:</b> group_by.hpp:53</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1group__by__state_html"><div class="ttname"><a href="structrpp_1_1details_1_1group__by__state.html">rpp::details::group_by_state</a></div><div class="ttdef"><b>Definition:</b> group_by.hpp:43</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1group__by__lift__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1group__by__lift__impl.html">rpp::details::group_by_lift_impl</a></div><div class="ttdef"><b>Definition:</b> group_by.hpp:81</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1typed__observer__tag_html"><div class="ttname"><a href="structrpp_1_1details_1_1typed__observer__tag.html">rpp::details::typed_observer_tag</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:20</div></div>
+<div class="ttc" id="aclassrpp_1_1details_1_1group__by__state__base_html"><div class="ttname"><a href="classrpp_1_1details_1_1group__by__state__base.html">rpp::details::group_by_state_base</a></div><div class="ttdef"><b>Definition:</b> group_by.hpp:18</div></div>
+<div class="ttc" id="aclassrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer_html"><div class="ttname"><a href="classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html">rpp::details::group_by_lift_impl::group_by_observer</a></div><div class="ttdef"><b>Definition:</b> group_by.hpp:91</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1group__by__on__subscribe_html"><div class="ttname"><a href="structrpp_1_1details_1_1group__by__on__subscribe.html">rpp::details::group_by_on_subscribe</a></div><div class="ttdef"><b>Definition:</b> group_by.hpp:55</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1group__by__state_html"><div class="ttname"><a href="structrpp_1_1details_1_1group__by__state.html">rpp::details::group_by_state</a></div><div class="ttdef"><b>Definition:</b> group_by.hpp:45</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

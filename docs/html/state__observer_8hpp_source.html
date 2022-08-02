@@ -108,139 +108,71 @@ $(document).ready(function(){initNavTree('state__observer_8hpp_source.html','');
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;rpp/observers/interface_observer.hpp&gt;</span>     <span class="comment">// base class</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;rpp/subscribers/constraints.hpp&gt;</span>          <span class="comment">// default forwarding functors</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/function_traits.hpp&gt;</span>            <span class="comment">// extract argument type</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;rpp/subscribers/specific_subscriber.hpp&gt;</span>  <span class="comment">// create proxy subscriber</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;exception&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;rpp/observers/fwd.hpp&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/function_traits.hpp&gt;</span>            <span class="comment">// extract argument type</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;rpp/defs.hpp&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;exception&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;tuple&gt;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1forwarding__on__next.html">   22</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1forwarding__on__next.html">forwarding_on_next</a></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber TSub&gt;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">auto</span>&amp;&amp; v, TSub&amp;&amp; sub)<span class="keyword"> const </span>{ sub.on_next(std::forward&lt;decltype(v)&gt;(v)); }</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;};</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1forwarding__on__error.html">   28</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1forwarding__on__error.html">forwarding_on_error</a></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber TSub&gt;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> std::exception_ptr&amp; err, TSub&amp;&amp; sub)<span class="keyword"> const </span>{sub.on_error(err);}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;};</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1forwarding__on__completed.html">   34</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1forwarding__on__completed.html">forwarding_on_completed</a></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber TSub&gt;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> operator()(TSub&amp;&amp; sub)<span class="keyword"> const </span>{sub.on_completed();}</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type T,</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;         constraint::decayed_type State,</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;         std::invocable&lt;T, State&gt;                  OnNext = <a class="code" href="structrpp_1_1details_1_1forwarding__on__next.html">forwarding_on_next</a>,</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;         std::invocable&lt;std::exception_ptr, State&gt; OnError = <a class="code" href="structrpp_1_1details_1_1forwarding__on__error.html">forwarding_on_error</a>,</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;         std::invocable&lt;State&gt;                     OnCompleted= <a class="code" href="structrpp_1_1details_1_1forwarding__on__completed.html">forwarding_on_completed</a>&gt;</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1state__observer.html">   48</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1details_1_1state__observer.html">state_observer</a> final : <span class="keyword">public</span> <a class="code" href="structrpp_1_1interface__observer.html">interface_observer</a>&lt;T&gt;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;{</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="classrpp_1_1details_1_1state__observer.html">state_observer</a>(constraint::decayed_same_as&lt;State&gt; <span class="keyword">auto</span>&amp;&amp;        state,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                   std::invocable&lt;T, State&gt; <span class="keyword">auto</span>&amp;&amp;                  <a class="code" href="classrpp_1_1details_1_1state__observer.html#a0e00117dd1c6fc7e1cf296c3b42a86ee">on_next</a>,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                   std::invocable&lt;std::exception_ptr, State&gt; <span class="keyword">auto</span>&amp;&amp; <a class="code" href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">on_error</a>,</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                   std::invocable&lt;State&gt; <span class="keyword">auto</span>&amp;&amp;                     <a class="code" href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">on_completed</a>)</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        : m_state{std::forward&lt;decltype(state)&gt;(state)}</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        , m_on_next{std::forward&lt;decltype(on_next)&gt;(<a class="code" href="classrpp_1_1details_1_1state__observer.html#a0e00117dd1c6fc7e1cf296c3b42a86ee">on_next</a>)}</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        , m_on_err{std::forward&lt;decltype(on_error)&gt;(<a class="code" href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">on_error</a>)}</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        , m_on_completed{std::forward&lt;decltype(on_completed)&gt;(<a class="code" href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">on_completed</a>)} {}</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="classrpp_1_1details_1_1state__observer.html">state_observer</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1details_1_1state__observer.html">state_observer&lt;T, State, OnNext, OnError, OnCompleted&gt;</a>&amp; other)     = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="classrpp_1_1details_1_1state__observer.html">state_observer</a>(<a class="code" href="classrpp_1_1details_1_1state__observer.html">state_observer&lt;T, State, OnNext, OnError, OnCompleted&gt;</a>&amp;&amp; other) noexcept = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1state__observer.html#a0e00117dd1c6fc7e1cf296c3b42a86ee">   63</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1details_1_1state__observer.html#a0e00117dd1c6fc7e1cf296c3b42a86ee">on_next</a>(<span class="keyword">const</span> T&amp; v)<span class="keyword"> const override                     </span>{ m_on_next(v, m_state);             }</div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1state__observer.html#aeb292b8b8b42cbd39aaad8ed1db5e645">   64</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1details_1_1state__observer.html#aeb292b8b8b42cbd39aaad8ed1db5e645">on_next</a>(T&amp;&amp; v)<span class="keyword"> const override                          </span>{ m_on_next(std::move(v), m_state);  }</div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">   65</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">on_error</a>(<span class="keyword">const</span> std::exception_ptr&amp; err)<span class="keyword"> const override </span>{ m_on_err(err, m_state);            }</div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">   66</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">on_completed</a>()<span class="keyword"> const override                          </span>{ m_on_completed(m_state);         }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    State                             m_state;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    [[no_unique_address]] OnNext      m_on_next;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    [[no_unique_address]] OnError     m_on_err;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    [[no_unique_address]] OnCompleted m_on_completed;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;};</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TState, <span class="keyword">typename</span> TOnNext, <span class="keyword">typename</span> ...Args&gt;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;state_observer(TState, TOnNext, Args...) -&gt; state_observer&lt;std::decay_t&lt;utils::function_argument_t&lt;TOnNext&gt;&gt;, TState, TOnNext, Args...&gt;;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type                            Type, </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;         <span class="keyword">typename</span>                                            State,</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;         std::invocable&lt;Type, State&gt;                         OnNext, </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;         std::invocable&lt;std::exception_ptr, State&gt;           OnError, </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;         std::invocable&lt;State&gt;                               OnCompleted&gt;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">auto</span> create_subscriber_with_state_impl(State&amp;&amp;                     state,</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                                       OnNext&amp;&amp;                    on_next,</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                                       OnError&amp;&amp;                   on_error,</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                                       OnCompleted&amp;&amp;               on_completed,</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                                       <a class="code" href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a>&amp;&amp; sub = <a class="code" href="classrpp_1_1composite__subscription.html">composite_subscription</a>{})</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;{</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">return</span> specific_subscriber&lt;Type, state_observer&lt;Type,</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                                                    std::decay_t&lt;State&gt;,</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                                                    std::decay_t&lt;OnNext&gt;,</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                                                    std::decay_t&lt;OnError&gt;,</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                                                    std::decay_t&lt;OnCompleted&gt;&gt;&gt;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        std::move(sub),</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        std::forward&lt;State&gt;(state),</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        std::forward&lt;OnNext&gt;(on_next),</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        std::forward&lt;OnError&gt;(on_error),</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        std::forward&lt;OnCompleted&gt;(on_completed)</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    };</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type                  Type, </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;         <span class="keyword">typename</span>                                  State,</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;         std::invocable&lt;Type, State&gt;               OnNext, </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;         std::invocable&lt;std::exception_ptr, State&gt; OnError, </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;         std::invocable&lt;State&gt;                     OnCompleted&gt;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="keyword">auto</span> create_subscriber_with_state(State&amp;&amp;        state,</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                                  OnNext&amp;&amp;      on_next,</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                                  OnError&amp;&amp;     on_error,</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                                  OnCompleted&amp;&amp; on_completed)</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;{</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">return</span> create_subscriber_with_state_impl&lt;Type&gt;(std::forward&lt;State&gt;(state),</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                                                   std::forward&lt;OnNext&gt;(on_next),</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                                                   std::forward&lt;OnError&gt;(on_error),</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                                                   std::forward&lt;OnCompleted&gt;(on_completed));</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type                            Type, </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;         <span class="keyword">typename</span>                                            State,</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;         std::invocable&lt;Type, State&gt;                         OnNext, </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;         std::invocable&lt;std::exception_ptr, State&gt;           OnError, </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;         std::invocable&lt;State&gt;                               OnCompleted&gt;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keyword">auto</span> create_subscriber_with_state(<a class="code" href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a> sub,</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                                  State&amp;&amp;                     state,</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                                  OnNext&amp;&amp;                    on_next,</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                                  OnError&amp;&amp;                   on_error,</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                                  OnCompleted&amp;&amp;               on_completed)</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;{</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">return</span> create_subscriber_with_state_impl&lt;Type&gt;(std::forward&lt;State&gt;(state),</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                                                   std::forward&lt;OnNext&gt;(on_next),</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                                                   std::forward&lt;OnError&gt;(on_error),</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                                                   std::forward&lt;OnCompleted&gt;(on_completed),</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                                                   std::move(sub));</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;}</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">template</span>&lt;constraint::decayed_type T,</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;         <span class="keyword">typename</span>                 OnNext,</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;         <span class="keyword">typename</span>                 OnError,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;         <span class="keyword">typename</span>                 OnCompleted,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;         constraint::decayed_type ...States&gt;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;requires (std::invocable&lt;OnNext, T, States...&gt; &amp;&amp; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;          std::invocable&lt;OnError, std::exception_ptr, States...&gt; &amp;&amp; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;          std::invocable&lt;OnCompleted, States...&gt;)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">class </span>state_observer : <span class="keyword">public</span> details::typed_observer_tag&lt;T&gt;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;{</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...TStates&gt;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        requires (constraint::decayed_same_as&lt;States, TStates&gt; &amp;&amp; ...)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    state_observer(std::invocable&lt;T, States...&gt; auto&amp;&amp;                  on_next,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                   std::invocable&lt;std::exception_ptr, States...&gt; auto&amp;&amp; on_error,</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                   std::invocable&lt;States...&gt; auto&amp;&amp;                     on_completed,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                   TStates&amp;&amp;                                            ...states)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        : m_on_next{std::forward&lt;decltype(on_next)&gt;(on_next)}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        , m_on_err{std::forward&lt;decltype(on_error)&gt;(on_error)}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        , m_on_completed{std::forward&lt;decltype(on_completed)&gt;(on_completed)}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        , m_state{std::forward&lt;TStates&gt;(states)...} {}</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> on_next(<span class="keyword">const</span> T&amp; v)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        std::apply([&amp;v, <span class="keyword">this</span>](<span class="keyword">const</span> States&amp; ...states) { m_on_next(v, states...); }, m_state);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> on_next(T&amp;&amp; v)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        std::apply([&amp;v, <span class="keyword">this</span>](<span class="keyword">const</span> States&amp; ...states) { m_on_next(std::move(v), states...); }, m_state);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> on_error(<span class="keyword">const</span> std::exception_ptr&amp; err)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        std::apply([&amp;err, <span class="keyword">this</span>](<span class="keyword">const</span> States&amp; ...states) { m_on_err(err, states...); }, m_state);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">void</span> on_completed()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        std::apply(m_on_completed, m_state);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    RPP_NO_UNIQUE_ADDRESS OnNext                m_on_next;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    RPP_NO_UNIQUE_ADDRESS OnError               m_on_err;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    RPP_NO_UNIQUE_ADDRESS OnCompleted           m_on_completed;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    RPP_NO_UNIQUE_ADDRESS std::tuple&lt;States...&gt; m_state;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;};</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TOnNext, <span class="keyword">typename</span> ...Args&gt;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;state_observer(TOnNext, Args...)-&gt;state_observer&lt;std::decay_t&lt;utils::function_argument_t&lt;TOnNext&gt;&gt;, TOnNext, Args...&gt;;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassrpp_1_1details_1_1state__observer_html_aeb292b8b8b42cbd39aaad8ed1db5e645"><div class="ttname"><a href="classrpp_1_1details_1_1state__observer.html#aeb292b8b8b42cbd39aaad8ed1db5e645">rpp::details::state_observer::on_next</a></div><div class="ttdeci">void on_next(T &amp;&amp;v) const override</div><div class="ttdoc">Observable calls this methods to notify observer about new value.</div><div class="ttdef"><b>Definition:</b> state_observer.hpp:64</div></div>
-<div class="ttc" id="aclassrpp_1_1composite__subscription_html"><div class="ttname"><a href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a></div><div class="ttdoc">rpp::subscription_base with ability to add some dependent subscriptions as a part of this one: in cas...</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:26</div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1state__observer_html"><div class="ttname"><a href="classrpp_1_1details_1_1state__observer.html">rpp::details::state_observer</a></div><div class="ttdoc">Special type of specific_observer which has some state which this observer stores and pass to each ca...</div><div class="ttdef"><b>Definition:</b> state_observer.hpp:48</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1forwarding__on__completed_html"><div class="ttname"><a href="structrpp_1_1details_1_1forwarding__on__completed.html">rpp::details::forwarding_on_completed</a></div><div class="ttdef"><b>Definition:</b> state_observer.hpp:34</div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1state__observer_html_a96d063f55c73076809134f706a8d19dd"><div class="ttname"><a href="classrpp_1_1details_1_1state__observer.html#a96d063f55c73076809134f706a8d19dd">rpp::details::state_observer::on_error</a></div><div class="ttdeci">void on_error(const std::exception_ptr &amp;err) const override</div><div class="ttdoc">Observable calls this method to notify observer about some error during generation next data.</div><div class="ttdef"><b>Definition:</b> state_observer.hpp:65</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1forwarding__on__error_html"><div class="ttname"><a href="structrpp_1_1details_1_1forwarding__on__error.html">rpp::details::forwarding_on_error</a></div><div class="ttdef"><b>Definition:</b> state_observer.hpp:28</div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1state__observer_html_a0e00117dd1c6fc7e1cf296c3b42a86ee"><div class="ttname"><a href="classrpp_1_1details_1_1state__observer.html#a0e00117dd1c6fc7e1cf296c3b42a86ee">rpp::details::state_observer::on_next</a></div><div class="ttdeci">void on_next(const T &amp;v) const override</div><div class="ttdoc">Observable calls this methods to notify observer about new value.</div><div class="ttdef"><b>Definition:</b> state_observer.hpp:63</div></div>
-<div class="ttc" id="astructrpp_1_1interface__observer_html"><div class="ttname"><a href="structrpp_1_1interface__observer.html">rpp::interface_observer</a></div><div class="ttdoc">Interface of any observer type. Describes base interface in terms of Reactive Programming.</div><div class="ttdef"><b>Definition:</b> fwd.hpp:30</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1forwarding__on__next_html"><div class="ttname"><a href="structrpp_1_1details_1_1forwarding__on__next.html">rpp::details::forwarding_on_next</a></div><div class="ttdef"><b>Definition:</b> state_observer.hpp:22</div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1state__observer_html_a7d24b5c70f82c0a4c1f756caf54df267"><div class="ttname"><a href="classrpp_1_1details_1_1state__observer.html#a7d24b5c70f82c0a4c1f756caf54df267">rpp::details::state_observer::on_completed</a></div><div class="ttdeci">void on_completed() const override</div><div class="ttdoc">Observable calls this method to notify observer about finish of work.</div><div class="ttdef"><b>Definition:</b> state_observer.hpp:66</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

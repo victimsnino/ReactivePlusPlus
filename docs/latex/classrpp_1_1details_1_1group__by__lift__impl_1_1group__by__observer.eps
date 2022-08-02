@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 55.944056
+%%BoundingBox: 0 0 500 83.916084
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,12 +19,12 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 8.937500 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 5.958333 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 2 def
+/rows 3 def
 /cols 1 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
@@ -174,7 +174,8 @@
 boxfont setfont
 1 boundaspect scale
 (rpp::details::group_by_lift_impl< Type, TKey, KeySelector, ValueSelector, KeyComparator >::group_by_observer< TSub >) cw
-(rpp::interface_observer< Type >) cw
+(rpp::details::typed_observer_tag< Type >) cw
+(rpp::details::observer_tag) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
 /yspacing boxheight disty add def
@@ -187,7 +188,8 @@ boundx scalefactor div boundy scalefactor div scale
 % ----- classes -----
 
  (rpp::details::group_by_lift_impl< Type, TKey, KeySelector, ValueSelector, KeyComparator >::group_by_observer< TSub >) 0.000000 0.000000 box
- (rpp::interface_observer< Type >) 0.000000 1.000000 box
+ (rpp::details::typed_observer_tag< Type >) 0.000000 1.000000 box
+ (rpp::details::observer_tag) 0.000000 2.000000 box
 
 % ----- relations -----
 
@@ -195,3 +197,7 @@ solid
 0 0.000000 0.000000 out
 solid
 1 0.000000 1.000000 in
+solid
+0 0.000000 1.000000 out
+solid
+1 0.000000 2.000000 in
