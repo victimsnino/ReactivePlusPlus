@@ -51,7 +51,7 @@ public:
      */
     void on_next(const T& v) const
     {
-        std::apply([&](const States& ...states) { m_on_next(v, states...); }, m_state);
+        std::apply([&v](const States& ...states) { m_on_next(v, states...); }, m_state);
     }
 
     /**
@@ -61,7 +61,7 @@ public:
      */
     void on_next(T&& v) const
     {
-        std::apply([&](const States& ...states) { m_on_next(std::move(v), states...); }, m_state);
+        std::apply([&v](const States& ...states) { m_on_next(std::move(v), states...); }, m_state);
     }
 
     /**
@@ -71,7 +71,7 @@ public:
      */
     void on_error(const std::exception_ptr& err) const
     {
-        std::apply([&](const States& ...states) { m_on_err(err, states...); }, m_state);
+        std::apply([&err](const States& ...states) { m_on_err(err, states...); }, m_state);
     }
 
     /**

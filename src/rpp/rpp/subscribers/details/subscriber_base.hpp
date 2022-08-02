@@ -32,8 +32,12 @@ public:
     subscriber_base(const composite_subscription& subscription)
         : m_subscription{subscription}{ }
 
-    subscriber_base(const subscriber_base&)     = default;
-    subscriber_base(subscriber_base&&) noexcept = default;
+    virtual ~subscriber_base() = default;
+
+    subscriber_base(const subscriber_base& other)                = default;
+    subscriber_base(subscriber_base&& other) noexcept            = default;
+    subscriber_base& operator=(const subscriber_base& other)     = default;
+    subscriber_base& operator=(subscriber_base&& other) noexcept = default;
 
     void on_next(const Type& val) const
     {

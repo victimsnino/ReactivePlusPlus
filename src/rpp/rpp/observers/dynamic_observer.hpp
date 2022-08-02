@@ -14,6 +14,8 @@
 #include <rpp/observers/state_observer.hpp> // base
 #include <rpp/utils/function_traits.hpp>    // extract function args
 #include <rpp/utils/functors.hpp>           // default arguments
+#include <rpp/defs.hpp>
+
 
 #include <memory>
 
@@ -60,7 +62,7 @@ public:
     void on_completed() const override                          { m_observer.on_completed();        }
 
 private:
-    TObserver m_observer;
+    RPP_NO_UNIQUE_ADDRESS TObserver m_observer;
 };
 
 template<constraint::decayed_type T, constraint::observer_of_type<T> TObserver, typename ...Args>
@@ -119,7 +121,7 @@ public:
     const dynamic_observer<T>& as_dynamic() const { return *this; }
 
 private:
-    dynamic_observer(std::shared_ptr<details::dynamic_observer_state_base<T>>&& state)
+    dynamic_observer(std::shared_ptr<details::dynamic_observer_state_base<T>> state)
         : base_for_dynamic_observer<T>{typename details::dynamic_observer_state_base<T>::forward_on_next{},
                                        typename details::dynamic_observer_state_base<T>::forward_on_error{},
                                        typename details::dynamic_observer_state_base<T>::forward_on_completed{},

@@ -36,11 +36,6 @@ public:
         : details::subscriber_base<Type>{ std::move(sub)}
         , m_observer{ std::forward<Types>(vals)... } {}
 
-    // ************* Copy/Move ************************* //
-    specific_subscriber(const specific_subscriber&) = default;
-    specific_subscriber(specific_subscriber&&) noexcept = default;
-
-
     const Observer& get_observer() const
     {
         return m_observer;
