@@ -47,7 +47,7 @@ public:
 protected:
     void do_if_subscribed_and_unsubscribe(const auto& callable) const
     {
-        if (!is_subscribed()) [[unlikely]]
+        if (!is_subscribed())
             return;
 
         subscription_guard guard{m_subscription};

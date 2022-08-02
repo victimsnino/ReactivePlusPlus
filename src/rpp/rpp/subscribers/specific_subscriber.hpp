@@ -71,7 +71,7 @@ public:
 private:
     void on_next_impl(auto&& val) const
     {
-        if (!is_subscribed()) [[unlikely]]
+        if (!is_subscribed())
             return;
 
         try
