@@ -30,7 +30,7 @@ template<constraint::decayed_type T,
 requires (std::invocable<OnNext, T, States...> && 
           std::invocable<OnError, std::exception_ptr, States...> && 
           std::invocable<OnCompleted, States...>)
-class state_observer : public typed_observer<T>
+class state_observer : public details::typed_observer_tag<T>
 {
 public:
     template<typename ...TStates>

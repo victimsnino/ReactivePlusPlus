@@ -27,7 +27,7 @@ namespace details
     struct extract_observable_type
     {
         template<typename TT>
-        static TT deduce(const virtual_observable<TT>&);
+        static TT deduce(const rpp::details::typed_observable_tag<TT>&);
 
         using type = decltype(deduce(std::declval<std::decay_t<T>>()));
     };

@@ -88,7 +88,7 @@ struct group_by_lift_impl
     RPP_NO_UNIQUE_ADDRESS KeyComparator comparator;
 
     template<constraint::subscriber TSub>
-    class group_by_observer final : public typed_observer<Type>
+    class group_by_observer final : public details::typed_observer_tag<Type>
     {
     public:
         group_by_observer(const std::shared_ptr<StateType>& state,

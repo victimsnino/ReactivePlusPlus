@@ -35,7 +35,7 @@ namespace details
     struct extract_observer_type
     {
         template<typename TT>
-        static TT deduce(const typed_observer<TT>&);
+        static TT deduce(const rpp::details::typed_observer_tag<TT>&);
 
         using type = decltype(deduce(std::declval<std::decay_t<T>>()));
     };
