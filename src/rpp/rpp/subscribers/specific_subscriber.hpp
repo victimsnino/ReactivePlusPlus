@@ -10,10 +10,13 @@
 
 #pragma once
 
-#include <rpp/observers/specific_observer.hpp>
-#include <rpp/subscribers/details/subscriber_base.hpp>
-#include <rpp/utils/function_traits.hpp>
+#include <rpp/defs.hpp>
 #include <rpp/observers/constraints.hpp>
+#include <rpp/observers/specific_observer.hpp>
+#include <rpp/subscribers/fwd.hpp>
+#include <rpp/subscribers/details/subscriber_base.hpp>
+#include <rpp/subscriptions/composite_subscription.hpp>
+#include <rpp/utils/function_traits.hpp>
 
 namespace rpp
 {
@@ -23,17 +26,18 @@ namespace rpp
  * \tparam Observer observer which was wrapped by this subscriber
  */
 template<constraint::decayed_type Type, constraint::decayed_observer Observer>
-class specific_subscriber : public details::subscriber_base<Type>
+class specific_subscriber : public details::typed_subscriber_tag<Type>
+                          , public details::subscriber_base
 {
 public:
     template<typename ...Types>
     specific_subscriber(Types&&...vals) requires std::constructible_from<Observer, Types...>
-        : details::subscriber_base<Type>{  }
+        : subscriber_base{}
         , m_observer{ std::forward<Types>(vals)... } {}
 
     template<typename ...Types>
     specific_subscriber(composite_subscription sub, Types&&...vals) requires std::constructible_from<Observer, Types...>
-        : details::subscriber_base<Type>{ std::move(sub)}
+        : subscriber_base{ std::move(sub)}
         , m_observer{ std::forward<Types>(vals)... } {}
 
     const Observer& get_observer() const
@@ -41,31 +45,46 @@ public:
         return m_observer;
     }
 
+    void on_next(const Type& val) const
+    {
+        on_next_impl(val);
+    }
+
+    void on_next(Type&& val) const
+    {
+        on_next_impl(std::move(val));
+    }
+
+    void on_error(const std::exception_ptr& err) const
+    {
+        do_if_subscribed_and_unsubscribe([&err, this] { m_observer.on_error(err); });
+    }
+
+    void on_completed() const
+    {
+        do_if_subscribed_and_unsubscribe([this] { m_observer.on_completed(); });
+    }
+    
     auto as_dynamic() const & { return dynamic_subscriber<Type>{*this}; }
     auto as_dynamic() && { return dynamic_subscriber<Type>{this->get_subscription(), std::move(m_observer)}; }
-protected:
-    void on_next_impl(const Type& val) const final
-    {
-        m_observer.on_next(val);
-    }
-
-    void on_next_impl(Type&& val) const final
-    {
-        m_observer.on_next(std::move(val));
-    }
-
-    void on_error_impl(const std::exception_ptr& err) const final
-    {
-        m_observer.on_error(err);
-    }
-
-    void on_completed_impl() const final
-    {
-        m_observer.on_completed();
-    }
 
 private:
-    Observer m_observer{};
+    void on_next_impl(auto&& val) const
+    {
+        if (!is_subscribed()) [[unlikely]]
+            return;
+
+        try
+        {
+            m_observer.on_next(std::forward<decltype(val)>(val));
+        }
+        catch (...)
+        {
+            on_error(std::current_exception());
+        }
+    }
+
+    RPP_NO_UNIQUE_ADDRESS Observer m_observer{};
 };
 
 template<constraint::observer TObs>

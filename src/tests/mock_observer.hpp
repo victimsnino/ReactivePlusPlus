@@ -15,7 +15,7 @@
 #include <vector>
 
 template<typename Type>
-class mock_observer : public rpp::typed_observer<Type>
+class mock_observer : public rpp::details::typed_observer_tag<Type>
 {
 public:
     explicit mock_observer(bool copy_values = true) : m_state{std::make_shared<State>(copy_values)} {}

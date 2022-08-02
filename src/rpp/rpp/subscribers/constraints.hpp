@@ -28,7 +28,7 @@ namespace details
     struct extract_subscriber_type
     {
         template<typename TT>
-        static TT deduce(const rpp::details::subscriber_base<TT>&);
+        static TT deduce(const rpp::details::typed_subscriber_tag<TT>&);
 
         using type = decltype(deduce(std::declval<std::decay_t<T>>()));
     };
