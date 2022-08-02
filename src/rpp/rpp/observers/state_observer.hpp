@@ -20,7 +20,7 @@
 namespace rpp::details
 {
 /**
- * \brief Special type of specific_observer which has some state which this observer stores and pass to each callback. Used for storing subscriber without extra copies
+ * \brief Special type of specific_observer which has some state which this observer stores and pass to each callback. Actually it is base class for all observers.
  */
 template<constraint::decayed_type T,
          typename                 OnNext,

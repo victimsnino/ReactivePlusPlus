@@ -30,21 +30,6 @@ struct dynamic_observer_state_base
     virtual void on_next(T&& v) const = 0;
     virtual void on_error(const std::exception_ptr& err) const = 0;
     virtual void on_completed() const = 0;
-
-    struct forward_on_next
-    {
-        void operator()(auto&& v, const std::shared_ptr<dynamic_observer_state_base<T>>& state) const { state->on_next(std::forward<decltype(v)>(v)); }
-    };
-
-    struct forward_on_error
-    {
-        void operator()(const std::exception_ptr& err, const std::shared_ptr<dynamic_observer_state_base<T>>& state) const { state->on_error(err); }
-    };
-
-    struct forward_on_completed
-    {
-        void operator()(const std::shared_ptr<dynamic_observer_state_base<T>>& state) const  { state->on_completed(); }
-    };
 };
 
 template<constraint::decayed_type T, constraint::observer_of_type<T> TObserver>
@@ -56,10 +41,10 @@ public:
     dynamic_observer_state(Args&& ...args)
         : m_observer{ std::forward<Args>(args)... } {}
 
-    void on_next(const T& v) const override                     { m_observer.on_next(v);            }
-    void on_next(T&& v) const override                          { m_observer.on_next(std::move(v)); }
-    void on_error(const std::exception_ptr& err) const override { m_observer.on_error(err);         }
-    void on_completed() const override                          { m_observer.on_completed();        }
+    void on_next(const T& v) const final                     { m_observer.on_next(v);            }
+    void on_next(T&& v) const final                          { m_observer.on_next(std::move(v)); }
+    void on_error(const std::exception_ptr& err) const final { m_observer.on_error(err);         }
+    void on_completed() const final                          { m_observer.on_completed();        }
 
 private:
     RPP_NO_UNIQUE_ADDRESS TObserver m_observer;
@@ -82,9 +67,9 @@ namespace rpp
 {
 template<constraint::decayed_type T>
 using base_for_dynamic_observer = details::state_observer<T,
-                                                          typename details::dynamic_observer_state_base<T>::forward_on_next,
-                                                          typename details::dynamic_observer_state_base<T>::forward_on_error,
-                                                          typename details::dynamic_observer_state_base<T>::forward_on_completed,
+                                                          utils::forwarding_on_next_for_pointer,
+                                                          utils::forwarding_on_error_for_pointer,
+                                                          utils::forwarding_on_completed_for_pointer,
                                                           std::shared_ptr<details::dynamic_observer_state_base<T>>>;
 /**
  * \brief Dynamic (type-erased) version of observer (comparing to specific_observer)
@@ -122,9 +107,9 @@ public:
 
 private:
     dynamic_observer(std::shared_ptr<details::dynamic_observer_state_base<T>> state)
-        : base_for_dynamic_observer<T>{typename details::dynamic_observer_state_base<T>::forward_on_next{},
-                                       typename details::dynamic_observer_state_base<T>::forward_on_error{},
-                                       typename details::dynamic_observer_state_base<T>::forward_on_completed{},
+        : base_for_dynamic_observer<T>{utils::forwarding_on_next_for_pointer{},
+                                       utils::forwarding_on_error_for_pointer{},
+                                       utils::forwarding_on_completed_for_pointer{},
                                        std::move(state)} {}
 };
 

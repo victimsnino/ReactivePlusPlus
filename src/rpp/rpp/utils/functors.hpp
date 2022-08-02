@@ -62,19 +62,31 @@ struct get
 
 struct forwarding_on_next
 {
-    template<rpp::constraint::subscriber TSub>
-    void operator()(auto&& v, TSub&& sub) const { sub.on_next(std::forward<decltype(v)>(v)); }
+    void operator()(auto&& v, const auto& sub) const { sub.on_next(std::forward<decltype(v)>(v)); }
 };
 
 struct forwarding_on_error
 {
-    template<rpp::constraint::subscriber TSub>
-    void operator()(const std::exception_ptr& err, TSub&& sub) const { sub.on_error(err); }
+    void operator()(const std::exception_ptr& err, const auto& sub) const { sub.on_error(err); }
 };
 
 struct forwarding_on_completed
 {
-    template<rpp::constraint::subscriber TSub>
-    void operator()(TSub&& sub) const { sub.on_completed(); }
+    void operator()(const auto& sub) const { sub.on_completed(); }
+};
+
+struct forwarding_on_next_for_pointer
+{
+    void operator()(auto&& v, const auto& sub) const { sub->on_next(std::forward<decltype(v)>(v)); }
+};
+
+struct forwarding_on_error_for_pointer
+{
+    void operator()(const std::exception_ptr& err, const auto& sub) const { sub->on_error(err); }
+};
+
+struct forwarding_on_completed_for_pointer
+{
+    void operator()(const auto& sub) const { sub->on_completed(); }
 };
 } // namespace rpp::utils
