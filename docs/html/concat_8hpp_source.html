@@ -137,7 +137,7 @@ $(document).ready(function(){initNavTree('concat_8hpp_source.html',''); initResi
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    {</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">return</span>[state = this-&gt;shared_from_this()]&lt;constraint::observable TObs, constraint::subscriber TSub&gt;(TObs&amp;&amp; new_observable, <span class="keyword">const</span> TSub &amp; sub)</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">if</span>(state-&gt;m_inner_subscribed.exchange(<span class="keyword">true</span>))</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">if</span>(state-&gt;m_inner_subscribed.exchange(<span class="keyword">true</span>, std::memory_order::acq_rel))</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            {</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                std::lock_guard lock{ state-&gt;m_mutex };</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                <span class="keywordflow">if</span> (state-&gt;m_inner_subscribed.exchange(<span class="keyword">true</span>, std::memory_order_relaxed))</div>
@@ -153,7 +153,7 @@ $(document).ready(function(){initNavTree('concat_8hpp_source.html',''); initResi
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">    </span>{</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">return</span> [state = this-&gt;shared_from_this()](<span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp; sub)</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordflow">if</span> (!state-&gt;m_inner_subscribed)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordflow">if</span> (!state-&gt;m_inner_subscribed.load(std::memory_order::acquire))</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                sub.on_completed();</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        };</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>

@@ -130,7 +130,7 @@ $(document).ready(function(){initNavTree('switch__on__next_8hpp_source.html','')
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">auto</span> state        = shared_from_this();</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keyword">auto</span> on_completed = [=](<span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp; sub)</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="keywordflow">if</span> (state-&gt;count_of_on_completed == 1) <span class="comment">// 1 because decrement happens in composite_subscription_callback</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="keywordflow">if</span> (state-&gt;count_of_on_completed.load(std::memory_order::acquire) == 1) <span class="comment">// 1 because decrement happens in composite_subscription_callback</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                sub.on_completed();</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        };</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
@@ -143,7 +143,7 @@ $(document).ready(function(){initNavTree('switch__on__next_8hpp_source.html','')
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            state-&gt;current_inner_observable.add([state, remove_from = sub.get_subscription()]</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            {</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                remove_from.remove(state-&gt;current_inner_observable);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                --(state-&gt;count_of_on_completed);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                state-&gt;count_of_on_completed.fetch_sub(1, std::memory_order::relaxed);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            });</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
@@ -178,7 +178,7 @@ $(document).ready(function(){initNavTree('switch__on__next_8hpp_source.html','')
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                                                        utils::forwarding_on_error{},</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                                                        [=](<span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp; sub)</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            if (--(state-&gt;count_of_on_completed) == 0) </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            if (state-&gt;count_of_on_completed.fetch_sub(1, std::memory_order::acq_rel) == 1)</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                sub.on_completed();</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        });</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    }</div>

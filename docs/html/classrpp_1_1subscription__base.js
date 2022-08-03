@@ -6,6 +6,7 @@ var classrpp_1_1subscription__base =
     [ "subscription_base", "classrpp_1_1subscription__base.html#a90d8372674b1f0f6087e068da005a823", null ],
     [ "~subscription_base", "classrpp_1_1subscription__base.html#aad48bc235e560658d3532f9eb6f1f197", null ],
     [ "get_state", "classrpp_1_1subscription__base.html#a78068992b0c2601effd517fd29189545", null ],
+    [ "get_state_as_shared", "classrpp_1_1subscription__base.html#a20f372936151b72bc4228279b53ee77e", null ],
     [ "is_subscribed", "classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2", null ],
     [ "operator=", "classrpp_1_1subscription__base.html#a290f7e37ec92d283189fa4a75dbdcf6b", null ],
     [ "operator=", "classrpp_1_1subscription__base.html#a835b8c8493fd6483c86046f1fc448298", null ],

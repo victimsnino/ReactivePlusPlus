@@ -139,7 +139,7 @@ $(document).ready(function(){initNavTree('merge_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    {</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">return</span> [state = shared_from_this()](<span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp; sub)</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keywordflow">if</span> (--(state-&gt;count_of_on_completed) == 0)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keywordflow">if</span> (state-&gt;count_of_on_completed.fetch_sub(1, std::memory_order::acq_rel) == 1)</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                sub.on_completed();</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        };</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>

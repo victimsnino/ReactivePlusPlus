@@ -124,31 +124,32 @@ $(document).ready(function(){initNavTree('combining__utils_8hpp_source.html','')
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                             <span class="keyword">auto</span>&amp;&amp; on_error,</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                             <span class="keyword">auto</span>&amp;&amp; on_completed)</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    ++count_of_on_completed_required;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">return</span> create_subscriber_with_state&lt;Type&gt;(std::move(subscription),</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                                              std::forward&lt;decltype(subscriber)&gt;(subscriber),</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                                              std::forward&lt;decltype(on_next)&gt;(on_next),</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                                              std::forward&lt;decltype(on_error)&gt;(on_error),</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                                              std::forward&lt;decltype(on_completed)&gt;(on_completed));</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">auto</span> create_proxy_subscriber(constraint::subscriber <span class="keyword">auto</span>&amp;&amp; subscriber,</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                             std::atomic_size_t&amp; count_of_on_completed_required,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                             <span class="keyword">auto</span>&amp;&amp; on_next,</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                             <span class="keyword">auto</span>&amp;&amp; on_error,</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                             <span class="keyword">auto</span>&amp;&amp; on_completed)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">auto</span> sub = subscriber.get_subscription().make_child();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">return</span> create_proxy_subscriber&lt;Type&gt;(std::move(sub),</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                                         std::forward&lt;decltype(subscriber)&gt;(subscriber),</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                                         count_of_on_completed_required,</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                                         std::forward&lt;decltype(on_next)&gt;(on_next),</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                                         std::forward&lt;decltype(on_error)&gt;(on_error),</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                                         std::forward&lt;decltype(on_completed)&gt;(on_completed));</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace rpp::details::combining</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="comment">// we don&#39;t need to add some memory barrier there</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    count_of_on_completed_required.fetch_add(1, std::memory_order::relaxed);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">return</span> create_subscriber_with_state&lt;Type&gt;(std::move(subscription),</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                                              std::forward&lt;decltype(subscriber)&gt;(subscriber),</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                                              std::forward&lt;decltype(on_next)&gt;(on_next),</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                                              std::forward&lt;decltype(on_error)&gt;(on_error),</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                                              std::forward&lt;decltype(on_completed)&gt;(on_completed));</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">auto</span> create_proxy_subscriber(constraint::subscriber <span class="keyword">auto</span>&amp;&amp; subscriber,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                             std::atomic_size_t&amp; count_of_on_completed_required,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                             <span class="keyword">auto</span>&amp;&amp; on_next,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                             <span class="keyword">auto</span>&amp;&amp; on_error,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                             <span class="keyword">auto</span>&amp;&amp; on_completed)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;{</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">auto</span> sub = subscriber.get_subscription().make_child();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span> create_proxy_subscriber&lt;Type&gt;(std::move(sub),</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                                         std::forward&lt;decltype(subscriber)&gt;(subscriber),</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                                         count_of_on_completed_required,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                                         std::forward&lt;decltype(on_next)&gt;(on_next),</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                                         std::forward&lt;decltype(on_error)&gt;(on_error),</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                                         std::forward&lt;decltype(on_completed)&gt;(on_completed));</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace rpp::details::combining</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassrpp_1_1composite__subscription_html"><div class="ttname"><a href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a></div><div class="ttdoc">rpp::subscription_base with ability to add some dependent subscriptions as a part of this one: in cas...</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:26</div></div>
