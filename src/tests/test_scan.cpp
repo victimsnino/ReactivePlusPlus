@@ -76,6 +76,30 @@ SCENARIO("scan scans values and store state", "[scan]")
     }
 }
 
+SCENARIO("scan keeps state for copies", "[scan]")
+{
+    auto mock = mock_observer<int>{};
+    GIVEN("observable which sends values via copy")
+    {
+        auto obs = rpp::source::create<int>([](const auto& sub)
+            {
+                for (size_t i = 0; i < 10; ++i)
+                {
+                    auto copy = sub;
+                    copy.on_next(1);
+                }
+            });
+        WHEN("subscribe on it via scan")
+        {
+            obs.scan(int{}, [](int seed, int new_v) {return seed + new_v; }).subscribe(mock);
+            THEN("observer obtains values as expected")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+            }
+        }
+    }
+}
+
 SCENARIO("scan doesn't produce extra copies", "[scan][track_copy]")
 {
     GIVEN("observable and subscriber")
@@ -88,7 +112,7 @@ SCENARIO("scan doesn't produce extra copies", "[scan][track_copy]")
             THEN("no extra copies")
             {
                 REQUIRE(verifier.get_copy_count() == 2); // 1 copy to scan state + 1 copy for provided subscriber to shared_state
-                REQUIRE(verifier.get_move_count() == 2); // 1 move to observable state + 1 move from lambda
+                REQUIRE(verifier.get_move_count() == 4); // 1 move to observable state + 1 move to subscriber + 1 move to dynamic_subscriber + 1 move from lambda
             }
         }
     }

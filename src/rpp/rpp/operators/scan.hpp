@@ -27,6 +27,25 @@ IMPLEMENTATION_FILE (scan_tag);
 
 namespace rpp::details
 {
+template<constraint::decayed_type Result, typename AccumulatorFn>
+class scan_on_next
+{
+public:
+    scan_on_next(const Result& seed, const AccumulatorFn& accumulator)
+        : m_seed{seed}
+        , m_accumulator{accumulator} {}
+
+    void operator()(auto&& value, const rpp::constraint::subscriber auto& sub) const
+    {
+        m_seed = m_accumulator(std::move(m_seed), std::forward<decltype(value)>(value));
+        sub.on_next(utils::as_const(m_seed));
+    }
+
+private:
+    mutable Result                      m_seed;
+    RPP_NO_UNIQUE_ADDRESS AccumulatorFn m_accumulator;
+};
+
 template<constraint::decayed_type Type, constraint::decayed_type Result, scan_accumulator<Result, Type> AccumulatorFn>
 struct scan_impl
 {
@@ -36,18 +55,13 @@ struct scan_impl
     template<constraint::subscriber_of_type<Result> TSub>
     auto operator()(TSub&& subscriber) const
     {
-        auto state = std::make_shared<Result>(initial_value);
-
         auto subscription = subscriber.get_subscription();
         return create_subscriber_with_state<Type>(std::move(subscription),
                                                   std::forward<TSub>(subscriber),
-                                                  [state, accumulator=accumulator](auto&& value, const auto& sub)
-                                                  {
-                                                      *state = accumulator(std::move(*state), std::forward<decltype(value)>(value));
-                                                      sub.on_next(utils::as_const(*state));
-                                                  },
+                                                  scan_on_next{initial_value, accumulator},
                                                   utils::forwarding_on_error{},
-                                                  utils::forwarding_on_completed{});
+                                                  utils::forwarding_on_completed{})
+                .as_dynamic(); // use as_dynamic to make shared_ptr instead of making shared_ptr for scan state
     }
 };
 } // namespace rpp::details
