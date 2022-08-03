@@ -25,7 +25,8 @@ protected:
     subscription_base(std::shared_ptr<details::subscription_state> state)
         : m_state{std::move(state)} {}
 
-    details::subscription_state* get_state() const { return m_state.get(); }
+    details::subscription_state*                        get_state() const { return m_state.get(); }
+    const std::shared_ptr<details::subscription_state>& get_state_as_shared() const { return m_state; }
 public:
     subscription_base()
         : m_state{std::make_shared<details::subscription_state>()} {}

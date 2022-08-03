@@ -39,7 +39,7 @@ struct concat_state_t : public std::enable_shared_from_this<concat_state_t<Value
     {
         return[state = this->shared_from_this()]<constraint::observable TObs, constraint::subscriber TSub>(TObs&& new_observable, const TSub & sub)
         {
-            if(state->m_inner_subscribed.exchange(true))
+            if(state->m_inner_subscribed.exchange(true, std::memory_order::acq_rel))
             {
                 std::lock_guard lock{ state->m_mutex };
                 if (state->m_inner_subscribed.exchange(true, std::memory_order_relaxed))
@@ -55,7 +55,7 @@ struct concat_state_t : public std::enable_shared_from_this<concat_state_t<Value
     {
         return [state = this->shared_from_this()](const constraint::subscriber auto& sub)
         {
-            if (!state->m_inner_subscribed)
+            if (!state->m_inner_subscribed.load(std::memory_order::acquire))
                 sub.on_completed();
         };
     }

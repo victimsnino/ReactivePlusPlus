@@ -41,13 +41,13 @@ public:
     template<constraint::subscription TSub = subscription_base>
     TSub add(const TSub& sub = TSub{}) const
     {
-        if (static_cast<const subscription_base *>(&sub) != static_cast<const subscription_base*>(this))
-        {
-            if (const auto pstate = get_state())
-                static_cast<state*>(pstate)->add(sub);
-            else
-                sub.unsubscribe();
-        }
+        if (static_cast<const subscription_base*>(&sub) == static_cast<const subscription_base*>(this))
+            return sub;
+
+        if (const auto pstate = get_state())
+            static_cast<state*>(pstate)->add(sub);
+        else
+            sub.unsubscribe();
         return sub;
     }
 
@@ -63,12 +63,12 @@ public:
     {
         composite_subscription ret{};
         add(ret);
-        add([ret, state = static_cast<state*>(get_state())]
-        {
-            // add cleanup
-            if (state)
-                state->remove(ret);
-        });
+        ret.add([ret, state = std::weak_ptr{ std::static_pointer_cast<state>(get_state_as_shared()) }]
+            {
+                // add cleanup
+                if (const auto shared = state.lock())
+                    shared->remove(ret);
+            });
         return ret;
     }
 
@@ -102,14 +102,17 @@ private:
 
         void add(const subscription_base& sub)
         {
+            if (!sub.is_subscribed())
+                return;
+
             while (true)
             {
                 DepsState expected{DepsState::None};
-                if (m_state.compare_exchange_strong(expected, DepsState::Edit))
+                if (m_state.compare_exchange_strong(expected, DepsState::Edit, std::memory_order::acq_rel))
                 {
                     m_deps.push_back(sub);
-
-                    m_state.store(DepsState::None);
+                    
+                    m_state.store(DepsState::None, std::memory_order::release);
                     return;
                 }
 
@@ -125,12 +128,12 @@ private:
         {
             while (true)
             {
-                DepsState expected{ DepsState::None };
-                if (m_state.compare_exchange_strong(expected, DepsState::Edit))
+                DepsState expected{DepsState::None};
+                if (m_state.compare_exchange_strong(expected, DepsState::Edit, std::memory_order::acq_rel))
                 {
                     std::erase(m_deps, sub);
 
-                    m_state.store(DepsState::None);
+                    m_state.store(DepsState::None, std::memory_order::release);
                     return;
                 }
 
@@ -145,7 +148,7 @@ private:
             while (true)
             {
                 DepsState expected{DepsState::None};
-                if (m_state.compare_exchange_strong(expected, DepsState::Unsubscribed))
+                if (m_state.compare_exchange_strong(expected, DepsState::Unsubscribed, std::memory_order::acq_rel))
                 {
                     std::ranges::for_each(m_deps, &subscription_base::unsubscribe);
                     m_deps.clear();
