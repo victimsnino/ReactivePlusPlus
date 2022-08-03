@@ -16,6 +16,7 @@
 #include <rpp/subscriptions/constraints.hpp>
 
 #include <algorithm>
+#include <mutex>
 #include <vector>
 
 namespace rpp
@@ -41,13 +42,13 @@ public:
     template<constraint::subscription TSub = subscription_base>
     TSub add(const TSub& sub = TSub{}) const
     {
-        if (static_cast<const subscription_base *>(&sub) != static_cast<const subscription_base*>(this))
-        {
-            if (const auto pstate = get_state())
-                static_cast<state*>(pstate)->add(sub);
-            else
-                sub.unsubscribe();
-        }
+        if (static_cast<const subscription_base*>(&sub) == static_cast<const subscription_base*>(this))
+            return sub;
+
+        if (const auto pstate = get_state())
+            static_cast<state*>(pstate)->add(sub);
+        else
+            sub.unsubscribe();
         return sub;
     }
 
@@ -63,11 +64,11 @@ public:
     {
         composite_subscription ret{};
         add(ret);
-        add([ret, state = static_cast<state*>(get_state())]
+        ret.add([ret, state = std::weak_ptr{ std::static_pointer_cast<state>(get_state_as_shared()) }]
         {
             // add cleanup
-            if (state)
-                state->remove(ret);
+            if (const auto shared = state.lock())
+                shared->remove(ret);
         });
         return ret;
     }
@@ -102,67 +103,49 @@ private:
 
         void add(const subscription_base& sub)
         {
-            while (true)
-            {
-                DepsState expected{DepsState::None};
-                if (m_state.compare_exchange_strong(expected, DepsState::Edit))
-                {
-                    m_deps.push_back(sub);
+            if (!sub.is_subscribed())
+                return;
 
-                    m_state.store(DepsState::None);
-                    return;
-                }
-
-                if (expected == DepsState::Unsubscribed)
-                {
-                    sub.unsubscribe();
-                    return;
-                }
-            }
+            if (!add_safe(sub))
+                sub.unsubscribe();
         }
 
         void remove(const subscription_base& sub)
         {
-            while (true)
-            {
-                DepsState expected{ DepsState::None };
-                if (m_state.compare_exchange_strong(expected, DepsState::Edit))
-                {
-                    std::erase(m_deps, sub);
+            if (!is_subscribed())
+                return;
 
-                    m_state.store(DepsState::None);
-                    return;
-                }
+            std::lock_guard lock{ m_mutex };
+            if (!is_subscribed())
+                return;
 
-                if (expected == DepsState::Unsubscribed)
-                    return;
-            }
+            std::erase(m_deps, sub);
         }
 
     private:
+        bool add_safe(const subscription_base& sub)
+        {
+            if (!is_subscribed())
+                return false;
+
+            std::lock_guard lock{m_mutex};
+            if (!is_subscribed())
+                return false;
+
+            m_deps.push_back(sub);
+            return true;
+        }
+
         void on_unsubscribe() final
         {
-            while (true)
-            {
-                DepsState expected{DepsState::None};
-                if (m_state.compare_exchange_strong(expected, DepsState::Unsubscribed))
-                {
-                    std::ranges::for_each(m_deps, &subscription_base::unsubscribe);
-                    m_deps.clear();
-                    return;
-                }
-            }
+            std::lock_guard lock{m_mutex};
+
+            std::ranges::for_each(m_deps, &subscription_base::unsubscribe);
+            m_deps.clear();
         }
 
     private:
-        enum class DepsState : uint8_t
-        {
-            None,        //< default state
-            Edit,        //< set it during adding new element into deps or removing. After success -> FallBack to None
-            Unsubscribed //< permanent state after unsubscribe
-        };
-
-        std::atomic<DepsState>         m_state{DepsState::None};
+        std::mutex                     m_mutex{};
         std::vector<subscription_base> m_deps{};
     };
 };

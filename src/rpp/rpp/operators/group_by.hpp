@@ -24,10 +24,10 @@ public:
     
     void on_subscribe(const composite_subscription& dest)
     {
-        ++subscribers;
+        subscribers.fetch_add(1, std::memory_order::acq_rel);
         dest.add([state = this->shared_from_this()]
         {
-            if (--state->subscribers == 0)
+            if (state->subscribers.fetch_sub(1, std::memory_order::acq_rel) == 1)
                 state->lifetime.unsubscribe();
         });
     }

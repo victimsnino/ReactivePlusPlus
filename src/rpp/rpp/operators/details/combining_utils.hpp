@@ -26,7 +26,8 @@ auto create_proxy_subscriber(rpp::composite_subscription subscription,
                              auto&& on_error,
                              auto&& on_completed)
 {
-    ++count_of_on_completed_required;
+    // we don't need to add some memory barrier there
+    count_of_on_completed_required.fetch_add(1, std::memory_order::relaxed);
 
     return create_subscriber_with_state<Type>(std::move(subscription),
                                               std::forward<decltype(subscriber)>(subscriber),

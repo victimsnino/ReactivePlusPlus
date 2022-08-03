@@ -41,7 +41,7 @@ struct merge_state_t : public std::enable_shared_from_this<merge_state_t>
     {
         return [state = shared_from_this()](const constraint::subscriber auto& sub)
         {
-            if (--(state->count_of_on_completed) == 0)
+            if (state->count_of_on_completed.fetch_sub(1, std::memory_order::acq_rel) == 1)
                 sub.on_completed();
         };
     }

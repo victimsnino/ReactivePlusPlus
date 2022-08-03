@@ -32,7 +32,7 @@ struct switch_on_next_state_t : public std::enable_shared_from_this<switch_on_ne
         auto state        = shared_from_this();
         auto on_completed = [=](const constraint::subscriber auto& sub)
         {
-            if (state->count_of_on_completed == 1) // 1 because decrement happens in composite_subscription_callback
+            if (state->count_of_on_completed.load(std::memory_order::acquire) == 1) // 1 because decrement happens in composite_subscription_callback
                 sub.on_completed();
         };
 
@@ -45,7 +45,7 @@ struct switch_on_next_state_t : public std::enable_shared_from_this<switch_on_ne
             state->current_inner_observable.add([state, remove_from = sub.get_subscription()]
             {
                 remove_from.remove(state->current_inner_observable);
-                --(state->count_of_on_completed);
+                state->count_of_on_completed.fetch_sub(1, std::memory_order::relaxed);
             });
 
 
@@ -80,7 +80,7 @@ struct switch_on_next_impl
                                                         utils::forwarding_on_error{},
                                                         [=](const constraint::subscriber auto& sub)
         {
-            if (--(state->count_of_on_completed) == 0) 
+            if (state->count_of_on_completed.fetch_sub(1, std::memory_order::acq_rel) == 1)
                 sub.on_completed();
         });
     }
