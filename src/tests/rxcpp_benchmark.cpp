@@ -596,6 +596,66 @@ TEST_CASE("window")
     };
 }
 
+TEST_CASE("take")
+{
+    BENCHMARK_ADVANCED("take construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        const auto obs = rxcpp::sources::create<int>([](const auto& sub)
+            {
+                sub.on_next(1);
+            });
+        auto sub = rxcpp::make_subscriber<int>([](const int&) {});
+
+        meter.measure([&]
+            {
+                return obs.take(1).subscribe(sub);
+            });
+    };
+
+    BENCHMARK_ADVANCED("sending of values from observable via take to subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        rxcpp::sources::create<int>([&](const auto& sub)
+            {
+                meter.measure([&]
+                    {
+                        sub.on_next(1);
+                    });
+            })
+            .take(meter.runs() - 1)
+            .subscribe([](const auto&) {});
+    };
+}
+
+TEST_CASE("skip")
+{
+    BENCHMARK_ADVANCED("skip construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        const auto obs = rxcpp::sources::create<int>([](const auto& sub)
+        {
+            sub.on_next(1);
+        });
+        auto sub = rxcpp::make_subscriber<int>([](const int&) {});
+
+        meter.measure([&]
+        {
+            return obs.skip(1).subscribe(sub);
+        });
+    };
+
+    BENCHMARK_ADVANCED("sending of values from observable via skip to subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        rxcpp::sources::create<int>([&](const auto& sub)
+        {
+            meter.measure([&]
+            {
+                sub.on_next(1);
+            });
+        })
+        .skip(meter.runs()-1)
+        .subscribe([](const auto&) {});
+    };
+}
+
 TEST_CASE("chains creation test")
 {
     BENCHMARK_ADVANCED("long non-state chain creation + subscribe")(Catch::Benchmark::Chronometer meter)
