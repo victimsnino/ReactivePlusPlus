@@ -29,6 +29,27 @@ IMPLEMENTATION_FILE (distinct_until_changed_tag);
 namespace rpp::details
 {
 template<constraint::decayed_type Type, std::equivalence_relation<Type, Type> EqualityFn>
+class distinct_until_changed_on_next
+{
+public:
+    distinct_until_changed_on_next(const EqualityFn& comparator) : m_equality_comparator{comparator} {}
+
+    void operator()(auto&& new_value, const rpp::constraint::subscriber auto& sub) const
+    {
+        if (m_last_value.has_value() && m_equality_comparator(utils::as_const(m_last_value.value()),
+                                                              utils::as_const(new_value)))
+            return;
+
+        m_last_value.emplace(new_value);
+        sub.on_next(std::forward<decltype(new_value)>(new_value));
+    }
+
+private:
+    RPP_NO_UNIQUE_ADDRESS EqualityFn m_equality_comparator;
+    mutable std::optional<Type>      m_last_value{};
+};
+
+template<constraint::decayed_type Type, std::equivalence_relation<Type, Type> EqualityFn>
 struct distinct_until_changed_impl
 {
     RPP_NO_UNIQUE_ADDRESS EqualityFn equality_comparator;
@@ -38,20 +59,12 @@ struct distinct_until_changed_impl
     {
         auto subscription = subscriber.get_subscription();
 
-        auto shared_optional = std::make_shared<std::optional<Type>>();
         return create_subscriber_with_state<Type>(std::move(subscription),
                                                   std::forward<TSub>(subscriber),
-                                                  [shared_optional, equality_comparator=equality_comparator](auto&& new_value, const auto& sub)
-                                                  {
-                                                      if (!shared_optional->has_value() || !equality_comparator(utils::as_const(shared_optional->value()), utils::as_const(new_value)))
-                                                      {
-                                                          shared_optional->emplace(new_value);
-
-                                                          sub.on_next(std::forward<decltype(new_value)>(new_value));
-                                                      }
-                                                  },
+                                                  distinct_until_changed_on_next<Type, EqualityFn>{equality_comparator},
                                                   utils::forwarding_on_error{},
-                                                  utils::forwarding_on_completed{});
+                                                  utils::forwarding_on_completed{})
+                .as_dynamic(); // use as_dynamic to make shared_ptr instead of making shared_ptr for distinct_until_changed state
     }
 };
 } // namespace rpp::details

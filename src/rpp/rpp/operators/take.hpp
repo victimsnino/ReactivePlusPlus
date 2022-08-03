@@ -19,8 +19,9 @@ IMPLEMENTATION_FILE(take_tag);
 
 namespace rpp::details
 {
-struct take_on_next
+class take_on_next
 {
+public:
     take_on_next(size_t count) : m_count{ count } {}
 
     void operator()(auto&& value, const constraint::subscriber auto& subscriber) const

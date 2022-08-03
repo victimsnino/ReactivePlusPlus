@@ -21,8 +21,9 @@ IMPLEMENTATION_FILE(skip_tag);
 
 namespace rpp::details
 {
-struct skip_on_next
+class skip_on_next
 {
+public:
     skip_on_next(size_t count)
         : m_count{count} {}
 
