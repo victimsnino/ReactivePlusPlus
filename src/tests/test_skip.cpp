@@ -23,7 +23,7 @@ SCENARIO("skip ignores first `count` of items", "[skip]")
         {
             for (int i = 0; i < 10; ++i)
             {
-                const auto& new_sub = sub; // send it to copy to test for shared
+                auto new_sub = sub; // send it to copy to test for shared
                 new_sub.on_next(i);
             }
             sub.on_completed();
