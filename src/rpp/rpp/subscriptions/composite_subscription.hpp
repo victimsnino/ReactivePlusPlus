@@ -16,7 +16,6 @@
 #include <rpp/subscriptions/constraints.hpp>
 
 #include <algorithm>
-#include <mutex>
 #include <vector>
 
 namespace rpp
@@ -65,11 +64,11 @@ public:
         composite_subscription ret{};
         add(ret);
         ret.add([ret, state = std::weak_ptr{ std::static_pointer_cast<state>(get_state_as_shared()) }]
-        {
-            // add cleanup
-            if (const auto shared = state.lock())
-                shared->remove(ret);
-        });
+            {
+                // add cleanup
+                if (const auto shared = state.lock())
+                    shared->remove(ret);
+            });
         return ret;
     }
 
@@ -106,46 +105,67 @@ private:
             if (!sub.is_subscribed())
                 return;
 
-            if (!add_safe(sub))
-                sub.unsubscribe();
+            while (true)
+            {
+                DepsState expected{DepsState::None};
+                if (m_state.compare_exchange_strong(expected, DepsState::Edit, std::memory_order::acq_rel))
+                {
+                    m_deps.push_back(sub);
+                    
+                    m_state.store(DepsState::None, std::memory_order::release);
+                    return;
+                }
+
+                if (expected == DepsState::Unsubscribed)
+                {
+                    sub.unsubscribe();
+                    return;
+                }
+            }
         }
 
         void remove(const subscription_base& sub)
         {
-            if (!is_subscribed())
-                return;
+            while (true)
+            {
+                DepsState expected{DepsState::None};
+                if (m_state.compare_exchange_strong(expected, DepsState::Edit, std::memory_order::acq_rel))
+                {
+                    std::erase(m_deps, sub);
 
-            std::lock_guard lock{ m_mutex };
-            if (!is_subscribed())
-                return;
+                    m_state.store(DepsState::None, std::memory_order::release);
+                    return;
+                }
 
-            std::erase(m_deps, sub);
+                if (expected == DepsState::Unsubscribed)
+                    return;
+            }
         }
 
     private:
-        bool add_safe(const subscription_base& sub)
-        {
-            if (!is_subscribed())
-                return false;
-
-            std::lock_guard lock{m_mutex};
-            if (!is_subscribed())
-                return false;
-
-            m_deps.push_back(sub);
-            return true;
-        }
-
         void on_unsubscribe() final
         {
-            std::lock_guard lock{m_mutex};
-
-            std::ranges::for_each(m_deps, &subscription_base::unsubscribe);
-            m_deps.clear();
+            while (true)
+            {
+                DepsState expected{DepsState::None};
+                if (m_state.compare_exchange_strong(expected, DepsState::Unsubscribed, std::memory_order::acq_rel))
+                {
+                    std::ranges::for_each(m_deps, &subscription_base::unsubscribe);
+                    m_deps.clear();
+                    return;
+                }
+            }
         }
 
     private:
-        std::mutex                     m_mutex{};
+        enum class DepsState : uint8_t
+        {
+            None,        //< default state
+            Edit,        //< set it during adding new element into deps or removing. After success -> FallBack to None
+            Unsubscribed //< permanent state after unsubscribe
+        };
+
+        std::atomic<DepsState>         m_state{DepsState::None};
         std::vector<subscription_base> m_deps{};
     };
 };
