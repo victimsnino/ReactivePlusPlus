@@ -72,6 +72,30 @@ SCENARIO("distinct_until_changed filters out consecutive duplicates and send fir
     }
 }
 
+SCENARIO("distinct_until_changed keeps state for copies", "[distinct_until_changed]")
+{
+    auto mock = mock_observer<int>{};
+    GIVEN("observable which sends values via copy")
+    {
+        auto obs = rpp::source::create<int>([](const auto& sub)
+        {
+            for(size_t i = 0; i < 10; ++i)
+            {
+                auto copy = sub;
+                copy.on_next(1);
+            }
+        });
+        WHEN("subscribe on it via distinct_until_changed")
+        {
+            obs.distinct_until_changed().subscribe(mock);
+            THEN("observer obtains values as expected")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 1 });
+            }
+        }
+    }
+}
+
 SCENARIO("distinct_until_changed doesn't produce extra copies", "[distinct_until_changed][track_copy]")
 {
     GIVEN("observable and subscriber")
