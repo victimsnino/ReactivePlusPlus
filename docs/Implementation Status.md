@@ -19,7 +19,7 @@
 - [ ] Schedulers
   - [x] Immediate
   - [x] New Thread
-  - [ ] CurrentThread/Trampoline
+  - [x] CurrentThread/Trampoline
   - [x] RunLoop
   - [ ] EventLoop
 
@@ -124,7 +124,7 @@
 
 - [x] observe_on
 - [x] repeat
-  - [ ] scheduling (by default current_thread ?)
+  - [ ] scheduling (by default trampoline ?)
 - [x] subscribe_on
 - [ ] delay
 - [ ] do/tap

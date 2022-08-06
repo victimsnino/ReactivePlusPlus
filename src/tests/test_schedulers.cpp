@@ -10,6 +10,7 @@
 
 #include "test_scheduler.hpp"
 #include "rpp/subscriptions/composite_subscription.hpp"
+#include "rpp/schedulers/trampoline_scheduler.hpp"
 
 #include <catch2/catch_test_macros.hpp>
 #include <rpp/schedulers/immediate_scheduler.hpp>
@@ -17,6 +18,32 @@
 #include <rpp/schedulers/run_loop_scheduler.hpp>
 
 #include <future>
+
+template<typename Worker>
+std::thread::id simulate_nested_scheduling(const Worker& worker, std::promise<std::vector<std::thread::id>>& out)
+{
+    std::jthread thread([&] {
+        std::vector<std::thread::id> call_stack;
+
+        worker.schedule([&]() -> rpp::schedulers::optional_duration {
+            call_stack.push_back(std::this_thread::get_id());
+            // Scheduler inner schedulable
+            worker.schedule([&]() -> rpp::schedulers::optional_duration {
+                call_stack.push_back(std::this_thread::get_id());
+                // Scheduler another inner schedulable
+                worker.schedule([&]() -> rpp::schedulers::optional_duration {
+                    call_stack.push_back(std::this_thread::get_id());
+                    out.set_value(std::move(call_stack));
+                    return std::nullopt;
+                });
+                return std::nullopt;
+            });
+            return std::nullopt;
+        });
+    });
+
+    return thread.get_id();
+}
 
 SCENARIO("scheduler's worker uses time")
 {
@@ -266,7 +293,7 @@ SCENARIO("New thread scheduler schedules tasks into separate thread")
                 std::this_thread::sleep_for(diff * 2);
 
                 REQUIRE(call_count == 2);
-                REQUIRE(executions[1] - executions[0] >= (diff-std::chrono::milliseconds(500))); 
+                REQUIRE(executions[1] - executions[0] >= (diff-std::chrono::milliseconds(500)));
             }
         }
     }
@@ -353,6 +380,170 @@ SCENARIO("New thread scheduler depends on subscription")
                 REQUIRE(future.wait_for(diff)==std::future_status::timeout);
                 CHECK(future.valid());
             }
+        }
+    }
+}
+
+SCENARIO("trampoline scheduler dispatches task in the same thread")
+{
+    auto scheduler = rpp::schedulers::trampoline{};
+    auto sub       = rpp::composite_subscription{};
+    auto worker    = scheduler.create_worker(sub);
+
+    WHEN("supply a simple job")
+    {
+        std::optional<std::thread::id> observed_thread_id;
+
+        worker.schedule([&]() -> rpp::schedulers::optional_duration
+                        {
+                            observed_thread_id = std::this_thread::get_id();
+                            return std::nullopt;
+                        });
+
+        THEN("thread ID shall match with the current thread ID")
+        {
+            REQUIRE(observed_thread_id.value() == std::this_thread::get_id());
+        }
+    }
+
+    WHEN("supply a job that schedules inner job")
+    {
+        std::optional<std::thread::id> observed_thread_id;
+
+        worker.schedule(
+            [&]() -> rpp::schedulers::optional_duration
+            {
+                worker.schedule(
+                    [&]() ->rpp::schedulers::optional_duration
+                    {
+                        observed_thread_id = std::this_thread::get_id();
+                        return std::nullopt;
+                    });
+                return std::nullopt;
+            });
+
+        THEN("thread ID from the inner schedulable shall match with the current thread ID")
+        {
+            REQUIRE(observed_thread_id.value() == std::this_thread::get_id());
+        }
+    }
+}
+
+SCENARIO("trampoline scheduler defers tasks in order")
+{
+    auto scheduler = rpp::schedulers::trampoline{};
+    auto sub       = rpp::composite_subscription{};
+    auto worker    = scheduler.create_worker(sub);
+    rpp::subscription_guard guard{sub};
+
+    WHEN("supply a job that schedules inner job that schedules inner job")
+    {
+        std::vector<std::string> call_stack;
+
+        worker.schedule([&]() -> rpp::schedulers::optional_duration {
+            call_stack.emplace_back("task 1 starts");
+
+            // Schedule task 2
+            worker.schedule([&]() ->rpp::schedulers::optional_duration {
+                call_stack.emplace_back("task 2 starts");
+
+                // Schedule task 3
+                worker.schedule([&]() ->rpp::schedulers::optional_duration {
+                    call_stack.emplace_back("task 3 runs");
+                    return std::nullopt;
+                });
+
+                call_stack.emplace_back("task 2 ends");
+                return std::nullopt;
+            });
+
+            call_stack.emplace_back("task 1 ends");
+            return std::nullopt;
+        });
+
+        THEN("order of call-stack must be in order")
+        {
+            REQUIRE(call_stack == std::vector<std::string>{
+                "task 1 starts",
+                "task 1 ends",
+                "task 2 starts",
+                "task 2 ends",
+                "task 3 runs",
+            });
+        }
+    }
+}
+
+SCENARIO("trampoline scheduler is thread local")
+{
+    WHEN("two threads are using the same trampoline scheduler")
+    {
+        auto scheduler = rpp::schedulers::trampoline{};
+        auto sub       = rpp::composite_subscription{};
+        auto worker    = scheduler.create_worker(sub);
+        rpp::subscription_guard guard{sub};
+
+        std::promise<std::vector<std::thread::id>> call_stack_1;
+        std::promise<std::vector<std::thread::id>> call_stack_2;
+        auto stack_future_1 = call_stack_1.get_future();
+        auto stack_future_2 = call_stack_2.get_future();
+
+        auto thread_id_1 = simulate_nested_scheduling(worker, call_stack_1);
+        auto thread_id_2 = simulate_nested_scheduling(worker, call_stack_2);
+
+        THEN("call stack of two threads shall be separate")
+        {
+            REQUIRE(stack_future_1.wait_for(std::chrono::seconds{5}) == std::future_status::ready);
+            REQUIRE(stack_future_2.wait_for(std::chrono::seconds{5}) == std::future_status::ready);
+
+            REQUIRE(stack_future_1.valid());
+            REQUIRE(stack_future_2.valid());
+
+            REQUIRE(stack_future_1.get() == std::vector{thread_id_1, thread_id_1, thread_id_1});
+            REQUIRE(stack_future_2.get() == std::vector{thread_id_2, thread_id_2, thread_id_2});
+        }
+    }
+}
+
+SCENARIO("trampoline scheduler regards unsubscribed subscription")
+{
+    GIVEN("unsubscribed subscription")
+    {
+        auto scheduler = rpp::schedulers::trampoline{};
+        auto sub       = rpp::composite_subscription{};
+        auto worker    = scheduler.create_worker(sub);
+
+        sub.unsubscribe();
+
+        THEN("shall not see execution of schedulable")
+        {
+            worker.schedule([&]() -> rpp::schedulers::optional_duration
+            {
+                REQUIRE(false);
+                return std::nullopt;
+            });
+        }
+    }
+
+    GIVEN("asynchronously unsubscribes subscription")
+    {
+        auto scheduler = rpp::schedulers::trampoline{};
+        auto sub       = rpp::composite_subscription{};
+        auto worker    = scheduler.create_worker(sub);
+
+        THEN("shall not see execution of inner schedulable")
+        {
+            worker.schedule([&]() -> rpp::schedulers::optional_duration
+            {
+                worker.schedule([&]() -> rpp::schedulers::optional_duration
+                {
+                    REQUIRE(false);
+                    return std::nullopt;
+                });
+
+                sub.unsubscribe();
+                return std::nullopt;
+            });
         }
     }
 }

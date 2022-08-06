@@ -19,3 +19,4 @@
 #include <rpp/schedulers/immediate_scheduler.hpp>
 #include <rpp/schedulers/new_thread_scheduler.hpp>
 #include <rpp/schedulers/run_loop_scheduler.hpp>
+#include <rpp/schedulers/trampoline_scheduler.hpp>
