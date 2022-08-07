@@ -147,7 +147,6 @@ rpp::dynamic_observable<sf::RectangleShape> get_shapes_to_draw(const rpp::dynami
     }, apple_position);
 
     return get_presents_stream(events)
-           .filter([](const PresentEvent&  ev) { return ev.is_begin; })
            .with_latest_from(rpp::utils::get<1>{}, drawable_objects)
            .switch_on_next();
 }
