@@ -58,10 +58,7 @@ void iterate(auto&&                                        iterable,
         worker.schedule([iterable=std::forward<decltype(iterable)>(iterable), 
                          subscriber=std::forward<decltype(subscriber)>(subscriber), 
                          index = size_t{0}]() mutable-> schedulers::optional_duration
-        {
-            if (!subscriber.is_subscribed())
-                return std::nullopt;
-            
+        {            
             try
             {
                 const auto& extracted_iterable = extract_iterable_from_packed(iterable);
