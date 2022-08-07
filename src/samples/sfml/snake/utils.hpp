@@ -27,7 +27,6 @@ inline rpp::schedulers::run_loop g_run_loop{};
 
 struct PresentEvent
 {
-    bool   is_begin{};
     size_t frame_number{};
 };
 

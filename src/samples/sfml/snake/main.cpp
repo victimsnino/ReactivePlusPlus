@@ -10,35 +10,25 @@
 static auto get_events_observable(sf::RenderWindow& window)
 {
     return rpp::source::create<CustomEvent>([&window](const auto& sub)
+    {
+        auto worker = g_run_loop.create_worker(sub.get_subscription());
+
+        worker.schedule([frame_number = size_t{}, ev = sf::Event{}, &window, sub]() mutable->rpp::schedulers::optional_duration
         {
-            auto worker = g_run_loop.create_worker(sub.get_subscription());
+            if (!window.isOpen())
+                return {};
 
-            worker.schedule([frame_number = size_t{}, &window, sub]() mutable->rpp::schedulers::optional_duration
-            {
-                sf::Event ev{};
-                if (!window.isOpen())
-                    return {};
+            // indicate new frame
+            sub.on_next(PresentEvent{ frame_number++ });
 
-                sub.on_next(PresentEvent{ true, frame_number });
+            while (window.pollEvent(ev))
+                sub.on_next(ev);
 
-                while (window.pollEvent(ev))
-                    sub.on_next(ev);
-
-                sub.on_next(PresentEvent{ false, frame_number++ });
-                return rpp::schedulers::duration{};
-            });
+            return rpp::schedulers::duration{};
         });
+    });
 }
 
-void display_screen_and_clear_on_present_begin(const auto& presents, sf::RenderWindow& window)
-{
-    presents.filter([](const PresentEvent&  ev) { return ev.is_begin; })
-            .subscribe([&window](const auto&)
-            {
-                window.display();
-                window.clear(sf::Color{0, 128, 0});
-            });
-}
 
 int main()
 {
@@ -48,7 +38,11 @@ int main()
     const auto events = get_events_observable(window).publish();
     const auto presents = get_presents_stream(events);
 
-    display_screen_and_clear_on_present_begin(presents, window);
+    presents.subscribe([&window](const auto&)
+    {
+        window.display();
+        window.clear(sf::Color{0, 128, 0});
+    });
 
     get_shapes_to_draw(events).subscribe([&window](const auto& shape)
     {
