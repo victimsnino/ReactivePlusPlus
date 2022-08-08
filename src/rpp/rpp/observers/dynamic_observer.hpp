@@ -129,7 +129,7 @@ public:
 private:
     std::shared_ptr<dynamic_observer_state_base<T>> m_state{};
 };
-}; // namespace rpp::details
+} // namespace rpp::details
 
 namespace rpp
 {

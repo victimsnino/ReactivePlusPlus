@@ -64,5 +64,6 @@ struct distinct_until_changed_impl
                                                           distinct_until_changed_on_next<Type, EqualityFn>{equality_comparator},
                                                           utils::forwarding_on_error{},
                                                           utils::forwarding_on_completed{});
+    }
 };
 } // namespace rpp::details
