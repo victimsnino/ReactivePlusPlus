@@ -112,7 +112,7 @@ SCENARIO("scan doesn't produce extra copies", "[scan][track_copy]")
             THEN("no extra copies")
             {
                 REQUIRE(verifier.get_copy_count() == 2); // 1 copy to scan state + 1 copy for provided subscriber to shared_state
-                REQUIRE(verifier.get_move_count() == 4); // 1 move to observable state + 1 move to subscriber + 1 move to dynamic_subscriber + 1 move from lambda
+                REQUIRE(verifier.get_move_count() == 3); // 1 move to observable state + 1 move to subscriber  + 1 move from lambda
             }
         }
     }
