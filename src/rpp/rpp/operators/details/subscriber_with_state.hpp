@@ -10,6 +10,7 @@
 #pragma once
 
 #include <rpp/observers/state_observer.hpp>
+#include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/subscriptions/composite_subscription.hpp>
 #include <rpp/subscribers/specific_subscriber.hpp>
 
@@ -72,5 +73,62 @@ auto create_subscriber_with_state(rpp::composite_subscription sub,
                                                    std::forward<OnError>(on_error),
                                                    std::forward<OnCompleted>(on_completed),
                                                    std::move(sub));
+}
+
+//******************** DYNAMIC *****************************
+
+template<constraint::decayed_type             Type,
+    typename                                  State,
+    std::invocable<Type, State>               OnNext,
+    std::invocable<std::exception_ptr, State> OnError,
+    std::invocable<State>                     OnCompleted>
+auto create_subscriber_with_dynamic_state_impl(State&&                       state,
+                                               OnNext&&                      on_next,
+                                               OnError&&                     on_error,
+                                               OnCompleted&&                 on_completed,
+                                               rpp::composite_subscription&& sub = composite_subscription{})
+{
+    return specific_subscriber<Type, details::dynamic_state_observer<Type, std::decay_t<State>>>
+    {
+        std::move(sub),
+        std::forward<OnNext>(on_next),
+        std::forward<OnError>(on_error),
+        std::forward<OnCompleted>(on_completed),
+        std::forward<State>(state)
+    };
+}
+
+template<constraint::decayed_type             Type,
+    typename                                  State,
+    std::invocable<Type, State>               OnNext,
+    std::invocable<std::exception_ptr, State> OnError,
+    std::invocable<State>                     OnCompleted>
+auto create_subscriber_with_dynamic_state(State&& state,
+                                  OnNext&&        on_next,
+                                  OnError&&       on_error,
+                                  OnCompleted&&   on_completed)
+{
+    return create_subscriber_with_dynamic_state_impl<Type>(std::forward<State>(state),
+                                                           std::forward<OnNext>(on_next),
+                                                           std::forward<OnError>(on_error),
+                                                           std::forward<OnCompleted>(on_completed));
+}
+
+template<constraint::decayed_type             Type,
+    typename                                  State,
+    std::invocable<Type, State>               OnNext,
+    std::invocable<std::exception_ptr, State> OnError,
+    std::invocable<State>                     OnCompleted>
+auto create_subscriber_with_dynamic_state(rpp::composite_subscription sub,
+                                  State&&                             state,
+                                  OnNext&&                            on_next,
+                                  OnError&&                           on_error,
+                                  OnCompleted&&                       on_completed)
+{
+    return create_subscriber_with_dynamic_state_impl<Type>(std::forward<State>(state),
+                                                           std::forward<OnNext>(on_next),
+                                                           std::forward<OnError>(on_error),
+                                                           std::forward<OnCompleted>(on_completed),
+                                                           std::move(sub));
 }
 } // namespace rpp::details

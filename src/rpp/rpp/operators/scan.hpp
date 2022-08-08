@@ -56,12 +56,12 @@ struct scan_impl
     auto operator()(TSub&& subscriber) const
     {
         auto subscription = subscriber.get_subscription();
-        return create_subscriber_with_state<Type>(std::move(subscription),
-                                                  std::forward<TSub>(subscriber),
-                                                  scan_on_next{initial_value, accumulator},
-                                                  utils::forwarding_on_error{},
-                                                  utils::forwarding_on_completed{})
-                .as_dynamic(); // use as_dynamic to make shared_ptr instead of making shared_ptr for scan state
+        // dynamic_state there to make shared_ptr for observer instead of making shared_ptr for state
+        return create_subscriber_with_dynamic_state<Type>(std::move(subscription),
+                                                          std::forward<TSub>(subscriber),
+                                                          scan_on_next{initial_value, accumulator},
+                                                          utils::forwarding_on_error{},
+                                                          utils::forwarding_on_completed{});
     }
 };
 } // namespace rpp::details
