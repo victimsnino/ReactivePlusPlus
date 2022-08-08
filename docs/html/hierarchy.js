@@ -1,8 +1,5 @@
 var hierarchy =
 [
-    [ "base_for_dynamic_observer", null, [
-      [ "rpp::dynamic_observer< T >", "classrpp_1_1dynamic__observer.html", null ]
-    ] ],
     [ "rpp::details::buffer_impl< Type >", "structrpp_1_1details_1_1buffer__impl.html", null ],
     [ "rpp::subjects::details::completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
     [ "rpp::details::concat_impl< Type >", "structrpp_1_1details_1_1concat__impl.html", null ],
@@ -150,7 +147,12 @@ var hierarchy =
     ] ],
     [ "rpp::details::observe_on_impl< Type, TScheduler >", "structrpp_1_1details_1_1observe__on__impl.html", null ],
     [ "rpp::details::observer_tag", "structrpp_1_1details_1_1observer__tag.html", [
-      [ "rpp::details::typed_observer_tag< T >", "structrpp_1_1details_1_1typed__observer__tag.html", null ],
+      [ "rpp::details::typed_observer_tag< T >", "structrpp_1_1details_1_1typed__observer__tag.html", [
+        [ "rpp::details::dynamic_state_observer< T >", "classrpp_1_1details_1_1dynamic__state__observer.html", [
+          [ "rpp::dynamic_observer< T >", "classrpp_1_1dynamic__observer.html", null ]
+        ] ],
+        [ "rpp::details::dynamic_state_observer< T, States >", "classrpp_1_1details_1_1dynamic__state__observer.html", null ]
+      ] ],
       [ "rpp::details::typed_observer_tag< Type >", "structrpp_1_1details_1_1typed__observer__tag.html", [
         [ "rpp::details::group_by_lift_impl< Type, TKey, KeySelector, ValueSelector, KeyComparator >::group_by_observer< TSub >", "classrpp_1_1details_1_1group__by__lift__impl_1_1group__by__observer.html", null ],
         [ "rpp::details::window_observer< Type, TSub >", "classrpp_1_1details_1_1window__observer.html", null ]
@@ -204,8 +206,8 @@ var hierarchy =
     [ "rpp::details::with_latest_from_impl< Type, TSelector, TObservables >", "structrpp_1_1details_1_1with__latest__from__impl.html", null ],
     [ "rpp::details::with_latest_from_state_t< ValueTypes >", "structrpp_1_1details_1_1with__latest__from__state__t.html", null ],
     [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
-    [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::run_loop::worker_strategy", "classrpp_1_1schedulers_1_1run__loop_1_1worker__strategy.html", null ],
+    [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::details::worker_tag", "structrpp_1_1schedulers_1_1details_1_1worker__tag.html", [
       [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ]
     ] ]

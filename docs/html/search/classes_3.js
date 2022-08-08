@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['extract_5fobservable_5ftype_213',['extract_observable_type',['../structrpp_1_1utils_1_1details_1_1extract__observable__type.html',1,'rpp::utils::details']]],
-  ['extract_5fobserver_5ftype_214',['extract_observer_type',['../structrpp_1_1utils_1_1details_1_1extract__observer__type.html',1,'rpp::utils::details']]],
-  ['extract_5fsubject_5ftype_215',['extract_subject_type',['../structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html',1,'rpp::subjects::utils::details']]],
-  ['extract_5fsubscriber_5ftype_216',['extract_subscriber_type',['../structrpp_1_1utils_1_1details_1_1extract__subscriber__type.html',1,'rpp::utils::details']]]
+  ['extract_5fobservable_5ftype_220',['extract_observable_type',['../structrpp_1_1utils_1_1details_1_1extract__observable__type.html',1,'rpp::utils::details']]],
+  ['extract_5fobserver_5ftype_221',['extract_observer_type',['../structrpp_1_1utils_1_1details_1_1extract__observer__type.html',1,'rpp::utils::details']]],
+  ['extract_5fsubject_5ftype_222',['extract_subject_type',['../structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html',1,'rpp::subjects::utils::details']]],
+  ['extract_5fsubscriber_5ftype_223',['extract_subscriber_type',['../structrpp_1_1utils_1_1details_1_1extract__subscriber__type.html',1,'rpp::utils::details']]]
 ];

@@ -156,16 +156,15 @@ $(document).ready(function(){initNavTree('distinct__until__changed_8hpp_source.h
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">auto</span> operator()(TSub&amp;&amp; subscriber)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">    </span>{</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keyword">auto</span> subscription = subscriber.get_subscription();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">return</span> create_subscriber_with_state&lt;Type&gt;(std::move(subscription),</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                                  std::forward&lt;TSub&gt;(subscriber),</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                                  <a class="code" href="classrpp_1_1details_1_1distinct__until__changed__on__next.html">distinct_until_changed_on_next&lt;Type, EqualityFn&gt;</a>{equality_comparator},</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                                                  utils::forwarding_on_error{},</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                                  utils::forwarding_on_completed{})</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                .as_dynamic(); <span class="comment">// use as_dynamic to make shared_ptr instead of making shared_ptr for distinct_until_changed state</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="comment">// dynamic_state there to make shared_ptr for observer instead of making shared_ptr for state</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">return</span> create_subscriber_with_dynamic_state&lt;Type&gt;(std::move(subscription),</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                                          std::forward&lt;TSub&gt;(subscriber),</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                                          <a class="code" href="classrpp_1_1details_1_1distinct__until__changed__on__next.html">distinct_until_changed_on_next&lt;Type, EqualityFn&gt;</a>{equality_comparator},</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                                                          utils::forwarding_on_error{},</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                                          utils::forwarding_on_completed{});</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;};</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassrpp_1_1details_1_1distinct__until__changed__on__next_html"><div class="ttname"><a href="classrpp_1_1details_1_1distinct__until__changed__on__next.html">rpp::details::distinct_until_changed_on_next</a></div><div class="ttdef"><b>Definition:</b> distinct_until_changed.hpp:32</div></div>
