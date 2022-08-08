@@ -148,6 +148,39 @@ SCENARIO("Immediate scheduler schedules task immediately")
                 REQUIRE(executions[1] - executions[0] >= (diff - std::chrono::milliseconds(500)));
             }
         }
+        WHEN("schedule a task that schedule a task that schedule a task")
+        {
+            std::vector<std::string> call_stack;
+
+            worker.schedule([&]() -> rpp::schedulers::optional_duration
+            {
+                call_stack.emplace_back("task 1 starts");
+                worker.schedule([&]() -> rpp::schedulers::optional_duration
+                {
+                    call_stack.emplace_back("task 2 starts");
+                    worker.schedule([&]() -> rpp::schedulers::optional_duration
+                    {
+                        call_stack.emplace_back("task 3 runs");
+                        return std::nullopt;
+                    });
+                    call_stack.emplace_back("task 2 ends");
+                    return std::nullopt;
+                });
+                call_stack.emplace_back("task 1 ends");
+                return std::nullopt;
+            });
+
+            THEN("shall see the call-stack in a specific order")
+            {
+                REQUIRE(call_stack == std::vector<std::string>{
+                    "task 1 starts",
+                    "task 2 starts",
+                    "task 3 runs",
+                    "task 2 ends",
+                    "task 1 ends",
+                });
+            }
+        }
     }
 }
 
