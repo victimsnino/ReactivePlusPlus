@@ -105,14 +105,14 @@ SCENARIO("scan doesn't produce extra copies", "[scan][track_copy]")
     GIVEN("observable and subscriber")
     {
         copy_count_tracker verifier{};
-        auto          obs = rpp::source::just(1).scan(verifier, [](copy_count_tracker&& seed, int) -> copy_count_tracker&& { return std::move(seed); });
+        auto          obs = rpp::source::just(1).scan(verifier, [](copy_count_tracker&& seed, int) { return std::move(seed); });
         WHEN("subscribe")
         {
             obs.subscribe([](const auto&){});
             THEN("no extra copies")
             {
                 REQUIRE(verifier.get_copy_count() == 2); // 1 copy to scan state + 1 copy for provided subscriber to shared_state
-                REQUIRE(verifier.get_move_count() == 3); // 1 move to observable state + 1 move to subscriber  + 1 move from lambda
+                REQUIRE(verifier.get_move_count() == 5); // 1 move to observable state + 1 move to subscriber + 1 move from lambda + 1 move to new_state + 1 move to final lambda
             }
         }
     }

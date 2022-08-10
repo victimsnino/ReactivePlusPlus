@@ -23,7 +23,7 @@ static int wrap_coordinate(int value, int max_value)
     return value < 0 ? max_value : value > max_value ? 0 : value;
 }
 
-static SnakeBody&& move_snake(SnakeBody&& body, const std::tuple<Direction, size_t>& direction_and_length)
+static SnakeBody move_snake(SnakeBody&& body, const std::tuple<Direction, size_t>& direction_and_length)
 {
     auto head = body.back();
 

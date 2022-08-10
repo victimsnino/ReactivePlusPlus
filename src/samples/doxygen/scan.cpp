@@ -17,7 +17,7 @@ int main()
 
      //! [scan_vector]
     rpp::source::just(1,2,3)
-            .scan(std::vector<int>{}, [](std::vector<int>&& seed, int new_value) -> std::vector<int>&&
+            .scan(std::vector<int>{}, [](std::vector<int>&& seed, int new_value)
             {
                 seed.push_back(new_value);
                 return std::move(seed);
