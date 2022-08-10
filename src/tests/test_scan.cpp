@@ -105,7 +105,7 @@ SCENARIO("scan doesn't produce extra copies", "[scan][track_copy]")
     GIVEN("observable and subscriber")
     {
         copy_count_tracker verifier{};
-        auto          obs = rpp::source::just(1).scan(verifier, [](copy_count_tracker&& seed, int) -> copy_count_tracker&& { return std::move(seed); });
+        auto          obs = rpp::source::just(1).scan(verifier, [](copy_count_tracker&& seed, int) { return std::move(seed); });
         WHEN("subscribe")
         {
             obs.subscribe([](const auto&){});
