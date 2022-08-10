@@ -113,3 +113,5 @@ if (RPP_BUILD_TESTS)
   add_subdirectory(submodules)
 endif()
 add_subdirectory(src)
+
+add_subdirectory(CMake)

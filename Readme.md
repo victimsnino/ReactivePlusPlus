@@ -46,7 +46,14 @@ Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ
 
 ## Installation and usage
 
-To use ReactivePlusPlus just add it as submodule/place folder and add to project via CMake's `add_subfolder`.
+To use ReactivePlusPlus:
+- just add it as submodule/place folder and add to project via CMake's `add_subfolder`.
+- download and install it
+```cmd
+cmake -B _build -DCMAKE_INSTALL_PREFIX=<set  install folder>
+cmake --build _build --target install
+```
+and then use installed RPP via `find_package(RPP REQUIRED)` and linking `target_link_libraries(${TARGET} PRIVATE RPP::rpp)`
 
 ReactivePlusPlus's CMake has several options to set:
 
