@@ -171,8 +171,10 @@ var hierarchy =
     [ "rpp::schedulers::details::scheduler_tag", "structrpp_1_1schedulers_1_1details_1_1scheduler__tag.html", [
       [ "rpp::schedulers::immediate", "classrpp_1_1schedulers_1_1immediate.html", null ],
       [ "rpp::schedulers::new_thread", "classrpp_1_1schedulers_1_1new__thread.html", null ],
-      [ "rpp::schedulers::run_loop", "classrpp_1_1schedulers_1_1run__loop.html", null ]
+      [ "rpp::schedulers::run_loop", "classrpp_1_1schedulers_1_1run__loop.html", null ],
+      [ "rpp::schedulers::trampoline", "classrpp_1_1schedulers_1_1trampoline.html", null ]
     ] ],
+    [ "rpp::schedulers::scope_guard< F >", "structrpp_1_1schedulers_1_1scope__guard.html", null ],
     [ "rpp::details::skip_impl< Type >", "structrpp_1_1details_1_1skip__impl.html", null ],
     [ "rpp::details::skip_on_next", "classrpp_1_1details_1_1skip__on__next.html", null ],
     [ "rpp::specific_observable< Type, OnSubscribeFn >", "classrpp_1_1specific__observable.html", null ],
@@ -205,9 +207,10 @@ var hierarchy =
     [ "rpp::details::window_lift_impl< Type >", "structrpp_1_1details_1_1window__lift__impl.html", null ],
     [ "rpp::details::with_latest_from_impl< Type, TSelector, TObservables >", "structrpp_1_1details_1_1with__latest__from__impl.html", null ],
     [ "rpp::details::with_latest_from_state_t< ValueTypes >", "structrpp_1_1details_1_1with__latest__from__state__t.html", null ],
-    [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
-    [ "rpp::schedulers::run_loop::worker_strategy", "classrpp_1_1schedulers_1_1run__loop_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ],
+    [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
+    [ "rpp::schedulers::trampoline::worker_strategy", "classrpp_1_1schedulers_1_1trampoline_1_1worker__strategy.html", null ],
+    [ "rpp::schedulers::run_loop::worker_strategy", "classrpp_1_1schedulers_1_1run__loop_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::details::worker_tag", "structrpp_1_1schedulers_1_1details_1_1worker__tag.html", [
       [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ]
     ] ]

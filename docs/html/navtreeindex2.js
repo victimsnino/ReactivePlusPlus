@@ -1,5 +1,9 @@
 var NAVTREEINDEX2 =
 {
+"structrpp_1_1details_1_1group__by__on__subscribe.html#a65dd21ecf03d652bb6e280ef36ecdf22":[3,0,0,0,13,0],
+"structrpp_1_1details_1_1group__by__on__subscribe.html#a8c2751defa5ff42b8d9b00d95756ccf8":[3,0,0,0,13,1],
+"structrpp_1_1details_1_1group__by__on__subscribe.html#aa7da77cc340c19bc12e2cd0d5f1120bb":[3,0,0,0,13,2],
+"structrpp_1_1details_1_1group__by__state.html":[3,0,0,0,14],
 "structrpp_1_1details_1_1group__by__state.html#a51df6dd91350229418918014ea0ce0b8":[3,0,0,0,14,0],
 "structrpp_1_1details_1_1group__by__state.html#a9407ca060714bc9164b5669accc1508a":[3,0,0,0,14,1],
 "structrpp_1_1details_1_1lift__action.html":[3,0,0,0,16],
@@ -170,6 +174,10 @@ var NAVTREEINDEX2 =
 "structrpp_1_1interface__observable.html#a681ade25e93123cd624613b16c73b6dd":[3,0,0,13,0],
 "structrpp_1_1schedulers_1_1details_1_1scheduler__tag.html":[3,0,0,2,0,1],
 "structrpp_1_1schedulers_1_1details_1_1worker__tag.html":[3,0,0,2,0,2],
+"structrpp_1_1schedulers_1_1scope__guard.html":[3,0,0,2,4],
+"structrpp_1_1schedulers_1_1scope__guard.html#a07052eb36cd83589597e05229a991bca":[3,0,0,2,4,1],
+"structrpp_1_1schedulers_1_1scope__guard.html#a766d0c64a2d7390eee7f43ef8e70edf4":[3,0,0,2,4,2],
+"structrpp_1_1schedulers_1_1scope__guard.html#acc63d80f329695119228fdcb55cc68e3":[3,0,0,2,4,0],
 "structrpp_1_1subjects_1_1details_1_1completed.html":[3,0,0,3,0,1],
 "structrpp_1_1subjects_1_1details_1_1subject__tag.html":[3,0,0,3,0,4],
 "structrpp_1_1subjects_1_1details_1_1unsubscribed.html":[3,0,0,3,0,5],
@@ -206,10 +214,12 @@ var NAVTREEINDEX2 =
 "take_8hpp_source.html":[4,0,0,0,0,2,23],
 "take__while_8hpp_source.html":[4,0,0,0,0,2,24],
 "take_while_8cpp-example.html":[5,25],
+"trampoline_8cpp-example.html":[5,26],
+"trampoline__scheduler_8hpp_source.html":[4,0,0,0,0,3,6],
 "type__traits_8hpp_source.html":[4,0,0,0,0,5,4],
-"window_8cpp-example.html":[5,26],
+"window_8cpp-example.html":[5,27],
 "window_8hpp_source.html":[4,0,0,0,0,2,25],
 "with__latest__from_8hpp_source.html":[4,0,0,0,0,2,26],
-"with_latest_from_8cpp-example.html":[5,27],
+"with_latest_from_8cpp-example.html":[5,28],
 "worker_8hpp_source.html":[4,0,0,0,0,3,0,1]
 };

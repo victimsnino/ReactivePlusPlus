@@ -90,6 +90,8 @@ var annotated_dup =
         [ "immediate", "classrpp_1_1schedulers_1_1immediate.html", "classrpp_1_1schedulers_1_1immediate" ],
         [ "new_thread", "classrpp_1_1schedulers_1_1new__thread.html", "classrpp_1_1schedulers_1_1new__thread" ],
         [ "run_loop", "classrpp_1_1schedulers_1_1run__loop.html", "classrpp_1_1schedulers_1_1run__loop" ],
+        [ "scope_guard", "structrpp_1_1schedulers_1_1scope__guard.html", "structrpp_1_1schedulers_1_1scope__guard" ],
+        [ "trampoline", "classrpp_1_1schedulers_1_1trampoline.html", "classrpp_1_1schedulers_1_1trampoline" ],
         [ "worker", "classrpp_1_1schedulers_1_1worker.html", "classrpp_1_1schedulers_1_1worker" ]
       ] ],
       [ "subjects", null, [

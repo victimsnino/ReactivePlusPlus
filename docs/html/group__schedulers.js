@@ -23,5 +23,11 @@ var group__schedulers =
       [ "dispatch_if_ready", "classrpp_1_1schedulers_1_1run__loop.html#a710807f588d535c1127a3bb56baad4e3", null ],
       [ "is_any_ready_schedulable", "classrpp_1_1schedulers_1_1run__loop.html#a3d00a464935d6a0ec6b376743120b0bd", null ],
       [ "is_empty", "classrpp_1_1schedulers_1_1run__loop.html#aec8f5353b631e3a2973ea94d7a3d2ebb", null ]
+    ] ],
+    [ "trampoline", "classrpp_1_1schedulers_1_1trampoline.html", [
+      [ "worker_strategy", "classrpp_1_1schedulers_1_1trampoline_1_1worker__strategy.html", [
+        [ "worker_strategy", "classrpp_1_1schedulers_1_1trampoline_1_1worker__strategy.html#a738f0c82d057de18c3757b5ba3dc9f79", null ],
+        [ "defer_at", "classrpp_1_1schedulers_1_1trampoline_1_1worker__strategy.html#a4864a2385269fd0e0f2a51f1ee8066b0", null ]
+      ] ]
     ] ]
 ];

@@ -1,0 +1,40 @@
+\hypertarget{trampoline_8cpp-example}{}\doxysection{trampoline.\+cpp}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{std::ostream \& operator<<(std::ostream\& out, std::tuple<int, int> value)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    out << \textcolor{stringliteral}{"\{"} << std::get<0>(value) << \textcolor{stringliteral}{","} << std::get<1>(value) << \textcolor{stringliteral}{"\}"};}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} out;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\}, 1, 2, 3)}
+\DoxyCodeLine{        .merge\_with(\mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\}, 4, 5, 6))}
+\DoxyCodeLine{        .subscribe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\})}
+\DoxyCodeLine{        .subscribe(}
+\DoxyCodeLine{            [](\textcolor{keyword}{const} \textcolor{keywordtype}{int} \&v) \{ std::cout << \textcolor{stringliteral}{"-\/"} << v; \},}
+\DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr \&error) \{\},}
+\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"-\/|"} << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Source 1: -\/1-\/2-\/3-\/|}}
+\DoxyCodeLine{    \textcolor{comment}{// Source 2:        -\/4-\/5-\/6-\/|}}
+\DoxyCodeLine{    \textcolor{comment}{// Output  : -\/1-\/4-\/2-\/5-\/3-\/6-\/|}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//    // TODO: Enable this when we have "combine\_latest" operator}}
+\DoxyCodeLine{\textcolor{comment}{//    rpp::source::just(rpp::schedulers::trampoline\{\}, 1, 2, 3)}}
+\DoxyCodeLine{\textcolor{comment}{//        .with\_latest\_from(rpp::source::just(rpp::schedulers::trampoline\{\}, 4, 5, 6))}}
+\DoxyCodeLine{\textcolor{comment}{//        .observe\_on(rpp::schedulers::trampoline\{\})}}
+\DoxyCodeLine{\textcolor{comment}{//        .subscribe(}}
+\DoxyCodeLine{\textcolor{comment}{//            [](const auto \&v) \{ std::cout << v << "-\/"; \},}}
+\DoxyCodeLine{\textcolor{comment}{//            [](const std::exception\_ptr \&error) \{\},}}
+\DoxyCodeLine{\textcolor{comment}{//            []() \{ std::cout << "|" << std::endl; \});}}
+\DoxyCodeLine{\textcolor{comment}{//    // Source: -\/1-\/2-\/3-\/-\/|}}
+\DoxyCodeLine{\textcolor{comment}{//    //         -\/1-\/2-\/3-\/-\/|}}
+\DoxyCodeLine{\textcolor{comment}{//    // Output: \{1,1\}-\/\{2,2\}-\/\{3,3\}-\/|}}
+\DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\end{DoxyCodeInclude}
+ 
