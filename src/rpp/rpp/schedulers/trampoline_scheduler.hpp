@@ -111,23 +111,35 @@ public:
             if (!m_sub.is_subscribed())
                 return;
 
-            auto drain_handle = ensure_queue_if_no_any_owner();
+            auto&      queue              = get_schedulable_queue();
+            const bool someone_owns_queue = queue.has_value();
 
-            // do immediate scheduling till queue is empty
-            while (m_sub.is_subscribed() && get_schedulable_queue()->empty())
+            const auto drain_on_exit      = utils::finally_action([someone_owns_queue]
             {
-                std::this_thread::sleep_until(time_point);
+                if (!someone_owns_queue)
+                    drain_queue();
+            });
 
-                if (!m_sub.is_subscribed())
-                    return;
+            if (!someone_owns_queue)
+            {
+                queue = std::priority_queue<current_thread_schedulable>{};
 
-                if (const auto duration = fn())
-                    time_point = std::max(now(), time_point + duration.value());
-                else
-                    return;
+                // do immediate scheduling till queue is empty
+                while (m_sub.is_subscribed() && get_schedulable_queue()->empty())
+                {
+                    std::this_thread::sleep_until(time_point);
+
+                    if (!m_sub.is_subscribed())
+                        return;
+
+                    if (const auto duration = fn())
+                        time_point = std::max(now(), time_point + duration.value());
+                    else
+                        return;
+                }
             }
 
-            defer_at(time_point, schedulable_wrapper{ *this, time_point, std::forward<decltype(fn)>(fn) });
+            defer_at(time_point, schedulable_wrapper{*this, time_point, std::forward<decltype(fn)>(fn)});
         }
 
         template<typename Fn, typename Strategy>
