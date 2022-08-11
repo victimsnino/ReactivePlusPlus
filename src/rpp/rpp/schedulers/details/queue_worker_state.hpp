@@ -21,7 +21,7 @@ namespace rpp::schedulers::details
 class queue_worker_state
 {
 public:
-    queue_worker_state() = default;
+    queue_worker_state() noexcept = default;
 
     void emplace(time_point time_point, std::invocable auto&& fn)
     {
