@@ -42,11 +42,10 @@ private:
 
         void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
         {
-            defer_at(time_point, schedulable_wrapper{*this, time_point, std::forward<decltype(fn)>(fn)});
+            defer_at(time_point, run_loop_schedulable{*this, time_point, std::forward<decltype(fn)>(fn)});
         }
 
-        template<typename Strategy>
-        void defer_at(time_point time_point, schedulable_wrapper<Strategy>&& fn) const
+        void defer_at(time_point time_point, run_loop_schedulable&& fn) const
         {
             if (m_sub.is_subscribed())
                 m_queue->emplace(time_point, std::move(fn));

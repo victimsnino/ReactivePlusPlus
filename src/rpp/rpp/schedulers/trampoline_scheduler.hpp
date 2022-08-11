@@ -37,6 +37,9 @@ namespace rpp::schedulers
 class trampoline final : public details::scheduler_tag
 {
     class current_thread_schedulable;
+    class worker_strategy;
+
+    using trampoline_schedulable = schedulable_wrapper<worker_strategy>;
 
     class worker_strategy
     {
@@ -49,14 +52,10 @@ class trampoline final : public details::scheduler_tag
             if (!m_sub.is_subscribed())
                 return;
 
-            auto& queue = get_schedulable_queue();
+            auto&      queue              = get_schedulable_queue();
             const bool someone_owns_queue = queue.has_value();
 
-            const auto drain_on_exit = utils::finally_action([someone_owns_queue]
-            {
-                if (!someone_owns_queue)
-                    drain_queue();
-            });
+            const auto drain_on_exit =  utils::finally_action(!someone_owns_queue ? &drain_queue : +[]{});
 
             if (!someone_owns_queue)
             {
@@ -77,10 +76,10 @@ class trampoline final : public details::scheduler_tag
                 }
             }
 
-            defer_at(time_point, schedulable_wrapper{ *this, time_point, std::forward<decltype(fn)>(fn) });
+            defer_at(time_point, trampoline_schedulable{ *this, time_point, std::forward<decltype(fn)>(fn) });
         }
 
-        void defer_at(time_point time_point, schedulable_wrapper<worker_strategy>&& fn) const
+        void defer_at(time_point time_point, trampoline_schedulable&& fn) const
         {
             if (!m_sub.is_subscribed())
                 return;
@@ -98,35 +97,37 @@ class trampoline final : public details::scheduler_tag
     {
         auto& queue = get_schedulable_queue();
         auto  reset_at_final = utils::finally_action{ [] { get_schedulable_queue().reset(); } };
-
+        std::optional<trampoline_schedulable> function{};
         while (!queue->empty())
         {
             const auto& top = queue->top();
 
-            auto function = wait_and_extract_executable_if_subscribed(top);
+            wait_and_extract_executable_if_subscribed(top, function);
 
             // firstly we need to pop schedulable from queue due to execution of function can add new schedulable
             queue->pop();
 
             if (function)
-                function();
+                (*function)();
+
+            function.reset();
         }
     }
 
-    [[nodiscard]] static std::function<void()> wait_and_extract_executable_if_subscribed(const current_thread_schedulable& schedulable)
+    static void wait_and_extract_executable_if_subscribed(const current_thread_schedulable& schedulable, std::optional<trampoline_schedulable>& out)
     {
         if (!schedulable.is_subscribed())
-            return {};
+            return;
 
         std::this_thread::sleep_until(schedulable.get_time_point());
 
         if (!schedulable.is_subscribed())
-            return {};
+            return;
 
-        return std::move(schedulable.extract_function());
+        out.emplace(std::move(schedulable.extract_function()));
     }
 
-    class current_thread_schedulable : public details::schedulable<schedulable_wrapper<worker_strategy>>
+    class current_thread_schedulable : public details::schedulable<trampoline_schedulable>
     {
     public:
         current_thread_schedulable(time_point                  time_point,

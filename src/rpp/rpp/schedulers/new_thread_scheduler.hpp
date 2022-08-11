@@ -44,7 +44,7 @@ public:
 
         void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
         {
-            defer_at(time_point, schedulable_wrapper{*this, time_point, std::forward<decltype(fn)>(fn)});
+            defer_at(time_point, new_thread_schedulable{*this, time_point, std::forward<decltype(fn)>(fn)});
         }
 
         void defer_at(time_point time_point, new_thread_schedulable&& fn) const
@@ -62,10 +62,10 @@ public:
             state(const state&) = delete;
             state(state&&) noexcept = delete;
 
-            void defer_at(time_point time_point, constraint::inner_schedulable_fn auto&& fn)
+            void defer_at(time_point time_point, new_thread_schedulable&& fn)
             {
                 if (m_sub->is_subscribed())
-                    m_queue.emplace(time_point, std::forward<decltype(fn)>(fn));
+                    m_queue.emplace(time_point, std::move(fn));
             }
 
             void init_thread(const rpp::composite_subscription& sub)

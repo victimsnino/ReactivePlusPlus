@@ -23,10 +23,10 @@ template<typename SchedulableFn>
 class schedulable
 {
 public:
-    schedulable(time_point time_point, size_t id, constraint::inner_schedulable_fn auto&& fn)
+    schedulable(time_point time_point, size_t id, SchedulableFn&& fn)
         : m_time_point{time_point}
         , m_id{id}
-        , m_function{std::forward<decltype(fn)>(fn)} {}
+        , m_function{std::move(fn)} {}
 
     schedulable(const schedulable& other)                = default;
     schedulable(schedulable&& other) noexcept            = default;
@@ -77,7 +77,7 @@ public:
         if (!is_any_ready_schedulable_unsafe())
             return false;
 
-        out = std::move(m_queue.top().extract_function());
+        out.emplace(std::move(m_queue.top().extract_function()));
         m_queue.pop();
         return true;
     }
@@ -97,7 +97,7 @@ public:
                                  std::bind_front(&queue_worker_state<SchedulableFn>::is_any_ready_schedulable_unsafe, this)))
                 continue;
 
-            out = std::move(m_queue.top().extract_function());
+            out.emplace(std::move(m_queue.top().extract_function()));
             m_queue.pop();
             return true;
         }
