@@ -865,5 +865,22 @@ TEST_CASE("trampoline scheduler")
             worker.schedule(time, work);
         });
     };
+
+    BENCHMARK_ADVANCED("recursively schedule 10 times")(Catch::Benchmark::Chronometer meter)
+    {
+        auto scheduler = rxcpp::schedulers::make_current_thread();
+        auto worker    = scheduler.create_worker();
+        auto time      = scheduler.now();
+
+        auto work = [&](const rxcpp::schedulers::schedulable&)
+        {
+            for (size_t i = 0; i < 10; ++i)
+                worker.schedule(time, [](const rxcpp::schedulers::schedulable&) { });
+        };
+        meter.measure([&]
+        {
+            worker.schedule(time, work);
+        });
+    };
 }
 

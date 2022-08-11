@@ -11,10 +11,12 @@
 
 #pragma once
 
+
 #include <rpp/schedulers/fwd.hpp>                       // own forwarding
 #include <rpp/schedulers/details/worker.hpp>            // worker
 #include <rpp/subscriptions/composite_subscription.hpp> // lifetime
 #include <rpp/schedulers/details/queue_worker_state.hpp>// state
+#include <rpp/utils/utilities.hpp>
 
 #include <concepts>
 #include <chrono>
@@ -24,14 +26,6 @@
 
 namespace rpp::schedulers
 {
-
-template <typename F>
-struct scope_guard {
-    explicit scope_guard(F&& f) : m_f(std::move(f)) {}
-    ~scope_guard() noexcept { m_f(); }
-    F m_f;
-};
-
 /**
  * \brief schedules execution of schedulables via queueing tasks to the caller thread with priority to time_point and order
  *
@@ -42,52 +36,55 @@ struct scope_guard {
  */
 class trampoline final : public details::scheduler_tag
 {
-public:
+    class current_thread_schedulable;
+    class worker_strategy;
+
+    using trampoline_schedulable = schedulable_wrapper<worker_strategy>;
+
     class worker_strategy
     {
     public:
         explicit worker_strategy(const rpp::composite_subscription& subscription)
-            : m_sub{subscription} {};
+            : m_sub{ subscription } {}
 
-        void defer_at(time_point time_point, std::invocable auto&& fn) const
+        void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
         {
             if (!m_sub.is_subscribed())
                 return;
 
-            with_thread_local_schedulable_queue([&](auto& queue, bool& queue_in_use)
+            auto&      queue              = get_schedulable_queue();
+            const bool someone_owns_queue = queue.has_value();
+
+            const auto drain_on_exit =  utils::finally_action(!someone_owns_queue ? &drain_queue : +[]{});
+
+            if (!someone_owns_queue)
             {
-                queue.emplace(time_point, std::forward<decltype(fn)>(fn));
+                queue = std::priority_queue<current_thread_schedulable>{};
 
-                if (queue_in_use)
-                    return;
-
-                queue_in_use = true;
-                scope_guard cleanup([&]() noexcept
+                // do immediate scheduling till queue is empty
+                while (m_sub.is_subscribed() && get_schedulable_queue()->empty())
                 {
-                    // If error occurs, we still want the thread-local state to be reset.
-                    queue_in_use = false;
+                    std::this_thread::sleep_until(time_point);
+
                     if (!m_sub.is_subscribed())
-                        queue.reset();
-                });
+                        return;
 
-                std::stop_source stop;
-                auto stop_token = stop.get_token();
-                m_sub.add([stop = std::move(stop)]() mutable
-                {
-                    // The following blocking-pop exits when subscription is unsubscribed in other thread.
-                    stop.request_stop();
-                });
-
-                while (!queue.is_empty() && m_sub.is_subscribed())
-                {
-                    std::function<void()> schedulable{};
-                    if (queue.pop_with_wait(schedulable, stop_token))
-                    {
-                        schedulable();
-                        schedulable = {};
-                    }
+                    if (const auto duration = fn())
+                        time_point = std::max(now(), time_point + duration.value());
+                    else
+                        return;
                 }
-            });
+            }
+
+            defer_at(time_point, trampoline_schedulable{ *this, time_point, std::forward<decltype(fn)>(fn) });
+        }
+
+        void defer_at(time_point time_point, trampoline_schedulable&& fn) const
+        {
+            if (!m_sub.is_subscribed())
+                return;
+
+            get_schedulable_queue()->emplace(time_point, std::move(fn), m_sub);
         }
 
         static time_point now() { return clock_type::now(); }
@@ -96,22 +93,77 @@ public:
         rpp::composite_subscription m_sub;
     };
 
+    static void drain_queue()
+    {
+        auto& queue = get_schedulable_queue();
+        auto  reset_at_final = utils::finally_action{ [] { get_schedulable_queue().reset(); } };
+        std::optional<trampoline_schedulable> function{};
+        while (!queue->empty())
+        {
+            const auto& top = queue->top();
+
+            wait_and_extract_executable_if_subscribed(top, function);
+
+            // firstly we need to pop schedulable from queue due to execution of function can add new schedulable
+            queue->pop();
+
+            if (function)
+                (*function)();
+
+            function.reset();
+        }
+    }
+
+    static void wait_and_extract_executable_if_subscribed(const current_thread_schedulable& schedulable, std::optional<trampoline_schedulable>& out)
+    {
+        if (!schedulable.is_subscribed())
+            return;
+
+        std::this_thread::sleep_until(schedulable.get_time_point());
+
+        if (!schedulable.is_subscribed())
+            return;
+
+        out.emplace(std::move(schedulable.extract_function()));
+    }
+
+    class current_thread_schedulable : public details::schedulable<trampoline_schedulable>
+    {
+    public:
+        current_thread_schedulable(time_point                  time_point,
+                                   std::invocable auto&&       fn,
+                                   rpp::composite_subscription subscription)
+            : schedulable(time_point, get_thread_local_id(), std::forward<decltype(fn)>(fn))
+            , m_subscription{std::move(subscription)} {}
+
+        bool is_subscribed() const { return m_subscription.is_subscribed(); }
+
+    private:
+        static size_t get_thread_local_id()
+        {
+            static thread_local size_t s_id;
+            return s_id++;
+        }
+
+    private:
+        rpp::composite_subscription m_subscription{};
+    };
+
+    /**
+     * \brief Returns optional thread_local schedulable queue. If optional has value -> someone just owns thread.
+     */
+    static std::optional<std::priority_queue<current_thread_schedulable>>& get_schedulable_queue()
+    {
+        static thread_local std::optional<std::priority_queue<current_thread_schedulable>> s_queue{};
+        return s_queue;
+    }
+
+public:
+    static bool is_queue_owned() { return get_schedulable_queue().has_value(); }
+
     static auto create_worker(const rpp::composite_subscription& sub = composite_subscription{})
     {
         return worker<worker_strategy>{sub};
-    }
-
-private:
-    /**
-     * \brief evaluates given lambda with the thread local queue and ownership-flag.
-     *
-     * \param action a lambda that is given with the thread local queue and ownership-flag.
-     */
-    static void with_thread_local_schedulable_queue(std::function<void(rpp::schedulers::details::queue_worker_state&, bool&)>&& action)
-    {
-        static thread_local rpp::schedulers::details::queue_worker_state queue{};
-        static thread_local bool queue_in_use{false};
-        action(queue, queue_in_use);
     }
 };
 } // namespace rpp::schedulers

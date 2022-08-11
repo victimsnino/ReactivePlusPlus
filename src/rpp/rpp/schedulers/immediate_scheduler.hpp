@@ -33,15 +33,20 @@ public:
         worker_strategy(const rpp::subscription_base& sub)
             : m_sub{sub} {}
 
-        void defer_at(time_point time_point, std::invocable auto&& fn) const
+        void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
         {
-            if (!m_sub.is_subscribed())
-                return;
+            while (m_sub.is_subscribed())
+            {
+                std::this_thread::sleep_until(time_point);
 
-            std::this_thread::sleep_until(time_point);
+                if (!m_sub.is_subscribed())
+                    return;
 
-            if (m_sub.is_subscribed())
-                fn();
+                if (auto duration = fn())
+                    time_point = std::max(now(), time_point + duration.value());
+                else
+                    return;
+            }
         }
 
         static time_point now() { return clock_type::now();  }
@@ -50,7 +55,7 @@ public:
         rpp::subscription_base m_sub;
     };
 
-    static worker<worker_strategy> create_worker(const rpp::subscription_base& sub = {})
+    static auto create_worker(const rpp::subscription_base& sub = {})
     {
         return worker<worker_strategy>{sub};
     }

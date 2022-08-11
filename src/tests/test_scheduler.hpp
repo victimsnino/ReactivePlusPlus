@@ -24,12 +24,16 @@ public:
             : m_sub{ sub }
             , m_schedulings{ schedulings } {}
 
-        void defer_at(rpp::schedulers::time_point time_point, std::invocable auto&& fn) const
+        void defer_at(rpp::schedulers::time_point time_point, rpp::schedulers::constraint::schedulable_fn auto&& fn) const
         {
-            if (m_sub.is_subscribed())
+            while (m_sub.is_subscribed())
             {
                 m_schedulings->push_back(time_point);
-                fn();
+
+                if (auto duration = fn())
+                    time_point = std::max(now(), time_point + duration.value());
+                else
+                    return;
             }
         }
 

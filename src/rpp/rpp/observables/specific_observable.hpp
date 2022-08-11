@@ -10,13 +10,13 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
 #include <rpp/observables/fwd.hpp>
 #include <rpp/observables/interface_observable.hpp>            // base_class
-#include <rpp/utils/operator_declaration.hpp>                  // for header include
+#include <rpp/schedulers/trampoline_scheduler.hpp>
 #include <rpp/subscribers/dynamic_subscriber.hpp>
+#include <rpp/utils/operator_declaration.hpp>                  // for header include
 #include <rpp/utils/utilities.hpp>                            // copy_assignable_callable
-
-#include <rpp/defs.hpp>
 
 #include <utility>
 
@@ -71,7 +71,24 @@ private:
     {
         try
         {
-            m_state(subscriber);
+            // take ownership over current thread as early as possible to delay all next "current_thread" schedulings. For  example, scheduling of emissions from "just" to delay it till whole chain is subscribed and ready to listened emissions
+            // For example, if we have
+            // rpp::source::just(rpp::schedulers::current_thread{}, 1,2).combine_latest(rpp::source::just(rpp::schedulers::current_thread{}, 1,2))
+            //
+            // then we expect to see emissions like (1,1) (2,1) (2,2) instead of (2,1) (2,2). TO do it we need to "take ownership" over queue to prevent ANY immediate schedulings from ANY next subscriptions
+            if (rpp::schedulers::current_thread::is_queue_owned())
+            {
+                m_state(subscriber);
+            }
+            else
+            {
+                // will be scheduled immediately -> reference can be passed
+                rpp::schedulers::current_thread::create_worker(subscriber.get_subscription()).schedule([&]
+                {
+                    m_state(subscriber);
+                    return rpp::schedulers::optional_duration{};
+                });
+            }
         }
         catch (...)
         {

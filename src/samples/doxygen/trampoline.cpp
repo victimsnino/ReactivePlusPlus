@@ -14,12 +14,9 @@ int main()
 {
     //! [trampoline]
     rpp::source::just(rpp::schedulers::trampoline{}, 1, 2, 3)
-        .merge_with(rpp::source::just(rpp::schedulers::trampoline{}, 4, 5, 6))
-        .subscribe_on(rpp::schedulers::trampoline{})
-        .subscribe(
-            [](const int &v) { std::cout << "-" << v; },
-            [](const std::exception_ptr &error) {},
-            []() { std::cout << "-|" << std::endl; });
+            .merge_with(rpp::source::just(rpp::schedulers::trampoline{}, 4, 5, 6))
+            .subscribe([](const int& v) { std::cout << "-" << v; },
+                       []() { std::cout << "-|" << std::endl; });
     // Source 1: -1-2-3-|
     // Source 2:        -4-5-6-|
     // Output  : -1-4-2-5-3-6-|

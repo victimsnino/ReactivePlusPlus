@@ -85,4 +85,25 @@ public:
 private:
     RPP_NO_UNIQUE_ADDRESS std::optional<Callable> m_callable;
 };
+
+/**
+ * \brief Calls passed function during destruction
+ */
+template<std::invocable Fn>
+class finally_action
+{
+public:
+    finally_action(Fn&& fn)
+        : m_fn{std::move(fn)} {}
+
+    finally_action(const Fn& fn)
+        : m_fn{fn} {}
+
+    ~finally_action() noexcept
+    {
+        m_fn();
+    }
+private:
+    Fn m_fn;
+};
 } // namespace rpp::utils
