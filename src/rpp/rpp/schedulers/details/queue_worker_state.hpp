@@ -18,6 +18,33 @@
 
 namespace rpp::schedulers::details
 {
+class schedulable
+{
+public:
+    schedulable(time_point time_point, size_t id, std::invocable auto&& fn)
+        : m_time_point{time_point}
+        , m_id{id}
+        , m_function{std::forward<decltype(fn)>(fn)} {}
+
+    schedulable(const schedulable& other)                = default;
+    schedulable(schedulable&& other) noexcept            = default;
+    schedulable& operator=(const schedulable& other)     = default;
+    schedulable& operator=(schedulable&& other) noexcept = default;
+
+    bool operator<(const schedulable& other) const
+    {
+        return std::tie(m_time_point, m_id) >= std::tie(other.m_time_point, other.m_id);
+    }
+
+    time_point              GetTimePoint() const { return m_time_point; }
+    std::function<void()>&& ExtractFunction() const { return std::move(m_function); }
+
+private:
+    time_point                    m_time_point;
+    size_t                        m_id;
+    mutable std::function<void()> m_function;
+};
+
 class queue_worker_state
 {
 public:
@@ -93,33 +120,6 @@ private:
     }
 
 private:
-    class schedulable
-    {
-    public:
-        schedulable(time_point time_point, size_t id, std::invocable auto&& fn)
-            : m_time_point{ time_point }
-            , m_id{ id }
-            , m_function{ std::forward<decltype(fn)>(fn) } {}
-
-        schedulable(const schedulable& other) = default;
-        schedulable(schedulable&& other) noexcept = default;
-        schedulable& operator=(const schedulable& other) = default;
-        schedulable& operator=(schedulable&& other) noexcept = default;
-
-        bool operator<(const schedulable& other) const
-        {
-            return std::tie(m_time_point, m_id) >= std::tie(other.m_time_point, other.m_id);
-        }
-
-        time_point              GetTimePoint() const { return m_time_point; }
-        std::function<void()>&& ExtractFunction() const { return std::move(m_function); }
-
-    private:
-        time_point                    m_time_point;
-        size_t                        m_id;
-        mutable std::function<void()> m_function;
-    };
-
     mutable std::mutex               m_mutex{};
     std::condition_variable_any      m_cv{};
     std::priority_queue<schedulable> m_queue{};
