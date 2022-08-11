@@ -18,6 +18,7 @@
 #include <rpp/schedulers/run_loop_scheduler.hpp>
 
 #include <future>
+#include <sstream>
 
 using namespace std::string_literals;
 
