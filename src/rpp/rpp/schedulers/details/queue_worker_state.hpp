@@ -19,6 +19,7 @@
 
 namespace rpp::schedulers::details
 {
+template<typename SchedulableFn>
 class schedulable
 {
 public:
@@ -37,15 +38,16 @@ public:
         return std::tie(m_time_point, m_id) >= std::tie(other.m_time_point, other.m_id);
     }
 
-    time_point              GetTimePoint() const { return m_time_point; }
-    std::function<void()>&& ExtractFunction() const { return std::move(m_function); }
+    time_point GetTimePoint() const { return m_time_point; }
+    SchedulableFn&& ExtractFunction() const { return std::move(m_function); }
 
 private:
-    time_point                    m_time_point;
-    size_t                        m_id;
-    mutable std::function<void()> m_function;
+    time_point            m_time_point;
+    size_t                m_id;
+    mutable SchedulableFn m_function;
 };
 
+template<typename SchedulableFn>
 class queue_worker_state
 {
 public:
@@ -69,7 +71,7 @@ public:
         return is_any_ready_schedulable_unsafe();
     }
 
-    bool pop_if_ready(std::function<void()>& out)
+    bool pop_if_ready(std::optional<SchedulableFn>& out)
     {
         std::lock_guard lock{ m_mutex };
         if (!is_any_ready_schedulable_unsafe())
@@ -80,7 +82,7 @@ public:
         return true;
     }
 
-    bool pop_with_wait(std::function<void()>& out, const std::stop_token& token)
+    bool pop_with_wait(std::optional<SchedulableFn>& out, const std::stop_token& token)
     {
         while (!token.stop_requested())
         {
@@ -92,7 +94,7 @@ public:
             if (!m_cv.wait_until(lock,
                                  token,
                                  m_queue.top().GetTimePoint(),
-                                 std::bind_front(&queue_worker_state::is_any_ready_schedulable_unsafe, this)))
+                                 std::bind_front(&queue_worker_state<SchedulableFn>::is_any_ready_schedulable_unsafe, this)))
                 continue;
 
             out = std::move(m_queue.top().ExtractFunction());
@@ -105,7 +107,7 @@ public:
     void reset()
     {
         std::lock_guard lock{ m_mutex };
-        m_queue = std::priority_queue<schedulable>{};
+        m_queue = std::priority_queue<schedulable<SchedulableFn>>{};
     }
 
 private:
@@ -121,9 +123,9 @@ private:
     }
 
 private:
-    mutable std::mutex               m_mutex{};
-    std::condition_variable_any      m_cv{};
-    std::priority_queue<schedulable> m_queue{};
-    size_t                           m_current_id{};
+    mutable std::mutex                              m_mutex{};
+    std::condition_variable_any                     m_cv{};
+    std::priority_queue<schedulable<SchedulableFn>> m_queue{};
+    size_t                                          m_current_id{};
 };
 } // namespace rpp::schedulers::details

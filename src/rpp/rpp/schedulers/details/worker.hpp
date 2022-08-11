@@ -15,31 +15,26 @@
 #include <rpp/utils/constraints.hpp>
 
 #include <algorithm>
+#include <functional>
 
 namespace rpp::schedulers
 {
 template<typename T>
 concept worker_strategy = std::copyable<T> && requires(const T t)
 {
-    //t.defer_at(time_point{}, std::declval<void(*)()>());
+    t.defer_at(time_point{}, std::declval<optional_duration(*)()>());
     { t.now() } -> std::same_as<time_point>;
 };
 
-template<constraint::schedulable_fn Fn, worker_strategy Strategy>
-struct schedulable_wrapper
+template<typename Strategy>
+class schedulable_wrapper
 {
-    schedulable_wrapper(const Strategy& strategy, time_point time_point, const Fn& fn)
-        : m_strategy{ strategy }
-        , m_time_point{ time_point }
-        , m_fn{ fn } {}
-
+public:
+    template<constraint::schedulable_fn Fn>
     schedulable_wrapper(const Strategy& strategy, time_point time_point, Fn&& fn)
-        : m_strategy{ strategy }
-        , m_time_point{ time_point }
-        , m_fn{ std::move(fn) } {}
-
-    schedulable_wrapper(const schedulable_wrapper&) = default; // LCOV_EXCL_LINE
-    schedulable_wrapper(schedulable_wrapper&&) noexcept(std::is_nothrow_move_constructible_v<Fn>) = default;
+        : m_strategy{strategy}
+        , m_time_point{time_point}
+        , m_fn{std::forward<Fn>(fn)} {}
 
     void operator()()
     {
@@ -51,9 +46,10 @@ struct schedulable_wrapper
         }
     }
 
-    Strategy   m_strategy;
-    time_point m_time_point;
-    Fn         m_fn{};
+private:
+    Strategy                           m_strategy;
+    time_point                         m_time_point;
+    std::function<optional_duration()> m_fn{};
 };
 
 template<worker_strategy Strategy>

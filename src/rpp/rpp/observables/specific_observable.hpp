@@ -79,9 +79,10 @@ private:
             else
             {
                 // will be scheduled immediately -> reference can be passed
-                rpp::schedulers::current_thread::create_worker(subscriber.get_subscribtion()).schedule([&]
+                rpp::schedulers::current_thread::create_worker(subscriber.get_subscription()).schedule([&]
                 {
                     m_state(subscriber);
+                    return rpp::schedulers::optional_duration{};
                 });
             }
         }

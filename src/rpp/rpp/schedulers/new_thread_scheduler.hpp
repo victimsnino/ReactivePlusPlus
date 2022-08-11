@@ -34,6 +34,8 @@ public:
     class worker_strategy
     {
     public:
+        using new_thread_schedulable = schedulable_wrapper<worker_strategy>;
+
         worker_strategy(const rpp::composite_subscription& sub)
             : m_state{std::make_shared<state>()}
         {
@@ -45,8 +47,7 @@ public:
             defer_at(time_point, schedulable_wrapper{*this, time_point, std::forward<decltype(fn)>(fn)});
         }
 
-        template<typename Fn, typename Strategy>
-        void defer_at(time_point time_point, schedulable_wrapper<Fn, Strategy>&& fn) const
+        void defer_at(time_point time_point, new_thread_schedulable&& fn) const
         {
             m_state->defer_at(time_point, std::move(fn));
         }
@@ -89,13 +90,13 @@ public:
         private:
             void data_thread(const std::stop_token& token)
             {
-                std::function<void()> fn{};
+                std::optional<new_thread_schedulable> fn{};
                 while (!token.stop_requested())
                 {
                     if (m_queue.pop_with_wait(fn, token))
                     {
-                        fn();
-                        fn = {};
+                        (*fn)();
+                        fn.reset();
                     }
                 }
 
@@ -103,9 +104,9 @@ public:
                 m_queue.reset();
             }
 
-            details::queue_worker_state m_queue{};
-            std::jthread                m_thread{};
-            rpp::subscription_guard     m_sub = rpp::subscription_base::empty();
+            details::queue_worker_state<new_thread_schedulable> m_queue{};
+            std::jthread                                        m_thread{};
+            rpp::subscription_guard                             m_sub = rpp::subscription_base::empty();
         };
 
         std::shared_ptr<state> m_state{};

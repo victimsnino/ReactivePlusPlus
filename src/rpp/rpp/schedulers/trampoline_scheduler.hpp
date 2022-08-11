@@ -36,7 +36,63 @@ namespace rpp::schedulers
  */
 class trampoline final : public details::scheduler_tag
 {
-    class current_thread_schedulable : public details::schedulable
+    class worker_strategy
+    {
+    public:
+        explicit worker_strategy(const rpp::composite_subscription& subscription)
+            : m_sub{ subscription } {}
+
+        void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
+        {
+            if (!m_sub.is_subscribed())
+                return;
+
+            auto& queue = get_schedulable_queue();
+            const bool someone_owns_queue = queue.has_value();
+
+            const auto drain_on_exit = utils::finally_action([someone_owns_queue]
+            {
+                if (!someone_owns_queue)
+                    drain_queue();
+            });
+
+            if (!someone_owns_queue)
+            {
+                queue = std::priority_queue<current_thread_schedulable>{};
+
+                // do immediate scheduling till queue is empty
+                while (m_sub.is_subscribed() && get_schedulable_queue()->empty())
+                {
+                    std::this_thread::sleep_until(time_point);
+
+                    if (!m_sub.is_subscribed())
+                        return;
+
+                    if (const auto duration = fn())
+                        time_point = std::max(now(), time_point + duration.value());
+                    else
+                        return;
+                }
+            }
+
+            defer_at(time_point, schedulable_wrapper{ *this, time_point, std::forward<decltype(fn)>(fn) });
+        }
+
+        void defer_at(time_point time_point, schedulable_wrapper<worker_strategy>&& fn) const
+        {
+            if (!m_sub.is_subscribed())
+                return;
+
+            get_schedulable_queue()->emplace(time_point, std::move(fn), m_sub);
+        }
+
+        static time_point now() { return clock_type::now(); }
+
+    private:
+        rpp::composite_subscription m_sub;
+    };
+
+    class current_thread_schedulable : public details::schedulable<schedulable_wrapper<worker_strategy>>
     {
     public:
         current_thread_schedulable(time_point                  time_point,
@@ -100,63 +156,6 @@ class trampoline final : public details::scheduler_tag
     }
 
 public:
-    class worker_strategy
-    {
-    public:
-        explicit worker_strategy(const rpp::composite_subscription& subscription)
-            : m_sub{subscription} {}
-
-        void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
-        {
-            if (!m_sub.is_subscribed())
-                return;
-
-            auto&      queue              = get_schedulable_queue();
-            const bool someone_owns_queue = queue.has_value();
-
-            const auto drain_on_exit      = utils::finally_action([someone_owns_queue]
-            {
-                if (!someone_owns_queue)
-                    drain_queue();
-            });
-
-            if (!someone_owns_queue)
-            {
-                queue = std::priority_queue<current_thread_schedulable>{};
-
-                // do immediate scheduling till queue is empty
-                while (m_sub.is_subscribed() && get_schedulable_queue()->empty())
-                {
-                    std::this_thread::sleep_until(time_point);
-
-                    if (!m_sub.is_subscribed())
-                        return;
-
-                    if (const auto duration = fn())
-                        time_point = std::max(now(), time_point + duration.value());
-                    else
-                        return;
-                }
-            }
-
-            defer_at(time_point, schedulable_wrapper{*this, time_point, std::forward<decltype(fn)>(fn)});
-        }
-
-        template<typename Fn, typename Strategy>
-        void defer_at(time_point time_point, schedulable_wrapper<Fn, Strategy>&& fn) const
-        {
-            if (!m_sub.is_subscribed())
-                return;
-
-            get_schedulable_queue()->emplace(time_point, std::move(fn), m_sub);
-        }
-
-        static time_point now() { return clock_type::now(); }
-
-    private:
-        rpp::composite_subscription m_sub;
-    };
-
     static bool is_queue_owned() { return get_schedulable_queue().has_value(); }
 
     static auto create_worker(const rpp::composite_subscription& sub = composite_subscription{})
