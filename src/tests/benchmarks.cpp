@@ -15,6 +15,7 @@
 #include <rpp/observers/specific_observer.hpp>
 #include <rpp/operators.hpp>
 #include <rpp/subjects.hpp>
+#include <rpp/schedulers/trampoline_scheduler.hpp>
 
 #include <array>
 #include <vector>
@@ -792,5 +793,77 @@ TEST_CASE("publish_subject routines")
             {
                 return subj.get_subscriber();
             });
+    };
+}
+
+TEST_CASE("immediate scheduler")
+{
+    BENCHMARK_ADVANCED("no any re-schedule")(Catch::Benchmark::Chronometer meter)
+    {
+        rpp::schedulers::immediate scheduler{};
+        auto                       worker = scheduler.create_worker();
+        auto                       time   = rpp::schedulers::clock_type::now();
+
+        auto work = []() -> rpp::schedulers::optional_duration { return {}; };
+        meter.measure([&]
+        {
+            worker.schedule(time, work);
+        });
+    };
+
+    BENCHMARK_ADVANCED("re-schedule 2 times")(Catch::Benchmark::Chronometer meter)
+    {
+        rpp::schedulers::immediate scheduler{};
+        auto                       worker = scheduler.create_worker();
+        auto                       time   = rpp::schedulers::clock_type::now();
+
+        int  count = 0;
+        auto work  = [&]() -> rpp::schedulers::optional_duration
+        {
+            if (count++ >= 2)
+                return {};
+
+            return rpp::schedulers::duration{};
+        };
+        meter.measure([&]
+        {
+            worker.schedule(time, work);
+        });
+    };
+}
+
+TEST_CASE("trampoline scheduler")
+{
+    BENCHMARK_ADVANCED("no any re-schedule")(Catch::Benchmark::Chronometer meter)
+    {
+        rpp::schedulers::trampoline scheduler{};
+        auto                        worker = scheduler.create_worker();
+        auto                        time   = rpp::schedulers::clock_type::now();
+
+        auto work = []() -> rpp::schedulers::optional_duration { return {}; };
+        meter.measure([&]
+        {
+            worker.schedule(time, work);
+        });
+    };
+
+    BENCHMARK_ADVANCED("re-schedule 2 times")(Catch::Benchmark::Chronometer meter)
+    {
+        rpp::schedulers::trampoline scheduler{};
+        auto                        worker = scheduler.create_worker();
+        auto                        time   = rpp::schedulers::clock_type::now();
+
+        int  count = 0;
+        auto work  = [&]() -> rpp::schedulers::optional_duration
+        {
+            if (count++ >= 2)
+                return {};
+
+            return rpp::schedulers::duration{};
+        };
+        meter.measure([&]
+        {
+            worker.schedule(time, work);
+        });
     };
 }

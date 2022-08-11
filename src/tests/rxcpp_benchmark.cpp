@@ -790,3 +790,76 @@ TEST_CASE("publish_subject routines")
             });
     };
 }
+
+TEST_CASE("immediate scheduler")
+{
+    BENCHMARK_ADVANCED("no any re-schedule")(Catch::Benchmark::Chronometer meter)
+    {
+        auto scheduler = rxcpp::schedulers::make_immediate();
+        auto worker    = scheduler.create_worker();
+        auto time      = scheduler.now();
+
+        auto work = [](const rxcpp::schedulers::schedulable& self) { };
+        meter.measure([&]
+        {
+            worker.schedule(time, work);
+        });
+    };
+
+    BENCHMARK_ADVANCED("re-schedule 2 times")(Catch::Benchmark::Chronometer meter)
+    {
+        auto scheduler = rxcpp::schedulers::make_immediate();
+        auto worker    = scheduler.create_worker();
+        auto time      = scheduler.now();
+        int  count     = 0;
+
+        auto work = [&count](const rxcpp::schedulers::schedulable& self)
+        {
+            if (count++ >= 2)
+                return;
+
+            self();
+        };
+        meter.measure([&]
+        {
+            worker.schedule(time, work);
+        });
+    };
+}
+
+TEST_CASE("trampoline scheduler")
+{
+    BENCHMARK_ADVANCED("no any re-schedule")(Catch::Benchmark::Chronometer meter)
+    {
+        auto scheduler = rxcpp::schedulers::make_current_thread();
+        auto worker    = scheduler.create_worker();
+        auto time      = scheduler.now();
+
+        auto work = [](const rxcpp::schedulers::schedulable& self) {};
+        meter.measure([&]
+        {
+            worker.schedule(time, work);
+        });
+    };
+
+    BENCHMARK_ADVANCED("re-schedule 2 times")(Catch::Benchmark::Chronometer meter)
+    {
+        auto scheduler = rxcpp::schedulers::make_current_thread();
+        auto worker    = scheduler.create_worker();
+        auto time      = scheduler.now();
+        int  count     = 0;
+
+        auto work = [&count](const rxcpp::schedulers::schedulable& self)
+        {
+            if (count++ >= 2)
+                return;
+
+            self();
+        };
+        meter.measure([&]
+        {
+            worker.schedule(time, work);
+        });
+    };
+}
+
