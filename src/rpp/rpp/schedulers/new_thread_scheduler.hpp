@@ -40,7 +40,7 @@ public:
             m_state->init_thread(sub);
         }
 
-        void defer_at(time_point time_point, std::invocable auto&& fn) const
+        void defer_at(time_point time_point, constraint::inner_schedulable_fn auto&& fn) const
         {
             m_state->defer_at(time_point, std::forward<decltype(fn)>(fn));
         }
@@ -55,7 +55,7 @@ public:
             state(const state&) = delete;
             state(state&&) noexcept = delete;
 
-            void defer_at(time_point time_point, std::invocable auto&& fn)
+            void defer_at(time_point time_point, constraint::inner_schedulable_fn auto&& fn)
             {
                 if (m_sub->is_subscribed())
                     m_queue.emplace(time_point, std::forward<decltype(fn)>(fn));

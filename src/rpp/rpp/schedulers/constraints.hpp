@@ -22,6 +22,9 @@ template<typename T>
 concept schedulable_fn = std::is_invocable_r_v<optional_duration, T>;
 
 template<typename T>
+concept inner_schedulable_fn = std::is_invocable_r_v<void, T>;
+
+template<typename T>
 concept worker = std::is_base_of_v<details::worker_tag, std::decay_t<T>>;
 
 template<typename T>

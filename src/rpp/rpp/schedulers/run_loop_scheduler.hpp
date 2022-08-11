@@ -63,7 +63,7 @@ public:
             : m_queue{queue}
             , m_sub{sub} { }
 
-        void defer_at(time_point time_point, std::invocable auto&& fn) const
+        void defer_at(time_point time_point, constraint::inner_schedulable_fn auto&& fn) const
         {
             if (m_sub.is_subscribed())
                 m_queue->emplace(time_point, std::forward<decltype(fn)>(fn));

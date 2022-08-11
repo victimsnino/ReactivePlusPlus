@@ -24,7 +24,7 @@ public:
             : m_sub{ sub }
             , m_schedulings{ schedulings } {}
 
-        void defer_at(rpp::schedulers::time_point time_point, std::invocable auto&& fn) const
+        void defer_at(rpp::schedulers::time_point time_point, rpp::schedulers::constraint::inner_schedulable_fn auto&& fn) const
         {
             if (m_sub.is_subscribed())
             {

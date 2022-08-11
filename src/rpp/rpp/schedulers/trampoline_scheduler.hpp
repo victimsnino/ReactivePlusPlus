@@ -106,7 +106,7 @@ public:
         explicit worker_strategy(const rpp::composite_subscription& subscription)
             : m_sub{subscription} {}
 
-        void defer_at(time_point time_point, std::invocable auto&& fn) const
+        void defer_at(time_point time_point, constraint::inner_schedulable_fn auto&& fn) const
         {
             if (!m_sub.is_subscribed())
                 return;

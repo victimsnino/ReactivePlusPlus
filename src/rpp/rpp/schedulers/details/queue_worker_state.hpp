@@ -10,6 +10,7 @@
 #pragma once
 
 #include <rpp/schedulers/fwd.hpp>  // own forwarding
+#include <rpp/schedulers/constraints.hpp>
 
 #include <mutex>
 #include <condition_variable>
@@ -21,7 +22,7 @@ namespace rpp::schedulers::details
 class schedulable
 {
 public:
-    schedulable(time_point time_point, size_t id, std::invocable auto&& fn)
+    schedulable(time_point time_point, size_t id, constraint::inner_schedulable_fn auto&& fn)
         : m_time_point{time_point}
         , m_id{id}
         , m_function{std::forward<decltype(fn)>(fn)} {}
@@ -50,7 +51,7 @@ class queue_worker_state
 public:
     queue_worker_state() noexcept = default;
 
-    void emplace(time_point time_point, std::invocable auto&& fn)
+    void emplace(time_point time_point, constraint::inner_schedulable_fn auto&& fn)
     {
         emplace_safe(time_point, std::forward<decltype(fn)>(fn));
         m_cv.notify_one();
@@ -108,7 +109,7 @@ public:
     }
 
 private:
-    void emplace_safe(time_point time_point, std::invocable auto&& fn)
+    void emplace_safe(time_point time_point, constraint::inner_schedulable_fn auto&& fn)
     {
         std::lock_guard lock{ m_mutex };
         m_queue.emplace(time_point, ++m_current_id, std::forward<decltype(fn)>(fn));
