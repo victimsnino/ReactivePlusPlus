@@ -84,14 +84,15 @@ var annotated_dup =
       [ "schedulers", null, [
         [ "details", null, [
           [ "queue_worker_state", "classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html", "classrpp_1_1schedulers_1_1details_1_1queue__worker__state" ],
+          [ "schedulable", "classrpp_1_1schedulers_1_1details_1_1schedulable.html", "classrpp_1_1schedulers_1_1details_1_1schedulable" ],
           [ "scheduler_tag", "structrpp_1_1schedulers_1_1details_1_1scheduler__tag.html", null ],
           [ "worker_tag", "structrpp_1_1schedulers_1_1details_1_1worker__tag.html", null ]
         ] ],
         [ "immediate", "classrpp_1_1schedulers_1_1immediate.html", "classrpp_1_1schedulers_1_1immediate" ],
         [ "new_thread", "classrpp_1_1schedulers_1_1new__thread.html", "classrpp_1_1schedulers_1_1new__thread" ],
         [ "run_loop", "classrpp_1_1schedulers_1_1run__loop.html", "classrpp_1_1schedulers_1_1run__loop" ],
-        [ "scope_guard", "structrpp_1_1schedulers_1_1scope__guard.html", "structrpp_1_1schedulers_1_1scope__guard" ],
-        [ "trampoline", "classrpp_1_1schedulers_1_1trampoline.html", "classrpp_1_1schedulers_1_1trampoline" ],
+        [ "schedulable_wrapper", "classrpp_1_1schedulers_1_1schedulable__wrapper.html", "classrpp_1_1schedulers_1_1schedulable__wrapper" ],
+        [ "trampoline", "classrpp_1_1schedulers_1_1trampoline.html", null ],
         [ "worker", "classrpp_1_1schedulers_1_1worker.html", "classrpp_1_1schedulers_1_1worker" ]
       ] ],
       [ "subjects", null, [

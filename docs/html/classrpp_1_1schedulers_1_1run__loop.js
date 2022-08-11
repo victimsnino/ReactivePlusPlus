@@ -1,6 +1,5 @@
 var classrpp_1_1schedulers_1_1run__loop =
 [
-    [ "worker_strategy", "classrpp_1_1schedulers_1_1run__loop_1_1worker__strategy.html", "classrpp_1_1schedulers_1_1run__loop_1_1worker__strategy" ],
     [ "run_loop", "classrpp_1_1schedulers_1_1run__loop.html#ac9a905d9c90ca4a0ab11535022672170", null ],
     [ "create_worker", "classrpp_1_1schedulers_1_1run__loop.html#a517dec7d9d0f95a19493e0f3f795483f", null ],
     [ "dispatch", "classrpp_1_1schedulers_1_1run__loop.html#a13486550322f494d60a006e1c57c543d", null ],

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::schedulers::run_loop::worker_strategy Class Reference</title>
+<title>ReactivePlusPlus: rpp::schedulers::details::schedulable&lt; SchedulableFn &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -73,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('classrpp_1_1schedulers_1_1run__loop_1_1worker__strategy.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classrpp_1_1schedulers_1_1details_1_1schedulable.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,37 +94,48 @@ $(document).ready(function(){initNavTree('classrpp_1_1schedulers_1_1run__loop_1_
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="classrpp_1_1schedulers_1_1run__loop_1_1worker__strategy-members.html">List of all members</a>  </div>
+<a href="classrpp_1_1schedulers_1_1details_1_1schedulable-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">rpp::schedulers::run_loop::worker_strategy Class Reference</div>  </div>
+<div class="title">rpp::schedulers::details::schedulable&lt; SchedulableFn &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a16f33910e5b10cfb44df2f838630126d"><td class="memItemLeft" align="right" valign="top"><a id="a16f33910e5b10cfb44df2f838630126d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>worker_strategy</b> (const std::shared_ptr&lt; <a class="el" href="classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html">details::queue_worker_state</a> &gt; &amp;queue, const <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> &amp;sub)</td></tr>
-<tr class="separator:a16f33910e5b10cfb44df2f838630126d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d1a2cb098e0bc77f3d1c1c217a75792"><td class="memItemLeft" align="right" valign="top"><a id="a0d1a2cb098e0bc77f3d1c1c217a75792"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>defer_at</b> (time_point time_point, std::invocable auto &amp;&amp;fn) const</td></tr>
-<tr class="separator:a0d1a2cb098e0bc77f3d1c1c217a75792"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:adc607d7f7e0397e6e5130c1e8a7214c7"><td class="memItemLeft" align="right" valign="top"><a id="adc607d7f7e0397e6e5130c1e8a7214c7"></a>
-static time_point&#160;</td><td class="memItemRight" valign="bottom"><b>now</b> ()</td></tr>
-<tr class="separator:adc607d7f7e0397e6e5130c1e8a7214c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9af4e21c175f569797e710a969a33632"><td class="memItemLeft" align="right" valign="top"><a id="a9af4e21c175f569797e710a969a33632"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>schedulable</b> (time_point time_point, size_t id, SchedulableFn &amp;&amp;fn)</td></tr>
+<tr class="separator:a9af4e21c175f569797e710a969a33632"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5450e25386c27c234097f3b8d37b842"><td class="memItemLeft" align="right" valign="top"><a id="aa5450e25386c27c234097f3b8d37b842"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>schedulable</b> (const <a class="el" href="classrpp_1_1schedulers_1_1details_1_1schedulable.html">schedulable</a> &amp;other)=default</td></tr>
+<tr class="separator:aa5450e25386c27c234097f3b8d37b842"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49caa7c2df8c2607005be1e58170e560"><td class="memItemLeft" align="right" valign="top"><a id="a49caa7c2df8c2607005be1e58170e560"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>schedulable</b> (<a class="el" href="classrpp_1_1schedulers_1_1details_1_1schedulable.html">schedulable</a> &amp;&amp;other) noexcept=default</td></tr>
+<tr class="separator:a49caa7c2df8c2607005be1e58170e560"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d2f0b1382a5064c5ef68ab6d5279cc5"><td class="memItemLeft" align="right" valign="top"><a id="a4d2f0b1382a5064c5ef68ab6d5279cc5"></a>
+<a class="el" href="classrpp_1_1schedulers_1_1details_1_1schedulable.html">schedulable</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classrpp_1_1schedulers_1_1details_1_1schedulable.html">schedulable</a> &amp;other)=default</td></tr>
+<tr class="separator:a4d2f0b1382a5064c5ef68ab6d5279cc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae818f7149f029b858e1d85d6990014c9"><td class="memItemLeft" align="right" valign="top"><a id="ae818f7149f029b858e1d85d6990014c9"></a>
+<a class="el" href="classrpp_1_1schedulers_1_1details_1_1schedulable.html">schedulable</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classrpp_1_1schedulers_1_1details_1_1schedulable.html">schedulable</a> &amp;&amp;other) noexcept=default</td></tr>
+<tr class="separator:ae818f7149f029b858e1d85d6990014c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3400d885b65070fffb6547eeb62eea3a"><td class="memItemLeft" align="right" valign="top"><a id="a3400d885b65070fffb6547eeb62eea3a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;</b> (const <a class="el" href="classrpp_1_1schedulers_1_1details_1_1schedulable.html">schedulable</a> &amp;other) const</td></tr>
+<tr class="separator:a3400d885b65070fffb6547eeb62eea3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c458623d286a22650de037685692dd7"><td class="memItemLeft" align="right" valign="top"><a id="a3c458623d286a22650de037685692dd7"></a>
+time_point&#160;</td><td class="memItemRight" valign="bottom"><b>get_time_point</b> () const</td></tr>
+<tr class="separator:a3c458623d286a22650de037685692dd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12ae1657c8f9e0b236b43a4dca862944"><td class="memItemLeft" align="right" valign="top"><a id="a12ae1657c8f9e0b236b43a4dca862944"></a>
+SchedulableFn &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><b>extract_function</b> () const</td></tr>
+<tr class="separator:a12ae1657c8f9e0b236b43a4dca862944"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/rpp/rpp/schedulers/<a class="el" href="run__loop__scheduler_8hpp_source.html">run_loop_scheduler.hpp</a></li>
+<li>src/rpp/rpp/schedulers/details/<a class="el" href="queue__worker__state_8hpp_source.html">queue_worker_state.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>schedulers</b></li><li class="navelem"><a class="el" href="classrpp_1_1schedulers_1_1run__loop.html">run_loop</a></li><li class="navelem"><a class="el" href="classrpp_1_1schedulers_1_1run__loop_1_1worker__strategy.html">worker_strategy</a></li>
+    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>schedulers</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="classrpp_1_1schedulers_1_1details_1_1schedulable.html">schedulable</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>

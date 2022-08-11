@@ -127,33 +127,38 @@ $(document).ready(function(){initNavTree('immediate__scheduler_8hpp_source.html'
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html">worker_strategy</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1subscription__base.html">rpp::subscription_base</a>&amp; sub)</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            : m_sub{sub} {}</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordtype">void</span> defer_at(time_point time_point, std::invocable <span class="keyword">auto</span>&amp;&amp; fn)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordtype">void</span> defer_at(time_point time_point, constraint::schedulable_fn <span class="keyword">auto</span>&amp;&amp; fn)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">        </span>{</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keywordflow">if</span> (!m_sub.<a class="code" href="classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2">is_subscribed</a>())</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            std::this_thread::sleep_until(time_point);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keywordflow">if</span> (m_sub.<a class="code" href="classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2">is_subscribed</a>())</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                fn();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keyword">static</span> time_point now() { <span class="keywordflow">return</span> clock_type::now();  }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="classrpp_1_1subscription__base.html">rpp::subscription_base</a> m_sub;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    };</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">static</span> <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker&lt;worker_strategy&gt;</a> create_worker(<span class="keyword">const</span> <a class="code" href="classrpp_1_1subscription__base.html">rpp::subscription_base</a>&amp; sub = {})</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker&lt;worker_strategy&gt;</a>{sub};</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;};</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace rpp::schedulers</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keywordflow">while</span> (m_sub.<a class="code" href="classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2">is_subscribed</a>())</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                std::this_thread::sleep_until(time_point);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                <span class="keywordflow">if</span> (!m_sub.<a class="code" href="classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2">is_subscribed</a>())</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                <span class="keywordflow">if</span> (<span class="keyword">auto</span> duration = fn())</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                    time_point = std::max(now(), time_point + duration.value());</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keyword">static</span> time_point now() { <span class="keywordflow">return</span> clock_type::now();  }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <a class="code" href="classrpp_1_1subscription__base.html">rpp::subscription_base</a> m_sub;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    };</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">static</span> <span class="keyword">auto</span> create_worker(<span class="keyword">const</span> <a class="code" href="classrpp_1_1subscription__base.html">rpp::subscription_base</a>&amp; sub = {})</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker&lt;worker_strategy&gt;</a>{sub};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;};</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace rpp::schedulers</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1immediate_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a></div><div class="ttdoc">immediately calls provided schedulable or waits for time_point (in the caller-thread)</div><div class="ttdef"><b>Definition:</b> immediate_scheduler.hpp:27</div></div>
-<div class="ttc" id="aclassrpp_1_1schedulers_1_1worker_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker</a></div><div class="ttdef"><b>Definition:</b> worker.hpp:27</div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1worker_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker</a></div><div class="ttdef"><b>Definition:</b> worker.hpp:56</div></div>
 <div class="ttc" id="astructrpp_1_1schedulers_1_1details_1_1scheduler__tag_html"><div class="ttname"><a href="structrpp_1_1schedulers_1_1details_1_1scheduler__tag.html">rpp::schedulers::details::scheduler_tag</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:18</div></div>
 <div class="ttc" id="aclassrpp_1_1subscription__base_html_ad9c07157024e7f68ce815d971c3faaf2"><div class="ttname"><a href="classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2">rpp::subscription_base::is_subscribed</a></div><div class="ttdeci">bool is_subscribed() const</div><div class="ttdoc">indicates current status of subscription</div><div class="ttdef"><b>Definition:</b> subscription_base.hpp:48</div></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1immediate_1_1worker__strategy_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html">rpp::schedulers::immediate::worker_strategy</a></div><div class="ttdef"><b>Definition:</b> immediate_scheduler.hpp:30</div></div>

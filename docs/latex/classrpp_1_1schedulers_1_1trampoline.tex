@@ -15,13 +15,11 @@ Inheritance diagram for rpp\+::schedulers\+::trampoline\+:\begin{figure}[H]
 \includegraphics[height=2.000000cm]{classrpp_1_1schedulers_1_1trampoline}
 \end{center}
 \end{figure}
-\doxysubsection*{Classes}
-\begin{DoxyCompactItemize}
-\item 
-class \mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline_1_1worker__strategy}{worker\+\_\+strategy}}
-\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1schedulers_1_1trampoline_a5dbd8db6d3ece17e75a4e918c870514f}\label{classrpp_1_1schedulers_1_1trampoline_a5dbd8db6d3ece17e75a4e918c870514f}} 
+static bool {\bfseries is\+\_\+queue\+\_\+owned} ()
 \item 
 \mbox{\Hypertarget{classrpp_1_1schedulers_1_1trampoline_ab0d4db1d255517dc8793663abcbf06d3}\label{classrpp_1_1schedulers_1_1trampoline_ab0d4db1d255517dc8793663abcbf06d3}} 
 static auto {\bfseries create\+\_\+worker} (const \mbox{\hyperlink{classrpp_1_1composite__subscription}{rpp\+::composite\+\_\+subscription}} \&sub=\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}}\{\})
@@ -35,12 +33,9 @@ schedules execution of schedulables via queueing tasks to the caller thread with
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\}, 1, 2, 3)}
-\DoxyCodeLine{        .merge\_with(\mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\}, 4, 5, 6))}
-\DoxyCodeLine{        .subscribe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\})}
-\DoxyCodeLine{        .subscribe(}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} \textcolor{keywordtype}{int} \&v) \{ std::cout << \textcolor{stringliteral}{"-\/"} << v; \},}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr \&error) \{\},}
-\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"-\/|"} << std::endl; \});}
+\DoxyCodeLine{            .merge\_with(\mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\}, 4, 5, 6))}
+\DoxyCodeLine{            .subscribe([](\textcolor{keyword}{const} \textcolor{keywordtype}{int}\& v) \{ std::cout << \textcolor{stringliteral}{"-\/"} << v; \},}
+\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"-\/|"} << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Source 1: -\/1-\/2-\/3-\/|}}
 \DoxyCodeLine{    \textcolor{comment}{// Source 2:        -\/4-\/5-\/6-\/|}}
 \DoxyCodeLine{    \textcolor{comment}{// Output  : -\/1-\/4-\/2-\/5-\/3-\/6-\/|}}

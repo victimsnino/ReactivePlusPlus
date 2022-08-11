@@ -115,13 +115,11 @@ Inheritance diagram for rpp::schedulers::trampoline:</div>
   </map>
 </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1schedulers_1_1trampoline_1_1worker__strategy.html">worker_strategy</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a5dbd8db6d3ece17e75a4e918c870514f"><td class="memItemLeft" align="right" valign="top"><a id="a5dbd8db6d3ece17e75a4e918c870514f"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_queue_owned</b> ()</td></tr>
+<tr class="separator:a5dbd8db6d3ece17e75a4e918c870514f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0d4db1d255517dc8793663abcbf06d3"><td class="memItemLeft" align="right" valign="top"><a id="ab0d4db1d255517dc8793663abcbf06d3"></a>
 static auto&#160;</td><td class="memItemRight" valign="bottom"><b>create_worker</b> (const <a class="el" href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a> &amp;sub=<a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>{})</td></tr>
 <tr class="separator:ab0d4db1d255517dc8793663abcbf06d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,12 +127,9 @@ static auto&#160;</td><td class="memItemRight" valign="bottom"><b>create_worker<
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>schedules execution of schedulables via queueing tasks to the caller thread with priority to time_point and order </p>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(<a class="code" href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a>{}, 1, 2, 3)</div>
-<div class="line">        .merge_with(<a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(<a class="code" href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a>{}, 4, 5, 6))</div>
-<div class="line">        .subscribe_on(<a class="code" href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a>{})</div>
-<div class="line">        .subscribe(</div>
-<div class="line">            [](<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;v) { std::cout &lt;&lt; <span class="stringliteral">&quot;-&quot;</span> &lt;&lt; v; },</div>
-<div class="line">            [](<span class="keyword">const</span> std::exception_ptr &amp;error) {},</div>
-<div class="line">            []() { std::cout &lt;&lt; <span class="stringliteral">&quot;-|&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">            .merge_with(<a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(<a class="code" href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a>{}, 4, 5, 6))</div>
+<div class="line">            .subscribe([](<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; v) { std::cout &lt;&lt; <span class="stringliteral">&quot;-&quot;</span> &lt;&lt; v; },</div>
+<div class="line">                       []() { std::cout &lt;&lt; <span class="stringliteral">&quot;-|&quot;</span> &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Source 1: -1-2-3-|</span></div>
 <div class="line">    <span class="comment">// Source 2:        -4-5-6-|</span></div>
 <div class="line">    <span class="comment">// Output  : -1-4-2-5-3-6-|</span></div>
@@ -158,7 +153,7 @@ static auto&#160;</td><td class="memItemRight" valign="bottom"><b>create_worker<
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassrpp_1_1schedulers_1_1trampoline_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a></div><div class="ttdoc">schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition:</b> trampoline_scheduler.hpp:43</div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1trampoline_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a></div><div class="ttdoc">schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition:</b> trampoline_scheduler.hpp:37</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gabc5067fa9aefaa803f6e329b75faa00c"><div class="ttname"><a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:158</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::schedulers::trampoline::worker_strategy Class Reference</title>
+<title>ReactivePlusPlus: rpp::schedulers::schedulable_wrapper&lt; Strategy &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -73,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('classrpp_1_1schedulers_1_1trampoline_1_1worker__strategy.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classrpp_1_1schedulers_1_1schedulable__wrapper.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,37 +94,31 @@ $(document).ready(function(){initNavTree('classrpp_1_1schedulers_1_1trampoline_1
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="classrpp_1_1schedulers_1_1trampoline_1_1worker__strategy-members.html">List of all members</a>  </div>
+<a href="classrpp_1_1schedulers_1_1schedulable__wrapper-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">rpp::schedulers::trampoline::worker_strategy Class Reference</div>  </div>
+<div class="title">rpp::schedulers::schedulable_wrapper&lt; Strategy &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a738f0c82d057de18c3757b5ba3dc9f79"><td class="memItemLeft" align="right" valign="top"><a id="a738f0c82d057de18c3757b5ba3dc9f79"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>worker_strategy</b> (const <a class="el" href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a> &amp;subscription)</td></tr>
-<tr class="separator:a738f0c82d057de18c3757b5ba3dc9f79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4864a2385269fd0e0f2a51f1ee8066b0"><td class="memItemLeft" align="right" valign="top"><a id="a4864a2385269fd0e0f2a51f1ee8066b0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>defer_at</b> (time_point time_point, std::invocable auto &amp;&amp;fn) const</td></tr>
-<tr class="separator:a4864a2385269fd0e0f2a51f1ee8066b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aba37dba8e4c5d46590fa31d06a6c36b3"><td class="memItemLeft" align="right" valign="top"><a id="aba37dba8e4c5d46590fa31d06a6c36b3"></a>
-static time_point&#160;</td><td class="memItemRight" valign="bottom"><b>now</b> ()</td></tr>
-<tr class="separator:aba37dba8e4c5d46590fa31d06a6c36b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5326c62be20f317a8aaca640f93f1da9"><td class="memTemplParams" colspan="2"><a id="a5326c62be20f317a8aaca640f93f1da9"></a>
+template&lt;constraint::schedulable_fn Fn&gt; </td></tr>
+<tr class="memitem:a5326c62be20f317a8aaca640f93f1da9"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>schedulable_wrapper</b> (const Strategy &amp;strategy, time_point time_point, Fn &amp;&amp;fn)</td></tr>
+<tr class="separator:a5326c62be20f317a8aaca640f93f1da9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2730bcffc1c9b361382f7c0197018d2d"><td class="memItemLeft" align="right" valign="top"><a id="a2730bcffc1c9b361382f7c0197018d2d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>operator()</b> ()</td></tr>
+<tr class="separator:a2730bcffc1c9b361382f7c0197018d2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/rpp/rpp/schedulers/<a class="el" href="trampoline__scheduler_8hpp_source.html">trampoline_scheduler.hpp</a></li>
+<li>src/rpp/rpp/schedulers/details/<a class="el" href="worker_8hpp_source.html">worker.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>schedulers</b></li><li class="navelem"><a class="el" href="classrpp_1_1schedulers_1_1trampoline.html">trampoline</a></li><li class="navelem"><a class="el" href="classrpp_1_1schedulers_1_1trampoline_1_1worker__strategy.html">worker_strategy</a></li>
+    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>schedulers</b></li><li class="navelem"><a class="el" href="classrpp_1_1schedulers_1_1schedulable__wrapper.html">schedulable_wrapper</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>

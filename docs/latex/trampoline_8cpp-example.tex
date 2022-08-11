@@ -13,12 +13,9 @@
 \DoxyCodeLine{\textcolor{keywordtype}{int} main()}
 \DoxyCodeLine{\{}
 \DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\}, 1, 2, 3)}
-\DoxyCodeLine{        .merge\_with(\mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\}, 4, 5, 6))}
-\DoxyCodeLine{        .subscribe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\})}
-\DoxyCodeLine{        .subscribe(}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} \textcolor{keywordtype}{int} \&v) \{ std::cout << \textcolor{stringliteral}{"-\/"} << v; \},}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr \&error) \{\},}
-\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"-\/|"} << std::endl; \});}
+\DoxyCodeLine{            .merge\_with(\mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\}, 4, 5, 6))}
+\DoxyCodeLine{            .subscribe([](\textcolor{keyword}{const} \textcolor{keywordtype}{int}\& v) \{ std::cout << \textcolor{stringliteral}{"-\/"} << v; \},}
+\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"-\/|"} << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Source 1: -\/1-\/2-\/3-\/|}}
 \DoxyCodeLine{    \textcolor{comment}{// Source 2:        -\/4-\/5-\/6-\/|}}
 \DoxyCodeLine{    \textcolor{comment}{// Output  : -\/1-\/4-\/2-\/5-\/3-\/6-\/|}}

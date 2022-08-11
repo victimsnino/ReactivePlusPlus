@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::schedulers::details::queue_worker_state Class Reference</title>
+<title>ReactivePlusPlus: rpp::schedulers::details::queue_worker_state&lt; SchedulableFn &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -93,34 +93,33 @@ $(document).ready(function(){initNavTree('classrpp_1_1schedulers_1_1details_1_1q
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classrpp_1_1schedulers_1_1details_1_1queue__worker__state-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">rpp::schedulers::details::queue_worker_state Class Reference</div>  </div>
+<div class="title">rpp::schedulers::details::queue_worker_state&lt; SchedulableFn &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9843119d907403e33f0ecd71ef67ba46"><td class="memItemLeft" align="right" valign="top"><a id="a9843119d907403e33f0ecd71ef67ba46"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>emplace</b> (time_point time_point, std::invocable auto &amp;&amp;fn)</td></tr>
-<tr class="separator:a9843119d907403e33f0ecd71ef67ba46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9b749fdeb006559fb7e612ae648688d"><td class="memItemLeft" align="right" valign="top"><a id="aa9b749fdeb006559fb7e612ae648688d"></a>
+<tr class="memitem:a2965d9bcc4f4fcea3d780dc63211b325"><td class="memItemLeft" align="right" valign="top"><a id="a2965d9bcc4f4fcea3d780dc63211b325"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>emplace</b> (time_point time_point, constraint::inner_schedulable_fn auto &amp;&amp;fn)</td></tr>
+<tr class="separator:a2965d9bcc4f4fcea3d780dc63211b325"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6ddb435ce4861315af078753789d8cb"><td class="memItemLeft" align="right" valign="top"><a id="af6ddb435ce4861315af078753789d8cb"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_empty</b> () const</td></tr>
-<tr class="separator:aa9b749fdeb006559fb7e612ae648688d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12ca29c0f27cfa287d63995c861a3b7f"><td class="memItemLeft" align="right" valign="top"><a id="a12ca29c0f27cfa287d63995c861a3b7f"></a>
+<tr class="separator:af6ddb435ce4861315af078753789d8cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a366428cae2c23bd65f7eec55765505f4"><td class="memItemLeft" align="right" valign="top"><a id="a366428cae2c23bd65f7eec55765505f4"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_any_ready_schedulable</b> () const</td></tr>
-<tr class="separator:a12ca29c0f27cfa287d63995c861a3b7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a135bebf05b4f2e3d14826498d109215f"><td class="memItemLeft" align="right" valign="top"><a id="a135bebf05b4f2e3d14826498d109215f"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>pop_if_ready</b> (std::function&lt; void()&gt; &amp;out)</td></tr>
-<tr class="separator:a135bebf05b4f2e3d14826498d109215f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a280ce7fa307fa9c61a78ee0fb507e4f4"><td class="memItemLeft" align="right" valign="top"><a id="a280ce7fa307fa9c61a78ee0fb507e4f4"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>pop_with_wait</b> (std::function&lt; void()&gt; &amp;out, const std::stop_token &amp;token)</td></tr>
-<tr class="separator:a280ce7fa307fa9c61a78ee0fb507e4f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8385c9b5e4c773c8ebba90b69dc1d4e"><td class="memItemLeft" align="right" valign="top"><a id="af8385c9b5e4c773c8ebba90b69dc1d4e"></a>
+<tr class="separator:a366428cae2c23bd65f7eec55765505f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8db7d03ec094243abdf84531d914f0e7"><td class="memItemLeft" align="right" valign="top"><a id="a8db7d03ec094243abdf84531d914f0e7"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>pop_if_ready</b> (std::optional&lt; SchedulableFn &gt; &amp;out)</td></tr>
+<tr class="separator:a8db7d03ec094243abdf84531d914f0e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a618253974ffb63707719baf0123bd20f"><td class="memItemLeft" align="right" valign="top"><a id="a618253974ffb63707719baf0123bd20f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>pop_with_wait</b> (std::optional&lt; SchedulableFn &gt; &amp;out, const std::stop_token &amp;token)</td></tr>
+<tr class="separator:a618253974ffb63707719baf0123bd20f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afda8e9cae03395a982ab6f6d1892036e"><td class="memItemLeft" align="right" valign="top"><a id="afda8e9cae03395a982ab6f6d1892036e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>reset</b> ()</td></tr>
-<tr class="separator:af8385c9b5e4c773c8ebba90b69dc1d4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:afda8e9cae03395a982ab6f6d1892036e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/rpp/rpp/schedulers/details/<a class="el" href="queue__worker__state_8hpp_source.html">queue_worker_state.hpp</a></li>

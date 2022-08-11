@@ -1,13 +1,22 @@
 \hypertarget{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy}{}\doxysection{rpp\+::schedulers\+::new\+\_\+thread\+::worker\+\_\+strategy Class Reference}
 \label{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy}\index{rpp::schedulers::new\_thread::worker\_strategy@{rpp::schedulers::new\_thread::worker\_strategy}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy_a7faebb8ed4b7b2ec40445c6e38eb60fc}\label{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy_a7faebb8ed4b7b2ec40445c6e38eb60fc}} 
+using {\bfseries new\+\_\+thread\+\_\+schedulable} = \mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable__wrapper}{schedulable\+\_\+wrapper}}$<$ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy}{worker\+\_\+strategy}} $>$
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy_acdf2d2b689e8be1bd786ae37c1094def}\label{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy_acdf2d2b689e8be1bd786ae37c1094def}} 
 {\bfseries worker\+\_\+strategy} (const \mbox{\hyperlink{classrpp_1_1composite__subscription}{rpp\+::composite\+\_\+subscription}} \&sub)
 \item 
-\mbox{\Hypertarget{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy_a0c4dd366628fcc3d59005fcb7928855c}\label{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy_a0c4dd366628fcc3d59005fcb7928855c}} 
-void {\bfseries defer\+\_\+at} (time\+\_\+point time\+\_\+point, std\+::invocable auto \&\&fn) const
+\mbox{\Hypertarget{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy_a672d36371e85e9c1d5f2bc7b5a09ef7c}\label{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy_a672d36371e85e9c1d5f2bc7b5a09ef7c}} 
+void {\bfseries defer\+\_\+at} (time\+\_\+point time\+\_\+point, constraint\+::schedulable\+\_\+fn auto \&\&fn) const
+\item 
+\mbox{\Hypertarget{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy_aef24247ebe602c538fa4e4d38be1ab23}\label{classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy_aef24247ebe602c538fa4e4d38be1ab23}} 
+void {\bfseries defer\+\_\+at} (time\+\_\+point time\+\_\+point, \mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable__wrapper}{new\+\_\+thread\+\_\+schedulable}} \&\&fn) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}

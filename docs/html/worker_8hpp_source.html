@@ -112,83 +112,78 @@ $(document).ready(function(){initNavTree('worker_8hpp_source.html',''); initResi
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;rpp/schedulers/fwd.hpp&gt;</span>         <span class="comment">// own forwarding</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/constraints.hpp&gt;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>rpp::schedulers</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;concept worker_strategy = std::copyable&lt;T&gt; &amp;&amp; requires(<span class="keyword">const</span> T t)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>rpp::schedulers</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    t.defer_at(time_point{}, std::declval&lt;void(*)()&gt;());</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    { t.now() } -&gt; std::same_as&lt;time_point&gt;;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;};</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">template</span>&lt;worker_strategy Strategy&gt;</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classrpp_1_1schedulers_1_1worker.html">   27</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a> final : <span class="keyword">public</span> <a class="code" href="structrpp_1_1schedulers_1_1details_1_1worker__tag.html">details::worker_tag</a></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        requires (!rpp::constraint::variadic_is_same_type&lt;<a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker&lt;Strategy&gt;</a>, Args...&gt;)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>(Args&amp;&amp; ...args) : m_strategy{std::forward&lt;Args&gt;(args)...} {}</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>&amp;) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>(<a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>&amp;&amp;) noexcept= <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> schedule(constraint::schedulable_fn <span class="keyword">auto</span>&amp;&amp; fn)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        schedule(m_strategy.now(), std::forward&lt;decltype(fn)&gt;(fn));</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">void</span> schedule(duration delay, constraint::schedulable_fn <span class="keyword">auto</span>&amp;&amp; fn)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        schedule(m_strategy.now() + delay, std::forward&lt;decltype(fn)&gt;(fn));</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> schedule(time_point time_point, constraint::schedulable_fn <span class="keyword">auto</span>&amp;&amp; fn)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        m_strategy.defer_at(time_point, schedulable_wrapper&lt;std::decay_t&lt;decltype(fn)&gt;&gt;{m_strategy, time_point, std::forward&lt;decltype(fn)&gt;(fn)});</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::schedulable_fn Fn&gt;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">struct </span>schedulable_wrapper</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        schedulable_wrapper(<span class="keyword">const</span> Strategy&amp; strategy, time_point time_point, <span class="keyword">const</span> Fn&amp; fn)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            : m_strategy{strategy}</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            , m_time_point{time_point}</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            , m_fn{fn} {}</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        schedulable_wrapper(<span class="keyword">const</span> Strategy&amp; strategy, time_point time_point, Fn&amp;&amp; fn)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            : m_strategy{strategy}</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            , m_time_point{time_point}</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            , m_fn{std::move(fn)} {}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;concept worker_strategy = std::copyable&lt;T&gt; &amp;&amp; requires(<span class="keyword">const</span> T t)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    t.defer_at(time_point{}, std::declval&lt;optional_duration(*)()&gt;());</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    { t.now() } -&gt; std::same_as&lt;time_point&gt;;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;};</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Strategy&gt;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classrpp_1_1schedulers_1_1schedulable__wrapper.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1schedulers_1_1schedulable__wrapper.html">schedulable_wrapper</a></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::schedulable_fn Fn&gt;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="classrpp_1_1schedulers_1_1schedulable__wrapper.html">schedulable_wrapper</a>(<span class="keyword">const</span> Strategy&amp; strategy, time_point time_point, Fn&amp;&amp; fn)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        : m_strategy{strategy}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        , m_time_point{time_point}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        , m_fn{std::forward&lt;Fn&gt;(fn)} {}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> operator()()</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">if</span> (<span class="keyword">auto</span> duration = m_fn())</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            m_time_point = std::max(m_strategy.now(), m_time_point + duration.value());</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            m_strategy.defer_at(m_time_point, std::move(*<span class="keyword">this</span>));</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    Strategy                           m_strategy;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    time_point                         m_time_point;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    std::function&lt;optional_duration()&gt; m_fn{};</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;};</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">template</span>&lt;worker_strategy Strategy&gt;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="classrpp_1_1schedulers_1_1worker.html">   56</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a> final : <span class="keyword">public</span> <a class="code" href="structrpp_1_1schedulers_1_1details_1_1worker__tag.html">details::worker_tag</a></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        requires (!rpp::constraint::variadic_is_same_type&lt;<a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker&lt;Strategy&gt;</a>, Args...&gt;)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>(Args&amp;&amp; ...args) : m_strategy{std::forward&lt;Args&gt;(args)...} {}</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>(<a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>&amp;&amp;) noexcept= <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        schedulable_wrapper(<span class="keyword">const</span> schedulable_wrapper&amp;)                                               = <span class="keywordflow">default</span>; <span class="comment">// LCOV_EXCL_LINE</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        schedulable_wrapper(schedulable_wrapper&amp;&amp;) noexcept(std::is_nothrow_move_constructible_v&lt;Fn&gt;) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordtype">void</span> operator()()</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">if</span> (<span class="keyword">auto</span> duration = m_fn())</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                <span class="keywordflow">if</span> (duration.value() != rpp::schedulers::duration::zero())</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                    m_time_point += duration.value();</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                    m_time_point = m_strategy.now();</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                <span class="keyword">auto</span> time_to_schedule = m_time_point;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                m_strategy.defer_at(time_to_schedule, std::move(*<span class="keyword">this</span>));</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        Strategy   m_strategy;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        time_point m_time_point;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        Fn         m_fn{};</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    };</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    Strategy m_strategy;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;};</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace rpp::schedulers</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> schedule(constraint::schedulable_fn <span class="keyword">auto</span>&amp;&amp; fn)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        schedule(m_strategy.now(), std::forward&lt;decltype(fn)&gt;(fn));</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> schedule(duration delay, constraint::schedulable_fn <span class="keyword">auto</span>&amp;&amp; fn)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        schedule(m_strategy.now() + delay, std::forward&lt;decltype(fn)&gt;(fn));</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> schedule(time_point time_point, constraint::schedulable_fn <span class="keyword">auto</span>&amp;&amp; fn)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        m_strategy.defer_at(time_point, std::forward&lt;decltype(fn)&gt;(fn));</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    Strategy m_strategy;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;} <span class="comment">// namespace rpp::schedulers</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassrpp_1_1schedulers_1_1worker_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker</a></div><div class="ttdef"><b>Definition:</b> worker.hpp:27</div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1schedulable__wrapper_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1schedulable__wrapper.html">rpp::schedulers::schedulable_wrapper</a></div><div class="ttdef"><b>Definition:</b> worker.hpp:30</div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1worker_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker</a></div><div class="ttdef"><b>Definition:</b> worker.hpp:56</div></div>
 <div class="ttc" id="astructrpp_1_1schedulers_1_1details_1_1worker__tag_html"><div class="ttname"><a href="structrpp_1_1schedulers_1_1details_1_1worker__tag.html">rpp::schedulers::details::worker_tag</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:19</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
