@@ -40,9 +40,15 @@ public:
             m_state->init_thread(sub);
         }
 
-        void defer_at(time_point time_point, constraint::inner_schedulable_fn auto&& fn) const
+        void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
         {
-            m_state->defer_at(time_point, std::forward<decltype(fn)>(fn));
+            defer_at(time_point, schedulable_wrapper{*this, time_point, std::forward<decltype(fn)>(fn)});
+        }
+
+        template<typename Fn, typename Strategy>
+        void defer_at(time_point time_point, schedulable_wrapper<Fn, Strategy>&& fn) const
+        {
+            m_state->defer_at(time_point, std::move(fn));
         }
 
         static time_point now() { return clock_type::now(); }

@@ -63,7 +63,13 @@ public:
             : m_queue{queue}
             , m_sub{sub} { }
 
-        void defer_at(time_point time_point, constraint::inner_schedulable_fn auto&& fn) const
+        void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
+        {
+            defer_at(time_point, schedulable_wrapper{ *this, time_point, std::forward<decltype(fn)>(fn) });
+        }
+
+        template<typename Fn, typename Strategy>
+        void defer_at(time_point time_point, schedulable_wrapper<Fn, Strategy>&& fn) const
         {
             if (m_sub.is_subscribed())
                 m_queue->emplace(time_point, std::forward<decltype(fn)>(fn));

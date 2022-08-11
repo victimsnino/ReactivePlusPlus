@@ -19,10 +19,10 @@ namespace rpp::schedulers::constraint
 {
 // returns std::nullopt in case of don't need to re-schedule schedulable or some duration which will be added to "now" and re-scheduled
 template<typename T>
-concept schedulable_fn = std::is_invocable_r_v<optional_duration, T>;
+concept schedulable_fn = std::invocable<T> && std::same_as<std::invoke_result_t<T>, optional_duration>;
 
 template<typename T>
-concept inner_schedulable_fn = std::is_invocable_r_v<void, T>;
+concept inner_schedulable_fn = std::invocable<T> && std::same_as<std::invoke_result_t<T>, void>;
 
 template<typename T>
 concept worker = std::is_base_of_v<details::worker_tag, std::decay_t<T>>;

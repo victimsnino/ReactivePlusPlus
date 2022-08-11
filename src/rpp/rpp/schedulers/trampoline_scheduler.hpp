@@ -106,13 +106,37 @@ public:
         explicit worker_strategy(const rpp::composite_subscription& subscription)
             : m_sub{subscription} {}
 
-        void defer_at(time_point time_point, constraint::inner_schedulable_fn auto&& fn) const
+        void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
         {
             if (!m_sub.is_subscribed())
                 return;
 
             auto drain_handle = ensure_queue_if_no_any_owner();
-            get_schedulable_queue()->emplace(time_point, std::forward<decltype(fn)>(fn), m_sub);
+
+            // do immediate scheduling till queue is empty
+            while (m_sub.is_subscribed() && get_schedulable_queue()->empty())
+            {
+                std::this_thread::sleep_until(time_point);
+
+                if (!m_sub.is_subscribed())
+                    return;
+
+                if (const auto duration = fn())
+                    time_point = std::max(now(), time_point + duration.value());
+                else
+                    return;
+            }
+
+            defer_at(time_point, schedulable_wrapper{ *this, time_point, std::forward<decltype(fn)>(fn) });
+        }
+
+        template<typename Fn, typename Strategy>
+        void defer_at(time_point time_point, schedulable_wrapper<Fn, Strategy>&& fn) const
+        {
+            if (!m_sub.is_subscribed())
+                return;
+
+            get_schedulable_queue()->emplace(time_point, std::move(fn), m_sub);
         }
 
         static time_point now() { return clock_type::now(); }

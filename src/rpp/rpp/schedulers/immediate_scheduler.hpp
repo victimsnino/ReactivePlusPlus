@@ -27,23 +27,13 @@ namespace rpp::schedulers
 class immediate final : public details::scheduler_tag
 {
 public:
-    class worker : public details::worker_tag
+    class worker_strategy
     {
     public:
-        worker(const rpp::subscription_base& sub)
+        worker_strategy(const rpp::subscription_base& sub)
             : m_sub{sub} {}
 
-        void schedule(constraint::schedulable_fn auto&& fn) const
-        {
-            schedule(now(), std::forward<decltype(fn)>(fn));
-        }
-
-        void schedule(duration delay, constraint::schedulable_fn auto&& fn) const
-        {
-            schedule(now() + delay, std::forward<decltype(fn)>(fn));
-        }
-
-        void schedule(time_point time_point, constraint::schedulable_fn auto&& fn) const
+        void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
         {
             while (m_sub.is_subscribed())
             {
@@ -59,16 +49,15 @@ public:
             }
         }
 
-    private:
         static time_point now() { return clock_type::now();  }
 
     private:
         rpp::subscription_base m_sub;
     };
 
-    static worker create_worker(const rpp::subscription_base& sub = {})
+    static auto create_worker(const rpp::subscription_base& sub = {})
     {
-        return worker{sub};
+        return worker<worker_strategy>{sub};
     }
 };
 } // namespace rpp::schedulers
