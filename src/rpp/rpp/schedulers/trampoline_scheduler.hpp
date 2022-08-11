@@ -157,18 +157,7 @@ public:
         rpp::composite_subscription m_sub;
     };
 
-    /**
-     * \brief Take ownership over queue and return handle which would drain queue during destruction
-     */
-    [[nodiscard]] static utils::finally_action<void(*)()> ensure_queue_if_no_any_owner()
-    {
-        auto& queue = get_schedulable_queue();
-        if (queue.has_value())
-            return utils::finally_action{+[] {}};
-
-        queue = std::priority_queue<current_thread_schedulable>{};
-        return utils::finally_action{&drain_queue};
-    }
+    static bool is_queue_owned() { return get_schedulable_queue().has_value(); }
 
     static auto create_worker(const rpp::composite_subscription& sub = composite_subscription{})
     {

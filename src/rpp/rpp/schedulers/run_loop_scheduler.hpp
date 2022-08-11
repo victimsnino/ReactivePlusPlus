@@ -72,7 +72,7 @@ public:
         void defer_at(time_point time_point, schedulable_wrapper<Fn, Strategy>&& fn) const
         {
             if (m_sub.is_subscribed())
-                m_queue->emplace(time_point, std::forward<decltype(fn)>(fn));
+                m_queue->emplace(time_point, std::move(fn));
         }
 
         static time_point now() { return clock_type::now(); }

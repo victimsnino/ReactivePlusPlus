@@ -72,8 +72,18 @@ private:
         try
         {
             // take ownership over current thread as early as possible to delay all next "current_thread" schedulings. For  example, scheduling of emissions from "just" to delay it till whole chain is subscribed and ready to listened emissions
-            const auto drain_handle = rpp::schedulers::current_thread::ensure_queue_if_no_any_owner();
-            m_state(subscriber);
+            if (rpp::schedulers::current_thread::is_queue_owned())
+            {
+                m_state(subscriber);
+            }
+            else
+            {
+                // will be scheduled immediately -> reference can be passed
+                rpp::schedulers::current_thread::create_worker(subscriber.get_subscribtion()).schedule([&]
+                {
+                    m_state(subscriber);
+                });
+            }
         }
         catch (...)
         {
