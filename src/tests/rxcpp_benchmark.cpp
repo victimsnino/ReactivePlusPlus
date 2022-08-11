@@ -822,6 +822,8 @@ TEST_CASE("immediate scheduler")
         };
         meter.measure([&]
         {
+            count = 0;
+
             worker.schedule(time, work);
         });
     };
@@ -858,6 +860,8 @@ TEST_CASE("trampoline scheduler")
         };
         meter.measure([&]
         {
+            count = 0;
+
             worker.schedule(time, work);
         });
     };
