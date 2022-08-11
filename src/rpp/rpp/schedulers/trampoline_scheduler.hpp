@@ -36,6 +36,8 @@ namespace rpp::schedulers
  */
 class trampoline final : public details::scheduler_tag
 {
+    class current_thread_schedulable;
+
     class worker_strategy
     {
     public:
@@ -92,6 +94,38 @@ class trampoline final : public details::scheduler_tag
         rpp::composite_subscription m_sub;
     };
 
+    static void drain_queue()
+    {
+        auto& queue = get_schedulable_queue();
+        auto  reset_at_final = utils::finally_action{ [] { get_schedulable_queue().reset(); } };
+
+        while (!queue->empty())
+        {
+            const auto& top = queue->top();
+
+            auto function = wait_and_extract_executable_if_subscribed(top);
+
+            // firstly we need to pop schedulable from queue due to execution of function can add new schedulable
+            queue->pop();
+
+            if (function)
+                function();
+        }
+    }
+
+    [[nodiscard]] static std::function<void()> wait_and_extract_executable_if_subscribed(const current_thread_schedulable& schedulable)
+    {
+        if (!schedulable.is_subscribed())
+            return {};
+
+        std::this_thread::sleep_until(schedulable.get_time_point());
+
+        if (!schedulable.is_subscribed())
+            return {};
+
+        return std::move(schedulable.extract_function());
+    }
+
     class current_thread_schedulable : public details::schedulable<schedulable_wrapper<worker_strategy>>
     {
     public:
@@ -121,38 +155,6 @@ class trampoline final : public details::scheduler_tag
     {
         static thread_local std::optional<std::priority_queue<current_thread_schedulable>> s_queue{};
         return s_queue;
-    }
-
-    static void drain_queue()
-    {
-        auto& queue          = get_schedulable_queue();
-        auto  reset_at_final = utils::finally_action{[] { get_schedulable_queue().reset(); }};
-
-        while (!queue->empty())
-        {
-            const auto& top = queue->top();
-
-            auto function = wait_and_extract_executable_if_subscribed(top);
-
-            // firstly we need to pop schedulable from queue due to execution of function can add new schedulable
-            queue->pop();
-
-            if (function)
-                function();
-        }
-    }
-
-    [[nodiscard]] static std::function<void()> wait_and_extract_executable_if_subscribed(const  current_thread_schedulable& schedulable)
-    {
-        if (!schedulable.is_subscribed())
-            return {};
-
-        std::this_thread::sleep_until(schedulable.get_time_point());
-
-        if (!schedulable.is_subscribed())
-            return {};
-
-        return std::move(schedulable.extract_function());
     }
 
 public:
