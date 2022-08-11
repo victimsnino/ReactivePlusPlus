@@ -19,30 +19,43 @@
 
 #include <future>
 
-template<typename Worker>
-std::thread::id simulate_nested_scheduling(const Worker& worker, std::promise<std::vector<std::thread::id>>& out)
-{
-    std::jthread thread([&] {
-        std::vector<std::thread::id> call_stack;
+using namespace std::string_literals;
 
-        worker.schedule([&]() -> rpp::schedulers::optional_duration {
-            call_stack.push_back(std::this_thread::get_id());
-            // Scheduler inner schedulable
-            worker.schedule([&]() -> rpp::schedulers::optional_duration {
-                call_stack.push_back(std::this_thread::get_id());
-                // Scheduler another inner schedulable
-                worker.schedule([&]() -> rpp::schedulers::optional_duration {
-                    call_stack.push_back(std::this_thread::get_id());
-                    out.set_value(std::move(call_stack));
-                    return std::nullopt;
+static std::string get_thread_id_as_string(std::thread::id id = std::this_thread::get_id())
+{
+    std::stringstream ss;
+    ss << id;
+    return ss.str();
+}
+
+static std::string simulate_nested_scheduling(const auto& worker, std::vector<std::string>& out)
+{
+    const std::jthread thread([&]
+    {
+        worker.schedule([&]
+        {
+            out.push_back("Task 1 starts "s + get_thread_id_as_string());
+
+            worker.schedule([&]
+            {
+                out.push_back("Task 2 starts "s + get_thread_id_as_string());
+
+                worker.schedule([&]
+                {
+                    out.push_back("Task 3 runs "s + get_thread_id_as_string());
+                    return rpp::schedulers::optional_duration{};
                 });
-                return std::nullopt;
+
+                out.push_back("Task 2 ends "s + get_thread_id_as_string());
+                return rpp::schedulers::optional_duration{};
             });
-            return std::nullopt;
+
+            out.push_back("Task 1 ends "s + get_thread_id_as_string());
+            return rpp::schedulers::optional_duration{};
         });
     });
 
-    return thread.get_id();
+    return get_thread_id_as_string(thread.get_id());
 }
 
 SCENARIO("scheduler's worker uses time")
@@ -52,7 +65,7 @@ SCENARIO("scheduler's worker uses time")
         auto scheduler = test_scheduler{};
         WHEN("Schedule action without time")
         {
-            scheduler.create_worker().schedule([]() { return rpp::schedulers::optional_duration{}; });
+            scheduler.create_worker().schedule([] { return rpp::schedulers::optional_duration{}; });
             THEN("worker obtains schedulable once with current time")
             {
                 CHECK(scheduler.get_schedulings() == std::vector{ s_current_time });
@@ -61,7 +74,7 @@ SCENARIO("scheduler's worker uses time")
         WHEN("Schedule action with some time")
         {
             auto time = rpp::schedulers::clock_type::now();
-            scheduler.create_worker().schedule(time, []() { return rpp::schedulers::optional_duration{}; });
+            scheduler.create_worker().schedule(time, [] { return rpp::schedulers::optional_duration{}; });
             THEN("worker obtains schedulable once with provided time")
             {
                 CHECK(scheduler.get_schedulings() == std::vector{ time });
@@ -179,33 +192,17 @@ SCENARIO("Immediate scheduler schedules task immediately")
         {
             std::vector<std::string> call_stack;
 
-            worker.schedule([&]() -> rpp::schedulers::optional_duration
-            {
-                call_stack.emplace_back("task 1 starts");
-                worker.schedule([&]() -> rpp::schedulers::optional_duration
-                {
-                    call_stack.emplace_back("task 2 starts");
-                    worker.schedule([&]() -> rpp::schedulers::optional_duration
-                    {
-                        call_stack.emplace_back("task 3 runs");
-                        return std::nullopt;
-                    });
-                    call_stack.emplace_back("task 2 ends");
-                    return std::nullopt;
-                });
-                call_stack.emplace_back("task 1 ends");
-                return std::nullopt;
-            });
+            auto execution_thread = simulate_nested_scheduling(worker, call_stack);
 
-            THEN("shall see the call-stack in a specific order")
+            THEN("shall see the call-stack in a recursive order")
             {
                 REQUIRE(call_stack == std::vector<std::string>{
-                    "task 1 starts",
-                    "task 2 starts",
-                    "task 3 runs",
-                    "task 2 ends",
-                    "task 1 ends",
-                });
+                        "Task 1 starts "s + execution_thread,
+                        "Task 2 starts "s + execution_thread,
+                        "Task 3 runs "s + execution_thread,
+                        "Task 2 ends "s + execution_thread,
+                        "Task 1 ends "s + execution_thread,
+                        });
             }
         }
     }
@@ -462,6 +459,16 @@ SCENARIO("trampoline scheduler dispatches task in the same thread")
     }
 }
 
+static std::vector<std::string> trampoline_expected_simulate_nested_scheduling(std::string thread_id)
+{
+    return std::vector<std::string>{
+        "Task 1 starts "s + thread_id,
+        "Task 1 ends "s + thread_id,
+        "Task 2 starts "s + thread_id,
+        "Task 2 ends "s + thread_id,
+        "Task 3 runs "s + thread_id,
+    };
+}
 SCENARIO("trampoline scheduler defers tasks in order")
 {
     auto scheduler = rpp::schedulers::trampoline{};
@@ -473,36 +480,11 @@ SCENARIO("trampoline scheduler defers tasks in order")
     {
         std::vector<std::string> call_stack;
 
-        worker.schedule([&]() -> rpp::schedulers::optional_duration {
-            call_stack.emplace_back("task 1 starts");
-
-            // Schedule task 2
-            worker.schedule([&]() ->rpp::schedulers::optional_duration {
-                call_stack.emplace_back("task 2 starts");
-
-                // Schedule task 3
-                worker.schedule([&]() ->rpp::schedulers::optional_duration {
-                    call_stack.emplace_back("task 3 runs");
-                    return std::nullopt;
-                });
-
-                call_stack.emplace_back("task 2 ends");
-                return std::nullopt;
-            });
-
-            call_stack.emplace_back("task 1 ends");
-            return std::nullopt;
-        });
+        auto execution_thread = simulate_nested_scheduling(worker, call_stack);
 
         THEN("order of call-stack must be in order")
         {
-            REQUIRE(call_stack == std::vector<std::string>{
-                "task 1 starts",
-                "task 1 ends",
-                "task 2 starts",
-                "task 2 ends",
-                "task 3 runs",
-            });
+            REQUIRE(call_stack == trampoline_expected_simulate_nested_scheduling(execution_thread));
         }
     }
 }
@@ -516,24 +498,16 @@ SCENARIO("trampoline scheduler is thread local")
         auto worker    = scheduler.create_worker(sub);
         rpp::subscription_guard guard{sub};
 
-        std::promise<std::vector<std::thread::id>> call_stack_1;
-        std::promise<std::vector<std::thread::id>> call_stack_2;
-        auto stack_future_1 = call_stack_1.get_future();
-        auto stack_future_2 = call_stack_2.get_future();
+        std::vector<std::string> call_stack_1;
+        std::vector<std::string> call_stack_2;
 
         auto thread_id_1 = simulate_nested_scheduling(worker, call_stack_1);
         auto thread_id_2 = simulate_nested_scheduling(worker, call_stack_2);
 
         THEN("call stack of two threads shall be separate")
         {
-            REQUIRE(stack_future_1.wait_for(std::chrono::seconds{5}) == std::future_status::ready);
-            REQUIRE(stack_future_2.wait_for(std::chrono::seconds{5}) == std::future_status::ready);
-
-            REQUIRE(stack_future_1.valid());
-            REQUIRE(stack_future_2.valid());
-
-            REQUIRE(stack_future_1.get() == std::vector{thread_id_1, thread_id_1, thread_id_1});
-            REQUIRE(stack_future_2.get() == std::vector{thread_id_2, thread_id_2, thread_id_2});
+            REQUIRE(call_stack_1 == trampoline_expected_simulate_nested_scheduling(thread_id_1));
+            REQUIRE(call_stack_2 == trampoline_expected_simulate_nested_scheduling(thread_id_2));
         }
     }
 }
