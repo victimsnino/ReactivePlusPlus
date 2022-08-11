@@ -54,7 +54,7 @@ public:
             if (!m_sub.is_subscribed())
                 return;
 
-            with_thread_local_schedulable_queue([&](auto& queue, auto& queue_in_use)
+            with_thread_local_schedulable_queue([&](auto& queue, bool& queue_in_use)
             {
                 queue.emplace(time_point, std::forward<decltype(fn)>(fn));
 
@@ -72,7 +72,7 @@ public:
 
                 std::stop_source stop;
                 auto stop_token = stop.get_token();
-                m_sub.add([stop = std::move(stop)]()
+                m_sub.add([stop = std::move(stop)]() mutable
                 {
                     // The following blocking-pop exits when subscription is unsubscribed in other thread.
                     stop.request_stop();
