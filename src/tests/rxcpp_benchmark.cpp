@@ -806,7 +806,7 @@ TEST_CASE("immediate scheduler")
         });
     };
 
-    BENCHMARK_ADVANCED("re-schedule 2 times")(Catch::Benchmark::Chronometer meter)
+    BENCHMARK_ADVANCED("re-schedule 10 times")(Catch::Benchmark::Chronometer meter)
     {
         auto scheduler = rxcpp::schedulers::make_immediate();
         auto worker    = scheduler.create_worker();
@@ -815,7 +815,7 @@ TEST_CASE("immediate scheduler")
 
         auto work = [&count](const rxcpp::schedulers::schedulable& self)
         {
-            if (count++ >= 2)
+            if (count++ >= 10)
                 return;
 
             self();
@@ -844,7 +844,7 @@ TEST_CASE("trampoline scheduler")
         });
     };
 
-    BENCHMARK_ADVANCED("re-schedule 2 times")(Catch::Benchmark::Chronometer meter)
+    BENCHMARK_ADVANCED("re-schedule 10 times")(Catch::Benchmark::Chronometer meter)
     {
         auto scheduler = rxcpp::schedulers::make_current_thread();
         auto worker    = scheduler.create_worker();
@@ -853,7 +853,7 @@ TEST_CASE("trampoline scheduler")
 
         auto work = [&count](const rxcpp::schedulers::schedulable& self)
         {
-            if (count++ >= 2)
+            if (count++ >= 10)
                 return;
 
             self();
