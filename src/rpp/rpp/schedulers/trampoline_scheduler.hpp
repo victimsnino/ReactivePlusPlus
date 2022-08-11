@@ -27,7 +27,7 @@ namespace rpp::schedulers
 
 template <typename F>
 struct scope_guard {
-    explicit scope_guard(F&& f) : m_f(std::move<F>(std::forward<F>(f))) {}
+    explicit scope_guard(F&& f) : m_f(std::move<F>(f)) {}
     ~scope_guard() noexcept { m_f(); }
     F m_f;
 };
