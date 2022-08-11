@@ -11,6 +11,8 @@
 
 #pragma once
 
+#include "rpp/utils/utilities.hpp"
+
 #include <rpp/schedulers/fwd.hpp>                       // own forwarding
 #include <rpp/schedulers/details/worker.hpp>            // worker
 #include <rpp/subscriptions/composite_subscription.hpp> // lifetime
@@ -24,14 +26,6 @@
 
 namespace rpp::schedulers
 {
-
-template <typename F>
-struct scope_guard {
-    explicit scope_guard(F&& f) : m_f(std::move(f)) {}
-    ~scope_guard() noexcept { m_f(); }
-    F m_f;
-};
-
 /**
  * \brief schedules execution of schedulables via queueing tasks to the caller thread with priority to time_point and order
  *
@@ -62,7 +56,7 @@ public:
                     return;
 
                 queue_in_use = true;
-                scope_guard cleanup([&]() noexcept
+                utils::finally_action cleanup([&]() noexcept
                 {
                     // If error occurs, we still want the thread-local state to be reset.
                     queue_in_use = false;

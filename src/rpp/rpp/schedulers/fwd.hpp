@@ -28,6 +28,8 @@ using optional_duration = std::optional<duration>;
 
 class immediate;
 class trampoline;
+using current_thread = trampoline;
+
 class new_thread;
 class run_loop;
 } // namespace rpp::schedulers
