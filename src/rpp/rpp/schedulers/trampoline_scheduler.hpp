@@ -147,12 +147,12 @@ class trampoline final : public details::scheduler_tag
         if (!schedulable.is_subscribed())
             return {};
 
-        std::this_thread::sleep_until(schedulable.GetTimePoint());
+        std::this_thread::sleep_until(schedulable.get_time_point());
 
         if (!schedulable.is_subscribed())
             return {};
 
-        return std::move(schedulable.ExtractFunction());
+        return std::move(schedulable.extract_function());
     }
 
 public:

@@ -38,8 +38,8 @@ public:
         return std::tie(m_time_point, m_id) >= std::tie(other.m_time_point, other.m_id);
     }
 
-    time_point GetTimePoint() const { return m_time_point; }
-    SchedulableFn&& ExtractFunction() const { return std::move(m_function); }
+    time_point      get_time_point() const { return m_time_point; }
+    SchedulableFn&& extract_function() const { return std::move(m_function); }
 
 private:
     time_point            m_time_point;
@@ -77,7 +77,7 @@ public:
         if (!is_any_ready_schedulable_unsafe())
             return false;
 
-        out = std::move(m_queue.top().ExtractFunction());
+        out = std::move(m_queue.top().extract_function());
         m_queue.pop();
         return true;
     }
@@ -93,11 +93,11 @@ public:
 
             if (!m_cv.wait_until(lock,
                                  token,
-                                 m_queue.top().GetTimePoint(),
+                                 m_queue.top().get_time_point(),
                                  std::bind_front(&queue_worker_state<SchedulableFn>::is_any_ready_schedulable_unsafe, this)))
                 continue;
 
-            out = std::move(m_queue.top().ExtractFunction());
+            out = std::move(m_queue.top().extract_function());
             m_queue.pop();
             return true;
         }
@@ -119,7 +119,7 @@ private:
 
     bool is_any_ready_schedulable_unsafe() const
     {
-        return !m_queue.empty() && m_queue.top().GetTimePoint() <= clock_type::now();
+        return !m_queue.empty() && m_queue.top().get_time_point() <= clock_type::now();
     }
 
 private:
