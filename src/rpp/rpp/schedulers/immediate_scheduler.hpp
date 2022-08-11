@@ -27,32 +27,48 @@ namespace rpp::schedulers
 class immediate final : public details::scheduler_tag
 {
 public:
-    class worker_strategy
+    class worker
     {
     public:
-        worker_strategy(const rpp::subscription_base& sub)
+        worker(const rpp::subscription_base& sub)
             : m_sub{sub} {}
 
-        void defer_at(time_point time_point, std::invocable auto&& fn) const
+        void schedule(constraint::schedulable_fn auto&& fn) const
         {
-            if (!m_sub.is_subscribed())
-                return;
-
-            std::this_thread::sleep_until(time_point);
-
-            if (m_sub.is_subscribed())
-                fn();
+            schedule(now(), std::forward<decltype(fn)>(fn));
         }
 
+        void schedule(duration delay, constraint::schedulable_fn auto&& fn) const
+        {
+            schedule(now() + delay, std::forward<decltype(fn)>(fn));
+        }
+
+        void schedule(time_point time_point, constraint::schedulable_fn auto&& fn) const
+        {
+            while (m_sub.is_subscribed())
+            {
+                std::this_thread::sleep_until(time_point);
+
+                if (!m_sub.is_subscribed())
+                    return;
+
+                if (auto duration = fn())
+                    time_point = std::max(now(), time_point + duration.value());
+                else
+                    return;
+            }
+        }
+
+    private:
         static time_point now() { return clock_type::now();  }
 
     private:
         rpp::subscription_base m_sub;
     };
 
-    static worker<worker_strategy> create_worker(const rpp::subscription_base& sub = {})
+    static worker create_worker(const rpp::subscription_base& sub = {})
     {
-        return worker<worker_strategy>{sub};
+        return worker{sub};
     }
 };
 } // namespace rpp::schedulers
