@@ -69,7 +69,8 @@ class trampoline final : public details::scheduler_tag
 
     static void drain_queue()
     {
-        auto& queue = get_schedulable_queue();
+        auto& queue          = get_schedulable_queue();
+        auto  reset_at_final = utils::finally_action{[] { get_schedulable_queue().reset(); }};
 
         while (!queue->empty())
         {
@@ -83,8 +84,6 @@ class trampoline final : public details::scheduler_tag
             if (function)
                 function();
         }
-
-        queue.reset();
     }
 
     [[nodiscard]] static std::function<void()> wait_and_extract_executable_if_subscribed(const  current_thread_schedulable& schedulable)
