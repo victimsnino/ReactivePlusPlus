@@ -11,12 +11,12 @@
 
 #pragma once
 
-#include "rpp/utils/utilities.hpp"
 
 #include <rpp/schedulers/fwd.hpp>                       // own forwarding
 #include <rpp/schedulers/details/worker.hpp>            // worker
 #include <rpp/subscriptions/composite_subscription.hpp> // lifetime
 #include <rpp/schedulers/details/queue_worker_state.hpp>// state
+#include <rpp/utils/utilities.hpp>
 
 #include <concepts>
 #include <chrono>

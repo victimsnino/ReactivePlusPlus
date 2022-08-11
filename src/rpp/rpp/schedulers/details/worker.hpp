@@ -14,6 +14,8 @@
 #include <rpp/schedulers/fwd.hpp>         // own forwarding
 #include <rpp/utils/constraints.hpp>
 
+#include <algorithm>
+
 namespace rpp::schedulers
 {
 template<typename T>
