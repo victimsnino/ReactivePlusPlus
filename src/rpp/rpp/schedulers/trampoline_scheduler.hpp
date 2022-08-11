@@ -40,10 +40,10 @@ class trampoline final : public details::scheduler_tag
     {
     public:
         current_thread_schedulable(time_point                  time_point,
-            std::invocable auto&& fn,
-            rpp::composite_subscription subscription)
+                                   std::invocable auto&&       fn,
+                                   rpp::composite_subscription subscription)
             : schedulable(time_point, get_thread_local_id(), std::forward<decltype(fn)>(fn))
-            , m_subscription{ std::move(subscription) } {}
+            , m_subscription{std::move(subscription)} {}
 
         bool is_subscribed() const { return m_subscription.is_subscribed(); }
 
@@ -67,6 +67,39 @@ class trampoline final : public details::scheduler_tag
         return s_queue;
     }
 
+    static void drain_queue()
+    {
+        auto& queue = get_schedulable_queue();
+
+        while (!queue->empty())
+        {
+            const auto& top = queue->top();
+
+            auto function = wait_and_extract_executable_if_subscribed(top);
+
+            // firstly we need to pop schedulable from queue due to execution of function can add new schedulable
+            queue->pop();
+
+            if (function)
+                function();
+        }
+
+        queue.reset();
+    }
+
+    [[nodiscard]] static std::function<void()> wait_and_extract_executable_if_subscribed(const  current_thread_schedulable& schedulable)
+    {
+        if (!schedulable.is_subscribed())
+            return {};
+
+        std::this_thread::sleep_until(schedulable.GetTimePoint());
+
+        if (!schedulable.is_subscribed())
+            return {};
+
+        return std::move(schedulable.ExtractFunction());
+    }
+
 public:
     class worker_strategy
     {
@@ -79,56 +112,28 @@ public:
             if (!m_sub.is_subscribed())
                 return;
 
-            auto&      queue              = get_schedulable_queue();
-            const bool someone_owns_queue = queue.has_value();
-            if (!someone_owns_queue)
-                queue = std::priority_queue<current_thread_schedulable>{};
-
-            queue->emplace(time_point, std::forward<decltype(fn)>(fn), m_sub);
-
-            if (!someone_owns_queue)
-                process_queue();
+            auto drain_handle = ensure_queue_if_no_any_owner();
+            get_schedulable_queue()->emplace(time_point, std::forward<decltype(fn)>(fn), m_sub);
         }
 
         static time_point now() { return clock_type::now(); }
 
     private:
-        void process_queue() const
-        {
-            auto& queue = get_schedulable_queue();
-
-            while (!queue->empty())
-            {
-                const auto& top = queue->top();
-
-                auto function  = wait_and_extract_executable_from_schedulable_if_subscribed(top);
-
-                // firstly we need to pop schedulable from queue due to exectuion of function can add new schedulable
-                queue->pop();
-
-                if (function)
-                    function();
-            }
-
-            queue.reset();
-        }
-
-        [[nodiscard]] std::function<void()> wait_and_extract_executable_from_schedulable_if_subscribed(const  current_thread_schedulable& schedulable) const
-        {
-            if (!schedulable.is_subscribed())
-                return {};
-
-            std::this_thread::sleep_until(schedulable.GetTimePoint());
-
-            if (!schedulable.is_subscribed())
-                return {};
-
-            return std::move(schedulable.ExtractFunction());
-        }
-
-    private:
         rpp::composite_subscription m_sub;
     };
+
+    /**
+     * \brief Take ownership over queue and return handle which would drain queue during destruction
+     */
+    [[nodiscard]] static utils::finally_action<void(*)()> ensure_queue_if_no_any_owner()
+    {
+        auto& queue = get_schedulable_queue();
+        if (queue.has_value())
+            return utils::finally_action{+[] {}};
+
+        queue = std::priority_queue<current_thread_schedulable>{};
+        return utils::finally_action{&drain_queue};
+    }
 
     static auto create_worker(const rpp::composite_subscription& sub = composite_subscription{})
     {

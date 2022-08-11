@@ -27,7 +27,7 @@ namespace rpp::schedulers
 class immediate final : public details::scheduler_tag
 {
 public:
-    class worker
+    class worker : public details::worker_tag
     {
     public:
         worker(const rpp::subscription_base& sub)

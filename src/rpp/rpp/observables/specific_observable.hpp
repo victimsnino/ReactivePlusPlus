@@ -10,13 +10,13 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
 #include <rpp/observables/fwd.hpp>
 #include <rpp/observables/interface_observable.hpp>            // base_class
-#include <rpp/utils/operator_declaration.hpp>                  // for header include
+#include <rpp/schedulers/trampoline_scheduler.hpp>
 #include <rpp/subscribers/dynamic_subscriber.hpp>
+#include <rpp/utils/operator_declaration.hpp>                  // for header include
 #include <rpp/utils/utilities.hpp>                            // copy_assignable_callable
-
-#include <rpp/defs.hpp>
 
 #include <utility>
 
@@ -71,6 +71,8 @@ private:
     {
         try
         {
+            // take ownership over current thread as early as possible to delay all next "current_thread" schedulings. For  example, scheduling of emissions from "just" to delay it till whole chain is subscribed and ready to listened emissions
+            const auto drain_handle = rpp::schedulers::current_thread::ensure_queue_if_no_any_owner();
             m_state(subscriber);
         }
         catch (...)
