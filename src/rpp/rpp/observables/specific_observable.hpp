@@ -69,34 +69,37 @@ private:
     template<constraint::subscriber_of_type<Type> TSub>
     void actual_subscribe(const TSub& subscriber) const
     {
-        try
+        // will be scheduled immediately -> reference can be passed
+        const auto safe_subscribe = [&]
         {
-            // take ownership over current thread as early as possible to delay all next "current_thread" schedulings. For  example, scheduling of emissions from "just" to delay it till whole chain is subscribed and ready to listened emissions
-            // For example, if we have
-            // rpp::source::just(rpp::schedulers::current_thread{}, 1,2).combine_latest(rpp::source::just(rpp::schedulers::current_thread{}, 1,2))
-            //
-            // then we expect to see emissions like (1,1) (2,1) (2,2) instead of (2,1) (2,2). TO do it we need to "take ownership" over queue to prevent ANY immediate schedulings from ANY next subscriptions
-            if (rpp::schedulers::current_thread::is_queue_owned())
+            try
             {
                 m_state(subscriber);
             }
-            else
+            catch (...)
             {
-                // will be scheduled immediately -> reference can be passed
-                rpp::schedulers::current_thread::create_worker(subscriber.get_subscription()).schedule([&]
-                {
-                    m_state(subscriber);
-                    return rpp::schedulers::optional_duration{};
-                });
+                if (subscriber.is_subscribed())
+                    subscriber.on_error(std::current_exception());
+                else
+                    throw;
             }
-        }
-        catch (...)
+            return rpp::schedulers::optional_duration{};
+        };
+
+        // take ownership over current thread as early as possible to delay all next "current_thread" schedulings. For  example, scheduling of emissions from "just" to delay it till whole chain is subscribed and ready to listened emissions
+        // For example, if we have
+        // rpp::source::just(rpp::schedulers::current_thread{}, 1,2).combine_latest(rpp::source::just(rpp::schedulers::current_thread{}, 1,2))
+        //
+        // then we expect to see emissions like (1,1) (2,1) (2,2) instead of (2,1) (2,2). TO do it we need to "take ownership" over queue to prevent ANY immediate schedulings from ANY next subscriptions
+        if (rpp::schedulers::current_thread::is_queue_owned())
         {
-            if (subscriber.is_subscribed())
-                subscriber.on_error(std::current_exception());
-            else
-                throw;
+            safe_subscribe();
         }
+        else
+        {
+            rpp::schedulers::current_thread::create_worker(subscriber.get_subscription()).schedule(safe_subscribe);
+        }
+
     }
 
 private:
