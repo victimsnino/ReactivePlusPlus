@@ -84,7 +84,7 @@ private:
                     throw;
             }
             return rpp::schedulers::optional_duration{};
-        }
+        };
 
         // take ownership over current thread as early as possible to delay all next "current_thread" schedulings. For  example, scheduling of emissions from "just" to delay it till whole chain is subscribed and ready to listened emissions
         // For example, if we have
