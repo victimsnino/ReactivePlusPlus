@@ -99,7 +99,7 @@
   - [ ] switch_if_empty
 - [x] with_latest_from
 - [x] start_with
-- [ ] combine_latest
+- [x] combine_latest
 - [ ] zip
 
 ### Aggregate

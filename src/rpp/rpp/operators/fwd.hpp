@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/operators/fwd/buffer.hpp>
+#include <rpp/operators/fwd/combine_latest.hpp>
 #include <rpp/operators/fwd/concat.hpp>
 #include <rpp/operators/fwd/distinct_until_changed.hpp>
 #include <rpp/operators/fwd/do.hpp>

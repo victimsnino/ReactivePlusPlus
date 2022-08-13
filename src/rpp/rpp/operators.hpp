@@ -58,6 +58,7 @@
  * \ingroup operators
  */
 
+#include <rpp/operators/combine_latest.hpp>
 #include <rpp/operators/merge.hpp>
 #include <rpp/operators/start_with.hpp>
 #include <rpp/operators/switch_map.hpp>

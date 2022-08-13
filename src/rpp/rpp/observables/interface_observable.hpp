@@ -38,6 +38,7 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct RPP_EMPTY_BASES interface_observable
     : public details::typed_observable_tag<Type>
     , details::member_overload<Type, SpecificObservable, details::buffer_tag>
+    , details::member_overload<Type, SpecificObservable, details::combine_latest_tag>
     , details::member_overload<Type, SpecificObservable, details::concat_tag>
     , details::member_overload<Type, SpecificObservable, details::distinct_until_changed_tag>
     , details::member_overload<Type, SpecificObservable, details::do_tag>
