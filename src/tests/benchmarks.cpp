@@ -667,6 +667,39 @@ TEST_CASE("take")
     };
 }
 
+TEST_CASE("first")
+{
+    BENCHMARK_ADVANCED("first construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        const auto obs = rpp::observable::create<int>([](const auto& sub)
+        {
+            sub.on_next(1);
+        });
+
+        std::vector<rpp::dynamic_subscriber<int>> subs{};
+        for (size_t i = 0; i < meter.runs(); ++i)
+            subs.push_back(rpp::dynamic_subscriber<int>{});
+
+        meter.measure([&](int i)
+        {
+            return obs.first().subscribe(subs[i]);
+        });
+    };
+
+    BENCHMARK_ADVANCED("sending of values from observable via first to subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        rpp::source::create<int>([&](const auto& sub)
+            {
+                meter.measure([&]
+                {
+                    sub.on_next(1);
+                });
+            })
+            .first()
+            .subscribe([](const auto&) {});
+    };
+}
+
 TEST_CASE("skip")
 {
     BENCHMARK_ADVANCED("skip construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
