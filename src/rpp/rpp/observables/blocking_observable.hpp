@@ -47,7 +47,9 @@ private:
     {
         std::promise<bool> is_success{};
         const auto         future = is_success.get_future();
-        m_original.subscribe(create_subscriber_with_state<Type>(std::forward<TSub>(subscriber),
+        auto sub = subscriber.get_subscription();
+        m_original.subscribe(create_subscriber_with_state<Type>(std::move(sub),
+                                                                std::forward<TSub>(subscriber),
                                                                 utils::forwarding_on_next{},
                                                                 [&](const std::exception_ptr& err, const auto& sub)
                                                                 {
