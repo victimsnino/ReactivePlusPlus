@@ -53,6 +53,8 @@ void with_latest_from_subscribe_observables(std::index_sequence<I...>,
 template<typename TSelector, constraint::decayed_type ...ValueTypes>
 struct with_latest_from_state_t
 {
+    with_latest_from_state_t(const TSelector& selector) : selector(selector) {}
+    
     TSelector                                     selector;
     std::array<std::mutex, sizeof...(ValueTypes)> mutexes{};
     std::tuple<std::optional<ValueTypes>...>      vals{};
