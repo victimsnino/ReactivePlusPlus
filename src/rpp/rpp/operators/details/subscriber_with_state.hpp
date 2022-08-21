@@ -21,97 +21,21 @@ template<constraint::decayed_type             Type,
     std::invocable<Type, State>               OnNext,
     std::invocable<std::exception_ptr, State> OnError,
     std::invocable<State>                     OnCompleted>
-auto create_subscriber_with_state_impl(State&&                       state,
-                                       OnNext&&                      on_next,
-                                       OnError&&                     on_error,
-                                       OnCompleted&&                 on_completed,
-                                       rpp::composite_subscription&& sub = composite_subscription{})
-{
-    return specific_subscriber<Type, state_observer<Type,
-                                                    std::decay_t<OnNext>,
-                                                    std::decay_t<OnError>,
-                                                    std::decay_t<OnCompleted>,
-                                                    std::decay_t<State>>>
-    {
-        std::move(sub),
-        std::forward<OnNext>(on_next),
-        std::forward<OnError>(on_error),
-        std::forward<OnCompleted>(on_completed),
-        std::forward<State>(state)
-    };
-}
-
-template<constraint::decayed_type             Type,
-    typename                                  State,
-    std::invocable<Type, State>               OnNext,
-    std::invocable<std::exception_ptr, State> OnError,
-    std::invocable<State>                     OnCompleted>
-auto create_subscriber_with_state(State&&       state,
-                                  OnNext&&      on_next,
-                                  OnError&&     on_error,
-                                  OnCompleted&& on_completed)
-{
-    return create_subscriber_with_state_impl<Type>(std::forward<State>(state),
-                                                   std::forward<OnNext>(on_next),
-                                                   std::forward<OnError>(on_error),
-                                                   std::forward<OnCompleted>(on_completed));
-}
-
-template<constraint::decayed_type             Type,
-    typename                                  State,
-    std::invocable<Type, State>               OnNext,
-    std::invocable<std::exception_ptr, State> OnError,
-    std::invocable<State>                     OnCompleted>
 auto create_subscriber_with_state(rpp::composite_subscription sub,
                                   State&&                     state,
                                   OnNext&&                    on_next,
                                   OnError&&                   on_error,
                                   OnCompleted&&               on_completed)
 {
-    return create_subscriber_with_state_impl<Type>(std::forward<State>(state),
-                                                   std::forward<OnNext>(on_next),
-                                                   std::forward<OnError>(on_error),
-                                                   std::forward<OnCompleted>(on_completed),
-                                                   std::move(sub));
-}
-
-//******************** DYNAMIC *****************************
-
-template<constraint::decayed_type             Type,
-    typename                                  State,
-    std::invocable<Type, State>               OnNext,
-    std::invocable<std::exception_ptr, State> OnError,
-    std::invocable<State>                     OnCompleted>
-auto create_subscriber_with_dynamic_state_impl(State&&                       state,
-                                               OnNext&&                      on_next,
-                                               OnError&&                     on_error,
-                                               OnCompleted&&                 on_completed,
-                                               rpp::composite_subscription&& sub = composite_subscription{})
-{
-    return specific_subscriber<Type, details::dynamic_state_observer<Type, std::decay_t<State>>>
-    {
-        std::move(sub),
-        std::forward<OnNext>(on_next),
-        std::forward<OnError>(on_error),
-        std::forward<OnCompleted>(on_completed),
-        std::forward<State>(state)
-    };
-}
-
-template<constraint::decayed_type             Type,
-    typename                                  State,
-    std::invocable<Type, State>               OnNext,
-    std::invocable<std::exception_ptr, State> OnError,
-    std::invocable<State>                     OnCompleted>
-auto create_subscriber_with_dynamic_state(State&& state,
-                                  OnNext&&        on_next,
-                                  OnError&&       on_error,
-                                  OnCompleted&&   on_completed)
-{
-    return create_subscriber_with_dynamic_state_impl<Type>(std::forward<State>(state),
-                                                           std::forward<OnNext>(on_next),
-                                                           std::forward<OnError>(on_error),
-                                                           std::forward<OnCompleted>(on_completed));
+    return make_specific_subscriber<Type, state_observer<Type,
+                                                         std::decay_t<OnNext>,
+                                                         std::decay_t<OnError>,
+                                                         std::decay_t<OnCompleted>,
+                                                         std::decay_t<State>>>(std::move(sub),
+                                                                               std::forward<State>(state),
+                                                                               std::forward<OnNext>(on_next),
+                                                                               std::forward<OnError>(on_error),
+                                                                               std::forward<OnCompleted>(on_completed));
 }
 
 template<constraint::decayed_type             Type,
@@ -120,15 +44,15 @@ template<constraint::decayed_type             Type,
     std::invocable<std::exception_ptr, State> OnError,
     std::invocable<State>                     OnCompleted>
 auto create_subscriber_with_dynamic_state(rpp::composite_subscription sub,
-                                  State&&                             state,
-                                  OnNext&&                            on_next,
-                                  OnError&&                           on_error,
-                                  OnCompleted&&                       on_completed)
+                                          State&&                     state,
+                                          OnNext&&                    on_next,
+                                          OnError&&                   on_error,
+                                          OnCompleted&&               on_completed)
 {
-    return create_subscriber_with_dynamic_state_impl<Type>(std::forward<State>(state),
-                                                           std::forward<OnNext>(on_next),
-                                                           std::forward<OnError>(on_error),
-                                                           std::forward<OnCompleted>(on_completed),
-                                                           std::move(sub));
+    return make_specific_subscriber<Type, details::dynamic_state_observer<Type, std::decay_t<State>>>(std::move(sub),
+                                                                                                      std::forward<State>(state),
+                                                                                                      std::forward<OnNext>(on_next),
+                                                                                                      std::forward<OnError>(on_error),
+                                                                                                      std::forward<OnCompleted>(on_completed));
 }
 } // namespace rpp::details

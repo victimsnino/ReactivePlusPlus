@@ -119,6 +119,13 @@ auto make_specific_subscriber(composite_subscription sub, Args&& ...args)  -> sp
     return {std::move(sub), std::forward<Args>(args)...};
 }
 
+template<typename Type, constraint::observer_of_type<Type> TObs, typename ...Args>
+auto make_specific_subscriber(composite_subscription sub, Args&& ...args)  -> specific_subscriber<Type, TObs>
+{
+    return {std::move(sub), std::forward<Args>(args)...};
+}
+
+
 namespace constraint
 {
     template<typename Type, typename...Args>
