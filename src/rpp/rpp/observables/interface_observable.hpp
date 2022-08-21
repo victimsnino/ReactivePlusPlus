@@ -37,30 +37,30 @@ namespace rpp
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct RPP_EMPTY_BASES interface_observable
     : public details::typed_observable_tag<Type>
-    , details::member_overload<Type, SpecificObservable, details::subscribe_tag>
+    , details::member_overload<Type, SpecificObservable, details::buffer_tag>
+    , details::member_overload<Type, SpecificObservable, details::concat_tag>
+    , details::member_overload<Type, SpecificObservable, details::distinct_until_changed_tag>
+    , details::member_overload<Type, SpecificObservable, details::filter_tag>
+    , details::member_overload<Type, SpecificObservable, details::flat_map_tag>
+    , details::member_overload<Type, SpecificObservable, details::group_by_tag>
     , details::member_overload<Type, SpecificObservable, details::lift_tag>
     , details::member_overload<Type, SpecificObservable, details::map_tag>
-    , details::member_overload<Type, SpecificObservable, details::filter_tag>
-    , details::member_overload<Type, SpecificObservable, details::buffer_tag>
-    , details::member_overload<Type, SpecificObservable, details::take_tag>
-    , details::member_overload<Type, SpecificObservable, details::take_while_tag>
     , details::member_overload<Type, SpecificObservable, details::merge_tag>
+    , details::member_overload<Type, SpecificObservable, details::multicast_tag>
     , details::member_overload<Type, SpecificObservable, details::observe_on_tag>
     , details::member_overload<Type, SpecificObservable, details::publish_tag>
-    , details::member_overload<Type, SpecificObservable, details::multicast_tag>
     , details::member_overload<Type, SpecificObservable, details::repeat_tag>
+    , details::member_overload<Type, SpecificObservable, details::scan_tag>
+    , details::member_overload<Type, SpecificObservable, details::skip_tag>
+    , details::member_overload<Type, SpecificObservable, details::start_with_tag>
     , details::member_overload<Type, SpecificObservable, details::subscribe_on_tag>
-    , details::member_overload<Type, SpecificObservable, details::with_latest_from_tag>
+    , details::member_overload<Type, SpecificObservable, details::subscribe_tag>
     , details::member_overload<Type, SpecificObservable, details::switch_map_tag>
     , details::member_overload<Type, SpecificObservable, details::switch_on_next_tag>
-    , details::member_overload<Type, SpecificObservable, details::group_by_tag>
-    , details::member_overload<Type, SpecificObservable, details::flat_map_tag>
-    , details::member_overload<Type, SpecificObservable, details::scan_tag>
-    , details::member_overload<Type, SpecificObservable, details::concat_tag>
-    , details::member_overload<Type, SpecificObservable, details::start_with_tag>
-    , details::member_overload<Type, SpecificObservable, details::distinct_until_changed_tag>
-    , details::member_overload<Type, SpecificObservable, details::skip_tag>
+    , details::member_overload<Type, SpecificObservable, details::take_tag>
+    , details::member_overload<Type, SpecificObservable, details::take_while_tag>
     , details::member_overload<Type, SpecificObservable, details::window_tag>
+    , details::member_overload<Type, SpecificObservable, details::with_latest_from_tag>
 {
 public:
 
