@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::details::with_latest_from_state_t&lt; ValueTypes &gt; Struct Template Reference</title>
+<title>ReactivePlusPlus: rpp::details::with_latest_from_state_t&lt; TSelector, ValueTypes &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -97,24 +97,30 @@ $(document).ready(function(){initNavTree('structrpp_1_1details_1_1with__latest__
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structrpp_1_1details_1_1with__latest__from__state__t-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">rpp::details::with_latest_from_state_t&lt; ValueTypes &gt; Struct Template Reference</div>  </div>
+<div class="title">rpp::details::with_latest_from_state_t&lt; TSelector, ValueTypes &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2019138b1541099cbd152d4c98384323"><td class="memItemLeft" align="right" valign="top"><a id="a2019138b1541099cbd152d4c98384323"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>apply_under_lock</b> (const auto &amp;selector)</td></tr>
-<tr class="separator:a2019138b1541099cbd152d4c98384323"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1afdd3fd573d426f8a3fb47ef55cba69"><td class="memItemLeft" align="right" valign="top"><a id="a1afdd3fd573d426f8a3fb47ef55cba69"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>with_latest_from_state_t</b> (const TSelector &amp;selector)</td></tr>
+<tr class="separator:a1afdd3fd573d426f8a3fb47ef55cba69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7614e55b5349a604b9a227750c15e576"><td class="memItemLeft" align="right" valign="top"><a id="a7614e55b5349a604b9a227750c15e576"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>apply_under_lock</b> (const auto &amp;fn)</td></tr>
+<tr class="separator:a7614e55b5349a604b9a227750c15e576"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a95f5de0593e8fde5e6ad920830a9a455"><td class="memItemLeft" align="right" valign="top"><a id="a95f5de0593e8fde5e6ad920830a9a455"></a>
+<tr class="memitem:aea5cbd4b1f1215cf2587c67893125ca0"><td class="memItemLeft" align="right" valign="top"><a id="aea5cbd4b1f1215cf2587c67893125ca0"></a>
+TSelector&#160;</td><td class="memItemRight" valign="bottom"><b>selector</b></td></tr>
+<tr class="separator:aea5cbd4b1f1215cf2587c67893125ca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbfdec09c724c5278f8f9c27b50dacef"><td class="memItemLeft" align="right" valign="top"><a id="acbfdec09c724c5278f8f9c27b50dacef"></a>
 std::array&lt; std::mutex, sizeof...(ValueTypes)&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mutexes</b> {}</td></tr>
-<tr class="separator:a95f5de0593e8fde5e6ad920830a9a455"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44eea6685c2bdbc79aeb4352aded5ca0"><td class="memItemLeft" align="right" valign="top"><a id="a44eea6685c2bdbc79aeb4352aded5ca0"></a>
+<tr class="separator:acbfdec09c724c5278f8f9c27b50dacef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedddce5d0b5c4899258c5fe53fb0b240"><td class="memItemLeft" align="right" valign="top"><a id="aedddce5d0b5c4899258c5fe53fb0b240"></a>
 std::tuple&lt; std::optional&lt; ValueTypes &gt;... &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>vals</b> {}</td></tr>
-<tr class="separator:a44eea6685c2bdbc79aeb4352aded5ca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:aedddce5d0b5c4899258c5fe53fb0b240"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/rpp/rpp/operators/<a class="el" href="with__latest__from_8hpp_source.html">with_latest_from.hpp</a></li>
