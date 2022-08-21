@@ -126,16 +126,27 @@ $(document).ready(function(){initNavTree('fwd_2take_8hpp_source.html',''); initR
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>...Args&gt;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">auto</span> take(<span class="keywordtype">size_t</span> count) <span class="keyword">const</span> &amp; requires is_header_included&lt;take_tag, Args...&gt;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;<span class="keyword">template</span> lift&lt;Type&gt;(<a class="code" href="structrpp_1_1details_1_1take__impl.html">take_impl&lt;Type&gt;</a>{count});</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">return</span> cast_this()-&gt;template lift&lt;Type&gt;(<a class="code" href="structrpp_1_1details_1_1take__impl.html">take_impl&lt;Type&gt;</a>{count});</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>...Args&gt;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">auto</span> take(<span class="keywordtype">size_t</span> count) &amp;&amp; requires is_header_included&lt;take_tag, Args...&gt;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">return</span> std::move(*<span class="keyword">static_cast&lt;</span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)).template lift&lt;Type&gt;(<a class="code" href="structrpp_1_1details_1_1take__impl.html">take_impl&lt;Type&gt;</a>{count});</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">return</span> move_this().template lift&lt;Type&gt;(<a class="code" href="structrpp_1_1details_1_1take__impl.html">take_impl&lt;Type&gt;</a>{count});</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;};</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">const</span> SpecificObservable* cast_this()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    SpecificObservable&amp;&amp; move_this()</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">return</span> std::move(*<span class="keyword">static_cast&lt;</span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>));</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;};</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructrpp_1_1details_1_1take__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1take__impl.html">rpp::details::take_impl</a></div><div class="ttdef"><b>Definition:</b> take.hpp:23</div></div>
