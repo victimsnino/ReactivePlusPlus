@@ -124,15 +124,4 @@ auto make_specific_subscriber(composite_subscription sub, Args&& ...args)  -> sp
 {
     return {std::move(sub), std::forward<Args>(args)...};
 }
-
-
-namespace constraint
-{
-    template<typename Type, typename...Args>
-    concept specific_subscriber_constructible = requires(Args...args)
-    {
-        make_specific_subscriber<Type>(args...);
-    };
-}
-
 } // namespace rpp

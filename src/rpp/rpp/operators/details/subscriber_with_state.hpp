@@ -27,15 +27,16 @@ auto create_subscriber_with_state(rpp::composite_subscription sub,
                                   OnError&&                   on_error,
                                   OnCompleted&&               on_completed)
 {
-    return make_specific_subscriber<Type, state_observer<Type,
-                                                         std::decay_t<OnNext>,
-                                                         std::decay_t<OnError>,
-                                                         std::decay_t<OnCompleted>,
-                                                         std::decay_t<State>>>(std::move(sub),
-                                                                               std::forward<State>(state),
-                                                                               std::forward<OnNext>(on_next),
-                                                                               std::forward<OnError>(on_error),
-                                                                               std::forward<OnCompleted>(on_completed));
+    using TObs = state_observer<Type,
+                                std::decay_t<OnNext>,
+                                std::decay_t<OnError>,
+                                std::decay_t<OnCompleted>,
+                                std::decay_t<State>>;
+    return make_specific_subscriber<Type, TObs>(std::move(sub),
+                                                std::forward<OnNext>(on_next),
+                                                std::forward<OnError>(on_error),
+                                                std::forward<OnCompleted>(on_completed),
+                                                std::forward<State>(state));
 }
 
 template<constraint::decayed_type             Type,
@@ -49,10 +50,11 @@ auto create_subscriber_with_dynamic_state(rpp::composite_subscription sub,
                                           OnError&&                   on_error,
                                           OnCompleted&&               on_completed)
 {
-    return make_specific_subscriber<Type, details::dynamic_state_observer<Type, std::decay_t<State>>>(std::move(sub),
-                                                                                                      std::forward<State>(state),
-                                                                                                      std::forward<OnNext>(on_next),
-                                                                                                      std::forward<OnError>(on_error),
-                                                                                                      std::forward<OnCompleted>(on_completed));
+    using TObs = dynamic_state_observer<Type, std::decay_t<State>>;
+    return make_specific_subscriber<Type, TObs>(std::move(sub),
+                                                std::forward<OnNext>(on_next),
+                                                std::forward<OnError>(on_error),
+                                                std::forward<OnCompleted>(on_completed),
+                                                std::forward<State>(state));
 }
 } // namespace rpp::details
