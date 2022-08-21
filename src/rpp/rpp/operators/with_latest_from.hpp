@@ -50,16 +50,17 @@ void with_latest_from_subscribe_observables(std::index_sequence<I...>,
     (with_latest_from_subscribe<I>(state_ptr, std::get<I>(observables_tuple), subscriber), ...);
 }
 
-template<constraint::decayed_type ...ValueTypes>
+template<typename TSelector, constraint::decayed_type ...ValueTypes>
 struct with_latest_from_state_t
 {
+    TSelector                                     selector;
     std::array<std::mutex, sizeof...(ValueTypes)> mutexes{};
     std::tuple<std::optional<ValueTypes>...>      vals{};
 
-    auto apply_under_lock(const auto& selector)
+    auto apply_under_lock(const auto& fn)
     {
         auto lock = lock_all();
-        return std::apply(selector, vals);
+        return std::apply(fn, vals);
     }
 
 private:
@@ -80,16 +81,16 @@ struct with_latest_from_impl
     template<constraint::subscriber_of_type<ResultType> TSub>
     auto operator()(TSub&& subscriber) const
     {
-        auto state = std::make_shared<with_latest_from_state_t<utils::extract_observable_type_t<TObservables>...>>();
+        auto state = std::make_shared<with_latest_from_state_t<utils::extract_observable_type_t<TObservables>...>>(selector);
 
         with_latest_from_subscribe_observables(std::index_sequence_for<TObservables...>{}, state, subscriber, observables);
 
-        auto on_next = [state, selector=selector]<typename T>(T&& v, const auto& sub)
+        auto on_next = [state]<typename T>(T&& v, const auto& sub)
         {
             auto result = state->apply_under_lock([&](const auto& ...current_cached_vals) -> std::optional<ResultType>
             {
                 if ((current_cached_vals.has_value() && ...))
-                    return selector(utils::as_const(std::forward<T>(v)), utils::as_const(current_cached_vals.value())...);
+                    return state->selector(utils::as_const(std::forward<T>(v)), utils::as_const(current_cached_vals.value())...);
                 return std::nullopt;
             });
 
@@ -97,7 +98,9 @@ struct with_latest_from_impl
                 sub.on_next(std::move(result.value()));
         };
 
-        return create_subscriber_with_state<Type>(std::forward<TSub>(subscriber),
+        auto sub = subscriber.get_subscription();
+        return create_subscriber_with_state<Type>(std::move(sub),
+                                                  std::forward<TSub>(subscriber),
                                                   std::move(on_next),
                                                   utils::forwarding_on_error{},
                                                   utils::forwarding_on_completed{});
