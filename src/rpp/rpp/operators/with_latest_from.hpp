@@ -81,7 +81,7 @@ struct with_latest_from_impl
     template<constraint::subscriber_of_type<ResultType> TSub>
     auto operator()(TSub&& subscriber) const
     {
-        auto state = std::make_shared<with_latest_from_state_t<utils::extract_observable_type_t<TObservables>...>>(selector);
+        auto state = std::make_shared<with_latest_from_state_t<TSelector, utils::extract_observable_type_t<TObservables>...>>(selector);
 
         with_latest_from_subscribe_observables(std::index_sequence_for<TObservables...>{}, state, subscriber, observables);
 
