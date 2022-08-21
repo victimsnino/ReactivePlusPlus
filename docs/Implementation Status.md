@@ -70,7 +70,7 @@
 - [ ] element_at
 - [x] first
 - [ ] ignore_elements
-- [ ] last
+- [x] last
 - [ ] sample
 - [x] skip
 - [ ] skip_last
