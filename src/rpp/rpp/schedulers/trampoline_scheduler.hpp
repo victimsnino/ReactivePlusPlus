@@ -17,6 +17,7 @@
 #include <rpp/subscriptions/composite_subscription.hpp> // lifetime
 #include <rpp/schedulers/details/queue_worker_state.hpp>// state
 #include <rpp/utils/utilities.hpp>
+#include <rpp/schedulers/details/utils.hpp>
 
 #include <concepts>
 #include <chrono>
@@ -61,19 +62,11 @@ class trampoline final : public details::scheduler_tag
             {
                 queue = std::priority_queue<current_thread_schedulable>{};
 
-                // do immediate scheduling till queue is empty
-                while (m_sub.is_subscribed() && get_schedulable_queue()->empty())
-                {
-                    std::this_thread::sleep_until(time_point);
+                if (!details::immediate_scheduling_while_condition(time_point, fn, m_sub, []() { return get_schedulable_queue()->empty(); }))
+                    return;
 
-                    if (!m_sub.is_subscribed())
-                        return;
-
-                    if (const auto duration = fn())
-                        time_point = std::max(now(), time_point + duration.value());
-                    else
-                        return;
-                }
+                // update time to make it more accurate due to we are going to push it to queue
+                time_point = std::max(now(), time_point);
             }
 
             defer_at(time_point, trampoline_schedulable{ *this, time_point, std::forward<decltype(fn)>(fn) });
@@ -88,7 +81,6 @@ class trampoline final : public details::scheduler_tag
         }
 
         static time_point now() { return clock_type::now(); }
-
     private:
         rpp::composite_subscription m_sub;
     };
@@ -98,11 +90,13 @@ class trampoline final : public details::scheduler_tag
         auto& queue = get_schedulable_queue();
         auto  reset_at_final = utils::finally_action{ [] { get_schedulable_queue().reset(); } };
         std::optional<trampoline_schedulable> function{};
+        time_point prev_time_point{};
+
         while (!queue->empty())
         {
             const auto& top = queue->top();
 
-            wait_and_extract_executable_if_subscribed(top, function);
+            wait_and_extract_executable_if_subscribed(top, function, prev_time_point);
 
             // firstly we need to pop schedulable from queue due to execution of function can add new schedulable
             queue->pop();
@@ -114,15 +108,22 @@ class trampoline final : public details::scheduler_tag
         }
     }
 
-    static void wait_and_extract_executable_if_subscribed(const current_thread_schedulable& schedulable, std::optional<trampoline_schedulable>& out)
+    static void wait_and_extract_executable_if_subscribed(const current_thread_schedulable& schedulable, std::optional<trampoline_schedulable>& out, time_point& prev_time_point)
     {
         if (!schedulable.is_subscribed())
             return;
 
-        std::this_thread::sleep_until(schedulable.get_time_point());
+        const auto requested_time = schedulable.get_time_point();
 
-        if (!schedulable.is_subscribed())
-            return;
+        // wait only if needed!
+        if (prev_time_point < requested_time)
+        {
+            std::this_thread::sleep_until(requested_time);
+            prev_time_point = requested_time;
+
+            if (!schedulable.is_subscribed())
+                return;
+        }
 
         out.emplace(std::move(schedulable.extract_function()));
     }
