@@ -23,7 +23,7 @@ namespace rpp::schedulers::details
     bool immediate_scheduling_while_condition(time_point& time_point, constraint::schedulable_fn auto&& schedulable, const rpp::subscription_base& sub, const std::predicate auto& condition)
     {
         // keep old_timepoint to easily understand if we need to sleep (due to sleep is expensive enough even if time in the "past")
-        auto old_timepoint = time_point;
+        rpp::schedulers::time_point old_timepoint{};
 
         while(condition())
         {
