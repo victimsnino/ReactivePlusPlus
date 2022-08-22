@@ -34,9 +34,9 @@ public:
         worker_strategy(const rpp::subscription_base& sub)
             : m_sub{sub} {}
 
-        void defer_at(time_point time_point, const constraint::schedulable_fn auto& fn) const
+        void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
         {
-            details::immediate_scheduling_while_condition(time_point, fn, m_sub, []{return true;});
+            details::immediate_scheduling_while_condition(time_point, std::forward<decltype(fn)>(fn), m_sub, []{return true;});
         }
 
         static time_point now() { return clock_type::now();  }

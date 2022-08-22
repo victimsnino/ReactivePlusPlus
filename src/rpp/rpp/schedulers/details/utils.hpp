@@ -20,7 +20,7 @@ namespace rpp::schedulers::details
      * \brief Makes immediate-like scheduling for provided arguments
      * \returns false in case of subscription unsubscribed or schedulable doesn't requested to re-schedule, true - in case of condition failed
      **/
-    bool immediate_scheduling_while_condition(time_point& time_point, const constraint::schedulable_fn auto& schedulable, const rpp::subscription_base& sub, const std::predicate auto& condition)
+    bool immediate_scheduling_while_condition(time_point& time_point, constraint::schedulable_fn auto&& schedulable, const rpp::subscription_base& sub, const std::predicate auto& condition)
     {
         // keep old_timepoint to easily understand if we need to sleep (due to sleep is expensive enough even if time in the "past")
         auto old_timepoint = time_point;
