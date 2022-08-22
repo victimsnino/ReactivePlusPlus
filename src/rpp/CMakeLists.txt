@@ -16,6 +16,8 @@ else()
   add_library(rpp INTERFACE ${FILES})
 endif()
 
+add_library(RPP::rpp ALIAS rpp)
+
 # target_sources(rpp INTERFACE ${FILES})
 target_include_directories(rpp 
   INTERFACE 
