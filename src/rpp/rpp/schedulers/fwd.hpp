@@ -21,8 +21,8 @@ struct worker_tag {};
 
 namespace rpp::schedulers
 {
-using clock_type = std::chrono::high_resolution_clock;
-using time_point = std::chrono::high_resolution_clock::time_point;
+using clock_type = std::chrono::steady_clock;
+using time_point = clock_type::time_point;
 using duration = std::chrono::nanoseconds;
 using optional_duration = std::optional<duration>;
 
