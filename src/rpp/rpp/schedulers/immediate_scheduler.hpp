@@ -13,6 +13,7 @@
 #include <rpp/schedulers/fwd.hpp>                   // own forwarding
 #include <rpp/schedulers/details/worker.hpp>        // worker
 #include <rpp/subscriptions/subscription_base.hpp>  // lifetime
+#include <rpp/schedulers/details/utils.hpp>
 
 #include <chrono>
 #include <concepts>
@@ -35,22 +36,10 @@ public:
 
         void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
         {
-            while (m_sub.is_subscribed())
-            {
-                std::this_thread::sleep_until(time_point);
-
-                if (!m_sub.is_subscribed())
-                    return;
-
-                if (auto duration = fn())
-                    time_point = std::max(now(), time_point + duration.value());
-                else
-                    return;
-            }
+            details::immediate_scheduling_while_condition(time_point, std::forward<decltype(fn)>(fn), m_sub, []{return true;});
         }
 
         static time_point now() { return clock_type::now();  }
-
     private:
         rpp::subscription_base m_sub;
     };

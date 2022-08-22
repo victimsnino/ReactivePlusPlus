@@ -76,7 +76,7 @@ private:
         details::queue_worker_state<run_loop_schedulable>& get_queue() { return m_queue; }
         std::stop_token                                    get_token() const { return m_source.get_token(); }
 
-        composite_subscription& get_subscription() { return m_sub; }
+        const composite_subscription& get_subscription() const { return m_sub; }
     private:
         rpp::composite_subscription                       m_sub;
         details::queue_worker_state<run_loop_schedulable> m_queue{};

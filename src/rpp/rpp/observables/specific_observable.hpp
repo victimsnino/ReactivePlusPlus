@@ -83,7 +83,7 @@ private:
                 else
                     throw;
             }
-            return rpp::schedulers::optional_duration{};
+            return schedulers::optional_duration{};
         };
 
         // take ownership over current thread as early as possible to delay all next "current_thread" schedulings. For  example, scheduling of emissions from "just" to delay it till whole chain is subscribed and ready to listened emissions
@@ -91,13 +91,14 @@ private:
         // rpp::source::just(rpp::schedulers::current_thread{}, 1,2).combine_latest(rpp::source::just(rpp::schedulers::current_thread{}, 1,2))
         //
         // then we expect to see emissions like (1,1) (2,1) (2,2) instead of (2,1) (2,2). TO do it we need to "take ownership" over queue to prevent ANY immediate schedulings from ANY next subscriptions
-        if (rpp::schedulers::current_thread::is_queue_owned())
+        if (schedulers::current_thread::is_queue_owned())
         {
             safe_subscribe();
         }
         else
         {
-            rpp::schedulers::current_thread::create_worker(subscriber.get_subscription()).schedule(safe_subscribe);
+            // we need to submit work into queue to take ownership over it. We can submit work with time_point "zero" due to anyway queue is empty and it doesn't make sense, but we can take performance boost due to avoiding extra calls to "now"
+            schedulers::current_thread::create_worker(subscriber.get_subscription()).schedule(schedulers::time_point{}, safe_subscribe);
         }
 
     }
