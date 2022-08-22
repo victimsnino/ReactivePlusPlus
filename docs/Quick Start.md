@@ -6,7 +6,7 @@ For the brief overview of the Reactive pattern read [https://reactivex.io/](http
 In short, creation of programs with help of ReactivePlusPlus split into several parts:
 
 ### 1) Define observables
-Observables are sources of your future streams. First of all you need to create some observable which emits values. You can select from some [predefined](https://victimsnino.github.io/ReactivePlusPlus/docs/html/group__observables.html) or built your own.
+Observables are sources of your future streams. First of all you need to create some observable which emits values. You can select from some [predefined](https://victimsnino.github.io/ReactivePlusPlus/docs/html/group__creational__operators.html) or built your own.
 
 For example, 
 ```cpp
@@ -14,7 +14,7 @@ rpp::source::from_callable(&::getchar)
 ```
 observable which emits one char from `cin` via invoking of provided function once after subscription 
 
-Action inside observable happens ONLY after subscription on this observable and ONLY for provided subscriber/observer. It means, that you can subscribe on the same observable multiple times!
+Action inside observable happens ONLY after subscription on this observable and ONLY for provided subscriber/observer. It means, that you can subscribe on the same observable multiple times! But actually each of this subscriber would see its "own" observable - function invoked especially for this one.
 
 ### 2) Chain observable
 
@@ -51,9 +51,15 @@ rpp::source::from_callable(&::getchar)
     .subscribe([](char v) { std::cout << v; });
 ```
 Subscribe function applies any from:
-- (optional) subscription
-- (optional) subscription, `on_next`
-- (optional) subscription, `on_next`, `on_error`
-- (optional) subscription, `on_next`, `on_completed`
-- (optional) subscription, `on_next`, `on_error`  `on_completed`
-- (optional) subscription, observer
+- [none]
+- subscription
+- `on_next`
+- subscription, `on_next`
+- `on_next`, `on_error`
+- subscription, `on_next`, `on_error`
+- `on_next`, `on_completed`
+- subscription, `on_next`, `on_completed`
+- on_next`, `on_error`  `on_completed`
+- subscription, `on_next`, `on_error`  `on_completed`
+- observer
+- subscription, observer
