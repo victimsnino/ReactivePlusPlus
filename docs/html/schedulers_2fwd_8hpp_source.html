@@ -119,8 +119,8 @@ $(document).ready(function(){initNavTree('schedulers_2fwd_8hpp_source.html','');
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>rpp::schedulers</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">using</span> clock_type = std::chrono::high_resolution_clock;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">using</span> time_point = std::chrono::high_resolution_clock::time_point;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">using</span> clock_type = std::chrono::steady_clock;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">using</span> time_point = clock_type::time_point;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">using</span> duration = std::chrono::nanoseconds;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">using</span> optional_duration = std::optional&lt;duration&gt;;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
@@ -133,10 +133,10 @@ $(document).ready(function(){initNavTree('schedulers_2fwd_8hpp_source.html','');
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace rpp::schedulers</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassrpp_1_1schedulers_1_1immediate_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a></div><div class="ttdoc">immediately calls provided schedulable or waits for time_point (in the caller-thread)</div><div class="ttdef"><b>Definition:</b> immediate_scheduler.hpp:27</div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1immediate_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a></div><div class="ttdoc">immediately calls provided schedulable or waits for time_point (in the caller-thread)</div><div class="ttdef"><b>Definition:</b> immediate_scheduler.hpp:28</div></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">scheduler which schedules execution of schedulables via queueing tasks to another thread with priorit...</div><div class="ttdef"><b>Definition:</b> new_thread_scheduler.hpp:31</div></div>
 <div class="ttc" id="astructrpp_1_1schedulers_1_1details_1_1scheduler__tag_html"><div class="ttname"><a href="structrpp_1_1schedulers_1_1details_1_1scheduler__tag.html">rpp::schedulers::details::scheduler_tag</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:18</div></div>
-<div class="ttc" id="aclassrpp_1_1schedulers_1_1trampoline_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a></div><div class="ttdoc">schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition:</b> trampoline_scheduler.hpp:37</div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1trampoline_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a></div><div class="ttdoc">schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition:</b> trampoline_scheduler.hpp:38</div></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1run__loop_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1run__loop.html">rpp::schedulers::run_loop</a></div><div class="ttdoc">scheduler which schedules execution via queueing tasks, but execution of tasks should be manually dis...</div><div class="ttdef"><b>Definition:</b> run_loop_scheduler.hpp:29</div></div>
 <div class="ttc" id="astructrpp_1_1schedulers_1_1details_1_1worker__tag_html"><div class="ttname"><a href="structrpp_1_1schedulers_1_1details_1_1worker__tag.html">rpp::schedulers::details::worker_tag</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:19</div></div>
 <!-- start footer part -->

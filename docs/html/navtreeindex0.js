@@ -173,12 +173,10 @@ var NAVTREEINDEX0 =
 "classrpp_1_1schedulers_1_1schedulable__wrapper.html#a5326c62be20f317a8aaca640f93f1da9":[3,0,0,2,4,0],
 "classrpp_1_1schedulers_1_1trampoline.html":[2,3,3],
 "classrpp_1_1schedulers_1_1worker.html":[3,0,0,2,6],
-"classrpp_1_1schedulers_1_1worker.html#a11df0fcedc4cdfb8eacd6239c6a4e1c5":[3,0,0,2,6,4],
-"classrpp_1_1schedulers_1_1worker.html#a30a71f1071b31090f2c71d7524c49770":[3,0,0,2,6,1],
-"classrpp_1_1schedulers_1_1worker.html#a33d7fe32869f2456b3bf7f577b53f8ea":[3,0,0,2,6,5],
-"classrpp_1_1schedulers_1_1worker.html#a3fafb316a2164c8cd4276e1e67d69401":[3,0,0,2,6,2],
-"classrpp_1_1schedulers_1_1worker.html#aa16a6a8ce8c2c9d1074a11855f32aca4":[3,0,0,2,6,0],
-"classrpp_1_1schedulers_1_1worker.html#ac7cae23450e9eaa58525c646e41574e3":[3,0,0,2,6,3],
+"classrpp_1_1schedulers_1_1worker.html#a11df0fcedc4cdfb8eacd6239c6a4e1c5":[3,0,0,2,6,2],
+"classrpp_1_1schedulers_1_1worker.html#a33d7fe32869f2456b3bf7f577b53f8ea":[3,0,0,2,6,3],
+"classrpp_1_1schedulers_1_1worker.html#a3fafb316a2164c8cd4276e1e67d69401":[3,0,0,2,6,0],
+"classrpp_1_1schedulers_1_1worker.html#ac7cae23450e9eaa58525c646e41574e3":[3,0,0,2,6,1],
 "classrpp_1_1specific__observable.html":[2,0,3],
 "classrpp_1_1specific__observable.html#a36b5f66d8761e9ff7a1948f313cc1033":[2,0,3,2],
 "classrpp_1_1specific__observable.html#a39664b7292eeb3a845bca3e518f04870":[2,0,3,0],
@@ -249,5 +247,7 @@ var NAVTREEINDEX0 =
 "defs_8hpp_source.html":[4,0,0,0,0,8],
 "dir_00eb4775263b341d794d9fc7de7eec24.html":[4,0,0,0,0,6],
 "dir_0afe0b2d744d0bd4513ad200b3c712f0.html":[4,0,0,0,0],
-"dir_0d0da1fb4197fa3caa994cbb6099370d.html":[4,0,0,0,0,2,0]
+"dir_0d0da1fb4197fa3caa994cbb6099370d.html":[4,0,0,0,0,2,0],
+"dir_1268faa8f88bccfcf86c6fea2057d33a.html":[4,0,0,0,0,7],
+"dir_3591f6ab25936dd3deeec05839e478ca.html":[4,0,0,0,0,2]
 };

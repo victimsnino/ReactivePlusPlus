@@ -1,7 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"structrpp_1_1details_1_1filter__impl.html#a0307043d6c28c32203982111a5df78f2":[3,0,0,0,11,1],
-"structrpp_1_1details_1_1filter__impl.html#aab5c4ba645377c509bf1d56b4d441182":[3,0,0,0,11,0],
 "structrpp_1_1details_1_1group__by__lift__impl.html":[3,0,0,0,12],
 "structrpp_1_1details_1_1group__by__lift__impl.html#a1f21c659427e0950b89215ac0d68db11":[3,0,0,0,12,4],
 "structrpp_1_1details_1_1group__by__lift__impl.html#a5846a28089a7f63a22a02f5d54dfb208":[3,0,0,0,12,5],
@@ -225,9 +223,10 @@ var NAVTREEINDEX2 =
 "trampoline_8cpp-example.html":[5,26],
 "trampoline__scheduler_8hpp_source.html":[4,0,0,0,0,3,6],
 "type__traits_8hpp_source.html":[4,0,0,0,0,5,4],
+"utils_8hpp_source.html":[4,0,0,0,0,3,0,1],
 "window_8cpp-example.html":[5,27],
 "window_8hpp_source.html":[4,0,0,0,0,2,25],
 "with__latest__from_8hpp_source.html":[4,0,0,0,0,2,26],
 "with_latest_from_8cpp-example.html":[5,28],
-"worker_8hpp_source.html":[4,0,0,0,0,3,0,1]
+"worker_8hpp_source.html":[4,0,0,0,0,3,0,2]
 };
