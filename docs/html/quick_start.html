@@ -96,17 +96,17 @@ $(document).ready(function(){initNavTree('quick_start.html',''); initResizable()
 <div class="title">Quick Start </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md21"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md22"></a>
 Brief workflow</h1>
 <p>For the brief overview of the Reactive pattern read <a href="https://reactivex.io/">https://reactivex.io/</a>.</p>
 <p>In short, creation of programs with help of ReactivePlusPlus split into several parts:</p>
-<h2><a class="anchor" id="autotoc_md22"></a>
+<h2><a class="anchor" id="autotoc_md23"></a>
 1) Define observables</h2>
-<p>Observables are sources of your future streams. First of all you need to create some observable which emits values. You can select from some <a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/group__observables.html">predefined</a> or built your own.</p>
+<p>Observables are sources of your future streams. First of all you need to create some observable which emits values. You can select from some <a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/group__creational__operators.html">predefined</a> or built your own.</p>
 <p>For example, </p><div class="fragment"><div class="line">rpp::source::from_callable(&amp;::getchar)</div>
 </div><!-- fragment --><p>observable which emits one char from <code>cin</code> via invoking of provided function once after subscription</p>
-<p>Action inside observable happens ONLY after subscription on this observable and ONLY for provided subscriber/observer. It means, that you can subscribe on the same observable multiple times!</p>
-<h2><a class="anchor" id="autotoc_md23"></a>
+<p>Action inside observable happens ONLY after subscription on this observable and ONLY for provided subscriber/observer. It means, that you can subscribe on the same observable multiple times! But actually each of this subscriber would see its "own" observable - function invoked especially for this one.</p>
+<h2><a class="anchor" id="autotoc_md24"></a>
 2) Chain observable</h2>
 <p>When you have some source of data you need to extend it somehow to make it useful! For example, let's make it infinite instead of emitting one value: </p><div class="fragment"><div class="line">rpp::source::from_callable(&amp;::getchar)</div>
 <div class="line">   .repeat()</div>
@@ -118,7 +118,7 @@ Brief workflow</h1>
 <div class="line">.take_while([](<span class="keywordtype">char</span> v) { <span class="keywordflow">return</span> v != <span class="charliteral">&#39;0&#39;</span>; })</div>
 <div class="line">.filter(std::not_fn(&amp;::isdigit))</div>
 <div class="line">.map(&amp;::toupper)</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md24"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md25"></a>
 3) Subscription</h2>
 <p>What we want to do with resulting values? Let's dump it to console. Resulting code looks like:</p>
 <div class="fragment"><div class="line">rpp::source::from_callable(&amp;::getchar)</div>
@@ -128,12 +128,18 @@ Brief workflow</h1>
 <div class="line">    .map(&amp;::toupper)</div>
 <div class="line">    .subscribe([](<span class="keywordtype">char</span> v) { std::cout &lt;&lt; v; });</div>
 </div><!-- fragment --><p>Subscribe function applies any from:</p><ul>
-<li>(optional) subscription</li>
-<li>(optional) subscription, <code>on_next</code></li>
-<li>(optional) subscription, <code>on_next</code>, <code>on_error</code></li>
-<li>(optional) subscription, <code>on_next</code>, <code>on_completed</code></li>
-<li>(optional) subscription, <code>on_next</code>, <code>on_error</code> <code>on_completed</code></li>
-<li>(optional) subscription, observer </li>
+<li>[none]</li>
+<li>subscription</li>
+<li><code>on_next</code></li>
+<li>subscription, <code>on_next</code></li>
+<li><code>on_next</code>, <code>on_error</code></li>
+<li>subscription, <code>on_next</code>, <code>on_error</code></li>
+<li><code>on_next</code>, <code>on_completed</code></li>
+<li>subscription, <code>on_next</code>, <code>on_completed</code></li>
+<li>on_next<code>,</code>on_erroron_completed<code></code></li>
+<li><code>subscription,</code>on_next<code>,</code>on_erroron_completed`</li>
+<li>observer</li>
+<li>subscription, observer </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

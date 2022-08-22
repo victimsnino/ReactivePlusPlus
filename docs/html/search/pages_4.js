@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['performance_20vs_20flexibility_3a_20specific_20vs_20dynamic_407',['Performance vs Flexibility: Specific vs Dynamic',['../specific_vs_dynamic.html',1,'docs']]]
+  ['memory_20model_408',['Memory Model',['../memory_model.html',1,'docs']]]
 ];

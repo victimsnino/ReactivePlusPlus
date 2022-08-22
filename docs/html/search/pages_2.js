@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['implementation_20status_405',['Implementation status',['../status.html',1,'docs']]]
+  ['exception_20guarantee_406',['Exception guarantee',['../exception_guarantee.html',1,'docs']]]
 ];

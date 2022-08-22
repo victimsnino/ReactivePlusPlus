@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('specific_vs_dynamic.html',''); initRes
 <div class="title">Performance vs Flexibility: Specific vs Dynamic </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md25"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md26"></a>
 Brief overview</h1>
 <p>In general Reactive Extensions can be split into three main parts from the objects perspective:</p><ul>
 <li>observable</li>
@@ -120,7 +120,7 @@ Brief overview</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md27"></a>
 ReactivePlusPlus solution</h1>
 <p>ReactivePlusPlus provides ability to use both of this ways to make usage experience optimal! Each of mentioned above core parts has two different specifications: <code>specific_</code> and <code>dynamic_</code>.</p>
 <p><code>specific_</code> is default specialization which uses fully template approach to have best performance and memory consumption: each callback/used type specific as template parameter of this class <code>dynamic_</code> specialization uses type-erasure mechanism with all resulting peformance and memory hits, but this specialization is useful if you want to store type as class member or place it inside containers and etc.</p>
@@ -141,7 +141,7 @@ ReactivePlusPlus solution</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md27"></a>
+<h1><a class="anchor" id="autotoc_md28"></a>
 Examples</h1>
 <p>So, to achieve best performance avoid usage of <code>dynamic_</code> specialization till you really need it or you want to avoid extra copies/moves of original objects captured inside callbacks and prefer one-time <code>shared_ptr</code> allication instead. For example, </p><div class="fragment"><div class="line"><span class="keyword">auto</span> observable = rpp::observable::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; subscriber)</div>
 <div class="line">{</div>

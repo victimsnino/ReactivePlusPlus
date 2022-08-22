@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: Related Pages</title>
+<title>ReactivePlusPlus: Exception guarantee</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -73,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('pages.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('exception_guarantee.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -91,24 +91,17 @@ $(document).ready(function(){initNavTree('pages.html',''); initResizable(); });
 </iframe>
 </div>
 
-<div class="header">
+<div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">Related Pages</div>  </div>
+<div class="title">Exception guarantee </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all related documentation pages:</div><div class="directory">
-<div class="levels">[detail level <span onclick="javascript:toggleLevel(1);">1</span><span onclick="javascript:toggleLevel(2);">2</span>]</div><table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="md_docs__articles.html" target="_self">Articles</a></td><td class="desc"></td></tr>
-<tr id="row_1_"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_1_" class="arrow" onclick="toggleFolder('1_')">&#9660;</span><a class="el" href="docs.html" target="_self">Docs</a></td><td class="desc"></td></tr>
-<tr id="row_1_0_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="quick_start.html" target="_self">Quick Start</a></td><td class="desc"></td></tr>
-<tr id="row_1_1_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="advanced.html" target="_self">Advanced Guide</a></td><td class="desc"></td></tr>
-<tr id="row_1_2_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="specific_vs_dynamic.html" target="_self">Performance vs Flexibility: Specific vs Dynamic</a></td><td class="desc"></td></tr>
-<tr id="row_1_3_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="memory_model.html" target="_self">Memory Model</a></td><td class="desc"></td></tr>
-<tr id="row_1_4_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="exception_guarantee.html" target="_self">Exception guarantee</a></td><td class="desc"></td></tr>
-<tr id="row_1_5_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="status.html" target="_self">Implementation status</a></td><td class="desc"></td></tr>
-</table>
-</div><!-- directory -->
-</div><!-- contents -->
+<div class="textblock"><h1><a class="anchor" id="autotoc_md6"></a>
+Overview</h1>
+<p>In non-reactive programming functions/modules throws exception in case of something invalid. As a result, user can catch it and handle it somehow while internal state of objects can be in some state (invalid/untouched/partly valid) and etc.</p>
+<p>In reactive programming there is another way of exception mechanism: throwing exception as is from original place is useless. Notification about "something goes wrong" need to receive observer/subscriber, not owner of callstack. As a result, ANY exception obtained during emitting items and etc WOULD be delivered to subscriber/observer via <code>on_error</code> function and then unsubscribe happens. As a result, no any raw exceptions would be throws during using RPP. In case of emitting <code>on_error</code> whole internal state of observable keeps valid but it doesn't matter - whole chain would be destroyed due to <code>on_error</code> forces unsubscribe. Reactive catching mechanisms like <code>catch</code> or <code>retry</code> <b>re-subscribes</b> on observable. it means, that new chain with new states would be created, not re-used existing one. </p>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

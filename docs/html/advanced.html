@@ -135,14 +135,15 @@ Observable</h1>
 <p>Observables are just wrappers over callback function with ability to be extended via operators. Everytime you apply some operator to observable, observable is copied (or moved). As a result, whole its state is copied/moved too:</p>
 <ul>
 <li>be ready for it, so, your callback (or any state inside operators) should be cheap enough to copy</li>
-<li>if you want to avoid it, you can convert your observable to dynamic: it forces to move observable to shared_ptr, as a result, no any future copies/moves</li>
+<li>if you want to avoid it, you can convert your observable to dynamic: it forces to move observable to <code>shared_ptr</code>, as a result, no any future copies/moves</li>
 <li>some observables/operators have <code>memory_model</code> (<a class="el" href="memory_model.html">Memory Model</a>) parameter to change strategy of handling your variable: keep to copy/move or move to shared_ptr once</li>
 </ul>
 <p>Everytime you subscribe subscriber observable just invokes callback for this subscriber and nothing else. It means, that actually observable do nothing and doesn't emit values, <b>callback emits values</b>.</p>
 <p>To achieve better performance use <code>specific_observable</code> while it is possible. Same for the argument of callback (for example, when you use <code>rpp::source::create</code>): use <code>const auto&amp;</code> for subscriber to avoid implicit conversion to dynamic subscriber.</p>
+<p>By default, functional programming deals with immutable data and "pure functions". Observable follows this principle, so, it can accept only const functions for callback. </p>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Observers</h1>
-<p>By default, functional programming deals with immutable data and "pure functions". Observer follow this principle, so, it can accept only const functions for callbacks.</p>
+<p>Observer also follows this principle, so, it can accept only const functions for callbacks.</p>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Operators</h1>
 <p>For better compilation speed each operator placed in each own header. Due to great desire to have dot operations inside observable, observable inherits implementation of operators via <code>member_overload</code> hack: it forwards interface, but implementation placed in another file. It looks like wide-spread separation to cpp/hpp files.</p>
