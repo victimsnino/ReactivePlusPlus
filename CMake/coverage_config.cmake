@@ -1,6 +1,6 @@
 # MIT License
 # 
-# Copyright (c) 2021 Aleksey Loginov
+# Copyright (c) 2022 Aleksey Loginov
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -19,12 +19,22 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-# 
 
-add_subdirectory(Catch2)
+add_library(coverage_config INTERFACE)
 
-set_target_properties(Catch2      PROPERTIES FOLDER "Submodules/Catch2")
-set_target_properties(Catch2WithMain PROPERTIES FOLDER "Submodules/Catch2")
-
-set_target_properties(Catch2 PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:Catch2,INTERFACE_INCLUDE_DIRECTORIES>)
-set_target_properties(Catch2WithMain PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:Catch2WithMain,INTERFACE_INCLUDE_DIRECTORIES>)
+if(RPP_CODE_COVERAGE)
+  # Add required flags (GCC & LLVM/Clang)
+  target_compile_options(coverage_config INTERFACE
+    -O0        # no optimization
+    -g         # generate debug info
+    --coverage # sets all required flags
+    -fprofile-arcs 
+    -ftest-coverage
+  )
+  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
+    target_link_options(coverage_config INTERFACE --coverage)
+  else()
+    target_link_libraries(coverage_config INTERFACE --coverage)
+  endif()
+  target_link_libraries(coverage_config INTERFACE gcov)
+endif(RPP_CODE_COVERAGE)

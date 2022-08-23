@@ -8,6 +8,11 @@
 # Project home: https://github.com/victimsnino/ReactivePlusPlus
 #
 
+# ===================== Prepare folder ======================
+
+
+
+# ====================== Gather tests ======================
 file(GLOB_RECURSE FILES "test_*.cpp")
 
 foreach(SOURCE ${FILES}) 
@@ -16,10 +21,10 @@ foreach(SOURCE ${FILES})
   set(TARGET ${BASE_NAME})
 
   add_executable(${TARGET} ${SOURCE} mock_observer.hpp copy_count_tracker.hpp test_scheduler.hpp)
-  target_link_libraries(${TARGET} PRIVATE rpp Catch2WithMain coverage_config)
+  target_link_libraries(${TARGET} PRIVATE rpp Catch2::Catch2WithMain coverage_config)
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites)
 
-  add_ctest(${TARGET})
+  add_test(NAME ${TARGET} COMMAND $<TARGET_FILE:${TARGET}> -r junit -o ${RPP_TEST_RESULTS_DIR}/${TARGET}.xml)
 
   if(MSVC)
     target_compile_options(${TARGET} PRIVATE /W4 /WX)
@@ -36,7 +41,7 @@ add_executable(${TARGET}
     benchmarks.cpp
 )
 
-target_link_libraries(${TARGET} PRIVATE rpp Catch2WithMain)
+target_link_libraries(${TARGET} PRIVATE rpp Catch2::Catch2WithMain)
 set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 
 
@@ -47,6 +52,6 @@ if (RPP_AUTOTESTS)
       rxcpp_benchmark.cpp
   )
 
-  target_link_libraries(${TARGET} PRIVATE rxcpp Catch2WithMain)
+  target_link_libraries(${TARGET} PRIVATE rxcpp Catch2::Catch2WithMain)
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 endif()

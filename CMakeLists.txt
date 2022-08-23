@@ -1,6 +1,6 @@
 # MIT License
 # 
-# Copyright (c) 2021 Aleksey Loginov
+# Copyright (c) 2022 Aleksey Loginov
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -45,73 +45,21 @@ if (NOT IS_SUBPROJECT)
   set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 endif()
 
-find_package(Threads REQUIRED)
-
 # ======================= OPTIONS ================================
 set(RPP_BUILD_TESTS     OFF CACHE BOOL "Enable unit tests building")
 set(RPP_BUILD_SAMPLES   OFF CACHE BOOL "Enable samples building")
 set(RPP_CODE_COVERAGE   OFF CACHE BOOL "Enable coverage reporting")
 set(RPP_BUILD_SFML_CODE OFF CACHE BOOL "Enable SFML support in samples/code")
 
-if (RPP_BUILD_SFML_CODE)
-  find_package(SFML COMPONENTS graphics system window REQUIRED)
-endif()
-
-# ======================= CI =========================
-# Code Coverage Configuration
-add_library(coverage_config INTERFACE)
-
-if(RPP_CODE_COVERAGE)
-  # Add required flags (GCC & LLVM/Clang)
-  target_compile_options(coverage_config INTERFACE
-    -O0        # no optimization
-    -g         # generate debug info
-    --coverage # sets all required flags
-    -fprofile-arcs 
-    -ftest-coverage
-  )
-  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
-    target_link_options(coverage_config INTERFACE --coverage)
-  else()
-    target_link_libraries(coverage_config INTERFACE --coverage)
-  endif()
-  target_link_libraries(coverage_config INTERFACE gcov)
-endif(RPP_CODE_COVERAGE)
-
-if (RPP_AUTOTESTS)
-  Include(FetchContent)
-
-  FetchContent_Declare(
-    RxCpp
-    GIT_REPOSITORY https://github.com/ReactiveX/RxCpp.git
-    GIT_TAG        origin/main
-  )
-
-  FetchContent_MakeAvailable(RxCpp)
-endif()
-
-if(CMAKE_EXPORT_COMPILE_COMMANDS)
-    set(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES ${CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES})
-endif()
-
-# ================== TESTS ==================
+include(CMake/dependencies.cmake)
+include(CMake/coverage_config.cmake)
 
 if (RPP_BUILD_TESTS)
   enable_testing()
-  set(TEST_RESULTS_DIR  ${CMAKE_BINARY_DIR}/test_results)
-
-  macro (add_ctest target)
-      add_test(NAME ${target} COMMAND $<TARGET_FILE:${target}> -r junit -o ${TEST_RESULTS_DIR}/${target}.xml)
-  endmacro (add_ctest)
-
-  file(MAKE_DIRECTORY ${TEST_RESULTS_DIR})
+  set(RPP_TEST_RESULTS_DIR  ${CMAKE_BINARY_DIR}/test_results)
+  file(MAKE_DIRECTORY ${RPP_TEST_RESULTS_DIR})
 endif()
 
-# ================== SOURCES =============
-
-if (RPP_BUILD_TESTS)
-  add_subdirectory(submodules)
-endif()
 add_subdirectory(src)
 
-add_subdirectory(CMake)
+include(CMake/install.cmake)

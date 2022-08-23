@@ -17,6 +17,7 @@ on:
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
+  CATCH2_VERSION: v3.1.0
 
 jobs:
   build:
@@ -34,6 +35,7 @@ jobs:
            relative_path_bench: "build/bin/rpp_benchmark"
            relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
            additional_cmake_args: "-DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache -DRPP_BUILD_SFML_CODE=1"
+           sudo: "sudo"
         -  name: "Linux CLANG"
            os: ubuntu-latest
            cc: "clang" 
@@ -41,6 +43,7 @@ jobs:
            relative_path_bench: "build/bin/rpp_benchmark"
            relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
            additional_cmake_args: "-DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache -DRPP_BUILD_SFML_CODE=1"
+           sudo: "sudo"
         -  name: "Windows MSVC"
            os: windows-latest
            cc: "cl"
@@ -48,6 +51,7 @@ jobs:
            relative_path_bench: "build/bin/Release/rpp_benchmark"
            relative_path_rxcpp_bench: "build/bin/Release/rxcpp_benchmark"
            additional_cmake_args: ""
+           sudo: ""
 
     steps:
     - uses: actions/checkout@v2
@@ -61,7 +65,25 @@ jobs:
       uses: mikehardy/buildcache-action@v1
       if: matrix.config.os != 'windows-latest'
       with:
-        cache_key: ${{ matrix.config.name }}
+        cache_key: ${{ matrix.config.name }}-${{ matrix.config.cxx }}-${{env.CATCH2_VERSION}}-build
+
+    - name: Cache Catch2 
+      uses: actions/cache@v2
+      id: cache-catch2
+      with:
+        path: ${{github.workspace}}/Catch2_BIN
+        key: ${{ matrix.config.name }}-${{ matrix.config.cxx }}-${{env.CATCH2_VERSION}}-catch2
+
+    - name: Install Catch2
+      if: steps.cache-catch2.outputs.cache-hit != 'true'
+      env:
+          CC: ${{ matrix.config.cc }}
+          CXX: ${{ matrix.config.cxx }}
+      run: |
+        git clone --branch ${{env.CATCH2_VERSION}} https://github.com/catchorg/Catch2.git 
+        cd Catch2
+        cmake -B build -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/Catch2_BIN
+        ${{matrix.config.sudo}} cmake --build build/ --target install --parallel 2 --config ${{env.BUILD_TYPE}}
         
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
@@ -79,10 +101,10 @@ jobs:
       env:
         CC: ${{ matrix.config.cc }}
         CXX: ${{ matrix.config.cxx }}
-      run: cmake -B ${{github.workspace}}/build -DRPP_BUILD_SAMPLES=1 -DRPP_BUILD_TESTS=1 -DRPP_AUTOTESTS=1 -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ${{matrix.config.additional_cmake_args}}
+      run: cmake -B ${{github.workspace}}/build -DRPP_BUILD_SAMPLES=1 -DRPP_BUILD_TESTS=1 -DRPP_AUTOTESTS=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ${{matrix.config.additional_cmake_args}} -DCatch2_DIR=${{github.workspace}}/Catch2_BIN/lib/cmake/Catch2
         
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 4
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 2
 
     - name: Test
       working-directory: ${{github.workspace}}/build

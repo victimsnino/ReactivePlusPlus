@@ -47,13 +47,39 @@ Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ
 ## Installation and usage
 
 To use ReactivePlusPlus:
-- just add it as submodule/place folder and add to project via CMake's `add_subfolder`.
-- download and install it
-   ```cmd
-   cmake -B _build -DCMAKE_INSTALL_PREFIX=<set  install folder>
-   cmake --build _build --target install
-   ```
-   and then use installed RPP via `find_package(RPP REQUIRED)` and linking `target_link_libraries(${TARGET} PRIVATE RPP::rpp)`
+- Install RPP in one of the following ways:
+   1) add it as submodule to your repository and then call `add_subdirectory(ReactivePlusPlus)`
+   2) fetch content via CMake and link to it
+      ```cmake
+      Include(FetchContent)
+
+      FetchContent_Declare(
+         RPP
+         GIT_REPOSITORY https://github.com/victimsnino/ReactivePlusPlus.git
+         GIT_TAG        origin/main
+      )
+
+      FetchContent_MakeAvailable(RPP)
+
+
+      add_executable(my_exe main.cpp)
+      target_link_libraries(my_exe PRIVATE RPP::rpp)
+      ```
+   3) install RPP as package and then find it
+      ```cmd
+      git clone https://github.com/victimsnino/ReactivePlusPlus.git
+      cd ReactivePlusPlus
+      cmake -B _build -DCMAKE_INSTALL_PREFIX=<set install folder>
+      cmake --build _build --target install
+      ```
+      and then in your cmake
+      ```cmake
+      find_package(RPP REQUIRED)
+      
+      add_executable(tests test.cpp)
+      target_link_libraries(tests PRIVATE RPP::rpp)
+      ```
+      Note: In case of using some install folder, you need to specify key `-DRPP_DIR=<install folder>` when cmake your target project which depends on RPP
 
 ReactivePlusPlus's CMake has several options to set:
 
@@ -81,7 +107,7 @@ or include each required part separately in any way
 
 ## Credits:
 ReactivePlusPlus library uses:
-- [Catch2](https://github.com/catchorg/Catch2) for unit testing only, you can avoid cloning it if you don't need unit-tests
+- [Catch2](https://github.com/catchorg/Catch2) for unit testing only, fetched (or used via `find_package`) automatically in case of `RPP_BUILD_TESTS` enabled
 - [RxCpp](https://github.com/ReactiveX/RxCpp) only for comparison of performance between RPP and RxCpp in CI benchmarks. Used as cmake dependency under option
 - [reactivex.io](https://reactivex.io) as source for insipration and definition of entities used in RPP. Some comments used in RPP source code taken from [reactivex.io](https://reactivex.io)
 - [rxmarbles python](https://pypi.org/project/rxmarbles/) as generator of marbles graphs in doxygen documentation
