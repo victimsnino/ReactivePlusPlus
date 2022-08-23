@@ -1,6 +1,6 @@
 # MIT License
 # 
-# Copyright (c) 2021 Aleksey Loginov
+# Copyright (c) 2022 Aleksey Loginov
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -19,12 +19,40 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-# 
 
-add_subdirectory(Catch2)
+find_package(Threads REQUIRED)
 
-set_target_properties(Catch2      PROPERTIES FOLDER "Submodules/Catch2")
-set_target_properties(Catch2WithMain PROPERTIES FOLDER "Submodules/Catch2")
+# ===================== SFML =======================
+if (RPP_BUILD_SFML_CODE)
+    find_package(SFML COMPONENTS graphics system window REQUIRED)
+endif()
 
-set_target_properties(Catch2 PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:Catch2,INTERFACE_INCLUDE_DIRECTORIES>)
-set_target_properties(Catch2WithMain PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:Catch2WithMain,INTERFACE_INCLUDE_DIRECTORIES>)
+# ==================== RXCPP =======================
+if (RPP_AUTOTESTS)
+  Include(FetchContent)
+
+  FetchContent_Declare(
+    RxCpp
+    GIT_REPOSITORY https://github.com/ReactiveX/RxCpp.git
+    GIT_TAG        origin/main
+  )
+
+  FetchContent_MakeAvailable(RxCpp)
+endif()
+
+# ===================== Catch 2 ===================
+if (RPP_BUILD_TESTS)
+  find_package(Catch2 3 QUIET)
+
+  if(NOT TARGET Catch2::Catch2WithMain)
+    message("Catch2 not found, fetching from github... Set Catch2_DIR if you have installed Catch2")
+    Include(FetchContent)
+    
+    FetchContent_Declare(
+      Catch2
+      GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+      GIT_TAG        v3.1.0
+    )
+    FetchContent_MakeAvailable(Catch2)
+  endif()
+endif()

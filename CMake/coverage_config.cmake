@@ -19,41 +19,22 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-# 
 
-cmake_minimum_required(VERSION 3.12)
+add_library(coverage_config INTERFACE)
 
-if(DEFINED PROJECT_NAME)
-  set(IS_SUBPROJECT ON)
-else()
-  set(IS_SUBPROJECT OFF)
-endif()
-
-project(ReactivePlusPlus VERSION 0.0.6 LANGUAGES CXX)
-
-# ================== CONFIG ===================
-
-if (NOT IS_SUBPROJECT)
-  set(CMAKE_CXX_STANDARD 20)
-  set(CMAKE_CXX_STANDARD_REQUIRED ON)
-  set(CMAKE_CXX_EXTENSIONS OFF)
-
-  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-
-  set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-endif()
-
-# ======================= OPTIONS ================================
-set(RPP_BUILD_TESTS     OFF CACHE BOOL "Enable unit tests building")
-set(RPP_BUILD_SAMPLES   OFF CACHE BOOL "Enable samples building")
-set(RPP_CODE_COVERAGE   OFF CACHE BOOL "Enable coverage reporting")
-set(RPP_BUILD_SFML_CODE OFF CACHE BOOL "Enable SFML support in samples/code")
-
-include(CMake/dependencies.cmake)
-include(CMake/coverage_config.cmake)
-
-add_subdirectory(src)
-
-include(CMake/install.cmake)
+if(RPP_CODE_COVERAGE)
+  # Add required flags (GCC & LLVM/Clang)
+  target_compile_options(coverage_config INTERFACE
+    -O0        # no optimization
+    -g         # generate debug info
+    --coverage # sets all required flags
+    -fprofile-arcs 
+    -ftest-coverage
+  )
+  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
+    target_link_options(coverage_config INTERFACE --coverage)
+  else()
+    target_link_libraries(coverage_config INTERFACE --coverage)
+  endif()
+  target_link_libraries(coverage_config INTERFACE gcov)
+endif(RPP_CODE_COVERAGE)
