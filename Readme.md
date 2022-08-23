@@ -69,7 +69,7 @@ To use ReactivePlusPlus:
       ```cmd
       git clone https://github.com/victimsnino/ReactivePlusPlus.git
       cd ReactivePlusPlus
-      cmake -B _build -DCMAKE_INSTALL_PREFIX=<set  install folder>
+      cmake -B _build -DCMAKE_INSTALL_PREFIX=<set install folder>
       cmake --build _build --target install
       ```
       and then in your cmake
@@ -79,6 +79,7 @@ To use ReactivePlusPlus:
       add_executable(tests test.cpp)
       target_link_libraries(tests PRIVATE RPP::rpp)
       ```
+      Note: In case of using some install folder, you need to specify key `-DRPP_DIR=<install folder>` when cmake your target project which depends on RPP
 
 ReactivePlusPlus's CMake has several options to set:
 

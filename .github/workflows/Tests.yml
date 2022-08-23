@@ -65,14 +65,14 @@ jobs:
       uses: mikehardy/buildcache-action@v1
       if: matrix.config.os != 'windows-latest'
       with:
-        cache_key: ${{ matrix.config.name }}
+        cache_key: ${{ matrix.config.name }}-${{ matrix.config.cxx }}-${{env.CATCH2_VERSION}}-build
 
     - name: Cache Catch2 
       uses: actions/cache@v2
       id: cache-catch2
       with:
         path: ${{github.workspace}}/Catch2_BIN
-        key: ${{ matrix.config.name }}-${{ matrix.config.cxx }}-${{env.CATCH2_VERSION}}
+        key: ${{ matrix.config.name }}-${{ matrix.config.cxx }}-${{env.CATCH2_VERSION}}-catch2
 
     - name: Install Catch2
       if: steps.cache-catch2.outputs.cache-hit != 'true'
