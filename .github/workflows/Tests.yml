@@ -62,6 +62,13 @@ jobs:
       if: matrix.config.os != 'windows-latest'
       with:
         cache_key: ${{ matrix.config.name }}
+
+    - name: Install Catch2
+      run: |
+        git clone -b v3.1.0 https://github.com/catchorg/Catch2.git 
+        cd Catch2
+        cmake -Bbuild -H. -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release
+        cmake --build build/ --target install --parallel 2 --config Release
         
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
