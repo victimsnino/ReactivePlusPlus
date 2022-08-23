@@ -34,6 +34,7 @@ jobs:
            relative_path_bench: "build/bin/rpp_benchmark"
            relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
            additional_cmake_args: "-DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache -DRPP_BUILD_SFML_CODE=1"
+           sudo: "sudo"
         -  name: "Linux CLANG"
            os: ubuntu-latest
            cc: "clang" 
@@ -41,6 +42,7 @@ jobs:
            relative_path_bench: "build/bin/rpp_benchmark"
            relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
            additional_cmake_args: "-DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache -DRPP_BUILD_SFML_CODE=1"
+           sudo: "sudo"
         -  name: "Windows MSVC"
            os: windows-latest
            cc: "cl"
@@ -48,6 +50,7 @@ jobs:
            relative_path_bench: "build/bin/Release/rpp_benchmark"
            relative_path_rxcpp_bench: "build/bin/Release/rxcpp_benchmark"
            additional_cmake_args: ""
+           sudo: ""
 
     steps:
     - uses: actions/checkout@v2
@@ -65,10 +68,10 @@ jobs:
 
     - name: Install Catch2
       run: |
-        git clone -b v3.1.0 https://github.com/catchorg/Catch2.git 
+        git clone --branch v3.1.0 https://github.com/catchorg/Catch2.git 
         cd Catch2
         cmake -Bbuild -H. -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release
-        cmake --build build/ --target install --parallel 2 --config Release
+        ${{matrix.config.sudo}} cmake --build build/ --target install --parallel 2 --config Release
         
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
