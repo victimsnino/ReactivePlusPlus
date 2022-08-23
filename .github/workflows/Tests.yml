@@ -67,6 +67,9 @@ jobs:
         cache_key: ${{ matrix.config.name }}
 
     - name: Install Catch2
+      env:
+          CC: ${{ matrix.config.cc }}
+          CXX: ${{ matrix.config.cxx }}
       run: |
         git clone --branch v3.1.0 https://github.com/catchorg/Catch2.git 
         cd Catch2
