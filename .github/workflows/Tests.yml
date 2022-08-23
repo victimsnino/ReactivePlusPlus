@@ -73,7 +73,7 @@ jobs:
       run: |
         git clone --branch v3.1.0 https://github.com/catchorg/Catch2.git 
         cd Catch2
-        cmake -Bbuild -H. -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release
+        cmake -B build -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release
         ${{matrix.config.sudo}} cmake --build build/ --target install --parallel 2 --config Release
         
     - name: Initialize CodeQL
