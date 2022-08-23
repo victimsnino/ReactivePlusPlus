@@ -9,9 +9,7 @@
 #
 
 # ===================== Prepare folder ======================
-enable_testing()
-set(RPP_TEST_RESULTS_DIR  ${CMAKE_BINARY_DIR}/test_results)
-file(MAKE_DIRECTORY ${RPP_TEST_RESULTS_DIR})
+
 
 
 # ====================== Gather tests ======================

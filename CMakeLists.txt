@@ -54,6 +54,12 @@ set(RPP_BUILD_SFML_CODE OFF CACHE BOOL "Enable SFML support in samples/code")
 include(CMake/dependencies.cmake)
 include(CMake/coverage_config.cmake)
 
+if (RPP_BUILD_TESTS)
+  enable_testing()
+  set(RPP_TEST_RESULTS_DIR  ${CMAKE_BINARY_DIR}/test_results)
+  file(MAKE_DIRECTORY ${RPP_TEST_RESULTS_DIR})
+endif()
+
 add_subdirectory(src)
 
 include(CMake/install.cmake)

@@ -45,9 +45,9 @@ if (RPP_BUILD_TESTS)
   find_package(Catch2 3 QUIET)
 
   if(TARGET Catch2::Catch2WithMain)
-    message("[RPP]: Catch2 found as package")
+    message("-- RPP: Catch2 found as package")
   else()
-    message("[RPP]: Catch2 not found, fetching from github... Set Catch2_DIR if you have installed Catch2")
+    message("-- RPP: Catch2 not found, fetching from github... Set Catch2_DIR if you have installed Catch2")
     Include(FetchContent)
     
     FetchContent_Declare(
