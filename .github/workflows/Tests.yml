@@ -101,7 +101,7 @@ jobs:
       env:
         CC: ${{ matrix.config.cc }}
         CXX: ${{ matrix.config.cxx }}
-      run: cmake -B ${{github.workspace}}/build -DRPP_BUILD_SAMPLES=1 -DRPP_BUILD_TESTS=1 -DRPP_AUTOTESTS=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ${{matrix.config.additional_cmake_args}} -DCatch2_BIN=${{github.workspace}}/Catch2_BIN/lib/cmake/Catch2
+      run: cmake -B ${{github.workspace}}/build -DRPP_BUILD_SAMPLES=1 -DRPP_BUILD_TESTS=1 -DRPP_AUTOTESTS=1 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ${{matrix.config.additional_cmake_args}} -DCatch2_DIR=${{github.workspace}}/Catch2_BIN/lib/cmake/Catch2
         
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 2
