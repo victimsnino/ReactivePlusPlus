@@ -149,18 +149,18 @@ public:
              constraint::on_completed_fn OnCompleted = utils::empty_function_t<>>
     dynamic_observer(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
         : details::dynamic_state_observer<T>{std::forward<OnNext>(on_next),
-                                    std::forward<OnError>(on_error),
-                                    std::forward<OnCompleted>(on_completed)} {}
+                                             std::forward<OnError>(on_error),
+                                             std::forward<OnCompleted>(on_completed)} {}
 
     dynamic_observer(constraint::on_next_fn<T> auto&& on_next, constraint::on_completed_fn auto&& on_completed)
         : details::dynamic_state_observer<T>{std::forward<decltype(on_next)>(on_next),
-                                    utils::rethrow_error_t{},
-                                    std::forward<decltype(on_completed)>(on_completed)} {}
+                                             utils::rethrow_error_t{},
+                                             std::forward<decltype(on_completed)>(on_completed)} {}
 
     template<constraint::observer_of_type<T> TObserver>
         requires (!std::is_same_v<std::decay_t<TObserver>, dynamic_observer<T>>)
     dynamic_observer(TObserver&& obs)
-        : details::dynamic_state_observer<T>{ std::forward<TObserver>(obs)} {}
+        : details::dynamic_state_observer<T>{std::forward<TObserver>(obs)} {}
 
     /**
      * \brief Do nothing for rpp::dynamic_observer. Created only for unification of interfaces with rpp::specific_observer
