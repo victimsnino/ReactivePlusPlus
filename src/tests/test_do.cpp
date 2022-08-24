@@ -17,6 +17,8 @@
 
 #include "mock_observer.hpp"
 
+#include <sstream>
+
 static auto get_on_next(std::stringstream& callstack, std::string prefix)
 {
     return [&, prefix](int v) { callstack << prefix << "_on_next " << v << "\n"; };
