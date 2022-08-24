@@ -41,10 +41,10 @@ struct lift_action_by_callbacks
     {
         auto subscription = subscriber.get_subscription();
         return create_subscriber_with_state<Type>(std::move(subscription),
-                                                  std::forward<TSub>(subscriber),
                                                   on_next,
                                                   on_error,
-                                                  on_completed);
+                                                  on_completed,
+                                                  std::forward<TSub>(subscriber));
     }
 };
 

@@ -65,7 +65,6 @@ private:
     void subscribe_inner_subscriber(const auto& observable, const constraint::subscriber auto& subscriber)
     {
         observable.subscribe(create_subscriber_with_state<ValueType>(subscriber.get_subscription().make_child(),
-                                                                     subscriber,
                                                                      utils::forwarding_on_next{},
                                                                      utils::forwarding_on_error{},
                                                                      [state = this->shared_from_this()](const constraint::subscriber auto& sub)
@@ -87,7 +86,8 @@ private:
                                                                              }
                                                                          }
                                                                          sub.on_completed();
-                                                                     }));
+                                                                     },
+                                                                     subscriber));
     }
 
 
@@ -111,10 +111,10 @@ struct concat_impl
         const auto state = std::make_shared<concat_state_t<ValueType>>(source_subscription);
 
         return create_subscriber_with_state<Type>(std::move(source_subscription),
-                                             std::forward<TSub>(subscriber),
-                                             state->get_on_new_observable(),
-                                             utils::forwarding_on_error{},
-                                             state->get_on_observable_completed());
+                                                  state->get_on_new_observable(),
+                                                  utils::forwarding_on_error{},
+                                                  state->get_on_observable_completed(),
+                                                  std::forward<TSub>(subscriber));
     }
 };
 

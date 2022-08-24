@@ -31,14 +31,14 @@ void with_latest_from_subscribe(const auto& state_ptr, const TObs& observable, c
 {
     using Type = utils::extract_observable_type_t<TObs>;
     observable.subscribe(create_subscriber_with_state<Type>(subscriber.get_subscription().make_child(),
-                                                            subscriber,
                                                             [state_ptr](auto&& v, const auto&)
                                                             {
                                                                 std::lock_guard lock{state_ptr->mutexes[I]};
                                                                 std::get<I>(state_ptr->vals) = std::forward<decltype(v)>(v);
                                                             },
                                                             utils::forwarding_on_error{},
-                                                            [](const auto&){}));
+                                                            [](const auto&){},
+                                                            subscriber));
 }
 
 template<size_t...I>
@@ -102,10 +102,10 @@ struct with_latest_from_impl
 
         auto sub = subscriber.get_subscription();
         return create_subscriber_with_state<Type>(std::move(sub),
-                                                  std::forward<TSub>(subscriber),
                                                   std::move(on_next),
                                                   utils::forwarding_on_error{},
-                                                  utils::forwarding_on_completed{});
+                                                  utils::forwarding_on_completed{},
+                                                  std::forward<TSub>(subscriber));
     }
 };
 } // namespace rpp::details

@@ -30,10 +30,10 @@ auto create_proxy_subscriber(rpp::composite_subscription subscription,
     count_of_on_completed_required.fetch_add(1, std::memory_order::relaxed);
 
     return create_subscriber_with_state<Type>(std::move(subscription),
-                                              std::forward<decltype(subscriber)>(subscriber),
                                               std::forward<decltype(on_next)>(on_next),
                                               std::forward<decltype(on_error)>(on_error),
-                                              std::forward<decltype(on_completed)>(on_completed));
+                                              std::forward<decltype(on_completed)>(on_completed),
+                                              std::forward<decltype(subscriber)>(subscriber));
 }
 
 template<constraint::decayed_type Type>

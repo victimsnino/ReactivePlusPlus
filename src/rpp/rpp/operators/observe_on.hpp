@@ -68,10 +68,10 @@ private:
         };
 
         return create_subscriber_with_state<Type>(dynamic_subscriber.get_subscription().make_child(),
-                                                  dynamic_subscriber,
                                                   std::move(on_next),
                                                   std::move(on_error),
-                                                  std::move(on_completed));
+                                                  std::move(on_completed),
+                                                  dynamic_subscriber);
     }
 };
 } // namespace rpp::details

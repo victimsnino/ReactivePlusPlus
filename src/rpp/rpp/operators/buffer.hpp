@@ -100,12 +100,14 @@ struct buffer_impl
         auto subscription = subscriber.get_subscription();
 
         return create_subscriber_with_state<Type>(std::move(subscription),
-                                                  std::forward<TSub>(subscriber),
                                                   // Get a copy of on_next that shares the same state.
                                                   state->get_on_next(),
+                                                  // Get a copy of on_next that shares the same state.
                                                   utils::forwarding_on_error{},
                                                   // Flush the bundle buffer on complete.
-                                                  state->get_on_completed());
+                                                  state->get_on_completed(),
+                                                  // Flush the bundle buffer on complete.
+                                                  std::forward<TSub>(subscriber));
     }
 };
 
