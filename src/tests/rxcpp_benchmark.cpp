@@ -382,6 +382,38 @@ TEST_CASE("with_latest_from")
     };
 }
 
+TEST_CASE("combine_latest")
+{
+    BENCHMARK_ADVANCED("combine_latest construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        const auto obs = rxcpp::sources::create<int>([](const auto& sub)
+        {
+            sub.on_next(1);
+            sub.on_next(2);
+            sub.on_next(3);
+        });
+        auto sub = rxcpp::make_subscriber<std::tuple<int, int>>([](const auto&) {});
+
+        meter.measure([&]
+        {
+            return obs.combine_latest(obs).subscribe(sub);
+        });
+    };
+
+    BENCHMARK_ADVANCED("sending of values from observable via combine_latest to subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        rxcpp::sources::create<int>([&](const auto& sub)
+            {
+                meter.measure([&]
+                {
+                    sub.on_next(1);
+                });
+            })
+            .combine_latest(rxcpp::sources::just(1))
+            .subscribe([](const auto&) {});
+    };
+}
+
 TEST_CASE("switch_on_next")
 {
     BENCHMARK_ADVANCED("switch_on_next construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
