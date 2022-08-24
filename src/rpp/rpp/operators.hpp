@@ -24,9 +24,9 @@
  */
 
 #include <rpp/operators/buffer.hpp>
-#include <rpp/operators/map.hpp>
-#include <rpp/operators/group_by.hpp>
 #include <rpp/operators/flat_map.hpp>
+#include <rpp/operators/group_by.hpp>
+#include <rpp/operators/map.hpp>
 #include <rpp/operators/scan.hpp>
 #include <rpp/operators/window.hpp>
 
@@ -37,10 +37,10 @@
  * \ingroup operators
  */
 
-#include <rpp/operators/filter.hpp>
-#include <rpp/operators/take.hpp>
 #include <rpp/operators/distinct_until_changed.hpp>
+#include <rpp/operators/filter.hpp>
 #include <rpp/operators/skip.hpp>
+#include <rpp/operators/take.hpp>
 
 /**
  * \defgroup conditional_operators Conditional Operators
@@ -59,10 +59,10 @@
  */
 
 #include <rpp/operators/merge.hpp>
-#include <rpp/operators/with_latest_from.hpp>
+#include <rpp/operators/start_with.hpp>
 #include <rpp/operators/switch_map.hpp>
 #include <rpp/operators/switch_on_next.hpp>
-#include <rpp/operators/start_with.hpp>
+#include <rpp/operators/with_latest_from.hpp>
 
 /**
 * \defgroup aggregate_operators Aggregate Operators
@@ -81,9 +81,10 @@
  * \ingroup operators
  */
 
+#include <rpp/operators/do.hpp>
 #include <rpp/operators/observe_on.hpp>
-#include <rpp/operators/subscribe_on.hpp>
 #include <rpp/operators/repeat.hpp>
+#include <rpp/operators/subscribe_on.hpp>
 
 /**
  * \defgroup connectable_operators Connectable Operators
