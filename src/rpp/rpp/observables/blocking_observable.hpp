@@ -45,6 +45,9 @@ private:
     template<constraint::subscriber_of_type<Type> TSub>
     void subscribe_impl(TSub&& subscriber) const noexcept
     {
+        if (!subscriber.is_subscribed())
+            return;
+
         std::promise<bool> is_success{};
         const auto         future = is_success.get_future();
         auto sub = subscriber.get_subscription();
