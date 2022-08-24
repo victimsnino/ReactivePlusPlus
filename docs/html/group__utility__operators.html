@@ -104,6 +104,26 @@ $(document).ready(function(){initNavTree('group__utility__operators.html',''); i
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gafa05370906b6201bfbf0fd820e88e2ad"><td class="memTemplParams" colspan="2">template&lt;constraint::observer_of_type&lt; Type &gt; TObs&gt; </td></tr>
+<tr class="memitem:gafa05370906b6201bfbf0fd820e88e2ad"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#gafa05370906b6201bfbf0fd820e88e2ad">rpp::details::member_overload&lt; Type, SpecificObservable, do_tag &gt;::tap</a> (TObs &amp;&amp;observer) const &amp;requires is_header_included&lt; do_tag</td></tr>
+<tr class="memdesc:gafa05370906b6201bfbf0fd820e88e2ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an observer to be called when observable provides any events (on_next/on_error/on_completed)  <a href="group__utility__operators.html#gafa05370906b6201bfbf0fd820e88e2ad">More...</a><br /></td></tr>
+<tr class="separator:gafa05370906b6201bfbf0fd820e88e2ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga92b3e8e02f289ac88752f5d6fc592b9c"><td class="memTemplParams" colspan="2">template&lt;constraint::on_next_fn&lt; Type &gt; OnNextFn, constraint::on_error_fn OnErrorFn = utils::empty_function_t&lt;std::exception_ptr&gt;, constraint::on_completed_fn OnCompletedFn = utils::empty_function_t&lt;&gt;&gt; </td></tr>
+<tr class="memitem:ga92b3e8e02f289ac88752f5d6fc592b9c"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#ga92b3e8e02f289ac88752f5d6fc592b9c">rpp::details::member_overload&lt; Type, SpecificObservable, do_tag &gt;::tap</a> (OnNextFn &amp;&amp;on_next, OnErrorFn &amp;&amp;on_error=OnErrorFn{}, OnCompletedFn &amp;&amp;on_completed=OnCompletedFn{}) const &amp;requires is_header_included&lt; do_tag</td></tr>
+<tr class="memdesc:ga92b3e8e02f289ac88752f5d6fc592b9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an list of actions to be called when observable provides any events (on_next/on_error/on_completed)  <a href="group__utility__operators.html#ga92b3e8e02f289ac88752f5d6fc592b9c">More...</a><br /></td></tr>
+<tr class="separator:ga92b3e8e02f289ac88752f5d6fc592b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga157931ad5c05dffdbe5104d75e9822d4"><td class="memTemplParams" colspan="2">template&lt;constraint::on_next_fn&lt; Type &gt; OnNextFn&gt; </td></tr>
+<tr class="memitem:ga157931ad5c05dffdbe5104d75e9822d4"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#ga157931ad5c05dffdbe5104d75e9822d4">rpp::details::member_overload&lt; Type, SpecificObservable, do_tag &gt;::do_on_next</a> (OnNextFn &amp;&amp;on_next) const &amp;requires is_header_included&lt; do_tag</td></tr>
+<tr class="memdesc:ga157931ad5c05dffdbe5104d75e9822d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an callback to be called when observable provides new item (on_next)  <a href="group__utility__operators.html#ga157931ad5c05dffdbe5104d75e9822d4">More...</a><br /></td></tr>
+<tr class="separator:ga157931ad5c05dffdbe5104d75e9822d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaba463ab994eb3245718a3119e33e99e1"><td class="memTemplParams" colspan="2">template&lt;constraint::on_error_fn OnErrorFn&gt; </td></tr>
+<tr class="memitem:gaba463ab994eb3245718a3119e33e99e1"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#gaba463ab994eb3245718a3119e33e99e1">rpp::details::member_overload&lt; Type, SpecificObservable, do_tag &gt;::do_on_error</a> (OnErrorFn &amp;&amp;on_error) const &amp;requires is_header_included&lt; do_tag</td></tr>
+<tr class="memdesc:gaba463ab994eb3245718a3119e33e99e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an callback to be called when observable provides error (on_error)  <a href="group__utility__operators.html#gaba463ab994eb3245718a3119e33e99e1">More...</a><br /></td></tr>
+<tr class="separator:gaba463ab994eb3245718a3119e33e99e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0dbe6a2712821fa0c5798f9e1246fd12"><td class="memTemplParams" colspan="2">template&lt;constraint::on_completed_fn OnCompletedFn&gt; </td></tr>
+<tr class="memitem:ga0dbe6a2712821fa0c5798f9e1246fd12"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#ga0dbe6a2712821fa0c5798f9e1246fd12">rpp::details::member_overload&lt; Type, SpecificObservable, do_tag &gt;::do_on_completed</a> (OnCompletedFn &amp;&amp;on_completed) const &amp;requires is_header_included&lt; do_tag</td></tr>
+<tr class="memdesc:ga0dbe6a2712821fa0c5798f9e1246fd12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an callback to be called when observable provides complete (on_completed)  <a href="group__utility__operators.html#ga0dbe6a2712821fa0c5798f9e1246fd12">More...</a><br /></td></tr>
+<tr class="separator:ga0dbe6a2712821fa0c5798f9e1246fd12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0cacdca66e79d7d6de87fa5aacc6c972"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler&gt; </td></tr>
 <tr class="memitem:ga0cacdca66e79d7d6de87fa5aacc6c972"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#ga0cacdca66e79d7d6de87fa5aacc6c972">rpp::details::member_overload&lt; Type, SpecificObservable, observe_on_tag &gt;::observe_on</a> (TScheduler &amp;&amp;scheduler) const &amp;requires is_header_included&lt; observe_on_tag</td></tr>
 <tr class="memdesc:ga0cacdca66e79d7d6de87fa5aacc6c972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit emissions of observable starting from this point via provided scheduler.  <a href="group__utility__operators.html#ga0cacdca66e79d7d6de87fa5aacc6c972">More...</a><br /></td></tr>
@@ -125,6 +145,133 @@ Functions</h2></td></tr>
 <p>Utility operators are operators that provide some extra functionality without changing of original values, but changing of behaviour. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#utility">https://reactivex.io/documentation/operators.html#utility</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga0dbe6a2712821fa0c5798f9e1246fd12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0dbe6a2712821fa0c5798f9e1246fd12">&#9670;&nbsp;</a></span>do_on_completed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;constraint::on_completed_fn OnCompletedFn&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, do_tag &gt;::do_on_completed </td>
+          <td>(</td>
+          <td class="paramtype">OnCompletedFn &amp;&amp;&#160;</td>
+          <td class="paramname"><em>on_completed</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register an callback to be called when observable provides complete (on_completed) </p>
+<dl class="section note"><dt>Note</dt><dd>on_completed from <code>tap</code> would be invoked BEFORE on_completed from subscriber</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">on_completed</td><td>- action in case of completion</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the do_on_completed operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="do_8hpp_source.html">rpp/operators/do.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    rpp::source::empty&lt;int&gt;()</div>
+<div class="line">            .do_on_completed([]() { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) Completed&quot;</span> &lt;&lt; std::endl; })</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span>) {}, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;Completed&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output:</span></div>
+<div class="line">    <span class="comment">// (TAP) Completed</span></div>
+<div class="line">    <span class="comment">// Completed</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/do.html">https://reactivex.io/documentation/operators/do.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="gaba463ab994eb3245718a3119e33e99e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaba463ab994eb3245718a3119e33e99e1">&#9670;&nbsp;</a></span>do_on_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;constraint::on_error_fn OnErrorFn&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, do_tag &gt;::do_on_error </td>
+          <td>(</td>
+          <td class="paramtype">OnErrorFn &amp;&amp;&#160;</td>
+          <td class="paramname"><em>on_error</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register an callback to be called when observable provides error (on_error) </p>
+<dl class="section note"><dt>Note</dt><dd>on_error from <code>tap</code> would be invoked BEFORE on_error from subscriber</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">on_error</td><td>- action over std::exception_ptr in case of any error</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the do_on_error operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="do_8hpp_source.html">rpp/operators/do.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    rpp::source::error&lt;int&gt;(std::make_exception_ptr(std::runtime_error{<span class="stringliteral">&quot;&quot;</span>}))</div>
+<div class="line">            .do_on_error([](std::exception_ptr) { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) NEW error&quot;</span> &lt;&lt; std::endl; })</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span>                 ) {}, [](std::exception_ptr) { std::cout &lt;&lt; <span class="stringliteral">&quot;NEW error&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output:</span></div>
+<div class="line">    <span class="comment">// (TAP) NEW error</span></div>
+<div class="line">    <span class="comment">// NEW error</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/do.html">https://reactivex.io/documentation/operators/do.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga157931ad5c05dffdbe5104d75e9822d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga157931ad5c05dffdbe5104d75e9822d4">&#9670;&nbsp;</a></span>do_on_next()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;constraint::on_next_fn&lt; Type &gt; OnNextFn&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, do_tag &gt;::do_on_next </td>
+          <td>(</td>
+          <td class="paramtype">OnNextFn &amp;&amp;&#160;</td>
+          <td class="paramname"><em>on_next</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register an callback to be called when observable provides new item (on_next) </p>
+<dl class="section note"><dt>Note</dt><dd>on_next from <code>tap</code> would be invoked BEFORE on_next from subscriber</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">on_next</td><td>- action over new emitted item</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the do_on_next operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="do_8hpp_source.html">rpp/operators/do.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2)</div>
+<div class="line">            .do_on_next([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) NEW item &quot;</span> &lt;&lt; v &lt;&lt; std::endl; })</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span>  v) { std::cout &lt;&lt; <span class="stringliteral">&quot;NEW item &quot;</span> &lt;&lt; v &lt;&lt; std::endl; },</div>
+<div class="line">                       []() { std::cout &lt;&lt; <span class="stringliteral">&quot;Completed&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output:</span></div>
+<div class="line">    <span class="comment">// (TAP) NEW item 1</span></div>
+<div class="line">    <span class="comment">// NEW item 1</span></div>
+<div class="line">    <span class="comment">// (TAP) NEW item 2</span></div>
+<div class="line">    <span class="comment">// NEW item 2</span></div>
+<div class="line">    <span class="comment">// Completed</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/do.html">https://reactivex.io/documentation/operators/do.html</a> </dd></dl>
+
+</div>
+</div>
 <a id="ga0cacdca66e79d7d6de87fa5aacc6c972"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga0cacdca66e79d7d6de87fa5aacc6c972">&#9670;&nbsp;</a></span>observe_on()</h2>
 
@@ -303,6 +450,119 @@ template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
 <div class="line">    <span class="comment">// [TH2]: 1</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/subscribeon.html">https://reactivex.io/documentation/operators/subscribeon.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga92b3e8e02f289ac88752f5d6fc592b9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga92b3e8e02f289ac88752f5d6fc592b9c">&#9670;&nbsp;</a></span>tap() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;constraint::on_next_fn&lt; Type &gt; OnNextFn, constraint::on_error_fn OnErrorFn = utils::empty_function_t&lt;std::exception_ptr&gt;, constraint::on_completed_fn OnCompletedFn = utils::empty_function_t&lt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, do_tag &gt;::tap </td>
+          <td>(</td>
+          <td class="paramtype">OnNextFn &amp;&amp;&#160;</td>
+          <td class="paramname"><em>on_next</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">OnErrorFn &amp;&amp;&#160;</td>
+          <td class="paramname"><em>on_error</em> = <code>OnErrorFn{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">OnCompletedFn &amp;&amp;&#160;</td>
+          <td class="paramname"><em>on_completed</em> = <code>OnCompletedFn{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register an list of actions to be called when observable provides any events (on_next/on_error/on_completed) </p>
+<dl class="section note"><dt>Note</dt><dd>Callbacks from <code>tap</code> would be invoked BEFORE subscribed subscriber</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">on_next</td><td>- action over new emitted item </td></tr>
+    <tr><td class="paramname">on_error</td><td>- action over std::exception_ptr in case of any error </td></tr>
+    <tr><td class="paramname">on_completed</td><td>- action in case of completion</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the tap operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="do_8hpp_source.html">rpp/operators/do.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2)</div>
+<div class="line">            .tap([](<span class="keywordtype">int</span>               v) { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) NEW item &quot;</span> &lt;&lt; v &lt;&lt; std::endl; },</div>
+<div class="line">                 [](std::exception_ptr) {},</div>
+<div class="line">                 []() { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) Completed&quot;</span> &lt;&lt; std::endl; })</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;NEW item &quot;</span> &lt;&lt; v &lt;&lt; std::endl; },</div>
+<div class="line">                       []() { std::cout &lt;&lt; <span class="stringliteral">&quot;Completed&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output:</span></div>
+<div class="line">    <span class="comment">// (TAP) NEW item 1</span></div>
+<div class="line">    <span class="comment">// NEW item 1</span></div>
+<div class="line">    <span class="comment">// (TAP) NEW item 2</span></div>
+<div class="line">    <span class="comment">// NEW item 2</span></div>
+<div class="line">    <span class="comment">// (TAP) Completed</span></div>
+<div class="line">    <span class="comment">// Completed</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/do.html">https://reactivex.io/documentation/operators/do.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="gafa05370906b6201bfbf0fd820e88e2ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafa05370906b6201bfbf0fd820e88e2ad">&#9670;&nbsp;</a></span>tap() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;constraint::observer_of_type&lt; Type &gt; TObs&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, do_tag &gt;::tap </td>
+          <td>(</td>
+          <td class="paramtype">TObs &amp;&amp;&#160;</td>
+          <td class="paramname"><em>observer</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register an observer to be called when observable provides any events (on_next/on_error/on_completed) </p>
+<dl class="section note"><dt>Note</dt><dd>Callbacks from <code>tap</code> would be invoked BEFORE subscribed subscriber</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">observer</td><td>- observer which would accept callbacks</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the tap operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="do_8hpp_source.html">rpp/operators/do.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2)</div>
+<div class="line">            .tap(rpp::make_specific_observer&lt;int&gt;([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) NEW item &quot;</span> &lt;&lt; v &lt;&lt; std::endl; },</div>
+<div class="line">                                                  []() { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) Completed&quot;</span> &lt;&lt; std::endl; }))</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;NEW item &quot;</span> &lt;&lt; v &lt;&lt; std::endl; },</div>
+<div class="line">                       []() { std::cout &lt;&lt; <span class="stringliteral">&quot;Completed&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output:</span></div>
+<div class="line">    <span class="comment">// (TAP) NEW item 1</span></div>
+<div class="line">    <span class="comment">// NEW item 1</span></div>
+<div class="line">    <span class="comment">// (TAP) NEW item 2</span></div>
+<div class="line">    <span class="comment">// NEW item 2</span></div>
+<div class="line">    <span class="comment">// (TAP) Completed</span></div>
+<div class="line">    <span class="comment">// Completed</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/do.html">https://reactivex.io/documentation/operators/do.html</a> </dd></dl>
 
 </div>
 </div>

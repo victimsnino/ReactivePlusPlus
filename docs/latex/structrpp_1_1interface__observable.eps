@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 463.458111
+%%BoundingBox: 0 0 500 481.283422
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,12 +19,12 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 1.078846 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 1.038889 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 26 def
+/rows 27 def
 /cols 2 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
@@ -178,6 +178,7 @@ boxfont setfont
 (rpp::details::member_overload< Type, SpecificObservable, details::buffer_tag >) cw
 (rpp::details::member_overload< Type, SpecificObservable, details::concat_tag >) cw
 (rpp::details::member_overload< Type, SpecificObservable, details::distinct_until_changed_tag >) cw
+(rpp::details::member_overload< Type, SpecificObservable, details::do_tag >) cw
 (rpp::details::member_overload< Type, SpecificObservable, details::filter_tag >) cw
 (rpp::details::member_overload< Type, SpecificObservable, details::flat_map_tag >) cw
 (rpp::details::member_overload< Type, SpecificObservable, details::group_by_tag >) cw
@@ -232,11 +233,12 @@ boundx scalefactor div boundy scalefactor div scale
  (rpp::details::member_overload< Type, SpecificObservable, details::group_by_tag >) 1.000000 19.000000 box
  (rpp::details::member_overload< Type, SpecificObservable, details::flat_map_tag >) 1.000000 20.000000 box
  (rpp::details::member_overload< Type, SpecificObservable, details::filter_tag >) 1.000000 21.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::distinct_until_changed_tag >) 1.000000 22.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::concat_tag >) 1.000000 23.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::buffer_tag >) 1.000000 24.000000 box
- (rpp::details::typed_observable_tag< Type >) 1.000000 25.000000 box
-1.000000 25.000000 mark
+ (rpp::details::member_overload< Type, SpecificObservable, details::do_tag >) 1.000000 22.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::distinct_until_changed_tag >) 1.000000 23.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::concat_tag >) 1.000000 24.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::buffer_tag >) 1.000000 25.000000 box
+ (rpp::details::typed_observable_tag< Type >) 1.000000 26.000000 box
+1.000000 26.000000 mark
 
 % ----- relations -----
 
@@ -293,4 +295,6 @@ solid
 solid
 1 0.000000 25.500000 hedge
 solid
-0.000000 1.000000 25.500000 vedge
+1 0.000000 26.500000 hedge
+solid
+0.000000 1.000000 26.500000 vedge
