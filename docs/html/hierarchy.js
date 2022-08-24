@@ -1,6 +1,7 @@
 var hierarchy =
 [
     [ "rpp::details::buffer_impl< Type >", "structrpp_1_1details_1_1buffer__impl.html", null ],
+    [ "rpp::details::combine_latest_impl< Type, TCombiner, TOtherObservable >", "structrpp_1_1details_1_1combine__latest__impl.html", null ],
     [ "rpp::subjects::details::completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
     [ "rpp::details::concat_impl< Type >", "structrpp_1_1details_1_1concat__impl.html", null ],
     [ "rpp::details::counted_repeat_predicate", "structrpp_1_1details_1_1counted__repeat__predicate.html", null ],
@@ -44,8 +45,12 @@ var hierarchy =
       [ "rpp::connectable_observable< Type, Subject, OriginalObservable >", "classrpp_1_1connectable__observable.html", null ]
     ] ],
     [ "rpp::details::member_overload< Type, SpecificObservable, buffer_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4.html", null ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, combine_latest_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, concat_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01concat__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, details::buffer_tag >", "structrpp_1_1details_1_1member__overload.html", [
+      [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
+    ] ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, details::combine_latest_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
     [ "rpp::details::member_overload< Type, SpecificObservable, details::concat_tag >", "structrpp_1_1details_1_1member__overload.html", [

@@ -1,5 +1,7 @@
 var group__combining__operators =
 [
+    [ "combine_latest", "group__combining__operators.html#gaf13dd55fadee8dbc494dbff0a8106a57", null ],
+    [ "combine_latest", "group__combining__operators.html#ga464ac64ef73830847fdb0ce2763ab42b", null ],
     [ "merge", "group__combining__operators.html#gaa02153df55aab3d790a7102a245dfd2f", null ],
     [ "merge_with", "group__combining__operators.html#ga3341a36b0971c0cf59001fa65aeb36a4", null ],
     [ "start_with", "group__combining__operators.html#ga35f7234aa6957c2c04afa6f1d8e71696", null ],

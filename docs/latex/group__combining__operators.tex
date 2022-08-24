@@ -8,6 +8,10 @@ Combining operators are operators that combines emissions of multiple observable
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+{\footnotesize template$<$constraint\+::observable ... T\+Other\+Observable, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ T\+Other\+Observable $>$... $>$ T\+Combiner$>$ }\\auto \mbox{\hyperlink{group__combining__operators_gaf13dd55fadee8dbc494dbff0a8106a57}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$\+::combine\+\_\+latest}} (T\+Combiner \&\&combiner, T\+Other\+Observable \&\&...observables) const \&requires is\+\_\+header\+\_\+included$<$ combine\+\_\+latest\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Combines latest emissions from current observable and other observables when any of them emits. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::observable ... T\+Other\+Observable$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga464ac64ef73830847fdb0ce2763ab42b}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$\+::combine\+\_\+latest}} (T\+Other\+Observable \&\&...observables) const \&requires is\+\_\+header\+\_\+included$<$ combine\+\_\+latest\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Combines latest emissions from current observable and other observables when any of them emits. The combining result is std\+::tuple$<$...$>$. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename ... Args$>$ }\\auto \mbox{\hyperlink{group__combining__operators_gaa02153df55aab3d790a7102a245dfd2f}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge}} () const \&requires(is\+\_\+header\+\_\+included$<$ merge\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Converts observable of observables of items into observable of items via merging emissions. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... T\+Observables$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga3341a36b0971c0cf59001fa65aeb36a4}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge\+\_\+with}} (T\+Observables \&\&... observables) const \&requires(is\+\_\+header\+\_\+included$<$ merge\+\_\+tag
@@ -33,6 +37,101 @@ Combining operators are operators that combines emissions of multiple observable
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__combining__operators_gaf13dd55fadee8dbc494dbff0a8106a57}\label{group__combining__operators_gaf13dd55fadee8dbc494dbff0a8106a57}} 
+\index{Combining Operators@{Combining Operators}!combine\_latest@{combine\_latest}}
+\index{combine\_latest@{combine\_latest}!Combining Operators@{Combining Operators}}
+\doxysubsubsection{\texorpdfstring{combine\_latest()}{combine\_latest()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$constraint\+::observable ... T\+Other\+Observable, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ T\+Other\+Observable $>$... $>$ T\+Combiner$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$\+::combine\+\_\+latest (\begin{DoxyParamCaption}\item[{T\+Combiner \&\&}]{combiner,  }\item[{T\+Other\+Observable \&\&...}]{observables }\end{DoxyParamCaption}) const \&}
+
+
+
+Combines latest emissions from current observable and other observables when any of them emits. 
+
+\begin{DoxyWarning}{Warning}
+According to observable contract (\href{https://reactivex.io/documentation/contract.html}{\texttt{ https\+://reactivex.\+io/documentation/contract.\+html}}) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
+\end{DoxyWarning}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em combiner} & combines emissions from all the observables using custom composition. \\
+\hline
+{\em observables} & are observables whose emissions would be combined with the current observable\textquotesingle{}s emissions \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the combine\+\_\+latest operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{combine__latest_8hpp_source}{rpp/operators/combine\+\_\+latest.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Examples}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)                                  \textcolor{comment}{// source 1}}
+\DoxyCodeLine{        .combine\_latest(}
+\DoxyCodeLine{            [](\textcolor{keywordtype}{int} left, \textcolor{keywordtype}{int} right) \{ \textcolor{keywordflow}{return} left + right; \},   \textcolor{comment}{// custom combiner}}
+\DoxyCodeLine{            \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(4, 5, 6))                         \textcolor{comment}{// source 2}}
+\DoxyCodeLine{        .subscribe(}
+\DoxyCodeLine{            [](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"-\/"} << v; \},}
+\DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr \&error) \{\},}
+\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"-\/|"} << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// source 1:          -\/1-\/-\/-\/2-\/-\/-\/3-\/|}}
+\DoxyCodeLine{    \textcolor{comment}{// source 2: -\/4-\/-\/-\/5-\/-\/-\/6-\/| (note that source 2 is subscribed earlier than source 1)}}
+\DoxyCodeLine{    \textcolor{comment}{// Output  : -\/7-\/8-\/9-\/|}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/combinelatest.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/combinelatest.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__combining__operators_ga464ac64ef73830847fdb0ce2763ab42b}\label{group__combining__operators_ga464ac64ef73830847fdb0ce2763ab42b}} 
+\index{Combining Operators@{Combining Operators}!combine\_latest@{combine\_latest}}
+\index{combine\_latest@{combine\_latest}!Combining Operators@{Combining Operators}}
+\doxysubsubsection{\texorpdfstring{combine\_latest()}{combine\_latest()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$constraint\+::observable ... T\+Other\+Observable$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$\+::combine\+\_\+latest (\begin{DoxyParamCaption}\item[{T\+Other\+Observable \&\&...}]{observables }\end{DoxyParamCaption}) const \&}
+
+
+
+Combines latest emissions from current observable and other observables when any of them emits. The combining result is std\+::tuple$<$...$>$. 
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em observables} & are observables whose emissions would be combined with the current observable\textquotesingle{}s emissions \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the combine\+\_\+latest operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{combine__latest_8hpp_source}{rpp/operators/combine\+\_\+latest.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Examples}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)                                  \textcolor{comment}{// source 1}}
+\DoxyCodeLine{        .combine\_latest(}
+\DoxyCodeLine{            [](\textcolor{keywordtype}{int} left, \textcolor{keywordtype}{int} right) \{ \textcolor{keywordflow}{return} left + right; \},   \textcolor{comment}{// custom combiner}}
+\DoxyCodeLine{            \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(4, 5, 6))                         \textcolor{comment}{// source 2}}
+\DoxyCodeLine{        .subscribe(}
+\DoxyCodeLine{            [](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"-\/"} << v; \},}
+\DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr \&error) \{\},}
+\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"-\/|"} << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// source 1:          -\/1-\/-\/-\/2-\/-\/-\/3-\/|}}
+\DoxyCodeLine{    \textcolor{comment}{// source 2: -\/4-\/-\/-\/5-\/-\/-\/6-\/| (note that source 2 is subscribed earlier than source 1)}}
+\DoxyCodeLine{    \textcolor{comment}{// Output  : -\/7-\/8-\/9-\/|}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/combinelatest.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/combinelatest.\+html}} 
+\end{DoxySeeAlso}
 \mbox{\Hypertarget{group__combining__operators_gaa02153df55aab3d790a7102a245dfd2f}\label{group__combining__operators_gaa02153df55aab3d790a7102a245dfd2f}} 
 \index{Combining Operators@{Combining Operators}!merge@{merge}}
 \index{merge@{merge}!Combining Operators@{Combining Operators}}

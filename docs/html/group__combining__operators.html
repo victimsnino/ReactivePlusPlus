@@ -104,6 +104,14 @@ $(document).ready(function(){initNavTree('group__combining__operators.html','');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gaf13dd55fadee8dbc494dbff0a8106a57"><td class="memTemplParams" colspan="2">template&lt;constraint::observable ... TOtherObservable, std::invocable&lt; Type, utils::extract_observable_type_t&lt; TOtherObservable &gt;... &gt; TCombiner&gt; </td></tr>
+<tr class="memitem:gaf13dd55fadee8dbc494dbff0a8106a57"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#gaf13dd55fadee8dbc494dbff0a8106a57">rpp::details::member_overload&lt; Type, SpecificObservable, combine_latest_tag &gt;::combine_latest</a> (TCombiner &amp;&amp;combiner, TOtherObservable &amp;&amp;...observables) const &amp;requires is_header_included&lt; combine_latest_tag</td></tr>
+<tr class="memdesc:gaf13dd55fadee8dbc494dbff0a8106a57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines latest emissions from current observable and other observables when any of them emits.  <a href="group__combining__operators.html#gaf13dd55fadee8dbc494dbff0a8106a57">More...</a><br /></td></tr>
+<tr class="separator:gaf13dd55fadee8dbc494dbff0a8106a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga464ac64ef73830847fdb0ce2763ab42b"><td class="memTemplParams" colspan="2">template&lt;constraint::observable ... TOtherObservable&gt; </td></tr>
+<tr class="memitem:ga464ac64ef73830847fdb0ce2763ab42b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga464ac64ef73830847fdb0ce2763ab42b">rpp::details::member_overload&lt; Type, SpecificObservable, combine_latest_tag &gt;::combine_latest</a> (TOtherObservable &amp;&amp;...observables) const &amp;requires is_header_included&lt; combine_latest_tag</td></tr>
+<tr class="memdesc:ga464ac64ef73830847fdb0ce2763ab42b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines latest emissions from current observable and other observables when any of them emits. The combining result is std::tuple&lt;...&gt;.  <a href="group__combining__operators.html#ga464ac64ef73830847fdb0ce2763ab42b">More...</a><br /></td></tr>
+<tr class="separator:ga464ac64ef73830847fdb0ce2763ab42b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa02153df55aab3d790a7102a245dfd2f"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
 <tr class="memitem:gaa02153df55aab3d790a7102a245dfd2f"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#gaa02153df55aab3d790a7102a245dfd2f">rpp::details::member_overload&lt; Type, SpecificObservable, merge_tag &gt;::merge</a> () const &amp;requires(is_header_included&lt; merge_tag</td></tr>
 <tr class="memdesc:gaa02153df55aab3d790a7102a245dfd2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts observable of observables of items into observable of items via merging emissions.  <a href="group__combining__operators.html#gaa02153df55aab3d790a7102a245dfd2f">More...</a><br /></td></tr>
@@ -137,6 +145,114 @@ Functions</h2></td></tr>
 <p>Combining operators are operators that combines emissions of multiple observables into same observable by some rule. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#combining">https://reactivex.io/documentation/operators.html#combining</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gaf13dd55fadee8dbc494dbff0a8106a57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf13dd55fadee8dbc494dbff0a8106a57">&#9670;&nbsp;</a></span>combine_latest() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;constraint::observable ... TOtherObservable, std::invocable&lt; Type, utils::extract_observable_type_t&lt; TOtherObservable &gt;... &gt; TCombiner&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, combine_latest_tag &gt;::combine_latest </td>
+          <td>(</td>
+          <td class="paramtype">TCombiner &amp;&amp;&#160;</td>
+          <td class="paramname"><em>combiner</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TOtherObservable &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>observables</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Combines latest emissions from current observable and other observables when any of them emits. </p>
+<dl class="section warning"><dt>Warning</dt><dd>According to observable contract (<a href="https://reactivex.io/documentation/contract.html">https://reactivex.io/documentation/contract.html</a>) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement</dd></dl>
+<div class="image">
+<object type="image/svg+xml" data="combine_latest_custom_combiner.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">combiner</td><td>combines emissions from all the observables using custom composition. </td></tr>
+    <tr><td class="paramname">observables</td><td>are observables whose emissions would be combined with the current observable's emissions </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the combine_latest operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="combine__latest_8hpp_source.html">rpp/operators/combine_latest.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Examples</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3)                                  <span class="comment">// source 1</span></div>
+<div class="line">        .combine_latest(</div>
+<div class="line">            [](<span class="keywordtype">int</span> left, <span class="keywordtype">int</span> right) { <span class="keywordflow">return</span> left + right; },   <span class="comment">// custom combiner</span></div>
+<div class="line">            <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(4, 5, 6))                         <span class="comment">// source 2</span></div>
+<div class="line">        .subscribe(</div>
+<div class="line">            [](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;-&quot;</span> &lt;&lt; v; },</div>
+<div class="line">            [](<span class="keyword">const</span> std::exception_ptr &amp;error) {},</div>
+<div class="line">            []() { std::cout &lt;&lt; <span class="stringliteral">&quot;-|&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// source 1:          -1---2---3-|</span></div>
+<div class="line">    <span class="comment">// source 2: -4---5---6-| (note that source 2 is subscribed earlier than source 1)</span></div>
+<div class="line">    <span class="comment">// Output  : -7-8-9-|</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/combinelatest.html">https://reactivex.io/documentation/operators/combinelatest.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga464ac64ef73830847fdb0ce2763ab42b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga464ac64ef73830847fdb0ce2763ab42b">&#9670;&nbsp;</a></span>combine_latest() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;constraint::observable ... TOtherObservable&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, combine_latest_tag &gt;::combine_latest </td>
+          <td>(</td>
+          <td class="paramtype">TOtherObservable &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>observables</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Combines latest emissions from current observable and other observables when any of them emits. The combining result is std::tuple&lt;...&gt;. </p>
+<div class="image">
+<object type="image/svg+xml" data="combine_latest.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">observables</td><td>are observables whose emissions would be combined with the current observable's emissions </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the combine_latest operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="combine__latest_8hpp_source.html">rpp/operators/combine_latest.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Examples</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3)                                  <span class="comment">// source 1</span></div>
+<div class="line">        .combine_latest(</div>
+<div class="line">            [](<span class="keywordtype">int</span> left, <span class="keywordtype">int</span> right) { <span class="keywordflow">return</span> left + right; },   <span class="comment">// custom combiner</span></div>
+<div class="line">            <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(4, 5, 6))                         <span class="comment">// source 2</span></div>
+<div class="line">        .subscribe(</div>
+<div class="line">            [](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;-&quot;</span> &lt;&lt; v; },</div>
+<div class="line">            [](<span class="keyword">const</span> std::exception_ptr &amp;error) {},</div>
+<div class="line">            []() { std::cout &lt;&lt; <span class="stringliteral">&quot;-|&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// source 1:          -1---2---3-|</span></div>
+<div class="line">    <span class="comment">// source 2: -4---5---6-| (note that source 2 is subscribed earlier than source 1)</span></div>
+<div class="line">    <span class="comment">// Output  : -7-8-9-|</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/combinelatest.html">https://reactivex.io/documentation/operators/combinelatest.html</a> </dd></dl>
+
+</div>
+</div>
 <a id="gaa02153df55aab3d790a7102a245dfd2f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaa02153df55aab3d790a7102a245dfd2f">&#9670;&nbsp;</a></span>merge()</h2>
 
