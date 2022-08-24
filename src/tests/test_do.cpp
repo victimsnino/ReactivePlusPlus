@@ -114,3 +114,60 @@ SCENARIO("tap invokes callbacks for tapped observer", "[operators][do]")
     GIVEN("callbacks list as arguments for tap")
         validate(get_on_next(callstack, tapped_prefix), get_on_error(callstack, tapped_prefix), get_on_completed(callstack, tapped_prefix));
 }
+
+SCENARIO("do_on_next invokes on_next callback", "[operators][do]")
+{
+    std::vector<int> items{};
+    auto on_next = [&](int v) {items.push_back(v); };
+
+    GIVEN("observable of items")
+    {
+        const auto obs = rpp::source::just(1, 2);
+        WHEN("subscribe on it via do_on_next")
+        {
+            obs.do_on_next(on_next).subscribe();
+            THEN("callback sees new items")
+            {
+                CHECK(items == std::vector{ 1,2 });
+            }
+        }
+    }
+}
+
+SCENARIO("do_on_error invokes on_error callback", "[operators][do]")
+{
+    size_t on_error_count{};
+    auto on_error = [&](const auto&) {++on_error_count; };
+
+    GIVEN("observable with error")
+    {
+        const auto obs = rpp::source::error<int>(std::exception_ptr{});
+        WHEN("subscribe on it via do_on_next")
+        {
+            obs.do_on_error(on_error).subscribe(rpp::utils::empty_function_t<int>{}, rpp::utils::empty_function_t<std::exception_ptr>{});
+            THEN("callback sees error")
+            {
+                CHECK(on_error_count == 1);
+            }
+        }
+    }
+}
+
+SCENARIO("do_on_completed invokes on_completed callback", "[operators][do]")
+{
+    size_t on_completed_count{};
+    auto on_completed = [&]() {++on_completed_count; };
+
+    GIVEN("observable with completed")
+    {
+        const auto obs = rpp::source::empty<int>();
+        WHEN("subscribe on it via do_on_completed")
+        {
+            obs.do_on_completed(on_completed).subscribe();
+            THEN("callback sees completed")
+            {
+                CHECK(on_completed_count == 1);
+            }
+        }
+    }
+}

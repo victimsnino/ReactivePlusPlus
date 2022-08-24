@@ -38,7 +38,7 @@ struct member_overload<Type, SpecificObservable, do_tag>
      * \warning #include <rpp/operators/do.hpp>
      * 
      * \par Example
-     * \snippet do.cpp tap
+     * \snippet do.cpp tap_observer
 	 *
      * \ingroup utility_operators
      * \see https://reactivex.io/documentation/operators/do.html
@@ -68,7 +68,7 @@ struct member_overload<Type, SpecificObservable, do_tag>
      * \warning #include <rpp/operators/do.hpp>
      * 
      * \par Example
-     * \snippet do.cpp tap
+     * \snippet do.cpp tap_callbacks
 	 *
      * \ingroup utility_operators
      * \see https://reactivex.io/documentation/operators/do.html
@@ -89,6 +89,90 @@ struct member_overload<Type, SpecificObservable, do_tag>
         return std::move(*static_cast<SpecificObservable*>(this)).tap(TObserver{std::forward<OnNextFn>(on_next),
                                                                                 std::forward<OnErrorFn>(on_error),
                                                                                 std::forward<OnCompletedFn>(on_completed)});
+    }
+
+    /**
+     * \brief Register an callback to be called when observable provides new item (on_next)
+     *
+     * \note on_next from `tap` would be invoked BEFORE on_next from subscriber
+     *
+     * \param on_next - action over new emitted item
+     *
+     * \return new specific_observable with the do_on_next operator as most recent operator.
+     * \warning #include <rpp/operators/do.hpp>
+     * 
+     * \par Example
+     * \snippet do.cpp do_on_next
+	 *
+     * \ingroup utility_operators
+     * \see https://reactivex.io/documentation/operators/do.html
+     */
+    template<constraint::on_next_fn<Type> OnNextFn>
+    auto do_on_next(OnNextFn&& on_next) const& requires is_header_included <do_tag, OnNextFn>
+    {
+        return static_cast<const SpecificObservable*>(this)->tap(std::forward<OnNextFn>(on_next));
+    }
+
+    template<constraint::on_next_fn<Type> OnNextFn>
+    auto do_on_next(OnNextFn&& on_next) && requires is_header_included <do_tag, OnNextFn>
+    {
+        return std::move(*static_cast<SpecificObservable*>(this)).tap(std::forward<OnNextFn>(on_next));
+    }
+
+    /**
+     * \brief Register an callback to be called when observable provides error (on_error)
+     *
+     * \note on_error from `tap` would be invoked BEFORE on_error from subscriber
+     *
+     * \param on_error - action over std::exception_ptr in case of any error
+     *
+     * \return new specific_observable with the do_on_error operator as most recent operator.
+     * \warning #include <rpp/operators/do.hpp>
+     * 
+     * \par Example
+     * \snippet do.cpp do_on_error
+	 *
+     * \ingroup utility_operators
+     * \see https://reactivex.io/documentation/operators/do.html
+     */
+    template<constraint::on_error_fn OnErrorFn>
+    auto do_on_error(OnErrorFn&& on_error) const& requires is_header_included <do_tag, OnErrorFn>
+    {
+        return static_cast<const SpecificObservable*>(this)->tap(utils::empty_function_t<Type>{}, std::forward<OnErrorFn>(on_error));
+    }
+
+    template<constraint::on_error_fn OnErrorFn>
+    auto do_on_error(OnErrorFn&& on_error) && requires is_header_included <do_tag, OnErrorFn>
+    {
+        return std::move(*static_cast<SpecificObservable*>(this)).tap(utils::empty_function_t<Type>{}, std::forward<OnErrorFn>(on_error));
+    }
+
+    /**
+     * \brief Register an callback to be called when observable provides complete (on_completed)
+     *
+     * \note on_completed from `tap` would be invoked BEFORE on_completed from subscriber
+     *
+     * \param on_completed - action in case of completion
+     *
+     * \return new specific_observable with the do_on_completed operator as most recent operator.
+     * \warning #include <rpp/operators/do.hpp>
+     * 
+     * \par Example
+     * \snippet do.cpp do_on_completed
+	 *
+     * \ingroup utility_operators
+     * \see https://reactivex.io/documentation/operators/do.html
+     */
+    template<constraint::on_completed_fn OnCompletedFn>
+    auto do_on_completed(OnCompletedFn&& on_completed) const& requires is_header_included <do_tag, OnCompletedFn>
+    {
+        return static_cast<const SpecificObservable*>(this)->tap(utils::empty_function_t<Type>{}, utils::empty_function_t<std::exception_ptr>{},std::forward<OnCompletedFn>(on_completed));
+    }
+
+    template<constraint::on_completed_fn OnCompletedFn>
+    auto do_on_completed(OnCompletedFn&& on_completed) && requires is_header_included <do_tag, OnCompletedFn>
+    {
+        return std::move(*static_cast<SpecificObservable*>(this)).tap(utils::empty_function_t<Type>{}, utils::empty_function_t<std::exception_ptr>{}, std::forward<OnCompletedFn>(on_completed));
     }
 };
 } // namespace rpp::details
