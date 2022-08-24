@@ -68,7 +68,7 @@ jobs:
         cache_key: ${{ matrix.config.name }}-${{ matrix.config.cxx }}-${{env.CATCH2_VERSION}}-build
 
     - name: Cache Catch2 
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       id: cache-catch2
       with:
         path: ${{github.workspace}}/Catch2_BIN
