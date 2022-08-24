@@ -144,18 +144,18 @@ $(document).ready(function(){initNavTree('blocking__observable_8hpp_source.html'
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>         future = is_success.get_future();</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keyword">auto</span> sub = subscriber.get_subscription();</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        m_original.subscribe(create_subscriber_with_state&lt;Type&gt;(std::move(sub),</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                                                                std::forward&lt;TSub&gt;(subscriber),</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                                                utils::forwarding_on_next{},</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                                                                [&amp;](<span class="keyword">const</span> std::exception_ptr&amp; err, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                                                                {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                                                    sub.on_error(err);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                                                    is_success.set_value(<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                                                                },</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                                                [&amp;](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                                                {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                                                    sub.on_completed();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                                                                    is_success.set_value(<span class="keyword">true</span>);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                                                }));</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                                                                utils::forwarding_on_next{},</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                                                [&amp;](<span class="keyword">const</span> std::exception_ptr&amp; err, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                                                                {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                                                                    sub.on_error(err);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                                                    is_success.set_value(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                                                },</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                                                                [&amp;](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                                                {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                                                    sub.on_completed();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                                                    is_success.set_value(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                                                                },</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                                                std::forward&lt;TSub&gt;(subscriber)));</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        future.wait();</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>

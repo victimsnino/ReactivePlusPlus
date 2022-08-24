@@ -129,14 +129,14 @@ $(document).ready(function(){initNavTree('with__latest__from_8hpp_source.html','
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">using</span> Type = utils::extract_observable_type_t&lt;TObs&gt;;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    observable.subscribe(create_subscriber_with_state&lt;Type&gt;(subscriber.get_subscription().make_child(),</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                                                            subscriber,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                                                            [state_ptr](<span class="keyword">auto</span>&amp;&amp; v, <span class="keyword">const</span> <span class="keyword">auto</span>&amp;)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                                                            {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                                                                std::lock_guard lock{state_ptr-&gt;mutexes[I]};</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                                                                std::get&lt;I&gt;(state_ptr-&gt;vals) = std::forward&lt;decltype(v)&gt;(v);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                                                            },</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                                                            utils::forwarding_on_error{},</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                                                            [](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){}));</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                                                            [state_ptr](<span class="keyword">auto</span>&amp;&amp; v, <span class="keyword">const</span> <span class="keyword">auto</span>&amp;)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                                                            {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                                                                std::lock_guard lock{state_ptr-&gt;mutexes[I]};</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                                                                std::get&lt;I&gt;(state_ptr-&gt;vals) = std::forward&lt;decltype(v)&gt;(v);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                                                            },</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                                                            utils::forwarding_on_error{},</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                                                            [](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){},</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                                                            subscriber));</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">template</span>&lt;<span class="keywordtype">size_t</span>...I&gt;</div>
@@ -200,10 +200,10 @@ $(document).ready(function(){initNavTree('with__latest__from_8hpp_source.html','
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keyword">auto</span> sub = subscriber.get_subscription();</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordflow">return</span> create_subscriber_with_state&lt;Type&gt;(std::move(sub),</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                                                  std::forward&lt;TSub&gt;(subscriber),</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                                                  std::move(on_next),</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                                                  utils::forwarding_on_error{},</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                                                  utils::forwarding_on_completed{});</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                                                  std::move(on_next),</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                                                  utils::forwarding_on_error{},</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                                                  utils::forwarding_on_completed{},</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                                                  std::forward&lt;TSub&gt;(subscriber));</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;};</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;} <span class="comment">// namespace rpp::details</span></div>

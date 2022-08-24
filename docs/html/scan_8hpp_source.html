@@ -156,10 +156,10 @@ $(document).ready(function(){initNavTree('scan_8hpp_source.html',''); initResiza
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keyword">auto</span> subscription = subscriber.get_subscription();</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="comment">// dynamic_state there to make shared_ptr for observer instead of making shared_ptr for state</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">return</span> create_subscriber_with_dynamic_state&lt;Type&gt;(std::move(subscription),</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                                                          std::forward&lt;TSub&gt;(subscriber),</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                                          <a class="code" href="classrpp_1_1details_1_1scan__on__next.html">scan_on_next</a>{initial_value, accumulator},</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                                          utils::forwarding_on_error{},</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                                          utils::forwarding_on_completed{});</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                                                          <a class="code" href="classrpp_1_1details_1_1scan__on__next.html">scan_on_next</a>{initial_value, accumulator},</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                                          utils::forwarding_on_error{},</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                                          utils::forwarding_on_completed{},</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                                          std::forward&lt;TSub&gt;(subscriber));</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;};</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace rpp::details</span></div>

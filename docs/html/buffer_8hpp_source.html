@@ -190,16 +190,18 @@ $(document).ready(function(){initNavTree('buffer_8hpp_source.html',''); initResi
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keyword">auto</span> subscription = subscriber.get_subscription();</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">return</span> create_subscriber_with_state&lt;Type&gt;(std::move(subscription),</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                                                  std::forward&lt;TSub&gt;(subscriber),</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                                                  <span class="comment">// Get a copy of on_next that shares the same state.</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                                                  state-&gt;get_on_next(),</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                                                  <span class="comment">// Get a copy of on_next that shares the same state.</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                                                  state-&gt;get_on_next(),</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                                                  <span class="comment">// Get a copy of on_next that shares the same state.</span></div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                                                  utils::forwarding_on_error{},</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                                                  <span class="comment">// Flush the bundle buffer on complete.</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                                                  state-&gt;get_on_completed());</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;};</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                                                  state-&gt;get_on_completed(),</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                                                  <span class="comment">// Flush the bundle buffer on complete.</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                                                  std::forward&lt;TSub&gt;(subscriber));</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;};</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructrpp_1_1details_1_1buffer__on__next_html_ac72940e9b8b11db78e881a54d9a5c9db"><div class="ttname"><a href="structrpp_1_1details_1_1buffer__on__next.html#ac72940e9b8b11db78e881a54d9a5c9db">rpp::details::buffer_on_next::get_on_next</a></div><div class="ttdeci">auto get_on_next()</div><div class="ttdef"><b>Definition:</b> buffer.hpp:52</div></div>
