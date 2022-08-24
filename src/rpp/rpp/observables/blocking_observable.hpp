@@ -52,7 +52,6 @@ private:
         const auto         future = is_success.get_future();
         auto sub = subscriber.get_subscription();
         m_original.subscribe(create_subscriber_with_state<Type>(std::move(sub),
-                                                                std::forward<TSub>(subscriber),
                                                                 utils::forwarding_on_next{},
                                                                 [&](const std::exception_ptr& err, const auto& sub)
                                                                 {
@@ -63,7 +62,8 @@ private:
                                                                 {
                                                                     sub.on_completed();
                                                                     is_success.set_value(true);
-                                                                }));
+                                                                },
+                                                                std::forward<TSub>(subscriber)));
         future.wait();
     }
 

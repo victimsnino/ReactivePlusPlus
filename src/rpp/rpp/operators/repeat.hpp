@@ -59,10 +59,10 @@ private:
     void subscribe_subscriber_for_repeat(const constraint::subscriber auto& subscriber) const
     {
         m_state->observable.subscribe(create_subscriber_with_state<Type>(subscriber.get_subscription().make_child(),
-                                                                          subscriber,
-                                                                          utils::forwarding_on_next{},
-                                                                          utils::forwarding_on_error{},
-                                                                          *this));
+                                                                         utils::forwarding_on_next{},
+                                                                         utils::forwarding_on_error{},
+                                                                         *this,
+                                                                         subscriber));
     }
 
     std::shared_ptr<state_t> m_state;
