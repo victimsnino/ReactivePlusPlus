@@ -13,6 +13,7 @@
 #include <rpp/operators/fwd/buffer.hpp>
 #include <rpp/operators/fwd/concat.hpp>
 #include <rpp/operators/fwd/distinct_until_changed.hpp>
+#include <rpp/operators/fwd/do.hpp>
 #include <rpp/operators/fwd/filter.hpp>
 #include <rpp/operators/fwd/flat_map.hpp>
 #include <rpp/operators/fwd/group_by.hpp>

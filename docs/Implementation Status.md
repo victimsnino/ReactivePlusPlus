@@ -127,7 +127,12 @@
   - [ ] scheduling (by default trampoline ?)
 - [x] subscribe_on
 - [ ] delay
-- [ ] do/tap
+- [x] do/tap
+  - [x] tap with observer
+  - [x] tap with callbacks
+  - [x] do_on_next
+  - [x] do_on_error
+  - [x] do_on_completed
 - [ ] timeout
 - [ ] 
 ### Connectable
