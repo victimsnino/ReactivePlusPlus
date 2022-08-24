@@ -40,7 +40,7 @@ private:
             : m_fn{std::move(fn)} {}
 
     protected:
-        void on_unsubscribe() final
+        void on_unsubscribe() override
         {
             m_fn();
         }

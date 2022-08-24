@@ -10,6 +10,8 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
+
 #include <rpp/observables/constraints.hpp>
 #include <rpp/operators/fwd/repeat.hpp>
 #include <rpp/subscribers/constraints.hpp>
@@ -35,8 +37,8 @@ class repeat_on_completed
             : observable{observable}
             , predicate{std::move(predicate)} {}
 
-        SpecificObservable              observable;
-        RPP_NO_UNIQUE_ADDRESS Predicate predicate;
+        RPP_NO_UNIQUE_ADDRESS SpecificObservable observable;
+        RPP_NO_UNIQUE_ADDRESS Predicate          predicate;
     };
 
 public:
@@ -96,8 +98,8 @@ struct repeat_on_subscribe
     }
 
 private:
-    TObs              m_observable;
-    CreatePredicateFn m_create_predicate;
+    RPP_NO_UNIQUE_ADDRESS TObs              m_observable;
+    RPP_NO_UNIQUE_ADDRESS CreatePredicateFn m_create_predicate;
 };
 
 template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs, typename CreatePredicateFn>

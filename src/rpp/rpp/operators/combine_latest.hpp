@@ -17,6 +17,8 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/utils/functors.hpp>
+#include <rpp/defs.hpp>
+
 
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 
@@ -32,8 +34,8 @@ namespace rpp::details
 template<constraint::decayed_type Type, typename TCombiner, constraint::observable ...TOtherObservable>
 struct combine_latest_impl
 {
-    TCombiner m_combiner;
-    std::tuple<TOtherObservable...> m_other_observables;
+    RPP_NO_UNIQUE_ADDRESS TCombiner m_combiner;
+    RPP_NO_UNIQUE_ADDRESS std::tuple<TOtherObservable...> m_other_observables;
 
 private:
     static constexpr size_t s_index_of_source_type = 0;
@@ -74,7 +76,7 @@ private:
         }
 
     private:
-        TCombiner m_combiner;
+        RPP_NO_UNIQUE_ADDRESS TCombiner m_combiner;
 
         std::mutex m_mutex;
         std::tuple<std::optional<Type>, std::optional<utils::extract_observable_type_t<TOtherObservable>>...> m_values{};

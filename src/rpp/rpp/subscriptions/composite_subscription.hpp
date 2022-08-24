@@ -143,7 +143,7 @@ private:
         }
 
     private:
-        void on_unsubscribe() final
+        void on_unsubscribe() override
         {
             while (true)
             {
