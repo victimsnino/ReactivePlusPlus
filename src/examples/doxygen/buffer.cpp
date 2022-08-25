@@ -16,7 +16,7 @@ std::ostream & operator<<(std::ostream & out, const std::vector<int>& list)
     out << "}";
 
     return out;
-};
+}
 
 /**
  * \example buffer.cpp

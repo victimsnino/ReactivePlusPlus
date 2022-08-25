@@ -94,10 +94,7 @@ ReactivePlusPlus library uses:
 
 
 TODO:
-- clang-tidy
 - SFML related code
-- benchmarks
 - test results ?
 - sonarcloud
 - dependabot?
-- clang-format/clang-tidy

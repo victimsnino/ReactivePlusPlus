@@ -9,6 +9,8 @@ on:
     branches:
     - main
 
+env:
+  CATCH2_VERSION: v3.1.0
 jobs:
   # lint:
   #   runs-on: ubuntu-latest
@@ -99,19 +101,12 @@ jobs:
            os: macos-latest
            relative_path_bench: "build/bin/rpp_benchmark"
            relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
-           additional_cmake_args: "-DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache -DRPP_BUILD_SFML_CODE=1"
            sudo: "sudo"
         -  name: "ci-ubuntu-gcc"
            os: ubuntu-latest
-           relative_path_bench: "build/bin/rpp_benchmark"
-           relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
-           additional_cmake_args: "-DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache -DRPP_BUILD_SFML_CODE=1"
            sudo: "sudo"
         -  name: "ci-ubuntu-clang"
            os: ubuntu-latest
-           relative_path_bench: "build/bin/rpp_benchmark"
-           relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
-           additional_cmake_args: "-DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache -DRPP_BUILD_SFML_CODE=1"
            sudo: "sudo"
         -  name: "ci-windows"
            os: windows-latest
@@ -125,8 +120,23 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Install static analyzers
-      if: matrix.os == 'ubuntu-latest'
+      if: matrix.name == 'ci-ubuntu-clang'
       run: sudo apt-get install clang-tidy cppcheck -y -q
+      
+    - name: Cache Catch2 
+      uses: actions/cache@v3
+      id: cache-catch2
+      with:
+        path: ${{github.workspace}}/Catch2_BIN
+        key: ${{ matrix.config.name }}-${{env.CATCH2_VERSION}}-catch2
+
+    - name: Install Catch2
+      if: steps.cache-catch2.outputs.cache-hit != 'true'
+      run: |
+        git clone --branch ${{env.CATCH2_VERSION}} https://github.com/catchorg/Catch2.git 
+        cd Catch2
+        cmake -B build -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/Catch2_BIN
+        ${{matrix.config.sudo}} cmake --build build/ --target install --parallel 2 --config Release
 
     - name: Configure
       shell: pwsh
@@ -141,6 +151,38 @@ jobs:
     - name: Test
       working-directory: build
       run: ctest --output-on-failure -C Release -j 2
+
+    - name: Run benchmarks
+      run: cmake --build build --config Release --target run_rpp_ci_benchmarks
+
+    - name: Analyze diff with clang-tidy
+      if: matrix.name == 'ci-ubuntu-clang'
+      run: |
+        mkdir clang-tidy-result
+        git diff -U0 origin/main | clang-tidy-diff -j 0 -p1 -path build -export-fixes clang-tidy-result/fixes.yml -extra-arg=-std=c++20 -checks=bugprone-*,concurrency-*,performance-*
+
+    - name: Run clang-tidy-pr-comments action
+      if: matrix.name == 'ci-ubuntu-clang'
+      uses: platisd/clang-tidy-pr-comments@master
+      with:
+        # The GitHub token (or a personal access token)
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        # The path to the clang-tidy fixes generated previously
+        clang_tidy_fixes: clang-tidy-result/fixes.yml
+        # Optionally set to true if you want the Action to request
+        # changes in case warnings are found
+        request_changes: false
+        # Optionally set the number of comments per review
+        # to avoid GitHub API timeouts for heavily loaded
+        # pull requests
+        suggestions_per_comment: 10
+    
+    - name: Upload benchmark results
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ matrix.config.name }}
+        path: | 
+          ${{github.workspace}}/build/test_results/benchmarks/*
 
   docs:
     # Deploy docs only when builds succeed
@@ -172,3 +214,85 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./gen_docs
         destination_dir: docs
+
+  process_benchmarks:
+    name: Process benchmark results
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v3
+      with:
+        path: artifacts
+    
+    - uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        token: ${{ secrets.GITHUB_TOKEN }}
+        path: gh-pages
+
+    - name: Install deps
+      run: pip3 install pandas
+
+    - name: Process benchmarks
+      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${GITHUB_SHA::8} "${{github.event.head_commit.message}}"
+
+    - name: Compare results
+      run: |
+        python3 ${{github.workspace}}/ci/compare_results.py > comment-body.txt
+        body=$(cat comment-body.txt)
+        body="${body//'%'/'%25'}"
+        body="${body//$'\n'/'%0A'}"
+        body="${body//$'\r'/'%0D'}" 
+        echo ::set-output name=body::$body
+      id: results
+      
+    - name: Find Comment
+      uses: peter-evans/find-comment@v2
+      id: fc
+      if: github.event_name != 'push'
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        comment-author: 'github-actions[bot]'
+        body-includes: GCC
+        
+    - name: Create comment
+      if: github.event_name == 'push'
+      uses: peter-evans/commit-comment@v2
+      with:
+        body: ${{ steps.results.outputs.body }}
+        
+    - name: Update comment
+      uses: peter-evans/create-or-update-comment@v2
+      if: github.event_name != 'push'
+      with:
+        comment-id: ${{ steps.fc.outputs.comment-id }}
+        issue-number: ${{ github.event.pull_request.number }}
+        body: ${{ steps.results.outputs.body }}
+        edit-mode: replace
+
+    - name: Install deps
+      run: pip3 install plotly
+      if: github.event_name == 'push'
+
+    - name: Create html
+      run: python3 ${{github.workspace}}/ci/create_graphs_for_benchmark_data.py 
+      if: github.event_name == 'push'
+
+    - name: Upload html
+      uses: actions/upload-artifact@v3
+      if: github.event_name == 'push'
+      with:
+        name: benchmark.html
+        path: ./gh-pages/benchmark.html
+
+    - name: Deploy to github pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.event_name == 'push'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./gh-pages
