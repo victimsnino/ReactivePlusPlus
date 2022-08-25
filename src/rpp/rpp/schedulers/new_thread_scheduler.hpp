@@ -37,9 +37,11 @@ public:
         using new_thread_schedulable = schedulable_wrapper<worker_strategy>;
 
         worker_strategy(const rpp::composite_subscription& sub)
-            : m_state{std::make_shared<state>()}
         {
-            m_state->init_thread(sub);
+            auto shared = std::make_shared<state>();
+            // init while it is alive as shared
+            shared->init_thread(sub);
+            m_state = shared;
         }
 
         void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
@@ -49,7 +51,8 @@ public:
 
         void defer_at(time_point time_point, new_thread_schedulable&& fn) const
         {
-            m_state->defer_at(time_point, std::move(fn));
+            if (auto locked = m_state.lock())
+                locked->defer_at(time_point, std::move(fn));
         }
 
         static time_point now() { return clock_type::now(); }
@@ -70,21 +73,24 @@ public:
 
             void init_thread(const rpp::composite_subscription& sub)
             {
-                auto as_shared = shared_from_this();
-
-                m_thread = std::jthread{[state = as_shared](const std::stop_token& token)
+                m_thread = std::jthread{[state = shared_from_this()](const std::stop_token& token)
                 {
                     state->data_thread(token);
                 }};
-                m_sub.reset(sub.add([state = as_shared]
+                const auto callback = rpp::callback_subscription{[state = weak_from_this()]
                 {
-                    state->m_thread.request_stop();
+                    auto locked = state.lock();
+                    if (!locked)
+                        return;
+                    locked->m_thread.request_stop();
 
-                    if (state->m_thread.get_id() != std::this_thread::get_id())
-                        state->m_thread.join();
+                    if (locked->m_thread.get_id() != std::this_thread::get_id())
+                        locked->m_thread.join();
                     else
-                        state->m_thread.detach();
-                }));
+                        locked->m_thread.detach();
+                }};
+                sub.add(callback);
+                m_sub.reset(callback);
             }
 
         private:
@@ -109,7 +115,8 @@ public:
             rpp::subscription_guard                             m_sub = rpp::subscription_base::empty();
         };
 
-        std::shared_ptr<state> m_state{};
+        // original shared would alive in thread!
+        std::weak_ptr<state> m_state{};
     };
 
     static auto create_worker(const rpp::composite_subscription& sub = composite_subscription{})

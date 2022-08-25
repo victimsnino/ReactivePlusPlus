@@ -35,10 +35,11 @@ private:
     class worker_strategy
     {
     public:
-        worker_strategy(const std::shared_ptr<details::queue_worker_state<run_loop_schedulable>>& queue,
-                        const composite_subscription&                                             sub)
-            : m_queue{queue}
-            , m_sub{sub} { }
+        worker_strategy(std::weak_ptr<details::queue_worker_state<run_loop_schedulable>> queue,
+                        const composite_subscription&                                    sub)
+            : m_queue{std::move(queue)}
+            , m_sub{sub}
+        {}
 
         void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
         {
@@ -48,14 +49,15 @@ private:
         void defer_at(time_point time_point, run_loop_schedulable&& fn) const
         {
             if (m_sub.is_subscribed())
-                m_queue->emplace(time_point, std::move(fn));
+                if (auto locked = m_queue.lock())
+                    locked->emplace(time_point, std::move(fn));
         }
 
         static time_point now() { return clock_type::now(); }
 
     private:
-        std::shared_ptr<details::queue_worker_state<run_loop_schedulable>> m_queue{};
-        composite_subscription                                             m_sub{};
+        std::weak_ptr<details::queue_worker_state<run_loop_schedulable>> m_queue{};
+        composite_subscription                                           m_sub{};
     };
 
     class state
@@ -84,7 +86,6 @@ private:
     };
 
 public:
-
 
     run_loop(const composite_subscription& sub = composite_subscription{})
         : m_state(std::make_shared<state>(sub)) {}
