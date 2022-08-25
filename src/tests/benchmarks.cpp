@@ -924,7 +924,7 @@ TEST_CASE("trampoline scheduler")
         auto work  = [&]() -> rpp::schedulers::optional_duration
         {
             if (count++ >= 10)
-                return {};
+                return rpp::schedulers::optional_duration{};
 
             return rpp::schedulers::duration{};
         };
