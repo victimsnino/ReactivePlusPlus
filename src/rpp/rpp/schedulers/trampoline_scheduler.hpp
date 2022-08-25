@@ -59,7 +59,7 @@ class trampoline final : public details::scheduler_tag
 
             if (!someone_owns_queue)
             {
-                queue = std::priority_queue<current_thread_schedulable>{};
+                s_queue = std::priority_queue<current_thread_schedulable>{};
 
                 if (!details::immediate_scheduling_while_condition(time_point, fn, m_sub, []() { return s_queue->empty(); }))
                     return;
