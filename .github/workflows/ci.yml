@@ -11,31 +11,44 @@ on:
 
 env:
   CATCH2_VERSION: v3.1.0
+  CATCH2_DIR: ~/Catch2_BIN
+
 jobs:
-  # lint:
-  #   runs-on: ubuntu-latest
+  download_deps:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
-  #   steps:
-  #   - uses: actions/checkout@v2
+    runs-on: ${{ matrix.os }}
+    name: Build Deps - ${{ matrix.os }}
 
-  #   - uses: actions/setup-python@v4
-  #     with: { python-version: "3.8" }
+    steps:
+      - name: Cache Catch2 
+        uses: actions/cache@v3
+        id: cache-catch2
+        with:
+          path: ${{env.CATCH2_DIR}}
+          key: catch2-${{env.CATCH2_VERSION}}-${{matrix.os}}
 
-  #   - name: Install codespell
-  #     run: pip3 install codespell
-    
-  #   - name: Install clang-format
-  #     run: sudo apt install clang-format-12
+      - name: Build Catch2
+        if: steps.cache-catch2.outputs.cache-hit != 'true'
+        run: |
+          git clone --branch ${{env.CATCH2_VERSION}} https://github.com/catchorg/Catch2.git 
+          cd Catch2
+          cmake -B build -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_INSTALL_PREFIX=${{env.CATCH2_DIR}}
 
-  #   - name: Lint
-  #     run: cmake -D FORMAT_COMMAND=clang-format-12 -P cmake/lint.cmake
-
-  #   - name: Spell check
-  #     if: always()
-  #     run: cmake -P cmake/spell.cmake
+      - name: Install Catch2 (unix)
+        if: steps.cache-catch2.outputs.cache-hit != 'true' && matrix.os != 'windows-latest'
+        run: sudo cmake --build build/ --target install --parallel 2 --config Release
+      
+      - name: Install Catch2 (windows)
+        if: steps.cache-catch2.outputs.cache-hit != 'true' && matrix.os == 'windows-latest'
+        run: sudo cmake --build build/ --target install --parallel 2 --config Release
 
   coverage:
-    # needs: [lint]
+    name: Test Coverage
+
+    needs: [download_deps]
 
     runs-on: ubuntu-latest
     if: github.repository_owner == 'victimsnino'
@@ -47,20 +60,12 @@ jobs:
       run: sudo apt-get update -q
         && sudo apt-get install lcov -q -y
 
-    - name: Cache Catch2 
+    - name: Restore Catch2 
       uses: actions/cache@v3
       id: cache-catch2
       with:
-        path: ${{github.workspace}}/Catch2_BIN
-        key: coverage-${{env.CATCH2_VERSION}}-catch2
-
-    - name: Install Catch2
-      if: steps.cache-catch2.outputs.cache-hit != 'true'
-      run: |
-        git clone --branch ${{env.CATCH2_VERSION}} https://github.com/catchorg/Catch2.git 
-        cd Catch2
-        cmake -B build -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/Catch2_BIN
-        sudo cmake --build build/ --target install --parallel 2 --config Release
+        path: ${{env.CATCH2_DIR}}
+        key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
 
     - name: Configure
       run: cmake --preset=ci-coverage
@@ -70,7 +75,7 @@ jobs:
 
     - name: Test
       working-directory: build/coverage
-      run: ctest --output-on-failure -j 2
+      run: ctest --output-on-failure 
 
     - name: Process coverage info
       run: cmake --build build/coverage -t coverage
@@ -81,27 +86,21 @@ jobs:
         file: build/coverage/coverage.info
 
   sanitize:
-    # needs: [lint]
+    name: Sanitizer
+
+    needs: [download_deps]
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
 
-    - name: Cache Catch2 
+    - name: Restore Catch2 
       uses: actions/cache@v3
       id: cache-catch2
       with:
-        path: ${{github.workspace}}/Catch2_BIN
-        key: coverage-${{env.CATCH2_VERSION}}-catch2
-
-    - name: Install Catch2
-      if: steps.cache-catch2.outputs.cache-hit != 'true'
-      run: |
-        git clone --branch ${{env.CATCH2_VERSION}} https://github.com/catchorg/Catch2.git 
-        cd Catch2
-        cmake -B build -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/Catch2_BIN
-        sudo cmake --build build/ --target install --parallel 2 --config Release
+        path: ${{env.CATCH2_DIR}}
+        key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
 
     - name: Configure
       env: { CXX: clang++-12 }
@@ -119,32 +118,25 @@ jobs:
           strict_init_order=1:\
           detect_leaks=1"
         UBSAN_OPTIONS: print_stacktrace=1
-      run: ctest --output-on-failure -j 2
+      run: ctest --output-on-failure 
 
   test:
-    # needs: [lint]
+    needs: [download_deps]
 
     strategy:
       matrix:
         config:
         -  name: "ci-macos"
            os: macos-latest
-           relative_path_bench: "build/bin/rpp_benchmark"
-           relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
-           sudo: "sudo"
         -  name: "ci-ubuntu-gcc"
            os: ubuntu-latest
-           sudo: "sudo"
         -  name: "ci-ubuntu-clang"
            os: ubuntu-latest
-           sudo: "sudo"
         -  name: "ci-windows"
            os: windows-latest
-           relative_path_bench: "build/bin/Release/rpp_benchmark"
-           relative_path_rxcpp_bench: "build/bin/Release/rxcpp_benchmark"
-           additional_cmake_args: ""
-           sudo: ""
-    runs-on: ${{ matrix.os }}
+
+    runs-on:  ${{ matrix.config.os }}
+    name: Unit-tests - ${{ matrix.config.os }}
 
     steps:
     - uses: actions/checkout@v2
@@ -153,20 +145,12 @@ jobs:
       if: matrix.name == 'ci-ubuntu-clang'
       run: sudo apt-get install clang-tidy cppcheck -y -q
       
-    - name: Cache Catch2 
+    - name: Restore Catch2 
       uses: actions/cache@v3
       id: cache-catch2
       with:
-        path: ${{github.workspace}}/Catch2_BIN
-        key: ${{ matrix.config.name }}-${{env.CATCH2_VERSION}}-catch2
-
-    - name: Install Catch2
-      if: steps.cache-catch2.outputs.cache-hit != 'true'
-      run: |
-        git clone --branch ${{env.CATCH2_VERSION}} https://github.com/catchorg/Catch2.git 
-        cd Catch2
-        cmake -B build -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/Catch2_BIN
-        ${{matrix.config.sudo}} cmake --build build/ --target install --parallel 2 --config Release
+        path: ${{env.CATCH2_DIR}}
+        key: catch2-${{env.CATCH2_VERSION}}-${{matrix.config.os}}
 
     - name: Configure
       shell: pwsh
@@ -180,7 +164,7 @@ jobs:
 
     - name: Test
       working-directory: build
-      run: ctest --output-on-failure -C Release -j 2
+      run: ctest --output-on-failure -C Release
 
     - name: Run benchmarks
       run: cmake --build build --config Release --target run_rpp_ci_benchmarks
@@ -215,7 +199,8 @@ jobs:
           ${{github.workspace}}/build/test_results/benchmarks/*
 
   docs:
-    # Deploy docs only when builds succeed
+    name: Build Doxygen Docs
+
     needs: [sanitize, test]
 
     runs-on: ubuntu-latest
