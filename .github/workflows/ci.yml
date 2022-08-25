@@ -43,7 +43,7 @@ jobs:
       
       - name: Install Catch2 (windows)
         if: steps.cache-catch2.outputs.cache-hit != 'true' && matrix.os == 'windows-latest'
-        run: sudo cmake --build Catch2/build/ --target install --parallel 2 --config Release
+        run: cmake --build Catch2/build/ --target install --parallel 2 --config Release
 
   coverage:
     name: Test Coverage
