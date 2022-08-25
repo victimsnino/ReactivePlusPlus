@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "cmakeMinimumRequired": {
     "major": 3,
     "minor": 14,
@@ -33,7 +33,7 @@
       "name": "cppcheck",
       "hidden": true,
       "cacheVariables": {
-        "CMAKE_CXX_CPPCHECK": "cppcheck;--inline-suppr"
+        "CMAKE_CXX_CPPCHECK": "cppcheck;--inline-suppr;--std=c++20;--enable=information;--check-config;--suppress=missingIncludeSystem"
       }
     },
     {
@@ -57,7 +57,7 @@
       "name": "flags-unix",
       "hidden": true,
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS": "-Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wcast-qual -Wshadow -Wformat=2 -Wundef -Werror=float-equal"
+        "CMAKE_CXX_FLAGS": "-Wall -Werror -Wextra -Wpedantic -Wcast-qual -Wformat=2 -Wundef -Werror=float-equal"
       }
     },
     {
@@ -120,11 +120,17 @@
     },
     {
       "name" : "ci-build-rxcpp",
+      "hidden": true,
       "cacheVariables": {
         "RPP_BUILD_RXCPP" : "ON"
       }
-    }
-    
+    },
+    {
+      "name": "ci-build-tests",
+      "inherits": ["ci-build", "ci-build-rxcpp",  "dev-mode"],
+      "hidden": true
+    },
+
 
 
 
@@ -146,19 +152,19 @@
     },
     {
       "name": "ci-macos-tests",
-      "inherits": ["ci-build", "ci-build-rxcpp", "ci-unix", "dev-mode"]
+      "inherits": ["ci-build-tests", "ci-unix"]
     },
     {
       "name": "ci-ubuntu-clang-tests",
-      "inherits": ["ci-build", "ci-build-rxcpp", "ci-unix", "ci-clang", "clang-tidy", "cppcheck", "dev-mode"]
+      "inherits": ["ci-build-tests", "ci-unix", "ci-clang", "cppcheck"]
     },
     {
       "name": "ci-ubuntu-gcc-tests",
-      "inherits": ["ci-build", "ci-build-rxcpp", "ci-unix", "ci-gcc", "cppcheck", "dev-mode"]      
+      "inherits": ["ci-build", "ci-unix", "ci-gcc"]      
     },
     {
       "name": "ci-windows-tests",
-      "inherits": ["ci-build", "ci-build-rxcpp", "ci-win64", "dev-mode"]
+      "inherits": ["ci-build-tests", "ci-win64"]
     }
   ]
 }

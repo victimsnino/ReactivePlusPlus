@@ -7,6 +7,7 @@ endif()
 
 # ==================== RXCPP =======================
 if (RPP_BUILD_RXCPP)
+  set(RXCPP_DISABLE_TESTS_AND_EXAMPLES 1)
   Include(FetchContent)
 
   FetchContent_Declare(

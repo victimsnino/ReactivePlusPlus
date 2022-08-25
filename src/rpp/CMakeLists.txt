@@ -21,7 +21,7 @@ add_library(RPP::rpp ALIAS rpp)
 target_include_directories(rpp ${RPP_WARNING_GUARD} 
   INTERFACE 
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
-    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+    # "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
 target_link_libraries(rpp INTERFACE Threads::Threads)

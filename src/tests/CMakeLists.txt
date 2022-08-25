@@ -49,5 +49,7 @@ if (RPP_BUILD_RXCPP)
   )
 
   target_link_libraries(${TARGET} PRIVATE rxcpp Catch2::Catch2WithMain)
+  get_target_property(RXCPP_DIR rxcpp INTERFACE_INCLUDE_DIRECTORIES)
+  target_include_directories(${TARGET} SYSTEM PRIVATE ${RXCPP_DIR})
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 endif()

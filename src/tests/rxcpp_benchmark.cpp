@@ -17,7 +17,7 @@ auto MakeDynamicObserver()
 
 auto MakeSpecificObservable()
 {
-    return rxcpp::observable<>::create<int>([](const auto& sub){});
+    return rxcpp::observable<>::create<int>([](const auto&){});
 }
 
 auto MakeDynamicObservable()
@@ -221,7 +221,7 @@ TEST_CASE("foundamental sources")
     BENCHMARK_ADVANCED("empty")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rxcpp::subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<int>());
 
         meter.measure([&](int i) { return rxcpp::observable<>::empty<int>().subscribe(subs[i]); });
@@ -230,7 +230,7 @@ TEST_CASE("foundamental sources")
     BENCHMARK_ADVANCED("error")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rxcpp::subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<int>([](int){}, [](std::exception_ptr){}));
 
         auto err = std::make_exception_ptr(std::runtime_error{ "" });
@@ -241,7 +241,7 @@ TEST_CASE("foundamental sources")
     BENCHMARK_ADVANCED("never")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rxcpp::subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<int>());
 
         meter.measure([&](int i) { return rxcpp::observable<>::never<int>().subscribe(subs[i]); });
@@ -295,7 +295,7 @@ TEST_CASE("scan")
         meter.measure([&]
         {
             return obs.scan(std::vector<int>{},
-                            [](std::vector<int>&& seed, const auto& v)
+                            [](std::vector<int>&& seed, const auto&)
                             {
                                 return std::move(seed);
                             }).subscribe(sub);
@@ -312,7 +312,7 @@ TEST_CASE("scan")
                     });
                 })
                 .scan(std::vector<int>{},
-                      [](std::vector<int>&& seed, const auto& v)
+                      [](std::vector<int>&& seed, const auto&)
                       {
                           return std::move(seed);
                       })
@@ -495,7 +495,7 @@ TEST_CASE("repeat")
         });
 
         std::vector<rxcpp::subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<int>());
 
         meter.measure([&](int i)
@@ -510,7 +510,7 @@ TEST_CASE("just")
     BENCHMARK_ADVANCED("just send int")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rxcpp::subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<int>());
 
         meter.measure([&](int i) { return rxcpp::sources::just(1).subscribe(subs[i]); });
@@ -519,7 +519,7 @@ TEST_CASE("just")
     BENCHMARK_ADVANCED("just send variadic")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rxcpp::subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<int>());
 
         meter.measure([&](int i) { return rxcpp::sources::from(1, 2, 3, 4, 5, 6, 7, 8, 9, 10).subscribe(subs[i]); });
@@ -531,7 +531,7 @@ TEST_CASE("from")
     BENCHMARK_ADVANCED("from vector with int")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rxcpp::subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<int>());
 
         std::vector vec{ 1 };
@@ -544,7 +544,7 @@ TEST_CASE("merge")
     BENCHMARK_ADVANCED("merge")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rxcpp::subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<int>());
 
         meter.measure([&](int i)
@@ -558,7 +558,7 @@ TEST_CASE("merge")
     BENCHMARK_ADVANCED("merge_with")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rxcpp::subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<int>());
 
         meter.measure([&](int i)
@@ -575,7 +575,7 @@ TEST_CASE("concat")
     BENCHMARK_ADVANCED("concat")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rxcpp::subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<int>());
 
         meter.measure([&](int i)
@@ -589,7 +589,7 @@ TEST_CASE("concat")
     BENCHMARK_ADVANCED("concat_with")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rxcpp::subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<int>());
 
         meter.measure([&](int i)
@@ -606,7 +606,7 @@ TEST_CASE("buffer")
     BENCHMARK_ADVANCED("buffer")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rxcpp::subscriber<std::vector<int>>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<std::vector<int>>());
 
         meter.measure([&](int i)
@@ -636,7 +636,7 @@ TEST_CASE("window")
     BENCHMARK_ADVANCED("window")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rxcpp::subscriber<rxcpp::operators::detail::window<int>::value_type>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<rxcpp::operators::detail::window<int>::value_type>());
 
         meter.measure([&](int i)
@@ -671,7 +671,7 @@ TEST_CASE("take")
             });
 
         std::vector<rxcpp::subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<int>());
 
         meter.measure([&](int i)
@@ -704,7 +704,7 @@ TEST_CASE("first")
             });
 
         std::vector<rxcpp::subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<int>());
 
         meter.measure([&](int i)
@@ -762,7 +762,7 @@ TEST_CASE("chains creation test")
     BENCHMARK_ADVANCED("long non-state chain creation + subscribe")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rxcpp::subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<int>());
 
         meter.measure([&](int i)
@@ -778,7 +778,7 @@ TEST_CASE("chains creation test")
     BENCHMARK_ADVANCED("long stateful chain creation + subscribe")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rxcpp::subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rxcpp::make_subscriber<int>());
 
         meter.measure([&](int i)
@@ -864,7 +864,7 @@ TEST_CASE("immediate scheduler")
         auto worker    = scheduler.create_worker();
         auto time      = scheduler.now();
 
-        auto work = [](const rxcpp::schedulers::schedulable& self) { };
+        auto work = [](const rxcpp::schedulers::schedulable&) { };
         meter.measure([&]
         {
             worker.schedule(time, work);
@@ -902,7 +902,7 @@ TEST_CASE("trampoline scheduler")
         auto worker    = scheduler.create_worker();
         auto time      = scheduler.now();
 
-        auto work = [](const rxcpp::schedulers::schedulable& self) {};
+        auto work = [](const rxcpp::schedulers::schedulable&) {};
         meter.measure([&]
         {
             worker.schedule(time, work);
