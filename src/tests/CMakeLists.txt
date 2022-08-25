@@ -43,7 +43,7 @@ add_executable(${TARGET}
 target_link_libraries(${TARGET} PRIVATE rpp Catch2::Catch2WithMain)
 set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 
-add_custom_command(TARGET run_rpp_ci_benchmarks COMMAND $<TARGET_FILE:${TARGET}> -r xml -o ${RPP_TEST_RESULTS_DIR}/benchmarks/${TARGET}_result.txt)
+add_custom_command(TARGET run_rpp_ci_benchmarks COMMAND $<TARGET_FILE:${TARGET}> -r xml -o ${RPP_TEST_BENCHMARKS_RESULTS_DIR}/${TARGET}_result.txt)
 
 
 if (RPP_BUILD_RXCPP)
@@ -58,5 +58,5 @@ if (RPP_BUILD_RXCPP)
   target_include_directories(${TARGET} SYSTEM PRIVATE ${RXCPP_DIR})
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 
-  add_custom_command(TARGET run_rpp_ci_benchmarks COMMAND $<TARGET_FILE:${TARGET}> -r xml -o ${RPP_TEST_RESULTS_DIR}/benchmarks/${TARGET}_result.txt)
+  add_custom_command(TARGET run_rpp_ci_benchmarks COMMAND $<TARGET_FILE:${TARGET}> -r xml -o ${RPP_TEST_BENCHMARKS_RESULTS_DIR}/${TARGET}_result.txt)
 endif()
