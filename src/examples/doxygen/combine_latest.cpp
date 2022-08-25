@@ -5,7 +5,7 @@ std::ostream & operator<<(std::ostream & out, const std::tuple<int, int>& value)
 {
     out << "{" << std::get<0>(value) << "," << std::get<1>(value) << "}";
     return out;
-};
+}
 
 /**
  * \example combine_latest.cpp
