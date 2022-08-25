@@ -8,6 +8,7 @@ var dir_3591f6ab25936dd3deeec05839e478ca =
     [ "distinct_until_changed.hpp", "distinct__until__changed_8hpp_source.html", null ],
     [ "do.hpp", "do_8hpp_source.html", null ],
     [ "filter.hpp", "filter_8hpp_source.html", null ],
+    [ "first.hpp", "first_8hpp_source.html", null ],
     [ "flat_map.hpp", "flat__map_8hpp_source.html", null ],
     [ "fwd.hpp", "operators_2fwd_8hpp_source.html", null ],
     [ "group_by.hpp", "group__by_8hpp_source.html", null ],

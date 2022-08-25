@@ -112,6 +112,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga87eb036453a17e9b5e59c920399d1d14"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga87eb036453a17e9b5e59c920399d1d14">rpp::details::member_overload&lt; Type, SpecificObservable, filter_tag &gt;::filter</a> (Predicate &amp;&amp;predicate) const &amp;requires is_header_included&lt; filter_tag</td></tr>
 <tr class="memdesc:ga87eb036453a17e9b5e59c920399d1d14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only those items from an Observable that satisfies a provided predicate.  <a href="group__filtering__operators.html#ga87eb036453a17e9b5e59c920399d1d14">More...</a><br /></td></tr>
 <tr class="separator:ga87eb036453a17e9b5e59c920399d1d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga312fed7f4f86dcf4c374f9a0b615f078"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga312fed7f4f86dcf4c374f9a0b615f078">rpp::details::member_overload&lt; Type, SpecificObservable, first_tag &gt;::first</a> () const &amp;requires is_header_included&lt; first_tag</td></tr>
+<tr class="memdesc:ga312fed7f4f86dcf4c374f9a0b615f078"><td class="mdescLeft">&#160;</td><td class="mdescRight">emit only the first item.  <a href="group__filtering__operators.html#ga312fed7f4f86dcf4c374f9a0b615f078">More...</a><br /></td></tr>
+<tr class="separator:ga312fed7f4f86dcf4c374f9a0b615f078"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga17352df47509ccf9970b3ef4dcaf90fb"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
 <tr class="memitem:ga17352df47509ccf9970b3ef4dcaf90fb"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga17352df47509ccf9970b3ef4dcaf90fb">rpp::details::member_overload&lt; Type, SpecificObservable, skip_tag &gt;::skip</a> (size_t count) const &amp;requires is_header_included&lt; skip_tag</td></tr>
 <tr class="memdesc:ga17352df47509ccf9970b3ef4dcaf90fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip first <code>count</code> items provided by observable then send rest items as expected.  <a href="group__filtering__operators.html#ga17352df47509ccf9970b3ef4dcaf90fb">More...</a><br /></td></tr>
@@ -208,6 +211,50 @@ template&lt;std::predicate&lt; const Type &amp; &gt; Predicate&gt; </div>
 <div class="line">    <span class="comment">// Output: 0 2 4 6 8</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/filter.html">https://reactivex.io/documentation/operators/filter.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga312fed7f4f86dcf4c374f9a0b615f078"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga312fed7f4f86dcf4c374f9a0b615f078">&#9670;&nbsp;</a></span>first()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, first_tag &gt;::first </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>emit only the first item. </p>
+<div class="image">
+<object type="image/svg+xml" data="first.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the first operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="first_8hpp_source.html">rpp/operators/first.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3, 4, 5)</div>
+<div class="line">        .first()</div>
+<div class="line">        .subscribe(</div>
+<div class="line">            [](<span class="keyword">const</span> <span class="keyword">auto</span> &amp;v) { std::cout &lt;&lt; <span class="stringliteral">&quot;-&quot;</span> &lt;&lt; v; },</div>
+<div class="line">            [](<span class="keyword">const</span> std::exception_ptr &amp;error) {},</div>
+<div class="line">            []() { std::cout &lt;&lt; <span class="stringliteral">&quot;-|&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Source: -1-2-3-4-5--|</span></div>
+<div class="line">    <span class="comment">// Output: -1-|</span></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    rpp::source::empty&lt;int&gt;()</div>
+<div class="line">        .first()</div>
+<div class="line">        .subscribe(</div>
+<div class="line">            [](<span class="keyword">const</span> <span class="keyword">auto</span> &amp;v) { std::cout &lt;&lt; <span class="stringliteral">&quot;-&quot;</span> &lt;&lt; v; },</div>
+<div class="line">            [](<span class="keyword">const</span> std::exception_ptr &amp;error) { std::cout &lt;&lt; <span class="stringliteral">&quot;-x&quot;</span> &lt;&lt; std::endl; },</div>
+<div class="line">            []() { std::cout &lt;&lt; <span class="stringliteral">&quot;-|&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Source: -1-2-3-4-5--|</span></div>
+<div class="line">    <span class="comment">// Output: -x</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/first.html">https://reactivex.io/documentation/operators/first.html</a> </dd></dl>
 
 </div>
 </div>
