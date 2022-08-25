@@ -11,7 +11,7 @@ on:
 
 env:
   CATCH2_VERSION: v3.1.0
-  CATCH2_DIR: ~/Catch2_BIN
+  Catch2_DIR: ~/Catch2_BIN
 
 jobs:
   download_deps:
@@ -27,7 +27,7 @@ jobs:
         uses: actions/cache@v3
         id: cache-catch2
         with:
-          path: ${{env.CATCH2_DIR}}
+          path: ${{env.Catch2_DIR}}
           key: catch2-${{env.CATCH2_VERSION}}-${{matrix.os}}
 
       - name: Build Catch2
@@ -35,7 +35,7 @@ jobs:
         run: |
           git clone --branch ${{env.CATCH2_VERSION}} https://github.com/catchorg/Catch2.git 
           cd Catch2
-          cmake -B build -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_INSTALL_PREFIX=${{env.CATCH2_DIR}}
+          cmake -B build -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_INSTALL_PREFIX=${{env.Catch2_DIR}}
 
       - name: Install Catch2 (unix)
         if: steps.cache-catch2.outputs.cache-hit != 'true' && matrix.os != 'windows-latest'
@@ -64,7 +64,7 @@ jobs:
       uses: actions/cache@v3
       id: cache-catch2
       with:
-        path: ${{env.CATCH2_DIR}}
+        path: ${{env.Catch2_DIR}}
         key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
 
     - name: Configure
@@ -99,7 +99,7 @@ jobs:
       uses: actions/cache@v3
       id: cache-catch2
       with:
-        path: ${{env.CATCH2_DIR}}
+        path: ${{env.Catch2_DIR}}
         key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
 
     - name: Configure
@@ -142,14 +142,14 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Install static analyzers
-      if: matrix.name == 'ci-ubuntu-clang'
+      if: matrix.config.name == 'ci-ubuntu-clang'
       run: sudo apt-get install clang-tidy cppcheck -y -q
       
     - name: Restore Catch2 
       uses: actions/cache@v3
       id: cache-catch2
       with:
-        path: ${{env.CATCH2_DIR}}
+        path: ${{env.Catch2_DIR}}
         key: catch2-${{env.CATCH2_VERSION}}-${{matrix.config.os}}
 
     - name: Configure
@@ -170,13 +170,13 @@ jobs:
       run: cmake --build build --config Release --target run_rpp_ci_benchmarks
 
     - name: Analyze diff with clang-tidy
-      if: matrix.name == 'ci-ubuntu-clang'
+      if: matrix.config.name == 'ci-ubuntu-clang'
       run: |
         mkdir clang-tidy-result
         git diff -U0 origin/main | clang-tidy-diff -j 0 -p1 -path build -export-fixes clang-tidy-result/fixes.yml -extra-arg=-std=c++20 -checks=bugprone-*,concurrency-*,performance-*
 
     - name: Run clang-tidy-pr-comments action
-      if: matrix.name == 'ci-ubuntu-clang'
+      if: matrix.config.name == 'ci-ubuntu-clang'
       uses: platisd/clang-tidy-pr-comments@master
       with:
         # The GitHub token (or a personal access token)
