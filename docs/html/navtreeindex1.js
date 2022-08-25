@@ -249,5 +249,5 @@ var NAVTREEINDEX1 =
 "structrpp_1_1details_1_1buffer__on__next.html#ae5d5d69b60285df19334b9ae2aebe067":[3,0,0,0,1,6],
 "structrpp_1_1details_1_1buffer__on__next.html#afbe78c3cf3cd102a3582fe547d9956f3":[3,0,0,0,1,0],
 "structrpp_1_1details_1_1combine__latest__impl.html":[3,0,0,0,2],
-"structrpp_1_1details_1_1combine__latest__impl.html#a11a63ceae8e3231a78d294c9e7b7b6c8":[3,0,0,0,2,2]
+"structrpp_1_1details_1_1combine__latest__impl.html#a1ceb3b72e5ffc41cffce19210cbb964e":[3,0,0,0,2,2]
 };
