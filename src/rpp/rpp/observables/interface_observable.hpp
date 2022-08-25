@@ -43,6 +43,7 @@ struct RPP_EMPTY_BASES interface_observable
     , details::member_overload<Type, SpecificObservable, details::distinct_until_changed_tag>
     , details::member_overload<Type, SpecificObservable, details::do_tag>
     , details::member_overload<Type, SpecificObservable, details::filter_tag>
+    , details::member_overload<Type, SpecificObservable, details::first_tag>
     , details::member_overload<Type, SpecificObservable, details::flat_map_tag>
     , details::member_overload<Type, SpecificObservable, details::group_by_tag>
     , details::member_overload<Type, SpecificObservable, details::lift_tag>

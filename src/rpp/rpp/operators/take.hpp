@@ -19,10 +19,16 @@ IMPLEMENTATION_FILE(take_tag);
 
 namespace rpp::details
 {
+
 class take_on_next
 {
 public:
-    take_on_next(size_t count) : m_count{ count } {}
+    explicit take_on_next(size_t count) : m_count{ count } {}
+
+    size_t get_emission_count_left() const
+    {
+        return m_count;
+    }
 
     void operator()(auto&& value, const constraint::subscriber auto& subscriber) const
     {

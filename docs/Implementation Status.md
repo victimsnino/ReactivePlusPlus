@@ -68,7 +68,7 @@
   - [ ] distinct
   - [x] distinct_until_changed
 - [ ] element_at
-- [ ] first
+- [x] first
 - [ ] ignore_elements
 - [ ] last
 - [ ] sample
