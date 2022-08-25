@@ -1,0 +1,171 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - main
+
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/setup-python@v4
+      with: { python-version: "3.8" }
+
+    - name: Install codespell
+      run: pip3 install codespell
+
+    - name: Lint
+      run: cmake -D FORMAT_COMMAND=clang-format-12 -P cmake/lint.cmake
+
+    - name: Spell check
+      if: always()
+      run: cmake -P cmake/spell.cmake
+
+  coverage:
+    needs: [lint]
+
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'victimsnino'
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install LCov
+      run: sudo apt-get update -q
+        && sudo apt-get install lcov -q -y
+
+    - name: Configure
+      run: cmake --preset=ci-coverage
+
+    - name: Build
+      run: cmake --build build/coverage -j 2
+
+    - name: Test
+      working-directory: build/coverage
+      run: ctest --output-on-failure -j 2
+
+    - name: Process coverage info
+      run: cmake --build build/coverage -t coverage
+
+    - name: Submit to codecov.io
+      uses: codecov/codecov-action@v1
+      with:
+        file: build/coverage/coverage.info
+
+  sanitize:
+    needs: [lint]
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Configure
+      env: { CXX: clang++-12 }
+      run: cmake --preset=ci-sanitize
+
+    - name: Build
+      run: cmake --build build/sanitize -j 2
+
+    - name: Test
+      working-directory: build/sanitize
+      env:
+        ASAN_OPTIONS: "strict_string_checks=1:\
+          detect_stack_use_after_return=1:\
+          check_initialization_order=1:\
+          strict_init_order=1:\
+          detect_leaks=1"
+        UBSAN_OPTIONS: print_stacktrace=1
+      run: ctest --output-on-failure -j 2
+
+  test:
+    needs: [lint]
+
+    strategy:
+      matrix:
+        config:
+        -  name: "ci-macos"
+           os: macos-latest
+           relative_path_bench: "build/bin/rpp_benchmark"
+           relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
+           additional_cmake_args: "-DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache -DRPP_BUILD_SFML_CODE=1"
+           sudo: "sudo"
+        -  name: "ci-ubuntu-gcc"
+           os: ubuntu-latest
+           relative_path_bench: "build/bin/rpp_benchmark"
+           relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
+           additional_cmake_args: "-DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache -DRPP_BUILD_SFML_CODE=1"
+           sudo: "sudo"
+        -  name: "ci-ubuntu-clang"
+           os: ubuntu-latest
+           relative_path_bench: "build/bin/rpp_benchmark"
+           relative_path_rxcpp_bench: "build/bin/rxcpp_benchmark"
+           additional_cmake_args: "-DCMAKE_C_COMPILER_LAUNCHER=buildcache -DCMAKE_CXX_COMPILER_LAUNCHER=buildcache -DRPP_BUILD_SFML_CODE=1"
+           sudo: "sudo"
+        -  name: "ci-windows"
+           os: windows-latest
+           relative_path_bench: "build/bin/Release/rpp_benchmark"
+           relative_path_rxcpp_bench: "build/bin/Release/rxcpp_benchmark"
+           additional_cmake_args: ""
+           sudo: ""
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install static analyzers
+      if: matrix.os == 'ubuntu-latest'
+      run: sudo apt-get install clang-tidy cppcheck -y -q
+
+    - name: Configure
+      shell: pwsh
+      run: cmake --preset=${{ matrix.config.name }}-tests
+
+    - name: Build
+      run: cmake --build build --config Release -j 2
+
+    - name: Install
+      run: cmake --install build --config Release --prefix prefix
+
+    - name: Test
+      working-directory: build
+      run: ctest --output-on-failure -C Release -j 2
+
+  docs:
+    # Deploy docs only when builds succeed
+    needs: [sanitize, test]
+
+    runs-on: ubuntu-latest
+
+    if: github.ref == 'refs/heads/master'
+      && github.event_name == 'push'
+      && github.repository_owner == 'victimsnino'
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/setup-python@v4
+      with: { python-version: "3.8" }
+
+    - name: Install deps
+      run: |
+        pip3 install rxmarbles
+        sudo apt-get install doxygen
+
+    - name: Doxygen
+      run: doxygen ./Doxyfile
+    
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./gen_docs
+        destination_dir: docs

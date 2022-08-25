@@ -8,10 +8,6 @@
 # Project home: https://github.com/victimsnino/ReactivePlusPlus
 #
 
-# ===================== Prepare folder ======================
-
-
-
 # ====================== Gather tests ======================
 file(GLOB_RECURSE FILES "test_*.cpp")
 
@@ -21,7 +17,7 @@ foreach(SOURCE ${FILES})
   set(TARGET ${BASE_NAME})
 
   add_executable(${TARGET} ${SOURCE} mock_observer.hpp copy_count_tracker.hpp test_scheduler.hpp)
-  target_link_libraries(${TARGET} PRIVATE rpp Catch2::Catch2WithMain coverage_config)
+  target_link_libraries(${TARGET} PRIVATE rpp Catch2::Catch2WithMain)
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites)
 
   add_test(NAME ${TARGET} COMMAND $<TARGET_FILE:${TARGET}> -r junit -o ${RPP_TEST_RESULTS_DIR}/${TARGET}.xml)
@@ -45,7 +41,7 @@ target_link_libraries(${TARGET} PRIVATE rpp Catch2::Catch2WithMain)
 set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 
 
-if (RPP_AUTOTESTS)
+if (RPP_BUILD_RXCPP)
   set(TARGET rxcpp_benchmark)
 
   add_executable(${TARGET} 
