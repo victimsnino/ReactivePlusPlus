@@ -17,7 +17,7 @@ jobs:
   download_deps:
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest]
 
     runs-on: ${{ matrix.os }}
     name: Build Deps - ${{ matrix.os }}
@@ -126,8 +126,6 @@ jobs:
     strategy:
       matrix:
         config:
-        -  name: "ci-macos"
-           os: macos-latest
         -  name: "ci-ubuntu-gcc"
            os: ubuntu-latest
         -  name: "ci-ubuntu-clang"
