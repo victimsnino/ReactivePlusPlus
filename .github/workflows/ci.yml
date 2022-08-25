@@ -47,6 +47,21 @@ jobs:
       run: sudo apt-get update -q
         && sudo apt-get install lcov -q -y
 
+    - name: Cache Catch2 
+      uses: actions/cache@v3
+      id: cache-catch2
+      with:
+        path: ${{github.workspace}}/Catch2_BIN
+        key: coverage-${{env.CATCH2_VERSION}}-catch2
+
+    - name: Install Catch2
+      if: steps.cache-catch2.outputs.cache-hit != 'true'
+      run: |
+        git clone --branch ${{env.CATCH2_VERSION}} https://github.com/catchorg/Catch2.git 
+        cd Catch2
+        cmake -B build -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/Catch2_BIN
+        sudo cmake --build build/ --target install --parallel 2 --config Release
+
     - name: Configure
       run: cmake --preset=ci-coverage
 
@@ -72,6 +87,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Cache Catch2 
+      uses: actions/cache@v3
+      id: cache-catch2
+      with:
+        path: ${{github.workspace}}/Catch2_BIN
+        key: coverage-${{env.CATCH2_VERSION}}-catch2
+
+    - name: Install Catch2
+      if: steps.cache-catch2.outputs.cache-hit != 'true'
+      run: |
+        git clone --branch ${{env.CATCH2_VERSION}} https://github.com/catchorg/Catch2.git 
+        cd Catch2
+        cmake -B build -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/Catch2_BIN
+        sudo cmake --build build/ --target install --parallel 2 --config Release
 
     - name: Configure
       env: { CXX: clang++-12 }

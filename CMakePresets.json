@@ -144,7 +144,7 @@
     {
       "name": "ci-sanitize",
       "binaryDir": "${sourceDir}/build/sanitize",
-      "inherits": ["ci-unix", "dev-mode", "ci-gcc"],
+      "inherits": ["ci-unix", "dev-mode", "ci-clang"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Sanitize",
         "CMAKE_CXX_FLAGS_SANITIZE": "-O2 -g -fsanitize=address,undefined -fno-omit-frame-pointer -fno-common"
