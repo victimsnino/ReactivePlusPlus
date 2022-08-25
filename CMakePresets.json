@@ -136,9 +136,10 @@
 
     {
       "name": "ci-coverage",
-      "inherits": ["coverage-unix", "dev-mode", "ci-gcc"],
+      "inherits": ["coverage-unix", "ci-gcc"],
       "cacheVariables": {
-        "COVERAGE_HTML_COMMAND": ""
+        "COVERAGE_HTML_COMMAND": "",
+        "RPP_BUILD_TESTS" : "ON"
       }
     },
     {
