@@ -42,10 +42,10 @@ struct switch_on_next_state_t : public std::enable_shared_from_this<switch_on_ne
 
             state->current_inner_observable.unsubscribe();
             state->current_inner_observable = sub.get_subscription().make_child();
-            state->current_inner_observable.add([state, remove_from = sub.get_subscription()]
+            state->current_inner_observable.add([state = std::weak_ptr{state}, remove_from = sub.get_subscription()]
             {
-                remove_from.remove(state->current_inner_observable);
-                state->count_of_on_completed.fetch_sub(1, std::memory_order::relaxed);
+                if (auto locked = state.lock())
+                    locked->count_of_on_completed.fetch_sub(1, std::memory_order::relaxed);
             });
 
 

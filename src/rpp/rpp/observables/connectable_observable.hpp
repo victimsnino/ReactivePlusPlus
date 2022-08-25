@@ -53,7 +53,6 @@ public:
     {
         auto        subscriber              = m_subject.get_subscriber();
         const auto& subscriber_subscription = subscriber.get_subscription();
-        subscriber_subscription.add(subscription);
 
         {
             std::lock_guard lock(m_state->mutex);
@@ -61,6 +60,7 @@ public:
             if (!m_state->sub.is_empty())
                 return subscription;
 
+            subscriber_subscription.add(subscription);
             m_state->sub = subscription;
         }
 
