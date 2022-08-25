@@ -32,7 +32,7 @@ public:
         if (m_count == 0)
             subscriber.on_next(std::forward<decltype(value)>(value));
         else
-            --(m_count);
+            --m_count;
     };
 
 private:

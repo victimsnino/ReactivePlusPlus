@@ -28,7 +28,7 @@ public:
     {
         if (m_count > 0)
         {
-            --(m_count);
+            --m_count;
             subscriber.on_next(std::forward<decltype(value)>(value));
         }
 

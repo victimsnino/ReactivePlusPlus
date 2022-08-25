@@ -11,6 +11,7 @@
 
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 
+#include <rpp/defs.hpp>
 
 #include <rpp/observables/constraints.hpp>
 #include <rpp/operators/fwd/with_latest_from.hpp>
@@ -55,7 +56,7 @@ struct with_latest_from_state_t
 {
     with_latest_from_state_t(const TSelector& selector) : selector(selector) {}
     
-    TSelector                                     selector;
+    RPP_NO_UNIQUE_ADDRESS TSelector                                     selector;
     std::array<std::mutex, sizeof...(ValueTypes)> mutexes{};
     std::tuple<std::optional<ValueTypes>...>      vals{};
 
@@ -77,8 +78,8 @@ struct with_latest_from_impl
 {
     using ResultType = utils::decayed_invoke_result_t<TSelector, Type, utils::extract_observable_type_t<TObservables>...>;
 
-    TSelector                   selector;
-    std::tuple<TObservables...> observables;
+    RPP_NO_UNIQUE_ADDRESS TSelector                   selector;
+    RPP_NO_UNIQUE_ADDRESS std::tuple<TObservables...> observables;
 
     template<constraint::subscriber_of_type<ResultType> TSub>
     auto operator()(TSub&& subscriber) const

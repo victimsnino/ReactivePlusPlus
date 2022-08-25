@@ -41,10 +41,10 @@ public:
     dynamic_observer_state(Args&& ...args)
         : m_observer{ std::forward<Args>(args)... } {}
 
-    void on_next(const T& v) const final                     { m_observer.on_next(v);            }
-    void on_next(T&& v) const final                          { m_observer.on_next(std::move(v)); }
-    void on_error(const std::exception_ptr& err) const final { m_observer.on_error(err);         }
-    void on_completed() const final                          { m_observer.on_completed();        }
+    void on_next(const T& v) const override                     { m_observer.on_next(v);            }
+    void on_next(T&& v) const override                          { m_observer.on_next(std::move(v)); }
+    void on_error(const std::exception_ptr& err) const override { m_observer.on_error(err);         }
+    void on_completed() const override                          { m_observer.on_completed();        }
 
 private:
     RPP_NO_UNIQUE_ADDRESS TObserver m_observer;

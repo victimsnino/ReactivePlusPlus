@@ -17,6 +17,7 @@
 #include <rpp/utils/utilities.hpp>
 #include <rpp/operators/map.hpp>
 #include <rpp/utils/function_traits.hpp>
+#include <rpp/defs.hpp>
 
 
 #include <array>
@@ -128,8 +129,8 @@ public:
     }
 
 private:
-    mutable PackedIterable m_iterable;
-    TScheduler             m_scheduler;
+    mutable PackedIterable           m_iterable;
+    RPP_NO_UNIQUE_ADDRESS TScheduler m_scheduler;
 };
 } // namespace rpp::observable::details
 

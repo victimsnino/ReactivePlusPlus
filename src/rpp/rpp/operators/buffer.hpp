@@ -34,7 +34,7 @@ struct buffer_on_next : public std::enable_shared_from_this<buffer_on_next<Upstr
     /// \param count Number of items being bundled. Note when count == 0, we'll
     /// treat the behavior like when count == 1.
     explicit buffer_on_next(size_t count)
-        : m_max(std::max<size_t>(1ul, count))
+        : m_max(std::max(size_t{1}, count))
     {
         reserve_buckets();
     };

@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
 #include <rpp/observables/specific_observable.hpp> // base
 #include <rpp/utils/operator_declaration.hpp>      // for header include
 
@@ -59,13 +60,13 @@ private:
         dynamic_observable_state_impl(const TObs& observable)
             : m_observable{observable} {}
 
-        composite_subscription operator()(const dynamic_subscriber<Type>& subscriber) const final
+        composite_subscription operator()(const dynamic_subscriber<Type>& subscriber) const override
         {
             return m_observable.subscribe(subscriber);
         }
 
     private:
-        TObs m_observable{};
+        RPP_NO_UNIQUE_ADDRESS TObs m_observable{};
     };
 
     std::shared_ptr<interface_dynamic_observable_state_impl> m_impl{};

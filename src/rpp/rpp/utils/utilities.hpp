@@ -12,7 +12,6 @@
 
 #include <rpp/defs.hpp>
 
-
 #include <atomic>
 #include <memory>
 #include <type_traits>
@@ -104,6 +103,6 @@ public:
         m_fn();
     }
 private:
-    Fn m_fn;
+    RPP_NO_UNIQUE_ADDRESS Fn m_fn;
 };
 } // namespace rpp::utils
