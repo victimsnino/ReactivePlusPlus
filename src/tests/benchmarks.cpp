@@ -885,10 +885,7 @@ TEST_CASE("immediate scheduler")
         int  count = 0;
         auto work  = [&]() -> rpp::schedulers::optional_duration
         {
-            if (count++ >= 10)
-                return {};
-
-            return rpp::schedulers::duration{};
+            return count++ >= 10 ? rpp::schedulers::optional_duration{} : rpp::schedulers::optional_duration{rpp::schedulers::duration{}};
         };
         meter.measure([&]
         {
@@ -923,10 +920,7 @@ TEST_CASE("trampoline scheduler")
         int  count = 0;
         auto work  = [&]() -> rpp::schedulers::optional_duration
         {
-            if (count++ >= 10)
-                return rpp::schedulers::optional_duration{};
-
-            return rpp::schedulers::duration{};
+            return count++ >= 10 ? rpp::schedulers::optional_duration{} : rpp::schedulers::optional_duration{rpp::schedulers::duration{}};
         };
         meter.measure([&]
         {
