@@ -74,8 +74,7 @@
       "hidden": true,
       "inherits": ["flags-unix", "ci-std"],
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "RPP_BUILD_SFML_CODE" : "ON"
+        "CMAKE_BUILD_TYPE": "Release"
       }
     },
     {
@@ -131,7 +130,13 @@
       "inherits": ["ci-build", "ci-build-rxcpp",  "dev-mode"],
       "hidden": true
     },
-
+    {
+      "name" : "ci-build-sfml",
+      "hidden": true,
+      "cacheVariables": {
+        "RPP_BUILD_SFML_CODE" : "ON"
+      }
+    },
 
 
 
@@ -158,11 +163,11 @@
     },
     {
       "name": "ci-ubuntu-clang-tests",
-      "inherits": ["ci-build-tests", "ci-unix", "ci-clang", "cppcheck"]
+      "inherits": ["ci-build-tests", "ci-unix", "ci-clang", "cppcheck", "ci-build-sfml"]
     },
     {
       "name": "ci-ubuntu-gcc-tests",
-      "inherits": ["ci-build-tests", "ci-unix", "ci-gcc"]      
+      "inherits": ["ci-build-tests", "ci-unix", "ci-gcc", "ci-build-sfml"]      
     },
     {
       "name": "ci-windows-tests",
