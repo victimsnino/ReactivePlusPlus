@@ -59,8 +59,7 @@ struct ref_count_on_subscribe
 
         subscriber.get_subscription().add([state = state]
                                           {
-                                              if (auto locked = state.lock())
-                                                  locked->on_unsubscribe();
+                                                state->on_unsubscribe();
                                           });
 
         observable.subscribe(subscriber);
