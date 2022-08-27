@@ -51,6 +51,7 @@
  * \ingroup operators
  */
 
+#include <rpp/operators/take_until.hpp>
 #include <rpp/operators/take_while.hpp>
 
 /**
