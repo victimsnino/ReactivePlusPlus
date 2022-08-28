@@ -1,5 +1,9 @@
 # ---- Variables ----
 
+if(NOT DEFINED RPP_GCOV_TOOL)
+    set(RPP_GCOV_TOOL "")
+endif()
+
 # We use variables separate from what CTest uses, because those have
 # customization issues
 set(
@@ -9,6 +13,7 @@ set(
     -d "${PROJECT_BINARY_DIR}"
     --include "${PROJECT_SOURCE_DIR}/*"
     --remove "coverage.info '/usr/*' "${HOME}"'/.cache/*' '*/tests/*' '*/submodules/*'"
+    --gcov-tool "${RPP_GCOV_TOOL}"
     CACHE STRING
     "; separated command to generate a trace for the 'coverage' target"
 )
