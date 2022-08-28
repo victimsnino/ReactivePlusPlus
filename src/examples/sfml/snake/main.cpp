@@ -15,8 +15,10 @@ static auto get_events_observable(sf::RenderWindow& window)
 
         worker.schedule([frame_number = size_t{}, ev = sf::Event{}, &window, sub]() mutable->rpp::schedulers::optional_duration
         {
+            // GCC compile issue =C
+            rpp::schedulers::optional_duration res{};
             if (!window.isOpen())
-                return {};
+                return res;
 
             // indicate new frame
             sub.on_next(PresentEvent{ frame_number++ });

@@ -25,10 +25,11 @@ public:
     void on_subscribe(const composite_subscription& dest)
     {
         subscribers.fetch_add(1, std::memory_order::acq_rel);
-        dest.add([state = this->shared_from_this()]
+        dest.add([state = this->weak_from_this()]
         {
-            if (state->subscribers.fetch_sub(1, std::memory_order::acq_rel) == 1)
-                state->lifetime.unsubscribe();
+            if (auto locked = state.lock())
+                if (locked->subscribers.fetch_sub(1, std::memory_order::acq_rel) == 1)
+                    locked->lifetime.unsubscribe();
         });
     }
 

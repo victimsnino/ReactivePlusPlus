@@ -51,8 +51,8 @@ public:
 
     composite_subscription connect(const composite_subscription& subscription = composite_subscription{}) const
     {
-        auto subscriber              = m_subject.get_subscriber();
-        auto subscriber_subscription = subscriber.get_subscription();
+        auto        subscriber              = m_subject.get_subscriber();
+        const auto& subscriber_subscription = subscriber.get_subscription();
 
         {
             std::lock_guard lock(m_state->mutex);
@@ -60,7 +60,8 @@ public:
             if (!m_state->sub.is_empty())
                 return subscription;
 
-            m_state->sub = subscriber_subscription.add(subscription);
+            subscriber_subscription.add(subscription);
+            m_state->sub = subscription;
         }
 
         subscription.add([state = m_state, subscriber_subscription]

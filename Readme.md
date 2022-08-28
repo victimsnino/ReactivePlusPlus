@@ -21,10 +21,11 @@ rpp::source::from_callable(&::getchar)
    .subscribe([](char v) { std::cout << v; });
 ```
 
-
 Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. As a result it is fast, readable, easy to use and well-documented.
 
-## What about existing Reactive Extension libraries for C++?
+**NOTE**: ReactivePlusPlus is library for C++20. So, it works only on compilers that supports most C++20 features. CI uses gcc-10, clang-11, visual studio 2022
+
+# What about existing Reactive Extension libraries for C++?
 
 Reactive programming is excelent programming paradigm and approach for creation of multi-threading and real-time programs which reacts on some events. Unfortunately, there is only one stable and fully-implemented library at the moment of creation of ReactivePlusPlus - [RxCpp](https://github.com/ReactiveX/RxCpp). 
 
@@ -44,71 +45,51 @@ Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ
 - **ReactivePlusPlus** keeps balance between performance and type-erasing mechanism: Read about it in  [**"Performance vs Flexibility: Specific vs Dynamic"**](https://victimsnino.github.io/ReactivePlusPlus/docs/html/specific_vs_dynamic.html)
 - **ReactivePlusPlus** is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks show that RPP faster that RxCPP in most cases: [Continous benchmarking results](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
 
-## Installation and usage
 
-To use ReactivePlusPlus:
-- Install RPP in one of the following ways:
-   1) add it as submodule to your repository and then call `add_subdirectory(ReactivePlusPlus)`
-   2) fetch content via CMake and link to it
-      ```cmake
-      Include(FetchContent)
-
-      FetchContent_Declare(
-         RPP
-         GIT_REPOSITORY https://github.com/victimsnino/ReactivePlusPlus.git
-         GIT_TAG        origin/main
-      )
-
-      FetchContent_MakeAvailable(RPP)
-
-
-      add_executable(my_exe main.cpp)
-      target_link_libraries(my_exe PRIVATE RPP::rpp)
-      ```
-   3) install RPP as package and then find it
-      ```cmd
-      git clone https://github.com/victimsnino/ReactivePlusPlus.git
-      cd ReactivePlusPlus
-      cmake -B _build -DCMAKE_INSTALL_PREFIX=<set install folder>
-      cmake --build _build --target install
-      ```
-      and then in your cmake
-      ```cmake
-      find_package(RPP REQUIRED)
-      
-      add_executable(tests test.cpp)
-      target_link_libraries(tests PRIVATE RPP::rpp)
-      ```
-      Note: In case of using some install folder, you need to specify key `-DRPP_DIR=<install folder>` when cmake your target project which depends on RPP
-
-ReactivePlusPlus's CMake has several options to set:
-
-- RPP_BUILD_TESTS - build unit tests (default OFF)
-- RPP_BUILD_SAMPLES - build samples of usage of RPP (default OFF)
-- RPP_BUILD_SFML_CODE - build RPP code related to SFML or not (default OFF) - requires SFML to be installed
-
-In source files add
-```cpp
-#include <rpp/rpp.hpp>
-```
-or include each required part separately in any way
-```cpp
-#include <rpp/observables/specific_observable.hpp> // include specific class implementation
-#include <rpp/observers.hpp>                       // include family of classes/functions
-#include <rpp/operators/fwd.h>                     // include forwarding of family of classes/functions
-```
-
-**IMPORTANT**: rpp is header-only library, so, in cmake terms it is `INTERFACE` target. As a result, most types of "intellisense" parsers fails to parse this library it `rpp` **is not linked to any other static library or executable**. So, for better developer's experience firstly link it with your target library. If you developing something inside rpp I'm strongly recommend you to enable samples `-DRPP_BUILD_SAMPLES=1` or tests `-DRPP_BUILD_TESTS=1` to have correct intellisense results.
-
-## Useful links
+# Useful links
 - [Manual and doxygen documentation](https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html)
 - [Continous benchmarking results, comparison of `dynamic` and `specific` and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
 - [Articles](https://github.com/victimsnino/ReactivePlusPlus/blob/main/docs/Articles.md)
 
-## Credits:
+# Building and installing
+
+See the [BUILDING](BUILDING.md) document.
+If you are going to know more details about developing for RPP check [HACKING](HACKING.md) document.
+
+# Contributing
+
+See the [CONTRIBUTING](CONTRIBUTING.md) document.
+
+# Licensing
+
+Boost Software License - Version 1.0 - August 17th, 2003
+
+Permission is hereby granted, free of charge, to any person or organization
+obtaining a copy of the software and accompanying documentation covered by
+this license (the "Software") to use, reproduce, display, distribute,
+execute, and transmit the Software, and to prepare derivative works of the
+Software, and to permit third-parties to whom the Software is furnished to
+do so, all subject to the following:
+
+The copyright notices in the Software and this entire statement, including
+the above license grant, this restriction and the following disclaimer,
+must be included in all copies of the Software, in whole or in part, and
+all derivative works of the Software, unless such copies or derivative
+works are solely in the form of machine-executable object code generated by
+a source language processor.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO EVENT
+SHALL THE COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE
+FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+# Credits:
 ReactivePlusPlus library uses:
 - [Catch2](https://github.com/catchorg/Catch2) for unit testing only, fetched (or used via `find_package`) automatically in case of `RPP_BUILD_TESTS` enabled
 - [RxCpp](https://github.com/ReactiveX/RxCpp) only for comparison of performance between RPP and RxCpp in CI benchmarks. Used as cmake dependency under option
 - [reactivex.io](https://reactivex.io) as source for insipration and definition of entities used in RPP. Some comments used in RPP source code taken from [reactivex.io](https://reactivex.io)
 - [rxmarbles python](https://pypi.org/project/rxmarbles/) as generator of marbles graphs in doxygen documentation
-
+- [cmake-init](https://github.com/friendlyanon/cmake-init) as generator for most part of initial CMakes

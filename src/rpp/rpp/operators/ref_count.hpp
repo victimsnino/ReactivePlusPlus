@@ -57,7 +57,10 @@ struct ref_count_on_subscribe
     {
         const bool need_to_connect = state->on_subscribe();
 
-        subscriber.get_subscription().add([state = state]{ state->on_unsubscribe(); });
+        subscriber.get_subscription().add([state = state]
+                                          {
+                                              state->on_unsubscribe();
+                                          });
 
         observable.subscribe(subscriber);
         if (need_to_connect)

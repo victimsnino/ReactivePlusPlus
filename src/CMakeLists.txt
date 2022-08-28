@@ -14,6 +14,6 @@ if(RPP_BUILD_TESTS)
     add_subdirectory(tests)
 endif()
 
-if(RPP_BUILD_SAMPLES)
-    add_subdirectory(samples)
+if(RPP_BUILD_EXAMPLES)
+    add_subdirectory(examples)
 endif()

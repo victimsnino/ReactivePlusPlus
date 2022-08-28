@@ -1,0 +1,398 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - main
+
+  pull_request:
+    branches:
+    - main
+
+env:
+  CATCH2_VERSION: v3.1.0
+  Catch2_DIR: ~/Catch2_BIN
+
+jobs:
+  download_deps:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
+    name: Build Deps - ${{ matrix.os }}
+
+    steps:
+      - name: Cache Catch2 
+        uses: actions/cache@v3
+        id: cache-catch2
+        with:
+          path: ${{env.Catch2_DIR}}
+          key: catch2-${{env.CATCH2_VERSION}}-${{matrix.os}}
+
+      - name: Build Catch2
+        if: steps.cache-catch2.outputs.cache-hit != 'true'
+        run: |
+          git clone --branch ${{env.CATCH2_VERSION}} https://github.com/catchorg/Catch2.git 
+          cd Catch2
+          cmake -B build -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DCATCH_CONFIG_FAST_COMPILE=1 -DCMAKE_INSTALL_PREFIX=${{env.Catch2_DIR}}
+
+      - name: Install Catch2 (unix)
+        if: steps.cache-catch2.outputs.cache-hit != 'true' && matrix.os != 'windows-latest'
+        run: sudo cmake --build Catch2/build/ --target install --parallel 2 --config Release
+      
+      - name: Install Catch2 (windows)
+        if: steps.cache-catch2.outputs.cache-hit != 'true' && matrix.os == 'windows-latest'
+        run: cmake --build Catch2/build/ --target install --parallel 2 --config Release
+
+  coverage:
+    name: Test Coverage
+
+    needs: [download_deps]
+
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'victimsnino'
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install LCov
+      run: sudo apt-get update -q
+        && sudo apt-get install lcov -q -y
+
+    - name: Restore Catch2 
+      uses: actions/cache@v3
+      id: cache-catch2
+      with:
+        path: ${{env.Catch2_DIR}}
+        key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
+
+    - name: Configure
+      run: cmake --preset=ci-coverage
+
+    - name: Build
+      run: cmake --build build/coverage -j 2
+
+    - name: Test
+      working-directory: build/coverage
+      run: ctest --output-on-failure 
+
+    - name: Process coverage info
+      run: cmake --build build/coverage -t coverage
+
+    - name: Submit to codecov.io
+      uses: codecov/codecov-action@v1
+      with:
+        file: build/coverage/coverage.info
+
+  sanitize:
+    # temporarly disabled
+    if: false
+    name: Sanitizer
+
+    needs: [download_deps]
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Restore Catch2 
+      uses: actions/cache@v3
+      id: cache-catch2
+      with:
+        path: ${{env.Catch2_DIR}}
+        key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
+
+    - name: Configure
+      env: { CXX: clang++-12 }
+      run: cmake --preset=ci-sanitize
+
+    - name: Build
+      run: cmake --build build/sanitize -j 2
+
+    - name: Test
+      working-directory: build/sanitize
+      env:
+        ASAN_OPTIONS: "strict_string_checks=1:\
+          detect_stack_use_after_return=1:\
+          check_initialization_order=1:\
+          strict_init_order=1:\
+          detect_leaks=1"
+        UBSAN_OPTIONS: print_stacktrace=1
+      run: ctest --output-on-failure 
+
+  test:
+    needs: [download_deps]
+
+    strategy:
+      matrix:
+        config:
+        -  name: "ci-ubuntu-gcc"
+           os: ubuntu-latest
+        -  name: "ci-ubuntu-clang"
+           os: ubuntu-latest
+        -  name: "ci-windows"
+           os: windows-latest
+
+    runs-on:  ${{ matrix.config.os }}
+    name: Unit-tests - ${{ matrix.config.name }}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install static analyzers
+      if: matrix.config.name == 'ci-ubuntu-clang'
+      run: sudo apt-get install clang-tidy cppcheck -y -q
+
+    - name: Install SFML
+      if: matrix.config.os != 'windows-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libsfml-dev
+      
+    - name: Restore Catch2 
+      uses: actions/cache@v3
+      id: cache-catch2
+      with:
+        path: ${{env.Catch2_DIR}}
+        key: catch2-${{env.CATCH2_VERSION}}-${{matrix.config.os}}
+
+    - name: Configure
+      shell: pwsh
+      run: cmake --preset=${{ matrix.config.name }}-tests
+
+    - name: Build
+      run: cmake --build build --config Release -j 2
+
+    - name: Install
+      run: cmake --install build --config Release --prefix prefix
+
+    - name: Test
+      working-directory: build
+      run: ctest --output-on-failure -C Release
+
+    - name: Run benchmarks
+      run: cmake --build build --config Release --target run_rpp_ci_benchmarks
+
+    - name: Upload benchmark results
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ matrix.config.name }}
+        path: | 
+          ${{github.workspace}}/build/test_results/benchmarks/*
+
+    - name: Analyze diff with clang-tidy
+      if: matrix.config.name == 'ci-ubuntu-clang'
+      run: |
+        mkdir clang-tidy-result
+        git diff -U0 origin/main | clang-tidy-diff -j 0 -p1 -path build -export-fixes clang-tidy-result/fixes.yml -extra-arg=-std=c++20 -checks=bugprone-*,concurrency-*,performance-*
+
+    - name: Run clang-tidy-pr-comments action
+      if: matrix.config.name == 'ci-ubuntu-clang'
+      uses: platisd/clang-tidy-pr-comments@master
+      with:
+        # The GitHub token (or a personal access token)
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        # The path to the clang-tidy fixes generated previously
+        clang_tidy_fixes: clang-tidy-result/fixes.yml
+        # Optionally set to true if you want the Action to request
+        # changes in case warnings are found
+        request_changes: false
+        # Optionally set the number of comments per review
+        # to avoid GitHub API timeouts for heavily loaded
+        # pull requests
+        suggestions_per_comment: 10
+    
+  process_benchmarks:
+    name: Process benchmark results
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v3
+      with:
+        path: artifacts
+    
+    - uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        token: ${{ secrets.GITHUB_TOKEN }}
+        path: gh-pages
+
+    - name: Install deps
+      run: pip3 install pandas
+
+    - name: Process benchmarks
+      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${GITHUB_SHA::8} "${{github.event.head_commit.message}}"
+
+    - name: Compare results
+      run: |
+        python3 ${{github.workspace}}/ci/compare_results.py > comment-body.txt
+        body=$(cat comment-body.txt)
+        body="${body//'%'/'%25'}"
+        body="${body//$'\n'/'%0A'}"
+        body="${body//$'\r'/'%0D'}" 
+        echo ::set-output name=body::$body
+      id: results
+      
+    - name: Find Comment
+      uses: peter-evans/find-comment@v2
+      id: fc
+      if: github.event_name != 'push'
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        comment-author: 'github-actions[bot]'
+        body-includes: GCC
+        
+    - name: Create comment
+      if: github.event_name == 'push'
+      uses: peter-evans/commit-comment@v2
+      with:
+        body: ${{ steps.results.outputs.body }}
+        
+    - name: Update comment
+      uses: peter-evans/create-or-update-comment@v2
+      if: github.event_name != 'push'
+      with:
+        comment-id: ${{ steps.fc.outputs.comment-id }}
+        issue-number: ${{ github.event.pull_request.number }}
+        body: ${{ steps.results.outputs.body }}
+        edit-mode: replace
+
+    - name: Install deps
+      run: pip3 install plotly
+      if: github.event_name == 'push'
+
+    - name: Create html
+      run: python3 ${{github.workspace}}/ci/create_graphs_for_benchmark_data.py 
+      if: github.event_name == 'push'
+
+    - name: Upload html
+      uses: actions/upload-artifact@v3
+      if: github.event_name == 'push'
+      with:
+        name: benchmark.html
+        path: ./gh-pages/benchmark.html
+
+    - name: Deploy to github pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.event_name == 'push'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./gh-pages
+
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    env:
+      SONAR_SCANNER_VERSION: 4.7.0.2747 # Find the latest version in the "Linux" link on this page:
+                                        # https://sonarcloud.io/documentation/analysis/scan/sonarscanner/
+      SONAR_SERVER_URL: "https://sonarcloud.io"
+      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+          ref: ${{github.event.pull_request.head.ref}}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: 'zulu'
+
+      - name: Restore Catch2 
+        uses: actions/cache@v3
+        id: cache-catch2
+        with:
+          path: ${{env.Catch2_DIR}}
+          key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Download and set up sonar-scanner
+        env:
+          SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${{ env.SONAR_SCANNER_VERSION }}-linux.zip
+        run: |
+          mkdir -p $HOME/.sonar
+          curl -sSLo $HOME/.sonar/sonar-scanner.zip ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} 
+          unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+          echo "$HOME/.sonar/sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-linux/bin" >> $GITHUB_PATH
+
+      - name: Download and set up build-wrapper
+        env:
+          BUILD_WRAPPER_DOWNLOAD_URL: ${{ env.SONAR_SERVER_URL }}/static/cpp/build-wrapper-linux-x86.zip
+        run: |
+          curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
+          unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
+          echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
+      
+      - name: Run build-wrapper
+        env:
+          CC: gcc-10
+          CXX: g++-10
+        run: |
+          mkdir build
+          cmake -S . -B build -DRPP_BUILD_TESTS=1
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release --parallel 2
+
+      - name: Run sonar-scanner
+        if: github.event_name == 'push'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner --define sonar.host.url="${{ env.SONAR_SERVER_URL }}" --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
+
+      - name: Run sonar-scanner
+        if: github.event_name != 'push'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner --define sonar.host.url="${{ env.SONAR_SERVER_URL }}" --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" --define sonar.pullrequest.key=${{ github.event.pull_request.number }}
+
+  docs:
+    name: Build Doxygen Docs
+
+    needs: [sanitize, test]
+
+    runs-on: ubuntu-latest
+
+    if: github.ref == 'refs/heads/master'
+      && github.event_name == 'push'
+      && github.repository_owner == 'victimsnino'
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/setup-python@v4
+      with: { python-version: "3.8" }
+
+    - name: Install deps
+      run: |
+        pip3 install rxmarbles
+        sudo apt-get install doxygen
+
+    - name: Doxygen
+      run: doxygen ./Doxyfile
+    
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./gen_docs
+        destination_dir: docs

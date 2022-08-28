@@ -25,7 +25,7 @@ constexpr std::add_const_t<T>& as_const(const T& v) noexcept { return v; }
 template<class T>
 constexpr T&& as_const(T&& v) noexcept requires std::is_rvalue_reference_v<T&&> { return std::forward<T>(v); }
 
-#if __cpp_lib_atomic_shared_ptr
+#if defined(__cpp_lib_atomic_shared_ptr) && __cpp_lib_atomic_shared_ptr
 template<typename T>
 using atomic_shared_ptr = std::atomic<std::shared_ptr<T>>;
 #else

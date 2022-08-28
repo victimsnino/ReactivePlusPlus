@@ -16,6 +16,8 @@
 
 namespace rpp
 {
+class composite_subscription;
+
 /**
  * \brief Base subscription implementation used as base class/interface and core implementation for derrived subscriptions
  */
@@ -25,8 +27,9 @@ protected:
     subscription_base(std::shared_ptr<details::subscription_state> state)
         : m_state{std::move(state)} {}
 
-    details::subscription_state*                        get_state() const { return m_state.get(); }
-    const std::shared_ptr<details::subscription_state>& get_state_as_shared() const { return m_state; }
+    const std::shared_ptr<details::subscription_state>& get_state() const { return m_state; }
+
+    friend rpp::composite_subscription;
 public:
     subscription_base()
         : m_state{std::make_shared<details::subscription_state>()} {}
@@ -56,11 +59,14 @@ public:
     void unsubscribe() const
     {
         if (m_state)
+        {
             m_state->unsubscribe();
+            m_state.reset();
+        }
     }
 
 private:
-    std::shared_ptr<details::subscription_state> m_state{};
+    mutable std::shared_ptr<details::subscription_state> m_state{};
 };
 
 } // namespace rpp

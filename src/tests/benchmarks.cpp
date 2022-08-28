@@ -28,12 +28,12 @@ auto MakeObserver()
 
 auto MakeSpecificObservable()
 {
-    return rpp::observable::create<int>([](const auto& sub) { });
+    return rpp::observable::create<int>([](const auto&) { });
 }
 
 auto MakeDynamicObservable()
 {
-    return rpp::dynamic_observable<int>{[](const auto& sub) { }};
+    return rpp::dynamic_observable<int>{[](const auto&) { }};
 }
 
 TEST_CASE("Observable construction")
@@ -215,12 +215,6 @@ TEST_CASE("Subscription")
 
     BENCHMARK_ADVANCED("composite_subscription unsubscribe")(Catch::Benchmark::Chronometer meter)
     {
-        rpp::composite_subscription sub{};
-        meter.measure([&] { sub.unsubscribe(); });
-    };
-
-    BENCHMARK_ADVANCED("composite_subscription unsubscribe only subscribed")(Catch::Benchmark::Chronometer meter)
-    {
         std::vector<rpp::composite_subscription> subs(meter.runs(), rpp::composite_subscription{});
         meter.measure([&](int i) { subs[i].unsubscribe(); });
     };
@@ -231,7 +225,7 @@ TEST_CASE("foundamental sources")
     BENCHMARK_ADVANCED("empty")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rpp::dynamic_subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<int>{});
 
         meter.measure([&](int i) { return rpp::source::empty<int>().subscribe(subs[i]); });
@@ -240,7 +234,7 @@ TEST_CASE("foundamental sources")
     BENCHMARK_ADVANCED("error")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rpp::dynamic_subscriber<int>> subs{};
-        for(size_t i =0; i <meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<int>{ [](int) {}, [](std::exception_ptr) {}});
 
         auto err = std::make_exception_ptr(std::runtime_error{""});
@@ -251,7 +245,7 @@ TEST_CASE("foundamental sources")
     BENCHMARK_ADVANCED("never")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rpp::dynamic_subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<int>{});
 
         meter.measure([&] (int i) { return rpp::source::never<int>().subscribe(subs[i]); });
@@ -306,7 +300,7 @@ TEST_CASE("scan")
         meter.measure([&]
         {
             return obs.scan(std::vector<int>{},
-                            [](std::vector<int>&& seed, const auto& v)
+                            [](std::vector<int>&& seed, const auto&)
                             {
                                 return std::move(seed);
                             }).subscribe(sub);
@@ -323,7 +317,7 @@ TEST_CASE("scan")
                     });
                 })
                 .scan(std::vector<int>{},
-                      [](std::vector<int>&& seed, const auto& v)
+                      [](std::vector<int>&& seed, const auto&)
                       {
                           return std::move(seed);
                       }).subscribe([](const auto&) {});
@@ -501,7 +495,7 @@ TEST_CASE("repeat")
         });
 
         std::vector<rpp::dynamic_subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<int>{});
 
         meter.measure([&](int i)
@@ -516,7 +510,7 @@ TEST_CASE("just")
     BENCHMARK_ADVANCED("just send int")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rpp::dynamic_subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<int>{});
 
         meter.measure([&](int i) { return rpp::source::just(1).subscribe(subs[i]); });
@@ -525,7 +519,7 @@ TEST_CASE("just")
     BENCHMARK_ADVANCED("just send variadic")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rpp::dynamic_subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<int>{});
 
         meter.measure([&](int i) { return rpp::source::just(1, 2, 3, 4, 5, 6, 7, 8, 9, 10).subscribe(subs[i]); });
@@ -537,7 +531,7 @@ TEST_CASE("from")
     BENCHMARK_ADVANCED("from vector with int")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rpp::dynamic_subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<int>{});
 
         std::vector vec{ 1 };
@@ -550,7 +544,7 @@ TEST_CASE("merge")
     BENCHMARK_ADVANCED("merge")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rpp::dynamic_subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<int>{});
 
         meter.measure([&](int i)
@@ -564,7 +558,7 @@ TEST_CASE("merge")
     BENCHMARK_ADVANCED("merge_with")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rpp::dynamic_subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<int>{});
 
         meter.measure([&](int i)
@@ -581,7 +575,7 @@ TEST_CASE("concat")
     BENCHMARK_ADVANCED("concat")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rpp::dynamic_subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<int>{});
 
         meter.measure([&](int i)
@@ -595,7 +589,7 @@ TEST_CASE("concat")
     BENCHMARK_ADVANCED("concat_with")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rpp::dynamic_subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<int>{});
 
         meter.measure([&](int i)
@@ -612,7 +606,7 @@ TEST_CASE("buffer")
     BENCHMARK_ADVANCED("buffer")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rpp::dynamic_subscriber<std::vector<int>>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<std::vector<int>>{});
 
         meter.measure([&](int i)
@@ -641,7 +635,7 @@ TEST_CASE("window")
     BENCHMARK_ADVANCED("window")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rpp::dynamic_subscriber<rpp::windowed_observable<int>>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<rpp::windowed_observable<int>>{});
 
         meter.measure([&](int i)
@@ -676,7 +670,7 @@ TEST_CASE("take")
         });
 
         std::vector<rpp::dynamic_subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<int>{});
 
         meter.measure([&](int i)
@@ -709,7 +703,7 @@ TEST_CASE("first")
         });
 
         std::vector<rpp::dynamic_subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<int>{});
 
         meter.measure([&](int i)
@@ -767,7 +761,7 @@ TEST_CASE("chains creation test")
     BENCHMARK_ADVANCED("long non-state chain creation + subscribe")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rpp::dynamic_subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<int>{});
 
         meter.measure([&](int i)
@@ -783,7 +777,7 @@ TEST_CASE("chains creation test")
     BENCHMARK_ADVANCED("long stateful chain creation + subscribe")(Catch::Benchmark::Chronometer meter)
     {
         std::vector<rpp::dynamic_subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<int>{});
 
         meter.measure([&](int i)
@@ -885,10 +879,7 @@ TEST_CASE("immediate scheduler")
         int  count = 0;
         auto work  = [&]() -> rpp::schedulers::optional_duration
         {
-            if (count++ >= 10)
-                return {};
-
-            return rpp::schedulers::duration{};
+            return count++ >= 10 ? rpp::schedulers::optional_duration{} : rpp::schedulers::optional_duration{rpp::schedulers::duration{}};
         };
         meter.measure([&]
         {
@@ -923,10 +914,7 @@ TEST_CASE("trampoline scheduler")
         int  count = 0;
         auto work  = [&]() -> rpp::schedulers::optional_duration
         {
-            if (count++ >= 10)
-                return {};
-
-            return rpp::schedulers::duration{};
+            return count++ >= 10 ? rpp::schedulers::optional_duration{} : rpp::schedulers::optional_duration{rpp::schedulers::duration{}};
         };
         meter.measure([&]
         {

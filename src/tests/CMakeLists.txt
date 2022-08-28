@@ -8,10 +8,6 @@
 # Project home: https://github.com/victimsnino/ReactivePlusPlus
 #
 
-# ===================== Prepare folder ======================
-
-
-
 # ====================== Gather tests ======================
 file(GLOB_RECURSE FILES "test_*.cpp")
 
@@ -21,7 +17,7 @@ foreach(SOURCE ${FILES})
   set(TARGET ${BASE_NAME})
 
   add_executable(${TARGET} ${SOURCE} mock_observer.hpp copy_count_tracker.hpp test_scheduler.hpp)
-  target_link_libraries(${TARGET} PRIVATE rpp Catch2::Catch2WithMain coverage_config)
+  target_link_libraries(${TARGET} PRIVATE rpp Catch2::Catch2WithMain)
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites)
 
   add_test(NAME ${TARGET} COMMAND $<TARGET_FILE:${TARGET}> -r junit -o ${RPP_TEST_RESULTS_DIR}/${TARGET}.xml)
@@ -35,6 +31,9 @@ foreach(SOURCE ${FILES})
 endforeach()
 
 # ================ BENCHMARKS =================
+
+add_custom_target(run_rpp_ci_benchmarks)
+
 set(TARGET rpp_benchmark)
 
 add_executable(${TARGET} 
@@ -44,8 +43,10 @@ add_executable(${TARGET}
 target_link_libraries(${TARGET} PRIVATE rpp Catch2::Catch2WithMain)
 set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 
+add_custom_command(TARGET run_rpp_ci_benchmarks COMMAND $<TARGET_FILE:${TARGET}> -r xml -o ${RPP_TEST_BENCHMARKS_RESULTS_DIR}/${TARGET}_result.txt COMMENT "Running benchmark ${TARGET}...")
 
-if (RPP_AUTOTESTS)
+
+if (RPP_BUILD_RXCPP)
   set(TARGET rxcpp_benchmark)
 
   add_executable(${TARGET} 
@@ -53,5 +54,9 @@ if (RPP_AUTOTESTS)
   )
 
   target_link_libraries(${TARGET} PRIVATE rxcpp Catch2::Catch2WithMain)
+  get_target_property(RXCPP_DIR rxcpp INTERFACE_INCLUDE_DIRECTORIES)
+  target_include_directories(${TARGET} SYSTEM PRIVATE ${RXCPP_DIR})
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
+
+  add_custom_command(TARGET run_rpp_ci_benchmarks COMMAND $<TARGET_FILE:${TARGET}> -r xml -o ${RPP_TEST_BENCHMARKS_RESULTS_DIR}/${TARGET}_result.txt COMMENT "Running benchmark ${TARGET}...")
 endif()

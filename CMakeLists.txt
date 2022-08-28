@@ -20,46 +20,46 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 # 
+cmake_minimum_required(VERSION 3.14)
 
-cmake_minimum_required(VERSION 3.12)
+include(cmake/prelude.cmake)
 
-if(DEFINED PROJECT_NAME)
-  set(IS_SUBPROJECT ON)
-else()
-  set(IS_SUBPROJECT OFF)
-endif()
+project(
+    ReactivePlusPlus
+    VERSION 0.1.0
+    DESCRIPTION "ReactivePlusPlus is library for building asynchronous event-driven streams of data with help of sequences of primitive operators in the declarative form"
+    HOMEPAGE_URL "https://github.com/victimsnino/ReactivePlusPlus"
+    LANGUAGES CXX
+)
 
-project(ReactivePlusPlus VERSION 0.0.7 LANGUAGES CXX)
-
-# ================== CONFIG ===================
-
-if (NOT IS_SUBPROJECT)
-  set(CMAKE_CXX_STANDARD 20)
-  set(CMAKE_CXX_STANDARD_REQUIRED ON)
-  set(CMAKE_CXX_EXTENSIONS OFF)
-
-  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-
-  set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-endif()
-
-# ======================= OPTIONS ================================
-set(RPP_BUILD_TESTS     OFF CACHE BOOL "Enable unit tests building")
-set(RPP_BUILD_SAMPLES   OFF CACHE BOOL "Enable samples building")
-set(RPP_CODE_COVERAGE   OFF CACHE BOOL "Enable coverage reporting")
-set(RPP_BUILD_SFML_CODE OFF CACHE BOOL "Enable SFML support in samples/code")
-
-include(CMake/dependencies.cmake)
-include(CMake/coverage_config.cmake)
+include(cmake/project-is-top-level.cmake)
+include(cmake/variables.cmake)
+include(cmake/dependencies.cmake)
 
 if (RPP_BUILD_TESTS)
   enable_testing()
   set(RPP_TEST_RESULTS_DIR  ${CMAKE_BINARY_DIR}/test_results)
   file(MAKE_DIRECTORY ${RPP_TEST_RESULTS_DIR})
+  set(RPP_TEST_BENCHMARKS_RESULTS_DIR  ${RPP_TEST_RESULTS_DIR}/benchmarks)
+  file(MAKE_DIRECTORY ${RPP_TEST_BENCHMARKS_RESULTS_DIR})
 endif()
 
 add_subdirectory(src)
 
-include(CMake/install.cmake)
+# ---- Install rules ----
+
+if(NOT CMAKE_SKIP_INSTALL_RULES)
+  include(cmake/install-rules.cmake)
+endif()
+
+# ---- Developer mode ----
+
+if(NOT RPP_DEVELOPER_MODE)
+  return()
+endif()
+
+if(NOT PROJECT_IS_TOP_LEVEL)
+  message(AUTHOR_WARNING "RPP_DEVELOPER_MODE is intended for developers of ReactivePlusPlus")
+endif()
+
+include(cmake/dev-mode.cmake)

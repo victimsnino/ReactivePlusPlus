@@ -18,18 +18,16 @@ endif()
 
 add_library(RPP::rpp ALIAS rpp)
 
-# target_sources(rpp INTERFACE ${FILES})
-target_include_directories(rpp 
+target_include_directories(rpp ${RPP_WARNING_GUARD} 
   INTERFACE 
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
-    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+    # "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
-target_link_libraries(rpp INTERFACE coverage_config Threads::Threads)
 
+target_link_libraries(rpp INTERFACE Threads::Threads)
 target_compile_features(rpp INTERFACE cxx_std_20)
 
-if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR
-    CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
   target_compile_options(rpp INTERFACE -fsized-deallocation)
 endif()
 
