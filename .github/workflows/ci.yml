@@ -140,6 +140,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+          fetch-depth: 0
 
     - name: Install static analyzers
       if: matrix.config.name == 'ci-ubuntu-clang'
@@ -183,13 +185,13 @@ jobs:
           ${{github.workspace}}/build/test_results/benchmarks/*
 
     - name: Analyze diff with clang-tidy
-      if: matrix.config.name == 'ci-ubuntu-clang'
+      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push'
       run: |
         mkdir clang-tidy-result
         git diff -U0 origin/main | clang-tidy-diff -j 0 -p1 -path build -export-fixes clang-tidy-result/fixes.yml -extra-arg=-std=c++20 -checks=bugprone-*,concurrency-*,performance-*
 
     - name: Run clang-tidy-pr-comments action
-      if: matrix.config.name == 'ci-ubuntu-clang'
+      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push'
       uses: platisd/clang-tidy-pr-comments@master
       with:
         # The GitHub token (or a personal access token)
