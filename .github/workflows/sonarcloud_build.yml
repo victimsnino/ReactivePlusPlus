@@ -10,6 +10,11 @@ on:
       - main
     paths-ignore:
       - '**.md'
+
+env:
+  CATCH2_VERSION: v3.1.0
+  Catch2_DIR: ~/Catch2_BIN
+  
 jobs:
   build_and_collect_data:
     runs-on: ubuntu-latest
@@ -22,6 +27,13 @@ jobs:
           submodules: true
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+          
+      - name: Restore Catch2 
+        uses: actions/cache@v3
+        id: cache-catch2
+        with:
+          path: ${{env.Catch2_DIR}}
+          key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
       
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
