@@ -28,22 +28,22 @@ IMPLEMENTATION_FILE (scan_tag);
 namespace rpp::details
 {
 template<constraint::decayed_type Result, typename AccumulatorFn>
-class scan_on_next
+struct scan_state
 {
-public:
-    scan_on_next(const Result& seed, const AccumulatorFn& accumulator)
-        : m_seed{seed}
-        , m_accumulator{accumulator} {}
+    mutable Result                      seed;
+    RPP_NO_UNIQUE_ADDRESS AccumulatorFn accumulator;
+};
 
-    void operator()(auto&& value, const rpp::constraint::subscriber auto& sub) const
+struct scan_on_next
+{
+    template<constraint::decayed_type Result, typename AccumulatorFn>
+    void operator()(auto&&                                   value,
+                    const rpp::constraint::subscriber auto&  sub,
+                    const scan_state<Result, AccumulatorFn>& state) const
     {
-        m_seed = m_accumulator(std::move(m_seed), std::forward<decltype(value)>(value));
-        sub.on_next(utils::as_const(m_seed));
+        state.seed = state.accumulator(std::move(state.seed), std::forward<decltype(value)>(value));
+        sub.on_next(utils::as_const(state.seed));
     }
-
-private:
-    mutable Result                      m_seed;
-    RPP_NO_UNIQUE_ADDRESS AccumulatorFn m_accumulator;
 };
 
 template<constraint::decayed_type Type, constraint::decayed_type Result, scan_accumulator<Result, Type> AccumulatorFn>
@@ -58,10 +58,11 @@ struct scan_impl
         auto subscription = subscriber.get_subscription();
         // dynamic_state there to make shared_ptr for observer instead of making shared_ptr for state
         return create_subscriber_with_dynamic_state<Type>(std::move(subscription),
-                                                          scan_on_next{initial_value, accumulator},
+                                                          scan_on_next{},
                                                           utils::forwarding_on_error{},
                                                           utils::forwarding_on_completed{},
-                                                          std::forward<TSub>(subscriber));
+                                                          std::forward<TSub>(subscriber),
+                                                          scan_state{initial_value, accumulator});
     }
 };
 } // namespace rpp::details
