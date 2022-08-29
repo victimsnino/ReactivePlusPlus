@@ -43,42 +43,41 @@ struct combine_latest_state
     std::tuple<std::optional<Types>...> values{};
     std::atomic_size_t                  completed_count{0};
     static constexpr std::size_t        s_total_completed_count = sizeof...(Types);
+};
 
-    // Not copyable nor movable.
-    combine_latest_state(const combine_latest_state&) = delete;
-    combine_latest_state(combine_latest_state&&)      = delete;
-
-    template<size_t I>
-    struct on_next
+template<size_t I>
+struct combine_latest_on_next
+{
+    template<typename TCombiner, constraint::decayed_type... Types>
+    void operator()(auto&&                                                            value,
+                    const auto&                                                       subscriber,
+                    const std::shared_ptr<combine_latest_state<TCombiner, Types...>>& state) const
     {
-        void operator()(auto&&                                                            value,
-                        const auto&                                                       subscriber,
-                        const std::shared_ptr<combine_latest_state<TCombiner, Types...>>& state) const
-        {
-            // mutex need to be locked during changing of values, generating new values and
-            // sending of values to satisfy observable contract
-            std::scoped_lock lock{state->mutex};
-            std::get<I>(state->values) = std::forward<decltype(value)>(value);
+        // mutex need to be locked during changing of values, generating new values and
+        // sending of values to satisfy observable contract
+        std::scoped_lock lock{state->mutex};
+        std::get<I>(state->values) = std::forward<decltype(value)>(value);
 
-            std::apply([&](const auto&...cached_values)
-                       {
-                           if ((cached_values.has_value() && ...))
-                               subscriber.on_next(state->combiner(cached_values.value()...));
-                       },
-                       state->values);
-        }
-    };
+        std::apply([&](const auto&...cached_values)
+                   {
+                       if ((cached_values.has_value() && ...))
+                           subscriber.on_next(state->combiner(cached_values.value()...));
+                   },
+                   state->values);
+    }
+};
 
-    struct on_completed
+struct combine_latest_on_completed
+{
+    template<typename TCombiner, constraint::decayed_type... Types>
+
+    void operator()(const auto&                                                       subscriber,
+                    const std::shared_ptr<combine_latest_state<TCombiner, Types...>>& state) const
     {
-        void operator()(const auto&                                                       subscriber,
-                        const std::shared_ptr<combine_latest_state<TCombiner, Types...>>& state) const
-        {
-            const auto current_completed = state->completed_count.fetch_add(1, std::memory_order_acq_rel) + 1;
-            if (current_completed == state->s_total_completed_count)
-                subscriber.on_completed();
-        }
-    };
+        const auto current_completed = state->completed_count.fetch_add(1, std::memory_order_acq_rel) + 1;
+        if (current_completed == state->s_total_completed_count)
+            subscriber.on_completed();
+    }
 };
 
 /**
@@ -124,9 +123,9 @@ private:
     {
         auto subscription = subscriber.get_subscription().make_child();
         return create_subscriber_with_state<ValueType>(std::move(subscription),
-                                                       typename State::template on_next<I>{},
+                                                       combine_latest_on_next<I>{},
                                                        utils::forwarding_on_error{},
-                                                       typename State::on_completed{},
+                                                       combine_latest_on_completed{},
                                                        std::forward<decltype(subscriber)>(subscriber),
                                                        std::move(state));
     }
