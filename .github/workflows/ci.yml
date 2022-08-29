@@ -59,7 +59,7 @@ jobs:
     if: github.repository_owner == 'victimsnino'
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Install LCov
       run: sudo apt-get update -q
@@ -100,7 +100,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -144,7 +144,7 @@ jobs:
     name: Unit-tests - ${{ matrix.config.name }}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
           fetch-depth: 0
 
@@ -219,7 +219,7 @@ jobs:
     if: github.repository_owner == 'victimsnino'
     
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -228,7 +228,7 @@ jobs:
       with:
         path: artifacts
     
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         ref: gh-pages
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -308,7 +308,7 @@ jobs:
       SONAR_SERVER_URL: "https://sonarcloud.io"
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: true
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -389,7 +389,7 @@ jobs:
       && github.repository_owner == 'victimsnino'
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - uses: actions/setup-python@v4
       with: { python-version: "3.8" }
