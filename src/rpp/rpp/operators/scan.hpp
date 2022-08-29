@@ -17,11 +17,8 @@
 
 #include <rpp/defs.hpp>
 
-
-
 #include <rpp/utils/utilities.hpp>
 
-#include <memory>
 
 IMPLEMENTATION_FILE (scan_tag);
 
