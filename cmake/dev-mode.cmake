@@ -2,5 +2,5 @@
 #   include(cmake/open-cpp-coverage.cmake OPTIONAL)
 # endif()
 
-include(cmake/lint-targets.cmake)
-include(cmake/spell-targets.cmake)
+# include(cmake/lint-targets.cmake)
+# include(cmake/spell-targets.cmake)
