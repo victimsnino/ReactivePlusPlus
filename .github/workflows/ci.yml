@@ -1,5 +1,10 @@
 name: CI
 
+permissions:
+    pull-requests: write
+    repository-projects: read
+    
+    
 on:
   push:
     branches:
@@ -210,6 +215,9 @@ jobs:
     name: Process benchmark results
     needs: test
     runs-on: ubuntu-latest
+    
+    if: github.repository_owner == 'victimsnino'
+    
     steps:
     - uses: actions/checkout@v2
       with:
@@ -291,6 +299,9 @@ jobs:
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
+    
+    if: github.repository_owner == 'victimsnino'
+    
     env:
       SONAR_SCANNER_VERSION: 4.7.0.2747 # Find the latest version in the "Linux" link on this page:
                                         # https://sonarcloud.io/documentation/analysis/scan/sonarscanner/
