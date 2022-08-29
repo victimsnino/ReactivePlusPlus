@@ -1,0 +1,94 @@
+name: Process Benchmark Results
+
+on:
+  workflow_run:
+    workflows:
+      - "CI"
+    types:
+      - completed
+      
+jobs:
+  process_benchmarks:
+    name: Process benchmark results
+    needs: test
+    runs-on: ubuntu-latest
+    
+    if: github.repository_owner == 'victimsnino'
+    
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v3
+      with:
+        path: artifacts
+    
+    - uses: actions/checkout@v3
+      with:
+        ref: gh-pages
+        token: ${{ secrets.GITHUB_TOKEN }}
+        path: gh-pages
+
+    - name: Install deps
+      run: pip3 install pandas
+
+    - name: Process benchmarks
+      run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${GITHUB_SHA::8} "${{github.event.workflow_run.event.head_commit.message}}"
+
+    - name: Compare results
+      run: |
+        python3 ${{github.workspace}}/ci/compare_results.py > comment-body.txt
+        body=$(cat comment-body.txt)
+        body="${body//'%'/'%25'}"
+        body="${body//$'\n'/'%0A'}"
+        body="${body//$'\r'/'%0D'}" 
+        echo ::set-output name=body::$body
+      id: results
+      
+    - name: Find Comment
+      uses: peter-evans/find-comment@v2
+      id: fc
+      if: github.event.workflow_run.event != 'push'
+      with:
+        issue-number: ${{ github.event.workflow_run.event.pull_request.number }}
+        comment-author: 'github-actions[bot]'
+        body-includes: GCC
+        
+    - name: Create comment
+      if: github.event.workflow_run.event == 'push'
+      uses: peter-evans/commit-comment@v2
+      with:
+        body: ${{ steps.results.outputs.body }}
+        
+    - name: Update comment
+      uses: peter-evans/create-or-update-comment@v2
+      if: github.event.workflow_run.event != 'push'
+      with:
+        comment-id: ${{ steps.fc.outputs.comment-id }}
+        issue-number: ${{ github.event.workflow_run.event.pull_request.number }}
+        body: ${{ steps.results.outputs.body }}
+        edit-mode: replace
+
+    - name: Install deps
+      run: pip3 install plotly
+      if: github.event.workflow_run.event == 'push'
+
+    - name: Create html
+      run: python3 ${{github.workspace}}/ci/create_graphs_for_benchmark_data.py 
+      if: github.event.workflow_run.event == 'push'
+
+    - name: Upload html
+      uses: actions/upload-artifact@v3
+      if: github.event.workflow_run.event == 'push'
+      with:
+        name: benchmark.html
+        path: ./gh-pages/benchmark.html
+
+    - name: Deploy to github pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.event.workflow_run.event == 'push'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./gh-pages
