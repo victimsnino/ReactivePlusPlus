@@ -10,33 +10,30 @@
 
 #pragma once
 
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 #include <rpp/operators/fwd/skip.hpp>
 #include <rpp/subscribers/constraints.hpp>
-#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 #include <rpp/subscribers/dynamic_subscriber.hpp>
-
 #include <rpp/utils/functors.hpp>
 
 IMPLEMENTATION_FILE(skip_tag);
 
 namespace rpp::details
 {
-class skip_on_next
+struct skip_state
 {
-public:
-    skip_on_next(size_t count)
-        : m_count{count} {}
+    mutable size_t count;
+};
 
-    void operator()(auto&& value, const constraint::subscriber auto& subscriber) const
+struct skip_on_next
+{
+    void operator()(auto&& value, const constraint::subscriber auto& subscriber, const skip_state& state) const
     {
-        if (m_count == 0)
+        if (state.count == 0)
             subscriber.on_next(std::forward<decltype(value)>(value));
         else
-            --m_count;
-    };
-
-private:
-    mutable size_t m_count;
+            --state.count;
+    }
 };
 
 template<constraint::decayed_type Type>
@@ -50,10 +47,11 @@ struct skip_impl
         auto subscription = subscriber.get_subscription();
         // dynamic_state there to make shared_ptr for observer instead of making shared_ptr for state
         return create_subscriber_with_dynamic_state<Type>(std::move(subscription),
-                                                          skip_on_next{count},
+                                                          skip_on_next{},
                                                           utils::forwarding_on_error{},
                                                           utils::forwarding_on_completed{},
-                                                          std::forward<TSub>(subscriber));
+                                                          std::forward<TSub>(subscriber),
+                                                          skip_state{count});
     }
 };
 } // namespace rpp::details

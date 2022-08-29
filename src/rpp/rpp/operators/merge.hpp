@@ -26,43 +26,62 @@ IMPLEMENTATION_FILE(merge_tag);
 
 namespace rpp::details
 {
-struct merge_state_t : public std::enable_shared_from_this<merge_state_t>
+struct merge_state
 {
-    auto wrap_under_guard(const auto& callable)
-    {
-        return [state = shared_from_this(), callable](auto&&...args)
-        {
-            std::lock_guard lock{state->mutex};
-            callable(std::forward<decltype(args)>(args)...);
-        };
-    }
-
-    auto get_on_completed()
-    {
-        return [state = shared_from_this()](const constraint::subscriber auto& sub)
-        {
-            if (state->count_of_on_completed.fetch_sub(1, std::memory_order::acq_rel) == 1)
-                sub.on_completed();
-        };
-    }
-
-    auto get_on_new_observable()
-    {
-        return  [state = shared_from_this()]<constraint::observable TObs>(const TObs& new_observable, const constraint::subscriber auto& sub)
-        {
-            using ValueType = utils::extract_observable_type_t<TObs>;
-
-            new_observable.subscribe(combining::create_proxy_subscriber<ValueType>(sub,
-                                                                                   state->count_of_on_completed,
-                                                                                   state->wrap_under_guard(utils::forwarding_on_next{}),
-                                                                                   state->wrap_under_guard(utils::forwarding_on_error{}),
-                                                                                   state->get_on_completed()));
-        };
-    }
-
-    std::atomic_size_t count_of_on_completed{};
-private:
     std::mutex         mutex{};
+    std::atomic_size_t count_of_on_completed_needed{};
+};
+
+struct merge_forwarding_on_next
+{
+    void operator()(auto&&                              value,
+                    const constraint::subscriber auto&  sub,
+                    const std::shared_ptr<merge_state>& state) const
+    {
+        std::lock_guard lock{state->mutex};
+        sub.on_next(std::forward<decltype(value)>(value));
+    }
+};
+
+struct merge_on_error
+{
+    void operator()(const std::exception_ptr&           err,
+                    const constraint::subscriber auto&  sub,
+                    const std::shared_ptr<merge_state>& state) const
+    {
+        std::lock_guard lock{state->mutex};
+        sub.on_error(err);
+    }
+};
+
+struct merge_on_completed
+{
+    void operator()(const constraint::subscriber auto&  sub,
+                    const std::shared_ptr<merge_state>& state) const
+    {
+        if (state->count_of_on_completed_needed.fetch_sub(1, std::memory_order::acq_rel) == 1)
+            sub.on_completed();
+    }
+};
+
+struct merge_on_next
+{
+    template<constraint::observable TObs>
+    void operator()(const TObs&                         new_observable,
+                    const constraint::subscriber auto&  sub,
+                    const std::shared_ptr<merge_state>& state) const
+    {
+        using ValueType = utils::extract_observable_type_t<TObs>;
+
+        state->count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);
+
+        new_observable.subscribe(create_subscriber_with_state<ValueType>(sub.get_subscription().make_child(),
+                                                                         merge_forwarding_on_next{},
+                                                                         merge_on_error{},
+                                                                         merge_on_completed{},
+                                                                         sub,
+                                                                         state));
+    }
 };
 
 template<constraint::decayed_type Type>
@@ -73,19 +92,23 @@ struct merge_impl
     template<constraint::subscriber_of_type<ValueType> TSub>
     auto operator()(TSub&& subscriber) const
     {
-        const auto state = std::make_shared<merge_state_t>();
+        auto state = std::make_shared<merge_state>();
 
-        return combining::create_proxy_subscriber<Type>(std::forward<TSub>(subscriber),
-                                                        state->count_of_on_completed,
-                                                        state->get_on_new_observable(),
-                                                        state->wrap_under_guard(utils::forwarding_on_error{}),
-                                                        state->get_on_completed());
+        state->count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);
+
+        auto subscription = subscriber.get_subscription().make_child();
+        return create_subscriber_with_state<Type>(std::move(subscription),
+                                                  merge_on_next{},
+                                                  merge_on_error{},
+                                                  merge_on_completed{},
+                                                  std::forward<TSub>(subscriber),
+                                                  std::move(state));
     }
 };
 
 template<constraint::decayed_type Type, constraint::observable_of_type<Type> ... TObservables>
 auto merge_with_impl(TObservables&&... observables)
 {
-    return rpp::source::just(std::forward<TObservables>(observables).as_dynamic()...).merge();
+    return source::just(std::forward<TObservables>(observables).as_dynamic()...).merge();
 }
 } // namespace rpp::details

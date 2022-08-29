@@ -16,16 +16,16 @@
 
 namespace rpp::details
 {
-template<constraint::decayed_type                 Type,
-    typename                                      ...States,
-    std::invocable<Type, States...>               OnNext,
-    std::invocable<std::exception_ptr, States...> OnError,
-    std::invocable<States...>                     OnCompleted>
+template<constraint::decayed_type                                    Type,
+         typename...                                                 States,
+         std::invocable<Type, std::decay_t<States>...>               OnNext,
+         std::invocable<std::exception_ptr, std::decay_t<States>...> OnError,
+         std::invocable<std::decay_t<States>...>                     OnCompleted>
 auto create_subscriber_with_state(rpp::composite_subscription sub,
                                   OnNext&&                    on_next,
                                   OnError&&                   on_error,
                                   OnCompleted&&               on_completed,
-                                  States&&                    ...states)
+                                  States&&...                 states)
 {
     using TObs = state_observer<Type,
                                 std::decay_t<OnNext>,
@@ -39,16 +39,16 @@ auto create_subscriber_with_state(rpp::composite_subscription sub,
                                                 std::forward<States>(states)...);
 }
 
-template<constraint::decayed_type                 Type,
-    typename                                      ...States,
-    std::invocable<Type, States...>               OnNext,
-    std::invocable<std::exception_ptr, States...> OnError,
-    std::invocable<States...>                     OnCompleted>
+template<constraint::decayed_type                                    Type,
+         typename...                                                 States,
+         std::invocable<Type, std::decay_t<States>...>               OnNext,
+         std::invocable<std::exception_ptr, std::decay_t<States>...> OnError,
+         std::invocable<std::decay_t<States>...>                     OnCompleted>
 auto create_subscriber_with_dynamic_state(rpp::composite_subscription sub,
                                           OnNext&&                    on_next,
                                           OnError&&                   on_error,
                                           OnCompleted&&               on_completed,
-                                          States&&                    ...states)
+                                          States&&...                 states)
 {
     using TObs = dynamic_state_observer<Type, std::decay_t<States>...>;
     return make_specific_subscriber<Type, TObs>(std::move(sub),

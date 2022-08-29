@@ -10,71 +10,61 @@ IMPLEMENTATION_FILE(window_tag);
 namespace rpp
 {
 template<constraint::decayed_type Type>
-using windowed_observable = decltype(std::declval<rpp::subjects::publish_subject<Type>>().get_observable());
+using windowed_observable = decltype(std::declval<subjects::publish_subject<Type>>().get_observable());
 }
 
 namespace rpp::details
 {
-template<constraint::decayed_type Type, constraint::subscriber TSub>
-class window_observer final : public details::typed_observer_tag<Type>
+template<constraint::decayed_type Type>
+struct window_state
 {
-    struct state_t
+    const size_t                            window_size{};
+    mutable size_t                          items_in_current_window = window_size;
+    mutable subjects::publish_subject<Type> subject{};
+};
+
+struct window_on_next
+{
+    template<constraint::decayed_type Type>
+    void operator()(auto&& value, const auto& subscriber, const window_state<Type>& state) const
     {
-        state_t(const TSub& subscriber, size_t window_size)
-            : subscriber{subscriber}
-            , window_size{window_size}
-            , items_in_current_window{window_size} {}
-
-        state_t(TSub&& subscriber, size_t window_size)
-            : subscriber{ std::move(subscriber)}
-            , window_size{ window_size }
-            , items_in_current_window{ window_size } {}
-
-        TSub                                 subscriber;
-
-        const size_t                         window_size{};
-        size_t                               items_in_current_window = window_size;
-
-        rpp::subjects::publish_subject<Type> subject{};
-    };
-
-public:
-    window_observer(const TSub& subscriber, size_t window_size)
-        : m_state{ std::make_shared<state_t>(subscriber, window_size)} {}
-
-    window_observer(TSub&& subscriber, size_t window_size)
-        : m_state{ std::make_shared<state_t>(std::move(subscriber), window_size) } {}
-
-    void on_next(auto&& v) const { on_next_impl(std::forward<decltype(v)>(v)); }
-    void on_error(const std::exception_ptr& err) const { broadcast([&err](const auto& sub) { sub.on_error(err); }); }
-    void on_completed() const { broadcast([](const auto& sub) { sub.on_completed(); }); }
-
-private:
-    void on_next_impl(auto&& val) const
-    {
-        if (m_state->items_in_current_window == m_state->window_size)
+        // need to send new subject due to NEW item appeared (we avoid sending new subjects if no any new items)
+        if (state.items_in_current_window == state.window_size)
         {
-            m_state->subscriber.on_next(m_state->subject.get_observable());
-            m_state->items_in_current_window = 0;
+            subscriber.on_next(state.subject.get_observable());
+            state.items_in_current_window = 0;
         }
 
-        ++m_state->items_in_current_window;
-        m_state->subject.get_subscriber().on_next(std::forward<decltype(val)>(val));
+        ++state.items_in_current_window;
+        state.subject.get_subscriber().on_next(std::forward<decltype(value)>(value));
 
-        if (m_state->items_in_current_window == m_state->window_size)
+        // cleanup current subject, but don't send due to wait for new value
+        if (state.items_in_current_window == state.window_size)
         {
-            m_state->subject.get_subscriber().on_completed();
-            m_state->subject = rpp::subjects::publish_subject<Type>{};
+            state.subject.get_subscriber().on_completed();
+            state.subject = rpp::subjects::publish_subject<Type>{};
         }
     }
+};
 
-    void broadcast(const auto& action) const
+struct window_on_error
+{
+    template<constraint::decayed_type Type>
+    void operator()(const std::exception_ptr& err, const auto& subscriber, const window_state<Type>& state) const
     {
-        action(m_state->subject.get_subscriber());
-        action(m_state->subscriber);
+        state.subject.get_subscriber().on_error(err);
+        subscriber.on_error(err);
     }
+};
 
-    std::shared_ptr<state_t> m_state;
+struct window_on_completed
+{
+    template<constraint::decayed_type Type>
+    void operator()(const auto& subscriber, const window_state<Type>& state) const
+    {
+        state.subject.get_subscriber().on_completed();
+        subscriber.on_completed();
+    }
 };
 
 template<constraint::decayed_type Type>
@@ -87,7 +77,13 @@ struct window_lift_impl
     {
         auto subscription = subscriber.get_subscription();
 
-        return rpp::specific_subscriber<Type, window_observer<Type, std::decay_t<TSub>>>(std::move(subscription), std::forward<TSub>(subscriber), window_size);
+        // dynamic_state there to make shared_ptr for observer instead of making shared_ptr for state
+        return create_subscriber_with_dynamic_state<Type>(std::move(subscription),
+                                                          window_on_next{},
+                                                          window_on_error{},
+                                                          window_on_completed{},
+                                                          std::forward<TSub>(subscriber),
+                                                          window_state<Type>{window_size});
     }
 };
 

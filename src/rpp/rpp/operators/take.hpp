@@ -19,31 +19,24 @@ IMPLEMENTATION_FILE(take_tag);
 
 namespace rpp::details
 {
-
-class take_on_next
+struct take_state
 {
-public:
-    explicit take_on_next(size_t count) : m_count{ count } {}
+    mutable size_t count;
+};
 
-    size_t get_emission_count_left() const
+struct take_on_next
+{
+    void operator()(auto&& value, const constraint::subscriber auto& subscriber, const take_state& state) const
     {
-        return m_count;
-    }
-
-    void operator()(auto&& value, const constraint::subscriber auto& subscriber) const
-    {
-        if (m_count > 0)
+        if (state.count > 0)
         {
-            --m_count;
+            --state.count;
             subscriber.on_next(std::forward<decltype(value)>(value));
         }
 
-        if (m_count == 0)
+        if (state.count == 0)
             subscriber.on_completed();
-    };
-
-private:
-    mutable size_t m_count;
+    }
 };
 
 template<constraint::decayed_type Type>
@@ -57,10 +50,11 @@ struct take_impl
         auto subscription = subscriber.get_subscription();
         // dynamic_state there to make shared_ptr for observer instead of making shared_ptr for state
         return create_subscriber_with_dynamic_state<Type>(std::move(subscription),
-                                                          take_on_next{count},
+                                                          take_on_next{},
                                                           utils::forwarding_on_error{},
                                                           utils::forwarding_on_completed{},
-                                                          std::forward<TSub>(subscriber));
+                                                          std::forward<TSub>(subscriber),
+                                                          take_state{count});
     }
 };
 } // namespace rpp::details

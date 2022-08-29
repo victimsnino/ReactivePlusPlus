@@ -10,11 +10,10 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 #include <rpp/operators/fwd/observe_on.hpp>
 #include <rpp/subscribers/constraints.hpp>
-#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
-
-#include <rpp/defs.hpp>
 
 
 IMPLEMENTATION_FILE(observe_on_tag);
@@ -22,6 +21,42 @@ IMPLEMENTATION_FILE(observe_on_tag);
 
 namespace rpp::details
 {
+struct observe_on_on_next
+{
+    void operator()(auto&& value, const auto& sub, const auto& worker) const
+    {
+        worker.schedule([value = std::forward<decltype(value)>(value), sub]
+                        {
+                            sub.on_next(std::move(value));
+                            return schedulers::optional_duration{};
+                        });
+    }
+};
+
+struct observe_on_on_error
+{
+    void operator()(const std::exception_ptr& err, const auto& sub, const auto& worker) const
+    {
+        worker.schedule([err, sub]
+                        {
+                            sub.on_error(err);
+                            return schedulers::optional_duration{};
+                        });
+    }
+};
+
+struct observe_on_on_completed
+{
+    void operator()(const auto& sub, const auto& worker) const
+    {
+        worker.schedule([sub]
+                        {
+                            sub.on_completed();
+                            return schedulers::optional_duration{};
+                        });
+    }
+};
+
 template<constraint::decayed_type Type, schedulers::constraint::scheduler TScheduler>
 struct observe_on_impl
 {
@@ -33,45 +68,14 @@ struct observe_on_impl
         // convert it to dynamic due to expected amount of copies == amount of items
         auto dynamic_subscriber = std::forward<TSub>(subscriber).as_dynamic();
 
-        return create_subscriber(dynamic_subscriber);
-    }
-
-private:
-    auto create_subscriber(const rpp::dynamic_subscriber<Type>& dynamic_subscriber) const
-    {
-        auto worker  = scheduler.create_worker(dynamic_subscriber.get_subscription());
-        auto on_next = [worker](auto&& value, const rpp::dynamic_subscriber<Type>& sub)
-        {
-            worker.schedule([value = std::forward<decltype(value)>(value), sub]()-> schedulers::optional_duration
-            {
-                sub.on_next(std::move(value));
-                return {};
-            });
-        };
-
-        auto on_error = [worker](const std::exception_ptr& err, const rpp::dynamic_subscriber<Type>& sub)
-        {
-            worker.schedule([err, sub]()-> schedulers::optional_duration
-            {
-                sub.on_error(err);
-                return {};
-            });
-        };
-
-        auto on_completed = [worker](const rpp::dynamic_subscriber<Type>& sub)
-        {
-            worker.schedule([sub]()-> schedulers::optional_duration
-            {
-                sub.on_completed();
-                return {};
-            });
-        };
+        auto worker = scheduler.create_worker(dynamic_subscriber.get_subscription());
 
         return create_subscriber_with_state<Type>(dynamic_subscriber.get_subscription().make_child(),
-                                                  std::move(on_next),
-                                                  std::move(on_error),
-                                                  std::move(on_completed),
-                                                  dynamic_subscriber);
+                                                  observe_on_on_next{},
+                                                  observe_on_on_error{},
+                                                  observe_on_on_completed{},
+                                                  dynamic_subscriber,
+                                                  std::move(worker));
     }
 };
 } // namespace rpp::details
