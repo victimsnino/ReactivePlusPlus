@@ -110,7 +110,6 @@ jobs:
         key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
 
     - name: Configure
-      env: { CXX: clang++-12 }
       run: cmake --preset=ci-sanitize
 
     - name: Build
