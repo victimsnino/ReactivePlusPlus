@@ -21,9 +21,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v3
+        uses: dawidd6/action-download-artifact@v2
         with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
           path: artifacts
+          run_id: ${{github.event.workflow_run.id}}
 
       - uses: actions/checkout@v3
         with:
