@@ -24,53 +24,39 @@ IMPLEMENTATION_FILE(first_tag);
 
 namespace rpp::details
 {
+struct first_state : take_state
+{
+    first_state()
+        : take_state{1} {}
+};
+
+using first_on_next = take_on_next;
+
+struct first_on_completed
+{
+    void operator()(const constraint::subscriber auto& subscriber, const first_state& state) const
+    {
+        if (state.count != 0)
+            subscriber.on_error(std::make_exception_ptr(utils::not_enough_emissions{"first() operator expects at least one emission from observable before completion"}));
+    }
+};
 
 template<constraint::decayed_type Type>
 struct first_impl
 {
-private:
-    struct first_value_forwarder
-    {
-        void forward_on_next(auto&& value, const constraint::subscriber auto& subscriber) const
-        {
-           m_take_on_next(std::forward<decltype(value)>(value), subscriber);
-        }
-
-        void forward_on_completed(const constraint::subscriber auto& subscriber) const
-        {
-            if (m_take_on_next.get_emission_count_left() != 0)
-            {
-                auto err = std::make_exception_ptr(rpp::utils::not_enough_emissions{"'first' operator should at least emit the value once."});
-                subscriber.on_error(err);
-            }
-        }
-
-    private:
-        rpp::details::take_on_next m_take_on_next{1};
-    };
-
 public:
     template<constraint::subscriber_of_type<Type> TSub>
     auto operator()(TSub&& subscriber) const
     {
-        auto forwarder = std::make_shared<first_value_forwarder>();
-
-        auto on_next = [forwarder](auto&& value, const auto& subscriber)
-        {
-            forwarder->forward_on_next(std::forward<decltype(value)>(value), subscriber);
-        };
-        auto on_completed = [forwarder](const auto& subscriber)
-        {
-            forwarder->forward_on_completed(subscriber);
-        };
-
         auto subscription = subscriber.get_subscription();
+
+        // dynamic_state there to make shared_ptr for observer instead of making shared_ptr for state
         return create_subscriber_with_state<Type>(std::move(subscription),
-                                                  std::move(on_next),
+                                                  first_on_next{},
                                                   utils::forwarding_on_error{},
-                                                  std::move(on_completed),
-                                                  std::forward<TSub>(subscriber));
+                                                  first_on_completed{},
+                                                  std::forward<TSub>(subscriber),
+                                                  first_state{});
     }
 };
-
 } // namespace rpp::details
