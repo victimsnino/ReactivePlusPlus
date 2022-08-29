@@ -18,8 +18,8 @@ namespace rpp::details
 template<constraint::decayed_type Type>
 struct window_state
 {
-    const size_t                    window_size{};
-    mutable size_t                  items_in_current_window = window_size;
+    const size_t                            window_size{};
+    mutable size_t                          items_in_current_window = window_size;
     mutable subjects::publish_subject<Type> subject{};
 };
 
