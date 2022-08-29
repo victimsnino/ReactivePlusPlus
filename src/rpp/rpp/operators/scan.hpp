@@ -62,7 +62,7 @@ struct scan_impl
                                                           utils::forwarding_on_error{},
                                                           utils::forwarding_on_completed{},
                                                           std::forward<TSub>(subscriber),
-                                                          scan_state{initial_value, accumulator});
+                                                          scan_state<Result, AccumulatorFn>{initial_value, accumulator});
     }
 };
 } // namespace rpp::details
