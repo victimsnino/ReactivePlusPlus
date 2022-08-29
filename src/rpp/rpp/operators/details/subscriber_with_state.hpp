@@ -25,7 +25,7 @@ auto create_subscriber_with_state(rpp::composite_subscription sub,
                                   OnNext&&                    on_next,
                                   OnError&&                   on_error,
                                   OnCompleted&&               on_completed,
-                                  States&&... states)
+                                  States&&...                 states)
 {
     using TObs = state_observer<Type,
                                 std::decay_t<OnNext>,
