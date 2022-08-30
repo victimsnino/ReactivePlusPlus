@@ -42,7 +42,7 @@ public:
         std::unique_lock lock{m_mutex};
 
         process_state(m_state,
-                      [&](shared_subscribers subs)
+                      [&](const shared_subscribers& subs)
                       {
                           auto new_subs = make_copy_of_subscribed_subs(subs->size() + 1, subs);
                           new_subs->push_back(subscriber);
