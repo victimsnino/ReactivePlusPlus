@@ -15,6 +15,9 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/sources/create.hpp>
 
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+
+
 IMPLEMENTATION_FILE(ref_count_tag);
 
 namespace rpp::details
@@ -53,16 +56,24 @@ struct ref_count_on_subscribe
     std::shared_ptr<ref_count_state_t> state = std::make_shared<ref_count_state_t>();
 
     template<constraint::subscriber_of_type<Type> TSub>
-    void operator()(const TSub &subscriber) const
+    void operator()(TSub&& subscriber) const
     {
         const bool need_to_connect = state->on_subscribe();
 
-        subscriber.get_subscription().add([state = state]
-                                          {
-                                              state->on_unsubscribe();
-                                          });
+        subscriber.get_subscription().add([state = std::weak_ptr{state}]
+            {
+                if (const auto locked = state.lock())
+                    locked->on_unsubscribe();
+            });
 
-        observable.subscribe(subscriber);
+        auto sub = subscriber.get_subscription();
+        observable.subscribe(create_subscriber_with_state<Type>(std::move(sub), 
+                                                                utils::forwarding_on_next{}, 
+                                                                utils::forwarding_on_error{}, 
+                                                                utils::forwarding_on_completed{}, 
+                                                                std::forward<TSub>(subscriber), 
+                                                                // capture state to be sure that state is alive while ANY subscriber is alive
+                                                                state));
         if (need_to_connect)
             observable.connect(state->get_subscription());
     }
