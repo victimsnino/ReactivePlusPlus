@@ -70,7 +70,6 @@ struct combine_latest_on_next
 struct combine_latest_on_completed
 {
     template<typename TCombiner, constraint::decayed_type... Types>
-
     void operator()(const auto&                                                       subscriber,
                     const std::shared_ptr<combine_latest_state<TCombiner, Types...>>& state) const
     {
