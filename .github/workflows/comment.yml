@@ -16,6 +16,16 @@ jobs:
     steps:
       - uses: haya14busa/action-workflow_run-status@v1
 
+      - name: "Get PR information"
+        uses: potiuk/get-workflow-origin@v1_3
+        id: source-run-info
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sourceRunId: ${{ github.event.workflow_run.id }}
+
+      - name: Get PR info
+        run: echo ${{ steps.source-run-info.outputs }}
+
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -54,7 +64,7 @@ jobs:
         id: fc
         if: github.event.workflow_run.event != 'push'
         with:
-          issue-number: ${{ github.event.workflow_run.pull_requests[0].number }}
+          issue-number: ${{ steps.source-run-info.outputs.pullRequestNumber }}
           comment-author: 'github-actions[bot]'
           body-includes: GCC
 
@@ -69,7 +79,7 @@ jobs:
         if: github.event.workflow_run.event != 'push'
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
-          issue-number: ${{ github.event.workflow_run.pull_requests[0].number }}
+          issue-number: ${{ steps.source-run-info.outputs.pullRequestNumber }}
           body: ${{ steps.results.outputs.body }}
           edit-mode: replace
 
