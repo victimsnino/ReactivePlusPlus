@@ -23,8 +23,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           sourceRunId: ${{ github.event.workflow_run.id }}
 
-      - name: Get PR info
-        run: echo ${{ steps.source-run-info.outputs }}
+      - name: Debug PR Info
+        run: echo ${{ toJSON(steps.source-run-info.outputs) }}
 
       - uses: actions/checkout@v3
         with:
