@@ -4,7 +4,7 @@ import sys
 import pandas as pd
 from parse_benchmark_to_json import parse
 
-git_commit     = str(sys.argv[1]) 
+git_commit     = str(sys.argv[1])[:8]
 commit_message = sys.argv[2].split("\n")[0] if len(sys.argv) > 2 else "Current PR"
 
 new_results = pd.DataFrame()

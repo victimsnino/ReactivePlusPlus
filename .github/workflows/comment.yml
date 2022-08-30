@@ -37,7 +37,7 @@ jobs:
         run: pip3 install pandas
 
       - name: Process benchmarks
-        run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${{ github.event.workflow_run.head_sha::8 }} "${{github.event.workflow_run.head_commit.message}}"
+        run: python3 ${{github.workspace}}/ci/process_benchmark_data.py ${{ github.event.workflow_run.head_sha }} "${{github.event.workflow_run.head_commit.message}}"
 
       - name: Compare results
         run: |
