@@ -63,15 +63,6 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \textcolor{comment}{// The stream that uses rvalue overloads for operators}}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3, 4, 5)}
-\DoxyCodeLine{        .buffer(2)}
-\DoxyCodeLine{        .subscribe(}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} std::vector<int> \&v) \{ std::cout << v << \textcolor{stringliteral}{"-\/"}; \},}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr \&error) \{\},}
-\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"|"} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Source: -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
-\DoxyCodeLine{    \textcolor{comment}{// Output: \{1,2\}-\/\{3,4\}-\/\{5\}-\/|}}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
@@ -111,10 +102,6 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)}
-\DoxyCodeLine{            .flat\_map([](\textcolor{keywordtype}{int} val) \{ \textcolor{keywordflow}{return} rpp::source::from\_iterable(std::vector(val, val)); \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2 2 3 3 3}}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
@@ -155,56 +142,9 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3, 4, 5, 6, 7, 8)}
-\DoxyCodeLine{            .group\_by([](\textcolor{keywordtype}{int}   v) \{ \textcolor{keywordflow}{return} v \% 2 == 0; \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keyword}{auto} grouped\_observable)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                \textcolor{keyword}{auto} key = grouped\_observable.get\_key();}
-\DoxyCodeLine{                std::cout << \textcolor{stringliteral}{"new grouped observable "} << key << std::endl;}
-\DoxyCodeLine{                grouped\_observable.subscribe([key](\textcolor{keywordtype}{int} val)}
-\DoxyCodeLine{                \{}
-\DoxyCodeLine{                    std::cout << \textcolor{stringliteral}{"key ["} << key << \textcolor{stringliteral}{"] Val: "} << val << std::endl;}
-\DoxyCodeLine{                \});}
-\DoxyCodeLine{            \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: new grouped observable 0}}
-\DoxyCodeLine{    \textcolor{comment}{//         key [0] Val: 1}}
-\DoxyCodeLine{    \textcolor{comment}{//         new grouped observable 1}}
-\DoxyCodeLine{    \textcolor{comment}{//         key [1] Val: 2}}
-\DoxyCodeLine{    \textcolor{comment}{//         key [0] Val: 3}}
-\DoxyCodeLine{    \textcolor{comment}{//         key [1] Val: 4}}
-\DoxyCodeLine{    \textcolor{comment}{//         key [0] Val: 5}}
-\DoxyCodeLine{    \textcolor{comment}{//         key [1] Val: 6}}
-\DoxyCodeLine{    \textcolor{comment}{//         key [0] Val: 7}}
-\DoxyCodeLine{    \textcolor{comment}{//         key [1] Val: 8}}
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \textcolor{keyword}{struct }Person}
-\DoxyCodeLine{    \{}
-\DoxyCodeLine{        std::string name;}
-\DoxyCodeLine{        \textcolor{keywordtype}{int} age;}
-\DoxyCodeLine{    \};}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(Person\{\textcolor{stringliteral}{"Kate"}, 18\},}
-\DoxyCodeLine{                      Person\{\textcolor{stringliteral}{"Alex"}, 25\},}
-\DoxyCodeLine{                      Person\{\textcolor{stringliteral}{"Nick"}, 18\},}
-\DoxyCodeLine{                      Person\{\textcolor{stringliteral}{"Jack"}, 25\},}
-\DoxyCodeLine{                      Person\{\textcolor{stringliteral}{"Tom"}, 30\},}
-\DoxyCodeLine{                      Person\{\textcolor{stringliteral}{"Vanda"}, 18\})}
-\DoxyCodeLine{            .\mbox{\hyperlink{group__transforming__operators_gaf3399da92ac6a0a4c392107b5b405a60}{group\_by}}([](\textcolor{keyword}{const} Person\& v) \{ \textcolor{keywordflow}{return} v.age; \}, [](\textcolor{keyword}{const} Person\& v) \{ \textcolor{keywordflow}{return} v.name; \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keyword}{auto} grouped\_observable)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                grouped\_observable.subscribe([age = grouped\_observable.get\_key()](\textcolor{keyword}{const} std::string\& name)}
-\DoxyCodeLine{                \{}
-\DoxyCodeLine{                    std::cout << \textcolor{stringliteral}{"Age ["} << age << \textcolor{stringliteral}{"] Name: "} << name << std::endl;}
-\DoxyCodeLine{                \});}
-\DoxyCodeLine{            \});}
-\DoxyCodeLine{}
-\DoxyCodeLine{    \textcolor{comment}{// Output: Age [18] Name: Kate}}
-\DoxyCodeLine{    \textcolor{comment}{//         Age [25] Name: Alex}}
-\DoxyCodeLine{    \textcolor{comment}{//         Age [18] Name: Nick}}
-\DoxyCodeLine{    \textcolor{comment}{//         Age [25] Name: Jack}}
-\DoxyCodeLine{    \textcolor{comment}{//         Age [30] Name: Tom}}
-\DoxyCodeLine{    \textcolor{comment}{//         Age [18] Name: Vanda}}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
@@ -242,26 +182,12 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example with same type\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(42)}
-\DoxyCodeLine{            .map([](\textcolor{keywordtype}{int} value)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                \textcolor{keywordflow}{return} value + 10;}
-\DoxyCodeLine{            \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 52}}
 \end{DoxyCodeInclude}
  
 \end{DoxyParagraph}
 \begin{DoxyParagraph}{Example with changed type\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(42)}
-\DoxyCodeLine{            .map([](\textcolor{keywordtype}{int} value)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                \textcolor{keywordflow}{return} std::to\_string(value) + \textcolor{stringliteral}{" VAL"};}
-\DoxyCodeLine{            \})}
-\DoxyCodeLine{            .subscribe([](std::string v) \{ std::cout << v << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 42 VAL}}
 \end{DoxyCodeInclude}
  
 \end{DoxyParagraph}
@@ -298,29 +224,9 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1,2,3)}
-\DoxyCodeLine{            .scan(0, std::plus<int>\{\})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 1 3 6}}
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1,2,3)}
-\DoxyCodeLine{            .scan(std::vector<int>\{\}, [](std::vector<int>\&\& seed, \textcolor{keywordtype}{int} new\_value)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                seed.push\_back(new\_value);}
-\DoxyCodeLine{                \textcolor{keywordflow}{return} std::move(seed);}
-\DoxyCodeLine{            \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keyword}{const} std::vector<int>\& v)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                std::cout << \textcolor{stringliteral}{"vector: "};}
-\DoxyCodeLine{                \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} val : v)}
-\DoxyCodeLine{                    std::cout << val << \textcolor{stringliteral}{" "};}
-\DoxyCodeLine{                std::cout << std::endl;}
-\DoxyCodeLine{            \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: vector: 1}}
-\DoxyCodeLine{    \textcolor{comment}{//         vector: 1 2}}
-\DoxyCodeLine{    \textcolor{comment}{//         vector: 1 2 3}}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
@@ -357,23 +263,6 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)}
-\DoxyCodeLine{            .switch\_map([](\textcolor{keywordtype}{int} val) \{}
-\DoxyCodeLine{                \textcolor{keywordflow}{if} (val == 1)}
-\DoxyCodeLine{                    \textcolor{keywordflow}{return} rpp::source::never<int>()}
-\DoxyCodeLine{                        .lift([\&](\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp::dynamic\_subscriber<int>}} sub) \{}
-\DoxyCodeLine{                            sub.get\_subscription().add([\&]() \{}
-\DoxyCodeLine{                                std::cout << \textcolor{stringliteral}{"x-\/"}; \textcolor{comment}{// x is notation for unsubscribed}}
-\DoxyCodeLine{                            \});}
-\DoxyCodeLine{                            \textcolor{keywordflow}{return} sub;}
-\DoxyCodeLine{                        \})}
-\DoxyCodeLine{                        .as\_dynamic();}
-\DoxyCodeLine{}
-\DoxyCodeLine{                \textcolor{keywordflow}{return} rpp::source::from\_iterable(std::vector\{val, val\})}
-\DoxyCodeLine{                    .as\_dynamic();}
-\DoxyCodeLine{            \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"-\/"}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: x-\/2-\/2-\/3-\/3-\/}}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
@@ -410,13 +299,6 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1,2,3,4,5)}
-\DoxyCodeLine{        .window(3)}
-\DoxyCodeLine{        .subscribe([](\textcolor{keyword}{const} rpp::windowed\_observable<int>\& v) \{ std::cout << \textcolor{stringliteral}{"\(\backslash\)nNew observable "} << std::endl; v.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{" "}; \}); \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: New observable}}
-\DoxyCodeLine{    \textcolor{comment}{//         1 2 3}}
-\DoxyCodeLine{    \textcolor{comment}{//         New observable}}
-\DoxyCodeLine{    \textcolor{comment}{//         4 5}}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}

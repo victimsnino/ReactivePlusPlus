@@ -114,51 +114,57 @@ $(document).ready(function(){initNavTree('subscription__base_8hpp_source.html','
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>rpp</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classrpp_1_1subscription__base.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>(std::shared_ptr&lt;details::subscription_state&gt; state)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        : m_state{std::move(state)} {}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="classrpp_1_1details_1_1subscription__state.html">details::subscription_state</a>*                        get_state()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_state.get(); }</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">const</span> std::shared_ptr&lt;details::subscription_state&gt;&amp; get_state_as_shared()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_state; }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>()</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        : m_state{std::make_shared&lt;details::subscription_state&gt;()} {}</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp;)                      = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>(<a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp;&amp;) noexcept                  = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp; operator=(<span class="keyword">const</span> <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp; other)     = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp; operator=(<a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp;&amp; other) noexcept = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp; rhs) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">static</span> <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a> empty() { <span class="keywordflow">return</span> <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>{ <span class="keyword">nullptr</span> }; }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2">   48</a></span>&#160;    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2">is_subscribed</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> m_state &amp;&amp; m_state-&gt;is_subscribed();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">   56</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">unsubscribe</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">if</span> (m_state)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            m_state-&gt;unsubscribe();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    std::shared_ptr&lt;details::subscription_state&gt; m_state{};</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;};</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace rpp</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">class </span>composite_subscription;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classrpp_1_1subscription__base.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>(std::shared_ptr&lt;details::subscription_state&gt; state)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        : m_state{std::move(state)} {}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">const</span> std::shared_ptr&lt;details::subscription_state&gt;&amp; get_state()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_state; }</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">friend</span> <a class="code" href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>()</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        : m_state{std::make_shared&lt;details::subscription_state&gt;()} {}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp;)                      = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>(<a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp;&amp;) noexcept                  = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp; operator=(<span class="keyword">const</span> <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp; other)     = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp; operator=(<a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp;&amp; other) noexcept = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>&amp; rhs) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">static</span> <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a> empty() { <span class="keywordflow">return</span> <a class="code" href="classrpp_1_1subscription__base.html">subscription_base</a>{ <span class="keyword">nullptr</span> }; }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2">   51</a></span>&#160;    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2">is_subscribed</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">return</span> m_state &amp;&amp; m_state-&gt;is_subscribed();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">   59</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">unsubscribe</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">if</span> (m_state)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            m_state-&gt;unsubscribe();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            m_state.reset();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">mutable</span> std::shared_ptr&lt;details::subscription_state&gt; m_state{};</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;};</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">// namespace rpp</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassrpp_1_1subscription__base_html_af07ca7cdfb9758441c0729cbe3e6d19d"><div class="ttname"><a href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">rpp::subscription_base::unsubscribe</a></div><div class="ttdeci">void unsubscribe() const</div><div class="ttdoc">initiates unsubscription process (if subscribed)</div><div class="ttdef"><b>Definition:</b> subscription_base.hpp:56</div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1subscription__state_html"><div class="ttname"><a href="classrpp_1_1details_1_1subscription__state.html">rpp::details::subscription_state</a></div><div class="ttdoc">Base implementation of subscription state used under-hood for rpp::subscription_base and its childs.</div><div class="ttdef"><b>Definition:</b> subscription_state.hpp:21</div></div>
-<div class="ttc" id="aclassrpp_1_1subscription__base_html_ad9c07157024e7f68ce815d971c3faaf2"><div class="ttname"><a href="classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2">rpp::subscription_base::is_subscribed</a></div><div class="ttdeci">bool is_subscribed() const</div><div class="ttdoc">indicates current status of subscription</div><div class="ttdef"><b>Definition:</b> subscription_base.hpp:48</div></div>
-<div class="ttc" id="aclassrpp_1_1subscription__base_html"><div class="ttname"><a href="classrpp_1_1subscription__base.html">rpp::subscription_base</a></div><div class="ttdoc">Base subscription implementation used as base class/interface and core implementation for derrived su...</div><div class="ttdef"><b>Definition:</b> subscription_base.hpp:22</div></div>
+<div class="ttc" id="aclassrpp_1_1composite__subscription_html"><div class="ttname"><a href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a></div><div class="ttdoc">rpp::subscription_base with ability to add some dependent subscriptions as a part of this one: in cas...</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:26</div></div>
+<div class="ttc" id="aclassrpp_1_1subscription__base_html_af07ca7cdfb9758441c0729cbe3e6d19d"><div class="ttname"><a href="classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d">rpp::subscription_base::unsubscribe</a></div><div class="ttdeci">void unsubscribe() const</div><div class="ttdoc">initiates unsubscription process (if subscribed)</div><div class="ttdef"><b>Definition:</b> subscription_base.hpp:59</div></div>
+<div class="ttc" id="aclassrpp_1_1subscription__base_html_ad9c07157024e7f68ce815d971c3faaf2"><div class="ttname"><a href="classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2">rpp::subscription_base::is_subscribed</a></div><div class="ttdeci">bool is_subscribed() const</div><div class="ttdoc">indicates current status of subscription</div><div class="ttdef"><b>Definition:</b> subscription_base.hpp:51</div></div>
+<div class="ttc" id="aclassrpp_1_1subscription__base_html"><div class="ttname"><a href="classrpp_1_1subscription__base.html">rpp::subscription_base</a></div><div class="ttdoc">Base subscription implementation used as base class/interface and core implementation for derrived su...</div><div class="ttdef"><b>Definition:</b> subscription_base.hpp:24</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

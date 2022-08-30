@@ -122,49 +122,50 @@ $(document).ready(function(){initNavTree('publish__subject_8hpp_source.html','')
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="classrpp_1_1subjects_1_1details_1_1publish__strategy.html">publish_strategy</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&amp; sub)</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        : m_sub{sub}</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        m_sub.<a class="code" href="classrpp_1_1composite__subscription.html#a7ea8553bdf67bbceab87dd14b7c42e3c">add</a>([state = m_state]</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        m_sub.<a class="code" href="classrpp_1_1composite__subscription.html#a0f8ca655abc66dbf483a50006e36c22c">add</a>([state = std::weak_ptr{m_state}]</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            state-&gt;on_unsubscribe();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        });</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> on_subscribe(<span class="keyword">const</span> <a class="code" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber&lt;T&gt;</a>&amp; sub)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        m_state-&gt;on_subscribe(sub);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">auto</span> get_subscriber()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">return</span> rpp::make_specific_subscriber&lt;T&gt;(m_sub,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                                                [state = m_state](<span class="keyword">const</span> T&amp; v)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                                                {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                                                    state-&gt;on_next(v);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                                                },</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                                                [state = m_state](<span class="keyword">const</span> std::exception_ptr&amp; err)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                                                {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                                                    state-&gt;on_error(err);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                                                },</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                                                [state = m_state]()</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                                                {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                                                    state-&gt;on_completed();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                                                });</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    std::shared_ptr&lt;subject_state&lt;T&gt;&gt; m_state = std::make_shared&lt;subject_state&lt;T&gt;&gt;();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="classrpp_1_1composite__subscription.html">composite_subscription</a>            m_sub{};</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;};</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <span class="comment">// namespace rpp::subjects::details</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">namespace </span>rpp::subjects</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;{</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1subjects_1_1publish__subject.html">publish_subject</a> final : <span class="keyword">public</span> <a class="code" href="classrpp_1_1subjects_1_1details_1_1base__subject.html">details::base_subject</a>&lt;T, details::publish_strategy&lt;T&gt;&gt;{};</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace rpp::subjects</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="keywordflow">if</span>(<span class="keyword">const</span> <span class="keyword">auto</span> locked = state.lock())</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                locked-&gt;on_unsubscribe();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        });</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> on_subscribe(<span class="keyword">const</span> <a class="code" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber&lt;T&gt;</a>&amp; sub)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        m_state-&gt;on_subscribe(sub);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">auto</span> get_subscriber()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">return</span> rpp::make_specific_subscriber&lt;T&gt;(m_sub,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                                                [state = m_state](<span class="keyword">const</span> T&amp; v)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                                                {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                                                    state-&gt;on_next(v);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                                                },</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                                                [state = m_state](<span class="keyword">const</span> std::exception_ptr&amp; err)</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                                                {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                                                    state-&gt;on_error(err);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                                                },</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                                                [state = m_state]()</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                                                {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                                                    state-&gt;on_completed();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                                                });</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    std::shared_ptr&lt;subject_state&lt;T&gt;&gt; m_state = std::make_shared&lt;subject_state&lt;T&gt;&gt;();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="classrpp_1_1composite__subscription.html">composite_subscription</a>            m_sub{};</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;} <span class="comment">// namespace rpp::subjects::details</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">namespace </span>rpp::subjects</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;{</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1subjects_1_1publish__subject.html">publish_subject</a> final : <span class="keyword">public</span> <a class="code" href="classrpp_1_1subjects_1_1details_1_1base__subject.html">details::base_subject</a>&lt;T, details::publish_strategy&lt;T&gt;&gt;{};</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace rpp::subjects</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassrpp_1_1subjects_1_1details_1_1base__subject_html"><div class="ttname"><a href="classrpp_1_1subjects_1_1details_1_1base__subject.html">rpp::subjects::details::base_subject</a></div><div class="ttdef"><b>Definition:</b> base_subject.hpp:22</div></div>
-<div class="ttc" id="aclassrpp_1_1composite__subscription_html_a7ea8553bdf67bbceab87dd14b7c42e3c"><div class="ttname"><a href="classrpp_1_1composite__subscription.html#a7ea8553bdf67bbceab87dd14b7c42e3c">rpp::composite_subscription::add</a></div><div class="ttdeci">TSub add(const TSub &amp;sub=TSub{}) const</div><div class="ttdoc">Add any other subscription to this as dependent.</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:42</div></div>
+<div class="ttc" id="aclassrpp_1_1composite__subscription_html_a0f8ca655abc66dbf483a50006e36c22c"><div class="ttname"><a href="classrpp_1_1composite__subscription.html#a0f8ca655abc66dbf483a50006e36c22c">rpp::composite_subscription::add</a></div><div class="ttdeci">std::weak_ptr&lt; details::subscription_state &gt; add(const TSub &amp;sub=TSub{}) const</div><div class="ttdoc">Add any other subscription to this as dependent.</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:42</div></div>
 <div class="ttc" id="aclassrpp_1_1composite__subscription_html"><div class="ttname"><a href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a></div><div class="ttdoc">rpp::subscription_base with ability to add some dependent subscriptions as a part of this one: in cas...</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:26</div></div>
 <div class="ttc" id="aclassrpp_1_1subjects_1_1publish__subject_html"><div class="ttname"><a href="classrpp_1_1subjects_1_1publish__subject.html">rpp::subjects::publish_subject</a></div><div class="ttdoc">Subject which just multicasts values to observers subscribed on it. It contains two parts: subscriber...</div><div class="ttdef"><b>Definition:</b> fwd.hpp:34</div></div>
 <div class="ttc" id="aclassrpp_1_1subjects_1_1details_1_1publish__strategy_html"><div class="ttname"><a href="classrpp_1_1subjects_1_1details_1_1publish__strategy.html">rpp::subjects::details::publish_strategy</a></div><div class="ttdef"><b>Definition:</b> publish_subject.hpp:21</div></div>

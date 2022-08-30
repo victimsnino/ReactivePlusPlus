@@ -66,12 +66,6 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::empty<int>()}
-\DoxyCodeLine{            .do\_on\_completed([]() \{ std::cout << \textcolor{stringliteral}{"(TAP) Completed"} << std::endl; \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}) \{\}, []() \{ std::cout << \textcolor{stringliteral}{"Completed"} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output:}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) Completed}}
-\DoxyCodeLine{    \textcolor{comment}{// Completed}}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
@@ -107,12 +101,6 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::error<int>(std::make\_exception\_ptr(std::runtime\_error\{\textcolor{stringliteral}{""}\}))}
-\DoxyCodeLine{            .do\_on\_error([](std::exception\_ptr) \{ std::cout << \textcolor{stringliteral}{"(TAP) NEW error"} << std::endl; \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}                 ) \{\}, [](std::exception\_ptr) \{ std::cout << \textcolor{stringliteral}{"NEW error"} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output:}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW error}}
-\DoxyCodeLine{    \textcolor{comment}{// NEW error}}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
@@ -148,16 +136,6 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2)}
-\DoxyCodeLine{            .do\_on\_next([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"(TAP) NEW item "} << v << std::endl; \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}  v) \{ std::cout << \textcolor{stringliteral}{"NEW item "} << v << std::endl; \},}
-\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"Completed"} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output:}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW item 1}}
-\DoxyCodeLine{    \textcolor{comment}{// NEW item 1}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW item 2}}
-\DoxyCodeLine{    \textcolor{comment}{// NEW item 2}}
-\DoxyCodeLine{    \textcolor{comment}{// Completed}}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
@@ -190,16 +168,6 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    std::cout << std::this\_thread::get\_id() << std::endl;}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(10, 15, 20)}
-\DoxyCodeLine{            .observe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
-\DoxyCodeLine{            .as\_blocking()}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"["} << std::this\_thread::get\_id() << \textcolor{stringliteral}{"] : "} << v << \textcolor{stringliteral}{"\(\backslash\)n"}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Template for output:}}
-\DoxyCodeLine{    \textcolor{comment}{// TH1}}
-\DoxyCodeLine{    \textcolor{comment}{// [TH2]: 10}}
-\DoxyCodeLine{    \textcolor{comment}{// [TH2]: 15}}
-\DoxyCodeLine{    \textcolor{comment}{// [TH2]: 20}}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
@@ -229,15 +197,6 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Examples\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)}
-\DoxyCodeLine{            .repeat()}
-\DoxyCodeLine{            .take(10)}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \},}
-\DoxyCodeLine{                       []()}
-\DoxyCodeLine{                       \{}
-\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"completed"} << std::endl;}
-\DoxyCodeLine{                       \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2 3 1 2 3 1 2 3 1 completed}}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
@@ -277,14 +236,6 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Examples\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)}
-\DoxyCodeLine{            .repeat(2)}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \},}
-\DoxyCodeLine{                       []()}
-\DoxyCodeLine{                       \{}
-\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"completed"} << std::endl;}
-\DoxyCodeLine{                       \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2 3 1 2 3 completed}}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
@@ -317,20 +268,6 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    std::cout << std::this\_thread::get\_id() << std::endl;}
-\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                std::cout << \textcolor{stringliteral}{"on\_subscribe thread "} << std::this\_thread::get\_id() << std::endl;}
-\DoxyCodeLine{                sub.on\_next(1);}
-\DoxyCodeLine{                sub.on\_completed();}
-\DoxyCodeLine{            \})}
-\DoxyCodeLine{            .\mbox{\hyperlink{group__utility__operators_ga0608a5ced9a5b3b57f4c97a9b2f634f4}{subscribe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
-\DoxyCodeLine{            .as\_blocking()}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"["} << std::this\_thread::get\_id() << \textcolor{stringliteral}{"] : "} << v << \textcolor{stringliteral}{"\(\backslash\)n"}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Template for output:}}
-\DoxyCodeLine{    \textcolor{comment}{// TH1}}
-\DoxyCodeLine{    \textcolor{comment}{// on\_subscribe thread TH2}}
-\DoxyCodeLine{    \textcolor{comment}{// [TH2]: 1}}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
@@ -370,19 +307,6 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2)}
-\DoxyCodeLine{            .tap([](\textcolor{keywordtype}{int}               v) \{ std::cout << \textcolor{stringliteral}{"(TAP) NEW item "} << v << std::endl; \},}
-\DoxyCodeLine{                 [](std::exception\_ptr) \{\},}
-\DoxyCodeLine{                 []() \{ std::cout << \textcolor{stringliteral}{"(TAP) Completed"} << std::endl; \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"NEW item "} << v << std::endl; \},}
-\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"Completed"} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output:}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW item 1}}
-\DoxyCodeLine{    \textcolor{comment}{// NEW item 1}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW item 2}}
-\DoxyCodeLine{    \textcolor{comment}{// NEW item 2}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) Completed}}
-\DoxyCodeLine{    \textcolor{comment}{// Completed}}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
@@ -418,18 +342,6 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2)}
-\DoxyCodeLine{            .tap(rpp::make\_specific\_observer<int>([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"(TAP) NEW item "} << v << std::endl; \},}
-\DoxyCodeLine{                                                  []() \{ std::cout << \textcolor{stringliteral}{"(TAP) Completed"} << std::endl; \}))}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"NEW item "} << v << std::endl; \},}
-\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"Completed"} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output:}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW item 1}}
-\DoxyCodeLine{    \textcolor{comment}{// NEW item 1}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW item 2}}
-\DoxyCodeLine{    \textcolor{comment}{// NEW item 2}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) Completed}}
-\DoxyCodeLine{    \textcolor{comment}{// Completed}}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}

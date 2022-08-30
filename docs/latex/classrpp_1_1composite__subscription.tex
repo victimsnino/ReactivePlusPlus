@@ -33,17 +33,20 @@ Inheritance diagram for rpp\+::composite\+\_\+subscription\+:\begin{figure}[H]
 \mbox{\Hypertarget{classrpp_1_1composite__subscription_a5a3e8f1c0ecda56fafb9749ae080ed7c}\label{classrpp_1_1composite__subscription_a5a3e8f1c0ecda56fafb9749ae080ed7c}} 
 \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} \& {\bfseries operator=} (\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} \&\&other) noexcept=default
 \item 
-\mbox{\Hypertarget{classrpp_1_1composite__subscription_a7ea8553bdf67bbceab87dd14b7c42e3c}\label{classrpp_1_1composite__subscription_a7ea8553bdf67bbceab87dd14b7c42e3c}} 
-{\footnotesize template$<$constraint\+::subscription T\+Sub = subscription\+\_\+base$>$ }\\T\+Sub \mbox{\hyperlink{classrpp_1_1composite__subscription_a7ea8553bdf67bbceab87dd14b7c42e3c}{add}} (const T\+Sub \&sub=T\+Sub\{\}) const
+\mbox{\Hypertarget{classrpp_1_1composite__subscription_a0f8ca655abc66dbf483a50006e36c22c}\label{classrpp_1_1composite__subscription_a0f8ca655abc66dbf483a50006e36c22c}} 
+{\footnotesize template$<$constraint\+::subscription T\+Sub = subscription\+\_\+base$>$ }\\std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1details_1_1subscription__state}{details\+::subscription\+\_\+state}} $>$ \mbox{\hyperlink{classrpp_1_1composite__subscription_a0f8ca655abc66dbf483a50006e36c22c}{add}} (const T\+Sub \&sub=T\+Sub\{\}) const
 \begin{DoxyCompactList}\small\item\em Add any other subscription to this as dependent. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrpp_1_1composite__subscription_a7cc3afb512eeb0dfaedae5b48e8a4602}\label{classrpp_1_1composite__subscription_a7cc3afb512eeb0dfaedae5b48e8a4602}} 
-\mbox{\hyperlink{classrpp_1_1callback__subscription}{callback\+\_\+subscription}} \mbox{\hyperlink{classrpp_1_1composite__subscription_a7cc3afb512eeb0dfaedae5b48e8a4602}{add}} (const \mbox{\hyperlink{classrpp_1_1callback__subscription}{callback\+\_\+subscription}} \&sub) const
+\mbox{\Hypertarget{classrpp_1_1composite__subscription_afc9f5e187d73d8a21f20b9126fb3b008}\label{classrpp_1_1composite__subscription_afc9f5e187d73d8a21f20b9126fb3b008}} 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1details_1_1subscription__state}{details\+::subscription\+\_\+state}} $>$ \mbox{\hyperlink{classrpp_1_1composite__subscription_afc9f5e187d73d8a21f20b9126fb3b008}{add}} (const \mbox{\hyperlink{classrpp_1_1callback__subscription}{callback\+\_\+subscription}} \&sub) const
 \begin{DoxyCompactList}\small\item\em Add callback/function subscription to this as dependent. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrpp_1_1composite__subscription_aa5ff17337d6f98aa5767897d5517f036}\label{classrpp_1_1composite__subscription_aa5ff17337d6f98aa5767897d5517f036}} 
 \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} {\bfseries make\+\_\+child} () const
 \item 
 \mbox{\Hypertarget{classrpp_1_1composite__subscription_a9ad8463bd6d334ac471995f36a84bee3}\label{classrpp_1_1composite__subscription_a9ad8463bd6d334ac471995f36a84bee3}} 
 void {\bfseries remove} (const \mbox{\hyperlink{classrpp_1_1subscription__base}{subscription\+\_\+base}} \&sub) const
+\item 
+\mbox{\Hypertarget{classrpp_1_1composite__subscription_a1344f9ea271e0460461ff7691faf56db}\label{classrpp_1_1composite__subscription_a1344f9ea271e0460461ff7691faf56db}} 
+void {\bfseries remove} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1details_1_1subscription__state}{details\+::subscription\+\_\+state}} $>$ \&sub) const
 \item 
 \mbox{\Hypertarget{classrpp_1_1composite__subscription_a2af3d3bcc5679888bf27b53ccb2f7efb}\label{classrpp_1_1composite__subscription_a2af3d3bcc5679888bf27b53ccb2f7efb}} 
 bool {\bfseries is\+\_\+empty} () const

@@ -37,17 +37,16 @@ var NAVTREE =
     ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ]
-    ] ],
-    [ "Examples", "examples.html", "examples" ]
+    ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
 ".html",
-"dir_0d0da1fb4197fa3caa994cbb6099370d.html",
-"structrpp_1_1details_1_1buffer__on__next.html#a8b569cc5aca8fd3b08540b03634c94be",
-"structrpp_1_1utils_1_1details_1_1extract__subscriber__type.html#a1f84c83aa1419da37179441e7700ab79"
+"first_8hpp_source.html",
+"structrpp_1_1details_1_1dynamic__observer__state__base.html#ad0bb505fa7c6b21a21f5ee350ab58439",
+"structrpp_1_1details_1_1with__latest__from__state.html#a03368ad18d69e5cbe8c5c7717d54827e"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

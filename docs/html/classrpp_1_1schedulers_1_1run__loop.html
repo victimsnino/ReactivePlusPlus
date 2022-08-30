@@ -139,32 +139,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>dispatch</b> () const
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>scheduler which schedules execution via queueing tasks, but execution of tasks should be manually dispatched </p>
 <dl class="section warning"><dt>Warning</dt><dd>you need manually dispatch events for this scheduler in some thread.</dd></dl>
-<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <span class="keyword">auto</span> run_loop = <a class="code" href="classrpp_1_1schedulers_1_1run__loop.html">rpp::schedulers::run_loop</a>{};</div>
-<div class="line">    <span class="keyword">auto</span> sub = <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(10, 15, 20)</div>
-<div class="line">        .observe_on(run_loop)</div>
-<div class="line">        .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt;  v &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; });</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// No output</span></div>
-<div class="line"> </div>
-<div class="line">    <span class="keywordflow">while</span> (sub.is_subscribed())</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">while</span> (run_loop.is_any_ready_schedulable())</div>
-<div class="line">            run_loop.dispatch();</div>
-<div class="line">    }</div>
-<div class="line">    <span class="comment">// Output:</span></div>
-<div class="line">    <span class="comment">// 10</span></div>
-<div class="line">    <span class="comment">// 15</span></div>
-<div class="line">    <span class="comment">// 20</span></div>
-</div><!-- fragment --></dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="run_loop_8cpp-example.html#_a0">run_loop.cpp</a>.</dd>
-</dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/rpp/rpp/schedulers/<a class="el" href="run__loop__scheduler_8hpp_source.html">run_loop_scheduler.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agroup__creational__operators_html_gabc5067fa9aefaa803f6e329b75faa00c"><div class="ttname"><a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:159</div></div>
-<div class="ttc" id="aclassrpp_1_1schedulers_1_1run__loop_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1run__loop.html">rpp::schedulers::run_loop</a></div><div class="ttdoc">scheduler which schedules execution via queueing tasks, but execution of tasks should be manually dis...</div><div class="ttdef"><b>Definition:</b> run_loop_scheduler.hpp:29</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

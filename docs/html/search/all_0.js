@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['add_0',['add',['../classrpp_1_1composite__subscription.html#a7ea8553bdf67bbceab87dd14b7c42e3c',1,'rpp::composite_subscription::add(const TSub &amp;sub=TSub{}) const'],['../classrpp_1_1composite__subscription.html#a7cc3afb512eeb0dfaedae5b48e8a4602',1,'rpp::composite_subscription::add(const callback_subscription &amp;sub) const']]],
+  ['add_0',['add',['../classrpp_1_1composite__subscription.html#a0f8ca655abc66dbf483a50006e36c22c',1,'rpp::composite_subscription::add(const TSub &amp;sub=TSub{}) const'],['../classrpp_1_1composite__subscription.html#afc9f5e187d73d8a21f20b9126fb3b008',1,'rpp::composite_subscription::add(const callback_subscription &amp;sub) const']]],
   ['advanced_20guide_1',['Advanced Guide',['../advanced.html',1,'docs']]],
   ['aggregate_20operators_2',['Aggregate Operators',['../group__aggregate__operators.html',1,'']]],
   ['as_5fblocking_3',['as_blocking',['../structrpp_1_1interface__observable.html#a1aed1c6edd83e7091c2bdc3b15b2beee',1,'rpp::interface_observable']]],

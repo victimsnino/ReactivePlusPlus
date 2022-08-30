@@ -134,21 +134,24 @@ template&lt;std::convertible_to&lt; subscription_base &gt; ... Subs&gt; </td></t
 <tr class="memitem:a5a3e8f1c0ecda56fafb9749ae080ed7c"><td class="memItemLeft" align="right" valign="top"><a id="a5a3e8f1c0ecda56fafb9749ae080ed7c"></a>
 <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> &amp;&amp;other) noexcept=default</td></tr>
 <tr class="separator:a5a3e8f1c0ecda56fafb9749ae080ed7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ea8553bdf67bbceab87dd14b7c42e3c"><td class="memTemplParams" colspan="2"><a id="a7ea8553bdf67bbceab87dd14b7c42e3c"></a>
+<tr class="memitem:a0f8ca655abc66dbf483a50006e36c22c"><td class="memTemplParams" colspan="2"><a id="a0f8ca655abc66dbf483a50006e36c22c"></a>
 template&lt;constraint::subscription TSub = subscription_base&gt; </td></tr>
-<tr class="memitem:a7ea8553bdf67bbceab87dd14b7c42e3c"><td class="memTemplItemLeft" align="right" valign="top">TSub&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1composite__subscription.html#a7ea8553bdf67bbceab87dd14b7c42e3c">add</a> (const TSub &amp;sub=TSub{}) const</td></tr>
-<tr class="memdesc:a7ea8553bdf67bbceab87dd14b7c42e3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add any other subscription to this as dependent. <br /></td></tr>
-<tr class="separator:a7ea8553bdf67bbceab87dd14b7c42e3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cc3afb512eeb0dfaedae5b48e8a4602"><td class="memItemLeft" align="right" valign="top"><a id="a7cc3afb512eeb0dfaedae5b48e8a4602"></a>
-<a class="el" href="classrpp_1_1callback__subscription.html">callback_subscription</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1composite__subscription.html#a7cc3afb512eeb0dfaedae5b48e8a4602">add</a> (const <a class="el" href="classrpp_1_1callback__subscription.html">callback_subscription</a> &amp;sub) const</td></tr>
-<tr class="memdesc:a7cc3afb512eeb0dfaedae5b48e8a4602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add callback/function subscription to this as dependent. <br /></td></tr>
-<tr class="separator:a7cc3afb512eeb0dfaedae5b48e8a4602"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f8ca655abc66dbf483a50006e36c22c"><td class="memTemplItemLeft" align="right" valign="top">std::weak_ptr&lt; <a class="el" href="classrpp_1_1details_1_1subscription__state.html">details::subscription_state</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1composite__subscription.html#a0f8ca655abc66dbf483a50006e36c22c">add</a> (const TSub &amp;sub=TSub{}) const</td></tr>
+<tr class="memdesc:a0f8ca655abc66dbf483a50006e36c22c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add any other subscription to this as dependent. <br /></td></tr>
+<tr class="separator:a0f8ca655abc66dbf483a50006e36c22c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc9f5e187d73d8a21f20b9126fb3b008"><td class="memItemLeft" align="right" valign="top"><a id="afc9f5e187d73d8a21f20b9126fb3b008"></a>
+std::weak_ptr&lt; <a class="el" href="classrpp_1_1details_1_1subscription__state.html">details::subscription_state</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1composite__subscription.html#afc9f5e187d73d8a21f20b9126fb3b008">add</a> (const <a class="el" href="classrpp_1_1callback__subscription.html">callback_subscription</a> &amp;sub) const</td></tr>
+<tr class="memdesc:afc9f5e187d73d8a21f20b9126fb3b008"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add callback/function subscription to this as dependent. <br /></td></tr>
+<tr class="separator:afc9f5e187d73d8a21f20b9126fb3b008"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5ff17337d6f98aa5767897d5517f036"><td class="memItemLeft" align="right" valign="top"><a id="aa5ff17337d6f98aa5767897d5517f036"></a>
 <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memItemRight" valign="bottom"><b>make_child</b> () const</td></tr>
 <tr class="separator:aa5ff17337d6f98aa5767897d5517f036"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ad8463bd6d334ac471995f36a84bee3"><td class="memItemLeft" align="right" valign="top"><a id="a9ad8463bd6d334ac471995f36a84bee3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>remove</b> (const <a class="el" href="classrpp_1_1subscription__base.html">subscription_base</a> &amp;sub) const</td></tr>
 <tr class="separator:a9ad8463bd6d334ac471995f36a84bee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1344f9ea271e0460461ff7691faf56db"><td class="memItemLeft" align="right" valign="top"><a id="a1344f9ea271e0460461ff7691faf56db"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>remove</b> (const std::weak_ptr&lt; <a class="el" href="classrpp_1_1details_1_1subscription__state.html">details::subscription_state</a> &gt; &amp;sub) const</td></tr>
+<tr class="separator:a1344f9ea271e0460461ff7691faf56db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2af3d3bcc5679888bf27b53ccb2f7efb"><td class="memItemLeft" align="right" valign="top"><a id="a2af3d3bcc5679888bf27b53ccb2f7efb"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_empty</b> () const</td></tr>
 <tr class="separator:a2af3d3bcc5679888bf27b53ccb2f7efb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -193,12 +196,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:ad0c9f6fce2f13cfe7b478e994a48e206 inherit pro_methods_classrpp_1_1subscription__base"><td class="memItemLeft" align="right" valign="top"><a id="ad0c9f6fce2f13cfe7b478e994a48e206"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>subscription_base</b> (std::shared_ptr&lt; <a class="el" href="classrpp_1_1details_1_1subscription__state.html">details::subscription_state</a> &gt; state)</td></tr>
 <tr class="separator:ad0c9f6fce2f13cfe7b478e994a48e206 inherit pro_methods_classrpp_1_1subscription__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78068992b0c2601effd517fd29189545 inherit pro_methods_classrpp_1_1subscription__base"><td class="memItemLeft" align="right" valign="top"><a id="a78068992b0c2601effd517fd29189545"></a>
-<a class="el" href="classrpp_1_1details_1_1subscription__state.html">details::subscription_state</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>get_state</b> () const</td></tr>
-<tr class="separator:a78068992b0c2601effd517fd29189545 inherit pro_methods_classrpp_1_1subscription__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20f372936151b72bc4228279b53ee77e inherit pro_methods_classrpp_1_1subscription__base"><td class="memItemLeft" align="right" valign="top"><a id="a20f372936151b72bc4228279b53ee77e"></a>
-const std::shared_ptr&lt; <a class="el" href="classrpp_1_1details_1_1subscription__state.html">details::subscription_state</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_state_as_shared</b> () const</td></tr>
-<tr class="separator:a20f372936151b72bc4228279b53ee77e inherit pro_methods_classrpp_1_1subscription__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0fbb6093f31608062a24054cd6b6214 inherit pro_methods_classrpp_1_1subscription__base"><td class="memItemLeft" align="right" valign="top"><a id="ad0fbb6093f31608062a24054cd6b6214"></a>
+const std::shared_ptr&lt; <a class="el" href="classrpp_1_1details_1_1subscription__state.html">details::subscription_state</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_state</b> () const</td></tr>
+<tr class="separator:ad0fbb6093f31608062a24054cd6b6214 inherit pro_methods_classrpp_1_1subscription__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classrpp_1_1subscription__base.html" title="Base subscription implementation used as base class/interface and core implementation for derrived su...">rpp::subscription_base</a> with ability to add some dependent subscriptions as a part of this one: in case of initiation of unsubscribe of this subscription, then any dependent subscriptions will be unsubscribed too </p>

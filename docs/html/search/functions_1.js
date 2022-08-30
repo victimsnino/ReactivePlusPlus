@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['buffer_376',['buffer',['../group__transforming__operators.html#ga247e5e6cf5d4fe048588046ad34180ee',1,'rpp::details::member_overload&lt; Type, SpecificObservable, buffer_tag &gt;']]],
-  ['buffer_5fon_5fnext_377',['buffer_on_next',['../structrpp_1_1details_1_1buffer__on__next.html#afbe78c3cf3cd102a3582fe547d9956f3',1,'rpp::details::buffer_on_next']]]
+  ['buffer_420',['buffer',['../group__transforming__operators.html#ga247e5e6cf5d4fe048588046ad34180ee',1,'rpp::details::member_overload&lt; Type, SpecificObservable, buffer_tag &gt;']]],
+  ['buffer_5fstate_421',['buffer_state',['../structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886',1,'rpp::details::buffer_state']]]
 ];

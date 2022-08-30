@@ -175,13 +175,7 @@ template&lt;constraint::on_completed_fn OnCompletedFn&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the do_on_completed operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="do_8hpp_source.html">rpp/operators/do.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    rpp::source::empty&lt;int&gt;()</div>
-<div class="line">            .do_on_completed([]() { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) Completed&quot;</span> &lt;&lt; std::endl; })</div>
-<div class="line">            .subscribe([](<span class="keywordtype">int</span>) {}, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;Completed&quot;</span> &lt;&lt; std::endl; });</div>
-<div class="line">    <span class="comment">// Output:</span></div>
-<div class="line">    <span class="comment">// (TAP) Completed</span></div>
-<div class="line">    <span class="comment">// Completed</span></div>
-</div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/do.html">https://reactivex.io/documentation/operators/do.html</a> </dd></dl>
 
 </div>
@@ -216,13 +210,7 @@ template&lt;constraint::on_error_fn OnErrorFn&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the do_on_error operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="do_8hpp_source.html">rpp/operators/do.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    rpp::source::error&lt;int&gt;(std::make_exception_ptr(std::runtime_error{<span class="stringliteral">&quot;&quot;</span>}))</div>
-<div class="line">            .do_on_error([](std::exception_ptr) { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) NEW error&quot;</span> &lt;&lt; std::endl; })</div>
-<div class="line">            .subscribe([](<span class="keywordtype">int</span>                 ) {}, [](std::exception_ptr) { std::cout &lt;&lt; <span class="stringliteral">&quot;NEW error&quot;</span> &lt;&lt; std::endl; });</div>
-<div class="line">    <span class="comment">// Output:</span></div>
-<div class="line">    <span class="comment">// (TAP) NEW error</span></div>
-<div class="line">    <span class="comment">// NEW error</span></div>
-</div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/do.html">https://reactivex.io/documentation/operators/do.html</a> </dd></dl>
 
 </div>
@@ -257,17 +245,7 @@ template&lt;constraint::on_next_fn&lt; Type &gt; OnNextFn&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the do_on_next operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="do_8hpp_source.html">rpp/operators/do.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2)</div>
-<div class="line">            .do_on_next([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) NEW item &quot;</span> &lt;&lt; v &lt;&lt; std::endl; })</div>
-<div class="line">            .subscribe([](<span class="keywordtype">int</span>  v) { std::cout &lt;&lt; <span class="stringliteral">&quot;NEW item &quot;</span> &lt;&lt; v &lt;&lt; std::endl; },</div>
-<div class="line">                       []() { std::cout &lt;&lt; <span class="stringliteral">&quot;Completed&quot;</span> &lt;&lt; std::endl; });</div>
-<div class="line">    <span class="comment">// Output:</span></div>
-<div class="line">    <span class="comment">// (TAP) NEW item 1</span></div>
-<div class="line">    <span class="comment">// NEW item 1</span></div>
-<div class="line">    <span class="comment">// (TAP) NEW item 2</span></div>
-<div class="line">    <span class="comment">// NEW item 2</span></div>
-<div class="line">    <span class="comment">// Completed</span></div>
-</div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/do.html">https://reactivex.io/documentation/operators/do.html</a> </dd></dl>
 
 </div>
@@ -301,17 +279,7 @@ template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the observe_on operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="observe__on_8hpp_source.html">rpp/operators/observe_on.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    std::cout &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;</div>
-<div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(10, 15, 20)</div>
-<div class="line">            .observe_on(<a class="code" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{})</div>
-<div class="line">            .as_blocking()</div>
-<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;] : &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; });</div>
-<div class="line">    <span class="comment">// Template for output:</span></div>
-<div class="line">    <span class="comment">// TH1</span></div>
-<div class="line">    <span class="comment">// [TH2]: 10</span></div>
-<div class="line">    <span class="comment">// [TH2]: 15</span></div>
-<div class="line">    <span class="comment">// [TH2]: 20</span></div>
-</div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/observeon.html">https://reactivex.io/documentation/operators/observeon.html</a> </dd></dl>
 
 </div>
@@ -341,16 +309,7 @@ template&lt;typename... Args&gt; </div>
 </div>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the repeat operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="repeat_8hpp_source.html">rpp/operators/repeat.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3)</div>
-<div class="line">            .repeat()</div>
-<div class="line">            .take(10)</div>
-<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; },</div>
-<div class="line">                       []()</div>
-<div class="line">                       {</div>
-<div class="line">                           std::cout &lt;&lt; <span class="stringliteral">&quot;completed&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">                       });</div>
-<div class="line">    <span class="comment">// Output: 1 2 3 1 2 3 1 2 3 1 completed</span></div>
-</div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/repeat.html">https://reactivex.io/documentation/operators/repeat.html</a> </dd></dl>
 
 </div>
@@ -392,15 +351,7 @@ template&lt;typename... Args&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the repeat operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="repeat_8hpp_source.html">rpp/operators/repeat.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3)</div>
-<div class="line">            .repeat(2)</div>
-<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; },</div>
-<div class="line">                       []()</div>
-<div class="line">                       {</div>
-<div class="line">                           std::cout &lt;&lt; <span class="stringliteral">&quot;completed&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">                       });</div>
-<div class="line">    <span class="comment">// Output: 1 2 3 1 2 3 completed</span></div>
-</div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/repeat.html">https://reactivex.io/documentation/operators/repeat.html</a> </dd></dl>
 
 </div>
@@ -434,21 +385,7 @@ template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the subscribe_on operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="subscribe__on_8hpp_source.html">rpp/operators/subscribe_on.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    std::cout &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;</div>
-<div class="line">    rpp::source::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
-<div class="line">            {</div>
-<div class="line">                std::cout &lt;&lt; <span class="stringliteral">&quot;on_subscribe thread &quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;</div>
-<div class="line">                sub.on_next(1);</div>
-<div class="line">                sub.on_completed();</div>
-<div class="line">            })</div>
-<div class="line">            .<a class="code" href="group__utility__operators.html#ga0608a5ced9a5b3b57f4c97a9b2f634f4">subscribe_on</a>(<a class="code" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{})</div>
-<div class="line">            .as_blocking()</div>
-<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;] : &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; });</div>
-<div class="line">    <span class="comment">// Template for output:</span></div>
-<div class="line">    <span class="comment">// TH1</span></div>
-<div class="line">    <span class="comment">// on_subscribe thread TH2</span></div>
-<div class="line">    <span class="comment">// [TH2]: 1</span></div>
-</div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/subscribeon.html">https://reactivex.io/documentation/operators/subscribeon.html</a> </dd></dl>
 
 </div>
@@ -501,20 +438,7 @@ template&lt;constraint::on_next_fn&lt; Type &gt; OnNextFn, constraint::on_error_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the tap operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="do_8hpp_source.html">rpp/operators/do.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2)</div>
-<div class="line">            .tap([](<span class="keywordtype">int</span>               v) { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) NEW item &quot;</span> &lt;&lt; v &lt;&lt; std::endl; },</div>
-<div class="line">                 [](std::exception_ptr) {},</div>
-<div class="line">                 []() { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) Completed&quot;</span> &lt;&lt; std::endl; })</div>
-<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;NEW item &quot;</span> &lt;&lt; v &lt;&lt; std::endl; },</div>
-<div class="line">                       []() { std::cout &lt;&lt; <span class="stringliteral">&quot;Completed&quot;</span> &lt;&lt; std::endl; });</div>
-<div class="line">    <span class="comment">// Output:</span></div>
-<div class="line">    <span class="comment">// (TAP) NEW item 1</span></div>
-<div class="line">    <span class="comment">// NEW item 1</span></div>
-<div class="line">    <span class="comment">// (TAP) NEW item 2</span></div>
-<div class="line">    <span class="comment">// NEW item 2</span></div>
-<div class="line">    <span class="comment">// (TAP) Completed</span></div>
-<div class="line">    <span class="comment">// Completed</span></div>
-</div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/do.html">https://reactivex.io/documentation/operators/do.html</a> </dd></dl>
 
 </div>
@@ -549,28 +473,13 @@ template&lt;constraint::observer_of_type&lt; Type &gt; TObs&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the tap operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="do_8hpp_source.html">rpp/operators/do.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2)</div>
-<div class="line">            .tap(rpp::make_specific_observer&lt;int&gt;([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) NEW item &quot;</span> &lt;&lt; v &lt;&lt; std::endl; },</div>
-<div class="line">                                                  []() { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) Completed&quot;</span> &lt;&lt; std::endl; }))</div>
-<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;NEW item &quot;</span> &lt;&lt; v &lt;&lt; std::endl; },</div>
-<div class="line">                       []() { std::cout &lt;&lt; <span class="stringliteral">&quot;Completed&quot;</span> &lt;&lt; std::endl; });</div>
-<div class="line">    <span class="comment">// Output:</span></div>
-<div class="line">    <span class="comment">// (TAP) NEW item 1</span></div>
-<div class="line">    <span class="comment">// NEW item 1</span></div>
-<div class="line">    <span class="comment">// (TAP) NEW item 2</span></div>
-<div class="line">    <span class="comment">// NEW item 2</span></div>
-<div class="line">    <span class="comment">// (TAP) Completed</span></div>
-<div class="line">    <span class="comment">// Completed</span></div>
-</div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/do.html">https://reactivex.io/documentation/operators/do.html</a> </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agroup__utility__operators_html_ga0608a5ced9a5b3b57f4c97a9b2f634f4"><div class="ttname"><a href="group__utility__operators.html#ga0608a5ced9a5b3b57f4c97a9b2f634f4">rpp::details::member_overload&lt; Type, SpecificObservable, subscribe_on_tag &gt;::subscribe_on</a></div><div class="ttdeci">auto subscribe_on(const TScheduler &amp;scheduler) const &amp;requires is_header_included&lt; subscribe_on_tag</div><div class="ttdoc">OnSubscribe function for this observable will be scheduled via provided scheduler.</div></div>
-<div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">scheduler which schedules execution of schedulables via queueing tasks to another thread with priorit...</div><div class="ttdef"><b>Definition:</b> new_thread_scheduler.hpp:31</div></div>
-<div class="ttc" id="agroup__creational__operators_html_gabc5067fa9aefaa803f6e329b75faa00c"><div class="ttname"><a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:159</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

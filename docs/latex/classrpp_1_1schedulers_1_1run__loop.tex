@@ -47,28 +47,9 @@ you need manually dispatch events for this scheduler in some thread.
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \textcolor{keyword}{auto} run\_loop = \mbox{\hyperlink{classrpp_1_1schedulers_1_1run__loop}{rpp::schedulers::run\_loop}}\{\};}
-\DoxyCodeLine{    \textcolor{keyword}{auto} sub = \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(10, 15, 20)}
-\DoxyCodeLine{        .observe\_on(run\_loop)}
-\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout <<  v << \textcolor{stringliteral}{"\(\backslash\)n"}; \});}
-\DoxyCodeLine{}
-\DoxyCodeLine{    \textcolor{comment}{// No output}}
-\DoxyCodeLine{}
-\DoxyCodeLine{    \textcolor{keywordflow}{while} (sub.is\_subscribed())}
-\DoxyCodeLine{    \{}
-\DoxyCodeLine{        \textcolor{keywordflow}{while} (run\_loop.is\_any\_ready\_schedulable())}
-\DoxyCodeLine{            run\_loop.dispatch();}
-\DoxyCodeLine{    \}}
-\DoxyCodeLine{    \textcolor{comment}{// Output:}}
-\DoxyCodeLine{    \textcolor{comment}{// 10}}
-\DoxyCodeLine{    \textcolor{comment}{// 15}}
-\DoxyCodeLine{    \textcolor{comment}{// 20}}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
-\begin{Desc}
-\item[Examples]\par
-\mbox{\hyperlink{run_loop_8cpp-example}{run\+\_\+loop.\+cpp}}.\end{Desc}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

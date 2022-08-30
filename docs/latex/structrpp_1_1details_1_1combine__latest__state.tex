@@ -1,0 +1,49 @@
+\hypertarget{structrpp_1_1details_1_1combine__latest__state}{}\doxysection{rpp\+::details\+::combine\+\_\+latest\+\_\+state$<$ T\+Combiner, Types $>$ Struct Template Reference}
+\label{structrpp_1_1details_1_1combine__latest__state}\index{rpp::details::combine\_latest\_state$<$ TCombiner, Types $>$@{rpp::details::combine\_latest\_state$<$ TCombiner, Types $>$}}
+
+
+The state that caches the values from all the observables and dispatches latest caches to the observer. Note the emission is only sent to the observer when all the observables at least emits once.  
+
+
+
+
+{\ttfamily \#include $<$combine\+\_\+latest.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1combine__latest__state_aeab1b0cd91b466c156d17a77ab001e07}\label{structrpp_1_1details_1_1combine__latest__state_aeab1b0cd91b466c156d17a77ab001e07}} 
+{\bfseries combine\+\_\+latest\+\_\+state} (const T\+Combiner \&combiner)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1combine__latest__state_a8c082c97b862fdf4fdee0655dbe4ab1d}\label{structrpp_1_1details_1_1combine__latest__state_a8c082c97b862fdf4fdee0655dbe4ab1d}} 
+R\+P\+P\+\_\+\+N\+O\+\_\+\+U\+N\+I\+Q\+U\+E\+\_\+\+A\+D\+D\+R\+E\+SS T\+Combiner {\bfseries combiner}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1combine__latest__state_a93752d90d07ec6c515a86ead4658cc7f}\label{structrpp_1_1details_1_1combine__latest__state_a93752d90d07ec6c515a86ead4658cc7f}} 
+std\+::mutex {\bfseries mutex}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1combine__latest__state_a21596a9b0dffbbcc4ff0cbe6a6a24f7b}\label{structrpp_1_1details_1_1combine__latest__state_a21596a9b0dffbbcc4ff0cbe6a6a24f7b}} 
+std\+::tuple$<$ std\+::optional$<$ Types $>$... $>$ {\bfseries values} \{\}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1combine__latest__state_adca907a128c832eacb37487ac0a8702e}\label{structrpp_1_1details_1_1combine__latest__state_adca907a128c832eacb37487ac0a8702e}} 
+std\+::atomic\+\_\+size\+\_\+t {\bfseries completed\+\_\+count} \{0\}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1combine__latest__state_ac428697e341093618dbffdc5d7457407}\label{structrpp_1_1details_1_1combine__latest__state_ac428697e341093618dbffdc5d7457407}} 
+static constexpr std\+::size\+\_\+t {\bfseries s\+\_\+total\+\_\+completed\+\_\+count} = sizeof...(Types)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T\+Combiner, constraint\+::decayed\+\_\+type... Types$>$\newline
+struct rpp\+::details\+::combine\+\_\+latest\+\_\+state$<$ T\+Combiner, Types $>$}
+
+The state that caches the values from all the observables and dispatches latest caches to the observer. Note the emission is only sent to the observer when all the observables at least emits once. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/combine\+\_\+latest.\+hpp\end{DoxyCompactItemize}

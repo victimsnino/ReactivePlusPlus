@@ -1,0 +1,56 @@
+\hypertarget{structrpp_1_1details_1_1buffer__state}{}\doxysection{rpp\+::details\+::buffer\+\_\+state$<$ Upstream\+Type $>$ Struct Template Reference}
+\label{structrpp_1_1details_1_1buffer__state}\index{rpp::details::buffer\_state$<$ UpstreamType $>$@{rpp::details::buffer\_state$<$ UpstreamType $>$}}
+
+
+{\ttfamily \#include $<$buffer.\+hpp$>$}
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structrpp_1_1details_1_1buffer__state_1_1on__completed}{on\+\_\+completed}}
+\item 
+struct \mbox{\hyperlink{structrpp_1_1details_1_1buffer__state_1_1on__next}{on\+\_\+next}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structrpp_1_1details_1_1buffer__state_a4351f88ab9607c319b91f73ddb21c886}{buffer\+\_\+state}} (size\+\_\+t count)
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1buffer__state_af42ae1c17a46bb19b89591615e633edf}\label{structrpp_1_1details_1_1buffer__state_af42ae1c17a46bb19b89591615e633edf}} 
+{\bfseries buffer\+\_\+state} (const \mbox{\hyperlink{structrpp_1_1details_1_1buffer__state}{buffer\+\_\+state}} \&other)=delete
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1buffer__state_a585c2d0937c3b9c3fe9d586ea8381e76}\label{structrpp_1_1details_1_1buffer__state_a585c2d0937c3b9c3fe9d586ea8381e76}} 
+{\bfseries buffer\+\_\+state} (\mbox{\hyperlink{structrpp_1_1details_1_1buffer__state}{buffer\+\_\+state}} \&\&) noexcept=default
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1buffer__state_a75e01ba8072f9b1561db2130ae6c9911}\label{structrpp_1_1details_1_1buffer__state_a75e01ba8072f9b1561db2130ae6c9911}} 
+\mbox{\hyperlink{structrpp_1_1details_1_1buffer__state}{buffer\+\_\+state}} \& {\bfseries operator=} (const \mbox{\hyperlink{structrpp_1_1details_1_1buffer__state}{buffer\+\_\+state}} \&)=delete
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1buffer__state_a2d58d3a0a2f4ad32c795d5290e2010ff}\label{structrpp_1_1details_1_1buffer__state_a2d58d3a0a2f4ad32c795d5290e2010ff}} 
+\mbox{\hyperlink{structrpp_1_1details_1_1buffer__state}{buffer\+\_\+state}} \& {\bfseries operator=} (\mbox{\hyperlink{structrpp_1_1details_1_1buffer__state}{buffer\+\_\+state}} \&\&) noexcept=default
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$constraint\+::decayed\+\_\+type Upstream\+Type$>$\newline
+struct rpp\+::details\+::buffer\+\_\+state$<$ Upstream\+Type $>$}
+
+A non-\/copyable class that provides a copyable \mbox{\hyperlink{structrpp_1_1details_1_1buffer__state_1_1on__next}{on\+\_\+next}} for the subscriber and allows copies of on\+\_\+next(s) to share the same states. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structrpp_1_1details_1_1buffer__state_a4351f88ab9607c319b91f73ddb21c886}\label{structrpp_1_1details_1_1buffer__state_a4351f88ab9607c319b91f73ddb21c886}} 
+\index{rpp::details::buffer\_state$<$ UpstreamType $>$@{rpp::details::buffer\_state$<$ UpstreamType $>$}!buffer\_state@{buffer\_state}}
+\index{buffer\_state@{buffer\_state}!rpp::details::buffer\_state$<$ UpstreamType $>$@{rpp::details::buffer\_state$<$ UpstreamType $>$}}
+\doxysubsubsection{\texorpdfstring{buffer\_state()}{buffer\_state()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Upstream\+Type$>$ \\
+\mbox{\hyperlink{structrpp_1_1details_1_1buffer__state}{rpp\+::details\+::buffer\+\_\+state}}$<$ Upstream\+Type $>$\+::\mbox{\hyperlink{structrpp_1_1details_1_1buffer__state}{buffer\+\_\+state}} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em count} & Number of items being bundled. Note when count == 0, we\textquotesingle{}ll treat the behavior like when count == 1. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/buffer.\+hpp\end{DoxyCompactItemize}

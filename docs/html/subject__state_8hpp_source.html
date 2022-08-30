@@ -140,7 +140,7 @@ $(document).ready(function(){initNavTree('subject__state_8hpp_source.html',''); 
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        std::unique_lock lock{m_mutex};</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        process_state(m_state,</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                      [&amp;](shared_subscribers subs)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                      [&amp;](<span class="keyword">const</span> shared_subscribers&amp; subs)</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                      {</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                          <span class="keyword">auto</span> new_subs = make_copy_of_subscribed_subs(subs-&gt;size() + 1, subs);</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                          new_subs-&gt;push_back(<a class="code" href="classrpp_1_1dynamic__subscriber.html">subscriber</a>);</div>

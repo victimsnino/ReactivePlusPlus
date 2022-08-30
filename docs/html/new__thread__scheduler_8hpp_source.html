@@ -130,91 +130,99 @@ $(document).ready(function(){initNavTree('new__thread__scheduler_8hpp_source.htm
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keyword">using</span> <a class="code" href="classrpp_1_1schedulers_1_1schedulable__wrapper.html">new_thread_schedulable</a> = <a class="code" href="classrpp_1_1schedulers_1_1schedulable__wrapper.html">schedulable_wrapper&lt;worker_strategy&gt;</a>;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="code" href="classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html">worker_strategy</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a>&amp; sub)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            : m_state{std::make_shared&lt;state&gt;()}</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            m_state-&gt;init_thread(sub);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordtype">void</span> defer_at(time_point time_point, constraint::schedulable_fn <span class="keyword">auto</span>&amp;&amp; fn)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">        </span>{</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            defer_at(time_point, <a class="code" href="classrpp_1_1schedulers_1_1schedulable__wrapper.html">new_thread_schedulable</a>{*<span class="keyword">this</span>, time_point, std::forward&lt;decltype(fn)&gt;(fn)});</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        }</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">void</span> defer_at(time_point time_point, <a class="code" href="classrpp_1_1schedulers_1_1schedulable__wrapper.html">new_thread_schedulable</a>&amp;&amp; fn)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">        </span>{</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            m_state-&gt;defer_at(time_point, std::move(fn));</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keyword">static</span> time_point now() { <span class="keywordflow">return</span> clock_type::now(); }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keyword">class </span>state : <span class="keyword">public</span> std::enable_shared_from_this&lt;state&gt;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            state() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            state(<span class="keyword">const</span> state&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            state(state&amp;&amp;) noexcept = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordtype">void</span> defer_at(time_point time_point, <a class="code" href="classrpp_1_1schedulers_1_1schedulable__wrapper.html">new_thread_schedulable</a>&amp;&amp; fn)</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                <span class="keywordflow">if</span> (m_sub-&gt;is_subscribed())</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                    m_queue.emplace(time_point, std::move(fn));</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordtype">void</span> init_thread(<span class="keyword">const</span> <a class="code" href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a>&amp; sub)</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                <span class="keyword">auto</span> as_shared = shared_from_this();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                m_thread = std::jthread{[state = as_shared](<span class="keyword">const</span> std::stop_token&amp; token)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                    state-&gt;data_thread(token);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                }};</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                m_sub.reset(sub.<a class="code" href="classrpp_1_1composite__subscription.html#a7ea8553bdf67bbceab87dd14b7c42e3c">add</a>([state = as_shared]</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                    state-&gt;m_thread.request_stop();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                    if (state-&gt;m_thread.get_id() != std::this_thread::get_id())</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                        state-&gt;m_thread.join();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                    else</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                        state-&gt;m_thread.detach();</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                }));</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            }</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keywordtype">void</span> data_thread(<span class="keyword">const</span> std::stop_token&amp; token)</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                std::optional&lt;new_thread_schedulable&gt; fn{};</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                <span class="keywordflow">while</span> (!token.stop_requested())</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                {</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                    <span class="keywordflow">if</span> (m_queue.pop_with_wait(fn, token))</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                    {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                        (*fn)();</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                        fn.reset();</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                    }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                }</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                <span class="comment">// clear</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                m_queue.reset();</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            }</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <a class="code" href="classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html">details::queue_worker_state&lt;new_thread_schedulable&gt;</a> m_queue{};</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            std::jthread                                        m_thread{};</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <a class="code" href="classrpp_1_1subscription__guard.html">rpp::subscription_guard</a>                             m_sub = rpp::subscription_base::empty();</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        };</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        std::shared_ptr&lt;state&gt; m_state{};</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    };</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keyword">static</span> <span class="keyword">auto</span> create_worker(<span class="keyword">const</span> <a class="code" href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a>&amp; sub = <a class="code" href="classrpp_1_1composite__subscription.html">composite_subscription</a>{})</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    {</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker&lt;worker_strategy&gt;</a>{sub};</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;};</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;} <span class="comment">// namespace rpp::schedulers</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="keyword">auto</span> shared = std::make_shared&lt;state&gt;();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="comment">// init while it is alive as shared</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            shared-&gt;init_thread(sub);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            m_state = shared;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordtype">void</span> defer_at(time_point time_point, constraint::schedulable_fn <span class="keyword">auto</span>&amp;&amp; fn)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">        </span>{</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            defer_at(time_point, <a class="code" href="classrpp_1_1schedulers_1_1schedulable__wrapper.html">new_thread_schedulable</a>{*<span class="keyword">this</span>, time_point, std::forward&lt;decltype(fn)&gt;(fn)});</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordtype">void</span> defer_at(time_point time_point, <a class="code" href="classrpp_1_1schedulers_1_1schedulable__wrapper.html">new_thread_schedulable</a>&amp;&amp; fn)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">        </span>{</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keywordflow">if</span> (<span class="keyword">auto</span> locked = m_state.lock())</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                locked-&gt;defer_at(time_point, std::move(fn));</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keyword">static</span> time_point now() { <span class="keywordflow">return</span> clock_type::now(); }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keyword">class </span>state : <span class="keyword">public</span> std::enable_shared_from_this&lt;state&gt;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            state() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            state(<span class="keyword">const</span> state&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            state(state&amp;&amp;) noexcept = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <span class="keywordtype">void</span> defer_at(time_point time_point, <a class="code" href="classrpp_1_1schedulers_1_1schedulable__wrapper.html">new_thread_schedulable</a>&amp;&amp; fn)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                <span class="keywordflow">if</span> (m_sub-&gt;is_subscribed())</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                    m_queue.emplace(time_point, std::move(fn));</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            <span class="keywordtype">void</span> init_thread(<span class="keyword">const</span> <a class="code" href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a>&amp; sub)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                m_thread = std::jthread{[state = shared_from_this()](<span class="keyword">const</span> std::stop_token&amp; token)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                    state-&gt;data_thread(token);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                }};</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> callback = <a class="code" href="classrpp_1_1callback__subscription.html">rpp::callback_subscription</a>{[state = weak_from_this()]</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                    <span class="keyword">auto</span> locked = state.lock();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                    <span class="keywordflow">if</span> (!locked)</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                    locked-&gt;m_thread.request_stop();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                    <span class="keywordflow">if</span> (locked-&gt;m_thread.get_id() != std::this_thread::get_id())</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                        locked-&gt;m_thread.join();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                        locked-&gt;m_thread.detach();</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                }};</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                sub.<a class="code" href="classrpp_1_1composite__subscription.html#a0f8ca655abc66dbf483a50006e36c22c">add</a>(callback);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                m_sub.reset(callback);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="keywordtype">void</span> data_thread(<span class="keyword">const</span> std::stop_token&amp; token)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                std::optional&lt;new_thread_schedulable&gt; fn{};</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                <span class="keywordflow">while</span> (!token.stop_requested())</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                    <span class="keywordflow">if</span> (m_queue.pop_with_wait(fn, token))</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                    {</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                        (*fn)();</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                        fn.reset();</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                    }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                }</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                <span class="comment">// clear</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                m_queue.reset();</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <a class="code" href="classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html">details::queue_worker_state&lt;new_thread_schedulable&gt;</a> m_queue{};</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            std::jthread                                        m_thread{};</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <a class="code" href="classrpp_1_1subscription__guard.html">rpp::subscription_guard</a>                             m_sub = rpp::subscription_base::empty();</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        };</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="comment">// original shared would alive in thread!</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        std::weak_ptr&lt;state&gt; m_state{};</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    };</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keyword">static</span> <span class="keyword">auto</span> create_worker(<span class="keyword">const</span> <a class="code" href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a>&amp; sub = <a class="code" href="classrpp_1_1composite__subscription.html">composite_subscription</a>{})</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker&lt;worker_strategy&gt;</a>{sub};</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    }</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;};</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;} <span class="comment">// namespace rpp::schedulers</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1schedulable__wrapper_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1schedulable__wrapper.html">rpp::schedulers::schedulable_wrapper</a></div><div class="ttdef"><b>Definition:</b> worker.hpp:30</div></div>
-<div class="ttc" id="aclassrpp_1_1composite__subscription_html_a7ea8553bdf67bbceab87dd14b7c42e3c"><div class="ttname"><a href="classrpp_1_1composite__subscription.html#a7ea8553bdf67bbceab87dd14b7c42e3c">rpp::composite_subscription::add</a></div><div class="ttdeci">TSub add(const TSub &amp;sub=TSub{}) const</div><div class="ttdoc">Add any other subscription to this as dependent.</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:42</div></div>
+<div class="ttc" id="aclassrpp_1_1callback__subscription_html"><div class="ttname"><a href="classrpp_1_1callback__subscription.html">rpp::callback_subscription</a></div><div class="ttdoc">Subscription which invoke callbable during unsubscribe.</div><div class="ttdef"><b>Definition:</b> callback_subscription.hpp:24</div></div>
+<div class="ttc" id="aclassrpp_1_1composite__subscription_html_a0f8ca655abc66dbf483a50006e36c22c"><div class="ttname"><a href="classrpp_1_1composite__subscription.html#a0f8ca655abc66dbf483a50006e36c22c">rpp::composite_subscription::add</a></div><div class="ttdeci">std::weak_ptr&lt; details::subscription_state &gt; add(const TSub &amp;sub=TSub{}) const</div><div class="ttdoc">Add any other subscription to this as dependent.</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:42</div></div>
 <div class="ttc" id="aclassrpp_1_1composite__subscription_html"><div class="ttname"><a href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a></div><div class="ttdoc">rpp::subscription_base with ability to add some dependent subscriptions as a part of this one: in cas...</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:26</div></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1worker_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker</a></div><div class="ttdef"><b>Definition:</b> worker.hpp:56</div></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">scheduler which schedules execution of schedulables via queueing tasks to another thread with priorit...</div><div class="ttdef"><b>Definition:</b> new_thread_scheduler.hpp:31</div></div>
