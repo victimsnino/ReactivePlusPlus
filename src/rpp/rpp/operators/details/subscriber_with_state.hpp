@@ -21,11 +21,11 @@ template<constraint::decayed_type                                    Type,
          std::invocable<Type, std::decay_t<States>...>               OnNext,
          std::invocable<std::exception_ptr, std::decay_t<States>...> OnError,
          std::invocable<std::decay_t<States>...>                     OnCompleted>
-auto create_subscriber_with_state(rpp::composite_subscription sub,
-                                  OnNext&&                    on_next,
-                                  OnError&&                   on_error,
-                                  OnCompleted&&               on_completed,
-                                  States&&...                 states)
+auto create_subscriber_with_state(composite_subscription sub,
+                                  OnNext&&               on_next,
+                                  OnError&&              on_error,
+                                  OnCompleted&&          on_completed,
+                                  States&&...            states)
 {
     using TObs = state_observer<Type,
                                 std::decay_t<OnNext>,
@@ -44,11 +44,11 @@ template<constraint::decayed_type                                    Type,
          std::invocable<Type, std::decay_t<States>...>               OnNext,
          std::invocable<std::exception_ptr, std::decay_t<States>...> OnError,
          std::invocable<std::decay_t<States>...>                     OnCompleted>
-auto create_subscriber_with_dynamic_state(rpp::composite_subscription sub,
-                                          OnNext&&                    on_next,
-                                          OnError&&                   on_error,
-                                          OnCompleted&&               on_completed,
-                                          States&&...                 states)
+auto create_subscriber_with_dynamic_state(composite_subscription sub,
+                                          OnNext&&               on_next,
+                                          OnError&&              on_error,
+                                          OnCompleted&&          on_completed,
+                                          States&&...            states)
 {
     using TObs = dynamic_state_observer<Type, std::decay_t<States>...>;
     return make_specific_subscriber<Type, TObs>(std::move(sub),
