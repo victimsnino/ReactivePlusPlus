@@ -213,29 +213,130 @@
   ],
   "buildPresets" :[
     {
-      "name" : "ci-build-release",
-      "configurePreset": "ci-build-dir",
+      "name" : "ci-build",
+      "hidden": true,
       "jobs" : 2,
       "configuration" : "Release"
+    },
+
+    {
+      "name": "ci-coverage",
+		  "configurePreset" : "ci-coverage",
+      "inherits" : "ci-build"
+    },
+    {
+      "name": "ci-sanitize",
+		  "configurePreset" : "ci-sanitize",
+      "inherits" : "ci-build"
+    },
+    {
+      "name": "ci-macos-tests",
+		  "configurePreset" : "ci-macos-tests",
+      "inherits" : "ci-build"
+    },
+    {
+      "name": "ci-ubuntu-clang-tests-with-cppcheck",
+		  "configurePreset" : "ci-ubuntu-clang-tests-with-cppcheck",
+      "inherits" : "ci-build"
+    },
+    {
+      "name": "ci-ubuntu-gcc-tests",
+		  "configurePreset" : "ci-ubuntu-gcc-tests",
+      "inherits" : "ci-build"
+    },
+    {
+      "name": "ci-windows-tests",
+		  "configurePreset" : "ci-windows-tests",
+      "inherits" : "ci-build"
+    },
+
+
+    {
+      "name": "ci-macos-benchmarks",
+		  "configurePreset" : "ci-macos-benchmarks",
+      "inherits" : "ci-build"
+    },
+    {
+      "name": "ci-ubuntu-clang-benchmarks-with-cppcheck",
+		  "configurePreset" : "ci-ubuntu-clang-benchmarks-with-cppcheck",
+      "inherits" : "ci-build"
+    },
+    {
+      "name": "ci-ubuntu-gcc-benchmarks",
+		  "configurePreset" : "ci-ubuntu-gcc-benchmarks",
+      "inherits" : "ci-build"
+    },
+    {
+      "name": "ci-windows-benchmarks",
+		  "configurePreset" : "ci-windows-benchmarks",
+      "inherits" : "ci-build"
     }
   ]
   ,
   "testPresets": [
     {
       "name": "ci-tests",
-      "configurePreset": "ci-build-dir",
       "configuration": "Release",
+      "hidden": true,
       "output": {
         "outputOnFailure": true
       }
     },
     {
+      "name": "ci-coverage",
+		  "configurePreset" : "ci-coverage",
+      "inherits" : "ci-tests"
+    },
+    {
       "name": "ci-sanitize",
-      "inherits": "ci-tests",
+		  "configurePreset" : "ci-sanitize",
+      "inherits" : "ci-tests",
       "environment": {
         "ASAN_OPTIONS": "strict_string_checks=1:detect_stack_use_after_return=1:check_initialization_order=1:strict_init_order=1:detect_leaks=1",
         "UBSAN_OPTIONS": "print_stacktrace=1"
       }
+    },
+    {
+      "name": "ci-macos-tests",
+		  "configurePreset" : "ci-macos-tests",
+      "inherits" : "ci-tests"
+    },
+    {
+      "name": "ci-ubuntu-clang-tests-with-cppcheck",
+		  "configurePreset" : "ci-ubuntu-clang-tests-with-cppcheck",
+      "inherits" : "ci-tests"
+    },
+    {
+      "name": "ci-ubuntu-gcc-tests",
+		  "configurePreset" : "ci-ubuntu-gcc-tests",
+      "inherits" : "ci-tests"
+    },
+    {
+      "name": "ci-windows-tests",
+		  "configurePreset" : "ci-windows-tests",
+      "inherits" : "ci-tests"
+    },
+
+
+    {
+      "name": "ci-macos-benchmarks",
+		  "configurePreset" : "ci-macos-benchmarks",
+      "inherits" : "ci-tests"
+    },
+    {
+      "name": "ci-ubuntu-clang-benchmarks-with-cppcheck",
+		  "configurePreset" : "ci-ubuntu-clang-benchmarks-with-cppcheck",
+      "inherits" : "ci-tests"
+    },
+    {
+      "name": "ci-ubuntu-gcc-benchmarks",
+		  "configurePreset" : "ci-ubuntu-gcc-benchmarks",
+      "inherits" : "ci-tests"
+    },
+    {
+      "name": "ci-windows-benchmarks",
+		  "configurePreset" : "ci-windows-benchmarks",
+      "inherits" : "ci-tests"
     }
   ]
 }

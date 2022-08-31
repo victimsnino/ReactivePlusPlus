@@ -162,8 +162,8 @@ jobs:
       uses: lukka/run-cmake@v10
       with:
         configurePreset: ${{ matrix.config.name }}
-        buildPreset: 'ci-build-release'
-        testPreset: 'ci-tests'
+        buildPreset: ${{ matrix.config.name }}
+        testPreset: ${{ matrix.config.name }}
 
     - name: Upload benchmark results
       if: contains(matrix.config.name, 'benchmarks')

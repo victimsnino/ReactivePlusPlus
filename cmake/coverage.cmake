@@ -12,7 +12,7 @@ set(
     -o "${PROJECT_BINARY_DIR}/coverage.info"
     -d "${PROJECT_BINARY_DIR}"
     --include "${PROJECT_SOURCE_DIR}/*"
-    --exclude "'/usr/*' ${HOME}'/.cache/*' '*/tests/*' '*/submodules/*'"
+    --exclude "'/usr/*' '*/tests/*' '*/submodules/*'"
     --gcov-tool "${RPP_GCOV_TOOL}"
     CACHE STRING
     "; separated command to generate a trace for the 'coverage' target"
