@@ -109,13 +109,13 @@ jobs:
 
     strategy:
       matrix:    
-        config:
-        -  {name: ci-ubuntu-gcc,  os: ubuntu-latest}
-        -  {name: ci-ubuntu-clang,os: ubuntu-latest}
-        -  {name: ci-windows,     os: windows-latest}
+        config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest}, 
+                 {name: ci-ubuntu-clang,os: ubuntu-latest},
+                 {name: ci-windows,     os: windows-latest}]
+        type: [tests, benchmarks]
 
     runs-on: ${{ matrix.config.os }}
-    name: Unit Tests ${{ matrix.config.name }}
+    name: ${{ matrix.type }} ${{ matrix.config.name }}
 
     steps:
     - uses: actions/checkout@v3
@@ -136,18 +136,18 @@ jobs:
     - name: Run CMake
       uses: lukka/run-cmake@v10
       with:
-        configurePreset: ${{ matrix.config.name }}-tests
+        configurePreset: ${{ matrix.config.name }}-${{ matrix.type }}
         buildPreset: ci-build
         testPreset: ci-tests
 
     - name: Analyze diff with clang-tidy
-      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push'
+      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push' && ${{ matrix.type }} == 'tests'
       run: |
         mkdir clang-tidy-result
         git diff -U0 origin/main | clang-tidy-diff -j 0 -p1 -path build -export-fixes clang-tidy-result/fixes.yml -extra-arg=-std=c++20 -checks=bugprone-*,concurrency-*,performance-*
 
     - name: Run clang-tidy-pr-comments action
-      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push'
+      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push' && ${{ matrix.type }} == 'tests'
       uses: platisd/clang-tidy-pr-comments@master
       with:
         # The GitHub token (or a personal access token)
@@ -162,43 +162,9 @@ jobs:
         # pull requests
         suggestions_per_comment: 10
 
-  benchmarks:
-    needs: [download_deps]
-
-    strategy:
-      matrix:    
-        config:
-        -  {name: ci-ubuntu-gcc,  os: ubuntu-latest}
-        -  {name: ci-ubuntu-clang,os: ubuntu-latest}
-        -  {name: ci-windows,     os: windows-latest}
-
-
-    runs-on: ${{ matrix.config.os }}
-    name: Benchmarks ${{ matrix.config.name }}
-
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Install deps
-      if: matrix.config.os != 'windows-latest'
-      run: sudo apt-get update -q && sudo apt-get install cppcheck -y -q
-      
-    - name: Restore Catch2 
-      uses: actions/cache@v3
-      id: cache-catch2
-      with:
-        path: ${{env.Catch2_DIR}}
-        key: catch2-${{env.CATCH2_VERSION}}-${{matrix.config.os}}
-
-    - name: Run CMake
-      uses: lukka/run-cmake@v10
-      with:
-        configurePreset: ${{ matrix.config.name }}-benchmarks
-        buildPreset: ci-build
-        testPreset: ci-tests
-
     - name: Upload benchmark results
       uses: actions/upload-artifact@v3
+      if: ${{ matrix.type }} == 'benchmarks'
       with:
         name: ${{ matrix.config.name }}
         path: ${{github.workspace}}/build/test_results/benchmarks/*
@@ -207,7 +173,7 @@ jobs:
     needs: [download_deps]
     name: Build and collect data for sonarcloud
     runs-on: ubuntu-latest
-    
+
     env:
       SONAR_SERVER_URL: "https://sonarcloud.io"
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
@@ -257,7 +223,7 @@ jobs:
   docs:
     name: Build Doxygen Docs
 
-    needs: [sanitize, tests, benchmarks]
+    needs: [sanitize, tests]
 
     runs-on: ubuntu-latest
 
