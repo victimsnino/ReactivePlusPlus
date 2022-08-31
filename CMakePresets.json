@@ -26,22 +26,7 @@
       "hidden": true,
       "inherits": "cmake-pedantic",
       "cacheVariables": {
-        "RPP_DEVELOPER_MODE": "ON",
-        "CMAKE_EXPORT_COMPILE_COMMANDS" : "ON"
-      }
-    },
-    {
-      "name": "cppcheck",
-      "hidden": true,
-      "cacheVariables": {
-        "CMAKE_CXX_CPPCHECK": "cppcheck;--inline-suppr;--std=c++20;--enable=information;--check-config;--suppress=missingIncludeSystem"
-      }
-    },
-    {
-      "name": "clang-tidy",
-      "hidden": true,
-      "cacheVariables": {
-        "CMAKE_CXX_CLANG_TIDY": "clang-tidy;--header-filter=^${sourceDir}/"
+        "RPP_DEVELOPER_MODE": "ON"
       }
     },
     {
@@ -51,11 +36,20 @@
       "cacheVariables": {
         "CMAKE_CXX_EXTENSIONS": "OFF",
         "CMAKE_CXX_STANDARD": "20",
-        "CMAKE_CXX_STANDARD_REQUIRED": "ON"
+        "CMAKE_CXX_STANDARD_REQUIRED": "ON",
+      }
+    },
+    {
+      "name": "internal-flags",
+      "hidden" : true,
+      "inherits" : "dev-mode",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS" : "ON"
       }
     },
     {
       "name": "flags-unix",
+      "inherits" : "internal-flags",
       "hidden": true,
       "cacheVariables": {
         "CMAKE_CXX_FLAGS": "-Wall -Werror -Wextra -Wpedantic -Wcast-qual -Wformat=2 -Wundef -Werror=float-equal"
@@ -64,6 +58,7 @@
     {
       "name": "flags-windows",
       "description": "Note that all the flags after /W4 are required for MSVC to conform to the language standard",
+      "inherits" : "internal-flags",
       "hidden": true,
       "cacheVariables": {
         "CMAKE_CXX_FLAGS": "/utf-8 /W4 /permissive- /volatile:iso /Zc:preprocessor /EHsc /Zc:__cplusplus /Zc:externConstexpr /Zc:throwingNew"
@@ -85,18 +80,22 @@
       "architecture": "x64",
       "hidden": true
     },
+
+
+
+
     {
-      "name": "coverage-unix",
-      "binaryDir": "${sourceDir}/build/coverage",
-      "inherits": "ci-unix",
+      "name": "cppcheck",
       "hidden": true,
       "cacheVariables": {
-        "RPP_ENABLE_COVERAGE": "ON",
-        "CMAKE_BUILD_TYPE": "Coverage",
-        "CMAKE_CXX_FLAGS_COVERAGE": "-Og -g --coverage -fkeep-inline-functions -fkeep-static-functions -fprofile-arcs -ftest-coverage",
-        "CMAKE_EXE_LINKER_FLAGS_COVERAGE": "--coverage",
-        "CMAKE_SHARED_LINKER_FLAGS_COVERAGE": "--coverage",
-        "RPP_GCOV_TOOL" : "/usr/bin/gcov-10"
+        "CMAKE_CXX_CPPCHECK": "cppcheck;--inline-suppr;--std=c++20;--enable=information;--check-config;--suppress=missingIncludeSystem"
+      }
+    },
+    {
+      "name": "clang-tidy",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_CXX_CLANG_TIDY": "clang-tidy;--header-filter=^${sourceDir}/"
       }
     },
     {
@@ -105,6 +104,9 @@
       "environment": {
         "CC" : "gcc-10",
         "CXX": "g++-10"
+      },
+      "cacheVariables": {
+        "RPP_GCOV_TOOL" : "/usr/bin/gcov-10"
       }
     },
     {
@@ -116,21 +118,24 @@
       }
     },
     {
-      "name": "ci-build",
+      "name": "ci-build-dir",
       "binaryDir": "${sourceDir}/build",
       "hidden": true
     },
     {
-      "name" : "ci-build-rxcpp",
+      "name" : "ci-build-tests",
       "hidden": true,
       "cacheVariables": {
-        "RPP_BUILD_RXCPP" : "ON"
+        "RPP_BUILD_TESTS" : "ON"
       }
     },
     {
-      "name": "ci-build-tests",
-      "inherits": ["ci-build", "ci-build-rxcpp",  "dev-mode"],
-      "hidden": true
+      "name" : "ci-build-benchmarks",
+      "hidden": true,
+      "cacheVariables": {
+        "RPP_BUILD_RXCPP" : "ON",
+        "RPP_BUILD_BENCHMARKS" : "ON"
+      }
     },
     {
       "name" : "ci-build-sfml",
@@ -139,21 +144,31 @@
         "RPP_BUILD_SFML_CODE" : "ON"
       }
     },
+    {
+      "name": "coverage-unix",
+      "inherits": ["ci-build", "ci-unix", "ci-gcc"],
+      "hidden": true,
+      "cacheVariables": {
+        "RPP_ENABLE_COVERAGE": "ON",
+        "CMAKE_BUILD_TYPE": "Coverage",
+        "CMAKE_CXX_FLAGS_COVERAGE": "-Og -g --coverage -fkeep-inline-functions -fkeep-static-functions -fprofile-arcs -ftest-coverage",
+        "CMAKE_EXE_LINKER_FLAGS_COVERAGE": "--coverage",
+        "CMAKE_SHARED_LINKER_FLAGS_COVERAGE": "--coverage"
+      }
+    },
 
 
 
     {
       "name": "ci-coverage",
-      "inherits": ["coverage-unix", "ci-gcc"],
+      "inherits": ["ci-build-dir", "ci-build-tests", "coverage-unix"],
       "cacheVariables": {
-        "COVERAGE_HTML_COMMAND": "",
-        "RPP_BUILD_TESTS" : "ON"
+        "COVERAGE_HTML_COMMAND": ""
       }
     },
     {
       "name": "ci-sanitize",
-      "binaryDir": "${sourceDir}/build/sanitize",
-      "inherits": ["ci-unix", "dev-mode", "ci-clang"],
+      "inherits": ["ci-build-dir", "ci-build-tests", "ci-unix", "ci-clang"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Sanitize",
         "CMAKE_CXX_FLAGS_SANITIZE": "-O2 -g -fsanitize=address,undefined -fno-omit-frame-pointer -fno-common"
@@ -161,19 +176,66 @@
     },
     {
       "name": "ci-macos-tests",
-      "inherits": ["ci-build-tests", "ci-unix"]
+      "inherits": ["ci-build-dir", "ci-build-tests", "ci-build-benchmarks", "ci-unix"]
     },
     {
-      "name": "ci-ubuntu-clang-tests",
-      "inherits": ["ci-build-tests", "ci-unix", "ci-clang", "cppcheck", "ci-build-sfml"]
+      "name": "ci-ubuntu-clang-tests-with-cppcheck",
+      "inherits": ["ci-build-dir", "ci-build-tests", "ci-build-benchmarks", "ci-build-sfml", "ci-unix", "ci-clang", "cppcheck" ]
     },
     {
       "name": "ci-ubuntu-gcc-tests",
-      "inherits": ["ci-build-tests", "ci-unix", "ci-gcc", "ci-build-sfml"]      
+      "inherits": ["ci-build-dir", "ci-build-tests", "ci-build-benchmarks", "ci-build-sfml", "ci-unix", "ci-gcc"]      
     },
     {
       "name": "ci-windows-tests",
-      "inherits": ["ci-build-tests", "ci-win64"]
+      "inherits": ["ci-build-dir", "ci-build-tests", "ci-build-benchmarks", "ci-win64"]
+    },
+    
+
+
+
+    {
+      "name": "ci-macos-benchmarks",
+      "inherits": ["ci-build-dir", "ci-build-benchmarks", "ci-build-benchmarks", "ci-unix"]
+    },
+    {
+      "name": "ci-ubuntu-clang-benchmarks-with-cppcheck",
+      "inherits": ["ci-build-dir", "ci-build-benchmarks", "ci-build-benchmarks", "ci-build-sfml", "ci-unix", "ci-clang", "cppcheck" ]
+    },
+    {
+      "name": "ci-ubuntu-gcc-benchmarks",
+      "inherits": ["ci-build-dir", "ci-build-benchmarks", "ci-build-benchmarks", "ci-build-sfml", "ci-unix", "ci-gcc"]      
+    },
+    {
+      "name": "ci-windows-benchmarks",
+      "inherits": ["ci-build-dir", "ci-build-benchmarks", "ci-build-benchmarks", "ci-win64"]
+    }
+  ],
+  "buildPresets" :[
+    {
+      "name" : "ci-build-release",
+      "configurePreset": "ci-build-dir",
+      "jobs" : 2,
+      "configuration" : "Release"
+    }
+  ]
+  ,
+  "testPresets": [
+    {
+      "name": "ci-tests",
+      "configurePreset": "ci-build-dir",
+      "configuration": "Release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "ci-sanitize",
+      "inherits": "ci-tests",
+      "environment": {
+        "ASAN_OPTIONS": "strict_string_checks=1:detect_stack_use_after_return=1:check_initialization_order=1:strict_init_order=1:detect_leaks=1",
+        "UBSAN_OPTIONS": "print_stacktrace=1"
+      }
     }
   ]
 }
