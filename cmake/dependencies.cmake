@@ -20,7 +20,7 @@ if (RPP_BUILD_RXCPP)
 endif()
 
 # ===================== Catch 2 ===================
-if (RPP_BUILD_TESTS or RPP_BUILD_BENCHMARKS)
+if (RPP_BUILD_TESTS OR RPP_BUILD_BENCHMARKS)
   find_package(Catch2 3 QUIET)
 
   if(TARGET Catch2::Catch2WithMain)

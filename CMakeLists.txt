@@ -36,7 +36,7 @@ include(cmake/project-is-top-level.cmake)
 include(cmake/variables.cmake)
 include(cmake/dependencies.cmake)
 
-if (RPP_BUILD_TESTS or RPP_BUILD_BENCHMARKS)
+if (RPP_BUILD_TESTS OR RPP_BUILD_BENCHMARKS)
   enable_testing()
   set(RPP_TEST_RESULTS_DIR  ${CMAKE_BINARY_DIR}/test_results)
   file(MAKE_DIRECTORY ${RPP_TEST_RESULTS_DIR})
