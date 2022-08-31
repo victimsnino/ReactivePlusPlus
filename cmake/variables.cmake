@@ -36,12 +36,16 @@ endif()
 
 
 # ------------ Options to tweak ---------------------
-option(RPP_BUILD_TESTS     "Build unit tests tree." "${RPP_DEVELOPER_MODE}")
-option(RPP_BUILD_EXAMPLES  "Build examples tree." "${RPP_DEVELOPER_MODE}")
-option(RPP_ENABLE_COVERAGE "Enable coverage support separate from CTest's" OFF)
 option(RPP_BUILD_SFML_CODE "Enable SFML support in examples/code." OFF)
-option(RPP_BUILD_RXCPP     "Build RxCpp to compare results with it." OFF)
 
-if(RPP_ENABLE_COVERAGE)
-  include(cmake/coverage.cmake)
+if (RPP_DEVELOPER_MODE)
+  option(RPP_BUILD_TESTS      "Build unit tests tree." OFF)
+  option(RPP_BUILD_BENCHMARKS "Build benchmarks tree." OFF)
+  option(RPP_BUILD_EXAMPLES   "Build examples tree." OFF)
+  option(RPP_ENABLE_COVERAGE  "Enable coverage support separate from CTest's" OFF)
+  option(RPP_BUILD_RXCPP      "Build RxCpp to compare results with it." OFF)
+
+  if(RPP_ENABLE_COVERAGE)
+    include(cmake/coverage.cmake)
+  endif()
 endif()

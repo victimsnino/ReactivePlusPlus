@@ -26,32 +26,25 @@
       "hidden": true,
       "inherits": "cmake-pedantic",
       "cacheVariables": {
-        "RPP_DEVELOPER_MODE": "ON",
-        "CMAKE_EXPORT_COMPILE_COMMANDS" : "ON"
+        "RPP_DEVELOPER_MODE": "ON"
       }
     },
     {
-      "name": "cppcheck",
-      "hidden": true,
-      "cacheVariables": {
-        "CMAKE_CXX_CPPCHECK": "cppcheck;--inline-suppr;--std=c++20;--enable=information;--check-config;--suppress=missingIncludeSystem"
-      }
-    },
-    {
-      "name": "clang-tidy",
-      "hidden": true,
-      "cacheVariables": {
-        "CMAKE_CXX_CLANG_TIDY": "clang-tidy;--header-filter=^${sourceDir}/"
-      }
-    },
-    {
-      "name": "ci-std",
+      "name": "std",
       "description": "This preset makes sure the project actually builds with at least the specified standard",
       "hidden": true,
       "cacheVariables": {
         "CMAKE_CXX_EXTENSIONS": "OFF",
         "CMAKE_CXX_STANDARD": "20",
         "CMAKE_CXX_STANDARD_REQUIRED": "ON"
+      }
+    },
+    {
+      "name": "ci-flags",
+      "hidden" : true,
+      "inherits" : ["dev-mode", "std"],
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS" : "ON"
       }
     },
     {
@@ -73,30 +66,27 @@
       "name": "ci-unix",
       "generator": "Unix Makefiles",
       "hidden": true,
-      "inherits": ["flags-unix", "ci-std"],
+      "inherits": ["flags-unix"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
     },
     {
       "name": "ci-win64",
-      "inherits": ["flags-windows", "ci-std"],
+      "inherits": ["flags-windows"],
       "generator": "Visual Studio 17 2022",
       "architecture": "x64",
       "hidden": true
     },
+
+
+
+
     {
-      "name": "coverage-unix",
-      "binaryDir": "${sourceDir}/build/coverage",
-      "inherits": "ci-unix",
+      "name": "cppcheck",
       "hidden": true,
       "cacheVariables": {
-        "RPP_ENABLE_COVERAGE": "ON",
-        "CMAKE_BUILD_TYPE": "Coverage",
-        "CMAKE_CXX_FLAGS_COVERAGE": "-Og -g --coverage -fkeep-inline-functions -fkeep-static-functions -fprofile-arcs -ftest-coverage",
-        "CMAKE_EXE_LINKER_FLAGS_COVERAGE": "--coverage",
-        "CMAKE_SHARED_LINKER_FLAGS_COVERAGE": "--coverage",
-        "RPP_GCOV_TOOL" : "/usr/bin/gcov-10"
+        "CMAKE_CXX_CPPCHECK": "cppcheck;--inline-suppr;--std=c++20;--enable=information;--check-config;--suppress=missingIncludeSystem"
       }
     },
     {
@@ -105,6 +95,9 @@
       "environment": {
         "CC" : "gcc-10",
         "CXX": "g++-10"
+      },
+      "cacheVariables": {
+        "RPP_GCOV_TOOL" : "/usr/bin/gcov-10"
       }
     },
     {
@@ -116,21 +109,27 @@
       }
     },
     {
-      "name": "ci-build",
-      "binaryDir": "${sourceDir}/build",
-      "hidden": true
-    },
-    {
-      "name" : "ci-build-rxcpp",
+      "name" : "ci-build-tests",
       "hidden": true,
       "cacheVariables": {
-        "RPP_BUILD_RXCPP" : "ON"
+        "RPP_BUILD_TESTS" : "ON",
+        "RPP_BUILD_EXAMPLES" : "ON"
       }
     },
     {
-      "name": "ci-build-tests",
-      "inherits": ["ci-build", "ci-build-rxcpp",  "dev-mode"],
-      "hidden": true
+      "name" : "ci-build-examples",
+      "hidden": true,
+      "cacheVariables": {
+        "RPP_BUILD_EXAMPLES" : "ON"
+      }
+    },
+    {
+      "name" : "ci-build-benchmarks",
+      "hidden": true,
+      "cacheVariables": {
+        "RPP_BUILD_RXCPP" : "ON",
+        "RPP_BUILD_BENCHMARKS" : "ON"
+      }
     },
     {
       "name" : "ci-build-sfml",
@@ -139,21 +138,35 @@
         "RPP_BUILD_SFML_CODE" : "ON"
       }
     },
-
+    {
+      "name": "coverage-unix",
+      "inherits": ["ci-unix", "ci-gcc"],
+      "hidden": true,
+      "cacheVariables": {
+        "RPP_ENABLE_COVERAGE": "ON",
+        "CMAKE_BUILD_TYPE": "Coverage",
+        "CMAKE_CXX_FLAGS_COVERAGE": "-Og -g --coverage -fkeep-inline-functions -fkeep-static-functions -fprofile-arcs -ftest-coverage",
+        "CMAKE_EXE_LINKER_FLAGS_COVERAGE": "--coverage",
+        "CMAKE_SHARED_LINKER_FLAGS_COVERAGE": "--coverage"
+      }
+    },
 
 
     {
+      "name": "ci-build",
+      "binaryDir": "${sourceDir}/build",
+      "inherits" : ["ci-flags"]
+    },
+    {
       "name": "ci-coverage",
-      "inherits": ["coverage-unix", "ci-gcc"],
+      "inherits": ["ci-build", "ci-build-tests", "coverage-unix"],
       "cacheVariables": {
-        "COVERAGE_HTML_COMMAND": "",
-        "RPP_BUILD_TESTS" : "ON"
+        "COVERAGE_HTML_COMMAND": ""
       }
     },
     {
       "name": "ci-sanitize",
-      "binaryDir": "${sourceDir}/build/sanitize",
-      "inherits": ["ci-unix", "dev-mode", "ci-clang"],
+      "inherits": ["ci-build", "ci-build-tests", "ci-unix", "ci-clang"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Sanitize",
         "CMAKE_CXX_FLAGS_SANITIZE": "-O2 -g -fsanitize=address,undefined -fno-omit-frame-pointer -fno-common"
@@ -161,19 +174,67 @@
     },
     {
       "name": "ci-macos-tests",
-      "inherits": ["ci-build-tests", "ci-unix"]
+      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-unix"]
     },
     {
       "name": "ci-ubuntu-clang-tests",
-      "inherits": ["ci-build-tests", "ci-unix", "ci-clang", "cppcheck", "ci-build-sfml"]
+      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-clang", "cppcheck" ]
     },
     {
       "name": "ci-ubuntu-gcc-tests",
-      "inherits": ["ci-build-tests", "ci-unix", "ci-gcc", "ci-build-sfml"]      
+      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-gcc", "cppcheck"]      
     },
     {
       "name": "ci-windows-tests",
-      "inherits": ["ci-build-tests", "ci-win64"]
+      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples",  "ci-win64"]
+    },
+    
+
+
+
+    {
+      "name": "ci-macos-benchmarks",
+      "inherits": ["ci-build", "ci-build-benchmarks", "ci-unix"]
+    },
+    {
+      "name": "ci-ubuntu-clang-benchmarks",
+      "inherits": ["ci-build", "ci-build-benchmarks",  "ci-unix", "ci-clang", "cppcheck" ]
+    },
+    {
+      "name": "ci-ubuntu-gcc-benchmarks",
+      "inherits": ["ci-build", "ci-build-benchmarks",  "ci-unix", "ci-gcc", "cppcheck"]      
+    },
+    {
+      "name": "ci-windows-benchmarks",
+      "inherits": ["ci-build", "ci-build-benchmarks", "ci-win64"]
+    }
+  ],
+  "buildPresets" :[
+    {
+      "name" : "ci-build",
+      "jobs" : 2,
+      "configuration" : "Release",
+		  "configurePreset" : "ci-build"
+    }
+  ]
+  ,
+  "testPresets": [
+    {
+      "name": "ci-tests",
+      "configuration": "Release",
+      "output": {
+        "outputOnFailure": true
+      },
+		  "configurePreset" : "ci-build"
+    },
+    {
+      "name": "ci-sanitize",
+		  "configurePreset" : "ci-sanitize",
+      "inherits" : "ci-tests",
+      "environment": {
+        "ASAN_OPTIONS": "strict_string_checks=1:detect_stack_use_after_return=1:check_initialization_order=1:strict_init_order=1:detect_leaks=1",
+        "UBSAN_OPTIONS": "print_stacktrace=1"
+      }
     }
   ]
 }

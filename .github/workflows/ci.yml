@@ -57,8 +57,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Install LCov
-      run: sudo apt-get update -q
-        && sudo apt-get install lcov -q -y
+      run: sudo apt-get update -q && sudo apt-get install lcov -q -y
 
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -67,29 +66,25 @@ jobs:
         path: ${{env.Catch2_DIR}}
         key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
 
-    - name: Configure
-      run: cmake --preset=ci-coverage
-
-    - name: Build
-      run: cmake --build build/coverage -j 2
-
-    - name: Test
-      working-directory: build/coverage
-      run: ctest --output-on-failure 
+    - name: Run CMake
+      uses: lukka/run-cmake@v10
+      with:
+        configurePreset: ci-coverage
+        buildPreset: ci-build
+        testPreset: ci-tests
 
     - name: Process coverage info
-      run: cmake --build build/coverage -t coverage
+      run: cmake --build build -t coverage
 
     - name: Submit to codecov.io
       uses: codecov/codecov-action@v3
       with:
-        file: build/coverage/coverage.info
+        file: build/coverage.info
 
   sanitize:
-    name: Sanitizer
-
     needs: [download_deps]
 
+    name: Sanitize
     runs-on: ubuntu-latest
 
     steps:
@@ -100,55 +95,36 @@ jobs:
       id: cache-catch2
       with:
         path: ${{env.Catch2_DIR}}
-        key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
+        key: catch2-${{env.CATCH2_VERSION}}-${{matrix.config.os}}
 
-    - name: Configure
-      run: cmake --preset=ci-sanitize
+    - name: Run CMake
+      uses: lukka/run-cmake@v10
+      with:
+        configurePreset: ci-sanitize
+        buildPreset: ci-build
+        testPreset: ci-sanitize
 
-    - name: Build
-      run: cmake --build build/sanitize -j 2
-
-    - name: Test
-      working-directory: build/sanitize
-      env:
-        ASAN_OPTIONS: "strict_string_checks=1:\
-          detect_stack_use_after_return=1:\
-          check_initialization_order=1:\
-          strict_init_order=1:\
-          detect_leaks=1"
-        UBSAN_OPTIONS: print_stacktrace=1
-      run: ctest --output-on-failure 
-
-  test:
+  tests:
     needs: [download_deps]
 
     strategy:
-      matrix:
-        config:
-        -  name: "ci-ubuntu-gcc"
-           os: ubuntu-latest
-        -  name: "ci-ubuntu-clang"
-           os: ubuntu-latest
-        -  name: "ci-windows"
-           os: windows-latest
+      matrix:    
+        config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest}, 
+                 {name: ci-ubuntu-clang,os: ubuntu-latest},
+                 {name: ci-windows,     os: windows-latest}]
+        type: [tests, benchmarks]
 
-    runs-on:  ${{ matrix.config.os }}
-    name: Unit-tests - ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    name: ${{ matrix.type }} ${{ matrix.config.name }}
 
     steps:
     - uses: actions/checkout@v3
       with:
           fetch-depth: 0
 
-    - name: Install static analyzers
-      if: matrix.config.name == 'ci-ubuntu-clang'
-      run: sudo apt-get install clang-tidy cppcheck -y -q
-
-    - name: Install SFML
+    - name: Install deps
       if: matrix.config.os != 'windows-latest'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libsfml-dev
+      run: sudo apt-get update -q && sudo apt-get install clang-tidy cppcheck libsfml-dev -y -q
       
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -157,38 +133,21 @@ jobs:
         path: ${{env.Catch2_DIR}}
         key: catch2-${{env.CATCH2_VERSION}}-${{matrix.config.os}}
 
-    - name: Configure
-      shell: pwsh
-      run: cmake --preset=${{ matrix.config.name }}-tests
-
-    - name: Build
-      run: cmake --build build --config Release -j 2
-
-    - name: Install
-      run: cmake --install build --config Release --prefix prefix
-
-    - name: Test
-      working-directory: build
-      run: ctest --output-on-failure -C Release
-
-    - name: Run benchmarks
-      run: cmake --build build --config Release --target run_rpp_ci_benchmarks
-
-    - name: Upload benchmark results
-      uses: actions/upload-artifact@v3
+    - name: Run CMake
+      uses: lukka/run-cmake@v10
       with:
-        name: ${{ matrix.config.name }}
-        path: | 
-          ${{github.workspace}}/build/test_results/benchmarks/*
+        configurePreset: ${{ matrix.config.name }}-${{ matrix.type }}
+        buildPreset: ci-build
+        testPreset: ci-tests
 
     - name: Analyze diff with clang-tidy
-      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push'
+      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push' && matrix.type == 'tests'
       run: |
         mkdir clang-tidy-result
         git diff -U0 origin/main | clang-tidy-diff -j 0 -p1 -path build -export-fixes clang-tidy-result/fixes.yml -extra-arg=-std=c++20 -checks=bugprone-*,concurrency-*,performance-*
 
     - name: Run clang-tidy-pr-comments action
-      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push'
+      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push' && matrix.type  == 'tests'
       uses: platisd/clang-tidy-pr-comments@master
       with:
         # The GitHub token (or a personal access token)
@@ -203,15 +162,72 @@ jobs:
         # pull requests
         suggestions_per_comment: 10
 
+    - name: Upload benchmark results
+      uses: actions/upload-artifact@v3
+      if: matrix.type == 'benchmarks'
+      with:
+        name: ${{ matrix.config.name }}
+        path: ${{github.workspace}}/build/test_results/benchmarks/*
+
+  sonarcloud:
+    needs: [download_deps]
+    name: Build and collect data for sonarcloud
+    runs-on: ubuntu-latest
+
+    env:
+      SONAR_SERVER_URL: "https://sonarcloud.io"
+      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+          
+      - name: Restore Catch2 
+        uses: actions/cache@v3
+        id: cache-catch2
+        with:
+          path: ${{env.Catch2_DIR}}
+          key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
+      
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar-wrapper
+          restore-keys: ${{ runner.os }}-sonar-wrapper
+
+      - name: Download and set up build-wrapper
+        env:
+          BUILD_WRAPPER_DOWNLOAD_URL: ${{ env.SONAR_SERVER_URL }}/static/cpp/build-wrapper-linux-x86.zip
+        run: |
+          mkdir -p $HOME/.sonar
+          curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
+          unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
+          echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
+      
+      - name: Run build-wrapper
+        env:
+          CC: gcc-10
+          CXX: g++-10
+        run: |
+          mkdir build
+          cmake -S . -B build -DRPP_BUILD_TESTS=1
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release --parallel 2
+      
+      - name: Upload results
+        uses: actions/upload-artifact@v2
+        with:
+          name: build_wrapper_results
+          path: ${{ env.BUILD_WRAPPER_OUT_DIR }}
+
   docs:
     name: Build Doxygen Docs
 
-    needs: [sanitize, test]
+    needs: [sanitize, tests]
 
     runs-on: ubuntu-latest
 
-    if: github.event_name == 'push'
-      && github.repository_owner == 'victimsnino'
+    if: github.event_name == 'push' && github.repository_owner == 'victimsnino'
 
     steps:
     - uses: actions/checkout@v3
