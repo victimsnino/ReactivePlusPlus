@@ -1,7 +1,7 @@
 name: SonarCloud Analyze
 on:
   workflow_run:
-    workflows: [SonarCloud Build]
+    workflows: [ci]
     types: [completed]
 jobs:
   analyze_results:

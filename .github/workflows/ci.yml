@@ -89,8 +89,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-      with:
-          fetch-depth: 0
 
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -180,8 +178,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-      with:
-          fetch-depth: 0
 
     - name: Install deps
       if: matrix.config.os != 'windows-latest'
@@ -207,6 +203,57 @@ jobs:
         name: ${{ matrix.config.name }}
         path: ${{github.workspace}}/build/test_results/benchmarks/*
 
+  sonarcloud:
+    needs: [download_deps]
+    name: Build and collect data for sonarcloud
+    runs-on: ubuntu-latest
+    
+    env:
+      SONAR_SERVER_URL: "https://sonarcloud.io"
+      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+          
+      - name: Restore Catch2 
+        uses: actions/cache@v3
+        id: cache-catch2
+        with:
+          path: ${{env.Catch2_DIR}}
+          key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
+      
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar-wrapper
+          restore-keys: ${{ runner.os }}-sonar-wrapper
+
+      - name: Download and set up build-wrapper
+        env:
+          BUILD_WRAPPER_DOWNLOAD_URL: ${{ env.SONAR_SERVER_URL }}/static/cpp/build-wrapper-linux-x86.zip
+        run: |
+          mkdir -p $HOME/.sonar
+          curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
+          unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
+          echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
+      
+      - name: Run build-wrapper
+        env:
+          CC: gcc-10
+          CXX: g++-10
+        run: |
+          mkdir build
+          cmake -S . -B build -DRPP_BUILD_TESTS=1
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release --parallel 2
+      
+      - name: Upload results
+        uses: actions/upload-artifact@v2
+        with:
+          name: build_wrapper_results
+          path: ${{ env.BUILD_WRAPPER_OUT_DIR }}
+
   docs:
     name: Build Doxygen Docs
 
@@ -214,8 +261,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    if: github.event_name == 'push'
-      && github.repository_owner == 'victimsnino'
+    if: github.event_name == 'push' && github.repository_owner == 'victimsnino'
 
     steps:
     - uses: actions/checkout@v3
