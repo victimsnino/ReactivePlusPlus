@@ -71,60 +71,33 @@ jobs:
       uses: lukka/run-cmake@v10
       with:
         configurePreset: ci-coverage
-        buildPreset: ci-coverage
-        testPreset: ci-coverage
+        buildPreset: ci-build
+        testPreset: ci-tests
 
     - name: Process coverage info
-      run: cmake --build build/coverage -t coverage
+      run: cmake --build build -t coverage
 
     - name: Submit to codecov.io
       uses: codecov/codecov-action@v3
       with:
-        file: build/coverage/coverage.info
-
-  sanitize:
-    name: Sanitizer
-
-    needs: [download_deps]
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Restore Catch2 
-      uses: actions/cache@v3
-      id: cache-catch2
-      with:
-        path: ${{env.Catch2_DIR}}
-        key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
-
-    - name: Run CMake
-      uses: lukka/run-cmake@v10
-      with:
-        configurePreset: ci-sanitize
-        buildPreset: ci-sanitize
-        testPreset: ci-sanitize
+        file: build/coverage.info
         
   test:
     needs: [download_deps]
 
     strategy:
-      matrix:         
+      matrix:    
         config:
-        -  name: ci-ubuntu-gcc-tests
-           os: ubuntu-latest
-        -  name: ci-ubuntu-clang-tests-with-cppcheck
-           os: ubuntu-latest
-        -  name: ci-windows-tests
-           os: windows-latest
+        -  {name: Unit Tests Ubuntu GCC,   configurePresets: ci-ubuntu-gcc-tests,  os: ubuntu-latest, testPreset: ci-tests}
+        -  {name: Unit Tests Ubuntu Clang, configurePresets: ci-ubuntu-clang-tests,os: ubuntu-latest, testPreset: ci-tests}
+        -  {name: Unit Tests Windows,      configurePresets: ci-windows-tests,     os: windows-latest,testPreset: ci-tests}
 
-        -  name: ci-ubuntu-gcc-benchmarks
-           os: ubuntu-latest
-        -  name: ci-ubuntu-clang-benchmarks-with-cppcheck
-           os: ubuntu-latest
-        -  name: ci-windows-benchmarks
-           os: windows-latest
+        -  {name: Benchmarks Ubuntu GCC,   configurePresets: ci-ubuntu-gcc-benchmarks,  os: ubuntu-latest, testPreset: ci-tests, benchmarkName: Ubuntu GCC}
+        -  {name: Benchmarks Ubuntu Clang, configurePresets: ci-ubuntu-clang-benchmarks,os: ubuntu-latest, testPreset: ci-tests, benchmarkName: Ubuntu Clang}
+        -  {name: Benchmarks Windows,      configurePresets: ci-windows-benchmarks,     os: windows-latest,testPreset: ci-tests, benchmarkName: Windows MSVC}
+
+        -  {name: Sanitize, configurePresets: ci-sanitize, os: windows-latest,testPreset: ci-sanitize}
+
 
     runs-on: ${{ matrix.config.os }}
     name: ${{ matrix.config.name }}
@@ -136,7 +109,7 @@ jobs:
 
     - name: Install deps
       if: matrix.config.os != 'windows-latest'
-      run: sudo apt-get install cppcheck libsfml-dev -y -q
+      run: sudo apt-get update -q && sudo apt-get install cppcheck libsfml-dev lcov -y -q
       
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -148,15 +121,15 @@ jobs:
     - name: Run CMake
       uses: lukka/run-cmake@v10
       with:
-        configurePreset: ${{ matrix.config.name }}
-        buildPreset: ${{ matrix.config.name }}
-        testPreset: ${{ matrix.config.name }}
+        configurePreset: ${{ matrix.config.configurePresets }}
+        buildPreset: ci-build
+        testPreset: ${{ matrix.config.testPreset }}
 
     - name: Upload benchmark results
-      if: contains(matrix.config.name, 'benchmarks')
+      if: matrix.config.benchmarkName
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ matrix.config.name }}
+        name: ${{ matrix.config.benchmarkName }}
         path: ${{github.workspace}}/build/test_results/benchmarks/*
 
     # - name: Analyze diff with clang-tidy
@@ -184,7 +157,7 @@ jobs:
   docs:
     name: Build Doxygen Docs
 
-    needs: [sanitize, test]
+    needs: [test]
 
     runs-on: ubuntu-latest
 
