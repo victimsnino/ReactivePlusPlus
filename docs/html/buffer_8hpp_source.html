@@ -123,86 +123,83 @@ $(document).ready(function(){initNavTree('buffer_8hpp_source.html',''); initResi
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type UpstreamType&gt;</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1buffer__state.html">   32</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1buffer__state.html">buffer_state</a></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">   36</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>(<span class="keywordtype">size_t</span> count)</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        : m_max(std::max(size_t{1}, count))</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        reserve_buckets();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>(<span class="keyword">const</span> <a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>&amp; other)          = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>(<a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>&amp;&amp;) noexcept            = default;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>&amp; operator=(const <a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>&amp;)     = delete;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>&amp; operator=(<a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>&amp;&amp;) noexcept = default;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1buffer__state_1_1on__next.html">   47</a></span>&#160;    struct <a class="code" href="structrpp_1_1details_1_1buffer__state_1_1on__next.html">on_next</a></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">void</span> operator()(<span class="keyword">auto</span>&amp;&amp; value, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; subscriber, <span class="keyword">const</span> <a class="code" href="structrpp_1_1details_1_1buffer__state.html">buffer_state&lt;UpstreamType&gt;</a>&amp; state)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">        </span>{</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            state.m_buckets.push_back(std::forward&lt;decltype(value)&gt;(value));</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="keywordflow">if</span> (state.m_buckets.size() == state.m_max)</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                subscriber.on_next(std::move(state.m_buckets));</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                state.reserve_buckets();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    };</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1buffer__state_1_1on__completed.html">   60</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1buffer__state_1_1on__completed.html">on_completed</a></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> <span class="keyword">auto</span>&amp; subscriber, <span class="keyword">const</span> <a class="code" href="structrpp_1_1details_1_1buffer__state.html">buffer_state&lt;UpstreamType&gt;</a>&amp; state)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">        </span>{</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordflow">if</span> (!state.m_buckets.empty())</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                subscriber.on_next(std::move(state.m_buckets));</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            subscriber.on_completed();</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    };</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type UpstreamType&gt;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1buffer__state.html">   31</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1buffer__state.html">buffer_state</a></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">   35</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>(<span class="keywordtype">size_t</span> count)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        : max(std::max(size_t{1}, count))</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        clear_and_reserve_buckets();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>(<span class="keyword">const</span> <a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>&amp; other)          = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>(<a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>&amp;&amp;) noexcept            = default;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>&amp; operator=(const <a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>&amp;)     = delete;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>&amp; operator=(<a class="code" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a>&amp;&amp;) noexcept = default;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> clear_and_reserve_buckets()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        buckets.clear();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        buckets.reserve(max);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span>                             max;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">mutable</span> buffer_bundle_type&lt;UpstreamType&gt; buckets;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;};</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1buffer__on__next.html">   56</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1buffer__on__next.html">buffer_on_next</a></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type UpstreamType&gt;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">auto</span>&amp;&amp; value, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; subscriber, <span class="keyword">const</span> <a class="code" href="structrpp_1_1details_1_1buffer__state.html">buffer_state&lt;UpstreamType&gt;</a>&amp; state)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        state.buckets.push_back(std::forward&lt;decltype(value)&gt;(value));</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">if</span> (state.buckets.size() == state.max)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            subscriber.on_next(std::move(state.buckets));</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            state.clear_and_reserve_buckets();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;};</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> reserve_buckets()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        m_buckets.clear();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        m_buckets.reserve(m_max);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span>                             m_max;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">mutable</span> buffer_bundle_type&lt;UpstreamType&gt; m_buckets;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;};</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1buffer__impl.html">   83</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1buffer__impl.html">buffer_impl</a></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;{</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span> count;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber_of_type&lt;buffer_bundle_type&lt;Type&gt;&gt; TSub&gt;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">auto</span> operator()(TSub&amp;&amp; subscriber)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keyword">using</span> state = <a class="code" href="structrpp_1_1details_1_1buffer__state.html">buffer_state&lt;Type&gt;</a>;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keyword">auto</span> subscription = subscriber.get_subscription();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="comment">// dynamic_state there to make shared_ptr for observer instead of making shared_ptr for state</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">return</span> create_subscriber_with_dynamic_state&lt;Type&gt;(std::move(subscription),</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                                                          <span class="keyword">typename</span> state::on_next{},</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                                                          utils::forwarding_on_error{},</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                                                          <span class="keyword">typename</span> state::on_completed{},</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                                                          std::forward&lt;TSub&gt;(subscriber),</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                                                          state{count});</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;};</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1buffer__on__completed.html">   70</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1buffer__on__completed.html">buffer_on_completed</a></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;{</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type UpstreamType&gt;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> <span class="keyword">auto</span>&amp; subscriber, <span class="keyword">const</span> <a class="code" href="structrpp_1_1details_1_1buffer__state.html">buffer_state&lt;UpstreamType&gt;</a>&amp; state)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">if</span> (!state.buckets.empty())</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            subscriber.on_next(std::move(state.buckets));</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        subscriber.on_completed();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;};</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1buffer__impl.html">   82</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1buffer__impl.html">buffer_impl</a></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;{</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span> count;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber_of_type&lt;buffer_bundle_type&lt;Type&gt;&gt; TSub&gt;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">auto</span> operator()(TSub&amp;&amp; subscriber)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keyword">auto</span> subscription = subscriber.get_subscription();</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="comment">// dynamic_state there to make shared_ptr for observer instead of making shared_ptr for state</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">return</span> create_subscriber_with_dynamic_state&lt;Type&gt;(std::move(subscription),</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                                                          <a class="code" href="structrpp_1_1details_1_1buffer__on__next.html">buffer_on_next</a>{},</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                                                          utils::forwarding_on_error{},</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                                                          <a class="code" href="structrpp_1_1details_1_1buffer__on__completed.html">buffer_on_completed</a>{},</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                                                          std::forward&lt;TSub&gt;(subscriber),</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                                                          <a class="code" href="structrpp_1_1details_1_1buffer__state.html">buffer_state&lt;Type&gt;</a>{count});</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;};</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="astructrpp_1_1details_1_1buffer__state_html"><div class="ttname"><a href="structrpp_1_1details_1_1buffer__state.html">rpp::details::buffer_state</a></div><div class="ttdef"><b>Definition:</b> buffer.hpp:32</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1buffer__state_1_1on__next_html"><div class="ttname"><a href="structrpp_1_1details_1_1buffer__state_1_1on__next.html">rpp::details::buffer_state::on_next</a></div><div class="ttdef"><b>Definition:</b> buffer.hpp:47</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1buffer__state_1_1on__completed_html"><div class="ttname"><a href="structrpp_1_1details_1_1buffer__state_1_1on__completed.html">rpp::details::buffer_state::on_completed</a></div><div class="ttdef"><b>Definition:</b> buffer.hpp:60</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1buffer__state_html_a4351f88ab9607c319b91f73ddb21c886"><div class="ttname"><a href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">rpp::details::buffer_state::buffer_state</a></div><div class="ttdeci">buffer_state(size_t count)</div><div class="ttdef"><b>Definition:</b> buffer.hpp:36</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1buffer__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1buffer__impl.html">rpp::details::buffer_impl</a></div><div class="ttdef"><b>Definition:</b> buffer.hpp:83</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1buffer__state_html"><div class="ttname"><a href="structrpp_1_1details_1_1buffer__state.html">rpp::details::buffer_state</a></div><div class="ttdef"><b>Definition:</b> buffer.hpp:31</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1buffer__on__next_html"><div class="ttname"><a href="structrpp_1_1details_1_1buffer__on__next.html">rpp::details::buffer_on_next</a></div><div class="ttdef"><b>Definition:</b> buffer.hpp:56</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1buffer__state_html_a4351f88ab9607c319b91f73ddb21c886"><div class="ttname"><a href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">rpp::details::buffer_state::buffer_state</a></div><div class="ttdeci">buffer_state(size_t count)</div><div class="ttdef"><b>Definition:</b> buffer.hpp:35</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1buffer__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1buffer__impl.html">rpp::details::buffer_impl</a></div><div class="ttdef"><b>Definition:</b> buffer.hpp:82</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1buffer__on__completed_html"><div class="ttname"><a href="structrpp_1_1details_1_1buffer__on__completed.html">rpp::details::buffer_on_completed</a></div><div class="ttdef"><b>Definition:</b> buffer.hpp:70</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

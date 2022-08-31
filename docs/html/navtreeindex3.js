@@ -1,9 +1,12 @@
 var NAVTREEINDEX3 =
 {
-"structrpp_1_1details_1_1with__latest__from__state.html#a03368ad18d69e5cbe8c5c7717d54827e":[3,0,0,0,102,1],
-"structrpp_1_1details_1_1with__latest__from__state.html#a80e5ec5d270d5d874251a41ee65be8ac":[3,0,0,0,102,3],
-"structrpp_1_1details_1_1with__latest__from__state.html#ac94d550d7c8a7aa57abae431493df601":[3,0,0,0,102,2],
-"structrpp_1_1details_1_1with__latest__from__state.html#aefb19267873228ab60a51ab721eab270":[3,0,0,0,102,0],
+"structrpp_1_1details_1_1with__latest__from__on__next__outer.html":[3,0,0,0,103],
+"structrpp_1_1details_1_1with__latest__from__on__next__outer.html#aa28ec92d181475b09bd0317ba055428c":[3,0,0,0,103,0],
+"structrpp_1_1details_1_1with__latest__from__state.html":[3,0,0,0,104],
+"structrpp_1_1details_1_1with__latest__from__state.html#a03368ad18d69e5cbe8c5c7717d54827e":[3,0,0,0,104,1],
+"structrpp_1_1details_1_1with__latest__from__state.html#a80e5ec5d270d5d874251a41ee65be8ac":[3,0,0,0,104,3],
+"structrpp_1_1details_1_1with__latest__from__state.html#ac94d550d7c8a7aa57abae431493df601":[3,0,0,0,104,2],
+"structrpp_1_1details_1_1with__latest__from__state.html#aefb19267873228ab60a51ab721eab270":[3,0,0,0,104,0],
 "structrpp_1_1interface__observable.html":[3,0,0,13],
 "structrpp_1_1interface__observable.html#a1aed1c6edd83e7091c2bdc3b15b2beee":[3,0,0,13,1],
 "structrpp_1_1interface__observable.html#a51887f2fc4620f9ab9b45a28628ed85f":[3,0,0,13,2],

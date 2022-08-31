@@ -4,13 +4,6 @@
 
 {\ttfamily \#include $<$buffer.\+hpp$>$}
 
-\doxysubsection*{Classes}
-\begin{DoxyCompactItemize}
-\item 
-struct \mbox{\hyperlink{structrpp_1_1details_1_1buffer__state_1_1on__completed}{on\+\_\+completed}}
-\item 
-struct \mbox{\hyperlink{structrpp_1_1details_1_1buffer__state_1_1on__next}{on\+\_\+next}}
-\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -27,6 +20,18 @@ struct \mbox{\hyperlink{structrpp_1_1details_1_1buffer__state_1_1on__next}{on\+\
 \item 
 \mbox{\Hypertarget{structrpp_1_1details_1_1buffer__state_a2d58d3a0a2f4ad32c795d5290e2010ff}\label{structrpp_1_1details_1_1buffer__state_a2d58d3a0a2f4ad32c795d5290e2010ff}} 
 \mbox{\hyperlink{structrpp_1_1details_1_1buffer__state}{buffer\+\_\+state}} \& {\bfseries operator=} (\mbox{\hyperlink{structrpp_1_1details_1_1buffer__state}{buffer\+\_\+state}} \&\&) noexcept=default
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1buffer__state_ac622961f76a9be34fb498ace937a4e9a}\label{structrpp_1_1details_1_1buffer__state_ac622961f76a9be34fb498ace937a4e9a}} 
+void {\bfseries clear\+\_\+and\+\_\+reserve\+\_\+buckets} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1buffer__state_a75e57f63bedf1843c4c91f50580a4fc2}\label{structrpp_1_1details_1_1buffer__state_a75e57f63bedf1843c4c91f50580a4fc2}} 
+const size\+\_\+t {\bfseries max}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1buffer__state_a72c38764f8f6e0927d572bce131b3fa5}\label{structrpp_1_1details_1_1buffer__state_a72c38764f8f6e0927d572bce131b3fa5}} 
+buffer\+\_\+bundle\+\_\+type$<$ Upstream\+Type $>$ {\bfseries buckets}
 \end{DoxyCompactItemize}
 
 
@@ -34,7 +39,7 @@ struct \mbox{\hyperlink{structrpp_1_1details_1_1buffer__state_1_1on__next}{on\+\
 \subsubsection*{template$<$constraint\+::decayed\+\_\+type Upstream\+Type$>$\newline
 struct rpp\+::details\+::buffer\+\_\+state$<$ Upstream\+Type $>$}
 
-A non-\/copyable class that provides a copyable \mbox{\hyperlink{structrpp_1_1details_1_1buffer__state_1_1on__next}{on\+\_\+next}} for the subscriber and allows copies of on\+\_\+next(s) to share the same states. 
+A non-\/copyable class that provides a copyable on\+\_\+next for the subscriber and allows copies of on\+\_\+next(s) to share the same states. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{structrpp_1_1details_1_1buffer__state_a4351f88ab9607c319b91f73ddb21c886}\label{structrpp_1_1details_1_1buffer__state_a4351f88ab9607c319b91f73ddb21c886}} 

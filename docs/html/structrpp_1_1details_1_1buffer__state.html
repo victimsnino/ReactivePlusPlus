@@ -93,8 +93,8 @@ $(document).ready(function(){initNavTree('structrpp_1_1details_1_1buffer__state.
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structrpp_1_1details_1_1buffer__state-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">rpp::details::buffer_state&lt; UpstreamType &gt; Struct Template Reference</div>  </div>
@@ -103,13 +103,6 @@ $(document).ready(function(){initNavTree('structrpp_1_1details_1_1buffer__state.
 
 <p><code>#include &lt;<a class="el" href="buffer_8hpp_source.html">buffer.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrpp_1_1details_1_1buffer__state_1_1on__completed.html">on_completed</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrpp_1_1details_1_1buffer__state_1_1on__next.html">on_next</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4351f88ab9607c319b91f73ddb21c886"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886">buffer_state</a> (size_t count)</td></tr>
@@ -126,12 +119,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2d58d3a0a2f4ad32c795d5290e2010ff"><td class="memItemLeft" align="right" valign="top"><a id="a2d58d3a0a2f4ad32c795d5290e2010ff"></a>
 <a class="el" href="structrpp_1_1details_1_1buffer__state.html">buffer_state</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="structrpp_1_1details_1_1buffer__state.html">buffer_state</a> &amp;&amp;) noexcept=default</td></tr>
 <tr class="separator:a2d58d3a0a2f4ad32c795d5290e2010ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac622961f76a9be34fb498ace937a4e9a"><td class="memItemLeft" align="right" valign="top"><a id="ac622961f76a9be34fb498ace937a4e9a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>clear_and_reserve_buckets</b> () const</td></tr>
+<tr class="separator:ac622961f76a9be34fb498ace937a4e9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a75e57f63bedf1843c4c91f50580a4fc2"><td class="memItemLeft" align="right" valign="top"><a id="a75e57f63bedf1843c4c91f50580a4fc2"></a>
+const size_t&#160;</td><td class="memItemRight" valign="bottom"><b>max</b></td></tr>
+<tr class="separator:a75e57f63bedf1843c4c91f50580a4fc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72c38764f8f6e0927d572bce131b3fa5"><td class="memItemLeft" align="right" valign="top"><a id="a72c38764f8f6e0927d572bce131b3fa5"></a>
+buffer_bundle_type&lt; UpstreamType &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>buckets</b></td></tr>
+<tr class="separator:a72c38764f8f6e0927d572bce131b3fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;constraint::decayed_type UpstreamType&gt;<br />
 struct rpp::details::buffer_state&lt; UpstreamType &gt;</h3>
 
-<p>A non-copyable class that provides a copyable <a class="el" href="structrpp_1_1details_1_1buffer__state_1_1on__next.html">on_next</a> for the subscriber and allows copies of on_next(s) to share the same states. </p>
+<p>A non-copyable class that provides a copyable on_next for the subscriber and allows copies of on_next(s) to share the same states. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4351f88ab9607c319b91f73ddb21c886"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4351f88ab9607c319b91f73ddb21c886">&#9670;&nbsp;</a></span>buffer_state()</h2>

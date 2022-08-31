@@ -3,6 +3,8 @@ var annotated_dup =
     [ "rpp", null, [
       [ "details", null, [
         [ "buffer_impl", "structrpp_1_1details_1_1buffer__impl.html", "structrpp_1_1details_1_1buffer__impl" ],
+        [ "buffer_on_completed", "structrpp_1_1details_1_1buffer__on__completed.html", "structrpp_1_1details_1_1buffer__on__completed" ],
+        [ "buffer_on_next", "structrpp_1_1details_1_1buffer__on__next.html", "structrpp_1_1details_1_1buffer__on__next" ],
         [ "buffer_state", "structrpp_1_1details_1_1buffer__state.html", "structrpp_1_1details_1_1buffer__state" ],
         [ "combine_latest_impl", "structrpp_1_1details_1_1combine__latest__impl.html", "structrpp_1_1details_1_1combine__latest__impl" ],
         [ "combine_latest_on_completed", "structrpp_1_1details_1_1combine__latest__on__completed.html", "structrpp_1_1details_1_1combine__latest__on__completed" ],
