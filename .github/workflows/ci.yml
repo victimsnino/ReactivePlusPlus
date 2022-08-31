@@ -125,18 +125,18 @@ jobs:
     strategy:
       matrix:         
         config:
-        -  name: "ci-ubuntu-gcc-tests"
+        -  name: ci-ubuntu-gcc-tests
            os: ubuntu-latest
-        -  name: "ci-ubuntu-clang-tests-with-cppcheck"
+        -  name: ci-ubuntu-clang-tests-with-cppcheck
            os: ubuntu-latest
-        -  name: "ci-windows-tests"
+        -  name: ci-windows-tests
            os: windows-latest
 
-        -  name: "ci-ubuntu-gcc-benchmarks"
+        -  name: ci-ubuntu-gcc-benchmarks
            os: ubuntu-latest
-        -  name: "ci-ubuntu-clang-benchmarks-with-cppcheck"
+        -  name: ci-ubuntu-clang-benchmarks-with-cppcheck
            os: ubuntu-latest
-        -  name: "ci-windows-benchmarks"
+        -  name: ci-windows-benchmarks
            os: windows-latest
 
     runs-on: ${{ matrix.config.os }}
@@ -166,7 +166,7 @@ jobs:
         testPreset: 'ci-tests'
 
     - name: Upload benchmark results
-      if: contains(matrix.config.name, "benchmarks")
+      if: contains(matrix.config.name, 'benchmarks')
       uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.config.name }}
