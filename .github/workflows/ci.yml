@@ -67,15 +67,12 @@ jobs:
         path: ${{env.Catch2_DIR}}
         key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
 
-    - name: Configure
-      run: cmake --preset=ci-coverage
-
-    - name: Build
-      run: cmake --preset=ci-build-release
-
-    - name: Test
-      working-directory: build/coverage
-      run: ctest --output-on-failure 
+    - name: Run CMake
+      uses: lukka/run-cmake@v10
+      with:
+        configurePreset: ci-coverage
+        buildPreset: ci-coverage
+        testPreset: ci-coverage
 
     - name: Process coverage info
       run: cmake --build build/coverage -t coverage
@@ -102,23 +99,13 @@ jobs:
         path: ${{env.Catch2_DIR}}
         key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
 
-    - name: Configure
-      run: cmake --preset=ci-sanitize
-
-    - name: Build
-      run: cmake --preset=ci-build-release
-
-    - name: Test
-      working-directory: build/sanitize
-      env:
-        ASAN_OPTIONS: "strict_string_checks=1:\
-          detect_stack_use_after_return=1:\
-          check_initialization_order=1:\
-          strict_init_order=1:\
-          detect_leaks=1"
-        UBSAN_OPTIONS: print_stacktrace=1
-      run: ctest --output-on-failure 
-
+    - name: Run CMake
+      uses: lukka/run-cmake@v10
+      with:
+        configurePreset: ci-sanitize
+        buildPreset: ci-sanitize
+        testPreset: ci-sanitize
+        
   test:
     needs: [download_deps]
 

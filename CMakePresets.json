@@ -126,7 +126,15 @@
       "name" : "ci-build-tests",
       "hidden": true,
       "cacheVariables": {
-        "RPP_BUILD_TESTS" : "ON"
+        "RPP_BUILD_TESTS" : "ON",
+        "RPP_BUILD_EXAMPLES" : "ON"
+      }
+    },
+    {
+      "name" : "ci-build-examples",
+      "hidden": true,
+      "cacheVariables": {
+        "RPP_BUILD_EXAMPLES" : "ON"
       }
     },
     {
@@ -176,19 +184,19 @@
     },
     {
       "name": "ci-macos-tests",
-      "inherits": ["ci-build-dir", "ci-build-tests", "ci-build-benchmarks", "ci-unix"]
+      "inherits": ["ci-build-dir", "ci-build-tests", "ci-build-examples", "ci-unix"]
     },
     {
       "name": "ci-ubuntu-clang-tests-with-cppcheck",
-      "inherits": ["ci-build-dir", "ci-build-tests", "ci-build-benchmarks", "ci-build-sfml", "ci-unix", "ci-clang", "cppcheck" ]
+      "inherits": ["ci-build-dir", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-clang", "cppcheck" ]
     },
     {
       "name": "ci-ubuntu-gcc-tests",
-      "inherits": ["ci-build-dir", "ci-build-tests", "ci-build-benchmarks", "ci-build-sfml", "ci-unix", "ci-gcc"]      
+      "inherits": ["ci-build-dir", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-gcc"]      
     },
     {
       "name": "ci-windows-tests",
-      "inherits": ["ci-build-dir", "ci-build-tests", "ci-build-benchmarks", "ci-win64"]
+      "inherits": ["ci-build-dir", "ci-build-tests", "ci-build-examples",  "ci-win64"]
     },
     
 
@@ -196,19 +204,19 @@
 
     {
       "name": "ci-macos-benchmarks",
-      "inherits": ["ci-build-dir", "ci-build-benchmarks", "ci-build-benchmarks", "ci-unix"]
+      "inherits": ["ci-build-dir", "ci-build-benchmarks", "ci-unix"]
     },
     {
       "name": "ci-ubuntu-clang-benchmarks-with-cppcheck",
-      "inherits": ["ci-build-dir", "ci-build-benchmarks", "ci-build-benchmarks", "ci-build-sfml", "ci-unix", "ci-clang", "cppcheck" ]
+      "inherits": ["ci-build-dir", "ci-build-benchmarks",  "ci-unix", "ci-clang", "cppcheck" ]
     },
     {
       "name": "ci-ubuntu-gcc-benchmarks",
-      "inherits": ["ci-build-dir", "ci-build-benchmarks", "ci-build-benchmarks", "ci-build-sfml", "ci-unix", "ci-gcc"]      
+      "inherits": ["ci-build-dir", "ci-build-benchmarks",  "ci-unix", "ci-gcc"]      
     },
     {
       "name": "ci-windows-benchmarks",
-      "inherits": ["ci-build-dir", "ci-build-benchmarks", "ci-build-benchmarks", "ci-win64"]
+      "inherits": ["ci-build-dir", "ci-build-benchmarks", "ci-win64"]
     }
   ],
   "buildPresets" :[
