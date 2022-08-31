@@ -57,8 +57,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Install LCov
-      run: sudo apt-get update -q
-        && sudo apt-get install lcov -q -y
+      run: sudo apt-get update -q && sudo apt-get install lcov -q -y
 
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -81,26 +80,44 @@ jobs:
       uses: codecov/codecov-action@v3
       with:
         file: build/coverage.info
-        
-  test:
+
+  sanitize:
+    needs: [download_deps]
+
+    name: Sanitize
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+          fetch-depth: 0
+
+    - name: Restore Catch2 
+      uses: actions/cache@v3
+      id: cache-catch2
+      with:
+        path: ${{env.Catch2_DIR}}
+        key: catch2-${{env.CATCH2_VERSION}}-${{matrix.config.os}}
+
+    - name: Run CMake
+      uses: lukka/run-cmake@v10
+      with:
+        configurePreset: ci-sanitize
+        buildPreset: ci-build
+        testPreset: ci-sanitize
+
+  tests:
     needs: [download_deps]
 
     strategy:
       matrix:    
         config:
-        -  {name: Unit Tests Ubuntu GCC,   configurePresets: ci-ubuntu-gcc-tests,  os: ubuntu-latest, testPreset: ci-tests}
-        -  {name: Unit Tests Ubuntu Clang, configurePresets: ci-ubuntu-clang-tests,os: ubuntu-latest, testPreset: ci-tests}
-        -  {name: Unit Tests Windows,      configurePresets: ci-windows-tests,     os: windows-latest,testPreset: ci-tests}
-
-        -  {name: Benchmarks Ubuntu GCC,   configurePresets: ci-ubuntu-gcc-benchmarks,  os: ubuntu-latest, testPreset: ci-tests, benchmarkName: Ubuntu GCC}
-        -  {name: Benchmarks Ubuntu Clang, configurePresets: ci-ubuntu-clang-benchmarks,os: ubuntu-latest, testPreset: ci-tests, benchmarkName: Ubuntu Clang}
-        -  {name: Benchmarks Windows,      configurePresets: ci-windows-benchmarks,     os: windows-latest,testPreset: ci-tests, benchmarkName: Windows MSVC}
-
-        -  {name: Sanitize, configurePresets: ci-sanitize, os: windows-latest,testPreset: ci-sanitize}
-
+        -  {name: ci-ubuntu-gcc,  os: ubuntu-latest}
+        -  {name: ci-ubuntu-clang,os: ubuntu-latest}
+        -  {name: ci-windows,     os: windows-latest}
 
     runs-on: ${{ matrix.config.os }}
-    name: ${{ matrix.config.name }}
+    name: Unit Tests ${{ matrix.config.name }}
 
     steps:
     - uses: actions/checkout@v3
@@ -109,7 +126,7 @@ jobs:
 
     - name: Install deps
       if: matrix.config.os != 'windows-latest'
-      run: sudo apt-get update -q && sudo apt-get install cppcheck libsfml-dev lcov -y -q
+      run: sudo apt-get update -q && sudo apt-get install cppcheck libsfml-dev -y -q
       
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -121,43 +138,79 @@ jobs:
     - name: Run CMake
       uses: lukka/run-cmake@v10
       with:
-        configurePreset: ${{ matrix.config.configurePresets }}
+        configurePreset: ${{ matrix.config.configurePresets }}-tests
         buildPreset: ci-build
-        testPreset: ${{ matrix.config.testPreset }}
+        testPreset: ci-tests
+
+    - name: Analyze diff with clang-tidy
+      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push'
+      run: |
+        mkdir clang-tidy-result
+        git diff -U0 origin/main | clang-tidy-diff -j 0 -p1 -path build -export-fixes clang-tidy-result/fixes.yml -extra-arg=-std=c++20 -checks=bugprone-*,concurrency-*,performance-*
+
+    - name: Run clang-tidy-pr-comments action
+      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push'
+      uses: platisd/clang-tidy-pr-comments@master
+      with:
+        # The GitHub token (or a personal access token)
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        # The path to the clang-tidy fixes generated previously
+        clang_tidy_fixes: clang-tidy-result/fixes.yml
+        # Optionally set to true if you want the Action to request
+        # changes in case warnings are found
+        request_changes: false
+        # Optionally set the number of comments per review
+        # to avoid GitHub API timeouts for heavily loaded
+        # pull requests
+        suggestions_per_comment: 10
+
+  benchmarks:
+    needs: [download_deps]
+
+    strategy:
+      matrix:    
+        config:
+        -  {name: ci-ubuntu-gcc,  os: ubuntu-latest}
+        -  {name: ci-ubuntu-clang,os: ubuntu-latest}
+        -  {name: ci-windows,     os: windows-latest}
+
+
+    runs-on: ${{ matrix.config.os }}
+    name: Benchmarks ${{ matrix.config.name }}
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+          fetch-depth: 0
+
+    - name: Install deps
+      if: matrix.config.os != 'windows-latest'
+      run: sudo apt-get update -q && sudo apt-get install cppcheck -y -q
+      
+    - name: Restore Catch2 
+      uses: actions/cache@v3
+      id: cache-catch2
+      with:
+        path: ${{env.Catch2_DIR}}
+        key: catch2-${{env.CATCH2_VERSION}}-${{matrix.config.os}}
+
+    - name: Run CMake
+      uses: lukka/run-cmake@v10
+      with:
+        configurePreset: ${{ matrix.config.name }}-benchmarks
+        buildPreset: ci-build
+        testPreset: ci-tests
 
     - name: Upload benchmark results
-      if: matrix.config.benchmarkName
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ matrix.config.benchmarkName }}
+        name: ${{ matrix.config.name }}
         path: ${{github.workspace}}/build/test_results/benchmarks/*
-
-    # - name: Analyze diff with clang-tidy
-    #   if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push'
-    #   run: |
-    #     mkdir clang-tidy-result
-    #     git diff -U0 origin/main | clang-tidy-diff -j 0 -p1 -path build -export-fixes clang-tidy-result/fixes.yml -extra-arg=-std=c++20 -checks=bugprone-*,concurrency-*,performance-*
-
-    # - name: Run clang-tidy-pr-comments action
-    #   if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push'
-    #   uses: platisd/clang-tidy-pr-comments@master
-    #   with:
-    #     # The GitHub token (or a personal access token)
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     # The path to the clang-tidy fixes generated previously
-    #     clang_tidy_fixes: clang-tidy-result/fixes.yml
-    #     # Optionally set to true if you want the Action to request
-    #     # changes in case warnings are found
-    #     request_changes: false
-    #     # Optionally set the number of comments per review
-    #     # to avoid GitHub API timeouts for heavily loaded
-    #     # pull requests
-    #     suggestions_per_comment: 10
 
   docs:
     name: Build Doxygen Docs
 
-    needs: [test]
+    needs: [sanitize, tests, benchmarks]
 
     runs-on: ubuntu-latest
 
