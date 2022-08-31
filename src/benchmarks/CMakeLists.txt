@@ -8,29 +8,26 @@
 # Project home: https://github.com/victimsnino/ReactivePlusPlus
 #
 
-set(TARGET rpp_benchmark)
 
-add_executable(${TARGET} 
-    benchmarks.cpp
-)
+function(add_benchmark benchmark_name)
+  set(TARGET ${benchmark_name}_benchmark)
 
-target_link_libraries(${TARGET} PRIVATE rpp Catch2::Catch2WithMain)
-set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
+  add_executable(${TARGET} ${TARGET}.cpp)
 
-add_test(NAME ${TARGET} COMMAND  $<TARGET_FILE:${TARGET}> -r xml -o ${RPP_TEST_BENCHMARKS_RESULTS_DIR}/${TARGET}_result.txt)
-
-
-if (RPP_BUILD_RXCPP)
-  set(TARGET rxcpp_benchmark)
-
-  add_executable(${TARGET} 
-      rxcpp_benchmark.cpp
-  )
-
-  target_link_libraries(${TARGET} PRIVATE rxcpp Catch2::Catch2WithMain)
-  get_target_property(RXCPP_DIR rxcpp INTERFACE_INCLUDE_DIRECTORIES)
-  target_include_directories(${TARGET} SYSTEM PRIVATE ${RXCPP_DIR})
+  target_link_libraries(${TARGET} PRIVATE ${benchmark_name} Catch2::Catch2WithMain)
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 
+  if (NOT benchmark_name STREQUAL "rpp")
+    get_target_property(DEP_DIR ${benchmark_name} INTERFACE_INCLUDE_DIRECTORIES)
+    target_include_directories(${TARGET} SYSTEM PRIVATE ${DEP_DIR})
+  endif()
+
   add_test(NAME ${TARGET} COMMAND  $<TARGET_FILE:${TARGET}> -r xml -o ${RPP_TEST_BENCHMARKS_RESULTS_DIR}/${TARGET}_result.txt)
+
+endfunction()
+
+add_benchmark(rpp)
+
+if (RPP_BUILD_RXCPP)
+  add_benchmark(rxcpp)
 endif()
