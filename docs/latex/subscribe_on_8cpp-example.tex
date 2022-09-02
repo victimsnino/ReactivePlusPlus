@@ -1,0 +1,26 @@
+\hypertarget{subscribe_on_8cpp-example}{}\doxysection{subscribe\+\_\+on.\+cpp}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    std::cout << std::this\_thread::get\_id() << std::endl;}
+\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                std::cout << \textcolor{stringliteral}{"on\_subscribe thread "} << std::this\_thread::get\_id() << std::endl;}
+\DoxyCodeLine{                sub.on\_next(1);}
+\DoxyCodeLine{                sub.on\_completed();}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{            .as\_blocking()}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"["} << std::this\_thread::get\_id() << \textcolor{stringliteral}{"] : "} << v << \textcolor{stringliteral}{"\(\backslash\)n"}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Template for output:}}
+\DoxyCodeLine{    \textcolor{comment}{// TH1}}
+\DoxyCodeLine{    \textcolor{comment}{// on\_subscribe thread TH2}}
+\DoxyCodeLine{    \textcolor{comment}{// [TH2]: 1}}
+\DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\end{DoxyCodeInclude}
+ 

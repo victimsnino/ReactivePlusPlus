@@ -1,0 +1,50 @@
+\hypertarget{interval_8cpp-example}{}\doxysection{interval.\+cpp}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <chrono>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \textcolor{keyword}{auto} cur\_time = std::chrono::high\_resolution\_clock::now();}
+\DoxyCodeLine{}
+\DoxyCodeLine{        rpp::source::interval(std::chrono::seconds\{ 2 \})}
+\DoxyCodeLine{            .take(5)}
+\DoxyCodeLine{            .subscribe([cur\_time](\textcolor{keywordtype}{size\_t} v)}
+\DoxyCodeLine{                \{}
+\DoxyCodeLine{                    \textcolor{keyword}{auto} diff = std::chrono::duration\_cast<std::chrono::seconds>(std::chrono::high\_resolution\_clock::now() -\/ cur\_time).count();}
+\DoxyCodeLine{                    std::cout << \textcolor{stringliteral}{"Seconds since start "} << diff << \textcolor{stringliteral}{" value "} << v << std::endl;}
+\DoxyCodeLine{                \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{comment}{// Output: Seconds since start 2 value 0}}
+\DoxyCodeLine{        \textcolor{comment}{//         Seconds since start 4 value 1}}
+\DoxyCodeLine{        \textcolor{comment}{//         Seconds since start 6 value 2}}
+\DoxyCodeLine{        \textcolor{comment}{//         Seconds since start 8 value 3}}
+\DoxyCodeLine{        \textcolor{comment}{//         Seconds since start 10 value 4}}
+\DoxyCodeLine{\textcolor{comment}{}    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \textcolor{keyword}{auto} cur\_time = std::chrono::high\_resolution\_clock::now();}
+\DoxyCodeLine{}
+\DoxyCodeLine{        rpp::source::interval(std::chrono::seconds\{ 1\}, std::chrono::seconds\{ 2 \})}
+\DoxyCodeLine{            .take(5)}
+\DoxyCodeLine{            .subscribe([cur\_time](\textcolor{keywordtype}{size\_t} v)}
+\DoxyCodeLine{                \{}
+\DoxyCodeLine{                    \textcolor{keyword}{auto} diff = std::chrono::duration\_cast<std::chrono::seconds>(std::chrono::high\_resolution\_clock::now() -\/ cur\_time).count();}
+\DoxyCodeLine{                    std::cout << \textcolor{stringliteral}{"Seconds since start "} << diff << \textcolor{stringliteral}{" value "} << v << std::endl;}
+\DoxyCodeLine{                \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{comment}{// Output: Seconds since start 1 value 0}}
+\DoxyCodeLine{        \textcolor{comment}{//         Seconds since start 3 value 1}}
+\DoxyCodeLine{        \textcolor{comment}{//         Seconds since start 5 value 2}}
+\DoxyCodeLine{        \textcolor{comment}{//         Seconds since start 7 value 3}}
+\DoxyCodeLine{        \textcolor{comment}{//         Seconds since start 9 value 4}}
+\DoxyCodeLine{\textcolor{comment}{}    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\end{DoxyCodeInclude}
+ 

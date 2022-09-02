@@ -170,7 +170,16 @@ template&lt;typename ... Args&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the buffer operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="buffer_8hpp_source.html">rpp/operators/buffer.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example:</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <span class="comment">// The stream that uses rvalue overloads for operators</span></div>
+<div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3, 4, 5)</div>
+<div class="line">        .buffer(2)</div>
+<div class="line">        .subscribe(</div>
+<div class="line">            [](<span class="keyword">const</span> std::vector&lt;int&gt;&amp; v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;-&quot;</span>; },</div>
+<div class="line">            [](<span class="keyword">const</span> std::exception_ptr&amp;) {},</div>
+<div class="line">            []() { std::cout &lt;&lt; <span class="stringliteral">&quot;|&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Source: -1-2-3-4-5--|</span></div>
+<div class="line">    <span class="comment">// Output: {1,2}-{3,4}-{5}-|</span></div>
+</div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/buffer.html">https://reactivex.io/documentation/operators/buffer.html</a> </dd></dl>
 
 </div>
@@ -209,7 +218,11 @@ template&lt;flat_map_callable&lt; Type &gt; Callable&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the flat_map operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="flat__map_8hpp_source.html">rpp/operators/flat_map.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example:</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3)</div>
+<div class="line">            .flat_map([](<span class="keywordtype">int</span> val) { <span class="keywordflow">return</span> rpp::source::from_iterable(std::vector(val, val)); })</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 1 2 2 3 3 3</span></div>
+</div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/flatmap.html">https://reactivex.io/documentation/operators/flatmap.html</a> </dd></dl>
 
 </div>
@@ -265,7 +278,54 @@ template&lt;std::invocable&lt; Type &gt; KeySelector, std::invocable&lt; Type &g
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the group_by operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="group__by_8hpp_source.html">rpp/operators/group_by.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example:</dt><dd><div class="fragment"></div><!-- fragment --> <div class="fragment"></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3, 4, 5, 6, 7, 8)</div>
+<div class="line">            .group_by([](<span class="keywordtype">int</span>   v) { <span class="keywordflow">return</span> v % 2 == 0; })</div>
+<div class="line">            .subscribe([](<span class="keyword">auto</span> grouped_observable)</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keyword">auto</span> key = grouped_observable.get_key();</div>
+<div class="line">                std::cout &lt;&lt; <span class="stringliteral">&quot;new grouped observable &quot;</span> &lt;&lt; key &lt;&lt; std::endl;</div>
+<div class="line">                grouped_observable.subscribe([key](<span class="keywordtype">int</span> val)</div>
+<div class="line">                {</div>
+<div class="line">                    std::cout &lt;&lt; <span class="stringliteral">&quot;key [&quot;</span> &lt;&lt; key &lt;&lt; <span class="stringliteral">&quot;] Val: &quot;</span> &lt;&lt; val &lt;&lt; std::endl;</div>
+<div class="line">                });</div>
+<div class="line">            });</div>
+<div class="line">    <span class="comment">// Output: new grouped observable 0</span></div>
+<div class="line">    <span class="comment">//         key [0] Val: 1</span></div>
+<div class="line">    <span class="comment">//         new grouped observable 1</span></div>
+<div class="line">    <span class="comment">//         key [1] Val: 2</span></div>
+<div class="line">    <span class="comment">//         key [0] Val: 3</span></div>
+<div class="line">    <span class="comment">//         key [1] Val: 4</span></div>
+<div class="line">    <span class="comment">//         key [0] Val: 5</span></div>
+<div class="line">    <span class="comment">//         key [1] Val: 6</span></div>
+<div class="line">    <span class="comment">//         key [0] Val: 7</span></div>
+<div class="line">    <span class="comment">//         key [1] Val: 8</span></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <span class="keyword">struct </span>Person</div>
+<div class="line">    {</div>
+<div class="line">        std::string name;</div>
+<div class="line">        <span class="keywordtype">int</span> age;</div>
+<div class="line">    };</div>
+<div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(Person{<span class="stringliteral">&quot;Kate&quot;</span>, 18},</div>
+<div class="line">                      Person{<span class="stringliteral">&quot;Alex&quot;</span>, 25},</div>
+<div class="line">                      Person{<span class="stringliteral">&quot;Nick&quot;</span>, 18},</div>
+<div class="line">                      Person{<span class="stringliteral">&quot;Jack&quot;</span>, 25},</div>
+<div class="line">                      Person{<span class="stringliteral">&quot;Tom&quot;</span>, 30},</div>
+<div class="line">                      Person{<span class="stringliteral">&quot;Vanda&quot;</span>, 18})</div>
+<div class="line">            .<a class="code" href="group__transforming__operators.html#gaf3399da92ac6a0a4c392107b5b405a60">group_by</a>([](<span class="keyword">const</span> Person&amp; v) { <span class="keywordflow">return</span> v.age; }, [](<span class="keyword">const</span> Person&amp; v) { <span class="keywordflow">return</span> v.name; })</div>
+<div class="line">            .subscribe([](<span class="keyword">auto</span> grouped_observable)</div>
+<div class="line">            {</div>
+<div class="line">                grouped_observable.subscribe([age = grouped_observable.get_key()](<span class="keyword">const</span> std::string&amp; name)</div>
+<div class="line">                {</div>
+<div class="line">                    std::cout &lt;&lt; <span class="stringliteral">&quot;Age [&quot;</span> &lt;&lt; age &lt;&lt; <span class="stringliteral">&quot;] Name: &quot;</span> &lt;&lt; name &lt;&lt; std::endl;</div>
+<div class="line">                });</div>
+<div class="line">            });</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Output: Age [18] Name: Kate</span></div>
+<div class="line">    <span class="comment">//         Age [25] Name: Alex</span></div>
+<div class="line">    <span class="comment">//         Age [18] Name: Nick</span></div>
+<div class="line">    <span class="comment">//         Age [25] Name: Jack</span></div>
+<div class="line">    <span class="comment">//         Age [30] Name: Tom</span></div>
+<div class="line">    <span class="comment">//         Age [18] Name: Vanda</span></div>
+</div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/groupby.html">https://reactivex.io/documentation/operators/groupby.html</a> </dd></dl>
 
 </div>
@@ -303,8 +363,22 @@ template&lt;std::invocable&lt; Type &gt; Callable&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the Map operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="map_8hpp_source.html">rpp/operators/map.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example with same type:</dt><dd><div class="fragment"></div><!-- fragment --> </dd></dl>
-<dl class="section user"><dt>Example with changed type:</dt><dd><div class="fragment"></div><!-- fragment --> </dd></dl>
+<dl class="section user"><dt>Example with same type:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(42)</div>
+<div class="line">            .map([](<span class="keywordtype">int</span> value)</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">return</span> value + 10;</div>
+<div class="line">            })</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 52</span></div>
+</div><!-- fragment --> </dd></dl>
+<dl class="section user"><dt>Example with changed type:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(42)</div>
+<div class="line">            .map([](<span class="keywordtype">int</span> value)</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">return</span> std::to_string(value) + <span class="stringliteral">&quot; VAL&quot;</span>;</div>
+<div class="line">            })</div>
+<div class="line">            .subscribe([](std::string v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 42 VAL</span></div>
+</div><!-- fragment --> </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/map.html">https://reactivex.io/documentation/operators/map.html</a> </dd></dl>
 
 </div>
@@ -352,7 +426,27 @@ template&lt;typename Result , scan_accumulator&lt; Result, Type &gt; Accumulator
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the scan operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="scan_8hpp_source.html">rpp/operators/scan.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example</dt><dd><div class="fragment"></div><!-- fragment --> <div class="fragment"></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1,2,3)</div>
+<div class="line">            .scan(0, std::plus&lt;int&gt;{})</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 1 3 6</span></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1,2,3)</div>
+<div class="line">            .scan(std::vector&lt;int&gt;{}, [](std::vector&lt;int&gt;&amp;&amp; seed, <span class="keywordtype">int</span> new_value)</div>
+<div class="line">            {</div>
+<div class="line">                seed.push_back(new_value);</div>
+<div class="line">                <span class="keywordflow">return</span> std::move(seed);</div>
+<div class="line">            })</div>
+<div class="line">            .subscribe([](<span class="keyword">const</span> std::vector&lt;int&gt;&amp; v)</div>
+<div class="line">            {</div>
+<div class="line">                std::cout &lt;&lt; <span class="stringliteral">&quot;vector: &quot;</span>;</div>
+<div class="line">                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> val : v)</div>
+<div class="line">                    std::cout &lt;&lt; val &lt;&lt; <span class="stringliteral">&quot; &quot;</span>;</div>
+<div class="line">                std::cout &lt;&lt; std::endl;</div>
+<div class="line">            });</div>
+<div class="line">    <span class="comment">// Output: vector: 1</span></div>
+<div class="line">    <span class="comment">//         vector: 1 2</span></div>
+<div class="line">    <span class="comment">//         vector: 1 2 3</span></div>
+</div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/scan.html">https://reactivex.io/documentation/operators/scan.html</a> </dd></dl>
 
 </div>
@@ -390,7 +484,24 @@ template&lt;switch_map_callable&lt; Type &gt; Callable&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the switch_map operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="switch__map_8hpp_source.html">rpp/operators/switch_map.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example:</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3)</div>
+<div class="line">            .switch_map([](<span class="keywordtype">int</span> val) {</div>
+<div class="line">                <span class="keywordflow">if</span> (val == 1)</div>
+<div class="line">                    <span class="keywordflow">return</span> rpp::source::never&lt;int&gt;()</div>
+<div class="line">                        .lift([&amp;](<a class="code" href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber&lt;int&gt;</a> sub) {</div>
+<div class="line">                            sub.get_subscription().add([&amp;]() {</div>
+<div class="line">                                std::cout &lt;&lt; <span class="stringliteral">&quot;x-&quot;</span>; <span class="comment">// x is notation for unsubscribed</span></div>
+<div class="line">                            });</div>
+<div class="line">                            <span class="keywordflow">return</span> sub;</div>
+<div class="line">                        })</div>
+<div class="line">                        .as_dynamic();</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordflow">return</span> rpp::source::from_iterable(std::vector{val, val})</div>
+<div class="line">                    .as_dynamic();</div>
+<div class="line">            })</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;-&quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: x-2-2-3-3-</span></div>
+</div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/switchmap.html">https://reactivex.io/documentation/operators/switchmap.html</a> </dd></dl>
 
 </div>
@@ -428,13 +539,23 @@ template&lt;typename ... Args&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the window operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="window_8hpp_source.html">rpp/operators/window.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1,2,3,4,5)</div>
+<div class="line">        .window(3)</div>
+<div class="line">        .subscribe([](<span class="keyword">const</span> rpp::windowed_observable&lt;int&gt;&amp; v) { std::cout &lt;&lt; <span class="stringliteral">&quot;\nNew observable &quot;</span> &lt;&lt; std::endl; v.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; }); });</div>
+<div class="line">    <span class="comment">// Output: New observable</span></div>
+<div class="line">    <span class="comment">//         1 2 3</span></div>
+<div class="line">    <span class="comment">//         New observable</span></div>
+<div class="line">    <span class="comment">//         4 5</span></div>
+</div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/window.html">https://reactivex.io/documentation/operators/window.html</a> </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="agroup__creational__operators_html_gabc5067fa9aefaa803f6e329b75faa00c"><div class="ttname"><a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:159</div></div>
+<div class="ttc" id="aclassrpp_1_1dynamic__subscriber_html"><div class="ttname"><a href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber</a></div><div class="ttdoc">subscriber which uses dynamic_observer&lt;T&gt; to hide original callbacks</div><div class="ttdef"><b>Definition:</b> dynamic_subscriber.hpp:23</div></div>
+<div class="ttc" id="agroup__transforming__operators_html_gaf3399da92ac6a0a4c392107b5b405a60"><div class="ttname"><a href="group__transforming__operators.html#gaf3399da92ac6a0a4c392107b5b405a60">rpp::details::member_overload&lt; Type, SpecificObservable, group_by_tag &gt;::group_by</a></div><div class="ttdeci">auto group_by(KeySelector &amp;&amp;key_selector, ValueSelector &amp;&amp;value_selector={}, KeyComparator &amp;&amp;comparator={}) const &amp;requires is_header_included&lt; group_by_tag</div><div class="ttdoc">Divide original observable into multiple observables where each new observable emits some group of va...</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

@@ -126,12 +126,35 @@ static auto&#160;</td><td class="memItemRight" valign="bottom"><b>create_worker<
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>schedules execution of schedulables via queueing tasks to the caller thread with priority to time_point and order </p>
-<dl class="section user"><dt>Example</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(<a class="code" href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a>{}, 1, 2, 3)</div>
+<div class="line">            .merge_with(<a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(<a class="code" href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a>{}, 4, 5, 6))</div>
+<div class="line">            .subscribe([](<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; v) { std::cout &lt;&lt; <span class="stringliteral">&quot;-&quot;</span> &lt;&lt; v; },</div>
+<div class="line">                       []() { std::cout &lt;&lt; <span class="stringliteral">&quot;-|&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Source 1: -1-2-3-|</span></div>
+<div class="line">    <span class="comment">// Source 2:        -4-5-6-|</span></div>
+<div class="line">    <span class="comment">// Output  : -1-4-2-5-3-6-|</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">//    // TODO: Enable this when we have &quot;combine_latest&quot; operator</span></div>
+<div class="line"><span class="comment">//    rpp::source::just(rpp::schedulers::trampoline{}, 1, 2, 3)</span></div>
+<div class="line"><span class="comment">//        .with_latest_from(rpp::source::just(rpp::schedulers::trampoline{}, 4, 5, 6))</span></div>
+<div class="line"><span class="comment">//        .observe_on(rpp::schedulers::trampoline{})</span></div>
+<div class="line"><span class="comment">//        .subscribe(</span></div>
+<div class="line"><span class="comment">//            [](const auto &amp;v) { std::cout &lt;&lt; v &lt;&lt; &quot;-&quot;; },</span></div>
+<div class="line"><span class="comment">//            [](const std::exception_ptr &amp;error) {},</span></div>
+<div class="line"><span class="comment">//            []() { std::cout &lt;&lt; &quot;|&quot; &lt;&lt; std::endl; });</span></div>
+<div class="line"><span class="comment">//    // Source: -1-2-3--|</span></div>
+<div class="line"><span class="comment">//    //         -1-2-3--|</span></div>
+<div class="line"><span class="comment">//    // Output: {1,1}-{2,2}-{3,3}-|</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="combine_latest_8cpp-example.html#_a1">combine_latest.cpp</a>, and <a class="el" href="trampoline_8cpp-example.html#_a1">trampoline.cpp</a>.</dd>
+</dl>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/rpp/rpp/schedulers/<a class="el" href="trampoline__scheduler_8hpp_source.html">trampoline_scheduler.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1trampoline_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a></div><div class="ttdoc">schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition:</b> trampoline_scheduler.hpp:38</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gabc5067fa9aefaa803f6e329b75faa00c"><div class="ttname"><a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:159</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

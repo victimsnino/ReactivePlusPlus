@@ -1,0 +1,23 @@
+\hypertarget{distinct_until_changed_8cpp-example}{}\doxysection{distinct\+\_\+until\+\_\+changed.\+cpp}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 1, 2, 2, 3, 2, 1)}
+\DoxyCodeLine{            .distinct\_until\_changed()}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} val) \{ std::cout << val << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2 3 2 1}}
+\DoxyCodeLine{\textcolor{comment}{}    }
+\DoxyCodeLine{    std::cout << std::endl;}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 1, 2, 2, 3, 2, 1)}
+\DoxyCodeLine{        .distinct\_until\_changed([](\textcolor{keywordtype}{int} left, \textcolor{keywordtype}{int} right) \{\textcolor{keywordflow}{return} left != right; \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} val) \{ std::cout << val << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1 1 1}}
+\DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\end{DoxyCodeInclude}
+ 
