@@ -1,0 +1,56 @@
+name: Clang Tidy COmments
+on:
+  workflow_run:
+    workflows:
+      - "CI"
+    types:
+      - completed
+      
+permissions:
+  contents: write
+  
+jobs:
+  process_benchmarks:
+    runs-on: ubuntu-latest
+    
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success' 
+    
+    steps:
+      - uses: haya14busa/action-workflow_run-status@v1
+
+      - name: "Get PR information"
+        uses: potiuk/get-workflow-origin@v1_3
+        id: source-run-info
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sourceRunId: ${{ github.event.workflow_run.id }}
+
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          repository: ${{ github.event.workflow_run.head_repository.full_name }}
+          ref: ${{ github.event.workflow_run.head_branch }}
+
+      - name: Download all workflow run artifacts
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          path: artifacts
+          run_id: ${{github.event.workflow_run.id}}
+
+      - name: Run clang-tidy-pr-comments action
+        uses: platisd/clang-tidy-pr-comments@master
+        with:
+          # The GitHub token (or a personal access token)
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # The path to the clang-tidy fixes generated previously
+          clang_tidy_fixes: artifacts/clang-tidy-result/fixes.yml
+          # Optionally set to true if you want the Action to request
+          # changes in case warnings are found
+          request_changes: false
+          # Optionally set the number of comments per review
+          # to avoid GitHub API timeouts for heavily loaded
+          # pull requests
+          suggestions_per_comment: 10
+          pull_request_id: ${{ steps.source-run-info.outputs.pullRequestNumber }}
