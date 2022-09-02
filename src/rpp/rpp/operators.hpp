@@ -42,6 +42,7 @@
 #include <rpp/operators/first.hpp>
 #include <rpp/operators/skip.hpp>
 #include <rpp/operators/take.hpp>
+#include <rpp/operators/take_last.hpp>
 
 /**
  * \defgroup conditional_operators Conditional Operators

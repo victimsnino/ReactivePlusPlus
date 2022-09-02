@@ -693,6 +693,40 @@ TEST_CASE("take")
     };
 }
 
+TEST_CASE("take_last")
+{
+    BENCHMARK_ADVANCED("take_last construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        const auto obs = rpp::observable::create<int>([](const auto& sub)
+        {
+            sub.on_next(1);
+            sub.on_completed();
+        });
+
+        std::vector<rpp::dynamic_subscriber<int>> subs{};
+        for (int i = 0; i < meter.runs(); ++i)
+            subs.push_back(rpp::dynamic_subscriber<int>{});
+
+        meter.measure([&](int i)
+        {
+            return obs.take_last(1).subscribe(subs[i]);
+        });
+    };
+
+    BENCHMARK_ADVANCED("sending of values from observable via take_last to subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        rpp::source::create<int>([&](const auto& sub)
+                {
+                    meter.measure([&]
+                    {
+                        sub.on_next(1);
+                    });
+                })
+                .take_last(meter.runs() - 1)
+                .subscribe([](const auto&) {});
+    };
+}
+
 TEST_CASE("first")
 {
     BENCHMARK_ADVANCED("first construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)

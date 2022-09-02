@@ -61,6 +61,7 @@ struct RPP_EMPTY_BASES interface_observable
     , details::member_overload<Type, SpecificObservable, details::switch_map_tag>
     , details::member_overload<Type, SpecificObservable, details::switch_on_next_tag>
     , details::member_overload<Type, SpecificObservable, details::take_tag>
+    , details::member_overload<Type, SpecificObservable, details::take_last_tag>
     , details::member_overload<Type, SpecificObservable, details::take_while_tag>
     , details::member_overload<Type, SpecificObservable, details::window_tag>
     , details::member_overload<Type, SpecificObservable, details::with_latest_from_tag>
