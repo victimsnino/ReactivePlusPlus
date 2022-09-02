@@ -27,7 +27,7 @@ namespace rpp::observable
      *
      * \marble interval
        {
-           operator "interval: 200": +--0--1--2--3--4--5--6--
+           operator "interval: 200": +--0--1--2--3--4--5--6-->
        }
      *
      * \warn First emission also scheduled and delayed with same interval
@@ -53,7 +53,7 @@ namespace rpp::observable
      *
      * \marble interval_init
        {
-           operator "interval: 100, 200": +-0---1---2---3---4---5---6--
+           operator "interval: 100, 200": +-0---1---2---3---4---5---6-->
        }
      *
      * \param first_delay period which would be used to delay first emission
