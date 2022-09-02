@@ -150,21 +150,12 @@ jobs:
         mkdir clang-tidy-result
         git diff -U0 origin/main | clang-tidy-diff -j 0 -p1 -path build -export-fixes clang-tidy-result/fixes.yml -extra-arg=-std=c++20 -checks=bugprone-*,concurrency-*,performance-*
 
-    - name: Run clang-tidy-pr-comments action
-      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push' && matrix.type  == 'tests'
-      uses: platisd/clang-tidy-pr-comments@master
+    - name: Upload clang-tidy results
+      uses: actions/upload-artifact@v3
+      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push' && matrix.type == 'tests'
       with:
-        # The GitHub token (or a personal access token)
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        # The path to the clang-tidy fixes generated previously
-        clang_tidy_fixes: clang-tidy-result/fixes.yml
-        # Optionally set to true if you want the Action to request
-        # changes in case warnings are found
-        request_changes: false
-        # Optionally set the number of comments per review
-        # to avoid GitHub API timeouts for heavily loaded
-        # pull requests
-        suggestions_per_comment: 10
+        name: clang-tidy-result
+        path: clang-tidy-result/fixes.yml
 
     - name: Upload benchmark results
       uses: actions/upload-artifact@v3

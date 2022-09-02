@@ -43,6 +43,23 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           path: gh-pages
 
+      - name: Run clang-tidy-pr-comments action
+        if: github.event.workflow_run.event != 'push'
+        uses: platisd/clang-tidy-pr-comments@master
+        with:
+          # The GitHub token (or a personal access token)
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # The path to the clang-tidy fixes generated previously
+          clang_tidy_fixes: artifacts/clang-tidy-result/fixes.yml
+          # Optionally set to true if you want the Action to request
+          # changes in case warnings are found
+          request_changes: false
+          # Optionally set the number of comments per review
+          # to avoid GitHub API timeouts for heavily loaded
+          # pull requests
+          suggestions_per_comment: 10
+          pull_request_id: ${{ steps.source-run-info.outputs.pullRequestNumber }}
+
       - name: Install deps
         run: pip3 install pandas
 
