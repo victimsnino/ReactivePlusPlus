@@ -26,21 +26,23 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, take_last_tag>
 {
     /**
-     * \brief 
+     * \brief Emit only last `count` items provided by observable, then send `on_completed`
      * 
      * \marble take_last
         {
-            
+            source observable       : +--1-2-3-4-5-6-|
+            operator "take_last(3)" : +--------------456|
         }
      *
+     * \param count amount of last items to be emitted
      * \return new specific_observable with the take_last operator as most recent operator.
      * \warning #include <rpp/operators/take_last.hpp>
      * 
      * \par Example
      * \snippet take_last.cpp take_last
 	 *
-     * \ingroup 
-     * \see
+     * \ingroup filtering_operators
+     * \see https://reactivex.io/documentation/operators/takelast.html
      */
     template<typename ...Args>
     auto take_last(size_t count) const & requires is_header_included<take_last_tag, Args...>

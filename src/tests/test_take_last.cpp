@@ -81,7 +81,7 @@ SCENARIO("take_last sends last values in correct order on completed", "[operator
             }
         }
     }
-};
+}
 
 
 SCENARIO("take_last forwards error", "[operators][take_last]")
