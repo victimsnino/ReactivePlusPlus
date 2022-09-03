@@ -63,9 +63,8 @@ struct take_last_on_completed
 
             do
             {
-                // if buffer is not full, then we can see some null values till some values. So, we need to skip them!
-                if (state.items[cur_pos].has_value())
-                    subscriber.on_next(state.items[cur_pos].value());
+                if (auto&& value = state.items[cur_pos])
+                    subscriber.on_next(std::move(value.value()));
 
                 cur_pos = state.get_next_position(cur_pos);
 
