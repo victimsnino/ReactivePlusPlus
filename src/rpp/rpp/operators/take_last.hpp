@@ -31,7 +31,7 @@ struct take_last_state
 
     size_t get_next_position(size_t pos) const
     {
-        return (pos + 1) % items.size();
+        return ++pos >= items.size() ? 0 : pos;
     }
 
     mutable std::vector<std::optional<Type>> items;
