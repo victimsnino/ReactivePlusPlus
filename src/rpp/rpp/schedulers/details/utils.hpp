@@ -16,36 +16,39 @@
 
 namespace rpp::schedulers::details
 {
-    /**
-     * \brief Makes immediate-like scheduling for provided arguments
-     * \returns false in case of subscription unsubscribed or schedulable doesn't requested to re-schedule, true - in case of condition failed
-     **/
-    bool immediate_scheduling_while_condition(time_point& time_point, constraint::schedulable_fn auto&& schedulable, const rpp::subscription_base& sub, const std::predicate auto& condition)
+// keep old_timepoint to easily understand if we need to sleep (due to sleep is expensive enough even if time in the "past")
+inline thread_local time_point s_last_sleep_timepoint{};
+
+/**
+ * \brief Makes immediate-like scheduling for provided arguments
+ * \returns false in case of subscription unsubscribed or schedulable doesn't requested to re-schedule, true - in case of condition failed
+ **/
+bool immediate_scheduling_while_condition(time_point&                       time_point,
+                                          constraint::schedulable_fn auto&& schedulable,
+                                          const subscription_base&          sub,
+                                          const std::predicate auto&        condition)
+{
+    while (condition())
     {
-        // keep old_timepoint to easily understand if we need to sleep (due to sleep is expensive enough even if time in the "past")
-        rpp::schedulers::time_point old_timepoint{};
+        if (!sub.is_subscribed())
+            return false;
 
-        while(condition())
+        if (s_last_sleep_timepoint < time_point)
         {
+            std::this_thread::sleep_until(time_point);
+            s_last_sleep_timepoint = time_point;
+
             if (!sub.is_subscribed())
-                return false;
-
-            if (old_timepoint != time_point)
-            {
-                std::this_thread::sleep_until(time_point);
-
-                if (!sub.is_subscribed())
-                    return false;
-            }
-
-            old_timepoint = time_point;
-
-            if (const auto duration = schedulable())
-                time_point = time_point + duration.value();
-            else
                 return false;
         }
 
-        return true;
+
+        if (const auto duration = schedulable())
+            time_point = time_point + duration.value();
+        else
+            return false;
     }
+
+    return true;
+}
 }
