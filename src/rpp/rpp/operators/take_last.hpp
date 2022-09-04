@@ -26,7 +26,7 @@ namespace rpp::details
 template<constraint::decayed_type Type>
 struct take_last_state
 {
-    take_last_state(size_t count)
+    explicit take_last_state(size_t count)
         : items(count) {}
 
     size_t get_next_position(size_t pos) const
