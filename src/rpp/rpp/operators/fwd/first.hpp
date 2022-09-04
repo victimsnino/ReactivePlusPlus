@@ -37,7 +37,7 @@ struct member_overload<Type, SpecificObservable, first_tag>
      * \marble first
          {
              source observable   : +--1--2--3--|
-             operator "first"    : +--1-|
+             operator "first"    : +--1|
          }
      *
      * \return new specific_observable with the first operator as most recent operator.

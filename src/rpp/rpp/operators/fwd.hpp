@@ -34,6 +34,7 @@
 #include <rpp/operators/fwd/switch_map.hpp>
 #include <rpp/operators/fwd/switch_on_next.hpp>
 #include <rpp/operators/fwd/take.hpp>
+#include <rpp/operators/fwd/take_last.hpp>
 #include <rpp/operators/fwd/take_while.hpp>
 #include <rpp/operators/fwd/window.hpp>
 #include <rpp/operators/fwd/with_latest_from.hpp>

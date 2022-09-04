@@ -74,7 +74,7 @@
 - [ ] sample
 - [x] skip
 - [ ] skip_last
-- [ ] take_last
+- [x] take_last
 
 ### Conditional
 
