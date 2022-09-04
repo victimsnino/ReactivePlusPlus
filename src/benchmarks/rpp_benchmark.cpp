@@ -209,13 +209,13 @@ TEST_CASE("Subscription")
     BENCHMARK_ADVANCED("composite_subscription add")(Catch::Benchmark::Chronometer meter)
     {
         rpp::composite_subscription sub{};
-        std::vector<rpp::composite_subscription> inner(meter.runs(), rpp::composite_subscription{});
+        std::vector<rpp::composite_subscription> inner(meter.runs());
         meter.measure([&](int i) { return sub.add(inner[i]); });
     };
 
     BENCHMARK_ADVANCED("composite_subscription unsubscribe")(Catch::Benchmark::Chronometer meter)
     {
-        std::vector<rpp::composite_subscription> subs(meter.runs(), rpp::composite_subscription{});
+        std::vector<rpp::composite_subscription> subs(meter.runs());
         meter.measure([&](int i) { subs[i].unsubscribe(); });
     };
 }
