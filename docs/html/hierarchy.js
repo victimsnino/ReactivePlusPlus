@@ -122,6 +122,9 @@ var hierarchy =
     [ "rpp::details::member_overload< Type, SpecificObservable, details::switch_on_next_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, details::take_last_tag >", "structrpp_1_1details_1_1member__overload.html", [
+      [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
+    ] ],
     [ "rpp::details::member_overload< Type, SpecificObservable, details::take_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
@@ -155,6 +158,7 @@ var hierarchy =
     [ "rpp::details::member_overload< Type, SpecificObservable, subscribe_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01subscribe__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, switch_map_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__map__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, switch_on_next_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__on__next__tag_01_4.html", null ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, take_last_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__last__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, take_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, take_while_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__while__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, window_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01window__tag_01_4.html", null ],
@@ -236,6 +240,10 @@ var hierarchy =
     [ "rpp::details::switch_on_next_on_next", "structrpp_1_1details_1_1switch__on__next__on__next.html", null ],
     [ "rpp::details::switch_on_next_state", "structrpp_1_1details_1_1switch__on__next__state.html", null ],
     [ "rpp::details::take_impl< Type >", "structrpp_1_1details_1_1take__impl.html", null ],
+    [ "rpp::details::take_last_impl< Type >", "structrpp_1_1details_1_1take__last__impl.html", null ],
+    [ "rpp::details::take_last_on_completed", "structrpp_1_1details_1_1take__last__on__completed.html", null ],
+    [ "rpp::details::take_last_on_next", "structrpp_1_1details_1_1take__last__on__next.html", null ],
+    [ "rpp::details::take_last_state< Type >", "structrpp_1_1details_1_1take__last__state.html", null ],
     [ "rpp::details::take_on_next", "structrpp_1_1details_1_1take__on__next.html", null ],
     [ "rpp::details::take_state", "structrpp_1_1details_1_1take__state.html", [
       [ "rpp::details::first_state", "structrpp_1_1details_1_1first__state.html", null ]

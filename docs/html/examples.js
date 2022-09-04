@@ -28,6 +28,7 @@ var examples =
     [ "switch_map.cpp", "switch_map_8cpp-example.html", null ],
     [ "switch_on_next.cpp", "switch_on_next_8cpp-example.html", null ],
     [ "take.cpp", "take_8cpp-example.html", null ],
+    [ "take_last.cpp", "take_last_8cpp-example.html", null ],
     [ "take_while.cpp", "take_while_8cpp-example.html", null ],
     [ "trampoline.cpp", "trampoline_8cpp-example.html", null ],
     [ "window.cpp", "window_8cpp-example.html", null ],

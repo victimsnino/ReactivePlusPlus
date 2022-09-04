@@ -123,6 +123,10 @@ Functions</h2></td></tr>
 <tr class="memitem:gaef1d69d29be545c479d3126993eed494"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#gaef1d69d29be545c479d3126993eed494">rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;::take</a> (size_t count) const &amp;requires is_header_included&lt; take_tag</td></tr>
 <tr class="memdesc:gaef1d69d29be545c479d3126993eed494"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only first <code>count</code> items provided by observable, then send <code>on_completed</code>  <a href="group__filtering__operators.html#gaef1d69d29be545c479d3126993eed494">More...</a><br /></td></tr>
 <tr class="separator:gaef1d69d29be545c479d3126993eed494"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3c0d677dcbb92c13b9cd7f6fd2b17725"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
+<tr class="memitem:ga3c0d677dcbb92c13b9cd7f6fd2b17725"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga3c0d677dcbb92c13b9cd7f6fd2b17725">rpp::details::member_overload&lt; Type, SpecificObservable, take_last_tag &gt;::take_last</a> (size_t count) const &amp;requires is_header_included&lt; take_last_tag</td></tr>
+<tr class="memdesc:ga3c0d677dcbb92c13b9cd7f6fd2b17725"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only last <code>count</code> items provided by observable, then send <code>on_completed</code>  <a href="group__filtering__operators.html#ga3c0d677dcbb92c13b9cd7f6fd2b17725">More...</a><br /></td></tr>
+<tr class="separator:ga3c0d677dcbb92c13b9cd7f6fd2b17725"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Filtering operators are operators that emit only part of items that satisfies some condition. </p>
@@ -337,6 +341,47 @@ template&lt;typename... Args&gt; </div>
 <div class="line">    <span class="comment">// Output: 0 1</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/take.html">https://reactivex.io/documentation/operators/take.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga3c0d677dcbb92c13b9cd7f6fd2b17725"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3c0d677dcbb92c13b9cd7f6fd2b17725">&#9670;&nbsp;</a></span>take_last()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename ... Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, take_last_tag &gt;::take_last </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Emit only last <code>count</code> items provided by observable, then send <code>on_completed</code> </p>
+<div class="image">
+<object type="image/svg+xml" data="take_last.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">count</td><td>amount of last items to be emitted </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the take_last operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="take__last_8hpp_source.html">rpp/operators/take_last.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)</div>
+<div class="line">            .take_last(2)</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 8 9</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/takelast.html">https://reactivex.io/documentation/operators/takelast.html</a> </dd></dl>
 
 </div>
 </div>
