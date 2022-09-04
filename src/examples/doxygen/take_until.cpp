@@ -1,4 +1,6 @@
 #include <rpp/rpp.hpp>
+
+#include <chrono>
 #include <iostream>
 
 /**
@@ -7,25 +9,14 @@
 int main()
 {
     //! [take_until]
-    auto subject = rpp::subjects::publish_subject<bool>{};
-
-    rpp::source::create<int>([other_subscriber = subject.get_subscriber()](const auto& subscriber)
-                             {
-                                 subscriber.on_next(1);
-                                 subscriber.on_next(2);
-
-                                 // Should see a terminate event after this
-                                 other_subscriber.on_next(true);
-
-                                 subscriber.on_next(3);
-                             })
-        .take_until(subject.get_observable())
+    rpp::source::interval(std::chrono::seconds{1}, rpp::schedulers::trampoline{})
+        .take_until(rpp::source::interval(std::chrono::seconds{5}, rpp::schedulers::trampoline{}))
         .subscribe([](int v) { std::cout << "-" << v; },
                    [](const std::exception_ptr&) { std::cout << "-x" << std::endl; },
                    []() { std::cout << "-|" << std::endl; });
-    // source 1: -1-2-3-|
-    // source 2: ----t-
-    // Output  : -1-2-|
+    // source 1: -0-1-2-3-4-5-6-7-     --
+    // source 2: ---------0---------1- --
+    // Output  : -0-1-2-3-|
     //! [take_until]
 
     //! [take_until terminate]
