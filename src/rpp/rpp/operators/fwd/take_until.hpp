@@ -38,7 +38,7 @@ struct member_overload<Type, SpecificObservable, take_until_tag>
        {
            source observable        : +-1--2--3--|
            until observable         : +--s--s----|
-           operator "take_until"    : +-1--------|
+           operator "take_until"    : +-1-|
        }
      *
      * \param until_observable is the observables that stops the source observable from sending values when it emits one value or sends a on_error/on_completed event.

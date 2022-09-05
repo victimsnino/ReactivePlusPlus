@@ -93,15 +93,3 @@ SCENARIO("take_until mirrors both source observable and trigger observable", "[t
         }
     }
 }
-
-SCENARIO("take_until handles race condition", "[take_until]")
-{
-    GIVEN("trigger value is emitted when source on_next() is still emitting.")
-    {
-        auto mock = mock_observer<size_t>{};
-
-        rpp::source::interval(std::chrono::seconds{1}, rpp::schedulers::trampoline{})
-            .take_until(rpp::source::interval(std::chrono::seconds{1}, rpp::schedulers::trampoline{}))
-            .subscribe(mock);
-    }
-}
