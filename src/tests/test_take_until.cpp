@@ -12,6 +12,7 @@
 
 #include <rpp/operators/take_until.hpp>
 #include <rpp/sources/error.hpp>
+#include <rpp/sources/interval.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/never.hpp>
 #include <rpp/subjects/publish_subject.hpp>
@@ -65,10 +66,10 @@ SCENARIO("take_until mirrors both source observable and trigger observable", "[t
     {
         auto mock = mock_observer<int>{};
         rpp::source::just(1)
-                .take_until(rpp::source::just(1))
-                .subscribe(mock);
+            .take_until(rpp::source::just(1))
+            .subscribe(mock);
 
-        THEN("should see -| because take_until also mirrors the trigger observable 's completed event")
+        THEN("should see -| because take_until is subscribed first and it also mirrors the trigger observable 's completed event")
         {
             CHECK(mock.get_received_values().empty());
             CHECK(mock.get_on_completed_count() == 1);
@@ -81,8 +82,8 @@ SCENARIO("take_until mirrors both source observable and trigger observable", "[t
         auto mock = mock_observer<int>{};
 
         rpp::source::just(1)
-                .take_until(rpp::source::error<bool>(std::make_exception_ptr(std::runtime_error{""})))
-                .subscribe(mock);
+            .take_until(rpp::source::error<bool>(std::make_exception_ptr(std::runtime_error{""})))
+            .subscribe(mock);
 
         THEN("should see -x because take_until also mirrors the trigger observable 's error event")
         {
@@ -90,5 +91,17 @@ SCENARIO("take_until mirrors both source observable and trigger observable", "[t
             CHECK(mock.get_on_completed_count() == 0);
             CHECK(mock.get_on_error_count() == 1);
         }
+    }
+}
+
+SCENARIO("take_until handles race condition", "[take_until]")
+{
+    GIVEN("trigger value is emitted when source on_next() is still emitting.")
+    {
+        auto mock = mock_observer<size_t>{};
+
+        rpp::source::interval(std::chrono::seconds{1}, rpp::schedulers::trampoline{})
+            .take_until(rpp::source::interval(std::chrono::seconds{1}, rpp::schedulers::trampoline{}))
+            .subscribe(mock);
     }
 }

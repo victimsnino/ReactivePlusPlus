@@ -18,14 +18,20 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/utils/functors.hpp>
 
-
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 
+#include <mutex>
 
 IMPLEMENTATION_FILE(take_until_tag);
 
 namespace rpp::details
 {
+
+struct take_until_state
+{
+    std::mutex mutex;
+    bool is_stopped{false};
+};
 
 /**
  * Functor (type-erasure) of "take_until" for on_next operator.
@@ -35,9 +41,11 @@ struct take_until_on_next
 {
     void operator()(auto&& value,
                     const auto& subscriber,
-                    const std::shared_ptr<first_state>& state) const
+                    const std::shared_ptr<take_until_state>& state) const
     {
-        if (state->count > 0)
+        std::lock_guard lock{state->mutex};
+
+        if (!state->is_stopped)
             subscriber.on_next(std::forward<decltype(value)>(value));
         else
             subscriber.on_completed();
@@ -53,13 +61,12 @@ struct take_until_throttler
      */
     void operator()(auto&&,
                     const auto& subscriber,
-                    const std::shared_ptr<first_state>& state) const
+                    const std::shared_ptr<take_until_state>& state) const
     {
-        if (state->count > 0)
-            --state->count;
+        std::lock_guard lock{state->mutex};
 
-        if (state->count == 0)
-            subscriber.on_completed();
+        state->is_stopped = true;
+        subscriber.on_completed();
     }
 };
 
@@ -76,7 +83,7 @@ struct take_until_impl
     template<constraint::subscriber_of_type<Type> TSub>
     auto operator()(TSub&& subscriber) const
     {
-        auto state = std::make_shared<first_state>();
+        auto state = std::make_shared<take_until_state>();
 
         // Subscribe to trigger observable
         auto child_subscription = subscriber.get_subscription().make_child();
