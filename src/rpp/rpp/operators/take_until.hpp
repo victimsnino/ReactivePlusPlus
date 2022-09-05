@@ -32,39 +32,41 @@ struct take_until_state
 };
 
 /**
- * Collection of functors for "take_until" 's source observation.
+ * Functor (type-erasure) of "take_until" for on_next operator.
  */
 template<constraint::decayed_type Type>
-struct take_until_functors
+struct take_until_on_next
 {
-    /**
-     * Functor (type-erasure) of "take_until" for on_next operator.
-     */
-    void operator()(auto&& value,
-                    const auto& subscriber,
-                    const std::shared_ptr<take_until_state>& state) const
-    {
+    void operator()(auto &&value,
+                    const auto &subscriber,
+                    const std::shared_ptr<take_until_state> &state) const {
         std::lock_guard lock{state->mutex};
 
         if (!state->is_stopped)
             subscriber.on_next(std::forward<decltype(value)>(value));
     }
+};
 
-    /**
-     * Functor (type-erasure) of "take_until" for on_error operator.
-     */
-    void operator()(const std::exception_ptr& err,
-                    const auto& subscriber,
-                    const std::shared_ptr<take_until_state>& state) const
+/**
+ * Functor (type-erasure) of "take_until" for on_error operator.
+ */
+struct take_until_on_error
+{
+    void operator()(const std::exception_ptr &err,
+                    const auto &subscriber,
+                    const std::shared_ptr<take_until_state> &state) const
     {
         std::lock_guard lock{state->mutex};
 
         subscriber.on_error(err);
     }
+};
 
-    /**
-     * Functor (type-erasure) of "take_until" for on_completed operator.
-     */
+/**
+ * Functor (type-erasure) of "take_until" for on_completed operator.
+ */
+struct take_until_on_completed
+{
     void operator()(const auto& subscriber,
                     const std::shared_ptr<take_until_state>& state) const
     {
@@ -75,44 +77,46 @@ struct take_until_functors
 };
 
 /**
- * Collection of functors for "take_until" 's throttler (trigger observable) observation.
+ * Functor (type-erasure) of throttler (trigger observable) for on_next operator.
  */
 template<constraint::decayed_type Type>
-struct take_until_throttler_functors
-{
-    /**
-     * Functor (type-erasure) of throttler (trigger observable) for on_next operator.
-     */
-    void operator()(auto&&,
-                    const auto& subscriber,
-                    const std::shared_ptr<take_until_state>& state) const
+struct take_until_throttler_on_next {
+    void operator()(auto &&,
+                    const auto &subscriber,
+                    const std::shared_ptr<take_until_state> &state) const
     {
         std::lock_guard lock{state->mutex};
 
         state->is_stopped = true;
         subscriber.on_completed();
     }
+};
 
-    /**
-     * Functor (type-erasure) of throttler (trigger observable) for on_error operator.
-     */
-    void operator()(const std::exception_ptr& err,
-                    const auto& subscriber,
-                    const std::shared_ptr<take_until_state>& state) const
+/**
+ * Functor (type-erasure) of throttler (trigger observable) for on_error operator.
+ */
+struct take_until_throttler_on_error {
+    void operator()(const std::exception_ptr &err,
+                    const auto &subscriber,
+                    const std::shared_ptr<take_until_state> &state) const
     {
         std::lock_guard lock{state->mutex};
 
         subscriber.on_error(err);
     }
+};
 
-    /**
-     * Functor (type-erasure) of throttler (trigger observable) for on_completed operator.
-     */
+/**
+ * Functor (type-erasure) of throttler (trigger observable) for on_completed operator.
+ */
+struct take_until_throttler_on_completed
+{
     void operator()(const auto& subscriber,
                     const std::shared_ptr<take_until_state>& state) const
     {
         std::lock_guard lock{state->mutex};
 
+        state->is_stopped = true;
         subscriber.on_completed();
     }
 };
@@ -136,17 +140,17 @@ struct take_until_impl
         auto child_subscription = subscriber.get_subscription().make_child();
         m_until_observable.subscribe(
             create_subscriber_with_state<TriggerType>(std::move(child_subscription),
-                                                      take_until_throttler_functors<TriggerType>{},
-                                                      take_until_throttler_functors<TriggerType>{},
-                                                      take_until_throttler_functors<TriggerType>{},
+                                                      take_until_throttler_on_next<TriggerType>{},
+                                                      take_until_throttler_on_error{},
+                                                      take_until_throttler_on_completed{},
                                                       std::forward<decltype(subscriber)>(subscriber),
                                                       state));
 
         auto subscription = subscriber.get_subscription();
         return create_subscriber_with_state<Type>(std::move(subscription),
-                                                  take_until_functors<Type>{},
-                                                  take_until_functors<Type>{},
-                                                  take_until_functors<Type>{},
+                                                  take_until_on_next<Type>{},
+                                                  take_until_on_error{},
+                                                  take_until_on_completed{},
                                                   std::forward<decltype(subscriber)>(subscriber),
                                                   std::move(state));
     }
