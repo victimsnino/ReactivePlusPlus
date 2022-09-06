@@ -67,7 +67,7 @@ struct combine_latest_on_next
     }
 };
 
-using combine_latest_on_error = merge_on_error;
+using combine_latest_on_error     = merge_on_error;
 using combine_latest_on_completed = merge_on_completed;
 
 /**
