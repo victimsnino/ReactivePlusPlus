@@ -49,7 +49,8 @@ jobs:
     name: Test Coverage
 
     needs: [download_deps]
-
+    
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     if: github.repository_owner == 'victimsnino'
 
@@ -86,6 +87,7 @@ jobs:
 
     name: Sanitize
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
     - uses: actions/checkout@v3
@@ -114,6 +116,7 @@ jobs:
                  {name: ci-windows,     os: windows-latest}]
         type: [tests, benchmarks]
 
+    timeout-minutes: 10
     runs-on: ${{ matrix.config.os }}
     name: ${{ matrix.type }} ${{ matrix.config.name }}
 
