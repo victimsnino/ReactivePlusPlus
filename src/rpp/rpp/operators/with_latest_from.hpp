@@ -30,12 +30,14 @@ IMPLEMENTATION_FILE(with_latest_from_tag);
 namespace rpp::details
 {
 template<typename TSelector, constraint::decayed_type... ValueTypes>
-struct with_latest_from_state
+struct with_latest_from_state : early_unsubscribe_state
 {
-    with_latest_from_state(const TSelector& selector)
-        : selector(selector) {}
+    with_latest_from_state(const TSelector& selector, const composite_subscription& subscription_of_subscriber)
+        : early_unsubscribe_state{subscription_of_subscriber}
+        , selector(selector) {}
 
-    RPP_NO_UNIQUE_ADDRESS TSelector               selector;
+    // RPP_NO_UNIQUE_ADDRESS commented due to MSVC issue for base classes
+    /*RPP_NO_UNIQUE_ADDRESS*/ TSelector           selector; 
     std::mutex                                    mutex{};
     std::array<std::mutex, sizeof...(ValueTypes)> mutexes{};
     std::tuple<std::optional<ValueTypes>...>      vals{};
@@ -60,6 +62,7 @@ struct with_latest_from_on_completed_outer
 {
     void operator()(const constraint::subscriber auto& sub, const auto& state) const
     {
+        state->childs_subscriptions.unsubscribe();
         std::lock_guard lock{state->mutex};
         sub.on_completed();
     }
@@ -69,7 +72,7 @@ template<size_t I, constraint::observable TObs>
 void with_latest_from_subscribe(const auto& state_ptr, const TObs& observable, const auto& subscriber)
 {
     using Type = utils::extract_observable_type_t<TObs>;
-    observable.subscribe(create_subscriber_with_state<Type>(subscriber.get_subscription().make_child(),
+    observable.subscribe(create_subscriber_with_state<Type>(state_ptr->childs_subscriptions.make_child(),
                                                             with_latest_from_on_next_inner<I>{},
                                                             with_latest_from_on_error{},
                                                             [](const auto&, const auto&) {},
@@ -132,14 +135,14 @@ struct with_latest_from_impl
     template<constraint::subscriber_of_type<ResultType> TSub>
     auto operator()(TSub&& subscriber) const
     {
-        auto state = std::make_shared<with_latest_from_state<TSelector, utils::extract_observable_type_t<TObservables>...>>(selector);
+        auto state = std::make_shared<with_latest_from_state<TSelector, utils::extract_observable_type_t<TObservables>...>>(selector, subscriber.get_subscription());
 
         with_latest_from_subscribe_observables(std::index_sequence_for<TObservables...>{},
                                                state,
                                                subscriber,
                                                observables);
 
-        auto sub = subscriber.get_subscription();
+        auto sub = state->childs_subscriptions.make_child();
         return create_subscriber_with_state<Type>(std::move(sub),
                                                   with_latest_from_on_next_outer{},
                                                   with_latest_from_on_error{},
