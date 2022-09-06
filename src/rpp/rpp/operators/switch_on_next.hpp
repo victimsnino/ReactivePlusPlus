@@ -27,7 +27,8 @@ namespace rpp::details
 {
 struct switch_on_next_state :  merge_state
 {
-    using merge_state::merge_state;
+    explicit switch_on_next_state(const rpp::composite_subscription& subscriber_subscription)
+        : merge_state(subscriber_subscription.make_child()) {}
 
     composite_subscription current_inner_observable = rpp::composite_subscription::empty();
 };
