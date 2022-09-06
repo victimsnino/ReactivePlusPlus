@@ -58,6 +58,7 @@ struct take_until_on_error
     {
         std::lock_guard lock{state->mutex};
 
+        state->is_stopped = true;
         subscriber.on_error(err);
     }
 };
@@ -72,6 +73,7 @@ struct take_until_on_completed
     {
         std::lock_guard lock{state->mutex};
 
+        state->is_stopped = true;
         subscriber.on_completed();
     }
 };
@@ -95,31 +97,12 @@ struct take_until_throttler_on_next {
 /**
  * Functor (type-erasure) of throttler (trigger observable) for on_error operator.
  */
-struct take_until_throttler_on_error {
-    void operator()(const std::exception_ptr &err,
-                    const auto &subscriber,
-                    const std::shared_ptr<take_until_state> &state) const
-    {
-        std::lock_guard lock{state->mutex};
-
-        subscriber.on_error(err);
-    }
-};
+using take_until_throttler_on_error = take_until_on_error;
 
 /**
  * Functor (type-erasure) of throttler (trigger observable) for on_completed operator.
  */
-struct take_until_throttler_on_completed
-{
-    void operator()(const auto& subscriber,
-                    const std::shared_ptr<take_until_state>& state) const
-    {
-        std::lock_guard lock{state->mutex};
-
-        state->is_stopped = true;
-        subscriber.on_completed();
-    }
-};
+using take_until_throttler_on_completed = take_until_on_completed;
 
 /**
  * \brief "combine_latest" operator (an OperatorFn used by "lift").
