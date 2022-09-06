@@ -9,12 +9,14 @@
 
 #pragma once
 
+
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 
 #include <rpp/defs.hpp>
 
 #include <rpp/observables/constraints.hpp>
 #include <rpp/operators/fwd/with_latest_from.hpp>
+#include <rpp/operators/merge.hpp>
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/utils/utilities.hpp>
 #include <rpp/utils/functors.hpp>
@@ -34,6 +36,7 @@ struct with_latest_from_state
         : selector(selector) {}
 
     RPP_NO_UNIQUE_ADDRESS TSelector               selector;
+    std::mutex                                    mutex{};
     std::array<std::mutex, sizeof...(ValueTypes)> mutexes{};
     std::tuple<std::optional<ValueTypes>...>      vals{};
 };
@@ -51,13 +54,24 @@ struct with_latest_from_on_next_inner
     }
 };
 
+using with_latest_from_on_error = merge_on_error;
+
+struct with_latest_from_on_completed_outer
+{
+    void operator()(const constraint::subscriber auto& sub, const auto& state) const
+    {
+        std::lock_guard lock{state->mutex};
+        sub.on_completed();
+    }
+};
+
 template<size_t I, constraint::observable TObs>
 void with_latest_from_subscribe(const auto& state_ptr, const TObs& observable, const auto& subscriber)
 {
     using Type = utils::extract_observable_type_t<TObs>;
     observable.subscribe(create_subscriber_with_state<Type>(subscriber.get_subscription().make_child(),
                                                             with_latest_from_on_next_inner<I>{},
-                                                            utils::forwarding_on_error{},
+                                                            with_latest_from_on_error{},
                                                             [](const auto&, const auto&) {},
                                                             subscriber,
                                                             state_ptr));
@@ -71,6 +85,7 @@ void with_latest_from_subscribe_observables(std::index_sequence<I...>,
 {
     (with_latest_from_subscribe<I>(state_ptr, std::get<I>(observables_tuple), subscriber), ...);
 }
+
 
 
 struct with_latest_from_on_next_outer
@@ -98,7 +113,10 @@ struct with_latest_from_on_next_outer
                                  state->vals);
 
         if (result.has_value())
+        {
+            std::lock_guard lock{state->mutex};
             sub.on_next(std::move(result.value()));
+        }
     }
 };
 
@@ -124,8 +142,8 @@ struct with_latest_from_impl
         auto sub = subscriber.get_subscription();
         return create_subscriber_with_state<Type>(std::move(sub),
                                                   with_latest_from_on_next_outer{},
-                                                  utils::forwarding_on_error{},
-                                                  utils::forwarding_on_completed{},
+                                                  with_latest_from_on_error{},
+                                                  with_latest_from_on_completed_outer{},
                                                   std::forward<TSub>(subscriber),
                                                   std::move(state));
     }

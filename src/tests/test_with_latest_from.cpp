@@ -12,9 +12,9 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include <rpp/operators/with_latest_from.hpp>
+#include <rpp/operators/start_with.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/subjects/publish_subject.hpp>
-#include <rpp/operators/start_with.hpp>
 
 
 TEST_CASE("with_latest_from combines observables")
@@ -135,20 +135,27 @@ SCENARIO("with_latest_from handles race condition", "[with_latest_from]")
         {
             THEN("on_error can't interleave with on_next")
             {
-                rpp::source::just(1, 1, 1)
-                        .with_latest_from(subject.get_observable().start_with(2))
-                        .as_blocking()
-                        .subscribe([&](auto&&)
-                                   {
-                                       CHECK(!on_error_called);
-                                       std::thread{[&]
-                                       {
-                                           subject.get_subscriber().on_error(std::exception_ptr{});
-                                       }}.detach();
-                                       std::this_thread::sleep_for(std::chrono::seconds{1});
-                                       CHECK(!on_error_called);
-                                   },
-                                   [&](auto) { on_error_called = true; });
+                std::thread th{};
+                auto        source = rpp::subjects::publish_subject<int>{};
+
+                source.get_observable()
+                      .with_latest_from(subject.get_observable())
+                      .subscribe([&](auto&&)
+                                 {
+                                     CHECK(!on_error_called);
+                                     th = std::thread{[&]
+                                     {
+                                         subject.get_subscriber().on_error(std::exception_ptr{});
+                                     }};
+                                     std::this_thread::sleep_for(std::chrono::seconds{1});
+                                     CHECK(!on_error_called);
+                                 },
+                                 [&](auto) { on_error_called = true; });
+
+                subject.get_subscriber().on_next(2);
+                source.get_subscriber().on_next(1);
+
+                th.join();
 
                 CHECK(on_error_called);
             }

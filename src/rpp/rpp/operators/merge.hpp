@@ -45,9 +45,7 @@ struct merge_forwarding_on_next
 
 struct merge_on_error
 {
-    void operator()(const std::exception_ptr&           err,
-                    const constraint::subscriber auto&  sub,
-                    const std::shared_ptr<merge_state>& state) const
+    void operator()(const std::exception_ptr& err, const constraint::subscriber auto& sub, const auto& state) const
     {
         std::lock_guard lock{state->mutex};
         sub.on_error(err);
