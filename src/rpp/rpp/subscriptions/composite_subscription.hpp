@@ -26,9 +26,7 @@ namespace rpp
 class composite_subscription final : public subscription_base
 {
 public:
-    template<std::convertible_to<subscription_base> ...Subs>
-    explicit composite_subscription(const Subs&...subs) requires (!rpp::constraint::variadic_is_same_type< composite_subscription>)
-        : subscription_base{std::make_shared<state>(std::vector<std::shared_ptr<details::subscription_state>>{subs.get_state()...})} {}
+    composite_subscription() : subscription_base{std::make_shared<state>()} {}
 
     composite_subscription(const composite_subscription&)                      = default;
     composite_subscription(composite_subscription&&) noexcept                  = default;
@@ -104,11 +102,7 @@ private:
     class state final : public details::subscription_state
     {
     public:
-        state(std::vector<std::shared_ptr<details::subscription_state>>&& deps)
-            : m_deps{std::move(deps)} 
-            {
-                m_deps.erase(std::remove_if(m_deps.begin(), m_deps.end(), [](const auto& ptr){return !ptr;}), m_deps.end());
-            }
+        state() = default;
 
         void add(std::shared_ptr<details::subscription_state> sub)
         {
