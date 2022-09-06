@@ -157,4 +157,3 @@
 
 # TODO:
 - [ ] Add valid spinlock and use it in appropriate places to boost performance
-- [ ] Add early unsubscribe in case of early on_error/on_completed
