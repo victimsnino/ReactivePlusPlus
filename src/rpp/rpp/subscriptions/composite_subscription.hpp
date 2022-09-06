@@ -27,7 +27,7 @@ class composite_subscription final : public subscription_base
 {
 public:
     template<std::convertible_to<subscription_base> ...Subs>
-    explicit composite_subscription(const Subs&...subs) requires (!rpp::constraint::variadic_is_same_type< composite_subscription>)
+    composite_subscription(const Subs&...subs) requires (!rpp::constraint::variadic_is_same_type< composite_subscription>)
         : subscription_base{std::make_shared<state>(std::vector<std::shared_ptr<details::subscription_state>>{subs.get_state()...})} {}
 
     composite_subscription(const composite_subscription&)                      = default;

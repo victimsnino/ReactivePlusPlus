@@ -22,6 +22,7 @@
 
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 
+#include <array>
 
 IMPLEMENTATION_FILE(combine_latest_tag);
 
@@ -38,11 +39,12 @@ struct combine_latest_state
     explicit combine_latest_state(const TCombiner& combiner)
         : combiner(combiner) {}
 
-    RPP_NO_UNIQUE_ADDRESS TCombiner     combiner;
-    std::mutex                          mutex;
-    std::tuple<std::optional<Types>...> values{};
-    std::atomic_size_t                  completed_count{0};
-    static constexpr std::size_t        s_total_completed_count = sizeof...(Types);
+    RPP_NO_UNIQUE_ADDRESS TCombiner                           combiner;
+    std::mutex                                                mutex;
+    std::tuple<std::optional<Types>...>                       values{};
+    std::atomic_size_t                                        completed_count{0};
+    static constexpr std::size_t                              s_total_completed_count = sizeof...(Types);
+    std::array<rpp::composite_subscription, sizeof...(Types)> child_subscriptions{};
 };
 
 template<size_t I>
@@ -64,6 +66,23 @@ struct combine_latest_on_next
                            subscriber.on_next(state->combiner(cached_values.value()...));
                    },
                    state->values);
+    }
+};
+
+struct combine_latest_on_error
+{
+    template<typename TCombiner, constraint::decayed_type... Types>
+    void operator()(const std::exception_ptr&                                         error,
+                    const auto&                                                       subscriber,
+                    const std::shared_ptr<combine_latest_state<TCombiner, Types...>>& state) const
+    {
+        // unsubscribe all observables immediately to stop infinite-like sending of values
+        for(const auto& sub : state->child_subscriptions)
+            sub.unsubscribe();
+
+        std::scoped_lock lock{state->mutex};
+
+        subscriber.on_error(error);
     }
 };
 
@@ -121,9 +140,10 @@ private:
                                         std::shared_ptr<State> state)
     {
         auto subscription = subscriber.get_subscription().make_child();
+        state->child_subscriptions[I] = subscription;
         return create_subscriber_with_state<ValueType>(std::move(subscription),
                                                        combine_latest_on_next<I>{},
-                                                       utils::forwarding_on_error{},
+                                                       combine_latest_on_error{},
                                                        combine_latest_on_completed{},
                                                        std::forward<decltype(subscriber)>(subscriber),
                                                        std::move(state));

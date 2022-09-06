@@ -12,10 +12,14 @@
 
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/operators/combine_latest.hpp>
-#include <rpp/sources/empty.hpp>
+#include <rpp/schedulers/new_thread_scheduler.hpp>
+#include <rpp/schedulers/trampoline_scheduler.hpp>
 #include <rpp/sources/error.hpp>
+#include <rpp/sources/interval.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/never.hpp>
+
+#include <chrono>
 
 #include "mock_observer.hpp"
 
@@ -116,5 +120,37 @@ SCENARIO("combine_latest forwards errors", "[combine_latest]")
         CHECK(mock.get_received_values().empty());
         CHECK(mock.get_on_completed_count() == 0);
         CHECK(mock.get_on_error_count() == 1);
+    }
+}
+
+SCENARIO("combine_latest handles race condition", "[combine_latest]")
+{
+    GIVEN("source observable in current thread pairs with error in other thread")
+    {
+        std::atomic_bool on_error_called{false};
+
+        rpp::source::interval(std::chrono::seconds{1}, rpp::schedulers::trampoline{})
+            .combine_latest(rpp::source::interval(std::chrono::seconds{1}, rpp::schedulers::new_thread{}),
+                            rpp::source::interval(std::chrono::seconds{2}, rpp::schedulers::new_thread{})
+                    .map([](const auto& count) -> size_t
+                    {
+                        // We wait until a successful composition then throw error
+                        if (count < 1)
+                            return count;
+                        throw std::runtime_error{""};
+                    }))
+            .as_blocking()
+            .subscribe([&](auto &&)
+                       {
+                           CHECK(!on_error_called);
+                           std::this_thread::sleep_for(std::chrono::seconds{3});
+                           CHECK(!on_error_called);
+                       },
+                       [&](const std::exception_ptr&)
+                       {
+                           on_error_called = true;
+                       });
+
+        CHECK(on_error_called);
     }
 }
