@@ -36,7 +36,7 @@ struct merge_forwarding_on_next
 {
     void operator()(auto&&                              value,
                     const constraint::subscriber auto&  sub,
-                    const std::shared_ptr<merge_state>& state) const
+                    const auto& state) const
     {
         std::lock_guard lock{state->mutex};
         sub.on_next(std::forward<decltype(value)>(value));
