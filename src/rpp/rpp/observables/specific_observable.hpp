@@ -105,7 +105,7 @@ private:
 
 private:
     /**
-     * \brief The on_subscribe functor (type-erasure), which has the operator()(const auto& subscriber) overload function.
+     * \brief The on_subscribe functor, which has the operator()(const auto& subscriber) overload function.
      */
     RPP_NO_UNIQUE_ADDRESS OnSubscribeFn m_on_subscribe;
 };
