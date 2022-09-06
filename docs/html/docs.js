@@ -1,10 +1,10 @@
 var docs =
 [
     [ "Quick Start", "quick_start.html", [
-      [ "Brief workflow", "quick_start.html#autotoc_md22", [
-        [ "1) Define observables", "quick_start.html#autotoc_md23", null ],
-        [ "2) Chain observable", "quick_start.html#autotoc_md24", null ],
-        [ "3) Subscription", "quick_start.html#autotoc_md25", null ]
+      [ "Brief workflow", "quick_start.html#autotoc_md23", [
+        [ "1) Define observables", "quick_start.html#autotoc_md24", null ],
+        [ "2) Chain observable", "quick_start.html#autotoc_md25", null ],
+        [ "3) Subscription", "quick_start.html#autotoc_md26", null ]
       ] ]
     ] ],
     [ "Advanced Guide", "advanced.html", [
@@ -15,13 +15,13 @@ var docs =
       [ "Subscriber", "advanced.html#autotoc_md4", null ]
     ] ],
     [ "Performance vs Flexibility: Specific vs Dynamic", "specific_vs_dynamic.html", [
-      [ "Brief overview", "specific_vs_dynamic.html#autotoc_md26", null ],
-      [ "ReactivePlusPlus solution", "specific_vs_dynamic.html#autotoc_md27", null ],
-      [ "Examples", "specific_vs_dynamic.html#autotoc_md28", null ]
+      [ "Brief overview", "specific_vs_dynamic.html#autotoc_md27", null ],
+      [ "ReactivePlusPlus solution", "specific_vs_dynamic.html#autotoc_md28", null ],
+      [ "Examples", "specific_vs_dynamic.html#autotoc_md29", null ]
     ] ],
     [ "Memory Model", "memory_model.html", [
-      [ "Overview", "memory_model.html#autotoc_md20", null ],
-      [ "Examples", "memory_model.html#autotoc_md21", null ]
+      [ "Overview", "memory_model.html#autotoc_md21", null ],
+      [ "Examples", "memory_model.html#autotoc_md22", null ]
     ] ],
     [ "Exception guarantee", "exception_guarantee.html", [
       [ "Overview", "exception_guarantee.html#autotoc_md6", null ]
@@ -40,6 +40,7 @@ var docs =
         [ "Utility", "status.html#autotoc_md17", null ],
         [ "Connectable", "status.html#autotoc_md18", null ]
       ] ],
-      [ "Subjects", "status.html#autotoc_md19", null ]
+      [ "Subjects", "status.html#autotoc_md19", null ],
+      [ "TODO:", "status.html#autotoc_md20", null ]
     ] ]
 ];

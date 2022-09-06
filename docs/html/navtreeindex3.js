@@ -1,5 +1,6 @@
 var NAVTREEINDEX3 =
 {
+"structrpp_1_1details_1_1take__last__impl.html":[3,0,0,0,91],
 "structrpp_1_1details_1_1take__last__impl.html#ad8c8f55508e3743b6e5bf899f6841a7d":[3,0,0,0,91,1],
 "structrpp_1_1details_1_1take__last__impl.html#afc4e0183794528f94563f3419afbb67c":[3,0,0,0,91,0],
 "structrpp_1_1details_1_1take__last__on__completed.html":[3,0,0,0,92],
