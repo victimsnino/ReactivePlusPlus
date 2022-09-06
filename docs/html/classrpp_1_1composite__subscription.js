@@ -1,6 +1,6 @@
 var classrpp_1_1composite__subscription =
 [
-    [ "composite_subscription", "classrpp_1_1composite__subscription.html#ad712b4473b27e21a2254933129f0a186", null ],
+    [ "composite_subscription", "classrpp_1_1composite__subscription.html#a2335238e98dcdbe1654d87a18d718193", null ],
     [ "composite_subscription", "classrpp_1_1composite__subscription.html#a5485ce8b0ae61da0ce5bf7c113be7db0", null ],
     [ "composite_subscription", "classrpp_1_1composite__subscription.html#a8e62ca88d2e9d3701d00e35b15bc3bbc", null ],
     [ "add", "classrpp_1_1composite__subscription.html#afc9f5e187d73d8a21f20b9126fb3b008", null ],
