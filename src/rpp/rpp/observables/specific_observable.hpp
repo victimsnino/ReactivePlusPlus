@@ -35,10 +35,10 @@ class specific_observable : public interface_observable<Type, specific_observabl
 {
 public:
     specific_observable(OnSubscribeFn&& on_subscribe)
-        : m_state{ std::move(on_subscribe) } {}
+        : m_on_subscribe{std::move(on_subscribe) } {}
 
     specific_observable(const OnSubscribeFn& on_subscribe)
-        : m_state{ on_subscribe } {}
+        : m_on_subscribe{on_subscribe } {}
 
     specific_observable(const specific_observable& other)                    = default;
     specific_observable(specific_observable&& other) noexcept                = default;
@@ -74,7 +74,7 @@ private:
         {
             try
             {
-                m_state(subscriber);
+                m_on_subscribe(subscriber);
             }
             catch (...)
             {
@@ -104,7 +104,10 @@ private:
     }
 
 private:
-    RPP_NO_UNIQUE_ADDRESS OnSubscribeFn m_state;
+    /**
+     * \brief The on_subscribe functor, which has the operator()(const auto& subscriber) overload function.
+     */
+    RPP_NO_UNIQUE_ADDRESS OnSubscribeFn m_on_subscribe;
 };
 
 template<typename OnSub>
