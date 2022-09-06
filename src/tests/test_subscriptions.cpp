@@ -55,7 +55,9 @@ SCENARIO("subscriptions works as expected")
         size_t                     call_count{};
         rpp::callback_subscription callback_subscription{[&]() { ++call_count; }};
 
-        rpp::composite_subscription composite{sub, callback_subscription};
+        rpp::composite_subscription composite{};
+        composite.add(sub);
+        composite.add(callback_subscription);
 
         REQUIRE(composite.is_subscribed());
 
