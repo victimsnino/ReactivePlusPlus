@@ -13,6 +13,7 @@
 
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/operators/switch_on_next.hpp>
+#include <rpp/operators/start_with.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
 #include <catch2/catch_test_macros.hpp>
@@ -192,6 +193,41 @@ SCENARIO("switch_on_next doesn't produce extra copies for move", "[operators][sw
             {
                 REQUIRE(verifier.get_copy_count() == 0); 
                 REQUIRE(verifier.get_move_count() == 1); // 1 move to final lambda
+            }
+        }
+    }
+}
+
+SCENARIO("switch_on_next handles race condition", "[switch_on_next]")
+{
+    GIVEN("source observable in current thread pairs with error in other thread")
+    {
+        std::atomic_bool on_error_called{false};
+        auto             subject = rpp::subjects::publish_subject<rpp::dynamic_observable<int>>{};
+        WHEN("subscribe on it")
+        {
+            THEN("on_error can't interleave with on_next")
+            {
+                std::thread th{};
+
+                subject.get_observable()
+                        .switch_on_next()
+                        .subscribe([&](auto&&)
+                                   {
+                                       CHECK(!on_error_called);
+                                       th = std::thread{[&]
+                                       {
+                                           subject.get_subscriber().on_error(std::exception_ptr{});
+                                       }};
+                                       std::this_thread::sleep_for(std::chrono::seconds{1});
+                                       CHECK(!on_error_called);
+                                   },
+                                   [&](auto) { on_error_called = true; });
+
+                subject.get_subscriber().on_next(rpp::source::just(1));
+
+                th.join();
+                CHECK(on_error_called);
             }
         }
     }

@@ -13,9 +13,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 #include <rpp/operators/merge.hpp>
+#include <rpp/operators/do.hpp>
+#include <rpp/operators/observe_on.hpp>
 #include <rpp/sources.hpp>
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/schedulers/new_thread_scheduler.hpp>
+#include <rpp/subjects/publish_subject.hpp>
 
 SCENARIO("merge for observable of observables", "[operators][merge]")
 {
@@ -219,7 +222,6 @@ SCENARIO("merge doesn't produce extra copies", "[operators][merge][track_copy]")
     }
 }
 
-
 SCENARIO("merge doesn't produce copies for move", "[operators][merge][track_copy]")
 {
     GIVEN("observable and subscriber")
@@ -239,3 +241,34 @@ SCENARIO("merge doesn't produce copies for move", "[operators][merge][track_copy
     }
 }
 
+SCENARIO("merge handles race condition", "[merge]")
+{
+    GIVEN("source observable in current thread pairs with error in other thread")
+    {
+        std::atomic_bool on_error_called{false};
+        auto             subject = rpp::subjects::publish_subject<int>{};
+
+        WHEN("subscribe on it")
+        {
+            THEN("on_error can't interleave with on_next")
+            {
+                rpp::source::just(1, 1, 1)
+                        .merge_with(subject.get_observable())
+                        .as_blocking()
+                        .subscribe([&](auto&&)
+                                   {
+                                       CHECK(!on_error_called);
+                                       std::thread{[&]
+                                       {
+                                           subject.get_subscriber().on_error(std::exception_ptr{});
+                                       }}.detach();
+                                       std::this_thread::sleep_for(std::chrono::seconds{1});
+                                       CHECK(!on_error_called);
+                                   },
+                                   [&](auto) { on_error_called = true; });
+
+                CHECK(on_error_called);
+            }
+        }
+    }
+}
