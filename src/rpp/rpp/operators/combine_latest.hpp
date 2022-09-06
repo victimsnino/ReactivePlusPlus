@@ -16,7 +16,6 @@
 #include <rpp/operators/fwd/combine_latest.hpp>
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/sources/create.hpp>
-#include <rpp/utils/functors.hpp>
 #include <rpp/defs.hpp>
 
 
@@ -64,6 +63,19 @@ struct combine_latest_on_next
                            subscriber.on_next(state->combiner(cached_values.value()...));
                    },
                    state->values);
+    }
+};
+
+struct combine_latest_on_error
+{
+    template<typename TCombiner, constraint::decayed_type... Types>
+    void operator()(const std::exception_ptr&                                         error,
+                    const auto&                                                       subscriber,
+                    const std::shared_ptr<combine_latest_state<TCombiner, Types...>>& state) const
+    {
+        std::scoped_lock lock{state->mutex};
+
+        subscriber.on_error(error);
     }
 };
 
@@ -123,7 +135,7 @@ private:
         auto subscription = subscriber.get_subscription().make_child();
         return create_subscriber_with_state<ValueType>(std::move(subscription),
                                                        combine_latest_on_next<I>{},
-                                                       utils::forwarding_on_error{},
+                                                       combine_latest_on_error{},
                                                        combine_latest_on_completed{},
                                                        std::forward<decltype(subscriber)>(subscriber),
                                                        std::move(state));
