@@ -115,24 +115,54 @@ SCENARIO("take_until mirrors both source observable and trigger observable", "[t
 
 SCENARIO("take_until can handle race condition")
 {
-    GIVEN("source observable and trigger observable emits in different thread")
+    GIVEN("observer consumes on_next slower than source sends on_next and on_completed events")
     {
         std::atomic_bool on_completed_called{false};
+        auto             subject = rpp::subjects::publish_subject<int>{};
 
-        rpp::source::interval(std::chrono::seconds{1}, rpp::schedulers::trampoline{})
-            .take_until(rpp::source::interval(std::chrono::seconds{2}, rpp::schedulers::new_thread{}))
-            .subscribe([&](const auto&)
-                       {
-                           CHECK(!on_completed_called);
-                           std::this_thread::sleep_for(std::chrono::seconds(3));
-                           CHECK(!on_completed_called);
-                       } /* on_next */,
-                       {} /* on_error */,
-                       [&]()
-                       {
-                           on_completed_called = true;
-                       } /* on_completed */);
+        THEN("on_completed shall not interleave with on_next")
+        {
+            rpp::source::interval(std::chrono::milliseconds{200}, rpp::schedulers::trampoline{})
+                    .take_until(subject.get_observable())
+                    .as_blocking()
+                    .subscribe([&](auto &&)
+                               {
+                                   CHECK(!on_completed_called);
+                                   std::thread{[&] {
+                                       subject.get_subscriber().on_completed();
+                                   }}.detach();
+                                   std::this_thread::sleep_for(std::chrono::milliseconds{400});
+                                   CHECK(!on_completed_called);
+                               } /* on_next */,
+                               {} /* on_error */,
+                               [&]() { on_completed_called = true; }  /* on_error */);
 
-        CHECK(on_completed_called);
+            CHECK(on_completed_called);
+        }
+    }
+
+    GIVEN("observer consumes on_next slower than source sends on_next and on_error events")
+    {
+        std::atomic_bool on_error_called{false};
+        auto             subject = rpp::subjects::publish_subject<int>{};
+
+        THEN("on_error shall not interleave with on_next")
+        {
+            rpp::source::interval(std::chrono::milliseconds{200}, rpp::schedulers::trampoline{})
+                .take_until(subject.get_observable())
+                .as_blocking()
+                .subscribe([&](auto &&)
+                           {
+                               CHECK(!on_error_called);
+                               std::thread{[&] {
+                                   subject.get_subscriber().on_error(std::exception_ptr{});
+                               }}.detach();
+                               std::this_thread::sleep_for(std::chrono::milliseconds{200});
+                               CHECK(!on_error_called);
+                           } /* on_next */,
+                           [&](auto) { on_error_called = true; }  /* on_error */);
+
+            CHECK(on_error_called);
+        }
     }
 }
