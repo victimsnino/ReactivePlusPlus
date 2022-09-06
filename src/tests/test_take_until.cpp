@@ -13,6 +13,7 @@
 #include <rpp/operators/take_until.hpp>
 #include <rpp/schedulers/new_thread_scheduler.hpp>
 #include <rpp/schedulers/trampoline_scheduler.hpp>
+#include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/interval.hpp>
 #include <rpp/sources/just.hpp>
@@ -92,6 +93,22 @@ SCENARIO("take_until mirrors both source observable and trigger observable", "[t
             CHECK(mock.get_received_values().empty());
             CHECK(mock.get_on_completed_count() == 0);
             CHECK(mock.get_on_error_count() == 1);
+        }
+    }
+
+    GIVEN("observable of -1-| pairs with trigger observable of -|")
+    {
+        auto mock = mock_observer<int>{};
+
+        rpp::source::just(1)
+            .take_until(rpp::source::empty<bool>())
+            .subscribe(mock);
+
+        THEN("should see -| because take_until completes prior to the source")
+        {
+            CHECK(mock.get_received_values().empty());
+            CHECK(mock.get_on_completed_count() == 1);
+            CHECK(mock.get_on_error_count() == 0);
         }
     }
 }
