@@ -17,6 +17,8 @@
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/schedulers/new_thread_scheduler.hpp>
 
+#include <iostream>
+
 SCENARIO("merge for observable of observables", "[operators][merge]")
 {
     auto mock = mock_observer<int>();
@@ -219,7 +221,6 @@ SCENARIO("merge doesn't produce extra copies", "[operators][merge][track_copy]")
     }
 }
 
-
 SCENARIO("merge doesn't produce copies for move", "[operators][merge][track_copy]")
 {
     GIVEN("observable and subscriber")
@@ -239,3 +240,41 @@ SCENARIO("merge doesn't produce copies for move", "[operators][merge][track_copy
     }
 }
 
+
+SCENARIO("merge handles race condition", "[merge]")
+{
+    GIVEN("source observable in current thread pairs with error in other thread")
+    {
+        std::atomic_bool on_error_called{false};
+
+        rpp::source::interval(std::chrono::seconds{1}, rpp::schedulers::trampoline{})
+            .merge_with(rpp::source::interval(std::chrono::seconds{2}, rpp::schedulers::new_thread{})
+                    .map([](const auto& count) -> size_t
+                    {
+                        // We wait until a successful composition then throw error
+                        if (count < 1)
+                            return count;
+                        else
+                        {
+                           std::cout << "sending error" << std::endl;
+                            throw std::runtime_error{""};
+                        }
+                    }))
+        .as_blocking()
+            .subscribe([&](auto &&)
+                       {
+                           std::cout << "value" << std::endl;
+                           CHECK(!on_error_called);
+                           std::this_thread::sleep_for(std::chrono::seconds{3});
+                           CHECK(!on_error_called);
+                       },
+                       [&](auto)
+                       {
+                           std::cout << "error" << std::endl;
+                           on_error_called = true;
+                       });
+
+       std::cout << "check" << std::endl;
+        CHECK(on_error_called);
+    }
+}

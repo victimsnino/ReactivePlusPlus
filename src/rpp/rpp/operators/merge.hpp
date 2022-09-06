@@ -21,6 +21,7 @@
 #include <array>
 #include <atomic>
 #include <memory>
+#include <mutex>
 
 IMPLEMENTATION_FILE(merge_tag);
 
@@ -28,6 +29,12 @@ namespace rpp::details
 {
 struct merge_state
 {
+    explicit merge_state(const rpp::composite_subscription& subscriber_subscription)
+        : childs_subscriptions(subscriber_subscription.make_child()) {}
+
+    // any inner subscriber should have subscription as child from this one
+    composite_subscription childs_subscriptions{};
+
     std::mutex         mutex{};
     std::atomic_size_t count_of_on_completed_needed{};
 };
@@ -49,6 +56,8 @@ struct merge_on_error
                     const constraint::subscriber auto&  sub,
                     const std::shared_ptr<merge_state>& state) const
     {
+        state->childs_subscriptions.unsubscribe();
+
         std::lock_guard lock{state->mutex};
         sub.on_error(err);
     }
@@ -75,7 +84,7 @@ struct merge_on_next
 
         state->count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);
 
-        new_observable.subscribe(create_subscriber_with_state<ValueType>(sub.get_subscription().make_child(),
+        new_observable.subscribe(create_subscriber_with_state<ValueType>(state->childs_subscriptions.make_child(),
                                                                          merge_forwarding_on_next{},
                                                                          merge_on_error{},
                                                                          merge_on_completed{},
@@ -92,11 +101,9 @@ struct merge_impl
     template<constraint::subscriber_of_type<ValueType> TSub>
     auto operator()(TSub&& subscriber) const
     {
-        auto state = std::make_shared<merge_state>();
+        auto state = std::make_shared<merge_state>(subscriber.get_subscription());
 
-        state->count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);
-
-        auto subscription = subscriber.get_subscription().make_child();
+        auto subscription = state->childs_subscriptions.make_child();
         return create_subscriber_with_state<Type>(std::move(subscription),
                                                   merge_on_next{},
                                                   merge_on_error{},

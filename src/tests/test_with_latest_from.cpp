@@ -13,6 +13,8 @@
 
 #include <rpp/operators/with_latest_from.hpp>
 #include <rpp/sources/just.hpp>
+#include <rpp/sources/interval.hpp>
+#include <rpp/schedulers.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
 TEST_CASE("with_latest_from combines observables")
@@ -119,5 +121,38 @@ TEST_CASE("with_latest_from reacts only on main root but sends last value from o
                 CHECK(mock.get_on_completed_count() == 1);
             }
         }
+    }
+}
+
+
+SCENARIO("with_latest_from handles race condition", "[with_latest_from]")
+{
+    GIVEN("source observable in current thread pairs with error in other thread")
+    {
+        std::atomic_bool on_error_called{false};
+
+        rpp::source::interval(std::chrono::seconds{1}, rpp::schedulers::trampoline{})
+            .with_latest_from(rpp::source::interval(std::chrono::seconds{1}, rpp::schedulers::new_thread{}),
+                            rpp::source::interval(std::chrono::seconds{2}, rpp::schedulers::new_thread{})
+                    .map([](const auto& count) -> size_t
+                    {
+                        // We wait until a successful composition then throw error
+                        if (count < 1)
+                            return count;
+                        throw std::runtime_error{""};
+                    }))
+            .as_blocking()
+            .subscribe([&](auto &&)
+                       {
+                           CHECK(!on_error_called);
+                           std::this_thread::sleep_for(std::chrono::seconds{3});
+                           CHECK(!on_error_called);
+                       },
+                       [&](const std::exception_ptr&)
+                       {
+                           on_error_called = true;
+                       });
+
+        CHECK(on_error_called);
     }
 }

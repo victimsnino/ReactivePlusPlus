@@ -30,11 +30,14 @@ namespace rpp::details
 template<typename TSelector, constraint::decayed_type... ValueTypes>
 struct with_latest_from_state
 {
-    with_latest_from_state(const TSelector& selector)
-        : selector(selector) {}
+    with_latest_from_state(const TSelector& selector, const rpp::composite_subscription& subscriber_subscription)
+        : selector(selector)
+        , childs_subscriptions{subscriber_subscription.make_child()}{}
 
     RPP_NO_UNIQUE_ADDRESS TSelector               selector;
+    composite_subscription                        childs_subscriptions{};
     std::array<std::mutex, sizeof...(ValueTypes)> mutexes{};
+    std::mutex                                    send_mutex{};
     std::tuple<std::optional<ValueTypes>...>      vals{};
 };
 
@@ -51,13 +54,40 @@ struct with_latest_from_on_next_inner
     }
 };
 
+struct with_latest_from_on_error
+{
+    template<typename TSelector, constraint::decayed_type... ValueTypes>
+    void operator()(const std::exception_ptr&           err,
+                    const constraint::subscriber auto&  sub,
+                    const std::shared_ptr<with_latest_from_state<TSelector, ValueTypes...>>& state) const
+    {
+        state->childs_subscriptions.unsubscribe();
+
+        std::lock_guard lock{state->send_mutex};
+        sub.on_error(err);
+    }
+};
+
+struct with_latest_from_on_completed
+{
+    template<typename TSelector, constraint::decayed_type... ValueTypes>
+    void operator()(const constraint::subscriber auto&  sub,
+                    const std::shared_ptr<with_latest_from_state<TSelector, ValueTypes...>>& state) const
+    {
+        state->childs_subscriptions.unsubscribe();
+
+        std::lock_guard lock{state->send_mutex};
+        sub.on_completed();
+    }
+};
+
 template<size_t I, constraint::observable TObs>
 void with_latest_from_subscribe(const auto& state_ptr, const TObs& observable, const auto& subscriber)
 {
     using Type = utils::extract_observable_type_t<TObs>;
-    observable.subscribe(create_subscriber_with_state<Type>(subscriber.get_subscription().make_child(),
+    observable.subscribe(create_subscriber_with_state<Type>(state_ptr->childs_subscriptions.make_child(),
                                                             with_latest_from_on_next_inner<I>{},
-                                                            utils::forwarding_on_error{},
+                                                            with_latest_from_on_error{},
                                                             [](const auto&, const auto&) {},
                                                             subscriber,
                                                             state_ptr));
@@ -71,6 +101,7 @@ void with_latest_from_subscribe_observables(std::index_sequence<I...>,
 {
     (with_latest_from_subscribe<I>(state_ptr, std::get<I>(observables_tuple), subscriber), ...);
 }
+
 
 
 struct with_latest_from_on_next_outer
@@ -98,7 +129,10 @@ struct with_latest_from_on_next_outer
                                  state->vals);
 
         if (result.has_value())
+        {
+            std::lock_guard lock{state->send_mutex};
             sub.on_next(std::move(result.value()));
+        }
     }
 };
 
@@ -114,18 +148,18 @@ struct with_latest_from_impl
     template<constraint::subscriber_of_type<ResultType> TSub>
     auto operator()(TSub&& subscriber) const
     {
-        auto state = std::make_shared<with_latest_from_state<TSelector, utils::extract_observable_type_t<TObservables>...>>(selector);
+        auto state = std::make_shared<with_latest_from_state<TSelector, utils::extract_observable_type_t<TObservables>...>>(selector, subscriber.get_subscription());
 
         with_latest_from_subscribe_observables(std::index_sequence_for<TObservables...>{},
                                                state,
                                                subscriber,
                                                observables);
 
-        auto sub = subscriber.get_subscription();
+        auto sub = state->childs_subscriptions.make_child();
         return create_subscriber_with_state<Type>(std::move(sub),
                                                   with_latest_from_on_next_outer{},
-                                                  utils::forwarding_on_error{},
-                                                  utils::forwarding_on_completed{},
+                                                  with_latest_from_on_error{},
+                                                  with_latest_from_on_completed{},
                                                   std::forward<TSub>(subscriber),
                                                   std::move(state));
     }

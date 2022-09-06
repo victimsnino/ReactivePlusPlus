@@ -18,6 +18,7 @@
 #include <rpp/sources/create.hpp>
 #include <rpp/utils/functors.hpp>
 #include <rpp/defs.hpp>
+#include <rpp/operators/merge.hpp>
 
 
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
@@ -34,17 +35,14 @@ namespace rpp::details
  * the observables at least emits once.
  */
 template<typename TCombiner, constraint::decayed_type... Types>
-struct combine_latest_state
+struct combine_latest_state : public merge_state
 {
-    explicit combine_latest_state(const TCombiner& combiner)
-        : combiner(combiner) {}
+    explicit combine_latest_state(const TCombiner& combiner, const composite_subscription& subscriber_subscription)
+        : merge_state(subscriber_subscription)
+        , combiner(combiner) {}
 
-    RPP_NO_UNIQUE_ADDRESS TCombiner                           combiner;
-    std::mutex                                                mutex;
-    std::tuple<std::optional<Types>...>                       values{};
-    std::atomic_size_t                                        completed_count{0};
-    static constexpr std::size_t                              s_total_completed_count = sizeof...(Types);
-    std::array<rpp::composite_subscription, sizeof...(Types)> child_subscriptions{};
+    TCombiner                           combiner;
+    std::tuple<std::optional<Types>...> values{};
 };
 
 template<size_t I>
@@ -69,34 +67,8 @@ struct combine_latest_on_next
     }
 };
 
-struct combine_latest_on_error
-{
-    template<typename TCombiner, constraint::decayed_type... Types>
-    void operator()(const std::exception_ptr&                                         error,
-                    const auto&                                                       subscriber,
-                    const std::shared_ptr<combine_latest_state<TCombiner, Types...>>& state) const
-    {
-        // unsubscribe all observables immediately to stop infinite-like sending of values
-        for(const auto& sub : state->child_subscriptions)
-            sub.unsubscribe();
-
-        std::scoped_lock lock{state->mutex};
-
-        subscriber.on_error(error);
-    }
-};
-
-struct combine_latest_on_completed
-{
-    template<typename TCombiner, constraint::decayed_type... Types>
-    void operator()(const auto&                                                       subscriber,
-                    const std::shared_ptr<combine_latest_state<TCombiner, Types...>>& state) const
-    {
-        const auto current_completed = state->completed_count.fetch_add(1, std::memory_order_acq_rel) + 1;
-        if (current_completed == state->s_total_completed_count)
-            subscriber.on_completed();
-    }
-};
+using combine_latest_on_error = merge_on_error;
+using combine_latest_on_completed = merge_on_completed;
 
 /**
  * \brief "combine_latest" operator (an OperatorFn used by "lift").
@@ -132,6 +104,9 @@ private:
     static void subscribe_observable(const TObservable& observable, const auto& subscriber, const auto& state)
     {
         using ValueType = utils::extract_observable_type_t<TObservable>;
+
+        state->count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);
+
         observable.subscribe(create_inner_subscriber<ValueType, I>(subscriber, state));
     }
 
@@ -139,8 +114,8 @@ private:
     static auto create_inner_subscriber(auto&&                 subscriber,
                                         std::shared_ptr<State> state)
     {
-        auto subscription = subscriber.get_subscription().make_child();
-        state->child_subscriptions[I] = subscription;
+        auto subscription = state->childs_subscriptions.make_child();
+
         return create_subscriber_with_state<ValueType>(std::move(subscription),
                                                        combine_latest_on_next<I>{},
                                                        combine_latest_on_error{},
@@ -156,7 +131,9 @@ public:
     template<constraint::subscriber_of_type<DownstreamType> TSub>
     auto operator()(TSub&& subscriber) const
     {
-        auto state = std::make_shared<State>(m_combiner);
+        auto state = std::make_shared<State>(m_combiner, subscriber.get_subscription());
+
+        state->count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);
 
         // Subscribe to other observables and redirect on_next event to state
         subscribe_other_observables(std::index_sequence_for<TOtherObservable...>{}, subscriber, state);

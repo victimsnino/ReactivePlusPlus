@@ -151,3 +151,9 @@
 - [ ] replay_subject
 - [ ] publish_subject
 - [ ] async_subject
+
+
+
+# TODO:
+- spin_lock for take_until and some other operators where "lock" actually overkill
+- serialized_subscriber to avoid manual mutexes
