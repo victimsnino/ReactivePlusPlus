@@ -24,7 +24,6 @@ var searchData=
   ['subscription_5fstate_403',['subscription_state',['../classrpp_1_1details_1_1subscription__state.html',1,'rpp::details']]],
   ['switch_5fon_5fnext_5fimpl_404',['switch_on_next_impl',['../structrpp_1_1details_1_1switch__on__next__impl.html',1,'rpp::details']]],
   ['switch_5fon_5fnext_5fon_5fcompleted_5finner_405',['switch_on_next_on_completed_inner',['../structrpp_1_1details_1_1switch__on__next__on__completed__inner.html',1,'rpp::details']]],
-  ['switch_5fon_5fnext_5fon_5fcompleted_5fouter_406',['switch_on_next_on_completed_outer',['../structrpp_1_1details_1_1switch__on__next__on__completed__outer.html',1,'rpp::details']]],
-  ['switch_5fon_5fnext_5fon_5fnext_407',['switch_on_next_on_next',['../structrpp_1_1details_1_1switch__on__next__on__next.html',1,'rpp::details']]],
-  ['switch_5fon_5fnext_5fstate_408',['switch_on_next_state',['../structrpp_1_1details_1_1switch__on__next__state.html',1,'rpp::details']]]
+  ['switch_5fon_5fnext_5fon_5fnext_406',['switch_on_next_on_next',['../structrpp_1_1details_1_1switch__on__next__on__next.html',1,'rpp::details']]],
+  ['switch_5fon_5fnext_5fstate_407',['switch_on_next_state',['../structrpp_1_1details_1_1switch__on__next__state.html',1,'rpp::details']]]
 ];

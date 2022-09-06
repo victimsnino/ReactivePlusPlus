@@ -93,26 +93,37 @@ $(document).ready(function(){initNavTree('structrpp_1_1details_1_1concat__state.
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structrpp_1_1details_1_1concat__state-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">rpp::details::concat_state&lt; ValueType &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrpp_1_1details_1_1concat__state_1_1on__completed.html">on_completed</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrpp_1_1details_1_1concat__state_1_1on__next.html">on_next</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af2f547c5c3bfa161f62382c4af06a29b"><td class="memItemLeft" align="right" valign="top"><a id="af2f547c5c3bfa161f62382c4af06a29b"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>concat_state</b> (<a class="el" href="classrpp_1_1subscription__base.html">subscription_base</a> source_subscription)</td></tr>
 <tr class="separator:af2f547c5c3bfa161f62382c4af06a29b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a33c6be3bf1489d93563c5bd9e4e7bc66"><td class="memItemLeft" align="right" valign="top"><a id="a33c6be3bf1489d93563c5bd9e4e7bc66"></a>
+std::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>mutex</b> {}</td></tr>
+<tr class="separator:a33c6be3bf1489d93563c5bd9e4e7bc66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28d61c620b3aa885dfd029c39e5535dd"><td class="memItemLeft" align="right" valign="top"><a id="a28d61c620b3aa885dfd029c39e5535dd"></a>
+const <a class="el" href="classrpp_1_1subscription__base.html">subscription_base</a>&#160;</td><td class="memItemRight" valign="bottom"><b>source_subscription</b></td></tr>
+<tr class="separator:a28d61c620b3aa885dfd029c39e5535dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbac55c8a9a276966d82cf7d139e8d7b"><td class="memItemLeft" align="right" valign="top"><a id="acbac55c8a9a276966d82cf7d139e8d7b"></a>
+std::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>queue_mutex</b> {}</td></tr>
+<tr class="separator:acbac55c8a9a276966d82cf7d139e8d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6b1344ca9b02848eed13cb1150267e3"><td class="memItemLeft" align="right" valign="top"><a id="aa6b1344ca9b02848eed13cb1150267e3"></a>
+std::queue&lt; <a class="el" href="classrpp_1_1dynamic__observable.html">dynamic_observable</a>&lt; ValueType &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>observables_to_subscribe</b> {}</td></tr>
+<tr class="separator:aa6b1344ca9b02848eed13cb1150267e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7fd5c32e64a10e416d55efb89eb2975"><td class="memItemLeft" align="right" valign="top"><a id="ae7fd5c32e64a10e416d55efb89eb2975"></a>
+std::atomic_bool&#160;</td><td class="memItemRight" valign="bottom"><b>inner_subscribed</b> {}</td></tr>
+<tr class="separator:ae7fd5c32e64a10e416d55efb89eb2975"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/rpp/rpp/operators/<a class="el" href="concat_8hpp_source.html">concat.hpp</a></li>
