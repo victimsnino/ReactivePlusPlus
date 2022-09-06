@@ -17,6 +17,7 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/utils/functors.hpp>
+#include <rpp/operators/merge.hpp>
 #include <rpp/defs.hpp>
 
 
@@ -33,16 +34,15 @@ namespace rpp::details
  * the observables at least emits once.
  */
 template<typename TCombiner, constraint::decayed_type... Types>
-struct combine_latest_state
+struct combine_latest_state : public merge_state
 {
     explicit combine_latest_state(const TCombiner& combiner)
-        : combiner(combiner) {}
+        : merge_state()
+        , combiner(combiner) {}
 
-    RPP_NO_UNIQUE_ADDRESS TCombiner     combiner;
-    std::mutex                          mutex;
+    // don't use NO_UNIQUE_ADDRESS there due to issue in MSVC base class becomes invalid
+    TCombiner                           combiner;
     std::tuple<std::optional<Types>...> values{};
-    std::atomic_size_t                  completed_count{0};
-    static constexpr std::size_t        s_total_completed_count = sizeof...(Types);
 };
 
 template<size_t I>
@@ -67,17 +67,8 @@ struct combine_latest_on_next
     }
 };
 
-struct combine_latest_on_completed
-{
-    template<typename TCombiner, constraint::decayed_type... Types>
-    void operator()(const auto&                                                       subscriber,
-                    const std::shared_ptr<combine_latest_state<TCombiner, Types...>>& state) const
-    {
-        const auto current_completed = state->completed_count.fetch_add(1, std::memory_order_acq_rel) + 1;
-        if (current_completed == state->s_total_completed_count)
-            subscriber.on_completed();
-    }
-};
+using combine_latest_on_error     = merge_on_error;
+using combine_latest_on_completed = merge_on_completed;
 
 /**
  * \brief "combine_latest" operator (an OperatorFn used by "lift").
@@ -123,7 +114,7 @@ private:
         auto subscription = subscriber.get_subscription().make_child();
         return create_subscriber_with_state<ValueType>(std::move(subscription),
                                                        combine_latest_on_next<I>{},
-                                                       utils::forwarding_on_error{},
+                                                       combine_latest_on_error{},
                                                        combine_latest_on_completed{},
                                                        std::forward<decltype(subscriber)>(subscriber),
                                                        std::move(state));
@@ -137,6 +128,8 @@ public:
     auto operator()(TSub&& subscriber) const
     {
         auto state = std::make_shared<State>(m_combiner);
+        state->count_of_on_completed_needed.store(sizeof...(TOtherObservable) + 1, std::memory_order::relaxed);
+
 
         // Subscribe to other observables and redirect on_next event to state
         subscribe_other_observables(std::index_sequence_for<TOtherObservable...>{}, subscriber, state);

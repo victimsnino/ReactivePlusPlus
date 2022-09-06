@@ -14,6 +14,7 @@
 #include <rpp/observers/state_observer.hpp>
 #include <rpp/operators/details/combining_utils.hpp>
 #include <rpp/operators/fwd/switch_on_next.hpp>
+#include <rpp/operators/merge.hpp>
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/utils/functors.hpp>
 
@@ -24,9 +25,8 @@ IMPLEMENTATION_FILE(switch_on_next_tag);
 
 namespace rpp::details
 {
-struct switch_on_next_state
+struct switch_on_next_state : public merge_state
 {
-    std::atomic_size_t     count_of_on_completed{};
     composite_subscription current_inner_observable = rpp::composite_subscription::empty();
 };
 
@@ -36,10 +36,13 @@ struct switch_on_next_on_completed_inner
                     const std::shared_ptr<switch_on_next_state>& state) const
     {
         // 1 because decrement happens in composite_subscription_callback
-        if (state->count_of_on_completed.load(std::memory_order::acquire) == 1)
+        if (state->count_of_on_completed_needed.load(std::memory_order::acquire) == 1)
             sub.on_completed();
     }
 };
+
+using switch_on_next_on_next_inner = merge_forwarding_on_next;
+using switch_on_next_on_error      = merge_on_error;
 
 struct switch_on_next_on_next
 {
@@ -55,29 +58,21 @@ struct switch_on_next_on_next
         state->current_inner_observable.add([state = std::weak_ptr{state}]
         {
             if (const auto locked = state.lock())
-                locked->count_of_on_completed.fetch_sub(1, std::memory_order::relaxed);
+                locked->count_of_on_completed_needed.fetch_sub(1, std::memory_order::relaxed);
         });
 
-        state->count_of_on_completed.fetch_add(1, std::memory_order::relaxed);
+        state->count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);
 
         new_observable.subscribe(create_subscriber_with_state<ValueType>(state->current_inner_observable,
-                                                                         utils::forwarding_on_next{},
-                                                                         utils::forwarding_on_error{},
+                                                                         switch_on_next_on_next_inner{},
+                                                                         switch_on_next_on_error{},
                                                                          switch_on_next_on_completed_inner{},
                                                                          sub,
                                                                          state));
     }
 };
 
-struct switch_on_next_on_completed_outer
-{
-    void operator()(const constraint::subscriber auto&           sub,
-                    const std::shared_ptr<switch_on_next_state>& state) const
-    {
-        if (state->count_of_on_completed.fetch_sub(1, std::memory_order::acq_rel) == 1)
-            sub.on_completed();
-    }
-};
+using switch_on_next_on_completed_outer = merge_on_completed;
 
 template<constraint::decayed_type Type>
 struct switch_on_next_impl
@@ -89,12 +84,12 @@ struct switch_on_next_impl
     {
         auto state = std::make_shared<switch_on_next_state>();
 
-        state->count_of_on_completed.fetch_add(1, std::memory_order::relaxed);
+        state->count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);
 
         auto subscription = subscriber.get_subscription().make_child();
         return create_subscriber_with_state<Type>(std::move(subscription),
                                                   switch_on_next_on_next{},
-                                                  utils::forwarding_on_error{},
+                                                  switch_on_next_on_error{},
                                                   switch_on_next_on_completed_outer{},
                                                   std::forward<TSub>(subscriber),
                                                   std::move(state));
