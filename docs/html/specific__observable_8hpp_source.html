@@ -125,10 +125,10 @@ $(document).ready(function(){initNavTree('specific__observable_8hpp_source.html'
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    specific_observable(OnSubscribeFn&amp;&amp; on_subscribe)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        : m_state{ std::move(on_subscribe) } {}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        : m_on_subscribe{std::move(on_subscribe) } {}</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    specific_observable(<span class="keyword">const</span> OnSubscribeFn&amp; on_subscribe)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        : m_state{ on_subscribe } {}</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        : m_on_subscribe{on_subscribe } {}</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    specific_observable(<span class="keyword">const</span> specific_observable&amp; other)                    = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    specific_observable(specific_observable&amp;&amp; other) noexcept                = <span class="keywordflow">default</span>;</div>
@@ -161,7 +161,7 @@ $(document).ready(function(){initNavTree('specific__observable_8hpp_source.html'
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        {</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <span class="keywordflow">try</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                m_state(subscriber);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                m_on_subscribe(subscriber);</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            }</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <span class="keywordflow">catch</span> (...)</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            {</div>
@@ -191,12 +191,12 @@ $(document).ready(function(){initNavTree('specific__observable_8hpp_source.html'
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    }</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    RPP_NO_UNIQUE_ADDRESS OnSubscribeFn m_state;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;};</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> OnSub&gt;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;specific_observable(OnSub on_subscribe) -&gt; specific_observable&lt;utils::extract_subscriber_type_t&lt;utils::function_argument_t&lt;OnSub&gt;&gt;, OnSub&gt;;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;} <span class="comment">// namespace rpp</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    RPP_NO_UNIQUE_ADDRESS OnSubscribeFn m_on_subscribe;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;};</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> OnSub&gt;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;specific_observable(OnSub on_subscribe) -&gt; specific_observable&lt;utils::extract_subscriber_type_t&lt;utils::function_argument_t&lt;OnSub&gt;&gt;, OnSub&gt;;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;} <span class="comment">// namespace rpp</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassrpp_1_1dynamic__observable_html"><div class="ttname"><a href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable</a></div><div class="ttdoc">type-erased alternative of observable (comparing to rpp::specific_observable).</div><div class="ttdef"><b>Definition:</b> dynamic_observable.hpp:87</div></div>
