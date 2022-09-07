@@ -27,11 +27,11 @@ function(add_benchmark_with_source benchmark_name source_name)
 endfunction()
 
 function(add_benchmark benchmark_name)
-  add_benchmark_with_source(benchmark_name, benchmark_name)
+  add_benchmark_with_source(benchmark_name benchmark_name)
 endfunction()
 
 add_benchmark(rpp)
-add_benchmark_with_source(rpp_type_erased, rpp)
+add_benchmark_with_source(rpp_type_erased  rpp)
 target_compile_definitions(rpp_type_erased_benchmark PRIVATE RPP_TYPE_ERASED_OBSERVABLE=1)
 
 
