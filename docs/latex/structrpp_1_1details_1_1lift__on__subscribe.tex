@@ -1,0 +1,48 @@
+\hypertarget{structrpp_1_1details_1_1lift__on__subscribe}{}\doxysection{rpp\+::details\+::lift\+\_\+on\+\_\+subscribe$<$ New\+Type, Operator\+Fn, T\+Obs $>$ Struct Template Reference}
+\label{structrpp_1_1details_1_1lift__on__subscribe}\index{rpp::details::lift\_on\_subscribe$<$ NewType, OperatorFn, TObs $>$@{rpp::details::lift\_on\_subscribe$<$ NewType, OperatorFn, TObs $>$}}
+
+
+Functor of \char`\"{}lift\char`\"{} operator for on\+\_\+subscribe overload function.  
+
+
+
+
+{\ttfamily \#include $<$lift.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1lift__on__subscribe_aebb345ba92f926c82b8be68d01a245b3}\label{structrpp_1_1details_1_1lift__on__subscribe_aebb345ba92f926c82b8be68d01a245b3}} 
+{\footnotesize template$<$constraint\+::subscriber\+\_\+of\+\_\+type$<$ New\+Type $>$ T\+Sub$>$ }\\void {\bfseries operator()} (T\+Sub \&\&subscriber) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1lift__on__subscribe_ab0302ee8f9d901d72def2adb63de7f66}\label{structrpp_1_1details_1_1lift__on__subscribe_ab0302ee8f9d901d72def2adb63de7f66}} 
+R\+P\+P\+\_\+\+N\+O\+\_\+\+U\+N\+I\+Q\+U\+E\+\_\+\+A\+D\+D\+R\+E\+SS T\+Obs {\bfseries \+\_\+this}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1lift__on__subscribe_abbca8da28b29ac32b3e17c357350f157}\label{structrpp_1_1details_1_1lift__on__subscribe_abbca8da28b29ac32b3e17c357350f157}} 
+R\+P\+P\+\_\+\+N\+O\+\_\+\+U\+N\+I\+Q\+U\+E\+\_\+\+A\+D\+D\+R\+E\+SS Operator\+Fn {\bfseries op}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$constraint\+::decayed\+\_\+type New\+Type, lift\+\_\+fn$<$ New\+Type $>$ Operator\+Fn, typename T\+Obs$>$\newline
+struct rpp\+::details\+::lift\+\_\+on\+\_\+subscribe$<$ New\+Type, Operator\+Fn, T\+Obs $>$}
+
+Functor of \char`\"{}lift\char`\"{} operator for on\+\_\+subscribe overload function. 
+
+Each observable has an on\+\_\+subscribe function and observable is activated (pub-\/sub channel is established) after on\+\_\+subscribe is called. The on\+\_\+subscribe is called when the observable is subscribed by a subscriber
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+this} & is the current observable. \\
+\hline
+{\em op} & is the functor that provides the \char`\"{}operator()(subscriber\+\_\+of\+\_\+new\+\_\+type) -\/$>$ subscriber\+\_\+of\+\_\+old\+\_\+type\char`\"{}. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/lift.\+hpp\end{DoxyCompactItemize}

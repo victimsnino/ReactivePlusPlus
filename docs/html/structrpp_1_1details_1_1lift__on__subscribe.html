@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: Member List</title>
+<title>ReactivePlusPlus: rpp::details::lift_on_subscribe&lt; NewType, OperatorFn, TObs &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -73,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('structrpp_1_1details_1_1lift__action.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('structrpp_1_1details_1_1lift__on__subscribe.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -92,21 +92,58 @@ $(document).ready(function(){initNavTree('structrpp_1_1details_1_1lift__action.h
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="structrpp_1_1details_1_1lift__on__subscribe-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">rpp::details::lift_action&lt; NewType, OperatorFn, TObs &gt; Member List</div>  </div>
+<div class="title">rpp::details::lift_on_subscribe&lt; NewType, OperatorFn, TObs &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="structrpp_1_1details_1_1lift__action.html">rpp::details::lift_action&lt; NewType, OperatorFn, TObs &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>_this</b> (defined in <a class="el" href="structrpp_1_1details_1_1lift__action.html">rpp::details::lift_action&lt; NewType, OperatorFn, TObs &gt;</a>)</td><td class="entry"><a class="el" href="structrpp_1_1details_1_1lift__action.html">rpp::details::lift_action&lt; NewType, OperatorFn, TObs &gt;</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>op</b> (defined in <a class="el" href="structrpp_1_1details_1_1lift__action.html">rpp::details::lift_action&lt; NewType, OperatorFn, TObs &gt;</a>)</td><td class="entry"><a class="el" href="structrpp_1_1details_1_1lift__action.html">rpp::details::lift_action&lt; NewType, OperatorFn, TObs &gt;</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>operator()</b>(TSub &amp;&amp;subscriber) const (defined in <a class="el" href="structrpp_1_1details_1_1lift__action.html">rpp::details::lift_action&lt; NewType, OperatorFn, TObs &gt;</a>)</td><td class="entry"><a class="el" href="structrpp_1_1details_1_1lift__action.html">rpp::details::lift_action&lt; NewType, OperatorFn, TObs &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p>Functor of "lift" operator for on_subscribe overload function.  
+ <a href="structrpp_1_1details_1_1lift__on__subscribe.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="lift_8hpp_source.html">lift.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aebb345ba92f926c82b8be68d01a245b3"><td class="memTemplParams" colspan="2"><a id="aebb345ba92f926c82b8be68d01a245b3"></a>
+template&lt;constraint::subscriber_of_type&lt; NewType &gt; TSub&gt; </td></tr>
+<tr class="memitem:aebb345ba92f926c82b8be68d01a245b3"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator()</b> (TSub &amp;&amp;subscriber) const</td></tr>
+<tr class="separator:aebb345ba92f926c82b8be68d01a245b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ab0302ee8f9d901d72def2adb63de7f66"><td class="memItemLeft" align="right" valign="top"><a id="ab0302ee8f9d901d72def2adb63de7f66"></a>
+RPP_NO_UNIQUE_ADDRESS TObs&#160;</td><td class="memItemRight" valign="bottom"><b>_this</b></td></tr>
+<tr class="separator:ab0302ee8f9d901d72def2adb63de7f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbca8da28b29ac32b3e17c357350f157"><td class="memItemLeft" align="right" valign="top"><a id="abbca8da28b29ac32b3e17c357350f157"></a>
+RPP_NO_UNIQUE_ADDRESS OperatorFn&#160;</td><td class="memItemRight" valign="bottom"><b>op</b></td></tr>
+<tr class="separator:abbca8da28b29ac32b3e17c357350f157"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;constraint::decayed_type NewType, lift_fn&lt; NewType &gt; OperatorFn, typename TObs&gt;<br />
+struct rpp::details::lift_on_subscribe&lt; NewType, OperatorFn, TObs &gt;</h3>
+
+<p>Functor of "lift" operator for on_subscribe overload function. </p>
+<p>Each observable has an on_subscribe function and observable is activated (pub-sub channel is established) after on_subscribe is called. The on_subscribe is called when the observable is subscribed by a subscriber</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_this</td><td>is the current observable. </td></tr>
+    <tr><td class="paramname">op</td><td>is the functor that provides the "operator()(subscriber_of_new_type) -&gt; subscriber_of_old_type". </td></tr>
+  </table>
+  </dd>
+</dl>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
+<li>src/rpp/rpp/operators/<a class="el" href="lift_8hpp_source.html">lift.hpp</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="structrpp_1_1details_1_1lift__on__subscribe.html">lift_on_subscribe</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
