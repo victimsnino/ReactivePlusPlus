@@ -10,7 +10,6 @@
 
 #pragma once
 
-
 #include <rpp/observables/constraints.hpp>
 #include <rpp/operators/fwd/merge.hpp>
 #include <rpp/subscribers/constraints.hpp>
