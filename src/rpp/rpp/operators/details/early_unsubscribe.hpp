@@ -8,6 +8,7 @@
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
 #pragma once
+
 #include <rpp/subscriptions/composite_subscription.hpp>
 
 #include <exception>
