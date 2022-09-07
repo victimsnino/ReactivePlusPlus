@@ -52,7 +52,7 @@ template<typename... Types>
 using decayed_lift_action_by_callbacks = lift_action_by_callbacks<std::decay_t<Types>...>;
 
 /**
- * \brief Functor of "lift" operator for on_subscribe overload function (type-erasure).
+ * \brief Functor of "lift" operator for on_subscribe overload function.
  * \details Each observable has an on_subscribe function and observable is activated (pub-sub channel is established) after on_subscribe is called. The on_subscribe is called when the observable is subscribed by a subscriber
  *
  * \param _this is the current observable.
