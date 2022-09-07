@@ -51,8 +51,15 @@ struct lift_action_by_callbacks
 template<typename... Types>
 using decayed_lift_action_by_callbacks = lift_action_by_callbacks<std::decay_t<Types>...>;
 
+/**
+ * \brief Functor of "lift" operator for on_subscribe overload function.
+ * \details Each observable has an on_subscribe function and observable is activated (pub-sub channel is established) after on_subscribe is called. The on_subscribe is called when the observable is subscribed by a subscriber
+ *
+ * \param _this is the current observable.
+ * \param op is the functor that provides the "operator()(subscriber_of_new_type) -> subscriber_of_old_type".
+ */
 template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename TObs>
-struct lift_action
+struct lift_on_subscribe
 {
     RPP_NO_UNIQUE_ADDRESS TObs _this;
     RPP_NO_UNIQUE_ADDRESS OperatorFn op;
@@ -67,7 +74,7 @@ struct lift_action
 template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename TObs>
 auto lift_impl(OperatorFn&& op, TObs&& _this)
 {
-    using LiftedOnSubscribeFn = lift_action<NewType, std::decay_t<OperatorFn>, std::decay_t<TObs>>;
+    using LiftedOnSubscribeFn = lift_on_subscribe<NewType, std::decay_t<OperatorFn>, std::decay_t<TObs>>;
     return specific_observable<NewType, LiftedOnSubscribeFn>{LiftedOnSubscribeFn{ std::forward<TObs>(_this), std::forward<OperatorFn>(op) }};
 }
 
