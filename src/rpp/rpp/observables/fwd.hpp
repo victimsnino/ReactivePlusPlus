@@ -29,9 +29,25 @@ template<typename Fn, typename T> concept on_subscribe_fn = std::invocable<std::
 
 namespace rpp
 {
+
+/**
+ * \brief Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler. e.g. observable<int, observable<bool, ...recursive...>> is different from observable<int, observable<int, ...>>.
+ *
+ * \details This is a C++ technique about de-virtualization. To achieve polymorphic behavior, we could either go for function virtualization or function overload. However, virtualization is more expensive than function overload in both compile time and runtime. Therefore, we go for function overload. Actually, we use more advanced functor paradigm for better performance.
+ *
+ * \param Type is the value type. Observable of type means this source could emit a sequence of items of that "Type".
+ * \param OnSubscribeFn is the on_subscribe functor that is called when a subscriber subscribes to this observable.
+ */
 template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
 class specific_observable;
 
+/**
+ * \brief Type-less observable (or partially untyped) that has the notion of Type but hides the notion of on_subscribe<Type> for C++ compiler.
+ *
+ * \details This is a C++ technique called type-erasure. Multiple instances of the observable<type> that may have different upstream graphs are considered homogeneous. i.e. They can be stored in the same container, e.g. std::vector.
+ *
+ * \param Type is the value type. Observable of type means this source could emit a sequence of items of that "Type".
+ */
 template<constraint::decayed_type Type>
 class dynamic_observable;
 
