@@ -100,21 +100,34 @@ $(document).ready(function(){initNavTree('structrpp_1_1details_1_1concat__state.
 <div class="title">rpp::details::concat_state&lt; ValueType &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Inheritance diagram for rpp::details::concat_state&lt; ValueType &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="structrpp_1_1details_1_1concat__state.png" usemap="#rpp::details::concat_5Fstate_3C_20ValueType_20_3E_map" alt=""/>
+  <map id="rpp::details::concat_5Fstate_3C_20ValueType_20_3E_map" name="rpp::details::concat_5Fstate_3C_20ValueType_20_3E_map">
+<area href="structrpp_1_1details_1_1early__unsubscribe__state.html" alt="rpp::details::early_unsubscribe_state" shape="rect" coords="0,0,235,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af2f547c5c3bfa161f62382c4af06a29b"><td class="memItemLeft" align="right" valign="top"><a id="af2f547c5c3bfa161f62382c4af06a29b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>concat_state</b> (<a class="el" href="classrpp_1_1subscription__base.html">subscription_base</a> source_subscription)</td></tr>
-<tr class="separator:af2f547c5c3bfa161f62382c4af06a29b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a7433be5d772c8b0f83eb0a93463e8d"><td class="memItemLeft" align="right" valign="top"><a id="a2a7433be5d772c8b0f83eb0a93463e8d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>concat_state</b> (const <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> &amp;subscription_of_subscriber)</td></tr>
+<tr class="separator:a2a7433be5d772c8b0f83eb0a93463e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_structrpp_1_1details_1_1early__unsubscribe__state"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_structrpp_1_1details_1_1early__unsubscribe__state')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="structrpp_1_1details_1_1early__unsubscribe__state.html">rpp::details::early_unsubscribe_state</a></td></tr>
+<tr class="memitem:ad1c4140a471ae01a26fb44faadfb40f1 inherit pub_methods_structrpp_1_1details_1_1early__unsubscribe__state"><td class="memItemLeft" align="right" valign="top"><a id="ad1c4140a471ae01a26fb44faadfb40f1"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>early_unsubscribe_state</b> (const <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> &amp;subscription_of_subscriber)</td></tr>
+<tr class="separator:ad1c4140a471ae01a26fb44faadfb40f1 inherit pub_methods_structrpp_1_1details_1_1early__unsubscribe__state"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a33c6be3bf1489d93563c5bd9e4e7bc66"><td class="memItemLeft" align="right" valign="top"><a id="a33c6be3bf1489d93563c5bd9e4e7bc66"></a>
 std::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>mutex</b> {}</td></tr>
 <tr class="separator:a33c6be3bf1489d93563c5bd9e4e7bc66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28d61c620b3aa885dfd029c39e5535dd"><td class="memItemLeft" align="right" valign="top"><a id="a28d61c620b3aa885dfd029c39e5535dd"></a>
-const <a class="el" href="classrpp_1_1subscription__base.html">subscription_base</a>&#160;</td><td class="memItemRight" valign="bottom"><b>source_subscription</b></td></tr>
-<tr class="separator:a28d61c620b3aa885dfd029c39e5535dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfbb90a825a2616098a64a1d17a0dd37"><td class="memItemLeft" align="right" valign="top"><a id="adfbb90a825a2616098a64a1d17a0dd37"></a>
+<a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memItemRight" valign="bottom"><b>source_subscription</b></td></tr>
+<tr class="separator:adfbb90a825a2616098a64a1d17a0dd37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acbac55c8a9a276966d82cf7d139e8d7b"><td class="memItemLeft" align="right" valign="top"><a id="acbac55c8a9a276966d82cf7d139e8d7b"></a>
 std::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>queue_mutex</b> {}</td></tr>
 <tr class="separator:acbac55c8a9a276966d82cf7d139e8d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,6 +137,10 @@ std::queue&lt; <a class="el" href="classrpp_1_1dynamic__observable.html">dynamic
 <tr class="memitem:ae7fd5c32e64a10e416d55efb89eb2975"><td class="memItemLeft" align="right" valign="top"><a id="ae7fd5c32e64a10e416d55efb89eb2975"></a>
 std::atomic_bool&#160;</td><td class="memItemRight" valign="bottom"><b>inner_subscribed</b> {}</td></tr>
 <tr class="separator:ae7fd5c32e64a10e416d55efb89eb2975"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_attribs_structrpp_1_1details_1_1early__unsubscribe__state"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_structrpp_1_1details_1_1early__unsubscribe__state')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="structrpp_1_1details_1_1early__unsubscribe__state.html">rpp::details::early_unsubscribe_state</a></td></tr>
+<tr class="memitem:a2b4848dfc71b0aa5be648ceffc1c3e59 inherit pub_attribs_structrpp_1_1details_1_1early__unsubscribe__state"><td class="memItemLeft" align="right" valign="top"><a id="a2b4848dfc71b0aa5be648ceffc1c3e59"></a>
+<a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&#160;</td><td class="memItemRight" valign="bottom"><b>childs_subscriptions</b></td></tr>
+<tr class="separator:a2b4848dfc71b0aa5be648ceffc1c3e59 inherit pub_attribs_structrpp_1_1details_1_1early__unsubscribe__state"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/rpp/rpp/operators/<a class="el" href="concat_8hpp_source.html">concat.hpp</a></li>

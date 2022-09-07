@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['unsubscribed_420',['unsubscribed',['../structrpp_1_1subjects_1_1details_1_1unsubscribed.html',1,'rpp::subjects::details']]]
+  ['unsubscribed_422',['unsubscribed',['../structrpp_1_1subjects_1_1details_1_1unsubscribed.html',1,'rpp::subjects::details']]]
 ];

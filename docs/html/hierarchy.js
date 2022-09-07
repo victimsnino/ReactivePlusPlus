@@ -10,7 +10,6 @@ var hierarchy =
     [ "rpp::details::concat_impl< Type >", "structrpp_1_1details_1_1concat__impl.html", null ],
     [ "rpp::details::concat_on_completed", "structrpp_1_1details_1_1concat__on__completed.html", null ],
     [ "rpp::details::concat_on_next_outer", "structrpp_1_1details_1_1concat__on__next__outer.html", null ],
-    [ "rpp::details::concat_state< ValueType >", "structrpp_1_1details_1_1concat__state.html", null ],
     [ "rpp::details::counted_repeat_predicate", "structrpp_1_1details_1_1counted__repeat__predicate.html", null ],
     [ "declvalget_observable", null, [
       [ "rpp::connectable_observable< Type, Subject, OriginalObservable >", "classrpp_1_1connectable__observable.html", null ]
@@ -22,6 +21,14 @@ var hierarchy =
     [ "rpp::details::dynamic_observable_state< Type >", "classrpp_1_1details_1_1dynamic__observable__state.html", null ],
     [ "rpp::details::dynamic_observer_state_base< T >", "structrpp_1_1details_1_1dynamic__observer__state__base.html", [
       [ "rpp::details::dynamic_observer_state< T, TObserver >", "classrpp_1_1details_1_1dynamic__observer__state.html", null ]
+    ] ],
+    [ "rpp::details::early_unsubscribe_state", "structrpp_1_1details_1_1early__unsubscribe__state.html", [
+      [ "rpp::details::concat_state< ValueType >", "structrpp_1_1details_1_1concat__state.html", null ],
+      [ "rpp::details::merge_state", "structrpp_1_1details_1_1merge__state.html", [
+        [ "rpp::details::combine_latest_state< TCombiner, Types >", "structrpp_1_1details_1_1combine__latest__state.html", null ],
+        [ "rpp::details::switch_on_next_state", "structrpp_1_1details_1_1switch__on__next__state.html", null ]
+      ] ],
+      [ "rpp::details::with_latest_from_state< TSelector, ValueTypes >", "structrpp_1_1details_1_1with__latest__from__state.html", null ]
     ] ],
     [ "enable_shared_from_this", null, [
       [ "rpp::details::group_by_state_base", "classrpp_1_1details_1_1group__by__state__base.html", [
@@ -168,10 +175,6 @@ var hierarchy =
     [ "rpp::details::merge_on_completed", "structrpp_1_1details_1_1merge__on__completed.html", null ],
     [ "rpp::details::merge_on_error", "structrpp_1_1details_1_1merge__on__error.html", null ],
     [ "rpp::details::merge_on_next", "structrpp_1_1details_1_1merge__on__next.html", null ],
-    [ "rpp::details::merge_state", "structrpp_1_1details_1_1merge__state.html", [
-      [ "rpp::details::combine_latest_state< TCombiner, Types >", "structrpp_1_1details_1_1combine__latest__state.html", null ],
-      [ "rpp::details::switch_on_next_state", "structrpp_1_1details_1_1switch__on__next__state.html", null ]
-    ] ],
     [ "rpp::details::observable_tag", "structrpp_1_1details_1_1observable__tag.html", [
       [ "rpp::details::typed_observable_tag< Type >", "structrpp_1_1details_1_1typed__observable__tag.html", [
         [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
@@ -258,7 +261,6 @@ var hierarchy =
     [ "rpp::details::with_latest_from_on_completed_outer", "structrpp_1_1details_1_1with__latest__from__on__completed__outer.html", null ],
     [ "rpp::details::with_latest_from_on_next_inner< I >", "structrpp_1_1details_1_1with__latest__from__on__next__inner.html", null ],
     [ "rpp::details::with_latest_from_on_next_outer", "structrpp_1_1details_1_1with__latest__from__on__next__outer.html", null ],
-    [ "rpp::details::with_latest_from_state< TSelector, ValueTypes >", "structrpp_1_1details_1_1with__latest__from__state.html", null ],
     [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::details::worker_tag", "structrpp_1_1schedulers_1_1details_1_1worker__tag.html", [
