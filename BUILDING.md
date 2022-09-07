@@ -26,7 +26,7 @@ But RPP is header-only library, so, without enabling any extra options is just c
 - `RPP_BUILD_TESTS` - (ON/OFF) build unit tests (default OFF)
 - `RPP_BUILD_EXAMPLES` - (ON/OFF) build examples of usage of RPP (default OFF)
 - `RPP_BUILD_SFML_CODE` - (ON/OFF) build RPP code related to SFML or not (default OFF) - requires SFML to be installed
-
+- `RPP_TYPE_ERASED_OBSERVABLE` - (ON/OFF) force observable to store any `on_subscribe` as `std::function`. As a result it reduces amount of uniq observables, speedups compilation and IDE loading time a lot, but has a major performance hit. Strongly recommended to avoid this option. Enable ONLY when it is not possible to use RPP as is (for example, system has limits over ROM/RAM/CPU). (default OFF)
 
 <!-- ### Building on Apple Silicon
 

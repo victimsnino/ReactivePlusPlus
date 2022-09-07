@@ -9,10 +9,10 @@
 #
 
 
-function(add_benchmark benchmark_name)
+function(add_benchmark_with_source benchmark_name source_name)
   set(TARGET ${benchmark_name}_benchmark)
 
-  add_executable(${TARGET} ${TARGET}.cpp)
+  add_executable(${TARGET} ${source_name}.cpp)
 
   target_link_libraries(${TARGET} PRIVATE ${benchmark_name} Catch2::Catch2WithMain)
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
@@ -26,7 +26,14 @@ function(add_benchmark benchmark_name)
 
 endfunction()
 
+function(add_benchmark benchmark_name)
+  add_benchmark_with_source(benchmark_name, benchmark_name)
+endfunction()
+
 add_benchmark(rpp)
+add_benchmark_with_source(rpp_type_erased, rpp)
+target_compile_definitions(rpp_type_erased_benchmark PRIVATE RPP_TYPE_ERASED_OBSERVABLE=1)
+
 
 if (RPP_BUILD_RXCPP)
   add_benchmark(rxcpp)

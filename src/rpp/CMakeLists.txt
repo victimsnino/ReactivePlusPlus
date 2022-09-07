@@ -27,6 +27,8 @@ target_include_directories(rpp ${RPP_WARNING_GUARD}
 target_link_libraries(rpp INTERFACE Threads::Threads)
 target_compile_features(rpp INTERFACE cxx_std_20)
 
+target_compile_definitions(rpp INTERFACE RPP_TYPE_ERASED_OBSERVABLE)
+
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
   target_compile_options(rpp INTERFACE -fsized-deallocation)
 endif()

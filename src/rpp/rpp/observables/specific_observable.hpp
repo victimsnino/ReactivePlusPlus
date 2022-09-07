@@ -34,7 +34,11 @@ namespace rpp
  * \param OnSubscribeFn is the on_subscribe functor that is called when a subscriber subscribes to this observable. specific_observable stores OnSubscribeFn as member variable, so, it is stored on stack (instead of allocating it on heap).
  * \ingroup observables
  */
+#if defined(RPP_TYPE_ERASED_OBSERVABLE) && RPP_TYPE_ERASED_OBSERVABLE
+template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn = std::function<void(rpp::dynamic_subscriber<Type>)>>
+#else
 template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
+#endif
 class specific_observable : public interface_observable<Type, specific_observable<Type, OnSubscribeFn>>
 {
 public:
@@ -114,6 +118,11 @@ private:
     RPP_NO_UNIQUE_ADDRESS OnSubscribeFn m_on_subscribe;
 };
 
+#if defined(RPP_TYPE_ERASED_OBSERVABLE) && RPP_TYPE_ERASED_OBSERVABLE
+template<typename OnSub>
+specific_observable(OnSub on_subscribe) -> specific_observable<utils::extract_subscriber_type_t<utils::function_argument_t<OnSub>>>;
+#else
 template<typename OnSub>
 specific_observable(OnSub on_subscribe) -> specific_observable<utils::extract_subscriber_type_t<utils::function_argument_t<OnSub>>, OnSub>;
+#endif
 } // namespace rpp

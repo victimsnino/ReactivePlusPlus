@@ -92,12 +92,12 @@ public:
     using base::base;
 
     explicit dynamic_observable(constraint::on_subscribe_fn<Type> auto&& on_subscribe)
-        : base{std::forward<decltype(on_subscribe)>(on_subscribe)} {}
+        : base{details::dynamic_observable_state<Type>{std::forward<decltype(on_subscribe)>(on_subscribe)}} {}
 
     template<constraint::observable_of_type<Type> TObs>
         requires (!std::is_same_v<std::decay_t<TObs>, dynamic_observable<Type>>)
     dynamic_observable(TObs&& observable)
-        : base{std::forward<TObs>(observable)} {}
+        : base{details::dynamic_observable_state<Type>{std::forward<TObs>(observable)}} {}
 };
 
 template<constraint::observable TObs>

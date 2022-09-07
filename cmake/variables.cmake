@@ -36,7 +36,8 @@ endif()
 
 
 # ------------ Options to tweak ---------------------
-option(RPP_BUILD_SFML_CODE "Enable SFML support in examples/code." OFF)
+option(RPP_BUILD_SFML_CODE        "Enable SFML support in examples/code." OFF)
+option(RPP_TYPE_ERASED_OBSERVABLE "force observable to store any `on_subscribe` as `std::function`. As a result it reduces amount of uniq observables, speedups compilation and IDE loading time a lot, but has a major performance hit. Strongly recommended to avoid this option. Enable ONLY when it is not possible to use RPP as is (for example, system has limits over ROM/RAM/CPU)" OFF)
 
 if (RPP_DEVELOPER_MODE)
   option(RPP_BUILD_TESTS      "Build unit tests tree." OFF)
