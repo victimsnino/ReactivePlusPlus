@@ -36,8 +36,8 @@ namespace rpp::details
 template<typename TCombiner, constraint::decayed_type... Types>
 struct combine_latest_state : public merge_state
 {
-    explicit combine_latest_state(const TCombiner& combiner)
-        : merge_state()
+    explicit combine_latest_state(const TCombiner& combiner, const composite_subscription& subscription_of_subscriber)
+        : merge_state(subscription_of_subscriber)
         , combiner(combiner) {}
 
     // don't use NO_UNIQUE_ADDRESS there due to issue in MSVC base class becomes invalid
@@ -111,7 +111,7 @@ private:
     static auto create_inner_subscriber(auto&&                 subscriber,
                                         std::shared_ptr<State> state)
     {
-        auto subscription = subscriber.get_subscription().make_child();
+        auto subscription = state->childs_subscriptions.make_child();
         return create_subscriber_with_state<ValueType>(std::move(subscription),
                                                        combine_latest_on_next<I>{},
                                                        combine_latest_on_error{},
@@ -127,9 +127,8 @@ public:
     template<constraint::subscriber_of_type<DownstreamType> TSub>
     auto operator()(TSub&& subscriber) const
     {
-        auto state = std::make_shared<State>(m_combiner);
+        auto state = std::make_shared<State>(m_combiner, subscriber.get_subscription());
         state->count_of_on_completed_needed.store(sizeof...(TOtherObservable) + 1, std::memory_order::relaxed);
-
 
         // Subscribe to other observables and redirect on_next event to state
         subscribe_other_observables(std::index_sequence_for<TOtherObservable...>{}, subscriber, state);

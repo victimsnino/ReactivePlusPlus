@@ -31,20 +31,21 @@ IMPLEMENTATION_FILE(concat_tag);
 namespace rpp::details
 {
 template<constraint::decayed_type ValueType>
-struct concat_state
+struct concat_state : early_unsubscribe_state
 {
-    concat_state(subscription_base source_subscription)
-        : source_subscription{std::move(source_subscription)} {}
+    concat_state(const composite_subscription& subscription_of_subscriber)
+        : early_unsubscribe_state{subscription_of_subscriber}
+        , source_subscription{childs_subscriptions.make_child()} {}
 
     std::mutex                                mutex{};
-    const subscription_base                   source_subscription;
+    composite_subscription                    source_subscription;
     std::mutex                                queue_mutex{};
     std::queue<dynamic_observable<ValueType>> observables_to_subscribe{};
     std::atomic_bool                          inner_subscribed{};
 };
 
 using concat_on_next_inner = merge_forwarding_on_next;
-using concat_on_error = merge_on_error;
+using concat_on_error      = merge_on_error;
 
 struct concat_on_next_outer
 {
@@ -71,7 +72,7 @@ private:
                                            const std::shared_ptr<concat_state<ValueType>>& state)
     {
         observable.subscribe(create_subscriber_with_state<ValueType>(
-            subscriber.get_subscription().make_child(),
+            state->childs_subscriptions.make_child(),
             concat_on_next_inner{},
             concat_on_error{},
             [](const constraint::subscriber auto& sub, const std::shared_ptr<concat_state<ValueType>>& state)
@@ -120,11 +121,10 @@ struct concat_impl
     template<constraint::subscriber_of_type<ValueType> TSub>
     auto operator()(TSub&& subscriber) const
     {
-        auto source_subscription = subscriber.get_subscription().make_child();
 
-        auto state = std::make_shared<concat_state<ValueType>>(source_subscription);
+        auto state = std::make_shared<concat_state<ValueType>>(subscriber.get_subscription());
 
-        return create_subscriber_with_state<Type>(std::move(source_subscription),
+        return create_subscriber_with_state<Type>(state->source_subscription,
                                                   concat_on_next_outer{},
                                                   concat_on_error{},
                                                   concat_on_completed{},

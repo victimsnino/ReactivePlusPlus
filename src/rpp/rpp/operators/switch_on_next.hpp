@@ -27,6 +27,8 @@ namespace rpp::details
 {
 struct switch_on_next_state : public merge_state
 {
+    using merge_state::merge_state;
+    
     composite_subscription current_inner_observable = rpp::composite_subscription::empty();
 };
 
@@ -54,7 +56,7 @@ struct switch_on_next_on_next
         using ValueType = utils::extract_observable_type_t<TObs>;
 
         state->current_inner_observable.unsubscribe();
-        state->current_inner_observable = sub.get_subscription().make_child();
+        state->current_inner_observable = state->childs_subscriptions.make_child();
         state->current_inner_observable.add([state = std::weak_ptr{state}]
         {
             if (const auto locked = state.lock())
@@ -82,11 +84,11 @@ struct switch_on_next_impl
     template<constraint::subscriber_of_type<ValueType> TSub>
     auto operator()(TSub&& subscriber) const
     {
-        auto state = std::make_shared<switch_on_next_state>();
+        auto state = std::make_shared<switch_on_next_state>(subscriber.get_subscription());
 
         state->count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);
 
-        auto subscription = subscriber.get_subscription().make_child();
+        auto subscription = state->childs_subscriptions.make_child();
         return create_subscriber_with_state<Type>(std::move(subscription),
                                                   switch_on_next_on_next{},
                                                   switch_on_next_on_error{},
