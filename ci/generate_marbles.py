@@ -50,36 +50,3 @@ for l in content:
             marble_content.append(l)
 
 
-
-# import fnmatch
-# import re
-# import shutil
-
-# rpp_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src', 'rpp'))
-
-
-# for root, dirnames, filenames in os.walk(rpp_dir):
-#     for file in fnmatch.filter(filenames, '*.hpp'):
-#         with open(os.path.join(root, file), 'r') as f:
-#             content = f.readlines()
-        
-#         marble_name = None
-#         marble_content = []
-#         for l in content:
-#             if marble_name is None:
-#                 target="\marble{"
-#                 if target not in l:
-#                     continue
-#                 i = l.index(target) +len(target)
-#                 marble_name = l[i:l.index(',', i)]
-#             else:
-#                 if re.match(r"[\s]*\*.*", l):
-#                     joined = '\n'.join(marble_content)
-#                     generate_svg(marble_name, f"marble {marble_name} \n {joined}")
-#                     marble_name= None
-#                     marble_content = []
-#                 else:
-#                     marble_content.append(l)
-
-
-
