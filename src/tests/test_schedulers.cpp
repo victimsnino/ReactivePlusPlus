@@ -417,9 +417,8 @@ SCENARIO("New thread scheduler depends on subscription")
 
 SCENARIO("trampoline scheduler dispatches task in the same thread")
 {
-    auto scheduler = rpp::schedulers::trampoline{};
-    auto sub       = rpp::composite_subscription{};
-    auto worker    = scheduler.create_worker(sub);
+    auto sub    = rpp::composite_subscription{};
+    auto worker = rpp::schedulers::trampoline::create_worker(sub);
 
     WHEN("supply a simple job")
     {
@@ -472,9 +471,8 @@ static std::vector<std::string> trampoline_expected_simulate_nested_scheduling(s
 }
 SCENARIO("trampoline scheduler defers tasks in order")
 {
-    auto scheduler = rpp::schedulers::trampoline{};
-    auto sub       = rpp::composite_subscription{};
-    auto worker    = scheduler.create_worker(sub);
+    auto sub    = rpp::composite_subscription{};
+    auto worker = rpp::schedulers::trampoline::create_worker(sub);
     rpp::subscription_guard guard{sub};
 
     WHEN("supply a job that schedules inner job that schedules inner job")
@@ -494,9 +492,8 @@ SCENARIO("trampoline scheduler is thread local")
 {
     WHEN("two threads are using the same trampoline scheduler")
     {
-        auto scheduler = rpp::schedulers::trampoline{};
-        auto sub       = rpp::composite_subscription{};
-        auto worker    = scheduler.create_worker(sub);
+        auto sub    = rpp::composite_subscription{};
+        auto worker = rpp::schedulers::trampoline::create_worker(sub);
         rpp::subscription_guard guard{sub};
 
         std::vector<std::string> call_stack_1;
@@ -517,9 +514,8 @@ SCENARIO("trampoline scheduler regards unsubscribed subscription")
 {
     GIVEN("unsubscribed subscription")
     {
-        auto scheduler = rpp::schedulers::trampoline{};
-        auto sub       = rpp::composite_subscription{};
-        auto worker    = scheduler.create_worker(sub);
+        auto sub    = rpp::composite_subscription{};
+        auto worker = rpp::schedulers::trampoline::create_worker(sub);
 
         sub.unsubscribe();
 
@@ -535,9 +531,8 @@ SCENARIO("trampoline scheduler regards unsubscribed subscription")
 
     GIVEN("asynchronously unsubscribes subscription")
     {
-        auto scheduler = rpp::schedulers::trampoline{};
-        auto sub       = rpp::composite_subscription{};
-        auto worker    = scheduler.create_worker(sub);
+        auto sub    = rpp::composite_subscription{};
+        auto worker = rpp::schedulers::trampoline::create_worker(sub);
 
         THEN("shall not see execution of inner schedulable")
         {

@@ -80,6 +80,7 @@ class trampoline final : public details::scheduler_tag
         }
 
         static time_point now() { return clock_type::now(); }
+
     private:
         rpp::composite_subscription m_sub;
     };
