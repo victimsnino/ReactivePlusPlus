@@ -16,7 +16,13 @@ function(add_benchmark benchmark_name)
 
   target_link_libraries(${TARGET} PRIVATE ${benchmark_name} Catch2::Catch2WithMain)
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
-	@@ -26,7 +26,14 @@ function(add_benchmark benchmark_name)
+
+  if (benchmark_name STREQUAL "rxcpp")
+    get_target_property(DEP_DIR ${benchmark_name} INTERFACE_INCLUDE_DIRECTORIES)
+    target_include_directories(${TARGET} SYSTEM PRIVATE ${DEP_DIR})
+  endif()
+
+  add_test(NAME ${TARGET} COMMAND  $<TARGET_FILE:${TARGET}> -r xml -o ${RPP_TEST_BENCHMARKS_RESULTS_DIR}/${TARGET}_result.txt)
 
 endfunction()
 
