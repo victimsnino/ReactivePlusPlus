@@ -27,7 +27,7 @@ function(add_benchmark_extended benchmark_name library source_file)
 endfunction()
 
 function(add_benchmark benchmark_name)
-  add_benchmark_with_source(benchmark_name benchmark_name benchmark_name)
+  add_benchmark_extended(benchmark_name benchmark_name benchmark_name)
 endfunction()
 
 add_benchmark(rpp)
