@@ -13,9 +13,9 @@ class \mbox{\hyperlink{classrpp_1_1blocking__observable}{rpp\+::blocking\+\_\+ob
 class \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable$<$ Type, Subject, Original\+Observable $>$}}
 \begin{DoxyCompactList}\small\item\em connectable alternative of observable\+: extends interface with extra functionality. Common subscription will subscribe on underlying subject, but connect/ref\+\_\+count will initiate subscription on original observable \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable$<$ Type $>$}}
-\begin{DoxyCompactList}\small\item\em type-\/erased alternative of observable (comparing to \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}). \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Type-\/less observable (or partially untyped) that has the notion of Type but hides the notion of on\+\_\+subscribe$<$\+Type$>$ for C++ compiler. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable$<$ Type, On\+Subscribe\+Fn $>$}}
-\begin{DoxyCompactList}\small\item\em Type-\/ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler. e.\+g. observable$<$int, observable$<$bool, ...\+recursive...$>$$>$ is different from observable$<$int, observable$<$int, ...$>$$>$. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Type-\/full observable (or typed) that has the notion of Type and upstream observables for C++ compiler. e.\+g. observable$<$int, map$<$bool, ...\+recursive...$>$$>$ is different from observable$<$int, filter$<$int, ...$>$$>$. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}

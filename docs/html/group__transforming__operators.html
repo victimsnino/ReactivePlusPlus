@@ -168,7 +168,7 @@ template&lt;typename ... Args&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the buffer operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the buffer operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="buffer_8hpp_source.html">rpp/operators/buffer.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <span class="comment">// The stream that uses rvalue overloads for operators</span></div>
 <div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3, 4, 5)</div>
@@ -216,7 +216,7 @@ template&lt;flat_map_callable&lt; Type &gt; Callable&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the flat_map operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the flat_map operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="flat__map_8hpp_source.html">rpp/operators/flat_map.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3)</div>
 <div class="line">            .flat_map([](<span class="keywordtype">int</span> val) { <span class="keywordflow">return</span> rpp::source::from_iterable(std::vector(val, val)); })</div>
@@ -276,7 +276,7 @@ template&lt;std::invocable&lt; Type &gt; KeySelector, std::invocable&lt; Type &g
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the group_by operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the group_by operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="group__by_8hpp_source.html">rpp/operators/group_by.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3, 4, 5, 6, 7, 8)</div>
 <div class="line">            .group_by([](<span class="keywordtype">int</span>   v) { <span class="keywordflow">return</span> v % 2 == 0; })</div>
@@ -361,7 +361,7 @@ template&lt;std::invocable&lt; Type &gt; Callable&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the Map operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the Map operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="map_8hpp_source.html">rpp/operators/map.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example with same type:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(42)</div>
 <div class="line">            .map([](<span class="keywordtype">int</span> value)</div>
@@ -424,7 +424,7 @@ template&lt;typename Result , scan_accumulator&lt; Result, Type &gt; Accumulator
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the scan operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the scan operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="scan_8hpp_source.html">rpp/operators/scan.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1,2,3)</div>
 <div class="line">            .scan(0, std::plus&lt;int&gt;{})</div>
@@ -482,7 +482,7 @@ template&lt;switch_map_callable&lt; Type &gt; Callable&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the switch_map operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the switch_map operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="switch__map_8hpp_source.html">rpp/operators/switch_map.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3)</div>
 <div class="line">            .switch_map([](<span class="keywordtype">int</span> val) {</div>
@@ -537,7 +537,7 @@ template&lt;typename ... Args&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the window operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the window operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="window_8hpp_source.html">rpp/operators/window.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1,2,3,4,5)</div>
 <div class="line">        .window(3)</div>

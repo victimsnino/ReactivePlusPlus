@@ -173,35 +173,35 @@ $(document).ready(function(){initNavTree('dynamic__observable_8hpp_source.html',
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">namespace </span>rpp</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;{</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="classrpp_1_1dynamic__observable.html">   87</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable</a> : <span class="keyword">public</span> <a class="code" href="classrpp_1_1specific__observable.html">specific_observable</a>&lt;Type, details::dynamic_observable_state&lt;Type&gt;&gt;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;{</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">using</span> <a class="code" href="classrpp_1_1specific__observable.html">base</a> = <a class="code" href="classrpp_1_1specific__observable.html">specific_observable&lt;Type, details::dynamic_observable_state&lt;Type&gt;</a>&gt;;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">using</span> base::base;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable</a>(constraint::on_subscribe_fn&lt;Type&gt; <span class="keyword">auto</span>&amp;&amp; on_subscribe)</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        : <a class="code" href="classrpp_1_1specific__observable.html">base</a>{std::forward&lt;decltype(on_subscribe)&gt;(on_subscribe)} {}</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; TObs&gt;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        requires (!std::is_same_v&lt;std::decay_t&lt;TObs&gt;, <a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable&lt;Type&gt;</a>&gt;)</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable</a>(TObs&amp;&amp; observable)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        : <a class="code" href="classrpp_1_1specific__observable.html">base</a>{std::forward&lt;TObs&gt;(observable)} {}</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;};</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable TObs&gt;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable</a>(TObs obs) -&gt; <a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable&lt;utils::extract_observable_type_t&lt;TObs&gt;</a>&gt;;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> OnSub&gt;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable</a>(OnSub on_subscribe) -&gt; <a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable&lt;utils::extract_subscriber_type_t&lt;utils::function_argument_t&lt;OnSub&gt;</a>&gt;&gt;;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;} <span class="comment">// namespace rpp</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="classrpp_1_1dynamic__observable.html">   88</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable</a> : <span class="keyword">public</span> <a class="code" href="classrpp_1_1specific__observable.html">specific_observable</a>&lt;Type, details::dynamic_observable_state&lt;Type&gt;&gt;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;{</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">using</span> <a class="code" href="classrpp_1_1specific__observable.html">base</a> = <a class="code" href="classrpp_1_1specific__observable.html">specific_observable&lt;Type, details::dynamic_observable_state&lt;Type&gt;</a>&gt;;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">using</span> base::base;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable</a>(constraint::on_subscribe_fn&lt;Type&gt; <span class="keyword">auto</span>&amp;&amp; on_subscribe)</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        : <a class="code" href="classrpp_1_1specific__observable.html">base</a>{std::forward&lt;decltype(on_subscribe)&gt;(on_subscribe)} {}</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; TObs&gt;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        requires (!std::is_same_v&lt;std::decay_t&lt;TObs&gt;, <a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable&lt;Type&gt;</a>&gt;)</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable</a>(TObs&amp;&amp; observable)</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        : <a class="code" href="classrpp_1_1specific__observable.html">base</a>{std::forward&lt;TObs&gt;(observable)} {}</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;};</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable TObs&gt;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable</a>(TObs obs) -&gt; <a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable&lt;utils::extract_observable_type_t&lt;TObs&gt;</a>&gt;;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> OnSub&gt;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable</a>(OnSub on_subscribe) -&gt; <a class="code" href="classrpp_1_1dynamic__observable.html">dynamic_observable&lt;utils::extract_subscriber_type_t&lt;utils::function_argument_t&lt;OnSub&gt;</a>&gt;&gt;;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;} <span class="comment">// namespace rpp</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassrpp_1_1composite__subscription_html"><div class="ttname"><a href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a></div><div class="ttdoc">rpp::subscription_base with ability to add some dependent subscriptions as a part of this one: in cas...</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:26</div></div>
-<div class="ttc" id="aclassrpp_1_1specific__observable_html"><div class="ttname"><a href="classrpp_1_1specific__observable.html">rpp::specific_observable</a></div><div class="ttdoc">Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....</div><div class="ttdef"><b>Definition:</b> fwd.hpp:42</div></div>
+<div class="ttc" id="aclassrpp_1_1specific__observable_html"><div class="ttname"><a href="classrpp_1_1specific__observable.html">rpp::specific_observable</a></div><div class="ttdoc">Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...</div><div class="ttdef"><b>Definition:</b> fwd.hpp:46</div></div>
 <div class="ttc" id="aclassrpp_1_1details_1_1dynamic__observable__state_html"><div class="ttname"><a href="classrpp_1_1details_1_1dynamic__observable__state.html">rpp::details::dynamic_observable_state</a></div><div class="ttdef"><b>Definition:</b> dynamic_observable.hpp:24</div></div>
 <div class="ttc" id="aclassrpp_1_1dynamic__subscriber_html"><div class="ttname"><a href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber</a></div><div class="ttdoc">subscriber which uses dynamic_observer&lt;T&gt; to hide original callbacks</div><div class="ttdef"><b>Definition:</b> dynamic_subscriber.hpp:23</div></div>
-<div class="ttc" id="aclassrpp_1_1dynamic__observable_html"><div class="ttname"><a href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable</a></div><div class="ttdoc">type-erased alternative of observable (comparing to rpp::specific_observable).</div><div class="ttdef"><b>Definition:</b> dynamic_observable.hpp:87</div></div>
+<div class="ttc" id="aclassrpp_1_1dynamic__observable_html"><div class="ttname"><a href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable</a></div><div class="ttdoc">Type-less observable (or partially untyped) that has the notion of Type but hides the notion of on_su...</div><div class="ttdef"><b>Definition:</b> dynamic_observable.hpp:88</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

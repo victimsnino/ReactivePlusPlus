@@ -173,7 +173,7 @@ template&lt;constraint::on_completed_fn OnCompletedFn&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the do_on_completed operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the do_on_completed operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="do_8hpp_source.html">rpp/operators/do.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    rpp::source::empty&lt;int&gt;()</div>
 <div class="line">            .do_on_completed([]() { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) Completed&quot;</span> &lt;&lt; std::endl; })</div>
@@ -214,7 +214,7 @@ template&lt;constraint::on_error_fn OnErrorFn&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the do_on_error operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the do_on_error operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="do_8hpp_source.html">rpp/operators/do.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    rpp::source::error&lt;int&gt;(std::make_exception_ptr(std::runtime_error{<span class="stringliteral">&quot;&quot;</span>}))</div>
 <div class="line">            .do_on_error([](std::exception_ptr) { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) NEW error&quot;</span> &lt;&lt; std::endl; })</div>
@@ -255,7 +255,7 @@ template&lt;constraint::on_next_fn&lt; Type &gt; OnNextFn&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the do_on_next operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the do_on_next operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="do_8hpp_source.html">rpp/operators/do.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2)</div>
 <div class="line">            .do_on_next([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) NEW item &quot;</span> &lt;&lt; v &lt;&lt; std::endl; })</div>
@@ -299,7 +299,7 @@ template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the observe_on operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the observe_on operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="observe__on_8hpp_source.html">rpp/operators/observe_on.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    std::cout &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;</div>
 <div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(10, 15, 20)</div>
@@ -339,7 +339,7 @@ template&lt;typename... Args&gt; </div>
 <div class="image">
 <object type="image/svg+xml" data="repeat_infinitely.svg" style="pointer-events: none;"></object>
 </div>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the repeat operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the repeat operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="repeat_8hpp_source.html">rpp/operators/repeat.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3)</div>
 <div class="line">            .repeat()</div>
@@ -390,7 +390,7 @@ template&lt;typename... Args&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the repeat operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the repeat operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="repeat_8hpp_source.html">rpp/operators/repeat.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3)</div>
 <div class="line">            .repeat(2)</div>
@@ -432,7 +432,7 @@ template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the subscribe_on operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the subscribe_on operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="subscribe__on_8hpp_source.html">rpp/operators/subscribe_on.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    std::cout &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;</div>
 <div class="line">    rpp::source::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
@@ -499,7 +499,7 @@ template&lt;constraint::on_next_fn&lt; Type &gt; OnNextFn, constraint::on_error_
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the tap operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the tap operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="do_8hpp_source.html">rpp/operators/do.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2)</div>
 <div class="line">            .tap([](<span class="keywordtype">int</span>               v) { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) NEW item &quot;</span> &lt;&lt; v &lt;&lt; std::endl; },</div>
@@ -547,7 +547,7 @@ template&lt;constraint::observer_of_type&lt; Type &gt; TObs&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the tap operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the tap operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="do_8hpp_source.html">rpp/operators/do.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2)</div>
 <div class="line">            .tap(rpp::make_specific_observer&lt;int&gt;([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;(TAP) NEW item &quot;</span> &lt;&lt; v &lt;&lt; std::endl; },</div>

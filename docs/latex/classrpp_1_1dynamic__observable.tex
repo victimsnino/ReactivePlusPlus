@@ -2,7 +2,7 @@
 \label{classrpp_1_1dynamic__observable}\index{rpp::dynamic\_observable$<$ Type $>$@{rpp::dynamic\_observable$<$ Type $>$}}
 
 
-type-\/erased alternative of observable (comparing to \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}).  
+Type-\/less observable (or partially untyped) that has the notion of Type but hides the notion of on\+\_\+subscribe$<$\+Type$>$ for C++ compiler.  
 
 
 
@@ -36,16 +36,9 @@ using {\bfseries base} = \mbox{\hyperlink{classrpp_1_1specific__observable}{spec
 \subsubsection*{template$<$constraint\+::decayed\+\_\+type Type$>$\newline
 class rpp\+::dynamic\+\_\+observable$<$ Type $>$}
 
-type-\/erased alternative of observable (comparing to \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}). 
+Type-\/less observable (or partially untyped) that has the notion of Type but hides the notion of on\+\_\+subscribe$<$\+Type$>$ for C++ compiler. 
 
-Type-\/less observable (or partially untyped) that has the notion of Type but hides the notion of on\+\_\+subscribe$<$\+Type$>$ for C++ compiler.
-
-It uses type-\/erasure mechanism to hide type of On\+Subscribe\+Fn. But it has higher cost in the terms of performance due to usage of heap. Use it only when you need to store observable as member variable or something like this 
-\begin{DoxyTemplParams}{Template Parameters}
-{\em Type} & is type of value provided by this observable\\
-\hline
-\end{DoxyTemplParams}
-This is a C++ technique called type-\/erasure. Multiple instances of the observable$<$type$>$ that may have different upstream graphs are considered homogeneous. i.\+e. They can be stored in the same container, e.\+g. std\+::vector.
+This is a C++ technique called type-\/erasure. Multiple instances of the observable$<$type$>$ that may have different upstream graphs are considered homogeneous. i.\+e. They can be stored in the same container, e.\+g. std\+::vector. As a result, it uses heap to store on\+\_\+subscribe and hide its type.
 
 
 \begin{DoxyParams}{Parameters}
