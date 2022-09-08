@@ -35,7 +35,7 @@ struct concat_state : early_unsubscribe_state
 {
     concat_state(const composite_subscription& subscription_of_subscriber)
         : early_unsubscribe_state{subscription_of_subscriber}
-        , source_subscription{childs_subscriptions.make_child()} {}
+        , source_subscription{children_subscriptions.make_child()} {}
 
     std::mutex                                mutex{};
     composite_subscription                    source_subscription;
@@ -72,7 +72,7 @@ private:
                                            const std::shared_ptr<concat_state<ValueType>>& state)
     {
         observable.subscribe(create_subscriber_with_state<ValueType>(
-            state->childs_subscriptions.make_child(),
+            state->children_subscriptions.make_child(),
             concat_on_next_inner{},
             concat_on_error{},
             [](const constraint::subscriber auto& sub, const std::shared_ptr<concat_state<ValueType>>& state)
