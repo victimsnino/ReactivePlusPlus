@@ -621,6 +621,28 @@ SCENARIO("trampoline scheduler regards unsubscribed subscription")
     }
 }
 
+SCENARIO("trampoline respects the given time-point")
+{
+    auto sub    = rpp::composite_subscription{};
+    auto worker = rpp::schedulers::trampoline::create_worker(sub);
+
+    auto delay  = std::chrono::duration_cast<rpp::schedulers::duration>(std::chrono::seconds{1});
+
+    WHEN("schedule at future")
+    {
+        auto now = rpp::schedulers::clock_type::now();
+        auto future = now + delay;
+        worker.schedule(future, [&]() -> rpp::schedulers::optional_duration
+        {
+            THEN("this thread should sleep for the delay duration")
+            {
+                CHECK(rpp::schedulers::clock_type::now() >= now + delay);
+            }
+            return std::nullopt;
+        });
+    }
+}
+
 SCENARIO("RunLoop scheduler dispatches tasks only manually")
 {
     GIVEN("run loop scheduler")
