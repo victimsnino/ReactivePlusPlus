@@ -9,10 +9,10 @@
 #
 
 
-function(add_benchmark_extended benchmark_name library source_file)
+function(add_benchmark_extended benchmark_name library)
   set(TARGET ${benchmark_name}_benchmark)
 
-  add_executable(${TARGET} ${source_file}.cpp)
+  add_executable(${TARGET} ${TARGET}.cpp)
 
   target_link_libraries(${TARGET} PRIVATE ${library} Catch2::Catch2WithMain)
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
@@ -27,11 +27,11 @@ function(add_benchmark_extended benchmark_name library source_file)
 endfunction()
 
 function(add_benchmark benchmark_name)
-  add_benchmark_extended(benchmark_name benchmark_name benchmark_name)
+  add_benchmark_extended(${benchmark_name} ${benchmark_name})
 endfunction()
 
 add_benchmark(rpp)
-add_benchmark_extended(rpp_type_erased rpp rpp)
+add_benchmark_extended(rpp_type_erased rpp)
 
 
 if (RPP_BUILD_RXCPP)
