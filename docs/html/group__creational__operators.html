@@ -106,11 +106,11 @@ $(document).ready(function(){initNavTree('group__creational__operators.html','')
 Functions</h2></td></tr>
 <tr class="memitem:gabc5067fa9aefaa803f6e329b75faa00c"><td class="memTemplParams" colspan="2">template&lt;memory_model memory_model, typename T , typename ... Ts&gt; </td></tr>
 <tr class="memitem:gabc5067fa9aefaa803f6e329b75faa00c"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::observable::just</a> (const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</td></tr>
-<tr class="memdesc:gabc5067fa9aefaa803f6e329b75faa00c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular items and completes.  <a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">More...</a><br /></td></tr>
+<tr class="memdesc:gabc5067fa9aefaa803f6e329b75faa00c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">rpp::specific_observable</a> that emits a particular items and completes.  <a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">More...</a><br /></td></tr>
 <tr class="separator:gabc5067fa9aefaa803f6e329b75faa00c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3dbc86391138a75da37b119ab4b785d2"><td class="memTemplParams" colspan="2">template&lt;memory_model memory_model, typename T , typename ... Ts&gt; </td></tr>
 <tr class="memitem:ga3dbc86391138a75da37b119ab4b785d2"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga3dbc86391138a75da37b119ab4b785d2">rpp::observable::just</a> (T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</td></tr>
-<tr class="memdesc:ga3dbc86391138a75da37b119ab4b785d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular items and completes.  <a href="group__creational__operators.html#ga3dbc86391138a75da37b119ab4b785d2">More...</a><br /></td></tr>
+<tr class="memdesc:ga3dbc86391138a75da37b119ab4b785d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">rpp::specific_observable</a> that emits a particular items and completes.  <a href="group__creational__operators.html#ga3dbc86391138a75da37b119ab4b785d2">More...</a><br /></td></tr>
 <tr class="separator:ga3dbc86391138a75da37b119ab4b785d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -151,7 +151,7 @@ template&lt;memory_model memory_model, typename T , typename ... Ts&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular items and completes. </p>
+<p>Creates <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">rpp::specific_observable</a> that emits a particular items and completes. </p>
 <div class="image">
 <object type="image/svg+xml" data="just.svg" style="pointer-events: none;"></object>
 </div>
@@ -169,7 +169,7 @@ template&lt;memory_model memory_model, typename T , typename ... Ts&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> with provided item</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">rpp::specific_observable</a> with provided item</dd></dl>
 <dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 42 53 10 1</span></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">    std::array&lt;int, 100&gt; cheap_to_copy_1{};</div>
@@ -211,7 +211,7 @@ template&lt;memory_model memory_model, typename T , typename ... Ts&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Creates <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> that emits a particular items and completes. </p>
+<p>Creates <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">rpp::specific_observable</a> that emits a particular items and completes. </p>
 <dl class="section warning"><dt>Warning</dt><dd>this overloading uses immediate scheduler as default</dd></dl>
 <div class="image">
 <object type="image/svg+xml" data="just.svg" style="pointer-events: none;"></object>
@@ -229,7 +229,7 @@ template&lt;memory_model memory_model, typename T , typename ... Ts&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a> with provided item</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">rpp::specific_observable</a> with provided item</dd></dl>
 <dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 42 53 10 1</span></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">    std::array&lt;int, 100&gt; cheap_to_copy_1{};</div>

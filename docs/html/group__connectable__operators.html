@@ -149,7 +149,7 @@ template&lt;subjects::constraint::subject_of_type&lt; Type &gt; TSubject&gt; </d
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the multicast operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the multicast operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="multicast_8hpp_source.html">rpp/operators/multicast.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <span class="keyword">auto</span> subject = <a class="code" href="classrpp_1_1subjects_1_1publish__subject.html">rpp::subjects::publish_subject&lt;int&gt;</a>{};</div>
 <div class="line">    <span class="keyword">auto</span> observable = <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3).multicast(subject);</div>
@@ -189,7 +189,7 @@ template&lt;typename ... Args&gt; </div>
 
 <p>Converts ordinary observable to <a class="el" href="classrpp_1_1connectable__observable.html" title="connectable alternative of observable: extends interface with extra functionality....">rpp::connectable_observable</a> with help of <a class="el" href="classrpp_1_1subjects_1_1publish__subject.html" title="Subject which just multicasts values to observers subscribed on it. It contains two parts: subscriber...">rpp::subjects::publish_subject</a>. </p>
 <p>Connectable observable is common observable, but actually it starts emissions of items only after call "connect", "ref_count" or any other available way. Also it uses subject to multicast values to subscribers</p>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the publish operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the publish operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="publish_8hpp_source.html">rpp/operators/publish.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <span class="keyword">auto</span> observable = <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1,2,3).publish();</div>
 <div class="line">    observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#1 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
@@ -228,7 +228,7 @@ template&lt;typename ... Args&gt; </div>
 
 <p>Forces <a class="el" href="classrpp_1_1connectable__observable.html" title="connectable alternative of observable: extends interface with extra functionality....">rpp::connectable_observable</a> to behave like common observable. </p>
 <p>Connects <a class="el" href="classrpp_1_1connectable__observable.html" title="connectable alternative of observable: extends interface with extra functionality....">rpp::connectable_observable</a> on the first subscription and unsubscribes on last unsubscription</p>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">specific_observable</a> with the ref_count operator as most recent operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">specific_observable</a> with the ref_count operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="ref__count_8hpp_source.html">rpp/operators/ref_count.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <span class="keyword">auto</span> observable = <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3).publish();</div>
 <div class="line">    observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#1 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>

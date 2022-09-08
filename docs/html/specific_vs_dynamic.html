@@ -127,7 +127,7 @@ ReactivePlusPlus solution</h1>
 <p>There detailed list with explanations:</p><ul>
 <li>observables:<ul>
 <li><a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1specific__observable.html">rpp::specific_observable&lt;T, OnSubscribeFn&gt;</a> - Stores type of <code>on_subscribe</code> callback explicitly via <code>OnSubscribe</code> template type. Due to explicit type of callback such an observable can obtains ANY specialization of subscriber and ANY specialization of observers without construction of <code>dynamic_</code> specializations</li>
-<li><a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observable.html">rpp::dynamic_observable&lt;T&gt;</a> - stores callback as shared_ptr to base class of <code><a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a></code> and calling callback via virtual function. Due to this limitation this observable can obtain only <code>dynamic_observer</code> and <code>dynamic_subscriber</code></li>
+<li><a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observable.html">rpp::dynamic_observable&lt;T&gt;</a> - stores callback as shared_ptr to base class of <code><a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">rpp::specific_observable</a></code> and calling callback via virtual function. Due to this limitation this observable can obtain only <code>dynamic_observer</code> and <code>dynamic_subscriber</code></li>
 </ul>
 </li>
 <li>observers<ul>

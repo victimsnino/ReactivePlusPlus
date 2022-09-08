@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('classrpp_1_1dynamic__observable.html',
 </div><!--header-->
 <div class="contents">
 
-<p>type-erased alternative of observable (comparing to <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a>).  
+<p>type-erased alternative of observable (comparing to <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">rpp::specific_observable</a>).  
  <a href="classrpp_1_1dynamic__observable.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="dynamic__observable_8hpp_source.html">dynamic_observable.hpp</a>&gt;</code></p>
@@ -154,10 +154,18 @@ template&lt;constraint::observable_of_type&lt; Type &gt; TObs&gt; </td></tr>
 <div class="textblock"><h3>template&lt;constraint::decayed_type Type&gt;<br />
 class rpp::dynamic_observable&lt; Type &gt;</h3>
 
-<p>type-erased alternative of observable (comparing to <a class="el" href="classrpp_1_1specific__observable.html" title="observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is ...">rpp::specific_observable</a>). </p>
+<p>type-erased alternative of observable (comparing to <a class="el" href="classrpp_1_1specific__observable.html" title="Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler....">rpp::specific_observable</a>). </p>
+<p>Type-less observable (or partially untyped) that has the notion of Type but hides the notion of on_subscribe&lt;Type&gt; for C++ compiler.</p>
 <p>It uses type-erasure mechanism to hide type of OnSubscribeFn. But it has higher cost in the terms of performance due to usage of heap. Use it only when you need to store observable as member variable or something like this </p><dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">Type</td><td>is type of value provided by this observable </td></tr>
+    <tr><td class="paramname">Type</td><td>is type of value provided by this observable</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This is a C++ technique called type-erasure. Multiple instances of the observable&lt;type&gt; that may have different upstream graphs are considered homogeneous. i.e. They can be stored in the same container, e.g. std::vector.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Type</td><td>is the value type. Observable of type means this source could emit a sequence of items of that "Type". </td></tr>
   </table>
   </dd>
 </dl>

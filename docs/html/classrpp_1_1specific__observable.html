@@ -100,10 +100,10 @@ $(document).ready(function(){initNavTree('classrpp_1_1specific__observable.html'
 </div><!--header-->
 <div class="contents">
 
-<p>observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is on stack (instead of allocating it somewhere).  
+<p>Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler. e.g. observable&lt;int, observable&lt;bool, ...recursive...&gt;&gt; is different from observable&lt;int, observable&lt;int, ...&gt;&gt;.  
  <a href="classrpp_1_1specific__observable.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="specific__observable_8hpp_source.html">specific_observable.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="observables_2fwd_8hpp_source.html">fwd.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -130,7 +130,16 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><h3>template&lt;constraint::decayed_type Type, constraint::on_subscribe_fn&lt; Type &gt; OnSubscribeFn&gt;<br />
 class rpp::specific_observable&lt; Type, OnSubscribeFn &gt;</h3>
 
-<p>observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is on stack (instead of allocating it somewhere). </p>
+<p>Type-ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler. e.g. observable&lt;int, observable&lt;bool, ...recursive...&gt;&gt; is different from observable&lt;int, observable&lt;int, ...&gt;&gt;. </p>
+<p>observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is on stack (instead of allocating it somewhere).</p>
+<p>This is a C++ technique about de-virtualization. To achieve polymorphic behavior, we could either go for function virtualization or function overload. However, virtualization is more expensive than function overload in both compile time and runtime. Therefore, we go for function overload. Actually, we use more advanced functor paradigm for better performance.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Type</td><td>is the value type. Observable of type means this source could emit a sequence of items of that "Type". </td></tr>
+    <tr><td class="paramname">OnSubscribeFn</td><td>is the on_subscribe functor that is called when a subscriber subscribes to this observable.</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>It has better performance comparing to <a class="el" href="classrpp_1_1dynamic__observable.html" title="type-erased alternative of observable (comparing to rpp::specific_observable).">rpp::dynamic_observable</a>. Use it if possible. But it has worse usability due to OnSubscribeFn template parameter. </p><dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Type</td><td>is type of value provided by this observable </td></tr>

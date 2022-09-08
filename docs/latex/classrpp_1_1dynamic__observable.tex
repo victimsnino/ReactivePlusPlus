@@ -38,11 +38,20 @@ class rpp\+::dynamic\+\_\+observable$<$ Type $>$}
 
 type-\/erased alternative of observable (comparing to \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}). 
 
+Type-\/less observable (or partially untyped) that has the notion of Type but hides the notion of on\+\_\+subscribe$<$\+Type$>$ for C++ compiler.
+
 It uses type-\/erasure mechanism to hide type of On\+Subscribe\+Fn. But it has higher cost in the terms of performance due to usage of heap. Use it only when you need to store observable as member variable or something like this 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em Type} & is type of value provided by this observable \\
+{\em Type} & is type of value provided by this observable\\
 \hline
 \end{DoxyTemplParams}
+This is a C++ technique called type-\/erasure. Multiple instances of the observable$<$type$>$ that may have different upstream graphs are considered homogeneous. i.\+e. They can be stored in the same container, e.\+g. std\+::vector.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Type} & is the value type. Observable of type means this source could emit a sequence of items of that \char`\"{}\+Type\char`\"{}. \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

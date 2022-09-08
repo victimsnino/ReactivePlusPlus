@@ -2,12 +2,12 @@
 \label{classrpp_1_1specific__observable}\index{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}}
 
 
-observable specified with specific type of On\+Subscribe\+Fn. Used to store On\+Subscribe\+Fn function as is on stack (instead of allocating it somewhere).  
+Type-\/ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler. e.\+g. observable$<$int, observable$<$bool, ...\+recursive...$>$$>$ is different from observable$<$int, observable$<$int, ...$>$$>$.  
 
 
 
 
-{\ttfamily \#include $<$specific\+\_\+observable.\+hpp$>$}
+{\ttfamily \#include $<$fwd.\+hpp$>$}
 
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -36,8 +36,19 @@ observable specified with specific type of On\+Subscribe\+Fn. Used to store On\+
 \subsubsection*{template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$\newline
 class rpp\+::specific\+\_\+observable$<$ Type, On\+Subscribe\+Fn $>$}
 
-observable specified with specific type of On\+Subscribe\+Fn. Used to store On\+Subscribe\+Fn function as is on stack (instead of allocating it somewhere). 
+Type-\/ful observable (or typed) that has the notion of Type and upstream observables for C++ compiler. e.\+g. observable$<$int, observable$<$bool, ...\+recursive...$>$$>$ is different from observable$<$int, observable$<$int, ...$>$$>$. 
 
+observable specified with specific type of On\+Subscribe\+Fn. Used to store On\+Subscribe\+Fn function as is on stack (instead of allocating it somewhere).
+
+This is a C++ technique about de-\/virtualization. To achieve polymorphic behavior, we could either go for function virtualization or function overload. However, virtualization is more expensive than function overload in both compile time and runtime. Therefore, we go for function overload. Actually, we use more advanced functor paradigm for better performance.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Type} & is the value type. Observable of type means this source could emit a sequence of items of that \char`\"{}\+Type\char`\"{}. \\
+\hline
+{\em On\+Subscribe\+Fn} & is the on\+\_\+subscribe functor that is called when a subscriber subscribes to this observable.\\
+\hline
+\end{DoxyParams}
 It has better performance comparing to \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable}}. Use it if possible. But it has worse usability due to On\+Subscribe\+Fn template parameter. 
 \begin{DoxyTemplParams}{Template Parameters}
 {\em Type} & is type of value provided by this observable \\
