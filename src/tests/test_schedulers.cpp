@@ -554,6 +554,35 @@ SCENARIO("trampoline scheduler regards unsubscribed subscription")
             });
         }
     }
+
+    WHEN("job unsubscribes subscription but still reschedules itself")
+    {
+        auto sub    = rpp::composite_subscription{};
+        auto worker = rpp::schedulers::trampoline::create_worker(sub);
+
+        auto run_counter{0};
+        auto rescheduling_delay = std::chrono::nanoseconds{0};
+
+        worker.schedule([&]() -> rpp::schedulers::optional_duration
+        {
+            ++run_counter;
+
+            // Schedule a job so that job queue is not empty and hence we could cover more code.
+            worker.schedule([&]() -> rpp::schedulers::optional_duration
+            {
+                ++run_counter;
+                return std::nullopt;
+            });
+
+            sub.unsubscribe();
+            return rescheduling_delay;
+        });
+
+        THEN("shall see job runs once")
+        {
+            CHECK(run_counter == 1);
+        }
+    }
 }
 
 SCENARIO("RunLoop scheduler dispatches tasks only manually")
