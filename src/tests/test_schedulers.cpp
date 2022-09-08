@@ -583,6 +583,42 @@ SCENARIO("trampoline scheduler regards unsubscribed subscription")
             CHECK(run_counter == 1);
         }
     }
+
+    WHEN("unsubscribe subscription when draining queue sleeps for the deferred job")
+    {
+        auto sub    = rpp::composite_subscription{};
+        auto worker = rpp::schedulers::trampoline::create_worker(sub);
+
+        auto run_counter{0};
+        const auto delay_short = std::chrono::duration_cast<rpp::schedulers::duration>(std::chrono::seconds{1});
+        const auto delay_long = std::chrono::duration_cast<rpp::schedulers::duration>(std::chrono::seconds{2});
+
+        worker.schedule([&]() -> rpp::schedulers::optional_duration
+        {
+            ++run_counter;
+
+            // Schedule a recurrently deferred job so that job queue is not empty; hence we could test draining queue.
+            worker.schedule(delay_long, [&]() -> rpp::schedulers::optional_duration
+            {
+                ++run_counter;
+                return delay_long;
+            });
+
+            // Sleep for enough of time so that trampoline thread is sleeping for the future job that we just scheduled.
+            std::thread([&]
+            {
+                std::this_thread::sleep_for(delay_short);
+                sub.unsubscribe();
+            }).detach();
+
+            return std::nullopt;
+        });
+
+        THEN("shall see job runs once")
+        {
+            CHECK(run_counter == 1);
+        }
+    }
 }
 
 SCENARIO("RunLoop scheduler dispatches tasks only manually")
