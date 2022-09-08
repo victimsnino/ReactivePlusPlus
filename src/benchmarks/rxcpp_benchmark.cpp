@@ -722,6 +722,40 @@ TEST_CASE("take_last")
     };
 }
 
+TEST_CASE("take_until")
+{
+    BENCHMARK_ADVANCED("take_until construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        const auto obs = rxcpp::sources::create<int>([](const auto& sub)
+        {
+            sub.on_next(1);
+            sub.on_completed();
+        });
+
+        std::vector<rxcpp::subscriber<int>> subs{};
+        for (int i = 0; i < meter.runs(); ++i)
+            subs.push_back(rxcpp::make_subscriber<int>());
+
+        meter.measure([&](int i)
+        {
+            return obs.take_until(rxcpp::observable<>::from(1)).subscribe(subs[i]);
+        });
+    };
+
+    BENCHMARK_ADVANCED("sending of values from observable via take_until to subscriber")(Catch::Benchmark::Chronometer meter)
+    {
+        rxcpp::sources::create<int>([&](const auto& sub)
+                {
+                    meter.measure([&]
+                    {
+                        sub.on_next(1);
+                    });
+                })
+                .take_until(rxcpp::observable<>::never<int>())
+                .subscribe([](const auto&) {});
+    };
+}
+
 TEST_CASE("first")
 {
     BENCHMARK_ADVANCED("first construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)

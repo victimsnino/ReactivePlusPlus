@@ -17,9 +17,9 @@ namespace rpp::details
 {
 struct early_unsubscribe_state
 {
-    early_unsubscribe_state(const composite_subscription& subscription_of_subscriber) : childs_subscriptions(subscription_of_subscriber.make_child()) {}
+    early_unsubscribe_state(const composite_subscription& subscription_of_subscriber) : children_subscriptions(subscription_of_subscriber.make_child()) {}
 
     // use this subscription as source for any child subscription that should be early unsubscribed
-    composite_subscription childs_subscriptions;
+    composite_subscription children_subscriptions;
 };
 } // namespace rpp::details

@@ -50,7 +50,7 @@ struct merge_on_error
 {
     void operator()(const std::exception_ptr& err, const constraint::subscriber auto& sub, const auto& state) const
     {
-        state->childs_subscriptions.unsubscribe();
+        state->children_subscriptions.unsubscribe();
 
         std::lock_guard lock{state->mutex};
         sub.on_error(err);
@@ -78,7 +78,7 @@ struct merge_on_next
 
         state->count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);
 
-        new_observable.subscribe(create_subscriber_with_state<ValueType>(state->childs_subscriptions.make_child(),
+        new_observable.subscribe(create_subscriber_with_state<ValueType>(state->children_subscriptions.make_child(),
                                                                          merge_forwarding_on_next{},
                                                                          merge_on_error{},
                                                                          merge_on_completed{},
@@ -99,7 +99,7 @@ struct merge_impl
 
         state->count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);
 
-        auto subscription = state->childs_subscriptions.make_child();
+        auto subscription = state->children_subscriptions.make_child();
         return create_subscriber_with_state<Type>(std::move(subscription),
                                                   merge_on_next{},
                                                   merge_on_error{},

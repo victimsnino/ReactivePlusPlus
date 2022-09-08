@@ -157,3 +157,7 @@
 
 # TODO:
 - [ ] Add valid spinlock and use it in appropriate places to boost performance
+- [ ] Add delay as feature request
+- [ ] Add sample as feature request
+- [ ] Polish take_until
+- [ ] Polish earyly unsubscribe (check for unsubscription)
