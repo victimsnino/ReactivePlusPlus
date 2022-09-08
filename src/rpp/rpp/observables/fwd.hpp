@@ -13,6 +13,8 @@
 #include <rpp/subscribers/fwd.hpp>   // on_subscribe_fn
 #include <rpp/utils/constraints.hpp> // decayed type
 
+#include <functional>
+
 namespace rpp::details
 {
 struct observable_tag{};
