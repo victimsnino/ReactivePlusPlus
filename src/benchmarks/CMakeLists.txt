@@ -19,7 +19,7 @@ function(add_benchmark_extended benchmark_name library)
 
   add_test(NAME ${TARGET} COMMAND  $<TARGET_FILE:${TARGET}> -r xml -o ${RPP_TEST_BENCHMARKS_RESULTS_DIR}/${TARGET}_result.txt)
 
-  if (NOT library STREQUAL "rxcpp")
+  if (NOT library STREQUAL "rpp")
     get_target_property(DEP_DIR ${library} INTERFACE_INCLUDE_DIRECTORIES)
     target_include_directories(${TARGET} SYSTEM PRIVATE ${DEP_DIR})
   endif()
