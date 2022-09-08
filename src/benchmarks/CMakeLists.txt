@@ -9,25 +9,29 @@
 #
 
 
-function(add_benchmark benchmark_name)
+function(add_benchmark_extended benchmark_name library source_file)
   set(TARGET ${benchmark_name}_benchmark)
 
-  add_executable(${TARGET} ${TARGET}.cpp)
+  add_executable(${TARGET} ${source_file}.cpp)
 
-  target_link_libraries(${TARGET} PRIVATE ${benchmark_name} Catch2::Catch2WithMain)
+  target_link_libraries(${TARGET} PRIVATE ${library} Catch2::Catch2WithMain)
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
-
-  if (benchmark_name STREQUAL "rxcpp")
-    get_target_property(DEP_DIR ${benchmark_name} INTERFACE_INCLUDE_DIRECTORIES)
-    target_include_directories(${TARGET} SYSTEM PRIVATE ${DEP_DIR})
-  endif()
 
   add_test(NAME ${TARGET} COMMAND  $<TARGET_FILE:${TARGET}> -r xml -o ${RPP_TEST_BENCHMARKS_RESULTS_DIR}/${TARGET}_result.txt)
 
+  if (NOT library STREQUAL "rxcpp")
+    get_target_property(DEP_DIR ${library} INTERFACE_INCLUDE_DIRECTORIES)
+    target_include_directories(${TARGET} SYSTEM PRIVATE ${DEP_DIR})
+  endif()
+
+endfunction()
+
+function(add_benchmark benchmark_name)
+  add_benchmark_with_source(benchmark_name benchmark_name benchmark_name)
 endfunction()
 
 add_benchmark(rpp)
-add_benchmark(rpp_type_erased)
+add_benchmark_extended(rpp_type_erased rpp rpp)
 
 
 if (RPP_BUILD_RXCPP)
