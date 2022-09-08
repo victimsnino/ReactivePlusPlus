@@ -60,7 +60,7 @@ struct take_until_on_error
                     const std::shared_ptr<take_until_state> &state) const
     {
         // Early unsubscribe the sub-subscription tree for the streams of this and above. This early-unsubscribing prevents the race-condition in between on_next and on_error events.
-        state->childs_subscriptions.unsubscribe();
+        state->children_subscriptions.unsubscribe();
 
         std::lock_guard lock{state->mutex};
 
@@ -78,7 +78,7 @@ struct take_until_on_completed
                     const std::shared_ptr<take_until_state>& state) const
     {
         // Early unsubscribe the sub-subscription tree for the streams of this and above. This early-unsubscribing prevents the race-condition in between on_next and on_completed events.
-        state->childs_subscriptions.unsubscribe();
+        state->children_subscriptions.unsubscribe();
 
         std::lock_guard lock{state->mutex};
 
@@ -97,7 +97,7 @@ struct take_until_throttler_on_next {
                     const std::shared_ptr<take_until_state> &state) const
     {
         // Early unsubscribe the sub-subscription tree for the streams of this and above. This early-unsubscribing prevents the race-condition in between on_next and on_completed events.
-        state->childs_subscriptions.unsubscribe();
+        state->children_subscriptions.unsubscribe();
 
         std::lock_guard lock{state->mutex};
 
@@ -132,7 +132,7 @@ struct take_until_impl
         auto state = std::make_shared<take_until_state>(subscriber.get_subscription());
 
         // Subscribe to trigger observable
-        auto until_subscription = state->childs_subscriptions.make_child();
+        auto until_subscription = state->children_subscriptions.make_child();
         m_until_observable.subscribe(
             create_subscriber_with_state<TriggerType>(std::move(until_subscription),
                                                       take_until_throttler_on_next<TriggerType>{},
@@ -141,7 +141,7 @@ struct take_until_impl
                                                       std::forward<decltype(subscriber)>(subscriber),
                                                       state));
 
-        auto subscription = state->childs_subscriptions.make_child();
+        auto subscription = state->children_subscriptions.make_child();
         return create_subscriber_with_state<Type>(std::move(subscription),
                                                   take_until_on_next<Type>{},
                                                   take_until_on_error{},

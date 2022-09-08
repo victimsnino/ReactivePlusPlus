@@ -111,7 +111,7 @@ private:
     static auto create_inner_subscriber(auto&&                 subscriber,
                                         std::shared_ptr<State> state)
     {
-        auto subscription = state->childs_subscriptions.make_child();
+        auto subscription = state->children_subscriptions.make_child();
         return create_subscriber_with_state<ValueType>(std::move(subscription),
                                                        combine_latest_on_next<I>{},
                                                        combine_latest_on_error{},
