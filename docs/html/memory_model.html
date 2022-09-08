@@ -96,12 +96,12 @@ $(document).ready(function(){initNavTree('memory_model.html',''); initResizable(
 <div class="title">Memory Model </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md21"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md20"></a>
 Overview</h1>
 <p>In ReactivePlusPlus there is new concept unique for this implementation: rpp::memory_model:</p>
 <p>Some of the operators and sources like <code>rpp::source::just</code> or <code>rpp::operators::start_with</code> accepts user's variables for usage. Some of this types can be such an expensive to copy or move and it would be preferable to copy it once to heap, but some other types (like POD) are cheap enough and usage of heap would be overkill. But these variables should be saved inside somehow!</p>
 <p>So, RPP provides ability to select strategy "how to deal with such a variables" via <code>rpp::memory_model</code> enum.</p>
-<h1><a class="anchor" id="autotoc_md22"></a>
+<h1><a class="anchor" id="autotoc_md21"></a>
 Examples</h1>
 <p>For example, <code>rpp::source::just</code></p>
 <div class="fragment"><div class="line"><a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(my_custom_variable);</div>

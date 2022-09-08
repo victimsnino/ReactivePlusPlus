@@ -1,6 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"structrpp_1_1details_1_1switch__on__next__on__next.html#abc9c499cefc0dd0f602e8466bd3d1122":[3,0,0,0,89,0],
 "structrpp_1_1details_1_1switch__on__next__state.html":[3,0,0,0,90],
 "structrpp_1_1details_1_1switch__on__next__state.html#a81870283845903dc01641f6b83c3fe87":[3,0,0,0,90,0],
 "structrpp_1_1details_1_1take__impl.html":[3,0,0,0,91],
