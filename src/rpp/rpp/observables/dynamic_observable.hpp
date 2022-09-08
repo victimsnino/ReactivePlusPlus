@@ -76,11 +76,12 @@ private:
 namespace rpp
 {
 /**
- * \brief type-erased alternative of observable (comparing to rpp::specific_observable).
+ * \brief Type-less observable (or partially untyped) that has the notion of Type but hides the notion of on_subscribe<Type> for C++ compiler.
  *
- * It uses type-erasure mechanism to hide type of OnSubscribeFn. But it has higher cost in the terms of performance due to usage of heap.
- * Use it only when you need to store observable as member variable or something like this
- * \tparam Type is type of value provided by this observable
+ * \details This is a C++ technique called type-erasure. Multiple instances of the observable<type> that may have different upstream graphs are considered homogeneous. i.e. They can be stored in the same container, e.g. std::vector.
+ * As a result, it uses heap to store on_subscribe and hide its type.
+ *
+ * \param Type is the value type. Observable of type means this source could emit a sequence of items of that "Type".
  * \ingroup observables
  */
 template<constraint::decayed_type Type>

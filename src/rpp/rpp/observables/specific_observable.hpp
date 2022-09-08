@@ -23,11 +23,15 @@
 namespace rpp
 {
 /**
- * \brief observable specified with specific type of OnSubscribeFn. Used to store OnSubscribeFn function as is on stack (instead of allocating it somewhere).
+ * \brief Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler. e.g. observable<int, map<bool, ...recursive...>> is different from observable<int, filter<int, ...>>.
  *
- * It has better performance comparing to rpp::dynamic_observable. Use it if possible. But it has worse usability due to OnSubscribeFn template parameter.
- * \tparam Type is type of value provided by this observable
- * \tparam OnSubscribeFn is type of function/functor/callable used during subscription on this observable
+ * \details This is a C++ technique about de-virtualization. To achieve polymorphic behavior, we could either go for function virtualization or function overload. 
+ * However, virtualization is more expensive than function overload in both compile time and runtime. 
+ * Therefore, we go for function overload. Actually, we use more advanced functor paradigm for better performance.
+ * As a result it has better performance comparing to rpp::dynamic_observable. Use it if possible. But it has worse usability due to OnSubscribeFn template parameter.
+ *
+ * \param Type is the value type. Observable of type means this source could emit a sequence of items of that "Type".
+ * \param OnSubscribeFn is the on_subscribe functor that is called when a subscriber subscribes to this observable. specific_observable stores OnSubscribeFn as member variable, so, it is stored on stack (instead of allocating it on heap).
  * \ingroup observables
  */
 template<constraint::decayed_type Type, constraint::on_subscribe_fn<Type> OnSubscribeFn>
