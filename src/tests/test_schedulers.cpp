@@ -459,7 +459,7 @@ SCENARIO("trampoline scheduler dispatches task in the same thread")
     }
 }
 
-static std::vector<std::string> trampoline_expected_simulate_nested_scheduling(std::string thread_id)
+static std::vector<std::string> trampoline_expected_simulate_nested_scheduling(const std::string& thread_id)
 {
     return std::vector<std::string>{
         "Task 1 starts "s + thread_id,
