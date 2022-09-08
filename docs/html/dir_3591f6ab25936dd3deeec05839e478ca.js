@@ -28,6 +28,7 @@ var dir_3591f6ab25936dd3deeec05839e478ca =
     [ "switch_on_next.hpp", "switch__on__next_8hpp_source.html", null ],
     [ "take.hpp", "take_8hpp_source.html", null ],
     [ "take_last.hpp", "take__last_8hpp_source.html", null ],
+    [ "take_until.hpp", "take__until_8hpp_source.html", null ],
     [ "take_while.hpp", "take__while_8hpp_source.html", null ],
     [ "window.hpp", "window_8hpp_source.html", null ],
     [ "with_latest_from.hpp", "with__latest__from_8hpp_source.html", null ]

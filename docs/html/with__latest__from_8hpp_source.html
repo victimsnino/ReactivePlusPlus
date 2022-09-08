@@ -160,7 +160,7 @@ $(document).ready(function(){initNavTree('with__latest__from_8hpp_source.html','
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;{</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp; sub, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; state)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        state-&gt;childs_subscriptions.unsubscribe();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        state-&gt;children_subscriptions.unsubscribe();</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        std::lock_guard lock{state-&gt;mutex};</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        sub.on_completed();</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
@@ -170,7 +170,7 @@ $(document).ready(function(){initNavTree('with__latest__from_8hpp_source.html','
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keywordtype">void</span> with_latest_from_subscribe(<span class="keyword">const</span> <span class="keyword">auto</span>&amp; state_ptr, <span class="keyword">const</span> TObs&amp; observable, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; subscriber)</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">using</span> Type = utils::extract_observable_type_t&lt;TObs&gt;;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    observable.subscribe(create_subscriber_with_state&lt;Type&gt;(state_ptr-&gt;childs_subscriptions.make_child(),</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    observable.subscribe(create_subscriber_with_state&lt;Type&gt;(state_ptr-&gt;children_subscriptions.make_child(),</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                                                            <a class="code" href="structrpp_1_1details_1_1with__latest__from__on__next__inner.html">with_latest_from_on_next_inner&lt;I&gt;</a>{},</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                                                            <a class="code" href="structrpp_1_1details_1_1merge__on__error.html">with_latest_from_on_error</a>{},</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                                            [](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;, <span class="keyword">const</span> <span class="keyword">auto</span>&amp;) {},</div>
@@ -240,7 +240,7 @@ $(document).ready(function(){initNavTree('with__latest__from_8hpp_source.html','
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                                               subscriber,</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                                               observables);</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keyword">auto</span> sub = state-&gt;childs_subscriptions.make_child();</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keyword">auto</span> sub = state-&gt;children_subscriptions.make_child();</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keywordflow">return</span> create_subscriber_with_state&lt;Type&gt;(std::move(sub),</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                                                  with_latest_from_on_next_outer{},</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                                                  with_latest_from_on_error{},</div>

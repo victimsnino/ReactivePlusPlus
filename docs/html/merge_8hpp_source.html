@@ -148,7 +148,7 @@ $(document).ready(function(){initNavTree('merge_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;{</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> std::exception_ptr&amp; err, <span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp; sub, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; state)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        state-&gt;childs_subscriptions.unsubscribe();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        state-&gt;children_subscriptions.unsubscribe();</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        std::lock_guard lock{state-&gt;mutex};</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        sub.on_error(err);</div>
@@ -176,7 +176,7 @@ $(document).ready(function(){initNavTree('merge_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        state-&gt;count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        new_observable.subscribe(create_subscriber_with_state&lt;ValueType&gt;(state-&gt;childs_subscriptions.make_child(),</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        new_observable.subscribe(create_subscriber_with_state&lt;ValueType&gt;(state-&gt;children_subscriptions.make_child(),</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                                                                         <a class="code" href="structrpp_1_1details_1_1merge__forwarding__on__next.html">merge_forwarding_on_next</a>{},</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                                                                         <a class="code" href="structrpp_1_1details_1_1merge__on__error.html">merge_on_error</a>{},</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                                                                         <a class="code" href="structrpp_1_1details_1_1merge__on__completed.html">merge_on_completed</a>{},</div>
@@ -197,7 +197,7 @@ $(document).ready(function(){initNavTree('merge_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        state-&gt;count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keyword">auto</span> subscription = state-&gt;childs_subscriptions.make_child();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keyword">auto</span> subscription = state-&gt;children_subscriptions.make_child();</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">return</span> create_subscriber_with_state&lt;Type&gt;(std::move(subscription),</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                                                  <a class="code" href="structrpp_1_1details_1_1merge__on__next.html">merge_on_next</a>{},</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                                                  merge_on_error{},</div>

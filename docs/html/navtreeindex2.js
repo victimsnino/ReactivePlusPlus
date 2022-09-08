@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"structrpp_1_1details_1_1combine__latest__state.html#a389294776520071229a1bd89b28d769a":[3,0,0,0,6,1],
 "structrpp_1_1details_1_1combine__latest__state.html#af4030beb3422214d08e1a1c531880d36":[3,0,0,0,6,0],
 "structrpp_1_1details_1_1concat__impl.html":[3,0,0,0,7],
 "structrpp_1_1details_1_1concat__impl.html#a9858ceb9409c6be4da22911700cbfe75":[3,0,0,0,7,0],
@@ -36,8 +37,8 @@ var NAVTREEINDEX2 =
 "structrpp_1_1details_1_1dynamic__observer__state__base.html#abe3f48ef6d728a9fa021c62ba3a3654e":[3,0,0,0,18,2],
 "structrpp_1_1details_1_1dynamic__observer__state__base.html#ad0bb505fa7c6b21a21f5ee350ab58439":[3,0,0,0,18,3],
 "structrpp_1_1details_1_1early__unsubscribe__state.html":[3,0,0,0,20],
-"structrpp_1_1details_1_1early__unsubscribe__state.html#a2b4848dfc71b0aa5be648ceffc1c3e59":[3,0,0,0,20,1],
 "structrpp_1_1details_1_1early__unsubscribe__state.html#ad1c4140a471ae01a26fb44faadfb40f1":[3,0,0,0,20,0],
+"structrpp_1_1details_1_1early__unsubscribe__state.html#af211f7b5d352b51263a0d6e7754588bc":[3,0,0,0,20,1],
 "structrpp_1_1details_1_1filter__impl.html":[3,0,0,0,21],
 "structrpp_1_1details_1_1filter__impl.html#a0307043d6c28c32203982111a5df78f2":[3,0,0,0,21,1],
 "structrpp_1_1details_1_1filter__impl.html#aab5c4ba645377c509bf1d56b4d441182":[3,0,0,0,21,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "structrpp_1_1details_1_1switch__on__next__impl.html#aabb82d6ae1cf67273a598a5a54c3b4d8":[3,0,0,0,87,1],
 "structrpp_1_1details_1_1switch__on__next__on__completed__inner.html":[3,0,0,0,88],
 "structrpp_1_1details_1_1switch__on__next__on__completed__inner.html#a7881fe27f871d1bfc753eedc1a8de8bb":[3,0,0,0,88,0],
-"structrpp_1_1details_1_1switch__on__next__on__next.html":[3,0,0,0,89],
-"structrpp_1_1details_1_1switch__on__next__on__next.html#abc9c499cefc0dd0f602e8466bd3d1122":[3,0,0,0,89,0]
+"structrpp_1_1details_1_1switch__on__next__on__next.html":[3,0,0,0,89]
 };

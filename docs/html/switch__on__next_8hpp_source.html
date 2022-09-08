@@ -154,7 +154,7 @@ $(document).ready(function(){initNavTree('switch__on__next_8hpp_source.html','')
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keyword">using</span> ValueType = utils::extract_observable_type_t&lt;TObs&gt;;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        state-&gt;current_inner_observable.unsubscribe();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        state-&gt;current_inner_observable = state-&gt;childs_subscriptions.make_child();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        state-&gt;current_inner_observable = state-&gt;children_subscriptions.make_child();</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        state-&gt;current_inner_observable.add([state = std::weak_ptr{state}]</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        {</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> locked = state.lock())</div>
@@ -186,7 +186,7 @@ $(document).ready(function(){initNavTree('switch__on__next_8hpp_source.html','')
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        state-&gt;count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">auto</span> subscription = state-&gt;childs_subscriptions.make_child();</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">auto</span> subscription = state-&gt;children_subscriptions.make_child();</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">return</span> create_subscriber_with_state&lt;Type&gt;(std::move(subscription),</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                                                  <a class="code" href="structrpp_1_1details_1_1switch__on__next__on__next.html">switch_on_next_on_next</a>{},</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                                                  switch_on_next_on_error{},</div>

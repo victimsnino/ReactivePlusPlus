@@ -1,15 +1,21 @@
 var searchData=
 [
-  ['take_5fimpl_410',['take_impl',['../structrpp_1_1details_1_1take__impl.html',1,'rpp::details']]],
-  ['take_5flast_5fimpl_411',['take_last_impl',['../structrpp_1_1details_1_1take__last__impl.html',1,'rpp::details']]],
-  ['take_5flast_5fon_5fcompleted_412',['take_last_on_completed',['../structrpp_1_1details_1_1take__last__on__completed.html',1,'rpp::details']]],
-  ['take_5flast_5fon_5fnext_413',['take_last_on_next',['../structrpp_1_1details_1_1take__last__on__next.html',1,'rpp::details']]],
-  ['take_5flast_5fstate_414',['take_last_state',['../structrpp_1_1details_1_1take__last__state.html',1,'rpp::details']]],
-  ['take_5fon_5fnext_415',['take_on_next',['../structrpp_1_1details_1_1take__on__next.html',1,'rpp::details']]],
-  ['take_5fstate_416',['take_state',['../structrpp_1_1details_1_1take__state.html',1,'rpp::details']]],
-  ['take_5fwhile_5fimpl_417',['take_while_impl',['../structrpp_1_1details_1_1take__while__impl.html',1,'rpp::details']]],
-  ['trampoline_418',['trampoline',['../classrpp_1_1schedulers_1_1trampoline.html',1,'rpp::schedulers']]],
-  ['typed_5fobservable_5ftag_419',['typed_observable_tag',['../structrpp_1_1details_1_1typed__observable__tag.html',1,'rpp::details']]],
-  ['typed_5fobserver_5ftag_420',['typed_observer_tag',['../structrpp_1_1details_1_1typed__observer__tag.html',1,'rpp::details']]],
-  ['typed_5fsubscriber_5ftag_421',['typed_subscriber_tag',['../structrpp_1_1details_1_1typed__subscriber__tag.html',1,'rpp::details']]]
+  ['take_5fimpl_418',['take_impl',['../structrpp_1_1details_1_1take__impl.html',1,'rpp::details']]],
+  ['take_5flast_5fimpl_419',['take_last_impl',['../structrpp_1_1details_1_1take__last__impl.html',1,'rpp::details']]],
+  ['take_5flast_5fon_5fcompleted_420',['take_last_on_completed',['../structrpp_1_1details_1_1take__last__on__completed.html',1,'rpp::details']]],
+  ['take_5flast_5fon_5fnext_421',['take_last_on_next',['../structrpp_1_1details_1_1take__last__on__next.html',1,'rpp::details']]],
+  ['take_5flast_5fstate_422',['take_last_state',['../structrpp_1_1details_1_1take__last__state.html',1,'rpp::details']]],
+  ['take_5fon_5fnext_423',['take_on_next',['../structrpp_1_1details_1_1take__on__next.html',1,'rpp::details']]],
+  ['take_5fstate_424',['take_state',['../structrpp_1_1details_1_1take__state.html',1,'rpp::details']]],
+  ['take_5funtil_5fimpl_425',['take_until_impl',['../structrpp_1_1details_1_1take__until__impl.html',1,'rpp::details']]],
+  ['take_5funtil_5fon_5fcompleted_426',['take_until_on_completed',['../structrpp_1_1details_1_1take__until__on__completed.html',1,'rpp::details']]],
+  ['take_5funtil_5fon_5ferror_427',['take_until_on_error',['../structrpp_1_1details_1_1take__until__on__error.html',1,'rpp::details']]],
+  ['take_5funtil_5fon_5fnext_428',['take_until_on_next',['../structrpp_1_1details_1_1take__until__on__next.html',1,'rpp::details']]],
+  ['take_5funtil_5fstate_429',['take_until_state',['../structrpp_1_1details_1_1take__until__state.html',1,'rpp::details']]],
+  ['take_5funtil_5fthrottler_5fon_5fnext_430',['take_until_throttler_on_next',['../structrpp_1_1details_1_1take__until__throttler__on__next.html',1,'rpp::details']]],
+  ['take_5fwhile_5fimpl_431',['take_while_impl',['../structrpp_1_1details_1_1take__while__impl.html',1,'rpp::details']]],
+  ['trampoline_432',['trampoline',['../classrpp_1_1schedulers_1_1trampoline.html',1,'rpp::schedulers']]],
+  ['typed_5fobservable_5ftag_433',['typed_observable_tag',['../structrpp_1_1details_1_1typed__observable__tag.html',1,'rpp::details']]],
+  ['typed_5fobserver_5ftag_434',['typed_observer_tag',['../structrpp_1_1details_1_1typed__observer__tag.html',1,'rpp::details']]],
+  ['typed_5fsubscriber_5ftag_435',['typed_subscriber_tag',['../structrpp_1_1details_1_1typed__subscriber__tag.html',1,'rpp::details']]]
 ];

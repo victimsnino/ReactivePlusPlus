@@ -133,7 +133,7 @@ $(document).ready(function(){initNavTree('concat_8hpp_source.html',''); initResi
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="structrpp_1_1details_1_1concat__state.html">concat_state</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&amp; subscription_of_subscriber)</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        : <a class="code" href="structrpp_1_1details_1_1early__unsubscribe__state.html">early_unsubscribe_state</a>{subscription_of_subscriber}</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        , source_subscription{childs_subscriptions.make_child()} {}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        , source_subscription{children_subscriptions.make_child()} {}</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    std::mutex                                mutex{};</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="classrpp_1_1composite__subscription.html">composite_subscription</a>                    source_subscription;</div>
@@ -170,7 +170,7 @@ $(document).ready(function(){initNavTree('concat_8hpp_source.html',''); initResi
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                                           <span class="keyword">const</span> std::shared_ptr&lt;<a class="code" href="structrpp_1_1details_1_1concat__state.html">concat_state&lt;ValueType&gt;</a>&gt;&amp; state)</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    {</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        observable.subscribe(create_subscriber_with_state&lt;ValueType&gt;(</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            state-&gt;childs_subscriptions.make_child(),</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            state-&gt;children_subscriptions.make_child(),</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <a class="code" href="structrpp_1_1details_1_1merge__forwarding__on__next.html">concat_on_next_inner</a>{},</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <a class="code" href="structrpp_1_1details_1_1merge__on__error.html">concat_on_error</a>{},</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            [](<span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp; sub, <span class="keyword">const</span> std::shared_ptr&lt;<a class="code" href="structrpp_1_1details_1_1concat__state.html">concat_state&lt;ValueType&gt;</a>&gt;&amp; state)</div>

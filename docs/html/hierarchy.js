@@ -28,6 +28,7 @@ var hierarchy =
         [ "rpp::details::combine_latest_state< TCombiner, Types >", "structrpp_1_1details_1_1combine__latest__state.html", null ],
         [ "rpp::details::switch_on_next_state", "structrpp_1_1details_1_1switch__on__next__state.html", null ]
       ] ],
+      [ "rpp::details::take_until_state", "structrpp_1_1details_1_1take__until__state.html", null ],
       [ "rpp::details::with_latest_from_state< TSelector, ValueTypes >", "structrpp_1_1details_1_1with__latest__from__state.html", null ]
     ] ],
     [ "enable_shared_from_this", null, [
@@ -133,6 +134,9 @@ var hierarchy =
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
     [ "rpp::details::member_overload< Type, SpecificObservable, details::take_tag >", "structrpp_1_1details_1_1member__overload.html", [
+      [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
+    ] ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, details::take_until_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
     [ "rpp::details::member_overload< Type, SpecificObservable, details::take_while_tag >", "structrpp_1_1details_1_1member__overload.html", [
@@ -250,6 +254,11 @@ var hierarchy =
     [ "rpp::details::take_state", "structrpp_1_1details_1_1take__state.html", [
       [ "rpp::details::first_state", "structrpp_1_1details_1_1first__state.html", null ]
     ] ],
+    [ "rpp::details::take_until_impl< Type, TTriggerObservable >", "structrpp_1_1details_1_1take__until__impl.html", null ],
+    [ "rpp::details::take_until_on_completed", "structrpp_1_1details_1_1take__until__on__completed.html", null ],
+    [ "rpp::details::take_until_on_error", "structrpp_1_1details_1_1take__until__on__error.html", null ],
+    [ "rpp::details::take_until_on_next< Type >", "structrpp_1_1details_1_1take__until__on__next.html", null ],
+    [ "rpp::details::take_until_throttler_on_next< Type >", "structrpp_1_1details_1_1take__until__throttler__on__next.html", null ],
     [ "rpp::details::take_while_impl< Type, Predicate >", "structrpp_1_1details_1_1take__while__impl.html", null ],
     [ "rpp::subjects::details::unsubscribed", "structrpp_1_1subjects_1_1details_1_1unsubscribed.html", null ],
     [ "rpp::details::window_lift_impl< Type >", "structrpp_1_1details_1_1window__lift__impl.html", null ],
