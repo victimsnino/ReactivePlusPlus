@@ -43,7 +43,7 @@ struct last_on_completed
     void operator()(const constraint::subscriber auto& subscriber,
                     const last_state<Type>& state) const
     {
-        auto&& last_value = state.items[0];
+        auto&& last_value = state.items.at(0);
         if (!last_value.has_value())
         {
             subscriber.on_error(std::make_exception_ptr(utils::not_enough_emissions{"last() operator expects at least one emission from observable before completion"}));
