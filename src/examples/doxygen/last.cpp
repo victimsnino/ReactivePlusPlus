@@ -11,7 +11,7 @@ int main()
         .last()
         .subscribe(
             [](const auto &v) { std::cout << "-" << v; },
-            [](const std::exception_ptr &error) {},
+            [](const std::exception_ptr &) {},
             []() { std::cout << "-|" << std::endl; });
     // Source: -1-2-3-4-5--|
     // Output: -5-|
@@ -22,7 +22,7 @@ int main()
         .last()
         .subscribe(
             [](const auto &v) { std::cout << "-" << v; },
-            [](const std::exception_ptr &error) { std::cout << "-x"; },
+            [](const std::exception_ptr &) { std::cout << "-x"; },
             []() { std::cout << "-|" << std::endl; });
     // Source: -1-2-3-4-5--|
     // Output: -x
