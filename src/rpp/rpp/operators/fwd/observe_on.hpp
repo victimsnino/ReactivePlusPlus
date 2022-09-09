@@ -1,12 +1,12 @@
-//                  ReactivePlusPlus library
+//                   ReactivePlusPlus library
 //
-//          Copyright Aleksey Loginov 2022 - present.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          https://www.boost.org/LICENSE_1_0.txt)
+//           Copyright Aleksey Loginov 2022 - present.
+//                             TC Wang 2022 - present.
+//  Distributed under the Boost Software License, Version 1.0.
+//     (See accompanying file LICENSE_1_0.txt or copy at
+//           https://www.boost.org/LICENSE_1_0.txt)
 //
-// Project home: https://github.com/victimsnino/ReactivePlusPlus
-//
+//  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
 #pragma once
 
@@ -43,13 +43,24 @@ struct member_overload<Type, SpecificObservable, observe_on_tag>
     template<schedulers::constraint::scheduler TScheduler>
     auto observe_on(TScheduler&& scheduler) const& requires is_header_included<observe_on_tag, TScheduler>
     {
-        return static_cast<const SpecificObservable*>(this)->template lift<Type>(observe_on_impl<Type, std::decay_t<TScheduler>>{std::forward<TScheduler>(scheduler)});
+        return cast_this()->template lift<Type>(observe_on_impl<Type, std::decay_t<TScheduler>>{std::forward<TScheduler>(scheduler)});
     }
 
     template<schedulers::constraint::scheduler TScheduler>
     auto observe_on(TScheduler&& scheduler) && requires is_header_included<observe_on_tag, TScheduler>
     {
-        return std::move(*static_cast<SpecificObservable*>(this)).template lift<Type>(observe_on_impl<Type, std::decay_t<TScheduler>>{std::forward<TScheduler>(scheduler)});
+        return move_this().template lift<Type>(observe_on_impl<Type, std::decay_t<TScheduler>>{std::forward<TScheduler>(scheduler)});
+    }
+
+private:
+    const SpecificObservable* cast_this() const
+    {
+        return static_cast<const SpecificObservable*>(this);
+    }
+
+    SpecificObservable&& move_this()
+    {
+        return std::move(*static_cast<SpecificObservable*>(this));
     }
 };
 } // namespace rpp::details
