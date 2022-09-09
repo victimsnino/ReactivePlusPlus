@@ -85,7 +85,7 @@
 - [ ] sequence_equal
 - [ ] skip_until
 - [ ] skip_while
-- [ ] take_until
+- [x] take_until
 
 ### Combining
 
