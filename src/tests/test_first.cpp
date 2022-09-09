@@ -56,7 +56,7 @@ SCENARIO("first only emits once", "[first]")
         auto obs = rpp::source::never<int>();
         obs.first()
             .subscribe(mock);
-        THEN("shall see ---|")
+        THEN("shall not see neither completed nor error event")
         {
             CHECK(mock.get_received_values().empty());
             CHECK(mock.get_on_completed_count() == 0);
@@ -73,7 +73,7 @@ SCENARIO("first forwards error", "[first]")
         auto obs = rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}));
         obs.first()
             .subscribe(mock);
-        THEN("shall see error and no-completed")
+        THEN("shall see error and no-completed event")
         {
             CHECK(mock.get_received_values().empty());
             CHECK(mock.get_on_completed_count() == 0);
