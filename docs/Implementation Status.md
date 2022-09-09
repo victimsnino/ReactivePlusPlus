@@ -1,6 +1,6 @@
 # Implementation status {#status}
 
-## Foundamentals
+## Fundamentals
 
 - [x] Observables
   - [x] Specific Observable
@@ -58,7 +58,6 @@
     - [ ] skip
   - [ ] time
   - [ ] time_or_count
-  
 
 ### Filtering
 - [x] filter
@@ -87,6 +86,7 @@
 - [ ] skip_until
 - [ ] skip_while
 - [ ] take_until
+
 ### Combining
 
 - [x] merge
@@ -133,8 +133,8 @@
   - [x] do_on_next
   - [x] do_on_error
   - [x] do_on_completed
-- [ ] timeout
-- [ ] 
+- [ ] timeout 
+
 ### Connectable
 
 - [x] publish
@@ -142,7 +142,6 @@
 - [x] connect
 - [x] ref_count
 - [ ] replay
-
 
 ## Subjects
 
