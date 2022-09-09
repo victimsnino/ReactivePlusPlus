@@ -801,6 +801,7 @@ TEST_CASE("last")
         const auto obs = rpp::observable::create<int>([](const auto& sub)
         {
             sub.on_next(1);
+            sub.on_completed();
         });
 
         std::vector<rpp::dynamic_subscriber<int>> subs{};

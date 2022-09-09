@@ -796,6 +796,7 @@ TEST_CASE("last")
         const auto obs = rxcpp::sources::create<int>([](const auto& sub)
             {
                 sub.on_next(1);
+                sub.on_completed();
             });
 
         std::vector<rxcpp::subscriber<int>> subs{};
@@ -804,7 +805,7 @@ TEST_CASE("last")
 
         meter.measure([&](int i)
             {
-                return obs.take_last(1).subscribe(subs[i]);
+                return obs.last().subscribe(subs[i]);
             });
     };
 
@@ -817,7 +818,7 @@ TEST_CASE("last")
                         sub.on_next(1);
                     });
             })
-            .take_last(1)
+            .last()
             .subscribe([](const auto&) {});
     };
 }
