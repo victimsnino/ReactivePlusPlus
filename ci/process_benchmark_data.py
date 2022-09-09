@@ -10,7 +10,7 @@ commit_message = sys.argv[2].split("\n")[0] if len(sys.argv) > 2 else "Current P
 new_results = pd.DataFrame()
 for file in os.listdir(os.fsencode("./artifacts")):
     folder_with_results = os.fsdecode(file)
-    for source in ['rpp', 'rxcpp', 'rpp_type_erased_value']:
+    for source in ['rpp', 'rxcpp', 'rpp_type_erased']:
         file_name = f'./artifacts/{folder_with_results}/{source}_benchmark_result.txt'
         if not os.path.exists(file_name):
             continue
