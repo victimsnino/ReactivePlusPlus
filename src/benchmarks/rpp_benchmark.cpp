@@ -804,7 +804,7 @@ TEST_CASE("last")
         });
 
         std::vector<rpp::dynamic_subscriber<int>> subs{};
-        for (size_t i = 0; i < meter.runs(); ++i)
+        for (int i = 0; i < meter.runs(); ++i)
             subs.push_back(rpp::dynamic_subscriber<int>{});
 
         meter.measure([&](int i)
