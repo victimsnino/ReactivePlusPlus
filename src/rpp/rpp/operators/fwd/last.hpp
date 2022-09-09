@@ -28,9 +28,7 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, last_tag>
 {
     /**
-     * \brief emit only the last item.
-     *
-     * \warning According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
+     * \brief Emit only the last item provided before on_completed.
      *
      * \marble last
          {
@@ -38,7 +36,7 @@ struct member_overload<Type, SpecificObservable, last_tag>
              operator "last"     : +--3-|
          }
      *
-     * \return new specific_observable with the first operator as most recent operator.
+     * \return new specific_observable with the last operator as most recent operator.
      * \warning #include <rpp/operators/last.hpp>
      *
      * \par Example:
