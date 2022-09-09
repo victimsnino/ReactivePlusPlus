@@ -126,7 +126,7 @@
 - [x] repeat
   - [ ] scheduling (by default trampoline ?)
 - [x] subscribe_on
-- [ ] delay
+- [x] delay
 - [x] do/tap
   - [x] tap with observer
   - [x] tap with callbacks

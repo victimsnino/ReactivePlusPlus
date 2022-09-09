@@ -86,6 +86,7 @@
  * \ingroup operators
  */
 
+#include <rpp/operators/delay.hpp>
 #include <rpp/operators/do.hpp>
 #include <rpp/operators/observe_on.hpp>
 #include <rpp/operators/repeat.hpp>

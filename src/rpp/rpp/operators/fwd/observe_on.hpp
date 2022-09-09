@@ -29,11 +29,11 @@ struct member_overload<Type, SpecificObservable, observe_on_tag>
 {
     /**
     * \brief Emit emissions of observable starting from this point via provided scheduler
-    * 
+    *
     * \param scheduler is scheduler used for scheduling of OnNext
     * \return new specific_observable with the observe_on operator as most recent operator.
     * \warning #include <rpp/operators/observe_on.hpp>
-    * 
+    *
     * \par Example:
     * \snippet observe_on.cpp observe_on
     *
