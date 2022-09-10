@@ -55,15 +55,13 @@ struct member_overload<Type, SpecificObservable, take_until_tag>
     template<constraint::observable TTriggerObservable>
     auto take_until(TTriggerObservable&& until_observable) const& requires is_header_included<take_until_tag, TTriggerObservable>
     {
-        return cast_this()->template lift<Type>(
-            take_until_impl<Type, std::decay_t<TTriggerObservable>>{std::forward<TTriggerObservable>(until_observable)});
+        return cast_this()->template lift<Type>(take_until_impl<Type, std::decay_t<TTriggerObservable>>{std::forward<TTriggerObservable>(until_observable)});
     }
 
     template<constraint::observable TTriggerObservable>
     auto take_until(TTriggerObservable&& until_observable) && requires is_header_included<take_until_tag, TTriggerObservable>
     {
-        return cast_this()->template lift<Type>(
-            take_until_impl<Type, std::decay_t<TTriggerObservable>>{std::forward<TTriggerObservable>(until_observable)});
+        return move_this().template lift<Type>(take_until_impl<Type, std::decay_t<TTriggerObservable>>{std::forward<TTriggerObservable>(until_observable)});
     }
 
 private:

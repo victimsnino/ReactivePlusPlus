@@ -28,10 +28,10 @@ But RPP is header-only library, so, without enabling any extra options is just c
 - `RPP_BUILD_SFML_CODE` - (ON/OFF) build RPP code related to SFML or not (default OFF) - requires SFML to be installed
 
 
-### Building on Apple Silicon
+<!-- ### Building on Apple Silicon
 
 CMake supports building on Apple Silicon properly since 3.20.1. Make sure you
-have the [latest version][1] installed.
+have the [latest version][1] installed. -->
 
 ## Install
 

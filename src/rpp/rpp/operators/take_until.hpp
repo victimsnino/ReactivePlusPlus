@@ -12,7 +12,7 @@
 #pragma once
 
 #include <rpp/defs.hpp>
-#include <rpp/operators/details/early_unsubscribe.hpp>
+#include <rpp/operators/merge.hpp>
 #include <rpp/operators/fwd/take_until.hpp>
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/utils/functors.hpp>
@@ -25,64 +25,22 @@ IMPLEMENTATION_FILE(take_until_tag);
 
 namespace rpp::details
 {
+using take_until_state = merge_state;
 
-struct take_until_state : early_unsubscribe_state
-{
-    using early_unsubscribe_state::early_unsubscribe_state;
-
-    std::mutex mutex;
-    bool is_stopped{false};
-};
-
-/**
- * Functor (type-erasure) of "take_until" for on_next operator.
- */
-template<constraint::decayed_type Type>
-struct take_until_on_next
-{
-    void operator()(auto &&value,
-                    const auto &subscriber,
-                    const std::shared_ptr<take_until_state> &state) const {
-        std::lock_guard lock{state->mutex};
-
-        if (!state->is_stopped)
-            subscriber.on_next(std::forward<decltype(value)>(value));
-    }
-};
-
-/**
- * Functor (type-erasure) of "take_until" for on_error operator.
- */
-struct take_until_on_error
-{
-    void operator()(const std::exception_ptr &err,
-                    const auto &subscriber,
-                    const std::shared_ptr<take_until_state> &state) const
-    {
-        // Early unsubscribe the sub-subscription tree for the streams of this and above. This early-unsubscribing prevents the race-condition in between on_next and on_error events.
-        state->children_subscriptions.unsubscribe();
-
-        std::lock_guard lock{state->mutex};
-
-        state->is_stopped = true;
-        subscriber.on_error(err);
-    }
-};
+using take_until_on_next  = merge_forwarding_on_next;
+using take_until_on_error = merge_on_error;
 
 /**
  * Functor (type-erasure) of "take_until" for on_completed operator.
  */
 struct take_until_on_completed
 {
-    void operator()(const auto& subscriber,
-                    const std::shared_ptr<take_until_state>& state) const
+    void operator()(const auto& subscriber, const std::shared_ptr<take_until_state>& state) const
     {
-        // Early unsubscribe the sub-subscription tree for the streams of this and above. This early-unsubscribing prevents the race-condition in between on_next and on_completed events.
+        // Unsubscribe all sources due to we obtained "stop event"
         state->children_subscriptions.unsubscribe();
 
         std::lock_guard lock{state->mutex};
-
-        state->is_stopped = true;
         subscriber.on_completed();
     }
 };
@@ -90,30 +48,20 @@ struct take_until_on_completed
 /**
  * Functor (type-erasure) of throttler (trigger observable) for on_next operator.
  */
-template<constraint::decayed_type Type>
-struct take_until_throttler_on_next {
-    void operator()(auto &&,
-                    const auto &subscriber,
-                    const std::shared_ptr<take_until_state> &state) const
+struct take_until_throttler_on_next
+{
+    void operator()(auto&&, const auto& subscriber, const std::shared_ptr<take_until_state>& state) const
     {
-        // Early unsubscribe the sub-subscription tree for the streams of this and above. This early-unsubscribing prevents the race-condition in between on_next and on_completed events.
+        // Unsubscribe all sources due to we obtained "stop event"
         state->children_subscriptions.unsubscribe();
 
         std::lock_guard lock{state->mutex};
-
-        state->is_stopped = true;
         subscriber.on_completed();
     }
 };
 
-/**
- * Functor (type-erasure) of throttler (trigger observable) for on_error operator.
- */
-using take_until_throttler_on_error = take_until_on_error;
 
-/**
- * Functor (type-erasure) of throttler (trigger observable) for on_completed operator.
- */
+using take_until_throttler_on_error     = take_until_on_error;
 using take_until_throttler_on_completed = take_until_on_completed;
 
 /**
@@ -132,21 +80,19 @@ struct take_until_impl
         auto state = std::make_shared<take_until_state>(subscriber.get_subscription());
 
         // Subscribe to trigger observable
-        auto until_subscription = state->children_subscriptions.make_child();
-        m_until_observable.subscribe(
-            create_subscriber_with_state<TriggerType>(std::move(until_subscription),
-                                                      take_until_throttler_on_next<TriggerType>{},
-                                                      take_until_throttler_on_error{},
-                                                      take_until_throttler_on_completed{},
-                                                      std::forward<decltype(subscriber)>(subscriber),
-                                                      state));
+        m_until_observable.subscribe(create_subscriber_with_state<TriggerType>(state->children_subscriptions.make_child(),
+                                                                               take_until_throttler_on_next{},
+                                                                               take_until_throttler_on_error{},
+                                                                               take_until_throttler_on_completed{},
+                                                                               subscriber,
+                                                                               state));
 
         auto subscription = state->children_subscriptions.make_child();
         return create_subscriber_with_state<Type>(std::move(subscription),
-                                                  take_until_on_next<Type>{},
+                                                  take_until_on_next{},
                                                   take_until_on_error{},
                                                   take_until_on_completed{},
-                                                  std::forward<decltype(subscriber)>(subscriber),
+                                                  std::forward<TSub>(subscriber),
                                                   std::move(state));
     }
 };
