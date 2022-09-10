@@ -19,6 +19,7 @@
 #include <rpp/operators/fwd/first.hpp>
 #include <rpp/operators/fwd/flat_map.hpp>
 #include <rpp/operators/fwd/group_by.hpp>
+#include <rpp/operators/fwd/last.hpp>
 #include <rpp/operators/fwd/map.hpp>
 #include <rpp/operators/fwd/merge.hpp>
 #include <rpp/operators/fwd/multicast.hpp>

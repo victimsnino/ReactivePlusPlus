@@ -12,7 +12,7 @@
 
 #include <vector>
 
-#include <rpp/operators/first.hpp>
+#include <rpp/operators/last.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/just.hpp>
@@ -20,14 +20,16 @@
 
 #include "mock_observer.hpp"
 
-SCENARIO("first only emits once", "[first]")
+SCENARIO("last only emits once", "[last]")
 {
     GIVEN("observable of -1-|")
     {
         auto mock = mock_observer<int>{};
-        auto obs = rpp::source::just(1);
-        obs.first()
+
+        rpp::source::just(1)
+            .last()
             .subscribe(mock);
+
         THEN("shall see -1-|")
         {
             CHECK(mock.get_received_values() == std::vector{1});
@@ -39,12 +41,14 @@ SCENARIO("first only emits once", "[first]")
     GIVEN("observable of -1-2-3-|")
     {
         auto mock = mock_observer<int>{};
-        auto obs = rpp::source::just(1, 2, 3);
-        obs.first()
+
+        rpp::source::just(1, 2, 3)
+            .last()
             .subscribe(mock);
-        THEN("shall see -1-|")
+
+        THEN("shall see -3-|")
         {
-            CHECK(mock.get_received_values() == std::vector{1});
+            CHECK(mock.get_received_values() == std::vector{3});
             CHECK(mock.get_on_completed_count() == 1);
             CHECK(mock.get_on_error_count() == 0);
         }
@@ -53,9 +57,11 @@ SCENARIO("first only emits once", "[first]")
     GIVEN("observable of never")
     {
         auto mock = mock_observer<int>{};
-        auto obs = rpp::source::never<int>();
-        obs.first()
+
+        rpp::source::never<int>()
+            .last()
             .subscribe(mock);
+
         THEN("shall not see neither completed nor error event")
         {
             CHECK(mock.get_received_values().empty());
@@ -65,14 +71,16 @@ SCENARIO("first only emits once", "[first]")
     }
 }
 
-SCENARIO("first forwards error", "[first]")
+SCENARIO("last forwards error", "[last]")
 {
     GIVEN("observable of x-|")
     {
         auto mock = mock_observer<int>{};
-        auto obs = rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}));
-        obs.first()
+
+        rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}))
+            .last()
             .subscribe(mock);
+
         THEN("shall see error and no-completed event")
         {
             CHECK(mock.get_received_values().empty());
@@ -82,14 +90,16 @@ SCENARIO("first forwards error", "[first]")
     }
 }
 
-SCENARIO("first raises error for empty", "[first]")
+SCENARIO("last raises error for empty", "[last]")
 {
     GIVEN("observable of ---|")
     {
         auto mock = mock_observer<int>{};
-        auto obs = rpp::source::empty<int>();
-        obs.first()
+
+        rpp::source::empty<int>()
+            .last()
             .subscribe(mock);
+
         THEN("shall see -x")
         {
             CHECK(mock.get_received_values().empty());
