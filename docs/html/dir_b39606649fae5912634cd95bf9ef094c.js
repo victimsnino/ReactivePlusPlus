@@ -9,6 +9,7 @@ var dir_b39606649fae5912634cd95bf9ef094c =
     [ "first.hpp", "fwd_2first_8hpp_source.html", null ],
     [ "flat_map.hpp", "fwd_2flat__map_8hpp_source.html", null ],
     [ "group_by.hpp", "fwd_2group__by_8hpp_source.html", null ],
+    [ "last.hpp", "fwd_2last_8hpp_source.html", null ],
     [ "map.hpp", "fwd_2map_8hpp_source.html", null ],
     [ "merge.hpp", "fwd_2merge_8hpp_source.html", null ],
     [ "multicast.hpp", "fwd_2multicast_8hpp_source.html", null ],

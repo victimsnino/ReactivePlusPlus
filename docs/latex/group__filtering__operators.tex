@@ -14,6 +14,8 @@ Filtering operators are operators that emit only part of items that satisfies so
 \begin{DoxyCompactList}\small\item\em Emit only those items from an Observable that satisfies a provided predicate. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__filtering__operators_ga312fed7f4f86dcf4c374f9a0b615f078}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, first\+\_\+tag $>$\+::first}} () const \&requires is\+\_\+header\+\_\+included$<$ first\+\_\+tag
 \begin{DoxyCompactList}\small\item\em emit only the first item. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{group__filtering__operators_ga89357fe0e19400d72f3485751c10f240}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, last\+\_\+tag $>$\+::last}} () const \&requires is\+\_\+header\+\_\+included$<$ last\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Emit only the last item provided before on\+\_\+completed. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename... Args$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_ga17352df47509ccf9970b3ef4dcaf90fb}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, skip\+\_\+tag $>$\+::skip}} (size\+\_\+t count) const \&requires is\+\_\+header\+\_\+included$<$ skip\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Skip first {\ttfamily count} items provided by observable then send rest items as expected. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename... Args$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_gaef1d69d29be545c479d3126993eed494}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, take\+\_\+tag $>$\+::take}} (size\+\_\+t count) const \&requires is\+\_\+header\+\_\+included$<$ take\+\_\+tag
@@ -160,6 +162,53 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/first.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/first.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__filtering__operators_ga89357fe0e19400d72f3485751c10f240}\label{group__filtering__operators_ga89357fe0e19400d72f3485751c10f240}} 
+\index{Filtering Operators@{Filtering Operators}!last@{last}}
+\index{last@{last}!Filtering Operators@{Filtering Operators}}
+\doxysubsubsection{\texorpdfstring{last()}{last()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, last\+\_\+tag $>$\+::last (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&}
+
+
+
+Emit only the last item provided before on\+\_\+completed. 
+
+
+
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the last operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{last_8hpp_source}{rpp/operators/last.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3, 4, 5)}
+\DoxyCodeLine{        .last()}
+\DoxyCodeLine{        .subscribe(}
+\DoxyCodeLine{            [](\textcolor{keyword}{const} \textcolor{keyword}{auto} \&v) \{ std::cout << \textcolor{stringliteral}{"-\/"} << v; \},}
+\DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr \&) \{\},}
+\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"-\/|"} << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Source: -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
+\DoxyCodeLine{    \textcolor{comment}{// Output: -\/5-\/|}}
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::empty<int>()}
+\DoxyCodeLine{        .last()}
+\DoxyCodeLine{        .subscribe(}
+\DoxyCodeLine{            [](\textcolor{keyword}{const} \textcolor{keyword}{auto} \&v) \{ std::cout << \textcolor{stringliteral}{"-\/"} << v; \},}
+\DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr \&) \{ std::cout << \textcolor{stringliteral}{"-\/x"}; \},}
+\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"-\/|"} << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Source: -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
+\DoxyCodeLine{    \textcolor{comment}{// Output: -\/x}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/last.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/last.\+html}} 
 \end{DoxySeeAlso}
 \mbox{\Hypertarget{group__filtering__operators_ga17352df47509ccf9970b3ef4dcaf90fb}\label{group__filtering__operators_ga17352df47509ccf9970b3ef4dcaf90fb}} 
 \index{Filtering Operators@{Filtering Operators}!skip@{skip}}
