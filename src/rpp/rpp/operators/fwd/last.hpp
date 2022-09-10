@@ -41,6 +41,7 @@ struct member_overload<Type, SpecificObservable, last_tag>
      *
      * \par Example:
      * \snippet last.cpp last
+     * \snippet last.cpp last empty
      *
      * \ingroup filtering_operators
      * \see https://reactivex.io/documentation/operators/last.html

@@ -17,7 +17,7 @@ int main()
     // Output: -5-|
     //! [last]
 
-    //! [last][empty]
+    //! [last empty]
     rpp::source::empty<int>()
         .last()
         .subscribe(
@@ -26,6 +26,6 @@ int main()
             []() { std::cout << "-|" << std::endl; });
     // Source: -1-2-3-4-5--|
     // Output: -x
-    //! [last][empty]
+    //! [last empty]
     return 0;
 }
