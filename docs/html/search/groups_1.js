@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['combining_20operators_509',['Combining Operators',['../group__combining__operators.html',1,'']]],
-  ['conditional_20operators_510',['Conditional Operators',['../group__conditional__operators.html',1,'']]],
-  ['connectable_20operators_511',['Connectable Operators',['../group__connectable__operators.html',1,'']]],
-  ['creational_20operators_512',['Creational Operators',['../group__creational__operators.html',1,'']]]
+  ['combining_20operators_503',['Combining Operators',['../group__combining__operators.html',1,'']]],
+  ['conditional_20operators_504',['Conditional Operators',['../group__conditional__operators.html',1,'']]],
+  ['connectable_20operators_505',['Connectable Operators',['../group__connectable__operators.html',1,'']]],
+  ['creational_20operators_506',['Creational Operators',['../group__creational__operators.html',1,'']]]
 ];
