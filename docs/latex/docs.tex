@@ -271,7 +271,7 @@ As a a result, users can select preferable way of handling of their types. \hype
 In non-\/reactive programming functions/modules throws exception in case of something invalid. As a result, user can catch it and handle it somehow while internal state of objects can be in some state (invalid/untouched/partly valid) and etc.
 
 In reactive programming there is another way of exception mechanism\+: throwing exception as is from original place is useless. Notification about \char`\"{}something goes wrong\char`\"{} need to receive observer/subscriber, not owner of callstack. As a result, A\+NY exception obtained during emitting items and etc W\+O\+U\+LD be delivered to subscriber/observer via {\ttfamily on\+\_\+error} function and then unsubscribe happens. As a result, no any raw exceptions would be throws during using R\+PP. In case of emitting {\ttfamily on\+\_\+error} whole internal state of observable keeps valid but it doesn\textquotesingle{}t matter -\/ whole chain would be destroyed due to {\ttfamily on\+\_\+error} forces unsubscribe. Reactive catching mechanisms like {\ttfamily catch} or {\ttfamily retry} {\bfseries{re-\/subscribes}} on observable. it means, that new chain with new states would be created, not re-\/used existing one. \hypertarget{status}{}\doxysection{Implementation status}\label{status}
-\hypertarget{status_autotoc_md7}{}\doxysubsection{Foundamentals}\label{status_autotoc_md7}
+\hypertarget{status_autotoc_md7}{}\doxysubsection{Fundamentals}\label{status_autotoc_md7}
 
 \begin{DoxyItemize}
 \item \mbox{[}x\mbox{]} Observables
@@ -382,7 +382,7 @@ In reactive programming there is another way of exception mechanism\+: throwing 
 \item \mbox{[} \mbox{]} sequence\+\_\+equal
 \item \mbox{[} \mbox{]} skip\+\_\+until
 \item \mbox{[} \mbox{]} skip\+\_\+while
-\item \mbox{[} \mbox{]} take\+\_\+until 
+\item \mbox{[}x\mbox{]} take\+\_\+until
 \end{DoxyItemize}\hypertarget{status_autotoc_md13}{}\doxysubsubsection{Combining}\label{status_autotoc_md13}
 
 \begin{DoxyItemize}
@@ -440,7 +440,6 @@ In reactive programming there is another way of exception mechanism\+: throwing 
 \item \mbox{[}x\mbox{]} do\+\_\+on\+\_\+completed
 \end{DoxyItemize}
 \item \mbox{[} \mbox{]} timeout
-\item \mbox{[} \mbox{]} 
 \end{DoxyItemize}\hypertarget{status_autotoc_md18}{}\doxysubsubsection{Connectable}\label{status_autotoc_md18}
 
 \begin{DoxyItemize}

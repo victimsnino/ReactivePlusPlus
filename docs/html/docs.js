@@ -27,7 +27,7 @@ var docs =
       [ "Overview", "exception_guarantee.html#autotoc_md6", null ]
     ] ],
     [ "Implementation status", "status.html", [
-      [ "Foundamentals", "status.html#autotoc_md7", null ],
+      [ "Fundamentals", "status.html#autotoc_md7", null ],
       [ "Creating Observables", "status.html#autotoc_md8", null ],
       [ "Operators", "status.html#autotoc_md9", [
         [ "Transforming", "status.html#autotoc_md10", null ],
