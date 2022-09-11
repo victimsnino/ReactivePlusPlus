@@ -46,9 +46,10 @@ struct concat_state : public early_unsubscribe_state
 using concat_on_next_inner = merge_forwarding_on_next;
 using concat_on_error      = merge_on_error;
 
+template<constraint::decayed_type ValueType>
 struct concat_on_next_outer
 {
-    template<constraint::decayed_type ValueType, constraint::observable TObs, constraint::subscriber TSub>
+    template<constraint::observable TObs, constraint::subscriber TSub>
     void operator()(TObs&&                                          new_observable,
                     const TSub&                                     sub,
                     const std::shared_ptr<concat_state<ValueType>>& state) const
@@ -65,7 +66,6 @@ struct concat_on_next_outer
         subscribe_inner_subscriber(new_observable, sub, state);
     }
 private:
-    template<constraint::decayed_type ValueType>
     static void subscribe_inner_subscriber(const auto&                                     observable,
                                            const constraint::subscriber auto&              subscriber,
                                            const std::shared_ptr<concat_state<ValueType>>& state)
@@ -100,9 +100,9 @@ private:
 };
 
 
+template<constraint::decayed_type ValueType>
 struct concat_on_completed
 {
-    template<constraint::decayed_type ValueType>
     void operator()(const constraint::subscriber auto&              sub,
                     const std::shared_ptr<concat_state<ValueType>>& state) const
     {
@@ -135,9 +135,9 @@ struct concat_impl
         auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<std::mutex>{state, &state->mutex});
 
         return create_subscriber_with_state<Type>(state->source_subscription,
-                                                  concat_on_next_outer{},
+                                                  concat_on_next_outer<ValueType>{},
                                                   concat_on_error{},
-                                                  concat_on_completed{},
+                                                  concat_on_completed<ValueType>{},
                                                   std::move(subscriber),
                                                   std::move(state));
     }
