@@ -45,7 +45,6 @@ struct with_latest_from_state : early_unsubscribe_state
 template<size_t I>
 struct with_latest_from_on_next_inner
 {
-    template<typename TSelector, constraint::decayed_type... ValueTypes>
     void operator()(auto&& value, const constraint::subscriber auto&, const auto& state) const
     {
         std::lock_guard lock{state->mutexes[I]};
