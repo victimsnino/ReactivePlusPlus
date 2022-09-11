@@ -8,7 +8,7 @@ var searchData=
   ['take_5fon_5fnext_448',['take_on_next',['../structrpp_1_1details_1_1take__on__next.html',1,'rpp::details']]],
   ['take_5fstate_449',['take_state',['../structrpp_1_1details_1_1take__state.html',1,'rpp::details']]],
   ['take_5funtil_5fimpl_450',['take_until_impl',['../structrpp_1_1details_1_1take__until__impl.html',1,'rpp::details']]],
-  ['take_5funtil_5fstate_5fwith_5fserialized_5fmutex_451',['take_until_state_with_serialized_mutex',['../structrpp_1_1details_1_1take__until__state__with__serialized__mutex.html',1,'rpp::details']]],
+  ['take_5funtil_5fstate_5fwith_5fserialized_5fspinlock_451',['take_until_state_with_serialized_spinlock',['../structrpp_1_1details_1_1take__until__state__with__serialized__spinlock.html',1,'rpp::details']]],
   ['take_5funtil_5fthrottler_5fon_5fnext_452',['take_until_throttler_on_next',['../structrpp_1_1details_1_1take__until__throttler__on__next.html',1,'rpp::details']]],
   ['take_5fwhile_5fimpl_453',['take_while_impl',['../structrpp_1_1details_1_1take__while__impl.html',1,'rpp::details']]],
   ['trampoline_454',['trampoline',['../classrpp_1_1schedulers_1_1trampoline.html',1,'rpp::schedulers']]],

@@ -26,5 +26,5 @@ var searchData=
   ['switch_5fon_5fnext_5fon_5fcompleted_5finner_439',['switch_on_next_on_completed_inner',['../structrpp_1_1details_1_1switch__on__next__on__completed__inner.html',1,'rpp::details']]],
   ['switch_5fon_5fnext_5fon_5fnext_440',['switch_on_next_on_next',['../structrpp_1_1details_1_1switch__on__next__on__next.html',1,'rpp::details']]],
   ['switch_5fon_5fnext_5fstate_441',['switch_on_next_state',['../structrpp_1_1details_1_1switch__on__next__state.html',1,'rpp::details']]],
-  ['switch_5fon_5fnext_5fstate_5fwith_5fserialized_5fmutex_442',['switch_on_next_state_with_serialized_mutex',['../structrpp_1_1details_1_1switch__on__next__state__with__serialized__mutex.html',1,'rpp::details']]]
+  ['switch_5fon_5fnext_5fstate_5fwith_5fserialized_5fspinlock_442',['switch_on_next_state_with_serialized_spinlock',['../structrpp_1_1details_1_1switch__on__next__state__with__serialized__spinlock.html',1,'rpp::details']]]
 ];

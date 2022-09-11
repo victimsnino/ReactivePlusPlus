@@ -10,7 +10,7 @@ var searchData=
   ['take_5fon_5fnext_238',['take_on_next',['../structrpp_1_1details_1_1take__on__next.html',1,'rpp::details']]],
   ['take_5fstate_239',['take_state',['../structrpp_1_1details_1_1take__state.html',1,'rpp::details']]],
   ['take_5funtil_5fimpl_240',['take_until_impl',['../structrpp_1_1details_1_1take__until__impl.html',1,'rpp::details']]],
-  ['take_5funtil_5fstate_5fwith_5fserialized_5fmutex_241',['take_until_state_with_serialized_mutex',['../structrpp_1_1details_1_1take__until__state__with__serialized__mutex.html',1,'rpp::details']]],
+  ['take_5funtil_5fstate_5fwith_5fserialized_5fspinlock_241',['take_until_state_with_serialized_spinlock',['../structrpp_1_1details_1_1take__until__state__with__serialized__spinlock.html',1,'rpp::details']]],
   ['take_5funtil_5fthrottler_5fon_5fnext_242',['take_until_throttler_on_next',['../structrpp_1_1details_1_1take__until__throttler__on__next.html',1,'rpp::details']]],
   ['take_5fwhile_243',['take_while',['../group__conditional__operators.html#ga68ea040e75df34c47cdffd164d2a7c3d',1,'rpp::details::member_overload&lt; Type, SpecificObservable, take_while_tag &gt;']]],
   ['take_5fwhile_5fimpl_244',['take_while_impl',['../structrpp_1_1details_1_1take__while__impl.html',1,'rpp::details']]],

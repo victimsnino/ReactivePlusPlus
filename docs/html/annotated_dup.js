@@ -9,12 +9,12 @@ var annotated_dup =
         [ "combine_latest_impl", "structrpp_1_1details_1_1combine__latest__impl.html", "structrpp_1_1details_1_1combine__latest__impl" ],
         [ "combine_latest_on_next", "structrpp_1_1details_1_1combine__latest__on__next.html", "structrpp_1_1details_1_1combine__latest__on__next" ],
         [ "combine_latest_state", "structrpp_1_1details_1_1combine__latest__state.html", "structrpp_1_1details_1_1combine__latest__state" ],
-        [ "combine_latest_state_with_serialized_mutex", "structrpp_1_1details_1_1combine__latest__state__with__serialized__mutex.html", "structrpp_1_1details_1_1combine__latest__state__with__serialized__mutex" ],
+        [ "combine_latest_state_with_serialized_spinlock", "structrpp_1_1details_1_1combine__latest__state__with__serialized__spinlock.html", "structrpp_1_1details_1_1combine__latest__state__with__serialized__spinlock" ],
         [ "concat_impl", "structrpp_1_1details_1_1concat__impl.html", "structrpp_1_1details_1_1concat__impl" ],
         [ "concat_on_completed", "structrpp_1_1details_1_1concat__on__completed.html", "structrpp_1_1details_1_1concat__on__completed" ],
         [ "concat_on_next_outer", "structrpp_1_1details_1_1concat__on__next__outer.html", "structrpp_1_1details_1_1concat__on__next__outer" ],
         [ "concat_state", "structrpp_1_1details_1_1concat__state.html", "structrpp_1_1details_1_1concat__state" ],
-        [ "concat_state_with_serialized_mutex", "structrpp_1_1details_1_1concat__state__with__serialized__mutex.html", "structrpp_1_1details_1_1concat__state__with__serialized__mutex" ],
+        [ "concat_state_with_serialized_spinlock", "structrpp_1_1details_1_1concat__state__with__serialized__spinlock.html", "structrpp_1_1details_1_1concat__state__with__serialized__spinlock" ],
         [ "counted_repeat_predicate", "structrpp_1_1details_1_1counted__repeat__predicate.html", "structrpp_1_1details_1_1counted__repeat__predicate" ],
         [ "distinct_until_changed_impl", "structrpp_1_1details_1_1distinct__until__changed__impl.html", "structrpp_1_1details_1_1distinct__until__changed__impl" ],
         [ "distinct_until_changed_on_next", "structrpp_1_1details_1_1distinct__until__changed__on__next.html", "structrpp_1_1details_1_1distinct__until__changed__on__next" ],
@@ -103,7 +103,7 @@ var annotated_dup =
         [ "switch_on_next_on_completed_inner", "structrpp_1_1details_1_1switch__on__next__on__completed__inner.html", "structrpp_1_1details_1_1switch__on__next__on__completed__inner" ],
         [ "switch_on_next_on_next", "structrpp_1_1details_1_1switch__on__next__on__next.html", "structrpp_1_1details_1_1switch__on__next__on__next" ],
         [ "switch_on_next_state", "structrpp_1_1details_1_1switch__on__next__state.html", "structrpp_1_1details_1_1switch__on__next__state" ],
-        [ "switch_on_next_state_with_serialized_mutex", "structrpp_1_1details_1_1switch__on__next__state__with__serialized__mutex.html", "structrpp_1_1details_1_1switch__on__next__state__with__serialized__mutex" ],
+        [ "switch_on_next_state_with_serialized_spinlock", "structrpp_1_1details_1_1switch__on__next__state__with__serialized__spinlock.html", "structrpp_1_1details_1_1switch__on__next__state__with__serialized__spinlock" ],
         [ "take_impl", "structrpp_1_1details_1_1take__impl.html", "structrpp_1_1details_1_1take__impl" ],
         [ "take_last_impl", "structrpp_1_1details_1_1take__last__impl.html", "structrpp_1_1details_1_1take__last__impl" ],
         [ "take_last_on_completed", "structrpp_1_1details_1_1take__last__on__completed.html", "structrpp_1_1details_1_1take__last__on__completed" ],
@@ -112,7 +112,7 @@ var annotated_dup =
         [ "take_on_next", "structrpp_1_1details_1_1take__on__next.html", "structrpp_1_1details_1_1take__on__next" ],
         [ "take_state", "structrpp_1_1details_1_1take__state.html", "structrpp_1_1details_1_1take__state" ],
         [ "take_until_impl", "structrpp_1_1details_1_1take__until__impl.html", "structrpp_1_1details_1_1take__until__impl" ],
-        [ "take_until_state_with_serialized_mutex", "structrpp_1_1details_1_1take__until__state__with__serialized__mutex.html", "structrpp_1_1details_1_1take__until__state__with__serialized__mutex" ],
+        [ "take_until_state_with_serialized_spinlock", "structrpp_1_1details_1_1take__until__state__with__serialized__spinlock.html", "structrpp_1_1details_1_1take__until__state__with__serialized__spinlock" ],
         [ "take_until_throttler_on_next", "structrpp_1_1details_1_1take__until__throttler__on__next.html", "structrpp_1_1details_1_1take__until__throttler__on__next" ],
         [ "take_while_impl", "structrpp_1_1details_1_1take__while__impl.html", "structrpp_1_1details_1_1take__while__impl" ],
         [ "typed_observable_tag", "structrpp_1_1details_1_1typed__observable__tag.html", null ],
@@ -127,7 +127,7 @@ var annotated_dup =
         [ "with_latest_from_on_next_inner", "structrpp_1_1details_1_1with__latest__from__on__next__inner.html", "structrpp_1_1details_1_1with__latest__from__on__next__inner" ],
         [ "with_latest_from_on_next_outer", "structrpp_1_1details_1_1with__latest__from__on__next__outer.html", "structrpp_1_1details_1_1with__latest__from__on__next__outer" ],
         [ "with_latest_from_state", "structrpp_1_1details_1_1with__latest__from__state.html", "structrpp_1_1details_1_1with__latest__from__state" ],
-        [ "with_latest_from_state_with_serialized_mutex", "structrpp_1_1details_1_1with__latest__from__state__with__serialized__mutex.html", "structrpp_1_1details_1_1with__latest__from__state__with__serialized__mutex" ]
+        [ "with_latest_from_state_with_serialized_spinlock", "structrpp_1_1details_1_1with__latest__from__state__with__serialized__spinlock.html", "structrpp_1_1details_1_1with__latest__from__state__with__serialized__spinlock" ]
       ] ],
       [ "observable", null, [
         [ "details", null, [

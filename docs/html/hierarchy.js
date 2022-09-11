@@ -26,22 +26,22 @@ var hierarchy =
     [ "rpp::details::early_unsubscribe_on_error", "structrpp_1_1details_1_1early__unsubscribe__on__error.html", null ],
     [ "rpp::details::early_unsubscribe_state", "structrpp_1_1details_1_1early__unsubscribe__state.html", [
       [ "rpp::details::concat_state< ValueType >", "structrpp_1_1details_1_1concat__state.html", [
-        [ "rpp::details::concat_state_with_serialized_mutex< ValueType >", "structrpp_1_1details_1_1concat__state__with__serialized__mutex.html", null ]
+        [ "rpp::details::concat_state_with_serialized_spinlock< ValueType >", "structrpp_1_1details_1_1concat__state__with__serialized__spinlock.html", null ]
       ] ],
       [ "rpp::details::merge_state", "structrpp_1_1details_1_1merge__state.html", [
         [ "rpp::details::combine_latest_state< TCombiner, Types... >", "structrpp_1_1details_1_1combine__latest__state.html", [
-          [ "rpp::details::combine_latest_state_with_serialized_mutex< TCombiner, Types >", "structrpp_1_1details_1_1combine__latest__state__with__serialized__mutex.html", null ]
+          [ "rpp::details::combine_latest_state_with_serialized_spinlock< TCombiner, Types >", "structrpp_1_1details_1_1combine__latest__state__with__serialized__spinlock.html", null ]
         ] ],
         [ "rpp::details::combine_latest_state< TCombiner, Types >", "structrpp_1_1details_1_1combine__latest__state.html", null ],
         [ "rpp::details::merge_state_with_serialized_mutex", "structrpp_1_1details_1_1merge__state__with__serialized__mutex.html", null ],
         [ "rpp::details::switch_on_next_state", "structrpp_1_1details_1_1switch__on__next__state.html", [
-          [ "rpp::details::switch_on_next_state_with_serialized_mutex", "structrpp_1_1details_1_1switch__on__next__state__with__serialized__mutex.html", null ]
+          [ "rpp::details::switch_on_next_state_with_serialized_spinlock", "structrpp_1_1details_1_1switch__on__next__state__with__serialized__spinlock.html", null ]
         ] ]
       ] ],
-      [ "rpp::details::take_until_state_with_serialized_mutex", "structrpp_1_1details_1_1take__until__state__with__serialized__mutex.html", null ],
+      [ "rpp::details::take_until_state_with_serialized_spinlock", "structrpp_1_1details_1_1take__until__state__with__serialized__spinlock.html", null ],
       [ "rpp::details::with_latest_from_state< TSelector, ValueTypes >", "structrpp_1_1details_1_1with__latest__from__state.html", null ],
       [ "rpp::details::with_latest_from_state< TSelector, ValueTypes... >", "structrpp_1_1details_1_1with__latest__from__state.html", [
-        [ "rpp::details::with_latest_from_state_with_serialized_mutex< TSelector, ValueTypes >", "structrpp_1_1details_1_1with__latest__from__state__with__serialized__mutex.html", null ]
+        [ "rpp::details::with_latest_from_state_with_serialized_spinlock< TSelector, ValueTypes >", "structrpp_1_1details_1_1with__latest__from__state__with__serialized__spinlock.html", null ]
       ] ]
     ] ],
     [ "enable_shared_from_this", null, [
@@ -69,10 +69,10 @@ var hierarchy =
     [ "rpp::details::lift_action_by_callbacks< Type, OnNext, OnError, OnCompleted >", "structrpp_1_1details_1_1lift__action__by__callbacks.html", null ],
     [ "rpp::details::lift_on_subscribe< NewType, OperatorFn, TObs >", "structrpp_1_1details_1_1lift__on__subscribe.html", null ],
     [ "rpp::details::map_impl< Type, Callable >", "structrpp_1_1details_1_1map__impl.html", null ],
-    [ "rpp::details::member_overload< Type, SpecificObservable, MemberTag >", "structrpp_1_1details_1_1member__overload.html", [
+    [ "rpp::details::member_overload< Type, SpecificObservable, MemberTag >", "structrpp_1_1details_1_1member__overload.html", null ],
+    [ "rpp::details::member_overload< Type, blocking_observable< Type, OriginalObservable >, details::subscribe_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::blocking_observable< Type, OriginalObservable >", "classrpp_1_1blocking__observable.html", null ]
     ] ],
-    [ "rpp::details::member_overload< Type, blocking_observable< Type, OriginalObservable >, details::subscribe_tag >", "structrpp_1_1details_1_1member__overload.html", null ],
     [ "rpp::details::member_overload< Type, connectable_observable< Type, Subject, OriginalObservable >, details::ref_count_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::connectable_observable< Type, Subject, OriginalObservable >", "classrpp_1_1connectable__observable.html", null ]
     ] ],
@@ -288,8 +288,8 @@ var hierarchy =
     [ "rpp::details::with_latest_from_impl< Type, TSelector, TObservables >", "structrpp_1_1details_1_1with__latest__from__impl.html", null ],
     [ "rpp::details::with_latest_from_on_next_inner< I >", "structrpp_1_1details_1_1with__latest__from__on__next__inner.html", null ],
     [ "rpp::details::with_latest_from_on_next_outer< TSelector, ValueTypes >", "structrpp_1_1details_1_1with__latest__from__on__next__outer.html", null ],
-    [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
+    [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::details::worker_tag", "structrpp_1_1schedulers_1_1details_1_1worker__tag.html", [
       [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ]
     ] ]
