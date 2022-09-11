@@ -15,22 +15,22 @@ namespace rpp::utils
 class spinlock
 {
 public:
-    spinlock() { m_lock_flag.clear(); }
+    spinlock() = default;
 
     void lock()
     {
-        while(m_lock_flag.test_and_set(std::memory_order_acquire))
+        while(m_lock_flag.exchange(true, std::memory_order_acquire))
         {
-            while(m_lock_flag.test(std::memory_order_relaxed)){};
+            while(m_lock_flag.load(std::memory_order_relaxed)){};
         }
     }
 
     void unlock()
     {
-        m_lock_flag.clear(std::memory_order_release);
+        m_lock_flag.store(false, std::memory_order_release);
     }
 
 private:
-    std::atomic_flag m_lock_flag;
+    std::atomic_bool m_lock_flag{false};
 };
 } // namespace rpp::utils
