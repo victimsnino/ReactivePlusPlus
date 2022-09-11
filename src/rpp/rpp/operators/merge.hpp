@@ -67,7 +67,7 @@ struct merge_on_next
     }
 };
 
-struct merge_state_with_mutex : merge_state
+struct merge_state_with_serialized_mutex : merge_state
 {
     using merge_state::merge_state;
 
@@ -82,7 +82,7 @@ struct merge_impl
     template<constraint::subscriber_of_type<ValueType> TSub>
     auto operator()(TSub&& in_subscriber) const
     {
-        auto state = std::make_shared<merge_state_with_mutex>(in_subscriber.get_subscription());
+        auto state = std::make_shared<merge_state_with_serialized_mutex>(in_subscriber.get_subscription());
         // change subscriber to serialized to avoid manual using of mutex
         auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<std::mutex>{state, &state->mutex});
 
