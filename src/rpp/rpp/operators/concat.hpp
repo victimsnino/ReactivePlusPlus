@@ -20,6 +20,8 @@
 
 #include <rpp/sources/just.hpp>
 #include <rpp/utils/functors.hpp>
+#include <rpp/utils/spinlock.hpp>
+
 
 #include <mutex>
 #include <memory>
@@ -114,11 +116,12 @@ struct concat_on_completed
 
 
 template<constraint::decayed_type ValueType>
-struct concat_state_with_serialized_mutex : concat_state<ValueType>
+struct concat_state_with_serialized_spinlock : concat_state<ValueType>
 {
     using concat_state<ValueType>::concat_state;
 
-    std::mutex mutex{};
+    // we can use spinlock there because 99.9% of time only one ever thread would send values from on_next (only one active observable), but we have small probability to get error from main observable immediately
+    utils::spinlock spinlock{};
 };
 
 template<constraint::decayed_type Type>
@@ -129,10 +132,10 @@ struct concat_impl
     template<constraint::subscriber_of_type<ValueType> TSub>
     auto operator()(TSub&& in_subscriber) const
     {
-        auto state = std::make_shared<concat_state_with_serialized_mutex<ValueType>>(in_subscriber.get_subscription());
+        auto state = std::make_shared<concat_state_with_serialized_spinlock<ValueType>>(in_subscriber.get_subscription());
 
         // change subscriber to serialized to avoid manual using of mutex
-        auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<std::mutex>{state, &state->mutex});
+        auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<utils::spinlock>{state, &state->spinlock});
 
         return create_subscriber_with_state<Type>(state->source_subscription,
                                                   concat_on_next_outer<ValueType>{},

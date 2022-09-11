@@ -16,6 +16,7 @@
 #include <rpp/operators/fwd/take_until.hpp>
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/utils/functors.hpp>
+#include <rpp/utils/spinlock.hpp>
 
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 
@@ -48,11 +49,12 @@ struct take_until_throttler_on_next
 using take_until_throttler_on_error     = take_until_on_error;
 using take_until_throttler_on_completed = take_until_on_completed;
 
-struct take_until_state_with_serialized_mutex : take_until_state
+struct take_until_state_with_serialized_spinlock : take_until_state
 {
     using take_until_state::take_until_state;
 
-    std::mutex mutex{};
+    // we can use spinlock there because 99.9% of time only one ever thread would send values from on_next (main observable), but we have small probability to get error from "until observable" immediately
+    utils::spinlock spinlock{};
 };
 /**
  * \brief "combine_latest" operator (an OperatorFn used by "lift").
@@ -67,9 +69,9 @@ struct take_until_impl
     template<constraint::subscriber_of_type<Type> TSub>
     auto operator()(TSub&& in_subscriber) const
     {
-        auto state = std::make_shared<take_until_state_with_serialized_mutex>(in_subscriber.get_subscription());
+        auto state = std::make_shared<take_until_state_with_serialized_spinlock>(in_subscriber.get_subscription());
         // change subscriber to serialized to avoid manual using of mutex
-        auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<std::mutex>{state, &state->mutex});
+        auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<utils::spinlock>{state, &state->spinlock});
 
         // Subscribe to trigger observable
         m_until_observable.subscribe(create_subscriber_with_state<TriggerType>(state->children_subscriptions.make_child(),

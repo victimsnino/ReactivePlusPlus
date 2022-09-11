@@ -16,6 +16,7 @@
 #include <rpp/operators.hpp>
 #include <rpp/subjects.hpp>
 #include <rpp/schedulers/trampoline_scheduler.hpp>
+#include <rpp/utils/spinlock.hpp>
 
 #include <array>
 #include <vector>
@@ -1042,5 +1043,38 @@ TEST_CASE("trampoline scheduler")
         {
             worker.schedule(time, work);
         });
+    };
+}
+
+TEST_CASE("single-threaded locks")
+{
+    int target{};
+    BENCHMARK("no-lock increment", i)
+    {
+        target += i;
+        return target;
+    };
+    target = 0;
+    std::mutex mutex{};
+
+    BENCHMARK("mutex lock increment", i)
+    {
+        {
+            std::lock_guard lock{mutex};
+            target += i;
+        }
+        return target;
+    };
+
+    target = 0;
+    rpp::utils::spinlock spinlock{};
+
+    BENCHMARK("spin-lock increment", i)
+    {
+        {
+            std::lock_guard lock{spinlock};
+            target += i;
+        }
+        return target;
     };
 }

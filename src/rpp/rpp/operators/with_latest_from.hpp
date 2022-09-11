@@ -20,6 +20,7 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/utils/utilities.hpp>
 #include <rpp/utils/functors.hpp>
+#include <rpp/utils/spinlock.hpp>
 
 #include <mutex>
 #include <array>
@@ -105,11 +106,12 @@ struct with_latest_from_on_next_outer
 };
 
 template<typename TSelector, constraint::decayed_type... ValueTypes>
-struct with_latest_from_state_with_serialized_mutex : public with_latest_from_state<TSelector, ValueTypes...>
+struct with_latest_from_state_with_serialized_spinlock : public with_latest_from_state<TSelector, ValueTypes...>
 {
     using with_latest_from_state<TSelector, ValueTypes...>::with_latest_from_state;
 
-    std::mutex mutex{};
+    // we can use spinlock there because 99.9% of time only one ever thread would send values from on_next (main observable), but we have small probability to get error from inner observables immediately
+    utils::spinlock spinlock{};
 };
 
 template<constraint::decayed_type Type, typename TSelector, constraint::observable ...TObservables>
@@ -124,9 +126,9 @@ struct with_latest_from_impl
     template<constraint::subscriber_of_type<ResultType> TSub>
     auto operator()(TSub&& in_subscriber) const
     {
-        auto state = std::make_shared<with_latest_from_state_with_serialized_mutex<TSelector, utils::extract_observable_type_t<TObservables>...>>(selector, in_subscriber.get_subscription());
+        auto state = std::make_shared<with_latest_from_state_with_serialized_spinlock<TSelector, utils::extract_observable_type_t<TObservables>...>>(selector, in_subscriber.get_subscription());
         // change subscriber to serialized to avoid manual using of mutex
-        auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<std::mutex>{state, &state->mutex});
+        auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<utils::spinlock>{state, &state->spinlock});
 
         with_latest_from_subscribe_observables(std::index_sequence_for<TObservables...>{},
                                                state,
