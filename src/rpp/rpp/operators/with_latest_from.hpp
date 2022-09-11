@@ -110,7 +110,7 @@ struct with_latest_from_state_with_serialized_spinlock : public with_latest_from
 {
     using with_latest_from_state<TSelector, ValueTypes...>::with_latest_from_state;
 
-    // we can use spinlock there because 99.9% of time only one ever thread would send values from on_next (root observable), but we have small probability to get error from inner observables immediately
+    // we can use spinlock there because 99.9% of time only one ever thread would send values from on_next (main observable), but we have small probability to get error from inner observables immediately
     utils::spinlock spinlock{};
 };
 

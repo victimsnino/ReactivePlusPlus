@@ -120,7 +120,7 @@ struct concat_state_with_serialized_spinlock : concat_state<ValueType>
 {
     using concat_state<ValueType>::concat_state;
 
-    // we can use spinlock there because 99.9% of time only one ever thread would send values from on_next (only one active observable), but we have small probability to get error from main thread immediately
+    // we can use spinlock there because 99.9% of time only one ever thread would send values from on_next (only one active observable), but we have small probability to get error from main observable immediately
     utils::spinlock spinlock{};
 };
 

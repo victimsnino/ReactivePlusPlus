@@ -75,7 +75,7 @@ struct combine_latest_state_with_serialized_spinlock : combine_latest_state<TCom
 {
     using combine_latest_state<TCombiner,Types...>::combine_latest_state;
 
-    // we can use spinlock there because 99.9% of time only one ever thread would send values from on_next (due to values_mutex), but we have small probability to get error from another thread immediately
+    // we can use spinlock there because 99.9% of time only one ever thread would send values from on_next serialized (due to values_mutex), but we have small probability to get error from another observable immediately
     utils::spinlock spinlock{};
 };
 
