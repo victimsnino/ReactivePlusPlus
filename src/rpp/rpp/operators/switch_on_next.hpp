@@ -16,6 +16,8 @@
 #include <rpp/operators/merge.hpp>
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/utils/functors.hpp>
+#include <rpp/utils/spinlock.hpp>
+
 
 #include <atomic>
 #include <memory>
@@ -75,11 +77,12 @@ struct switch_on_next_on_next
 
 using switch_on_next_on_completed_outer = merge_on_completed;
 
-struct switch_on_next_state_with_serialized_mutex : switch_on_next_state
+struct switch_on_next_state_with_serialized_spinlock : switch_on_next_state
 {
     using switch_on_next_state::switch_on_next_state;
 
-    std::mutex mutex{};
+    // we can use spinlock there because 99.9% of time only one ever thread would send values from on_next (only one active observable), but we have small probability to get error from main thread immediately
+    utils::spinlock spinlock{};
 };
 
 template<constraint::decayed_type Type>
@@ -90,10 +93,10 @@ struct switch_on_next_impl
     template<constraint::subscriber_of_type<ValueType> TSub>
     auto operator()(TSub&& in_subscriber) const
     {
-        auto state = std::make_shared<switch_on_next_state_with_serialized_mutex>(in_subscriber.get_subscription());
+        auto state = std::make_shared<switch_on_next_state_with_serialized_spinlock>(in_subscriber.get_subscription());
 
         // change subscriber to serialized to avoid manual using of mutex
-        auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<std::mutex>{state, &state->mutex});
+        auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<utils::spinlock>{state, &state->spinlock});
 
         state->count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);
 
