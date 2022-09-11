@@ -31,13 +31,12 @@ IMPLEMENTATION_FILE(concat_tag);
 namespace rpp::details
 {
 template<constraint::decayed_type ValueType>
-struct concat_state : early_unsubscribe_state
+struct concat_state : public early_unsubscribe_state
 {
     concat_state(const composite_subscription& subscription_of_subscriber)
         : early_unsubscribe_state{subscription_of_subscriber}
         , source_subscription{children_subscriptions.make_child()} {}
 
-    std::mutex                                mutex{};
     composite_subscription                    source_subscription;
     std::mutex                                queue_mutex{};
     std::queue<dynamic_observable<ValueType>> observables_to_subscribe{};
@@ -113,22 +112,33 @@ struct concat_on_completed
     }
 };
 
+
+template<constraint::decayed_type ValueType>
+struct concat_state_with_serialized_mutex : concat_state<ValueType>
+{
+    using concat_state<ValueType>::concat_state;
+
+    std::mutex mutex{};
+};
+
 template<constraint::decayed_type Type>
 struct concat_impl
 {
     using ValueType = utils::extract_observable_type_t<Type>;
 
     template<constraint::subscriber_of_type<ValueType> TSub>
-    auto operator()(TSub&& subscriber) const
+    auto operator()(TSub&& in_subscriber) const
     {
+        auto state = std::make_shared<concat_state_with_serialized_mutex<ValueType>>(in_subscriber.get_subscription());
 
-        auto state = std::make_shared<concat_state<ValueType>>(subscriber.get_subscription());
+        // change subscriber to serialized to avoid manual using of mutex
+        auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<std::mutex>{state, &state->mutex});
 
         return create_subscriber_with_state<Type>(state->source_subscription,
                                                   concat_on_next_outer{},
                                                   concat_on_error{},
                                                   concat_on_completed{},
-                                                  std::forward<TSub>(subscriber),
+                                                  std::move(subscriber),
                                                   std::move(state));
     }
 };
