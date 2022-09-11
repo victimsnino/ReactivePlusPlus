@@ -12,7 +12,6 @@
 
 #include <rpp/observables/constraints.hpp>
 #include <rpp/observers/state_observer.hpp>
-#include <rpp/operators/details/combining_utils.hpp>
 #include <rpp/operators/fwd/switch_on_next.hpp>
 #include <rpp/operators/merge.hpp>
 #include <rpp/subscribers/constraints.hpp>
@@ -76,15 +75,25 @@ struct switch_on_next_on_next
 
 using switch_on_next_on_completed_outer = merge_on_completed;
 
+struct switch_on_next_state_with_serialized_mutex : switch_on_next_state
+{
+    using switch_on_next_state::switch_on_next_state;
+
+    std::mutex mutex{};
+};
+
 template<constraint::decayed_type Type>
 struct switch_on_next_impl
 {
     using ValueType = utils::extract_observable_type_t<Type>;
 
     template<constraint::subscriber_of_type<ValueType> TSub>
-    auto operator()(TSub&& subscriber) const
+    auto operator()(TSub&& in_subscriber) const
     {
-        auto state = std::make_shared<switch_on_next_state>(subscriber.get_subscription());
+        auto state = std::make_shared<switch_on_next_state_with_serialized_mutex>(in_subscriber.get_subscription());
+
+        // change subscriber to serialized to avoid manual using of mutex
+        auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<std::mutex>{state, &state->mutex});
 
         state->count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);
 
@@ -93,7 +102,7 @@ struct switch_on_next_impl
                                                   switch_on_next_on_next{},
                                                   switch_on_next_on_error{},
                                                   switch_on_next_on_completed_outer{},
-                                                  std::forward<TSub>(subscriber),
+                                                  std::move(subscriber),
                                                   std::move(state));
     }
 };

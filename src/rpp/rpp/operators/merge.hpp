@@ -15,9 +15,9 @@
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/observers/state_observer.hpp>
 #include <rpp/sources/just.hpp>
-#include <rpp/operators/details/combining_utils.hpp>
 #include <rpp/utils/functors.hpp>
 #include <rpp/operators/details/early_unsubscribe.hpp>
+#include <rpp/operators/details/serialized_subscriber.hpp>
 
 #include <array>
 #include <atomic>
@@ -31,31 +31,11 @@ struct merge_state : early_unsubscribe_state
 {
     using early_unsubscribe_state::early_unsubscribe_state;
 
-    std::mutex         mutex{};
     std::atomic_size_t count_of_on_completed_needed{};
 };
 
-struct merge_forwarding_on_next
-{
-    void operator()(auto&&                              value,
-                    const constraint::subscriber auto&  sub,
-                    const auto& state) const
-    {
-        std::lock_guard lock{state->mutex};
-        sub.on_next(std::forward<decltype(value)>(value));
-    }
-};
-
-struct merge_on_error
-{
-    void operator()(const std::exception_ptr& err, const constraint::subscriber auto& sub, const auto& state) const
-    {
-        state->children_subscriptions.unsubscribe();
-
-        std::lock_guard lock{state->mutex};
-        sub.on_error(err);
-    }
-};
+using merge_forwarding_on_next = utils::forwarding_on_next;
+using merge_on_error           = early_unsubscribe_on_error;
 
 struct merge_on_completed
 {
@@ -87,15 +67,24 @@ struct merge_on_next
     }
 };
 
+struct merge_state_with_serialized_mutex : merge_state
+{
+    using merge_state::merge_state;
+
+    std::mutex mutex{};
+};
+
 template<constraint::decayed_type Type>
 struct merge_impl
 {
     using ValueType = utils::extract_observable_type_t<Type>;
 
     template<constraint::subscriber_of_type<ValueType> TSub>
-    auto operator()(TSub&& subscriber) const
+    auto operator()(TSub&& in_subscriber) const
     {
-        auto state = std::make_shared<merge_state>(subscriber.get_subscription());
+        auto state = std::make_shared<merge_state_with_serialized_mutex>(in_subscriber.get_subscription());
+        // change subscriber to serialized to avoid manual using of mutex
+        auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<std::mutex>{state, &state->mutex});
 
         state->count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);
 
@@ -104,7 +93,7 @@ struct merge_impl
                                                   merge_on_next{},
                                                   merge_on_error{},
                                                   merge_on_completed{},
-                                                  std::forward<TSub>(subscriber),
+                                                  std::move(subscriber),
                                                   std::move(state));
     }
 };
