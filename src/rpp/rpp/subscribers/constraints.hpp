@@ -17,7 +17,6 @@
 namespace rpp::constraint
 {
 template<typename T> concept subscriber = std::is_base_of_v<details::subscriber_tag, std::decay_t<T>> && observer_callbacks_exists<T>;
-
 }
 
 namespace rpp::utils

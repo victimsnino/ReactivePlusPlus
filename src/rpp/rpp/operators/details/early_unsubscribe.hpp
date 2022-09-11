@@ -17,9 +17,21 @@ namespace rpp::details
 {
 struct early_unsubscribe_state
 {
-    early_unsubscribe_state(const composite_subscription& subscription_of_subscriber) : children_subscriptions(subscription_of_subscriber.make_child()) {}
+    early_unsubscribe_state(const composite_subscription& subscription_of_subscriber)
+        : children_subscriptions(subscription_of_subscriber.make_child()) {}
 
     // use this subscription as source for any child subscription that should be early unsubscribed
     composite_subscription children_subscriptions;
+};
+
+struct early_unsubscribe_on_error
+{
+    void operator()(const std::exception_ptr&                       err,
+                    const constraint::subscriber auto&              sub,
+                    const std::shared_ptr<early_unsubscribe_state>& state) const
+    {
+        state->children_subscriptions.unsubscribe();
+        sub.on_error(err);
+    }
 };
 } // namespace rpp::details
