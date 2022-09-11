@@ -113,9 +113,9 @@ $(document).ready(function(){initNavTree('merge_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;rpp/subscribers/constraints.hpp&gt;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;rpp/observers/state_observer.hpp&gt;</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;rpp/sources/just.hpp&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/details/combining_utils.hpp&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/functors.hpp&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/details/early_unsubscribe.hpp&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/functors.hpp&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/details/early_unsubscribe.hpp&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/details/serialized_subscriber.hpp&gt;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
@@ -129,98 +129,87 @@ $(document).ready(function(){initNavTree('merge_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">using</span> early_unsubscribe_state::early_unsubscribe_state;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    std::mutex         mutex{};</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    std::atomic_size_t count_of_on_completed_needed{};</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1merge__forwarding__on__next.html">   38</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1merge__forwarding__on__next.html">merge_forwarding_on_next</a></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">auto</span>&amp;&amp;                              value,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                    <span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp;  sub,</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; state)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        std::lock_guard lock{state-&gt;mutex};</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        sub.on_next(std::forward&lt;decltype(value)&gt;(value));</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;};</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1merge__on__error.html">   49</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1merge__on__error.html">merge_on_error</a></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;{</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> std::exception_ptr&amp; err, <span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp; sub, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; state)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        state-&gt;children_subscriptions.unsubscribe();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        std::lock_guard lock{state-&gt;mutex};</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        sub.on_error(err);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;};</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1merge__on__completed.html">   60</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1merge__on__completed.html">merge_on_completed</a></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;{</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp;  sub,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    <span class="keyword">const</span> std::shared_ptr&lt;merge_state&gt;&amp; state)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">if</span> (state-&gt;count_of_on_completed_needed.fetch_sub(1, std::memory_order::acq_rel) == 1)</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            sub.on_completed();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    std::atomic_size_t count_of_on_completed_needed{};</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;};</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">using</span> merge_forwarding_on_next = utils::forwarding_on_next;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">using</span> <a class="code" href="structrpp_1_1details_1_1early__unsubscribe__on__error.html">merge_on_error</a>           = <a class="code" href="structrpp_1_1details_1_1early__unsubscribe__on__error.html">early_unsubscribe_on_error</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1merge__on__completed.html">   40</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1merge__on__completed.html">merge_on_completed</a></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;{</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp;  sub,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                    <span class="keyword">const</span> std::shared_ptr&lt;merge_state&gt;&amp; state)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">if</span> (state-&gt;count_of_on_completed_needed.fetch_sub(1, std::memory_order::acq_rel) == 1)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            sub.on_completed();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;};</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1merge__on__next.html">   50</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1merge__on__next.html">merge_on_next</a></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable TObs&gt;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> TObs&amp;                         new_observable,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                    <span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp;  sub,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                    <span class="keyword">const</span> std::shared_ptr&lt;merge_state&gt;&amp; state)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keyword">using</span> ValueType = utils::extract_observable_type_t&lt;TObs&gt;;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        state-&gt;count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        new_observable.subscribe(create_subscriber_with_state&lt;ValueType&gt;(state-&gt;children_subscriptions.make_child(),</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                                                         merge_forwarding_on_next{},</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                                                         <a class="code" href="structrpp_1_1details_1_1early__unsubscribe__on__error.html">merge_on_error</a>{},</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                                                         <a class="code" href="structrpp_1_1details_1_1merge__on__completed.html">merge_on_completed</a>{},</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                                                                         sub,</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                                                         state));</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;};</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1merge__on__next.html">   70</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1merge__on__next.html">merge_on_next</a></div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1merge__state__with__serialized__mutex.html">   70</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1merge__state__with__serialized__mutex.html">merge_state_with_serialized_mutex</a> : <a class="code" href="structrpp_1_1details_1_1merge__state.html">merge_state</a></div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;{</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable TObs&gt;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> TObs&amp;                         new_observable,</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                    <span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp;  sub,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                    <span class="keyword">const</span> std::shared_ptr&lt;merge_state&gt;&amp; state)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keyword">using</span> ValueType = utils::extract_observable_type_t&lt;TObs&gt;;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        state-&gt;count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        new_observable.subscribe(create_subscriber_with_state&lt;ValueType&gt;(state-&gt;children_subscriptions.make_child(),</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                                                                         <a class="code" href="structrpp_1_1details_1_1merge__forwarding__on__next.html">merge_forwarding_on_next</a>{},</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                                                                         <a class="code" href="structrpp_1_1details_1_1merge__on__error.html">merge_on_error</a>{},</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                                                                         <a class="code" href="structrpp_1_1details_1_1merge__on__completed.html">merge_on_completed</a>{},</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                                                                         sub,</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                                                                         state));</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;};</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1merge__impl.html">merge_impl</a></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;{</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">using</span> ValueType = utils::extract_observable_type_t&lt;Type&gt;;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber_of_type&lt;ValueType&gt; TSub&gt;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">auto</span> operator()(TSub&amp;&amp; subscriber)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keyword">auto</span> state = std::make_shared&lt;merge_state&gt;(subscriber.get_subscription());</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        state-&gt;count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keyword">auto</span> subscription = state-&gt;children_subscriptions.make_child();</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">return</span> create_subscriber_with_state&lt;Type&gt;(std::move(subscription),</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                                                  <a class="code" href="structrpp_1_1details_1_1merge__on__next.html">merge_on_next</a>{},</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                                                  merge_on_error{},</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                                                  merge_on_completed{},</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                                                  std::forward&lt;TSub&gt;(subscriber),</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                                                  std::move(state));</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;};</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; ... TObservables&gt;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keyword">auto</span> merge_with_impl(TObservables&amp;&amp;... observables)</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;{</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">source::just</a>(std::forward&lt;TObservables&gt;(observables).as_dynamic()...).merge();</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">using</span> merge_state::merge_state;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    std::mutex mutex{};</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;};</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1merge__impl.html">merge_impl</a></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;{</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">using</span> ValueType = utils::extract_observable_type_t&lt;Type&gt;;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber_of_type&lt;ValueType&gt; TSub&gt;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">auto</span> operator()(TSub&amp;&amp; in_subscriber)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keyword">auto</span> state = std::make_shared&lt;merge_state_with_serialized_mutex&gt;(in_subscriber.get_subscription());</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="comment">// change subscriber to serialized to avoid manual using of mutex</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keyword">auto</span> subscriber = make_serialized_subscriber(std::forward&lt;TSub&gt;(in_subscriber), std::shared_ptr&lt;std::mutex&gt;{state, &amp;state-&gt;mutex});</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        state-&gt;count_of_on_completed_needed.fetch_add(1, std::memory_order::relaxed);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">auto</span> subscription = state-&gt;children_subscriptions.make_child();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">return</span> create_subscriber_with_state&lt;Type&gt;(std::move(subscription),</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                                                  merge_on_next{},</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                                                  merge_on_error{},</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                                                  merge_on_completed{},</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                                                  std::move(subscriber),</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                                                  std::move(state));</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;};</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; ... TObservables&gt;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keyword">auto</span> merge_with_impl(TObservables&amp;&amp;... observables)</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;{</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">source::just</a>(std::forward&lt;TObservables&gt;(observables).as_dynamic()...).merge();</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="astructrpp_1_1details_1_1merge__on__next_html"><div class="ttname"><a href="structrpp_1_1details_1_1merge__on__next.html">rpp::details::merge_on_next</a></div><div class="ttdef"><b>Definition:</b> merge.hpp:70</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1merge__on__error_html"><div class="ttname"><a href="structrpp_1_1details_1_1merge__on__error.html">rpp::details::merge_on_error</a></div><div class="ttdef"><b>Definition:</b> merge.hpp:49</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1merge__on__completed_html"><div class="ttname"><a href="structrpp_1_1details_1_1merge__on__completed.html">rpp::details::merge_on_completed</a></div><div class="ttdef"><b>Definition:</b> merge.hpp:60</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1merge__state__with__serialized__mutex_html"><div class="ttname"><a href="structrpp_1_1details_1_1merge__state__with__serialized__mutex.html">rpp::details::merge_state_with_serialized_mutex</a></div><div class="ttdef"><b>Definition:</b> merge.hpp:70</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1merge__on__next_html"><div class="ttname"><a href="structrpp_1_1details_1_1merge__on__next.html">rpp::details::merge_on_next</a></div><div class="ttdef"><b>Definition:</b> merge.hpp:50</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1merge__on__completed_html"><div class="ttname"><a href="structrpp_1_1details_1_1merge__on__completed.html">rpp::details::merge_on_completed</a></div><div class="ttdef"><b>Definition:</b> merge.hpp:40</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gabc5067fa9aefaa803f6e329b75faa00c"><div class="ttname"><a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:159</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1merge__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1merge__impl.html">rpp::details::merge_impl</a></div><div class="ttdef"><b>Definition:</b> merge.hpp:24</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1merge__forwarding__on__next_html"><div class="ttname"><a href="structrpp_1_1details_1_1merge__forwarding__on__next.html">rpp::details::merge_forwarding_on_next</a></div><div class="ttdef"><b>Definition:</b> merge.hpp:38</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1early__unsubscribe__on__error_html"><div class="ttname"><a href="structrpp_1_1details_1_1early__unsubscribe__on__error.html">rpp::details::early_unsubscribe_on_error</a></div><div class="ttdef"><b>Definition:</b> early_unsubscribe.hpp:27</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1merge__state_html"><div class="ttname"><a href="structrpp_1_1details_1_1merge__state.html">rpp::details::merge_state</a></div><div class="ttdef"><b>Definition:</b> merge.hpp:30</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1early__unsubscribe__state_html"><div class="ttname"><a href="structrpp_1_1details_1_1early__unsubscribe__state.html">rpp::details::early_unsubscribe_state</a></div><div class="ttdef"><b>Definition:</b> early_unsubscribe.hpp:18</div></div>
 <!-- start footer part -->

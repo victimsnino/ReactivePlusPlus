@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['queue_5fworker_5fstate_178',['queue_worker_state',['../classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html',1,'rpp::schedulers::details']]],
-  ['queue_5fworker_5fstate_3c_20rpp_3a_3aschedulers_3a_3aschedulable_5fwrapper_20_3e_179',['queue_worker_state&lt; rpp::schedulers::schedulable_wrapper &gt;',['../classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html',1,'rpp::schedulers::details']]],
-  ['quick_20start_180',['Quick Start',['../quick_start.html',1,'docs']]]
+  ['queue_5fworker_5fstate_185',['queue_worker_state',['../classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html',1,'rpp::schedulers::details']]],
+  ['queue_5fworker_5fstate_3c_20rpp_3a_3aschedulers_3a_3aschedulable_5fwrapper_20_3e_186',['queue_worker_state&lt; rpp::schedulers::schedulable_wrapper &gt;',['../classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html',1,'rpp::schedulers::details']]],
+  ['quick_20start_187',['Quick Start',['../quick_start.html',1,'docs']]]
 ];

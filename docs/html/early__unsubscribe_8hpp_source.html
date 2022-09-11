@@ -115,15 +115,39 @@ $(document).ready(function(){initNavTree('early__unsubscribe_8hpp_source.html','
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
 <div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1early__unsubscribe__state.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1early__unsubscribe__state.html">early_unsubscribe_state</a></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="structrpp_1_1details_1_1early__unsubscribe__state.html">early_unsubscribe_state</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&amp; subscription_of_subscriber) : children_subscriptions(subscription_of_subscriber.make_child()) {}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="comment">// use this subscription as source for any child subscription that should be early unsubscribed</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="classrpp_1_1composite__subscription.html">composite_subscription</a> children_subscriptions;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;};</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="structrpp_1_1details_1_1early__unsubscribe__state.html">early_unsubscribe_state</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1composite__subscription.html">composite_subscription</a>&amp; subscription_of_subscriber)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        : children_subscriptions(subscription_of_subscriber.make_child()) {}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="comment">// use this subscription as source for any child subscription that should be early unsubscribed</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="classrpp_1_1composite__subscription.html">composite_subscription</a> children_subscriptions;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;};</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1early__unsubscribe__on__error.html">   27</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1early__unsubscribe__on__error.html">early_unsubscribe_on_error</a></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> std::exception_ptr&amp;                       err,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                    <span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp;              sub,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                    <span class="keyword">const</span> std::shared_ptr&lt;early_unsubscribe_state&gt;&amp; state)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        state-&gt;children_subscriptions.unsubscribe();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        sub.on_error(err);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1early__unsubscribe__on__completed.html">   38</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1early__unsubscribe__on__completed.html">early_unsubscribe_on_completed</a></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp;              sub,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                    <span class="keyword">const</span> std::shared_ptr&lt;early_unsubscribe_state&gt;&amp; state)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        state-&gt;children_subscriptions.unsubscribe();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        sub.on_completed();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassrpp_1_1composite__subscription_html"><div class="ttname"><a href="classrpp_1_1composite__subscription.html">rpp::composite_subscription</a></div><div class="ttdoc">rpp::subscription_base with ability to add some dependent subscriptions as a part of this one: in cas...</div><div class="ttdef"><b>Definition:</b> composite_subscription.hpp:26</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1early__unsubscribe__on__completed_html"><div class="ttname"><a href="structrpp_1_1details_1_1early__unsubscribe__on__completed.html">rpp::details::early_unsubscribe_on_completed</a></div><div class="ttdef"><b>Definition:</b> early_unsubscribe.hpp:38</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1early__unsubscribe__on__error_html"><div class="ttname"><a href="structrpp_1_1details_1_1early__unsubscribe__on__error.html">rpp::details::early_unsubscribe_on_error</a></div><div class="ttdef"><b>Definition:</b> early_unsubscribe.hpp:27</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1early__unsubscribe__state_html"><div class="ttname"><a href="structrpp_1_1details_1_1early__unsubscribe__state.html">rpp::details::early_unsubscribe_state</a></div><div class="ttdef"><b>Definition:</b> early_unsubscribe.hpp:18</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
