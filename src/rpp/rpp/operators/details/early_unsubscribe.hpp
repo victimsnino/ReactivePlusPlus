@@ -34,4 +34,14 @@ struct early_unsubscribe_on_error
         sub.on_error(err);
     }
 };
+
+struct early_unsubscribe_on_completed
+{
+    void operator()(const constraint::subscriber auto&              sub,
+                    const std::shared_ptr<early_unsubscribe_state>& state) const
+    {
+        state->children_subscriptions.unsubscribe();
+        sub.on_completed();
+    }
+};
 } // namespace rpp::details

@@ -25,25 +25,12 @@ IMPLEMENTATION_FILE(take_until_tag);
 
 namespace rpp::details
 {
-using take_until_state = merge_state;
+using take_until_state = early_unsubscribe_state;
 
-using take_until_on_next  = merge_forwarding_on_next;
-using take_until_on_error = merge_on_error;
+using take_until_on_next      = merge_forwarding_on_next;
+using take_until_on_error     = merge_on_error;
+using take_until_on_completed = early_unsubscribe_on_completed;
 
-/**
- * Functor (type-erasure) of "take_until" for on_completed operator.
- */
-struct take_until_on_completed
-{
-    void operator()(const auto& subscriber, const std::shared_ptr<take_until_state>& state) const
-    {
-        // Unsubscribe all sources due to we obtained "stop event"
-        state->children_subscriptions.unsubscribe();
-
-        std::lock_guard lock{state->mutex};
-        subscriber.on_completed();
-    }
-};
 
 /**
  * Functor (type-erasure) of throttler (trigger observable) for on_next operator.
@@ -54,16 +41,19 @@ struct take_until_throttler_on_next
     {
         // Unsubscribe all sources due to we obtained "stop event"
         state->children_subscriptions.unsubscribe();
-
-        std::lock_guard lock{state->mutex};
         subscriber.on_completed();
     }
 };
 
-
 using take_until_throttler_on_error     = take_until_on_error;
 using take_until_throttler_on_completed = take_until_on_completed;
 
+struct take_until_state_with_serialized_mutex : take_until_state
+{
+    using take_until_state::take_until_state;
+
+    std::mutex mutex{};
+};
 /**
  * \brief "combine_latest" operator (an OperatorFn used by "lift").
  */
@@ -75,9 +65,11 @@ struct take_until_impl
     TTriggerObservable m_until_observable;
 
     template<constraint::subscriber_of_type<Type> TSub>
-    auto operator()(TSub&& subscriber) const
+    auto operator()(TSub&& in_subscriber) const
     {
-        auto state = std::make_shared<take_until_state>(subscriber.get_subscription());
+        auto state = std::make_shared<take_until_state_with_serialized_mutex>(in_subscriber.get_subscription());
+        // change subscriber to serialized to avoid manual using of mutex
+        auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<std::mutex>{state, &state->mutex});
 
         // Subscribe to trigger observable
         m_until_observable.subscribe(create_subscriber_with_state<TriggerType>(state->children_subscriptions.make_child(),
@@ -92,7 +84,7 @@ struct take_until_impl
                                                   take_until_on_next{},
                                                   take_until_on_error{},
                                                   take_until_on_completed{},
-                                                  std::forward<TSub>(subscriber),
+                                                  std::move(subscriber),
                                                   std::move(state));
     }
 };
