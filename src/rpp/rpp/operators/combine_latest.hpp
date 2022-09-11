@@ -19,7 +19,7 @@
 #include <rpp/utils/functors.hpp>
 #include <rpp/operators/merge.hpp>
 #include <rpp/defs.hpp>
-
+#include <rpp/utils/spinlock.hpp>
 
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 
@@ -71,11 +71,12 @@ using combine_latest_on_error     = merge_on_error;
 using combine_latest_on_completed = merge_on_completed;
 
 template<typename TCombiner, constraint::decayed_type... Types>
-struct combine_latest_state_with_serialized_mutex : combine_latest_state<TCombiner,Types...>
+struct combine_latest_state_with_serialized_spinlock : combine_latest_state<TCombiner,Types...>
 {
     using combine_latest_state<TCombiner,Types...>::combine_latest_state;
 
-    std::mutex mutex{};
+    // we can use spinlock there because 99.9% of time only one ever thread would send values from on_next (due to values_mutex), but we have small probability to get error from another thread immediately
+    utils::spinlock spinlock{};
 };
 
 /**
@@ -134,9 +135,9 @@ public:
     template<constraint::subscriber_of_type<DownstreamType> TSub>
     auto operator()(TSub&& in_subscriber) const
     {
-        auto state = std::make_shared<combine_latest_state_with_serialized_mutex<TCombiner, Type, utils::extract_observable_type_t<TOtherObservable>...>>(m_combiner, in_subscriber.get_subscription());
+        auto state = std::make_shared<combine_latest_state_with_serialized_spinlock<TCombiner, Type, utils::extract_observable_type_t<TOtherObservable>...>>(m_combiner, in_subscriber.get_subscription());
         // change subscriber to serialized to avoid manual using of mutex
-        auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<std::mutex>{state, &state->mutex});
+        auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<utils::spinlock>{state, &state->spinlock});
 
         state->count_of_on_completed_needed.store(sizeof...(TOtherObservable) + 1, std::memory_order::relaxed);
 
