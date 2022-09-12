@@ -43,7 +43,7 @@ struct observe_on_impl
                                                   observe_on_on_next{rpp::schedulers::duration{0}},
                                                   observe_on_on_error{rpp::schedulers::duration{0}},
                                                   observe_on_on_completed{rpp::schedulers::duration{0}},
-                                                  dynamic_subscriber,
+                                                  std::move(dynamic_subscriber),
                                                   std::move(worker));
     }
 };
