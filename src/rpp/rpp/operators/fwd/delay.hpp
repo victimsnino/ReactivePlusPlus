@@ -41,6 +41,7 @@ struct member_overload<Type, SpecificObservable, delay_tag>
        }
      *
      * \param delay_duration is the delay duration for emitting items. Delay duration should be able to cast to rpp::schedulers::duration.
+     * \param scheduler provides the threading model for delay. e.g. With a new thread scheduler, the observer sees the values in a new thread after a delay duration to the subscription.
      * \return new specific_observable with the delay operator as most recent operator.
      * \warning #include <rpp/operators/delay.hpp>
      *

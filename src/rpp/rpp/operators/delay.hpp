@@ -103,7 +103,7 @@ struct delay_impl
                                                   delay_on_next{delay},
                                                   delay_on_error{delay},
                                                   delay_on_completed{delay},
-                                                  dynamic_subscriber,
+                                                  std::move(dynamic_subscriber),
                                                   std::move(worker));
     }
 };
