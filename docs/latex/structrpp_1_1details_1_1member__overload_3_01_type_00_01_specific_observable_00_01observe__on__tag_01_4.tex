@@ -26,7 +26,7 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} cast\_this()-\/>template lift<Type>(observe\_on\_impl<Type, std::decay\_t<TScheduler>>\{std::forward<TScheduler>(scheduler)\})}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} cast\_this()-\/>delay(schedulers::duration\{0\}, std::forward<TScheduler>(scheduler))}
 
 \end{DoxyCode}
 

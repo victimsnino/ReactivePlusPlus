@@ -194,26 +194,28 @@ template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the delay operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="delay_8hpp_source.html">rpp/operators/delay.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Examples</dt><dd><div class="fragment"><div class="line"> </div>
+<div class="line">    <span class="keyword">auto</span> start = rpp::schedulers::clock_type::now();</div>
+<div class="line"> </div>
 <div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3)</div>
-<div class="line">            .do_on_next([](<span class="keyword">auto</span>&amp;&amp; v)</div>
+<div class="line">            .do_on_next([&amp;](<span class="keyword">auto</span>&amp;&amp; v)</div>
 <div class="line">                        {</div>
 <div class="line">                            <span class="keyword">auto</span> emitting_time = rpp::schedulers::clock_type::now();</div>
-<div class="line">                            std::cout &lt;&lt; <span class="stringliteral">&quot;emit &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} at epoch time &quot;</span> &lt;&lt; emitting_time.time_since_epoch().count() &lt;&lt; std::endl;</div>
+<div class="line">                            std::cout &lt;&lt; <span class="stringliteral">&quot;emit &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(emitting_time - start).count() &lt;&lt; <span class="stringliteral">&quot;s&quot;</span>&lt;&lt; std::endl;</div>
 <div class="line">                        })</div>
 <div class="line">            .<a class="code" href="group__utility__operators.html#ga22b02cce663473d2afe047022271112d">delay</a>(std::chrono::seconds{3}, <a class="code" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{})</div>
 <div class="line">            .as_blocking()</div>
-<div class="line">            .subscribe([](<span class="keywordtype">int</span> v)</div>
+<div class="line">            .subscribe([&amp;](<span class="keywordtype">int</span> v)</div>
 <div class="line">                       {</div>
 <div class="line">                           <span class="keyword">auto</span> observing_time = rpp::schedulers::clock_type::now();</div>
-<div class="line">                           std::cout &lt;&lt; <span class="stringliteral">&quot;observe &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} at epoch time &quot;</span> &lt;&lt; observing_time.time_since_epoch().count() &lt;&lt; std::endl;</div>
+<div class="line">                           std::cout &lt;&lt; <span class="stringliteral">&quot;observe &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(observing_time - start).count() &lt;&lt;<span class="stringliteral">&quot;s&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">                       });</div>
 <div class="line">    <span class="comment">// Template for output:</span></div>
-<div class="line">    <span class="comment">//    emit 1 in thread{281472967355984} at epoch time 9302615113068</span></div>
-<div class="line">    <span class="comment">//    emit 2 in thread{281472967355984} at epoch time 9302615155151</span></div>
-<div class="line">    <span class="comment">//    emit 3 in thread{281472967355984} at epoch time 9302615157860</span></div>
-<div class="line">    <span class="comment">//    observe 1 in thread{281472962380144} at epoch time 9305618428153</span></div>
-<div class="line">    <span class="comment">//    observe 2 in thread{281472962380144} at epoch time 9305618551778</span></div>
-<div class="line">    <span class="comment">//    observe 3 in thread{281472962380144} at epoch time 9305618558236</span></div>
+<div class="line">    <span class="comment">//    emit 1 in thread{11772} duration since start 0s</span></div>
+<div class="line">    <span class="comment">//    emit 2 in thread{11772} duration since start 0s</span></div>
+<div class="line">    <span class="comment">//    emit 3 in thread{11772} duration since start 0s</span></div>
+<div class="line">    <span class="comment">//    observe 1 in thread{15516} duration since start 3s</span></div>
+<div class="line">    <span class="comment">//    observe 2 in thread{15516} duration since start 3s</span></div>
+<div class="line">    <span class="comment">//    observe 3 in thread{15516} duration since start 3s</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/delay.html">https://reactivex.io/documentation/operators/delay.html</a> </dd></dl>
 

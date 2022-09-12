@@ -132,7 +132,7 @@ template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </di
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">{</div>
-<div class="line">        <span class="keywordflow">return</span> cast_this()-&gt;template lift&lt;Type&gt;(observe_on_impl&lt;Type, std::decay_t&lt;TScheduler&gt;&gt;{std::forward&lt;TScheduler&gt;(scheduler)})</div>
+<div class="line">        <span class="keywordflow">return</span> cast_this()-&gt;delay(schedulers::duration{0}, std::forward&lt;TScheduler&gt;(scheduler))</div>
 </div><!-- fragment -->
 </div>
 </div>

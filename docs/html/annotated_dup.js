@@ -86,7 +86,7 @@ var annotated_dup =
         [ "merge_state", "structrpp_1_1details_1_1merge__state.html", "structrpp_1_1details_1_1merge__state" ],
         [ "merge_state_with_serialized_mutex", "structrpp_1_1details_1_1merge__state__with__serialized__mutex.html", "structrpp_1_1details_1_1merge__state__with__serialized__mutex" ],
         [ "observable_tag", "structrpp_1_1details_1_1observable__tag.html", null ],
-        [ "observe_on_impl", "structrpp_1_1details_1_1observe__on__impl.html", "structrpp_1_1details_1_1observe__on__impl" ],
+        [ "observe_on_impl", "structrpp_1_1details_1_1observe__on__impl.html", null ],
         [ "observer_tag", "structrpp_1_1details_1_1observer__tag.html", null ],
         [ "ref_count_on_subscribe", "structrpp_1_1details_1_1ref__count__on__subscribe.html", "structrpp_1_1details_1_1ref__count__on__subscribe" ],
         [ "ref_count_state_t", "structrpp_1_1details_1_1ref__count__state__t.html", "structrpp_1_1details_1_1ref__count__state__t" ],

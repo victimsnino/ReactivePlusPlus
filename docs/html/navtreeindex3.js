@@ -1,8 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"structrpp_1_1details_1_1observe__on__impl.html":[3,0,0,0,84],
-"structrpp_1_1details_1_1observe__on__impl.html#a931b3bca02a7e54ad8d32b773dbe34c2":[3,0,0,0,84,0],
-"structrpp_1_1details_1_1observe__on__impl.html#ac935c79da9d904a2148950b28685b22f":[3,0,0,0,84,1],
 "structrpp_1_1details_1_1observer__tag.html":[3,0,0,0,85],
 "structrpp_1_1details_1_1ref__count__on__subscribe.html":[3,0,0,0,86],
 "structrpp_1_1details_1_1ref__count__on__subscribe.html#a1cb72c0276430213f762c329ad2551cf":[3,0,0,0,86,2],
