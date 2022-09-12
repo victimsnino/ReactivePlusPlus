@@ -12,13 +12,12 @@
 
 #include <rpp/defs.hpp>
 #include <rpp/operators/delay.hpp>
-#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 #include <rpp/operators/fwd/observe_on.hpp>
 #include <rpp/subscribers/constraints.hpp>
 
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 
 IMPLEMENTATION_FILE(observe_on_tag);
-
 
 namespace rpp::details
 {
