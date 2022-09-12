@@ -11,51 +11,19 @@
 #pragma once
 
 #include <rpp/defs.hpp>
-#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+#include <rpp/operators/delay.hpp>
 #include <rpp/operators/fwd/observe_on.hpp>
 #include <rpp/subscribers/constraints.hpp>
 
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 
 IMPLEMENTATION_FILE(observe_on_tag);
 
-
 namespace rpp::details
 {
-struct observe_on_on_next
-{
-    void operator()(auto&& value, const auto& sub, const auto& worker) const
-    {
-        worker.schedule([value = std::forward<decltype(value)>(value), sub]
-                        {
-                            sub.on_next(std::move(value));
-                            return schedulers::optional_duration{};
-                        });
-    }
-};
-
-struct observe_on_on_error
-{
-    void operator()(const std::exception_ptr& err, const auto& sub, const auto& worker) const
-    {
-        worker.schedule([err, sub]
-                        {
-                            sub.on_error(err);
-                            return schedulers::optional_duration{};
-                        });
-    }
-};
-
-struct observe_on_on_completed
-{
-    void operator()(const auto& sub, const auto& worker) const
-    {
-        worker.schedule([sub]
-                        {
-                            sub.on_completed();
-                            return schedulers::optional_duration{};
-                        });
-    }
-};
+using observe_on_on_next = delay_on_next;
+using observe_on_on_error = delay_on_error;
+using observe_on_on_completed = delay_on_completed;
 
 template<constraint::decayed_type Type, schedulers::constraint::scheduler TScheduler>
 struct observe_on_impl
@@ -71,10 +39,10 @@ struct observe_on_impl
         auto worker = scheduler.create_worker(dynamic_subscriber.get_subscription());
 
         return create_subscriber_with_state<Type>(dynamic_subscriber.get_subscription().make_child(),
-                                                  observe_on_on_next{},
-                                                  observe_on_on_error{},
-                                                  observe_on_on_completed{},
-                                                  dynamic_subscriber,
+                                                  observe_on_on_next{rpp::schedulers::duration{0}},
+                                                  observe_on_on_error{rpp::schedulers::duration{0}},
+                                                  observe_on_on_completed{rpp::schedulers::duration{0}},
+                                                  std::move(dynamic_subscriber),
                                                   std::move(worker));
     }
 };

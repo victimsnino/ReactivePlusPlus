@@ -40,6 +40,7 @@ struct RPP_EMPTY_BASES interface_observable
     , details::member_overload<Type, SpecificObservable, details::buffer_tag>
     , details::member_overload<Type, SpecificObservable, details::combine_latest_tag>
     , details::member_overload<Type, SpecificObservable, details::concat_tag>
+    , details::member_overload<Type, SpecificObservable, details::delay_tag>
     , details::member_overload<Type, SpecificObservable, details::distinct_until_changed_tag>
     , details::member_overload<Type, SpecificObservable, details::do_tag>
     , details::member_overload<Type, SpecificObservable, details::filter_tag>
