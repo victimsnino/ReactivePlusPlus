@@ -30,12 +30,28 @@ SCENARIO("delay mirrors both source observable and trigger observable", "[delay]
         rpp::source::just(1)
             .delay(delay_duration, rpp::schedulers::trampoline{})
             .as_blocking()
-            .subscribe(mock);
+            .subscribe([&](auto&& v)
+                       {
+                           THEN("should see event after the delay")
+                           {
+                               CHECK(rpp::schedulers::clock_type::now() >= now + std::chrono::duration_cast<rpp::schedulers::duration>(delay_duration));
+                           }
 
-        THEN("should see -1-| after the delay")
+                           mock.on_next(v);
+                       },
+                       [&](const std::exception_ptr& err) { mock.on_error(err); },
+                       [&]()
+                       {
+                           THEN("should see event after the delay")
+                           {
+                               CHECK(rpp::schedulers::clock_type::now() >= now + std::chrono::duration_cast<rpp::schedulers::duration>(delay_duration));
+                           }
+
+                           mock.on_completed();
+                       });
+
+        THEN("should see -1-|")
         {
-            CHECK(rpp::schedulers::clock_type::now() >= now + std::chrono::duration_cast<rpp::schedulers::duration>(delay_duration));
-
             CHECK(mock.get_received_values() == std::vector<int>{1});
             CHECK(mock.get_on_completed_count() == 1);
             CHECK(mock.get_on_error_count() == 0);
@@ -50,12 +66,19 @@ SCENARIO("delay mirrors both source observable and trigger observable", "[delay]
         rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}))
             .delay(delay_duration, rpp::schedulers::trampoline{})
             .as_blocking()
-            .subscribe(mock);
+            .subscribe([&](auto&& v) { mock.on_next(v); },
+                       [&](const std::exception_ptr& err)
+                       {
+                           THEN("should see event after the delay")
+                           {
+                               CHECK(rpp::schedulers::clock_type::now() >= now + std::chrono::duration_cast<rpp::schedulers::duration>(delay_duration));
+                           }
+                           mock.on_error(err);
+                       },
+                       [&]() { mock.on_completed(); });
 
         THEN("should see -x after the delay")
         {
-            CHECK(rpp::schedulers::clock_type::now() >= now + std::chrono::duration_cast<rpp::schedulers::duration>(delay_duration));
-
             CHECK(mock.get_received_values().empty());
             CHECK(mock.get_on_completed_count() == 0);
             CHECK(mock.get_on_error_count() == 1);
@@ -70,12 +93,19 @@ SCENARIO("delay mirrors both source observable and trigger observable", "[delay]
         rpp::source::empty<int>()
             .delay(delay_duration, rpp::schedulers::trampoline{})
             .as_blocking()
-            .subscribe(mock);
+            .subscribe([&](auto&& v) { mock.on_next(v); },
+                       [&](const std::exception_ptr& err) { mock.on_error(err); },
+                       [&]()
+                       {
+                           THEN("should see event after delay")
+                           {
+                              CHECK(rpp::schedulers::clock_type::now() >= now + std::chrono::duration_cast<rpp::schedulers::duration>(delay_duration));
+                           }
+                           mock.on_completed();
+                       });
 
-        THEN("should see -| after the delay")
+        THEN("should see -|")
         {
-            CHECK(rpp::schedulers::clock_type::now() >= now + std::chrono::duration_cast<rpp::schedulers::duration>(delay_duration));
-
             CHECK(mock.get_received_values().empty());
             CHECK(mock.get_on_completed_count() == 1);
             CHECK(mock.get_on_error_count() == 0);
