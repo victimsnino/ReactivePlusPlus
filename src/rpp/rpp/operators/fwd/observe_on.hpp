@@ -13,7 +13,6 @@
 #include <rpp/observables/details/member_overload.hpp>
 #include <rpp/schedulers/constraints.hpp>
 
-
 namespace rpp::details
 {
 struct observe_on_tag;
@@ -43,13 +42,13 @@ struct member_overload<Type, SpecificObservable, observe_on_tag>
     template<schedulers::constraint::scheduler TScheduler>
     auto observe_on(TScheduler&& scheduler) const& requires is_header_included<observe_on_tag, TScheduler>
     {
-        return cast_this()->template lift<Type>(observe_on_impl<Type, std::decay_t<TScheduler>>{std::forward<TScheduler>(scheduler)});
+        return cast_this()->delay(schedulers::duration{0}, std::forward<TScheduler>(scheduler));
     }
 
     template<schedulers::constraint::scheduler TScheduler>
     auto observe_on(TScheduler&& scheduler) && requires is_header_included<observe_on_tag, TScheduler>
     {
-        return move_this().template lift<Type>(observe_on_impl<Type, std::decay_t<TScheduler>>{std::forward<TScheduler>(scheduler)});
+        return move_this().delay(schedulers::duration{0}, std::forward<TScheduler>(scheduler));
     }
 
 private:
