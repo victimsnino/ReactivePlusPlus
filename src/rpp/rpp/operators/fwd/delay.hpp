@@ -63,7 +63,7 @@ struct member_overload<Type, SpecificObservable, delay_tag>
     auto delay(auto&& delay_duration,
                TScheduler&& scheduler) && requires is_header_included<delay_tag, TScheduler>
     {
-        return cast_this()->template lift<Type>(
+        return move_this().template lift<Type>(
             delay_impl<Type, std::decay_t<TScheduler>>{std::forward<TScheduler>(scheduler),
                                                        std::chrono::duration_cast<rpp::schedulers::duration>(delay_duration)});
     }
