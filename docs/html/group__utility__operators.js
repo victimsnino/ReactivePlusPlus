@@ -1,5 +1,6 @@
 var group__utility__operators =
 [
+    [ "delay", "group__utility__operators.html#ga22b02cce663473d2afe047022271112d", null ],
     [ "do_on_completed", "group__utility__operators.html#ga0dbe6a2712821fa0c5798f9e1246fd12", null ],
     [ "do_on_error", "group__utility__operators.html#gaba463ab994eb3245718a3119e33e99e1", null ],
     [ "do_on_next", "group__utility__operators.html#ga157931ad5c05dffdbe5104d75e9822d4", null ],

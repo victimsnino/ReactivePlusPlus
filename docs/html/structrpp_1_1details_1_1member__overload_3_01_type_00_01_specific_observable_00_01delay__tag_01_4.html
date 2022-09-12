@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::details::observe_on_on_error Struct Reference</title>
+<title>ReactivePlusPlus: rpp::details::member_overload&lt; Type, SpecificObservable, delay_tag &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -73,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('structrpp_1_1details_1_1observe__on__on__error.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01delay__tag_01_4.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,27 +94,59 @@ $(document).ready(function(){initNavTree('structrpp_1_1details_1_1observe__on__o
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="structrpp_1_1details_1_1observe__on__on__error-members.html">List of all members</a>  </div>
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01delay__tag_01_4-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">rpp::details::observe_on_on_error Struct Reference</div>  </div>
+<div class="title">rpp::details::member_overload&lt; Type, SpecificObservable, delay_tag &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7149aa9b303895e3a4a50196afa6c000"><td class="memItemLeft" align="right" valign="top"><a id="a7149aa9b303895e3a4a50196afa6c000"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>operator()</b> (const std::exception_ptr &amp;err, const auto &amp;sub, const auto &amp;worker) const</td></tr>
-<tr class="separator:a7149aa9b303895e3a4a50196afa6c000"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga22b02cce663473d2afe047022271112d"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler&gt; </td></tr>
+<tr class="memitem:ga22b02cce663473d2afe047022271112d"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#ga22b02cce663473d2afe047022271112d">delay</a> (auto &amp;&amp;delay_duration, TScheduler &amp;&amp;scheduler) const &amp;requires is_header_included&lt; delay_tag</td></tr>
+<tr class="memdesc:ga22b02cce663473d2afe047022271112d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift the emissions from an Observable forward in time by a particular amount.  <a href="group__utility__operators.html#ga22b02cce663473d2afe047022271112d">More...</a><br /></td></tr>
+<tr class="separator:ga22b02cce663473d2afe047022271112d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a682a3ca844725a97c4a5e2e9f807f7c8"><td class="memTemplParams" colspan="2"><a id="a682a3ca844725a97c4a5e2e9f807f7c8"></a>
+template&lt;schedulers::constraint::scheduler TScheduler&gt; </td></tr>
+<tr class="memitem:a682a3ca844725a97c4a5e2e9f807f7c8"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>delay</b> (auto &amp;&amp;delay_duration, TScheduler &amp;&amp;scheduler) &amp;&amp;requires is_header_included&lt; delay_tag</td></tr>
+<tr class="separator:a682a3ca844725a97c4a5e2e9f807f7c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aec71fc7468e44d7417218301774f0972"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><b>TScheduler</b></td></tr>
+<tr class="separator:aec71fc7468e44d7417218301774f0972"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aec71fc7468e44d7417218301774f0972"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec71fc7468e44d7417218301774f0972">&#9670;&nbsp;</a></span>TScheduler</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, delay_tag &gt;::TScheduler</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">{</div>
+<div class="line">        <span class="keywordflow">return</span> cast_this()-&gt;template lift&lt;Type&gt;(</div>
+<div class="line">            delay_impl&lt;Type, std::decay_t&lt;TScheduler&gt;&gt;{std::forward&lt;TScheduler&gt;(scheduler),</div>
+<div class="line">                                                       std::chrono::duration_cast&lt;rpp::schedulers::duration&gt;(delay_duration)})</div>
+</div><!-- fragment -->
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/rpp/rpp/operators/<a class="el" href="observe__on_8hpp_source.html">observe_on.hpp</a></li>
+<li>src/rpp/rpp/operators/fwd/<a class="el" href="fwd_2delay_8hpp_source.html">delay.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="structrpp_1_1details_1_1observe__on__on__error.html">observe_on_on_error</a></li>
+    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01delay__tag_01_4.html">member_overload&lt; Type, SpecificObservable, delay_tag &gt;</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>

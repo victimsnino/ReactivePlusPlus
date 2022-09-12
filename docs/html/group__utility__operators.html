@@ -104,6 +104,10 @@ $(document).ready(function(){initNavTree('group__utility__operators.html',''); i
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga22b02cce663473d2afe047022271112d"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler&gt; </td></tr>
+<tr class="memitem:ga22b02cce663473d2afe047022271112d"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#ga22b02cce663473d2afe047022271112d">rpp::details::member_overload&lt; Type, SpecificObservable, delay_tag &gt;::delay</a> (auto &amp;&amp;delay_duration, TScheduler &amp;&amp;scheduler) const &amp;requires is_header_included&lt; delay_tag</td></tr>
+<tr class="memdesc:ga22b02cce663473d2afe047022271112d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift the emissions from an Observable forward in time by a particular amount.  <a href="group__utility__operators.html#ga22b02cce663473d2afe047022271112d">More...</a><br /></td></tr>
+<tr class="separator:ga22b02cce663473d2afe047022271112d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafa05370906b6201bfbf0fd820e88e2ad"><td class="memTemplParams" colspan="2">template&lt;constraint::observer_of_type&lt; Type &gt; TObs&gt; </td></tr>
 <tr class="memitem:gafa05370906b6201bfbf0fd820e88e2ad"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#gafa05370906b6201bfbf0fd820e88e2ad">rpp::details::member_overload&lt; Type, SpecificObservable, do_tag &gt;::tap</a> (TObs &amp;&amp;observer) const &amp;requires is_header_included&lt; do_tag</td></tr>
 <tr class="memdesc:gafa05370906b6201bfbf0fd820e88e2ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an observer to be called when observable provides any events (on_next/on_error/on_completed)  <a href="group__utility__operators.html#gafa05370906b6201bfbf0fd820e88e2ad">More...</a><br /></td></tr>
@@ -145,6 +149,76 @@ Functions</h2></td></tr>
 <p>Utility operators are operators that provide some extra functionality without changing of original values, but changing of behaviour. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#utility">https://reactivex.io/documentation/operators.html#utility</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga22b02cce663473d2afe047022271112d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga22b02cce663473d2afe047022271112d">&#9670;&nbsp;</a></span>delay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, delay_tag &gt;::delay </td>
+          <td>(</td>
+          <td class="paramtype">auto &amp;&amp;&#160;</td>
+          <td class="paramname"><em>delay_duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TScheduler &amp;&amp;&#160;</td>
+          <td class="paramname"><em>scheduler</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift the emissions from an Observable forward in time by a particular amount. </p>
+<p>The delay operator modifies its source Observable by pausing for a particular increment of time (that you specify) before emitting each of the source Observable’s items. This has the effect of shifting the entire sequence of items emitted by the Observable forward in time by that specified increment.</p>
+<div class="image">
+<object type="image/svg+xml" data="delay.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">delay_duration</td><td>is the delay duration for emitting items. Delay duration should be able to cast to rpp::schedulers::duration. </td></tr>
+    <tr><td class="paramname">scheduler</td><td>provides the threading model for delay. e.g. With a new thread scheduler, the observer sees the values in a new thread after a delay duration to the subscription. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the delay operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="delay_8hpp_source.html">rpp/operators/delay.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Examples</dt><dd><div class="fragment"><div class="line"> </div>
+<div class="line">    <a class="code" href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::source::just</a>(1, 2, 3)</div>
+<div class="line">            .do_on_next([](<span class="keyword">auto</span>&amp;&amp; v)</div>
+<div class="line">                        {</div>
+<div class="line">                            <span class="keyword">auto</span> emitting_time = rpp::schedulers::clock_type::now();</div>
+<div class="line">                            std::cout &lt;&lt; <span class="stringliteral">&quot;emit &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} at epoch time &quot;</span> &lt;&lt; emitting_time.time_since_epoch().count() &lt;&lt; std::endl;</div>
+<div class="line">                        })</div>
+<div class="line">            .<a class="code" href="group__utility__operators.html#ga22b02cce663473d2afe047022271112d">delay</a>(std::chrono::seconds{3}, <a class="code" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{})</div>
+<div class="line">            .as_blocking()</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v)</div>
+<div class="line">                       {</div>
+<div class="line">                           <span class="keyword">auto</span> observing_time = rpp::schedulers::clock_type::now();</div>
+<div class="line">                           std::cout &lt;&lt; <span class="stringliteral">&quot;observe &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} at epoch time &quot;</span> &lt;&lt; observing_time.time_since_epoch().count() &lt;&lt; std::endl;</div>
+<div class="line">                       });</div>
+<div class="line">    <span class="comment">// Template for output:</span></div>
+<div class="line">    <span class="comment">//    emit 1 in thread{281472967355984} at epoch time 9302615113068</span></div>
+<div class="line">    <span class="comment">//    emit 2 in thread{281472967355984} at epoch time 9302615155151</span></div>
+<div class="line">    <span class="comment">//    emit 3 in thread{281472967355984} at epoch time 9302615157860</span></div>
+<div class="line">    <span class="comment">//    observe 1 in thread{281472962380144} at epoch time 9305618428153</span></div>
+<div class="line">    <span class="comment">//    observe 2 in thread{281472962380144} at epoch time 9305618551778</span></div>
+<div class="line">    <span class="comment">//    observe 3 in thread{281472962380144} at epoch time 9305618558236</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/delay.html">https://reactivex.io/documentation/operators/delay.html</a> </dd></dl>
+
+</div>
+</div>
 <a id="ga0dbe6a2712821fa0c5798f9e1246fd12"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga0dbe6a2712821fa0c5798f9e1246fd12">&#9670;&nbsp;</a></span>do_on_completed()</h2>
 
@@ -570,6 +644,7 @@ template&lt;constraint::observer_of_type&lt; Type &gt; TObs&gt; </div>
 </div><!-- doc-content -->
 <div class="ttc" id="agroup__utility__operators_html_ga0608a5ced9a5b3b57f4c97a9b2f634f4"><div class="ttname"><a href="group__utility__operators.html#ga0608a5ced9a5b3b57f4c97a9b2f634f4">rpp::details::member_overload&lt; Type, SpecificObservable, subscribe_on_tag &gt;::subscribe_on</a></div><div class="ttdeci">auto subscribe_on(const TScheduler &amp;scheduler) const &amp;requires is_header_included&lt; subscribe_on_tag</div><div class="ttdoc">OnSubscribe function for this observable will be scheduled via provided scheduler.</div></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">scheduler which schedules execution of schedulables via queueing tasks to another thread with priorit...</div><div class="ttdef"><b>Definition:</b> new_thread_scheduler.hpp:31</div></div>
+<div class="ttc" id="agroup__utility__operators_html_ga22b02cce663473d2afe047022271112d"><div class="ttname"><a href="group__utility__operators.html#ga22b02cce663473d2afe047022271112d">rpp::details::member_overload&lt; Type, SpecificObservable, delay_tag &gt;::delay</a></div><div class="ttdeci">auto delay(auto &amp;&amp;delay_duration, TScheduler &amp;&amp;scheduler) const &amp;requires is_header_included&lt; delay_tag</div><div class="ttdoc">Shift the emissions from an Observable forward in time by a particular amount.</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gabc5067fa9aefaa803f6e329b75faa00c"><div class="ttname"><a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:159</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

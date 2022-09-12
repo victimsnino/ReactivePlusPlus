@@ -1,0 +1,38 @@
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01delay__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, delay\+\_\+tag $>$ Struct Template Reference}
+\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01delay__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, delay\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, delay\_tag $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler T\+Scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga22b02cce663473d2afe047022271112d}{delay}} (auto \&\&delay\+\_\+duration, T\+Scheduler \&\&scheduler) const \&requires is\+\_\+header\+\_\+included$<$ delay\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Shift the emissions from an Observable forward in time by a particular amount. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01delay__tag_01_4_a682a3ca844725a97c4a5e2e9f807f7c8}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01delay__tag_01_4_a682a3ca844725a97c4a5e2e9f807f7c8}} 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler T\+Scheduler$>$ }\\auto {\bfseries delay} (auto \&\&delay\+\_\+duration, T\+Scheduler \&\&scheduler) \&\&requires is\+\_\+header\+\_\+included$<$ delay\+\_\+tag
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+auto {\bfseries T\+Scheduler}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01delay__tag_01_4_aec71fc7468e44d7417218301774f0972}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01delay__tag_01_4_aec71fc7468e44d7417218301774f0972}} 
+\index{rpp::details::member\_overload$<$ Type, SpecificObservable, delay\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, delay\_tag $>$}!TScheduler@{TScheduler}}
+\index{TScheduler@{TScheduler}!rpp::details::member\_overload$<$ Type, SpecificObservable, delay\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, delay\_tag $>$}}
+\doxysubsubsection{\texorpdfstring{TScheduler}{TScheduler}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, delay\+\_\+tag $>$\+::T\+Scheduler}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} cast\_this()-\/>template lift<Type>(}
+\DoxyCodeLine{            delay\_impl<Type, std::decay\_t<TScheduler>>\{std::forward<TScheduler>(scheduler),}
+\DoxyCodeLine{                                                       std::chrono::duration\_cast<rpp::schedulers::duration>(delay\_duration)\})}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/fwd/delay.\+hpp\end{DoxyCompactItemize}

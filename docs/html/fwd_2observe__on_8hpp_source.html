@@ -96,15 +96,15 @@ $(document).ready(function(){initNavTree('fwd_2observe__on_8hpp_source.html','')
 <div class="title">observe_on.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//                  ReactivePlusPlus library</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//                   ReactivePlusPlus library</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//          Copyright Aleksey Loginov 2022 - present.</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">// Distributed under the Boost Software License, Version 1.0.</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//    (See accompanying file LICENSE_1_0.txt or copy at</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//          https://www.boost.org/LICENSE_1_0.txt)</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// Project home: https://github.com/victimsnino/ReactivePlusPlus</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//           Copyright Aleksey Loginov 2022 - present.</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//                             TC Wang 2022 - present.</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Distributed under the Boost Software License, Version 1.0.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//     (See accompanying file LICENSE_1_0.txt or copy at</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//           https://www.boost.org/LICENSE_1_0.txt)</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//  Project home: https://github.com/victimsnino/ReactivePlusPlus</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
@@ -128,16 +128,27 @@ $(document).ready(function(){initNavTree('fwd_2observe__on_8hpp_source.html','')
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">template</span>&lt;schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">auto</span> observe_on(TScheduler&amp;&amp; scheduler) <span class="keyword">const</span>&amp; requires is_header_included&lt;observe_on_tag, TScheduler&gt;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;<span class="keyword">template</span> lift&lt;Type&gt;(<a class="code" href="structrpp_1_1details_1_1observe__on__impl.html">observe_on_impl</a>&lt;Type, std::decay_t&lt;TScheduler&gt;&gt;{std::forward&lt;TScheduler&gt;(scheduler)});</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">return</span> cast_this()-&gt;template lift&lt;Type&gt;(<a class="code" href="structrpp_1_1details_1_1observe__on__impl.html">observe_on_impl</a>&lt;Type, std::decay_t&lt;TScheduler&gt;&gt;{std::forward&lt;TScheduler&gt;(scheduler)});</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">template</span>&lt;schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">auto</span> observe_on(TScheduler&amp;&amp; scheduler) &amp;&amp; requires is_header_included&lt;observe_on_tag, TScheduler&gt;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">return</span> std::move(*<span class="keyword">static_cast&lt;</span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)).template lift&lt;Type&gt;(<a class="code" href="structrpp_1_1details_1_1observe__on__impl.html">observe_on_impl</a>&lt;Type, std::decay_t&lt;TScheduler&gt;&gt;{std::forward&lt;TScheduler&gt;(scheduler)});</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">return</span> move_this().template lift&lt;Type&gt;(<a class="code" href="structrpp_1_1details_1_1observe__on__impl.html">observe_on_impl</a>&lt;Type, std::decay_t&lt;TScheduler&gt;&gt;{std::forward&lt;TScheduler&gt;(scheduler)});</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;};</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">const</span> SpecificObservable* cast_this()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    SpecificObservable&amp;&amp; move_this()</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">return</span> std::move(*<span class="keyword">static_cast&lt;</span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>));</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructrpp_1_1details_1_1observe__on__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1observe__on__impl.html">rpp::details::observe_on_impl</a></div><div class="ttdef"><b>Definition:</b> observe_on.hpp:25</div></div>

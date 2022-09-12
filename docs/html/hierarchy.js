@@ -14,6 +14,10 @@ var hierarchy =
     [ "declvalget_observable", null, [
       [ "rpp::connectable_observable< Type, Subject, OriginalObservable >", "classrpp_1_1connectable__observable.html", null ]
     ] ],
+    [ "rpp::details::delay_impl< Type, TScheduler >", "structrpp_1_1details_1_1delay__impl.html", null ],
+    [ "rpp::details::delay_on_completed", "structrpp_1_1details_1_1delay__on__completed.html", null ],
+    [ "rpp::details::delay_on_error", "structrpp_1_1details_1_1delay__on__error.html", null ],
+    [ "rpp::details::delay_on_next", "structrpp_1_1details_1_1delay__on__next.html", null ],
     [ "rpp::details::distinct_until_changed_impl< Type, EqualityFn >", "structrpp_1_1details_1_1distinct__until__changed__impl.html", null ],
     [ "rpp::details::distinct_until_changed_on_next", "structrpp_1_1details_1_1distinct__until__changed__on__next.html", null ],
     [ "rpp::details::distinct_until_changed_state< Type, EqualityFn >", "structrpp_1_1details_1_1distinct__until__changed__state.html", null ],
@@ -69,16 +73,17 @@ var hierarchy =
     [ "rpp::details::lift_action_by_callbacks< Type, OnNext, OnError, OnCompleted >", "structrpp_1_1details_1_1lift__action__by__callbacks.html", null ],
     [ "rpp::details::lift_on_subscribe< NewType, OperatorFn, TObs >", "structrpp_1_1details_1_1lift__on__subscribe.html", null ],
     [ "rpp::details::map_impl< Type, Callable >", "structrpp_1_1details_1_1map__impl.html", null ],
-    [ "rpp::details::member_overload< Type, SpecificObservable, MemberTag >", "structrpp_1_1details_1_1member__overload.html", null ],
-    [ "rpp::details::member_overload< Type, blocking_observable< Type, OriginalObservable >, details::subscribe_tag >", "structrpp_1_1details_1_1member__overload.html", [
+    [ "rpp::details::member_overload< Type, SpecificObservable, MemberTag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::blocking_observable< Type, OriginalObservable >", "classrpp_1_1blocking__observable.html", null ]
     ] ],
+    [ "rpp::details::member_overload< Type, blocking_observable< Type, OriginalObservable >, details::subscribe_tag >", "structrpp_1_1details_1_1member__overload.html", null ],
     [ "rpp::details::member_overload< Type, connectable_observable< Type, Subject, OriginalObservable >, details::ref_count_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::connectable_observable< Type, Subject, OriginalObservable >", "classrpp_1_1connectable__observable.html", null ]
     ] ],
     [ "rpp::details::member_overload< Type, SpecificObservable, buffer_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, combine_latest_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, concat_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01concat__tag_01_4.html", null ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, delay_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01delay__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, details::buffer_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
@@ -86,6 +91,9 @@ var hierarchy =
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
     [ "rpp::details::member_overload< Type, SpecificObservable, details::concat_tag >", "structrpp_1_1details_1_1member__overload.html", [
+      [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
+    ] ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, details::delay_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
     [ "rpp::details::member_overload< Type, SpecificObservable, details::distinct_until_changed_tag >", "structrpp_1_1details_1_1member__overload.html", [
@@ -205,9 +213,6 @@ var hierarchy =
       ] ]
     ] ],
     [ "rpp::details::observe_on_impl< Type, TScheduler >", "structrpp_1_1details_1_1observe__on__impl.html", null ],
-    [ "rpp::details::observe_on_on_completed", "structrpp_1_1details_1_1observe__on__on__completed.html", null ],
-    [ "rpp::details::observe_on_on_error", "structrpp_1_1details_1_1observe__on__on__error.html", null ],
-    [ "rpp::details::observe_on_on_next", "structrpp_1_1details_1_1observe__on__on__next.html", null ],
     [ "rpp::details::observer_tag", "structrpp_1_1details_1_1observer__tag.html", [
       [ "rpp::details::typed_observer_tag< T >", "structrpp_1_1details_1_1typed__observer__tag.html", [
         [ "rpp::details::dynamic_state_observer< T >", "classrpp_1_1details_1_1dynamic__state__observer.html", [
@@ -288,8 +293,8 @@ var hierarchy =
     [ "rpp::details::with_latest_from_impl< Type, TSelector, TObservables >", "structrpp_1_1details_1_1with__latest__from__impl.html", null ],
     [ "rpp::details::with_latest_from_on_next_inner< I >", "structrpp_1_1details_1_1with__latest__from__on__next__inner.html", null ],
     [ "rpp::details::with_latest_from_on_next_outer< TSelector, ValueTypes >", "structrpp_1_1details_1_1with__latest__from__on__next__outer.html", null ],
-    [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ],
+    [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::details::worker_tag", "structrpp_1_1schedulers_1_1details_1_1worker__tag.html", [
       [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ]
     ] ]

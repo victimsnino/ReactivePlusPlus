@@ -8,6 +8,8 @@ Utility operators are operators that provide some extra functionality without ch
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler T\+Scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga22b02cce663473d2afe047022271112d}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, delay\+\_\+tag $>$\+::delay}} (auto \&\&delay\+\_\+duration, T\+Scheduler \&\&scheduler) const \&requires is\+\_\+header\+\_\+included$<$ delay\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Shift the emissions from an Observable forward in time by a particular amount. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::observer\+\_\+of\+\_\+type$<$ Type $>$ T\+Obs$>$ }\\auto \mbox{\hyperlink{group__utility__operators_gafa05370906b6201bfbf0fd820e88e2ad}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, do\+\_\+tag $>$\+::tap}} (T\+Obs \&\&observer) const \&requires is\+\_\+header\+\_\+included$<$ do\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Register an observer to be called when observable provides any events (on\+\_\+next/on\+\_\+error/on\+\_\+completed) \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::on\+\_\+next\+\_\+fn$<$ Type $>$ On\+Next\+Fn, constraint\+::on\+\_\+error\+\_\+fn On\+Error\+Fn = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, constraint\+::on\+\_\+completed\+\_\+fn On\+Completed\+Fn = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga92b3e8e02f289ac88752f5d6fc592b9c}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, do\+\_\+tag $>$\+::tap}} (On\+Next\+Fn \&\&on\+\_\+next, On\+Error\+Fn \&\&on\+\_\+error=On\+Error\+Fn\{\}, On\+Completed\+Fn \&\&on\+\_\+completed=On\+Completed\+Fn\{\}) const \&requires is\+\_\+header\+\_\+included$<$ do\+\_\+tag
@@ -37,6 +39,65 @@ Utility operators are operators that provide some extra functionality without ch
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__utility__operators_ga22b02cce663473d2afe047022271112d}\label{group__utility__operators_ga22b02cce663473d2afe047022271112d}} 
+\index{Utility Operators@{Utility Operators}!delay@{delay}}
+\index{delay@{delay}!Utility Operators@{Utility Operators}}
+\doxysubsubsection{\texorpdfstring{delay()}{delay()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$schedulers\+::constraint\+::scheduler T\+Scheduler$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, delay\+\_\+tag $>$\+::delay (\begin{DoxyParamCaption}\item[{auto \&\&}]{delay\+\_\+duration,  }\item[{T\+Scheduler \&\&}]{scheduler }\end{DoxyParamCaption}) const \&}
+
+
+
+Shift the emissions from an Observable forward in time by a particular amount. 
+
+The delay operator modifies its source Observable by pausing for a particular increment of time (that you specify) before emitting each of the source Observable’s items. This has the effect of shifting the entire sequence of items emitted by the Observable forward in time by that specified increment.
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em delay\+\_\+duration} & is the delay duration for emitting items. Delay duration should be able to cast to rpp\+::schedulers\+::duration. \\
+\hline
+{\em scheduler} & provides the threading model for delay. e.\+g. With a new thread scheduler, the observer sees the values in a new thread after a delay duration to the subscription. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the delay operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{delay_8hpp_source}{rpp/operators/delay.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Examples}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)}
+\DoxyCodeLine{            .do\_on\_next([](\textcolor{keyword}{auto}\&\& v)}
+\DoxyCodeLine{                        \{}
+\DoxyCodeLine{                            \textcolor{keyword}{auto} emitting\_time = rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{                            std::cout << \textcolor{stringliteral}{"emit "} << v << \textcolor{stringliteral}{" in thread\{"} << std::this\_thread::get\_id() << \textcolor{stringliteral}{"\} at epoch time "} << emitting\_time.time\_since\_epoch().count() << std::endl;}
+\DoxyCodeLine{                        \})}
+\DoxyCodeLine{            .\mbox{\hyperlink{group__utility__operators_ga22b02cce663473d2afe047022271112d}{delay}}(std::chrono::seconds\{3\}, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{            .as\_blocking()}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v)}
+\DoxyCodeLine{                       \{}
+\DoxyCodeLine{                           \textcolor{keyword}{auto} observing\_time = rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"observe "} << v << \textcolor{stringliteral}{" in thread\{"} << std::this\_thread::get\_id() << \textcolor{stringliteral}{"\} at epoch time "} << observing\_time.time\_since\_epoch().count() << std::endl;}
+\DoxyCodeLine{                       \});}
+\DoxyCodeLine{    \textcolor{comment}{// Template for output:}}
+\DoxyCodeLine{    \textcolor{comment}{//    emit 1 in thread\{281472967355984\} at epoch time 9302615113068}}
+\DoxyCodeLine{    \textcolor{comment}{//    emit 2 in thread\{281472967355984\} at epoch time 9302615155151}}
+\DoxyCodeLine{    \textcolor{comment}{//    emit 3 in thread\{281472967355984\} at epoch time 9302615157860}}
+\DoxyCodeLine{    \textcolor{comment}{//    observe 1 in thread\{281472962380144\} at epoch time 9305618428153}}
+\DoxyCodeLine{    \textcolor{comment}{//    observe 2 in thread\{281472962380144\} at epoch time 9305618551778}}
+\DoxyCodeLine{    \textcolor{comment}{//    observe 3 in thread\{281472962380144\} at epoch time 9305618558236}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/delay.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/delay.\+html}} 
+\end{DoxySeeAlso}
 \mbox{\Hypertarget{group__utility__operators_ga0dbe6a2712821fa0c5798f9e1246fd12}\label{group__utility__operators_ga0dbe6a2712821fa0c5798f9e1246fd12}} 
 \index{Utility Operators@{Utility Operators}!do\_on\_completed@{do\_on\_completed}}
 \index{do\_on\_completed@{do\_on\_completed}!Utility Operators@{Utility Operators}}
