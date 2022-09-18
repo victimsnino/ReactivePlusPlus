@@ -77,7 +77,7 @@ int main()
               [&transitions_subject](auto&& marking, const auto& places)
               {
                   Transitions transitions;
-                  std::tie(marking, transitions) = mutate_marking(std::move(marking), places);
+                  std::tie(marking, transitions) = mutate_marking(std::forward<decltype(marking)>(marking), places);
                   for_each(transitions,
                            [dispatcher = transitions_subject.get_subscriber()](const auto& t)
                            { dispatcher.on_next(t); });
