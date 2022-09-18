@@ -81,7 +81,7 @@ int main()
                   for_each(transitions,
                            [dispatcher = transitions_subject.get_subscriber()](const auto& t)
                            { dispatcher.on_next(t); });
-                  return marking;
+                  return std::move(marking);
               })
         .take_while(end_predicate)
         .subscribe([](const auto&) {}, [] { std::cout << "done" << std::endl; });
