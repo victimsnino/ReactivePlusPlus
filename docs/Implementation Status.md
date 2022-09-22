@@ -119,7 +119,7 @@
 - [ ] backpressure ???
 
 ### Error handling
-- [ ] catch
+- [x] catch
 - [ ] retry
 
 ### Utility

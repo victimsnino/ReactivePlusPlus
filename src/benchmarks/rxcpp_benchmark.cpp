@@ -1045,3 +1045,24 @@ TEST_CASE("trampoline scheduler")
     };
 }
 
+TEST_CASE("on_error_resume_next")
+{
+    BENCHMARK_ADVANCED("on_error_resume_next construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        const auto obs = rxcpp::sources::create<int>([](const auto& subscriber)
+        {
+            subscriber.on_error(std::make_exception_ptr(std::runtime_error{""}));
+        });
+        auto subscriber = rxcpp::make_subscriber<int>();
+
+        meter.measure([&](int)
+        {
+            return obs
+                .on_error_resume_next([](auto&&)
+                {
+                    return rxcpp::observable<>::just(1);
+                })
+                .subscribe(subscriber);
+        });
+    };
+}

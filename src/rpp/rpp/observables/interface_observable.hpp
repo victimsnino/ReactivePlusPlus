@@ -53,6 +53,7 @@ struct RPP_EMPTY_BASES interface_observable
     , details::member_overload<Type, SpecificObservable, details::merge_tag>
     , details::member_overload<Type, SpecificObservable, details::multicast_tag>
     , details::member_overload<Type, SpecificObservable, details::observe_on_tag>
+    , details::member_overload<Type, SpecificObservable, details::on_error_resume_next_tag>
     , details::member_overload<Type, SpecificObservable, details::publish_tag>
     , details::member_overload<Type, SpecificObservable, details::repeat_tag>
     , details::member_overload<Type, SpecificObservable, details::sample_tag>

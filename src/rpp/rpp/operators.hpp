@@ -79,7 +79,6 @@
 
 #include <rpp/operators/concat.hpp>
 
-
 /**
  * \defgroup utility_operators Utility Operators
  * \brief Utility operators are operators that provide some extra functionality without changing of original values, but changing of behaviour
@@ -103,3 +102,12 @@
 #include <rpp/operators/multicast.hpp>
 #include <rpp/operators/publish.hpp>
 #include <rpp/operators/ref_count.hpp>
+
+/**
+ * \defgroup error_handling_operators Error handling Operators
+ * \brief Error handling operators Operators that help to recover from error notifications from an Observable.
+ * \see https://reactivex.io/documentation/operators.html#error
+ * \ingroup operators
+ */
+
+#include <rpp/operators/on_error_resume_next.hpp>

@@ -25,6 +25,7 @@
 #include <rpp/operators/fwd/merge.hpp>
 #include <rpp/operators/fwd/multicast.hpp>
 #include <rpp/operators/fwd/observe_on.hpp>
+#include <rpp/operators/fwd/on_error_resume_next.hpp>
 #include <rpp/operators/fwd/publish.hpp>
 #include <rpp/operators/fwd/ref_count.hpp>
 #include <rpp/operators/fwd/repeat.hpp>
