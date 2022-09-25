@@ -28,6 +28,7 @@
 #include <rpp/operators/fwd/publish.hpp>
 #include <rpp/operators/fwd/ref_count.hpp>
 #include <rpp/operators/fwd/repeat.hpp>
+#include <rpp/operators/fwd/sample.hpp>
 #include <rpp/operators/fwd/scan.hpp>
 #include <rpp/operators/fwd/skip.hpp>
 #include <rpp/operators/fwd/start_with.hpp>

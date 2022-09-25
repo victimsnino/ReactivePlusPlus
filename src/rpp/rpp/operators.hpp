@@ -41,6 +41,7 @@
 #include <rpp/operators/filter.hpp>
 #include <rpp/operators/first.hpp>
 #include <rpp/operators/last.hpp>
+#include <rpp/operators/sample.hpp>
 #include <rpp/operators/skip.hpp>
 #include <rpp/operators/take.hpp>
 #include <rpp/operators/take_last.hpp>

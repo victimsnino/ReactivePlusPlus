@@ -19,9 +19,16 @@ public:
 
     void lock()
     {
-        while(m_lock_flag.exchange(true, std::memory_order_acquire))
+        while (m_lock_flag.exchange(true, std::memory_order_acquire))
         {
-            while(m_lock_flag.load(std::memory_order_relaxed)){};
+            for (uint8_t i = 0; m_lock_flag.load(std::memory_order_relaxed); ++i)
+            {
+                if (i == 30u)
+                {
+                    std::this_thread::yield();
+                    i = 0;
+                }
+            }
         }
     }
 
