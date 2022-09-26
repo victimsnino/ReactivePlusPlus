@@ -64,21 +64,34 @@ SCENARIO("scheduler's worker uses time")
     GIVEN("test scheduler")
     {
         auto scheduler = test_scheduler{};
+        auto initial_time  = test_scheduler::worker_strategy::now();
+
         WHEN("Schedule action without time")
         {
             scheduler.create_worker().schedule([] { return rpp::schedulers::optional_duration{}; });
             THEN("worker obtains schedulable once with current time")
             {
-                CHECK(scheduler.get_schedulings() == std::vector{ s_current_time });
+                CHECK(scheduler.get_schedulings() == std::vector{ initial_time });
+                CHECK(scheduler.get_executions() == std::vector{ initial_time });
             }
         }
         WHEN("Schedule action with some time")
         {
-            auto time = rpp::schedulers::clock_type::now();
-            scheduler.create_worker().schedule(time, [] { return rpp::schedulers::optional_duration{}; });
-            THEN("worker obtains schedulable once with provided time")
+            auto dur = std::chrono::seconds{3};
+            scheduler.create_worker().schedule(initial_time+dur, [] { return rpp::schedulers::optional_duration{}; });
+            THEN("worker obtains schedulable once with provided time, but not execute till time advanced")
             {
-                CHECK(scheduler.get_schedulings() == std::vector{ time });
+                CHECK(scheduler.get_schedulings() == std::vector{ initial_time+dur });
+                CHECK(scheduler.get_executions().empty());
+                AND_WHEN("time advanced")
+                {
+                    scheduler.time_advance(dur+std::chrono::seconds{1});
+                    THEN("scheduler executes schedulable")
+                    {
+                        CHECK(scheduler.get_executions() == std::vector{ initial_time+dur+std::chrono::seconds{1} });
+                    }
+                }
+
             }
         }
         WHEN("Schedule action with zero duration")
@@ -107,9 +120,12 @@ SCENARIO("scheduler's worker uses time")
                         return std::nullopt;
                     return dur;
                 });
+            for(size_t i = 0; i < 3;++i)
+                scheduler.time_advance(dur);
+
             THEN("worker obtains schedulable three times with current time and time+diff")
             {
-                CHECK(scheduler.get_schedulings() == std::vector{ s_current_time, s_current_time + dur , s_current_time + dur + dur });
+                CHECK(scheduler.get_schedulings() == std::vector{ initial_time, initial_time + dur , initial_time + dur + dur });
             }
         }
     }

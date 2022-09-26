@@ -21,6 +21,8 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
 {
     auto mock = mock_observer<int>{};
     auto scheduler = test_scheduler{};
+    auto initial_time  = test_scheduler::worker_strategy::now();
+
     GIVEN("observable")
     {
         auto                           obs = rpp::source::create<int>([&](const auto& sub)
@@ -35,7 +37,8 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
             {
                 REQUIRE(mock.get_total_on_next_count() == 1);
                 REQUIRE(mock.get_on_completed_count() == 1);
-                REQUIRE(scheduler.get_schedulings() == std::vector{ s_current_time });
+                REQUIRE(scheduler.get_schedulings() == std::vector{ initial_time });
+                REQUIRE(scheduler.get_executions() == std::vector{ initial_time });
             }
         }
     }
@@ -50,7 +53,8 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
                 REQUIRE(mock.get_total_on_next_count() == 0);
                 REQUIRE(mock.get_on_error_count() == 1);
                 REQUIRE(mock.get_on_completed_count() == 0);
-                REQUIRE(scheduler.get_schedulings() == std::vector{ s_current_time });
+                REQUIRE(scheduler.get_schedulings() == std::vector{ initial_time });
+                REQUIRE(scheduler.get_executions() == std::vector{ initial_time });
             }
         }
     }
