@@ -10,12 +10,11 @@
 
 #pragma once
 
-#include <rpp/subscribers/constraints.hpp>
-#include <rpp/operators/fwd/sample.hpp>
-#include <rpp/utils/spinlock.hpp>
-
 #include <rpp/operators/details/early_unsubscribe.hpp>
 #include <rpp/operators/details/serialized_subscriber.hpp>
+#include <rpp/operators/fwd/sample.hpp>
+#include <rpp/subscribers/constraints.hpp>
+#include <rpp/utils/spinlock.hpp>
 
 #include <mutex>
 #include <optional>
@@ -77,26 +76,25 @@ struct sample_impl
     template<constraint::subscriber_of_type<Type> TSub>
     auto operator()(TSub&& in_subscriber) const
     {
-        auto state = std::make_shared<sample_state_with_serialized_spinlock>(in_subscriber.get_subscription());
+        auto state =
+                std::make_shared<sample_state_with_serialized_spinlock>(in_subscriber.get_subscription());
         // change subscriber to serialized to avoid manual using of mutex
         auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber),
                                                      std::shared_ptr<utils::spinlock>{state, &state->spinlock});
 
-        scheduler.create_worker(state->children_subscriptions).schedule(period,
-                                                                        [period=period, subscriber=subscriber, state]()
-                                                                        {
-                                                                            std::optional<Type> extracted{};
-                                                                            {
-                                                                                std::lock_guard lock
-                                                                                        {state->value_mutex};
-                                                                                std::swap(extracted, state->value);
-                                                                            }
-                                                                            if (extracted.has_value())
-                                                                                subscriber.
-                                                                                        on_next(std::move(extracted.
-                                                                                                          value()));
-                                                                            return period;
-                                                                        });
+        scheduler.create_worker(state->children_subscriptions)
+                 .schedule(period,
+                           [period = period, subscriber = subscriber, state]()
+                           {
+                               std::optional<Type> extracted{};
+                               {
+                                   std::lock_guard lock{state->value_mutex};
+                                   std::swap(extracted, state->value);
+                               }
+                               if (extracted.has_value())
+                                   subscriber.on_next(std::move(extracted.value()));
+                               return period;
+                           });
 
         return create_subscriber_with_state<Type>(state->children_subscriptions,
                                                   sample_on_next{},
