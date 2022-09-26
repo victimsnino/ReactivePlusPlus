@@ -23,6 +23,7 @@ SCENARIO("observe_on transfers emssions to scheduler", "[operators][observe_on]"
 {
     auto mock = mock_observer<std::string>{};
     auto scheduler = test_scheduler{};
+    auto initial_time  = test_scheduler::worker_strategy::now();
 
     GIVEN("observable with item")
     {
@@ -38,7 +39,8 @@ SCENARIO("observe_on transfers emssions to scheduler", "[operators][observe_on]"
 
                 CHECK(mock.get_received_values() == vals);
                 CHECK(mock.get_on_completed_count() == 1);
-                CHECK(scheduler.get_schedulings() == std::vector{ s_current_time, s_current_time, s_current_time });//2 items + on_completed 
+                CHECK(scheduler.get_schedulings() == std::vector{ initial_time, initial_time, initial_time });//2 items + on_completed 
+                CHECK(scheduler.get_executions() == std::vector{ initial_time, initial_time, initial_time });//2 items + on_completed 
             }
         }
     }
@@ -56,7 +58,8 @@ SCENARIO("observe_on transfers emssions to scheduler", "[operators][observe_on]"
 
                 CHECK(mock.get_on_error_count() == 1);
                 CHECK(mock.get_on_completed_count() == 0);
-                CHECK(scheduler.get_schedulings() == std::vector{ s_current_time });
+                CHECK(scheduler.get_schedulings() == std::vector{ initial_time });
+                CHECK(scheduler.get_executions() == std::vector{ initial_time });
 
             }
         }
@@ -76,7 +79,8 @@ SCENARIO("observe_on transfers emssions to scheduler", "[operators][observe_on]"
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
-                CHECK(scheduler.get_schedulings() == std::vector{ s_current_time });
+                CHECK(scheduler.get_schedulings() == std::vector{ initial_time });
+                CHECK(scheduler.get_executions() == std::vector{ initial_time });
 
             }
         }
