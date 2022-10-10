@@ -43,9 +43,7 @@ struct sample_state_with_serialized_spinlock : sample_state<Type>
 struct sample_on_next
 {
     template<typename Value>
-    void operator()(Value&&                                                   value,
-                    const auto&                                               ,
-                    const std::shared_ptr<sample_state<std::decay_t<Value>>>& state) const
+    void operator()(Value&& value, const auto&, const std::shared_ptr<sample_state<std::decay_t<Value>>>& state) const
     {
         std::lock_guard lock{state->value_mutex};
         state->value.emplace(std::forward<Value>(value));
@@ -56,14 +54,16 @@ using sample_on_error = early_unsubscribe_on_error;
 
 struct sample_on_completed
 {
-    template<typename Value>
-    void operator()(const auto& subscriber, const std::shared_ptr<sample_state<Value>>& state) const
+    void operator()(const auto& subscriber, const auto& state) const
     {
         state->children_subscriptions.unsubscribe();
 
-        std::lock_guard lock{state->value_mutex};
-        if (state->value.has_value())
-            subscriber.on_next(std::move(state->value.value()));
+        {
+            std::lock_guard lock{state->value_mutex};
+            if (state->value.has_value())
+                subscriber.on_next(std::move(state->value.value()));
+        }
+        subscriber.on_completed();
     }
 };
 
@@ -76,15 +76,14 @@ struct sample_impl
     template<constraint::subscriber_of_type<Type> TSub>
     auto operator()(TSub&& in_subscriber) const
     {
-        auto state =
-                std::make_shared<sample_state_with_serialized_spinlock>(in_subscriber.get_subscription());
+        auto state = std::make_shared<sample_state_with_serialized_spinlock<Type>>(in_subscriber.get_subscription());
         // change subscriber to serialized to avoid manual using of mutex
         auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber),
                                                      std::shared_ptr<utils::spinlock>{state, &state->spinlock});
 
         scheduler.create_worker(state->children_subscriptions)
                  .schedule(period,
-                           [period = period, subscriber = subscriber, state]()
+                           [period = period, subscriber = subscriber, state]() -> rpp::schedulers::optional_duration
                            {
                                std::optional<Type> extracted{};
                                {
