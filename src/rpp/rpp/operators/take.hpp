@@ -10,9 +10,10 @@
 
 #pragma once
 
+#include <rpp/operators/lift.hpp>                          // required due to operator uses lift
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 #include <rpp/operators/fwd/take.hpp>
 #include <rpp/subscribers/constraints.hpp>
-#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 #include <rpp/utils/functors.hpp>
 
 IMPLEMENTATION_FILE(take_tag);

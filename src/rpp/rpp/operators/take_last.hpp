@@ -10,10 +10,10 @@
 
 #pragma once
 
-#include <rpp/subscribers/constraints.hpp>
-#include <rpp/operators/fwd/take_last.hpp>
-
+#include <rpp/operators/lift.hpp>                          // required due to operator uses lift
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+#include <rpp/operators/fwd/take_last.hpp>
+#include <rpp/subscribers/constraints.hpp>
 #include <rpp/utils/functors.hpp>
 
 #include <optional>

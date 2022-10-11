@@ -10,11 +10,11 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
+#include <rpp/operators/lift.hpp>                          // required due to operator uses lift
 #include <rpp/operators/fwd/take_while.hpp>
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/utils/utilities.hpp>
-
-#include <rpp/defs.hpp>
 
 
 IMPLEMENTATION_FILE(take_while_tag);

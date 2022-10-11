@@ -11,16 +11,13 @@
 
 #pragma once
 
-#include <rpp/defs.hpp>
+#include <rpp/operators/lift.hpp>                          // required due to operator uses lift
 #include <rpp/operators/merge.hpp>
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 #include <rpp/operators/fwd/take_until.hpp>
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/utils/functors.hpp>
 #include <rpp/utils/spinlock.hpp>
-
-#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
-
-#include <mutex>
 
 IMPLEMENTATION_FILE(take_until_tag);
 
