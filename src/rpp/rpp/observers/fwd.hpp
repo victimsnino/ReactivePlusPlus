@@ -37,4 +37,7 @@ template<constraint::decayed_type T,
          constraint::on_error_fn     OnError,
          constraint::on_completed_fn OnCompleted>
 class specific_observer;
+
+template<typename...Args>
+using specific_observer_with_decayed_args = rpp::specific_observer<std::decay_t<Args>...>;
 } // namespace rpp

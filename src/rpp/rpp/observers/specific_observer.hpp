@@ -67,9 +67,6 @@ specific_observer(OnNext, OnError, Args...) -> specific_observer<utils::decayed_
 template<typename OnNext, constraint::on_completed_fn OnCompleted>
 specific_observer(OnNext, OnCompleted) -> specific_observer<utils::decayed_function_argument_t<OnNext>, OnNext, utils::rethrow_error_t, OnCompleted>;
 
-template<typename...Args>
-using specific_observer_with_decayed_args = rpp::specific_observer<std::decay_t<Args>...>;
-
 /**
  * \brief Create specific_observer with manually specified Type. In case of type can be deduced from argument of OnNext use direct constructor of rpp::specific_observer
  * \tparam Type manually specific type of observer
