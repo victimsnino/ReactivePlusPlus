@@ -11,12 +11,13 @@
 
 #pragma once
 
-#include <rpp/operators/lift.hpp>          // required due to operator uses lift
-#include <rpp/operators/take_last.hpp>     // take_last
-#include <rpp/operators/fwd/last.hpp>      // own forwarding
-#include <rpp/subscribers/constraints.hpp> // constraint::subscriber
-#include <rpp/utils/exceptions.hpp>        // not_enough_emissions
-#include <rpp/utils/functors.hpp>          // forwarding_on_error
+#include <rpp/operators/lift.hpp>                          // required due to operator uses lift
+#include <rpp/operators/take_last.hpp>                     // take_last
+#include <rpp/operators/fwd/last.hpp>                      // own forwarding
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+#include <rpp/subscribers/constraints.hpp>                 // constraint::subscriber
+#include <rpp/utils/exceptions.hpp>                        // not_enough_emissions
+#include <rpp/utils/functors.hpp>                          // forwarding_on_error
 
 IMPLEMENTATION_FILE(last_tag);
 
