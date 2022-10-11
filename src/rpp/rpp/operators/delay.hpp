@@ -84,16 +84,14 @@ struct delay_impl
     template<constraint::subscriber_of_type<Type> TSub>
     auto operator()(TSub&& subscriber) const
     {
-        // convert it to dynamic due to expected amount of copies == amount of items
-        auto dynamic_subscriber = std::forward<TSub>(subscriber).as_dynamic();
-        auto worker = scheduler.create_worker(dynamic_subscriber.get_subscription());
+        auto worker = scheduler.create_worker(subscriber.get_subscription());
 
-        auto subscription = dynamic_subscriber.get_subscription().make_child();
+        auto subscription = subscriber.get_subscription().make_child();
         return create_subscriber_with_state<Type>(std::move(subscription),
                                                   delay_on_next{delay},
                                                   delay_on_error{},
                                                   delay_on_completed{delay},
-                                                  std::move(dynamic_subscriber),
+                                                  std::forward<TSub>(subscriber),
                                                   std::move(worker));
     }
 };

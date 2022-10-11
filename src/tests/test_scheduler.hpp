@@ -23,6 +23,9 @@ public:
         void schedule(rpp::schedulers::time_point                        time_point,
                       rpp::schedulers::constraint::schedulable_fn auto&& fn)
         {
+            if (!sub.is_subscribed())
+                return;
+
             schedulings.push_back(time_point);
             queue.emplace(time_point,
                           static_cast<size_t>(rpp::schedulers::clock_type::now().time_since_epoch().count()),

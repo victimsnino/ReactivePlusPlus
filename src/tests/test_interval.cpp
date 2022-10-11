@@ -72,8 +72,7 @@ SCENARIO("interval emit values with provided interval", "[interval]")
                           initial_time + 3*interval});
                     CHECK(scheduler.get_schedulings() == std::vector{ initial_time + interval,
                           initial_time + 2*interval,
-                          initial_time + 3*interval,
-                          initial_time + 4*interval});
+                          initial_time + 3*interval});
                 }
             }
         }
@@ -113,8 +112,7 @@ SCENARIO("interval emit values with provided interval", "[interval]")
                 {
                     CHECK(scheduler.get_schedulings() == std::vector{ initial_time + initial_delay,
                           initial_time + initial_delay + interval,
-                          initial_time + initial_delay + 2 * interval,
-                          initial_time + initial_delay + 3 * interval });
+                          initial_time + initial_delay + 2 * interval });
                     CHECK(scheduler.get_executions() == std::vector{ initial_time + initial_delay,
                           initial_time + initial_delay + interval,
                           initial_time + initial_delay + 2 * interval });
