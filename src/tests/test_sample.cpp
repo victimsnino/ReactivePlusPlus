@@ -34,7 +34,7 @@ SCENARIO("sample throttles emissions", "[operators][sample]")
         WHEN("subscribe on it via sample with period == interval period")
         {
             auto sample_period =interval_duration;
-            auto sub = obs.take(3).sample(sample_period, sample_scheduler).subscribe(mock);
+            auto sub = obs.take(3).sample_with_time(sample_period, sample_scheduler).subscribe(mock);
             while(sub.is_subscribed())
             {
                 interval_scheduler.time_advance(sample_period);
@@ -68,7 +68,7 @@ SCENARIO("sample throttles emissions", "[operators][sample]")
         {
             auto sample_period = rpp::schedulers::duration{interval_duration.count() / 2};
             std::vector<rpp::schedulers::time_point> item_sent{};
-            auto sub = obs.take(3).sample(sample_period, sample_scheduler).tap([&](const auto&)
+            auto sub = obs.take(3).sample_with_time(sample_period, sample_scheduler).tap([&](const auto&)
             {
                 item_sent.push_back(test_scheduler::worker_strategy::now());
             }).subscribe(mock);
@@ -118,7 +118,7 @@ SCENARIO("sample throttles emissions", "[operators][sample]")
         {
             auto sample_period = rpp::schedulers::duration{interval_duration.count() * 2};
             std::vector<rpp::schedulers::time_point> item_sent{};
-            auto sub = obs.take(4).sample(sample_period, sample_scheduler).tap([&](const auto&)
+            auto sub = obs.take(4).sample_with_time(sample_period, sample_scheduler).tap([&](const auto&)
             {
                 item_sent.push_back(test_scheduler::worker_strategy::now());
             }).subscribe(mock);
@@ -171,7 +171,7 @@ SCENARIO("sample sends on_completed immediately", "[operators][sample]")
         {
             auto duration = std::chrono::days{10};
             auto begin = rpp::schedulers::clock_type::now();
-            auto sub = obs.sample(duration, test_scheduler{}).subscribe(mock);
+            auto sub = obs.sample_with_time(duration, test_scheduler{}).subscribe(mock);
             auto end = rpp::schedulers::clock_type::now();
             THEN("subscriber obtains only item from completed")
             {
@@ -197,7 +197,7 @@ SCENARIO("sample sends on_error immediately", "[operators][sample]")
         {
             auto duration = std::chrono::days{10};
             auto begin = rpp::schedulers::clock_type::now();
-            auto sub = obs.sample(duration, test_scheduler{}).subscribe(mock);
+            auto sub = obs.sample_with_time(duration, test_scheduler{}).subscribe(mock);
             auto end = rpp::schedulers::clock_type::now();
             THEN("subscriber obtains only on_error")
             {

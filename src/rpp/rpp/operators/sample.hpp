@@ -68,7 +68,7 @@ struct sample_on_completed
 };
 
 template<constraint::decayed_type Type, schedulers::constraint::scheduler TScheduler>
-struct sample_impl
+struct sample_with_time_impl
 {
     schedulers::duration period;
     TScheduler           scheduler;
