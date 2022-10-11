@@ -13,6 +13,8 @@
 #include <rpp/operators/fwd/window.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 #include <rpp/subscribers/constraints.hpp>
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+
 
 IMPLEMENTATION_FILE(window_tag);
 
