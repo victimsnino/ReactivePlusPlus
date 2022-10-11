@@ -11,18 +11,17 @@
 
 #pragma once
 
-#include <rpp/operators/fwd/last.hpp>
-#include <rpp/operators/take_last.hpp>
-#include <rpp/subscribers/constraints.hpp>
-#include <rpp/utils/exceptions.hpp>
-#include <rpp/utils/functors.hpp>
-#include <rpp/utils/utilities.hpp>
+#include <rpp/operators/lift.hpp>          // required due to operator uses lift
+#include <rpp/operators/take_last.hpp>     // take_last
+#include <rpp/operators/fwd/last.hpp>      // own forwarding
+#include <rpp/subscribers/constraints.hpp> // constraint::subscriber
+#include <rpp/utils/exceptions.hpp>        // not_enough_emissions
+#include <rpp/utils/functors.hpp>          // forwarding_on_error
 
 IMPLEMENTATION_FILE(last_tag);
 
 namespace rpp::details
 {
-
 template<constraint::decayed_type Type>
 struct last_state : public take_last_state<Type>
 {
