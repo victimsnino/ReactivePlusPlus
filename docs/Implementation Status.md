@@ -71,6 +71,8 @@
 - [ ] ignore_elements
 - [x] last
 - [ ] sample
+  - [ ] sample (observable)
+  - [x] sample_with_time
 - [x] skip
 - [ ] skip_last
 - [x] take_last
