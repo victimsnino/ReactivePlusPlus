@@ -1,12 +1,15 @@
 #pragma once
 
-#include <rpp/defs.hpp>
-#include <rpp/observables/grouped_observable.hpp>
-#include <rpp/operators/fwd/group_by.hpp>
-#include <rpp/subjects/publish_subject.hpp>
-#include <rpp/subscribers/constraints.hpp>
-#include <rpp/utils/utilities.hpp>
+#include <rpp/defs.hpp>                                    // RPP_NO_UNIQUE_ADDRESS
+#include <rpp/observables/grouped_observable.hpp>          // grouped_observable
+#include <rpp/operators/lift.hpp>                          // required due to operator uses lift
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+#include <rpp/operators/fwd/group_by.hpp>                  // own forwarding
+#include <rpp/subjects/publish_subject.hpp>                // publish_subject
+#include <rpp/subscribers/constraints.hpp>                 // constraint::subscriber
+#include <rpp/utils/utilities.hpp>                         // utils::as_const
 
+#include <atomic>
 #include <map>
 
 IMPLEMENTATION_FILE(group_by_tag);
