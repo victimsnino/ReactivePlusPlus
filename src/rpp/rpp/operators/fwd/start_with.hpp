@@ -10,10 +10,9 @@
 
 #pragma once
 
+#include <rpp/memory_model.hpp>
 #include <rpp/observables/constraints.hpp>
 #include <rpp/observables/details/member_overload.hpp>
-
-#include <rpp/memory_model.hpp>
 
 namespace rpp::details
 {
