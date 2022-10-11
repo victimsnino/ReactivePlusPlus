@@ -8,7 +8,9 @@
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
 #pragma once
+
 #include <atomic>
+#include <thread>
 
 namespace rpp::utils
 {
