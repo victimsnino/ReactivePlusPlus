@@ -11,14 +11,13 @@
 
 #pragma once
 
+#include <rpp/operators/lift.hpp>                          // required due to operator uses lift
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_dynamic_state
+#include <rpp/operators/fwd/buffer.hpp>                    // own forwarding
+#include <rpp/subscribers/constraints.hpp>                 // subscriber_of_type
+#include <rpp/utils/functors.hpp>                          // forwarding_on_error
+
 #include <algorithm>
-
-#include <rpp/operators/fwd/buffer.hpp>
-#include <rpp/subscribers/constraints.hpp>
-#include <rpp/sources/create.hpp>
-#include <rpp/utils/functors.hpp>
-
-#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 
 
 IMPLEMENTATION_FILE(buffer_tag);
