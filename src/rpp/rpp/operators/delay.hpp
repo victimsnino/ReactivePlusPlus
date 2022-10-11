@@ -11,10 +11,11 @@
 
 #pragma once
 
-#include <rpp/defs.hpp>
+#include <rpp/defs.hpp>                                    // RPP_NO_UNIQUE_ADDRESS
+#include <rpp/operators/lift.hpp>                          // required due to operator uses lift
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
-#include <rpp/operators/fwd/delay.hpp>
-#include <rpp/subscribers/constraints.hpp>
+#include <rpp/operators/fwd/delay.hpp>                     // own forwarding
+#include <rpp/subscribers/constraints.hpp>                 // constraint::subscriber_of_type
 
 IMPLEMENTATION_FILE(delay_tag);
 
