@@ -11,10 +11,9 @@
 
 #pragma once
 
-#include <rpp/operators/fwd/switch_map.hpp>
-
 #include <rpp/operators/map.hpp>
 #include <rpp/operators/switch_on_next.hpp>
+#include <rpp/operators/fwd/switch_map.hpp>
 
 IMPLEMENTATION_FILE(switch_map_tag);
 
