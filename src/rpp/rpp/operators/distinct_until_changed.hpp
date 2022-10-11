@@ -12,7 +12,7 @@
 
 #include <rpp/defs.hpp>                                    // RPP_NO_UNIQUE_ADDRESS
 #include <rpp/operators/lift.hpp>                          // required due to operator uses lift
-#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_dynamic_state
 #include <rpp/operators/fwd/distinct_until_changed.hpp>    // own forwarding
 #include <rpp/subscribers/constraints.hpp>                 // constraint::subscriber_of_type
 #include <rpp/utils/functors.hpp>                          // forwarding_on_error/forwarding_on_completed
