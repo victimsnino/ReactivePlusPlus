@@ -10,10 +10,9 @@
 
 #pragma once
 
-#include <rpp/observables/constraints.hpp>
-#include <rpp/observables/details/member_overload.hpp>
-
-#include <rpp/utils/function_traits.hpp>
+#include <rpp/observables/constraints.hpp>              // constraint::observable
+#include <rpp/observables/details/member_overload.hpp>  // member_overload
+#include <rpp/utils/function_traits.hpp>                // decayed_invoke_result_t
 
 namespace rpp::details
 {

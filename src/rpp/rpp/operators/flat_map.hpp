@@ -10,10 +10,9 @@
 
 #pragma once
 
-#include <rpp/operators/fwd/flat_map.hpp>
-
 #include <rpp/operators/map.hpp>
 #include <rpp/operators/merge.hpp>
+#include <rpp/operators/fwd/flat_map.hpp>
 
 IMPLEMENTATION_FILE(flat_map_tag);
 
