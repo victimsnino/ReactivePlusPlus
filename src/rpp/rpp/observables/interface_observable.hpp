@@ -10,14 +10,12 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>                             // RPP_EMPTY_BASES
+#include <rpp/observables/blocking_observable.hpp>  // as_blocking
 #include <rpp/observables/constraints.hpp>          // own constraints
 #include <rpp/observables/fwd.hpp>                  // own forwarding
 #include <rpp/operators/fwd.hpp>                    // forwarding of member_overaloads
-#include <rpp/operators/lift.hpp>                   // must-have operators
-#include <rpp/observables/blocking_observable.hpp>  // as_blocking
-
-#include <rpp/defs.hpp>                             // RPP_EMPTY_BASES
-#include <rpp/utils/function_traits.hpp>
+#include <rpp/utils/function_traits.hpp>            // decayed_invoke_result_t
 
 #include <type_traits>
 
