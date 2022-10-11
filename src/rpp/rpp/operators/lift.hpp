@@ -10,11 +10,10 @@
 
 #pragma once
 
-#include <rpp/observables/fwd.hpp>                         // fwd specific_observable
 #include <rpp/defs.hpp>                                    // RPP_NO_UNIQUE_ADDRESS
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 #include <rpp/operators/fwd/lift.hpp>                      // own forwarding
-#include <rpp/sources/create.hpp>
+#include <rpp/sources/create.hpp>                          // create observable
 
 IMPLEMENTATION_FILE(lift_tag);
 
@@ -62,6 +61,6 @@ struct lift_on_subscribe
 template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename TObs>
 auto lift_impl(OperatorFn&& op, TObs&& _this)
 {
-    return rpp::observable::create(lift_on_subscribe<NewType, std::decay_t<OperatorFn>, std::decay_t<TObs>>{ std::forward<TObs>(_this), std::forward<OperatorFn>(op) });
+    return rpp::observable::create<NewType, lift_on_subscribe<NewType, std::decay_t<OperatorFn>, std::decay_t<TObs>>>({ std::forward<TObs>(_this), std::forward<OperatorFn>(op) });
 }
 } // namespace rpp::details
