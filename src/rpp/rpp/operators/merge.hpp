@@ -10,14 +10,14 @@
 
 #pragma once
 
-#include <rpp/observables/constraints.hpp>
-#include <rpp/operators/fwd/merge.hpp>
-#include <rpp/subscribers/constraints.hpp>
-#include <rpp/observers/state_observer.hpp>
-#include <rpp/sources/just.hpp>
-#include <rpp/utils/functors.hpp>
-#include <rpp/operators/details/early_unsubscribe.hpp>
-#include <rpp/operators/details/serialized_subscriber.hpp>
+#include <rpp/operators/lift.hpp>                           // required due to operator uses lift
+#include <rpp/operators/details/early_unsubscribe.hpp>      // early_unsubscribe
+#include <rpp/operators/details/serialized_subscriber.hpp>  // make_serialized_subscriber
+#include <rpp/operators/details/subscriber_with_state.hpp>  // create_subscriber_with_state
+#include <rpp/operators/fwd/merge.hpp>                      // own forwarding
+#include <rpp/sources/just.hpp>                             // just
+#include <rpp/subscribers/constraints.hpp>                  // constraint::subscriber
+#include <rpp/utils/functors.hpp>                           // forwarding_on_next
 
 #include <array>
 #include <atomic>
