@@ -10,8 +10,9 @@
 
 #pragma once
 
-#include <rpp/sources/fwd.hpp>
 #include <rpp/observables/specific_observable.hpp>
+#include <rpp/sources/fwd.hpp>
+
 #include <type_traits>
 
 IMPLEMENTATION_FILE(create_tag);
