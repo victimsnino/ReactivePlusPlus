@@ -118,6 +118,10 @@ Functions</h2></td></tr>
 <tr class="memitem:ga89357fe0e19400d72f3485751c10f240"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga89357fe0e19400d72f3485751c10f240">rpp::details::member_overload&lt; Type, SpecificObservable, last_tag &gt;::last</a> () const &amp;requires is_header_included&lt; last_tag</td></tr>
 <tr class="memdesc:ga89357fe0e19400d72f3485751c10f240"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only the last item provided before on_completed.  <a href="group__filtering__operators.html#ga89357fe0e19400d72f3485751c10f240">More...</a><br /></td></tr>
 <tr class="separator:ga89357fe0e19400d72f3485751c10f240"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabbc4b2e06fbe61343733b7076c6734c9"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler, typename ... Args&gt; </td></tr>
+<tr class="memitem:gabbc4b2e06fbe61343733b7076c6734c9"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#gabbc4b2e06fbe61343733b7076c6734c9">rpp::details::member_overload&lt; Type, SpecificObservable, sample_tag &gt;::sample_with_time</a> (schedulers::duration period, const TScheduler &amp;scheduler) const &amp;requires is_header_included&lt; sample_tag</td></tr>
+<tr class="memdesc:gabbc4b2e06fbe61343733b7076c6734c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit most recent emitted from original observable emission obtained during last period of time.  <a href="group__filtering__operators.html#gabbc4b2e06fbe61343733b7076c6734c9">More...</a><br /></td></tr>
+<tr class="separator:gabbc4b2e06fbe61343733b7076c6734c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga17352df47509ccf9970b3ef4dcaf90fb"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
 <tr class="memitem:ga17352df47509ccf9970b3ef4dcaf90fb"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga17352df47509ccf9970b3ef4dcaf90fb">rpp::details::member_overload&lt; Type, SpecificObservable, skip_tag &gt;::skip</a> (size_t count) const &amp;requires is_header_included&lt; skip_tag</td></tr>
 <tr class="memdesc:ga17352df47509ccf9970b3ef4dcaf90fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip first <code>count</code> items provided by observable then send rest items as expected.  <a href="group__filtering__operators.html#ga17352df47509ccf9970b3ef4dcaf90fb">More...</a><br /></td></tr>
@@ -309,6 +313,59 @@ template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </di
 
 </div>
 </div>
+<a id="gabbc4b2e06fbe61343733b7076c6734c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabbc4b2e06fbe61343733b7076c6734c9">&#9670;&nbsp;</a></span>sample_with_time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;schedulers::constraint::scheduler TScheduler, typename ... Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, sample_tag &gt;::sample_with_time </td>
+          <td>(</td>
+          <td class="paramtype">schedulers::duration&#160;</td>
+          <td class="paramname"><em>period</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TScheduler &amp;&#160;</td>
+          <td class="paramname"><em>scheduler</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Emit most recent emitted from original observable emission obtained during last period of time. </p>
+<p>Emit item immediately in case of completion of the original observable</p>
+<div class="image">
+<object type="image/svg+xml" data="sample_with_time.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">period</td><td>sampling period \scheduler scheduler to use to schedule emissions with provided sampling period </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the sample_with_time operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="sample_8hpp_source.html">rpp/operators/sample.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    rpp::source::interval(std::chrono::milliseconds{100}, <a class="code" href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a>{})</div>
+<div class="line">            .<a class="code" href="group__filtering__operators.html#gabbc4b2e06fbe61343733b7076c6734c9">sample_with_time</a>(std::chrono::milliseconds{300}, <a class="code" href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a>{})</div>
+<div class="line">            .take(5)</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 1 4 7 10 13</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/sample.htmlhttps://reactivex.io/documentation/operators/sample.html">https://reactivex.io/documentation/operators/sample.htmlhttps://reactivex.io/documentation/operators/sample.html</a> </dd></dl>
+
+</div>
+</div>
 <a id="ga17352df47509ccf9970b3ef4dcaf90fb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga17352df47509ccf9970b3ef4dcaf90fb">&#9670;&nbsp;</a></span>skip()</h2>
 
@@ -434,7 +491,9 @@ template&lt;typename ... Args&gt; </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1trampoline_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a></div><div class="ttdoc">schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition:</b> trampoline_scheduler.hpp:38</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gabc5067fa9aefaa803f6e329b75faa00c"><div class="ttname"><a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:159</div></div>
+<div class="ttc" id="agroup__filtering__operators_html_gabbc4b2e06fbe61343733b7076c6734c9"><div class="ttname"><a href="group__filtering__operators.html#gabbc4b2e06fbe61343733b7076c6734c9">rpp::details::member_overload&lt; Type, SpecificObservable, sample_tag &gt;::sample_with_time</a></div><div class="ttdeci">auto sample_with_time(schedulers::duration period, const TScheduler &amp;scheduler) const &amp;requires is_header_included&lt; sample_tag</div><div class="ttdoc">Emit most recent emitted from original observable emission obtained during last period of time.</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

@@ -170,26 +170,23 @@ $(document).ready(function(){initNavTree('delay_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subscriber_of_type&lt;Type&gt; TSub&gt;</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">auto</span> operator()(TSub&amp;&amp; subscriber)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="comment">// convert it to dynamic due to expected amount of copies == amount of items</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keyword">auto</span> <a class="code" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a> = std::forward&lt;TSub&gt;(subscriber).as_dynamic();</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keyword">auto</span> worker = scheduler.create_worker(<a class="code" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>.get_subscription());</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">auto</span> subscription = <a class="code" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>.get_subscription().make_child();</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">return</span> create_subscriber_with_state&lt;Type&gt;(std::move(subscription),</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                                                  <a class="code" href="structrpp_1_1details_1_1delay__on__next.html">delay_on_next</a>{delay},</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                                                  <a class="code" href="structrpp_1_1details_1_1delay__on__error.html">delay_on_error</a>{},</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                                                  <a class="code" href="structrpp_1_1details_1_1delay__on__completed.html">delay_on_completed</a>{delay},</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                                                  std::move(<a class="code" href="classrpp_1_1dynamic__subscriber.html">dynamic_subscriber</a>),</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                                                  std::move(worker));</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;};</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keyword">auto</span> worker = scheduler.create_worker(subscriber.get_subscription());</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keyword">auto</span> subscription = subscriber.get_subscription().make_child();</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">return</span> create_subscriber_with_state&lt;Type&gt;(std::move(subscription),</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                                                  <a class="code" href="structrpp_1_1details_1_1delay__on__next.html">delay_on_next</a>{delay},</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                                                  <a class="code" href="structrpp_1_1details_1_1delay__on__error.html">delay_on_error</a>{},</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                                                  <a class="code" href="structrpp_1_1details_1_1delay__on__completed.html">delay_on_completed</a>{delay},</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                                                  std::forward&lt;TSub&gt;(subscriber),</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                                                  std::move(worker));</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;};</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructrpp_1_1details_1_1delay__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1delay__impl.html">rpp::details::delay_impl</a></div><div class="ttdoc">Functor of OperatorFn for &quot;combine_latest&quot; operator (used by &quot;lift&quot;).</div><div class="ttdef"><b>Definition:</b> delay.hpp:79</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1delay__on__next_html"><div class="ttname"><a href="structrpp_1_1details_1_1delay__on__next.html">rpp::details::delay_on_next</a></div><div class="ttdef"><b>Definition:</b> delay.hpp:26</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1delay__on__error_html"><div class="ttname"><a href="structrpp_1_1details_1_1delay__on__error.html">rpp::details::delay_on_error</a></div><div class="ttdef"><b>Definition:</b> delay.hpp:44</div></div>
-<div class="ttc" id="aclassrpp_1_1dynamic__subscriber_html"><div class="ttname"><a href="classrpp_1_1dynamic__subscriber.html">rpp::dynamic_subscriber</a></div><div class="ttdoc">subscriber which uses dynamic_observer&lt;T&gt; to hide original callbacks</div><div class="ttdef"><b>Definition:</b> dynamic_subscriber.hpp:23</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1delay__on__completed_html"><div class="ttname"><a href="structrpp_1_1details_1_1delay__on__completed.html">rpp::details::delay_on_completed</a></div><div class="ttdef"><b>Definition:</b> delay.hpp:60</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

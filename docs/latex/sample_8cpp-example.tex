@@ -1,0 +1,17 @@
+\hypertarget{sample_8cpp-example}{}\doxysection{sample.\+cpp}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    rpp::source::interval(std::chrono::milliseconds\{100\}, \mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\})}
+\DoxyCodeLine{            .sample\_with\_time(std::chrono::milliseconds\{300\}, \mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\})}
+\DoxyCodeLine{            .take(5)}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1 4 7 10 13}}
+\DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\end{DoxyCodeInclude}
+ 

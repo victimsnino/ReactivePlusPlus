@@ -23,6 +23,7 @@ var examples =
     [ "ref_count.cpp", "ref_count_8cpp-example.html", null ],
     [ "repeat.cpp", "repeat_8cpp-example.html", null ],
     [ "run_loop.cpp", "run_loop_8cpp-example.html", null ],
+    [ "sample.cpp", "sample_8cpp-example.html", null ],
     [ "scan.cpp", "scan_8cpp-example.html", null ],
     [ "skip.cpp", "skip_8cpp-example.html", null ],
     [ "start_with.cpp", "start_with_8cpp-example.html", null ],

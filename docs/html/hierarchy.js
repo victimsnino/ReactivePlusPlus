@@ -42,6 +42,9 @@ var hierarchy =
           [ "rpp::details::switch_on_next_state_with_serialized_spinlock", "structrpp_1_1details_1_1switch__on__next__state__with__serialized__spinlock.html", null ]
         ] ]
       ] ],
+      [ "rpp::details::sample_state< Type >", "structrpp_1_1details_1_1sample__state.html", [
+        [ "rpp::details::sample_state_with_serialized_spinlock< Type >", "structrpp_1_1details_1_1sample__state__with__serialized__spinlock.html", null ]
+      ] ],
       [ "rpp::details::take_until_state_with_serialized_spinlock", "structrpp_1_1details_1_1take__until__state__with__serialized__spinlock.html", null ],
       [ "rpp::details::with_latest_from_state< TSelector, ValueTypes >", "structrpp_1_1details_1_1with__latest__from__state.html", null ],
       [ "rpp::details::with_latest_from_state< TSelector, ValueTypes... >", "structrpp_1_1details_1_1with__latest__from__state.html", [
@@ -138,6 +141,9 @@ var hierarchy =
     [ "rpp::details::member_overload< Type, SpecificObservable, details::repeat_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, details::sample_tag >", "structrpp_1_1details_1_1member__overload.html", [
+      [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
+    ] ],
     [ "rpp::details::member_overload< Type, SpecificObservable, details::scan_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
@@ -192,6 +198,7 @@ var hierarchy =
     [ "rpp::details::member_overload< Type, SpecificObservable, publish_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01publish__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, ref_count_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01ref__count__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, repeat_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01repeat__tag_01_4.html", null ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, sample_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01sample__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, scan_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01scan__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, skip_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01skip__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, start_with_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4.html", null ],
@@ -230,6 +237,9 @@ var hierarchy =
     [ "rpp::details::ref_count_state_t", "structrpp_1_1details_1_1ref__count__state__t.html", null ],
     [ "rpp::details::repeat_on_completed< Type, SpecificObservable, Predicate >", "classrpp_1_1details_1_1repeat__on__completed.html", null ],
     [ "rpp::details::repeat_on_subscribe< Type, TObs, CreatePredicateFn >", "structrpp_1_1details_1_1repeat__on__subscribe.html", null ],
+    [ "rpp::details::sample_on_completed", "structrpp_1_1details_1_1sample__on__completed.html", null ],
+    [ "rpp::details::sample_on_next", "structrpp_1_1details_1_1sample__on__next.html", null ],
+    [ "rpp::details::sample_with_time_impl< Type, TScheduler >", "structrpp_1_1details_1_1sample__with__time__impl.html", null ],
     [ "rpp::details::scan_impl< Type, Result, AccumulatorFn >", "structrpp_1_1details_1_1scan__impl.html", null ],
     [ "rpp::details::scan_on_next", "structrpp_1_1details_1_1scan__on__next.html", null ],
     [ "rpp::details::scan_state< Result, AccumulatorFn >", "structrpp_1_1details_1_1scan__state.html", null ],
@@ -293,8 +303,8 @@ var hierarchy =
     [ "rpp::details::with_latest_from_impl< Type, TSelector, TObservables >", "structrpp_1_1details_1_1with__latest__from__impl.html", null ],
     [ "rpp::details::with_latest_from_on_next_inner< I >", "structrpp_1_1details_1_1with__latest__from__on__next__inner.html", null ],
     [ "rpp::details::with_latest_from_on_next_outer< TSelector, ValueTypes >", "structrpp_1_1details_1_1with__latest__from__on__next__outer.html", null ],
-    [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
+    [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::details::worker_tag", "structrpp_1_1schedulers_1_1details_1_1worker__tag.html", [
       [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ]
     ] ]

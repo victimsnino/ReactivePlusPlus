@@ -16,6 +16,8 @@ auto \mbox{\hyperlink{group__filtering__operators_ga312fed7f4f86dcf4c374f9a0b615
 \begin{DoxyCompactList}\small\item\em emit only the first item. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__filtering__operators_ga89357fe0e19400d72f3485751c10f240}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, last\+\_\+tag $>$\+::last}} () const \&requires is\+\_\+header\+\_\+included$<$ last\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Emit only the last item provided before on\+\_\+completed. \end{DoxyCompactList}\item 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler T\+Scheduler, typename ... Args$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_gabbc4b2e06fbe61343733b7076c6734c9}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, sample\+\_\+tag $>$\+::sample\+\_\+with\+\_\+time}} (schedulers\+::duration period, const T\+Scheduler \&scheduler) const \&requires is\+\_\+header\+\_\+included$<$ sample\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Emit most recent emitted from original observable emission obtained during last period of time. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename... Args$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_ga17352df47509ccf9970b3ef4dcaf90fb}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, skip\+\_\+tag $>$\+::skip}} (size\+\_\+t count) const \&requires is\+\_\+header\+\_\+included$<$ skip\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Skip first {\ttfamily count} items provided by observable then send rest items as expected. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename... Args$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_gaef1d69d29be545c479d3126993eed494}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, take\+\_\+tag $>$\+::take}} (size\+\_\+t count) const \&requires is\+\_\+header\+\_\+included$<$ take\+\_\+tag
@@ -209,6 +211,47 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/last.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/last.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__filtering__operators_gabbc4b2e06fbe61343733b7076c6734c9}\label{group__filtering__operators_gabbc4b2e06fbe61343733b7076c6734c9}} 
+\index{Filtering Operators@{Filtering Operators}!sample\_with\_time@{sample\_with\_time}}
+\index{sample\_with\_time@{sample\_with\_time}!Filtering Operators@{Filtering Operators}}
+\doxysubsubsection{\texorpdfstring{sample\_with\_time()}{sample\_with\_time()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$schedulers\+::constraint\+::scheduler T\+Scheduler, typename ... Args$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, sample\+\_\+tag $>$\+::sample\+\_\+with\+\_\+time (\begin{DoxyParamCaption}\item[{schedulers\+::duration}]{period,  }\item[{const T\+Scheduler \&}]{scheduler }\end{DoxyParamCaption}) const \&}
+
+
+
+Emit most recent emitted from original observable emission obtained during last period of time. 
+
+Emit item immediately in case of completion of the original observable
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em period} & sampling period \textbackslash{}scheduler scheduler to use to schedule emissions with provided sampling period \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the sample\+\_\+with\+\_\+time operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{sample_8hpp_source}{rpp/operators/sample.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::interval(std::chrono::milliseconds\{100\}, \mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\})}
+\DoxyCodeLine{            .\mbox{\hyperlink{group__filtering__operators_gabbc4b2e06fbe61343733b7076c6734c9}{sample\_with\_time}}(std::chrono::milliseconds\{300\}, \mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\})}
+\DoxyCodeLine{            .take(5)}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1 4 7 10 13}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/sample.htmlhttps://reactivex.io/documentation/operators/sample.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/sample.\+htmlhttps\+://reactivex.\+io/documentation/operators/sample.\+html}} 
 \end{DoxySeeAlso}
 \mbox{\Hypertarget{group__filtering__operators_ga17352df47509ccf9970b3ef4dcaf90fb}\label{group__filtering__operators_ga17352df47509ccf9970b3ef4dcaf90fb}} 
 \index{Filtering Operators@{Filtering Operators}!skip@{skip}}
