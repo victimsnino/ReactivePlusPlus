@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <rpp/operators/lift.hpp>          // required due to operator uses lift
 #include <rpp/operators/details/early_unsubscribe.hpp>
 #include <rpp/operators/details/serialized_subscriber.hpp>
 #include <rpp/operators/fwd/sample.hpp>
