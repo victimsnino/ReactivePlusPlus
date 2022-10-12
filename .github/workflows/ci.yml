@@ -116,7 +116,7 @@ jobs:
                  {name: ci-windows,     os: windows-latest}]
         type: [tests, benchmarks]
 
-    timeout-minutes: 10
+    timeout-minutes: 20
     runs-on: ${{ matrix.config.os }}
     name: ${{ matrix.type }} ${{ matrix.config.name }}
 
