@@ -37,7 +37,7 @@ struct member_overload<Type, SpecificObservable, on_error_resume_next_tag>
 {
 
     /**
-     * \brief Recover from an onError notification by continuing the sequence without error.
+     * \brief Recover from an on_error notification by continuing the sequence without error.
      * \details The operator intercepts an on_error notification from the source Observable and, instead of passing it through to any observers, replaces it with some other item or sequence of items. 
      * \warning This operator potentially allows the resulting Observable to terminate normally or not to terminate at all.
      *
