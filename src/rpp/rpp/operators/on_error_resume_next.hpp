@@ -33,15 +33,12 @@ struct on_error_resume_next_on_error
     {
         using Type = rpp::utils::extract_subscriber_type_t<decltype(subscriber)>;
 
-        auto new_observable = resume_callable(err);
-
         // Subscribe to next_observable
-        auto subscription = subscriber.get_subscription();
-        new_observable.subscribe(create_subscriber_with_state<Type>(std::move(subscription),
-                                                                    rpp::utils::forwarding_on_next{},
-                                                                    rpp::utils::forwarding_on_error{},
-                                                                    rpp::utils::forwarding_on_completed{},
-                                                                    subscriber));
+        resume_callable(err).subscribe(create_subscriber_with_state<Type>(subscriber.get_subscription(),
+                                                                          rpp::utils::forwarding_on_next{},
+                                                                          rpp::utils::forwarding_on_error{},
+                                                                          rpp::utils::forwarding_on_completed{},
+                                                                          subscriber));
     }
 };
 
