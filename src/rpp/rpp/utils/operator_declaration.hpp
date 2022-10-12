@@ -17,7 +17,7 @@ namespace rpp::details
 template<class Tag, typename ...Args>
 struct operator_declaration
 {
-    consteval static std::false_type header_included();
+    static std::false_type header_included();
 };
 
 template<typename ...Args>
@@ -27,6 +27,6 @@ concept is_header_included = decltype(operator_declaration<Args...>::header_incl
 template<typename ...Args>                              \
 struct rpp::details::operator_declaration<rpp::details::tag, Args...> \
 {                                                       \
-    consteval static std::true_type header_included();            \
+    static std::true_type header_included();            \
 }
 } // namespace rpp::details
