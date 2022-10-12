@@ -11,16 +11,16 @@
 
 #pragma once
 
-#include <rpp/defs.hpp>
+#include <rpp/defs.hpp>                                    // RPP_NO_UNIQUE_ADDRESS
+#include <rpp/operators/lift.hpp>                          // required due to operator uses lift
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
-#include <rpp/operators/fwd/on_error_resume_next.hpp>
-#include <rpp/subscribers/constraints.hpp>
+#include <rpp/operators/fwd/on_error_resume_next.hpp>      // own forwarduing
+#include <rpp/subscribers/constraints.hpp>                 // constraint::subscriber_of_type
 
 IMPLEMENTATION_FILE(on_error_resume_next_tag);
 
 namespace rpp::details
 {
-
 /**
  * Functor (type-erasure) of "on_error_resume_next" for on_error operator.
  */
@@ -48,7 +48,7 @@ struct on_error_resume_next_on_error
 template<constraint::decayed_type Type, rpp::details::resume_callable ResumeCallable>
 struct on_error_resume_next_impl
 {
-    RPP_NO_UNIQUE_ADDRESS ResumeCallable m_resume_callable;
+    RPP_NO_UNIQUE_ADDRESS ResumeCallable resume_callable;
 
     template<constraint::subscriber_of_type<Type> TSub>
     auto operator()(TSub&& downstream_subscriber) const
@@ -61,7 +61,7 @@ struct on_error_resume_next_impl
                                                   on_error_resume_next_on_error{},
                                                   rpp::utils::forwarding_on_completed{},
                                                   std::forward<TSub>(downstream_subscriber),
-                                                  m_resume_callable);
+                                                  resume_callable);
     }
 };
 } // namespace rpp::details
