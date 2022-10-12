@@ -16,6 +16,7 @@
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 #include <rpp/operators/fwd/on_error_resume_next.hpp>      // own forwarduing
 #include <rpp/subscribers/constraints.hpp>                 // constraint::subscriber_of_type
+#include <rpp/utils/functors.hpp>
 
 IMPLEMENTATION_FILE(on_error_resume_next_tag);
 
@@ -34,11 +35,7 @@ struct on_error_resume_next_on_error
         using Type = rpp::utils::extract_subscriber_type_t<decltype(subscriber)>;
 
         // Subscribe to next_observable
-        resume_callable(err).subscribe(create_subscriber_with_state<Type>(subscriber.get_subscription(),
-                                                                          rpp::utils::forwarding_on_next{},
-                                                                          rpp::utils::forwarding_on_error{},
-                                                                          rpp::utils::forwarding_on_completed{},
-                                                                          subscriber));
+        resume_callable(err).subscribe(subscriber);
     }
 };
 
