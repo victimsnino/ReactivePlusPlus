@@ -15,6 +15,7 @@ var dir_b39606649fae5912634cd95bf9ef094c =
     [ "merge.hpp", "fwd_2merge_8hpp_source.html", null ],
     [ "multicast.hpp", "fwd_2multicast_8hpp_source.html", null ],
     [ "observe_on.hpp", "fwd_2observe__on_8hpp_source.html", null ],
+    [ "on_error_resume_next.hpp", "fwd_2on__error__resume__next_8hpp_source.html", null ],
     [ "publish.hpp", "fwd_2publish_8hpp_source.html", null ],
     [ "ref_count.hpp", "fwd_2ref__count_8hpp_source.html", null ],
     [ "repeat.hpp", "fwd_2repeat_8hpp_source.html", null ],

@@ -19,6 +19,7 @@ var examples =
     [ "merge.cpp", "merge_8cpp-example.html", null ],
     [ "multicast.cpp", "multicast_8cpp-example.html", null ],
     [ "observe_on.cpp", "observe_on_8cpp-example.html", null ],
+    [ "on_error_resume_next.cpp", "on_error_resume_next_8cpp-example.html", null ],
     [ "publish.cpp", "publish_8cpp-example.html", null ],
     [ "ref_count.cpp", "ref_count_8cpp-example.html", null ],
     [ "repeat.cpp", "repeat_8cpp-example.html", null ],

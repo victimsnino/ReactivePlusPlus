@@ -89,6 +89,8 @@ var annotated_dup =
         [ "observable_tag", "structrpp_1_1details_1_1observable__tag.html", null ],
         [ "observe_on_impl", "structrpp_1_1details_1_1observe__on__impl.html", null ],
         [ "observer_tag", "structrpp_1_1details_1_1observer__tag.html", null ],
+        [ "on_error_resume_next_impl", "structrpp_1_1details_1_1on__error__resume__next__impl.html", "structrpp_1_1details_1_1on__error__resume__next__impl" ],
+        [ "on_error_resume_next_on_error", "structrpp_1_1details_1_1on__error__resume__next__on__error.html", "structrpp_1_1details_1_1on__error__resume__next__on__error" ],
         [ "ref_count_on_subscribe", "structrpp_1_1details_1_1ref__count__on__subscribe.html", "structrpp_1_1details_1_1ref__count__on__subscribe" ],
         [ "ref_count_state_t", "structrpp_1_1details_1_1ref__count__state__t.html", "structrpp_1_1details_1_1ref__count__state__t" ],
         [ "repeat_on_completed", "classrpp_1_1details_1_1repeat__on__completed.html", "classrpp_1_1details_1_1repeat__on__completed" ],

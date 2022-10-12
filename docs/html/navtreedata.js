@@ -46,8 +46,8 @@ var NAVTREEINDEX =
 [
 ".html",
 "dynamic__subscriber_8hpp_source.html",
-"structrpp_1_1details_1_1buffer__state.html#a72c38764f8f6e0927d572bce131b3fa5",
-"structrpp_1_1details_1_1merge__on__next.html"
+"structrpp_1_1details_1_1buffer__state.html",
+"structrpp_1_1details_1_1merge__impl.html#a82c4e8a472beee4355a9b27f06927ec9"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,5 +1,9 @@
 var NAVTREEINDEX2 =
 {
+"structrpp_1_1details_1_1buffer__state.html":[3,0,0,0,3],
+"structrpp_1_1details_1_1buffer__state.html#a2d58d3a0a2f4ad32c795d5290e2010ff":[3,0,0,0,3,4],
+"structrpp_1_1details_1_1buffer__state.html#a4351f88ab9607c319b91f73ddb21c886":[3,0,0,0,3,0],
+"structrpp_1_1details_1_1buffer__state.html#a585c2d0937c3b9c3fe9d586ea8381e76":[3,0,0,0,3,2],
 "structrpp_1_1details_1_1buffer__state.html#a72c38764f8f6e0927d572bce131b3fa5":[3,0,0,0,3,6],
 "structrpp_1_1details_1_1buffer__state.html#a75e01ba8072f9b1561db2130ae6c9911":[3,0,0,0,3,5],
 "structrpp_1_1details_1_1buffer__state.html#a75e57f63bedf1843c4c91f50580a4fc2":[3,0,0,0,3,7],
@@ -245,9 +249,5 @@ var NAVTREEINDEX2 =
 "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01with__latest__from__tag_01_4.html#a3cca06d0d532f9b2872facc8d2b758d4":[3,0,0,0,78,4],
 "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01with__latest__from__tag_01_4.html#a54a762749c290eee92baa6e5cc5c105e":[3,0,0,0,78,2],
 "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01with__latest__from__tag_01_4.html#a6a60eb53b4746176ae892781626eb869":[3,0,0,0,78,0],
-"structrpp_1_1details_1_1merge__impl.html":[3,0,0,0,79],
-"structrpp_1_1details_1_1merge__impl.html#a82c4e8a472beee4355a9b27f06927ec9":[3,0,0,0,79,0],
-"structrpp_1_1details_1_1merge__impl.html#a9854da9312e88845aaee5526d0262f71":[3,0,0,0,79,1],
-"structrpp_1_1details_1_1merge__on__completed.html":[3,0,0,0,80],
-"structrpp_1_1details_1_1merge__on__completed.html#a9456fa146bdff9f24a8a5910eb7a360b":[3,0,0,0,80,0]
+"structrpp_1_1details_1_1merge__impl.html":[3,0,0,0,79]
 };
