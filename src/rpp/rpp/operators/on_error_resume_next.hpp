@@ -21,17 +21,6 @@ IMPLEMENTATION_FILE(on_error_resume_next_tag);
 namespace rpp::details
 {
 
-template<rpp::details::resume_callable ResumeCallable>
-struct on_error_resume_state
-{
-    rpp::composite_subscription m_subscription;
-    ResumeCallable m_resume_callable;
-
-    explicit on_error_resume_state(rpp::composite_subscription subscription,
-                                   const ResumeCallable& callable) : m_subscription(std::move(subscription))
-                                                                   , m_resume_callable(callable) {};
-};
-
 /**
  * Functor (type-erasure) of "on_error_resume_next" for on_error operator.
  */
@@ -40,14 +29,15 @@ struct on_error_resume_next_on_error
     template<rpp::details::resume_callable ResumeCallable>
     void operator()(const std::exception_ptr& err,
                     const auto& subscriber,
-                    const std::shared_ptr<on_error_resume_state<ResumeCallable>>& state) const
+                    const ResumeCallable& resume_callable) const
     {
         using Type = rpp::utils::extract_subscriber_type_t<decltype(subscriber)>;
 
-        auto new_observable = state->m_resume_callable(err);
+        auto new_observable = resume_callable(err);
 
         // Subscribe to next_observable
-        new_observable.subscribe(create_subscriber_with_state<Type>(state->m_subscription,
+        auto subscription = subscriber.get_subscription();
+        new_observable.subscribe(create_subscriber_with_state<Type>(std::move(subscription),
                                                                     rpp::utils::forwarding_on_next{},
                                                                     rpp::utils::forwarding_on_error{},
                                                                     rpp::utils::forwarding_on_completed{},
@@ -69,7 +59,6 @@ struct on_error_resume_next_impl
     auto operator()(TSub&& downstream_subscriber) const
     {
         // Child subscription is for keeping the downstream subscriber's subscription alive when upstream sends on_error event.
-        auto state = std::make_shared<on_error_resume_state<ResumeCallable>>(downstream_subscriber.get_subscription(), m_resume_callable);
         auto subscription = downstream_subscriber.get_subscription().make_child();
 
         return create_subscriber_with_state<Type>(std::move(subscription),
@@ -77,7 +66,7 @@ struct on_error_resume_next_impl
                                                   on_error_resume_next_on_error{},
                                                   rpp::utils::forwarding_on_completed{},
                                                   std::forward<TSub>(downstream_subscriber),
-                                                  std::move(state));
+                                                  m_resume_callable);
     }
 };
 } // namespace rpp::details
