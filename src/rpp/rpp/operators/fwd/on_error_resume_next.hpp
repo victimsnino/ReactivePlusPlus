@@ -60,13 +60,13 @@ struct member_overload<Type, SpecificObservable, on_error_resume_next_tag>
     template<rpp::details::resume_callable ResumeCallable>
     auto on_error_resume_next(ResumeCallable&& resume_callable) const& requires is_header_included<on_error_resume_next_tag, ResumeCallable>
     {
-        return cast_this()->template lift<Type>(on_error_resume_next_impl<Type, ResumeCallable>{std::forward<ResumeCallable>(resume_callable)});
+        return cast_this()->template lift<Type>(on_error_resume_next_impl<Type, std::decay_t<ResumeCallable>>{std::forward<ResumeCallable>(resume_callable)});
     }
 
     template<rpp::details::resume_callable ResumeCallable>
     auto on_error_resume_next(ResumeCallable&& resume_callable) && requires is_header_included<on_error_resume_next_tag, ResumeCallable>
     {
-        return move_this().template lift<Type>(on_error_resume_next_impl<Type, ResumeCallable>{std::forward<ResumeCallable>(resume_callable)});
+        return move_this().template lift<Type>(on_error_resume_next_impl<Type, std::decay_t<ResumeCallable>>{std::forward<ResumeCallable>(resume_callable)});
     }
 
 private:
