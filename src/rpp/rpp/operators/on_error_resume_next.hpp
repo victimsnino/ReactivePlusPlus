@@ -32,8 +32,6 @@ struct on_error_resume_next_on_error
                     const auto& subscriber,
                     const ResumeCallable& resume_callable) const
     {
-        using Type = rpp::utils::extract_subscriber_type_t<decltype(subscriber)>;
-
         // Subscribe to next_observable
         resume_callable(err).subscribe(subscriber);
     }
