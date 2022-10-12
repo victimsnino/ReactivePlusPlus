@@ -1078,3 +1078,25 @@ TEST_CASE("single-threaded locks")
         return target;
     };
 }
+
+TEST_CASE("on_error_resume_next")
+{
+    BENCHMARK_ADVANCED("on_error_resume_next construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+    {
+        const auto obs = rpp::observable::create<int>([](const auto& subscriber)
+        {
+            subscriber.on_error(std::make_exception_ptr(std::runtime_error{""}));
+        });
+        auto subscriber = rpp::specific_subscriber{[](const int&) {}};
+
+        meter.measure([&]
+        {
+            return obs
+                .on_error_resume_next([](auto&&)
+                {
+                    return rpp::observable::just(1);
+                })
+                .subscribe(subscriber);
+        });
+    };
+}
