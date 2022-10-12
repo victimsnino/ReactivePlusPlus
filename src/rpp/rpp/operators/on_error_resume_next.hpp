@@ -50,9 +50,6 @@ struct on_error_resume_next_impl
 {
     RPP_NO_UNIQUE_ADDRESS ResumeCallable m_resume_callable;
 
-    explicit on_error_resume_next_impl(const ResumeCallable& callable) : m_resume_callable(callable) {};
-    explicit on_error_resume_next_impl(ResumeCallable&& callable) : m_resume_callable(std::move(callable)) {};
-
     template<constraint::subscriber_of_type<Type> TSub>
     auto operator()(TSub&& downstream_subscriber) const
     {
