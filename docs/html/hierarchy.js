@@ -308,8 +308,8 @@ var hierarchy =
     [ "rpp::details::with_latest_from_impl< Type, TSelector, TObservables >", "structrpp_1_1details_1_1with__latest__from__impl.html", null ],
     [ "rpp::details::with_latest_from_on_next_inner< I >", "structrpp_1_1details_1_1with__latest__from__on__next__inner.html", null ],
     [ "rpp::details::with_latest_from_on_next_outer< TSelector, ValueTypes >", "structrpp_1_1details_1_1with__latest__from__on__next__outer.html", null ],
-    [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ],
+    [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::details::worker_tag", "structrpp_1_1schedulers_1_1details_1_1worker__tag.html", [
       [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ]
     ] ]

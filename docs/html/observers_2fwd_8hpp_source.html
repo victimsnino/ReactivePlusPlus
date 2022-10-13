@@ -135,7 +135,10 @@ $(document).ready(function(){initNavTree('observers_2fwd_8hpp_source.html',''); 
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;         constraint::on_error_fn     OnError,</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;         constraint::on_completed_fn OnCompleted&gt;</div>
 <div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classrpp_1_1specific__observer.html">   39</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1specific__observer.html">specific_observer</a>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace rpp</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>...Args&gt;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">using</span> <a class="code" href="classrpp_1_1specific__observer.html">specific_observer_with_decayed_args</a> = <a class="code" href="classrpp_1_1specific__observer.html">rpp::specific_observer&lt;std::decay_t&lt;Args&gt;</a>...&gt;;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace rpp</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassrpp_1_1specific__observer_html"><div class="ttname"><a href="classrpp_1_1specific__observer.html">rpp::specific_observer</a></div><div class="ttdoc">Observer specified with specific template types of callbacks to avoid extra heap usage.</div><div class="ttdef"><b>Definition:</b> fwd.hpp:39</div></div>

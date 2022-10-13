@@ -108,14 +108,14 @@ $(document).ready(function(){initNavTree('merge_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;rpp/observables/constraints.hpp&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/fwd/merge.hpp&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;rpp/subscribers/constraints.hpp&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;rpp/observers/state_observer.hpp&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;rpp/sources/just.hpp&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/functors.hpp&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/details/early_unsubscribe.hpp&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/details/serialized_subscriber.hpp&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/lift.hpp&gt;</span>                           <span class="comment">// required due to operator uses lift</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/details/early_unsubscribe.hpp&gt;</span>      <span class="comment">// early_unsubscribe</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/details/serialized_subscriber.hpp&gt;</span>  <span class="comment">// make_serialized_subscriber</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/details/subscriber_with_state.hpp&gt;</span>  <span class="comment">// create_subscriber_with_state</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/fwd/merge.hpp&gt;</span>                      <span class="comment">// own forwarding</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;rpp/sources/just.hpp&gt;</span>                             <span class="comment">// just</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;rpp/subscribers/constraints.hpp&gt;</span>                  <span class="comment">// constraint::subscriber</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/functors.hpp&gt;</span>                           <span class="comment">// forwarding_on_next</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>

@@ -3,31 +3,60 @@
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$constraint\+::decayed\+\_\+type New\+Type$>$ }\\auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_acce176c87badd3c81a4af88e833e9c66}{lift}} (lift\+\_\+fn$<$ New\+Type $>$ auto \&\&op) const \&
+{\footnotesize template$<$constraint\+::decayed\+\_\+type New\+Type$>$ }\\auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a722f2ec4400fac7416d0c8d0f0c3449f}{lift}} (lift\+\_\+fn$<$ New\+Type $>$ auto \&\&op) const \&requires is\+\_\+header\+\_\+included$<$ lift\+\_\+tag
 \begin{DoxyCompactList}\small\item\em The lift operator provides ability to create your own operator and apply it to observable. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_ae4cba91d3dc591703f78696d4dfb6e50}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_ae4cba91d3dc591703f78696d4dfb6e50}} 
-{\footnotesize template$<$constraint\+::decayed\+\_\+type New\+Type$>$ }\\auto {\bfseries lift} (lift\+\_\+fn$<$ New\+Type $>$ auto \&\&op) \&\&
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a12acce1dfae938244f6c38c18a5973f5}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a12acce1dfae938244f6c38c18a5973f5}} 
+{\footnotesize template$<$constraint\+::decayed\+\_\+type New\+Type$>$ }\\auto {\bfseries lift} (lift\+\_\+fn$<$ New\+Type $>$ auto \&\&op) \&\&requires is\+\_\+header\+\_\+included$<$ lift\+\_\+tag
 \item 
-{\footnotesize template$<$typename Operator\+Fn , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+Operator\+Fn$>$$>$$>$ }\\auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_accf6d13775b8e679fe74d36a63142196}{lift}} (Operator\+Fn \&\&op) const \&requires details
+{\footnotesize template$<$typename Operator\+Fn , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+Operator\+Fn$>$$>$$>$ }\\auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_acd3390540f975d57551004f4c6697538}{lift}} (Operator\+Fn \&\&op) const \&requires(details
 \begin{DoxyCompactList}\small\item\em The lift operator provides ability to create your own operator and apply it to observable. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_aa8fc4eba38b259c35ebec2d8dcff8157}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_aa8fc4eba38b259c35ebec2d8dcff8157}} 
-{\footnotesize template$<$constraint\+::decayed\+\_\+type New\+Type, std\+::invocable$<$ Type, dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Error = utils\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Completed = utils\+::forwarding\+\_\+on\+\_\+completed$>$ }\\auto {\bfseries lift} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) \&\&
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a6df1effd3cf61126bf345dbf3ead071c}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a6df1effd3cf61126bf345dbf3ead071c}} 
+{\footnotesize template$<$typename Operator\+Fn , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+Operator\+Fn$>$$>$$>$ }\\auto {\bfseries lift} (Operator\+Fn \&\&op) \&\&requires(details
 \item 
-{\footnotesize template$<$typename On\+Next , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$std\+::decay\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Next, 1$>$$>$$>$, std\+::invocable$<$ std\+::exception\+\_\+ptr, dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Error = utils\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Completed = utils\+::forwarding\+\_\+on\+\_\+completed$>$ }\\requires std\+::invocable$<$ On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a06cd71457ec76a42c41fdccef3e32819}{lift}} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) const \&
+{\footnotesize template$<$constraint\+::decayed\+\_\+type New\+Type, std\+::invocable$<$ Type, dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Error = utils\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Completed = utils\+::forwarding\+\_\+on\+\_\+completed$>$ }\\auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_abe77e253c297d741697467f5d7f6e13b}{lift}} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) const \&requires is\+\_\+header\+\_\+included$<$ lift\+\_\+tag
 \begin{DoxyCompactList}\small\item\em The lift operator provides ability to create your own operator and apply it to observable. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a0f6f95f6ab6707476ffc6a392bd31c7c}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a0f6f95f6ab6707476ffc6a392bd31c7c}} 
-{\footnotesize template$<$typename On\+Next , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$std\+::decay\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Next, 1$>$$>$$>$, std\+::invocable$<$ std\+::exception\+\_\+ptr, dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Error = utils\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Completed = utils\+::forwarding\+\_\+on\+\_\+completed$>$ }\\requires std\+::invocable$<$ On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ auto {\bfseries lift} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) \&\&
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a1fd1a76415a8749e971040bc21c6fbcb}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a1fd1a76415a8749e971040bc21c6fbcb}} 
+{\footnotesize template$<$constraint\+::decayed\+\_\+type New\+Type, std\+::invocable$<$ Type, dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Error = utils\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Completed = utils\+::forwarding\+\_\+on\+\_\+completed$>$ }\\auto {\bfseries lift} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) \&\&requires is\+\_\+header\+\_\+included$<$ lift\+\_\+tag
+\item 
+{\footnotesize template$<$typename On\+Next , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$std\+::decay\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Next, 1$>$$>$$>$, std\+::invocable$<$ std\+::exception\+\_\+ptr, dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Error = utils\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Completed = utils\+::forwarding\+\_\+on\+\_\+completed$>$ }\\requires std\+::invocable$<$ On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a138ce2bcd0f0a77de3d51da81eab3023}{lift}} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) const \&requires is\+\_\+header\+\_\+included$<$ lift\+\_\+tag
+\begin{DoxyCompactList}\small\item\em The lift operator provides ability to create your own operator and apply it to observable. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_aee0fb2da15f1c10eda8914fe45a6cf8b}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_aee0fb2da15f1c10eda8914fe45a6cf8b}} 
+{\footnotesize template$<$typename On\+Next , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$std\+::decay\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Next, 1$>$$>$$>$, std\+::invocable$<$ std\+::exception\+\_\+ptr, dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Error = utils\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Completed = utils\+::forwarding\+\_\+on\+\_\+completed$>$ }\\requires std\+::invocable$<$ On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ auto {\bfseries lift} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) \&\&requires is\+\_\+header\+\_\+included$<$ lift\+\_\+tag
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+auto {\bfseries New\+Type}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a414ea4f09b198cbc8f1579893d4e9763}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a414ea4f09b198cbc8f1579893d4e9763}} 
+auto {\bfseries On\+Next}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a97da4969c2c96c766e96bbd320e19053}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a97da4969c2c96c766e96bbd320e19053}} 
+auto {\bfseries On\+Error}
+\item 
+auto {\bfseries On\+Completed}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_aea6c817eefda35e265e5f394b37d350b}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_aea6c817eefda35e265e5f394b37d350b}} 
+requires std\+::invocable$<$ On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ auto {\bfseries New\+Type}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a35d712e9631903624e56d8831905aa06}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a35d712e9631903624e56d8831905aa06}} 
+requires std\+::invocable$<$ On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ auto {\bfseries On\+Next}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a81c3a4a916fbad51329b5a4005a03011}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a81c3a4a916fbad51329b5a4005a03011}} 
+requires std\+::invocable$<$ On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ auto {\bfseries On\+Error}
+\item 
+requires std\+::invocable$<$ On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ auto {\bfseries On\+Completed}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_acce176c87badd3c81a4af88e833e9c66}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_acce176c87badd3c81a4af88e833e9c66}} 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a722f2ec4400fac7416d0c8d0f0c3449f}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a722f2ec4400fac7416d0c8d0f0c3449f}} 
 \index{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$}!lift@{lift}}
 \index{lift@{lift}!rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+\doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
 template$<$constraint\+::decayed\+\_\+type New\+Type$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, lift\+\_\+tag $>$\+::lift (\begin{DoxyParamCaption}\item[{lift\+\_\+fn$<$ New\+Type $>$ auto \&\&}]{op }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, lift\+\_\+tag $>$\+::lift (\begin{DoxyParamCaption}\item[{lift\+\_\+fn$<$ New\+Type $>$ auto \&\&}]{op }\end{DoxyParamCaption}) const \&}
 
 
 
@@ -46,13 +75,39 @@ The lift operator provides ability to create your own operator and apply it to o
 \begin{DoxyReturn}{Returns}
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} of New\+Type 
 \end{DoxyReturn}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a06cd71457ec76a42c41fdccef3e32819}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a06cd71457ec76a42c41fdccef3e32819}} 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_abe77e253c297d741697467f5d7f6e13b}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_abe77e253c297d741697467f5d7f6e13b}} 
 \index{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$}!lift@{lift}}
 \index{lift@{lift}!rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+\doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$constraint\+::decayed\+\_\+type New\+Type, std\+::invocable$<$ Type, dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Next, std\+::invocable$<$ std\+::exception\+\_\+ptr, dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Error = utils\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Completed = utils\+::forwarding\+\_\+on\+\_\+completed$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, lift\+\_\+tag $>$\+::lift (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Error \&\&}]{on\+\_\+error = {\ttfamily \{\}},  }\item[{On\+Completed \&\&}]{on\+\_\+completed = {\ttfamily \{\}} }\end{DoxyParamCaption}) const \&}
+
+
+
+The lift operator provides ability to create your own operator and apply it to observable. 
+
+This overload provides this ability via providing on\+\_\+next, on\+\_\+eror and on\+\_\+completed with 2 params\+: old type of value + new subscriber 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em New\+Type} & manually specified new type of observable after lift \\
+\hline
+{\em On\+Next} & on\+\_\+next of new subscriber accepting old value + new subscriber (logic how to transfer old value to new subscriber) \\
+\hline
+{\em On\+Error} & on\+\_\+error of new subscriber accepting exception + new subscriber \\
+\hline
+{\em On\+Completed} & on\+\_\+completed of new subscriber accepting new subscriber \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} of New\+Type 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a138ce2bcd0f0a77de3d51da81eab3023}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a138ce2bcd0f0a77de3d51da81eab3023}} 
+\index{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$}!lift@{lift}}
+\index{lift@{lift}!rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$}}
+\doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
 template$<$typename On\+Next , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$std\+::decay\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+On\+Next, 1$>$$>$$>$, std\+::invocable$<$ std\+::exception\+\_\+ptr, dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Error = utils\+::forwarding\+\_\+on\+\_\+error, std\+::invocable$<$ dynamic\+\_\+subscriber$<$ New\+Type $>$$>$ On\+Completed = utils\+::forwarding\+\_\+on\+\_\+completed$>$ \\
-requires std\+::invocable$<$On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$ $>$ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, lift\+\_\+tag $>$\+::lift (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Error \&\&}]{on\+\_\+error = {\ttfamily \{\}},  }\item[{On\+Completed \&\&}]{on\+\_\+completed = {\ttfamily \{\}} }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+requires std\+::invocable$<$On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$ $>$ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, lift\+\_\+tag $>$\+::lift (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Error \&\&}]{on\+\_\+error = {\ttfamily \{\}},  }\item[{On\+Completed \&\&}]{on\+\_\+completed = {\ttfamily \{\}} }\end{DoxyParamCaption}) const \&}
 
 
 
@@ -70,10 +125,10 @@ This overload provides this ability via providing on\+\_\+next, on\+\_\+eror and
 \begin{DoxyReturn}{Returns}
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} of New\+Type 
 \end{DoxyReturn}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_accf6d13775b8e679fe74d36a63142196}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_accf6d13775b8e679fe74d36a63142196}} 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_acd3390540f975d57551004f4c6697538}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_acd3390540f975d57551004f4c6697538}} 
 \index{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$}!lift@{lift}}
 \index{lift@{lift}!rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+\doxysubsubsection{\texorpdfstring{lift()}{lift()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
 template$<$typename Operator\+Fn , constraint\+::decayed\+\_\+type New\+Type = utils\+::extract\+\_\+subscriber\+\_\+type\+\_\+t$<$utils\+::function\+\_\+argument\+\_\+t$<$\+Operator\+Fn$>$$>$$>$ \\
 auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, lift\+\_\+tag $>$\+::lift (\begin{DoxyParamCaption}\item[{Operator\+Fn \&\&}]{op }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
@@ -95,26 +150,58 @@ The lift operator provides ability to create your own operator and apply it to o
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} of New\+Type
-\end{DoxyReturn}
-The lift operator provides ability to create your own operator and apply it to observable.
-
-This overload provides this ability via providing on\+\_\+next, on\+\_\+eror and on\+\_\+completed with 2 params\+: old type of value + new subscriber 
-\begin{DoxyTemplParams}{Template Parameters}
-{\em New\+Type} & manually specified new type of observable after lift \\
-\hline
-{\em On\+Next} & on\+\_\+next of new subscriber accepting old value + new subscriber (logic how to transfer old value to new subscriber) \\
-\hline
-{\em On\+Error} & on\+\_\+error of new subscriber accepting exception + new subscriber \\
-\hline
-{\em On\+Completed} & on\+\_\+completed of new subscriber accepting new subscriber \\
-\hline
-\end{DoxyTemplParams}
-\begin{DoxyReturn}{Returns}
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} of New\+Type 
 \end{DoxyReturn}
 
 
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a5863916db756ce6488ca02639073ae93}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a5863916db756ce6488ca02639073ae93}} 
+\index{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$}!NewType@{NewType}}
+\index{NewType@{NewType}!rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$}}
+\doxysubsubsection{\texorpdfstring{NewType}{NewType}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+requires std\+::invocable$<$ On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, lift\+\_\+tag $>$\+::New\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} details::lift\_impl<NewType>(std::forward<decltype(op)>(op), CastThis())}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a9098d12d1e47f8aaefe7603fa43193f5}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a9098d12d1e47f8aaefe7603fa43193f5}} 
+\index{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$}!OnCompleted@{OnCompleted}}
+\index{OnCompleted@{OnCompleted}!rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$}}
+\doxysubsubsection{\texorpdfstring{OnCompleted}{OnCompleted}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+requires std\+::invocable$<$ On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$ New\+Type $>$ $>$ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, lift\+\_\+tag $>$\+::On\+Completed}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} details::lift\_impl<NewType>(details::decayed\_lift\_action\_by\_callbacks<Type, OnNext, OnError, OnCompleted>\{std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{                                                                                                                         std::forward<OnError>(on\_error),}
+\DoxyCodeLine{                                                                                                                         std::forward<OnCompleted>(on\_completed)\},}
+\DoxyCodeLine{                                           CastThis())}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a01f08504e536a379b2222dd90b1d088e}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a01f08504e536a379b2222dd90b1d088e}} 
+\index{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$}!OnCompleted@{OnCompleted}}
+\index{OnCompleted@{OnCompleted}!rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, lift\_tag $>$}}
+\doxysubsubsection{\texorpdfstring{OnCompleted}{OnCompleted}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+requires std\+::invocable$<$On\+Next, Type, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\+\_\+subscriber}}$<$New\+Type$>$ $>$ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, lift\+\_\+tag $>$\+::On\+Completed}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} details::lift\_impl<NewType>(details::decayed\_lift\_action\_by\_callbacks<Type, OnNext, OnError, OnCompleted>\{std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{                                                                                                                         std::forward<OnError>(on\_error),}
+\DoxyCodeLine{                                                                                                                         std::forward<OnCompleted>(on\_completed)\},}
+\DoxyCodeLine{                                           CastThis())}
+
+\end{DoxyCode}
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-src/rpp/rpp/operators/lift.\+hpp\end{DoxyCompactItemize}
+src/rpp/rpp/operators/fwd/lift.\+hpp\end{DoxyCompactItemize}

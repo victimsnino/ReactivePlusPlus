@@ -109,18 +109,18 @@ $(document).ready(function(){initNavTree('last_8hpp_source.html',''); initResiza
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/fwd/last.hpp&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/take_last.hpp&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;rpp/subscribers/constraints.hpp&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/exceptions.hpp&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/functors.hpp&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/utilities.hpp&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;IMPLEMENTATION_FILE(last_tag);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/lift.hpp&gt;</span>                          <span class="comment">// required due to operator uses lift</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/take_last.hpp&gt;</span>                     <span class="comment">// take_last</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/fwd/last.hpp&gt;</span>                      <span class="comment">// own forwarding</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;rpp/operators/details/subscriber_with_state.hpp&gt;</span> <span class="comment">// create_subscriber_with_state</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;rpp/subscribers/constraints.hpp&gt;</span>                 <span class="comment">// constraint::subscriber</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/exceptions.hpp&gt;</span>                        <span class="comment">// not_enough_emissions</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/functors.hpp&gt;</span>                          <span class="comment">// forwarding_on_error</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;IMPLEMENTATION_FILE(last_tag);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
 <div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1last__state.html">   27</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1last__state.html">last_state</a> : <span class="keyword">public</span> <a class="code" href="structrpp_1_1details_1_1take__last__state.html">take_last_state</a>&lt;Type&gt;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
@@ -169,7 +169,7 @@ $(document).ready(function(){initNavTree('last_8hpp_source.html',''); initResiza
 </div><!-- doc-content -->
 <div class="ttc" id="astructrpp_1_1details_1_1take__last__on__next_html"><div class="ttname"><a href="structrpp_1_1details_1_1take__last__on__next.html">rpp::details::take_last_on_next</a></div><div class="ttdef"><b>Definition:</b> take_last.hpp:41</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1take__last__state_html"><div class="ttname"><a href="structrpp_1_1details_1_1take__last__state.html">rpp::details::take_last_state</a></div><div class="ttdef"><b>Definition:</b> take_last.hpp:27</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1last__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1last__impl.html">rpp::details::last_impl</a></div><div class="ttdef"><b>Definition:</b> last.hpp:25</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1last__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1last__impl.html">rpp::details::last_impl</a></div><div class="ttdef"><b>Definition:</b> last.hpp:24</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1last__state_html"><div class="ttname"><a href="structrpp_1_1details_1_1last__state.html">rpp::details::last_state</a></div><div class="ttdef"><b>Definition:</b> last.hpp:27</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1last__on__completed_html"><div class="ttname"><a href="structrpp_1_1details_1_1last__on__completed.html">rpp::details::last_on_completed</a></div><div class="ttdef"><b>Definition:</b> last.hpp:40</div></div>
 <!-- start footer part -->

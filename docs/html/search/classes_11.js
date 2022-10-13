@@ -12,6 +12,6 @@ var searchData=
   ['with_5flatest_5ffrom_5fstate_3c_20tselector_2c_20valuetypes_2e_2e_2e_20_3e_497',['with_latest_from_state&lt; TSelector, ValueTypes... &gt;',['../structrpp_1_1details_1_1with__latest__from__state.html',1,'rpp::details']]],
   ['with_5flatest_5ffrom_5fstate_5fwith_5fserialized_5fspinlock_498',['with_latest_from_state_with_serialized_spinlock',['../structrpp_1_1details_1_1with__latest__from__state__with__serialized__spinlock.html',1,'rpp::details']]],
   ['worker_499',['worker',['../classrpp_1_1schedulers_1_1worker.html',1,'rpp::schedulers']]],
-  ['worker_5fstrategy_500',['worker_strategy',['../classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html',1,'rpp::schedulers::immediate::worker_strategy'],['../classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html',1,'rpp::schedulers::new_thread::worker_strategy']]],
+  ['worker_5fstrategy_500',['worker_strategy',['../classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html',1,'rpp::schedulers::new_thread::worker_strategy'],['../classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html',1,'rpp::schedulers::immediate::worker_strategy']]],
   ['worker_5ftag_501',['worker_tag',['../structrpp_1_1schedulers_1_1details_1_1worker__tag.html',1,'rpp::schedulers::details']]]
 ];
