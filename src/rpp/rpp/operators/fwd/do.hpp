@@ -10,9 +10,8 @@
 
 #pragma once
 
-#include <rpp/observables/details/member_overload.hpp>
-#include <rpp/observers/fwd.hpp>
-#include <rpp/observers/specific_observer.hpp>
+#include <rpp/observables/details/member_overload.hpp> // member_overload
+#include <rpp/observers/constraints.hpp>               // constraint::observer_of_type
 
 namespace rpp::details
 {

@@ -10,17 +10,16 @@
 
 #pragma once
 
-#include <rpp/subscribers/constraints.hpp>
-#include <rpp/operators/fwd/scan.hpp>
+#include <rpp/defs.hpp>                                    // RPP_NO_UNIQUE_ADDRESS
+#include <rpp/operators/lift.hpp>                          // required due to operator uses lift
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
-#include <rpp/utils/functors.hpp>
+#include <rpp/operators/fwd/scan.hpp>                      // own forwarding
+#include <rpp/subscribers/constraints.hpp>                 // constraint::subscriber
+#include <rpp/utils/functors.hpp>                          // forwarding_on_error
+#include <rpp/utils/utilities.hpp>                         // utils::as_const
 
-#include <rpp/defs.hpp>
 
-#include <rpp/utils/utilities.hpp>
-
-
-IMPLEMENTATION_FILE (scan_tag);
+IMPLEMENTATION_FILE(scan_tag);
 
 namespace rpp::details
 {
@@ -35,7 +34,7 @@ struct scan_on_next
 {
     template<constraint::decayed_type Result, typename AccumulatorFn>
     void operator()(auto&&                                   value,
-                    const rpp::constraint::subscriber auto&  sub,
+                    const constraint::subscriber auto&       sub,
                     const scan_state<Result, AccumulatorFn>& state) const
     {
         state.seed = state.accumulator(std::move(state.seed), std::forward<decltype(value)>(value));

@@ -11,18 +11,15 @@
 
 #pragma once
 
-#include <algorithm>
-
-#include <rpp/operators/fwd/combine_latest.hpp>
-#include <rpp/subscribers/constraints.hpp>
-#include <rpp/sources/create.hpp>
-#include <rpp/utils/functors.hpp>
-#include <rpp/operators/merge.hpp>
-#include <rpp/defs.hpp>
-#include <rpp/utils/spinlock.hpp>
-
+#include <rpp/defs.hpp>                                    // RPP_NO_UNIQUE_ADDRESS
+#include <rpp/operators/lift.hpp>                          // required due to operator uses lift
+#include <rpp/operators/merge.hpp>                         // merge_state
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+#include <rpp/operators/fwd/combine_latest.hpp>            // own forwarding
+#include <rpp/subscribers/constraints.hpp>                 // constraint::subscriber_of_type
+#include <rpp/utils/spinlock.hpp>                          // spinlock
 
+#include <algorithm>
 
 IMPLEMENTATION_FILE(combine_latest_tag);
 

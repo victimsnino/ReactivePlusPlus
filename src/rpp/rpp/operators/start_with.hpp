@@ -10,12 +10,9 @@
 
 #pragma once
 
-#include <rpp/observables/constraints.hpp>
-#include <rpp/operators/fwd/start_with.hpp>
-
 #include <rpp/operators/concat.hpp>
+#include <rpp/operators/fwd/start_with.hpp>
 #include <rpp/sources/just.hpp>
-
 
 IMPLEMENTATION_FILE (start_with_tag);
 

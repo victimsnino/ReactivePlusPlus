@@ -10,9 +10,8 @@
 
 #pragma once
 
-#include <rpp/observables/details/member_overload.hpp>
-
-#include <rpp/observables/constraints.hpp>
+#include <rpp/observables/constraints.hpp>             // constraint::observable_of_type
+#include <rpp/observables/details/member_overload.hpp> // member_overload
 
 
 namespace rpp::details

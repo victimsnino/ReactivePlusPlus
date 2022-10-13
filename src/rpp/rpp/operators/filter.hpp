@@ -10,12 +10,11 @@
 
 #pragma once
 
-#include <rpp/observables/constraints.hpp>
-#include <rpp/operators/fwd/filter.hpp>
-#include <rpp/subscribers/constraints.hpp>
-#include <rpp/utils/utilities.hpp>
-
-#include <rpp/defs.hpp>
+#include <rpp/defs.hpp>                     // RPP_NO_UNIQUE_ADDRESS
+#include <rpp/operators/lift.hpp>           // required due to operator uses lift
+#include <rpp/operators/fwd/filter.hpp>     // own forwarding
+#include <rpp/subscribers/constraints.hpp>  // constraint::subscriber_of_type
+#include <rpp/utils/utilities.hpp>          // utils::as_const
 
 #include <utility>
 

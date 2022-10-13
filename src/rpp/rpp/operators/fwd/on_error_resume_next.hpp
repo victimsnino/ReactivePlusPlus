@@ -14,7 +14,6 @@
 #include <rpp/observables/details/member_overload.hpp>
 #include <rpp/utils/exceptions.hpp>
 #include <rpp/utils/function_traits.hpp>
-#include <rpp/utils/functors.hpp>
 
 #include <exception>
 

@@ -1083,20 +1083,24 @@ TEST_CASE("on_error_resume_next")
 {
     BENCHMARK_ADVANCED("on_error_resume_next construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
     {
-        const auto obs = rpp::observable::create<int>([](const auto& subscriber)
+        auto err = std::make_exception_ptr(std::runtime_error{""});
+        const auto obs = rpp::observable::create<int>([&err](const auto& subscriber)
         {
-            subscriber.on_error(std::make_exception_ptr(std::runtime_error{""}));
+            subscriber.on_error(err);
         });
-        auto subscriber = rpp::specific_subscriber{[](const int&) {}};
 
-        meter.measure([&]
+        std::vector<rpp::dynamic_subscriber<int>> subs{};
+        for (int i = 0; i < meter.runs(); ++i)
+            subs.push_back(rpp::dynamic_subscriber<int>{});
+
+        meter.measure([&](int i)
         {
             return obs
                 .on_error_resume_next([](auto&&)
                 {
-                    return rpp::observable::just(1);
+                    return rpp::observable::never<int>();
                 })
-                .subscribe(subscriber);
+                .subscribe(subs[i]);
         });
     };
 }

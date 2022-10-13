@@ -11,8 +11,8 @@
 #pragma once
 
 #include <rpp/observables/constraints.hpp>
-#include <rpp/operators/fwd/publish.hpp>
 #include <rpp/operators/multicast.hpp>
+#include <rpp/operators/fwd/publish.hpp>
 
 IMPLEMENTATION_FILE(publish_tag);
 

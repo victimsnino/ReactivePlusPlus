@@ -10,10 +10,8 @@
 
 #pragma once
 
-#include <rpp/schedulers/constraints.hpp>
-#include <rpp/observables/details/member_overload.hpp>
-#include <rpp/utils/function_traits.hpp>
-#include <rpp/utils/functors.hpp>
+#include <rpp/schedulers/constraints.hpp>               // schedulers::constraint::scheduler
+#include <rpp/observables/details/member_overload.hpp>  // member_overload
 
 namespace rpp::details
 {
@@ -22,7 +20,6 @@ struct delay_tag;
 
 namespace rpp::details
 {
-
 template<constraint::decayed_type Type, schedulers::constraint::scheduler TScheduler>
 struct delay_impl;
 

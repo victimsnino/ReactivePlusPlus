@@ -10,10 +10,9 @@
 
 #pragma once
 
-#include <rpp/observables/constraints.hpp>
-#include <rpp/observers/state_observer.hpp>
-#include <rpp/operators/fwd/switch_on_next.hpp>
+#include <rpp/operators/lift.hpp>                          // required due to operator uses lift
 #include <rpp/operators/merge.hpp>
+#include <rpp/operators/fwd/switch_on_next.hpp>
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/utils/functors.hpp>
 #include <rpp/utils/spinlock.hpp>

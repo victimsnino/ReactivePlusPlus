@@ -11,7 +11,6 @@
 #pragma once
 
 #include <rpp/observables/details/member_overload.hpp>
-
 #include <rpp/utils/function_traits.hpp>
 
 namespace rpp::details

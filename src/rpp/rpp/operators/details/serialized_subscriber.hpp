@@ -10,7 +10,7 @@
 #pragma once
 
 #include <rpp/subscribers/constraints.hpp>
-#include <rpp/operators/details/subscriber_with_state.hpp>
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 #include <rpp/subscriptions/composite_subscription.hpp>
 
 #include <memory>

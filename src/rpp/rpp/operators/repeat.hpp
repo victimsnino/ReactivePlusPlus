@@ -10,19 +10,13 @@
 
 #pragma once
 
-#include <rpp/defs.hpp>
-
-#include <rpp/observables/constraints.hpp>
-#include <rpp/operators/fwd/repeat.hpp>
-#include <rpp/subscribers/constraints.hpp>
-#include <rpp/sources/create.hpp>
-#include <rpp/utils/functors.hpp>
-
-#include <rpp/defs.hpp>
-
-
+#include <rpp/defs.hpp>                                    // RPP_NO_UNIQUE_ADDRESS
+#include <rpp/operators/lift.hpp>                          // required due to operator uses lift
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
-
+#include <rpp/operators/fwd/repeat.hpp>                    // own forwarding
+#include <rpp/sources/create.hpp>                          // create observable
+#include <rpp/subscribers/constraints.hpp>                 // constraint::subscriber
+#include <rpp/utils/functors.hpp>                          // forwarding_on_next
 
 IMPLEMENTATION_FILE(repeat_tag);
 

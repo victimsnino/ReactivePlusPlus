@@ -10,21 +10,19 @@
 
 #pragma once
 
-#include <rpp/subscribers/constraints.hpp>
-#include <rpp/operators/fwd/concat.hpp>
-#include <rpp/operators/merge.hpp>
-#include <rpp/observables/dynamic_observable.hpp>
-
-#include <rpp/subscriptions/composite_subscription.hpp>
+#include <rpp/observables/dynamic_observable.hpp>          // dynamic_observable
+#include <rpp/operators/lift.hpp>                          // required due to operator uses lift
+#include <rpp/operators/merge.hpp>                         // merge_forwarding_on_next/merge_on_error
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
-
-#include <rpp/sources/just.hpp>
+#include <rpp/operators/fwd/concat.hpp>                    // own forwarding
+#include <rpp/sources/just.hpp>                            
+#include <rpp/subscribers/constraints.hpp>                 // constraint::subscriber_of_type
+#include <rpp/subscriptions/composite_subscription.hpp>    // composite_subscription
 #include <rpp/utils/functors.hpp>
 #include <rpp/utils/spinlock.hpp>
 
-
-#include <mutex>
 #include <memory>
+#include <mutex>
 #include <queue>
 
 

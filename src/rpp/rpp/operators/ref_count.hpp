@@ -10,13 +10,11 @@
 
 #pragma once
 
-#include <rpp/observables/constraints.hpp>
-#include <rpp/operators/fwd/ref_count.hpp>
-#include <rpp/subscribers/constraints.hpp>
-#include <rpp/sources/create.hpp>
-
+#include <rpp/operators/lift.hpp>                          // required due to operator uses lift
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
-
+#include <rpp/operators/fwd/ref_count.hpp>                 // own forwarding
+#include <rpp/sources/create.hpp>                          // create observable
+#include <rpp/subscribers/constraints.hpp>                 // constraint::subscriber_of_type
 
 IMPLEMENTATION_FILE(ref_count_tag);
 
@@ -82,6 +80,6 @@ struct ref_count_on_subscribe
 template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs>
 auto ref_count_impl(TObs&& observable)
 {
-    return rpp::source::create<Type>(ref_count_on_subscribe<Type, std::decay_t<TObs>>{std::forward<TObs>(observable)});
+    return source::create<Type>(ref_count_on_subscribe<Type, std::decay_t<TObs>>{std::forward<TObs>(observable)});
 }
 } // namespace rpp::details

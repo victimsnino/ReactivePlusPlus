@@ -10,9 +10,9 @@
 
 #pragma once
 
+#include <rpp/observables/connectable_observable.hpp>
 #include <rpp/observables/constraints.hpp>
 #include <rpp/operators/fwd/multicast.hpp>
-#include <rpp/observables/connectable_observable.hpp>
 
 IMPLEMENTATION_FILE(multicast_tag);
 

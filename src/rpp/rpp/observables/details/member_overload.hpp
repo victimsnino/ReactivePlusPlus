@@ -15,6 +15,6 @@
 
 namespace rpp::details
 {
-template<rpp::constraint::decayed_type Type, typename SpecificObservable, typename MemberTag>
+template<constraint::decayed_type Type, typename SpecificObservable, typename MemberTag>
 struct member_overload;
 } // namespace rpp::details

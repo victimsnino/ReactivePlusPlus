@@ -10,11 +10,11 @@
 
 #pragma once
 
-#include <rpp/subscribers/constraints.hpp>
-#include <rpp/operators/fwd/do.hpp>
-
-#include <rpp/utils/utilities.hpp>
-
+#include <rpp/operators/lift.hpp>                          // required due to operator uses lift
+#include <rpp/operators/fwd/do.hpp>                        // own forwarding
+#include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
+#include <rpp/subscribers/constraints.hpp>                 // constraint::subscriber_of_type
+#include <rpp/utils/utilities.hpp>                         // utils::as_const
 
 IMPLEMENTATION_FILE(do_tag);
 
