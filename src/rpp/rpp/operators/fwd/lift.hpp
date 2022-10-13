@@ -13,6 +13,7 @@
 #include <rpp/observables/details/member_overload.hpp> // member_overload
 #include <rpp/subscribers/constraints.hpp>             // constraint::subscriber
 #include <rpp/utils/function_traits.hpp>               // extract_subscriber_type_t
+#include <rpp/utils/functors.hpp>                      // forwarding_on_error
 
 namespace rpp::details
 {
