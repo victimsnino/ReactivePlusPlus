@@ -42,7 +42,7 @@ struct member_overload<Type, SpecificObservable, on_error_resume_next_tag>
      *
      * \marble on_error_resume_next
        {
-           source observable                       : +-1-x
+           source observable                       : +-1-#
            operator "on_error_resume_next: -9-9-|" : +-1-9-9-|
        }
      *

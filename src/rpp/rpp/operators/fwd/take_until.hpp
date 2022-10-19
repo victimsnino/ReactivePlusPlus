@@ -35,7 +35,7 @@ struct member_overload<Type, SpecificObservable, take_until_tag>
      * \marble take_until
        {
            source observable        : +-1--2--3--|
-           until observable         : +--s--s----|
+           source until_observable  : +--s--s----|
            operator "take_until"    : +-1-|
        }
      *
