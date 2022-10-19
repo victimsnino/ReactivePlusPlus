@@ -38,7 +38,7 @@ struct member_overload<Type, SpecificObservable, buffer_tag>
     * \marble buffer
         {
             source observable    : +-1-2-3-|
-            operator "buffer(2)" : +---{12}-{3}-|
+            operator "buffer(2)" : +---{1,2}-{3}-|
         }
     *
     * \details the resulting bundle is std::vector. Actually it is similar to `window` but it emits vectors instead of observables.
