@@ -104,6 +104,10 @@ $(document).ready(function(){initNavTree('group__conditional__operators.html',''
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga7b072b06b4ecc8e3e138c26008e9081c"><td class="memTemplParams" colspan="2">template&lt;constraint::observable TTriggerObservable&gt; </td></tr>
+<tr class="memitem:ga7b072b06b4ecc8e3e138c26008e9081c"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__conditional__operators.html#ga7b072b06b4ecc8e3e138c26008e9081c">rpp::details::member_overload&lt; Type, SpecificObservable, take_until_tag &gt;::take_until</a> (TTriggerObservable &amp;&amp;until_observable) const &amp;requires is_header_included&lt; take_until_tag</td></tr>
+<tr class="memdesc:ga7b072b06b4ecc8e3e138c26008e9081c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Discard any items emitted by an Observable after a second Observable emits an item or terminates.  <a href="group__conditional__operators.html#ga7b072b06b4ecc8e3e138c26008e9081c">More...</a><br /></td></tr>
+<tr class="separator:ga7b072b06b4ecc8e3e138c26008e9081c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga68ea040e75df34c47cdffd164d2a7c3d"><td class="memTemplParams" colspan="2">template&lt;std::predicate&lt; const Type &amp; &gt; Predicate&gt; </td></tr>
 <tr class="memitem:ga68ea040e75df34c47cdffd164d2a7c3d"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__conditional__operators.html#ga68ea040e75df34c47cdffd164d2a7c3d">rpp::details::member_overload&lt; Type, SpecificObservable, take_while_tag &gt;::take_while</a> (Predicate &amp;&amp;predicate) const &amp;requires is_header_included&lt; take_while_tag</td></tr>
 <tr class="memdesc:ga68ea040e75df34c47cdffd164d2a7c3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends items provided by observable while items are satisfy predicate. When condition becomes false -&gt; sends <code>on_completed</code>  <a href="group__conditional__operators.html#ga68ea040e75df34c47cdffd164d2a7c3d">More...</a><br /></td></tr>
@@ -113,6 +117,52 @@ Functions</h2></td></tr>
 <p>Conditional operators are operators that emit items based on some condition including condition of items from other observables. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#conditional">https://reactivex.io/documentation/operators.html#conditional</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga7b072b06b4ecc8e3e138c26008e9081c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7b072b06b4ecc8e3e138c26008e9081c">&#9670;&nbsp;</a></span>take_until()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;constraint::observable TTriggerObservable&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, take_until_tag &gt;::take_until </td>
+          <td>(</td>
+          <td class="paramtype">TTriggerObservable &amp;&amp;&#160;</td>
+          <td class="paramname"><em>until_observable</em></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Discard any items emitted by an Observable after a second Observable emits an item or terminates. </p>
+<dl class="section warning"><dt>Warning</dt><dd>The take_until subscribes and begins mirroring the source Observable. It also monitors a second Observable that you provide. If this second Observable emits an item or sends a on_error/on_completed notification, the Observable returned by take_until stops mirroring the source Observable and terminates.</dd></dl>
+<div class="image">
+<object type="image/svg+xml" data="take_until.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">until_observable</td><td>is the observables that stops the source observable from sending values when it emits one value or sends a on_error/on_completed event. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the take_until operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="take__until_8hpp_source.html">rpp/operators/take_until.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Examples</dt><dd><div class="fragment"><div class="line">    rpp::source::interval(std::chrono::seconds{1}, <a class="code" href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a>{})</div>
+<div class="line">        .<a class="code" href="group__conditional__operators.html#ga7b072b06b4ecc8e3e138c26008e9081c">take_until</a>(rpp::source::interval(std::chrono::seconds{5}, <a class="code" href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a>{}))</div>
+<div class="line">        .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;-&quot;</span> &lt;&lt; v; },</div>
+<div class="line">                   [](<span class="keyword">const</span> std::exception_ptr&amp;) { std::cout &lt;&lt; <span class="stringliteral">&quot;-x&quot;</span> &lt;&lt; std::endl; },</div>
+<div class="line">                   []() { std::cout &lt;&lt; <span class="stringliteral">&quot;-|&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// source 1: -0-1-2-3-4-5-6-7-     --</span></div>
+<div class="line">    <span class="comment">// source 2: ---------0---------1- --</span></div>
+<div class="line">    <span class="comment">// Output  : -0-1-2-3-|</span></div>
+</div><!-- fragment --> <div class="fragment"></div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/takeuntil.html">https://reactivex.io/documentation/operators/takeuntil.html</a> </dd></dl>
+
+</div>
+</div>
 <a id="ga68ea040e75df34c47cdffd164d2a7c3d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga68ea040e75df34c47cdffd164d2a7c3d">&#9670;&nbsp;</a></span>take_while()</h2>
 
@@ -156,6 +206,8 @@ template&lt;std::predicate&lt; const Type &amp; &gt; Predicate&gt; </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="agroup__conditional__operators_html_ga7b072b06b4ecc8e3e138c26008e9081c"><div class="ttname"><a href="group__conditional__operators.html#ga7b072b06b4ecc8e3e138c26008e9081c">rpp::details::member_overload&lt; Type, SpecificObservable, take_until_tag &gt;::take_until</a></div><div class="ttdeci">auto take_until(TTriggerObservable &amp;&amp;until_observable) const &amp;requires is_header_included&lt; take_until_tag</div><div class="ttdoc">Discard any items emitted by an Observable after a second Observable emits an item or terminates.</div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1trampoline_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a></div><div class="ttdoc">schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition:</b> trampoline_scheduler.hpp:38</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gabc5067fa9aefaa803f6e329b75faa00c"><div class="ttname"><a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:159</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

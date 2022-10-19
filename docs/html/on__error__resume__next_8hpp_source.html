@@ -133,7 +133,7 @@ $(document).ready(function(){initNavTree('on__error__resume__next_8hpp_source.ht
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, rpp::details::resume_callable ResumeCallable&gt;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1on__error__resume__next__impl.html">   44</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1on__error__resume__next__impl.html">on_error_resume_next_impl</a></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1on__error__resume__next__impl.html">on_error_resume_next_impl</a></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;{</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    RPP_NO_UNIQUE_ADDRESS ResumeCallable resume_callable;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
@@ -145,7 +145,7 @@ $(document).ready(function(){initNavTree('on__error__resume__next_8hpp_source.ht
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> create_subscriber_with_state&lt;Type&gt;(std::move(subscription),</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                                                  rpp::utils::forwarding_on_next{},</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                                  <a class="code" href="structrpp_1_1details_1_1on__error__resume__next__on__error.html">on_error_resume_next_on_error</a>{},</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                                  on_error_resume_next_on_error{},</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                                                  rpp::utils::forwarding_on_completed{},</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                                                  std::forward&lt;TSub&gt;(downstream_subscriber),</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                                  resume_callable);</div>
@@ -155,7 +155,7 @@ $(document).ready(function(){initNavTree('on__error__resume__next_8hpp_source.ht
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructrpp_1_1details_1_1on__error__resume__next__on__error_html"><div class="ttname"><a href="structrpp_1_1details_1_1on__error__resume__next__on__error.html">rpp::details::on_error_resume_next_on_error</a></div><div class="ttdef"><b>Definition:</b> on_error_resume_next.hpp:28</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1on__error__resume__next__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1on__error__resume__next__impl.html">rpp::details::on_error_resume_next_impl</a></div><div class="ttdoc">Functor of OperatorFn for &quot;on_error_resume_next&quot; operator (used by &quot;lift&quot;).</div><div class="ttdef"><b>Definition:</b> on_error_resume_next.hpp:44</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1on__error__resume__next__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1on__error__resume__next__impl.html">rpp::details::on_error_resume_next_impl</a></div><div class="ttdoc">Functor of OperatorFn for &quot;on_error_resume_next&quot; operator (used by &quot;lift&quot;).</div><div class="ttdef"><b>Definition:</b> on_error_resume_next.hpp:32</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

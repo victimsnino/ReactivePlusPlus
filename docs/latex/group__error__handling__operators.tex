@@ -5,8 +5,75 @@
 Error handling operators Operators that help to recover from error notifications from an Observable.  
 
 
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$rpp\+::details\+::resume\+\_\+callable Resume\+Callable$>$ }\\auto \mbox{\hyperlink{group__error__handling__operators_gac8b98e5b3466a70a402366e4bc920f38}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, on\+\_\+error\+\_\+resume\+\_\+next\+\_\+tag $>$\+::on\+\_\+error\+\_\+resume\+\_\+next}} (Resume\+Callable \&\&resume\+\_\+callable) const \&requires is\+\_\+header\+\_\+included$<$ on\+\_\+error\+\_\+resume\+\_\+next\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Recover from an on\+\_\+error notification by continuing the sequence without error. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
 Error handling operators Operators that help to recover from error notifications from an Observable. 
 
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators.html\#error}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html\#error}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__error__handling__operators_gac8b98e5b3466a70a402366e4bc920f38}\label{group__error__handling__operators_gac8b98e5b3466a70a402366e4bc920f38}} 
+\index{Error handling Operators@{Error handling Operators}!on\_error\_resume\_next@{on\_error\_resume\_next}}
+\index{on\_error\_resume\_next@{on\_error\_resume\_next}!Error handling Operators@{Error handling Operators}}
+\doxysubsubsection{\texorpdfstring{on\_error\_resume\_next()}{on\_error\_resume\_next()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$rpp\+::details\+::resume\+\_\+callable Resume\+Callable$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, on\+\_\+error\+\_\+resume\+\_\+next\+\_\+tag $>$\+::on\+\_\+error\+\_\+resume\+\_\+next (\begin{DoxyParamCaption}\item[{Resume\+Callable \&\&}]{resume\+\_\+callable }\end{DoxyParamCaption}) const \&}
+
+
+
+Recover from an on\+\_\+error notification by continuing the sequence without error. 
+
+The operator intercepts an on\+\_\+error notification from the source Observable and, instead of passing it through to any observers, replaces it with some other item or sequence of items. \begin{DoxyWarning}{Warning}
+This operator potentially allows the resulting Observable to terminate normally or not to terminate at all.
+\end{DoxyWarning}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em resume\+\_\+callable} & A callable that is given an error pointer and shall return an Observable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the on\+\_\+error\+\_\+resume\+\_\+next operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{on__error__resume__next_8hpp_source}{rpp/operators/on\+\_\+error\+\_\+resume\+\_\+next.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Examples}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::error<int>(std::make\_exception\_ptr(std::runtime\_error\{\textcolor{stringliteral}{""}\}))}
+\DoxyCodeLine{            .on\_error\_resume\_next([](\textcolor{keyword}{auto}\&\&)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                \textcolor{keywordflow}{return} \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::observable::just}}(1, 2, 3);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe([\&](\textcolor{keywordtype}{int} v)}
+\DoxyCodeLine{                       \{}
+\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"-\/"} << v;}
+\DoxyCodeLine{                       \},}
+\DoxyCodeLine{                       [\&](\textcolor{keyword}{auto}\&\&)}
+\DoxyCodeLine{                       \{}
+\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"-\/x"};}
+\DoxyCodeLine{                       \},}
+\DoxyCodeLine{                       [\&]()}
+\DoxyCodeLine{                       \{}
+\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"-\/|"} << std::endl;}
+\DoxyCodeLine{                       \});}
+\DoxyCodeLine{    \textcolor{comment}{// source: -\/x}}
+\DoxyCodeLine{    \textcolor{comment}{// output: -\/1-\/2-\/3-\/|}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/on_error_resume_next.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/on\+\_\+error\+\_\+resume\+\_\+next.\+html}} 
 \end{DoxySeeAlso}

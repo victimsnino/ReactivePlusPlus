@@ -127,22 +127,22 @@ $(document).ready(function(){initNavTree('fwd_2on__error__resume__next_8hpp_sour
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;concept resume_callable = std::invocable&lt;Fn, std::exception_ptr&gt; &amp;&amp; constraint::observable&lt;utils::decayed_invoke_result_t&lt;Fn, std::exception_ptr&gt;&gt;;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, rpp::details::resume_callable ResumeCallable&gt;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">struct </span>on_error_resume_next_impl;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1on__error__resume__next__impl.html">   32</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1on__error__resume__next__impl.html">on_error_resume_next_impl</a>;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, <span class="keyword">typename</span> SpecificObservable&gt;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">struct </span>member_overload&lt;Type, SpecificObservable, on_error_resume_next_tag&gt;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01on__error__resume__next__tag_01_4.html">   35</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1member__overload.html">member_overload</a>&lt;Type, SpecificObservable, on_error_resume_next_tag&gt;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">template</span>&lt;rpp::details::resume_callable ResumeCallable&gt;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">auto</span> on_error_resume_next(ResumeCallable&amp;&amp; resume_callable) <span class="keyword">const</span>&amp; requires is_header_included&lt;on_error_resume_next_tag, ResumeCallable&gt;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">return</span> cast_this()-&gt;template lift&lt;Type&gt;(on_error_resume_next_impl&lt;Type, std::decay_t&lt;ResumeCallable&gt;&gt;{std::forward&lt;ResumeCallable&gt;(resume_callable)});</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">return</span> cast_this()-&gt;template lift&lt;Type&gt;(<a class="code" href="structrpp_1_1details_1_1on__error__resume__next__impl.html">on_error_resume_next_impl</a>&lt;Type, std::decay_t&lt;ResumeCallable&gt;&gt;{std::forward&lt;ResumeCallable&gt;(resume_callable)});</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">template</span>&lt;rpp::details::resume_callable ResumeCallable&gt;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">auto</span> on_error_resume_next(ResumeCallable&amp;&amp; resume_callable) &amp;&amp; requires is_header_included&lt;on_error_resume_next_tag, ResumeCallable&gt;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">return</span> move_this().template lift&lt;Type&gt;(on_error_resume_next_impl&lt;Type, std::decay_t&lt;ResumeCallable&gt;&gt;{std::forward&lt;ResumeCallable&gt;(resume_callable)});</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">return</span> move_this().template lift&lt;Type&gt;(<a class="code" href="structrpp_1_1details_1_1on__error__resume__next__impl.html">on_error_resume_next_impl</a>&lt;Type, std::decay_t&lt;ResumeCallable&gt;&gt;{std::forward&lt;ResumeCallable&gt;(resume_callable)});</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">private</span>:</div>
@@ -160,6 +160,8 @@ $(document).ready(function(){initNavTree('fwd_2on__error__resume__next_8hpp_sour
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="astructrpp_1_1details_1_1member__overload_html"><div class="ttname"><a href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a></div><div class="ttdef"><b>Definition:</b> member_overload.hpp:19</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1on__error__resume__next__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1on__error__resume__next__impl.html">rpp::details::on_error_resume_next_impl</a></div><div class="ttdoc">Functor of OperatorFn for &quot;on_error_resume_next&quot; operator (used by &quot;lift&quot;).</div><div class="ttdef"><b>Definition:</b> on_error_resume_next.hpp:32</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

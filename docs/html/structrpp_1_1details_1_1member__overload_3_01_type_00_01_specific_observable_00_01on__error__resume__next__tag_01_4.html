@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::details::on_error_resume_next_impl&lt; Type, ResumeCallable &gt; Struct Template Reference</title>
+<title>ReactivePlusPlus: rpp::details::member_overload&lt; Type, SpecificObservable, on_error_resume_next_tag &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -73,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('structrpp_1_1details_1_1on__error__resume__next__impl.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01on__error__resume__next__tag_01_4.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -95,36 +95,48 @@ $(document).ready(function(){initNavTree('structrpp_1_1details_1_1on__error__res
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structrpp_1_1details_1_1on__error__resume__next__impl-members.html">List of all members</a>  </div>
+<a href="structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01on__error__resume__next__tag_01_4-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">rpp::details::on_error_resume_next_impl&lt; Type, ResumeCallable &gt; Struct Template Reference</div>  </div>
+<div class="title">rpp::details::member_overload&lt; Type, SpecificObservable, on_error_resume_next_tag &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Functor of OperatorFn for "on_error_resume_next" operator (used by "lift").  
- <a href="structrpp_1_1details_1_1on__error__resume__next__impl.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="on__error__resume__next_8hpp_source.html">on_error_resume_next.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afb47722b9a058564bd8e4cf4b0872ba1"><td class="memTemplParams" colspan="2"><a id="afb47722b9a058564bd8e4cf4b0872ba1"></a>
-template&lt;constraint::subscriber_of_type&lt; Type &gt; TSub&gt; </td></tr>
-<tr class="memitem:afb47722b9a058564bd8e4cf4b0872ba1"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator()</b> (TSub &amp;&amp;downstream_subscriber) const</td></tr>
-<tr class="separator:afb47722b9a058564bd8e4cf4b0872ba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac8b98e5b3466a70a402366e4bc920f38"><td class="memTemplParams" colspan="2">template&lt;rpp::details::resume_callable ResumeCallable&gt; </td></tr>
+<tr class="memitem:gac8b98e5b3466a70a402366e4bc920f38"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__error__handling__operators.html#gac8b98e5b3466a70a402366e4bc920f38">on_error_resume_next</a> (ResumeCallable &amp;&amp;resume_callable) const &amp;requires is_header_included&lt; on_error_resume_next_tag</td></tr>
+<tr class="memdesc:gac8b98e5b3466a70a402366e4bc920f38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recover from an on_error notification by continuing the sequence without error.  <a href="group__error__handling__operators.html#gac8b98e5b3466a70a402366e4bc920f38">More...</a><br /></td></tr>
+<tr class="separator:gac8b98e5b3466a70a402366e4bc920f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace54816a8ab0f8edda167271ae6bbcce"><td class="memTemplParams" colspan="2"><a id="ace54816a8ab0f8edda167271ae6bbcce"></a>
+template&lt;rpp::details::resume_callable ResumeCallable&gt; </td></tr>
+<tr class="memitem:ace54816a8ab0f8edda167271ae6bbcce"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>on_error_resume_next</b> (ResumeCallable &amp;&amp;resume_callable) &amp;&amp;requires is_header_included&lt; on_error_resume_next_tag</td></tr>
+<tr class="separator:ace54816a8ab0f8edda167271ae6bbcce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a95c4b850bf8d1af1c1067698b17cbc6c"><td class="memItemLeft" align="right" valign="top"><a id="a95c4b850bf8d1af1c1067698b17cbc6c"></a>
-RPP_NO_UNIQUE_ADDRESS ResumeCallable&#160;</td><td class="memItemRight" valign="bottom"><b>resume_callable</b></td></tr>
-<tr class="separator:a95c4b850bf8d1af1c1067698b17cbc6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5139d5fd08151f10a6c091507c0ca33d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><b>ResumeCallable</b></td></tr>
+<tr class="separator:a5139d5fd08151f10a6c091507c0ca33d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;constraint::decayed_type Type, rpp::details::resume_callable ResumeCallable&gt;<br />
-struct rpp::details::on_error_resume_next_impl&lt; Type, ResumeCallable &gt;</h3>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a5139d5fd08151f10a6c091507c0ca33d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5139d5fd08151f10a6c091507c0ca33d">&#9670;&nbsp;</a></span>ResumeCallable</h2>
 
-<p>Functor of OperatorFn for "on_error_resume_next" operator (used by "lift"). </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, on_error_resume_next_tag &gt;::ResumeCallable</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">{</div>
+<div class="line">        <span class="keywordflow">return</span> cast_this()-&gt;template lift&lt;Type&gt;(on_error_resume_next_impl&lt;Type, std::decay_t&lt;ResumeCallable&gt;&gt;{std::forward&lt;ResumeCallable&gt;(resume_callable)})</div>
+</div><!-- fragment -->
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/rpp/rpp/operators/fwd/<a class="el" href="fwd_2on__error__resume__next_8hpp_source.html">on_error_resume_next.hpp</a></li>
 </ul>
 </div><!-- contents -->
@@ -132,7 +144,7 @@ struct rpp::details::on_error_resume_next_impl&lt; Type, ResumeCallable &gt;</h3
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="structrpp_1_1details_1_1on__error__resume__next__impl.html">on_error_resume_next_impl</a></li>
+    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01on__error__resume__next__tag_01_4.html">member_overload&lt; Type, SpecificObservable, on_error_resume_next_tag &gt;</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>

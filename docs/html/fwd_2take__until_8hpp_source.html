@@ -120,22 +120,22 @@ $(document).ready(function(){initNavTree('fwd_2take__until_8hpp_source.html','')
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observable TTriggerObservable&gt;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">struct </span>take_until_impl;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1take__until__impl.html">   25</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1take__until__impl.html">take_until_impl</a>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, <span class="keyword">typename</span> SpecificObservable&gt;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">struct </span>member_overload&lt;Type, SpecificObservable, take_until_tag&gt;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__until__tag_01_4.html">   28</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1member__overload.html">member_overload</a>&lt;Type, SpecificObservable, take_until_tag&gt;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable TTriggerObservable&gt;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">auto</span> take_until(TTriggerObservable&amp;&amp; until_observable) <span class="keyword">const</span>&amp; requires is_header_included&lt;take_until_tag, TTriggerObservable&gt;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">return</span> cast_this()-&gt;template lift&lt;Type&gt;(take_until_impl&lt;Type, std::decay_t&lt;TTriggerObservable&gt;&gt;{std::forward&lt;TTriggerObservable&gt;(until_observable)});</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">return</span> cast_this()-&gt;template lift&lt;Type&gt;(<a class="code" href="structrpp_1_1details_1_1take__until__impl.html">take_until_impl</a>&lt;Type, std::decay_t&lt;TTriggerObservable&gt;&gt;{std::forward&lt;TTriggerObservable&gt;(until_observable)});</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable TTriggerObservable&gt;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">auto</span> take_until(TTriggerObservable&amp;&amp; until_observable) &amp;&amp; requires is_header_included&lt;take_until_tag, TTriggerObservable&gt;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">return</span> move_this().template lift&lt;Type&gt;(take_until_impl&lt;Type, std::decay_t&lt;TTriggerObservable&gt;&gt;{std::forward&lt;TTriggerObservable&gt;(until_observable)});</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">return</span> move_this().template lift&lt;Type&gt;(<a class="code" href="structrpp_1_1details_1_1take__until__impl.html">take_until_impl</a>&lt;Type, std::decay_t&lt;TTriggerObservable&gt;&gt;{std::forward&lt;TTriggerObservable&gt;(until_observable)});</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">private</span>:</div>
@@ -153,6 +153,8 @@ $(document).ready(function(){initNavTree('fwd_2take__until_8hpp_source.html','')
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace rpp::details</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="astructrpp_1_1details_1_1member__overload_html"><div class="ttname"><a href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a></div><div class="ttdef"><b>Definition:</b> member_overload.hpp:19</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1take__until__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1take__until__impl.html">rpp::details::take_until_impl</a></div><div class="ttdoc">&quot;combine_latest&quot; operator (an OperatorFn used by &quot;lift&quot;).</div><div class="ttdef"><b>Definition:</b> take_until.hpp:25</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
