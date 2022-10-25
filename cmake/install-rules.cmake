@@ -13,7 +13,7 @@ install(
 install(
     TARGETS rpp
     EXPORT RPPTargets
-    INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+    INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rpp"
 )
 
 write_basic_package_version_file(
