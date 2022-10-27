@@ -247,47 +247,23 @@ jobs:
   use_rpp_as_package:
     needs: [download_deps]
 
-
-    strategy:
-      matrix:    
-        config:
-          - CC: gcc-10
-            CXX: g++-10
-            os: ubuntu-latest
-          - CC:
-            CXX: 
-            os: windows-latest
-
     timeout-minutes: 20
-    runs-on: ${{ matrix.config.os }}
-    name: Test RPP as package - ${{ matrix.config.os }}
+    runs-on: ubuntu-latest
+    name: Test RPP as package - ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
       with:
           fetch-depth: 0
           
-    - name: Generate project
+    - name: Install project and build
       env:
-        CC: ${{ matrix.config.CC }}
-        CXX: ${{ matrix.config.CXX }}
-      run: cmake -B build
-
-    - name: Install (unix)
-      if: matrix.config.os != 'windows-latest'
-      env:
-        CC: ${{ matrix.config.CC }}
-        CXX: ${{ matrix.config.CXX }}
-      run: sudo cmake --build build --target install --parallel 2 --config Release
-    
-    - name: Install (windows)
-      if: matrix.config.os == 'windows-latest'
-      run: cmake --build build --target install --parallel 2 --config Release
-    
-    - name: Build sample
-      env:
-        CC: ${{ matrix.config.CC }}
-        CXX: ${{ matrix.config.CXX }}
+        CC: gcc-10
+        CXX: g++-10
       run: |
+        cmake -B build
+        sudo cmake --build build --target install --parallel 2 --config Release
+        
         cmake -B sample_build -S src/examples/package
         cmake --build sample_build --parallel 2 --config Release
+        
