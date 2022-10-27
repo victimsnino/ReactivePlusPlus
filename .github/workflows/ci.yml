@@ -274,14 +274,14 @@ jobs:
       run: cmake -B build
 
     - name: Install (unix)
-      if: matrix.os != 'windows-latest'
+      if: matrix.config.os != 'windows-latest'
       env:
         CC: ${{ matrix.config.CC }}
         CXX: ${{ matrix.config.CXX }}
       run: sudo cmake --build build --target install --parallel 2 --config Release
     
     - name: Install (windows)
-      if: matrix.os == 'windows-latest'
+      if: matrix.config.os == 'windows-latest'
       run: cmake --build build --target install --parallel 2 --config Release
     
     - name: Build sample
