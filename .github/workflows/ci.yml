@@ -243,3 +243,27 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./gen_docs
         destination_dir: docs
+
+  use_rpp_as_package:
+    needs: [download_deps]
+
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    name: Test RPP as package - ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+          fetch-depth: 0
+          
+    - name: Install project and build
+      env:
+        CC: gcc-10
+        CXX: g++-10
+      run: |
+        cmake -B build
+        sudo cmake --build build --target install --parallel 2 --config Release
+        
+        cmake -B sample_build -S src/examples/package
+        cmake --build sample_build --parallel 2 --config Release
+        
