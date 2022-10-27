@@ -87,6 +87,9 @@ class trampoline final : public details::scheduler_tag
 
     static void drain_queue()
     {
+        if (!s_queue.has_value())
+            return;
+
         auto  reset_at_final = utils::finally_action{ [] { s_queue.reset(); } };
         std::optional<trampoline_schedulable> function{};
 
@@ -152,7 +155,15 @@ class trampoline final : public details::scheduler_tag
     inline static thread_local std::optional<std::priority_queue<current_thread_schedulable>> s_queue{};
 
 public:
-    static bool is_queue_owned() { return s_queue.has_value(); }
+    static utils::finally_action<void (*)()> own_queue_and_drain_finally_if_not_owned()
+    {
+        const bool someone_owns_queue = s_queue.has_value();
+
+        if (!someone_owns_queue)
+            s_queue = std::priority_queue<current_thread_schedulable>{};
+
+        return {!someone_owns_queue ? &drain_queue : +[] {}};
+    }
 
     static auto create_worker(const rpp::composite_subscription& sub = composite_subscription{})
     {
