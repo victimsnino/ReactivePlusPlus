@@ -250,8 +250,13 @@ jobs:
 
     strategy:
       matrix:    
-        config: [{CC: gcc-10,  CXX:g++-10, os: ubuntu-latest}, 
-                 {CC: "" ,     CXX: "", os: windows-latest}]
+        config:
+          - CC: gcc-10
+            CXX: g++-10
+            os: ubuntu-latest
+          - CC:
+            CXX: 
+            os: windows-latest
 
     timeout-minutes: 20
     runs-on: ${{ matrix.config.os }}
