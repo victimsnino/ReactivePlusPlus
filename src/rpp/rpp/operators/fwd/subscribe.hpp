@@ -33,7 +33,7 @@ struct member_overload<Type, SpecificObservable, subscribe_tag>
     template<constraint::observer_of_type<Type> TObserver>
     auto subscribe(TObserver&& observer) const
     {
-        return subscribe_impl<std::decay_t<TObserver>>(std::forward<TObserver>(observer));
+        return subscribe_impl(specific_subscriber<Type, std::decay_t<TObserver>>{std::forward<TObserver>(observer)});
     }
 
     /**
@@ -97,16 +97,17 @@ struct member_overload<Type, SpecificObservable, subscribe_tag>
     }
 
 private:
-    template<constraint::observer_of_type<Type> Obs>
-    auto subscribe_impl(const specific_subscriber<Type, Obs>& subscriber) const
+#if defined(RPP_TYPE_ERASED_OBSERVABLE) && RPP_TYPE_ERASED_OBSERVABLE
+    auto subscribe_impl(const rpp::dynamic_subscriber<Type>& subscriber) const
     {
         return static_cast<const SpecificObservable*>(this)->subscribe_impl(subscriber);
     }
-
-    template<constraint::observer_of_type<Type> Obs>
-    auto subscribe_impl(specific_subscriber<Type, Obs>&& subscriber) const
+#else
+    template<constraint::subscriber_of_type<Type> TSub>
+    auto subscribe_impl(TSub&& subscriber) const
     {
-        return static_cast<const SpecificObservable*>(this)->subscribe_impl(std::move(subscriber));
+        return static_cast<const SpecificObservable*>(this)->subscribe_impl(std::forward<TSub>(subscriber));
     }
+#endif
 };
 } // namespace rpp::details
