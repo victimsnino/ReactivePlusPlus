@@ -9,7 +9,9 @@ on:
     branches:
     - main
     
-env:
+
+
+:
   CATCH2_VERSION: v3.1.0
   Catch2_DIR: ~/Catch2_BIN
 
@@ -247,30 +249,32 @@ jobs:
   use_rpp_as_package:
     needs: [download_deps]
 
+
     strategy:
       matrix:    
-        os: [ubuntu-latest, windows-latest]
+        config: [{CC: gcc-10,  CXX:g++-10, os: ubuntu-latest}, 
+                 {CC: "" ,     CXX: "", os: windows-latest}]
 
     timeout-minutes: 20
-    runs-on: ${{ matrix.os }}
-    name: Test RPP as package - ${{ matrix.os }}
+    runs-on: ${{ matrix.config.os }}
+    name: Test RPP as package - ${{ matrix.config.os }}
 
     steps:
     - uses: actions/checkout@v3
       with:
           fetch-depth: 0
           
-    - name: Configure compiler (unix)
-      if: matrix.os != 'windows-latest'
-      run: |
-         export CC=gcc-10
-         export CXX=g++-10
-      
     - name: Generate project
+      env:
+        CC: ${{ matrix.config.CC }}
+        CXX: ${{ matrix.config.CXX }}
       run: cmake -B build
 
     - name: Install (unix)
       if: matrix.os != 'windows-latest'
+      env:
+        CC: ${{ matrix.config.CC }}
+        CXX: ${{ matrix.config.CXX }}
       run: sudo cmake --build build --target install --parallel 2 --config Release
     
     - name: Install (windows)
@@ -278,6 +282,9 @@ jobs:
       run: cmake --build build --target install --parallel 2 --config Release
     
     - name: Build sample
+      env:
+        CC: ${{ matrix.config.CC }}
+        CXX: ${{ matrix.config.CXX }}
       run: |
         cmake -B sample_build -S src/examples/package
         cmake --build sample_build --parallel 2 --config Release
