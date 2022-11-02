@@ -135,7 +135,7 @@
   - [x] do_on_next
   - [x] do_on_error
   - [x] do_on_completed
-- [ ] timeout 
+- [x] timeout 
 
 ### Connectable
 

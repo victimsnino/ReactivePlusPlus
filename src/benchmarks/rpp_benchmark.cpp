@@ -15,6 +15,7 @@
 #include <rpp/observers/specific_observer.hpp>
 #include <rpp/operators.hpp>
 #include <rpp/subjects.hpp>
+#include <rpp/schedulers/run_loop_scheduler.hpp>
 #include <rpp/schedulers/trampoline_scheduler.hpp>
 #include <rpp/utils/spinlock.hpp>
 
@@ -856,6 +857,26 @@ TEST_CASE("skip")
                 })
                 .skip(meter.runs() - 1)
                 .subscribe([](const auto&) {});
+    };
+}
+
+TEST_CASE("timeout")
+{
+
+    BENCHMARK_ADVANCED("timeout construction from observable via dot + subscribe with run_loop")(Catch::Benchmark::Chronometer meter)
+    {
+        const auto obs = rpp::observable::create<int>([](const auto& sub) { sub.on_next(1); });
+        auto       sub = rpp::specific_subscriber{[](const int&) {}};
+        rpp::schedulers::run_loop rl{};
+        meter.measure([&] { return obs.timeout(std::chrono::days{30}, rl).subscribe(sub); });
+    };
+
+    BENCHMARK_ADVANCED("sending of values from observable via timeout to subscriber with unreachable timeout interval with run_loop")(Catch::Benchmark::Chronometer meter)
+    {
+        rpp::schedulers::run_loop rl{};
+        rpp::source::create<int>([&](const auto& sub) { meter.measure([&] { sub.on_next(1); }); })
+            .timeout(std::chrono::days{30}, rl)
+            .subscribe([](const auto&) {});
     };
 }
 
