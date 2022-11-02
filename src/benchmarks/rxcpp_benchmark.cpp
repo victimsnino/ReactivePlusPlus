@@ -853,6 +853,25 @@ TEST_CASE("skip")
     };
 }
 
+TEST_CASE("timeout")
+{
+    BENCHMARK_ADVANCED("timeout construction from observable via dot + subscribe with run_loop")(Catch::Benchmark::Chronometer meter)
+    {
+        const auto obs = rxcpp::sources::create<int>([](const auto& sub) { sub.on_next(1); });
+        auto       sub = rxcpp::make_subscriber<int>([](const int&) {});
+        rxcpp::schedulers::run_loop rl{};
+        meter.measure([&] { return obs.timeout(std::chrono::days{30}, rxcpp::observe_on_run_loop(rl)).subscribe(sub); });
+    };
+
+    BENCHMARK_ADVANCED("sending of values from observable via timeout to subscriber with unreachable timeout interval with run_loop")(Catch::Benchmark::Chronometer meter)
+    {
+        rxcpp::schedulers::run_loop rl{};
+        rxcpp::sources::create<int>([&](const auto& sub) { meter.measure([&] { sub.on_next(1); }); })
+            .timeout(std::chrono::days{30}, rxcpp::observe_on_run_loop(rl))
+            .subscribe([](const auto&) {});
+    };
+}
+
 TEST_CASE("chains creation test")
 {
     BENCHMARK_ADVANCED("long non-state chain creation + subscribe")(Catch::Benchmark::Chronometer meter)
