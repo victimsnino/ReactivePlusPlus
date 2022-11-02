@@ -87,13 +87,6 @@ struct timeout_impl
         worker.schedule(last_emission_time + period,
                         [period = period, prev_emission_time = last_emission_time, subscriber, state]() mutable -> schedulers::optional_duration
                         {
-                            auto time_is_out = [](const auto& state, const auto& subscriber)
-                            {
-                                state->children_subscriptions.unsubscribe();
-                                subscriber.on_error(std::make_exception_ptr(utils::timeout{"Timeout reached"}));
-                                return schedulers::optional_duration{};
-                            };
-
                             // last emission time still same value -> timeout reached, else -> prev_emission_time would be update to actual emission time
                             if (state->last_emission_time.compare_exchange_strong(prev_emission_time, timeout_state::s_timeout_reached, std::memory_order_acq_rel))
                                 return time_is_out(state, subscriber);
@@ -112,6 +105,14 @@ struct timeout_impl
                                                   timeout_on_completed{},
                                                   std::move(subscriber),
                                                   std::move(state));
+    }
+
+private:
+    static auto time_is_out(const auto& state, const auto& subscriber)
+    {
+        state->children_subscriptions.unsubscribe();
+        subscriber.on_error(std::make_exception_ptr(utils::timeout{"Timeout reached"}));
+        return schedulers::optional_duration{};
     }
 };
 } // namespace rpp::details
