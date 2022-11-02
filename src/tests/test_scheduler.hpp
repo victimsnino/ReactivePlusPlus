@@ -11,7 +11,7 @@
 
 #include <rpp/schedulers.hpp>
 
-static rpp::schedulers::time_point s_current_time{std::chrono::seconds{0}};
+static rpp::schedulers::time_point s_current_time{std::chrono::seconds{10}};
 
 class test_scheduler final : public rpp::schedulers::details::scheduler_tag
 {

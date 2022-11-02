@@ -75,6 +75,8 @@ public:
         m_strategy.defer_at(time_point, std::forward<decltype(fn)>(fn));
     }
 
+    static time_point now() { return Strategy::now(); }
+
 private:
     Strategy m_strategy;
 };
