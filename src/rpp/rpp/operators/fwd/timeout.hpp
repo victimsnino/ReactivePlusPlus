@@ -28,13 +28,15 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, timeout_tag>
 {
     /**
-     * \brief 
+     * \brief Forwards emissions from original observable, but emit error if no any events during specified period of time (since last emission)
      * 
      * \marble timeout
         {
-            
+            source observable     : +--1-2-3-4------5-|
+            operator "timeout(4)" : +--1-2-3-4----#
         }
-     *
+     * \param period is maximum duration between emitted items before a timeout occurs
+     * \param scheduler is scheduler used to run timer for timeout
      * \return new specific_observable with the timeout operator as most recent operator.
      * \warning #include <rpp/operators/timeout.hpp>
      * 
