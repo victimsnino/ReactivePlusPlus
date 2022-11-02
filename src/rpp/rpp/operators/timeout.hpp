@@ -41,17 +41,8 @@ struct timeout_on_next
     template<typename Value>
     void operator()(Value&& v, const auto& subscriber, const std::shared_ptr<timeout_state>& state) const
     {
-        // actually there is only 2 threads: this one and thread in "timeout schedulable".
-        auto last_emission_time = state->last_emission_time.load(std::memory_order_relaxed);
-        while (last_emission_time != timeout_state::s_timeout_reached)
-        {
-            // only one possible way why compare_exchange_strong fails -> timeout schedulable does its action
-            if (state->last_emission_time.compare_exchange_strong(last_emission_time, Worker::now(), std::memory_order_acq_rel))
-            {
-                subscriber.on_next(std::forward<Value>(v));
-                return;
-            }
-        }
+        if (state->last_emission_time.exchange(Worker::now(), std::memory_order_acq_rel) != timeout_state::s_timeout_reached)
+            subscriber.on_next(std::forward<Value>(v));
     }
 };
 
@@ -87,16 +78,26 @@ struct timeout_impl
         worker.schedule(last_emission_time + period,
                         [period = period, prev_emission_time = last_emission_time, subscriber, state]() mutable -> schedulers::optional_duration
                         {
-                            // last emission time still same value -> timeout reached, else -> prev_emission_time would be update to actual emission time
-                            if (state->last_emission_time.compare_exchange_strong(prev_emission_time, timeout_state::s_timeout_reached, std::memory_order_acq_rel))
-                                return time_is_out(state, subscriber);
+                            while (true)
+                            {
+                                // last emission time still same value -> timeout reached, else -> prev_emission_time
+                                // would be update to actual emission time
+                                if (state->last_emission_time.compare_exchange_strong(prev_emission_time,
+                                                                                      timeout_state::s_timeout_reached,
+                                                                                      std::memory_order_acq_rel))
+                                    return time_is_out(state, subscriber);
 
-                            // if we still need to wait a bit more -> let's wait
-                            if (const auto diff_to_schedule = (prev_emission_time + period) - decltype(worker)::now(); diff_to_schedule > rpp::schedulers::duration{0})
-                                return diff_to_schedule;
+                                // if we still need to wait a bit more -> let's wait
+                                if (const auto diff_to_schedule = (prev_emission_time + period) - decltype(worker)::now();
+                                    diff_to_schedule > rpp::schedulers::duration{0})
+                                    return diff_to_schedule;
 
-                            // looks like even "new" end of time is before current time
-                            return time_is_out(state, subscriber);
+                                // okay, we here because:
+                                // 1) last_emission_time was not equal to prev_emission_time
+                                // 2) last_emission_time + period before now -> we are still in timeout state
+                                // 3) prev_emission_time updated to last_emission_time
+                                // So we can return to begin
+                            }
                         });
 
         return create_subscriber_with_state<Type>(state->children_subscriptions,
