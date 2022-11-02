@@ -46,6 +46,9 @@ var hierarchy =
         [ "rpp::details::sample_state_with_serialized_spinlock< Type >", "structrpp_1_1details_1_1sample__state__with__serialized__spinlock.html", null ]
       ] ],
       [ "rpp::details::take_until_state_with_serialized_spinlock", "structrpp_1_1details_1_1take__until__state__with__serialized__spinlock.html", null ],
+      [ "rpp::details::timeout_state", "structrpp_1_1details_1_1timeout__state.html", [
+        [ "rpp::details::timeout_state_with_serialized_spinlock", "structrpp_1_1details_1_1timeout__state__with__serialized__spinlock.html", null ]
+      ] ],
       [ "rpp::details::with_latest_from_state< TSelector, ValueTypes >", "structrpp_1_1details_1_1with__latest__from__state.html", null ],
       [ "rpp::details::with_latest_from_state< TSelector, ValueTypes... >", "structrpp_1_1details_1_1with__latest__from__state.html", [
         [ "rpp::details::with_latest_from_state_with_serialized_spinlock< TSelector, ValueTypes >", "structrpp_1_1details_1_1with__latest__from__state__with__serialized__spinlock.html", null ]
@@ -180,6 +183,9 @@ var hierarchy =
     [ "rpp::details::member_overload< Type, SpecificObservable, details::take_while_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, details::timeout_tag >", "structrpp_1_1details_1_1member__overload.html", [
+      [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
+    ] ],
     [ "rpp::details::member_overload< Type, SpecificObservable, details::window_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
@@ -214,6 +220,7 @@ var hierarchy =
     [ "rpp::details::member_overload< Type, SpecificObservable, take_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, take_until_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__until__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, take_while_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__while__tag_01_4.html", null ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, timeout_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01timeout__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, window_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01window__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, with_latest_from_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01with__latest__from__tag_01_4.html", null ],
     [ "rpp::details::merge_impl< Type >", "structrpp_1_1details_1_1merge__impl.html", null ],
@@ -301,6 +308,8 @@ var hierarchy =
     [ "rpp::details::take_until_impl< Type, TTriggerObservable >", "structrpp_1_1details_1_1take__until__impl.html", null ],
     [ "rpp::details::take_until_throttler_on_next", "structrpp_1_1details_1_1take__until__throttler__on__next.html", null ],
     [ "rpp::details::take_while_impl< Type, Predicate >", "structrpp_1_1details_1_1take__while__impl.html", null ],
+    [ "rpp::details::timeout_impl< Type, TScheduler >", "structrpp_1_1details_1_1timeout__impl.html", null ],
+    [ "rpp::details::timeout_on_next< Worker >", "structrpp_1_1details_1_1timeout__on__next.html", null ],
     [ "rpp::subjects::details::unsubscribed", "structrpp_1_1subjects_1_1details_1_1unsubscribed.html", null ],
     [ "rpp::details::window_lift_impl< Type >", "structrpp_1_1details_1_1window__lift__impl.html", null ],
     [ "rpp::details::window_on_completed", "structrpp_1_1details_1_1window__on__completed.html", null ],
@@ -310,8 +319,8 @@ var hierarchy =
     [ "rpp::details::with_latest_from_impl< Type, TSelector, TObservables >", "structrpp_1_1details_1_1with__latest__from__impl.html", null ],
     [ "rpp::details::with_latest_from_on_next_inner< I >", "structrpp_1_1details_1_1with__latest__from__on__next__inner.html", null ],
     [ "rpp::details::with_latest_from_on_next_outer< TSelector, ValueTypes >", "structrpp_1_1details_1_1with__latest__from__on__next__outer.html", null ],
-    [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
+    [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::details::worker_tag", "structrpp_1_1schedulers_1_1details_1_1worker__tag.html", [
       [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ]
     ] ]

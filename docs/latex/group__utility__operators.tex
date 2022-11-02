@@ -27,7 +27,9 @@ Utility operators are operators that provide some extra functionality without ch
 {\footnotesize template$<$typename... Args$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga0a1b02a8b65c4413bdda609683e63417}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, repeat\+\_\+tag $>$\+::repeat}} () const \&requires is\+\_\+header\+\_\+included$<$ repeat\+\_\+tag
 \begin{DoxyCompactList}\small\item\em Re-\/subscribes on current observable during {\ttfamily on\+\_\+completed} infinitely. \end{DoxyCompactList}\item 
 {\footnotesize template$<$schedulers\+::constraint\+::scheduler T\+Scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga0608a5ced9a5b3b57f4c97a9b2f634f4}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, subscribe\+\_\+on\+\_\+tag $>$\+::subscribe\+\_\+on}} (const T\+Scheduler \&scheduler) const \&requires is\+\_\+header\+\_\+included$<$ subscribe\+\_\+on\+\_\+tag
-\begin{DoxyCompactList}\small\item\em On\+Subscribe function for this observable will be scheduled via provided scheduler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em On\+Subscribe function for this observable will be scheduled via provided scheduler. \end{DoxyCompactList}\item 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler T\+Scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga252a61146c15620074c5dddfea589843}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, timeout\+\_\+tag $>$\+::timeout}} (schedulers\+::duration period, const T\+Scheduler \&scheduler=T\+Scheduler\{\}) const \&requires is\+\_\+header\+\_\+included$<$ timeout\+\_\+tag
+\begin{DoxyCompactList}\small\item\em Forwards emissions from original observable, but emit error if no any events during specified period of time (since last emission) \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -498,4 +500,67 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/do.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/do.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__utility__operators_ga252a61146c15620074c5dddfea589843}\label{group__utility__operators_ga252a61146c15620074c5dddfea589843}} 
+\index{Utility Operators@{Utility Operators}!timeout@{timeout}}
+\index{timeout@{timeout}!Utility Operators@{Utility Operators}}
+\doxysubsubsection{\texorpdfstring{timeout()}{timeout()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$schedulers\+::constraint\+::scheduler T\+Scheduler$>$ \\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, timeout\+\_\+tag $>$\+::timeout (\begin{DoxyParamCaption}\item[{schedulers\+::duration}]{period,  }\item[{const T\+Scheduler \&}]{scheduler = {\ttfamily TScheduler\{\}} }\end{DoxyParamCaption}) const \&}
+
+
+
+Forwards emissions from original observable, but emit error if no any events during specified period of time (since last emission) 
+
+ 
+\begin{DoxyParams}{Parameters}
+{\em period} & is maximum duration between emitted items before a timeout occurs \\
+\hline
+{\em scheduler} & is scheduler used to run timer for timeout \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the timeout operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{timeout_8hpp_source}{rpp/operators/timeout.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<int>}} subj\{\};}
+\DoxyCodeLine{    subj.get\_observable()}
+\DoxyCodeLine{        .timeout(std::chrono::milliseconds\{450\}, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int}                v) \{ std::cout << \textcolor{stringliteral}{"new value "} << v << std::endl; \},}
+\DoxyCodeLine{                   [](std::exception\_ptr err)}
+\DoxyCodeLine{                   \{}
+\DoxyCodeLine{                       \textcolor{keywordflow}{try}}
+\DoxyCodeLine{                       \{}
+\DoxyCodeLine{                           std::rethrow\_exception(err);}
+\DoxyCodeLine{                       \}}
+\DoxyCodeLine{                       \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} std::exception\& exc)}
+\DoxyCodeLine{                       \{}
+\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"ERR: "} << exc.what() << std::endl;}
+\DoxyCodeLine{                       \}}
+\DoxyCodeLine{                   \},}
+\DoxyCodeLine{                   []() \{ std::cout << \textcolor{stringliteral}{"completed"} << std::endl; \});}
+\DoxyCodeLine{    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 10; ++i)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        std::this\_thread::sleep\_for(std::chrono::milliseconds\{i * 100\});}
+\DoxyCodeLine{        subj.get\_subscriber().on\_next(i);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{comment}{// Output:}}
+\DoxyCodeLine{    \textcolor{comment}{// new value 0}}
+\DoxyCodeLine{    \textcolor{comment}{// new value 1}}
+\DoxyCodeLine{    \textcolor{comment}{// new value 2}}
+\DoxyCodeLine{    \textcolor{comment}{// new value 3}}
+\DoxyCodeLine{    \textcolor{comment}{// new value 4}}
+\DoxyCodeLine{    \textcolor{comment}{// ERR : Timeout reached}}
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/timeout.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/timeout.\+html}} 
 \end{DoxySeeAlso}

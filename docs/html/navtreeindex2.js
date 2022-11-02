@@ -1,5 +1,8 @@
 var NAVTREEINDEX2 =
 {
+"status.html#autotoc_md9":[1,5,2],
+"structrpp_1_1details_1_1buffer__impl.html":[3,0,0,0,0],
+"structrpp_1_1details_1_1buffer__impl.html#a141a6ad4b1155ac8d6a67d04e1f05236":[3,0,0,0,0,1],
 "structrpp_1_1details_1_1buffer__impl.html#a9dd70654f59abbf92cdc239286e8b547":[3,0,0,0,0,0],
 "structrpp_1_1details_1_1buffer__on__completed.html":[3,0,0,0,1],
 "structrpp_1_1details_1_1buffer__on__completed.html#a7009e4e6eecc4a42325ffe710a6a347b":[3,0,0,0,1,0],
@@ -246,8 +249,5 @@ var NAVTREEINDEX2 =
 "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01subscribe__tag_01_4.html#aa4417a58d924dbfbd653bf68b0181920":[3,0,0,0,72,4],
 "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01subscribe__tag_01_4.html#abee7b686f95ab0478ba98115bbc1aeb3":[3,0,0,0,72,3],
 "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01subscribe__tag_01_4.html#ad0312a40999ebcdd6d258dfd5072af5d":[3,0,0,0,72,0],
-"structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__map__tag_01_4.html":[3,0,0,0,73],
-"structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__map__tag_01_4.html#a234c846cbf60304bb697b869264578c7":[3,0,0,0,73,0],
-"structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__map__tag_01_4.html#a35e76f9f8ffe21f732f5ffd92073d307":[3,0,0,0,73,2],
-"structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__on__next__tag_01_4.html":[3,0,0,0,74]
+"structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__map__tag_01_4.html":[3,0,0,0,73]
 };

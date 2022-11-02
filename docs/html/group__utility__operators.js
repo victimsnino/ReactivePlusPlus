@@ -9,5 +9,6 @@ var group__utility__operators =
     [ "repeat", "group__utility__operators.html#gaf8859f765d0f97e28957f3416e688f7a", null ],
     [ "subscribe_on", "group__utility__operators.html#ga0608a5ced9a5b3b57f4c97a9b2f634f4", null ],
     [ "tap", "group__utility__operators.html#ga92b3e8e02f289ac88752f5d6fc592b9c", null ],
-    [ "tap", "group__utility__operators.html#gafa05370906b6201bfbf0fd820e88e2ad", null ]
+    [ "tap", "group__utility__operators.html#gafa05370906b6201bfbf0fd820e88e2ad", null ],
+    [ "timeout", "group__utility__operators.html#ga252a61146c15620074c5dddfea589843", null ]
 ];

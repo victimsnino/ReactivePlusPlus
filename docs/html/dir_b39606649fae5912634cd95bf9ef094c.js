@@ -32,6 +32,7 @@ var dir_b39606649fae5912634cd95bf9ef094c =
     [ "take_last.hpp", "fwd_2take__last_8hpp_source.html", null ],
     [ "take_until.hpp", "fwd_2take__until_8hpp_source.html", null ],
     [ "take_while.hpp", "fwd_2take__while_8hpp_source.html", null ],
+    [ "timeout.hpp", "fwd_2timeout_8hpp_source.html", null ],
     [ "window.hpp", "fwd_2window_8hpp_source.html", null ],
     [ "with_latest_from.hpp", "fwd_2with__latest__from_8hpp_source.html", null ]
 ];

@@ -144,6 +144,10 @@ Functions</h2></td></tr>
 <tr class="memitem:ga0608a5ced9a5b3b57f4c97a9b2f634f4"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#ga0608a5ced9a5b3b57f4c97a9b2f634f4">rpp::details::member_overload&lt; Type, SpecificObservable, subscribe_on_tag &gt;::subscribe_on</a> (const TScheduler &amp;scheduler) const &amp;requires is_header_included&lt; subscribe_on_tag</td></tr>
 <tr class="memdesc:ga0608a5ced9a5b3b57f4c97a9b2f634f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">OnSubscribe function for this observable will be scheduled via provided scheduler.  <a href="group__utility__operators.html#ga0608a5ced9a5b3b57f4c97a9b2f634f4">More...</a><br /></td></tr>
 <tr class="separator:ga0608a5ced9a5b3b57f4c97a9b2f634f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga252a61146c15620074c5dddfea589843"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler&gt; </td></tr>
+<tr class="memitem:ga252a61146c15620074c5dddfea589843"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#ga252a61146c15620074c5dddfea589843">rpp::details::member_overload&lt; Type, SpecificObservable, timeout_tag &gt;::timeout</a> (schedulers::duration period, const TScheduler &amp;scheduler=TScheduler{}) const &amp;requires is_header_included&lt; timeout_tag</td></tr>
+<tr class="memdesc:ga252a61146c15620074c5dddfea589843"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forwards emissions from original observable, but emit error if no any events during specified period of time (since last emission)  <a href="group__utility__operators.html#ga252a61146c15620074c5dddfea589843">More...</a><br /></td></tr>
+<tr class="separator:ga252a61146c15620074c5dddfea589843"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Utility operators are operators that provide some extra functionality without changing of original values, but changing of behaviour. </p>
@@ -642,11 +646,89 @@ template&lt;constraint::observer_of_type&lt; Type &gt; TObs&gt; </div>
 
 </div>
 </div>
+<a id="ga252a61146c15620074c5dddfea589843"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga252a61146c15620074c5dddfea589843">&#9670;&nbsp;</a></span>timeout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a>&lt; Type, SpecificObservable, timeout_tag &gt;::timeout </td>
+          <td>(</td>
+          <td class="paramtype">schedulers::duration&#160;</td>
+          <td class="paramname"><em>period</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TScheduler &amp;&#160;</td>
+          <td class="paramname"><em>scheduler</em> = <code>TScheduler{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Forwards emissions from original observable, but emit error if no any events during specified period of time (since last emission) </p>
+<div class="image">
+<object type="image/svg+xml" data="timeout.svg" style="pointer-events: none;"></object>
+</div>
+ <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">period</td><td>is maximum duration between emitted items before a timeout occurs </td></tr>
+    <tr><td class="paramname">scheduler</td><td>is scheduler used to run timer for timeout </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the timeout operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="timeout_8hpp_source.html">rpp/operators/timeout.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code" href="classrpp_1_1subjects_1_1publish__subject.html">rpp::subjects::publish_subject&lt;int&gt;</a> subj{};</div>
+<div class="line">    subj.get_observable()</div>
+<div class="line">        .timeout(std::chrono::milliseconds{450}, <a class="code" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{})</div>
+<div class="line">        .subscribe([](<span class="keywordtype">int</span>                v) { std::cout &lt;&lt; <span class="stringliteral">&quot;new value &quot;</span> &lt;&lt; v &lt;&lt; std::endl; },</div>
+<div class="line">                   [](std::exception_ptr err)</div>
+<div class="line">                   {</div>
+<div class="line">                       <span class="keywordflow">try</span></div>
+<div class="line">                       {</div>
+<div class="line">                           std::rethrow_exception(err);</div>
+<div class="line">                       }</div>
+<div class="line">                       <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; exc)</div>
+<div class="line">                       {</div>
+<div class="line">                           std::cout &lt;&lt; <span class="stringliteral">&quot;ERR: &quot;</span> &lt;&lt; exc.what() &lt;&lt; std::endl;</div>
+<div class="line">                       }</div>
+<div class="line">                   },</div>
+<div class="line">                   []() { std::cout &lt;&lt; <span class="stringliteral">&quot;completed&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 10; ++i)</div>
+<div class="line">    {</div>
+<div class="line">        std::this_thread::sleep_for(std::chrono::milliseconds{i * 100});</div>
+<div class="line">        subj.get_subscriber().on_next(i);</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// Output:</span></div>
+<div class="line">    <span class="comment">// new value 0</span></div>
+<div class="line">    <span class="comment">// new value 1</span></div>
+<div class="line">    <span class="comment">// new value 2</span></div>
+<div class="line">    <span class="comment">// new value 3</span></div>
+<div class="line">    <span class="comment">// new value 4</span></div>
+<div class="line">    <span class="comment">// ERR : Timeout reached</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/timeout.html">https://reactivex.io/documentation/operators/timeout.html</a> </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="agroup__utility__operators_html_ga0608a5ced9a5b3b57f4c97a9b2f634f4"><div class="ttname"><a href="group__utility__operators.html#ga0608a5ced9a5b3b57f4c97a9b2f634f4">rpp::details::member_overload&lt; Type, SpecificObservable, subscribe_on_tag &gt;::subscribe_on</a></div><div class="ttdeci">auto subscribe_on(const TScheduler &amp;scheduler) const &amp;requires is_header_included&lt; subscribe_on_tag</div><div class="ttdoc">OnSubscribe function for this observable will be scheduled via provided scheduler.</div></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">scheduler which schedules execution of schedulables via queueing tasks to another thread with priorit...</div><div class="ttdef"><b>Definition:</b> new_thread_scheduler.hpp:31</div></div>
 <div class="ttc" id="agroup__utility__operators_html_ga22b02cce663473d2afe047022271112d"><div class="ttname"><a href="group__utility__operators.html#ga22b02cce663473d2afe047022271112d">rpp::details::member_overload&lt; Type, SpecificObservable, delay_tag &gt;::delay</a></div><div class="ttdeci">auto delay(auto &amp;&amp;delay_duration, TScheduler &amp;&amp;scheduler) const &amp;requires is_header_included&lt; delay_tag</div><div class="ttdoc">Shift the emissions from an Observable forward in time by a particular amount.</div></div>
+<div class="ttc" id="aclassrpp_1_1subjects_1_1publish__subject_html"><div class="ttname"><a href="classrpp_1_1subjects_1_1publish__subject.html">rpp::subjects::publish_subject</a></div><div class="ttdoc">Subject which just multicasts values to observers subscribed on it. It contains two parts: subscriber...</div><div class="ttdef"><b>Definition:</b> fwd.hpp:34</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gabc5067fa9aefaa803f6e329b75faa00c"><div class="ttname"><a href="group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c">rpp::observable::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp</div><div class="ttdoc">Creates rpp::specific_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:159</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
