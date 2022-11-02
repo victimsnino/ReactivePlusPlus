@@ -108,11 +108,11 @@ struct timeout_impl
     }
 
 private:
-    static auto time_is_out(const auto& state, const auto& subscriber)
+    static schedulers::optional_duration time_is_out(const auto& state, const auto& subscriber)
     {
         state->children_subscriptions.unsubscribe();
         subscriber.on_error(std::make_exception_ptr(utils::timeout{"Timeout reached"}));
-        return schedulers::optional_duration{};
+        return std::nullopt;
     }
 };
 } // namespace rpp::details
