@@ -97,7 +97,7 @@ jobs:
       id: cache-catch2
       with:
         path: ${{env.Catch2_DIR}}
-        key: catch2-${{env.CATCH2_VERSION}}-${{matrix.config.os}}
+        key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
 
     - name: Run CMake
       uses: lukka/run-cmake@v10
