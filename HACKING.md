@@ -40,6 +40,7 @@ the project:
   "configurePresets": [
     {
       "name": "dev",
+      "binaryDir": "${sourceDir}/build",
       "inherits": ["dev-mode", "ci-<os>"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE" : "Debug",

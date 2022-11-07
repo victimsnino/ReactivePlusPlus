@@ -43,7 +43,6 @@
       "name": "ci-flags",
       "hidden" : true,
       "inherits" : ["dev-mode", "std"],
-      "binaryDir": "${sourceDir}/build",
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS" : "ON"
       }
@@ -155,7 +154,8 @@
 
 
     {
-      "name": "ci-build"
+      "name": "ci-build",
+      "binaryDir": "${sourceDir}/build"
     },
     {
       "name": "ci-coverage",
