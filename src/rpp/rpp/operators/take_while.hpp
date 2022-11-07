@@ -26,10 +26,11 @@ struct take_while_impl
 {
     RPP_NO_UNIQUE_ADDRESS Predicate predicate;
 
-    void operator()(auto&& value, const constraint::subscriber_of_type<Type> auto& subscriber) const
+    template<typename TVal, constraint::subscriber_of_type<Type> TSub>
+    void operator()(TVal&& value, const TSub& subscriber) const
     {
         if (predicate(utils::as_const(value)))
-            subscriber.on_next(std::forward<decltype(value)>(value));
+            subscriber.on_next(std::forward<TVal>(value));
         else
             subscriber.on_completed();
     }
