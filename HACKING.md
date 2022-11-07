@@ -40,10 +40,10 @@ the project:
   "configurePresets": [
     {
       "name": "dev",
-      "binaryDir": "${sourceDir}/build/dev",
       "inherits": ["dev-mode", "ci-<os>"],
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug"
+        "CMAKE_BUILD_TYPE" : "Debug",
+        "RPP_BUILD_EXAMPLES" : "ON"
       }
     }
   ],
@@ -51,7 +51,8 @@ the project:
     {
       "name": "dev",
       "configurePreset": "dev",
-      "configuration": "Debug"
+      "configuration": "Debug",
+      "jobs" : 2
     }
   ],
   "testPresets": [
@@ -74,6 +75,8 @@ these correspond to in the [`CMakePresets.json`](CMakePresets.json) file.
 `CMakeUserPresets.json` is also the perfect place in which you can put all
 sorts of things that you would otherwise want to pass to the configure command
 in the terminal.
+
+Don't forget to add some compile options to enable different parts of RPP like enabling tests/benchmarks
 
 ### Configure, build and test
 
@@ -110,7 +113,7 @@ this target runs can be found in the `COVERAGE_TRACE_COMMAND` and
 file by default, which can be submitted to services with CI integration. The
 HTML command uses the trace command's output to generate a HTML document to
 `<binary-dir>/coverage_html` by default.
-
+<!-- 
 #### `format-check` and `format-fix`
 
 These targets run the clang-format tool on the codebase to check errors and to
@@ -121,7 +124,21 @@ fix them respectively. Customization available using the `FORMAT_PATTERNS` and
 
 These targets run the codespell tool on the codebase to check errors and to fix
 them respectively. Customization available using the `SPELL_COMMAND` cache
-variable.
+variable. -->
+
+
+## Tricky moments
+
+### Inline constraints/conepts
+When you are developing new operators be sure, that your lift-operator doesn't use inline constraints over subscribers like this:
+```cpp
+void operator(auto&& value, const constraint::subscriber auto& subscribier)
+```
+In this case intellisense of VS Code can't deduce final type of observable. Prefer this one:
+```cpp
+template<constraint::subscriber TSub>
+void operator(auto&& value, const TSub& subscribier)
+```
 
 [1]: https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html
 [2]: https://cmake.org/download/
