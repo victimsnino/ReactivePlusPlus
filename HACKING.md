@@ -127,19 +127,5 @@ These targets run the codespell tool on the codebase to check errors and to fix
 them respectively. Customization available using the `SPELL_COMMAND` cache
 variable. -->
 
-
-## Tricky moments
-
-### Inline constraints/conepts
-When you are developing new operators be sure, that your lift-operator doesn't use inline constraints over subscribers like this:
-```cpp
-void operator(auto&& value, const constraint::subscriber auto& subscribier)
-```
-In this case intellisense of VS Code can't deduce final type of observable. Prefer this one:
-```cpp
-template<constraint::subscriber TSub>
-void operator(auto&& value, const TSub& subscribier)
-```
-
 [1]: https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html
 [2]: https://cmake.org/download/

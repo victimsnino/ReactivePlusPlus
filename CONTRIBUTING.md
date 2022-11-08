@@ -39,3 +39,16 @@ int my_short_function()
 }
 
 ```
+
+## Tricky moments
+
+### Inline constraints/conepts
+When you are developing new operators be sure, that your lift-operator doesn't use inline constraints over subscribers like this:
+```cpp
+void operator(auto&& value, const constraint::subscriber auto& subscribier)
+```
+In this case intellisense of VS Code can't deduce final type of observable. Prefer this one:
+```cpp
+template<constraint::subscriber TSub>
+void operator(auto&& value, const TSub& subscribier)
+```
