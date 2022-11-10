@@ -37,6 +37,7 @@ endif()
 
 # ------------ Options to tweak ---------------------
 option(RPP_BUILD_SFML_CODE "Enable SFML support in examples/code." OFF)
+option(RPP_BUILD_QT_CODE "Enable QT support and add rppqt library." OFF)
 
 if (RPP_DEVELOPER_MODE)
   option(RPP_BUILD_TESTS      "Build unit tests tree." OFF)

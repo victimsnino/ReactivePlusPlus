@@ -5,6 +5,14 @@ if (RPP_BUILD_SFML_CODE)
     find_package(SFML COMPONENTS graphics system window REQUIRED)
 endif()
 
+# ==================== QT ==========================
+if (RPP_BUILD_QT_CODE)
+  find_package(QT NAMES Qt6 Qt5 REQUIRED)
+  SET(RPP_QT_TARGET Qt${QT_VERSION_MAJOR})
+  find_package(${RPP_QT_TARGET} REQUIRED)
+  message("-- RPP: Found QT version: ${RPP_QT_TARGET}")
+endif()
+
 # ==================== RXCPP =======================
 if (RPP_BUILD_RXCPP)
   set(RXCPP_DISABLE_TESTS_AND_EXAMPLES 1)
