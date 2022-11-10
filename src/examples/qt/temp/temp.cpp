@@ -16,7 +16,8 @@ int main(int argc, char* argv[])
 
     auto obs = rppqt::source::from_event(text_edit, &QTextEdit::textChanged);
     obs.map([&text_edit](const auto&) { return text_edit.document()->toPlainText(); })
-        .subscribe([](const QString& text) { std::cout << "TEXT CHANGED! : " << text.toStdString() << std::endl; });
+        .subscribe([](const QString& text) { std::cout << "TEXT CHANGED! : " << text.toStdString() << std::endl; },
+                   []() { std::cout << "DESTROYED!" << std::endl; });
 
     return app.exec();
 }
