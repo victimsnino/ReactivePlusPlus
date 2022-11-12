@@ -7,9 +7,9 @@ endif()
 
 # ==================== QT ==========================
 if (RPP_BUILD_QT_CODE)
-  find_package(QT NAMES Qt6 Qt5 REQUIRED)
+  find_package(QT NAMES Qt6 Qt5 REQUIRED Widgets)
   SET(RPP_QT_TARGET Qt${QT_VERSION_MAJOR})
-  find_package(${RPP_QT_TARGET} REQUIRED)
+  find_package(${RPP_QT_TARGET} REQUIRED Widgets)
   message("-- RPP: Found QT version: ${RPP_QT_TARGET}")
 endif()
 

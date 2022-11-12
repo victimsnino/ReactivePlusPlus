@@ -39,8 +39,6 @@ struct from_signal_on_event_base
 template<typename... Args>
 struct from_signal_on_event : from_signal_on_event_base<std::tuple<std::decay_t<Args>...>>
 {
-    using from_signal_on_event_base<std::tuple<std::decay_t<Args>...>>::from_signal_on_event_base;
-
     template<typename ...Vals>
     void operator()(Vals&&... vals) const
     {
@@ -51,8 +49,6 @@ struct from_signal_on_event : from_signal_on_event_base<std::tuple<std::decay_t<
 template<typename Arg>
 struct from_signal_on_event<Arg> : from_signal_on_event_base<std::decay_t<Arg>>
 {
-    using from_signal_on_event_base<std::decay_t<Arg>>::from_signal_on_event_base;
-
     template<rpp::constraint::decayed_same_as<Arg> Val>
     void operator()(Val&& val) const
     {
@@ -63,8 +59,6 @@ struct from_signal_on_event<Arg> : from_signal_on_event_base<std::decay_t<Arg>>
 template<>
 struct from_signal_on_event<> : from_signal_on_event_base<rpp::utils::none>
 {
-    using from_signal_on_event_base<rpp::utils::none>::from_signal_on_event_base;
-
     void operator()() const
     {
         subscriber.on_next(rpp::utils::none{});
