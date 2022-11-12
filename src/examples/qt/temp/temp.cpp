@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
     text_edit.setText("123123");
     text_edit.show();
 
-    auto obs = rppqt::source::from_event(text_edit, &QTextEdit::textChanged);
+    auto obs = rppqt::source::from_signal(text_edit, &QTextEdit::textChanged);
     obs.map([&text_edit](const auto&) { return text_edit.document()->toPlainText(); })
         .subscribe([](const QString& text) { std::cout << "TEXT CHANGED! : " << text.toStdString() << std::endl; },
                    []() { std::cout << "DESTROYED!" << std::endl; });

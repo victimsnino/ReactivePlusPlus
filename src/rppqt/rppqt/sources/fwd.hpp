@@ -16,13 +16,13 @@ class QObject;
 
 namespace rpp::details
 {
-struct from_event_qt_tag;
+struct from_signal_qt_tag;
 } // namespace rpp::details
 
 namespace rppqt::observable
 {
 template<std::derived_from<QObject> TObject, typename R,typename ...Args>
-auto from_event(const TObject& object, R (TObject::*signal)(Args...)) requires rpp::details::is_header_included<rpp::details::from_event_qt_tag, TObject, R, Args...>;
+auto from_signal(const TObject& object, R (TObject::*signal)(Args...)) requires rpp::details::is_header_included<rpp::details::from_signal_qt_tag, TObject, R, Args...>;
 } // namespace rppqt::observable
 
 namespace rppqt
