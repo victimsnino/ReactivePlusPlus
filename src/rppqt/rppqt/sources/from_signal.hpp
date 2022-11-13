@@ -68,8 +68,8 @@ struct from_signal_on_event<> : from_signal_on_event_base<rpp::utils::none>
 }
 namespace rppqt::observable
 {
-template<std::derived_from<QObject> TObject, typename R, typename... Args>
-auto from_signal(const TObject& object, R (TObject::*signal)(Args...)) requires rpp::details::is_header_included<rpp::details::from_signal_qt_tag, TObject, R, Args...>
+template<std::derived_from<QObject> TSignalQObject, std::derived_from<TSignalQObject> TObject, typename R,typename ...Args>
+auto from_signal(const TObject& object, R (TSignalQObject::*signal)(Args...)) requires rpp::details::is_header_included<rpp::details::from_signal_qt_tag, TObject, R, Args...>
 {
     using on_next_impl = details::from_signal_on_event<Args...>;
     const auto subj = typename on_next_impl::Subject{};
