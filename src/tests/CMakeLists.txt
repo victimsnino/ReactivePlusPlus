@@ -8,25 +8,36 @@
 # Project home: https://github.com/victimsnino/ReactivePlusPlus
 #
 
-file(GLOB_RECURSE FILES "test_*.cpp")
+add_subdirectory(utils)
 
-foreach(SOURCE ${FILES}) 
-  get_filename_component(BASE_NAME ${SOURCE} NAME_WE)
+macro(rpp_register_tests module)
+  file(GLOB_RECURSE RPP_FILES "${module}/test_*.cpp")
+  foreach(SOURCE ${RPP_FILES}) 
+    get_filename_component(BASE_NAME ${SOURCE} NAME_WE)
 
-  set(TARGET ${BASE_NAME})
+    set(TARGET ${BASE_NAME})
 
-  add_executable(${TARGET} ${SOURCE} mock_observer.hpp copy_count_tracker.hpp test_scheduler.hpp)
-  target_link_libraries(${TARGET} PRIVATE rpp Catch2::Catch2WithMain)
-  set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites)
+    add_executable(${TARGET} ${SOURCE})
+    target_link_libraries(${TARGET} PRIVATE Catch2::Catch2WithMain rpp_tests_utils ${module})
+    set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites/${module})
 
-  add_test(NAME ${TARGET} COMMAND $<TARGET_FILE:${TARGET}> -r junit -o ${RPP_TEST_RESULTS_DIR}/${TARGET}.xml)
+    add_test(NAME ${TARGET} COMMAND $<TARGET_FILE:${TARGET}> -r junit -o ${RPP_TEST_RESULTS_DIR}/${TARGET}.xml)
 
-  if(MSVC)
-    target_compile_options(${TARGET} PRIVATE /W4 /WX)
-  else()
-    target_compile_options(${TARGET} PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion)
-  endif()
+    if (${module} STREQUAL rppqt)
+      rpp_add_qt_support_to_executable(${TARGET})
+    endif()
 
-endforeach()
+    if(MSVC)
+      target_compile_options(${TARGET} PRIVATE /W4 /WX)
+    else()
+      target_compile_options(${TARGET} PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion)
+    endif()
 
+  endforeach()
+endmacro()
 
+rpp_register_tests(rpp)
+
+if (RPP_BUILD_QT_CODE)
+  rpp_register_tests(rppqt)
+endif()
