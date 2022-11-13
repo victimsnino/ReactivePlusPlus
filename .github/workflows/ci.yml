@@ -60,6 +60,9 @@ jobs:
     - name: Install LCov
       run: sudo apt-get update -q && sudo apt-get install lcov -q -y
 
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+
     - name: Restore Catch2 
       uses: actions/cache@v3
       id: cache-catch2
@@ -130,6 +133,7 @@ jobs:
       run: sudo apt-get update -q && sudo apt-get install clang-tidy cppcheck libsfml-dev -y -q
 
     - name: Install Qt
+      if: matrix.type == 'tests'
       uses: jurplel/install-qt-action@v3
       
     - name: Restore Catch2 
