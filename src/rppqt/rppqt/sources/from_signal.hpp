@@ -10,10 +10,10 @@
 
 #pragma once
 
+#include <QObject>
+
 #include <rppqt/sources/fwd.hpp>
 #include <rpp/subjects/publish_subject.hpp>
-
-#include <QObject>
 
 #include <tuple>
 

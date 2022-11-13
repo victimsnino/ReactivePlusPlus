@@ -14,6 +14,7 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include <rppqt/sources/from_signal.hpp>
+
 #include <QObject>
 
 struct TestQObject : public QObject
