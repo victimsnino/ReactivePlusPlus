@@ -131,14 +131,14 @@ jobs:
       with:
           fetch-depth: 0
 
-    - name: Install deps
-      if: matrix.config.os != 'windows-latest'
-      run: sudo apt-get update -q && sudo apt-get install clang-tidy cppcheck libsfml-dev -y -q
-
     - name: Install Qt
       if: matrix.type == 'tests'
       uses: jurplel/install-qt-action@v3
       
+    - name: Install deps
+      if: matrix.config.os != 'windows-latest'
+      run: sudo apt-get update -q && sudo apt-get install clang-tidy cppcheck libsfml-dev -y -q
+
     - name: Restore Catch2 
       uses: actions/cache@v3
       id: cache-catch2
