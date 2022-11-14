@@ -8,13 +8,6 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include "copy_count_tracker.hpp"
-#include "mock_observer.hpp"
-
-#include <catch2/catch_test_macros.hpp>
-
-#include <rppqt/sources/from_signal.hpp>
-
 #include <QObject>
 
 struct TestQObject : public QObject
@@ -43,6 +36,16 @@ Q_SIGNALS:
     void MultipleValueSignal(int v, double d, const std::string& s);
     void NoValueSignal();
 };
+
+#include "test_from_signal.moc"
+
+
+#include "copy_count_tracker.hpp"
+#include "mock_observer.hpp"
+
+#include <catch2/catch_test_macros.hpp>
+
+#include <rppqt/sources/from_signal.hpp>
 
 SCENARIO("from_signal can see object value from object signal", "[source][from][rppqt]")
 {
@@ -134,4 +137,3 @@ SCENARIO("from_signal sends special struct if no args in signal", "[source][from
 }
 
 
-#include "test_from_signal.moc"
