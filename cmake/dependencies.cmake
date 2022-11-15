@@ -1,12 +1,12 @@
 find_package(Threads REQUIRED)
 
 # ===================== SFML =======================
-if (RPP_BUILD_SFML_CODE)
+if (RPP_BUILD_SFML_CODE AND RPP_BUILD_EXAMPLES)
     find_package(SFML COMPONENTS graphics system window REQUIRED)
 endif()
 
 # ==================== QT ==========================
-if (RPP_BUILD_QT_CODE)
+if (RPP_BUILD_QT_CODE AND (RPP_BUILD_TESTS or RPP_BUILD_EXAMPLES))
   find_package(Qt6 COMPONENTS Widgets)
   if (Qt6_FOUND)
     SET(RPP_QT_TARGET Qt6)
@@ -28,7 +28,7 @@ if (RPP_BUILD_QT_CODE)
 endif()
 
 # ==================== RXCPP =======================
-if (RPP_BUILD_RXCPP)
+if (RPP_BUILD_RXCPP AND RPP_BUILD_BENCHMARKS)
   set(RXCPP_DISABLE_TESTS_AND_EXAMPLES 1)
   Include(FetchContent)
 
