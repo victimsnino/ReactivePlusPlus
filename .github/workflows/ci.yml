@@ -63,8 +63,6 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
-      with:
-        dir: ~
 
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -100,8 +98,6 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
-      with:
-        dir: ~
       
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -139,8 +135,6 @@ jobs:
     - name: Install Qt
       if: matrix.type == 'tests'
       uses: jurplel/install-qt-action@v3
-      with:
-        dir: ~
       
     - name: Install deps
       if: matrix.config.os != 'windows-latest'
