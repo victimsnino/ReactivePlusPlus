@@ -6,7 +6,7 @@ if (RPP_BUILD_SFML_CODE AND RPP_BUILD_EXAMPLES)
 endif()
 
 # ==================== QT ==========================
-if (RPP_BUILD_QT_CODE AND (RPP_BUILD_TESTS or RPP_BUILD_EXAMPLES))
+if (RPP_BUILD_QT_CODE AND (RPP_BUILD_TESTS OR RPP_BUILD_EXAMPLES))
   find_package(Qt6 COMPONENTS Widgets)
   if (Qt6_FOUND)
     SET(RPP_QT_TARGET Qt6)
