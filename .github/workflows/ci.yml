@@ -144,7 +144,9 @@ jobs:
       
     - name: Install deps
       if: matrix.config.os != 'windows-latest'
-      run: sudo apt-get update -q && sudo apt-get install clang-tidy cppcheck libsfml-dev -y -q
+      run: |
+        sudo apt-get update -q && sudo apt-get install clang-tidy cppcheck libsfml-dev -y -q
+        pip install pyyaml
 
     - name: Restore Catch2 
       uses: actions/cache@v3
