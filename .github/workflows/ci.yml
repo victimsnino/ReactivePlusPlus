@@ -12,6 +12,8 @@ on:
 env:
   CATCH2_VERSION: v3.1.0
   Catch2_DIR: ~/Catch2_BIN
+  QT_DIR: ~/QT_BIN
+
 
 jobs:
   download_deps:
@@ -62,6 +64,8 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
+      with:
+        dir: ${{env.QT_DIR}}
 
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -97,6 +101,8 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
+      with:
+        dir: ${{env.QT_DIR}}
       
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -134,6 +140,8 @@ jobs:
     - name: Install Qt
       if: matrix.type == 'tests'
       uses: jurplel/install-qt-action@v3
+      with:
+        dir: ${{env.QT_DIR}}
       
     - name: Install deps
       if: matrix.config.os != 'windows-latest'
@@ -154,14 +162,14 @@ jobs:
         testPreset: ci-tests
 
     - name: Analyze diff with clang-tidy
-      if: matrix.config.name == 'ci-ubuntu-gcc' && github.event_name != 'push' && matrix.type == 'tests'
+      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push' && matrix.type == 'tests'
       run: |
         mkdir clang-tidy-result
         git diff -U0 origin/main | clang-tidy-diff -j 0 -p1 -path build -export-fixes clang-tidy-result/fixes.yml -extra-arg=-std=c++20 -checks=bugprone-*,concurrency-*,performance-*
 
     - name: Upload clang-tidy results
       uses: actions/upload-artifact@v3
-      if: matrix.config.name == 'ci-ubuntu-gcc' && github.event_name != 'push' && matrix.type == 'tests'
+      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push' && matrix.type == 'tests'
       with:
         name: clang-tidy-result
         path: clang-tidy-result/fixes.yml
