@@ -7,9 +7,9 @@ endif()
 
 # ==================== QT ==========================
 if (RPP_BUILD_QT_CODE)
-  find_package(QT NAMES Qt6 Qt5 REQUIRED Widgets)
+  find_package(QT NAMES Qt6 Qt5 REQUIRED Widgets PATHS $ENV{QT_DIR} $ENV{Qt5_DIR} $ENV{Qt6_DIR})
   SET(RPP_QT_TARGET Qt${QT_VERSION_MAJOR})
-  find_package(${RPP_QT_TARGET} REQUIRED Widgets)
+  find_package(${RPP_QT_TARGET} REQUIRED Widgets PATHS $ENV{QT_DIR} $ENV{Qt5_DIR} $ENV{Qt6_DIR})
   message("-- RPP: Found QT version: ${RPP_QT_TARGET}")
   macro(rpp_add_qt_support_to_executable TARGET)
     target_link_libraries(${TARGET} PRIVATE ${RPP_QT_TARGET}::Widgets)
