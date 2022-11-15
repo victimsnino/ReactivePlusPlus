@@ -12,7 +12,7 @@ on:
 env:
   CATCH2_VERSION: v3.1.0
   Catch2_DIR: ~/Catch2_BIN
-  QT_DIR: ~/QT_BIN
+  QT_BIN_DIR: ~/QT_BIN_DIR
 
 
 jobs:
@@ -65,7 +65,7 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
-        dir: ${{env.QT_DIR}}
+        dir: ${{env.QT_BIN_DIR}}
 
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -102,7 +102,7 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
-        dir: ${{env.QT_DIR}}
+        dir: ${{env.QT_BIN_DIR}}
       
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -141,7 +141,7 @@ jobs:
       if: matrix.type == 'tests'
       uses: jurplel/install-qt-action@v3
       with:
-        dir: ${{env.QT_DIR}}
+        dir: ${{env.QT_BIN_DIR}}
       
     - name: Install deps
       if: matrix.config.os != 'windows-latest'
