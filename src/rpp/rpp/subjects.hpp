@@ -14,6 +14,7 @@
  * \defgroup subjects Subjects
  * \brief Observable is the observable and observer at the same time. Uses as a bridge and for manual sending of values.
  * \see https://reactivex.io/documentation/subject.html
+ * \ingroup rpp
  */
 
 #include <rpp/subjects/publish_subject.hpp>

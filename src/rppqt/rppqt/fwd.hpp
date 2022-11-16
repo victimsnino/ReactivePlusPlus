@@ -10,4 +10,15 @@
 
 #pragma once
 
+/**
+* \defgroup rppqt RPPQT
+* \brief RppQt is extension of RPP which enables support of Qt library.
+*/
+
+/**
+* \defgroup qt_operators QT Operators
+* \brief QT Operators is way to modify observables and extend with some extra custom logic but applied for QObjects
+* \ingroup rppqt
+*/
+
 #include <rppqt/sources/fwd.hpp>

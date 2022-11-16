@@ -10,4 +10,10 @@
 
 #pragma once
 
+/**
+ * \defgroup qt_creational_operators QT Creational Operators
+ * \brief QT creational operators are operators that create new observable from QObjects
+ * \ingroup qt_operators
+ */
+
 #include <rppqt/sources/from_signal.hpp>
