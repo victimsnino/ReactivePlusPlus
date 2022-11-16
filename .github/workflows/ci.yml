@@ -255,6 +255,12 @@ jobs:
     - name: Doxygen
       run: doxygen ./Doxyfile
     
+    - name: Update docs
+      run: |
+        grep -rl "rpp::details::member_overload" gen_docs | xargs sed -i 's/rpp::details::member_overload&lt; Type, SpecificObservable, [a-zA-Z_]*_tag &gt;/observable/g'
+        grep -rl "rpp::details::member_overload" gen_docs | xargs sed -i 's/rpp::details::member_overload<\/a>&lt; Type, SpecificObservable, [a-zA-Z_]*_tag &gt;/observable<\/a>/g'
+        grep -rl "rpp::details::member_overload" gen_docs | xargs sed -i 's/rpp::details::member_overload< Type, SpecificObservable, [a-zA-Z_]*_tag >:://g'
+    
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       if: github.event_name == 'push' && github.repository_owner == 'victimsnino'
