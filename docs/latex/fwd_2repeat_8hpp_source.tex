@@ -1,0 +1,62 @@
+\hypertarget{fwd_2repeat_8hpp_source}{}\doxysection{repeat.\+hpp}
+\label{fwd_2repeat_8hpp_source}\index{src/rpp/rpp/operators/fwd/repeat.hpp@{src/rpp/rpp/operators/fwd/repeat.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observables/details/member\_overload.hpp>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18 \textcolor{keyword}{struct }repeat\_tag;}
+\DoxyCodeLine{19 \}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs>}
+\DoxyCodeLine{24 \textcolor{keyword}{auto} repeat\_impl(TObs\&\& observable, \textcolor{keywordtype}{size\_t} count);}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> TObs>}
+\DoxyCodeLine{27 \textcolor{keyword}{auto} repeat\_impl(TObs\&\& observable);}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{30 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, repeat\_tag>}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{54     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{55     \textcolor{keyword}{auto} repeat(\textcolor{keywordtype}{size\_t} count) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<repeat\_tag, Args...>}
+\DoxyCodeLine{56     \{}
+\DoxyCodeLine{57         \textcolor{keywordflow}{return} repeat\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), count);}
+\DoxyCodeLine{58     \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{61     \textcolor{keyword}{auto} repeat(\textcolor{keywordtype}{size\_t} count) \&\& \textcolor{keyword}{requires} is\_header\_included<repeat\_tag, Args...>}
+\DoxyCodeLine{62     \{}
+\DoxyCodeLine{63         \textcolor{keywordflow}{return} repeat\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})), count);}
+\DoxyCodeLine{64     \}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{84     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{85     \textcolor{keyword}{auto} repeat() \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<repeat\_tag, Args...>}
+\DoxyCodeLine{86     \{}
+\DoxyCodeLine{87         \textcolor{keywordflow}{return} repeat\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{88     \}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90     \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{91     \textcolor{keyword}{auto} repeat() \&\& \textcolor{keyword}{requires} is\_header\_included<repeat\_tag, Args...>}
+\DoxyCodeLine{92     \{}
+\DoxyCodeLine{93         \textcolor{keywordflow}{return} repeat\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})));}
+\DoxyCodeLine{94     \}}
+\DoxyCodeLine{95 \};}
+\DoxyCodeLine{96 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

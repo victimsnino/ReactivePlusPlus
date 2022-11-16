@@ -8,19 +8,26 @@ Transforming operators are operators that transform items provided by observable
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename ... Args$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_ga247e5e6cf5d4fe048588046ad34180ee}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, buffer\+\_\+tag $>$\+::buffer}} (size\+\_\+t count) const \&requires is\+\_\+header\+\_\+included$<$ buffer\+\_\+tag
+{\footnotesize template$<$typename ... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$buffer\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__transforming__operators_gaaaadd88de768811a7397897432b00f17}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, buffer\+\_\+tag $>$\+::buffer}} (size\+\_\+t count) const \&
 \begin{DoxyCompactList}\small\item\em periodically gather items emitted by an Observable into bundles and emit these bundles rather than emitting the items one at a time \end{DoxyCompactList}\item 
-{\footnotesize template$<$flat\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gae4d30f7ae23a7d62aa761f26abf18008}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, flat\+\_\+map\+\_\+tag $>$\+::flat\+\_\+map}} (Callable \&\&callable) const \&requires is\+\_\+header\+\_\+included$<$ flat\+\_\+map\+\_\+tag
+{\footnotesize template$<$flat\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ \newline
+requires is\+\_\+header\+\_\+included$<$flat\+\_\+map\+\_\+tag, Callable$>$}\\auto \mbox{\hyperlink{group__transforming__operators_ga855aea700aa9aa9fa07e8aab7e193a1a}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, flat\+\_\+map\+\_\+tag $>$\+::flat\+\_\+map}} (Callable \&\&callable) const \&
 \begin{DoxyCompactList}\small\item\em Transform emissions to observables via provided function and then merge emissions from such an observables. \end{DoxyCompactList}\item 
-{\footnotesize template$<$std\+::invocable$<$ Type $>$ Key\+Selector, std\+::invocable$<$ Type $>$ Value\+Selector = std\+::identity, typename T\+Key  = rpp\+::utils\+::decayed\+\_\+invoke\+\_\+result\+\_\+t$<$\+Key\+Selector, Type$>$, std\+::strict\+\_\+weak\+\_\+order$<$ T\+Key, T\+Key $>$ Key\+Comparator = std\+::less$<$\+T\+Key$>$$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gaf3399da92ac6a0a4c392107b5b405a60}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, group\+\_\+by\+\_\+tag $>$\+::group\+\_\+by}} (Key\+Selector \&\&key\+\_\+selector, Value\+Selector \&\&value\+\_\+selector=\{\}, Key\+Comparator \&\&comparator=\{\}) const \&requires is\+\_\+header\+\_\+included$<$ group\+\_\+by\+\_\+tag
+{\footnotesize template$<$std\+::invocable$<$ Type $>$ Key\+Selector, std\+::invocable$<$ Type $>$ Value\+Selector = std\+::identity, typename TKey  = rpp\+::utils\+::decayed\+\_\+invoke\+\_\+result\+\_\+t$<$\+Key\+Selector, Type$>$, std\+::strict\+\_\+weak\+\_\+order$<$ TKey, TKey $>$ Key\+Comparator = std\+::less$<$\+TKey$>$$>$ \newline
+requires is\+\_\+header\+\_\+included$<$group\+\_\+by\+\_\+tag, Key\+Selector, Value\+Selector, TKey, Key\+Comparator$>$}\\auto \mbox{\hyperlink{group__transforming__operators_ga61277d8115a87b4c10f7856a9a7f8d35}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, group\+\_\+by\+\_\+tag $>$\+::group\+\_\+by}} (Key\+Selector \&\&key\+\_\+selector, Value\+Selector \&\&value\+\_\+selector=\{\}, Key\+Comparator \&\&comparator=\{\}) const \&
 \begin{DoxyCompactList}\small\item\em Divide original observable into multiple observables where each new observable emits some group of values from original observable. \end{DoxyCompactList}\item 
-{\footnotesize template$<$std\+::invocable$<$ Type $>$ Callable$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_ga2215c20ce73e16977568e7db1900ce65}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, map\+\_\+tag $>$\+::map}} (Callable \&\&callable) const \&requires is\+\_\+header\+\_\+included$<$ map\+\_\+tag
+{\footnotesize template$<$std\+::invocable$<$ Type $>$ Callable$>$ \newline
+requires is\+\_\+header\+\_\+included$<$map\+\_\+tag, Callable$>$}\\auto \mbox{\hyperlink{group__transforming__operators_gae5dd31e4559517de5cf1145ff2005a86}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, map\+\_\+tag $>$\+::map}} (Callable \&\&callable) const \&
 \begin{DoxyCompactList}\small\item\em Transform the items emitted by an Observable via applying a function to each item and emitting result. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Result , scan\+\_\+accumulator$<$ Result, Type $>$ Accumulator\+Fn$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gad4cf46a565f1081cd7b8bc26aa99e640}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, scan\+\_\+tag $>$\+::scan}} (Result \&\&initial\+\_\+value, Accumulator\+Fn \&\&accumulator) const \&requires is\+\_\+header\+\_\+included$<$ scan\+\_\+tag
+{\footnotesize template$<$typename Result , scan\+\_\+accumulator$<$ Result, Type $>$ Accumulator\+Fn$>$ \newline
+requires is\+\_\+header\+\_\+included$<$scan\+\_\+tag, Result, Accumulator\+Fn$>$}\\auto \mbox{\hyperlink{group__transforming__operators_ga32b19b1b37ecd7a14d08c5936e2023e1}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, scan\+\_\+tag $>$\+::scan}} (Result \&\&initial\+\_\+value, Accumulator\+Fn \&\&accumulator) const \&
 \begin{DoxyCompactList}\small\item\em Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. \end{DoxyCompactList}\item 
-{\footnotesize template$<$switch\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_ga70e93b5ebd0da19d8acdf2af6497cb88}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, switch\+\_\+map\+\_\+tag $>$\+::switch\+\_\+map}} (Callable \&\&callable) const \&requires is\+\_\+header\+\_\+included$<$ switch\+\_\+map\+\_\+tag
+{\footnotesize template$<$switch\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ \newline
+requires is\+\_\+header\+\_\+included$<$switch\+\_\+map\+\_\+tag, Callable$>$}\\auto \mbox{\hyperlink{group__transforming__operators_gae76b0e38003420a5ced3c1159bbbadde}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, switch\+\_\+map\+\_\+tag $>$\+::switch\+\_\+map}} (Callable \&\&callable) const \&
 \begin{DoxyCompactList}\small\item\em convert an Observable that emits Observables into a single Observable that emits the items emitted by the most-\/recently-\/emitted of those Observables \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename ... Args$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gadd87f1fff9640ec0bef5eda48c9d899b}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, window\+\_\+tag $>$\+::window}} (size\+\_\+t window\+\_\+size) const \&requires is\+\_\+header\+\_\+included$<$ window\+\_\+tag
+{\footnotesize template$<$typename ... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$window\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__transforming__operators_gaae1e46e322134df2b377da37a2b2f8d4}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, window\+\_\+tag $>$\+::window}} (size\+\_\+t window\+\_\+size) const \&
 \begin{DoxyCompactList}\small\item\em Subdivide original observable into sub-\/observables (windowed observables) and emit sub-\/observables of items instead of original items. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -33,13 +40,14 @@ Transforming operators are operators that transform items provided by observable
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{group__transforming__operators_ga247e5e6cf5d4fe048588046ad34180ee}\label{group__transforming__operators_ga247e5e6cf5d4fe048588046ad34180ee}} 
+\mbox{\Hypertarget{group__transforming__operators_gaaaadd88de768811a7397897432b00f17}\label{group__transforming__operators_gaaaadd88de768811a7397897432b00f17}} 
 \index{Transforming Operators@{Transforming Operators}!buffer@{buffer}}
 \index{buffer@{buffer}!Transforming Operators@{Transforming Operators}}
 \doxysubsubsection{\texorpdfstring{buffer()}{buffer()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$typename ... Args$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, buffer\+\_\+tag $>$\+::buffer (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption}) const \&}
+template$<$typename ... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$buffer\+\_\+tag, Args...$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, buffer\+\_\+tag $>$\+::buffer (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -58,33 +66,35 @@ the resulting bundle is std\+::vector. Actually it is similar to {\ttfamily wind
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the buffer operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{buffer_8hpp_source}{rpp/operators/buffer.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{buffer_8hpp_source}{rpp/operators/buffer.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{    \textcolor{comment}{// The stream that uses rvalue overloads for operators}}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3, 4, 5)}
+\DoxyCodeLine{    rpp::source::just(1, 2, 3, 4, 5)}
 \DoxyCodeLine{        .buffer(2)}
 \DoxyCodeLine{        .subscribe(}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} std::vector<int>\& v) \{ std::cout << v << \textcolor{stringliteral}{"-\/"}; \},}
+\DoxyCodeLine{            [](\textcolor{keyword}{const} std::vector<int>\& v) \{ std::cout << v << \textcolor{stringliteral}{"{}-\/"{}}; \},}
 \DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr\&) \{\},}
-\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"|"} << std::endl; \});}
+\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"{}|"{}} << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Source: -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
 \DoxyCodeLine{    \textcolor{comment}{// Output: \{1,2\}-\/\{3,4\}-\/\{5\}-\/|}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/buffer.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/buffer.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__transforming__operators_gae4d30f7ae23a7d62aa761f26abf18008}\label{group__transforming__operators_gae4d30f7ae23a7d62aa761f26abf18008}} 
+\mbox{\Hypertarget{group__transforming__operators_ga855aea700aa9aa9fa07e8aab7e193a1a}\label{group__transforming__operators_ga855aea700aa9aa9fa07e8aab7e193a1a}} 
 \index{Transforming Operators@{Transforming Operators}!flat\_map@{flat\_map}}
 \index{flat\_map@{flat\_map}!Transforming Operators@{Transforming Operators}}
 \doxysubsubsection{\texorpdfstring{flat\_map()}{flat\_map()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$flat\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, flat\+\_\+map\+\_\+tag $>$\+::flat\+\_\+map (\begin{DoxyParamCaption}\item[{Callable \&\&}]{callable }\end{DoxyParamCaption}) const \&}
+template$<$flat\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ \newline
+requires is\+\_\+header\+\_\+included$<$flat\+\_\+map\+\_\+tag, Callable$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, flat\+\_\+map\+\_\+tag $>$\+::flat\+\_\+map (\begin{DoxyParamCaption}\item[{Callable \&\&}]{callable }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -106,28 +116,30 @@ Actually it makes {\ttfamily map} and then {\ttfamily merge}.
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the flat\+\_\+map operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{flat__map_8hpp_source}{rpp/operators/flat\+\_\+map.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{flat__map_8hpp_source}{rpp/operators/flat\+\_\+map.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)}
+\DoxyCodeLine{    rpp::source::just(1, 2, 3)}
 \DoxyCodeLine{            .flat\_map([](\textcolor{keywordtype}{int} val) \{ \textcolor{keywordflow}{return} rpp::source::from\_iterable(std::vector(val, val)); \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 1 2 2 3 3 3}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/flatmap.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/flatmap.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__transforming__operators_gaf3399da92ac6a0a4c392107b5b405a60}\label{group__transforming__operators_gaf3399da92ac6a0a4c392107b5b405a60}} 
+\mbox{\Hypertarget{group__transforming__operators_ga61277d8115a87b4c10f7856a9a7f8d35}\label{group__transforming__operators_ga61277d8115a87b4c10f7856a9a7f8d35}} 
 \index{Transforming Operators@{Transforming Operators}!group\_by@{group\_by}}
 \index{group\_by@{group\_by}!Transforming Operators@{Transforming Operators}}
 \doxysubsubsection{\texorpdfstring{group\_by()}{group\_by()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$std\+::invocable$<$ Type $>$ Key\+Selector, std\+::invocable$<$ Type $>$ Value\+Selector = std\+::identity, typename T\+Key  = rpp\+::utils\+::decayed\+\_\+invoke\+\_\+result\+\_\+t$<$\+Key\+Selector, Type$>$, std\+::strict\+\_\+weak\+\_\+order$<$ T\+Key, T\+Key $>$ Key\+Comparator = std\+::less$<$\+T\+Key$>$$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, group\+\_\+by\+\_\+tag $>$\+::group\+\_\+by (\begin{DoxyParamCaption}\item[{Key\+Selector \&\&}]{key\+\_\+selector,  }\item[{Value\+Selector \&\&}]{value\+\_\+selector = {\ttfamily \{\}},  }\item[{Key\+Comparator \&\&}]{comparator = {\ttfamily \{\}} }\end{DoxyParamCaption}) const \&}
+template$<$std\+::invocable$<$ Type $>$ Key\+Selector, std\+::invocable$<$ Type $>$ Value\+Selector = std\+::identity, typename TKey  = rpp\+::utils\+::decayed\+\_\+invoke\+\_\+result\+\_\+t$<$\+Key\+Selector, Type$>$, std\+::strict\+\_\+weak\+\_\+order$<$ TKey, TKey $>$ Key\+Comparator = std\+::less$<$\+TKey$>$$>$ \newline
+requires is\+\_\+header\+\_\+included$<$group\+\_\+by\+\_\+tag, Key\+Selector, Value\+Selector, TKey, Key\+Comparator$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, group\+\_\+by\+\_\+tag $>$\+::group\+\_\+by (\begin{DoxyParamCaption}\item[{Key\+Selector \&\&}]{key\+\_\+selector,  }\item[{Value\+Selector \&\&}]{value\+\_\+selector = {\ttfamily \{\}},  }\item[{Key\+Comparator \&\&}]{comparator = {\ttfamily \{\}} }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -150,20 +162,20 @@ Original observable applies {\ttfamily key\+\_\+selector} to obtain key and spli
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the group\+\_\+by operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{group__by_8hpp_source}{rpp/operators/group\+\_\+by.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{group__by_8hpp_source}{rpp/operators/group\+\_\+by.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3, 4, 5, 6, 7, 8)}
+\DoxyCodeLine{    rpp::source::just(1, 2, 3, 4, 5, 6, 7, 8)}
 \DoxyCodeLine{            .group\_by([](\textcolor{keywordtype}{int}   v) \{ \textcolor{keywordflow}{return} v \% 2 == 0; \})}
 \DoxyCodeLine{            .subscribe([](\textcolor{keyword}{auto} grouped\_observable)}
 \DoxyCodeLine{            \{}
 \DoxyCodeLine{                \textcolor{keyword}{auto} key = grouped\_observable.get\_key();}
-\DoxyCodeLine{                std::cout << \textcolor{stringliteral}{"new grouped observable "} << key << std::endl;}
+\DoxyCodeLine{                std::cout << \textcolor{stringliteral}{"{}new grouped observable "{}} << key << std::endl;}
 \DoxyCodeLine{                grouped\_observable.subscribe([key](\textcolor{keywordtype}{int} val)}
 \DoxyCodeLine{                \{}
-\DoxyCodeLine{                    std::cout << \textcolor{stringliteral}{"key ["} << key << \textcolor{stringliteral}{"] Val: "} << val << std::endl;}
+\DoxyCodeLine{                    std::cout << \textcolor{stringliteral}{"{}key ["{}} << key << \textcolor{stringliteral}{"{}] Val: "{}} << val << std::endl;}
 \DoxyCodeLine{                \});}
 \DoxyCodeLine{            \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: new grouped observable 0}}
@@ -176,6 +188,7 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \DoxyCodeLine{    \textcolor{comment}{//         key [1] Val: 6}}
 \DoxyCodeLine{    \textcolor{comment}{//         key [0] Val: 7}}
 \DoxyCodeLine{    \textcolor{comment}{//         key [1] Val: 8}}
+
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
@@ -184,18 +197,18 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \DoxyCodeLine{        std::string name;}
 \DoxyCodeLine{        \textcolor{keywordtype}{int} age;}
 \DoxyCodeLine{    \};}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(Person\{\textcolor{stringliteral}{"Kate"}, 18\},}
-\DoxyCodeLine{                      Person\{\textcolor{stringliteral}{"Alex"}, 25\},}
-\DoxyCodeLine{                      Person\{\textcolor{stringliteral}{"Nick"}, 18\},}
-\DoxyCodeLine{                      Person\{\textcolor{stringliteral}{"Jack"}, 25\},}
-\DoxyCodeLine{                      Person\{\textcolor{stringliteral}{"Tom"}, 30\},}
-\DoxyCodeLine{                      Person\{\textcolor{stringliteral}{"Vanda"}, 18\})}
-\DoxyCodeLine{            .\mbox{\hyperlink{group__transforming__operators_gaf3399da92ac6a0a4c392107b5b405a60}{group\_by}}([](\textcolor{keyword}{const} Person\& v) \{ \textcolor{keywordflow}{return} v.age; \}, [](\textcolor{keyword}{const} Person\& v) \{ \textcolor{keywordflow}{return} v.name; \})}
+\DoxyCodeLine{    rpp::source::just(Person\{\textcolor{stringliteral}{"{}Kate"{}}, 18\},}
+\DoxyCodeLine{                      Person\{\textcolor{stringliteral}{"{}Alex"{}}, 25\},}
+\DoxyCodeLine{                      Person\{\textcolor{stringliteral}{"{}Nick"{}}, 18\},}
+\DoxyCodeLine{                      Person\{\textcolor{stringliteral}{"{}Jack"{}}, 25\},}
+\DoxyCodeLine{                      Person\{\textcolor{stringliteral}{"{}Tom"{}}, 30\},}
+\DoxyCodeLine{                      Person\{\textcolor{stringliteral}{"{}Vanda"{}}, 18\})}
+\DoxyCodeLine{            .\mbox{\hyperlink{group__transforming__operators_ga61277d8115a87b4c10f7856a9a7f8d35}{group\_by}}([](\textcolor{keyword}{const} Person\& v) \{ \textcolor{keywordflow}{return} v.age; \}, [](\textcolor{keyword}{const} Person\& v) \{ \textcolor{keywordflow}{return} v.name; \})}
 \DoxyCodeLine{            .subscribe([](\textcolor{keyword}{auto} grouped\_observable)}
 \DoxyCodeLine{            \{}
 \DoxyCodeLine{                grouped\_observable.subscribe([age = grouped\_observable.get\_key()](\textcolor{keyword}{const} std::string\& name)}
 \DoxyCodeLine{                \{}
-\DoxyCodeLine{                    std::cout << \textcolor{stringliteral}{"Age ["} << age << \textcolor{stringliteral}{"] Name: "} << name << std::endl;}
+\DoxyCodeLine{                    std::cout << \textcolor{stringliteral}{"{}Age ["{}} << age << \textcolor{stringliteral}{"{}] Name: "{}} << name << std::endl;}
 \DoxyCodeLine{                \});}
 \DoxyCodeLine{            \});}
 \DoxyCodeLine{}
@@ -205,19 +218,21 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \DoxyCodeLine{    \textcolor{comment}{//         Age [25] Name: Jack}}
 \DoxyCodeLine{    \textcolor{comment}{//         Age [30] Name: Tom}}
 \DoxyCodeLine{    \textcolor{comment}{//         Age [18] Name: Vanda}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/groupby.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/groupby.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__transforming__operators_ga2215c20ce73e16977568e7db1900ce65}\label{group__transforming__operators_ga2215c20ce73e16977568e7db1900ce65}} 
+\mbox{\Hypertarget{group__transforming__operators_gae5dd31e4559517de5cf1145ff2005a86}\label{group__transforming__operators_gae5dd31e4559517de5cf1145ff2005a86}} 
 \index{Transforming Operators@{Transforming Operators}!map@{map}}
 \index{map@{map}!Transforming Operators@{Transforming Operators}}
 \doxysubsubsection{\texorpdfstring{map()}{map()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$std\+::invocable$<$ Type $>$ Callable$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, map\+\_\+tag $>$\+::map (\begin{DoxyParamCaption}\item[{Callable \&\&}]{callable }\end{DoxyParamCaption}) const \&}
+template$<$std\+::invocable$<$ Type $>$ Callable$>$ \newline
+requires is\+\_\+header\+\_\+included$<$map\+\_\+tag, Callable$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, map\+\_\+tag $>$\+::map (\begin{DoxyParamCaption}\item[{Callable \&\&}]{callable }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -237,44 +252,47 @@ The Map operator can keep same type of value or change it to some another type.
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the Map operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{map_8hpp_source}{rpp/operators/map.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{map_8hpp_source}{rpp/operators/map.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example with same type\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(42)}
+\DoxyCodeLine{    rpp::source::just(42)}
 \DoxyCodeLine{            .map([](\textcolor{keywordtype}{int} value)}
 \DoxyCodeLine{            \{}
 \DoxyCodeLine{                \textcolor{keywordflow}{return} value + 10;}
 \DoxyCodeLine{            \})}
 \DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 52}}
+
 \end{DoxyCodeInclude}
- 
+
 \end{DoxyParagraph}
 \begin{DoxyParagraph}{Example with changed type\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(42)}
+\DoxyCodeLine{    rpp::source::just(42)}
 \DoxyCodeLine{            .map([](\textcolor{keywordtype}{int} value)}
 \DoxyCodeLine{            \{}
-\DoxyCodeLine{                \textcolor{keywordflow}{return} std::to\_string(value) + \textcolor{stringliteral}{" VAL"};}
+\DoxyCodeLine{                \textcolor{keywordflow}{return} std::to\_string(value) + \textcolor{stringliteral}{"{} VAL"{}};}
 \DoxyCodeLine{            \})}
 \DoxyCodeLine{            .subscribe([](std::string v) \{ std::cout << v << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 42 VAL}}
+
 \end{DoxyCodeInclude}
- 
+
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/map.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/map.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__transforming__operators_gad4cf46a565f1081cd7b8bc26aa99e640}\label{group__transforming__operators_gad4cf46a565f1081cd7b8bc26aa99e640}} 
+\mbox{\Hypertarget{group__transforming__operators_ga32b19b1b37ecd7a14d08c5936e2023e1}\label{group__transforming__operators_ga32b19b1b37ecd7a14d08c5936e2023e1}} 
 \index{Transforming Operators@{Transforming Operators}!scan@{scan}}
 \index{scan@{scan}!Transforming Operators@{Transforming Operators}}
 \doxysubsubsection{\texorpdfstring{scan()}{scan()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$typename Result , scan\+\_\+accumulator$<$ Result, Type $>$ Accumulator\+Fn$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, scan\+\_\+tag $>$\+::scan (\begin{DoxyParamCaption}\item[{Result \&\&}]{initial\+\_\+value,  }\item[{Accumulator\+Fn \&\&}]{accumulator }\end{DoxyParamCaption}) const \&}
+template$<$typename Result , scan\+\_\+accumulator$<$ Result, Type $>$ Accumulator\+Fn$>$ \newline
+requires is\+\_\+header\+\_\+included$<$scan\+\_\+tag, Result, Accumulator\+Fn$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, scan\+\_\+tag $>$\+::scan (\begin{DoxyParamCaption}\item[{Result \&\&}]{initial\+\_\+value,  }\item[{Accumulator\+Fn \&\&}]{accumulator }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -293,19 +311,20 @@ Apply accumulator function for each emission from observable and result of accum
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the scan operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{scan_8hpp_source}{rpp/operators/scan.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{scan_8hpp_source}{rpp/operators/scan.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1,2,3)}
+\DoxyCodeLine{    rpp::source::just(1,2,3)}
 \DoxyCodeLine{            .scan(0, std::plus<int>\{\})}
 \DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 1 3 6}}
+
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1,2,3)}
+\DoxyCodeLine{    rpp::source::just(1,2,3)}
 \DoxyCodeLine{            .scan(std::vector<int>\{\}, [](std::vector<int>\&\& seed, \textcolor{keywordtype}{int} new\_value)}
 \DoxyCodeLine{            \{}
 \DoxyCodeLine{                seed.push\_back(new\_value);}
@@ -313,27 +332,29 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \DoxyCodeLine{            \})}
 \DoxyCodeLine{            .subscribe([](\textcolor{keyword}{const} std::vector<int>\& v)}
 \DoxyCodeLine{            \{}
-\DoxyCodeLine{                std::cout << \textcolor{stringliteral}{"vector: "};}
+\DoxyCodeLine{                std::cout << \textcolor{stringliteral}{"{}vector: "{}};}
 \DoxyCodeLine{                \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} val : v)}
-\DoxyCodeLine{                    std::cout << val << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{                    std::cout << val << \textcolor{stringliteral}{"{} "{}};}
 \DoxyCodeLine{                std::cout << std::endl;}
 \DoxyCodeLine{            \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: vector: 1}}
 \DoxyCodeLine{    \textcolor{comment}{//         vector: 1 2}}
 \DoxyCodeLine{    \textcolor{comment}{//         vector: 1 2 3}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/scan.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/scan.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__transforming__operators_ga70e93b5ebd0da19d8acdf2af6497cb88}\label{group__transforming__operators_ga70e93b5ebd0da19d8acdf2af6497cb88}} 
+\mbox{\Hypertarget{group__transforming__operators_gae76b0e38003420a5ced3c1159bbbadde}\label{group__transforming__operators_gae76b0e38003420a5ced3c1159bbbadde}} 
 \index{Transforming Operators@{Transforming Operators}!switch\_map@{switch\_map}}
 \index{switch\_map@{switch\_map}!Transforming Operators@{Transforming Operators}}
 \doxysubsubsection{\texorpdfstring{switch\_map()}{switch\_map()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$switch\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, switch\+\_\+map\+\_\+tag $>$\+::switch\+\_\+map (\begin{DoxyParamCaption}\item[{Callable \&\&}]{callable }\end{DoxyParamCaption}) const \&}
+template$<$switch\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ \newline
+requires is\+\_\+header\+\_\+included$<$switch\+\_\+map\+\_\+tag, Callable$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, switch\+\_\+map\+\_\+tag $>$\+::switch\+\_\+map (\begin{DoxyParamCaption}\item[{Callable \&\&}]{callable }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -352,18 +373,18 @@ Actually it makes {\ttfamily map} and then {\ttfamily switch\+\_\+on\+\_\+next}.
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the switch\+\_\+map operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{switch__map_8hpp_source}{rpp/operators/switch\+\_\+map.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{switch__map_8hpp_source}{rpp/operators/switch\+\_\+map.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)}
+\DoxyCodeLine{    rpp::source::just(1, 2, 3)}
 \DoxyCodeLine{            .switch\_map([](\textcolor{keywordtype}{int} val) \{}
 \DoxyCodeLine{                \textcolor{keywordflow}{if} (val == 1)}
 \DoxyCodeLine{                    \textcolor{keywordflow}{return} rpp::source::never<int>()}
 \DoxyCodeLine{                        .lift([\&](\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp::dynamic\_subscriber<int>}} sub) \{}
 \DoxyCodeLine{                            sub.get\_subscription().add([\&]() \{}
-\DoxyCodeLine{                                std::cout << \textcolor{stringliteral}{"x-\/"}; \textcolor{comment}{// x is notation for unsubscribed}}
+\DoxyCodeLine{                                std::cout << \textcolor{stringliteral}{"{}x-\/"{}}; \textcolor{comment}{// x is notation for unsubscribed}}
 \DoxyCodeLine{                            \});}
 \DoxyCodeLine{                            \textcolor{keywordflow}{return} sub;}
 \DoxyCodeLine{                        \})}
@@ -372,21 +393,23 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \DoxyCodeLine{                \textcolor{keywordflow}{return} rpp::source::from\_iterable(std::vector\{val, val\})}
 \DoxyCodeLine{                    .as\_dynamic();}
 \DoxyCodeLine{            \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"-\/"}; \});}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{}-\/"{}}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: x-\/2-\/2-\/3-\/3-\/}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/switchmap.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/switchmap.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__transforming__operators_gadd87f1fff9640ec0bef5eda48c9d899b}\label{group__transforming__operators_gadd87f1fff9640ec0bef5eda48c9d899b}} 
+\mbox{\Hypertarget{group__transforming__operators_gaae1e46e322134df2b377da37a2b2f8d4}\label{group__transforming__operators_gaae1e46e322134df2b377da37a2b2f8d4}} 
 \index{Transforming Operators@{Transforming Operators}!window@{window}}
 \index{window@{window}!Transforming Operators@{Transforming Operators}}
 \doxysubsubsection{\texorpdfstring{window()}{window()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$typename ... Args$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, window\+\_\+tag $>$\+::window (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{window\+\_\+size }\end{DoxyParamCaption}) const \&}
+template$<$typename ... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$window\+\_\+tag, Args...$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, window\+\_\+tag $>$\+::window (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{window\+\_\+size }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -405,18 +428,19 @@ Actually it is similar to {\ttfamily buffer} but it emits observable instead of 
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the window operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{window_8hpp_source}{rpp/operators/window.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{window_8hpp_source}{rpp/operators/window.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1,2,3,4,5)}
+\DoxyCodeLine{    rpp::source::just(1,2,3,4,5)}
 \DoxyCodeLine{        .window(3)}
-\DoxyCodeLine{        .subscribe([](\textcolor{keyword}{const} rpp::windowed\_observable<int>\& v) \{ std::cout << \textcolor{stringliteral}{"\(\backslash\)nNew observable "} << std::endl; v.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{" "}; \}); \});}
+\DoxyCodeLine{        .subscribe([](\textcolor{keyword}{const} rpp::windowed\_observable<int>\& v) \{ std::cout << \textcolor{stringliteral}{"{}\(\backslash\)nNew observable "{}} << std::endl; v.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \}); \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: New observable}}
 \DoxyCodeLine{    \textcolor{comment}{//         1 2 3}}
 \DoxyCodeLine{    \textcolor{comment}{//         New observable}}
 \DoxyCodeLine{    \textcolor{comment}{//         4 5}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}

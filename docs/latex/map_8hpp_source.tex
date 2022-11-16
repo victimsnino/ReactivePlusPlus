@@ -1,0 +1,43 @@
+\hypertarget{map_8hpp_source}{}\doxysection{map.\+hpp}
+\label{map_8hpp_source}\index{src/rpp/rpp/operators/map.hpp@{src/rpp/rpp/operators/map.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/defs.hpp>}                    \textcolor{comment}{// RPP\_NO\_UNIQUE\_ADDRESS}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/operators/lift.hpp>}          \textcolor{comment}{// required due to operator uses lift}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/operators/fwd/map.hpp>}       \textcolor{comment}{// own forwarding}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>} \textcolor{comment}{// constraint::subscriber\_of\_type}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/utils/function\_traits.hpp>}   \textcolor{comment}{// decayed\_invoke\_result\_t}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}         \textcolor{comment}{// as\_counst}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 IMPLEMENTATION\_FILE(map\_tag);}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, std::invocable<Type> Callable>}
+\DoxyCodeLine{27 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1map__impl}{map\_impl}}}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29     RPP\_NO\_UNIQUE\_ADDRESS Callable callable;}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     \textcolor{keyword}{template}<\textcolor{keyword}{typename} TVal, constra\textcolor{keywordtype}{int}::subscriber\_of\_type<utils::decayed\_invoke\_result\_t<Callable, Type>> TSub>}
+\DoxyCodeLine{32     \textcolor{keywordtype}{void} operator()(TVal\&\& value, \textcolor{keyword}{const} TSub\& subscriber)\textcolor{keyword}{ const}}
+\DoxyCodeLine{33 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{34         subscriber.on\_next(callable(utils::as\_const(std::forward<TVal>(value))));}
+\DoxyCodeLine{35     \}}
+\DoxyCodeLine{36 \};}
+\DoxyCodeLine{37 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

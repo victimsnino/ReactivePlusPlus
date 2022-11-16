@@ -1,0 +1,49 @@
+\hypertarget{rpp_2observers_2fwd_8hpp_source}{}\doxysection{fwd.\+hpp}
+\label{rpp_2observers_2fwd_8hpp_source}\index{src/rpp/rpp/observers/fwd.hpp@{src/rpp/rpp/observers/fwd.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/utils/constraints.hpp>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1observer__tag}{observer\_tag}}\{\};}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{20 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1typed__observer__tag}{typed\_observer\_tag}} : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1details_1_1observer__tag}{observer\_tag}} \{\};}
+\DoxyCodeLine{21 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{keyword}{namespace }rpp::constraint}
+\DoxyCodeLine{24 \{}
+\DoxyCodeLine{25 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn, \textcolor{keyword}{typename} Type> \textcolor{keyword}{concept }on\_next\_fn      = std::invocable<std::decay\_t<Fn>, Type>;}
+\DoxyCodeLine{26 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn>                \textcolor{keyword}{concept }on\_error\_fn     = std::invocable<std::decay\_t<Fn>, std::exception\_ptr>;}
+\DoxyCodeLine{27 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn>                \textcolor{keyword}{concept }on\_completed\_fn = std::invocable<std::decay\_t<Fn>>;}
+\DoxyCodeLine{28 \} \textcolor{comment}{// namespace rpp::constraint}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{keyword}{namespace }rpp}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{32 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{33 \textcolor{keyword}{class }dynamic\_observer;}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{template}<constraint::decayed\_type T,}
+\DoxyCodeLine{36          constraint::on\_next\_fn<T>   OnNext,}
+\DoxyCodeLine{37          constraint::on\_error\_fn     OnError,}
+\DoxyCodeLine{38          constraint::on\_completed\_fn OnCompleted>}
+\DoxyCodeLine{39 \textcolor{keyword}{class }specific\_observer;}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{42 \textcolor{keyword}{using }specific\_observer\_with\_decayed\_args = \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer<std::decay\_t<Args>}}...>;}
+\DoxyCodeLine{43 \} \textcolor{comment}{// namespace rpp}}
+
+\end{DoxyCode}

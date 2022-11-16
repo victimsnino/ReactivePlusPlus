@@ -1,45 +1,22 @@
-\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$ Struct Template Reference}
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload\texorpdfstring{$<$}{<} Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag \texorpdfstring{$>$}{>} Struct Template Reference}
 \label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, combine\_latest\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, combine\_latest\_tag $>$}}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$constraint\+::observable ... T\+Other\+Observable, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ T\+Other\+Observable $>$... $>$ T\+Combiner$>$ }\\auto \mbox{\hyperlink{group__combining__operators_gaf13dd55fadee8dbc494dbff0a8106a57}{combine\+\_\+latest}} (T\+Combiner \&\&combiner, T\+Other\+Observable \&\&...observables) const \&requires is\+\_\+header\+\_\+included$<$ combine\+\_\+latest\+\_\+tag
+{\footnotesize template$<$constraint\+::observable ... TOther\+Observable, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ TOther\+Observable $>$... $>$ TCombiner$>$ \newline
+requires is\+\_\+header\+\_\+included$<$combine\+\_\+latest\+\_\+tag, TOther\+Observable...$>$}\\auto \mbox{\hyperlink{group__combining__operators_ga235795a45f5c6db3f6ec75204ab2d8a2}{combine\+\_\+latest}} (TCombiner \&\&combiner, TOther\+Observable \&\&...observables) const \&
 \begin{DoxyCompactList}\small\item\em Combines latest emissions from current observable and other observables when any of them emits. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4_a1af65af5e2a56cf31e2048ca879e465d}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4_a1af65af5e2a56cf31e2048ca879e465d}} 
-return {\bfseries cast\+\_\+this} () -\/$>$ template lift$<$ Downstream\+Type $>$(\mbox{\hyperlink{structrpp_1_1details_1_1combine__latest__impl}{combine\+\_\+latest\+\_\+impl}}$<$ Type, std\+::decay\+\_\+t$<$ T\+Combiner $>$, std\+::decay\+\_\+t$<$ T\+Other\+Observable $>$... $>$
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4_a2b2aae94b456404d6a346f53db4ac32f}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4_a2b2aae94b456404d6a346f53db4ac32f}} 
+{\footnotesize template$<$constraint\+::observable ... TOther\+Observable, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ TOther\+Observable $>$... $>$ TCombiner$>$ \newline
+requires is\+\_\+header\+\_\+included$<$combine\+\_\+latest\+\_\+tag, TOther\+Observable...$>$}\\auto {\bfseries combine\+\_\+latest} (TCombiner \&\&combiner, TOther\+Observable \&\&...observables) \&\&
 \item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4_a3466f2950e4f87771437bfdd180f8d41}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4_a3466f2950e4f87771437bfdd180f8d41}} 
-{\footnotesize template$<$constraint\+::observable ... T\+Other\+Observable, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ T\+Other\+Observable $>$... $>$ T\+Combiner$>$ }\\auto {\bfseries combine\+\_\+latest} (T\+Combiner \&\&combiner, T\+Other\+Observable \&\&...observables) \&\&requires is\+\_\+header\+\_\+included$<$ combine\+\_\+latest\+\_\+tag
-\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4_a26bc4a9f87db219c1ed829332222899d}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4_a26bc4a9f87db219c1ed829332222899d}} 
-return {\bfseries move\+\_\+this} ().template lift$<$ Downstream\+Type $>$(\mbox{\hyperlink{structrpp_1_1details_1_1combine__latest__impl}{combine\+\_\+latest\+\_\+impl}}$<$ Type
-\item 
-{\footnotesize template$<$constraint\+::observable ... T\+Other\+Observable$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga464ac64ef73830847fdb0ce2763ab42b}{combine\+\_\+latest}} (T\+Other\+Observable \&\&...observables) const \&requires is\+\_\+header\+\_\+included$<$ combine\+\_\+latest\+\_\+tag
+{\footnotesize template$<$constraint\+::observable ... TOther\+Observable$>$ \newline
+requires is\+\_\+header\+\_\+included$<$combine\+\_\+latest\+\_\+tag, TOther\+Observable...$>$}\\auto \mbox{\hyperlink{group__combining__operators_gacd8deec9fdd88032d272e097c2b70657}{combine\+\_\+latest}} (TOther\+Observable \&\&...observables) const \&
 \begin{DoxyCompactList}\small\item\em Combines latest emissions from current observable and other observables when any of them emits. The combining result is std\+::tuple$<$...$>$. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4_a2495a05463b17bd772ee12f30b67feb2}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4_a2495a05463b17bd772ee12f30b67feb2}} 
-{\footnotesize template$<$constraint\+::observable ... T\+Other\+Observable$>$ }\\auto {\bfseries combine\+\_\+latest} (T\+Other\+Observable \&\&...observables) \&\&requires is\+\_\+header\+\_\+included$<$ combine\+\_\+latest\+\_\+tag
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4_a66dadef21a7b890c04bc39971b5a3b7c}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4_a66dadef21a7b890c04bc39971b5a3b7c}} 
+{\footnotesize template$<$constraint\+::observable ... TOther\+Observable$>$ \newline
+requires is\+\_\+header\+\_\+included$<$combine\+\_\+latest\+\_\+tag, TOther\+Observable...$>$}\\auto {\bfseries combine\+\_\+latest} (TOther\+Observable \&\&...observables) \&\&
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-auto {\bfseries T\+Other\+Observable}
-\end{DoxyCompactItemize}
-
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4_ade80706fc3fef58751cf9ada1aed5702}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01combine__latest__tag_01_4_ade80706fc3fef58751cf9ada1aed5702}} 
-\index{rpp::details::member\_overload$<$ Type, SpecificObservable, combine\_latest\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, combine\_latest\_tag $>$}!TOtherObservable@{TOtherObservable}}
-\index{TOtherObservable@{TOtherObservable}!rpp::details::member\_overload$<$ Type, SpecificObservable, combine\_latest\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, combine\_latest\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{TOtherObservable}{TOtherObservable}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$\+::T\+Other\+Observable}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keyword}{using} DownstreamType = utils::decayed\_invoke\_result\_t<TCombiner, Type, utils::extract\_observable\_type\_t<TOtherObservable>...>}
-
-\end{DoxyCode}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}

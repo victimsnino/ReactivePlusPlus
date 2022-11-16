@@ -8,23 +8,32 @@ Combining operators are operators that combines emissions of multiple observable
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$constraint\+::observable ... T\+Other\+Observable, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ T\+Other\+Observable $>$... $>$ T\+Combiner$>$ }\\auto \mbox{\hyperlink{group__combining__operators_gaf13dd55fadee8dbc494dbff0a8106a57}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$\+::combine\+\_\+latest}} (T\+Combiner \&\&combiner, T\+Other\+Observable \&\&...observables) const \&requires is\+\_\+header\+\_\+included$<$ combine\+\_\+latest\+\_\+tag
+{\footnotesize template$<$constraint\+::observable ... TOther\+Observable, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ TOther\+Observable $>$... $>$ TCombiner$>$ \newline
+requires is\+\_\+header\+\_\+included$<$combine\+\_\+latest\+\_\+tag, TOther\+Observable...$>$}\\auto \mbox{\hyperlink{group__combining__operators_ga235795a45f5c6db3f6ec75204ab2d8a2}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$\+::combine\+\_\+latest}} (TCombiner \&\&combiner, TOther\+Observable \&\&...observables) const \&
 \begin{DoxyCompactList}\small\item\em Combines latest emissions from current observable and other observables when any of them emits. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::observable ... T\+Other\+Observable$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga464ac64ef73830847fdb0ce2763ab42b}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$\+::combine\+\_\+latest}} (T\+Other\+Observable \&\&...observables) const \&requires is\+\_\+header\+\_\+included$<$ combine\+\_\+latest\+\_\+tag
+{\footnotesize template$<$constraint\+::observable ... TOther\+Observable$>$ \newline
+requires is\+\_\+header\+\_\+included$<$combine\+\_\+latest\+\_\+tag, TOther\+Observable...$>$}\\auto \mbox{\hyperlink{group__combining__operators_gacd8deec9fdd88032d272e097c2b70657}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$\+::combine\+\_\+latest}} (TOther\+Observable \&\&...observables) const \&
 \begin{DoxyCompactList}\small\item\em Combines latest emissions from current observable and other observables when any of them emits. The combining result is std\+::tuple$<$...$>$. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename ... Args$>$ }\\auto \mbox{\hyperlink{group__combining__operators_gaa02153df55aab3d790a7102a245dfd2f}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge}} () const \&requires(is\+\_\+header\+\_\+included$<$ merge\+\_\+tag
+{\footnotesize template$<$typename ... Args$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, Args...$>$ \&\& rpp\+::constraint\+::observable$<$Type$>$)}\\auto \mbox{\hyperlink{group__combining__operators_ga84ed0dcdeda6a4cb3a9871ab2817e114}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge}} () const \&
 \begin{DoxyCompactList}\small\item\em Converts observable of observables of items into observable of items via merging emissions. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... T\+Observables$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga3341a36b0971c0cf59001fa65aeb36a4}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge\+\_\+with}} (T\+Observables \&\&... observables) const \&requires(is\+\_\+header\+\_\+included$<$ merge\+\_\+tag
+{\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... TObservables$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, TObservables...$>$\&\& sizeof...(TObservables) $>$= 1)}\\auto \mbox{\hyperlink{group__combining__operators_gafa55b14eec1c6c40b8655e20c6edf5b2}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge\+\_\+with}} (TObservables \&\&... observables) const \&
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one. \end{DoxyCompactList}\item 
-{\footnotesize template$<$rpp\+::memory\+\_\+model memory\+\_\+model = memory\+\_\+model\+::use\+\_\+stack, constraint\+::decayed\+\_\+same\+\_\+as$<$ Type $>$ ... T\+Types$>$ }\\auto \mbox{\hyperlink{group__combining__operators_gacfa9157d671f1d35f0a8be230dec4d10}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, start\+\_\+with\+\_\+tag $>$\+::start\+\_\+with}} (T\+Types \&\&...vals\+\_\+to\+\_\+start\+\_\+with) const \&requires is\+\_\+header\+\_\+included$<$ start\+\_\+with\+\_\+tag
+{\footnotesize template$<$rpp\+::memory\+\_\+model memory\+\_\+model = memory\+\_\+model\+::use\+\_\+stack, constraint\+::decayed\+\_\+same\+\_\+as$<$ Type $>$ ... TTypes$>$ \newline
+requires is\+\_\+header\+\_\+included$<$start\+\_\+with\+\_\+tag, TTypes...$>$}\\auto \mbox{\hyperlink{group__combining__operators_gaced47c11cd4cea804a6d0f7c33be2fa0}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, start\+\_\+with\+\_\+tag $>$\+::start\+\_\+with}} (TTypes \&\&...vals\+\_\+to\+\_\+start\+\_\+with) const \&
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... T\+Observables$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga35f7234aa6957c2c04afa6f1d8e71696}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, start\+\_\+with\+\_\+tag $>$\+::start\+\_\+with}} (T\+Observables \&\&...observables\+\_\+to\+\_\+start\+\_\+with) const \&requires is\+\_\+header\+\_\+included$<$ start\+\_\+with\+\_\+tag
+{\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... TObservables$>$ \newline
+requires is\+\_\+header\+\_\+included$<$start\+\_\+with\+\_\+tag, TObservables...$>$}\\auto \mbox{\hyperlink{group__combining__operators_gaf86bfdf7b2026804303f5b468fa22480}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, start\+\_\+with\+\_\+tag $>$\+::start\+\_\+with}} (TObservables \&\&...observables\+\_\+to\+\_\+start\+\_\+with) const \&
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one but without overlapping and starting from observables provided as arguments. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename ... Args$>$ }\\auto \mbox{\hyperlink{group__combining__operators_gac9a4fd5e39aef8493fa07e2437066aad}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, switch\+\_\+on\+\_\+next\+\_\+tag $>$\+::switch\+\_\+on\+\_\+next}} () const \&requires(is\+\_\+header\+\_\+included$<$ switch\+\_\+on\+\_\+next\+\_\+tag
+{\footnotesize template$<$typename ... Args$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$switch\+\_\+on\+\_\+next\+\_\+tag, Args...$>$\&\& rpp\+::constraint\+::observable$<$Type$>$)}\\auto \mbox{\hyperlink{group__combining__operators_ga2e3a232da875328d9d53adf7a30c25cf}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, switch\+\_\+on\+\_\+next\+\_\+tag $>$\+::switch\+\_\+on\+\_\+next}} () const \&
 \begin{DoxyCompactList}\small\item\em Converts observable of observables into observable of values which emits values from most recent underlying observable till new observable obtained. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::observable ... T\+Observables, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ T\+Observables $>$... $>$ T\+Selector$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga3881bcfd0f283b89e20dcb3b48c08fe4}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, with\+\_\+latest\+\_\+from\+\_\+tag $>$\+::with\+\_\+latest\+\_\+from}} (T\+Selector \&\&selector, T\+Observables \&\&...observables) const \&requires is\+\_\+header\+\_\+included$<$ with\+\_\+latest\+\_\+from\+\_\+tag
+{\footnotesize template$<$constraint\+::observable ... TObservables, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ TObservables $>$... $>$ TSelector$>$ \newline
+requires is\+\_\+header\+\_\+included$<$with\+\_\+latest\+\_\+from\+\_\+tag, TObservables...$>$}\\auto \mbox{\hyperlink{group__combining__operators_ga805656c8847d81ace55ebc71d0598e44}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, with\+\_\+latest\+\_\+from\+\_\+tag $>$\+::with\+\_\+latest\+\_\+from}} (TSelector \&\&selector, TObservables \&\&...observables) const \&
 \begin{DoxyCompactList}\small\item\em Combines latest emissions from observables with emission from current observable when it sends new value via applying selector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::observable ... T\+Observables$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga41f62df9b82778838be353be69981f82}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, with\+\_\+latest\+\_\+from\+\_\+tag $>$\+::with\+\_\+latest\+\_\+from}} (T\+Observables \&\&...observables) const \&requires is\+\_\+header\+\_\+included$<$ with\+\_\+latest\+\_\+from\+\_\+tag
+{\footnotesize template$<$constraint\+::observable ... TObservables$>$ \newline
+requires is\+\_\+header\+\_\+included$<$with\+\_\+latest\+\_\+from\+\_\+tag, TObservables...$>$}\\auto \mbox{\hyperlink{group__combining__operators_ga4ea21b87312c2789a9fac07aca6037ed}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, with\+\_\+latest\+\_\+from\+\_\+tag $>$\+::with\+\_\+latest\+\_\+from}} (TObservables \&\&...observables) const \&
 \begin{DoxyCompactList}\small\item\em Combines latest emissions from observables with emission from current observable when it sends new value via making tuple. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -37,13 +46,14 @@ Combining operators are operators that combines emissions of multiple observable
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{group__combining__operators_gaf13dd55fadee8dbc494dbff0a8106a57}\label{group__combining__operators_gaf13dd55fadee8dbc494dbff0a8106a57}} 
+\mbox{\Hypertarget{group__combining__operators_ga235795a45f5c6db3f6ec75204ab2d8a2}\label{group__combining__operators_ga235795a45f5c6db3f6ec75204ab2d8a2}} 
 \index{Combining Operators@{Combining Operators}!combine\_latest@{combine\_latest}}
 \index{combine\_latest@{combine\_latest}!Combining Operators@{Combining Operators}}
 \doxysubsubsection{\texorpdfstring{combine\_latest()}{combine\_latest()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$constraint\+::observable ... T\+Other\+Observable, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ T\+Other\+Observable $>$... $>$ T\+Combiner$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$\+::combine\+\_\+latest (\begin{DoxyParamCaption}\item[{T\+Combiner \&\&}]{combiner,  }\item[{T\+Other\+Observable \&\&...}]{observables }\end{DoxyParamCaption}) const \&}
+template$<$constraint\+::observable ... TOther\+Observable, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ TOther\+Observable $>$... $>$ TCombiner$>$ \newline
+requires is\+\_\+header\+\_\+included$<$combine\+\_\+latest\+\_\+tag, TOther\+Observable...$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$\+::combine\+\_\+latest (\begin{DoxyParamCaption}\item[{TCombiner \&\&}]{combiner,  }\item[{TOther\+Observable \&\&...}]{observables }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -65,35 +75,37 @@ According to observable contract (\href{https://reactivex.io/documentation/contr
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the combine\+\_\+latest operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{combine__latest_8hpp_source}{rpp/operators/combine\+\_\+latest.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{combine__latest_8hpp_source}{rpp/operators/combine\+\_\+latest.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Examples}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)                                  \textcolor{comment}{// source 1}}
+\DoxyCodeLine{    rpp::source::just(1, 2, 3)                                  \textcolor{comment}{// source 1}}
 \DoxyCodeLine{        .combine\_latest(}
 \DoxyCodeLine{            [](\textcolor{keywordtype}{int} left, \textcolor{keywordtype}{int} right) \{ \textcolor{keywordflow}{return} left + right; \},   \textcolor{comment}{// custom combiner}}
-\DoxyCodeLine{            \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(4, 5, 6))                         \textcolor{comment}{// source 2}}
+\DoxyCodeLine{            rpp::source::just(4, 5, 6))                         \textcolor{comment}{// source 2}}
 \DoxyCodeLine{        .subscribe(}
-\DoxyCodeLine{            [](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"-\/"} << v; \},}
+\DoxyCodeLine{            [](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}-\/"{}} << v; \},}
 \DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr\&) \{\},}
-\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"-\/|"} << std::endl; \});}
+\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"{}-\/|"{}} << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// source 1:          -\/1-\/-\/-\/2-\/-\/-\/3-\/|}}
 \DoxyCodeLine{    \textcolor{comment}{// source 2: -\/4-\/-\/-\/5-\/-\/-\/6-\/| (note that source 2 is subscribed earlier than source 1)}}
 \DoxyCodeLine{    \textcolor{comment}{// Output  : -\/7-\/8-\/9-\/|}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/combinelatest.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/combinelatest.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__combining__operators_ga464ac64ef73830847fdb0ce2763ab42b}\label{group__combining__operators_ga464ac64ef73830847fdb0ce2763ab42b}} 
+\mbox{\Hypertarget{group__combining__operators_gacd8deec9fdd88032d272e097c2b70657}\label{group__combining__operators_gacd8deec9fdd88032d272e097c2b70657}} 
 \index{Combining Operators@{Combining Operators}!combine\_latest@{combine\_latest}}
 \index{combine\_latest@{combine\_latest}!Combining Operators@{Combining Operators}}
 \doxysubsubsection{\texorpdfstring{combine\_latest()}{combine\_latest()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$constraint\+::observable ... T\+Other\+Observable$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$\+::combine\+\_\+latest (\begin{DoxyParamCaption}\item[{T\+Other\+Observable \&\&...}]{observables }\end{DoxyParamCaption}) const \&}
+template$<$constraint\+::observable ... TOther\+Observable$>$ \newline
+requires is\+\_\+header\+\_\+included$<$combine\+\_\+latest\+\_\+tag, TOther\+Observable...$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$\+::combine\+\_\+latest (\begin{DoxyParamCaption}\item[{TOther\+Observable \&\&...}]{observables }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -110,35 +122,37 @@ Combines latest emissions from current observable and other observables when any
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the combine\+\_\+latest operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{combine__latest_8hpp_source}{rpp/operators/combine\+\_\+latest.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{combine__latest_8hpp_source}{rpp/operators/combine\+\_\+latest.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Examples}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)                                  \textcolor{comment}{// source 1}}
+\DoxyCodeLine{    rpp::source::just(1, 2, 3)                                  \textcolor{comment}{// source 1}}
 \DoxyCodeLine{        .combine\_latest(}
 \DoxyCodeLine{            [](\textcolor{keywordtype}{int} left, \textcolor{keywordtype}{int} right) \{ \textcolor{keywordflow}{return} left + right; \},   \textcolor{comment}{// custom combiner}}
-\DoxyCodeLine{            \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(4, 5, 6))                         \textcolor{comment}{// source 2}}
+\DoxyCodeLine{            rpp::source::just(4, 5, 6))                         \textcolor{comment}{// source 2}}
 \DoxyCodeLine{        .subscribe(}
-\DoxyCodeLine{            [](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"-\/"} << v; \},}
+\DoxyCodeLine{            [](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}-\/"{}} << v; \},}
 \DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr\&) \{\},}
-\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"-\/|"} << std::endl; \});}
+\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"{}-\/|"{}} << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// source 1:          -\/1-\/-\/-\/2-\/-\/-\/3-\/|}}
 \DoxyCodeLine{    \textcolor{comment}{// source 2: -\/4-\/-\/-\/5-\/-\/-\/6-\/| (note that source 2 is subscribed earlier than source 1)}}
 \DoxyCodeLine{    \textcolor{comment}{// Output  : -\/7-\/8-\/9-\/|}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/combinelatest.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/combinelatest.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__combining__operators_gaa02153df55aab3d790a7102a245dfd2f}\label{group__combining__operators_gaa02153df55aab3d790a7102a245dfd2f}} 
+\mbox{\Hypertarget{group__combining__operators_ga84ed0dcdeda6a4cb3a9871ab2817e114}\label{group__combining__operators_ga84ed0dcdeda6a4cb3a9871ab2817e114}} 
 \index{Combining Operators@{Combining Operators}!merge@{merge}}
 \index{merge@{merge}!Combining Operators@{Combining Operators}}
 \doxysubsubsection{\texorpdfstring{merge()}{merge()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$typename ... Args$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&}
+template$<$typename ... Args$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, Args...$>$ \&\& rpp\+::constraint\+::observable$<$Type$>$)\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -153,30 +167,32 @@ According to observable contract (\href{https://reactivex.io/documentation/contr
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the merge operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{merge_8hpp_source}{rpp/operators/merge.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{merge_8hpp_source}{rpp/operators/merge.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(\mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1).as\_dynamic(),}
+\DoxyCodeLine{    rpp::source::just(rpp::source::just(1).as\_dynamic(),}
 \DoxyCodeLine{                      rpp::source::never<int>().as\_dynamic(),}
-\DoxyCodeLine{                      \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(2).as\_dynamic())}
+\DoxyCodeLine{                      rpp::source::just(2).as\_dynamic())}
 \DoxyCodeLine{            .merge()}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 1 2}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/merge.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/merge.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__combining__operators_ga3341a36b0971c0cf59001fa65aeb36a4}\label{group__combining__operators_ga3341a36b0971c0cf59001fa65aeb36a4}} 
+\mbox{\Hypertarget{group__combining__operators_gafa55b14eec1c6c40b8655e20c6edf5b2}\label{group__combining__operators_gafa55b14eec1c6c40b8655e20c6edf5b2}} 
 \index{Combining Operators@{Combining Operators}!merge\_with@{merge\_with}}
 \index{merge\_with@{merge\_with}!Combining Operators@{Combining Operators}}
 \doxysubsubsection{\texorpdfstring{merge\_with()}{merge\_with()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... T\+Observables$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge\+\_\+with (\begin{DoxyParamCaption}\item[{T\+Observables \&\&...}]{observables }\end{DoxyParamCaption}) const \&}
+template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... TObservables$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, TObservables...$>$\&\& sizeof...(TObservables) $>$= 1)\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge\+\_\+with (\begin{DoxyParamCaption}\item[{TObservables \&\&...}]{observables }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -196,28 +212,30 @@ According to observable contract (\href{https://reactivex.io/documentation/contr
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the merge operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{merge_8hpp_source}{rpp/operators/merge.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{merge_8hpp_source}{rpp/operators/merge.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1)}
-\DoxyCodeLine{            .merge\_with(\mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(2))}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{    rpp::source::just(1)}
+\DoxyCodeLine{            .merge\_with(rpp::source::just(2))}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 1 2}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/merge.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/merge.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__combining__operators_ga35f7234aa6957c2c04afa6f1d8e71696}\label{group__combining__operators_ga35f7234aa6957c2c04afa6f1d8e71696}} 
+\mbox{\Hypertarget{group__combining__operators_gaf86bfdf7b2026804303f5b468fa22480}\label{group__combining__operators_gaf86bfdf7b2026804303f5b468fa22480}} 
 \index{Combining Operators@{Combining Operators}!start\_with@{start\_with}}
 \index{start\_with@{start\_with}!Combining Operators@{Combining Operators}}
 \doxysubsubsection{\texorpdfstring{start\_with()}{start\_with()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... T\+Observables$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, start\+\_\+with\+\_\+tag $>$\+::start\+\_\+with (\begin{DoxyParamCaption}\item[{T\+Observables \&\&...}]{observables\+\_\+to\+\_\+start\+\_\+with }\end{DoxyParamCaption}) const \&}
+template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... TObservables$>$ \newline
+requires is\+\_\+header\+\_\+included$<$start\+\_\+with\+\_\+tag, TObservables...$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, start\+\_\+with\+\_\+tag $>$\+::start\+\_\+with (\begin{DoxyParamCaption}\item[{TObservables \&\&...}]{observables\+\_\+to\+\_\+start\+\_\+with }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -236,28 +254,30 @@ Actually it makes concat but arguments passed before current observable
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the start\+\_\+with operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{start__with_8hpp_source}{rpp/operators/start\+\_\+with.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{start__with_8hpp_source}{rpp/operators/start\+\_\+with.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)}
-\DoxyCodeLine{        .start\_with(\mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(5), \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(6))}
-\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{    rpp::source::just(1, 2, 3)}
+\DoxyCodeLine{        .start\_with(rpp::source::just(5), rpp::source::just(6))}
+\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 5 6 1 2 3}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/startwith.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/startwith.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__combining__operators_gacfa9157d671f1d35f0a8be230dec4d10}\label{group__combining__operators_gacfa9157d671f1d35f0a8be230dec4d10}} 
+\mbox{\Hypertarget{group__combining__operators_gaced47c11cd4cea804a6d0f7c33be2fa0}\label{group__combining__operators_gaced47c11cd4cea804a6d0f7c33be2fa0}} 
 \index{Combining Operators@{Combining Operators}!start\_with@{start\_with}}
 \index{start\_with@{start\_with}!Combining Operators@{Combining Operators}}
 \doxysubsubsection{\texorpdfstring{start\_with()}{start\_with()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$rpp\+::memory\+\_\+model memory\+\_\+model = memory\+\_\+model\+::use\+\_\+stack, constraint\+::decayed\+\_\+same\+\_\+as$<$ Type $>$ ... T\+Types$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, start\+\_\+with\+\_\+tag $>$\+::start\+\_\+with (\begin{DoxyParamCaption}\item[{T\+Types \&\&...}]{vals\+\_\+to\+\_\+start\+\_\+with }\end{DoxyParamCaption}) const \&}
+template$<$rpp\+::memory\+\_\+model memory\+\_\+model = memory\+\_\+model\+::use\+\_\+stack, constraint\+::decayed\+\_\+same\+\_\+as$<$ Type $>$ ... TTypes$>$ \newline
+requires is\+\_\+header\+\_\+included$<$start\+\_\+with\+\_\+tag, TTypes...$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, start\+\_\+with\+\_\+tag $>$\+::start\+\_\+with (\begin{DoxyParamCaption}\item[{TTypes \&\&...}]{vals\+\_\+to\+\_\+start\+\_\+with }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -281,28 +301,30 @@ Actually it makes concat but arguments passed before current observable
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the start\+\_\+with operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{start__with_8hpp_source}{rpp/operators/start\+\_\+with.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{start__with_8hpp_source}{rpp/operators/start\+\_\+with.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1,2,3)}
+\DoxyCodeLine{    rpp::source::just(1,2,3)}
 \DoxyCodeLine{        .start\_with(5, 6)}
-\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 5 6 1 2 3}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/startwith.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/startwith.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__combining__operators_gac9a4fd5e39aef8493fa07e2437066aad}\label{group__combining__operators_gac9a4fd5e39aef8493fa07e2437066aad}} 
+\mbox{\Hypertarget{group__combining__operators_ga2e3a232da875328d9d53adf7a30c25cf}\label{group__combining__operators_ga2e3a232da875328d9d53adf7a30c25cf}} 
 \index{Combining Operators@{Combining Operators}!switch\_on\_next@{switch\_on\_next}}
 \index{switch\_on\_next@{switch\_on\_next}!Combining Operators@{Combining Operators}}
 \doxysubsubsection{\texorpdfstring{switch\_on\_next()}{switch\_on\_next()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$typename ... Args$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, switch\+\_\+on\+\_\+next\+\_\+tag $>$\+::switch\+\_\+on\+\_\+next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&}
+template$<$typename ... Args$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$switch\+\_\+on\+\_\+next\+\_\+tag, Args...$>$\&\& rpp\+::constraint\+::observable$<$Type$>$)\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, switch\+\_\+on\+\_\+next\+\_\+tag $>$\+::switch\+\_\+on\+\_\+next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -314,30 +336,32 @@ Converts observable of observables into observable of values which emits values 
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the switch\+\_\+on\+\_\+next operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{switch__on__next_8hpp_source}{rpp/operators/switch\+\_\+on\+\_\+next.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{switch__on__next_8hpp_source}{rpp/operators/switch\+\_\+on\+\_\+next.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(\mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1).as\_dynamic(),}
+\DoxyCodeLine{    rpp::source::just(rpp::source::just(1).as\_dynamic(),}
 \DoxyCodeLine{                      rpp::source::never<int>().as\_dynamic(),}
-\DoxyCodeLine{                      \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(2).as\_dynamic())}
+\DoxyCodeLine{                      rpp::source::just(2).as\_dynamic())}
 \DoxyCodeLine{            .switch\_on\_next()}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 1 2}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/switch.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/switch.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__combining__operators_ga41f62df9b82778838be353be69981f82}\label{group__combining__operators_ga41f62df9b82778838be353be69981f82}} 
+\mbox{\Hypertarget{group__combining__operators_ga4ea21b87312c2789a9fac07aca6037ed}\label{group__combining__operators_ga4ea21b87312c2789a9fac07aca6037ed}} 
 \index{Combining Operators@{Combining Operators}!with\_latest\_from@{with\_latest\_from}}
 \index{with\_latest\_from@{with\_latest\_from}!Combining Operators@{Combining Operators}}
 \doxysubsubsection{\texorpdfstring{with\_latest\_from()}{with\_latest\_from()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$constraint\+::observable ... T\+Observables$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, with\+\_\+latest\+\_\+from\+\_\+tag $>$\+::with\+\_\+latest\+\_\+from (\begin{DoxyParamCaption}\item[{T\+Observables \&\&...}]{observables }\end{DoxyParamCaption}) const \&}
+template$<$constraint\+::observable ... TObservables$>$ \newline
+requires is\+\_\+header\+\_\+included$<$with\+\_\+latest\+\_\+from\+\_\+tag, TObservables...$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, with\+\_\+latest\+\_\+from\+\_\+tag $>$\+::with\+\_\+latest\+\_\+from (\begin{DoxyParamCaption}\item[{TObservables \&\&...}]{observables }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -354,28 +378,30 @@ Combines latest emissions from observables with emission from current observable
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the with\+\_\+latest\+\_\+from operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{with__latest__from_8hpp_source}{rpp/operators/with\+\_\+latest\+\_\+from.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{with__latest__from_8hpp_source}{rpp/operators/with\+\_\+latest\+\_\+from.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Examples}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)}
-\DoxyCodeLine{        .with\_latest\_from(\mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(3, 4, 5, 6))}
-\DoxyCodeLine{        .subscribe([](std::tuple<int,int> v) \{ std::cout << std::get<0>(v) << \textcolor{stringliteral}{":"} << std::get<1>(v) << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{    rpp::source::just(1, 2, 3)}
+\DoxyCodeLine{        .with\_latest\_from(rpp::source::just(3, 4, 5, 6))}
+\DoxyCodeLine{        .subscribe([](std::tuple<int,int> v) \{ std::cout << std::get<0>(v) << \textcolor{stringliteral}{"{}:"{}} << std::get<1>(v) << \textcolor{stringliteral}{"{} "{}}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 1:6 2:6 3:6}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/combinelatest.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/combinelatest.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__combining__operators_ga3881bcfd0f283b89e20dcb3b48c08fe4}\label{group__combining__operators_ga3881bcfd0f283b89e20dcb3b48c08fe4}} 
+\mbox{\Hypertarget{group__combining__operators_ga805656c8847d81ace55ebc71d0598e44}\label{group__combining__operators_ga805656c8847d81ace55ebc71d0598e44}} 
 \index{Combining Operators@{Combining Operators}!with\_latest\_from@{with\_latest\_from}}
 \index{with\_latest\_from@{with\_latest\_from}!Combining Operators@{Combining Operators}}
 \doxysubsubsection{\texorpdfstring{with\_latest\_from()}{with\_latest\_from()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$constraint\+::observable ... T\+Observables, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ T\+Observables $>$... $>$ T\+Selector$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, with\+\_\+latest\+\_\+from\+\_\+tag $>$\+::with\+\_\+latest\+\_\+from (\begin{DoxyParamCaption}\item[{T\+Selector \&\&}]{selector,  }\item[{T\+Observables \&\&...}]{observables }\end{DoxyParamCaption}) const \&}
+template$<$constraint\+::observable ... TObservables, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ TObservables $>$... $>$ TSelector$>$ \newline
+requires is\+\_\+header\+\_\+included$<$with\+\_\+latest\+\_\+from\+\_\+tag, TObservables...$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, with\+\_\+latest\+\_\+from\+\_\+tag $>$\+::with\+\_\+latest\+\_\+from (\begin{DoxyParamCaption}\item[{TSelector \&\&}]{selector,  }\item[{TObservables \&\&...}]{observables }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -394,16 +420,17 @@ Combines latest emissions from observables with emission from current observable
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the with\+\_\+latest\+\_\+from operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{with__latest__from_8hpp_source}{rpp/operators/with\+\_\+latest\+\_\+from.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{with__latest__from_8hpp_source}{rpp/operators/with\+\_\+latest\+\_\+from.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Examples}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)}
+\DoxyCodeLine{    rpp::source::just(1, 2, 3)}
 \DoxyCodeLine{        .with\_latest\_from([](\textcolor{keywordtype}{int} left, \textcolor{keywordtype}{int} right) \{ \textcolor{keywordflow}{return} left + right; \},}
-\DoxyCodeLine{                          \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(3, 4, 5, 6))}
-\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{                          rpp::source::just(3, 4, 5, 6))}
+\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 7 8 9}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}

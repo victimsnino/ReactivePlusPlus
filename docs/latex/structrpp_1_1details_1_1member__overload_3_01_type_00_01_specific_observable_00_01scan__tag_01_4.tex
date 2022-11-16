@@ -1,37 +1,15 @@
-\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01scan__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, scan\+\_\+tag $>$ Struct Template Reference}
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01scan__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload\texorpdfstring{$<$}{<} Type, Specific\+Observable, scan\+\_\+tag \texorpdfstring{$>$}{>} Struct Template Reference}
 \label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01scan__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, scan\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, scan\_tag $>$}}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename Result , scan\+\_\+accumulator$<$ Result, Type $>$ Accumulator\+Fn$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gad4cf46a565f1081cd7b8bc26aa99e640}{scan}} (Result \&\&initial\+\_\+value, Accumulator\+Fn \&\&accumulator) const \&requires is\+\_\+header\+\_\+included$<$ scan\+\_\+tag
+{\footnotesize template$<$typename Result , scan\+\_\+accumulator$<$ Result, Type $>$ Accumulator\+Fn$>$ \newline
+requires is\+\_\+header\+\_\+included$<$scan\+\_\+tag, Result, Accumulator\+Fn$>$}\\auto \mbox{\hyperlink{group__transforming__operators_ga32b19b1b37ecd7a14d08c5936e2023e1}{scan}} (Result \&\&initial\+\_\+value, Accumulator\+Fn \&\&accumulator) const \&
 \begin{DoxyCompactList}\small\item\em Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01scan__tag_01_4_a120e9c48c3137172ed67a26aa5230dbe}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01scan__tag_01_4_a120e9c48c3137172ed67a26aa5230dbe}} 
-{\footnotesize template$<$typename Result , scan\+\_\+accumulator$<$ Result, Type $>$ Accumulator\+Fn$>$ }\\auto {\bfseries scan} (Result \&\&initial\+\_\+value, Accumulator\+Fn \&\&accumulator) \&\&requires is\+\_\+header\+\_\+included$<$ scan\+\_\+tag
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01scan__tag_01_4_ab9f095f50aeb780e4c01c7f54ff38c34}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01scan__tag_01_4_ab9f095f50aeb780e4c01c7f54ff38c34}} 
+{\footnotesize template$<$typename Result , scan\+\_\+accumulator$<$ Result, Type $>$ Accumulator\+Fn$>$ \newline
+requires is\+\_\+header\+\_\+included$<$scan\+\_\+tag, Result, Accumulator\+Fn$>$}\\auto {\bfseries scan} (Result \&\&initial\+\_\+value, Accumulator\+Fn \&\&accumulator) \&\&
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01scan__tag_01_4_ad5134bf3fda2f0a5bd3df93a32787cf6}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01scan__tag_01_4_ad5134bf3fda2f0a5bd3df93a32787cf6}} 
-auto {\bfseries Result}
-\item 
-auto {\bfseries Accumulator\+Fn}
-\end{DoxyCompactItemize}
-
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01scan__tag_01_4_ae5e9db7e28ef4acd5fb14db7b8fe7369}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01scan__tag_01_4_ae5e9db7e28ef4acd5fb14db7b8fe7369}} 
-\index{rpp::details::member\_overload$<$ Type, SpecificObservable, scan\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, scan\_tag $>$}!AccumulatorFn@{AccumulatorFn}}
-\index{AccumulatorFn@{AccumulatorFn}!rpp::details::member\_overload$<$ Type, SpecificObservable, scan\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, scan\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{AccumulatorFn}{AccumulatorFn}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, scan\+\_\+tag $>$\+::Accumulator\+Fn}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<std::decay\_t<Result>>(scan\_impl<Type, std::decay\_t<Result>, std::decay\_t<AccumulatorFn>>\{std::forward<Result>(initial\_value), std::forward<AccumulatorFn>(accumulator)\})}
-
-\end{DoxyCode}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}

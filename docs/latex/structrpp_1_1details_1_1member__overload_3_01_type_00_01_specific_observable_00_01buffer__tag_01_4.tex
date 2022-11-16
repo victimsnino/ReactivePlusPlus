@@ -1,34 +1,15 @@
-\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, buffer\+\_\+tag $>$ Struct Template Reference}
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload\texorpdfstring{$<$}{<} Type, Specific\+Observable, buffer\+\_\+tag \texorpdfstring{$>$}{>} Struct Template Reference}
 \label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, buffer\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, buffer\_tag $>$}}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename ... Args$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_ga247e5e6cf5d4fe048588046ad34180ee}{buffer}} (size\+\_\+t count) const \&requires is\+\_\+header\+\_\+included$<$ buffer\+\_\+tag
+{\footnotesize template$<$typename ... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$buffer\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__transforming__operators_gaaaadd88de768811a7397897432b00f17}{buffer}} (size\+\_\+t count) const \&
 \begin{DoxyCompactList}\small\item\em periodically gather items emitted by an Observable into bundles and emit these bundles rather than emitting the items one at a time \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4_ae43588a7b38283ce4ac0ab97c9c0ba4e}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4_ae43588a7b38283ce4ac0ab97c9c0ba4e}} 
-{\footnotesize template$<$typename ... Args$>$ }\\auto {\bfseries buffer} (size\+\_\+t count) \&\&requires is\+\_\+header\+\_\+included$<$ buffer\+\_\+tag
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4_a4525218f42f945e077f6e91055554345}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4_a4525218f42f945e077f6e91055554345}} 
+{\footnotesize template$<$typename ... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$buffer\+\_\+tag, Args...$>$}\\auto {\bfseries buffer} (size\+\_\+t count) \&\&
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-auto {\bfseries Args}
-\end{DoxyCompactItemize}
-
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4_a70d8f46edaea1d5b502535a0ac3e8b7a}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01buffer__tag_01_4_a70d8f46edaea1d5b502535a0ac3e8b7a}} 
-\index{rpp::details::member\_overload$<$ Type, SpecificObservable, buffer\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, buffer\_tag $>$}!Args@{Args}}
-\index{Args@{Args}!rpp::details::member\_overload$<$ Type, SpecificObservable, buffer\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, buffer\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{Args}{Args}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, buffer\+\_\+tag $>$\+::Args}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} CastThis()-\/>template lift<buffer\_bundle\_type<Type>>(buffer\_impl<Type>\{count\})}
-
-\end{DoxyCode}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}

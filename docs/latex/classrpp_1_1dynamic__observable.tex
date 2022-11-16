@@ -1,4 +1,4 @@
-\hypertarget{classrpp_1_1dynamic__observable}{}\doxysection{rpp\+::dynamic\+\_\+observable$<$ Type $>$ Class Template Reference}
+\hypertarget{classrpp_1_1dynamic__observable}{}\doxysection{rpp\+::dynamic\+\_\+observable\texorpdfstring{$<$}{<} Type \texorpdfstring{$>$}{>} Class Template Reference}
 \label{classrpp_1_1dynamic__observable}\index{rpp::dynamic\_observable$<$ Type $>$@{rpp::dynamic\_observable$<$ Type $>$}}
 
 
@@ -9,10 +9,10 @@ Type-\/less observable (or partially untyped) that has the notion of Type but hi
 
 {\ttfamily \#include $<$dynamic\+\_\+observable.\+hpp$>$}
 
-Inheritance diagram for rpp\+::dynamic\+\_\+observable$<$ Type $>$\+:\begin{figure}[H]
+Inheritance diagram for rpp\+::dynamic\+\_\+observable\texorpdfstring{$<$}{<} Type \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{classrpp_1_1dynamic__observable}
+\includegraphics[height=12.000000cm]{classrpp_1_1dynamic__observable}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Types}
@@ -27,16 +27,25 @@ using {\bfseries base} = \mbox{\hyperlink{classrpp_1_1specific__observable}{spec
 \mbox{\Hypertarget{classrpp_1_1dynamic__observable_a1eee1b52d0222f356241aeafc494b4b0}\label{classrpp_1_1dynamic__observable_a1eee1b52d0222f356241aeafc494b4b0}} 
 {\bfseries dynamic\+\_\+observable} (constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ auto \&\&on\+\_\+subscribe)
 \item 
-\mbox{\Hypertarget{classrpp_1_1dynamic__observable_a5d09a79f05a06995bd93fae518fba1f9}\label{classrpp_1_1dynamic__observable_a5d09a79f05a06995bd93fae518fba1f9}} 
-{\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ T\+Obs$>$ }\\{\bfseries requires} (!std\+::is\+\_\+same\+\_\+v$<$ std\+::decay\+\_\+t$<$ T\+Obs $>$, \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\+\_\+observable}}$<$ Type $>$$>$) \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\+\_\+observable}}(T\+Obs \&\&observable)
+\mbox{\Hypertarget{classrpp_1_1dynamic__observable_af70fa600f3225bc846c6018306347421}\label{classrpp_1_1dynamic__observable_af70fa600f3225bc846c6018306347421}} 
+{\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ TObs$>$ \newline
+requires (!std\+::is\+\_\+same\+\_\+v$<$std\+::decay\+\_\+t$<$TObs$>$, \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\+\_\+observable}}$<$Type$>$$>$)}\\{\bfseries dynamic\+\_\+observable} (TObs \&\&observable)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 \subsubsection*{template$<$constraint\+::decayed\+\_\+type Type$>$\newline
 class rpp\+::dynamic\+\_\+observable$<$ Type $>$}
-
 Type-\/less observable (or partially untyped) that has the notion of Type but hides the notion of on\+\_\+subscribe$<$\+Type$>$ for C++ compiler. 
+
+This is a C++ technique called type-\/erasure. Multiple instances of the observable$<$type$>$ that may have different upstream graphs are considered homogeneous. i.\+e. They can be stored in the same container, e.\+g. std\+::vector. As a result, it uses heap to store on\+\_\+subscribe and hide its type.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Type} & is the value type. Observable of type means this source could emit a sequence of items of that \char`\"{}\+Type\char`\"{}.\\
+\hline
+\end{DoxyParams}
+
 
 This is a C++ technique called type-\/erasure. Multiple instances of the observable$<$type$>$ that may have different upstream graphs are considered homogeneous. i.\+e. They can be stored in the same container, e.\+g. std\+::vector. As a result, it uses heap to store on\+\_\+subscribe and hide its type.
 

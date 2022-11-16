@@ -7,9 +7,9 @@
 \DoxyCodeLine{\textcolor{keywordtype}{int} main()}
 \DoxyCodeLine{\{}
 \DoxyCodeLine{    \textcolor{keyword}{auto} run\_loop = \mbox{\hyperlink{classrpp_1_1schedulers_1_1run__loop}{rpp::schedulers::run\_loop}}\{\};}
-\DoxyCodeLine{    \textcolor{keyword}{auto} sub = \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(10, 15, 20)}
+\DoxyCodeLine{    \textcolor{keyword}{auto} sub = rpp::source::just(10, 15, 20)}
 \DoxyCodeLine{        .observe\_on(run\_loop)}
-\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout <<  v << \textcolor{stringliteral}{"\(\backslash\)n"}; \});}
+\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout <<  v << \textcolor{stringliteral}{"{}\(\backslash\)n"{}}; \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{comment}{// No output}}
 \DoxyCodeLine{}
@@ -24,5 +24,6 @@
 \DoxyCodeLine{    \textcolor{comment}{// 20}}
 \DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
 \DoxyCodeLine{\}}
+
 \end{DoxyCodeInclude}
  

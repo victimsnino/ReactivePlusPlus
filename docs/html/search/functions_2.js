@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['combine_5flatest_526',['combine_latest',['../group__combining__operators.html#gaf13dd55fadee8dbc494dbff0a8106a57',1,'rpp::details::member_overload&lt; Type, SpecificObservable, combine_latest_tag &gt;::combine_latest(TCombiner &amp;&amp;combiner, TOtherObservable &amp;&amp;...observables) const &amp;requires is_header_included&lt; combine_latest_tag'],['../group__combining__operators.html#ga464ac64ef73830847fdb0ce2763ab42b',1,'rpp::details::member_overload&lt; Type, SpecificObservable, combine_latest_tag &gt;::combine_latest(TOtherObservable &amp;&amp;...observables) const &amp;requires is_header_included&lt; combine_latest_tag']]],
-  ['concat_527',['concat',['../group__aggregate__operators.html#gae285d5bc977679959decfb4c04869b0d',1,'rpp::details::member_overload&lt; Type, SpecificObservable, concat_tag &gt;']]],
-  ['concat_5fwith_528',['concat_with',['../group__aggregate__operators.html#ga39eb8246898cc501a353eaa2d290a1db',1,'rpp::details::member_overload&lt; Type, SpecificObservable, concat_tag &gt;']]]
+  ['combine_5flatest_0',['combine_latest',['../group__combining__operators.html#ga235795a45f5c6db3f6ec75204ab2d8a2',1,'observable::combine_latest(TCombiner &amp;&amp;combiner, TOtherObservable &amp;&amp;...observables) const &amp;'],['../group__combining__operators.html#gacd8deec9fdd88032d272e097c2b70657',1,'observable::combine_latest(TOtherObservable &amp;&amp;...observables) const &amp;']]],
+  ['concat_1',['concat',['../group__aggregate__operators.html#gaa88f9603fc5335eb17ecf4a850ebdb66',1,'observable']]],
+  ['concat_5fwith_2',['concat_with',['../group__aggregate__operators.html#ga79ba014ced99027ccf3f263f58e3026b',1,'observable']]],
+  ['create_3',['create',['../group__creational__operators.html#gae4a1f681fe61dff2350d1467f4a11e07',1,'rpp::observable']]]
 ];

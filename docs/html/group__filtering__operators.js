@@ -1,11 +1,11 @@
 var group__filtering__operators =
 [
-    [ "distinct_until_changed", "group__filtering__operators.html#ga8bd33ef33a0bb57103781ddeef82fd92", null ],
-    [ "filter", "group__filtering__operators.html#ga87eb036453a17e9b5e59c920399d1d14", null ],
-    [ "first", "group__filtering__operators.html#ga312fed7f4f86dcf4c374f9a0b615f078", null ],
-    [ "last", "group__filtering__operators.html#ga89357fe0e19400d72f3485751c10f240", null ],
-    [ "sample_with_time", "group__filtering__operators.html#gabbc4b2e06fbe61343733b7076c6734c9", null ],
-    [ "skip", "group__filtering__operators.html#ga17352df47509ccf9970b3ef4dcaf90fb", null ],
-    [ "take", "group__filtering__operators.html#gaef1d69d29be545c479d3126993eed494", null ],
-    [ "take_last", "group__filtering__operators.html#ga3c0d677dcbb92c13b9cd7f6fd2b17725", null ]
+    [ "distinct_until_changed", "group__filtering__operators.html#gafb7bedd5ddce183cdce1ade16d262a06", null ],
+    [ "filter", "group__filtering__operators.html#gae2695326a24fb8534f17f0d228d3b7f2", null ],
+    [ "first", "group__filtering__operators.html#ga9a3df2b8a6aff25e6283b3c9f9e8e1b0", null ],
+    [ "last", "group__filtering__operators.html#ga91e49ad9e9a20dfb34a52f54805513f3", null ],
+    [ "sample_with_time", "group__filtering__operators.html#gaf8aad914f52ebe2b69435a1525fe7f33", null ],
+    [ "skip", "group__filtering__operators.html#ga6e2b191494818d8f55a86f9c9034cfaa", null ],
+    [ "take", "group__filtering__operators.html#ga0dcb41decfa8d5ded95f828a7e65ffee", null ],
+    [ "take_last", "group__filtering__operators.html#ga42f57945dbded0b6ba6f281cab3c63e7", null ]
 ];

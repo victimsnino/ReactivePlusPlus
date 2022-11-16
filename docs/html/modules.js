@@ -1,8 +1,5 @@
 var modules =
 [
-    [ "Observables", "group__observables.html", "group__observables" ],
-    [ "Observers", "group__observers.html", "group__observers" ],
-    [ "Operators", "group__operators.html", "group__operators" ],
-    [ "Schedulers", "group__schedulers.html", "group__schedulers" ],
-    [ "Subjects", "group__subjects.html", "group__subjects" ]
+    [ "RPP", "group__rpp.html", "group__rpp" ],
+    [ "RPPQT", "group__rppqt.html", "group__rppqt" ]
 ];

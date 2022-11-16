@@ -6,13 +6,13 @@
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int} main()}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)}
+\DoxyCodeLine{    rpp::source::just(1, 2, 3)}
 \DoxyCodeLine{            .switch\_map([](\textcolor{keywordtype}{int} val) \{}
 \DoxyCodeLine{                \textcolor{keywordflow}{if} (val == 1)}
 \DoxyCodeLine{                    \textcolor{keywordflow}{return} rpp::source::never<int>()}
 \DoxyCodeLine{                        .lift([\&](\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp::dynamic\_subscriber<int>}} sub) \{}
 \DoxyCodeLine{                            sub.get\_subscription().add([\&]() \{}
-\DoxyCodeLine{                                std::cout << \textcolor{stringliteral}{"x-\/"}; \textcolor{comment}{// x is notation for unsubscribed}}
+\DoxyCodeLine{                                std::cout << \textcolor{stringliteral}{"{}x-\/"{}}; \textcolor{comment}{// x is notation for unsubscribed}}
 \DoxyCodeLine{                            \});}
 \DoxyCodeLine{                            \textcolor{keywordflow}{return} sub;}
 \DoxyCodeLine{                        \})}
@@ -21,9 +21,10 @@
 \DoxyCodeLine{                \textcolor{keywordflow}{return} rpp::source::from\_iterable(std::vector\{val, val\})}
 \DoxyCodeLine{                    .as\_dynamic();}
 \DoxyCodeLine{            \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"-\/"}; \});}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{}-\/"{}}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: x-\/2-\/2-\/3-\/3-\/}}
 \DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
 \DoxyCodeLine{\}}
+
 \end{DoxyCodeInclude}
  

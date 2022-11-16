@@ -48,9 +48,9 @@ you need manually dispatch events for this scheduler in some thread.
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{    \textcolor{keyword}{auto} run\_loop = \mbox{\hyperlink{classrpp_1_1schedulers_1_1run__loop}{rpp::schedulers::run\_loop}}\{\};}
-\DoxyCodeLine{    \textcolor{keyword}{auto} sub = \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(10, 15, 20)}
+\DoxyCodeLine{    \textcolor{keyword}{auto} sub = rpp::source::just(10, 15, 20)}
 \DoxyCodeLine{        .observe\_on(run\_loop)}
-\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout <<  v << \textcolor{stringliteral}{"\(\backslash\)n"}; \});}
+\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout <<  v << \textcolor{stringliteral}{"{}\(\backslash\)n"{}}; \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{comment}{// No output}}
 \DoxyCodeLine{}
@@ -63,8 +63,9 @@ you need manually dispatch events for this scheduler in some thread.
 \DoxyCodeLine{    \textcolor{comment}{// 10}}
 \DoxyCodeLine{    \textcolor{comment}{// 15}}
 \DoxyCodeLine{    \textcolor{comment}{// 20}}
-\end{DoxyCodeInclude}
 
+\end{DoxyCodeInclude}
+ 
 \end{DoxyParagraph}
 \begin{Desc}
 \item[Examples]\par

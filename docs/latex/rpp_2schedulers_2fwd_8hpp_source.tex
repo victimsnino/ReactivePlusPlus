@@ -1,0 +1,41 @@
+\hypertarget{rpp_2schedulers_2fwd_8hpp_source}{}\doxysection{fwd.\+hpp}
+\label{rpp_2schedulers_2fwd_8hpp_source}\index{src/rpp/rpp/schedulers/fwd.hpp@{src/rpp/rpp/schedulers/fwd.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <chrono>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <optional>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }rpp::schedulers::details}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1scheduler__tag}{scheduler\_tag}} \{\};}
+\DoxyCodeLine{19 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1worker__tag}{worker\_tag}} \{\};}
+\DoxyCodeLine{20 \} \textcolor{comment}{// namespace rpp::schedulers::details}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }rpp::schedulers}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24 \textcolor{keyword}{using }clock\_type = std::chrono::steady\_clock;}
+\DoxyCodeLine{25 \textcolor{keyword}{using }time\_point = clock\_type::time\_point;}
+\DoxyCodeLine{26 \textcolor{keyword}{using }duration = std::chrono::nanoseconds;}
+\DoxyCodeLine{27 \textcolor{keyword}{using }optional\_duration = std::optional<duration>;}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{immediate}};}
+\DoxyCodeLine{30 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{trampoline}};}
+\DoxyCodeLine{31 \textcolor{keyword}{using }\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{current\_thread}} = \mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{trampoline}};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{new\_thread}};}
+\DoxyCodeLine{34 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1run__loop}{run\_loop}};}
+\DoxyCodeLine{35 \} \textcolor{comment}{// namespace rpp::schedulers}}
+
+\end{DoxyCode}

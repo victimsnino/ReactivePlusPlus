@@ -1,0 +1,66 @@
+\hypertarget{subscriber__with__state_8hpp_source}{}\doxysection{subscriber\+\_\+with\+\_\+state.\+hpp}
+\label{subscriber__with__state_8hpp_source}\index{src/rpp/rpp/operators/details/subscriber\_with\_state.hpp@{src/rpp/rpp/operators/details/subscriber\_with\_state.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                   ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{//           Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{//  Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//     (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//           https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{// }}
+\DoxyCodeLine{8 \textcolor{comment}{//  Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <rpp/observers/state\_observer.hpp>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observers/dynamic\_observer.hpp>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/subscriptions/composite\_subscription.hpp>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/subscribers/specific\_subscriber.hpp>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19 \textcolor{keyword}{template}<constraint::decayed\_type                                    Type,}
+\DoxyCodeLine{20          \textcolor{keyword}{typename}...                                                 States,}
+\DoxyCodeLine{21          std::invocable<Type, std::decay\_t<States>...>               OnNext,}
+\DoxyCodeLine{22          std::invocable<std::exception\_ptr, std::decay\_t<States>...> OnError,}
+\DoxyCodeLine{23          std::invocable<std::decay\_t<States>...>                     OnCompleted>}
+\DoxyCodeLine{24 \textcolor{keyword}{auto} create\_subscriber\_with\_state(composite\_subscription sub,}
+\DoxyCodeLine{25                                   OnNext\&\&               on\_next,}
+\DoxyCodeLine{26                                   OnError\&\&              on\_error,}
+\DoxyCodeLine{27                                   OnCompleted\&\&          on\_completed,}
+\DoxyCodeLine{28                                   States\&\&...            states)}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30     \textcolor{keyword}{using }TObs = state\_observer<Type,}
+\DoxyCodeLine{31                                 std::decay\_t<OnNext>,}
+\DoxyCodeLine{32                                 std::decay\_t<OnError>,}
+\DoxyCodeLine{33                                 std::decay\_t<OnCompleted>,}
+\DoxyCodeLine{34                                 std::decay\_t<States>...>;}
+\DoxyCodeLine{35     \textcolor{keywordflow}{return} make\_specific\_subscriber<Type, TObs>(std::move(sub),}
+\DoxyCodeLine{36                                                 std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{37                                                 std::forward<OnError>(on\_error),}
+\DoxyCodeLine{38                                                 std::forward<OnCompleted>(on\_completed),}
+\DoxyCodeLine{39                                                 std::forward<States>(states)...);}
+\DoxyCodeLine{40 \}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{keyword}{template}<constraint::decayed\_type                                    Type,}
+\DoxyCodeLine{43          \textcolor{keyword}{typename}...                                                 States,}
+\DoxyCodeLine{44          std::invocable<Type, std::decay\_t<States>...>               OnNext,}
+\DoxyCodeLine{45          std::invocable<std::exception\_ptr, std::decay\_t<States>...> OnError,}
+\DoxyCodeLine{46          std::invocable<std::decay\_t<States>...>                     OnCompleted>}
+\DoxyCodeLine{47 \textcolor{keyword}{auto} create\_subscriber\_with\_dynamic\_state(composite\_subscription sub,}
+\DoxyCodeLine{48                                           OnNext\&\&               on\_next,}
+\DoxyCodeLine{49                                           OnError\&\&              on\_error,}
+\DoxyCodeLine{50                                           OnCompleted\&\&          on\_completed,}
+\DoxyCodeLine{51                                           States\&\&...            states)}
+\DoxyCodeLine{52 \{}
+\DoxyCodeLine{53     \textcolor{keyword}{using }TObs = dynamic\_state\_observer<Type, std::decay\_t<States>...>;}
+\DoxyCodeLine{54     \textcolor{keywordflow}{return} make\_specific\_subscriber<Type, TObs>(std::move(sub),}
+\DoxyCodeLine{55                                                 std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{56                                                 std::forward<OnError>(on\_error),}
+\DoxyCodeLine{57                                                 std::forward<OnCompleted>(on\_completed),}
+\DoxyCodeLine{58                                                 std::forward<States>(states)...);}
+\DoxyCodeLine{59 \}}
+\DoxyCodeLine{60 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

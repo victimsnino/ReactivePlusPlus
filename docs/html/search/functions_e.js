@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['take_564',['take',['../group__filtering__operators.html#gaef1d69d29be545c479d3126993eed494',1,'rpp::details::member_overload&lt; Type, SpecificObservable, take_tag &gt;']]],
-  ['take_5flast_565',['take_last',['../group__filtering__operators.html#ga3c0d677dcbb92c13b9cd7f6fd2b17725',1,'rpp::details::member_overload&lt; Type, SpecificObservable, take_last_tag &gt;']]],
-  ['take_5funtil_566',['take_until',['../group__conditional__operators.html#ga7b072b06b4ecc8e3e138c26008e9081c',1,'rpp::details::member_overload&lt; Type, SpecificObservable, take_until_tag &gt;']]],
-  ['take_5fwhile_567',['take_while',['../group__conditional__operators.html#ga68ea040e75df34c47cdffd164d2a7c3d',1,'rpp::details::member_overload&lt; Type, SpecificObservable, take_while_tag &gt;']]],
-  ['tap_568',['tap',['../group__utility__operators.html#gafa05370906b6201bfbf0fd820e88e2ad',1,'rpp::details::member_overload&lt; Type, SpecificObservable, do_tag &gt;::tap(TObs &amp;&amp;observer) const &amp;requires is_header_included&lt; do_tag'],['../group__utility__operators.html#ga92b3e8e02f289ac88752f5d6fc592b9c',1,'rpp::details::member_overload&lt; Type, SpecificObservable, do_tag &gt;::tap(OnNextFn &amp;&amp;on_next, OnErrorFn &amp;&amp;on_error=OnErrorFn{}, OnCompletedFn &amp;&amp;on_completed=OnCompletedFn{}) const &amp;requires is_header_included&lt; do_tag']]],
-  ['timeout_569',['timeout',['../group__utility__operators.html#ga252a61146c15620074c5dddfea589843',1,'rpp::details::member_overload&lt; Type, SpecificObservable, timeout_tag &gt;']]]
+  ['ref_5fcount_0',['ref_count',['../group__connectable__operators.html#gac1991f003be32f5432ecb084be506c15',1,'observable']]],
+  ['repeat_1',['repeat',['../group__utility__operators.html#ga2a165810b188f9cf9b77255ed725e31a',1,'observable::repeat(size_t count) const &amp;'],['../group__utility__operators.html#ga152a343d0ea926ee04cf64ebb78c5d5e',1,'observable::repeat() const &amp;']]]
 ];

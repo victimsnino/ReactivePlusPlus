@@ -1,12 +1,12 @@
 var group__combining__operators =
 [
-    [ "combine_latest", "group__combining__operators.html#gaf13dd55fadee8dbc494dbff0a8106a57", null ],
-    [ "combine_latest", "group__combining__operators.html#ga464ac64ef73830847fdb0ce2763ab42b", null ],
-    [ "merge", "group__combining__operators.html#gaa02153df55aab3d790a7102a245dfd2f", null ],
-    [ "merge_with", "group__combining__operators.html#ga3341a36b0971c0cf59001fa65aeb36a4", null ],
-    [ "start_with", "group__combining__operators.html#ga35f7234aa6957c2c04afa6f1d8e71696", null ],
-    [ "start_with", "group__combining__operators.html#gacfa9157d671f1d35f0a8be230dec4d10", null ],
-    [ "switch_on_next", "group__combining__operators.html#gac9a4fd5e39aef8493fa07e2437066aad", null ],
-    [ "with_latest_from", "group__combining__operators.html#ga41f62df9b82778838be353be69981f82", null ],
-    [ "with_latest_from", "group__combining__operators.html#ga3881bcfd0f283b89e20dcb3b48c08fe4", null ]
+    [ "combine_latest", "group__combining__operators.html#ga235795a45f5c6db3f6ec75204ab2d8a2", null ],
+    [ "combine_latest", "group__combining__operators.html#gacd8deec9fdd88032d272e097c2b70657", null ],
+    [ "merge", "group__combining__operators.html#ga84ed0dcdeda6a4cb3a9871ab2817e114", null ],
+    [ "merge_with", "group__combining__operators.html#gafa55b14eec1c6c40b8655e20c6edf5b2", null ],
+    [ "start_with", "group__combining__operators.html#gaf86bfdf7b2026804303f5b468fa22480", null ],
+    [ "start_with", "group__combining__operators.html#gaced47c11cd4cea804a6d0f7c33be2fa0", null ],
+    [ "switch_on_next", "group__combining__operators.html#ga2e3a232da875328d9d53adf7a30c25cf", null ],
+    [ "with_latest_from", "group__combining__operators.html#ga4ea21b87312c2789a9fac07aca6037ed", null ],
+    [ "with_latest_from", "group__combining__operators.html#ga805656c8847d81ace55ebc71d0598e44", null ]
 ];

@@ -38,5 +38,6 @@ var examples =
     [ "timeout.cpp", "timeout_8cpp-example.html", null ],
     [ "trampoline.cpp", "trampoline_8cpp-example.html", null ],
     [ "window.cpp", "window_8cpp-example.html", null ],
-    [ "with_latest_from.cpp", "with_latest_from_8cpp-example.html", null ]
+    [ "with_latest_from.cpp", "with_latest_from_8cpp-example.html", null ],
+    [ "from_signal.cpp", "from_signal_8cpp-example.html", null ]
 ];

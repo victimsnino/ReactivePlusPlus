@@ -1,34 +1,15 @@
-\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01skip__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, skip\+\_\+tag $>$ Struct Template Reference}
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01skip__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload\texorpdfstring{$<$}{<} Type, Specific\+Observable, skip\+\_\+tag \texorpdfstring{$>$}{>} Struct Template Reference}
 \label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01skip__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, skip\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, skip\_tag $>$}}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename... Args$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_ga17352df47509ccf9970b3ef4dcaf90fb}{skip}} (size\+\_\+t count) const \&requires is\+\_\+header\+\_\+included$<$ skip\+\_\+tag
+{\footnotesize template$<$typename... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$skip\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__filtering__operators_ga6e2b191494818d8f55a86f9c9034cfaa}{skip}} (size\+\_\+t count) const \&
 \begin{DoxyCompactList}\small\item\em Skip first {\ttfamily count} items provided by observable then send rest items as expected. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01skip__tag_01_4_aa0a2b6783f4739d4c742670e7c3271aa}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01skip__tag_01_4_aa0a2b6783f4739d4c742670e7c3271aa}} 
-{\footnotesize template$<$typename... Args$>$ }\\auto {\bfseries skip} (size\+\_\+t count) \&\&requires is\+\_\+header\+\_\+included$<$ skip\+\_\+tag
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01skip__tag_01_4_add02cadad58fb5965e705452b51667a7}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01skip__tag_01_4_add02cadad58fb5965e705452b51667a7}} 
+{\footnotesize template$<$typename... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$skip\+\_\+tag, Args...$>$}\\auto {\bfseries skip} (size\+\_\+t count) \&\&
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-auto {\bfseries Args}
-\end{DoxyCompactItemize}
-
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01skip__tag_01_4_a9859fb006c9f06cfd3786f370ab92a57}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01skip__tag_01_4_a9859fb006c9f06cfd3786f370ab92a57}} 
-\index{rpp::details::member\_overload$<$ Type, SpecificObservable, skip\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, skip\_tag $>$}!Args@{Args}}
-\index{Args@{Args}!rpp::details::member\_overload$<$ Type, SpecificObservable, skip\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, skip\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{Args}{Args}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, skip\+\_\+tag $>$\+::Args}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{            \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<Type>(skip\_impl<Type>\{count\})}
-
-\end{DoxyCode}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}

@@ -1,0 +1,63 @@
+\hypertarget{fwd_2with__latest__from_8hpp_source}{}\doxysection{with\+\_\+latest\+\_\+from.\+hpp}
+\label{fwd_2with__latest__from_8hpp_source}\index{src/rpp/rpp/operators/fwd/with\_latest\_from.hpp@{src/rpp/rpp/operators/fwd/with\_latest\_from.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                   ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{//           Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{//  Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//     (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//           https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{// }}
+\DoxyCodeLine{8 \textcolor{comment}{//  Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <rpp/observables/details/member\_overload.hpp>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/utils/functors.hpp>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/utils/function\_traits.hpp>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <tuple>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22 \textcolor{keyword}{struct }with\_latest\_from\_tag;}
+\DoxyCodeLine{23 \}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27 \textcolor{keyword}{template}<constraint::decayed\_type Type, \textcolor{keyword}{typename} TSelector, constraint::observable ...TObservables>}
+\DoxyCodeLine{28 \textcolor{keyword}{struct }with\_latest\_from\_impl;}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{31 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, with\_latest\_from\_tag>}
+\DoxyCodeLine{32 \{}
+\DoxyCodeLine{54     \textcolor{keyword}{template}<constraint::observable ...TObservables, std::invocable<Type, utils::extract\_observable\_type\_t<TObservables>...> TSelector>}
+\DoxyCodeLine{55     \textcolor{keyword}{auto} with\_latest\_from(TSelector\&\& selector, TObservables\&\&...observables) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<with\_latest\_from\_tag, TObservables...>}
+\DoxyCodeLine{56     \{}
+\DoxyCodeLine{57         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<utils::decayed\_invoke\_result\_t<TSelector, Type, utils::extract\_observable\_type\_t<TObservables>...>>(\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__impl}{with\_latest\_from\_impl}}<Type, std::decay\_t<TSelector>, std::decay\_t<TObservables>...>\{std::forward<TSelector>(selector), \{ std::forward<TObservables>(observables)... \}\});}
+\DoxyCodeLine{58     \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     \textcolor{keyword}{template}<constraint::observable ...TObservables, std::invocable<Type, utils::extract\_observable\_type\_t<TObservables>...> TSelector>}
+\DoxyCodeLine{61     \textcolor{keyword}{auto} with\_latest\_from(TSelector\&\& selector, TObservables\&\&...observables) \&\& \textcolor{keyword}{requires} is\_header\_included<with\_latest\_from\_tag, TObservables...>}
+\DoxyCodeLine{62     \{}
+\DoxyCodeLine{63         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template lift<utils::decayed\_invoke\_result\_t<TSelector, Type, utils::extract\_observable\_type\_t<TObservables>...>>(\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__impl}{with\_latest\_from\_impl<Type, std::decay\_t<TSelector>}}, std::decay\_t<TObservables>...>\{std::forward<TSelector>(selector), \{ std::forward<TObservables>(observables)... \}\});}
+\DoxyCodeLine{64     \}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{86     \textcolor{keyword}{template}<constraint::observable ...TObservables>}
+\DoxyCodeLine{87     \textcolor{keyword}{auto} with\_latest\_from(TObservables\&\&...observables) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<with\_latest\_from\_tag, TObservables...>}
+\DoxyCodeLine{88     \{}
+\DoxyCodeLine{89         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>with\_latest\_from(utils::pack\_to\_tuple\{\}, std::forward<TObservables>(observables)...);}
+\DoxyCodeLine{90     \}}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92     \textcolor{keyword}{template}<constraint::observable ...TObservables>}
+\DoxyCodeLine{93     \textcolor{keyword}{auto} with\_latest\_from(TObservables\&\&...observables) \&\& \textcolor{keyword}{requires} is\_header\_included<with\_latest\_from\_tag, TObservables...>}
+\DoxyCodeLine{94     \{}
+\DoxyCodeLine{95         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).with\_latest\_from(utils::pack\_to\_tuple\{\}, std::forward<TObservables>(observables)...);}
+\DoxyCodeLine{96     \}}
+\DoxyCodeLine{97 \};}
+\DoxyCodeLine{98 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

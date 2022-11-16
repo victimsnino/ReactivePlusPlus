@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['is_5fsubscribed_538',['is_subscribed',['../classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2',1,'rpp::subscription_base']]]
+  ['group_5fby_0',['group_by',['../group__transforming__operators.html#ga61277d8115a87b4c10f7856a9a7f8d35',1,'observable']]]
 ];

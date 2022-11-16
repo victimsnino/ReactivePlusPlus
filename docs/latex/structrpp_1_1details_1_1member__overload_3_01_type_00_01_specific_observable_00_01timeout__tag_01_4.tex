@@ -1,34 +1,15 @@
-\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01timeout__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, timeout\+\_\+tag $>$ Struct Template Reference}
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01timeout__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload\texorpdfstring{$<$}{<} Type, Specific\+Observable, timeout\+\_\+tag \texorpdfstring{$>$}{>} Struct Template Reference}
 \label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01timeout__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, timeout\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, timeout\_tag $>$}}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$schedulers\+::constraint\+::scheduler T\+Scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga252a61146c15620074c5dddfea589843}{timeout}} (schedulers\+::duration period, const T\+Scheduler \&scheduler=T\+Scheduler\{\}) const \&requires is\+\_\+header\+\_\+included$<$ timeout\+\_\+tag
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \newline
+requires is\+\_\+header\+\_\+included$<$timeout\+\_\+tag, TScheduler$>$}\\auto \mbox{\hyperlink{group__utility__operators_gaae93d14e68fd17524ebc1ac48e6bf35f}{timeout}} (schedulers\+::duration period, const TScheduler \&scheduler=TScheduler\{\}) const \&
 \begin{DoxyCompactList}\small\item\em Forwards emissions from original observable, but emit error if no any events during specified period of time (since last emission) \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01timeout__tag_01_4_abdb60a503ecdf15d4c80e758fd31a356}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01timeout__tag_01_4_abdb60a503ecdf15d4c80e758fd31a356}} 
-{\footnotesize template$<$schedulers\+::constraint\+::scheduler T\+Scheduler$>$ }\\auto {\bfseries timeout} (schedulers\+::duration period, const T\+Scheduler \&scheduler=T\+Scheduler\{\}) \&\&requires is\+\_\+header\+\_\+included$<$ timeout\+\_\+tag
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01timeout__tag_01_4_acec75d2ac62c9f6957125088354e0cf9}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01timeout__tag_01_4_acec75d2ac62c9f6957125088354e0cf9}} 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \newline
+requires is\+\_\+header\+\_\+included$<$timeout\+\_\+tag, TScheduler$>$}\\auto {\bfseries timeout} (schedulers\+::duration period, const TScheduler \&scheduler=TScheduler\{\}) \&\&
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-auto {\bfseries T\+Scheduler}
-\end{DoxyCompactItemize}
-
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01timeout__tag_01_4_a4d6e1d085d0eb55503f006e55df791e5}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01timeout__tag_01_4_a4d6e1d085d0eb55503f006e55df791e5}} 
-\index{rpp::details::member\_overload$<$ Type, SpecificObservable, timeout\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, timeout\_tag $>$}!TScheduler@{TScheduler}}
-\index{TScheduler@{TScheduler}!rpp::details::member\_overload$<$ Type, SpecificObservable, timeout\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, timeout\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{TScheduler}{TScheduler}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, timeout\+\_\+tag $>$\+::T\+Scheduler}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<Type>(timeout\_impl<Type, TScheduler>\{period, scheduler\})}
-
-\end{DoxyCode}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}

@@ -1,34 +1,15 @@
-\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__while__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, take\+\_\+while\+\_\+tag $>$ Struct Template Reference}
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__while__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload\texorpdfstring{$<$}{<} Type, Specific\+Observable, take\+\_\+while\+\_\+tag \texorpdfstring{$>$}{>} Struct Template Reference}
 \label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__while__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, take\_while\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, take\_while\_tag $>$}}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$std\+::predicate$<$ const Type \& $>$ Predicate$>$ }\\auto \mbox{\hyperlink{group__conditional__operators_ga68ea040e75df34c47cdffd164d2a7c3d}{take\+\_\+while}} (Predicate \&\&predicate) const \&requires is\+\_\+header\+\_\+included$<$ take\+\_\+while\+\_\+tag
-\begin{DoxyCompactList}\small\item\em Sends items provided by observable while items are satisfy predicate. When condition becomes false -\/$>$ sends {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__while__tag_01_4_a2e449bff36637d606ec7901e423ee1c0}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__while__tag_01_4_a2e449bff36637d606ec7901e423ee1c0}} 
-{\footnotesize template$<$std\+::predicate$<$ const Type \& $>$ Predicate$>$ }\\auto {\bfseries take\+\_\+while} (Predicate \&\&predicate) \&\&requires is\+\_\+header\+\_\+included$<$ take\+\_\+while\+\_\+tag
+{\footnotesize template$<$std\+::predicate$<$ const Type \& $>$ Predicate$>$ \newline
+requires is\+\_\+header\+\_\+included$<$take\+\_\+while\+\_\+tag, Predicate$>$}\\auto \mbox{\hyperlink{group__conditional__operators_ga47773bfb0298bba2ec71502c1984cc95}{take\+\_\+while}} (Predicate \&\&predicate) const \&
+\begin{DoxyCompactList}\small\item\em Sends items provided by observable while items are satisfy predicate. When condition becomes false -\/\texorpdfstring{$>$}{>} sends {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__while__tag_01_4_ae94e06b137b0870c4e01ede7eb311fba}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__while__tag_01_4_ae94e06b137b0870c4e01ede7eb311fba}} 
+{\footnotesize template$<$std\+::predicate$<$ const Type \& $>$ Predicate$>$ \newline
+requires is\+\_\+header\+\_\+included$<$take\+\_\+while\+\_\+tag, Predicate$>$}\\auto {\bfseries take\+\_\+while} (Predicate \&\&predicate) \&\&
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-auto {\bfseries Predicate}
-\end{DoxyCompactItemize}
-
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__while__tag_01_4_af60bd0d451032761b37093e4c63169f8}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__while__tag_01_4_af60bd0d451032761b37093e4c63169f8}} 
-\index{rpp::details::member\_overload$<$ Type, SpecificObservable, take\_while\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, take\_while\_tag $>$}!Predicate@{Predicate}}
-\index{Predicate@{Predicate}!rpp::details::member\_overload$<$ Type, SpecificObservable, take\_while\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, take\_while\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{Predicate}{Predicate}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, take\+\_\+while\+\_\+tag $>$\+::Predicate}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<Type>(take\_while\_impl<Type, std::decay\_t<Predicate>>\{std::forward<Predicate>(predicate)\})}
-
-\end{DoxyCode}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}

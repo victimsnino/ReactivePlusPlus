@@ -1,34 +1,15 @@
-\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__map__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, switch\+\_\+map\+\_\+tag $>$ Struct Template Reference}
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__map__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload\texorpdfstring{$<$}{<} Type, Specific\+Observable, switch\+\_\+map\+\_\+tag \texorpdfstring{$>$}{>} Struct Template Reference}
 \label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__map__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, switch\_map\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, switch\_map\_tag $>$}}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$switch\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ }\\auto \mbox{\hyperlink{group__transforming__operators_ga70e93b5ebd0da19d8acdf2af6497cb88}{switch\+\_\+map}} (Callable \&\&callable) const \&requires is\+\_\+header\+\_\+included$<$ switch\+\_\+map\+\_\+tag
+{\footnotesize template$<$switch\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ \newline
+requires is\+\_\+header\+\_\+included$<$switch\+\_\+map\+\_\+tag, Callable$>$}\\auto \mbox{\hyperlink{group__transforming__operators_gae76b0e38003420a5ced3c1159bbbadde}{switch\+\_\+map}} (Callable \&\&callable) const \&
 \begin{DoxyCompactList}\small\item\em convert an Observable that emits Observables into a single Observable that emits the items emitted by the most-\/recently-\/emitted of those Observables \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__map__tag_01_4_a234c846cbf60304bb697b869264578c7}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__map__tag_01_4_a234c846cbf60304bb697b869264578c7}} 
-{\footnotesize template$<$switch\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ }\\auto {\bfseries switch\+\_\+map} (Callable \&\&callable) \&\&requires is\+\_\+header\+\_\+included$<$ switch\+\_\+map\+\_\+tag
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__map__tag_01_4_ad6d67c4836671afc40562f420b11d9d0}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__map__tag_01_4_ad6d67c4836671afc40562f420b11d9d0}} 
+{\footnotesize template$<$switch\+\_\+map\+\_\+callable$<$ Type $>$ Callable$>$ \newline
+requires is\+\_\+header\+\_\+included$<$switch\+\_\+map\+\_\+tag, Callable$>$}\\auto {\bfseries switch\+\_\+map} (Callable \&\&callable) \&\&
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-auto {\bfseries Callable}
-\end{DoxyCompactItemize}
-
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__map__tag_01_4_a35e76f9f8ffe21f732f5ffd92073d307}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01switch__map__tag_01_4_a35e76f9f8ffe21f732f5ffd92073d307}} 
-\index{rpp::details::member\_overload$<$ Type, SpecificObservable, switch\_map\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, switch\_map\_tag $>$}!Callable@{Callable}}
-\index{Callable@{Callable}!rpp::details::member\_overload$<$ Type, SpecificObservable, switch\_map\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, switch\_map\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{Callable}{Callable}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, switch\+\_\+map\+\_\+tag $>$\+::Callable}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} switch\_map\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<Callable>(callable))}
-
-\end{DoxyCode}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}

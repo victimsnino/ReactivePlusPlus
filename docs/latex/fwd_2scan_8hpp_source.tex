@@ -1,0 +1,50 @@
+\hypertarget{fwd_2scan_8hpp_source}{}\doxysection{scan.\+hpp}
+\label{fwd_2scan_8hpp_source}\index{src/rpp/rpp/operators/fwd/scan.hpp@{src/rpp/rpp/operators/fwd/scan.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/details/member\_overload.hpp>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17 \textcolor{keyword}{struct }scan\_tag;}
+\DoxyCodeLine{18 \}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22 \textcolor{comment}{// accepts Result and Type and returns Result}}
+\DoxyCodeLine{23 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn, \textcolor{keyword}{typename} Result, \textcolor{keyword}{typename} Type>}
+\DoxyCodeLine{24 \textcolor{keyword}{concept }scan\_accumulator = std::is\_invocable\_r\_v<std::decay\_t<Result>, Fn, std::decay\_t<Result>, std::decay\_t<Type>>;}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::decayed\_type Result, scan\_accumulator<Result, Type> AccumulatorFn>}
+\DoxyCodeLine{27 \textcolor{keyword}{struct }scan\_impl;}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{30 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, scan\_tag>}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{54     \textcolor{keyword}{template}<\textcolor{keyword}{typename} Result, scan\_accumulator<Result, Type> AccumulatorFn>}
+\DoxyCodeLine{55     \textcolor{keyword}{auto} scan(Result\&\& initial\_value, AccumulatorFn\&\& accumulator) \textcolor{keyword}{const} \& \textcolor{keyword}{requires} is\_header\_included<scan\_tag, Result, AccumulatorFn>}
+\DoxyCodeLine{56     \{}
+\DoxyCodeLine{57         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<std::decay\_t<Result>>(\mbox{\hyperlink{structrpp_1_1details_1_1scan__impl}{scan\_impl}}<Type, std::decay\_t<Result>, std::decay\_t<AccumulatorFn>>\{std::forward<Result>(initial\_value), std::forward<AccumulatorFn>(accumulator)\});}
+\DoxyCodeLine{58     \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     \textcolor{keyword}{template}<\textcolor{keyword}{typename} Result, scan\_accumulator<Result, Type> AccumulatorFn>}
+\DoxyCodeLine{61     \textcolor{keyword}{auto} scan(Result\&\& initial\_value, AccumulatorFn\&\& accumulator) \&\& \textcolor{keyword}{requires} is\_header\_included<scan\_tag, Result, AccumulatorFn>}
+\DoxyCodeLine{62     \{}
+\DoxyCodeLine{63         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template lift<std::decay\_t<Result>>(\mbox{\hyperlink{structrpp_1_1details_1_1scan__impl}{scan\_impl<Type, std::decay\_t<Result>}}, std::decay\_t<AccumulatorFn>>\{std::forward<Result>(initial\_value), std::forward<AccumulatorFn>(accumulator)\});}
+\DoxyCodeLine{64     \}}
+\DoxyCodeLine{65 \};}
+\DoxyCodeLine{66 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

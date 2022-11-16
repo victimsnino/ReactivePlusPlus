@@ -8,14 +8,15 @@
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int} main()}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(42, 53, 10, 1).subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    rpp::source::just(42, 53, 10, 1).subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 42 53 10 1}}
 \DoxyCodeLine{\textcolor{comment}{}}
 \DoxyCodeLine{    std::array<int, 100> cheap\_to\_copy\_1\{\};}
 \DoxyCodeLine{    std::array<int, 100> cheap\_to\_copy\_2\{\};}
 \DoxyCodeLine{    rpp::source::just<rpp::memory\_model::use\_shared>(cheap\_to\_copy\_1, cheap\_to\_copy\_2).subscribe();}
 \DoxyCodeLine{}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}, 42, 53).subscribe();}
+\DoxyCodeLine{    rpp::source::just(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}, 42, 53).subscribe();}
 \DoxyCodeLine{\}}
+
 \end{DoxyCodeInclude}
  

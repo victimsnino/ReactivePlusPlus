@@ -1,37 +1,15 @@
-\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01sample__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, sample\+\_\+tag $>$ Struct Template Reference}
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01sample__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload\texorpdfstring{$<$}{<} Type, Specific\+Observable, sample\+\_\+tag \texorpdfstring{$>$}{>} Struct Template Reference}
 \label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01sample__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, sample\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, sample\_tag $>$}}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$schedulers\+::constraint\+::scheduler T\+Scheduler, typename ... Args$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_gabbc4b2e06fbe61343733b7076c6734c9}{sample\+\_\+with\+\_\+time}} (schedulers\+::duration period, const T\+Scheduler \&scheduler) const \&requires is\+\_\+header\+\_\+included$<$ sample\+\_\+tag
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler, typename ... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$sample\+\_\+tag, TScheduler, Args...$>$}\\auto \mbox{\hyperlink{group__filtering__operators_gaf8aad914f52ebe2b69435a1525fe7f33}{sample\+\_\+with\+\_\+time}} (schedulers\+::duration period, const TScheduler \&scheduler) const \&
 \begin{DoxyCompactList}\small\item\em Emit most recent emitted from original observable emission obtained during last period of time. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01sample__tag_01_4_a646c67f68fb521206dd6d92dd0e68772}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01sample__tag_01_4_a646c67f68fb521206dd6d92dd0e68772}} 
-{\footnotesize template$<$schedulers\+::constraint\+::scheduler T\+Scheduler, typename ... Args$>$ }\\auto {\bfseries sample\+\_\+with\+\_\+time} (schedulers\+::duration period, const T\+Scheduler \&scheduler) \&\&requires is\+\_\+header\+\_\+included$<$ sample\+\_\+tag
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01sample__tag_01_4_a8e87ebdfdf1553ee7b1e03fa311d731c}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01sample__tag_01_4_a8e87ebdfdf1553ee7b1e03fa311d731c}} 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler, typename ... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$sample\+\_\+tag, TScheduler, Args...$>$}\\auto {\bfseries sample\+\_\+with\+\_\+time} (schedulers\+::duration period, const TScheduler \&scheduler) \&\&
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01sample__tag_01_4_a4569a382a5e368a7eddda954bab2b11c}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01sample__tag_01_4_a4569a382a5e368a7eddda954bab2b11c}} 
-auto {\bfseries T\+Scheduler}
-\item 
-auto {\bfseries Args}
-\end{DoxyCompactItemize}
-
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01sample__tag_01_4_a2ab4fa7f9f46d9fca8c7c4f06b0dbc23}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01sample__tag_01_4_a2ab4fa7f9f46d9fca8c7c4f06b0dbc23}} 
-\index{rpp::details::member\_overload$<$ Type, SpecificObservable, sample\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, sample\_tag $>$}!Args@{Args}}
-\index{Args@{Args}!rpp::details::member\_overload$<$ Type, SpecificObservable, sample\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, sample\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{Args}{Args}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, sample\+\_\+tag $>$\+::Args}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<Type>(sample\_with\_time\_impl<Type, TScheduler>\{period, scheduler\})}
-
-\end{DoxyCode}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}

@@ -1,0 +1,158 @@
+\hypertarget{concat_8hpp_source}{}\doxysection{concat.\+hpp}
+\label{concat_8hpp_source}\index{src/rpp/rpp/operators/concat.hpp@{src/rpp/rpp/operators/concat.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/dynamic\_observable.hpp>}          \textcolor{comment}{// dynamic\_observable}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/operators/lift.hpp>}                          \textcolor{comment}{// required due to operator uses lift}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/operators/merge.hpp>}                         \textcolor{comment}{// merge\_forwarding\_on\_next/merge\_on\_error}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/operators/details/subscriber\_with\_state.hpp>} \textcolor{comment}{// create\_subscriber\_with\_state}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/operators/fwd/concat.hpp>}                    \textcolor{comment}{// own forwarding}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/sources/just.hpp>}                            }
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}                 \textcolor{comment}{// constraint::subscriber\_of\_type}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <rpp/subscriptions/composite\_subscription.hpp>}    \textcolor{comment}{// composite\_subscription}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <rpp/utils/functors.hpp>}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <rpp/utils/spinlock.hpp>}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <mutex>}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <queue>}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 IMPLEMENTATION\_FILE(concat\_tag);}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{32 \{}
+\DoxyCodeLine{33 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type ValueType>}
+\DoxyCodeLine{34 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1concat__state}{concat\_state}} : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__state}{early\_unsubscribe\_state}}}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36     \mbox{\hyperlink{structrpp_1_1details_1_1concat__state}{concat\_state}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\& subscription\_of\_subscriber)}
+\DoxyCodeLine{37         : \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__state}{early\_unsubscribe\_state}}\{subscription\_of\_subscriber\}}
+\DoxyCodeLine{38         , source\_subscription\{children\_subscriptions.make\_child()\} \{\}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}                    source\_subscription;}
+\DoxyCodeLine{41     std::mutex                                queue\_mutex\{\};}
+\DoxyCodeLine{42     std::queue<dynamic\_observable<ValueType>> observables\_to\_subscribe\{\};}
+\DoxyCodeLine{43     std::atomic\_bool                          inner\_subscribed\{\};}
+\DoxyCodeLine{44 \};}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{keyword}{using }concat\_on\_next\_inner = merge\_forwarding\_on\_next;}
+\DoxyCodeLine{47 \textcolor{keyword}{using }\mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{concat\_on\_error}}      = \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{merge\_on\_error}};}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type ValueType>}
+\DoxyCodeLine{50 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1concat__on__next__outer}{concat\_on\_next\_outer}}}
+\DoxyCodeLine{51 \{}
+\DoxyCodeLine{52     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs, constra\textcolor{keywordtype}{int}::subscriber TSub>}
+\DoxyCodeLine{53     \textcolor{keywordtype}{void} operator()(TObs\&\&                                          new\_observable,}
+\DoxyCodeLine{54                     \textcolor{keyword}{const} TSub\&                                     sub,}
+\DoxyCodeLine{55                     \textcolor{keyword}{const} std::shared\_ptr<\mbox{\hyperlink{structrpp_1_1details_1_1concat__state}{concat\_state<ValueType>}}>\& state)\textcolor{keyword}{ const}}
+\DoxyCodeLine{56 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{57         \textcolor{keywordflow}{if} (state-\/>inner\_subscribed.exchange(\textcolor{keyword}{true}, std::memory\_order::acq\_rel))}
+\DoxyCodeLine{58         \{}
+\DoxyCodeLine{59             std::lock\_guard lock\{state-\/>queue\_mutex\};}
+\DoxyCodeLine{60             \textcolor{keywordflow}{if} (state-\/>inner\_subscribed.exchange(\textcolor{keyword}{true}, std::memory\_order::relaxed))}
+\DoxyCodeLine{61             \{}
+\DoxyCodeLine{62                 state-\/>observables\_to\_subscribe.push(std::forward<TObs>(new\_observable).as\_dynamic());}
+\DoxyCodeLine{63                 \textcolor{keywordflow}{return};}
+\DoxyCodeLine{64             \}}
+\DoxyCodeLine{65         \}}
+\DoxyCodeLine{66         subscribe\_inner\_subscriber(new\_observable, sub, state);}
+\DoxyCodeLine{67     \}}
+\DoxyCodeLine{68 \textcolor{keyword}{private}:}
+\DoxyCodeLine{69     \textcolor{keyword}{static} \textcolor{keywordtype}{void} subscribe\_inner\_subscriber(\textcolor{keyword}{const} \textcolor{keyword}{auto}\&                                     observable,}
+\DoxyCodeLine{70                                            \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\&              subscriber,}
+\DoxyCodeLine{71                                            \textcolor{keyword}{const} std::shared\_ptr<\mbox{\hyperlink{structrpp_1_1details_1_1concat__state}{concat\_state<ValueType>}}>\& state)}
+\DoxyCodeLine{72     \{}
+\DoxyCodeLine{73         observable.subscribe(create\_subscriber\_with\_state<ValueType>(}
+\DoxyCodeLine{74             state-\/>children\_subscriptions.make\_child(),}
+\DoxyCodeLine{75             concat\_on\_next\_inner\{\},}
+\DoxyCodeLine{76             \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{concat\_on\_error}}\{\},}
+\DoxyCodeLine{77             [](\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& sub, \textcolor{keyword}{const} std::shared\_ptr<\mbox{\hyperlink{structrpp_1_1details_1_1concat__state}{concat\_state<ValueType>}}>\& state)}
+\DoxyCodeLine{78             \{}
+\DoxyCodeLine{79                 \{}
+\DoxyCodeLine{80                     std::unique\_lock lock\{state-\/>queue\_mutex\};}
+\DoxyCodeLine{81                     if (!state-\/>observables\_to\_subscribe.empty())}
+\DoxyCodeLine{82                     \{}
+\DoxyCodeLine{83                         auto res = std::move(state-\/>observables\_to\_subscribe.front());}
+\DoxyCodeLine{84                         state-\/>observables\_to\_subscribe.pop();}
+\DoxyCodeLine{85                         lock.unlock();}
+\DoxyCodeLine{86                         subscribe\_inner\_subscriber(res, sub, state);}
+\DoxyCodeLine{87                         return;}
+\DoxyCodeLine{88                     \}}
+\DoxyCodeLine{89                     if (state-\/>source\_subscription.is\_subscribed())}
+\DoxyCodeLine{90                     \{}
+\DoxyCodeLine{91                         state-\/>inner\_subscribed.store(false, std::memory\_order::relaxed);}
+\DoxyCodeLine{92                         return;}
+\DoxyCodeLine{93                     \}}
+\DoxyCodeLine{94                 \}}
+\DoxyCodeLine{95                 sub.on\_completed();}
+\DoxyCodeLine{96             \},}
+\DoxyCodeLine{97             subscriber,}
+\DoxyCodeLine{98             state));}
+\DoxyCodeLine{99     \}}
+\DoxyCodeLine{100 \};}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type ValueType>}
+\DoxyCodeLine{104 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1concat__on__completed}{concat\_on\_completed}}}
+\DoxyCodeLine{105 \{}
+\DoxyCodeLine{106     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\&              sub,}
+\DoxyCodeLine{107                     \textcolor{keyword}{const} std::shared\_ptr<\mbox{\hyperlink{structrpp_1_1details_1_1concat__state}{concat\_state<ValueType>}}>\& state)\textcolor{keyword}{ const}}
+\DoxyCodeLine{108 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{109         std::unique\_lock lock\{state-\/>queue\_mutex\};}
+\DoxyCodeLine{110         \textcolor{keywordflow}{if} (!state-\/>inner\_subscribed.load(std::memory\_order::relaxed))}
+\DoxyCodeLine{111             sub.on\_completed();}
+\DoxyCodeLine{112     \}}
+\DoxyCodeLine{113 \};}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type ValueType>}
+\DoxyCodeLine{117 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1concat__state__with__serialized__spinlock}{concat\_state\_with\_serialized\_spinlock}} : \mbox{\hyperlink{structrpp_1_1details_1_1concat__state}{concat\_state}}<ValueType>}
+\DoxyCodeLine{118 \{}
+\DoxyCodeLine{119     \textcolor{keyword}{using }\mbox{\hyperlink{structrpp_1_1details_1_1concat__state}{concat\_state}}<ValueType>::concat\_state;}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121     \textcolor{comment}{// we can use spinlock there because 99.9\% of time only one ever thread would send values from on\_next (only one active observable), but we have small probability to get error from main observable immediately}}
+\DoxyCodeLine{122     utils::spinlock spinlock\{\};}
+\DoxyCodeLine{123 \};}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{125 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{126 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1concat__impl}{concat\_impl}}}
+\DoxyCodeLine{127 \{}
+\DoxyCodeLine{128     \textcolor{keyword}{using }ValueType = utils::extract\_observable\_type\_t<Type>;}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<ValueType> TSub>}
+\DoxyCodeLine{131     \textcolor{keyword}{auto} operator()(TSub\&\& in\_subscriber)\textcolor{keyword}{ const}}
+\DoxyCodeLine{132 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{133         \textcolor{keyword}{auto} state = std::make\_shared<concat\_state\_with\_serialized\_spinlock<ValueType>>(in\_subscriber.get\_subscription());}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{135         \textcolor{comment}{// change subscriber to serialized to avoid manual using of mutex}}
+\DoxyCodeLine{136         \textcolor{keyword}{auto} subscriber = make\_serialized\_subscriber(std::forward<TSub>(in\_subscriber), std::shared\_ptr<utils::spinlock>\{state, \&state-\/>spinlock\});}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(state-\/>source\_subscription,}
+\DoxyCodeLine{139                                                   \mbox{\hyperlink{structrpp_1_1details_1_1concat__on__next__outer}{concat\_on\_next\_outer<ValueType>}}\{\},}
+\DoxyCodeLine{140                                                   \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{concat\_on\_error}}\{\},}
+\DoxyCodeLine{141                                                   \mbox{\hyperlink{structrpp_1_1details_1_1concat__on__completed}{concat\_on\_completed<ValueType>}}\{\},}
+\DoxyCodeLine{142                                                   std::move(subscriber),}
+\DoxyCodeLine{143                                                   std::move(state));}
+\DoxyCodeLine{144     \}}
+\DoxyCodeLine{145 \};}
+\DoxyCodeLine{146 }
+\DoxyCodeLine{147 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> ... TObservables>}
+\DoxyCodeLine{148 \textcolor{keyword}{auto} concat\_with\_impl(TObservables\&\&... observables)}
+\DoxyCodeLine{149 \{}
+\DoxyCodeLine{150     \textcolor{keywordflow}{return} source::just(std::forward<TObservables>(observables).as\_dynamic()...).concat();}
+\DoxyCodeLine{151 \}}
+\DoxyCodeLine{152 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

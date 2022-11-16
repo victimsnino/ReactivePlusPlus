@@ -8,10 +8,12 @@ Aggregate operators are operators on the entire sequence of items provided by ob
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename ... Args$>$ }\\auto \mbox{\hyperlink{group__aggregate__operators_gae285d5bc977679959decfb4c04869b0d}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, concat\+\_\+tag $>$\+::concat}} () const \&requires(is\+\_\+header\+\_\+included$<$ concat\+\_\+tag
-\begin{DoxyCompactList}\small\item\em Converts observable of observables of items into observable of items via merging emissions but without overlapping (current observable completes T\+H\+EN next started to emit its values) \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... T\+Observables$>$ }\\auto \mbox{\hyperlink{group__aggregate__operators_ga39eb8246898cc501a353eaa2d290a1db}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, concat\+\_\+tag $>$\+::concat\+\_\+with}} (T\+Observables \&\&... observables) const \&requires(is\+\_\+header\+\_\+included$<$ concat\+\_\+tag
-\begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one but without overlapping (current observable completes T\+H\+EN next started to emit its values) \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$typename ... Args$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$concat\+\_\+tag, Args...$>$\&\& rpp\+::constraint\+::observable$<$Type$>$)}\\auto \mbox{\hyperlink{group__aggregate__operators_gaa88f9603fc5335eb17ecf4a850ebdb66}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, concat\+\_\+tag $>$\+::concat}} () const \&
+\begin{DoxyCompactList}\small\item\em Converts observable of observables of items into observable of items via merging emissions but without overlapping (current observable completes THEN next started to emit its values) \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... TObservables$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$concat\+\_\+tag, TObservables...$>$ \&\& sizeof...(TObservables) $>$= 1)}\\auto \mbox{\hyperlink{group__aggregate__operators_ga79ba014ced99027ccf3f263f58e3026b}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, concat\+\_\+tag $>$\+::concat\+\_\+with}} (TObservables \&\&... observables) const \&
+\begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one but without overlapping (current observable completes THEN next started to emit its values) \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -23,17 +25,18 @@ Aggregate operators are operators on the entire sequence of items provided by ob
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{group__aggregate__operators_gae285d5bc977679959decfb4c04869b0d}\label{group__aggregate__operators_gae285d5bc977679959decfb4c04869b0d}} 
+\mbox{\Hypertarget{group__aggregate__operators_gaa88f9603fc5335eb17ecf4a850ebdb66}\label{group__aggregate__operators_gaa88f9603fc5335eb17ecf4a850ebdb66}} 
 \index{Aggregate Operators@{Aggregate Operators}!concat@{concat}}
 \index{concat@{concat}!Aggregate Operators@{Aggregate Operators}}
 \doxysubsubsection{\texorpdfstring{concat()}{concat()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$typename ... Args$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, concat\+\_\+tag $>$\+::concat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&}
+template$<$typename ... Args$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$concat\+\_\+tag, Args...$>$\&\& rpp\+::constraint\+::observable$<$Type$>$)\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, concat\+\_\+tag $>$\+::concat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Converts observable of observables of items into observable of items via merging emissions but without overlapping (current observable completes T\+H\+EN next started to emit its values) 
+Converts observable of observables of items into observable of items via merging emissions but without overlapping (current observable completes THEN next started to emit its values) 
 
 
 
@@ -41,34 +44,36 @@ Converts observable of observables of items into observable of items via merging
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the concat operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{concat_8hpp_source}{rpp/operators/concat.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{concat_8hpp_source}{rpp/operators/concat.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(\mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1).as\_dynamic(),}
+\DoxyCodeLine{    rpp::source::just(rpp::source::just(1).as\_dynamic(),}
 \DoxyCodeLine{                      rpp::source::never<int>().as\_dynamic(),}
-\DoxyCodeLine{                      \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(2).as\_dynamic())}
+\DoxyCodeLine{                      rpp::source::just(2).as\_dynamic())}
 \DoxyCodeLine{            .concat()}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 1}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/concat.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/concat.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__aggregate__operators_ga39eb8246898cc501a353eaa2d290a1db}\label{group__aggregate__operators_ga39eb8246898cc501a353eaa2d290a1db}} 
+\mbox{\Hypertarget{group__aggregate__operators_ga79ba014ced99027ccf3f263f58e3026b}\label{group__aggregate__operators_ga79ba014ced99027ccf3f263f58e3026b}} 
 \index{Aggregate Operators@{Aggregate Operators}!concat\_with@{concat\_with}}
 \index{concat\_with@{concat\_with}!Aggregate Operators@{Aggregate Operators}}
 \doxysubsubsection{\texorpdfstring{concat\_with()}{concat\_with()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... T\+Observables$>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, concat\+\_\+tag $>$\+::concat\+\_\+with (\begin{DoxyParamCaption}\item[{T\+Observables \&\&...}]{observables }\end{DoxyParamCaption}) const \&}
+template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... TObservables$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$concat\+\_\+tag, TObservables...$>$ \&\& sizeof...(TObservables) $>$= 1)\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, concat\+\_\+tag $>$\+::concat\+\_\+with (\begin{DoxyParamCaption}\item[{TObservables \&\&...}]{observables }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Combines submissions from current observable with other observables into one but without overlapping (current observable completes T\+H\+EN next started to emit its values) 
+Combines submissions from current observable with other observables into one but without overlapping (current observable completes THEN next started to emit its values) 
 
 
 
@@ -76,15 +81,16 @@ Combines submissions from current observable with other observables into one but
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the concat operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include $<$\mbox{\hyperlink{concat_8hpp_source}{rpp/operators/concat.\+hpp}}$>$
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{concat_8hpp_source}{rpp/operators/concat.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1)}
-\DoxyCodeLine{            .concat\_with(\mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(2), rpp::source::never<int>(), \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(3))}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{" "}; \});}
+\DoxyCodeLine{    rpp::source::just(1)}
+\DoxyCodeLine{            .concat\_with(rpp::source::just(2), rpp::source::never<int>(), rpp::source::just(3))}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 1 2}}
+
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}

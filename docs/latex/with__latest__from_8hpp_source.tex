@@ -1,0 +1,153 @@
+\hypertarget{with__latest__from_8hpp_source}{}\doxysection{with\+\_\+latest\+\_\+from.\+hpp}
+\label{with__latest__from_8hpp_source}\index{src/rpp/rpp/operators/with\_latest\_from.hpp@{src/rpp/rpp/operators/with\_latest\_from.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                   ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{//           Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{//  Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//     (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//           https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{// }}
+\DoxyCodeLine{8 \textcolor{comment}{//  Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/operators/details/subscriber\_with\_state.hpp>} \textcolor{comment}{// create\_subscriber\_with\_state}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/defs.hpp>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/operators/fwd/with\_latest\_from.hpp>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <rpp/operators/merge.hpp>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <rpp/utils/functors.hpp>}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <rpp/utils/spinlock.hpp>}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <mutex>}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <array>}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <tuple>}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 IMPLEMENTATION\_FILE(with\_latest\_from\_tag);}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{32 \{}
+\DoxyCodeLine{33 \textcolor{keyword}{template}<\textcolor{keyword}{typename} TSelector, constraint::decayed\_type... ValueTypes>}
+\DoxyCodeLine{34 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__state}{with\_latest\_from\_state}} : \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__state}{early\_unsubscribe\_state}}}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36     \mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__state}{with\_latest\_from\_state}}(\textcolor{keyword}{const} TSelector\& selector, \textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\& subscription\_of\_subscriber)}
+\DoxyCodeLine{37         : \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__state}{early\_unsubscribe\_state}}\{subscription\_of\_subscriber\}}
+\DoxyCodeLine{38         , selector(selector) \{\}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40     \textcolor{comment}{// RPP\_NO\_UNIQUE\_ADDRESS commented due to MSVC issue for base classes}}
+\DoxyCodeLine{41     \textcolor{comment}{/*RPP\_NO\_UNIQUE\_ADDRESS*/} TSelector           selector; }
+\DoxyCodeLine{42     std::array<std::mutex, \textcolor{keyword}{sizeof}...(ValueTypes)> mutexes\{\};}
+\DoxyCodeLine{43     std::tuple<std::optional<ValueTypes>...>      vals\{\};}
+\DoxyCodeLine{44 \};}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t} I>}
+\DoxyCodeLine{47 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__on__next__inner}{with\_latest\_from\_on\_next\_inner}}}
+\DoxyCodeLine{48 \{}
+\DoxyCodeLine{49     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\&, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& state)\textcolor{keyword}{ const}}
+\DoxyCodeLine{50 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{51         std::lock\_guard lock\{state-\/>mutexes[I]\};}
+\DoxyCodeLine{52         std::get<I>(state-\/>vals) = std::forward<decltype(value)>(value);}
+\DoxyCodeLine{53     \}}
+\DoxyCodeLine{54 \};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{keyword}{using }\mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{with\_latest\_from\_on\_error}}           = \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{merge\_on\_error}};}
+\DoxyCodeLine{57 \textcolor{keyword}{using }\mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__completed}{with\_latest\_from\_on\_completed\_outer}} = \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__completed}{early\_unsubscribe\_on\_completed}};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t} I, constra\textcolor{keywordtype}{int}::observable TObs>}
+\DoxyCodeLine{60 \textcolor{keywordtype}{void} with\_latest\_from\_subscribe(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& state\_ptr, \textcolor{keyword}{const} TObs\& observable, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{61 \{}
+\DoxyCodeLine{62     \textcolor{keyword}{using }Type = utils::extract\_observable\_type\_t<TObs>;}
+\DoxyCodeLine{63     observable.subscribe(create\_subscriber\_with\_state<Type>(state\_ptr-\/>children\_subscriptions.make\_child(),}
+\DoxyCodeLine{64                                                             \mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__on__next__inner}{with\_latest\_from\_on\_next\_inner<I>}}\{\},}
+\DoxyCodeLine{65                                                             \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{with\_latest\_from\_on\_error}}\{\},}
+\DoxyCodeLine{66                                                             [](\textcolor{keyword}{const} \textcolor{keyword}{auto}\&, \textcolor{keyword}{const} \textcolor{keyword}{auto}\&) \{\},}
+\DoxyCodeLine{67                                                             subscriber,}
+\DoxyCodeLine{68                                                             state\_ptr));}
+\DoxyCodeLine{69 \}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}...I>}
+\DoxyCodeLine{72 \textcolor{keywordtype}{void} with\_latest\_from\_subscribe\_observables(std::index\_sequence<I...>,}
+\DoxyCodeLine{73                                             \textcolor{keyword}{const} \textcolor{keyword}{auto}\&              state\_ptr,}
+\DoxyCodeLine{74                                             \textcolor{keyword}{const} \textcolor{keyword}{auto}\&              subscriber,}
+\DoxyCodeLine{75                                             \textcolor{keyword}{const} \textcolor{keyword}{auto}\&              observables\_tuple)}
+\DoxyCodeLine{76 \{}
+\DoxyCodeLine{77     (with\_latest\_from\_subscribe<I>(state\_ptr, std::get<I>(observables\_tuple), subscriber), ...);}
+\DoxyCodeLine{78 \}}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{keyword}{template}<\textcolor{keyword}{typename} TSelector, constraint::decayed\_type... ValueTypes>}
+\DoxyCodeLine{81 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__on__next__outer}{with\_latest\_from\_on\_next\_outer}}}
+\DoxyCodeLine{82 \{}
+\DoxyCodeLine{83     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{84     \textcolor{keywordtype}{void} operator()(T\&\& v, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& state)\textcolor{keyword}{ const}}
+\DoxyCodeLine{85 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{86         \textcolor{keyword}{using }ResultType = utils::decayed\_invoke\_result\_t<TSelector, std::decay\_t<T>, ValueTypes...>;}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88         \textcolor{keyword}{auto} result = std::apply([\&](\textcolor{keyword}{const} \textcolor{keyword}{auto}\&...current\_cached\_vals) -\/> std::optional<ResultType>}
+\DoxyCodeLine{89                                  \{}
+\DoxyCodeLine{90                                      \textcolor{keyword}{auto} lock = std::apply([](\textcolor{keyword}{auto}\&...mutexes)}
+\DoxyCodeLine{91                                                             \{}
+\DoxyCodeLine{92                                                                 \textcolor{keywordflow}{return} std::scoped\_lock\{mutexes...\};}
+\DoxyCodeLine{93                                                             \},}
+\DoxyCodeLine{94                                                             state-\/>mutexes);}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96                                      \textcolor{keywordflow}{if} ((current\_cached\_vals.has\_value() \&\& ...))}
+\DoxyCodeLine{97                                          \textcolor{keywordflow}{return} state-\/>selector(utils::as\_const(std::forward<T>(v)),}
+\DoxyCodeLine{98                                                                 utils::as\_const(current\_cached\_vals.value())...);}
+\DoxyCodeLine{99                                      \textcolor{keywordflow}{return} std::nullopt;}
+\DoxyCodeLine{100                                  \},}
+\DoxyCodeLine{101                                  state-\/>vals);}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103         \textcolor{keywordflow}{if} (result.has\_value())}
+\DoxyCodeLine{104             sub.on\_next(std::move(result.value()));}
+\DoxyCodeLine{105     \}}
+\DoxyCodeLine{106 \};}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108 \textcolor{keyword}{template}<\textcolor{keyword}{typename} TSelector, constraint::decayed\_type... ValueTypes>}
+\DoxyCodeLine{109 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__state__with__serialized__spinlock}{with\_latest\_from\_state\_with\_serialized\_spinlock}} : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__state}{with\_latest\_from\_state}}<TSelector, ValueTypes...>}
+\DoxyCodeLine{110 \{}
+\DoxyCodeLine{111     \textcolor{keyword}{using }\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__state}{with\_latest\_from\_state}}<TSelector, ValueTypes...>::with\_latest\_from\_state;}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113     \textcolor{comment}{// we can use spinlock there because 99.9\% of time only one ever thread would send values from on\_next (main observable), but we have small probability to get error from inner observables immediately}}
+\DoxyCodeLine{114     utils::spinlock spinlock\{\};}
+\DoxyCodeLine{115 \};}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117 \textcolor{keyword}{template}<constraint::decayed\_type Type, \textcolor{keyword}{typename} TSelector, constraint::observable ...TObservables>}
+\DoxyCodeLine{118 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__impl}{with\_latest\_from\_impl}}}
+\DoxyCodeLine{119 \{}
+\DoxyCodeLine{120     \textcolor{keyword}{using }ResultType = utils::decayed\_invoke\_result\_t<}
+\DoxyCodeLine{121         TSelector, Type, utils::extract\_observable\_type\_t<TObservables>...>;}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{123     RPP\_NO\_UNIQUE\_ADDRESS TSelector                   selector;}
+\DoxyCodeLine{124     RPP\_NO\_UNIQUE\_ADDRESS std::tuple<TObservables...> observables;}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<ResultType> TSub>}
+\DoxyCodeLine{127     \textcolor{keyword}{auto} operator()(TSub\&\& in\_subscriber)\textcolor{keyword}{ const}}
+\DoxyCodeLine{128 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{129         \textcolor{keyword}{auto} state = std::make\_shared<with\_latest\_from\_state\_with\_serialized\_spinlock<TSelector, utils::extract\_observable\_type\_t<TObservables>...>>(selector, in\_subscriber.get\_subscription());}
+\DoxyCodeLine{130         \textcolor{comment}{// change subscriber to serialized to avoid manual using of mutex}}
+\DoxyCodeLine{131         \textcolor{keyword}{auto} subscriber = make\_serialized\_subscriber(std::forward<TSub>(in\_subscriber), std::shared\_ptr<utils::spinlock>\{state, \&state-\/>spinlock\});}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{133         with\_latest\_from\_subscribe\_observables(std::index\_sequence\_for<TObservables...>\{\},}
+\DoxyCodeLine{134                                                state,}
+\DoxyCodeLine{135                                                subscriber,}
+\DoxyCodeLine{136                                                observables);}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138         \textcolor{keyword}{auto} sub = state-\/>children\_subscriptions.make\_child();}
+\DoxyCodeLine{139         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(std::move(sub),}
+\DoxyCodeLine{140                                                   \mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__on__next__outer}{with\_latest\_from\_on\_next\_outer}}<TSelector, utils::extract\_observable\_type\_t<TObservables>...>\{\},}
+\DoxyCodeLine{141                                                   \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{with\_latest\_from\_on\_error}}\{\},}
+\DoxyCodeLine{142                                                   \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__completed}{with\_latest\_from\_on\_completed\_outer}}\{\},}
+\DoxyCodeLine{143                                                   std::move(subscriber),}
+\DoxyCodeLine{144                                                   std::move(state));}
+\DoxyCodeLine{145     \}}
+\DoxyCodeLine{146 \};}
+\DoxyCodeLine{147 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

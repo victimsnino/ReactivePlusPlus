@@ -1,0 +1,41 @@
+\hypertarget{create_8hpp_source}{}\doxysection{create.\+hpp}
+\label{create_8hpp_source}\index{src/rpp/rpp/sources/create.hpp@{src/rpp/rpp/sources/create.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/specific\_observable.hpp>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/sources/fwd.hpp>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 IMPLEMENTATION\_FILE(create\_tag);}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }rpp::observable}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{42 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::on\_subscribe\_fn<Type> OnSubscribeFn>}
+\DoxyCodeLine{43 \textcolor{keyword}{auto} \mbox{\hyperlink{group__creational__operators_gae4a1f681fe61dff2350d1467f4a11e07}{create}}(OnSubscribeFn\&\& on\_subscribe) \textcolor{keyword}{requires} rpp::details::is\_header\_included<rpp::details::create\_tag, Type, OnSubscribeFn>}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45     \textcolor{keyword}{using }CreatedOnSubscribeFn = std::decay\_t<OnSubscribeFn>;}
+\DoxyCodeLine{46     \textcolor{keywordflow}{return} specific\_observable<Type, CreatedOnSubscribeFn>\{std::forward<OnSubscribeFn>(on\_subscribe)\};}
+\DoxyCodeLine{47 \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{70 \textcolor{keyword}{template}<utils::is\_callable OnSubscribeFn, constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{71     \textcolor{keyword}{requires} constraint::on\_subscribe\_fn<OnSubscribeFn, Type>}
+\DoxyCodeLine{72 \textcolor{keyword}{auto} \mbox{\hyperlink{group__creational__operators_gae4a1f681fe61dff2350d1467f4a11e07}{create}}(OnSubscribeFn\&\& on\_subscribe) \textcolor{keyword}{requires} rpp::details::is\_header\_included<rpp::details::create\_tag, Type, OnSubscribeFn>}
+\DoxyCodeLine{73 \{}
+\DoxyCodeLine{74     \textcolor{keywordflow}{return} create<Type>(std::forward<OnSubscribeFn>(on\_subscribe));}
+\DoxyCodeLine{75 \}}
+\DoxyCodeLine{76 \} \textcolor{comment}{// namespace rpp::observable}}
+
+\end{DoxyCode}

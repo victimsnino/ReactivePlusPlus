@@ -7,9 +7,9 @@
 \DoxyCodeLine{\textcolor{keywordtype}{int} main()}
 \DoxyCodeLine{\{}
 \DoxyCodeLine{}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1,2,3,4,5)}
+\DoxyCodeLine{    rpp::source::just(1,2,3,4,5)}
 \DoxyCodeLine{        .window(3)}
-\DoxyCodeLine{        .subscribe([](\textcolor{keyword}{const} rpp::windowed\_observable<int>\& v) \{ std::cout << \textcolor{stringliteral}{"\(\backslash\)nNew observable "} << std::endl; v.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{" "}; \}); \});}
+\DoxyCodeLine{        .subscribe([](\textcolor{keyword}{const} rpp::windowed\_observable<int>\& v) \{ std::cout << \textcolor{stringliteral}{"{}\(\backslash\)nNew observable "{}} << std::endl; v.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \}); \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: New observable}}
 \DoxyCodeLine{    \textcolor{comment}{//         1 2 3}}
 \DoxyCodeLine{    \textcolor{comment}{//         New observable}}
@@ -18,5 +18,6 @@
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{keywordflow}{return} 0;}
 \DoxyCodeLine{\}}
+
 \end{DoxyCodeInclude}
  

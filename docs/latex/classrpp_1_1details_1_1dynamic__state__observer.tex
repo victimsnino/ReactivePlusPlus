@@ -1,6 +1,6 @@
-\hypertarget{classrpp_1_1details_1_1dynamic__state__observer}{}\doxysection{rpp\+::details\+::dynamic\+\_\+state\+\_\+observer$<$ T, States $>$ Class Template Reference}
+\hypertarget{classrpp_1_1details_1_1dynamic__state__observer}{}\doxysection{rpp\+::details\+::dynamic\+\_\+state\+\_\+observer\texorpdfstring{$<$}{<} T, States \texorpdfstring{$>$}{>} Class Template Reference}
 \label{classrpp_1_1details_1_1dynamic__state__observer}\index{rpp::details::dynamic\_state\_observer$<$ T, States $>$@{rpp::details::dynamic\_state\_observer$<$ T, States $>$}}
-Inheritance diagram for rpp\+::details\+::dynamic\+\_\+state\+\_\+observer$<$ T, States $>$\+:\begin{figure}[H]
+Inheritance diagram for rpp\+::details\+::dynamic\+\_\+state\+\_\+observer\texorpdfstring{$<$}{<} T, States \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{classrpp_1_1details_1_1dynamic__state__observer}
@@ -9,14 +9,16 @@ Inheritance diagram for rpp\+::details\+::dynamic\+\_\+state\+\_\+observer$<$ T,
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1dynamic__state__observer_aff0b80c1568196b49d25ef4952bd90a7}\label{classrpp_1_1details_1_1dynamic__state__observer_aff0b80c1568196b49d25ef4952bd90a7}} 
-{\footnotesize template$<$typename ... T\+States$>$ }\\{\bfseries requires} (constraint\+::decayed\+\_\+same\+\_\+as$<$ States, T\+States $>$ \&\&...) \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{dynamic\+\_\+state\+\_\+observer}}(std
+\mbox{\Hypertarget{classrpp_1_1details_1_1dynamic__state__observer_a856aa4774dcb5cc8133522e6090c7b7f}\label{classrpp_1_1details_1_1dynamic__state__observer_a856aa4774dcb5cc8133522e6090c7b7f}} 
+{\footnotesize template$<$typename ... TStates$>$ \newline
+requires (constraint\+::decayed\+\_\+same\+\_\+as$<$States, TStates$>$ \&\& ...)}\\{\bfseries dynamic\+\_\+state\+\_\+observer} (std\+::invocable$<$ T, States... $>$ auto \&\&\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_aab9be8862b04c33b4c862f8dda1c99be}{on\+\_\+next}}, std\+::invocable$<$ std\+::exception\+\_\+ptr, States... $>$ auto \&\&\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a91d7e77ce90708128288524107e7dc7f}{on\+\_\+error}}, std\+::invocable$<$ States... $>$ auto \&\&\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a7352ef279f72e785b5d7631e36d63707}{on\+\_\+completed}}, TStates \&\&... states)
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1dynamic__state__observer_ae487f482f4ddad31926fea48821256d1}\label{classrpp_1_1details_1_1dynamic__state__observer_ae487f482f4ddad31926fea48821256d1}} 
-{\bfseries dynamic\+\_\+state\+\_\+observer} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structrpp_1_1details_1_1dynamic__observer__state__base}{details\+::dynamic\+\_\+observer\+\_\+state\+\_\+base}}$<$ T $>$$>$ state)
+\mbox{\Hypertarget{classrpp_1_1details_1_1dynamic__state__observer_a2c306b6ecdbddcc1f20bd3f7e76c7e0a}\label{classrpp_1_1details_1_1dynamic__state__observer_a2c306b6ecdbddcc1f20bd3f7e76c7e0a}} 
+{\bfseries dynamic\+\_\+state\+\_\+observer} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structrpp_1_1details_1_1dynamic__observer__state__base}{details\+::dynamic\+\_\+observer\+\_\+state\+\_\+base}}$<$ T $>$ $>$ state)
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1dynamic__state__observer_a8badc32a36f1f5f72eb3bbb87d54a36e}\label{classrpp_1_1details_1_1dynamic__state__observer_a8badc32a36f1f5f72eb3bbb87d54a36e}} 
-{\footnotesize template$<$constraint\+::observer\+\_\+of\+\_\+type$<$ T $>$ T\+Observer$>$ }\\{\bfseries requires} (!std\+::is\+\_\+same\+\_\+v$<$ std\+::decay\+\_\+t$<$ T\+Observer $>$, \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{dynamic\+\_\+state\+\_\+observer}}$<$ T, States... $>$$>$) \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{dynamic\+\_\+state\+\_\+observer}}(T\+Observer \&\&obs)
+\mbox{\Hypertarget{classrpp_1_1details_1_1dynamic__state__observer_a41c06850655d7c864aedbc8a9a2437b5}\label{classrpp_1_1details_1_1dynamic__state__observer_a41c06850655d7c864aedbc8a9a2437b5}} 
+{\footnotesize template$<$constraint\+::observer\+\_\+of\+\_\+type$<$ T $>$ TObserver$>$ \newline
+requires (!std\+::is\+\_\+same\+\_\+v$<$std\+::decay\+\_\+t$<$TObserver$>$, \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{dynamic\+\_\+state\+\_\+observer}}$<$T, States...$>$$>$)}\\{\bfseries dynamic\+\_\+state\+\_\+observer} (TObserver \&\&obs)
 \item 
 void \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_aab9be8862b04c33b4c862f8dda1c99be}{on\+\_\+next}} (const T \&v) const
 \begin{DoxyCompactList}\small\item\em Observable calls this methods to notify observer about new value. \end{DoxyCompactList}\item 

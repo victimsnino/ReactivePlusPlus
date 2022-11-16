@@ -1,0 +1,61 @@
+\hypertarget{do_8hpp_source}{}\doxysection{do.\+hpp}
+\label{do_8hpp_source}\index{src/rpp/rpp/operators/do.hpp@{src/rpp/rpp/operators/do.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/operators/lift.hpp>}                          \textcolor{comment}{// required due to operator uses lift}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/operators/fwd/do.hpp>}                        \textcolor{comment}{// own forwarding}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/operators/details/subscriber\_with\_state.hpp>} \textcolor{comment}{// create\_subscriber\_with\_state}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}                 \textcolor{comment}{// constraint::subscriber\_of\_type}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}                         \textcolor{comment}{// utils::as\_const}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 IMPLEMENTATION\_FILE(do\_tag);}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observer\_of\_type<Type> TObs>}
+\DoxyCodeLine{24 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1do__impl}{do\_impl}}}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26     TObs observer;}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type> TSub>}
+\DoxyCodeLine{29     \textcolor{keyword}{auto} operator()(TSub\&\& subscriber)\textcolor{keyword}{ const}}
+\DoxyCodeLine{30 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{31         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(std::move(subscription),}
+\DoxyCodeLine{34                                                   [](\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} TSub\& subscriber, \textcolor{keyword}{const} TObs\& do\_observer)}
+\DoxyCodeLine{35                                                   \{}
+\DoxyCodeLine{36                                                       do\_observer.on\_next(utils::as\_const(value));}
+\DoxyCodeLine{37                                                       subscriber.on\_next(std::forward<\textcolor{keyword}{decltype}(value)>(value));}
+\DoxyCodeLine{38                                                   \},}
+\DoxyCodeLine{39                                                   [](\textcolor{keyword}{const} std::exception\_ptr\& err,}
+\DoxyCodeLine{40                                                      \textcolor{keyword}{const} TSub\&               subscriber,}
+\DoxyCodeLine{41                                                      \textcolor{keyword}{const} TObs\&               do\_observer)}
+\DoxyCodeLine{42                                                   \{}
+\DoxyCodeLine{43                                                       do\_observer.on\_error(err);}
+\DoxyCodeLine{44                                                       subscriber.on\_error(err);}
+\DoxyCodeLine{45                                                   \},}
+\DoxyCodeLine{46                                                   [](\textcolor{keyword}{const} TSub\& subscriber, \textcolor{keyword}{const} TObs\& do\_observer)}
+\DoxyCodeLine{47                                                   \{}
+\DoxyCodeLine{48                                                       do\_observer.on\_completed();}
+\DoxyCodeLine{49                                                       subscriber.on\_completed();}
+\DoxyCodeLine{50                                                   \},}
+\DoxyCodeLine{51                                                   std::forward<TSub>(subscriber),}
+\DoxyCodeLine{52                                                   observer);}
+\DoxyCodeLine{53     \}}
+\DoxyCodeLine{54 \};}
+\DoxyCodeLine{55 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

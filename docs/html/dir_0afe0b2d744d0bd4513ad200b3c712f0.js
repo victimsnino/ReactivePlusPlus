@@ -9,14 +9,14 @@ var dir_0afe0b2d744d0bd4513ad200b3c712f0 =
     [ "subscribers", "dir_00eb4775263b341d794d9fc7de7eec24.html", "dir_00eb4775263b341d794d9fc7de7eec24" ],
     [ "subscriptions", "dir_1268faa8f88bccfcf86c6fea2057d33a.html", "dir_1268faa8f88bccfcf86c6fea2057d33a" ],
     [ "defs.hpp", "defs_8hpp_source.html", null ],
-    [ "fwd.hpp", "fwd_8hpp_source.html", null ],
+    [ "fwd.hpp", "rpp_2fwd_8hpp_source.html", null ],
     [ "memory_model.hpp", "memory__model_8hpp_source.html", null ],
     [ "observables.hpp", "observables_8hpp_source.html", null ],
     [ "observers.hpp", "observers_8hpp_source.html", null ],
     [ "operators.hpp", "operators_8hpp_source.html", null ],
     [ "rpp.hpp", "rpp_8hpp_source.html", null ],
     [ "schedulers.hpp", "schedulers_8hpp_source.html", null ],
-    [ "sources.hpp", "sources_8hpp_source.html", null ],
+    [ "sources.hpp", "rpp_2sources_8hpp_source.html", null ],
     [ "subjects.hpp", "subjects_8hpp_source.html", null ],
     [ "subscribers.hpp", "subscribers_8hpp_source.html", null ]
 ];

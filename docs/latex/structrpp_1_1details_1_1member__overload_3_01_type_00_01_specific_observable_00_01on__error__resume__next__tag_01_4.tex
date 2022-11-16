@@ -1,34 +1,15 @@
-\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01on__error__resume__next__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, on\+\_\+error\+\_\+resume\+\_\+next\+\_\+tag $>$ Struct Template Reference}
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01on__error__resume__next__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload\texorpdfstring{$<$}{<} Type, Specific\+Observable, on\+\_\+error\+\_\+resume\+\_\+next\+\_\+tag \texorpdfstring{$>$}{>} Struct Template Reference}
 \label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01on__error__resume__next__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, on\_error\_resume\_next\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, on\_error\_resume\_next\_tag $>$}}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$rpp\+::details\+::resume\+\_\+callable Resume\+Callable$>$ }\\auto \mbox{\hyperlink{group__error__handling__operators_gac8b98e5b3466a70a402366e4bc920f38}{on\+\_\+error\+\_\+resume\+\_\+next}} (Resume\+Callable \&\&resume\+\_\+callable) const \&requires is\+\_\+header\+\_\+included$<$ on\+\_\+error\+\_\+resume\+\_\+next\+\_\+tag
+{\footnotesize template$<$rpp\+::details\+::resume\+\_\+callable Resume\+Callable$>$ \newline
+requires is\+\_\+header\+\_\+included$<$on\+\_\+error\+\_\+resume\+\_\+next\+\_\+tag, Resume\+Callable$>$}\\auto \mbox{\hyperlink{group__error__handling__operators_gad7cd2e0764e8c1677938ac2af1d58b10}{on\+\_\+error\+\_\+resume\+\_\+next}} (Resume\+Callable \&\&resume\+\_\+callable) const \&
 \begin{DoxyCompactList}\small\item\em Recover from an on\+\_\+error notification by continuing the sequence without error. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01on__error__resume__next__tag_01_4_ace54816a8ab0f8edda167271ae6bbcce}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01on__error__resume__next__tag_01_4_ace54816a8ab0f8edda167271ae6bbcce}} 
-{\footnotesize template$<$rpp\+::details\+::resume\+\_\+callable Resume\+Callable$>$ }\\auto {\bfseries on\+\_\+error\+\_\+resume\+\_\+next} (Resume\+Callable \&\&resume\+\_\+callable) \&\&requires is\+\_\+header\+\_\+included$<$ on\+\_\+error\+\_\+resume\+\_\+next\+\_\+tag
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01on__error__resume__next__tag_01_4_ac3304b2b1d8a6a1a4e0754591beebf33}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01on__error__resume__next__tag_01_4_ac3304b2b1d8a6a1a4e0754591beebf33}} 
+{\footnotesize template$<$rpp\+::details\+::resume\+\_\+callable Resume\+Callable$>$ \newline
+requires is\+\_\+header\+\_\+included$<$on\+\_\+error\+\_\+resume\+\_\+next\+\_\+tag, Resume\+Callable$>$}\\auto {\bfseries on\+\_\+error\+\_\+resume\+\_\+next} (Resume\+Callable \&\&resume\+\_\+callable) \&\&
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-auto {\bfseries Resume\+Callable}
-\end{DoxyCompactItemize}
-
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01on__error__resume__next__tag_01_4_a5139d5fd08151f10a6c091507c0ca33d}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01on__error__resume__next__tag_01_4_a5139d5fd08151f10a6c091507c0ca33d}} 
-\index{rpp::details::member\_overload$<$ Type, SpecificObservable, on\_error\_resume\_next\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, on\_error\_resume\_next\_tag $>$}!ResumeCallable@{ResumeCallable}}
-\index{ResumeCallable@{ResumeCallable}!rpp::details::member\_overload$<$ Type, SpecificObservable, on\_error\_resume\_next\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, on\_error\_resume\_next\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{ResumeCallable}{ResumeCallable}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, on\+\_\+error\+\_\+resume\+\_\+next\+\_\+tag $>$\+::Resume\+Callable}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} cast\_this()-\/>template lift<Type>(on\_error\_resume\_next\_impl<Type, std::decay\_t<ResumeCallable>>\{std::forward<ResumeCallable>(resume\_callable)\})}
-
-\end{DoxyCode}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}

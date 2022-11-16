@@ -5,7 +5,7 @@ var dir_d8204008f15e4407f14e8533ec49a8b6 =
     [ "connectable_observable.hpp", "connectable__observable_8hpp_source.html", null ],
     [ "constraints.hpp", "observables_2constraints_8hpp_source.html", null ],
     [ "dynamic_observable.hpp", "dynamic__observable_8hpp_source.html", null ],
-    [ "fwd.hpp", "observables_2fwd_8hpp_source.html", null ],
+    [ "fwd.hpp", "rpp_2observables_2fwd_8hpp_source.html", null ],
     [ "grouped_observable.hpp", "grouped__observable_8hpp_source.html", null ],
     [ "interface_observable.hpp", "interface__observable_8hpp_source.html", null ],
     [ "specific_observable.hpp", "specific__observable_8hpp_source.html", null ]

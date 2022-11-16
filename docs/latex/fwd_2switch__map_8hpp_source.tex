@@ -1,0 +1,51 @@
+\hypertarget{fwd_2switch__map_8hpp_source}{}\doxysection{switch\+\_\+map.\+hpp}
+\label{fwd_2switch__map_8hpp_source}\index{src/rpp/rpp/operators/fwd/switch\_map.hpp@{src/rpp/rpp/operators/fwd/switch\_map.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{//                    TC Wang 2022 -\/ present.}}
+\DoxyCodeLine{5 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{6 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{7 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{8 \textcolor{comment}{//}}
+\DoxyCodeLine{9 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{10 \textcolor{comment}{//}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/observables/details/member\_overload.hpp>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19 \textcolor{keyword}{struct }switch\_map\_tag;}
+\DoxyCodeLine{20 \}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn, \textcolor{keyword}{typename} Type>}
+\DoxyCodeLine{25 \textcolor{keyword}{concept }switch\_map\_callable = std::invocable<Fn, Type> \&\& constraint::observable<std::invoke\_result\_t<Fn, Type>>;}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, switch\_map\_callable<Type> Callable>}
+\DoxyCodeLine{28 \textcolor{keyword}{auto} switch\_map\_impl(\textcolor{keyword}{auto}\&\& observable, Callable\&\& callable);}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{31 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, switch\_map\_tag>}
+\DoxyCodeLine{32 \{}
+\DoxyCodeLine{54     \textcolor{keyword}{template}<switch\_map\_callable<Type> Callable>}
+\DoxyCodeLine{55     \textcolor{keyword}{auto} switch\_map(Callable\&\& callable) \textcolor{keyword}{const} \& \textcolor{keyword}{requires} is\_header\_included<switch\_map\_tag, Callable>}
+\DoxyCodeLine{56     \{}
+\DoxyCodeLine{57         \textcolor{keywordflow}{return} switch\_map\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<Callable>(callable));}
+\DoxyCodeLine{58     \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     \textcolor{keyword}{template}<switch\_map\_callable<Type> Callable>}
+\DoxyCodeLine{61     \textcolor{keyword}{auto} switch\_map(Callable\&\& callable) \&\& \textcolor{keyword}{requires} is\_header\_included<switch\_map\_tag, Callable>}
+\DoxyCodeLine{62     \{}
+\DoxyCodeLine{63         \textcolor{keywordflow}{return} switch\_map\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})), std::forward<Callable>(callable));}
+\DoxyCodeLine{64     \}}
+\DoxyCodeLine{65 \};}
+\DoxyCodeLine{66 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

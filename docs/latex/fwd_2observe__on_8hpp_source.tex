@@ -1,0 +1,58 @@
+\hypertarget{fwd_2observe__on_8hpp_source}{}\doxysection{observe\+\_\+on.\+hpp}
+\label{fwd_2observe__on_8hpp_source}\index{src/rpp/rpp/operators/fwd/observe\_on.hpp@{src/rpp/rpp/operators/fwd/observe\_on.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                   ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//           Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{//                             TC Wang 2022 -\/ present.}}
+\DoxyCodeLine{5 \textcolor{comment}{//  Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{6 \textcolor{comment}{//     (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{7 \textcolor{comment}{//           https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{8 \textcolor{comment}{//}}
+\DoxyCodeLine{9 \textcolor{comment}{//  Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/details/member\_overload.hpp>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/schedulers/constraints.hpp>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18 \textcolor{keyword}{struct }observe\_on\_tag;}
+\DoxyCodeLine{19 \}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
+\DoxyCodeLine{24 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1observe__on__impl}{observe\_on\_impl}};}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{27 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, observe\_on\_tag>}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{42     \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
+\DoxyCodeLine{43     \textcolor{keyword}{auto} \mbox{\hyperlink{group__utility__operators_ga374d453301a31f00fed7024be4327934}{observe\_on}}(TScheduler\&\& scheduler) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<observe\_on\_tag, TScheduler>}
+\DoxyCodeLine{44     \{}
+\DoxyCodeLine{45         \textcolor{keywordflow}{return} cast\_this()-\/>delay(schedulers::duration\{0\}, std::forward<TScheduler>(scheduler));}
+\DoxyCodeLine{46     \}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48     \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
+\DoxyCodeLine{49     \textcolor{keyword}{auto} observe\_on(TScheduler\&\& scheduler) \&\& \textcolor{keyword}{requires} is\_header\_included<observe\_on\_tag, TScheduler>}
+\DoxyCodeLine{50     \{}
+\DoxyCodeLine{51         \textcolor{keywordflow}{return} move\_this().delay(schedulers::duration\{0\}, std::forward<TScheduler>(scheduler));}
+\DoxyCodeLine{52     \}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{keyword}{private}:}
+\DoxyCodeLine{55     \textcolor{keyword}{const} SpecificObservable* cast\_this()\textcolor{keyword}{ const}}
+\DoxyCodeLine{56 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{57         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
+\DoxyCodeLine{58     \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     SpecificObservable\&\& move\_this()}
+\DoxyCodeLine{61     \{}
+\DoxyCodeLine{62         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{63     \}}
+\DoxyCodeLine{64 \};}
+\DoxyCodeLine{65 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

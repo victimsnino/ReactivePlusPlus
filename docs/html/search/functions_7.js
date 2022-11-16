@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['just_539',['just',['../group__creational__operators.html#gabc5067fa9aefaa803f6e329b75faa00c',1,'rpp::observable::just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp'],['../group__creational__operators.html#ga3dbc86391138a75da37b119ab4b785d2',1,'rpp::observable::just(T &amp;&amp;item, Ts &amp;&amp;...items) requires(rpp']]]
+  ['interval_0',['interval',['../group__creational__operators.html#ga2c3002a4f3af8fcd0f73fab9bf5a0ea3',1,'rpp::observable::interval(schedulers::duration period, const TScheduler &amp;scheduler)'],['../group__creational__operators.html#gace4fe134b05b9c02142166769df71436',1,'rpp::observable::interval(schedulers::duration first_delay, schedulers::duration period, const TScheduler &amp;scheduler)']]],
+  ['is_5fsubscribed_1',['is_subscribed',['../classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2',1,'rpp::subscription_base']]]
 ];

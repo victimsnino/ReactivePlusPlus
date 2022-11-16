@@ -1,0 +1,54 @@
+\hypertarget{immediate__scheduler_8hpp_source}{}\doxysection{immediate\+\_\+scheduler.\+hpp}
+\label{immediate__scheduler_8hpp_source}\index{src/rpp/rpp/schedulers/immediate\_scheduler.hpp@{src/rpp/rpp/schedulers/immediate\_scheduler.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/schedulers/fwd.hpp>}                   \textcolor{comment}{// own forwarding}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/schedulers/details/worker.hpp>}        \textcolor{comment}{// worker}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/subscriptions/subscription\_base.hpp>}  \textcolor{comment}{// lifetime}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/schedulers/details/utils.hpp>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <chrono>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <concepts>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <thread>}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }rpp::schedulers}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{28 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{immediate}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1scheduler__tag}{details::scheduler\_tag}}}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30 \textcolor{keyword}{public}:}
+\DoxyCodeLine{31     \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate_1_1worker__strategy}{worker\_strategy}}}
+\DoxyCodeLine{32     \{}
+\DoxyCodeLine{33     \textcolor{keyword}{public}:}
+\DoxyCodeLine{34         \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate_1_1worker__strategy}{worker\_strategy}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}}\& sub)}
+\DoxyCodeLine{35             : m\_sub\{sub\} \{\}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37         \textcolor{keywordtype}{void} defer\_at(time\_point time\_point, constraint::schedulable\_fn \textcolor{keyword}{auto}\&\& fn)\textcolor{keyword}{ const}}
+\DoxyCodeLine{38 \textcolor{keyword}{        }\{}
+\DoxyCodeLine{39             details::immediate\_scheduling\_while\_condition(time\_point, std::forward<\textcolor{keyword}{decltype}(fn)>(fn), m\_sub, []\{\textcolor{keywordflow}{return} \textcolor{keyword}{true};\});}
+\DoxyCodeLine{40         \}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42         \textcolor{keyword}{static} time\_point now() \{ \textcolor{keywordflow}{return} clock\_type::now();  \}}
+\DoxyCodeLine{43     \textcolor{keyword}{private}:}
+\DoxyCodeLine{44         \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}} m\_sub;}
+\DoxyCodeLine{45     \};}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{keyword}{static} \textcolor{keyword}{auto} create\_worker(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}}\& sub = \{\})}
+\DoxyCodeLine{48     \{}
+\DoxyCodeLine{49         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker<worker\_strategy>}}\{sub\};}
+\DoxyCodeLine{50     \}}
+\DoxyCodeLine{51 \};}
+\DoxyCodeLine{52 \} \textcolor{comment}{// namespace rpp::schedulers}}
+
+\end{DoxyCode}

@@ -1,4 +1,4 @@
-\hypertarget{classrpp_1_1specific__observable}{}\doxysection{rpp\+::specific\+\_\+observable$<$ Type, On\+Subscribe\+Fn $>$ Class Template Reference}
+\hypertarget{classrpp_1_1specific__observable}{}\doxysection{rpp\+::specific\+\_\+observable\texorpdfstring{$<$}{<} Type, On\+Subscribe\+Fn \texorpdfstring{$>$}{>} Class Template Reference}
 \label{classrpp_1_1specific__observable}\index{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$@{rpp::specific\_observable$<$ Type, OnSubscribeFn $>$}}
 
 
@@ -7,8 +7,14 @@ Type-\/full observable (or typed) that has the notion of Type and upstream obser
 
 
 
-{\ttfamily \#include $<$fwd.\+hpp$>$}
+{\ttfamily \#include $<$specific\+\_\+observable.\+hpp$>$}
 
+Inheritance diagram for rpp\+::specific\+\_\+observable\texorpdfstring{$<$}{<} Type, On\+Subscribe\+Fn \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=12.000000cm]{classrpp_1_1specific__observable}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -24,19 +30,43 @@ Type-\/full observable (or typed) that has the notion of Type and upstream obser
 \mbox{\Hypertarget{classrpp_1_1specific__observable_a71f9a7d6013a4ca1d79e0e2109fa19ce}\label{classrpp_1_1specific__observable_a71f9a7d6013a4ca1d79e0e2109fa19ce}} 
 {\bfseries specific\+\_\+observable} (\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} \&\&other) noexcept=default
 \item 
-\mbox{\Hypertarget{classrpp_1_1specific__observable_a6093f5620cb772947ff8739c7a776cec}\label{classrpp_1_1specific__observable_a6093f5620cb772947ff8739c7a776cec}} 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_a2319dc2d17c285470175afa71c0dd9ae}\label{classrpp_1_1specific__observable_a2319dc2d17c285470175afa71c0dd9ae}} 
 \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} \& {\bfseries operator=} (const \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} \&other)=default
 \item 
-\mbox{\Hypertarget{classrpp_1_1specific__observable_a7a91dcaaae75e90174fa08bcda17bc2b}\label{classrpp_1_1specific__observable_a7a91dcaaae75e90174fa08bcda17bc2b}} 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_afd7d7a5e2dec3e7cb8f604a4e647df89}\label{classrpp_1_1specific__observable_afd7d7a5e2dec3e7cb8f604a4e647df89}} 
 \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} \& {\bfseries operator=} (\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} \&\&other) noexcept=default
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_afef03ecaa089ac3df8f0bf5e664a1d9a}\label{classrpp_1_1specific__observable_afef03ecaa089ac3df8f0bf5e664a1d9a}} 
+{\footnotesize template$<$typename... Args$>$ \newline
+requires details\+::is\+\_\+header\+\_\+included$<$details\+::dynamic\+\_\+observable\+\_\+tag, Args...$>$}\\auto {\bfseries as\+\_\+dynamic} () const \&
+\begin{DoxyCompactList}\small\item\em Converts \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} to \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable}} via type-\/erasure mechanism. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_abca84b6ef365e051a76afcb33030d1b5}\label{classrpp_1_1specific__observable_abca84b6ef365e051a76afcb33030d1b5}} 
+{\footnotesize template$<$typename... Args$>$ \newline
+requires details\+::is\+\_\+header\+\_\+included$<$details\+::dynamic\+\_\+observable\+\_\+tag, Args...$>$}\\auto {\bfseries as\+\_\+dynamic} () \&\&
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_a42b926108d17b174d86c2643cfa1afae}\label{classrpp_1_1specific__observable_a42b926108d17b174d86c2643cfa1afae}} 
+struct {\bfseries details\+::member\+\_\+overload$<$ Type, specific\+\_\+observable$<$ Type, On\+Subscribe\+Fn $>$, details\+::subscribe\+\_\+tag $>$}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 \subsubsection*{template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe\+\_\+fn$<$ Type $>$ On\+Subscribe\+Fn$>$\newline
 class rpp\+::specific\+\_\+observable$<$ Type, On\+Subscribe\+Fn $>$}
-
 Type-\/full observable (or typed) that has the notion of Type and upstream observables for C++ compiler. e.\+g. observable$<$int, map$<$bool, ...\+recursive...$>$$>$ is different from observable$<$int, filter$<$int, ...$>$$>$. 
+
+This is a C++ technique about de-\/virtualization. To achieve polymorphic behavior, we could either go for function virtualization or function overload. However, virtualization is more expensive than function overload in both compile time and runtime. Therefore, we go for function overload. Actually, we use more advanced functor paradigm for better performance. As a result it has better performance comparing to \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable}}. Use it if possible. But it has worse usability due to On\+Subscribe\+Fn template parameter.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Type} & is the value type. Observable of type means this source could emit a sequence of items of that \char`\"{}\+Type\char`\"{}. \\
+\hline
+{\em On\+Subscribe\+Fn} & is the on\+\_\+subscribe functor that is called when a subscriber subscribes to this observable. \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} stores On\+Subscribe\+Fn as member variable, so, it is stored on stack (instead of allocating it on heap).\\
+\hline
+\end{DoxyParams}
+
 
 This is a C++ technique about de-\/virtualization. To achieve polymorphic behavior, we could either go for function virtualization or function overload. However, virtualization is more expensive than function overload in both compile time and runtime. Therefore, we go for function overload. Actually, we use more advanced functor paradigm for better performance. As a result it has better performance comparing to \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable}}. Use it if possible. But it has worse usability due to On\+Subscribe\+Fn template parameter.
 

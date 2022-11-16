@@ -1,0 +1,30 @@
+\hypertarget{defs_8hpp_source}{}\doxysection{defs.\+hpp}
+\label{defs_8hpp_source}\index{src/rpp/rpp/defs.hpp@{src/rpp/rpp/defs.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                   ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{//           Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{//  Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//     (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//           https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{// }}
+\DoxyCodeLine{8 \textcolor{comment}{//  Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{comment}{// MSVC has bad support for the empty base classes, but provides specificator to enable full support. GCC/Clang works as expected}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#if defined(\_MSC\_VER) \&\& \_MSC\_FULL\_VER >= 190023918}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#  define RPP\_EMPTY\_BASES \_\_declspec(empty\_bases)}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#  define RPP\_EMPTY\_BASES}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{comment}{// MSVC has bad support for the no\_unique\_address from the box NOW, but provides specificator to enable full support. GCC/Clang works as expected}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#if defined(\_MSC\_VER) \&\& \_MSC\_FULL\_VER >= 192829913}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#  define RPP\_NO\_UNIQUE\_ADDRESS [[msvc::no\_unique\_address]]}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#  define RPP\_NO\_UNIQUE\_ADDRESS [[no\_unique\_address]]}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

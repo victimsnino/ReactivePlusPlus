@@ -1,105 +1,43 @@
-\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, do\+\_\+tag $>$ Struct Template Reference}
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload\texorpdfstring{$<$}{<} Type, Specific\+Observable, do\+\_\+tag \texorpdfstring{$>$}{>} Struct Template Reference}
 \label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$}}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$constraint\+::observer\+\_\+of\+\_\+type$<$ Type $>$ T\+Obs$>$ }\\auto \mbox{\hyperlink{group__utility__operators_gafa05370906b6201bfbf0fd820e88e2ad}{tap}} (T\+Obs \&\&observer) const \&requires is\+\_\+header\+\_\+included$<$ do\+\_\+tag
+{\footnotesize template$<$constraint\+::observer\+\_\+of\+\_\+type$<$ Type $>$ TObs$>$ \newline
+requires is\+\_\+header\+\_\+included $<$do\+\_\+tag, TObs$>$}\\auto \mbox{\hyperlink{group__utility__operators_ga134878936c20b1ef87d3c655ceffc131}{tap}} (TObs \&\&observer) const \&
 \begin{DoxyCompactList}\small\item\em Register an observer to be called when observable provides any events (on\+\_\+next/on\+\_\+error/on\+\_\+completed) \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_acc3c3f6dcae8463340843e8c53491f9f}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_acc3c3f6dcae8463340843e8c53491f9f}} 
-{\footnotesize template$<$constraint\+::observer\+\_\+of\+\_\+type$<$ Type $>$ T\+Obs$>$ }\\auto {\bfseries tap} (T\+Obs \&\&observer) \&\&requires is\+\_\+header\+\_\+included$<$ do\+\_\+tag
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_ae62d935c519b6581ab5ba438ba59aafb}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_ae62d935c519b6581ab5ba438ba59aafb}} 
+{\footnotesize template$<$constraint\+::observer\+\_\+of\+\_\+type$<$ Type $>$ TObs$>$ \newline
+requires is\+\_\+header\+\_\+included $<$do\+\_\+tag, TObs$>$}\\auto {\bfseries tap} (TObs \&\&observer) \&\&
 \item 
-{\footnotesize template$<$constraint\+::on\+\_\+next\+\_\+fn$<$ Type $>$ On\+Next\+Fn, constraint\+::on\+\_\+error\+\_\+fn On\+Error\+Fn = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, constraint\+::on\+\_\+completed\+\_\+fn On\+Completed\+Fn = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga92b3e8e02f289ac88752f5d6fc592b9c}{tap}} (On\+Next\+Fn \&\&on\+\_\+next, On\+Error\+Fn \&\&on\+\_\+error=On\+Error\+Fn\{\}, On\+Completed\+Fn \&\&on\+\_\+completed=On\+Completed\+Fn\{\}) const \&requires is\+\_\+header\+\_\+included$<$ do\+\_\+tag
+{\footnotesize template$<$constraint\+::on\+\_\+next\+\_\+fn$<$ Type $>$ On\+Next\+Fn, constraint\+::on\+\_\+error\+\_\+fn On\+Error\+Fn = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, constraint\+::on\+\_\+completed\+\_\+fn On\+Completed\+Fn = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \newline
+requires is\+\_\+header\+\_\+included $<$do\+\_\+tag, On\+Next\+Fn, On\+Error\+Fn, On\+Completed\+Fn$>$}\\auto \mbox{\hyperlink{group__utility__operators_ga345385e805cd439432d447065727df09}{tap}} (On\+Next\+Fn \&\&on\+\_\+next, On\+Error\+Fn \&\&on\+\_\+error=On\+Error\+Fn\{\}, On\+Completed\+Fn \&\&on\+\_\+completed=On\+Completed\+Fn\{\}) const \&
 \begin{DoxyCompactList}\small\item\em Register an list of actions to be called when observable provides any events (on\+\_\+next/on\+\_\+error/on\+\_\+completed) \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_abc6a95f059fffc07230087c7286742da}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_abc6a95f059fffc07230087c7286742da}} 
-return {\bfseries static\+\_\+cast} (this) -\/$>$ \mbox{\hyperlink{group__utility__operators_gafa05370906b6201bfbf0fd820e88e2ad}{tap}}(T\+Observer
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_abd32512d42d78fa2e91d897049b1b1e7}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_abd32512d42d78fa2e91d897049b1b1e7}} 
+{\footnotesize template$<$constraint\+::on\+\_\+next\+\_\+fn$<$ Type $>$ On\+Next\+Fn, constraint\+::on\+\_\+error\+\_\+fn On\+Error\+Fn = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, constraint\+::on\+\_\+completed\+\_\+fn On\+Completed\+Fn = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \newline
+requires is\+\_\+header\+\_\+included $<$do\+\_\+tag, On\+Next\+Fn, On\+Error\+Fn, On\+Completed\+Fn$>$}\\auto {\bfseries tap} (On\+Next\+Fn \&\&on\+\_\+next, On\+Error\+Fn \&\&on\+\_\+error=On\+Error\+Fn\{\}, On\+Completed\+Fn \&\&on\+\_\+completed=On\+Completed\+Fn\{\}) \&\&
 \item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_af2b5d129b3e304a88cdb08a0da183c42}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_af2b5d129b3e304a88cdb08a0da183c42}} 
-{\footnotesize template$<$constraint\+::on\+\_\+next\+\_\+fn$<$ Type $>$ On\+Next\+Fn, constraint\+::on\+\_\+error\+\_\+fn On\+Error\+Fn = utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, constraint\+::on\+\_\+completed\+\_\+fn On\+Completed\+Fn = utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\auto {\bfseries tap} (On\+Next\+Fn \&\&on\+\_\+next, On\+Error\+Fn \&\&on\+\_\+error=On\+Error\+Fn\{\}, On\+Completed\+Fn \&\&on\+\_\+completed=On\+Completed\+Fn\{\}) \&\&requires is\+\_\+header\+\_\+included$<$ do\+\_\+tag
-\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_a2decee0586b725dac0797ececb9770c8}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_a2decee0586b725dac0797ececb9770c8}} 
-return std\+::move $\ast$ {\bfseries static\+\_\+cast} (this)).\mbox{\hyperlink{group__utility__operators_gafa05370906b6201bfbf0fd820e88e2ad}{tap}}(T\+Observer\{std\+::forward$<$ On\+Next\+Fn $>$(on\+\_\+next), std\+::forward$<$ On\+Error\+Fn $>$(on\+\_\+error), std\+::forward$<$ On\+Completed\+Fn $>$(on\+\_\+completed)\}
-\item 
-{\footnotesize template$<$constraint\+::on\+\_\+next\+\_\+fn$<$ Type $>$ On\+Next\+Fn$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga157931ad5c05dffdbe5104d75e9822d4}{do\+\_\+on\+\_\+next}} (On\+Next\+Fn \&\&on\+\_\+next) const \&requires is\+\_\+header\+\_\+included$<$ do\+\_\+tag
+{\footnotesize template$<$constraint\+::on\+\_\+next\+\_\+fn$<$ Type $>$ On\+Next\+Fn$>$ \newline
+requires is\+\_\+header\+\_\+included $<$do\+\_\+tag, On\+Next\+Fn$>$}\\auto \mbox{\hyperlink{group__utility__operators_ga1e80d15de566a980aa0ddcb2c529977f}{do\+\_\+on\+\_\+next}} (On\+Next\+Fn \&\&on\+\_\+next) const \&
 \begin{DoxyCompactList}\small\item\em Register an callback to be called when observable provides new item (on\+\_\+next) \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_a947cd99163dc6bc3b92b66dacd2412c3}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_a947cd99163dc6bc3b92b66dacd2412c3}} 
-{\footnotesize template$<$constraint\+::on\+\_\+next\+\_\+fn$<$ Type $>$ On\+Next\+Fn$>$ }\\auto {\bfseries do\+\_\+on\+\_\+next} (On\+Next\+Fn \&\&on\+\_\+next) \&\&requires is\+\_\+header\+\_\+included$<$ do\+\_\+tag
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_ad324edb06baa9d8e6c47c8b5e397b67c}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_ad324edb06baa9d8e6c47c8b5e397b67c}} 
+{\footnotesize template$<$constraint\+::on\+\_\+next\+\_\+fn$<$ Type $>$ On\+Next\+Fn$>$ \newline
+requires is\+\_\+header\+\_\+included $<$do\+\_\+tag, On\+Next\+Fn$>$}\\auto {\bfseries do\+\_\+on\+\_\+next} (On\+Next\+Fn \&\&on\+\_\+next) \&\&
 \item 
-{\footnotesize template$<$constraint\+::on\+\_\+error\+\_\+fn On\+Error\+Fn$>$ }\\auto \mbox{\hyperlink{group__utility__operators_gaba463ab994eb3245718a3119e33e99e1}{do\+\_\+on\+\_\+error}} (On\+Error\+Fn \&\&on\+\_\+error) const \&requires is\+\_\+header\+\_\+included$<$ do\+\_\+tag
+{\footnotesize template$<$constraint\+::on\+\_\+error\+\_\+fn On\+Error\+Fn$>$ \newline
+requires is\+\_\+header\+\_\+included $<$do\+\_\+tag, On\+Error\+Fn$>$}\\auto \mbox{\hyperlink{group__utility__operators_ga9089d55867fc04d1f353dc636e519634}{do\+\_\+on\+\_\+error}} (On\+Error\+Fn \&\&on\+\_\+error) const \&
 \begin{DoxyCompactList}\small\item\em Register an callback to be called when observable provides error (on\+\_\+error) \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_a75b87d5a1e13f9a871e8c1c1a36215c7}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_a75b87d5a1e13f9a871e8c1c1a36215c7}} 
-{\footnotesize template$<$constraint\+::on\+\_\+error\+\_\+fn On\+Error\+Fn$>$ }\\auto {\bfseries do\+\_\+on\+\_\+error} (On\+Error\+Fn \&\&on\+\_\+error) \&\&requires is\+\_\+header\+\_\+included$<$ do\+\_\+tag
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_af1cb16ec7d42354e5526075908139297}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_af1cb16ec7d42354e5526075908139297}} 
+{\footnotesize template$<$constraint\+::on\+\_\+error\+\_\+fn On\+Error\+Fn$>$ \newline
+requires is\+\_\+header\+\_\+included $<$do\+\_\+tag, On\+Error\+Fn$>$}\\auto {\bfseries do\+\_\+on\+\_\+error} (On\+Error\+Fn \&\&on\+\_\+error) \&\&
 \item 
-{\footnotesize template$<$constraint\+::on\+\_\+completed\+\_\+fn On\+Completed\+Fn$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga0dbe6a2712821fa0c5798f9e1246fd12}{do\+\_\+on\+\_\+completed}} (On\+Completed\+Fn \&\&on\+\_\+completed) const \&requires is\+\_\+header\+\_\+included$<$ do\+\_\+tag
+{\footnotesize template$<$constraint\+::on\+\_\+completed\+\_\+fn On\+Completed\+Fn$>$ \newline
+requires is\+\_\+header\+\_\+included $<$do\+\_\+tag, On\+Completed\+Fn$>$}\\auto \mbox{\hyperlink{group__utility__operators_ga2d6dfc49bf54893033b45b530f0fcb38}{do\+\_\+on\+\_\+completed}} (On\+Completed\+Fn \&\&on\+\_\+completed) const \&
 \begin{DoxyCompactList}\small\item\em Register an callback to be called when observable provides complete (on\+\_\+completed) \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_a35cf23393796bdddedd1a27ff2288a9d}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_a35cf23393796bdddedd1a27ff2288a9d}} 
-{\footnotesize template$<$constraint\+::on\+\_\+completed\+\_\+fn On\+Completed\+Fn$>$ }\\auto {\bfseries do\+\_\+on\+\_\+completed} (On\+Completed\+Fn \&\&on\+\_\+completed) \&\&requires is\+\_\+header\+\_\+included$<$ do\+\_\+tag
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_a10686e74dcca91613c82955261b53fe1}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_a10686e74dcca91613c82955261b53fe1}} 
+{\footnotesize template$<$constraint\+::on\+\_\+completed\+\_\+fn On\+Completed\+Fn$>$ \newline
+requires is\+\_\+header\+\_\+included $<$do\+\_\+tag, On\+Completed\+Fn$>$}\\auto {\bfseries do\+\_\+on\+\_\+completed} (On\+Completed\+Fn \&\&on\+\_\+completed) \&\&
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-auto {\bfseries T\+Obs}
-\item 
-auto {\bfseries On\+Next\+Fn}
-\item 
-auto {\bfseries On\+Error\+Fn}
-\item 
-auto {\bfseries On\+Completed\+Fn}
-\end{DoxyCompactItemize}
-
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_adea1b208b30e0f1a47312061f283a8a7}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_adea1b208b30e0f1a47312061f283a8a7}} 
-\index{rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$}!OnCompletedFn@{OnCompletedFn}}
-\index{OnCompletedFn@{OnCompletedFn}!rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{OnCompletedFn}{OnCompletedFn}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, do\+\_\+tag $>$\+::On\+Completed\+Fn}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keyword}{using} TObserver = specific\_observer\_with\_decayed\_args<Type, OnNextFn, OnErrorFn, OnCompletedFn>}
-
-\end{DoxyCode}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_a16229bc1e67d1b662eb00bab4875444e}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_a16229bc1e67d1b662eb00bab4875444e}} 
-\index{rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$}!OnErrorFn@{OnErrorFn}}
-\index{OnErrorFn@{OnErrorFn}!rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{OnErrorFn}{OnErrorFn}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, do\+\_\+tag $>$\+::On\+Error\+Fn}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\mbox{\hyperlink{group__utility__operators_gafa05370906b6201bfbf0fd820e88e2ad}{tap}}(utils::empty\_function\_t<Type>\{\}, std::forward<OnErrorFn>(on\_error))}
-
-\end{DoxyCode}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_a5092b724613b8d3ac0ed53a3546b1147}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_a5092b724613b8d3ac0ed53a3546b1147}} 
-\index{rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$}!OnNextFn@{OnNextFn}}
-\index{OnNextFn@{OnNextFn}!rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{OnNextFn}{OnNextFn}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, do\+\_\+tag $>$\+::On\+Next\+Fn}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\mbox{\hyperlink{group__utility__operators_gafa05370906b6201bfbf0fd820e88e2ad}{tap}}(std::forward<OnNextFn>(on\_next))}
-
-\end{DoxyCode}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_ab5f4f5e46e3aa6d559fe8978ece3f257}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01do__tag_01_4_ab5f4f5e46e3aa6d559fe8978ece3f257}} 
-\index{rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$}!TObs@{TObs}}
-\index{TObs@{TObs}!rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, do\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{TObs}{TObs}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, do\+\_\+tag $>$\+::T\+Obs}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<Type>(do\_impl<Type, std::decay\_t<TObs>>\{std::forward< TObs>(observer)\})}
-
-\end{DoxyCode}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}

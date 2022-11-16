@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['publish_553',['publish',['../group__connectable__operators.html#ga9ab3cec576cbf5f9384c717eed57a6d6',1,'rpp::details::member_overload&lt; Type, SpecificObservable, publish_tag &gt;']]]
+  ['never_0',['never',['../group__creational__operators.html#gac5f5e2316315e3432cc70f94de80f8b5',1,'rpp::observable']]]
 ];

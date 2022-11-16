@@ -7,11 +7,11 @@
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int} main()}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2)}
-\DoxyCodeLine{            .tap(rpp::make\_specific\_observer<int>([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"(TAP) NEW item "} << v << std::endl; \},}
-\DoxyCodeLine{                                                  []() \{ std::cout << \textcolor{stringliteral}{"(TAP) Completed"} << std::endl; \}))}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"NEW item "} << v << std::endl; \},}
-\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"Completed"} << std::endl; \});}
+\DoxyCodeLine{    rpp::source::just(1, 2)}
+\DoxyCodeLine{            .tap(rpp::make\_specific\_observer<int>([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}(TAP) NEW item "{}} << v << std::endl; \},}
+\DoxyCodeLine{                                                  []() \{ std::cout << \textcolor{stringliteral}{"{}(TAP) Completed"{}} << std::endl; \}))}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}NEW item "{}} << v << std::endl; \},}
+\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"{}Completed"{}} << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output:}}
 \DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW item 1}}
 \DoxyCodeLine{    \textcolor{comment}{// NEW item 1}}
@@ -20,12 +20,12 @@
 \DoxyCodeLine{    \textcolor{comment}{// (TAP) Completed}}
 \DoxyCodeLine{    \textcolor{comment}{// Completed}}
 \DoxyCodeLine{\textcolor{comment}{}}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2)}
-\DoxyCodeLine{            .tap([](\textcolor{keywordtype}{int}               v) \{ std::cout << \textcolor{stringliteral}{"(TAP) NEW item "} << v << std::endl; \},}
+\DoxyCodeLine{    rpp::source::just(1, 2)}
+\DoxyCodeLine{            .tap([](\textcolor{keywordtype}{int}               v) \{ std::cout << \textcolor{stringliteral}{"{}(TAP) NEW item "{}} << v << std::endl; \},}
 \DoxyCodeLine{                 [](std::exception\_ptr) \{\},}
-\DoxyCodeLine{                 []() \{ std::cout << \textcolor{stringliteral}{"(TAP) Completed"} << std::endl; \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"NEW item "} << v << std::endl; \},}
-\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"Completed"} << std::endl; \});}
+\DoxyCodeLine{                 []() \{ std::cout << \textcolor{stringliteral}{"{}(TAP) Completed"{}} << std::endl; \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}NEW item "{}} << v << std::endl; \},}
+\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"{}Completed"{}} << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output:}}
 \DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW item 1}}
 \DoxyCodeLine{    \textcolor{comment}{// NEW item 1}}
@@ -34,10 +34,10 @@
 \DoxyCodeLine{    \textcolor{comment}{// (TAP) Completed}}
 \DoxyCodeLine{    \textcolor{comment}{// Completed}}
 \DoxyCodeLine{\textcolor{comment}{}}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2)}
-\DoxyCodeLine{            .do\_on\_next([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"(TAP) NEW item "} << v << std::endl; \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}  v) \{ std::cout << \textcolor{stringliteral}{"NEW item "} << v << std::endl; \},}
-\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"Completed"} << std::endl; \});}
+\DoxyCodeLine{    rpp::source::just(1, 2)}
+\DoxyCodeLine{            .do\_on\_next([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}(TAP) NEW item "{}} << v << std::endl; \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}  v) \{ std::cout << \textcolor{stringliteral}{"{}NEW item "{}} << v << std::endl; \},}
+\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"{}Completed"{}} << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output:}}
 \DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW item 1}}
 \DoxyCodeLine{    \textcolor{comment}{// NEW item 1}}
@@ -45,20 +45,21 @@
 \DoxyCodeLine{    \textcolor{comment}{// NEW item 2}}
 \DoxyCodeLine{    \textcolor{comment}{// Completed}}
 \DoxyCodeLine{\textcolor{comment}{}}
-\DoxyCodeLine{    rpp::source::error<int>(std::make\_exception\_ptr(std::runtime\_error\{\textcolor{stringliteral}{""}\}))}
-\DoxyCodeLine{            .do\_on\_error([](std::exception\_ptr) \{ std::cout << \textcolor{stringliteral}{"(TAP) NEW error"} << std::endl; \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}                 ) \{\}, [](std::exception\_ptr) \{ std::cout << \textcolor{stringliteral}{"NEW error"} << std::endl; \});}
+\DoxyCodeLine{    rpp::source::error<int>(std::make\_exception\_ptr(std::runtime\_error\{\textcolor{stringliteral}{"{}"{}}\}))}
+\DoxyCodeLine{            .do\_on\_error([](std::exception\_ptr) \{ std::cout << \textcolor{stringliteral}{"{}(TAP) NEW error"{}} << std::endl; \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}                 ) \{\}, [](std::exception\_ptr) \{ std::cout << \textcolor{stringliteral}{"{}NEW error"{}} << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output:}}
 \DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW error}}
 \DoxyCodeLine{    \textcolor{comment}{// NEW error}}
 \DoxyCodeLine{\textcolor{comment}{}}
 \DoxyCodeLine{    rpp::source::empty<int>()}
-\DoxyCodeLine{            .do\_on\_completed([]() \{ std::cout << \textcolor{stringliteral}{"(TAP) Completed"} << std::endl; \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}) \{\}, []() \{ std::cout << \textcolor{stringliteral}{"Completed"} << std::endl; \});}
+\DoxyCodeLine{            .do\_on\_completed([]() \{ std::cout << \textcolor{stringliteral}{"{}(TAP) Completed"{}} << std::endl; \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}) \{\}, []() \{ std::cout << \textcolor{stringliteral}{"{}Completed"{}} << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output:}}
 \DoxyCodeLine{    \textcolor{comment}{// (TAP) Completed}}
 \DoxyCodeLine{    \textcolor{comment}{// Completed}}
 \DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
 \DoxyCodeLine{\}}
+
 \end{DoxyCodeInclude}
  

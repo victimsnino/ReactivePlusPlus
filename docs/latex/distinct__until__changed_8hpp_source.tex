@@ -1,0 +1,76 @@
+\hypertarget{distinct__until__changed_8hpp_source}{}\doxysection{distinct\+\_\+until\+\_\+changed.\+hpp}
+\label{distinct__until__changed_8hpp_source}\index{src/rpp/rpp/operators/distinct\_until\_changed.hpp@{src/rpp/rpp/operators/distinct\_until\_changed.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/defs.hpp>}                                    \textcolor{comment}{// RPP\_NO\_UNIQUE\_ADDRESS}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/operators/lift.hpp>}                          \textcolor{comment}{// required due to operator uses lift}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/operators/details/subscriber\_with\_state.hpp>} \textcolor{comment}{// create\_subscriber\_with\_dynamic\_state}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/operators/fwd/distinct\_until\_changed.hpp>}    \textcolor{comment}{// own forwarding}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}                 \textcolor{comment}{// constraint::subscriber\_of\_type}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/utils/functors.hpp>}                          \textcolor{comment}{// forwarding\_on\_error/forwarding\_on\_completed}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}                         \textcolor{comment}{// as\_const}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <optional>}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 IMPLEMENTATION\_FILE(distinct\_until\_changed\_tag);}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{27 \{}
+\DoxyCodeLine{28 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, std::equivalence\_relation<Type, Type> EqualityFn>}
+\DoxyCodeLine{29 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1distinct__until__changed__state}{distinct\_until\_changed\_state}}}
+\DoxyCodeLine{30 \{}
+\DoxyCodeLine{31     RPP\_NO\_UNIQUE\_ADDRESS EqualityFn equality\_comparator;}
+\DoxyCodeLine{32     \textcolor{keyword}{mutable} std::optional<Type>      last\_value\{\};}
+\DoxyCodeLine{33 \};}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1distinct__until__changed__on__next}{distinct\_until\_changed\_on\_next}}}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{37     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, std::equivalence\_relation<Type, Type> EqualityFn>}
+\DoxyCodeLine{38     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{auto}\&\&                                                new\_value,}
+\DoxyCodeLine{39                     \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\&                    sub,}
+\DoxyCodeLine{40                     \textcolor{keyword}{const} \mbox{\hyperlink{structrpp_1_1details_1_1distinct__until__changed__state}{distinct\_until\_changed\_state<Type, EqualityFn>}}\& state)\textcolor{keyword}{ const}}
+\DoxyCodeLine{41 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{42         \textcolor{keywordflow}{if} (state.last\_value.has\_value() \&\&}
+\DoxyCodeLine{43             state.equality\_comparator(utils::as\_const(state.last\_value.value()),}
+\DoxyCodeLine{44                                       utils::as\_const(new\_value)))}
+\DoxyCodeLine{45             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47         state.last\_value.emplace(new\_value);}
+\DoxyCodeLine{48         sub.on\_next(std::forward<\textcolor{keyword}{decltype}(new\_value)>(new\_value));}
+\DoxyCodeLine{49     \}}
+\DoxyCodeLine{50 \};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, std::equivalence\_relation<Type, Type> EqualityFn>}
+\DoxyCodeLine{53 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1distinct__until__changed__impl}{distinct\_until\_changed\_impl}}}
+\DoxyCodeLine{54 \{}
+\DoxyCodeLine{55     RPP\_NO\_UNIQUE\_ADDRESS EqualityFn equality\_comparator;}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type> TSub>}
+\DoxyCodeLine{58     \textcolor{keyword}{auto} operator()(TSub\&\& subscriber)\textcolor{keyword}{ const}}
+\DoxyCodeLine{59 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{60         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
+\DoxyCodeLine{61         \textcolor{comment}{// dynamic\_state there to make shared\_ptr for observer instead of making shared\_ptr for state}}
+\DoxyCodeLine{62         \textcolor{keywordflow}{return} create\_subscriber\_with\_dynamic\_state<Type>(std::move(subscription),}
+\DoxyCodeLine{63                                                           \mbox{\hyperlink{structrpp_1_1details_1_1distinct__until__changed__on__next}{distinct\_until\_changed\_on\_next}}\{\},}
+\DoxyCodeLine{64                                                           utils::forwarding\_on\_error\{\},}
+\DoxyCodeLine{65                                                           utils::forwarding\_on\_completed\{\},}
+\DoxyCodeLine{66                                                           std::forward<TSub>(subscriber),}
+\DoxyCodeLine{67                                                           \mbox{\hyperlink{structrpp_1_1details_1_1distinct__until__changed__state}{distinct\_until\_changed\_state<Type, EqualityFn>}}\{equality\_comparator\});}
+\DoxyCodeLine{68     \}}
+\DoxyCodeLine{69 \};}
+\DoxyCodeLine{70 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

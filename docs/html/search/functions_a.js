@@ -1,10 +1,7 @@
 var searchData=
 [
-  ['observe_5fon_546',['observe_on',['../group__utility__operators.html#ga0cacdca66e79d7d6de87fa5aacc6c972',1,'rpp::details::member_overload&lt; Type, SpecificObservable, observe_on_tag &gt;']]],
-  ['on_5fcompleted_547',['on_completed',['../classrpp_1_1details_1_1dynamic__state__observer.html#a7352ef279f72e785b5d7631e36d63707',1,'rpp::details::dynamic_state_observer']]],
-  ['on_5ferror_548',['on_error',['../classrpp_1_1details_1_1dynamic__state__observer.html#a91d7e77ce90708128288524107e7dc7f',1,'rpp::details::dynamic_state_observer']]],
-  ['on_5ferror_5fresume_5fnext_549',['on_error_resume_next',['../group__error__handling__operators.html#gac8b98e5b3466a70a402366e4bc920f38',1,'rpp::details::member_overload&lt; Type, SpecificObservable, on_error_resume_next_tag &gt;']]],
-  ['on_5fnext_550',['on_next',['../classrpp_1_1details_1_1dynamic__state__observer.html#aab9be8862b04c33b4c862f8dda1c99be',1,'rpp::details::dynamic_state_observer::on_next(const T &amp;v) const'],['../classrpp_1_1details_1_1dynamic__state__observer.html#a00104aed46db67cbf47f99a1b44d609b',1,'rpp::details::dynamic_state_observer::on_next(T &amp;&amp;v) const']]],
-  ['on_5funsubscribe_551',['on_unsubscribe',['../classrpp_1_1details_1_1subscription__state.html#acf1b3cfd8da3fa473aaed0df6e18d86a',1,'rpp::details::subscription_state']]],
-  ['op_552',['op',['../group__operators.html#ga381218c46daf100859858d88743d058d',1,'rpp::interface_observable']]]
+  ['map_0',['map',['../group__transforming__operators.html#gae5dd31e4559517de5cf1145ff2005a86',1,'observable']]],
+  ['merge_1',['merge',['../group__combining__operators.html#ga84ed0dcdeda6a4cb3a9871ab2817e114',1,'observable']]],
+  ['merge_5fwith_2',['merge_with',['../group__combining__operators.html#gafa55b14eec1c6c40b8655e20c6edf5b2',1,'observable']]],
+  ['multicast_3',['multicast',['../group__connectable__operators.html#gade414a17091e966ce725374b631cab77',1,'observable']]]
 ];

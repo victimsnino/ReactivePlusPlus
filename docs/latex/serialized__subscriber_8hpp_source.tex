@@ -1,0 +1,71 @@
+\hypertarget{serialized__subscriber_8hpp_source}{}\doxysection{serialized\+\_\+subscriber.\+hpp}
+\label{serialized__subscriber_8hpp_source}\index{src/rpp/rpp/operators/details/serialized\_subscriber.hpp@{src/rpp/rpp/operators/details/serialized\_subscriber.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                   ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{//           Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{//  Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//     (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//           https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{// }}
+\DoxyCodeLine{8 \textcolor{comment}{//  Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/operators/details/subscriber\_with\_state.hpp>} \textcolor{comment}{// create\_subscriber\_with\_state}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/subscriptions/composite\_subscription.hpp>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <mutex>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{20 \{}
+\DoxyCodeLine{21 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__next__under__lock}{forwarding\_on\_next\_under\_lock}}}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} TSerializationPrimitive>}
+\DoxyCodeLine{24     \textcolor{keywordtype}{void} operator()(T\&\& v, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber, \textcolor{keyword}{const} std::shared\_ptr<TSerializationPrimitive>\& primitive)\textcolor{keyword}{ const}}
+\DoxyCodeLine{25 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{26         std::lock\_guard lock\{*primitive\};}
+\DoxyCodeLine{27         subscriber.on\_next(std::forward<T>(v));}
+\DoxyCodeLine{28     \}}
+\DoxyCodeLine{29 \};}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__error__under__lock}{forwarding\_on\_error\_under\_lock}}}
+\DoxyCodeLine{32 \{}
+\DoxyCodeLine{33     \textcolor{keyword}{template}<\textcolor{keyword}{typename} TSerializationPrimitive>}
+\DoxyCodeLine{34     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} std::exception\_ptr\&                       err,}
+\DoxyCodeLine{35                     \textcolor{keyword}{const} \textcolor{keyword}{auto}\&                                     subscriber,}
+\DoxyCodeLine{36                     \textcolor{keyword}{const} std::shared\_ptr<TSerializationPrimitive>\& primitive)\textcolor{keyword}{ const}}
+\DoxyCodeLine{37 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{38         std::lock\_guard lock\{*primitive\};}
+\DoxyCodeLine{39         subscriber.on\_error(err);}
+\DoxyCodeLine{40     \}}
+\DoxyCodeLine{41 \};}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__completed__under__lock}{forwarding\_on\_completed\_under\_lock}}}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45     \textcolor{keyword}{template}<\textcolor{keyword}{typename} TSerializationPrimitive>}
+\DoxyCodeLine{46     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber, \textcolor{keyword}{const} std::shared\_ptr<TSerializationPrimitive>\& primitive)\textcolor{keyword}{ const}}
+\DoxyCodeLine{47 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{48         std::lock\_guard lock\{*primitive\};}
+\DoxyCodeLine{49         subscriber.on\_completed();}
+\DoxyCodeLine{50     \}}
+\DoxyCodeLine{51 \};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{keyword}{template}<\textcolor{keyword}{typename} TSerializationPrimitive, constra\textcolor{keywordtype}{int}::subscriber TSub>}
+\DoxyCodeLine{54 \textcolor{keyword}{auto} make\_serialized\_subscriber(TSub\&\&                                          subscriber,}
+\DoxyCodeLine{55                                 \textcolor{keyword}{const} std::shared\_ptr<TSerializationPrimitive>\& primitive)}
+\DoxyCodeLine{56 \{}
+\DoxyCodeLine{57     \textcolor{keyword}{auto} sub = subscriber.get\_subscription();}
+\DoxyCodeLine{58     \textcolor{keywordflow}{return} create\_subscriber\_with\_state<utils::extract\_subscriber\_type\_t<std::decay\_t<TSub>>>(std::move(sub),}
+\DoxyCodeLine{59                                                                                               \mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__next__under__lock}{forwarding\_on\_next\_under\_lock}}\{\},}
+\DoxyCodeLine{60                                                                                               forwarding\_on\_error\_under\_lock\{\},}
+\DoxyCodeLine{61                                                                                               forwarding\_on\_completed\_under\_lock\{\},}
+\DoxyCodeLine{62                                                                                               std::forward<TSub>(subscriber),}
+\DoxyCodeLine{63                                                                                               primitive);}
+\DoxyCodeLine{64 \}}
+\DoxyCodeLine{65 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

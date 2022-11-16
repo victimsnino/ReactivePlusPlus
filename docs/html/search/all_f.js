@@ -1,10 +1,13 @@
 var searchData=
 [
-  ['ref_5fcount_203',['ref_count',['../group__connectable__operators.html#ga37ff1997452889d3aa64ea732564a89f',1,'rpp::details::member_overload&lt; Type, SpecificObservable, ref_count_tag &gt;']]],
-  ['ref_5fcount_5fon_5fsubscribe_204',['ref_count_on_subscribe',['../structrpp_1_1details_1_1ref__count__on__subscribe.html',1,'rpp::details']]],
-  ['ref_5fcount_5fstate_5ft_205',['ref_count_state_t',['../structrpp_1_1details_1_1ref__count__state__t.html',1,'rpp::details']]],
-  ['repeat_206',['repeat',['../group__utility__operators.html#gaf8859f765d0f97e28957f3416e688f7a',1,'rpp::details::member_overload&lt; Type, SpecificObservable, repeat_tag &gt;::repeat(size_t count) const &amp;requires is_header_included&lt; repeat_tag'],['../group__utility__operators.html#ga0a1b02a8b65c4413bdda609683e63417',1,'rpp::details::member_overload&lt; Type, SpecificObservable, repeat_tag &gt;::repeat() const &amp;requires is_header_included&lt; repeat_tag']]],
-  ['repeat_5fon_5fcompleted_207',['repeat_on_completed',['../classrpp_1_1details_1_1repeat__on__completed.html',1,'rpp::details']]],
-  ['repeat_5fon_5fsubscribe_208',['repeat_on_subscribe',['../structrpp_1_1details_1_1repeat__on__subscribe.html',1,'rpp::details']]],
-  ['run_5floop_209',['run_loop',['../classrpp_1_1schedulers_1_1run__loop.html',1,'rpp::schedulers']]]
+  ['reactiveplusplus_0',['ReactivePlusPlus',['../index.html',1,'']]],
+  ['ref_5fcount_1',['ref_count',['../group__connectable__operators.html#gac1991f003be32f5432ecb084be506c15',1,'observable']]],
+  ['ref_5fcount_5fon_5fsubscribe_2',['ref_count_on_subscribe',['../structrpp_1_1details_1_1ref__count__on__subscribe.html',1,'rpp::details']]],
+  ['ref_5fcount_5fstate_5ft_3',['ref_count_state_t',['../structrpp_1_1details_1_1ref__count__state__t.html',1,'rpp::details']]],
+  ['repeat_4',['repeat',['../group__utility__operators.html#ga2a165810b188f9cf9b77255ed725e31a',1,'observable::repeat(size_t count) const &amp;'],['../group__utility__operators.html#ga152a343d0ea926ee04cf64ebb78c5d5e',1,'observable::repeat() const &amp;']]],
+  ['repeat_5fon_5fcompleted_5',['repeat_on_completed',['../classrpp_1_1details_1_1repeat__on__completed.html',1,'rpp::details']]],
+  ['repeat_5fon_5fsubscribe_6',['repeat_on_subscribe',['../structrpp_1_1details_1_1repeat__on__subscribe.html',1,'rpp::details']]],
+  ['rpp_7',['RPP',['../group__rpp.html',1,'']]],
+  ['rppqt_8',['RPPQT',['../group__rppqt.html',1,'']]],
+  ['run_5floop_9',['run_loop',['../classrpp_1_1schedulers_1_1run__loop.html',1,'rpp::schedulers']]]
 ];

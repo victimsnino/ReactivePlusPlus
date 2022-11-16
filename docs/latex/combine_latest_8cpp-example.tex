@@ -6,34 +6,35 @@
 \DoxyCodeLine{}
 \DoxyCodeLine{std::ostream \& operator<<(std::ostream \& out, \textcolor{keyword}{const} std::tuple<int, int>\& value)}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    out << \textcolor{stringliteral}{"\{"} << std::get<0>(value) << \textcolor{stringliteral}{","} << std::get<1>(value) << \textcolor{stringliteral}{"\}"};}
+\DoxyCodeLine{    out << \textcolor{stringliteral}{"{}\{"{}} << std::get<0>(value) << \textcolor{stringliteral}{"{},"{}} << std::get<1>(value) << \textcolor{stringliteral}{"{}\}"{}};}
 \DoxyCodeLine{    \textcolor{keywordflow}{return} out;}
 \DoxyCodeLine{\}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int} main()}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\}, 1, 2, 3)                      \textcolor{comment}{// source 1}}
-\DoxyCodeLine{        .combine\_latest(\mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\}, 4, 5, 6)) \textcolor{comment}{// source 2}}
+\DoxyCodeLine{    rpp::source::just(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\}, 1, 2, 3)                      \textcolor{comment}{// source 1}}
+\DoxyCodeLine{        .combine\_latest(rpp::source::just(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\}, 4, 5, 6)) \textcolor{comment}{// source 2}}
 \DoxyCodeLine{        .subscribe(}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} std::tuple<int, int> \&v) \{ std::cout << \textcolor{stringliteral}{"-\/"} << v; \},}
+\DoxyCodeLine{            [](\textcolor{keyword}{const} std::tuple<int, int> \&v) \{ std::cout << \textcolor{stringliteral}{"{}-\/"{}} << v; \},}
 \DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr\&) \{\},}
-\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"-\/|"} << std::endl; \});}
+\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"{}-\/|"{}} << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// source 1:   -\/1-\/-\/-\/2-\/-\/-\/3-\/|}}
 \DoxyCodeLine{    \textcolor{comment}{// source 2: -\/4-\/-\/-\/5-\/-\/-\/6-\/| (note that source 2 is subscribed earlier than source 1)}}
 \DoxyCodeLine{    \textcolor{comment}{// Output  : -\/\{1,4\}-\/\{1,5\}-\/\{2,5\}-\/\{2,6\}-\/\{3,6\}\}-\/|}}
 \DoxyCodeLine{\textcolor{comment}{}}
-\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(1, 2, 3)                                  \textcolor{comment}{// source 1}}
+\DoxyCodeLine{    rpp::source::just(1, 2, 3)                                  \textcolor{comment}{// source 1}}
 \DoxyCodeLine{        .combine\_latest(}
 \DoxyCodeLine{            [](\textcolor{keywordtype}{int} left, \textcolor{keywordtype}{int} right) \{ \textcolor{keywordflow}{return} left + right; \},   \textcolor{comment}{// custom combiner}}
-\DoxyCodeLine{            \mbox{\hyperlink{group__creational__operators_gabc5067fa9aefaa803f6e329b75faa00c}{rpp::source::just}}(4, 5, 6))                         \textcolor{comment}{// source 2}}
+\DoxyCodeLine{            rpp::source::just(4, 5, 6))                         \textcolor{comment}{// source 2}}
 \DoxyCodeLine{        .subscribe(}
-\DoxyCodeLine{            [](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"-\/"} << v; \},}
+\DoxyCodeLine{            [](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}-\/"{}} << v; \},}
 \DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr\&) \{\},}
-\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"-\/|"} << std::endl; \});}
+\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"{}-\/|"{}} << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// source 1:          -\/1-\/-\/-\/2-\/-\/-\/3-\/|}}
 \DoxyCodeLine{    \textcolor{comment}{// source 2: -\/4-\/-\/-\/5-\/-\/-\/6-\/| (note that source 2 is subscribed earlier than source 1)}}
 \DoxyCodeLine{    \textcolor{comment}{// Output  : -\/7-\/8-\/9-\/|}}
 \DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
 \DoxyCodeLine{\}}
+
 \end{DoxyCodeInclude}
  

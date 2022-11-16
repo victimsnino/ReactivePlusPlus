@@ -1,0 +1,67 @@
+\hypertarget{first_8hpp_source}{}\doxysection{first.\+hpp}
+\label{first_8hpp_source}\index{src/rpp/rpp/operators/first.hpp@{src/rpp/rpp/operators/first.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{//                            TC Wang 2022 -\/ present.}}
+\DoxyCodeLine{5 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{6 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{7 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{8 \textcolor{comment}{//}}
+\DoxyCodeLine{9 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{10 \textcolor{comment}{//}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/operators/lift.hpp>}                          \textcolor{comment}{// required due to operator uses lift}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/operators/take.hpp>}                          \textcolor{comment}{// take\_state}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/operators/details/subscriber\_with\_state.hpp>} \textcolor{comment}{// create\_subscriber\_with\_state}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/operators/fwd/first.hpp>}                     \textcolor{comment}{// own forwarding}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}                 \textcolor{comment}{// constraint::subscriber}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <rpp/utils/exceptions.hpp>}                        \textcolor{comment}{// not\_enough\_emissions}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <rpp/utils/functors.hpp>}                          \textcolor{comment}{// forwarding\_on\_error}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 IMPLEMENTATION\_FILE(first\_tag);}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1first__state}{first\_state}} : \mbox{\hyperlink{structrpp_1_1details_1_1take__state}{take\_state}}}
+\DoxyCodeLine{27 \{}
+\DoxyCodeLine{28     \mbox{\hyperlink{structrpp_1_1details_1_1first__state}{first\_state}}()}
+\DoxyCodeLine{29         : \mbox{\hyperlink{structrpp_1_1details_1_1take__state}{take\_state}}\{1\} \{\}}
+\DoxyCodeLine{30 \};}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{keyword}{using }\mbox{\hyperlink{structrpp_1_1details_1_1take__on__next}{first\_on\_next}} = \mbox{\hyperlink{structrpp_1_1details_1_1take__on__next}{take\_on\_next}};}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1first__on__completed}{first\_on\_completed}}}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& subscriber, \textcolor{keyword}{const} \mbox{\hyperlink{structrpp_1_1details_1_1first__state}{first\_state}}\& state)\textcolor{keyword}{ const}}
+\DoxyCodeLine{37 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{38         \textcolor{keywordflow}{if} (state.count != 0)}
+\DoxyCodeLine{39             subscriber.on\_error(std::make\_exception\_ptr(utils::not\_enough\_emissions\{\textcolor{stringliteral}{"{}first() operator expects at least one emission from observable before completion"{}}\}));}
+\DoxyCodeLine{40     \}}
+\DoxyCodeLine{41 \};}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
+\DoxyCodeLine{44 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1first__impl}{first\_impl}}}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46 \textcolor{keyword}{public}:}
+\DoxyCodeLine{47     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type> TSub>}
+\DoxyCodeLine{48     \textcolor{keyword}{auto} operator()(TSub\&\& subscriber)\textcolor{keyword}{ const}}
+\DoxyCodeLine{49 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{50         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52         \textcolor{comment}{// dynamic\_state there to make shared\_ptr for observer instead of making shared\_ptr for state}}
+\DoxyCodeLine{53         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(std::move(subscription),}
+\DoxyCodeLine{54                                                   \mbox{\hyperlink{structrpp_1_1details_1_1take__on__next}{first\_on\_next}}\{\},}
+\DoxyCodeLine{55                                                   utils::forwarding\_on\_error\{\},}
+\DoxyCodeLine{56                                                   \mbox{\hyperlink{structrpp_1_1details_1_1first__on__completed}{first\_on\_completed}}\{\},}
+\DoxyCodeLine{57                                                   std::forward<TSub>(subscriber),}
+\DoxyCodeLine{58                                                   \mbox{\hyperlink{structrpp_1_1details_1_1first__state}{first\_state}}\{\});}
+\DoxyCodeLine{59     \}}
+\DoxyCodeLine{60 \};}
+\DoxyCodeLine{61 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

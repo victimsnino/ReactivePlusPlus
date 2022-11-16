@@ -10,7 +10,7 @@
 \DoxyCodeLine{    \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<int>}} subj\{\};}
 \DoxyCodeLine{    subj.get\_observable()}
 \DoxyCodeLine{        .timeout(std::chrono::milliseconds\{450\}, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
-\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int}                v) \{ std::cout << \textcolor{stringliteral}{"new value "} << v << std::endl; \},}
+\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int}                v) \{ std::cout << \textcolor{stringliteral}{"{}new value "{}} << v << std::endl; \},}
 \DoxyCodeLine{                   [](std::exception\_ptr err)}
 \DoxyCodeLine{                   \{}
 \DoxyCodeLine{                       \textcolor{keywordflow}{try}}
@@ -19,10 +19,10 @@
 \DoxyCodeLine{                       \}}
 \DoxyCodeLine{                       \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} std::exception\& exc)}
 \DoxyCodeLine{                       \{}
-\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"ERR: "} << exc.what() << std::endl;}
+\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"{}ERR: "{}} << exc.what() << std::endl;}
 \DoxyCodeLine{                       \}}
 \DoxyCodeLine{                   \},}
-\DoxyCodeLine{                   []() \{ std::cout << \textcolor{stringliteral}{"completed"} << std::endl; \});}
+\DoxyCodeLine{                   []() \{ std::cout << \textcolor{stringliteral}{"{}completed"{}} << std::endl; \});}
 \DoxyCodeLine{    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 10; ++i)}
 \DoxyCodeLine{    \{}
 \DoxyCodeLine{        std::this\_thread::sleep\_for(std::chrono::milliseconds\{i * 100\});}
@@ -38,5 +38,6 @@
 \DoxyCodeLine{    \textcolor{comment}{// ERR : Timeout reached}}
 \DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
 \DoxyCodeLine{\}}
+
 \end{DoxyCodeInclude}
  

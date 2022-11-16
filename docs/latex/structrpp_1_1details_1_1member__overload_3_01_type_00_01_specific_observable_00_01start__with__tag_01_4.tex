@@ -1,54 +1,22 @@
-\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, start\+\_\+with\+\_\+tag $>$ Struct Template Reference}
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload\texorpdfstring{$<$}{<} Type, Specific\+Observable, start\+\_\+with\+\_\+tag \texorpdfstring{$>$}{>} Struct Template Reference}
 \label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, start\_with\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, start\_with\_tag $>$}}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$rpp\+::memory\+\_\+model memory\+\_\+model = memory\+\_\+model\+::use\+\_\+stack, constraint\+::decayed\+\_\+same\+\_\+as$<$ Type $>$ ... T\+Types$>$ }\\auto \mbox{\hyperlink{group__combining__operators_gacfa9157d671f1d35f0a8be230dec4d10}{start\+\_\+with}} (T\+Types \&\&...vals\+\_\+to\+\_\+start\+\_\+with) const \&requires is\+\_\+header\+\_\+included$<$ start\+\_\+with\+\_\+tag
+{\footnotesize template$<$rpp\+::memory\+\_\+model memory\+\_\+model = memory\+\_\+model\+::use\+\_\+stack, constraint\+::decayed\+\_\+same\+\_\+as$<$ Type $>$ ... TTypes$>$ \newline
+requires is\+\_\+header\+\_\+included$<$start\+\_\+with\+\_\+tag, TTypes...$>$}\\auto \mbox{\hyperlink{group__combining__operators_gaced47c11cd4cea804a6d0f7c33be2fa0}{start\+\_\+with}} (TTypes \&\&...vals\+\_\+to\+\_\+start\+\_\+with) const \&
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4_aa555b83202968e755761a578462c1c13}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4_aa555b83202968e755761a578462c1c13}} 
-{\footnotesize template$<$rpp\+::memory\+\_\+model memory\+\_\+model = memory\+\_\+model\+::use\+\_\+stack, constraint\+::decayed\+\_\+same\+\_\+as$<$ Type $>$ ... T\+Types$>$ }\\auto {\bfseries start\+\_\+with} (T\+Types \&\&...vals\+\_\+to\+\_\+start\+\_\+with) \&\&requires(is\+\_\+header\+\_\+included$<$ start\+\_\+with\+\_\+tag
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4_a29a44cea335de27e7a02d8534ec766dc}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4_a29a44cea335de27e7a02d8534ec766dc}} 
+{\footnotesize template$<$rpp\+::memory\+\_\+model memory\+\_\+model = memory\+\_\+model\+::use\+\_\+stack, constraint\+::decayed\+\_\+same\+\_\+as$<$ Type $>$ ... TTypes$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$start\+\_\+with\+\_\+tag, TTypes...$>$\&\& constraint\+::variadic\+\_\+is\+\_\+same\+\_\+type$<$Type, TTypes...$>$)}\\auto {\bfseries start\+\_\+with} (TTypes \&\&...vals\+\_\+to\+\_\+start\+\_\+with) \&\&
 \item 
-{\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... T\+Observables$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga35f7234aa6957c2c04afa6f1d8e71696}{start\+\_\+with}} (T\+Observables \&\&...observables\+\_\+to\+\_\+start\+\_\+with) const \&requires is\+\_\+header\+\_\+included$<$ start\+\_\+with\+\_\+tag
+{\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... TObservables$>$ \newline
+requires is\+\_\+header\+\_\+included$<$start\+\_\+with\+\_\+tag, TObservables...$>$}\\auto \mbox{\hyperlink{group__combining__operators_gaf86bfdf7b2026804303f5b468fa22480}{start\+\_\+with}} (TObservables \&\&...observables\+\_\+to\+\_\+start\+\_\+with) const \&
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one but without overlapping and starting from observables provided as arguments. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4_a904df061bdb010ff72c2af95687e324a}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4_a904df061bdb010ff72c2af95687e324a}} 
-{\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... T\+Observables$>$ }\\auto {\bfseries start\+\_\+with} (T\+Observables \&\&...observables\+\_\+to\+\_\+start\+\_\+with) \&\&requires is\+\_\+header\+\_\+included$<$ start\+\_\+with\+\_\+tag
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4_a452e1705748b23899740ef28f88d9b2a}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4_a452e1705748b23899740ef28f88d9b2a}} 
+{\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... TObservables$>$ \newline
+requires is\+\_\+header\+\_\+included$<$start\+\_\+with\+\_\+tag, TObservables...$>$}\\auto {\bfseries start\+\_\+with} (TObservables \&\&...observables\+\_\+to\+\_\+start\+\_\+with) \&\&
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-auto {\bfseries T\+Types}
-\item 
-auto {\bfseries T\+Observables}
-\end{DoxyCompactItemize}
-
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4_a4d5ee8e1ab4e49cb0953fbf4a39fbb10}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4_a4d5ee8e1ab4e49cb0953fbf4a39fbb10}} 
-\index{rpp::details::member\_overload$<$ Type, SpecificObservable, start\_with\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, start\_with\_tag $>$}!TObservables@{TObservables}}
-\index{TObservables@{TObservables}!rpp::details::member\_overload$<$ Type, SpecificObservable, start\_with\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, start\_with\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{TObservables}{TObservables}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, start\+\_\+with\+\_\+tag $>$\+::T\+Observables}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} start\_with\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<TObservables>(observables\_to\_start\_with)...)}
-
-\end{DoxyCode}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4_aa311c52e4659944c24ae15c64d965cdd}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01start__with__tag_01_4_aa311c52e4659944c24ae15c64d965cdd}} 
-\index{rpp::details::member\_overload$<$ Type, SpecificObservable, start\_with\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, start\_with\_tag $>$}!TTypes@{TTypes}}
-\index{TTypes@{TTypes}!rpp::details::member\_overload$<$ Type, SpecificObservable, start\_with\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, start\_with\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{TTypes}{TTypes}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, start\+\_\+with\+\_\+tag $>$\+::T\+Types}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} start\_with\_impl<memory\_model, Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<TTypes>(vals\_to\_start\_with)...)}
-
-\end{DoxyCode}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}

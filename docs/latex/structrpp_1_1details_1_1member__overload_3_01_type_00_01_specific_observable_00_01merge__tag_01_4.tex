@@ -1,15 +1,22 @@
-\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01merge__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, merge\+\_\+tag $>$ Struct Template Reference}
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01merge__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload\texorpdfstring{$<$}{<} Type, Specific\+Observable, merge\+\_\+tag \texorpdfstring{$>$}{>} Struct Template Reference}
 \label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01merge__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, merge\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, merge\_tag $>$}}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename ... Args$>$ }\\auto \mbox{\hyperlink{group__combining__operators_gaa02153df55aab3d790a7102a245dfd2f}{merge}} () const \&requires(is\+\_\+header\+\_\+included$<$ merge\+\_\+tag
+{\footnotesize template$<$typename ... Args$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, Args...$>$ \&\& rpp\+::constraint\+::observable$<$Type$>$)}\\auto \mbox{\hyperlink{group__combining__operators_ga84ed0dcdeda6a4cb3a9871ab2817e114}{merge}} () const \&
 \begin{DoxyCompactList}\small\item\em Converts observable of observables of items into observable of items via merging emissions. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01merge__tag_01_4_a46a7a7f97dfbf17d5a5df57ae6311a7f}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01merge__tag_01_4_a46a7a7f97dfbf17d5a5df57ae6311a7f}} 
-{\footnotesize template$<$typename ... Args$>$ }\\auto {\bfseries merge} () \&\&requires(is\+\_\+header\+\_\+included$<$ merge\+\_\+tag
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01merge__tag_01_4_a718dddd8c6e0bed2e4de0dc7d28412c6}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01merge__tag_01_4_a718dddd8c6e0bed2e4de0dc7d28412c6}} 
+{\footnotesize template$<$typename ... Args$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, Args...$>$\&\& rpp\+::constraint\+::observable$<$Type$>$)}\\auto {\bfseries merge} () \&\&
 \item 
-{\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... T\+Observables$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga3341a36b0971c0cf59001fa65aeb36a4}{merge\+\_\+with}} (T\+Observables \&\&... observables) const \&requires(is\+\_\+header\+\_\+included$<$ merge\+\_\+tag
-\begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... TObservables$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, TObservables...$>$\&\& sizeof...(TObservables) $>$= 1)}\\auto \mbox{\hyperlink{group__combining__operators_gafa55b14eec1c6c40b8655e20c6edf5b2}{merge\+\_\+with}} (TObservables \&\&... observables) const \&
+\begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01merge__tag_01_4_a8f0dab68b7ec86480f467a4b8f0b5fac}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01merge__tag_01_4_a8f0dab68b7ec86480f467a4b8f0b5fac}} 
+{\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... TObservables$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, TObservables...$>$ \&\& sizeof...(TObservables) $>$= 1)}\\auto {\bfseries merge\+\_\+with} (TObservables \&\&... observables) \&\&
+\end{DoxyCompactItemize}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}

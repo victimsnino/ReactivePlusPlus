@@ -1,0 +1,101 @@
+\hypertarget{fwd_2do_8hpp_source}{}\doxysection{do.\+hpp}
+\label{fwd_2do_8hpp_source}\index{src/rpp/rpp/operators/fwd/do.hpp@{src/rpp/rpp/operators/fwd/do.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/details/member\_overload.hpp>} \textcolor{comment}{// member\_overload}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observers/constraints.hpp>}               \textcolor{comment}{// constraint::observer\_of\_type}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18 \textcolor{keyword}{struct }do\_tag;}
+\DoxyCodeLine{19 \}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observer\_of\_type<Type> TObs>}
+\DoxyCodeLine{24 \textcolor{keyword}{struct }do\_impl;}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{27 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, do\_tag>}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{45     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_of\_type<Type> TObs>}
+\DoxyCodeLine{46     \textcolor{keyword}{auto} \mbox{\hyperlink{group__utility__operators_ga134878936c20b1ef87d3c655ceffc131}{tap}}(TObs\&\& observer) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included <do\_tag, TObs>}
+\DoxyCodeLine{47     \{}
+\DoxyCodeLine{48         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1do__impl}{do\_impl}}<Type, std::decay\_t<TObs>>\{std::forward< TObs>(observer)\});}
+\DoxyCodeLine{49     \}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_of\_type<Type> TObs>}
+\DoxyCodeLine{52     \textcolor{keyword}{auto} tap(TObs\&\& observer) \&\& \textcolor{keyword}{requires} is\_header\_included <do\_tag, TObs>}
+\DoxyCodeLine{53     \{}
+\DoxyCodeLine{54         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1do__impl}{do\_impl}}<Type, std::decay\_t<TObs>>\{std::forward< TObs>(observer)\});}
+\DoxyCodeLine{55     \}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{75     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_next\_fn<Type> OnNextFn, constra\textcolor{keywordtype}{int}::on\_error\_fn OnErrorFn = utils::empty\_function\_t<std::exception\_ptr>, constra\textcolor{keywordtype}{int}::on\_completed\_fn OnCompletedFn = utils::empty\_function\_t<>>}
+\DoxyCodeLine{76     \textcolor{keyword}{auto} \mbox{\hyperlink{group__utility__operators_ga345385e805cd439432d447065727df09}{tap}}(OnNextFn\&\& on\_next, OnErrorFn\&\& on\_error = OnErrorFn\{\}, OnCompletedFn\&\& on\_completed = OnCompletedFn\{\}) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included <do\_tag, OnNextFn, OnErrorFn, OnCompletedFn>}
+\DoxyCodeLine{77     \{}
+\DoxyCodeLine{78         \textcolor{keyword}{using }TObserver = \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer\_with\_decayed\_args<Type, OnNextFn, OnErrorFn, OnCompletedFn>}};}
+\DoxyCodeLine{79         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>tap(TObserver\{std::forward<OnNextFn>(on\_next),}
+\DoxyCodeLine{80                                                                            std::forward<OnErrorFn>(on\_error),}
+\DoxyCodeLine{81                                                                            std::forward<OnCompletedFn>(on\_completed)\});}
+\DoxyCodeLine{82     \}}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_next\_fn<Type> OnNextFn, constra\textcolor{keywordtype}{int}::on\_error\_fn OnErrorFn = utils::empty\_function\_t<std::exception\_ptr>, constra\textcolor{keywordtype}{int}::on\_completed\_fn OnCompletedFn = utils::empty\_function\_t<>>}
+\DoxyCodeLine{85     \textcolor{keyword}{auto} tap(OnNextFn\&\& on\_next, OnErrorFn\&\& on\_error = OnErrorFn\{\}, OnCompletedFn\&\& on\_completed = OnCompletedFn\{\}) \&\& \textcolor{keyword}{requires} is\_header\_included <do\_tag, OnNextFn, OnErrorFn, OnCompletedFn>}
+\DoxyCodeLine{86     \{}
+\DoxyCodeLine{87         \textcolor{keyword}{using }TObserver = specific\_observer\_with\_decayed\_args<Type, OnNextFn, OnErrorFn, OnCompletedFn>;}
+\DoxyCodeLine{88         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).tap(TObserver\{std::forward<OnNextFn>(on\_next),}
+\DoxyCodeLine{89                                                                                 std::forward<OnErrorFn>(on\_error),}
+\DoxyCodeLine{90                                                                                 std::forward<OnCompletedFn>(on\_completed)\});}
+\DoxyCodeLine{91     \}}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{109     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_next\_fn<Type> OnNextFn>}
+\DoxyCodeLine{110     \textcolor{keyword}{auto} \mbox{\hyperlink{group__utility__operators_ga1e80d15de566a980aa0ddcb2c529977f}{do\_on\_next}}(OnNextFn\&\& on\_next) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included <do\_tag, OnNextFn>}
+\DoxyCodeLine{111     \{}
+\DoxyCodeLine{112         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>tap(std::forward<OnNextFn>(on\_next));}
+\DoxyCodeLine{113     \}}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_next\_fn<Type> OnNextFn>}
+\DoxyCodeLine{116     \textcolor{keyword}{auto} do\_on\_next(OnNextFn\&\& on\_next) \&\& \textcolor{keyword}{requires} is\_header\_included <do\_tag, OnNextFn>}
+\DoxyCodeLine{117     \{}
+\DoxyCodeLine{118         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).tap(std::forward<OnNextFn>(on\_next));}
+\DoxyCodeLine{119     \}}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{137     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_error\_fn OnErrorFn>}
+\DoxyCodeLine{138     \textcolor{keyword}{auto} \mbox{\hyperlink{group__utility__operators_ga9089d55867fc04d1f353dc636e519634}{do\_on\_error}}(OnErrorFn\&\& on\_error) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included <do\_tag, OnErrorFn>}
+\DoxyCodeLine{139     \{}
+\DoxyCodeLine{140         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>tap(utils::empty\_function\_t<Type>\{\}, std::forward<OnErrorFn>(on\_error));}
+\DoxyCodeLine{141     \}}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_error\_fn OnErrorFn>}
+\DoxyCodeLine{144     \textcolor{keyword}{auto} do\_on\_error(OnErrorFn\&\& on\_error) \&\& \textcolor{keyword}{requires} is\_header\_included <do\_tag, OnErrorFn>}
+\DoxyCodeLine{145     \{}
+\DoxyCodeLine{146         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).tap(utils::empty\_function\_t<Type>\{\}, std::forward<OnErrorFn>(on\_error));}
+\DoxyCodeLine{147     \}}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{165     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_completed\_fn OnCompletedFn>}
+\DoxyCodeLine{166     \textcolor{keyword}{auto} \mbox{\hyperlink{group__utility__operators_ga2d6dfc49bf54893033b45b530f0fcb38}{do\_on\_completed}}(OnCompletedFn\&\& on\_completed) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included <do\_tag, OnCompletedFn>}
+\DoxyCodeLine{167     \{}
+\DoxyCodeLine{168         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>tap(utils::empty\_function\_t<Type>\{\}, utils::empty\_function\_t<std::exception\_ptr>\{\},std::forward<OnCompletedFn>(on\_completed));}
+\DoxyCodeLine{169     \}}
+\DoxyCodeLine{170 }
+\DoxyCodeLine{171     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_completed\_fn OnCompletedFn>}
+\DoxyCodeLine{172     \textcolor{keyword}{auto} do\_on\_completed(OnCompletedFn\&\& on\_completed) \&\& \textcolor{keyword}{requires} is\_header\_included <do\_tag, OnCompletedFn>}
+\DoxyCodeLine{173     \{}
+\DoxyCodeLine{174         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).tap(utils::empty\_function\_t<Type>\{\}, utils::empty\_function\_t<std::exception\_ptr>\{\}, std::forward<OnCompletedFn>(on\_completed));}
+\DoxyCodeLine{175     \}}
+\DoxyCodeLine{176 \};}
+\DoxyCodeLine{177 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

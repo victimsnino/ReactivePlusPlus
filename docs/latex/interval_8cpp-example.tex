@@ -16,7 +16,7 @@
 \DoxyCodeLine{            .subscribe([cur\_time](\textcolor{keywordtype}{size\_t} v)}
 \DoxyCodeLine{                \{}
 \DoxyCodeLine{                    \textcolor{keyword}{auto} diff = std::chrono::duration\_cast<std::chrono::seconds>(std::chrono::high\_resolution\_clock::now() -\/ cur\_time).count();}
-\DoxyCodeLine{                    std::cout << \textcolor{stringliteral}{"Seconds since start "} << diff << \textcolor{stringliteral}{" value "} << v << std::endl;}
+\DoxyCodeLine{                    std::cout << \textcolor{stringliteral}{"{}Seconds since start "{}} << diff << \textcolor{stringliteral}{"{} value "{}} << v << std::endl;}
 \DoxyCodeLine{                \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{        \textcolor{comment}{// Output: Seconds since start 2 value 0}}
@@ -34,7 +34,7 @@
 \DoxyCodeLine{            .subscribe([cur\_time](\textcolor{keywordtype}{size\_t} v)}
 \DoxyCodeLine{                \{}
 \DoxyCodeLine{                    \textcolor{keyword}{auto} diff = std::chrono::duration\_cast<std::chrono::seconds>(std::chrono::high\_resolution\_clock::now() -\/ cur\_time).count();}
-\DoxyCodeLine{                    std::cout << \textcolor{stringliteral}{"Seconds since start "} << diff << \textcolor{stringliteral}{" value "} << v << std::endl;}
+\DoxyCodeLine{                    std::cout << \textcolor{stringliteral}{"{}Seconds since start "{}} << diff << \textcolor{stringliteral}{"{} value "{}} << v << std::endl;}
 \DoxyCodeLine{                \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{        \textcolor{comment}{// Output: Seconds since start 1 value 0}}
@@ -46,5 +46,6 @@
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{keywordflow}{return} 0;}
 \DoxyCodeLine{\}}
+
 \end{DoxyCodeInclude}
  

@@ -1,10 +1,10 @@
 var group__transforming__operators =
 [
-    [ "buffer", "group__transforming__operators.html#ga247e5e6cf5d4fe048588046ad34180ee", null ],
-    [ "flat_map", "group__transforming__operators.html#gae4d30f7ae23a7d62aa761f26abf18008", null ],
-    [ "group_by", "group__transforming__operators.html#gaf3399da92ac6a0a4c392107b5b405a60", null ],
-    [ "map", "group__transforming__operators.html#ga2215c20ce73e16977568e7db1900ce65", null ],
-    [ "scan", "group__transforming__operators.html#gad4cf46a565f1081cd7b8bc26aa99e640", null ],
-    [ "switch_map", "group__transforming__operators.html#ga70e93b5ebd0da19d8acdf2af6497cb88", null ],
-    [ "window", "group__transforming__operators.html#gadd87f1fff9640ec0bef5eda48c9d899b", null ]
+    [ "buffer", "group__transforming__operators.html#gaaaadd88de768811a7397897432b00f17", null ],
+    [ "flat_map", "group__transforming__operators.html#ga855aea700aa9aa9fa07e8aab7e193a1a", null ],
+    [ "group_by", "group__transforming__operators.html#ga61277d8115a87b4c10f7856a9a7f8d35", null ],
+    [ "map", "group__transforming__operators.html#gae5dd31e4559517de5cf1145ff2005a86", null ],
+    [ "scan", "group__transforming__operators.html#ga32b19b1b37ecd7a14d08c5936e2023e1", null ],
+    [ "switch_map", "group__transforming__operators.html#gae76b0e38003420a5ced3c1159bbbadde", null ],
+    [ "window", "group__transforming__operators.html#gaae1e46e322134df2b377da37a2b2f8d4", null ]
 ];

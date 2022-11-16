@@ -9,5 +9,5 @@ var group__operators =
     [ "Connectable Operators", "group__connectable__operators.html", "group__connectable__operators" ],
     [ "Error handling Operators", "group__error__handling__operators.html", "group__error__handling__operators" ],
     [ "Creational Operators", "group__creational__operators.html", "group__creational__operators" ],
-    [ "op", "group__operators.html#ga381218c46daf100859858d88743d058d", null ]
+    [ "rpp::interface_observable::op", "group__operators.html#ga381218c46daf100859858d88743d058d", null ]
 ];

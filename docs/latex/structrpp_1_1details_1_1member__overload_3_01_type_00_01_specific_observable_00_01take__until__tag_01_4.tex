@@ -1,34 +1,15 @@
-\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__until__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, take\+\_\+until\+\_\+tag $>$ Struct Template Reference}
+\hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__until__tag_01_4}{}\doxysection{rpp\+::details\+::member\+\_\+overload\texorpdfstring{$<$}{<} Type, Specific\+Observable, take\+\_\+until\+\_\+tag \texorpdfstring{$>$}{>} Struct Template Reference}
 \label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__until__tag_01_4}\index{rpp::details::member\_overload$<$ Type, SpecificObservable, take\_until\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, take\_until\_tag $>$}}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$constraint\+::observable T\+Trigger\+Observable$>$ }\\auto \mbox{\hyperlink{group__conditional__operators_ga7b072b06b4ecc8e3e138c26008e9081c}{take\+\_\+until}} (T\+Trigger\+Observable \&\&until\+\_\+observable) const \&requires is\+\_\+header\+\_\+included$<$ take\+\_\+until\+\_\+tag
+{\footnotesize template$<$constraint\+::observable TTrigger\+Observable$>$ \newline
+requires is\+\_\+header\+\_\+included$<$take\+\_\+until\+\_\+tag, TTrigger\+Observable$>$}\\auto \mbox{\hyperlink{group__conditional__operators_gadc2a534dc48aeaf4c0d33f68e723fa35}{take\+\_\+until}} (TTrigger\+Observable \&\&until\+\_\+observable) const \&
 \begin{DoxyCompactList}\small\item\em Discard any items emitted by an Observable after a second Observable emits an item or terminates. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__until__tag_01_4_afd5a258154400b2359e2e9b6deb28962}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__until__tag_01_4_afd5a258154400b2359e2e9b6deb28962}} 
-{\footnotesize template$<$constraint\+::observable T\+Trigger\+Observable$>$ }\\auto {\bfseries take\+\_\+until} (T\+Trigger\+Observable \&\&until\+\_\+observable) \&\&requires is\+\_\+header\+\_\+included$<$ take\+\_\+until\+\_\+tag
+\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__until__tag_01_4_a8bc1c3e3fd3cee2cc5ecc464309a0254}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__until__tag_01_4_a8bc1c3e3fd3cee2cc5ecc464309a0254}} 
+{\footnotesize template$<$constraint\+::observable TTrigger\+Observable$>$ \newline
+requires is\+\_\+header\+\_\+included$<$take\+\_\+until\+\_\+tag, TTrigger\+Observable$>$}\\auto {\bfseries take\+\_\+until} (TTrigger\+Observable \&\&until\+\_\+observable) \&\&
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-auto {\bfseries T\+Trigger\+Observable}
-\end{DoxyCompactItemize}
-
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__until__tag_01_4_a28c89c97edc8b7e775d237d869dd8790}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01take__until__tag_01_4_a28c89c97edc8b7e775d237d869dd8790}} 
-\index{rpp::details::member\_overload$<$ Type, SpecificObservable, take\_until\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, take\_until\_tag $>$}!TTriggerObservable@{TTriggerObservable}}
-\index{TTriggerObservable@{TTriggerObservable}!rpp::details::member\_overload$<$ Type, SpecificObservable, take\_until\_tag $>$@{rpp::details::member\_overload$<$ Type, SpecificObservable, take\_until\_tag $>$}}
-\doxysubsubsection{\texorpdfstring{TTriggerObservable}{TTriggerObservable}}
-{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
-auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, take\+\_\+until\+\_\+tag $>$\+::T\+Trigger\+Observable}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{        \textcolor{keywordflow}{return} cast\_this()-\/>template lift<Type>(take\_until\_impl<Type, std::decay\_t<TTriggerObservable>>\{std::forward<TTriggerObservable>(until\_observable)\})}
-
-\end{DoxyCode}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}

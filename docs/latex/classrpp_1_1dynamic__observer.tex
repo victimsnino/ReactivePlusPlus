@@ -1,4 +1,4 @@
-\hypertarget{classrpp_1_1dynamic__observer}{}\doxysection{rpp\+::dynamic\+\_\+observer$<$ T $>$ Class Template Reference}
+\hypertarget{classrpp_1_1dynamic__observer}{}\doxysection{rpp\+::dynamic\+\_\+observer\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
 \label{classrpp_1_1dynamic__observer}\index{rpp::dynamic\_observer$<$ T $>$@{rpp::dynamic\_observer$<$ T $>$}}
 
 
@@ -9,7 +9,7 @@ Dynamic (type-\/erased) version of observer (comparing to \mbox{\hyperlink{class
 
 {\ttfamily \#include $<$dynamic\+\_\+observer.\+hpp$>$}
 
-Inheritance diagram for rpp\+::dynamic\+\_\+observer$<$ T $>$\+:\begin{figure}[H]
+Inheritance diagram for rpp\+::dynamic\+\_\+observer\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=4.000000cm]{classrpp_1_1dynamic__observer}
@@ -24,18 +24,18 @@ Inheritance diagram for rpp\+::dynamic\+\_\+observer$<$ T $>$\+:\begin{figure}[H
 \mbox{\Hypertarget{classrpp_1_1dynamic__observer_ab4fbedf196de14a420561903b2fc2ab3}\label{classrpp_1_1dynamic__observer_ab4fbedf196de14a420561903b2fc2ab3}} 
 {\bfseries dynamic\+\_\+observer} (constraint\+::on\+\_\+next\+\_\+fn$<$ T $>$ auto \&\&\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_aab9be8862b04c33b4c862f8dda1c99be}{on\+\_\+next}}, constraint\+::on\+\_\+completed\+\_\+fn auto \&\&\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a7352ef279f72e785b5d7631e36d63707}{on\+\_\+completed}})
 \item 
-\mbox{\Hypertarget{classrpp_1_1dynamic__observer_a98e12da99f792001781ac27c09ee79ec}\label{classrpp_1_1dynamic__observer_a98e12da99f792001781ac27c09ee79ec}} 
-{\footnotesize template$<$constraint\+::observer\+\_\+of\+\_\+type$<$ T $>$ T\+Observer$>$ }\\{\bfseries requires} (!std\+::is\+\_\+same\+\_\+v$<$ std\+::decay\+\_\+t$<$ T\+Observer $>$, \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ T $>$$>$) \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}(T\+Observer \&\&obs)
+\mbox{\Hypertarget{classrpp_1_1dynamic__observer_a4f6abc96bf5cf598ca60fee8c3709a65}\label{classrpp_1_1dynamic__observer_a4f6abc96bf5cf598ca60fee8c3709a65}} 
+{\footnotesize template$<$constraint\+::observer\+\_\+of\+\_\+type$<$ T $>$ TObserver$>$ \newline
+requires (!std\+::is\+\_\+same\+\_\+v$<$std\+::decay\+\_\+t$<$TObserver$>$, \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$T$>$$>$)}\\{\bfseries dynamic\+\_\+observer} (TObserver \&\&obs)
 \item 
-\mbox{\Hypertarget{classrpp_1_1dynamic__observer_a5cf00f1e1f4e39a692d1b0244814395b}\label{classrpp_1_1dynamic__observer_a5cf00f1e1f4e39a692d1b0244814395b}} 
-const \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ T $>$ \& \mbox{\hyperlink{classrpp_1_1dynamic__observer_a5cf00f1e1f4e39a692d1b0244814395b}{as\+\_\+dynamic}} () const
+\mbox{\Hypertarget{classrpp_1_1dynamic__observer_add7053ccfed71413c07b74cc34a564f8}\label{classrpp_1_1dynamic__observer_add7053ccfed71413c07b74cc34a564f8}} 
+const \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ T $>$ \& {\bfseries as\+\_\+dynamic} () const
 \begin{DoxyCompactList}\small\item\em Do nothing for \mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp\+::dynamic\+\_\+observer}}. Created only for unification of interfaces with \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp\+::specific\+\_\+observer}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 \subsubsection*{template$<$constraint\+::decayed\+\_\+type T$>$\newline
 class rpp\+::dynamic\+\_\+observer$<$ T $>$}
-
 Dynamic (type-\/erased) version of observer (comparing to \mbox{\hyperlink{classrpp_1_1specific__observer}{specific\+\_\+observer}}) 
 
 It uses type-\/erasure mechanism to hide types of On\+Next, On\+Error and On\+Completed callbacks. But it has higher cost in the terms of performance due to usage of heap. Use it only when you need to store observer as member variable or make copy of original subscriber. In other cases prefer using \char`\"{}auto\char`\"{} to avoid converting to \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}} 
