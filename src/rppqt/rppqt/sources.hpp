@@ -11,10 +11,9 @@
 #pragma once
 
 /**
- * \defgroup subjects Subjects
- * \brief Observable is the observable and observer at the same time. Uses as a bridge and for manual sending of values.
- * \see https://reactivex.io/documentation/subject.html
- * \ingroup rpp
+ * \defgroup qt_creational_operators QT Creational Operators
+ * \brief QT creational operators are operators that create new observable from QObjects
+ * \ingroup qt_operators
  */
 
-#include <rpp/subjects/publish_subject.hpp>
+#include <rppqt/sources/from_signal.hpp>

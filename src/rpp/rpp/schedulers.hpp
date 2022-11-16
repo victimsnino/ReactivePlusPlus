@@ -14,6 +14,7 @@
  * \defgroup schedulers Schedulers
  * \brief Scheduler is the way to introduce multi-threading in your application via RPP
  * \see https://reactivex.io/documentation/scheduler.html
+ * \ingroup rpp
  */
 
 #include <rpp/schedulers/immediate_scheduler.hpp>

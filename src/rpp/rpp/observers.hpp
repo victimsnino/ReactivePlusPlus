@@ -13,6 +13,7 @@
 /**
  * \defgroup observers Observers
  * \brief Observer subscribe on observable and obtains values provided by observable.
+ * \ingroup rpp
  */
 
 #include <rpp/observers/specific_observer.hpp>

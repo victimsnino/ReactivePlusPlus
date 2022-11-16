@@ -13,6 +13,7 @@ env:
   CATCH2_VERSION: v3.1.0
   Catch2_DIR: ~/Catch2_BIN
 
+
 jobs:
   download_deps:
     strategy:
@@ -60,6 +61,9 @@ jobs:
     - name: Install LCov
       run: sudo apt-get update -q && sudo apt-get install lcov -q -y
 
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+
     - name: Restore Catch2 
       uses: actions/cache@v3
       id: cache-catch2
@@ -92,6 +96,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      
     - name: Restore Catch2 
       uses: actions/cache@v3
       id: cache-catch2
@@ -125,10 +132,16 @@ jobs:
       with:
           fetch-depth: 0
 
+    - name: Install Qt
+      if: matrix.type == 'tests'
+      uses: jurplel/install-qt-action@v3
+      
     - name: Install deps
       if: matrix.config.os != 'windows-latest'
-      run: sudo apt-get update -q && sudo apt-get install clang-tidy cppcheck libsfml-dev -y -q
-      
+      run: |
+        sudo apt-get update -q && sudo apt-get install clang-tidy cppcheck libsfml-dev -y -q
+        pip install pyyaml
+
     - name: Restore Catch2 
       uses: actions/cache@v3
       id: cache-catch2
@@ -182,6 +195,9 @@ jobs:
         with:
           path: ${{env.Catch2_DIR}}
           key: catch2-${{env.CATCH2_VERSION}}-ubuntu-latest
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
       
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
@@ -205,7 +221,7 @@ jobs:
           CXX: g++-10
         run: |
           mkdir build
-          cmake -S . -B build -DRPP_BUILD_TESTS=1
+          cmake -S . -B build -DRPP_BUILD_TESTS=1 -DRPP_BUILD_QT_CODE=1
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release --parallel 2
       
       - name: Upload results
@@ -216,12 +232,7 @@ jobs:
 
   docs:
     name: Build Doxygen Docs
-
-    needs: [sanitize, tests]
-
     runs-on: ubuntu-latest
-
-    if: github.event_name == 'push' && github.repository_owner == 'victimsnino'
 
     steps:
     - uses: actions/checkout@v3
@@ -232,13 +243,27 @@ jobs:
     - name: Install deps
       run: |
         pip3 install rxmarbles
-        sudo apt-get install doxygen
+        export CC=clang
+        export CXX=clang++
+        sudo apt install llvm-11 clang-11 libclang-11-dev flex bison -q -y
+        git clone https://github.com/doxygen/doxygen.git --depth 1
+        cd doxygen && mkdir build && cd build
+        cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr ..
+        make -j4
+        sudo make install
 
     - name: Doxygen
       run: doxygen ./Doxyfile
     
+    - name: Update docs
+      run: |
+        grep -rl "rpp::details::member_overload" gen_docs | xargs sed -i 's/rpp::details::member_overload&lt; Type, SpecificObservable, [a-zA-Z_]*_tag &gt;/observable/g'
+        grep -rl "rpp::details::member_overload" gen_docs | xargs sed -i 's/rpp::details::member_overload<\/a>&lt; Type, SpecificObservable, [a-zA-Z_]*_tag &gt;/observable<\/a>/g'
+        grep -rl "rpp::details::member_overload" gen_docs | xargs sed -i 's/rpp::details::member_overload< Type, SpecificObservable, [a-zA-Z_]*_tag >:://g'
+    
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
+      if: github.event_name == 'push' && github.repository_owner == 'victimsnino'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./gen_docs
@@ -264,6 +289,6 @@ jobs:
         cmake -B build
         sudo cmake --build build --target install --parallel 2 --config Release
         
-        cmake -B sample_build -S src/examples/package
+        cmake -B sample_build -S src/examples/rpp/package
         cmake --build sample_build --parallel 2 --config Release
         

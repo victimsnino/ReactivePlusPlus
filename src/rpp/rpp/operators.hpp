@@ -14,6 +14,7 @@
 * \defgroup operators Operators
 * \brief Operators is way to modify observables and extend with some extra custom logic
 * \see https://reactivex.io/documentation/operators.html 
+* \ingroup rpp
 */
 
 /**

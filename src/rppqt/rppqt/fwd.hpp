@@ -11,10 +11,14 @@
 #pragma once
 
 /**
- * \defgroup subjects Subjects
- * \brief Observable is the observable and observer at the same time. Uses as a bridge and for manual sending of values.
- * \see https://reactivex.io/documentation/subject.html
- * \ingroup rpp
- */
+* \defgroup rppqt RPPQT
+* \brief RppQt is extension of RPP which enables support of Qt library.
+*/
 
-#include <rpp/subjects/publish_subject.hpp>
+/**
+* \defgroup qt_operators QT Operators
+* \brief QT Operators is way to modify observables and extend with some extra custom logic but applied for QObjects
+* \ingroup rppqt
+*/
+
+#include <rppqt/sources/fwd.hpp>

@@ -10,6 +10,11 @@
 
 #pragma once
 
+/**
+* \defgroup rpp RPP
+* \brief Rpp is Reactive extension for C++20
+*/
+
 #include <rpp/observables/fwd.hpp>
 #include <rpp/observers/fwd.hpp>
 #include <rpp/sources/fwd.hpp>
