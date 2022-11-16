@@ -72,7 +72,7 @@ namespace rppqt::observable
  * \brief Creates rpp::specific_observable that emits a items from provided QT signal 
  * 
  * \param object is QObject which would emit signals
- * \param signal is interested signal which would generate emissions for observable
+ * \param signal is interested signal which would generate emissions for observable. Expected to obtain pointer to member function representing signal
  *
  * \par Examples:
  * \snippet from_signal.cpp from_signal
