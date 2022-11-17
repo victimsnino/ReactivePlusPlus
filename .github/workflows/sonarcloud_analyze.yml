@@ -22,6 +22,9 @@ jobs:
           repository: ${{ github.event.workflow_run.head_repository.full_name }}
           ref: ${{ github.event.workflow_run.head_branch }}
       
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+      
       - name: Cmake
         run: cmake -S . -B build -DRPP_BUILD_TESTS=1 -DRPP_BUILD_QT_CODE=1
       
