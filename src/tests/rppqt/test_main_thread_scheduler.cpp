@@ -8,7 +8,6 @@
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
 #include <catch2/catch_test_macros.hpp>
-#include "mock_observer.hpp"
 
 #include <rppqt/schedulers/main_thread_scheduler.hpp>
 
