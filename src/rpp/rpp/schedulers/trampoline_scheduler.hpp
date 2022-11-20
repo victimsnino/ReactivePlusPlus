@@ -48,6 +48,11 @@ class trampoline final : public details::scheduler_tag
         explicit worker_strategy(const rpp::composite_subscription& subscription)
             : m_sub{ subscription } {}
 
+        bool is_subscribed() const
+        {
+            return m_sub.is_subscribed();
+        }
+
         void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
         {
             if (!m_sub.is_subscribed())
