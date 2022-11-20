@@ -41,6 +41,11 @@ private:
             , m_sub{sub}
         {}
 
+        bool is_subscribed() const
+        {
+            return m_sub.is_subscribed();
+        }
+
         void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
         {
             defer_at(time_point, run_loop_schedulable{*this, time_point, std::forward<decltype(fn)>(fn)});

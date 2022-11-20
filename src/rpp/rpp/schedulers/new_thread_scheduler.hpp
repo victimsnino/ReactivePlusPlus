@@ -44,6 +44,13 @@ public:
             m_state = shared;
         }
 
+        bool is_subscribed() const
+        {
+            if (const auto locked = m_state.lock())
+                return locked->is_subscribed();
+            return false;
+        }
+
         void defer_at(time_point time_point, constraint::schedulable_fn auto&& fn) const
         {
             defer_at(time_point, new_thread_schedulable{*this, time_point, std::forward<decltype(fn)>(fn)});
@@ -64,6 +71,8 @@ public:
             state() = default;
             state(const state&) = delete;
             state(state&&) noexcept = delete;
+
+            bool is_subscribed() const { return m_sub->is_subscribed(); }
 
             void defer_at(time_point time_point, new_thread_schedulable&& fn)
             {

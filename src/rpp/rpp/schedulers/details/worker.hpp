@@ -38,7 +38,10 @@ public:
 
     void operator()()
     {
-        if (auto duration = m_fn())
+        if (!m_strategy.is_subscribed())
+            return;
+
+        if (const auto duration = m_fn())
         {
             m_time_point = std::max(m_strategy.now(), m_time_point + duration.value());
 
