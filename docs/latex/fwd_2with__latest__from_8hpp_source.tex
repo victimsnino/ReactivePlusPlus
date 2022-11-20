@@ -34,25 +34,25 @@
 \DoxyCodeLine{30 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
 \DoxyCodeLine{31 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, with\_latest\_from\_tag>}
 \DoxyCodeLine{32 \{}
-\DoxyCodeLine{54     \textcolor{keyword}{template}<constraint::observable ...TObservables, std::invocable<Type, utils::extract\_observable\_type\_t<TObservables>...> TSelector>}
+\DoxyCodeLine{54     \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}} ...TObservables, std::invocable<Type, utils::extract\_observable\_type\_t<TObservables>...> TSelector>}
 \DoxyCodeLine{55     \textcolor{keyword}{auto} with\_latest\_from(TSelector\&\& selector, TObservables\&\&...observables) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<with\_latest\_from\_tag, TObservables...>}
 \DoxyCodeLine{56     \{}
 \DoxyCodeLine{57         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<utils::decayed\_invoke\_result\_t<TSelector, Type, utils::extract\_observable\_type\_t<TObservables>...>>(\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__impl}{with\_latest\_from\_impl}}<Type, std::decay\_t<TSelector>, std::decay\_t<TObservables>...>\{std::forward<TSelector>(selector), \{ std::forward<TObservables>(observables)... \}\});}
 \DoxyCodeLine{58     \}}
 \DoxyCodeLine{59 }
-\DoxyCodeLine{60     \textcolor{keyword}{template}<constraint::observable ...TObservables, std::invocable<Type, utils::extract\_observable\_type\_t<TObservables>...> TSelector>}
+\DoxyCodeLine{60     \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}} ...TObservables, std::invocable<Type, utils::extract\_observable\_type\_t<TObservables>...> TSelector>}
 \DoxyCodeLine{61     \textcolor{keyword}{auto} with\_latest\_from(TSelector\&\& selector, TObservables\&\&...observables) \&\& \textcolor{keyword}{requires} is\_header\_included<with\_latest\_from\_tag, TObservables...>}
 \DoxyCodeLine{62     \{}
 \DoxyCodeLine{63         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template lift<utils::decayed\_invoke\_result\_t<TSelector, Type, utils::extract\_observable\_type\_t<TObservables>...>>(\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__impl}{with\_latest\_from\_impl<Type, std::decay\_t<TSelector>}}, std::decay\_t<TObservables>...>\{std::forward<TSelector>(selector), \{ std::forward<TObservables>(observables)... \}\});}
 \DoxyCodeLine{64     \}}
 \DoxyCodeLine{65 }
-\DoxyCodeLine{86     \textcolor{keyword}{template}<constraint::observable ...TObservables>}
+\DoxyCodeLine{86     \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}} ...TObservables>}
 \DoxyCodeLine{87     \textcolor{keyword}{auto} with\_latest\_from(TObservables\&\&...observables) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<with\_latest\_from\_tag, TObservables...>}
 \DoxyCodeLine{88     \{}
 \DoxyCodeLine{89         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>with\_latest\_from(utils::pack\_to\_tuple\{\}, std::forward<TObservables>(observables)...);}
 \DoxyCodeLine{90     \}}
 \DoxyCodeLine{91 }
-\DoxyCodeLine{92     \textcolor{keyword}{template}<constraint::observable ...TObservables>}
+\DoxyCodeLine{92     \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}} ...TObservables>}
 \DoxyCodeLine{93     \textcolor{keyword}{auto} with\_latest\_from(TObservables\&\&...observables) \&\& \textcolor{keyword}{requires} is\_header\_included<with\_latest\_from\_tag, TObservables...>}
 \DoxyCodeLine{94     \{}
 \DoxyCodeLine{95         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).with\_latest\_from(utils::pack\_to\_tuple\{\}, std::forward<TObservables>(observables)...);}

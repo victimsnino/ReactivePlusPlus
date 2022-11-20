@@ -57,7 +57,7 @@
 \DoxyCodeLine{53 \textcolor{keyword}{public}:}
 \DoxyCodeLine{54     \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1queue__worker__state}{queue\_worker\_state}}() \textcolor{keyword}{noexcept} = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{55 }
-\DoxyCodeLine{56     \textcolor{keywordtype}{void} emplace(time\_point time\_point, constraint::inner\_schedulable\_fn \textcolor{keyword}{auto}\&\& fn)}
+\DoxyCodeLine{56     \textcolor{keywordtype}{void} emplace(time\_point time\_point, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1inner__schedulable__fn}{constraint::inner\_schedulable\_fn}} \textcolor{keyword}{auto}\&\& fn)}
 \DoxyCodeLine{57     \{}
 \DoxyCodeLine{58         emplace\_safe(time\_point, std::forward<\textcolor{keyword}{decltype}(fn)>(fn));}
 \DoxyCodeLine{59         m\_cv.notify\_one();}
@@ -115,7 +115,7 @@
 \DoxyCodeLine{111     \}}
 \DoxyCodeLine{112 }
 \DoxyCodeLine{113 \textcolor{keyword}{private}:}
-\DoxyCodeLine{114     \textcolor{keywordtype}{void} emplace\_safe(time\_point time\_point, constraint::inner\_schedulable\_fn \textcolor{keyword}{auto}\&\& fn)}
+\DoxyCodeLine{114     \textcolor{keywordtype}{void} emplace\_safe(time\_point time\_point, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1inner__schedulable__fn}{constraint::inner\_schedulable\_fn}} \textcolor{keyword}{auto}\&\& fn)}
 \DoxyCodeLine{115     \{}
 \DoxyCodeLine{116         std::lock\_guard lock\{ m\_mutex \};}
 \DoxyCodeLine{117         m\_queue.emplace(time\_point, ++m\_current\_id, std::forward<\textcolor{keyword}{decltype}(fn)>(fn));}

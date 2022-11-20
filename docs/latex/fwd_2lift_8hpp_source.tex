@@ -27,7 +27,7 @@
 \DoxyCodeLine{23 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{24 \{}
 \DoxyCodeLine{25 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} NewType>}
-\DoxyCodeLine{26 \textcolor{keyword}{concept }lift\_fn = constraint::subscriber<utils::decayed\_invoke\_result\_t<T, dynamic\_subscriber<NewType>>>;}
+\DoxyCodeLine{26 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1details_1_1lift__fn}{lift\_fn}} = \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{constraint::subscriber<utils::decayed\_invoke\_result\_t<T, dynamic\_subscriber<NewType>}}>>;}
 \DoxyCodeLine{27 }
 \DoxyCodeLine{28 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::decayed\_type OnNext, constra\textcolor{keywordtype}{int}::decayed\_type OnError, constra\textcolor{keywordtype}{int}::decayed\_type OnCompleted>}
 \DoxyCodeLine{29 \textcolor{keyword}{struct }lift\_action\_by\_callbacks;}
@@ -42,13 +42,13 @@
 \DoxyCodeLine{38 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, lift\_tag>}
 \DoxyCodeLine{39 \{}
 \DoxyCodeLine{46     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType>}
-\DoxyCodeLine{47     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a02bd4fdc90c4fc5f96abca469ed069c4}{lift}}(lift\_fn<NewType> \textcolor{keyword}{auto}\&\& op) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<lift\_tag, NewType>}
+\DoxyCodeLine{47     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a02bd4fdc90c4fc5f96abca469ed069c4}{lift}}(\mbox{\hyperlink{conceptrpp_1_1details_1_1lift__fn}{lift\_fn<NewType>}} \textcolor{keyword}{auto}\&\& op) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<lift\_tag, NewType>}
 \DoxyCodeLine{48     \{}
 \DoxyCodeLine{49         \textcolor{keywordflow}{return} details::lift\_impl<NewType>(std::forward<\textcolor{keyword}{decltype}(op)>(op), CastThis());}
 \DoxyCodeLine{50     \}}
 \DoxyCodeLine{51 }
 \DoxyCodeLine{52     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType>}
-\DoxyCodeLine{53     \textcolor{keyword}{auto} lift(lift\_fn<NewType> \textcolor{keyword}{auto}\&\& op)\&\& \textcolor{keyword}{requires} is\_header\_included<lift\_tag, NewType>}
+\DoxyCodeLine{53     \textcolor{keyword}{auto} lift(\mbox{\hyperlink{conceptrpp_1_1details_1_1lift__fn}{lift\_fn<NewType>}} \textcolor{keyword}{auto}\&\& op)\&\& \textcolor{keyword}{requires} is\_header\_included<lift\_tag, NewType>}
 \DoxyCodeLine{54     \{}
 \DoxyCodeLine{55         \textcolor{keywordflow}{return} details::lift\_impl<NewType>(std::forward<\textcolor{keyword}{decltype}(op)>(op), MoveThis());}
 \DoxyCodeLine{56     \}}
@@ -56,13 +56,13 @@
 \DoxyCodeLine{58     \textcolor{comment}{// ********************************* LIFT OPERATOR: SUBSCRIBER -\/> SUBSCRIBER ******************//}}
 \DoxyCodeLine{66 \textcolor{comment}{}    \textcolor{keyword}{template}<\textcolor{keyword}{typename} OperatorFn,}
 \DoxyCodeLine{67              constraint::decayed\_type NewType = utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OperatorFn>>>}
-\DoxyCodeLine{68     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a3ed876fbf0421c6bd3dffa59363e3f39}{lift}}(OperatorFn\&\& op) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} (details::lift\_fn<OperatorFn, NewType> \&\& is\_header\_included<lift\_tag, OperatorFn, NewType>)}
+\DoxyCodeLine{68     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01lift__tag_01_4_a3ed876fbf0421c6bd3dffa59363e3f39}{lift}}(OperatorFn\&\& op) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} (\mbox{\hyperlink{conceptrpp_1_1details_1_1lift__fn}{details::lift\_fn<OperatorFn, NewType>}} \&\& is\_header\_included<lift\_tag, OperatorFn, NewType>)}
 \DoxyCodeLine{69     \{}
 \DoxyCodeLine{70         \textcolor{keywordflow}{return} details::lift\_impl<NewType>(std::forward<\textcolor{keyword}{decltype}(op)>(op), CastThis());}
 \DoxyCodeLine{71     \}}
 \DoxyCodeLine{72     \textcolor{keyword}{template}<\textcolor{keyword}{typename} OperatorFn,}
 \DoxyCodeLine{73              constraint::decayed\_type NewType = utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OperatorFn>>>}
-\DoxyCodeLine{74     \textcolor{keyword}{auto} lift(OperatorFn\&\& op) \&\& \textcolor{keyword}{requires} (details::lift\_fn<OperatorFn, NewType> \&\& is\_header\_included<lift\_tag, OperatorFn, NewType>)}
+\DoxyCodeLine{74     \textcolor{keyword}{auto} lift(OperatorFn\&\& op) \&\& \textcolor{keyword}{requires} (\mbox{\hyperlink{conceptrpp_1_1details_1_1lift__fn}{details::lift\_fn<OperatorFn, NewType>}} \&\& is\_header\_included<lift\_tag, OperatorFn, NewType>)}
 \DoxyCodeLine{75     \{}
 \DoxyCodeLine{76         \textcolor{keywordflow}{return} details::lift\_impl<NewType>(std::forward<\textcolor{keyword}{decltype}(op)>(op), MoveThis());}
 \DoxyCodeLine{77     \}}

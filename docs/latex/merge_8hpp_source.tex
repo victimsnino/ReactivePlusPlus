@@ -43,7 +43,7 @@
 \DoxyCodeLine{39 }
 \DoxyCodeLine{40 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1merge__on__completed}{merge\_on\_completed}}}
 \DoxyCodeLine{41 \{}
-\DoxyCodeLine{42     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\&  sub,}
+\DoxyCodeLine{42     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{constraint::subscriber}} \textcolor{keyword}{auto}\&  sub,}
 \DoxyCodeLine{43                     \textcolor{keyword}{const} std::shared\_ptr<merge\_state>\& state)\textcolor{keyword}{ const}}
 \DoxyCodeLine{44 \textcolor{keyword}{    }\{}
 \DoxyCodeLine{45         \textcolor{keywordflow}{if} (state-\/>count\_of\_on\_completed\_needed.fetch\_sub(1, std::memory\_order::acq\_rel) == 1)}
@@ -55,7 +55,7 @@
 \DoxyCodeLine{51 \{}
 \DoxyCodeLine{52     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs>}
 \DoxyCodeLine{53     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} TObs\&                         new\_observable,}
-\DoxyCodeLine{54                     \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\&  sub,}
+\DoxyCodeLine{54                     \textcolor{keyword}{const} \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{constraint::subscriber}} \textcolor{keyword}{auto}\&  sub,}
 \DoxyCodeLine{55                     \textcolor{keyword}{const} std::shared\_ptr<merge\_state>\& state)\textcolor{keyword}{ const}}
 \DoxyCodeLine{56 \textcolor{keyword}{    }\{}
 \DoxyCodeLine{57         \textcolor{keyword}{using }ValueType = utils::extract\_observable\_type\_t<TObs>;}

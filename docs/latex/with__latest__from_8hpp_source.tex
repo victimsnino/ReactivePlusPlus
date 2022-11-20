@@ -50,7 +50,7 @@
 \DoxyCodeLine{46 \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t} I>}
 \DoxyCodeLine{47 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__on__next__inner}{with\_latest\_from\_on\_next\_inner}}}
 \DoxyCodeLine{48 \{}
-\DoxyCodeLine{49     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\&, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& state)\textcolor{keyword}{ const}}
+\DoxyCodeLine{49     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{auto}\&\& value, \textcolor{keyword}{const} \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{constraint::subscriber}} \textcolor{keyword}{auto}\&, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& state)\textcolor{keyword}{ const}}
 \DoxyCodeLine{50 \textcolor{keyword}{    }\{}
 \DoxyCodeLine{51         std::lock\_guard lock\{state-\/>mutexes[I]\};}
 \DoxyCodeLine{52         std::get<I>(state-\/>vals) = std::forward<decltype(value)>(value);}
@@ -118,7 +118,7 @@
 \DoxyCodeLine{114     utils::spinlock spinlock\{\};}
 \DoxyCodeLine{115 \};}
 \DoxyCodeLine{116 }
-\DoxyCodeLine{117 \textcolor{keyword}{template}<constraint::decayed\_type Type, \textcolor{keyword}{typename} TSelector, constraint::observable ...TObservables>}
+\DoxyCodeLine{117 \textcolor{keyword}{template}<constraint::decayed\_type Type, \textcolor{keyword}{typename} TSelector, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}} ...TObservables>}
 \DoxyCodeLine{118 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__impl}{with\_latest\_from\_impl}}}
 \DoxyCodeLine{119 \{}
 \DoxyCodeLine{120     \textcolor{keyword}{using }ResultType = utils::decayed\_invoke\_result\_t<}

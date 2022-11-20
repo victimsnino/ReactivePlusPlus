@@ -23,18 +23,18 @@
 \DoxyCodeLine{19 \{}
 \DoxyCodeLine{20 \textcolor{comment}{// returns std::nullopt in case of don't need to re-\/schedule schedulable or some duration which will be added to "{}now"{} and re-\/scheduled}}
 \DoxyCodeLine{21 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{22 \textcolor{keyword}{concept }schedulable\_fn = std::invocable<T> \&\& std::same\_as<std::invoke\_result\_t<T>, optional\_duration>;}
+\DoxyCodeLine{22 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{schedulable\_fn}} = std::invocable<T> \&\& std::same\_as<std::invoke\_result\_t<T>, optional\_duration>;}
 \DoxyCodeLine{23 }
 \DoxyCodeLine{24 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{25 \textcolor{keyword}{concept }inner\_schedulable\_fn = std::invocable<T> \&\& std::same\_as<std::invoke\_result\_t<T>, \textcolor{keywordtype}{void}>;}
+\DoxyCodeLine{25 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1inner__schedulable__fn}{inner\_schedulable\_fn}} = std::invocable<T> \&\& std::same\_as<std::invoke\_result\_t<T>, \textcolor{keywordtype}{void}>;}
 \DoxyCodeLine{26 }
 \DoxyCodeLine{27 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{28 \textcolor{keyword}{concept }worker = std::is\_base\_of\_v<details::worker\_tag, std::decay\_t<T>>;}
+\DoxyCodeLine{28 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1worker}{worker}} = std::is\_base\_of\_v<details::worker\_tag, std::decay\_t<T>>;}
 \DoxyCodeLine{29 }
 \DoxyCodeLine{30 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{31 \textcolor{keyword}{concept }scheduler = std::is\_base\_of\_v<details::scheduler\_tag, std::decay\_t<T>> \&\& \textcolor{keyword}{requires}(\textcolor{keyword}{const} T t)}
+\DoxyCodeLine{31 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{scheduler}} = std::is\_base\_of\_v<details::scheduler\_tag, std::decay\_t<T>> \&\& \textcolor{keyword}{requires}(\textcolor{keyword}{const} T t)}
 \DoxyCodeLine{32 \{}
-\DoxyCodeLine{33     \{t.create\_worker(std::declval<rpp::composite\_subscription>())\} -\/> worker;}
+\DoxyCodeLine{33     \{t.create\_worker(std::declval<rpp::composite\_subscription>())\} -\/> \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1worker}{worker}};}
 \DoxyCodeLine{34 \};}
 \DoxyCodeLine{35 \} \textcolor{comment}{// namespace rpp::schedulers::constraint}}
 

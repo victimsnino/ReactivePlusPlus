@@ -36,7 +36,7 @@
 \DoxyCodeLine{32 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, combine\_latest\_tag>}
 \DoxyCodeLine{33 \{}
 \DoxyCodeLine{34 }
-\DoxyCodeLine{57     \textcolor{keyword}{template}<constraint::observable ...TOtherObservable, std::invocable<Type, utils::extract\_observable\_type\_t<TOtherObservable>...> TCombiner>}
+\DoxyCodeLine{57     \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}} ...TOtherObservable, std::invocable<Type, utils::extract\_observable\_type\_t<TOtherObservable>...> TCombiner>}
 \DoxyCodeLine{58     \textcolor{keyword}{auto} combine\_latest(TCombiner\&\& combiner, TOtherObservable\&\&...observables) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<combine\_latest\_tag, TOtherObservable...>}
 \DoxyCodeLine{59     \{}
 \DoxyCodeLine{60         \textcolor{keyword}{using }DownstreamType = utils::decayed\_invoke\_result\_t<TCombiner, Type, utils::extract\_observable\_type\_t<TOtherObservable>...>;}
@@ -48,7 +48,7 @@
 \DoxyCodeLine{66             \});}
 \DoxyCodeLine{67     \}}
 \DoxyCodeLine{68 }
-\DoxyCodeLine{69     \textcolor{keyword}{template}<constraint::observable ...TOtherObservable, std::invocable<Type, utils::extract\_observable\_type\_t<TOtherObservable>...> TCombiner>}
+\DoxyCodeLine{69     \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}} ...TOtherObservable, std::invocable<Type, utils::extract\_observable\_type\_t<TOtherObservable>...> TCombiner>}
 \DoxyCodeLine{70     \textcolor{keyword}{auto} combine\_latest(TCombiner\&\& combiner, TOtherObservable\&\&...observables) \&\& \textcolor{keyword}{requires} is\_header\_included<combine\_latest\_tag, TOtherObservable...>}
 \DoxyCodeLine{71     \{}
 \DoxyCodeLine{72         \textcolor{keyword}{using }DownstreamType = utils::decayed\_invoke\_result\_t<TCombiner, Type, utils::extract\_observable\_type\_t<TOtherObservable>...>;}
@@ -60,13 +60,13 @@
 \DoxyCodeLine{78             \});}
 \DoxyCodeLine{79     \}}
 \DoxyCodeLine{80 }
-\DoxyCodeLine{101     \textcolor{keyword}{template}<constraint::observable ...TOtherObservable>}
+\DoxyCodeLine{101     \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}} ...TOtherObservable>}
 \DoxyCodeLine{102     \textcolor{keyword}{auto} combine\_latest(TOtherObservable\&\&...observables) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<combine\_latest\_tag, TOtherObservable...>}
 \DoxyCodeLine{103     \{}
 \DoxyCodeLine{104         \textcolor{keywordflow}{return} cast\_this()-\/>combine\_latest(utils::pack\_to\_tuple\{\}, std::forward<TOtherObservable>(observables)...);}
 \DoxyCodeLine{105     \}}
 \DoxyCodeLine{106 }
-\DoxyCodeLine{107     \textcolor{keyword}{template}<constraint::observable ...TOtherObservable>}
+\DoxyCodeLine{107     \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}} ...TOtherObservable>}
 \DoxyCodeLine{108     \textcolor{keyword}{auto} combine\_latest(TOtherObservable\&\&...observables) \&\& \textcolor{keyword}{requires} is\_header\_included<combine\_latest\_tag, TOtherObservable...>}
 \DoxyCodeLine{109     \{}
 \DoxyCodeLine{110         \textcolor{keywordflow}{return} move\_this().combine\_latest(utils::pack\_to\_tuple\{\}, std::forward<TOtherObservable>(observables)...);}

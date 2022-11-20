@@ -118,12 +118,14 @@ $(document).ready(function(){initNavTree('subjects_2constraints_8hpp_source.html
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>rpp::subjects::constraint</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">concept </span>subject = std::derived_from&lt;std::decay_t&lt;T&gt;, details::subject_tag&gt;;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="conceptrpp_1_1subjects_1_1constraint_1_1subject.html">   20</a></span><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1subjects_1_1constraint_1_1subject.html">subject</a> = std::derived_from&lt;std::decay_t&lt;T&gt;, details::subject_tag&gt;;</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Type&gt;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">concept </span>subject_of_type = subject&lt;T&gt; &amp;&amp; std::same_as&lt;utils::extract_subject_type_t&lt;T&gt;, Type&gt;;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="conceptrpp_1_1subjects_1_1constraint_1_1subject__of__type.html">   23</a></span><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1subjects_1_1constraint_1_1subject__of__type.html">subject_of_type</a> = <a class="code hl_concept" href="conceptrpp_1_1subjects_1_1constraint_1_1subject.html">subject&lt;T&gt;</a> &amp;&amp; std::same_as&lt;utils::extract_subject_type_t&lt;T&gt;, Type&gt;;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>} <span class="comment">// namespace rpp::subjects::constraint</span></div>
+<div class="ttc" id="aconceptrpp_1_1subjects_1_1constraint_1_1subject__of__type_html"><div class="ttname"><a href="conceptrpp_1_1subjects_1_1constraint_1_1subject__of__type.html">rpp::subjects::constraint::subject_of_type</a></div><div class="ttdef"><b>Definition:</b> constraints.hpp:23</div></div>
+<div class="ttc" id="aconceptrpp_1_1subjects_1_1constraint_1_1subject_html"><div class="ttname"><a href="conceptrpp_1_1subjects_1_1constraint_1_1subject.html">rpp::subjects::constraint::subject</a></div><div class="ttdef"><b>Definition:</b> constraints.hpp:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

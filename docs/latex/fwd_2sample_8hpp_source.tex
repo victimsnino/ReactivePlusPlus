@@ -31,13 +31,13 @@
 \DoxyCodeLine{27 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
 \DoxyCodeLine{28 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, sample\_tag>}
 \DoxyCodeLine{29 \{}
-\DoxyCodeLine{51     \textcolor{keyword}{template}<schedulers::constraint::scheduler TScheduler, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{51     \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{schedulers::constraint::scheduler}} TScheduler, \textcolor{keyword}{typename} ...Args>}
 \DoxyCodeLine{52     \textcolor{keyword}{auto} sample\_with\_time(schedulers::duration period, \textcolor{keyword}{const} TScheduler\& scheduler) \textcolor{keyword}{const} \& \textcolor{keyword}{requires} is\_header\_included<sample\_tag, TScheduler, Args...>}
 \DoxyCodeLine{53     \{}
 \DoxyCodeLine{54         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1sample__with__time__impl}{sample\_with\_time\_impl<Type, TScheduler>}}\{period, scheduler\});}
 \DoxyCodeLine{55     \}}
 \DoxyCodeLine{56 }
-\DoxyCodeLine{57     \textcolor{keyword}{template}<schedulers::constraint::scheduler TScheduler, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{57     \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{schedulers::constraint::scheduler}} TScheduler, \textcolor{keyword}{typename} ...Args>}
 \DoxyCodeLine{58     \textcolor{keyword}{auto} sample\_with\_time(schedulers::duration period, \textcolor{keyword}{const} TScheduler\& scheduler) \&\& \textcolor{keyword}{requires} is\_header\_included<sample\_tag, TScheduler, Args...>}
 \DoxyCodeLine{59     \{}
 \DoxyCodeLine{60         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1sample__with__time__impl}{sample\_with\_time\_impl<Type, TScheduler>}}\{period, scheduler\});}

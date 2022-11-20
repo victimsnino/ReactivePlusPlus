@@ -26,7 +26,7 @@
 \DoxyCodeLine{22 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{23 \{}
 \DoxyCodeLine{24 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn, \textcolor{keyword}{typename} Type>}
-\DoxyCodeLine{25 \textcolor{keyword}{concept }flat\_map\_callable = std::invocable<Fn, Type> \&\& constraint::observable<utils::decayed\_invoke\_result\_t<Fn, Type>>;}
+\DoxyCodeLine{25 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1details_1_1flat__map__callable}{flat\_map\_callable}} = std::invocable<Fn, Type> \&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable<utils::decayed\_invoke\_result\_t<Fn, Type>}}>;}
 \DoxyCodeLine{26 }
 \DoxyCodeLine{27 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, flat\_map\_callable<Type> Callable>}
 \DoxyCodeLine{28 \textcolor{keyword}{auto} flat\_map\_impl(\textcolor{keyword}{auto}\&\& observable, Callable\&\& callable);}

@@ -24,7 +24,7 @@
 \DoxyCodeLine{20 \textcolor{keyword}{namespace }rpp::schedulers}
 \DoxyCodeLine{21 \{}
 \DoxyCodeLine{22 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{23 \textcolor{keyword}{concept }worker\_strategy = std::copyable<T> \&\& \textcolor{keyword}{requires}(\textcolor{keyword}{const} T t)}
+\DoxyCodeLine{23 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1worker__strategy}{worker\_strategy}} = std::copyable<T> \&\& \textcolor{keyword}{requires}(\textcolor{keyword}{const} T t)}
 \DoxyCodeLine{24 \{}
 \DoxyCodeLine{25     t.defer\_at(time\_point\{\}, std::declval<optional\_duration(*)()>());}
 \DoxyCodeLine{26     \{ t.now() \} -\/> std::same\_as<time\_point>;}
@@ -42,48 +42,51 @@
 \DoxyCodeLine{38 }
 \DoxyCodeLine{39     \textcolor{keywordtype}{void} operator()()}
 \DoxyCodeLine{40     \{}
-\DoxyCodeLine{41         \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} duration = m\_fn())}
-\DoxyCodeLine{42         \{}
-\DoxyCodeLine{43             m\_time\_point = std::max(m\_strategy.now(), m\_time\_point + duration.value());}
-\DoxyCodeLine{44 }
-\DoxyCodeLine{45             m\_strategy.defer\_at(m\_time\_point, std::move(*\textcolor{keyword}{this}));}
-\DoxyCodeLine{46         \}}
-\DoxyCodeLine{47     \}}
-\DoxyCodeLine{48 }
-\DoxyCodeLine{49 \textcolor{keyword}{private}:}
-\DoxyCodeLine{50     Strategy                           m\_strategy;}
-\DoxyCodeLine{51     time\_point                         m\_time\_point;}
-\DoxyCodeLine{52     std::function<optional\_duration()> m\_fn\{\};}
-\DoxyCodeLine{53 \};}
-\DoxyCodeLine{54 }
-\DoxyCodeLine{55 \textcolor{keyword}{template}<worker\_strategy Strategy>}
-\DoxyCodeLine{56 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1worker__tag}{details::worker\_tag}}}
-\DoxyCodeLine{57 \{}
-\DoxyCodeLine{58 \textcolor{keyword}{public}:}
-\DoxyCodeLine{59     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{60         \textcolor{keyword}{requires} (!rpp::constraint::variadic\_is\_same\_type<worker<Strategy>, Args...>)}
-\DoxyCodeLine{61     \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}(Args\&\& ...args) : m\_strategy\{std::forward<Args>(args)...\} \{\}}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{63     \textcolor{keywordtype}{void} schedule(constraint::schedulable\_fn \textcolor{keyword}{auto}\&\& fn)\textcolor{keyword}{ const}}
-\DoxyCodeLine{64 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{65         schedule(m\_strategy.now(), std::forward<\textcolor{keyword}{decltype}(fn)>(fn));}
-\DoxyCodeLine{66     \}}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{68     \textcolor{keywordtype}{void} schedule(duration delay, constraint::schedulable\_fn \textcolor{keyword}{auto}\&\& fn)\textcolor{keyword}{ const}}
-\DoxyCodeLine{69 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{70         schedule(m\_strategy.now() + delay, std::forward<\textcolor{keyword}{decltype}(fn)>(fn));}
-\DoxyCodeLine{71     \}}
-\DoxyCodeLine{72 }
-\DoxyCodeLine{73     \textcolor{keywordtype}{void} schedule(time\_point time\_point, constraint::schedulable\_fn \textcolor{keyword}{auto}\&\& fn)\textcolor{keyword}{ const}}
-\DoxyCodeLine{74 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{75         m\_strategy.defer\_at(time\_point, std::forward<\textcolor{keyword}{decltype}(fn)>(fn));}
-\DoxyCodeLine{76     \}}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{78     \textcolor{keyword}{static} time\_point now() \{ \textcolor{keywordflow}{return} Strategy::now(); \}}
-\DoxyCodeLine{79 }
-\DoxyCodeLine{80 \textcolor{keyword}{private}:}
-\DoxyCodeLine{81     Strategy m\_strategy;}
-\DoxyCodeLine{82 \};}
-\DoxyCodeLine{83 \} \textcolor{comment}{// namespace rpp::schedulers}}
+\DoxyCodeLine{41         \textcolor{keywordflow}{if} (!m\_strategy.is\_subscribed())}
+\DoxyCodeLine{42             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44         \textcolor{keywordflow}{if} (\textcolor{keyword}{const} \textcolor{keyword}{auto} duration = m\_fn())}
+\DoxyCodeLine{45         \{}
+\DoxyCodeLine{46             m\_time\_point = std::max(m\_strategy.now(), m\_time\_point + duration.value());}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48             m\_strategy.defer\_at(m\_time\_point, std::move(*\textcolor{keyword}{this}));}
+\DoxyCodeLine{49         \}}
+\DoxyCodeLine{50     \}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{keyword}{private}:}
+\DoxyCodeLine{53     Strategy                           m\_strategy;}
+\DoxyCodeLine{54     time\_point                         m\_time\_point;}
+\DoxyCodeLine{55     std::function<optional\_duration()> m\_fn\{\};}
+\DoxyCodeLine{56 \};}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{keyword}{template}<worker\_strategy Strategy>}
+\DoxyCodeLine{59 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1worker__tag}{details::worker\_tag}}}
+\DoxyCodeLine{60 \{}
+\DoxyCodeLine{61 \textcolor{keyword}{public}:}
+\DoxyCodeLine{62     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{63         \textcolor{keyword}{requires} (!rpp::constraint::variadic\_is\_same\_type<worker<Strategy>, Args...>)}
+\DoxyCodeLine{64     \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}(Args\&\& ...args) : m\_strategy\{std::forward<Args>(args)...\} \{\}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66     \textcolor{keywordtype}{void} schedule(\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn}} \textcolor{keyword}{auto}\&\& fn)\textcolor{keyword}{ const}}
+\DoxyCodeLine{67 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{68         schedule(m\_strategy.now(), std::forward<\textcolor{keyword}{decltype}(fn)>(fn));}
+\DoxyCodeLine{69     \}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71     \textcolor{keywordtype}{void} schedule(duration delay, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn}} \textcolor{keyword}{auto}\&\& fn)\textcolor{keyword}{ const}}
+\DoxyCodeLine{72 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{73         schedule(m\_strategy.now() + delay, std::forward<\textcolor{keyword}{decltype}(fn)>(fn));}
+\DoxyCodeLine{74     \}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76     \textcolor{keywordtype}{void} schedule(time\_point time\_point, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn}} \textcolor{keyword}{auto}\&\& fn)\textcolor{keyword}{ const}}
+\DoxyCodeLine{77 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{78         m\_strategy.defer\_at(time\_point, std::forward<\textcolor{keyword}{decltype}(fn)>(fn));}
+\DoxyCodeLine{79     \}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     \textcolor{keyword}{static} time\_point now() \{ \textcolor{keywordflow}{return} Strategy::now(); \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 \textcolor{keyword}{private}:}
+\DoxyCodeLine{84     Strategy m\_strategy;}
+\DoxyCodeLine{85 \};}
+\DoxyCodeLine{86 \} \textcolor{comment}{// namespace rpp::schedulers}}
 
 \end{DoxyCode}

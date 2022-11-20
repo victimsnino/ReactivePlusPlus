@@ -20,15 +20,15 @@
 \DoxyCodeLine{16 }
 \DoxyCodeLine{17 \textcolor{keyword}{namespace }rpp::constraint}
 \DoxyCodeLine{18 \{}
-\DoxyCodeLine{19 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }observer\_callbacks\_exists = \textcolor{keyword}{requires}(\textcolor{keyword}{const} T t)}
+\DoxyCodeLine{19 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__callbacks__exists}{observer\_callbacks\_exists}} = \textcolor{keyword}{requires}(\textcolor{keyword}{const} T t)}
 \DoxyCodeLine{20 \{}
 \DoxyCodeLine{21     \textcolor{comment}{// t.on\_next(...);}}
 \DoxyCodeLine{22     t.on\_error(std::declval<std::exception\_ptr>());}
 \DoxyCodeLine{23     t.on\_completed();}
 \DoxyCodeLine{24 \};}
 \DoxyCodeLine{25 }
-\DoxyCodeLine{26 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }observer = std::is\_base\_of\_v<details::observer\_tag, std::decay\_t<T>> \&\& observer\_callbacks\_exists<T>;}
-\DoxyCodeLine{27 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }decayed\_observer                = observer<T> \&\& decayed\_type<T>;}
+\DoxyCodeLine{26 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}} = std::is\_base\_of\_v<details::observer\_tag, std::decay\_t<T>> \&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__callbacks__exists}{observer\_callbacks\_exists<T>}};}
+\DoxyCodeLine{27 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1decayed__observer}{decayed\_observer}}                = \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer<T>}} \&\& decayed\_type<T>;}
 \DoxyCodeLine{28 \}}
 \DoxyCodeLine{29 }
 \DoxyCodeLine{30 \textcolor{keyword}{namespace }rpp::utils}
@@ -51,12 +51,12 @@
 \DoxyCodeLine{47 }
 \DoxyCodeLine{48 \textcolor{keyword}{namespace }rpp::constraint}
 \DoxyCodeLine{49 \{}
-\DoxyCodeLine{50 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Type> \textcolor{keyword}{concept }observer\_on\_next\_exists = \textcolor{keyword}{requires}(\textcolor{keyword}{const} T t)}
+\DoxyCodeLine{50 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Type> \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__on__next__exists}{observer\_on\_next\_exists}} = \textcolor{keyword}{requires}(\textcolor{keyword}{const} T t)}
 \DoxyCodeLine{51 \{}
 \DoxyCodeLine{52     t.on\_next(std::declval<Type>());}
 \DoxyCodeLine{53 \};}
 \DoxyCodeLine{54 }
-\DoxyCodeLine{55 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Type> \textcolor{keyword}{concept }observer\_of\_type = observer<T> \&\& std::same\_as<utils::extract\_observer\_type\_t<T>, Type> \&\& observer\_on\_next\_exists<T, Type>;}
+\DoxyCodeLine{55 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Type> \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__of__type}{observer\_of\_type}} = \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer<T>}} \&\& std::same\_as<utils::extract\_observer\_type\_t<T>, Type> \&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__on__next__exists}{observer\_on\_next\_exists<T, Type>}};}
 \DoxyCodeLine{56 \} \textcolor{comment}{// namespace rpp::constraint}}
 
 \end{DoxyCode}

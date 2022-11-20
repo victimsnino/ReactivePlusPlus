@@ -122,7 +122,7 @@ $(document).ready(function(){initNavTree('fwd_2scan_8hpp_source.html',''); initR
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">// accepts Result and Type and returns Result</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Fn, <span class="keyword">typename</span> Result, <span class="keyword">typename</span> Type&gt;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">concept </span>scan_accumulator = std::is_invocable_r_v&lt;std::decay_t&lt;Result&gt;, Fn, std::decay_t&lt;Result&gt;, std::decay_t&lt;Type&gt;&gt;;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="conceptrpp_1_1details_1_1scan__accumulator.html">   24</a></span><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1details_1_1scan__accumulator.html">scan_accumulator</a> = std::is_invocable_r_v&lt;std::decay_t&lt;Result&gt;, Fn, std::decay_t&lt;Result&gt;, std::decay_t&lt;Type&gt;&gt;;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::decayed_type Result, scan_accumulator&lt;Result, Type&gt; AccumulatorFn&gt;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">struct </span>scan_impl;</div>
@@ -143,6 +143,7 @@ $(document).ready(function(){initNavTree('fwd_2scan_8hpp_source.html',''); initR
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>};</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>} <span class="comment">// namespace rpp::details</span></div>
+<div class="ttc" id="aconceptrpp_1_1details_1_1scan__accumulator_html"><div class="ttname"><a href="conceptrpp_1_1details_1_1scan__accumulator.html">rpp::details::scan_accumulator</a></div><div class="ttdef"><b>Definition:</b> scan.hpp:24</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1member__overload_html"><div class="ttname"><a href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a></div><div class="ttdef"><b>Definition:</b> member_overload.hpp:19</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1scan__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1scan__impl.html">rpp::details::scan_impl</a></div><div class="ttdef"><b>Definition:</b> scan.hpp:47</div></div>
 </div><!-- fragment --></div><!-- contents -->

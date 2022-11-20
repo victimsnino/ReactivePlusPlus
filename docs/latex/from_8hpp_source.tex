@@ -143,7 +143,7 @@
 \DoxyCodeLine{139 \textcolor{keyword}{namespace }rpp::observable}
 \DoxyCodeLine{140 \{}
 \DoxyCodeLine{163 \textcolor{keyword}{template}<memory\_model memory\_model \textcolor{comment}{/* = memory\_model::use\_stack */}, \textcolor{keyword}{typename} T, \textcolor{keyword}{typename} ...Ts>}
-\DoxyCodeLine{164 \textcolor{keyword}{auto} just(\textcolor{keyword}{const} schedulers::constraint::scheduler \textcolor{keyword}{auto}\& scheduler, T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (rpp::details::is\_header\_included<rpp::details::just\_tag, T, Ts...> \&\& (constraint::decayed\_same\_as<T, Ts> \&\& ...))}
+\DoxyCodeLine{164 \textcolor{keyword}{auto} just(\textcolor{keyword}{const} \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{schedulers::constraint::scheduler}} \textcolor{keyword}{auto}\& scheduler, T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (rpp::details::is\_header\_included<rpp::details::just\_tag, T, Ts...> \&\& (constraint::decayed\_same\_as<T, Ts> \&\& ...))}
 \DoxyCodeLine{165 \{}
 \DoxyCodeLine{166     \textcolor{keywordflow}{return} create<std::decay\_t<T>>(\mbox{\hyperlink{classrpp_1_1observable_1_1details_1_1iterate__impl}{details::iterate\_impl}}\{details::pack\_variadic<memory\_model, std::decay\_t<T>>(std::forward<T>(item), std::forward<Ts>(items)...), scheduler \});}
 \DoxyCodeLine{167 \}}

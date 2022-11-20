@@ -153,7 +153,7 @@ $(document).ready(function(){initNavTree('repeat_8hpp_source.html',''); initResi
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">void</span> subscribe_subscriber_for_repeat(<span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp; subscriber)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">void</span> subscribe_subscriber_for_repeat(<span class="keyword">const</span> <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1subscriber.html">constraint::subscriber</a> <span class="keyword">auto</span>&amp; subscriber)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        m_state-&gt;observable.subscribe(create_subscriber_with_state&lt;Type&gt;(subscriber.get_subscription().make_child(),</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                                                                         utils::forwarding_on_next{},</div>
@@ -217,6 +217,7 @@ $(document).ready(function(){initNavTree('repeat_8hpp_source.html',''); initResi
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>}</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>} <span class="comment">// namespace rpp::details</span></div>
 <div class="ttc" id="aclassrpp_1_1details_1_1repeat__on__completed_html"><div class="ttname"><a href="classrpp_1_1details_1_1repeat__on__completed.html">rpp::details::repeat_on_completed</a></div><div class="ttdef"><b>Definition:</b> repeat.hpp:27</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1subscriber_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1subscriber.html">rpp::constraint::subscriber</a></div><div class="ttdef"><b>Definition:</b> constraints.hpp:19</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1counted__repeat__predicate_html"><div class="ttname"><a href="structrpp_1_1details_1_1counted__repeat__predicate.html">rpp::details::counted_repeat_predicate</a></div><div class="ttdef"><b>Definition:</b> repeat.hpp:68</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1repeat__on__subscribe_html"><div class="ttname"><a href="structrpp_1_1details_1_1repeat__on__subscribe.html">rpp::details::repeat_on_subscribe</a></div><div class="ttdef"><b>Definition:</b> repeat.hpp:79</div></div>
 </div><!-- fragment --></div><!-- contents -->

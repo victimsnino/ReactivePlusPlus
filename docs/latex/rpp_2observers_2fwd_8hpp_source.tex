@@ -26,24 +26,24 @@
 \DoxyCodeLine{22 }
 \DoxyCodeLine{23 \textcolor{keyword}{namespace }rpp::constraint}
 \DoxyCodeLine{24 \{}
-\DoxyCodeLine{25 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn, \textcolor{keyword}{typename} Type> \textcolor{keyword}{concept }on\_next\_fn      = std::invocable<std::decay\_t<Fn>, Type>;}
-\DoxyCodeLine{26 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn>                \textcolor{keyword}{concept }on\_error\_fn     = std::invocable<std::decay\_t<Fn>, std::exception\_ptr>;}
-\DoxyCodeLine{27 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn>                \textcolor{keyword}{concept }on\_completed\_fn = std::invocable<std::decay\_t<Fn>>;}
+\DoxyCodeLine{25 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn, \textcolor{keyword}{typename} Type> \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1on__next__fn}{on\_next\_fn}}      = std::invocable<std::decay\_t<Fn>, Type>;}
+\DoxyCodeLine{26 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn>                \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1on__error__fn}{on\_error\_fn}}     = std::invocable<std::decay\_t<Fn>, std::exception\_ptr>;}
+\DoxyCodeLine{27 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn>                \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1on__completed__fn}{on\_completed\_fn}} = std::invocable<std::decay\_t<Fn>>;}
 \DoxyCodeLine{28 \} \textcolor{comment}{// namespace rpp::constraint}}
 \DoxyCodeLine{29 }
 \DoxyCodeLine{30 \textcolor{keyword}{namespace }rpp}
 \DoxyCodeLine{31 \{}
 \DoxyCodeLine{32 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{33 \textcolor{keyword}{class }dynamic\_observer;}
+\DoxyCodeLine{33 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}};}
 \DoxyCodeLine{34 }
 \DoxyCodeLine{35 \textcolor{keyword}{template}<constraint::decayed\_type T,}
-\DoxyCodeLine{36          constraint::on\_next\_fn<T>   OnNext,}
-\DoxyCodeLine{37          constraint::on\_error\_fn     OnError,}
-\DoxyCodeLine{38          constraint::on\_completed\_fn OnCompleted>}
-\DoxyCodeLine{39 \textcolor{keyword}{class }specific\_observer;}
+\DoxyCodeLine{36          \mbox{\hyperlink{conceptrpp_1_1constraint_1_1on__next__fn}{constraint::on\_next\_fn<T>}}   OnNext,}
+\DoxyCodeLine{37          \mbox{\hyperlink{conceptrpp_1_1constraint_1_1on__error__fn}{constraint::on\_error\_fn}}     OnError,}
+\DoxyCodeLine{38          \mbox{\hyperlink{conceptrpp_1_1constraint_1_1on__completed__fn}{constraint::on\_completed\_fn}} OnCompleted>}
+\DoxyCodeLine{39 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer}};}
 \DoxyCodeLine{40 }
 \DoxyCodeLine{41 \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
-\DoxyCodeLine{42 \textcolor{keyword}{using }specific\_observer\_with\_decayed\_args = \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer<std::decay\_t<Args>}}...>;}
+\DoxyCodeLine{42 \textcolor{keyword}{using }\mbox{\hyperlink{classrpp_1_1specific__observer}{specific\_observer\_with\_decayed\_args}} = \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer<std::decay\_t<Args>}}...>;}
 \DoxyCodeLine{43 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

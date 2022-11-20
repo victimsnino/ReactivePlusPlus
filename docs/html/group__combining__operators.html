@@ -118,7 +118,7 @@ requires is_header_included&lt;combine_latest_tag, TOtherObservable...&gt;</td><
 <tr class="memdesc:gacd8deec9fdd88032d272e097c2b70657"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines latest emissions from current observable and other observables when any of them emits. The combining result is std::tuple&lt;...&gt;.  <br /></td></tr>
 <tr class="separator:gacd8deec9fdd88032d272e097c2b70657"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga84ed0dcdeda6a4cb3a9871ab2817e114"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; <br />
-requires (is_header_included&lt;merge_tag, Args...&gt; &amp;&amp; rpp::constraint::observable&lt;Type&gt;)</td></tr>
+requires (is_header_included&lt;merge_tag, Args...&gt; &amp;&amp; <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;Type&gt;)</td></tr>
 <tr class="memitem:ga84ed0dcdeda6a4cb3a9871ab2817e114"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga84ed0dcdeda6a4cb3a9871ab2817e114">observable::merge</a> () const &amp;</td></tr>
 <tr class="memdesc:ga84ed0dcdeda6a4cb3a9871ab2817e114"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts observable of observables of items into observable of items via merging emissions.  <br /></td></tr>
 <tr class="separator:ga84ed0dcdeda6a4cb3a9871ab2817e114"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,7 +138,7 @@ requires is_header_included&lt;start_with_tag, TObservables...&gt;</td></tr>
 <tr class="memdesc:gaf86bfdf7b2026804303f5b468fa22480"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines submissions from current observable with other observables into one but without overlapping and starting from observables provided as arguments.  <br /></td></tr>
 <tr class="separator:gaf86bfdf7b2026804303f5b468fa22480"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2e3a232da875328d9d53adf7a30c25cf"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; <br />
-requires (is_header_included&lt;switch_on_next_tag, Args...&gt;&amp;&amp; rpp::constraint::observable&lt;Type&gt;)</td></tr>
+requires (is_header_included&lt;switch_on_next_tag, Args...&gt;&amp;&amp; <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;Type&gt;)</td></tr>
 <tr class="memitem:ga2e3a232da875328d9d53adf7a30c25cf"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga2e3a232da875328d9d53adf7a30c25cf">observable::switch_on_next</a> () const &amp;</td></tr>
 <tr class="memdesc:ga2e3a232da875328d9d53adf7a30c25cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts observable of observables into observable of values which emits values from most recent underlying observable till new observable obtained.  <br /></td></tr>
 <tr class="separator:ga2e3a232da875328d9d53adf7a30c25cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -292,7 +292,7 @@ requires is_header_included&lt;combine_latest_tag, TOtherObservable...&gt;</div>
 template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
 <div class="memtemplate">
 template&lt;typename ... Args&gt; <br />
-requires (is_header_included&lt;merge_tag, Args...&gt; &amp;&amp; rpp::constraint::observable&lt;Type&gt;)</div>
+requires (is_header_included&lt;merge_tag, Args...&gt; &amp;&amp; <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;Type&gt;)</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -497,7 +497,7 @@ requires is_header_included&lt;start_with_tag, TTypes...&gt;</div>
 template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
 <div class="memtemplate">
 template&lt;typename ... Args&gt; <br />
-requires (is_header_included&lt;switch_on_next_tag, Args...&gt;&amp;&amp; rpp::constraint::observable&lt;Type&gt;)</div>
+requires (is_header_included&lt;switch_on_next_tag, Args...&gt;&amp;&amp; <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;Type&gt;)</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">

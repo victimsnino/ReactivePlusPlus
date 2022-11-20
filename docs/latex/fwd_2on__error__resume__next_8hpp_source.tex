@@ -30,7 +30,7 @@
 \DoxyCodeLine{26 \{}
 \DoxyCodeLine{27 }
 \DoxyCodeLine{28 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn>}
-\DoxyCodeLine{29 \textcolor{keyword}{concept }resume\_callable = std::invocable<Fn, std::exception\_ptr> \&\& constraint::observable<utils::decayed\_invoke\_result\_t<Fn, std::exception\_ptr>>;}
+\DoxyCodeLine{29 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}} = std::invocable<Fn, std::exception\_ptr> \&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable<utils::decayed\_invoke\_result\_t<Fn, std::exception\_ptr>}}>;}
 \DoxyCodeLine{30 }
 \DoxyCodeLine{31 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, rpp::details::resume\_callable ResumeCallable>}
 \DoxyCodeLine{32 \textcolor{keyword}{struct }on\_error\_resume\_next\_impl;}
@@ -40,15 +40,15 @@
 \DoxyCodeLine{36 \{}
 \DoxyCodeLine{37 }
 \DoxyCodeLine{59     \textcolor{keyword}{template}<rpp::details::resume\_callable ResumeCallable>}
-\DoxyCodeLine{60     \textcolor{keyword}{auto} on\_error\_resume\_next(ResumeCallable\&\& resume\_callable) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<on\_error\_resume\_next\_tag, ResumeCallable>}
+\DoxyCodeLine{60     \textcolor{keyword}{auto} on\_error\_resume\_next(ResumeCallable\&\& \mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}}) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<on\_error\_resume\_next\_tag, ResumeCallable>}
 \DoxyCodeLine{61     \{}
-\DoxyCodeLine{62         \textcolor{keywordflow}{return} cast\_this()-\/>template lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1on__error__resume__next__impl}{on\_error\_resume\_next\_impl}}<Type, std::decay\_t<ResumeCallable>>\{std::forward<ResumeCallable>(resume\_callable)\});}
+\DoxyCodeLine{62         \textcolor{keywordflow}{return} cast\_this()-\/>template lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1on__error__resume__next__impl}{on\_error\_resume\_next\_impl}}<Type, std::decay\_t<ResumeCallable>>\{std::forward<ResumeCallable>(\mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}})\});}
 \DoxyCodeLine{63     \}}
 \DoxyCodeLine{64 }
 \DoxyCodeLine{65     \textcolor{keyword}{template}<rpp::details::resume\_callable ResumeCallable>}
-\DoxyCodeLine{66     \textcolor{keyword}{auto} on\_error\_resume\_next(ResumeCallable\&\& resume\_callable) \&\& \textcolor{keyword}{requires} is\_header\_included<on\_error\_resume\_next\_tag, ResumeCallable>}
+\DoxyCodeLine{66     \textcolor{keyword}{auto} on\_error\_resume\_next(ResumeCallable\&\& \mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}}) \&\& \textcolor{keyword}{requires} is\_header\_included<on\_error\_resume\_next\_tag, ResumeCallable>}
 \DoxyCodeLine{67     \{}
-\DoxyCodeLine{68         \textcolor{keywordflow}{return} move\_this().template lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1on__error__resume__next__impl}{on\_error\_resume\_next\_impl}}<Type, std::decay\_t<ResumeCallable>>\{std::forward<ResumeCallable>(resume\_callable)\});}
+\DoxyCodeLine{68         \textcolor{keywordflow}{return} move\_this().template lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1on__error__resume__next__impl}{on\_error\_resume\_next\_impl}}<Type, std::decay\_t<ResumeCallable>>\{std::forward<ResumeCallable>(\mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}})\});}
 \DoxyCodeLine{69     \}}
 \DoxyCodeLine{70 }
 \DoxyCodeLine{71 \textcolor{keyword}{private}:}

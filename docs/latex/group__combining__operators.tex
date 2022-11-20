@@ -15,7 +15,7 @@ requires is\+\_\+header\+\_\+included$<$combine\+\_\+latest\+\_\+tag, TOther\+Ob
 requires is\+\_\+header\+\_\+included$<$combine\+\_\+latest\+\_\+tag, TOther\+Observable...$>$}\\auto \mbox{\hyperlink{group__combining__operators_gacd8deec9fdd88032d272e097c2b70657}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$\+::combine\+\_\+latest}} (TOther\+Observable \&\&...observables) const \&
 \begin{DoxyCompactList}\small\item\em Combines latest emissions from current observable and other observables when any of them emits. The combining result is std\+::tuple$<$...$>$. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename ... Args$>$ \newline
-requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, Args...$>$ \&\& rpp\+::constraint\+::observable$<$Type$>$)}\\auto \mbox{\hyperlink{group__combining__operators_ga84ed0dcdeda6a4cb3a9871ab2817e114}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge}} () const \&
+requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, Args...$>$ \&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$Type$>$)}\\auto \mbox{\hyperlink{group__combining__operators_ga84ed0dcdeda6a4cb3a9871ab2817e114}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge}} () const \&
 \begin{DoxyCompactList}\small\item\em Converts observable of observables of items into observable of items via merging emissions. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... TObservables$>$ \newline
 requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, TObservables...$>$\&\& sizeof...(TObservables) $>$= 1)}\\auto \mbox{\hyperlink{group__combining__operators_gafa55b14eec1c6c40b8655e20c6edf5b2}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge\+\_\+with}} (TObservables \&\&... observables) const \&
@@ -27,7 +27,7 @@ requires is\+\_\+header\+\_\+included$<$start\+\_\+with\+\_\+tag, TTypes...$>$}\
 requires is\+\_\+header\+\_\+included$<$start\+\_\+with\+\_\+tag, TObservables...$>$}\\auto \mbox{\hyperlink{group__combining__operators_gaf86bfdf7b2026804303f5b468fa22480}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, start\+\_\+with\+\_\+tag $>$\+::start\+\_\+with}} (TObservables \&\&...observables\+\_\+to\+\_\+start\+\_\+with) const \&
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one but without overlapping and starting from observables provided as arguments. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename ... Args$>$ \newline
-requires (is\+\_\+header\+\_\+included$<$switch\+\_\+on\+\_\+next\+\_\+tag, Args...$>$\&\& rpp\+::constraint\+::observable$<$Type$>$)}\\auto \mbox{\hyperlink{group__combining__operators_ga2e3a232da875328d9d53adf7a30c25cf}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, switch\+\_\+on\+\_\+next\+\_\+tag $>$\+::switch\+\_\+on\+\_\+next}} () const \&
+requires (is\+\_\+header\+\_\+included$<$switch\+\_\+on\+\_\+next\+\_\+tag, Args...$>$\&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$Type$>$)}\\auto \mbox{\hyperlink{group__combining__operators_ga2e3a232da875328d9d53adf7a30c25cf}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, switch\+\_\+on\+\_\+next\+\_\+tag $>$\+::switch\+\_\+on\+\_\+next}} () const \&
 \begin{DoxyCompactList}\small\item\em Converts observable of observables into observable of values which emits values from most recent underlying observable till new observable obtained. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::observable ... TObservables, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ TObservables $>$... $>$ TSelector$>$ \newline
 requires is\+\_\+header\+\_\+included$<$with\+\_\+latest\+\_\+from\+\_\+tag, TObservables...$>$}\\auto \mbox{\hyperlink{group__combining__operators_ga805656c8847d81ace55ebc71d0598e44}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, with\+\_\+latest\+\_\+from\+\_\+tag $>$\+::with\+\_\+latest\+\_\+from}} (TSelector \&\&selector, TObservables \&\&...observables) const \&
@@ -151,7 +151,7 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \doxysubsubsection{\texorpdfstring{merge()}{merge()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
 template$<$typename ... Args$>$ \newline
-requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, Args...$>$ \&\& rpp\+::constraint\+::observable$<$Type$>$)\\
+requires (is\+\_\+header\+\_\+included$<$merge\+\_\+tag, Args...$>$ \&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$Type$>$)\\
 auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, merge\+\_\+tag $>$\+::merge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -323,7 +323,7 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \doxysubsubsection{\texorpdfstring{switch\_on\_next()}{switch\_on\_next()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
 template$<$typename ... Args$>$ \newline
-requires (is\+\_\+header\+\_\+included$<$switch\+\_\+on\+\_\+next\+\_\+tag, Args...$>$\&\& rpp\+::constraint\+::observable$<$Type$>$)\\
+requires (is\+\_\+header\+\_\+included$<$switch\+\_\+on\+\_\+next\+\_\+tag, Args...$>$\&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$Type$>$)\\
 auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, switch\+\_\+on\+\_\+next\+\_\+tag $>$\+::switch\+\_\+on\+\_\+next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
 
 

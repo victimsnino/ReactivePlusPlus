@@ -35,13 +35,13 @@
 \DoxyCodeLine{31 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, concat\_tag>}
 \DoxyCodeLine{32 \{}
 \DoxyCodeLine{55     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{56     \textcolor{keyword}{auto} concat() \textcolor{keyword}{const}\& \textcolor{keyword}{requires} (is\_header\_included<concat\_tag, Args...>\&\& rpp::constraint::observable<Type>)}
+\DoxyCodeLine{56     \textcolor{keyword}{auto} concat() \textcolor{keyword}{const}\& \textcolor{keyword}{requires} (is\_header\_included<concat\_tag, Args...>\&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<Type>}})}
 \DoxyCodeLine{57     \{}
 \DoxyCodeLine{58         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<utils::extract\_observable\_type\_t<Type>>(\mbox{\hyperlink{structrpp_1_1details_1_1concat__impl}{concat\_impl<Type>}}\{\});}
 \DoxyCodeLine{59     \}}
 \DoxyCodeLine{60 }
 \DoxyCodeLine{61     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{62     \textcolor{keyword}{auto} concat() \&\& \textcolor{keyword}{requires} (is\_header\_included<concat\_tag, Args...>\&\& rpp::constraint::observable<Type>)}
+\DoxyCodeLine{62     \textcolor{keyword}{auto} concat() \&\& \textcolor{keyword}{requires} (is\_header\_included<concat\_tag, Args...>\&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<Type>}})}
 \DoxyCodeLine{63     \{}
 \DoxyCodeLine{64         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template lift<utils::extract\_observable\_type\_t<Type>>(\mbox{\hyperlink{structrpp_1_1details_1_1concat__impl}{concat\_impl<Type>}}\{\});}
 \DoxyCodeLine{65     \}}

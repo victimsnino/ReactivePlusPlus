@@ -135,7 +135,7 @@ $(document).ready(function(){initNavTree('scan_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>{</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Result, <span class="keyword">typename</span> AccumulatorFn&gt;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">void</span> operator()(<span class="keyword">auto</span>&amp;&amp;                                   value,</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                    <span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp;       sub,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                    <span class="keyword">const</span> <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1subscriber.html">constraint::subscriber</a> <span class="keyword">auto</span>&amp;       sub,</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                    <span class="keyword">const</span> <a class="code hl_struct" href="structrpp_1_1details_1_1scan__state.html">scan_state&lt;Result, AccumulatorFn&gt;</a>&amp; state)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        state.seed = state.accumulator(std::move(state.seed), std::forward&lt;<span class="keyword">decltype</span>(value)&gt;(value));</div>
@@ -164,6 +164,7 @@ $(document).ready(function(){initNavTree('scan_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>};</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>} <span class="comment">// namespace rpp::details</span></div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1subscriber_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1subscriber.html">rpp::constraint::subscriber</a></div><div class="ttdef"><b>Definition:</b> constraints.hpp:19</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1scan__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1scan__impl.html">rpp::details::scan_impl</a></div><div class="ttdef"><b>Definition:</b> scan.hpp:47</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1scan__on__next_html"><div class="ttname"><a href="structrpp_1_1details_1_1scan__on__next.html">rpp::details::scan_on_next</a></div><div class="ttdef"><b>Definition:</b> scan.hpp:34</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1scan__state_html"><div class="ttname"><a href="structrpp_1_1details_1_1scan__state.html">rpp::details::scan_state</a></div><div class="ttdef"><b>Definition:</b> scan.hpp:28</div></div>

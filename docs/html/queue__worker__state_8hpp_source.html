@@ -154,7 +154,7 @@ $(document).ready(function(){initNavTree('queue__worker__state_8hpp_source.html'
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_class" href="classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html">queue_worker_state</a>() <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">void</span> emplace(time_point time_point, constraint::inner_schedulable_fn <span class="keyword">auto</span>&amp;&amp; fn)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">void</span> emplace(time_point time_point, <a class="code hl_concept" href="conceptrpp_1_1schedulers_1_1constraint_1_1inner__schedulable__fn.html">constraint::inner_schedulable_fn</a> <span class="keyword">auto</span>&amp;&amp; fn)</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    {</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        emplace_safe(time_point, std::forward&lt;<span class="keyword">decltype</span>(fn)&gt;(fn));</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        m_cv.notify_one();</div>
@@ -212,7 +212,7 @@ $(document).ready(function(){initNavTree('queue__worker__state_8hpp_source.html'
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    }</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordtype">void</span> emplace_safe(time_point time_point, constraint::inner_schedulable_fn <span class="keyword">auto</span>&amp;&amp; fn)</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordtype">void</span> emplace_safe(time_point time_point, <a class="code hl_concept" href="conceptrpp_1_1schedulers_1_1constraint_1_1inner__schedulable__fn.html">constraint::inner_schedulable_fn</a> <span class="keyword">auto</span>&amp;&amp; fn)</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    {</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        std::lock_guard lock{ m_mutex };</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        m_queue.emplace(time_point, ++m_current_id, std::forward&lt;<span class="keyword">decltype</span>(fn)&gt;(fn));</div>
@@ -232,6 +232,7 @@ $(document).ready(function(){initNavTree('queue__worker__state_8hpp_source.html'
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>} <span class="comment">// namespace rpp::schedulers::details</span></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1details_1_1queue__worker__state_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html">rpp::schedulers::details::queue_worker_state</a></div><div class="ttdef"><b>Definition:</b> queue_worker_state.hpp:52</div></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1details_1_1schedulable_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1details_1_1schedulable.html">rpp::schedulers::details::schedulable</a></div><div class="ttdef"><b>Definition:</b> queue_worker_state.hpp:24</div></div>
+<div class="ttc" id="aconceptrpp_1_1schedulers_1_1constraint_1_1inner__schedulable__fn_html"><div class="ttname"><a href="conceptrpp_1_1schedulers_1_1constraint_1_1inner__schedulable__fn.html">rpp::schedulers::constraint::inner_schedulable_fn</a></div><div class="ttdef"><b>Definition:</b> constraints.hpp:25</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

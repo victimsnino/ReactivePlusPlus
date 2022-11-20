@@ -28,22 +28,22 @@
 \DoxyCodeLine{24 }
 \DoxyCodeLine{25 \textcolor{keyword}{namespace }rpp::constraint}
 \DoxyCodeLine{26 \{}
-\DoxyCodeLine{27 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn, \textcolor{keyword}{typename} T> \textcolor{keyword}{concept }on\_subscribe\_fn = std::invocable<std::decay\_t<Fn>, \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<T>}}>;}
+\DoxyCodeLine{27 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn, \textcolor{keyword}{typename} T> \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1on__subscribe__fn}{on\_subscribe\_fn}} = std::invocable<std::decay\_t<Fn>, dynamic\_subscriber<T>>;}
 \DoxyCodeLine{28 \} \textcolor{comment}{// namespace rpp::constraint}}
 \DoxyCodeLine{29 }
 \DoxyCodeLine{30 \textcolor{keyword}{namespace }rpp}
 \DoxyCodeLine{31 \{}
 \DoxyCodeLine{32 }
 \DoxyCodeLine{45 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::on\_subscribe\_fn<Type> OnSubscribeFn>}
-\DoxyCodeLine{46 \textcolor{keyword}{class }specific\_observable;}
+\DoxyCodeLine{46 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}};}
 \DoxyCodeLine{47 }
 \DoxyCodeLine{57 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{58 \textcolor{keyword}{class }dynamic\_observable;}
+\DoxyCodeLine{58 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable}};}
 \DoxyCodeLine{59 }
 \DoxyCodeLine{60 \textcolor{keyword}{template}<constraint::decayed\_type KeyType,}
 \DoxyCodeLine{61          constraint::decayed\_type Type,}
-\DoxyCodeLine{62          constraint::on\_subscribe\_fn<Type> OnSubscribeFn>}
-\DoxyCodeLine{63 \textcolor{keyword}{class }grouped\_observable;}
+\DoxyCodeLine{62          \mbox{\hyperlink{conceptrpp_1_1constraint_1_1on__subscribe__fn}{constraint::on\_subscribe\_fn<Type>}} OnSubscribeFn>}
+\DoxyCodeLine{63 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable}};}
 \DoxyCodeLine{64 \} \textcolor{comment}{// namespace rpp}}
 
 \end{DoxyCode}

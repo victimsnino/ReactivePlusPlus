@@ -28,6 +28,7 @@ var NAVTREE =
     [ "Articles", "md_docs__articles.html", null ],
     [ "Docs", "md_docs__docs.html", "md_docs__docs" ],
     [ "API reference", "modules.html", "modules" ],
+    [ "Concepts", "concepts.html", "concepts" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -47,8 +48,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "advanced.html",
-"memory_model.html",
-"subscriber__with__state_8hpp_source.html"
+"group__utility__operators.html#ga152a343d0ea926ee04cf64ebb78c5d5e",
+"structrpp_1_1details_1_1window__on__next.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

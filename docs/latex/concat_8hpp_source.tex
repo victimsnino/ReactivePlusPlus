@@ -71,14 +71,14 @@
 \DoxyCodeLine{67     \}}
 \DoxyCodeLine{68 \textcolor{keyword}{private}:}
 \DoxyCodeLine{69     \textcolor{keyword}{static} \textcolor{keywordtype}{void} subscribe\_inner\_subscriber(\textcolor{keyword}{const} \textcolor{keyword}{auto}\&                                     observable,}
-\DoxyCodeLine{70                                            \textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\&              subscriber,}
+\DoxyCodeLine{70                                            \textcolor{keyword}{const} \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{constraint::subscriber}} \textcolor{keyword}{auto}\&              subscriber,}
 \DoxyCodeLine{71                                            \textcolor{keyword}{const} std::shared\_ptr<\mbox{\hyperlink{structrpp_1_1details_1_1concat__state}{concat\_state<ValueType>}}>\& state)}
 \DoxyCodeLine{72     \{}
 \DoxyCodeLine{73         observable.subscribe(create\_subscriber\_with\_state<ValueType>(}
 \DoxyCodeLine{74             state-\/>children\_subscriptions.make\_child(),}
 \DoxyCodeLine{75             concat\_on\_next\_inner\{\},}
 \DoxyCodeLine{76             \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{concat\_on\_error}}\{\},}
-\DoxyCodeLine{77             [](\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\& sub, \textcolor{keyword}{const} std::shared\_ptr<\mbox{\hyperlink{structrpp_1_1details_1_1concat__state}{concat\_state<ValueType>}}>\& state)}
+\DoxyCodeLine{77             [](\textcolor{keyword}{const} \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{constraint::subscriber}} \textcolor{keyword}{auto}\& sub, \textcolor{keyword}{const} std::shared\_ptr<\mbox{\hyperlink{structrpp_1_1details_1_1concat__state}{concat\_state<ValueType>}}>\& state)}
 \DoxyCodeLine{78             \{}
 \DoxyCodeLine{79                 \{}
 \DoxyCodeLine{80                     std::unique\_lock lock\{state-\/>queue\_mutex\};}
@@ -107,7 +107,7 @@
 \DoxyCodeLine{103 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type ValueType>}
 \DoxyCodeLine{104 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1concat__on__completed}{concat\_on\_completed}}}
 \DoxyCodeLine{105 \{}
-\DoxyCodeLine{106     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} constraint::subscriber \textcolor{keyword}{auto}\&              sub,}
+\DoxyCodeLine{106     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{constraint::subscriber}} \textcolor{keyword}{auto}\&              sub,}
 \DoxyCodeLine{107                     \textcolor{keyword}{const} std::shared\_ptr<\mbox{\hyperlink{structrpp_1_1details_1_1concat__state}{concat\_state<ValueType>}}>\& state)\textcolor{keyword}{ const}}
 \DoxyCodeLine{108 \textcolor{keyword}{    }\{}
 \DoxyCodeLine{109         std::unique\_lock lock\{state-\/>queue\_mutex\};}

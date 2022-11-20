@@ -31,17 +31,17 @@
 \DoxyCodeLine{30     \textcolor{keyword}{template}<rpp::details::resume\_callable ResumeCallable>}
 \DoxyCodeLine{31     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} std::exception\_ptr\& err,}
 \DoxyCodeLine{32                     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber,}
-\DoxyCodeLine{33                     \textcolor{keyword}{const} ResumeCallable\& resume\_callable)\textcolor{keyword}{ const}}
+\DoxyCodeLine{33                     \textcolor{keyword}{const} ResumeCallable\& \mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}})\textcolor{keyword}{ const}}
 \DoxyCodeLine{34 \textcolor{keyword}{    }\{}
 \DoxyCodeLine{35         \textcolor{comment}{// Subscribe to next\_observable}}
-\DoxyCodeLine{36         resume\_callable(err).subscribe(subscriber);}
+\DoxyCodeLine{36         \mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}}(err).subscribe(subscriber);}
 \DoxyCodeLine{37     \}}
 \DoxyCodeLine{38 \};}
 \DoxyCodeLine{39 }
 \DoxyCodeLine{43 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, rpp::details::resume\_callable ResumeCallable>}
 \DoxyCodeLine{44 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1on__error__resume__next__impl}{on\_error\_resume\_next\_impl}}}
 \DoxyCodeLine{45 \{}
-\DoxyCodeLine{46     RPP\_NO\_UNIQUE\_ADDRESS ResumeCallable resume\_callable;}
+\DoxyCodeLine{46     RPP\_NO\_UNIQUE\_ADDRESS ResumeCallable \mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}};}
 \DoxyCodeLine{47 }
 \DoxyCodeLine{48     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type> TSub>}
 \DoxyCodeLine{49     \textcolor{keyword}{auto} operator()(TSub\&\& downstream\_subscriber)\textcolor{keyword}{ const}}
@@ -54,7 +54,7 @@
 \DoxyCodeLine{56                                                   \mbox{\hyperlink{structrpp_1_1details_1_1on__error__resume__next__on__error}{on\_error\_resume\_next\_on\_error}}\{\},}
 \DoxyCodeLine{57                                                   rpp::utils::forwarding\_on\_completed\{\},}
 \DoxyCodeLine{58                                                   std::forward<TSub>(downstream\_subscriber),}
-\DoxyCodeLine{59                                                   resume\_callable);}
+\DoxyCodeLine{59                                                   \mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}});}
 \DoxyCodeLine{60     \}}
 \DoxyCodeLine{61 \};}
 \DoxyCodeLine{62 \} \textcolor{comment}{// namespace rpp::details}}

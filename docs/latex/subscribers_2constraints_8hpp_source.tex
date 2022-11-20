@@ -20,7 +20,7 @@
 \DoxyCodeLine{16 }
 \DoxyCodeLine{17 \textcolor{keyword}{namespace }rpp::constraint}
 \DoxyCodeLine{18 \{}
-\DoxyCodeLine{19 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }subscriber = std::is\_base\_of\_v<details::subscriber\_tag, std::decay\_t<T>> \&\& observer\_callbacks\_exists<T>;}
+\DoxyCodeLine{19 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{subscriber}} = std::is\_base\_of\_v<details::subscriber\_tag, std::decay\_t<T>> \&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__callbacks__exists}{observer\_callbacks\_exists<T>}};}
 \DoxyCodeLine{20 \}}
 \DoxyCodeLine{21 }
 \DoxyCodeLine{22 \textcolor{keyword}{namespace }rpp::utils}
@@ -43,7 +43,7 @@
 \DoxyCodeLine{39 }
 \DoxyCodeLine{40 \textcolor{keyword}{namespace }rpp::constraint}
 \DoxyCodeLine{41 \{}
-\DoxyCodeLine{42 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Type> \textcolor{keyword}{concept }subscriber\_of\_type = subscriber<T> \&\& std::same\_as<utils::extract\_subscriber\_type\_t<T>, Type> \&\& observer\_on\_next\_exists<T, Type>;}
+\DoxyCodeLine{42 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Type> \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber__of__type}{subscriber\_of\_type}} = \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{subscriber<T>}} \&\& std::same\_as<utils::extract\_subscriber\_type\_t<T>, Type> \&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__on__next__exists}{observer\_on\_next\_exists<T, Type>}};}
 \DoxyCodeLine{43 \} \textcolor{comment}{// namespace rpp::constraint}}
 
 \end{DoxyCode}

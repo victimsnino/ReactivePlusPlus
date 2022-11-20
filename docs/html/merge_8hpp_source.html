@@ -140,7 +140,7 @@ $(document).ready(function(){initNavTree('merge_8hpp_source.html',''); initResiz
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1merge__on__completed.html">   40</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1merge__on__completed.html">merge_on_completed</a></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>{</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp;  sub,</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1subscriber.html">constraint::subscriber</a> <span class="keyword">auto</span>&amp;  sub,</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                    <span class="keyword">const</span> std::shared_ptr&lt;merge_state&gt;&amp; state)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">if</span> (state-&gt;count_of_on_completed_needed.fetch_sub(1, std::memory_order::acq_rel) == 1)</div>
@@ -152,7 +152,7 @@ $(document).ready(function(){initNavTree('merge_8hpp_source.html',''); initResiz
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>{</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable TObs&gt;</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> TObs&amp;                         new_observable,</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                    <span class="keyword">const</span> constraint::subscriber <span class="keyword">auto</span>&amp;  sub,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                    <span class="keyword">const</span> <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1subscriber.html">constraint::subscriber</a> <span class="keyword">auto</span>&amp;  sub,</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                    <span class="keyword">const</span> std::shared_ptr&lt;merge_state&gt;&amp; state)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keyword">using </span>ValueType = utils::extract_observable_type_t&lt;TObs&gt;;</div>
@@ -205,6 +205,7 @@ $(document).ready(function(){initNavTree('merge_8hpp_source.html',''); initResiz
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordflow">return</span> source::just(std::forward&lt;TObservables&gt;(observables).as_dynamic()...).merge();</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>}</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>} <span class="comment">// namespace rpp::details</span></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1subscriber_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1subscriber.html">rpp::constraint::subscriber</a></div><div class="ttdef"><b>Definition:</b> constraints.hpp:19</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1early__unsubscribe__on__error_html"><div class="ttname"><a href="structrpp_1_1details_1_1early__unsubscribe__on__error.html">rpp::details::early_unsubscribe_on_error</a></div><div class="ttdef"><b>Definition:</b> early_unsubscribe.hpp:28</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1early__unsubscribe__state_html"><div class="ttname"><a href="structrpp_1_1details_1_1early__unsubscribe__state.html">rpp::details::early_unsubscribe_state</a></div><div class="ttdef"><b>Definition:</b> early_unsubscribe.hpp:19</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1merge__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1merge__impl.html">rpp::details::merge_impl</a></div><div class="ttdef"><b>Definition:</b> merge.hpp:79</div></div>
