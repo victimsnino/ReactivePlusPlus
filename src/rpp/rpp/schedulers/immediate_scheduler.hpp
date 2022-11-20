@@ -17,7 +17,6 @@
 
 #include <chrono>
 #include <concepts>
-#include <thread>
 
 namespace rpp::schedulers
 {
