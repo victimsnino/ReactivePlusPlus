@@ -39,6 +39,8 @@ private:
         worker_strategy(const rpp::subscription_base& sub)
             : m_sub{sub} {}
 
+        bool is_subscribed() const { return m_sub.is_subscribed(); }
+
         void defer_at(rpp::schedulers::time_point time_point, rpp::schedulers::constraint::schedulable_fn auto&& fn) const
         {
             defer_at(time_point, main_thread_schedulable{*this, time_point, std::forward<decltype(fn)>(fn)});
@@ -55,13 +57,7 @@ private:
                     "Pointer to application is null. Create QApplication before using main_thread_scheduler!"};
 
             const auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now() - time_point).count();
-            QTimer::singleShot(duration,
-                               application,
-                               [fn = std::move(fn), sub=m_sub]() mutable
-                               {
-                                   if (sub.is_subscribed())
-                                       fn();
-                               });
+            QTimer::singleShot(duration, application, std::move(fn));
         }
 
         static rpp::schedulers::time_point now() { return rpp::schedulers::clock_type::now(); }
