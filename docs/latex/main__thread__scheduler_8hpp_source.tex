@@ -1,0 +1,76 @@
+\hypertarget{main__thread__scheduler_8hpp_source}{}\doxysection{main\+\_\+thread\+\_\+scheduler.\+hpp}
+\label{main__thread__scheduler_8hpp_source}\index{src/rppqt/rppqt/schedulers/main\_thread\_scheduler.hpp@{src/rppqt/rppqt/schedulers/main\_thread\_scheduler.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rppqt/schedulers/fwd.hpp>}                 \textcolor{comment}{// own forwarding}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/schedulers/details/worker.hpp>}        \textcolor{comment}{// worker}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/subscriptions/subscription\_base.hpp>}  \textcolor{comment}{// lifetime}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rppqt/utils/exceptions.hpp>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <chrono>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <concepts>}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <QCoreApplication>}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <QTimer>}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{keyword}{namespace }rppqt::schedulers}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{30 \textcolor{keyword}{class }\mbox{\hyperlink{classrppqt_1_1schedulers_1_1main__thread__scheduler}{main\_thread\_scheduler}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1scheduler__tag}{rpp::schedulers::details::scheduler\_tag}}}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{32 \textcolor{keyword}{private}:}
+\DoxyCodeLine{33     \textcolor{keyword}{class }worker\_strategy;}
+\DoxyCodeLine{34     \textcolor{keyword}{using }\mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable__wrapper}{main\_thread\_schedulable}} = \mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable__wrapper}{rpp::schedulers::schedulable\_wrapper<worker\_strategy>}};}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36     \textcolor{keyword}{class }worker\_strategy}
+\DoxyCodeLine{37     \{}
+\DoxyCodeLine{38     \textcolor{keyword}{public}:}
+\DoxyCodeLine{39         worker\_strategy(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}}\& sub)}
+\DoxyCodeLine{40             : m\_sub\{sub\} \{\}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42         \textcolor{keywordtype}{bool} is\_subscribed()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_sub.\mbox{\hyperlink{classrpp_1_1subscription__base_ad9c07157024e7f68ce815d971c3faaf2}{is\_subscribed}}(); \}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44         \textcolor{keywordtype}{void} defer\_at(rpp::schedulers::time\_point time\_point, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{rpp::schedulers::constraint::schedulable\_fn}} \textcolor{keyword}{auto}\&\& fn)\textcolor{keyword}{ const}}
+\DoxyCodeLine{45 \textcolor{keyword}{        }\{}
+\DoxyCodeLine{46             defer\_at(time\_point, \mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable__wrapper}{main\_thread\_schedulable}}\{*\textcolor{keyword}{this}, time\_point, std::forward<decltype(fn)>(fn)\});}
+\DoxyCodeLine{47         \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49         \textcolor{keywordtype}{void} defer\_at(rpp::schedulers::time\_point time\_point, \mbox{\hyperlink{classrpp_1_1schedulers_1_1schedulable__wrapper}{main\_thread\_schedulable}}\&\& fn)\textcolor{keyword}{ const}}
+\DoxyCodeLine{50 \textcolor{keyword}{        }\{}
+\DoxyCodeLine{51             \textcolor{keywordflow}{if} (!m\_sub.is\_subscribed())}
+\DoxyCodeLine{52                 \textcolor{keywordflow}{return};}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54             \textcolor{keyword}{const} \textcolor{keyword}{auto} application = QCoreApplication::instance();}
+\DoxyCodeLine{55             \textcolor{keywordflow}{if} (!application)}
+\DoxyCodeLine{56                 \textcolor{keywordflow}{throw} \mbox{\hyperlink{structrppqt_1_1utils_1_1no__active__qapplication}{utils::no\_active\_qapplication}}\{}
+\DoxyCodeLine{57                     \textcolor{stringliteral}{"{}Pointer to application is null. Create QApplication before using main\_thread\_scheduler!"{}}\};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59             \textcolor{keyword}{const} \textcolor{keyword}{auto} duration = std::chrono::duration\_cast<std::chrono::milliseconds>(now() -\/ time\_point).count();}
+\DoxyCodeLine{60             QTimer::singleShot(duration, application, std::move(fn));}
+\DoxyCodeLine{61         \}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63         \textcolor{keyword}{static} rpp::schedulers::time\_point now() \{ \textcolor{keywordflow}{return} rpp::schedulers::clock\_type::now(); \}}
+\DoxyCodeLine{64     \textcolor{keyword}{private}:}
+\DoxyCodeLine{65         \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}} m\_sub;}
+\DoxyCodeLine{66     \};}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{keyword}{public}:}
+\DoxyCodeLine{69     \textcolor{keyword}{static} \textcolor{keyword}{auto} create\_worker(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}}\& sub = \{\})}
+\DoxyCodeLine{70     \{}
+\DoxyCodeLine{71         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{rpp::schedulers::worker<worker\_strategy>}}\{sub\};}
+\DoxyCodeLine{72     \}}
+\DoxyCodeLine{73 \};}
+\DoxyCodeLine{74 \} \textcolor{comment}{// namespace rppqt::schedulers}}
+
+\end{DoxyCode}

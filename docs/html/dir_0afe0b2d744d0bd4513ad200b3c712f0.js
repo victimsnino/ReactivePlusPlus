@@ -15,7 +15,7 @@ var dir_0afe0b2d744d0bd4513ad200b3c712f0 =
     [ "observers.hpp", "observers_8hpp_source.html", null ],
     [ "operators.hpp", "operators_8hpp_source.html", null ],
     [ "rpp.hpp", "rpp_8hpp_source.html", null ],
-    [ "schedulers.hpp", "schedulers_8hpp_source.html", null ],
+    [ "schedulers.hpp", "rpp_2schedulers_8hpp_source.html", null ],
     [ "sources.hpp", "rpp_2sources_8hpp_source.html", null ],
     [ "subjects.hpp", "subjects_8hpp_source.html", null ],
     [ "subscribers.hpp", "subscribers_8hpp_source.html", null ]

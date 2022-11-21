@@ -339,6 +339,9 @@ var hierarchy =
     [ "rpp::details::ref_count_state_t", "structrpp_1_1details_1_1ref__count__state__t.html", null ],
     [ "rpp::details::repeat_on_completed< Type, SpecificObservable, Predicate >", "classrpp_1_1details_1_1repeat__on__completed.html", null ],
     [ "rpp::details::repeat_on_subscribe< Type, TObs, CreatePredicateFn >", "structrpp_1_1details_1_1repeat__on__subscribe.html", null ],
+    [ "std::runtime_error", null, [
+      [ "rppqt::utils::no_active_qapplication", "structrppqt_1_1utils_1_1no__active__qapplication.html", null ]
+    ] ],
     [ "rpp::details::sample_on_completed", "structrpp_1_1details_1_1sample__on__completed.html", null ],
     [ "rpp::details::sample_on_next", "structrpp_1_1details_1_1sample__on__next.html", null ],
     [ "rpp::details::sample_with_time_impl< Type, TScheduler >", "structrpp_1_1details_1_1sample__with__time__impl.html", null ],
@@ -352,7 +355,8 @@ var hierarchy =
       [ "rpp::schedulers::immediate", "classrpp_1_1schedulers_1_1immediate.html", null ],
       [ "rpp::schedulers::new_thread", "classrpp_1_1schedulers_1_1new__thread.html", null ],
       [ "rpp::schedulers::run_loop", "classrpp_1_1schedulers_1_1run__loop.html", null ],
-      [ "rpp::schedulers::trampoline", "classrpp_1_1schedulers_1_1trampoline.html", null ]
+      [ "rpp::schedulers::trampoline", "classrpp_1_1schedulers_1_1trampoline.html", null ],
+      [ "rppqt::schedulers::main_thread_scheduler", "classrppqt_1_1schedulers_1_1main__thread__scheduler.html", null ]
     ] ],
     [ "rpp::details::skip_impl< Type >", "structrpp_1_1details_1_1skip__impl.html", null ],
     [ "rpp::details::skip_on_next", "structrpp_1_1details_1_1skip__on__next.html", null ],

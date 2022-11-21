@@ -21,34 +21,33 @@
 \DoxyCodeLine{17 }
 \DoxyCodeLine{18 \textcolor{preprocessor}{\#include <chrono>}}
 \DoxyCodeLine{19 \textcolor{preprocessor}{\#include <concepts>}}
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <thread>}}
-\DoxyCodeLine{21 }
-\DoxyCodeLine{22 \textcolor{keyword}{namespace }rpp::schedulers}
-\DoxyCodeLine{23 \{}
-\DoxyCodeLine{28 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{immediate}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1scheduler__tag}{details::scheduler\_tag}}}
-\DoxyCodeLine{29 \{}
-\DoxyCodeLine{30 \textcolor{keyword}{public}:}
-\DoxyCodeLine{31     \textcolor{keyword}{class }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1worker__strategy}{worker\_strategy}}}
-\DoxyCodeLine{32     \{}
-\DoxyCodeLine{33     \textcolor{keyword}{public}:}
-\DoxyCodeLine{34         \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1worker__strategy}{worker\_strategy}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}}\& sub)}
-\DoxyCodeLine{35             : m\_sub\{sub\} \{\}}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37         \textcolor{keywordtype}{void} defer\_at(time\_point time\_point, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn}} \textcolor{keyword}{auto}\&\& fn)\textcolor{keyword}{ const}}
-\DoxyCodeLine{38 \textcolor{keyword}{        }\{}
-\DoxyCodeLine{39             details::immediate\_scheduling\_while\_condition(time\_point, std::forward<\textcolor{keyword}{decltype}(fn)>(fn), m\_sub, []\{\textcolor{keywordflow}{return} \textcolor{keyword}{true};\});}
-\DoxyCodeLine{40         \}}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42         \textcolor{keyword}{static} time\_point now() \{ \textcolor{keywordflow}{return} clock\_type::now();  \}}
-\DoxyCodeLine{43     \textcolor{keyword}{private}:}
-\DoxyCodeLine{44         \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}} m\_sub;}
-\DoxyCodeLine{45     \};}
-\DoxyCodeLine{46 }
-\DoxyCodeLine{47     \textcolor{keyword}{static} \textcolor{keyword}{auto} create\_worker(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}}\& sub = \{\})}
-\DoxyCodeLine{48     \{}
-\DoxyCodeLine{49         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker<worker\_strategy>}}\{sub\};}
-\DoxyCodeLine{50     \}}
-\DoxyCodeLine{51 \};}
-\DoxyCodeLine{52 \} \textcolor{comment}{// namespace rpp::schedulers}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::schedulers}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{27 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{immediate}} final : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1scheduler__tag}{details::scheduler\_tag}}}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29 \textcolor{keyword}{public}:}
+\DoxyCodeLine{30     \textcolor{keyword}{class }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1worker__strategy}{worker\_strategy}}}
+\DoxyCodeLine{31     \{}
+\DoxyCodeLine{32     \textcolor{keyword}{public}:}
+\DoxyCodeLine{33         \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1worker__strategy}{worker\_strategy}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}}\& sub)}
+\DoxyCodeLine{34             : m\_sub\{sub\} \{\}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36         \textcolor{keywordtype}{void} defer\_at(time\_point time\_point, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn}} \textcolor{keyword}{auto}\&\& fn)\textcolor{keyword}{ const}}
+\DoxyCodeLine{37 \textcolor{keyword}{        }\{}
+\DoxyCodeLine{38             details::immediate\_scheduling\_while\_condition(time\_point, std::forward<\textcolor{keyword}{decltype}(fn)>(fn), m\_sub, []\{\textcolor{keywordflow}{return} \textcolor{keyword}{true};\});}
+\DoxyCodeLine{39         \}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41         \textcolor{keyword}{static} time\_point now() \{ \textcolor{keywordflow}{return} clock\_type::now();  \}}
+\DoxyCodeLine{42     \textcolor{keyword}{private}:}
+\DoxyCodeLine{43         \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}} m\_sub;}
+\DoxyCodeLine{44     \};}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46     \textcolor{keyword}{static} \textcolor{keyword}{auto} create\_worker(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1subscription__base}{rpp::subscription\_base}}\& sub = \{\})}
+\DoxyCodeLine{47     \{}
+\DoxyCodeLine{48         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker<worker\_strategy>}}\{sub\};}
+\DoxyCodeLine{49     \}}
+\DoxyCodeLine{50 \};}
+\DoxyCodeLine{51 \} \textcolor{comment}{// namespace rpp::schedulers}}
 
 \end{DoxyCode}

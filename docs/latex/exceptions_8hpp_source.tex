@@ -1,5 +1,5 @@
-\hypertarget{rppqt_8hpp_source}{}\doxysection{rppqt.\+hpp}
-\label{rppqt_8hpp_source}\index{src/rppqt/rppqt/rppqt.hpp@{src/rppqt/rppqt/rppqt.hpp}}
+\hypertarget{exceptions_8hpp_source}{}\doxysection{exceptions.\+hpp}
+\label{exceptions_8hpp_source}\index{src/rppqt/rppqt/utils/exceptions.hpp@{src/rppqt/rppqt/utils/exceptions.hpp}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
@@ -14,8 +14,14 @@
 \DoxyCodeLine{10 }
 \DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rppqt/fwd.hpp>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rppqt/sources.hpp>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rppqt/schedulers.hpp>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <stdexcept>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }rppqt::utils}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17 \textcolor{keyword}{struct }\mbox{\hyperlink{structrppqt_1_1utils_1_1no__active__qapplication}{no\_active\_qapplication}} : std::runtime\_error}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19     \textcolor{keyword}{using }std::runtime\_error::runtime\_error;}
+\DoxyCodeLine{20 \};}
+\DoxyCodeLine{21 \}}
 
 \end{DoxyCode}
