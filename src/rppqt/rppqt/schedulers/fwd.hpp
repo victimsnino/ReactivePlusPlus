@@ -10,6 +10,7 @@
 
 #pragma once
 
-#include <rppqt/fwd.hpp>
-#include <rppqt/sources.hpp>
-#include <rppqt/schedulers.hpp>
+namespace rppqt::schedulers
+{
+class main_thread_scheduler;
+} // namespace rppqt::schedulers

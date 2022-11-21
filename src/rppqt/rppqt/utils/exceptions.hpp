@@ -10,6 +10,12 @@
 
 #pragma once
 
-#include <rppqt/fwd.hpp>
-#include <rppqt/sources.hpp>
-#include <rppqt/schedulers.hpp>
+#include <stdexcept>
+
+namespace rppqt::utils
+{
+struct no_active_qapplication : std::runtime_error
+{
+    using std::runtime_error::runtime_error;
+};
+}
