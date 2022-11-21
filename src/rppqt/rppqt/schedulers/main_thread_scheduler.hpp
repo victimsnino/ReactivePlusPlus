@@ -18,7 +18,7 @@
 #include <chrono>
 #include <concepts>
 
-#include <QApplication>
+#include <QCoreApplication>
 #include <QTimer>
 
 namespace rppqt::schedulers
@@ -51,7 +51,7 @@ private:
             if (!m_sub.is_subscribed())
                 return;
 
-            const auto application = QApplication::instance();
+            const auto application = QCoreApplication::instance();
             if (!application)
                 throw utils::no_active_qapplication{
                     "Pointer to application is null. Create QApplication before using main_thread_scheduler!"};

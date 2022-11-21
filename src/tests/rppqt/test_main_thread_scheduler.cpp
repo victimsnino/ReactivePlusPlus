@@ -20,7 +20,7 @@ SCENARIO("main_thread_scheduler schedules actions to main thread", "[schedulers]
     GIVEN("qapplication and scheduler")
     {
         int argc{};
-        QApplication application{argc, nullptr};
+        QCoreApplication application{argc, nullptr};
         WHEN("submitting action to main scheduler from another thread")
         {
             std::promise<std::thread::id> execution_thread{};
