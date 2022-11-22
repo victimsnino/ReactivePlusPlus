@@ -7,7 +7,7 @@ endif()
 
 # ==================== QT ==========================
 if (RPP_BUILD_QT_CODE AND (RPP_BUILD_TESTS OR RPP_BUILD_EXAMPLES))
-  find_package(Qt6 COMPONENTS Widgets)
+  find_package(Qt6 COMPONENTS Widgets QUIET)
   if (Qt6_FOUND)
     SET(RPP_QT_TARGET Qt6)
   else()
