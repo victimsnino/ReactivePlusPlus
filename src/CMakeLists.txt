@@ -9,10 +9,7 @@
 #
 
 add_subdirectory(rpp)
-
-if(RPP_BUILD_QT_CODE)
-    add_subdirectory(rppqt)
-endif()
+add_subdirectory(rppqt)
 
 if (RPP_BUILD_BENCHMARKS)
     add_subdirectory(benchmarks)

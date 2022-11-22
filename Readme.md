@@ -9,10 +9,17 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=victimsnino_ReactivePlusPlus&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=victimsnino_ReactivePlusPlus)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/victimsnino/ReactivePlusPlus)
 
+## Usage:
 
-ReactivePlusPlus is reactive programming library for C++ language inspired by "official implementation" ([RxCpp](https://github.com/ReactiveX/RxCpp)) and original idea ([ReactiveX](https://reactivex.io/))
+ReactivePlusPlus is reactive programming library for C++ language inspired by "official implementation" ([RxCpp](https://github.com/ReactiveX/RxCpp)) and original idea ([ReactiveX](https://reactivex.io/)) that only depends on standard library and C++20 features.
+
+See the [BUILDING](BUILDING.md) document to know how to build RPP.
+If you are going to know more details about developing for RPP check [HACKING](HACKING.md) document.
+
+## Example:
 
 In short: ReactivePlusPlus is library for building asynchronous event-driven streams of data with help of sequences of primitive operators in the declarative form. For example:
+
 ```cpp
 rpp::source::from_callable(&::getchar)
    .repeat()
@@ -21,46 +28,26 @@ rpp::source::from_callable(&::getchar)
    .map(&::toupper)
    .subscribe([](char v) { std::cout << v; });
 ```
+## Features:
 
-Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. As a result it is fast, readable, easy to use and well-documented.
+Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. As a result it is fast, readable, easy to use and well-documented. And it is proven with [continous benchmarking results and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
 
 **NOTE**: ReactivePlusPlus is library for C++20. So, it works only on compilers that supports most C++20 features. CI uses gcc-10, clang-11, visual studio 2022
 
-# What about existing Reactive Extension libraries for C++?
+## Implementation status:
 
-Reactive programming is excelent programming paradigm and approach for creation of multi-threading and real-time programs which reacts on some events. Unfortunately, there is only one stable and fully-implemented library at the moment of creation of ReactivePlusPlus - [RxCpp](https://github.com/ReactiveX/RxCpp). 
+Currently ReactivePlusPlus is still under development but it has a lot of implemented operators for now. List of implemented features can be found in [API Reference](https://victimsnino.github.io/ReactivePlusPlus/docs/html/group__rpp.html) with very detailed documentation for each of them
 
-[RxCpp](https://github.com/ReactiveX/RxCpp) is great and awesome library and perfect implementation of ReactiveX approach. However RxCpp has some disadvantages:
-- It is a bit **"old" library written in C++11** with some parts written in the **pre-C++11 style** (mess of old-style classes and wrappers)
-- **Issue** with **template parameters**:  `rxcpp::observable` contains **full chain of operators** as second template parameter... where each operator has a bunch of another template parameters itself. It forces **IDEs** works **slower** while parsing resulting type of observable. Also it forces to generate **heavier binaries and debug symbols and slower build time**.
-- It has high perfomance cost due to tremendous amount of usage of heap. 
-- Some parts of code written with non-effective logic (e.g. `timeout` operator - rpp version faster in about 17000-25000%...)
-
-Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ/another-rxcpp). It partly solves issues of RxCpp via **eliminating of template parameter**  with help of **type-erasing** and making each callback as `std::function`. As a result issue with templates resvoled, but this approach has disadvantages related to runtime: resulting size of observers/observables becomes greater due to heavy `std::function` object, usage of heap for storing everything causes perfomance issues, implementation is just pretty simple and provides a lot of copies of passed objects.
-
-## Why ReactivePlusPlus?
-
-**ReactivePlusPlus** tries to solve all mentioned issues:
-- **ReactivePlusPlus** written in **Modern C++ (C++20)** with concepts which makes code-base a lot more understandable and clean:
-   - Concepts provide more clear errors and checks: you will understand that pass something incorrect before compilation in IDE or during compilation with understandable errors instead of _"invalid template class map_invalid_t"_
-   - Everywhere while possible used deduction of template arguments, for example, type of values of observable by type of subscriber used in on_subscribe and etc
-- **ReactivePlusPlus** keeps balance between performance and type-erasing mechanism: Read about it in  [**"Performance vs Flexibility: Specific vs Dynamic"**](https://victimsnino.github.io/ReactivePlusPlus/docs/html/specific_vs_dynamic.html)
-- **ReactivePlusPlus** is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks prove that RPP faster than RxCPP in most cases: [Continous benchmarking results](https://victimsnino.github.io/ReactivePlusPlus/benchmark) (check timeout operator comparison ;-))
+On a par with this ReactivePlusPlus provides native support for QT via RppQt target (extension over original RPP). List of implemented features can be found in [QT API Reference](https://victimsnino.github.io/ReactivePlusPlus/docs/html/group__rppqt.html) with very detailed documentation for each of them.
 
 
 # Useful links
+- [Why ReactivePlusPlus? What about existing Reactive Extension libraries for C++?](https://victimsnino.github.io/ReactivePlusPlus/docs/html/why_rpp.html)
 - [Manual and doxygen documentation](https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html)
+- [Examples](https://github.com/victimsnino/ReactivePlusPlus/tree/main/src/examples)
 - [Continous benchmarking results, comparison of `dynamic` and `specific` and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
-- [Articles](https://github.com/victimsnino/ReactivePlusPlus/blob/main/docs/Articles.md)
-
-# Building and installing
-
-See the [BUILDING](BUILDING.md) document.
-If you are going to know more details about developing for RPP check [HACKING](HACKING.md) document.
-
-# Contributing
-
-See the [CONTRIBUTING](CONTRIBUTING.md) document.
+- [Articles/Turorials/Guides](https://github.com/victimsnino/ReactivePlusPlus/blob/main/docs/Articles.md)
+- [CONTRIBUTING](CONTRIBUTING.md) document.
 
 # Licensing
 

@@ -42,16 +42,13 @@ int main(int argc, char* argv[])
 
     window.show();
 
-    auto remove_spaces_obs = rppqt::source::from_signal(remove_spaces_checkbox, &QCheckBox::stateChanged).
-            start_with(static_cast<int>(remove_spaces_checkbox.isChecked()));
-    auto lower_case_obs = rppqt::source::from_signal(lower_checkbox, &QCheckBox::stateChanged).
-            start_with(static_cast<int>(lower_checkbox.isChecked()));
+    auto remove_spaces_obs = rppqt::source::from_signal(remove_spaces_checkbox, &QCheckBox::stateChanged)
+            .start_with(static_cast<int>(remove_spaces_checkbox.isChecked()));
+    auto lower_case_obs = rppqt::source::from_signal(lower_checkbox, &QCheckBox::stateChanged)
+            .start_with(static_cast<int>(lower_checkbox.isChecked()));
 
     auto text_to_append_obs = rppqt::source::from_signal(text_input, &QTextEdit::textChanged)
-                              .map([&](const auto&)
-                              {
-                                  return text_input.toPlainText();
-                              })
+                              .map([&](const auto&) { return text_input.toPlainText(); })
                               .combine_latest([](const QString& current_string, bool is_remove_spaces)
                                               {
                                                   return is_remove_spaces ? current_string.simplified().remove(' ') : current_string;
@@ -68,10 +65,7 @@ int main(int argc, char* argv[])
 
 
     rppqt::source::from_signal(push_text, &QPushButton::pressed)
-            .with_latest_from([&](const auto&, const QString& text_to_append)
-                              {
-                                  return text_to_append;
-                              },
+            .with_latest_from([&](const auto&, const QString& text_to_append) { return text_to_append; },
                               text_to_append_obs)
             .tap([&](const auto&) { text_input.setText(""); })
             .scan(QString{},
@@ -86,10 +80,7 @@ int main(int argc, char* argv[])
                                 return current_text + QString("<span style=\" color:#ff0000;\">%1</span>").arg(preview_text_to_append);
                             },
                             text_to_append_obs)
-            .subscribe([&](const QString& current_text)
-                       {
-                           result.setText(current_text);
-                       },
+            .subscribe([&](const QString& current_text) { result.setText(current_text); },
                        [](const std::exception_ptr& err)
                        {
                            try
