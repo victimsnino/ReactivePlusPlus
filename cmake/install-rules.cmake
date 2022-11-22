@@ -5,15 +5,25 @@ include(GNUInstallDirs)
 set(package RPP)
 
 install(
-    DIRECTORY src/rpp
-    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-    COMPONENT RPP_Development
+    DIRECTORY 
+        src/rpp
+        src/rppqt
+    DESTINATION 
+        "${CMAKE_INSTALL_INCLUDEDIR}"
+    COMPONENT 
+        RPP_Development
 )
 
 install(
     TARGETS rpp
     EXPORT RPPTargets
     INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rpp"
+)
+
+install(
+    TARGETS rppqt
+    EXPORT RPPTargets
+    INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rppqt"
 )
 
 write_basic_package_version_file(
@@ -46,7 +56,3 @@ install(
     DESTINATION "${RPP_INSTALL_CMAKEDIR}"
     COMPONENT RPP_Development
 )
-
-# if(PROJECT_IS_TOP_LEVEL)
-#   include(CPack)
-# endif()
