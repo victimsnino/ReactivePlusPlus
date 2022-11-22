@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: Related Pages</title>
+<title>ReactivePlusPlus: Why ReactivePlusPlus?</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('pages.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('why_rpp.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -95,24 +95,34 @@ $(document).ready(function(){initNavTree('pages.html',''); initResizable(); });
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">Related Pages</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">Why ReactivePlusPlus? </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all related documentation pages:</div><div class="directory">
-<div class="levels">[detail level <span onclick="javascript:toggleLevel(1);">1</span><span onclick="javascript:toggleLevel(2);">2</span>]</div><table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="md_docs__articles.html" target="_self">Articles</a></td><td class="desc"></td></tr>
-<tr id="row_1_" class="odd"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_1_" class="arrow" onclick="toggleFolder('1_')">&#9660;</span><a class="el" href="md_docs__docs.html" target="_self">Docs</a></td><td class="desc"></td></tr>
-<tr id="row_1_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_1_0_" class="arrow" onclick="toggleFolder('1_0_')">&#9658;</span><a class="el" href="quick_start.html" target="_self">Quick Start</a></td><td class="desc"></td></tr>
-<tr id="row_1_1_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_1_1_" class="arrow" onclick="toggleFolder('1_1_')">&#9658;</span><a class="el" href="advanced.html" target="_self">Advanced Guide</a></td><td class="desc"></td></tr>
-<tr id="row_1_2_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_1_2_" class="arrow" onclick="toggleFolder('1_2_')">&#9658;</span><a class="el" href="why_rpp.html" target="_self">Why ReactivePlusPlus?</a></td><td class="desc"></td></tr>
-<tr id="row_1_3_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_1_3_" class="arrow" onclick="toggleFolder('1_3_')">&#9658;</span><a class="el" href="specific_vs_dynamic.html" target="_self">Performance vs Flexibility: Specific vs Dynamic</a></td><td class="desc"></td></tr>
-<tr id="row_1_4_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_1_4_" class="arrow" onclick="toggleFolder('1_4_')">&#9658;</span><a class="el" href="memory_model.html" target="_self">Memory Model</a></td><td class="desc"></td></tr>
-<tr id="row_1_5_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_1_5_" class="arrow" onclick="toggleFolder('1_5_')">&#9658;</span><a class="el" href="exception_guarantee.html" target="_self">Exception guarantee</a></td><td class="desc"></td></tr>
-<tr id="row_1_6_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_1_6_" class="arrow" onclick="toggleFolder('1_6_')">&#9658;</span><a class="el" href="status.html" target="_self">Implementation status</a></td><td class="desc"></td></tr>
-</table>
-</div><!-- directory -->
-</div><!-- contents -->
+<div class="textblock"><p><a class="anchor" id="md_docs_WhyRpp"></a> </p>
+<h1><a class="anchor" id="autotoc_md29"></a>
+What about existing Reactive Extension libraries for C++?</h1>
+<p>Reactive programming is excelent programming paradigm and approach for creation of multi-threading and real-time programs which reacts on some events. Unfortunately, there is only one stable and fully-implemented library at the moment of creation of ReactivePlusPlus - <a href="https://github.com/ReactiveX/RxCpp">RxCpp</a>.</p>
+<p><a href="https://github.com/ReactiveX/RxCpp">RxCpp</a> is great and awesome library and perfect implementation of ReactiveX approach. However RxCpp has some disadvantages:</p><ul>
+<li>It is a bit **"old" library written in C++11** with some parts written in the <b>pre-C++11 style</b> (mess of old-style classes and wrappers)</li>
+<li><b>Issue</b> with <b>template parameters</b>: <code>rxcpp::observable</code> contains <b>full chain of operators</b> as second template parameter... where each operator has a bunch of another template parameters itself. It forces <b>IDEs</b> works <b>slower</b> while parsing resulting type of observable. Also it forces to generate <b>heavier binaries and debug symbols and slower build time</b>.</li>
+<li>It has high perfomance cost due to tremendous amount of usage of heap.</li>
+<li>Some parts of code written with non-effective logic (e.g. <code>timeout</code> operator - rpp version faster in about 17000-25000%...)</li>
+</ul>
+<p>Another implementation of RX for c++: <a href="https://github.com/CODIANZ/another-rxcpp">another-rxcpp</a>. It partly solves issues of RxCpp via <b>eliminating of template parameter</b> with help of <b>type-erasing</b> and making each callback as <code>std::function</code>. As a result issue with templates resvoled, but this approach has disadvantages related to runtime: resulting size of observers/observables becomes greater due to heavy <code>std::function</code> object, usage of heap for storing everything causes perfomance issues, implementation is just pretty simple and provides a lot of copies of passed objects.</p>
+<h1><a class="anchor" id="autotoc_md30"></a>
+Why ReactivePlusPlus?</h1>
+<p><b>ReactivePlusPlus</b> tries to solve all mentioned issues:</p><ul>
+<li><b>ReactivePlusPlus</b> written in <b>Modern C++ (C++20)</b> with concepts which makes code-base a lot more understandable and clean:<ul>
+<li>Concepts provide more clear errors and checks: you will understand that pass something incorrect before compilation in IDE or during compilation with understandable errors instead of _"invalid template class map_invalid_t"_</li>
+<li>Everywhere while possible used deduction of template arguments, for example, type of values of observable by type of subscriber used in on_subscribe and etc</li>
+</ul>
+</li>
+<li><b>ReactivePlusPlus</b> keeps balance between performance and type-erasing mechanism: Read about it in <a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/specific_vs_dynamic.html">**"Performance vs Flexibility: Specific vs Dynamic"**</a></li>
+<li><b>ReactivePlusPlus</b> is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks prove that RPP faster than RxCPP in most cases: <a href="https://victimsnino.github.io/ReactivePlusPlus/benchmark">Continous benchmarking results</a> (check timeout operator comparison ;-)) </li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

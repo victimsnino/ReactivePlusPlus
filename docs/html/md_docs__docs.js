@@ -14,6 +14,10 @@ var md_docs__docs =
       [ "Operators", "advanced.html#autotoc_md3", null ],
       [ "Subscriber", "advanced.html#autotoc_md4", null ]
     ] ],
+    [ "Why ReactivePlusPlus?", "why_rpp.html", [
+      [ "What about existing Reactive Extension libraries for C++?", "why_rpp.html#autotoc_md29", null ],
+      [ "Why ReactivePlusPlus?", "why_rpp.html#autotoc_md30", null ]
+    ] ],
     [ "Performance vs Flexibility: Specific vs Dynamic", "specific_vs_dynamic.html", [
       [ "Brief overview", "specific_vs_dynamic.html#autotoc_md26", null ],
       [ "ReactivePlusPlus solution", "specific_vs_dynamic.html#autotoc_md27", null ],
