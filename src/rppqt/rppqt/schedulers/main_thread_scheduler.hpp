@@ -56,7 +56,7 @@ private:
                 throw utils::no_active_qapplication{
                     "Pointer to application is null. Create QApplication before using main_thread_scheduler!"};
 
-            const auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now() - time_point).count();
+            const auto duration = std::max(std::chrono::milliseconds{0}, std::chrono::duration_cast<std::chrono::milliseconds>(time_point - now()));
             QTimer::singleShot(duration, application, std::move(fn));
         }
 
