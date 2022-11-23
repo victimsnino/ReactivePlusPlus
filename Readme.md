@@ -16,9 +16,13 @@ ReactivePlusPlus is reactive programming library for C++ language inspired by "o
 See the [BUILDING](BUILDING.md) document to know how to build RPP.
 If you are going to know more details about developing for RPP check [HACKING](HACKING.md) document.
 
-## Example:
+## Implementation status:
 
-In short: ReactivePlusPlus is library for building asynchronous event-driven streams of data with help of sequences of primitive operators in the declarative form. For example:
+In short: ReactivePlusPlus is library for building asynchronous event-driven streams of data with help of sequences of primitive operators in the declarative form.
+
+Currently ReactivePlusPlus is still under development but it has a lot of implemented operators for now. List of implemented features can be found in [API Reference](https://victimsnino.github.io/ReactivePlusPlus/docs/html/group__rpp.html) with very detailed documentation for each of them
+
+**Example**:
 
 ```cpp
 rpp::source::from_callable(&::getchar)
@@ -28,18 +32,16 @@ rpp::source::from_callable(&::getchar)
    .map(&::toupper)
    .subscribe([](char v) { std::cout << v; });
 ```
+
+### QT Support
+
+On a par with this ReactivePlusPlus provides native support for QT via RppQt target (extension over original RPP). List of implemented features can be found in [QT API Reference](https://victimsnino.github.io/ReactivePlusPlus/docs/html/group__rppqt.html) with very detailed documentation for each of them.
+
 ## Features:
 
 Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. As a result it is fast, readable, easy to use and well-documented. And it is proven with [continous benchmarking results and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
 
 **NOTE**: ReactivePlusPlus is library for C++20. So, it works only on compilers that supports most C++20 features. CI uses gcc-10, clang-11, visual studio 2022
-
-## Implementation status:
-
-Currently ReactivePlusPlus is still under development but it has a lot of implemented operators for now. List of implemented features can be found in [API Reference](https://victimsnino.github.io/ReactivePlusPlus/docs/html/group__rpp.html) with very detailed documentation for each of them
-
-On a par with this ReactivePlusPlus provides native support for QT via RppQt target (extension over original RPP). List of implemented features can be found in [QT API Reference](https://victimsnino.github.io/ReactivePlusPlus/docs/html/group__rppqt.html) with very detailed documentation for each of them.
-
 
 # Useful links
 - [Why ReactivePlusPlus? What about existing Reactive Extension libraries for C++?](https://victimsnino.github.io/ReactivePlusPlus/docs/html/why_rpp.html)
