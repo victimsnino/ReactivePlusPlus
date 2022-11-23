@@ -80,7 +80,7 @@ command of CMake:
 * Package name: `RPP`
 * Target names: 
  - `RPP::rpp` - main rpp INTERFACE target
- - `RPP:rppqt` - additional INTERFACE target to extend functionality for QT. rppqt doesn't include QT or even doesn't link with that.
+ - `RPP::rppqt` - additional INTERFACE target to extend functionality for QT. rppqt doesn't include QT or even doesn't link with that.
 
 Example usage:
 
