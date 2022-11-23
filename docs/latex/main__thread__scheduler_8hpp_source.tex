@@ -56,7 +56,7 @@
 \DoxyCodeLine{56                 \textcolor{keywordflow}{throw} \mbox{\hyperlink{structrppqt_1_1utils_1_1no__active__qapplication}{utils::no\_active\_qapplication}}\{}
 \DoxyCodeLine{57                     \textcolor{stringliteral}{"{}Pointer to application is null. Create QApplication before using main\_thread\_scheduler!"{}}\};}
 \DoxyCodeLine{58 }
-\DoxyCodeLine{59             \textcolor{keyword}{const} \textcolor{keyword}{auto} duration = std::chrono::duration\_cast<std::chrono::milliseconds>(now() -\/ time\_point).count();}
+\DoxyCodeLine{59             \textcolor{keyword}{const} \textcolor{keyword}{auto} duration = std::max(std::chrono::milliseconds\{0\}, std::chrono::duration\_cast<std::chrono::milliseconds>(time\_point -\/ now()));}
 \DoxyCodeLine{60             QTimer::singleShot(duration, application, std::move(fn));}
 \DoxyCodeLine{61         \}}
 \DoxyCodeLine{62 }
