@@ -82,6 +82,7 @@ command of CMake:
  - `RPP::rpp` - main rpp INTERFACE target
  - `RPP::rppqt` - additional INTERFACE target to extend functionality for QT. rppqt doesn't include QT or even doesn't link with that.
 
+
 Example usage:
 
 ```cmake
@@ -94,6 +95,29 @@ target_link_libraries(
     RPP::rppqt
 )
 ```
+
+## Usage:
+
+To use ReactivePlusPlus in your code just do
+```cpp
+#include <rpp/rpp.hpp>
+```
+to include whole library functionality and don't worry about includes. Also you can include only forwardings for everyting
+```cpp
+#include <rpp/fwd.hpp>
+```
+To avoid including "everyting" you can just include some iterested part of code (or forward it as well)
+```cpp
+#include <rpp/operators/map.hpp>
+#include <rpp/observables/fwd.hpp>
+```
+**NOTE**: In case of partial including of operators you need to include headers for each used operators like 
+```cpp
+#include <rpp/operators/map.hpp>
+#include <rpp/operators/filter.hpp>
+
+```
+else it would not be possible to compile
 
 [1]: https://cmake.org/download/
 [2]: https://cmake.org/cmake/help/latest/manual/cmake.1.html#install-a-project
