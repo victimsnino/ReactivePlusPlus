@@ -9,3 +9,6 @@ Reactive Programming Tutorials:
 
 Use cases tutorials:
 - [Snake game on C++ in the reactive programming way](https://medium.com/@victimsnino/snake-game-on-c-in-the-reactive-programming-way-19310a73923a?source=friends_link&sk=608039f66da373d4f81c806ffe58298c)
+
+RppQt:
+- [QT + ReactiveProgramming = ❤](https://itnext.io/qt-reactiveprogramming-1ba0106c17d8?source=friends_link&sk=59c3cb817d56996094b640aeba629bd0)
