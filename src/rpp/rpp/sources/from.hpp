@@ -21,7 +21,6 @@
 
 
 #include <array>
-#include <ranges>
 #include <type_traits>
 
 IMPLEMENTATION_FILE(just_tag);
@@ -32,10 +31,13 @@ namespace rpp::observable::details
 template<typename T>
 auto extract_iterable_from_packed(const T & v) -> const auto&
 {
-    if constexpr (std::ranges::range<T>)
-        return v;
-    else
-        return *v;
+    return v;
+}
+
+template<typename T>
+auto extract_iterable_from_packed(const std::shared_ptr<T> & v) -> const auto&
+{
+    return *v;
 }
 
 void iterate(auto&&                                        iterable,
@@ -66,7 +68,7 @@ void iterate(auto&&                                        iterable,
                 const auto  end = std::cend(extracted_iterable);
                 auto        itr = std::cbegin(extracted_iterable);
 
-                std::ranges::advance(itr, static_cast<int64_t>(index), end);
+                std::advance(itr, static_cast<int64_t>(index));
 
                 if (itr != end)
                 {
@@ -90,7 +92,9 @@ void iterate(auto&&                                        iterable,
     }
 }
 
-template<memory_model memory_model, std::ranges::range Container, typename ...Ts>
+
+
+template<memory_model memory_model, constraint::iterable Container, typename ...Ts>
 auto pack_to_container(Ts&& ...items)
 {
     if constexpr (memory_model == memory_model::use_stack)
@@ -215,10 +219,10 @@ auto just(T&& item, Ts&& ...items) requires (rpp::details::is_header_included<rp
  * \see https://reactivex.io/documentation/operators/from.html
  */
 template<memory_model memory_model /* = memory_model::use_stack */, schedulers::constraint::scheduler TScheduler /* = schedulers::immediate */>
-auto from_iterable(std::ranges::range auto&& iterable, const TScheduler& scheduler /* = TScheduler{} */) requires rpp::details::is_header_included<rpp::details::from_tag, TScheduler >
+auto from_iterable(constraint::iterable auto&& iterable, const TScheduler& scheduler /* = TScheduler{} */) requires rpp::details::is_header_included<rpp::details::from_tag, TScheduler >
 {
     using Container = std::decay_t<decltype(iterable)>;
-    return create<std::ranges::range_value_t<Container>>(details::iterate_impl{ details::pack_to_container<memory_model, Container>(std::forward<decltype(iterable)>(iterable)), scheduler });
+    return create<utils::iterable_value_t<Container>>(details::iterate_impl{ details::pack_to_container<memory_model, Container>(std::forward<decltype(iterable)>(iterable)), scheduler });
 }
 
 /**

@@ -11,8 +11,10 @@
 #pragma once
 
 #include <rpp/defs.hpp>
+#include <rpp/utils/constraints.hpp>
 
 #include <atomic>
+#include <algorithm>
 #include <memory>
 #include <type_traits>
 #include <optional>
@@ -36,6 +38,20 @@ using atomic_shared_ptr = std::shared_ptr<T>;
 // used as interpetation of "void"
 struct none{};
 
+template<constraint::iterable T>
+using iterable_value_t = typename decltype(std::begin(std::declval<T>()))::value_type;
+
+template<typename Cont, std::invocable<iterable_value_t<Cont>> Fn>
+void for_each(Cont&& container, Fn&& fn)
+{
+    std::for_each(std::begin(container), std::end(container), std::forward<Fn>(fn));
+}
+
+template<typename Cont, std::predicate<iterable_value_t<Cont>> Fn>
+bool all_of(const Cont& container, const Fn& fn)
+{
+    return std::all_of(std::cbegin(container), std::cend(container), fn);
+}
 
 // some objects can't be copy/moved-assigned, but can be copy/move constructed (like immutable lambdas), so, use trick with optional and emplace.
 template<typename Callable>
