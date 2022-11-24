@@ -90,8 +90,7 @@ public:
         {
             std::unique_lock lock{m_mutex};
 
-            if (!m_cv.wait(lock, [&] { return !m_subscription->is_subscribed() || !m_queue.empty(); }))
-                continue;
+            m_cv.wait(lock, [&] { return !m_subscription->is_subscribed() || !m_queue.empty(); });
 
             if (!m_cv.wait_until(lock,
                                  m_queue.top().get_time_point(),
