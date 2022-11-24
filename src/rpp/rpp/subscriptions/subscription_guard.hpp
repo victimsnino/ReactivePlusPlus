@@ -44,6 +44,7 @@ public:
     }
 
     const subscription_base* operator->() const { return &m_sub; }
+    const subscription_base& operator*() const { return m_sub; }
 private:
     subscription_base m_sub;
 };

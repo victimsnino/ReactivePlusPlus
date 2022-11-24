@@ -51,7 +51,9 @@ template<typename SchedulableFn>
 class queue_worker_state
 {
 public:
-    queue_worker_state() noexcept = default;
+    queue_worker_state() = default;
+    queue_worker_state(const queue_worker_state&) = delete;
+    queue_worker_state(queue_worker_state&&) = delete;
 
     void emplace(time_point time_point, constraint::inner_schedulable_fn auto&& fn)
     {
@@ -82,20 +84,22 @@ public:
         return true;
     }
 
-    bool pop_with_wait(std::optional<SchedulableFn>& out, const std::stop_token& token)
+    bool pop_with_wait(std::optional<SchedulableFn>& out)
     {
-        while (!token.stop_requested())
+        while (m_subscription->is_subscribed())
         {
             std::unique_lock lock{m_mutex};
 
-            if (!m_cv.wait(lock, token, [&] { return !m_queue.empty(); }))
+            if (!m_cv.wait(lock, [&] { return !m_subscription->is_subscribed() || !m_queue.empty(); }))
                 continue;
 
             if (!m_cv.wait_until(lock,
-                                 token,
                                  m_queue.top().get_time_point(),
-                                 std::bind_front(&queue_worker_state<SchedulableFn>::is_any_ready_schedulable_unsafe, this)))
+                                 [&] { return !m_subscription->is_subscribed() || is_any_ready_schedulable_unsafe(); }))
                 continue;
+
+            if (!m_subscription->is_subscribed())
+                break;
 
             out.emplace(std::move(m_queue.top().extract_function()));
             m_queue.pop();
@@ -104,17 +108,17 @@ public:
         return false;
     }
 
-    void reset()
+    void destroy()
     {
-        std::lock_guard lock{ m_mutex };
-        m_queue = std::priority_queue<schedulable<SchedulableFn>>{};
+       m_subscription->unsubscribe();
     }
 
 private:
     void emplace_safe(time_point time_point, constraint::inner_schedulable_fn auto&& fn)
     {
-        std::lock_guard lock{ m_mutex };
-        m_queue.emplace(time_point, ++m_current_id, std::forward<decltype(fn)>(fn));
+        std::lock_guard lock{m_mutex};
+        if (m_subscription->is_subscribed())
+            m_queue.emplace(time_point, ++m_current_id, std::forward<decltype(fn)>(fn));
     }
 
     bool is_any_ready_schedulable_unsafe() const
@@ -127,5 +131,13 @@ private:
     std::condition_variable_any                     m_cv{};
     std::priority_queue<schedulable<SchedulableFn>> m_queue{};
     size_t                                          m_current_id{};
+    subscription_guard                              m_subscription = callback_subscription{[&]
+    {
+        {
+            std::lock_guard lock{m_mutex};
+            m_queue = std::priority_queue<schedulable<SchedulableFn>>{};
+        }
+        m_cv.notify_one();
+    }};
 };
 } // namespace rpp::schedulers::details

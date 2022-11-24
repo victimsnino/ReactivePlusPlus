@@ -82,18 +82,19 @@ public:
 
             void init_thread(const rpp::composite_subscription& sub)
             {
-                m_thread = std::jthread{[state = shared_from_this()](const std::stop_token& token)
+                m_thread = std::thread{[state = shared_from_this()]()
                 {
-                    state->data_thread(token);
+                    state->data_thread();
                 }};
                 const auto callback = rpp::callback_subscription{[state = weak_from_this()]
                 {
-                    auto locked = state.lock();
+                    const auto locked = state.lock();
                     if (!locked)
                         return;
-                    locked->m_thread.request_stop();
 
-                    if (locked->m_thread.get_id() != std::this_thread::get_id())
+                    locked->m_queue.destroy();
+
+                    if (locked->m_thread.joinable() && locked->m_thread.get_id() != std::this_thread::get_id())
                         locked->m_thread.join();
                     else
                         locked->m_thread.detach();
@@ -103,12 +104,12 @@ public:
             }
 
         private:
-            void data_thread(const std::stop_token& token)
+            void data_thread()
             {
                 std::optional<new_thread_schedulable> fn{};
-                while (!token.stop_requested())
+                while (m_sub->is_subscribed())
                 {
-                    if (m_queue.pop_with_wait(fn, token))
+                    if (m_queue.pop_with_wait(fn))
                     {
                         (*fn)();
                         fn.reset();
@@ -116,11 +117,11 @@ public:
                 }
 
                 // clear
-                m_queue.reset();
+                m_queue.destroy();
             }
 
             details::queue_worker_state<new_thread_schedulable> m_queue{};
-            std::jthread                                        m_thread{};
+            std::thread                                         m_thread{};
             rpp::subscription_guard                             m_sub = rpp::subscription_base::empty();
         };
 
