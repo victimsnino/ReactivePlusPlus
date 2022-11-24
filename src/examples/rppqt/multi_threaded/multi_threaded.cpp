@@ -1,13 +1,12 @@
 #include <rpp/rpp.hpp>
 #include <rppqt/rppqt.hpp>
 
-#include <iostream>
-
 #include <QApplication>
 #include <QLabel>
-#include <QPushButton>
 #include <QMainWindow>
+#include <QPushButton>
 #include <QVBoxLayout>
+#include <iostream>
 
 int main(int argc, char* argv[])
 {
@@ -25,47 +24,26 @@ int main(int argc, char* argv[])
 
     window.show();
 
-    rpp::source::interval(std::chrono::seconds{1})
-            .tap([](const auto&)
+    auto amount_of_clicks = rppqt::source::from_signal(button, &QPushButton::pressed)
+                                .scan(size_t{}, [](size_t seed, const auto&) { return seed + 1; })
+                                .start_with(size_t{})
+                                .publish()
+                                .ref_count();
+
+    amount_of_clicks
+        .observe_on(rpp::schedulers::new_thread{})
+        .tap([](const auto&)
             {
-                std::cout << "Interval from thread: " << std::this_thread::get_id() << std::endl;
+                std::cout << "Some long computation...." << std::endl;
+                std::this_thread::sleep_for(std::chrono::seconds{1});
             })
-            .combine_latest([](size_t index, size_t amount_of_clicks)
-                            {
-                                return QString("Seconds since start: %1 Clicks since start: %2").arg(index).arg(amount_of_clicks);
-                            },
-                            rppqt::source::from_signal(button, &QPushButton::pressed).scan(size_t{},
-                                                                                           [](size_t seed, const auto&)
-                                                                                           {
-                                                                                               return seed + 1;
-                                                                                           })
-                                                                                     .tap([](const auto&)
-                                                                                     {
-                                                                                         std::cout << "Click from thread: " <<
-                                                                                                 std::this_thread::get_id() << std::endl;
-                                                                                     })
-                                                                                     .start_with(size_t{0}))
-            .subscribe_on(rpp::schedulers::new_thread{})
-            .observe_on(rppqt::schedulers::main_thread_scheduler{})
-            .subscribe([&](const QString& text)
-            {
-                std::cout << "Text updated from thread: " << std::this_thread::get_id() << std::endl;
-                label.setText(text);
-            });
+        .observe_on(rppqt::schedulers::main_thread_scheduler{})
+        .combine_latest([](size_t slow_clicks, size_t fast_clicks)
+                        {
+                            return QString{"Slow clicks are %1. Fast clicks are %2"}.arg(slow_clicks).arg(fast_clicks);
+                        },
+                        amount_of_clicks)
+        .subscribe([&](const QString& text) { label.setText(text); });
 
-    std::cout << "Application thread: " << std::this_thread::get_id() << std::endl;
-
-    // There we have application's thread, "new_thread" where observable subscribed and interval events happened.
-    // But we need to update GUI's objects in main thread, so, we forces observable to emit items to subscribe in QT's main thread
-    // Example of output:
-    /*
-        Application thread: 19748       <----- main thread
-        Interval from thread: 30604     <----- interval happens from another thread
-        Text updated from thread: 19748 <----- but update then transfered to main thread
-        Click from thread: 19748        <----- click happens from main thread due to QT logic
-        Text updated from thread: 19748 <----- and update happens in main thread
-        Interval from thread: 30604
-        Text updated from thread: 19748
-     */
     return app.exec();
 }
