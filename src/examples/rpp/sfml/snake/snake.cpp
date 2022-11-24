@@ -54,7 +54,7 @@ static bool is_snake_eat_self(const SnakeBody& body)
 
 static Coordinates update_apple_position_if_eat(Coordinates&& apple_position, const SnakeBody& snake)
 {
-    if (std::ranges::find(snake, apple_position) == snake.cend())
+    if (std::find(snake.cbegin(), snake.cend(), apple_position) == snake.cend())
         return apple_position;
 
     static std::random_device rd;
