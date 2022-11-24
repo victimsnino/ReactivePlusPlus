@@ -39,7 +39,7 @@ using atomic_shared_ptr = std::shared_ptr<T>;
 struct none{};
 
 template<constraint::iterable T>
-using iterable_value_t = typename decltype(std::begin(std::declval<T>()))::value_type;
+using iterable_value_t = typename decltype(std::cbegin(std::declval<T>()))::value_type;
 
 template<typename Cont, std::invocable<iterable_value_t<Cont>> Fn>
 void for_each(Cont&& container, Fn&& fn)
