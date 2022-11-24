@@ -18,7 +18,7 @@ jobs:
   download_deps:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     runs-on: ${{ matrix.os }}
     name: Build Deps - ${{ matrix.os }}
@@ -120,7 +120,8 @@ jobs:
       matrix:    
         config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest}, 
                  {name: ci-ubuntu-clang,os: ubuntu-latest},
-                 {name: ci-windows,     os: windows-latest}]
+                 {name: ci-windows,     os: windows-latest},
+                 {name: ci-macos-clang, os: macos-latest}]
         type: [tests, benchmarks]
 
     timeout-minutes: 20
@@ -135,6 +136,12 @@ jobs:
     - name: Install Qt
       if: matrix.type == 'tests'
       uses: jurplel/install-qt-action@v3
+
+    - name: Install LLVM and Clang
+      if: matrix.config.name == 'ci-macos-clang'
+      uses: KyleMayes/install-llvm-action@v1
+      with:
+        version: "10.0"
       
     - name: Install deps
       if: matrix.config.os != 'windows-latest'
