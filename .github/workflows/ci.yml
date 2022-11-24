@@ -63,6 +63,8 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
+      with:
+        cache: true
 
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -98,6 +100,8 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
+      with:
+        cache: true
       
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -136,6 +140,8 @@ jobs:
     - name: Install Qt
       if: matrix.type == 'tests'
       uses: jurplel/install-qt-action@v3
+      with:
+        cache: true
       
     - name: Install deps
       if: matrix.config.os == 'ubuntu-latest'
@@ -199,6 +205,8 @@ jobs:
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
+        with:
+          cache: true
       
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
@@ -284,6 +292,8 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
+      with:
+        cache: true
           
     - name: Install project and build
       env:
