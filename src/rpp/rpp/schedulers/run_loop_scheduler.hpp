@@ -86,7 +86,6 @@ private:
     private:
         rpp::composite_subscription                       m_sub;
         details::queue_worker_state<run_loop_schedulable> m_queue{};
-        std::stop_source                                  m_source{};
     };
 
 public:
