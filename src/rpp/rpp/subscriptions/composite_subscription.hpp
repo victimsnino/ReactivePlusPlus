@@ -18,6 +18,7 @@
 #include <rpp/subscriptions/constraints.hpp>
 
 #include <algorithm>
+#include <functional>
 #include <vector>
 
 namespace rpp
