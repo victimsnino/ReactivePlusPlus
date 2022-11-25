@@ -31,7 +31,7 @@ static std::string get_thread_id_as_string(std::thread::id id = std::this_thread
 
 static std::string simulate_nested_scheduling(const auto& worker, std::vector<std::string>& out)
 {
-    const std::thread thread([&]
+    std::thread thread([&]
     {
         worker.schedule([&]
         {
