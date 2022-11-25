@@ -11,6 +11,7 @@
 
 #include <rpp/schedulers/fwd.hpp>  // own forwarding
 #include <rpp/schedulers/constraints.hpp>
+#include <rpp/subscriptions/subscription_guard.hpp>
 
 #include <mutex>
 #include <condition_variable>
