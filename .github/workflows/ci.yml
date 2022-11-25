@@ -18,7 +18,7 @@ jobs:
   download_deps:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest, macos-10.15]
 
     runs-on: ${{ matrix.os }}
     name: Build Deps - ${{ matrix.os }}
@@ -125,7 +125,7 @@ jobs:
         config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest}, 
                  {name: ci-ubuntu-clang,os: ubuntu-latest},
                  {name: ci-windows,     os: windows-latest},
-                 {name: ci-macos,   os: macos-latest}]
+                 {name: ci-macos,   os: macos-10.15}]
         type: [tests, benchmarks]
 
     timeout-minutes: 20
