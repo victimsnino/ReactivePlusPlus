@@ -144,7 +144,7 @@ SCENARIO("group_by keeps subscription till anyone subscribed", "[group_by]")
                     }
                     AND_WHEN("unsubscribe sub-subscriptions")
                     {
-                        rpp::utils::for_each(sub_subscriptions, &rpp::composite_subscription::unsubscribe);
+                        rpp::utils::for_each(sub_subscriptions, std::mem_fn(&rpp::composite_subscription::unsubscribe));
                         THEN("root subscription is still alive")
                         {
                             CHECK(sub.is_subscribed());
@@ -153,7 +153,7 @@ SCENARIO("group_by keeps subscription till anyone subscribed", "[group_by]")
                     AND_WHEN("unsubscribe all")
                     {
                         sub.unsubscribe();
-                        rpp::utils::for_each(sub_subscriptions, &rpp::composite_subscription::unsubscribe);
+                        rpp::utils::for_each(sub_subscriptions, std::mem_fn(&rpp::composite_subscription::unsubscribe));
                         THEN("no any active subscriptions")
                         {
                             CHECK(!sub.is_subscribed());

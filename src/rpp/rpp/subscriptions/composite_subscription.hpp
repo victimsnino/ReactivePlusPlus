@@ -156,8 +156,7 @@ private:
                 DepsState expected{DepsState::None};
                 if (m_state.compare_exchange_strong(expected, DepsState::Unsubscribed, std::memory_order::acq_rel))
                 {
-                    for(const auto& state : m_deps)
-                        state->unsubscribe();
+                    rpp::utils::for_each(m_deps, std::mem_fn(&details::subscription_state::unsubscribe));
                     m_deps.clear();
                     return;
                 }
