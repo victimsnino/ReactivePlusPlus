@@ -74,7 +74,7 @@ Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Pe
 - (ubuntu) gcc-10
 - (ubuntu) clang-11
 - (windows) visual studio 2022
-- (macos) Apple Clang 13
+- (macos) Apple Clang 14
 
 # Useful links
 - [Why ReactivePlusPlus? What about existing Reactive Extension libraries for C++?](https://victimsnino.github.io/ReactivePlusPlus/docs/html/why_rpp.html)
