@@ -19,8 +19,6 @@
 
 #include <rpp/observables/fwd.hpp>
 
-#include <ranges>
-
 namespace rpp::details
 {
 struct create_tag;
@@ -63,7 +61,7 @@ template<memory_model memory_model = memory_model::use_stack, typename T, typena
 auto just(T&& item, Ts&& ...items) requires (rpp::details::is_header_included<rpp::details::just_tag, T, Ts...> && (constraint::decayed_same_as<T, Ts> && ...));
 
 template<memory_model memory_model= memory_model::use_stack, schedulers::constraint::scheduler TScheduler = schedulers::immediate>
-auto from_iterable(std::ranges::range auto&& iterable, const TScheduler& scheduler = TScheduler{}) requires rpp::details::is_header_included <rpp::details::from_tag, TScheduler > ;
+auto from_iterable(constraint::iterable auto&& iterable, const TScheduler& scheduler = TScheduler{}) requires rpp::details::is_header_included <rpp::details::from_tag, TScheduler > ;
 
 template<memory_model memory_model = memory_model::use_stack>
 auto from_callable(std::invocable<> auto&& callable) requires rpp::details::is_header_included<rpp::details::from_tag, decltype(callable)>;

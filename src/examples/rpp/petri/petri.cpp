@@ -19,8 +19,6 @@ using PetriNet = std::map<Transition, Mutations>;
 using Marking  = std::map<Place, int>;
 typedef void (*const TransitionFunction)(void);
 
-using namespace std::ranges;
-
 void foo() { std::cout << "foo" << std::endl; }
 void bar() { std::cout << "bar" << std::endl; }
 
@@ -39,16 +37,16 @@ const auto& run_transition(Transition t)
 std::pair<Marking, Transitions> mutate_marking(Marking&& marking, const Places& produce)
 {
     // Produce tokens
-    for_each(produce, [&marking](const auto& place) { marking[place] += 1; });
+    std::for_each(produce.cbegin(), produce.cend(), [&marking](const auto& place) { marking[place] += 1; });
     // Consume tokens by exeucting enabled transitions
     Transitions transitions;
     for (const auto& [transition, mutations] : net)
     {
         const auto& c = mutations.consume;
         if (!c.empty() &&
-            all_of(c, [&](const auto& place) { return marking[place] >= count(c, place); }))
+            std::all_of(c.cbegin(), c.cend(), [&](const auto& place) { return marking[place] >= std::count(c.cbegin(), c.cend(), place); }))
         {
-            for_each(c, [&marking](const auto& place) { marking[place] -= 1; });
+            std::for_each(c.cbegin(), c.cend(), [&marking](const auto& place) { marking[place] -= 1; });
             transitions.push_back(transition);
         }
     }
@@ -78,7 +76,7 @@ int main()
               {
                   Transitions transitions;
                   std::tie(marking, transitions) = mutate_marking(std::forward<decltype(marking)>(marking), places);
-                  for_each(transitions,
+                  std::for_each(transitions.cbegin(), transitions.cend(),
                            [dispatcher = transitions_subject.get_subscriber()](const auto& t)
                            { dispatcher.on_next(t); });
                   return std::forward<decltype(marking)>(marking);

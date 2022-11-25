@@ -10,12 +10,15 @@
 
 #pragma once
 
+#include "rpp/utils/utilities.hpp"
+
 #include <rpp/subscriptions/subscription_base.hpp>
 #include <rpp/subscriptions/callback_subscription.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/subscriptions/constraints.hpp>
 
 #include <algorithm>
+#include <functional>
 #include <vector>
 
 namespace rpp
@@ -154,7 +157,7 @@ private:
                 DepsState expected{DepsState::None};
                 if (m_state.compare_exchange_strong(expected, DepsState::Unsubscribed, std::memory_order::acq_rel))
                 {
-                    std::ranges::for_each(m_deps, &subscription_state::unsubscribe);
+                    rpp::utils::for_each(m_deps, std::mem_fn(&details::subscription_state::unsubscribe));
                     m_deps.clear();
                     return;
                 }

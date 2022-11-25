@@ -70,7 +70,11 @@ amount_of_clicks
 
 Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. As a result it is fast, readable, easy to use and well-documented. And it is proven with [continous benchmarking results and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
 
-**NOTE**: ReactivePlusPlus is library for C++20. So, it works only on compilers that supports most C++20 features. CI uses gcc-10, clang-11, visual studio 2022
+**NOTE**: ReactivePlusPlus is library for C++20. So, it works only on compilers that supports most C++20 features. List of minimal supported compilers:
+- (ubuntu) gcc-10
+- (ubuntu) clang-11
+- (windows) visual studio 2022
+- (macos) Apple Clang 14
 
 # Useful links
 - [Why ReactivePlusPlus? What about existing Reactive Extension libraries for C++?](https://victimsnino.github.io/ReactivePlusPlus/docs/html/why_rpp.html)

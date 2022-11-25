@@ -24,6 +24,8 @@ jobs:
       
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
+        with:
+          cache: true
       
       - name: Cmake
         run: cmake -S . -B build -DRPP_BUILD_TESTS=1 -DRPP_BUILD_QT_CODE=1

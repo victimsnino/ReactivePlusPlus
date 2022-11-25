@@ -76,18 +76,16 @@ private:
 
         ~state()
         {
-            m_source.request_stop();
+            m_queue.unsubscribe();
             m_sub.unsubscribe();
         }
 
         details::queue_worker_state<run_loop_schedulable>& get_queue() { return m_queue; }
-        std::stop_token                                    get_token() const { return m_source.get_token(); }
-
+        
         const composite_subscription& get_subscription() const { return m_sub; }
     private:
         rpp::composite_subscription                       m_sub;
         details::queue_worker_state<run_loop_schedulable> m_queue{};
-        std::stop_source                                  m_source{};
     };
 
 public:
@@ -126,7 +124,7 @@ public:
     void dispatch() const
     {
         std::optional<run_loop_schedulable> fn{};
-        if (m_state->get_queue().pop_with_wait(fn, m_state->get_token()))
+        if (m_state->get_queue().pop_with_wait(fn))
             (*fn)();
     }
 

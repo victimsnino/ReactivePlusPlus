@@ -18,7 +18,7 @@ jobs:
   download_deps:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     runs-on: ${{ matrix.os }}
     name: Build Deps - ${{ matrix.os }}
@@ -63,6 +63,8 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
+      with:
+        cache: true
 
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -98,6 +100,8 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
+      with:
+        cache: true
       
     - name: Restore Catch2 
       uses: actions/cache@v3
@@ -120,7 +124,8 @@ jobs:
       matrix:    
         config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest}, 
                  {name: ci-ubuntu-clang,os: ubuntu-latest},
-                 {name: ci-windows,     os: windows-latest}]
+                 {name: ci-windows,     os: windows-latest},
+                 {name: ci-macos,   os: macos-latest}]
         type: [tests, benchmarks]
 
     timeout-minutes: 20
@@ -135,9 +140,11 @@ jobs:
     - name: Install Qt
       if: matrix.type == 'tests'
       uses: jurplel/install-qt-action@v3
+      with:
+        cache: true
       
     - name: Install deps
-      if: matrix.config.os != 'windows-latest'
+      if: matrix.config.os == 'ubuntu-latest'
       run: |
         sudo apt-get update -q && sudo apt-get install clang-tidy cppcheck libsfml-dev -y -q
         pip install pyyaml
@@ -198,6 +205,8 @@ jobs:
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
+        with:
+          cache: true
       
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
@@ -283,6 +292,8 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
+      with:
+        cache: true
           
     - name: Install project and build
       env:

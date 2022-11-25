@@ -12,6 +12,7 @@
 #include <rpp/subscribers/dynamic_subscriber.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/utils/overloaded.hpp>
+#include <rpp/utils/utilities.hpp>
 
 #include <functional>
 #include <memory>
@@ -73,25 +74,25 @@ public:
     void on_next(const T& v)
     {
         if (auto subs = extract_subscribers_under_lock_if_there())
-            std::ranges::for_each(*subs, [&](const auto& sub) { sub.on_next(v); });
+            rpp::utils::for_each(*subs, [&](const auto& sub) { sub.on_next(v); });
     }
 
     void on_error(const std::exception_ptr& err)
     {
         if (auto subs = exchange_subscribers_under_lock_if_there(state_t{err}))
-            std::ranges::for_each(*subs, [&](const auto& sub) { sub.on_error(err); });
+            rpp::utils::for_each(*subs, [&](const auto& sub) { sub.on_error(err); });
     }
 
     void on_completed()
     {
         if (auto subs = exchange_subscribers_under_lock_if_there(completed{}))
-            std::ranges::for_each(*subs, std::mem_fn(&dynamic_subscriber<T>::on_completed));
+            rpp::utils::for_each(*subs, std::mem_fn(&dynamic_subscriber<T>::on_completed));
     }
 
     void on_unsubscribe()
     {
         if (auto subs = exchange_subscribers_under_lock_if_there(unsubscribed{}))
-            std::ranges::for_each(*subs, std::mem_fn(&dynamic_subscriber<T>::unsubscribe));
+            rpp::utils::for_each(*subs, std::mem_fn(&dynamic_subscriber<T>::unsubscribe));
     }
 
 private:
@@ -104,9 +105,10 @@ private:
     {
         auto subs = std::make_shared<std::vector<dynamic_subscriber<T>>>();
         subs->reserve(expected_size);
-        std::ranges::copy_if(*current_subs,
-                             std::back_inserter(*subs),
-                             std::mem_fn(&dynamic_subscriber<T>::is_subscribed));
+        std::copy_if(current_subs->cbegin(),
+                     current_subs->cend(),
+                     std::back_inserter(*subs),
+                     std::mem_fn(&dynamic_subscriber<T>::is_subscribed));
         return subs;
     }
 

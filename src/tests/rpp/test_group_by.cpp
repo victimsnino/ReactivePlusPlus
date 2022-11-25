@@ -46,7 +46,7 @@ SCENARIO("group_by emits grouped seqences of values", "[group_by]")
                 CHECK(grouped_mocks.size() == 4);
                 for(const auto& [key, observer] : grouped_mocks)
                 {
-                    CHECK(std::ranges::all_of(observer.get_received_values(), [key=key](int v){return v == key;}));
+                    CHECK(rpp::utils::all_of(observer.get_received_values(), [key=key](int v){return v == key;}));
                     CHECK(observer.get_total_on_next_count() == 2);
                     CHECK(observer.get_on_error_count() == 0);
                     CHECK(observer.get_on_completed_count() == 1);
@@ -70,7 +70,7 @@ SCENARIO("group_by emits grouped seqences of values", "[group_by]")
                     CHECK(grouped_mocks.size() == 4);
                     for(const auto& [key, observer] : grouped_mocks)
                     {
-                        CHECK(std::ranges::all_of(observer.get_received_values(), [key=key](int v){return v == key;}));
+                        CHECK(rpp::utils::all_of(observer.get_received_values(), [key=key](int v){return v == key;}));
                         if (key == 4)
                             CHECK(observer.get_total_on_next_count() == 1);
                         else
@@ -92,7 +92,7 @@ SCENARIO("group_by emits grouped seqences of values", "[group_by]")
 
                     for(const auto& [key, observer] : grouped_mocks)
                     {
-                        CHECK(std::ranges::all_of(observer.get_received_values(), [key=key](int v){return v == key;}));
+                        CHECK(rpp::utils::all_of(observer.get_received_values(), [key=key](int v){return v == key;}));
                         CHECK(observer.get_total_on_next_count() == 2);
                         CHECK(observer.get_on_error_count() == 0);
                         CHECK(observer.get_on_completed_count() == 1);
@@ -133,18 +133,18 @@ SCENARIO("group_by keeps subscription till anyone subscribed", "[group_by]")
                 {
                     CHECK(sub.is_subscribed());
                     CHECK(sub_subscriptions.size() == 2);
-                    CHECK(std::ranges::all_of(sub_subscriptions, [](const auto& sub){return sub.is_subscribed();}));
+                    CHECK(rpp::utils::all_of(sub_subscriptions, [](const auto& sub){return sub.is_subscribed();}));
                     AND_WHEN("unsubscribe root")
                     {
                         sub.unsubscribe();
                         THEN("sub-subscriptions are still alive")
                         {
-                            CHECK(std::ranges::all_of(sub_subscriptions, [](const auto& sub){return sub.is_subscribed();}));
+                            CHECK(rpp::utils::all_of(sub_subscriptions, [](const auto& sub){return sub.is_subscribed();}));
                         }
                     }
                     AND_WHEN("unsubscribe sub-subscriptions")
                     {
-                        std::ranges::for_each(sub_subscriptions, &rpp::composite_subscription::unsubscribe);
+                        rpp::utils::for_each(sub_subscriptions, std::mem_fn(&rpp::composite_subscription::unsubscribe));
                         THEN("root subscription is still alive")
                         {
                             CHECK(sub.is_subscribed());
@@ -153,11 +153,11 @@ SCENARIO("group_by keeps subscription till anyone subscribed", "[group_by]")
                     AND_WHEN("unsubscribe all")
                     {
                         sub.unsubscribe();
-                        std::ranges::for_each(sub_subscriptions, &rpp::composite_subscription::unsubscribe);
+                        rpp::utils::for_each(sub_subscriptions, std::mem_fn(&rpp::composite_subscription::unsubscribe));
                         THEN("no any active subscriptions")
                         {
                             CHECK(!sub.is_subscribed());
-                            CHECK(std::ranges::all_of(sub_subscriptions, [](const auto& sub){return !sub.is_subscribed();}));
+                            CHECK(rpp::utils::all_of(sub_subscriptions, [](const auto& sub){return !sub.is_subscribed();}));
                         }
                     }
                     AND_WHEN("send on_error")
@@ -166,7 +166,7 @@ SCENARIO("group_by keeps subscription till anyone subscribed", "[group_by]")
                         THEN("no any active subscriptions")
                         {
                             CHECK(!sub.is_subscribed());
-                            CHECK(std::ranges::all_of(sub_subscriptions, [](const auto& sub){return !sub.is_subscribed();}));
+                            CHECK(rpp::utils::all_of(sub_subscriptions, [](const auto& sub){return !sub.is_subscribed();}));
                             CHECK(on_error_count == sub_subscriptions.size()+1);
                         }
                     }
@@ -176,7 +176,7 @@ SCENARIO("group_by keeps subscription till anyone subscribed", "[group_by]")
                         THEN("no any active subscriptions")
                         {
                             CHECK(!sub.is_subscribed());
-                            CHECK(std::ranges::all_of(sub_subscriptions, [](const auto& sub){return !sub.is_subscribed();}));
+                            CHECK(rpp::utils::all_of(sub_subscriptions, [](const auto& sub){return !sub.is_subscribed();}));
                             CHECK(on_completed_count == sub_subscriptions.size()+1);
 
                         }
