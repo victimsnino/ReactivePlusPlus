@@ -24,7 +24,7 @@ requires (rpp\+::details\+::is\+\_\+header\+\_\+included$<$rpp\+::details\+::jus
 requires (rpp\+::details\+::is\+\_\+header\+\_\+included$<$rpp\+::details\+::just\+\_\+tag, T, Ts...$>$ \&\& (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...))}\\auto \mbox{\hyperlink{group__creational__operators_ga7b515c5141989e407b1883fe6a1555f3}{rpp\+::observable\+::just}} (T \&\&item, Ts \&\&...items)
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits a particular items and completes. \end{DoxyCompactList}\item 
 {\footnotesize template$<$memory\+\_\+model memory\+\_\+model, schedulers\+::constraint\+::scheduler TScheduler$>$ \newline
-requires rpp\+::details\+::is\+\_\+header\+\_\+included$<$rpp\+::details\+::from\+\_\+tag, TScheduler $>$}\\auto \mbox{\hyperlink{group__creational__operators_gaa10b9e881db7e4a1ba5dad86d48e5220}{rpp\+::observable\+::from\+\_\+iterable}} (std\+::ranges\+::range auto \&\&iterable, const TScheduler \&scheduler)
+requires rpp\+::details\+::is\+\_\+header\+\_\+included$<$rpp\+::details\+::from\+\_\+tag, TScheduler $>$}\\auto \mbox{\hyperlink{group__creational__operators_gaf796daac1f2e2450818dc95230946f54}{rpp\+::observable\+::from\+\_\+iterable}} (constraint\+::iterable auto \&\&iterable, const TScheduler \&scheduler)
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits a items from provided iterable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$memory\+\_\+model memory\+\_\+model$>$ \newline
 requires rpp\+::details\+::is\+\_\+header\+\_\+included$<$rpp\+::details\+::from\+\_\+tag, decltype(callable)$>$}\\auto \mbox{\hyperlink{group__creational__operators_ga52959b5368cc881f38a305a3b5e1ded3}{rpp\+::observable\+::from\+\_\+callable}} (std\+::invocable$<$$>$ auto \&\&callable)
@@ -191,13 +191,13 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/from.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/from.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__creational__operators_gaa10b9e881db7e4a1ba5dad86d48e5220}\label{group__creational__operators_gaa10b9e881db7e4a1ba5dad86d48e5220}} 
+\mbox{\Hypertarget{group__creational__operators_gaf796daac1f2e2450818dc95230946f54}\label{group__creational__operators_gaf796daac1f2e2450818dc95230946f54}} 
 \index{Creational Operators@{Creational Operators}!from\_iterable@{from\_iterable}}
 \index{from\_iterable@{from\_iterable}!Creational Operators@{Creational Operators}}
 \doxysubsubsection{\texorpdfstring{from\_iterable()}{from\_iterable()}}
 {\footnotesize\ttfamily template$<$memory\+\_\+model memory\+\_\+model, schedulers\+::constraint\+::scheduler TScheduler$>$ \newline
 requires rpp\+::details\+::is\+\_\+header\+\_\+included$<$rpp\+::details\+::from\+\_\+tag, TScheduler $>$\\
-auto rpp\+::observable\+::from\+\_\+iterable (\begin{DoxyParamCaption}\item[{std\+::ranges\+::range auto \&\&}]{iterable,  }\item[{const TScheduler \&}]{scheduler }\end{DoxyParamCaption})}
+auto rpp\+::observable\+::from\+\_\+iterable (\begin{DoxyParamCaption}\item[{constraint\+::iterable auto \&\&}]{iterable,  }\item[{const TScheduler \&}]{scheduler }\end{DoxyParamCaption})}
 
 
 

@@ -3,6 +3,12 @@
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_abd4411189fb1f8dcd27a76a7fa49e74f}\label{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_abd4411189fb1f8dcd27a76a7fa49e74f}} 
+{\bfseries queue\+\_\+worker\+\_\+state} (const \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1queue__worker__state}{queue\+\_\+worker\+\_\+state}} \&)=delete
+\item 
+\mbox{\Hypertarget{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_aaf3480047c1e8e352cd11492d23a2af2}\label{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_aaf3480047c1e8e352cd11492d23a2af2}} 
+{\bfseries queue\+\_\+worker\+\_\+state} (\mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1queue__worker__state}{queue\+\_\+worker\+\_\+state}} \&\&)=delete
+\item 
 \mbox{\Hypertarget{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_a2965d9bcc4f4fcea3d780dc63211b325}\label{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_a2965d9bcc4f4fcea3d780dc63211b325}} 
 void {\bfseries emplace} (time\+\_\+point time\+\_\+point, constraint\+::inner\+\_\+schedulable\+\_\+fn auto \&\&fn)
 \item 
@@ -15,11 +21,14 @@ bool {\bfseries is\+\_\+any\+\_\+ready\+\_\+schedulable} () const
 \mbox{\Hypertarget{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_a8db7d03ec094243abdf84531d914f0e7}\label{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_a8db7d03ec094243abdf84531d914f0e7}} 
 bool {\bfseries pop\+\_\+if\+\_\+ready} (std\+::optional$<$ Schedulable\+Fn $>$ \&out)
 \item 
-\mbox{\Hypertarget{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_a618253974ffb63707719baf0123bd20f}\label{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_a618253974ffb63707719baf0123bd20f}} 
-bool {\bfseries pop\+\_\+with\+\_\+wait} (std\+::optional$<$ Schedulable\+Fn $>$ \&out, const std\+::stop\+\_\+token \&token)
+\mbox{\Hypertarget{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_a032075c28a27fd88d68fa77676668d6d}\label{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_a032075c28a27fd88d68fa77676668d6d}} 
+bool {\bfseries pop\+\_\+with\+\_\+wait} (std\+::optional$<$ Schedulable\+Fn $>$ \&out)
 \item 
-\mbox{\Hypertarget{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_afda8e9cae03395a982ab6f6d1892036e}\label{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_afda8e9cae03395a982ab6f6d1892036e}} 
-void {\bfseries reset} ()
+\mbox{\Hypertarget{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_a42f5635673becbc588059483c85ffbd2}\label{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_a42f5635673becbc588059483c85ffbd2}} 
+bool {\bfseries is\+\_\+subscribed} () const
+\item 
+\mbox{\Hypertarget{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_acbd3dbe4602afbff9eddce89263e6a56}\label{classrpp_1_1schedulers_1_1details_1_1queue__worker__state_acbd3dbe4602afbff9eddce89263e6a56}} 
+void {\bfseries unsubscribe} ()
 \end{DoxyCompactItemize}
 
 

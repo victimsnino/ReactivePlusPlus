@@ -132,11 +132,11 @@ requires (rpp::details::is_header_included&lt;rpp::details::just_tag, T, Ts...&g
 <tr class="memitem:ga7b515c5141989e407b1883fe6a1555f3"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga7b515c5141989e407b1883fe6a1555f3">rpp::observable::just</a> (T &amp;&amp;item, Ts &amp;&amp;...items)</td></tr>
 <tr class="memdesc:ga7b515c5141989e407b1883fe6a1555f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">rpp::specific_observable</a> that emits a particular items and completes.  <br /></td></tr>
 <tr class="separator:ga7b515c5141989e407b1883fe6a1555f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa10b9e881db7e4a1ba5dad86d48e5220"><td class="memTemplParams" colspan="2">template&lt;memory_model memory_model, schedulers::constraint::scheduler TScheduler&gt; <br />
+<tr class="memitem:gaf796daac1f2e2450818dc95230946f54"><td class="memTemplParams" colspan="2">template&lt;memory_model memory_model, schedulers::constraint::scheduler TScheduler&gt; <br />
 requires rpp::details::is_header_included&lt;rpp::details::from_tag, TScheduler &gt;</td></tr>
-<tr class="memitem:gaa10b9e881db7e4a1ba5dad86d48e5220"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gaa10b9e881db7e4a1ba5dad86d48e5220">rpp::observable::from_iterable</a> (std::ranges::range auto &amp;&amp;iterable, const TScheduler &amp;scheduler)</td></tr>
-<tr class="memdesc:gaa10b9e881db7e4a1ba5dad86d48e5220"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">rpp::specific_observable</a> that emits a items from provided iterable.  <br /></td></tr>
-<tr class="separator:gaa10b9e881db7e4a1ba5dad86d48e5220"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf796daac1f2e2450818dc95230946f54"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gaf796daac1f2e2450818dc95230946f54">rpp::observable::from_iterable</a> (constraint::iterable auto &amp;&amp;iterable, const TScheduler &amp;scheduler)</td></tr>
+<tr class="memdesc:gaf796daac1f2e2450818dc95230946f54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">rpp::specific_observable</a> that emits a items from provided iterable.  <br /></td></tr>
+<tr class="separator:gaf796daac1f2e2450818dc95230946f54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga52959b5368cc881f38a305a3b5e1ded3"><td class="memTemplParams" colspan="2">template&lt;memory_model memory_model&gt; <br />
 requires rpp::details::is_header_included&lt;rpp::details::from_tag, decltype(callable)&gt;</td></tr>
 <tr class="memitem:ga52959b5368cc881f38a305a3b5e1ded3"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga52959b5368cc881f38a305a3b5e1ded3">rpp::observable::from_callable</a> (std::invocable&lt;&gt; auto &amp;&amp;callable)</td></tr>
@@ -330,8 +330,8 @@ requires rpp::details::is_header_included&lt;rpp::details::from_tag, decltype(ca
 
 </div>
 </div>
-<a id="gaa10b9e881db7e4a1ba5dad86d48e5220" name="gaa10b9e881db7e4a1ba5dad86d48e5220"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa10b9e881db7e4a1ba5dad86d48e5220">&#9670;&#160;</a></span>from_iterable()</h2>
+<a id="gaf796daac1f2e2450818dc95230946f54" name="gaf796daac1f2e2450818dc95230946f54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf796daac1f2e2450818dc95230946f54">&#9670;&#160;</a></span>from_iterable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -342,7 +342,7 @@ requires rpp::details::is_header_included&lt;rpp::details::from_tag, TScheduler 
         <tr>
           <td class="memname">auto rpp::observable::from_iterable </td>
           <td>(</td>
-          <td class="paramtype">std::ranges::range auto &amp;&amp;&#160;</td>
+          <td class="paramtype">constraint::iterable auto &amp;&amp;&#160;</td>
           <td class="paramname"><em>iterable</em>, </td>
         </tr>
         <tr>
