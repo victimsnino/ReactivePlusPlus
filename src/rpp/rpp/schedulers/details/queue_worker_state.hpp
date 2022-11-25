@@ -108,7 +108,12 @@ public:
         return false;
     }
 
-    void destroy()
+    bool is_subscribed() const 
+    {
+        return m_subscription->is_subscribed(); 
+    }
+
+    void unsubscribe()
     {
        m_subscription->unsubscribe();
     }

@@ -38,6 +38,9 @@ public:
 
         worker_strategy(const rpp::composite_subscription& sub)
         {
+            if (!sub.is_subscribed())
+                return;
+
             auto shared = std::make_shared<state>();
             // init while it is alive as shared
             shared->init_thread(sub);
@@ -92,7 +95,7 @@ public:
                     if (!locked)
                         return;
 
-                    locked->m_queue.destroy();
+                    locked->m_queue.unsubscribe();
 
                     if (locked->m_thread.joinable() && locked->m_thread.get_id() != std::this_thread::get_id())
                         locked->m_thread.join();
@@ -107,7 +110,7 @@ public:
             void data_thread()
             {
                 std::optional<new_thread_schedulable> fn{};
-                while (m_sub->is_subscribed())
+                while (m_queue.is_subscribed())
                 {
                     if (m_queue.pop_with_wait(fn))
                     {
@@ -117,7 +120,7 @@ public:
                 }
 
                 // clear
-                m_queue.destroy();
+                m_queue.unsubscribe();
             }
 
             details::queue_worker_state<new_thread_schedulable> m_queue{};

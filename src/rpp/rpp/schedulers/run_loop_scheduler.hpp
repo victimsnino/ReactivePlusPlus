@@ -76,7 +76,7 @@ private:
 
         ~state()
         {
-            m_queue.destroy();
+            m_queue.unsubscribe();
             m_sub.unsubscribe();
         }
 
