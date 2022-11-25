@@ -1,10 +1,10 @@
 //                   ReactivePlusPlus library
-// 
+//
 //           Copyright Aleksey Loginov 2022 - present.
 //  Distributed under the Boost Software License, Version 1.0.
 //     (See accompanying file LICENSE_1_0.txt or copy at
 //           https://www.boost.org/LICENSE_1_0.txt)
-// 
+//
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
 #pragma once
@@ -93,13 +93,13 @@ public:
 
             m_cv.wait(lock, [&] { return !m_subscription->is_subscribed() || !m_queue.empty(); });
 
-            if (!m_cv.wait_until(lock,
-                                 m_queue.top().get_time_point(),
-                                 [&] { return !m_subscription->is_subscribed() || is_any_ready_schedulable_unsafe(); }))
+            if (m_queue.empty() || !m_cv.wait_until(lock,
+                                                    m_queue.top().get_time_point(),
+                                                    [&] { return !m_subscription->is_subscribed() || is_any_ready_schedulable_unsafe(); }))
                 continue;
 
             if (!m_subscription->is_subscribed())
-                break;
+                return false;
 
             out.emplace(std::move(m_queue.top().extract_function()));
             m_queue.pop();
