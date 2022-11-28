@@ -44,7 +44,7 @@ Currently it provides ability to create observable from QT signal of some QObjec
 QLabel      label{};
 QPushButton button{"CLick me"};
 
-auto amount_of_clicks = rppqt::source::from_signal(button, &QPushButton::pressed) <-------
+auto amount_of_clicks = rppqt::source::from_signal(button, &QPushButton::pressed) // <-------
                           .scan(size_t{}, [](size_t seed, const auto&) { return seed + 1; })
                           .start_with(size_t{})
                           .publish()
@@ -57,7 +57,7 @@ amount_of_clicks
           std::cout << "Some long computation...." << std::endl;
           std::this_thread::sleep_for(std::chrono::seconds{1});
       })
-  .observe_on(rppqt::schedulers::main_thread_scheduler{}) <---------------
+  .observe_on(rppqt::schedulers::main_thread_scheduler{}) // <---------------
   .combine_latest([](size_t slow_clicks, size_t fast_clicks)
                   {
                       return QString{"Slow clicks are %1. Fast clicks are %2"}.arg(slow_clicks).arg(fast_clicks);
