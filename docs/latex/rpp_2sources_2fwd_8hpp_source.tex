@@ -64,17 +64,17 @@
 \DoxyCodeLine{60 template<memory\_model memory\_model = memory\_model::use\_stack, typename T, typename ...Ts>}
 \DoxyCodeLine{61 auto just(T\&\& item, Ts\&\& ...items) requires (rpp::details::is\_header\_included<rpp::details::just\_tag, T, Ts...> \&\& (constraint::decayed\_same\_as<T, Ts> \&\& ...));}
 \DoxyCodeLine{62 }
-\DoxyCodeLine{63 template<memory\_model memory\_model= memory\_model::use\_stack, schedulers::constraint::scheduler TScheduler = schedulers::immediate>}
+\DoxyCodeLine{63 template<memory\_model memory\_model= memory\_model::use\_stack, schedulers::constraint::scheduler TScheduler = rpp::schedulers::default\_schedulers::iteration>}
 \DoxyCodeLine{64 auto \mbox{\hyperlink{group__creational__operators_gaf796daac1f2e2450818dc95230946f54}{from\_iterable}}(constraint::iterable auto\&\& iterable, const TScheduler\& scheduler = TScheduler\{\}) \textcolor{keyword}{requires} rpp::details::is\_header\_included <rpp::details::from\_tag, TScheduler > ;}
 \DoxyCodeLine{65 }
 \DoxyCodeLine{66 \textcolor{keyword}{template}<memory\_model memory\_model = memory\_model::use\_stack>}
 \DoxyCodeLine{67 \textcolor{keyword}{auto} \mbox{\hyperlink{group__creational__operators_ga52959b5368cc881f38a305a3b5e1ded3}{from\_callable}}(std::invocable<> \textcolor{keyword}{auto}\&\& callable) \textcolor{keyword}{requires} rpp::details::is\_header\_included<rpp::details::from\_tag, \textcolor{keyword}{decltype}(callable)>;}
 \DoxyCodeLine{68 }
 \DoxyCodeLine{69 \textcolor{comment}{//************************ INTERVAL *********************//}}
-\DoxyCodeLine{70 \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler = schedulers::immediate>}
+\DoxyCodeLine{70 \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler = rpp::schedulers::default\_schedulers::iteration>}
 \DoxyCodeLine{71 \textcolor{keyword}{auto} \mbox{\hyperlink{group__creational__operators_ga2c3002a4f3af8fcd0f73fab9bf5a0ea3}{interval}}(schedulers::duration period, \textcolor{keyword}{const} TScheduler\& scheduler = TScheduler\{\}) \textcolor{keyword}{requires} rpp::details::is\_header\_included<rpp::details::interval\_tag, TScheduler>;}
 \DoxyCodeLine{72 }
-\DoxyCodeLine{73 \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler = schedulers::immediate>}
+\DoxyCodeLine{73 \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler = rpp::schedulers::default\_schedulers::iteration>}
 \DoxyCodeLine{74 \textcolor{keyword}{auto} \mbox{\hyperlink{group__creational__operators_ga2c3002a4f3af8fcd0f73fab9bf5a0ea3}{interval}}(schedulers::duration first\_delay, schedulers::duration period, \textcolor{keyword}{const} TScheduler\& scheduler = TScheduler\{\}) \textcolor{keyword}{requires} rpp::details::is\_header\_included<rpp::details::interval\_tag, TScheduler>;}
 \DoxyCodeLine{75 \} \textcolor{comment}{// namespace rpp::observable}}
 \DoxyCodeLine{76 }
