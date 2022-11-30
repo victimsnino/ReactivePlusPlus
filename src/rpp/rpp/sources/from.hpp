@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/memory_model.hpp>
+#include <rpp/schedulers/immediate_scheduler.hpp>
 #include <rpp/schedulers/trampoline_scheduler.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/sources/fwd.hpp>
