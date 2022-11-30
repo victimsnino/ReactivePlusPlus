@@ -122,7 +122,7 @@ SCENARIO("from iterable", "[source][from][track_copy]")
 
     GIVEN("observable from copied iterable")
     {
-        auto obs = rpp::source::from_iterable(vals);
+        auto obs = rpp::source::from_iterable(vals, rpp::schedulers::immediate{});
         WHEN("subscribe on it")
         {
             obs.subscribe();
@@ -135,7 +135,7 @@ SCENARIO("from iterable", "[source][from][track_copy]")
     }
     GIVEN("observable from moved iterable")
     {
-        auto obs = rpp::source::from_iterable(std::move(vals));
+        auto obs = rpp::source::from_iterable(std::move(vals), rpp::schedulers::immediate{});
         WHEN("subscribe on it")
         {
             obs.subscribe();
@@ -149,7 +149,7 @@ SCENARIO("from iterable", "[source][from][track_copy]")
 
     GIVEN("observable from copied iterable with shared memory model")
     {
-        auto obs = rpp::source::from_iterable<rpp::memory_model::use_shared>(vals);
+        auto obs = rpp::source::from_iterable<rpp::memory_model::use_shared>(vals, rpp::schedulers::immediate{});
         WHEN("subscribe on it")
         {
             obs.subscribe();
@@ -162,7 +162,7 @@ SCENARIO("from iterable", "[source][from][track_copy]")
     }
     GIVEN("observable from moved iterable")
     {
-        auto obs = rpp::source::from_iterable<rpp::memory_model::use_shared>(std::move(vals));
+        auto obs = rpp::source::from_iterable<rpp::memory_model::use_shared>(std::move(vals), rpp::schedulers::immediate{});
         WHEN("subscribe on it")
         {
             obs.subscribe();
