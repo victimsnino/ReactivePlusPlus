@@ -13,7 +13,7 @@
 #include <rpp/sources/fwd.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/schedulers/fwd.hpp>
-#include <rpp/schedulers/trampoline_scheduler.hpp>
+#include <rpp/schedulers/immediate_scheduler.hpp>
 
 #include <type_traits>
 
@@ -33,7 +33,7 @@ namespace rpp::observable
      * \warn First emission also scheduled and delayed with same interval
      *
      * \param period period which would be used to delay emissions between each other
-     * \param scheduler used for scheduling this periodic emissions. By default used trampoline scheduler
+     * \param scheduler used for scheduling this periodic emissions
      * \return rpp::specific_observable which emits values with provided time_interval
      *
      * \par Examples:
@@ -42,7 +42,7 @@ namespace rpp::observable
      * \ingroup creational_operators
      * \see https://reactivex.io/documentation/operators/interval.html
      */
-    template<schedulers::constraint::scheduler TScheduler /*= rpp::schedulers::default_schedulers::iteration*/>
+    template<schedulers::constraint::scheduler TScheduler /*= schedulers::immediate*/>
     auto interval(schedulers::duration period, const TScheduler& scheduler /* = TScheduler{} */) requires rpp::details::is_header_included<rpp::details::interval_tag, TScheduler>
     {
         return interval(period, period, scheduler);
@@ -58,7 +58,7 @@ namespace rpp::observable
      *
      * \param first_delay period which would be used to delay first emission
      * \param period period which would be used to delay emissions between each other
-     * \param scheduler used for scheduling this periodic emissions. By default used trampoline scheduler
+     * \param scheduler used for scheduling this periodic emissions
      * \return rpp::specific_observable which emits values with provided time_interval
      *
      * \par Examples:
@@ -67,7 +67,7 @@ namespace rpp::observable
      * \ingroup creational_operators
      * \see https://reactivex.io/documentation/operators/interval.html
      */
-    template<schedulers::constraint::scheduler TScheduler /*= rpp::schedulers::default_schedulers::iteration*/>
+    template<schedulers::constraint::scheduler TScheduler /*= schedulers::immediate*/>
     auto interval(schedulers::duration first_delay, schedulers::duration period, const TScheduler& scheduler /* = TScheduler{} */) requires rpp::details::is_header_included<rpp::details::interval_tag, TScheduler>
     {
         return source::create<size_t>([first_delay, period, scheduler](auto&& subscriber)
