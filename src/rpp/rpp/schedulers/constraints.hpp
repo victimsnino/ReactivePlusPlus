@@ -32,4 +32,8 @@ concept scheduler = std::is_base_of_v<details::scheduler_tag, std::decay_t<T>> &
 {
     {t.create_worker(std::declval<rpp::composite_subscription>())} -> worker;
 };
+
+// Forbid trampoline for operator's schedulers! Reason: https://github.com/victimsnino/ReactivePlusPlus/issues/277#issuecomment-1332675622
+template<typename T>
+concept scheduler_not_trampoline = scheduler<T> && !std::derived_from<std::decay_t<T>, trampoline>;
 } // namespace rpp::schedulers::constraint

@@ -68,7 +68,7 @@ struct sample_on_completed
     }
 };
 
-template<constraint::decayed_type Type, schedulers::constraint::scheduler TScheduler>
+template<constraint::decayed_type Type, schedulers::constraint::scheduler_not_trampoline TScheduler>
 struct sample_with_time_impl
 {
     schedulers::duration period;

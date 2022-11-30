@@ -20,7 +20,7 @@ struct observe_on_tag;
 
 namespace rpp::details
 {
-template<constraint::decayed_type Type, schedulers::constraint::scheduler TScheduler>
+template<constraint::decayed_type Type, schedulers::constraint::scheduler_not_trampoline TScheduler>
 struct observe_on_impl;
 
 template<constraint::decayed_type Type, typename SpecificObservable>
@@ -39,13 +39,13 @@ struct member_overload<Type, SpecificObservable, observe_on_tag>
     * \ingroup utility_operators
     * \see https://reactivex.io/documentation/operators/observeon.html
     */
-    template<schedulers::constraint::scheduler TScheduler>
+    template<schedulers::constraint::scheduler_not_trampoline TScheduler>
     auto observe_on(TScheduler&& scheduler) const& requires is_header_included<observe_on_tag, TScheduler>
     {
         return cast_this()->delay(schedulers::duration{0}, std::forward<TScheduler>(scheduler));
     }
 
-    template<schedulers::constraint::scheduler TScheduler>
+    template<schedulers::constraint::scheduler_not_trampoline TScheduler>
     auto observe_on(TScheduler&& scheduler) && requires is_header_included<observe_on_tag, TScheduler>
     {
         return move_this().delay(schedulers::duration{0}, std::forward<TScheduler>(scheduler));

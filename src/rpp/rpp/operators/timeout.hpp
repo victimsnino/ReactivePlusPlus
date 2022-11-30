@@ -57,7 +57,7 @@ struct timeout_state_with_serialized_spinlock : timeout_state
     utils::spinlock spinlock{};
 };
 
-template<constraint::decayed_type Type, schedulers::constraint::scheduler TScheduler>
+template<constraint::decayed_type Type, schedulers::constraint::scheduler_not_trampoline TScheduler>
 struct timeout_impl
 {
     schedulers::duration period;

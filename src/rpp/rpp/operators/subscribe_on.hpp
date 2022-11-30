@@ -19,7 +19,7 @@ IMPLEMENTATION_FILE (subscribe_on_tag);
 
 namespace rpp::details
 {
-template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs, schedulers::constraint::scheduler TScheduler>
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs, schedulers::constraint::scheduler_not_trampoline TScheduler>
 auto subscribe_on_impl(TObs&& obs, const TScheduler& scheduler)
 {
     return source::create<Type>([obs = std::forward<TObs>(obs), scheduler]<constraint::subscriber_of_type<Type> TSub>(TSub&& subscriber)

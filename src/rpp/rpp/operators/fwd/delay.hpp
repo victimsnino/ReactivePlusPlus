@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <rpp/schedulers/constraints.hpp>               // schedulers::constraint::scheduler
+#include <rpp/schedulers/constraints.hpp>               // schedulers::constraint::scheduler_not_trampoline
 #include <rpp/observables/details/member_overload.hpp>  // member_overload
 
 namespace rpp::details
@@ -20,7 +20,7 @@ struct delay_tag;
 
 namespace rpp::details
 {
-template<constraint::decayed_type Type, schedulers::constraint::scheduler TScheduler>
+template<constraint::decayed_type Type, schedulers::constraint::scheduler_not_trampoline TScheduler>
 struct delay_impl;
 
 template<constraint::decayed_type Type, typename SpecificObservable>
@@ -48,7 +48,7 @@ struct member_overload<Type, SpecificObservable, delay_tag>
      * \ingroup utility_operators
      * \see https://reactivex.io/documentation/operators/delay.html
      */
-    template<schedulers::constraint::scheduler TScheduler>
+    template<schedulers::constraint::scheduler_not_trampoline TScheduler>
     auto delay(auto&& delay_duration,
                TScheduler&& scheduler) const& requires is_header_included<delay_tag, TScheduler>
     {
@@ -57,7 +57,7 @@ struct member_overload<Type, SpecificObservable, delay_tag>
                                                        std::chrono::duration_cast<rpp::schedulers::duration>(delay_duration)});
     }
 
-    template<schedulers::constraint::scheduler TScheduler>
+    template<schedulers::constraint::scheduler_not_trampoline TScheduler>
     auto delay(auto&& delay_duration,
                TScheduler&& scheduler) && requires is_header_included<delay_tag, TScheduler>
     {

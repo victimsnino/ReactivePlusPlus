@@ -21,7 +21,7 @@ struct subscribe_on_tag;
 
 namespace rpp::details
 {
-template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs, schedulers::constraint::scheduler TScheduler>
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs, schedulers::constraint::scheduler_not_trampoline TScheduler>
 auto subscribe_on_impl(TObs&& obs, TScheduler&& scheduler);
 
 template<constraint::decayed_type Type, typename SpecificObservable>
@@ -40,13 +40,13 @@ struct member_overload<Type, SpecificObservable, subscribe_on_tag>
     * \ingroup utility_operators
     * \see https://reactivex.io/documentation/operators/subscribeon.html
     */
-    template<schedulers::constraint::scheduler TScheduler>
+    template<schedulers::constraint::scheduler_not_trampoline TScheduler>
     auto subscribe_on(const TScheduler& scheduler) const & requires is_header_included<subscribe_on_tag, TScheduler>
     {
         return subscribe_on_impl<Type>(*static_cast<const SpecificObservable*>(this), scheduler);
     }
     
-    template<schedulers::constraint::scheduler TScheduler>
+    template<schedulers::constraint::scheduler_not_trampoline TScheduler>
     auto subscribe_on(const TScheduler& scheduler) && requires is_header_included<subscribe_on_tag, TScheduler>
     {
         return subscribe_on_impl<Type>(std::move(*static_cast<SpecificObservable*>(this)), scheduler);

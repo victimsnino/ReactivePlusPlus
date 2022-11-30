@@ -76,7 +76,7 @@ struct delay_on_completed
 /**
  * \brief Functor of OperatorFn for "combine_latest" operator (used by "lift").
  */
-template<constraint::decayed_type Type, schedulers::constraint::scheduler TScheduler>
+template<constraint::decayed_type Type, schedulers::constraint::scheduler_not_trampoline TScheduler>
 struct delay_impl
 {
     RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
