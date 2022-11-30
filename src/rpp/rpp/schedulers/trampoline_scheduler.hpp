@@ -28,7 +28,9 @@
 namespace rpp::schedulers
 {
 /**
- * \brief schedules execution of schedulables via queueing tasks to the caller thread with priority to time_point and order
+ * \brief Schedules execution of schedulables via queueing tasks to the caller thread with priority to time_point and order. 
+ * \warning Caller thread is thread where "schedule" called. 
+ * \warning For example, in case of merging values from two threads/observables and then using "trampoline", then it would be thread_local for each emission/thread, not one thread selected for all threads.
  *
  * \par Example
  * \snippet trampoline.cpp trampoline
