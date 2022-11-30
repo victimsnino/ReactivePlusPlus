@@ -11,7 +11,7 @@
 #pragma once
 
 #include <rpp/memory_model.hpp>
-#include <rpp/schedulers/immediate_scheduler.hpp>
+#include <rpp/schedulers/trampoline_scheduler.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/sources/fwd.hpp>
 #include <rpp/utils/utilities.hpp>
@@ -183,6 +183,8 @@ auto just(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&
  * \param item first value to be sent
  * \param items rest values to be sent
  * \return rpp::specific_observable with provided item
+ * 
+ * \warning In this case trampoline scheduler would be used.
  *
  * \par Examples:
  * \snippet just.cpp just
@@ -208,7 +210,7 @@ auto just(T&& item, Ts&& ...items) requires (rpp::details::is_header_included<rp
  *
  * \tparam memory_model rpp::memory_model strategy used to handle provided iterable
  * \param scheduler is scheduler used for scheduling of submissions: next item will be submitted to scheduler when previous one is executed
- * \param iterable container with values which will be flattened
+ * \param iterable container with values which will be flattened. By default used trampoline scheduler
  *
  * \par Examples:
  * \snippet from.cpp from_iterable
@@ -218,7 +220,7 @@ auto just(T&& item, Ts&& ...items) requires (rpp::details::is_header_included<rp
  * \ingroup creational_operators
  * \see https://reactivex.io/documentation/operators/from.html
  */
-template<memory_model memory_model /* = memory_model::use_stack */, schedulers::constraint::scheduler TScheduler /* = schedulers::immediate */>
+template<memory_model memory_model /* = memory_model::use_stack */, schedulers::constraint::scheduler TScheduler /* = rpp::schedulers::default_schedulers::iteration */>
 auto from_iterable(constraint::iterable auto&& iterable, const TScheduler& scheduler /* = TScheduler{} */) requires rpp::details::is_header_included<rpp::details::from_tag, TScheduler >
 {
     using Container = std::decay_t<decltype(iterable)>;

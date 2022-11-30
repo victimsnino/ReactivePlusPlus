@@ -33,3 +33,8 @@ using current_thread = trampoline;
 class new_thread;
 class run_loop;
 } // namespace rpp::schedulers
+
+namespace rpp::schedulers::default_schedulers
+{
+using iteration = trampoline;
+} // namespace rpp::default_schedulers
