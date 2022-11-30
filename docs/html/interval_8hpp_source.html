@@ -114,7 +114,7 @@ $(document).ready(function(){initNavTree('interval_8hpp_source.html',''); initRe
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;rpp/sources/fwd.hpp&gt;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;rpp/sources/create.hpp&gt;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;rpp/schedulers/fwd.hpp&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;rpp/schedulers/trampoline_scheduler.hpp&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;rpp/schedulers/immediate_scheduler.hpp&gt;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
@@ -123,13 +123,13 @@ $(document).ready(function(){initNavTree('interval_8hpp_source.html',''); initRe
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span>rpp::observable</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">template</span>&lt;schedulers::constraint::scheduler TScheduler <span class="comment">/*= rpp::schedulers::default_schedulers::iteration*/</span>&gt;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">template</span>&lt;schedulers::constraint::scheduler TScheduler <span class="comment">/*= schedulers::immediate*/</span>&gt;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#ga2c3002a4f3af8fcd0f73fab9bf5a0ea3">interval</a>(schedulers::duration period, <span class="keyword">const</span> TScheduler&amp; scheduler <span class="comment">/* = TScheduler{} */</span>) <span class="keyword">requires</span> rpp::details::is_header_included&lt;rpp::details::interval_tag, TScheduler&gt;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    {</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="group__creational__operators.html#ga2c3002a4f3af8fcd0f73fab9bf5a0ea3">interval</a>(period, period, scheduler);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">template</span>&lt;schedulers::constraint::scheduler TScheduler <span class="comment">/*= rpp::schedulers::default_schedulers::iteration*/</span>&gt;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">template</span>&lt;schedulers::constraint::scheduler TScheduler <span class="comment">/*= schedulers::immediate*/</span>&gt;</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#ga2c3002a4f3af8fcd0f73fab9bf5a0ea3">interval</a>(schedulers::duration first_delay, schedulers::duration period, <span class="keyword">const</span> TScheduler&amp; scheduler <span class="comment">/* = TScheduler{} */</span>) <span class="keyword">requires</span> rpp::details::is_header_included&lt;rpp::details::interval_tag, TScheduler&gt;</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    {</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">return</span> source::create&lt;size_t&gt;([first_delay, period, scheduler](<span class="keyword">auto</span>&amp;&amp; subscriber)</div>

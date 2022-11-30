@@ -17,7 +17,7 @@
 \DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/sources/fwd.hpp>}}
 \DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/sources/create.hpp>}}
 \DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/schedulers/fwd.hpp>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/schedulers/trampoline\_scheduler.hpp>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/schedulers/immediate\_scheduler.hpp>}}
 \DoxyCodeLine{17 }
 \DoxyCodeLine{18 \textcolor{preprocessor}{\#include <type\_traits>}}
 \DoxyCodeLine{19 }
@@ -26,13 +26,13 @@
 \DoxyCodeLine{22 }
 \DoxyCodeLine{23 \textcolor{keyword}{namespace }rpp::observable}
 \DoxyCodeLine{24 \{}
-\DoxyCodeLine{45     \textcolor{keyword}{template}<schedulers::constraint::scheduler TScheduler \textcolor{comment}{/*= rpp::schedulers::default\_schedulers::iteration*/}>}
+\DoxyCodeLine{45     \textcolor{keyword}{template}<schedulers::constraint::scheduler TScheduler \textcolor{comment}{/*= schedulers::immediate*/}>}
 \DoxyCodeLine{46     \textcolor{keyword}{auto} \mbox{\hyperlink{group__creational__operators_ga2c3002a4f3af8fcd0f73fab9bf5a0ea3}{interval}}(schedulers::duration period, \textcolor{keyword}{const} TScheduler\& scheduler \textcolor{comment}{/* = TScheduler\{\} */}) \textcolor{keyword}{requires} rpp::details::is\_header\_included<rpp::details::interval\_tag, TScheduler>}
 \DoxyCodeLine{47     \{}
 \DoxyCodeLine{48         \textcolor{keywordflow}{return} \mbox{\hyperlink{group__creational__operators_ga2c3002a4f3af8fcd0f73fab9bf5a0ea3}{interval}}(period, period, scheduler);}
 \DoxyCodeLine{49     \}}
 \DoxyCodeLine{50 }
-\DoxyCodeLine{70     \textcolor{keyword}{template}<schedulers::constraint::scheduler TScheduler \textcolor{comment}{/*= rpp::schedulers::default\_schedulers::iteration*/}>}
+\DoxyCodeLine{70     \textcolor{keyword}{template}<schedulers::constraint::scheduler TScheduler \textcolor{comment}{/*= schedulers::immediate*/}>}
 \DoxyCodeLine{71     \textcolor{keyword}{auto} \mbox{\hyperlink{group__creational__operators_ga2c3002a4f3af8fcd0f73fab9bf5a0ea3}{interval}}(schedulers::duration first\_delay, schedulers::duration period, \textcolor{keyword}{const} TScheduler\& scheduler \textcolor{comment}{/* = TScheduler\{\} */}) \textcolor{keyword}{requires} rpp::details::is\_header\_included<rpp::details::interval\_tag, TScheduler>}
 \DoxyCodeLine{72     \{}
 \DoxyCodeLine{73         \textcolor{keywordflow}{return} source::create<size\_t>([first\_delay, period, scheduler](\textcolor{keyword}{auto}\&\& subscriber)}
