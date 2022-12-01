@@ -35,7 +35,9 @@ SCENARIO("Any observable can be casted to dynamic_observable", "[observable]")
             auto dynamic_observable = observable.as_dynamic();
 
             THEN("Obtain dynamic_observable of same type")
+            {
                 static_assert(std::is_same<decltype(dynamic_observable), rpp::dynamic_observable<int>>{}, "Type of dynamic observable should be same!");
+            }
         }
 
         WHEN("Construct dynamic_observable by constructor")
@@ -43,7 +45,9 @@ SCENARIO("Any observable can be casted to dynamic_observable", "[observable]")
             auto dynamic_observable = rpp::dynamic_observable{observable};
 
             THEN("Obtain dynamic_observable of same type")
+            {
                 static_assert(std::is_same<decltype(dynamic_observable), rpp::dynamic_observable<int>>{}, "Type of dynamic observable should be same!");
+            }
         }
     };
 

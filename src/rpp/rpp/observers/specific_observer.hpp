@@ -45,10 +45,10 @@ public:
                std::forward<TOnError>(on_error),
                std::forward<TOnCompleted>(on_completed)} {}
 
-    specific_observer(constraint::on_next_fn<T> auto&& on_next, constraint::on_completed_fn auto&& on_completed)
-        : base{std::forward<decltype(on_next)>(on_next),
+    specific_observer(constraint::on_next_fn<T> auto&& on_next, OnCompleted&& on_completed)
+        : base{std::forward<OnNext>(on_next),
                utils::rethrow_error_t{},
-               std::forward<decltype(on_completed)>(on_completed)} {}
+               std::forward<OnCompleted>(on_completed)} {}
 
     /**
      * \brief Converting current rpp::specific_observer to rpp::dynamic_observer alternative with erasing of type (and using heap)
@@ -77,34 +77,33 @@ auto make_specific_observer() -> specific_observer_with_decayed_args<Type>
     return {};
 }
 
-template<constraint::decayed_type Type>
-auto make_specific_observer(constraint::on_next_fn<Type> auto&& on_next) -> specific_observer_with_decayed_args<Type, decltype(on_next)>
+template<constraint::decayed_type Type, constraint::on_next_fn<Type> OnNext>
+auto make_specific_observer( OnNext&& on_next) -> specific_observer_with_decayed_args<Type, OnNext>
 {
-    return {std::forward<decltype(on_next)>(on_next)};
+    return {std::forward<OnNext>(on_next)};
 }
 
-template<constraint::decayed_type Type>
-auto make_specific_observer(constraint::on_next_fn<Type> auto&& on_next,
-                            constraint::on_completed_fn auto&&  on_completed) -> specific_observer_with_decayed_args<Type, decltype(on_next), utils::rethrow_error_t, decltype(on_completed)>
+template<constraint::decayed_type Type, constraint::on_next_fn<Type> OnNext, constraint::on_completed_fn OnCompleted>
+auto make_specific_observer(OnNext&& on_next, OnCompleted&&  on_completed) -> specific_observer_with_decayed_args<Type, OnNext, utils::rethrow_error_t, OnCompleted>
 {
-    return {std::forward<decltype(on_next)>(on_next), std::forward<decltype(on_completed)>(on_completed)};
+    return {std::forward<OnNext>(on_next), std::forward<OnCompleted>(on_completed)};
 }
 
-template<constraint::decayed_type Type>
-auto make_specific_observer(constraint::on_next_fn<Type> auto&& on_next,
-                            constraint::on_error_fn auto&&      on_error) -> specific_observer_with_decayed_args<Type, decltype(on_next), decltype(on_error)>
+template<constraint::decayed_type Type, constraint::on_next_fn<Type> OnNext, constraint::on_error_fn OnError>
+auto make_specific_observer(OnNext&& on_next,
+                            OnError&&      on_error) -> specific_observer_with_decayed_args<Type, OnNext, OnError>
 {
-    return {std::forward<decltype(on_next)>(on_next), std::forward<decltype(on_error)>(on_error)};
+    return {std::forward<OnNext>(on_next), std::forward<OnError>(on_error)};
 }
 
-template<constraint::decayed_type Type>
-auto make_specific_observer(constraint::on_next_fn<Type> auto&& on_next,
-                            constraint::on_error_fn auto&&      on_error,
-                            constraint::on_completed_fn auto&&  on_completed) -> specific_observer_with_decayed_args<Type, decltype(on_next), decltype(on_error), decltype(on_completed)>
+template<constraint::decayed_type Type, constraint::on_next_fn<Type> OnNext, constraint::on_error_fn OnError, constraint::on_completed_fn OnCompleted>
+auto make_specific_observer(OnNext&& on_next,
+                            OnError&&      on_error,
+                            OnCompleted&&  on_completed) -> specific_observer_with_decayed_args<Type, OnNext, OnError, OnCompleted>
 {
-    return {std::forward<decltype(on_next)>(on_next),
-            std::forward<decltype(on_error)>(on_error),
-            std::forward<decltype(on_completed)>(on_completed)};
+    return {std::forward<OnNext>(on_next),
+            std::forward<OnError>(on_error),
+            std::forward<OnCompleted>(on_completed)};
 }
 
 
