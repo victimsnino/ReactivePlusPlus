@@ -45,10 +45,10 @@ public:
                std::forward<TOnError>(on_error),
                std::forward<TOnCompleted>(on_completed)} {}
 
-    specific_observer(constraint::on_next_fn<T> auto&& on_next, OnCompleted&& on_completed)
-        : base{std::forward<OnNext>(on_next),
+    specific_observer(constraint::on_next_fn<T> auto&& on_next, constraint::on_completed_fn auto&& on_completed)
+        : base{std::forward<decltype(on_next)>(on_next),
                utils::rethrow_error_t{},
-               std::forward<OnCompleted>(on_completed)} {}
+               std::forward<decltype(on_completed)>(on_completed)} {}
 
     /**
      * \brief Converting current rpp::specific_observer to rpp::dynamic_observer alternative with erasing of type (and using heap)
