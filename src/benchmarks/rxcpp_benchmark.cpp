@@ -1,8 +1,9 @@
+#include <tuple>
+
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/benchmark/catch_benchmark.hpp>
 #include <rxcpp/rx.hpp>
 
-#include <tuple>
 
 
 auto MakeSpecificObserver()
@@ -346,67 +347,67 @@ TEST_CASE("distinct_until_changed")
     };
 }
 
-TEST_CASE("with_latest_from")
-{
-    BENCHMARK_ADVANCED("with_latest_from construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
-    {
-        const auto obs = rxcpp::sources::create<int>([](const auto& sub)
-        {
-            sub.on_next(1);
-        });
-        auto sub = rxcpp::make_subscriber<std::tuple<int, int, int>>([](const auto&) {});
+// TEST_CASE("with_latest_from")
+// {
+//     BENCHMARK_ADVANCED("with_latest_from construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+//     {
+//         const auto obs = rxcpp::sources::create<int>([](const auto& sub)
+//         {
+//             sub.on_next(1);
+//         });
+//         auto sub = rxcpp::make_subscriber<std::tuple<int, int, int>>([](const auto&) {});
+//
+//         meter.measure([&]
+//         {
+//             return obs.with_latest_from(obs,obs).subscribe(sub);
+//         });
+//     };
+//
+//     BENCHMARK_ADVANCED("sending of values from observable via with_latest_from to subscriber")(Catch::Benchmark::Chronometer meter)
+//     {
+//         rxcpp::sources::create<int>([&](const auto& sub)
+//                 {
+//                     meter.measure([&]
+//                     {
+//                         sub.on_next(1);
+//                     });
+//                 })
+//                 .with_latest_from(rxcpp::sources::just(1))
+//                 .subscribe([](const auto&) {});
+//     };
+// }
 
-        meter.measure([&]
-        {
-            return obs.with_latest_from(obs,obs).subscribe(sub);
-        });
-    };
-
-    BENCHMARK_ADVANCED("sending of values from observable via with_latest_from to subscriber")(Catch::Benchmark::Chronometer meter)
-    {
-        rxcpp::sources::create<int>([&](const auto& sub)
-                {
-                    meter.measure([&]
-                    {
-                        sub.on_next(1);
-                    });
-                })
-                .with_latest_from(rxcpp::sources::just(1))
-                .subscribe([](const auto&) {});
-    };
-}
-
-TEST_CASE("combine_latest")
-{
-    BENCHMARK_ADVANCED("combine_latest construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
-    {
-        const auto obs = rxcpp::sources::create<int>([](const auto& sub)
-        {
-            sub.on_next(1);
-            sub.on_next(2);
-            sub.on_next(3);
-        });
-        auto sub = rxcpp::make_subscriber<std::tuple<int, int>>([](const auto&) {});
-
-        meter.measure([&]
-        {
-            return obs.combine_latest(obs).subscribe(sub);
-        });
-    };
-
-    BENCHMARK_ADVANCED("sending of values from observable via combine_latest to subscriber")(Catch::Benchmark::Chronometer meter)
-    {
-        rxcpp::sources::create<int>([&](const auto& sub)
-            {
-                meter.measure([&]
-                {
-                    sub.on_next(1);
-                });
-            })
-            .combine_latest(rxcpp::sources::just(1))
-            .subscribe([](const auto&) {});
-    };
-}
+// TEST_CASE("combine_latest")
+// {
+//     BENCHMARK_ADVANCED("combine_latest construction from observable via dot + subscribe")(Catch::Benchmark::Chronometer meter)
+//     {
+//         const auto obs = rxcpp::sources::create<int>([](const auto& sub)
+//         {
+//             sub.on_next(1);
+//             sub.on_next(2);
+//             sub.on_next(3);
+//         });
+//         auto sub = rxcpp::make_subscriber<std::tuple<int, int>>([](const auto&) {});
+//
+//         meter.measure([&]
+//         {
+//             return obs.combine_latest(obs).subscribe(sub);
+//         });
+//     };
+//
+//     BENCHMARK_ADVANCED("sending of values from observable via combine_latest to subscriber")(Catch::Benchmark::Chronometer meter)
+//     {
+//         rxcpp::sources::create<int>([&](const auto& sub)
+//             {
+//                 meter.measure([&]
+//                 {
+//                     sub.on_next(1);
+//                 });
+//             })
+//             .combine_latest(rxcpp::sources::just(1))
+//             .subscribe([](const auto&) {});
+//     };
+// }
 
 TEST_CASE("switch_on_next")
 {
