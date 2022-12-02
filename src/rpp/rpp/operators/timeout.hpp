@@ -17,6 +17,7 @@
 #include <rpp/operators/fwd/timeout.hpp>
 #include <rpp/subscribers/constraints.hpp>
 #include <rpp/utils/exceptions.hpp>
+#include <rpp/sources/error.hpp>
 
 #include <rpp/utils/spinlock.hpp>
 
@@ -26,22 +27,26 @@ IMPLEMENTATION_FILE(timeout_tag);
 
 namespace rpp::details
 {
+template<constraint::observable FallbackObs>
 struct timeout_state : early_unsubscribe_state
 {
-    using early_unsubscribe_state::early_unsubscribe_state;
+    timeout_state(const FallbackObs& fallback_obs, const composite_subscription& subscription_of_subscriber)
+        : early_unsubscribe_state(subscription_of_subscriber)
+        , fallback_obs{fallback_obs} {}
 
+    FallbackObs                         fallback_obs;
     std::atomic<schedulers::time_point> last_emission_time{};
 
     static constexpr schedulers::time_point s_timeout_reached = schedulers::time_point::min();
 };
 
-template<typename Worker>
+template<constraint::observable FallbackObs, typename Worker>
 struct timeout_on_next
 {
     template<typename Value>
-    void operator()(Value&& v, const auto& subscriber, const std::shared_ptr<timeout_state>& state) const
+    void operator()(Value&& v, const auto& subscriber, const std::shared_ptr<timeout_state<FallbackObs>>& state) const
     {
-        if (state->last_emission_time.exchange(Worker::now(), std::memory_order_acq_rel) != timeout_state::s_timeout_reached)
+        if (state->last_emission_time.exchange(Worker::now(), std::memory_order_acq_rel) != timeout_state<FallbackObs>::s_timeout_reached)
             subscriber.on_next(std::forward<Value>(v));
     }
 };
@@ -49,24 +54,26 @@ struct timeout_on_next
 using timeout_on_error     = early_unsubscribe_on_error;
 using timeout_on_completed = early_unsubscribe_on_completed;
 
-struct timeout_state_with_serialized_spinlock : timeout_state
+template<constraint::observable FallbackObs>
+struct timeout_state_with_serialized_spinlock : timeout_state<FallbackObs>
 {
-    using timeout_state::timeout_state;
+    using timeout_state<FallbackObs>::timeout_state;
 
     // spinlock because most part of time there is only one thread would be active
     utils::spinlock spinlock{};
 };
 
-template<constraint::decayed_type Type, schedulers::constraint::scheduler TScheduler>
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> FallbackObs, schedulers::constraint::scheduler TScheduler>
 struct timeout_impl
 {
     schedulers::duration period;
+    FallbackObs          fallback_obs;
     TScheduler           scheduler;
 
     template<constraint::subscriber_of_type<Type> TSub>
     auto operator()(TSub&& in_subscriber) const
     {
-        auto state = std::make_shared<timeout_state_with_serialized_spinlock>(in_subscriber.get_subscription());
+        auto state = std::make_shared<timeout_state_with_serialized_spinlock<FallbackObs>>(fallback_obs, in_subscriber.get_subscription());
         // change subscriber to serialized to avoid manual using of mutex
         auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber),
                                                      std::shared_ptr<utils::spinlock>{state, &state->spinlock});
@@ -83,7 +90,7 @@ struct timeout_impl
                                 // last emission time still same value -> timeout reached, else -> prev_emission_time
                                 // would be update to actual emission time
                                 if (state->last_emission_time.compare_exchange_strong(prev_emission_time,
-                                                                                      timeout_state::s_timeout_reached,
+                                                                                      timeout_state<FallbackObs>::s_timeout_reached,
                                                                                       std::memory_order_acq_rel))
                                     return time_is_out(state, subscriber);
 
@@ -101,7 +108,7 @@ struct timeout_impl
                         });
 
         return create_subscriber_with_state<Type>(state->children_subscriptions,
-                                                  timeout_on_next<decltype(worker)>{},
+                                                  timeout_on_next<FallbackObs, decltype(worker)>{},
                                                   timeout_on_error{},
                                                   timeout_on_completed{},
                                                   std::move(subscriber),
@@ -112,7 +119,7 @@ private:
     static schedulers::optional_duration time_is_out(const auto& state, const auto& subscriber)
     {
         state->children_subscriptions.unsubscribe();
-        subscriber.on_error(std::make_exception_ptr(utils::timeout{"Timeout reached"}));
+        state->fallback_obs.subscribe(subscriber);
         return std::nullopt;
     }
 };
