@@ -12,6 +12,7 @@
 
 #include <rpp/schedulers/constraints.hpp>
 #include <rpp/sources/fwd.hpp>
+#include <rpp/observables/constraints.hpp>
 #include <rpp/observables/details/member_overload.hpp>
 
 namespace rpp::details
