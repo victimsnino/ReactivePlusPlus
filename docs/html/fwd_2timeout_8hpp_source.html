@@ -112,37 +112,52 @@ $(document).ready(function(){initNavTree('fwd_2timeout_8hpp_source.html',''); in
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;rpp/schedulers/constraints.hpp&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;rpp/observables/details/member_overload.hpp&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>rpp::details</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">struct </span>timeout_tag;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">namespace </span>rpp::details</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">struct </span>timeout_impl;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, <span class="keyword">typename</span> SpecificObservable&gt;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01timeout__tag_01_4.html">   28</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1member__overload.html">member_overload</a>&lt;Type, SpecificObservable, timeout_tag&gt;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>{</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">template</span>&lt;schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">auto</span> timeout(schedulers::duration period, <span class="keyword">const</span> TScheduler&amp; scheduler = TScheduler{}) <span class="keyword">const</span> &amp; <span class="keyword">requires</span> is_header_included&lt;timeout_tag, TScheduler&gt;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;<span class="keyword">template</span> lift&lt;Type&gt;(<a class="code hl_struct" href="structrpp_1_1details_1_1timeout__impl.html">timeout_impl&lt;Type, TScheduler&gt;</a>{period, scheduler});</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">template</span>&lt;schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">auto</span> timeout(schedulers::duration period, <span class="keyword">const</span> TScheduler&amp; scheduler = TScheduler{}) &amp;&amp; <span class="keyword">requires</span> is_header_included&lt;timeout_tag, TScheduler&gt;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">return</span> std::move(*<span class="keyword">static_cast&lt;</span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)).template lift&lt;Type&gt;(<a class="code hl_struct" href="structrpp_1_1details_1_1timeout__impl.html">timeout_impl&lt;Type, TScheduler&gt;</a>{period, scheduler});</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>};</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;rpp/sources/fwd.hpp&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;rpp/observables/constraints.hpp&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;rpp/observables/details/member_overload.hpp&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span>rpp::details</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">struct </span>timeout_tag;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span>rpp::details</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; FallbackObs, schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">struct </span>timeout_impl;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, <span class="keyword">typename</span> SpecificObservable&gt;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01timeout__tag_01_4.html">   29</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1member__overload.html">member_overload</a>&lt;Type, SpecificObservable, timeout_tag&gt;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>{</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; FallbackObs, schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">auto</span> timeout(schedulers::duration period, FallbackObs&amp;&amp; fallback_obs, <span class="keyword">const</span> TScheduler&amp; scheduler = TScheduler{}) <span class="keyword">const</span> &amp; <span class="keyword">requires</span> is_header_included&lt;timeout_tag, FallbackObs, TScheduler&gt;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;<span class="keyword">template</span> lift&lt;Type&gt;(<a class="code hl_struct" href="structrpp_1_1details_1_1timeout__impl.html">timeout_impl</a>&lt;Type, std::decay_t&lt;FallbackObs&gt;, TScheduler&gt;{period, std::forward&lt;FallbackObs&gt;(fallback_obs), scheduler});</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable_of_type&lt;Type&gt; FallbackObs,schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">auto</span> timeout(schedulers::duration period,  FallbackObs&amp;&amp; fallback_obs, <span class="keyword">const</span> TScheduler&amp; scheduler = TScheduler{}) &amp;&amp; <span class="keyword">requires</span> is_header_included&lt;timeout_tag, FallbackObs, TScheduler&gt;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordflow">return</span> std::move(*<span class="keyword">static_cast&lt;</span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)).template lift&lt;Type&gt;(<a class="code hl_struct" href="structrpp_1_1details_1_1timeout__impl.html">timeout_impl</a>&lt;Type, std::decay_t&lt;FallbackObs&gt;, TScheduler&gt;{period, std::forward&lt;FallbackObs&gt;(fallback_obs), scheduler});</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    }</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">template</span>&lt;schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keyword">auto</span> timeout(schedulers::duration period, <span class="keyword">const</span> TScheduler&amp; scheduler = TScheduler{}) <span class="keyword">const</span> &amp; <span class="keyword">requires</span> is_header_included&lt;timeout_tag, TScheduler&gt;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">return</span> timeout(period, rpp::source::error&lt;Type&gt;(std::make_exception_ptr(utils::timeout{<span class="stringliteral">&quot;Timeout reached&quot;</span>})), scheduler);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">template</span>&lt;schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">auto</span> timeout(schedulers::duration period, <span class="keyword">const</span> TScheduler&amp; scheduler = TScheduler{}) &amp;&amp; <span class="keyword">requires</span> is_header_included&lt;timeout_tag, TScheduler&gt;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">return</span> std::move(*<span class="keyword">static_cast&lt;</span>SpecificObservable*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)).timeout(period, rpp::source::error&lt;Type&gt;(std::make_exception_ptr(utils::timeout{<span class="stringliteral">&quot;Timeout reached&quot;</span>})), scheduler);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    }</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>};</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>} <span class="comment">// namespace rpp::details</span></div>
 <div class="ttc" id="astructrpp_1_1details_1_1member__overload_html"><div class="ttname"><a href="structrpp_1_1details_1_1member__overload.html">rpp::details::member_overload</a></div><div class="ttdef"><b>Definition:</b> member_overload.hpp:19</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1timeout__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1timeout__impl.html">rpp::details::timeout_impl</a></div><div class="ttdef"><b>Definition:</b> timeout.hpp:62</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1timeout__impl_html"><div class="ttname"><a href="structrpp_1_1details_1_1timeout__impl.html">rpp::details::timeout_impl</a></div><div class="ttdef"><b>Definition:</b> timeout.hpp:68</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

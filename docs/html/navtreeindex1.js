@@ -12,6 +12,7 @@ var NAVTREEINDEX1 =
 "group__utility__operators.html#ga2d6dfc49bf54893033b45b530f0fcb38":[2,0,2,5,1],
 "group__utility__operators.html#ga345385e805cd439432d447065727df09":[2,0,2,5,8],
 "group__utility__operators.html#ga374d453301a31f00fed7024be4327934":[2,0,2,5,4],
+"group__utility__operators.html#ga4266aff14b3f5313031cca946369ea25":[2,0,2,5,11],
 "group__utility__operators.html#ga9089d55867fc04d1f353dc636e519634":[2,0,2,5,2],
 "group__utility__operators.html#gaae93d14e68fd17524ebc1ac48e6bf35f":[2,0,2,5,10],
 "group__utility__operators.html#gaaf883140cd425aa10c6a314eb014fb9b":[2,0,2,5,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "structrpp_1_1details_1_1take__while__impl.html":[4,0,0,0,126],
 "structrpp_1_1details_1_1timeout__impl.html":[4,0,0,0,127],
 "structrpp_1_1details_1_1timeout__on__next.html":[4,0,0,0,128],
-"structrpp_1_1details_1_1timeout__state.html":[4,0,0,0,129],
-"structrpp_1_1details_1_1timeout__state__with__serialized__spinlock.html":[4,0,0,0,130]
+"structrpp_1_1details_1_1timeout__state.html":[4,0,0,0,129]
 };

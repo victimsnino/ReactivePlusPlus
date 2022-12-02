@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 198.675491
+%%BoundingBox: 0 0 500 151.133499
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,7 +19,7 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 2.516667 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 3.308333 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
@@ -173,8 +173,8 @@
 
 boxfont setfont
 1 boundaspect scale
-(rpp::details::timeout_state_with_serialized_spinlock) cw
-(rpp::details::timeout_state) cw
+(rpp::details::timeout_state_with_serialized_spinlock< FallbackObs >) cw
+(rpp::details::timeout_state< FallbackObs >) cw
 (rpp::details::early_unsubscribe_state) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
@@ -187,8 +187,8 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (rpp::details::timeout_state_with_serialized_spinlock) 0.000000 0.000000 box
- (rpp::details::timeout_state) 0.000000 1.000000 box
+ (rpp::details::timeout_state_with_serialized_spinlock< FallbackObs >) 0.000000 0.000000 box
+ (rpp::details::timeout_state< FallbackObs >) 0.000000 1.000000 box
  (rpp::details::early_unsubscribe_state) 0.000000 2.000000 box
 
 % ----- relations -----

@@ -16,7 +16,7 @@ var searchData=
   ['take_5fwhile_13',['take_while',['../group__conditional__operators.html#ga47773bfb0298bba2ec71502c1984cc95',1,'observable']]],
   ['take_5fwhile_5fimpl_14',['take_while_impl',['../structrpp_1_1details_1_1take__while__impl.html',1,'rpp::details']]],
   ['tap_15',['tap',['../group__utility__operators.html#ga345385e805cd439432d447065727df09',1,'observable::tap(OnNextFn &amp;&amp;on_next, OnErrorFn &amp;&amp;on_error=OnErrorFn{}, OnCompletedFn &amp;&amp;on_completed=OnCompletedFn{}) const &amp;'],['../group__utility__operators.html#ga134878936c20b1ef87d3c655ceffc131',1,'observable::tap(TObs &amp;&amp;observer) const &amp;']]],
-  ['timeout_16',['timeout',['../group__utility__operators.html#gaae93d14e68fd17524ebc1ac48e6bf35f',1,'observable']]],
+  ['timeout_16',['timeout',['../group__utility__operators.html#gaae93d14e68fd17524ebc1ac48e6bf35f',1,'observable::timeout(schedulers::duration period, const TScheduler &amp;scheduler=TScheduler{}) const &amp;'],['../group__utility__operators.html#ga4266aff14b3f5313031cca946369ea25',1,'observable::timeout(schedulers::duration period, FallbackObs &amp;&amp;fallback_obs, const TScheduler &amp;scheduler=TScheduler{}) const &amp;']]],
   ['timeout_5fimpl_17',['timeout_impl',['../structrpp_1_1details_1_1timeout__impl.html',1,'rpp::details']]],
   ['timeout_5fon_5fnext_18',['timeout_on_next',['../structrpp_1_1details_1_1timeout__on__next.html',1,'rpp::details']]],
   ['timeout_5fstate_19',['timeout_state',['../structrpp_1_1details_1_1timeout__state.html',1,'rpp::details']]],

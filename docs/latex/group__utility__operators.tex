@@ -38,6 +38,9 @@ requires is\+\_\+header\+\_\+included$<$repeat\+\_\+tag, Args...$>$}\\auto \mbox
 {\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \newline
 requires is\+\_\+header\+\_\+included$<$subscribe\+\_\+on\+\_\+tag, TScheduler$>$}\\auto \mbox{\hyperlink{group__utility__operators_ga2272435c76e0830c70e111b3270cd3d4}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, subscribe\+\_\+on\+\_\+tag $>$\+::subscribe\+\_\+on}} (const TScheduler \&scheduler) const \&
 \begin{DoxyCompactList}\small\item\em On\+Subscribe function for this observable will be scheduled via provided scheduler. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ Fallback\+Obs, schedulers\+::constraint\+::scheduler TScheduler$>$ \newline
+requires is\+\_\+header\+\_\+included$<$timeout\+\_\+tag, Fallback\+Obs, TScheduler$>$}\\auto \mbox{\hyperlink{group__utility__operators_ga4266aff14b3f5313031cca946369ea25}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, timeout\+\_\+tag $>$\+::timeout}} (schedulers\+::duration period, Fallback\+Obs \&\&fallback\+\_\+obs, const TScheduler \&scheduler=TScheduler\{\}) const \&
+\begin{DoxyCompactList}\small\item\em Forwards emissions from original observable, but subscribes on fallback observable if no any events during specified period of time (since last emission) \end{DoxyCompactList}\item 
 {\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \newline
 requires is\+\_\+header\+\_\+included$<$timeout\+\_\+tag, TScheduler$>$}\\auto \mbox{\hyperlink{group__utility__operators_gaae93d14e68fd17524ebc1ac48e6bf35f}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, timeout\+\_\+tag $>$\+::timeout}} (schedulers\+::duration period, const TScheduler \&scheduler=TScheduler\{\}) const \&
 \begin{DoxyCompactList}\small\item\em Forwards emissions from original observable, but emit error if no any events during specified period of time (since last emission) \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -535,7 +538,7 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \mbox{\Hypertarget{group__utility__operators_gaae93d14e68fd17524ebc1ac48e6bf35f}\label{group__utility__operators_gaae93d14e68fd17524ebc1ac48e6bf35f}} 
 \index{Utility Operators@{Utility Operators}!timeout@{timeout}}
 \index{timeout@{timeout}!Utility Operators@{Utility Operators}}
-\doxysubsubsection{\texorpdfstring{timeout()}{timeout()}}
+\doxysubsubsection{\texorpdfstring{timeout()}{timeout()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
 template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \newline
 requires is\+\_\+header\+\_\+included$<$timeout\+\_\+tag, TScheduler$>$\\
@@ -561,35 +564,92 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<int>}} subj\{\};}
-\DoxyCodeLine{    subj.get\_observable()}
-\DoxyCodeLine{        .timeout(std::chrono::milliseconds\{450\}, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
-\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int}                v) \{ std::cout << \textcolor{stringliteral}{"{}new value "{}} << v << std::endl; \},}
-\DoxyCodeLine{                   [](std::exception\_ptr err)}
-\DoxyCodeLine{                   \{}
-\DoxyCodeLine{                       \textcolor{keywordflow}{try}}
+\DoxyCodeLine{        \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<int>}} subj\{\};}
+\DoxyCodeLine{        subj.get\_observable()}
+\DoxyCodeLine{            .timeout(std::chrono::milliseconds\{450\}, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}                v) \{ std::cout << \textcolor{stringliteral}{"{}new value "{}} << v << std::endl; \},}
+\DoxyCodeLine{                       [](std::exception\_ptr err)}
 \DoxyCodeLine{                       \{}
-\DoxyCodeLine{                           std::rethrow\_exception(err);}
-\DoxyCodeLine{                       \}}
-\DoxyCodeLine{                       \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} std::exception\& exc)}
-\DoxyCodeLine{                       \{}
-\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"{}ERR: "{}} << exc.what() << std::endl;}
-\DoxyCodeLine{                       \}}
-\DoxyCodeLine{                   \},}
-\DoxyCodeLine{                   []() \{ std::cout << \textcolor{stringliteral}{"{}completed"{}} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 10; ++i)}
-\DoxyCodeLine{    \{}
-\DoxyCodeLine{        std::this\_thread::sleep\_for(std::chrono::milliseconds\{i * 100\});}
-\DoxyCodeLine{        subj.get\_subscriber().on\_next(i);}
-\DoxyCodeLine{    \}}
-\DoxyCodeLine{    }
-\DoxyCodeLine{    \textcolor{comment}{// Output:}}
-\DoxyCodeLine{    \textcolor{comment}{// new value 0}}
-\DoxyCodeLine{    \textcolor{comment}{// new value 1}}
-\DoxyCodeLine{    \textcolor{comment}{// new value 2}}
-\DoxyCodeLine{    \textcolor{comment}{// new value 3}}
-\DoxyCodeLine{    \textcolor{comment}{// new value 4}}
-\DoxyCodeLine{    \textcolor{comment}{// ERR : Timeout reached}}
+\DoxyCodeLine{                           \textcolor{keywordflow}{try}}
+\DoxyCodeLine{                           \{}
+\DoxyCodeLine{                               std::rethrow\_exception(err);}
+\DoxyCodeLine{                           \}}
+\DoxyCodeLine{                           \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} std::exception\& exc)}
+\DoxyCodeLine{                           \{}
+\DoxyCodeLine{                               std::cout << \textcolor{stringliteral}{"{}ERR: "{}} << exc.what() << std::endl;}
+\DoxyCodeLine{                           \}}
+\DoxyCodeLine{                       \},}
+\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"{}completed"{}} << std::endl; \});}
+\DoxyCodeLine{        \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 10; ++i)}
+\DoxyCodeLine{        \{}
+\DoxyCodeLine{            std::this\_thread::sleep\_for(std::chrono::milliseconds\{i * 100\});}
+\DoxyCodeLine{            subj.get\_subscriber().on\_next(i);}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{comment}{// Output:}}
+\DoxyCodeLine{        \textcolor{comment}{// new value 0}}
+\DoxyCodeLine{        \textcolor{comment}{// new value 1}}
+\DoxyCodeLine{        \textcolor{comment}{// new value 2}}
+\DoxyCodeLine{        \textcolor{comment}{// new value 3}}
+\DoxyCodeLine{        \textcolor{comment}{// new value 4}}
+\DoxyCodeLine{        \textcolor{comment}{// ERR : Timeout reached}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/timeout.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/timeout.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__utility__operators_ga4266aff14b3f5313031cca946369ea25}\label{group__utility__operators_ga4266aff14b3f5313031cca946369ea25}} 
+\index{Utility Operators@{Utility Operators}!timeout@{timeout}}
+\index{timeout@{timeout}!Utility Operators@{Utility Operators}}
+\doxysubsubsection{\texorpdfstring{timeout()}{timeout()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ Fallback\+Obs, schedulers\+::constraint\+::scheduler TScheduler$>$ \newline
+requires is\+\_\+header\+\_\+included$<$timeout\+\_\+tag, Fallback\+Obs, TScheduler$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, timeout\+\_\+tag $>$\+::timeout (\begin{DoxyParamCaption}\item[{schedulers\+::duration}]{period,  }\item[{Fallback\+Obs \&\&}]{fallback\+\_\+obs,  }\item[{const TScheduler \&}]{scheduler = {\ttfamily TScheduler\{\}} }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Forwards emissions from original observable, but subscribes on fallback observable if no any events during specified period of time (since last emission) 
+
+ 
+\begin{DoxyParams}{Parameters}
+{\em period} & is maximum duration between emitted items before a timeout occurs \\
+\hline
+{\em fallback\+\_\+obs} & is observable to subscribe on when timeout reached \\
+\hline
+{\em scheduler} & is scheduler used to run timer for timeout \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the timeout operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{timeout_8hpp_source}{rpp/operators/timeout.\+hpp}}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{        \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<int>}} subj\{\};}
+\DoxyCodeLine{        subj.get\_observable()}
+\DoxyCodeLine{            .timeout(std::chrono::milliseconds\{450\}, rpp::source::just(100), \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}                v) \{ std::cout << \textcolor{stringliteral}{"{}new value "{}} << v << std::endl; \},}
+\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"{}completed"{}} << std::endl; \});}
+\DoxyCodeLine{        \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 10; ++i)}
+\DoxyCodeLine{        \{}
+\DoxyCodeLine{            std::this\_thread::sleep\_for(std::chrono::milliseconds\{i * 100\});}
+\DoxyCodeLine{            subj.get\_subscriber().on\_next(i);}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{comment}{// Output:}}
+\DoxyCodeLine{        \textcolor{comment}{//new value 0}}
+\DoxyCodeLine{        \textcolor{comment}{//new value 1}}
+\DoxyCodeLine{        \textcolor{comment}{//new value 2}}
+\DoxyCodeLine{        \textcolor{comment}{//new value 3}}
+\DoxyCodeLine{        \textcolor{comment}{//new value 4}}
+\DoxyCodeLine{        \textcolor{comment}{//new value 100}}
+\DoxyCodeLine{        \textcolor{comment}{//completed}}
 
 \end{DoxyCodeInclude}
 

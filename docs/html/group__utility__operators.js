@@ -10,5 +10,6 @@ var group__utility__operators =
     [ "subscribe_on", "group__utility__operators.html#ga2272435c76e0830c70e111b3270cd3d4", null ],
     [ "tap", "group__utility__operators.html#ga345385e805cd439432d447065727df09", null ],
     [ "tap", "group__utility__operators.html#ga134878936c20b1ef87d3c655ceffc131", null ],
-    [ "timeout", "group__utility__operators.html#gaae93d14e68fd17524ebc1ac48e6bf35f", null ]
+    [ "timeout", "group__utility__operators.html#gaae93d14e68fd17524ebc1ac48e6bf35f", null ],
+    [ "timeout", "group__utility__operators.html#ga4266aff14b3f5313031cca946369ea25", null ]
 ];

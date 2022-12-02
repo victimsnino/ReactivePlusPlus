@@ -49,8 +49,8 @@ var hierarchy =
         [ "rpp::details::sample_state_with_serialized_spinlock< Type >", "structrpp_1_1details_1_1sample__state__with__serialized__spinlock.html", null ]
       ] ],
       [ "rpp::details::take_until_state_with_serialized_spinlock", "structrpp_1_1details_1_1take__until__state__with__serialized__spinlock.html", null ],
-      [ "rpp::details::timeout_state", "structrpp_1_1details_1_1timeout__state.html", [
-        [ "rpp::details::timeout_state_with_serialized_spinlock", "structrpp_1_1details_1_1timeout__state__with__serialized__spinlock.html", null ]
+      [ "rpp::details::timeout_state< FallbackObs >", "structrpp_1_1details_1_1timeout__state.html", [
+        [ "rpp::details::timeout_state_with_serialized_spinlock< FallbackObs >", "structrpp_1_1details_1_1timeout__state__with__serialized__spinlock.html", null ]
       ] ],
       [ "rpp::details::with_latest_from_state< TSelector, ValueTypes >", "structrpp_1_1details_1_1with__latest__from__state.html", null ]
     ] ],
@@ -403,8 +403,8 @@ var hierarchy =
     [ "rpp::details::take_until_impl< Type, TTriggerObservable >", "structrpp_1_1details_1_1take__until__impl.html", null ],
     [ "rpp::details::take_until_throttler_on_next", "structrpp_1_1details_1_1take__until__throttler__on__next.html", null ],
     [ "rpp::details::take_while_impl< Type, Predicate >", "structrpp_1_1details_1_1take__while__impl.html", null ],
-    [ "rpp::details::timeout_impl< Type, TScheduler >", "structrpp_1_1details_1_1timeout__impl.html", null ],
-    [ "rpp::details::timeout_on_next< Worker >", "structrpp_1_1details_1_1timeout__on__next.html", null ],
+    [ "rpp::details::timeout_impl< Type, FallbackObs, TScheduler >", "structrpp_1_1details_1_1timeout__impl.html", null ],
+    [ "rpp::details::timeout_on_next< FallbackObs, Worker >", "structrpp_1_1details_1_1timeout__on__next.html", null ],
     [ "rpp::subjects::details::unsubscribed", "structrpp_1_1subjects_1_1details_1_1unsubscribed.html", null ],
     [ "rpp::details::window_lift_impl< Type >", "structrpp_1_1details_1_1window__lift__impl.html", null ],
     [ "rpp::details::window_on_completed", "structrpp_1_1details_1_1window__on__completed.html", null ],

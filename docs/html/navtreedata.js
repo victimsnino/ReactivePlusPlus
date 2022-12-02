@@ -49,7 +49,7 @@ var NAVTREEINDEX =
 [
 "advanced.html",
 "group__transforming__operators.html#gaae1e46e322134df2b377da37a2b2f8d4",
-"structrpp_1_1details_1_1typed__observable__tag.html"
+"structrpp_1_1details_1_1timeout__state__with__serialized__spinlock.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
