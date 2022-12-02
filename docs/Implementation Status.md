@@ -136,6 +136,8 @@
   - [x] do_on_error
   - [x] do_on_completed
 - [x] timeout 
+  - [x] timeout
+  - [x] timeout with fallback observable
 
 ### Connectable
 

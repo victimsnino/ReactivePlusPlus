@@ -14,6 +14,7 @@
 
 #include <rpp/sources/interval.hpp>
 #include <rpp/sources/never.hpp>
+#include <rpp/sources/just.hpp>
 #include <rpp/operators/timeout.hpp>
 #include <rpp/operators/concat.hpp>
 #include <rpp/operators/take.hpp>
@@ -108,6 +109,25 @@ SCENARIO("timeout sends error only on timeout", "[operators][timeout]")
                                   start_time + 3 * interval_duration + timeout_duration,
                                   start_time + 4 * interval_duration + timeout_duration,
                                   start_time + 5 * interval_duration + timeout_duration});
+            }
+        }
+    }
+}
+
+SCENARIO("timeout subscribes on provided observable on timeout", "[operators][timeout]")
+{
+    auto mock               = mock_observer<int>{};
+    GIVEN("never observable")
+    {
+        auto obs = rpp::source::never<int>();
+        WHEN("subscribe on it via timeout with fallback obs")
+        {
+            obs.timeout(std::chrono::microseconds{10}, rpp::source::just(100), rpp::schedulers::immediate{}).subscribe(mock);
+            THEN("subuscribe sees vales from fallback observabble")
+            {
+                CHECK(mock.get_received_values() == std::vector<int>{100});
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
             }
         }
     }
