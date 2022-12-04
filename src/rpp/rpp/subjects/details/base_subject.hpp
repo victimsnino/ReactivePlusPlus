@@ -38,6 +38,12 @@ public:
         });
     }
 
+protected:
+    base_subject(auto&& ...args)
+        : m_strategy{std::forward<decltype(args)>(args)...} {}
+
+    const Strategy& get_strategy() const { return m_strategy; }
+
 private:
     Strategy m_strategy{};
 };

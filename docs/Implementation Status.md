@@ -150,7 +150,7 @@
 ## Subjects
 
 - [x] publish_subject
+- [x] behavior_subject
 - [ ] serialized_subject
 - [ ] replay_subject
-- [ ] publish_subject
 - [ ] async_subject

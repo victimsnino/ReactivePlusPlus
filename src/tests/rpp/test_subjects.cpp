@@ -10,6 +10,7 @@
 #include "mock_observer.hpp"
 
 #include <catch2/catch_test_macros.hpp>
+#include <rpp/subjects/behavior_subject.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
 SCENARIO("publish subject multicasts values")
@@ -228,6 +229,53 @@ SCENARIO("publish subject caches error/completed/unsubscribe")
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+}
+
+SCENARIO("behavior subject caches last emission")
+{
+    auto mock = mock_observer<int>{};
+    GIVEN("behavior subject")
+    {
+        auto subj = rpp::subjects::behavior_subject<int>{100};
+        WHEN("subscribe on it")
+        {
+            subj.get_observable().subscribe(mock);
+            THEN("subject emits initial value on subscribe")
+            {
+                CHECK(mock.get_received_values() == std::vector{100});
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
+        WHEN("send new value to subject")
+        {
+            subj.get_subscriber().on_next(5);
+            AND_WHEN("subscribe on it")
+            {
+                subj.get_observable().subscribe(mock);
+                THEN("subject emits last value on subscribe")
+                {
+                    CHECK(mock.get_received_values() == std::vector{5});
+                    CHECK(mock.get_on_error_count() == 0);
+                    CHECK(mock.get_on_completed_count() == 0);
+                }
+            }
+        }
+        WHEN("complete subject")
+        {
+            subj.get_subscriber().on_completed();
+            AND_WHEN("subscribe on it")
+            {
+                subj.get_observable().subscribe(mock);
+                THEN("subject emits completion on subscribe")
+                {
+                    CHECK(mock.get_received_values() == std::vector<int>{});
+                    CHECK(mock.get_on_error_count() == 0);
+                    CHECK(mock.get_on_completed_count() == 1);
+                }
             }
         }
     }

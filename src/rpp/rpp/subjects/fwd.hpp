@@ -18,7 +18,7 @@ namespace rpp::subjects::details
 struct subject_tag;
 
 template<typename Strategy, typename T>
-concept subject_strategy = std::constructible_from<Strategy, rpp::composite_subscription> && requires(Strategy t)
+concept subject_strategy = requires(Strategy t)
 {
     {t.get_subscriber()} -> rpp::constraint::subscriber;
     t.on_subscribe(std::declval<rpp::dynamic_subscriber<T>>());
@@ -32,4 +32,7 @@ namespace rpp::subjects
 {
 template<rpp::constraint::decayed_type T>
 class publish_subject;
+
+template<rpp::constraint::decayed_type T>
+class behavior_subject;
 } // namespace rpp::subjects
