@@ -21,10 +21,10 @@ template<rpp::constraint::decayed_type T>
 class behavior_strategy
 {
 public:
-    template<rpp::constraint::decayed_same_as<T> TT>
-    behavior_strategy(TT&& v, const composite_subscription& sub)
+    template<rpp::constraint::decayed_same_as<T> TT, rpp::constraint::decayed_same_as<composite_subscription> TSub>
+    behavior_strategy(TT&& v, TSub&& sub)
         : m_state{std::make_shared<behavior_state>(std::forward<TT>(v))}
-        , m_sub{sub}
+        , m_sub{std::forward<TSub>(sub)}
     {
         m_sub.add([state = std::weak_ptr{m_state}]
         {

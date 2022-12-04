@@ -21,8 +21,9 @@ template<rpp::constraint::decayed_type T>
 class publish_strategy
 {
 public:
-    publish_strategy(const composite_subscription& sub)
-        : m_sub{sub}
+    template<rpp::constraint::decayed_same_as<composite_subscription> TSub>
+    publish_strategy(TSub&& sub)
+        : m_sub{std::forward<TSub>(sub)}
     {
         m_sub.add([state = std::weak_ptr{m_state}]
         {
