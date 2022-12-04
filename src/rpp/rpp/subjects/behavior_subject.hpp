@@ -118,11 +118,18 @@ template<rpp::constraint::decayed_type T>
 class behavior_subject final : public details::base_subject<T, details::behavior_strategy<T>>
 {
 public:
-    behavior_subject(const T& initial_value, const composite_subscription& sub = composite_subscription{})
+    behavior_subject(const T& initial_value, const composite_subscription& sub)
         : details::base_subject<T, details::behavior_strategy<T>>{initial_value, sub} {}
 
-    behavior_subject(T&& initial_value, const composite_subscription& sub = composite_subscription{})
+    behavior_subject(T&& initial_value, const composite_subscription& sub)
         : details::base_subject<T, details::behavior_strategy<T>>{std::move(initial_value), sub} {}
+
+    behavior_subject(const T& initial_value, composite_subscription&& sub = composite_subscription{})
+        : details::base_subject<T, details::behavior_strategy<T>>{initial_value, std::move(sub)} {}
+
+    behavior_subject(T&& initial_value, composite_subscription&& sub = composite_subscription{})
+        : details::base_subject<T, details::behavior_strategy<T>>{std::move(initial_value), std::move(sub)} {}
+
 
     T get_value() const
     {
