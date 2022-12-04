@@ -25,7 +25,7 @@ public:
     base_subject(const composite_subscription& sub = composite_subscription{})
         : m_strategy{sub} {}
 
-    base_subject(composite_subscription&& sub = composite_subscription{})
+    base_subject(composite_subscription&& sub)
         : m_strategy{std::move(sub)} {}
 
     auto get_subscriber() const
