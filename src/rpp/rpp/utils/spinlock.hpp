@@ -21,7 +21,7 @@ public:
 
     void lock()
     {
-        while (m_lock_flag.exchange(true, std::memory_order_acquire))
+        while (m_lock_flag.exchange(true, std::memory_order_acq_rel))
         {
             for (uint8_t i = 0; m_lock_flag.load(std::memory_order_relaxed); ++i)
             {
