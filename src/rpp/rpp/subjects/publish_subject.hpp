@@ -21,8 +21,9 @@ template<rpp::constraint::decayed_type T>
 class publish_strategy
 {
 public:
-    publish_strategy(const composite_subscription& sub)
-        : m_sub{sub}
+    template<rpp::constraint::decayed_same_as<composite_subscription> TSub>
+    publish_strategy(TSub&& sub)
+        : m_sub{std::forward<TSub>(sub)}
     {
         m_sub.add([state = std::weak_ptr{m_state}]
         {
@@ -74,5 +75,12 @@ namespace rpp::subjects
  * \see https://reactivex.io/documentation/subject.html
  */
 template<rpp::constraint::decayed_type T>
-class publish_subject final : public details::base_subject<T, details::publish_strategy<T>>{};
+class publish_subject final : public details::base_subject<T, details::publish_strategy<T>>{
+public:
+    publish_subject(const composite_subscription& sub)
+        : details::base_subject<T, details::publish_strategy<T>>{sub} {}
+
+    publish_subject(composite_subscription&& sub = composite_subscription{})
+        : details::base_subject<T, details::publish_strategy<T>>{std::move(sub)} {}
+};
 } // namespace rpp::subjects

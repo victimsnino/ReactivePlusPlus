@@ -18,3 +18,4 @@
  */
 
 #include <rpp/subjects/publish_subject.hpp>
+#include <rpp/subjects/behavior_subject.hpp>

@@ -22,9 +22,6 @@ template<rpp::constraint::decayed_type T, subject_strategy<T> Strategy>
 class base_subject : public subject_tag
 {
 public:
-    base_subject(const composite_subscription& sub = composite_subscription{})
-        : m_strategy{sub} {}
-
     auto get_subscriber() const
     {
         return m_strategy.get_subscriber();
@@ -37,6 +34,12 @@ public:
             strategy.on_subscribe(sub);
         });
     }
+
+protected:
+    base_subject(auto&& ...args)
+        : m_strategy{std::forward<decltype(args)>(args)...} {}
+
+    const Strategy& get_strategy() const { return m_strategy; }
 
 private:
     Strategy m_strategy{};
