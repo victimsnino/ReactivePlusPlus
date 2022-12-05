@@ -78,9 +78,9 @@ template<rpp::constraint::decayed_type T>
 class publish_subject final : public details::base_subject<T, details::publish_strategy<T>>{
 public:
     publish_subject(const composite_subscription& sub)
-        : details::base_subject<T, details::behavior_strategy<T>>{sub} {}
+        : details::base_subject<T, details::publish_strategy<T>>{sub} {}
 
     publish_subject(composite_subscription&& sub = composite_subscription{})
-        : details::base_subject<T, details::behavior_strategy<T>>{std::move(sub)} {}
+        : details::base_subject<T, details::publish_strategy<T>>{std::move(sub)} {}
 };
 } // namespace rpp::subjects
