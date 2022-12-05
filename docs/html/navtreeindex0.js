@@ -8,6 +8,7 @@ var NAVTREEINDEX0 =
 "advanced.html#autotoc_md4":[1,1,4],
 "annotated.html":[4,0],
 "base__subject_8hpp_source.html":[5,0,0,0,0,5,0,0],
+"behavior__subject_8hpp_source.html":[5,0,0,0,0,5,1],
 "blocking__observable_8hpp_source.html":[5,0,0,0,0,0,1],
 "buffer_8cpp-example.html":[6,0],
 "buffer_8hpp_source.html":[5,0,0,0,0,2,2],
@@ -57,10 +58,12 @@ var NAVTREEINDEX0 =
 "classrpp_1_1specific__observer.html":[2,0,1,1],
 "classrpp_1_1specific__observer.html#af503ea3bf4385f8ec4d1cc25beb39633":[2,0,1,1,0],
 "classrpp_1_1specific__subscriber.html":[4,0,0,16],
+"classrpp_1_1subjects_1_1behavior__subject.html":[2,0,4,0],
 "classrpp_1_1subjects_1_1details_1_1base__subject.html":[4,0,0,3,0,0],
-"classrpp_1_1subjects_1_1details_1_1publish__strategy.html":[4,0,0,3,0,2],
-"classrpp_1_1subjects_1_1details_1_1subject__state.html":[4,0,0,3,0,3],
-"classrpp_1_1subjects_1_1publish__subject.html":[2,0,4,0],
+"classrpp_1_1subjects_1_1details_1_1behavior__strategy.html":[4,0,0,3,0,1],
+"classrpp_1_1subjects_1_1details_1_1publish__strategy.html":[4,0,0,3,0,3],
+"classrpp_1_1subjects_1_1details_1_1subject__state.html":[4,0,0,3,0,4],
+"classrpp_1_1subjects_1_1publish__subject.html":[2,0,4,1],
 "classrpp_1_1subscription__base.html":[4,0,0,17],
 "classrpp_1_1subscription__base.html#ad9c07157024e7f68ce815d971c3faaf2":[4,0,0,17,0],
 "classrpp_1_1subscription__base.html#af07ca7cdfb9758441c0729cbe3e6d19d":[4,0,0,17,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX0 =
 "group__schedulers.html":[2,0,3],
 "group__subjects.html":[2,0,4],
 "group__transforming__operators.html":[2,0,2,0],
-"group__transforming__operators.html#ga32b19b1b37ecd7a14d08c5936e2023e1":[2,0,2,0,4],
-"group__transforming__operators.html#ga61277d8115a87b4c10f7856a9a7f8d35":[2,0,2,0,2],
-"group__transforming__operators.html#ga855aea700aa9aa9fa07e8aab7e193a1a":[2,0,2,0,1],
-"group__transforming__operators.html#gaaaadd88de768811a7397897432b00f17":[2,0,2,0,0]
+"group__transforming__operators.html#ga32b19b1b37ecd7a14d08c5936e2023e1":[2,0,2,0,4]
 };

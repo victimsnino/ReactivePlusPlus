@@ -22,7 +22,7 @@
 \DoxyCodeLine{18 \textcolor{keyword}{struct }subject\_tag;}
 \DoxyCodeLine{19 }
 \DoxyCodeLine{20 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Strategy, \textcolor{keyword}{typename} T>}
-\DoxyCodeLine{21 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1subjects_1_1details_1_1subject__strategy}{subject\_strategy}} = std::constructible\_from<Strategy, rpp::composite\_subscription> \&\& \textcolor{keyword}{requires}(Strategy t)}
+\DoxyCodeLine{21 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1subjects_1_1details_1_1subject__strategy}{subject\_strategy}} = \textcolor{keyword}{requires}(Strategy t)}
 \DoxyCodeLine{22 \{}
 \DoxyCodeLine{23     \{t.get\_subscriber()\} -\/> \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{rpp::constraint::subscriber}};}
 \DoxyCodeLine{24     t.on\_subscribe(std::declval<\mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp::dynamic\_subscriber<T>}}>());}
@@ -36,6 +36,9 @@
 \DoxyCodeLine{32 \{}
 \DoxyCodeLine{33 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T>}
 \DoxyCodeLine{34 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{publish\_subject}};}
-\DoxyCodeLine{35 \} \textcolor{comment}{// namespace rpp::subjects}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{37 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1subjects_1_1behavior__subject}{behavior\_subject}};}
+\DoxyCodeLine{38 \} \textcolor{comment}{// namespace rpp::subjects}}
 
 \end{DoxyCode}

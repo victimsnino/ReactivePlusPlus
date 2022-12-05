@@ -1,0 +1,61 @@
+\hypertarget{classrpp_1_1subjects_1_1behavior__subject}{}\doxysection{rpp\+::subjects\+::behavior\+\_\+subject\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classrpp_1_1subjects_1_1behavior__subject}\index{rpp::subjects::behavior\_subject$<$ T $>$@{rpp::subjects::behavior\_subject$<$ T $>$}}
+
+
+Subject which multicasts values to observers subscribed on it and sends last emitted value (or initial value) on subscribe. It contains two parts\+: subscriber and observable at the same time.  
+
+
+
+
+{\ttfamily \#include $<$behavior\+\_\+subject.\+hpp$>$}
+
+Inheritance diagram for rpp\+::subjects\+::behavior\+\_\+subject\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classrpp_1_1subjects_1_1behavior__subject}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1subjects_1_1behavior__subject_a60b3de8cbb3364e58b1fbc023dc0815f}\label{classrpp_1_1subjects_1_1behavior__subject_a60b3de8cbb3364e58b1fbc023dc0815f}} 
+{\bfseries behavior\+\_\+subject} (const T \&initial\+\_\+value, const \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} \&sub)
+\item 
+\mbox{\Hypertarget{classrpp_1_1subjects_1_1behavior__subject_a2bfc2ea28cae0bc1661616e18ab8968b}\label{classrpp_1_1subjects_1_1behavior__subject_a2bfc2ea28cae0bc1661616e18ab8968b}} 
+{\bfseries behavior\+\_\+subject} (T \&\&initial\+\_\+value, const \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} \&sub)
+\item 
+\mbox{\Hypertarget{classrpp_1_1subjects_1_1behavior__subject_ad34129b7020f52f5b544d66b5e4e85b6}\label{classrpp_1_1subjects_1_1behavior__subject_ad34129b7020f52f5b544d66b5e4e85b6}} 
+{\bfseries behavior\+\_\+subject} (const T \&initial\+\_\+value, \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} \&\&sub=\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}}\{\})
+\item 
+\mbox{\Hypertarget{classrpp_1_1subjects_1_1behavior__subject_aa81414af5852359418cfa5c44f903772}\label{classrpp_1_1subjects_1_1behavior__subject_aa81414af5852359418cfa5c44f903772}} 
+{\bfseries behavior\+\_\+subject} (T \&\&initial\+\_\+value, \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} \&\&sub=\mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}}\{\})
+\item 
+\mbox{\Hypertarget{classrpp_1_1subjects_1_1behavior__subject_a7d5a5ca1fbc35bb35a5f1743ed863242}\label{classrpp_1_1subjects_1_1behavior__subject_a7d5a5ca1fbc35bb35a5f1743ed863242}} 
+T {\bfseries get\+\_\+value} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$rpp\+::constraint\+::decayed\+\_\+type T$>$\newline
+class rpp\+::subjects\+::behavior\+\_\+subject$<$ T $>$}
+Subject which multicasts values to observers subscribed on it and sends last emitted value (or initial value) on subscribe. It contains two parts\+: subscriber and observable at the same time. 
+
+Each subscriber obtains only last/initial value + values which emitted after corresponding subscribe. on\+\_\+error/on\+\_\+completer/unsubscribe cached and provided to new subscribers if any
+
+\begin{DoxyWarning}{Warning}
+this subject is not synchronized/serialized! It means, that expected to call callbacks of subscriber in the serialized way to follow observable contract\+: \char`\"{}\+Observables must issue notifications to observers serially (not in parallel).\char`\"{}. If you are not sure or need extra serialization, please, use serialized\+\_\+subject.
+\end{DoxyWarning}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & value provided by this subject\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/subject.html}{\texttt{ https\+://reactivex.\+io/documentation/subject.\+html}} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/subjects/behavior\+\_\+subject.\+hpp\end{DoxyCompactItemize}

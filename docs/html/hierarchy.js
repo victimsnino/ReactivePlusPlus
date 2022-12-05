@@ -1,5 +1,6 @@
 var hierarchy =
 [
+    [ "rpp::subjects::details::behavior_strategy< T >", "classrpp_1_1subjects_1_1details_1_1behavior__strategy.html", null ],
     [ "rpp::details::buffer_impl< Type >", "structrpp_1_1details_1_1buffer__impl.html", null ],
     [ "rpp::details::buffer_on_completed", "structrpp_1_1details_1_1buffer__on__completed.html", null ],
     [ "rpp::details::buffer_on_next", "structrpp_1_1details_1_1buffer__on__next.html", null ],
@@ -362,6 +363,9 @@ var hierarchy =
     [ "rpp::details::skip_on_next", "structrpp_1_1details_1_1skip__on__next.html", null ],
     [ "rpp::details::skip_state", "structrpp_1_1details_1_1skip__state.html", null ],
     [ "rpp::subjects::details::subject_tag", "structrpp_1_1subjects_1_1details_1_1subject__tag.html", [
+      [ "rpp::subjects::details::base_subject< T, details::behavior_strategy< T > >", "classrpp_1_1subjects_1_1details_1_1base__subject.html", [
+        [ "rpp::subjects::behavior_subject< T >", "classrpp_1_1subjects_1_1behavior__subject.html", null ]
+      ] ],
       [ "rpp::subjects::details::base_subject< T, details::publish_strategy< T > >", "classrpp_1_1subjects_1_1details_1_1base__subject.html", [
         [ "rpp::subjects::publish_subject< Type >", "classrpp_1_1subjects_1_1publish__subject.html", null ],
         [ "rpp::subjects::publish_subject< T >", "classrpp_1_1subjects_1_1publish__subject.html", null ]

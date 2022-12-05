@@ -1,0 +1,133 @@
+\hypertarget{behavior__subject_8hpp_source}{}\doxysection{behavior\+\_\+subject.\+hpp}
+\label{behavior__subject_8hpp_source}\index{src/rpp/rpp/subjects/behavior\_subject.hpp@{src/rpp/rpp/subjects/behavior\_subject.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                   ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{//           Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{//  Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//     (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//           https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{// }}
+\DoxyCodeLine{8 \textcolor{comment}{//  Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <rpp/subjects/fwd.hpp>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/utils/constraints.hpp>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/subscribers/dynamic\_subscriber.hpp>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/subjects/details/subject\_state.hpp>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/subjects/details/base\_subject.hpp>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }rpp::subjects::details}
+\DoxyCodeLine{19 \{}
+\DoxyCodeLine{20 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{21 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1behavior__strategy}{behavior\_strategy}}}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \textcolor{keyword}{public}:}
+\DoxyCodeLine{24     \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<T> TT, rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<composite\_subscription> TSub>}
+\DoxyCodeLine{25     \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1behavior__strategy}{behavior\_strategy}}(TT\&\& v, TSub\&\& sub)}
+\DoxyCodeLine{26         : m\_state\{std::make\_shared<behavior\_state>(std::forward<TT>(v))\}}
+\DoxyCodeLine{27         , m\_sub\{std::forward<TSub>(sub)\}}
+\DoxyCodeLine{28     \{}
+\DoxyCodeLine{29         m\_sub.\mbox{\hyperlink{classrpp_1_1composite__subscription_aee6a1f22ecbfa2f1dce0b63f20084b99}{add}}([state = std::weak\_ptr\{m\_state\}]}
+\DoxyCodeLine{30         \{}
+\DoxyCodeLine{31             \textcolor{keywordflow}{if} (\textcolor{keyword}{const} \textcolor{keyword}{auto} locked = state.lock())}
+\DoxyCodeLine{32                 locked-\/>on\_unsubscribe();}
+\DoxyCodeLine{33         \});}
+\DoxyCodeLine{34     \}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36     \textcolor{keywordtype}{void} on\_subscribe(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{dynamic\_subscriber<T>}}\& sub)\textcolor{keyword}{ const}}
+\DoxyCodeLine{37 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{38         \textcolor{keywordflow}{if} (m\_sub.\mbox{\hyperlink{classrpp_1_1subscription__base_ad9c07157024e7f68ce815d971c3faaf2}{is\_subscribed}}())}
+\DoxyCodeLine{39             sub.on\_next(m\_state-\/>get\_value());}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41         m\_state-\/>on\_subscribe(sub);}
+\DoxyCodeLine{42     \}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44     \textcolor{keyword}{auto} get\_subscriber()\textcolor{keyword}{ const}}
+\DoxyCodeLine{45 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{46         \textcolor{keywordflow}{return} rpp::make\_specific\_subscriber<T>(m\_sub,}
+\DoxyCodeLine{47                                                 [state = m\_state](\textcolor{keyword}{const} T\& v)}
+\DoxyCodeLine{48                                                 \{}
+\DoxyCodeLine{49                                                     state-\/>set\_value(v);}
+\DoxyCodeLine{50                                                     state-\/>on\_next(v);}
+\DoxyCodeLine{51                                                 \},}
+\DoxyCodeLine{52                                                 [state = m\_state](\textcolor{keyword}{const} std::exception\_ptr\& err)}
+\DoxyCodeLine{53                                                 \{}
+\DoxyCodeLine{54                                                     state-\/>on\_error(err);}
+\DoxyCodeLine{55                                                 \},}
+\DoxyCodeLine{56                                                 [state = m\_state]()}
+\DoxyCodeLine{57                                                 \{}
+\DoxyCodeLine{58                                                     state-\/>on\_completed();}
+\DoxyCodeLine{59                                                 \});}
+\DoxyCodeLine{60     \}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62     T get\_value()\textcolor{keyword}{ const}}
+\DoxyCodeLine{63 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{64         \textcolor{keywordflow}{return} m\_state-\/>get\_value();}
+\DoxyCodeLine{65     \}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{keyword}{private}:}
+\DoxyCodeLine{68     \textcolor{keyword}{class }behavior\_state : \textcolor{keyword}{public} \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1subject__state}{subject\_state}}<T>}
+\DoxyCodeLine{69     \{}
+\DoxyCodeLine{70     \textcolor{keyword}{public}:}
+\DoxyCodeLine{71         behavior\_state(\textcolor{keyword}{const} T\& v)}
+\DoxyCodeLine{72             : \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1subject__state}{subject\_state<T>}}\{\}}
+\DoxyCodeLine{73             , value\{v\} \{\}}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75         behavior\_state(T\&\& v)}
+\DoxyCodeLine{76             : \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1subject__state}{subject\_state<T>}}\{\}}
+\DoxyCodeLine{77             , value\{std::move(v)\} \{\}}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79         T get\_value()}
+\DoxyCodeLine{80         \{}
+\DoxyCodeLine{81             std::lock\_guard lock\{mutex\};}
+\DoxyCodeLine{82             \textcolor{keywordflow}{return} value;}
+\DoxyCodeLine{83         \}}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86         \textcolor{keywordtype}{void} set\_value(\textcolor{keyword}{const} T\& v)}
+\DoxyCodeLine{87         \{}
+\DoxyCodeLine{88             std::lock\_guard lock\{mutex\};}
+\DoxyCodeLine{89             value = v;}
+\DoxyCodeLine{90         \}}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92     \textcolor{keyword}{private}:}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94         std::mutex mutex;}
+\DoxyCodeLine{95         T          value;}
+\DoxyCodeLine{96     \};}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98     std::shared\_ptr<behavior\_state> m\_state;}
+\DoxyCodeLine{99     \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}          m\_sub\{\};}
+\DoxyCodeLine{100 \};}
+\DoxyCodeLine{101 \} \textcolor{comment}{// namespace rpp::subjects::details}}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103 \textcolor{keyword}{namespace }rpp::subjects}
+\DoxyCodeLine{104 \{}
+\DoxyCodeLine{117 \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type T>}
+\DoxyCodeLine{118 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1subjects_1_1behavior__subject}{behavior\_subject}} final : \textcolor{keyword}{public} \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<T, details::behavior\_strategy<T>>}
+\DoxyCodeLine{119 \{}
+\DoxyCodeLine{120 \textcolor{keyword}{public}:}
+\DoxyCodeLine{121     \mbox{\hyperlink{classrpp_1_1subjects_1_1behavior__subject}{behavior\_subject}}(\textcolor{keyword}{const} T\& initial\_value, \textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\& sub)}
+\DoxyCodeLine{122         : \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject<T, details::behavior\_strategy<T>}}>\{initial\_value, sub\} \{\}}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124     \mbox{\hyperlink{classrpp_1_1subjects_1_1behavior__subject}{behavior\_subject}}(T\&\& initial\_value, \textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\& sub)}
+\DoxyCodeLine{125         : \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject<T, details::behavior\_strategy<T>}}>\{std::move(initial\_value), sub\} \{\}}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127     \mbox{\hyperlink{classrpp_1_1subjects_1_1behavior__subject}{behavior\_subject}}(\textcolor{keyword}{const} T\& initial\_value, \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\&\& sub = \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\{\})}
+\DoxyCodeLine{128         : \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<T, \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1behavior__strategy}{details::behavior\_strategy<T>}}>\{initial\_value, std::move(sub)\} \{\}}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130     \mbox{\hyperlink{classrpp_1_1subjects_1_1behavior__subject}{behavior\_subject}}(T\&\& initial\_value, \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\&\& sub = \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\{\})}
+\DoxyCodeLine{131         : \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<T, \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1behavior__strategy}{details::behavior\_strategy<T>}}>\{std::move(initial\_value), std::move(sub)\} \{\}}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134     T get\_value()\textcolor{keyword}{ const}}
+\DoxyCodeLine{135 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{136         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject<T, details::behavior\_strategy<T>}}>::get\_strategy().get\_value();}
+\DoxyCodeLine{137     \}}
+\DoxyCodeLine{138 \};}
+\DoxyCodeLine{139 \} \textcolor{comment}{// namespace rpp::subjects}}
+
+\end{DoxyCode}

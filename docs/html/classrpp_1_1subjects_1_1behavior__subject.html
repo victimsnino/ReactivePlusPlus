@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::subjects::publish_subject&lt; T &gt; Class Template Reference</title>
+<title>ReactivePlusPlus: rpp::subjects::behavior_subject&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('classrpp_1_1subjects_1_1publish__subject.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classrpp_1_1subjects_1_1behavior__subject.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -98,35 +98,44 @@ $(document).ready(function(){initNavTree('classrpp_1_1subjects_1_1publish__subje
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classrpp_1_1subjects_1_1publish__subject-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::subjects::publish_subject&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__rpp.html">RPP</a> &raquo; <a class="el" href="group__subjects.html">Subjects</a></div></div></div>
+<a href="classrpp_1_1subjects_1_1behavior__subject-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">rpp::subjects::behavior_subject&lt; T &gt; Class Template Reference<span class="mlabels"><span class="mlabel">final</span></span><div class="ingroups"><a class="el" href="group__rpp.html">RPP</a> &raquo; <a class="el" href="group__subjects.html">Subjects</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Subject which just multicasts values to observers subscribed on it. It contains two parts: subscriber and observable at the same time.  
- <a href="classrpp_1_1subjects_1_1publish__subject.html#details">More...</a></p>
+<p>Subject which multicasts values to observers subscribed on it and sends last emitted value (or initial value) on subscribe. It contains two parts: subscriber and observable at the same time.  
+ <a href="classrpp_1_1subjects_1_1behavior__subject.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="publish__subject_8hpp_source.html">publish_subject.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="behavior__subject_8hpp_source.html">behavior_subject.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for rpp::subjects::publish_subject&lt; T &gt;:</div>
+Inheritance diagram for rpp::subjects::behavior_subject&lt; T &gt;:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classrpp_1_1subjects_1_1publish__subject.png" usemap="#rpp::subjects::publish_5Fsubject_3C_20T_20_3E_map" alt=""/>
-  <map id="rpp::subjects::publish_5Fsubject_3C_20T_20_3E_map" name="rpp::subjects::publish_5Fsubject_3C_20T_20_3E_map">
-<area href="classrpp_1_1subjects_1_1details_1_1base__subject.html" alt="rpp::subjects::details::base_subject&lt; T, details::publish_strategy&lt; T &gt; &gt;" shape="rect" coords="0,56,410,80"/>
-<area href="structrpp_1_1subjects_1_1details_1_1subject__tag.html" alt="rpp::subjects::details::subject_tag" shape="rect" coords="0,0,410,24"/>
+  <img src="classrpp_1_1subjects_1_1behavior__subject.png" usemap="#rpp::subjects::behavior_5Fsubject_3C_20T_20_3E_map" alt=""/>
+  <map id="rpp::subjects::behavior_5Fsubject_3C_20T_20_3E_map" name="rpp::subjects::behavior_5Fsubject_3C_20T_20_3E_map">
+<area href="classrpp_1_1subjects_1_1details_1_1base__subject.html" alt="rpp::subjects::details::base_subject&lt; T, details::behavior_strategy&lt; T &gt; &gt;" shape="rect" coords="0,56,420,80"/>
+<area href="structrpp_1_1subjects_1_1details_1_1subject__tag.html" alt="rpp::subjects::details::subject_tag" shape="rect" coords="0,0,420,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a40aa3e67f222d9046faf9a5dffd41754"><td class="memItemLeft" align="right" valign="top"><a id="a40aa3e67f222d9046faf9a5dffd41754" name="a40aa3e67f222d9046faf9a5dffd41754"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>publish_subject</b> (const <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> &amp;sub)</td></tr>
-<tr class="separator:a40aa3e67f222d9046faf9a5dffd41754"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff8b0f61d32124c035331dc5cc640757"><td class="memItemLeft" align="right" valign="top"><a id="aff8b0f61d32124c035331dc5cc640757" name="aff8b0f61d32124c035331dc5cc640757"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>publish_subject</b> (<a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> &amp;&amp;sub=<a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>{})</td></tr>
-<tr class="separator:aff8b0f61d32124c035331dc5cc640757"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_classrpp_1_1subjects_1_1details_1_1base__subject"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classrpp_1_1subjects_1_1details_1_1base__subject')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classrpp_1_1subjects_1_1details_1_1base__subject.html">rpp::subjects::details::base_subject&lt; T, details::publish_strategy&lt; T &gt; &gt;</a></td></tr>
+<tr class="memitem:a60b3de8cbb3364e58b1fbc023dc0815f"><td class="memItemLeft" align="right" valign="top"><a id="a60b3de8cbb3364e58b1fbc023dc0815f" name="a60b3de8cbb3364e58b1fbc023dc0815f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>behavior_subject</b> (const T &amp;initial_value, const <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> &amp;sub)</td></tr>
+<tr class="separator:a60b3de8cbb3364e58b1fbc023dc0815f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bfc2ea28cae0bc1661616e18ab8968b"><td class="memItemLeft" align="right" valign="top"><a id="a2bfc2ea28cae0bc1661616e18ab8968b" name="a2bfc2ea28cae0bc1661616e18ab8968b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>behavior_subject</b> (T &amp;&amp;initial_value, const <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> &amp;sub)</td></tr>
+<tr class="separator:a2bfc2ea28cae0bc1661616e18ab8968b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad34129b7020f52f5b544d66b5e4e85b6"><td class="memItemLeft" align="right" valign="top"><a id="ad34129b7020f52f5b544d66b5e4e85b6" name="ad34129b7020f52f5b544d66b5e4e85b6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>behavior_subject</b> (const T &amp;initial_value, <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> &amp;&amp;sub=<a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>{})</td></tr>
+<tr class="separator:ad34129b7020f52f5b544d66b5e4e85b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa81414af5852359418cfa5c44f903772"><td class="memItemLeft" align="right" valign="top"><a id="aa81414af5852359418cfa5c44f903772" name="aa81414af5852359418cfa5c44f903772"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>behavior_subject</b> (T &amp;&amp;initial_value, <a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a> &amp;&amp;sub=<a class="el" href="classrpp_1_1composite__subscription.html">composite_subscription</a>{})</td></tr>
+<tr class="separator:aa81414af5852359418cfa5c44f903772"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d5a5ca1fbc35bb35a5f1743ed863242"><td class="memItemLeft" align="right" valign="top"><a id="a7d5a5ca1fbc35bb35a5f1743ed863242" name="a7d5a5ca1fbc35bb35a5f1743ed863242"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>get_value</b> () const</td></tr>
+<tr class="separator:a7d5a5ca1fbc35bb35a5f1743ed863242"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classrpp_1_1subjects_1_1details_1_1base__subject"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classrpp_1_1subjects_1_1details_1_1base__subject')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classrpp_1_1subjects_1_1details_1_1base__subject.html">rpp::subjects::details::base_subject&lt; T, details::behavior_strategy&lt; T &gt; &gt;</a></td></tr>
 <tr class="memitem:a2f4c9a709acfe33338726615363cf335 inherit pub_methods_classrpp_1_1subjects_1_1details_1_1base__subject"><td class="memItemLeft" align="right" valign="top"><a id="a2f4c9a709acfe33338726615363cf335" name="a2f4c9a709acfe33338726615363cf335"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>get_subscriber</b> () const</td></tr>
 <tr class="separator:a2f4c9a709acfe33338726615363cf335 inherit pub_methods_classrpp_1_1subjects_1_1details_1_1base__subject"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,7 +145,7 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>get_observable</b> ()
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_methods_classrpp_1_1subjects_1_1details_1_1base__subject"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classrpp_1_1subjects_1_1details_1_1base__subject')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classrpp_1_1subjects_1_1details_1_1base__subject.html">rpp::subjects::details::base_subject&lt; T, details::publish_strategy&lt; T &gt; &gt;</a></td></tr>
+<tr class="inherit_header pro_methods_classrpp_1_1subjects_1_1details_1_1base__subject"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classrpp_1_1subjects_1_1details_1_1base__subject')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classrpp_1_1subjects_1_1details_1_1base__subject.html">rpp::subjects::details::base_subject&lt; T, details::behavior_strategy&lt; T &gt; &gt;</a></td></tr>
 <tr class="memitem:a5d52a059dca46f217c7cd29874e22c61 inherit pro_methods_classrpp_1_1subjects_1_1details_1_1base__subject"><td class="memItemLeft" align="right" valign="top"><a id="a5d52a059dca46f217c7cd29874e22c61" name="a5d52a059dca46f217c7cd29874e22c61"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>base_subject</b> (auto &amp;&amp;...args)</td></tr>
 <tr class="separator:a5d52a059dca46f217c7cd29874e22c61 inherit pro_methods_classrpp_1_1subjects_1_1details_1_1base__subject"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,8 +155,8 @@ const Strategy &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_s
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;rpp::constraint::decayed_type T&gt;<br />
-class rpp::subjects::publish_subject&lt; T &gt;</div><p>Subject which just multicasts values to observers subscribed on it. It contains two parts: subscriber and observable at the same time. </p>
-<p>Each subscriber obtains only values which emitted after corresponding subscribe. on_error/on_completer/unsubscribe cached and provided to new subscribers if any</p>
+class rpp::subjects::behavior_subject&lt; T &gt;</div><p>Subject which multicasts values to observers subscribed on it and sends last emitted value (or initial value) on subscribe. It contains two parts: subscriber and observable at the same time. </p>
+<p>Each subscriber obtains only last/initial value + values which emitted after corresponding subscribe. on_error/on_completer/unsubscribe cached and provided to new subscribers if any</p>
 <dl class="section warning"><dt>Warning</dt><dd>this subject is not synchronized/serialized! It means, that expected to call callbacks of subscriber in the serialized way to follow observable contract: "Observables must issue notifications to observers serially (not in parallel).". If you are not sure or need extra serialization, please, use serialized_subject.</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
@@ -156,18 +165,15 @@ class rpp::subjects::publish_subject&lt; T &gt;</div><p>Subject which just multi
   </dd>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/subject.html">https://reactivex.io/documentation/subject.html</a> </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="multicast_8cpp-example.html#_a0">multicast.cpp</a>, and <a class="el" href="timeout_8cpp-example.html#_a0">timeout.cpp</a>.</dd>
-</dl>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/rpp/rpp/subjects/<a class="el" href="rpp_2subjects_2fwd_8hpp_source.html">fwd.hpp</a></li>
-<li>src/rpp/rpp/subjects/<a class="el" href="publish__subject_8hpp_source.html">publish_subject.hpp</a></li>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
+<li>src/rpp/rpp/subjects/<a class="el" href="behavior__subject_8hpp_source.html">behavior_subject.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>subjects</b></li><li class="navelem"><a class="el" href="classrpp_1_1subjects_1_1publish__subject.html">publish_subject</a></li>
+    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>subjects</b></li><li class="navelem"><a class="el" href="classrpp_1_1subjects_1_1behavior__subject.html">behavior_subject</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>

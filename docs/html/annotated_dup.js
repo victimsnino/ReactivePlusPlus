@@ -169,6 +169,7 @@ var annotated_dup =
       [ "subjects", null, [
         [ "details", null, [
           [ "base_subject", "classrpp_1_1subjects_1_1details_1_1base__subject.html", null ],
+          [ "behavior_strategy", "classrpp_1_1subjects_1_1details_1_1behavior__strategy.html", null ],
           [ "completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
           [ "publish_strategy", "classrpp_1_1subjects_1_1details_1_1publish__strategy.html", null ],
           [ "subject_state", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ],
@@ -180,6 +181,7 @@ var annotated_dup =
             [ "extract_subject_type", "structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html", null ]
           ] ]
         ] ],
+        [ "behavior_subject", "classrpp_1_1subjects_1_1behavior__subject.html", null ],
         [ "publish_subject", "classrpp_1_1subjects_1_1publish__subject.html", null ]
       ] ],
       [ "utils", null, [

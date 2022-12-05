@@ -1,5 +1,8 @@
 var NAVTREEINDEX1 =
 {
+"group__transforming__operators.html#ga61277d8115a87b4c10f7856a9a7f8d35":[2,0,2,0,2],
+"group__transforming__operators.html#ga855aea700aa9aa9fa07e8aab7e193a1a":[2,0,2,0,1],
+"group__transforming__operators.html#gaaaadd88de768811a7397897432b00f17":[2,0,2,0,0],
 "group__transforming__operators.html#gaae1e46e322134df2b377da37a2b2f8d4":[2,0,2,0,6],
 "group__transforming__operators.html#gae5dd31e4559517de5cf1145ff2005a86":[2,0,2,0,3],
 "group__transforming__operators.html#gae76b0e38003420a5ced3c1159bbbadde":[2,0,2,0,5],
@@ -58,7 +61,7 @@ var NAVTREEINDEX1 =
 "pages.html":[],
 "publish_8cpp-example.html":[6,20],
 "publish_8hpp_source.html":[5,0,0,0,0,2,20],
-"publish__subject_8hpp_source.html":[5,0,0,0,0,5,3],
+"publish__subject_8hpp_source.html":[5,0,0,0,0,5,4],
 "queue__worker__state_8hpp_source.html":[5,0,0,0,0,3,0,0],
 "quick_start.html":[1,0],
 "quick_start.html#autotoc_md22":[1,0,0],
@@ -77,7 +80,7 @@ var NAVTREEINDEX1 =
 "rpp_2schedulers_8hpp_source.html":[5,0,0,0,0,15],
 "rpp_2sources_2fwd_8hpp_source.html":[5,0,0,0,0,4,4],
 "rpp_2sources_8hpp_source.html":[5,0,0,0,0,16],
-"rpp_2subjects_2fwd_8hpp_source.html":[5,0,0,0,0,5,2],
+"rpp_2subjects_2fwd_8hpp_source.html":[5,0,0,0,0,5,3],
 "rpp_2subscribers_2fwd_8hpp_source.html":[5,0,0,0,0,6,3],
 "rpp_2subscriptions_2fwd_8hpp_source.html":[5,0,0,0,0,7,4],
 "rpp_8hpp_source.html":[5,0,0,0,0,14],
@@ -246,8 +249,5 @@ var NAVTREEINDEX1 =
 "structrpp_1_1details_1_1take__until__impl.html":[4,0,0,0,123],
 "structrpp_1_1details_1_1take__until__state__with__serialized__spinlock.html":[4,0,0,0,124],
 "structrpp_1_1details_1_1take__until__throttler__on__next.html":[4,0,0,0,125],
-"structrpp_1_1details_1_1take__while__impl.html":[4,0,0,0,126],
-"structrpp_1_1details_1_1timeout__impl.html":[4,0,0,0,127],
-"structrpp_1_1details_1_1timeout__on__next.html":[4,0,0,0,128],
-"structrpp_1_1details_1_1timeout__state.html":[4,0,0,0,129]
+"structrpp_1_1details_1_1take__while__impl.html":[4,0,0,0,126]
 };
