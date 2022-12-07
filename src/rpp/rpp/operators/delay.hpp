@@ -123,6 +123,11 @@ private:
 private:
     struct emission
     {
+        emission(size_t id, schedulers::time_point time, std::variant<T, std::exception_ptr, completion>&& item)
+            : id{id}
+            , time{std::move(time)}
+            , item{std::move(item)} {}
+
         size_t                                          id{};
         schedulers::time_point                          time{};
         std::variant<T, std::exception_ptr, completion> item{};
