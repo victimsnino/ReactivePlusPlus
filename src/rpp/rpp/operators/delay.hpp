@@ -27,7 +27,7 @@ namespace rpp::details
 struct completion {};
 
 template<typename T, typename Subscriber, typename Worker>
-class queue_based_worker final : std::enable_shared_from_this<queue_based_worker<T, Subscriber, Worker>>
+class queue_based_worker final : public std::enable_shared_from_this<queue_based_worker<T, Subscriber, Worker>>
 {
 public:
     queue_based_worker(schedulers::duration delay, Worker&& worker, const Subscriber& subscriber)
@@ -79,8 +79,9 @@ private:
 
     std::optional<schedulers::time_point> emplace_safe(std::variant<T, std::exception_ptr, completion>&& item)
     {
-        std::lock_guard lock{m_mutex};
-        m_queue.emplace(++m_current_id, m_worker.now()+m_delay, std::move(item));
+        std::lock_guard            lock{m_mutex};
+        const auto delay = std::holds_alternative<std::exception_ptr>(item) ? schedulers::duration{0} : m_delay ;
+        m_queue.emplace(++m_current_id, m_worker.now()+delay, std::move(item));
         if (!m_active && m_queue.size() == 1)
         {
             m_active = true;
@@ -91,7 +92,6 @@ private:
 
     schedulers::optional_duration drain_queue()
     {
-        const auto now = m_worker.now();
         while (true)
         {
             std::unique_lock lock{m_mutex};
@@ -102,6 +102,7 @@ private:
             }
 
             auto& top = m_queue.top();
+            const auto now = m_worker.now();
             if (top.time > now)
                 return top.time - now;
 
