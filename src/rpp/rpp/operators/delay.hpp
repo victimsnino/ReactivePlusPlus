@@ -65,9 +65,10 @@ public:
     };
 
 private:
-    void emplace(std::variant<T, std::exception_ptr, completion>&& item)
+    template<typename TT>
+    void emplace(TT&& item)
     {
-        if (const auto timepoint = emplace_safe(std::move(item)))
+        if (const auto timepoint = emplace_safe(std::forward<TT>(item)))
         {
             m_worker.schedule(timepoint.value(),
                               [state = this->shared_from_this()]()-> schedulers::optional_duration
@@ -77,11 +78,12 @@ private:
         }
     }
 
-    std::optional<schedulers::time_point> emplace_safe(std::variant<T, std::exception_ptr, completion>&& item)
+    template<typename TT>
+    std::optional<schedulers::time_point> emplace_safe(TT&& item)
     {
         std::lock_guard            lock{m_mutex};
-        const auto delay = std::holds_alternative<std::exception_ptr>(item) ? schedulers::duration{0} : m_delay ;
-        m_queue.emplace(++m_current_id, m_worker.now()+delay, std::move(item));
+        const auto delay = std::is_same_v<std::exception_ptr, std::decay_t<TT>> ? schedulers::duration{0} : m_delay;
+        m_queue.emplace(++m_current_id, m_worker.now()+delay, std::forward<TT>(item));
         if (!m_active && m_queue.size() == 1)
         {
             m_active = true;
@@ -123,10 +125,11 @@ private:
 private:
     struct emission
     {
-        emission(size_t id, schedulers::time_point time, std::variant<T, std::exception_ptr, completion>&& item)
+        template<typename TT>
+        emission(size_t id, schedulers::time_point time, TT&& item)
             : id{id}
             , time{std::move(time)}
-            , item{std::move(item)} {}
+            , item{std::forward<TT>(item)} {}
 
         size_t                                          id{};
         schedulers::time_point                          time{};
