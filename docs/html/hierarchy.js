@@ -8,6 +8,7 @@ var hierarchy =
     [ "rpp::details::combine_latest_impl< Type, TCombiner, TOtherObservable >", "structrpp_1_1details_1_1combine__latest__impl.html", null ],
     [ "rpp::details::combine_latest_on_next< I >", "structrpp_1_1details_1_1combine__latest__on__next.html", null ],
     [ "rpp::subjects::details::completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
+    [ "rpp::details::completion", "structrpp_1_1details_1_1completion.html", null ],
     [ "rpp::details::concat_impl< Type >", "structrpp_1_1details_1_1concat__impl.html", null ],
     [ "rpp::details::concat_on_completed< ValueType >", "structrpp_1_1details_1_1concat__on__completed.html", null ],
     [ "rpp::details::concat_on_next_outer< ValueType >", "structrpp_1_1details_1_1concat__on__next__outer.html", null ],
@@ -16,9 +17,6 @@ var hierarchy =
       [ "rpp::connectable_observable< Type, Subject, OriginalObservable >", "classrpp_1_1connectable__observable.html", null ]
     ] ],
     [ "rpp::details::delay_impl< Type, TScheduler >", "structrpp_1_1details_1_1delay__impl.html", null ],
-    [ "rpp::details::delay_on_completed", "structrpp_1_1details_1_1delay__on__completed.html", null ],
-    [ "rpp::details::delay_on_error", "structrpp_1_1details_1_1delay__on__error.html", null ],
-    [ "rpp::details::delay_on_next", "structrpp_1_1details_1_1delay__on__next.html", null ],
     [ "rpp::details::distinct_until_changed_impl< Type, EqualityFn >", "structrpp_1_1details_1_1distinct__until__changed__impl.html", null ],
     [ "rpp::details::distinct_until_changed_on_next", "structrpp_1_1details_1_1distinct__until__changed__on__next.html", null ],
     [ "rpp::details::distinct_until_changed_state< Type, EqualityFn >", "structrpp_1_1details_1_1distinct__until__changed__state.html", null ],
@@ -59,6 +57,7 @@ var hierarchy =
       [ "rpp::details::group_by_state_base", "classrpp_1_1details_1_1group__by__state__base.html", [
         [ "rpp::details::group_by_state< TKey, Type, KeyComparator >", "structrpp_1_1details_1_1group__by__state.html", null ]
       ] ],
+      [ "rpp::details::queue_based_worker< T, Subscriber, Worker >", "classrpp_1_1details_1_1queue__based__worker.html", null ],
       [ "rpp::subjects::details::subject_state< T >", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
     ] ],
     [ "rpp::utils::details::extract_observable_type< T >", "structrpp_1_1utils_1_1details_1_1extract__observable__type.html", null ],
@@ -331,8 +330,11 @@ var hierarchy =
         ] ]
       ] ]
     ] ],
+    [ "rpp::details::queue_based_worker< T, Subscriber, Worker >::on_completed", "structrpp_1_1details_1_1queue__based__worker_1_1on__completed.html", null ],
+    [ "rpp::details::queue_based_worker< T, Subscriber, Worker >::on_error", "structrpp_1_1details_1_1queue__based__worker_1_1on__error.html", null ],
     [ "rpp::details::on_error_resume_next_impl< Type, ResumeCallable >", "structrpp_1_1details_1_1on__error__resume__next__impl.html", null ],
     [ "rpp::details::on_error_resume_next_on_error", "structrpp_1_1details_1_1on__error__resume__next__on__error.html", null ],
+    [ "rpp::details::queue_based_worker< T, Subscriber, Worker >::on_next", "structrpp_1_1details_1_1queue__based__worker_1_1on__next.html", null ],
     [ "rpp::subjects::details::publish_strategy< T >", "classrpp_1_1subjects_1_1details_1_1publish__strategy.html", null ],
     [ "rpp::schedulers::details::queue_worker_state< SchedulableFn >", "classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html", null ],
     [ "rpp::schedulers::details::queue_worker_state< rpp::schedulers::schedulable_wrapper >", "classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html", null ],
