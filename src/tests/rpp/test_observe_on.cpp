@@ -156,33 +156,3 @@ SCENARIO("observe_on transfers emssions to scheduler", "[operators][observe_on]"
         }
     }
 }
-
-SCENARIO("observe_on with immediate doesn't produce a lot of copies", "[operators][observe_on][track_copy]")
-{
-    GIVEN("observable with value by copy")
-    {
-        auto tracker = copy_count_tracker{};
-        WHEN("subscribe on it via scheduler")
-        {
-            tracker.get_observable().observe_on(rpp::schedulers::immediate{}).subscribe();
-            THEN("only 2 extra copies")
-            {
-                CHECK(tracker.get_copy_count() == 2);
-                CHECK(tracker.get_move_count() == 0);
-            }
-        }
-    }
-    GIVEN("observable with value by move")
-    {
-        auto tracker = copy_count_tracker{};
-        WHEN("subscribe on it via scheduler")
-        {
-            tracker.get_observable_for_move().observe_on(rpp::schedulers::immediate{}).subscribe();
-            THEN("only 1 extra copy and 1 extra move")
-            {
-                CHECK(tracker.get_copy_count() == 1);
-                CHECK(tracker.get_move_count() == 1);
-            }
-        }
-    }
-}
