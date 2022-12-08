@@ -1,10 +1,10 @@
 //                   ReactivePlusPlus library
-// 
+//
 //           Copyright Aleksey Loginov 2022 - present.
 //  Distributed under the Boost Software License, Version 1.0.
 //     (See accompanying file LICENSE_1_0.txt or copy at
 //           https://www.boost.org/LICENSE_1_0.txt)
-// 
+//
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
 #include "copy_count_tracker.hpp"
@@ -14,6 +14,7 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include <rpp/schedulers.hpp>
+#include <rpp/subjects/publish_subject.hpp>
 #include <rpp/operators/observe_on.hpp>
 #include <rpp/sources.hpp>
 #include <set>
@@ -39,8 +40,8 @@ SCENARIO("observe_on transfers emssions to scheduler", "[operators][observe_on]"
 
                 CHECK(mock.get_received_values() == vals);
                 CHECK(mock.get_on_completed_count() == 1);
-                CHECK(scheduler.get_schedulings() == std::vector{ initial_time, initial_time, initial_time });//2 items + on_completed 
-                CHECK(scheduler.get_executions() == std::vector{ initial_time, initial_time, initial_time });//2 items + on_completed 
+                CHECK(scheduler.get_schedulings() == std::vector{ initial_time, initial_time, initial_time });//2 items + on_completed
+                CHECK(scheduler.get_executions() == std::vector{ initial_time, initial_time, initial_time });//2 items + on_completed
             }
         }
     }
@@ -85,33 +86,72 @@ SCENARIO("observe_on transfers emssions to scheduler", "[operators][observe_on]"
             }
         }
     }
-}
 
-SCENARIO("observe_on with immediate doesn't produce a lot of copies", "[operators][observe_on][track_copy]")
-{
-    GIVEN("observable with value by copy")
+    GIVEN("subject with items")
     {
-        auto tracker = copy_count_tracker{};
-        WHEN("subscribe on it via scheduler")
+        auto int_mock = mock_observer<int>{};
+        auto subj = rpp::subjects::publish_subject<int>{};
+        WHEN("subscribe on subject via observe_on and doing recursive submit")
         {
-            tracker.get_observable().observe_on(rpp::schedulers::immediate{}).subscribe();
-            THEN("only 1 extra copy")
+            auto sub = subj.get_observable()
+                .observe_on(scheduler)
+                .subscribe([&](int v)
+                {
+                    int_mock.on_next(v);
+
+                    if (v == 1)
+                    {
+                        subj.get_subscriber().on_next(2);
+                        THEN("no direct schedule to scheduler after recursive on_next")
+                        {
+                            CHECK(scheduler.get_schedulings() == std::vector{ initial_time });
+                            CHECK(scheduler.get_executions()  == std::vector{ initial_time });
+                            CHECK(int_mock.get_received_values() == std::vector{1});
+                        }
+                    }
+                });
+
+            subj.get_subscriber().on_next(1);
+
+            THEN("second job executed without extra schedule")
             {
-                CHECK(tracker.get_copy_count() == 1);
-                CHECK(tracker.get_move_count() == 0);
+                CHECK(scheduler.get_schedulings() == std::vector{ initial_time });
+                CHECK(scheduler.get_executions()  == std::vector{ initial_time });
+                CHECK(int_mock.get_received_values() == std::vector{ 1, 2 });
             }
         }
-    }
-    GIVEN("observable with value by move")
-    {
-        auto tracker = copy_count_tracker{};
-        WHEN("subscribe on it via scheduler")
+
+        WHEN("subscribe on subject via observe_on trampoline and doing recursive submit from another thread")
         {
-            tracker.get_observable_for_move().observe_on(rpp::schedulers::immediate{}).subscribe();
-            THEN("only 1 extra move")
+            THEN("all values obtained in the same thread")
             {
-                CHECK(tracker.get_copy_count() == 0);
-                CHECK(tracker.get_move_count() == 1);
+                auto current_thread = std::this_thread::get_id();
+
+                auto sub = subj.get_observable()
+                    .observe_on(rpp::schedulers::trampoline{})
+                    .subscribe([&](int v)
+                    {
+                        CHECK(std::this_thread::get_id() == current_thread);
+
+                        int_mock.on_next(v);
+
+                        if (v == 1)
+                        {
+                            std::thread{[&]{subj.get_subscriber().on_next(2);}}.join();
+
+                            THEN("no recursive on_next calls")
+                            {
+                                CHECK(int_mock.get_received_values() == std::vector{1});
+                            }
+                        }
+                    });
+
+                subj.get_subscriber().on_next(1);
+
+                AND_THEN("all values obtained")
+                {
+                    CHECK(int_mock.get_received_values() == std::vector{ 1, 2 });
+                }
             }
         }
     }

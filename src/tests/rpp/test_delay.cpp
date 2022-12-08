@@ -13,17 +13,18 @@
 #include <catch2/catch_test_macros.hpp>
 #include <rpp/operators/delay.hpp>
 #include <rpp/schedulers/trampoline_scheduler.hpp>
+#include <rpp/subjects/publish_subject.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/just.hpp>
 
 SCENARIO("delay mirrors both source observable and trigger observable", "[delay]")
 {
+    auto mock = mock_observer<int>{};
     std::chrono::milliseconds delay_duration{300};
 
     GIVEN("observable of -1-|")
     {
-        auto       mock = mock_observer<int>{};
         const auto now  = rpp::schedulers::clock_type::now();
 
         rpp::source::just(1)
@@ -60,7 +61,6 @@ SCENARIO("delay mirrors both source observable and trigger observable", "[delay]
 
     GIVEN("observable of -x")
     {
-        auto       mock = mock_observer<int>{};
         const auto now  = rpp::schedulers::clock_type::now();
 
         rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}))
@@ -87,7 +87,6 @@ SCENARIO("delay mirrors both source observable and trigger observable", "[delay]
 
     GIVEN("observable of -|")
     {
-        auto       mock = mock_observer<int>{};
         const auto now  = rpp::schedulers::clock_type::now();
 
         rpp::source::empty<int>()
@@ -109,6 +108,45 @@ SCENARIO("delay mirrors both source observable and trigger observable", "[delay]
             CHECK(mock.get_received_values().empty());
             CHECK(mock.get_on_completed_count() == 1);
             CHECK(mock.get_on_error_count() == 0);
+        }
+    }
+
+    GIVEN("subject with items")
+    {
+        auto subj = rpp::subjects::publish_subject<int>{};
+
+        WHEN("subscribe on subject via delay and doing recursive submit from another thread")
+        {
+            THEN("all values obtained in the same thread")
+            {
+                auto current_thread = std::this_thread::get_id();
+
+                auto sub = subj.get_observable()
+                    .delay(delay_duration, rpp::schedulers::trampoline{})
+                    .subscribe([&](int v)
+                    {
+                        CHECK(std::this_thread::get_id() == current_thread);
+
+                        mock.on_next(v);
+
+                        if (v == 1)
+                        {
+                            std::thread{[&]{subj.get_subscriber().on_next(2);}}.join();
+
+                            THEN("no recursive on_next calls")
+                            {
+                                CHECK(mock.get_received_values() == std::vector{1});
+                            }
+                        }
+                    });
+
+                subj.get_subscriber().on_next(1);
+
+                AND_THEN("all values obtained")
+                {
+                    CHECK(mock.get_received_values() == std::vector{ 1, 2 });
+                }
+            }
         }
     }
 }
