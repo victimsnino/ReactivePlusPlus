@@ -89,7 +89,7 @@ SCENARIO("observe_on transfers emssions to scheduler", "[operators][observe_on]"
 
     GIVEN("subject with items")
     {
-        auto mock = mock_observer<int>{};
+        auto int_mock = mock_observer<int>{};
         auto subj = rpp::subjects::publish_subject<int>{};
         WHEN("subscribe on subject via observe_on and doing recursive submit")
         {
@@ -97,7 +97,7 @@ SCENARIO("observe_on transfers emssions to scheduler", "[operators][observe_on]"
                 .observe_on(scheduler)
                 .subscribe([&](int v)
                 {
-                    mock.on_next(v);
+                    int_mock.on_next(v);
 
                     if (v == 1)
                     {
@@ -106,7 +106,7 @@ SCENARIO("observe_on transfers emssions to scheduler", "[operators][observe_on]"
                         {
                             CHECK(scheduler.get_schedulings() == std::vector{ initial_time });
                             CHECK(scheduler.get_executions()  == std::vector{ initial_time });
-                            CHECK(mock.get_received_values() == std::vector{1});
+                            CHECK(int_mock.get_received_values() == std::vector{1});
                         }
                     }
                 });
@@ -117,7 +117,7 @@ SCENARIO("observe_on transfers emssions to scheduler", "[operators][observe_on]"
             {
                 CHECK(scheduler.get_schedulings() == std::vector{ initial_time });
                 CHECK(scheduler.get_executions()  == std::vector{ initial_time });
-                CHECK(mock.get_received_values() == std::vector{ 1, 2 });
+                CHECK(int_mock.get_received_values() == std::vector{ 1, 2 });
             }
         }
 
@@ -133,7 +133,7 @@ SCENARIO("observe_on transfers emssions to scheduler", "[operators][observe_on]"
                     {
                         CHECK(std::this_thread::get_id() == current_thread);
 
-                        mock.on_next(v);
+                        int_mock.on_next(v);
 
                         if (v == 1)
                         {
@@ -141,7 +141,7 @@ SCENARIO("observe_on transfers emssions to scheduler", "[operators][observe_on]"
 
                             THEN("no recursive on_next calls")
                             {
-                                CHECK(mock.get_received_values() == std::vector{1});
+                                CHECK(int_mock.get_received_values() == std::vector{1});
                             }
                         }
                     });
@@ -150,7 +150,7 @@ SCENARIO("observe_on transfers emssions to scheduler", "[operators][observe_on]"
 
                 AND_THEN("all values obtained")
                 {
-                    CHECK(mock.get_received_values() == std::vector{ 1, 2 });
+                    CHECK(int_mock.get_received_values() == std::vector{ 1, 2 });
                 }
             }
         }
