@@ -39,7 +39,7 @@ public:
     {
         std::lock_guard lock{m_mutex};
         m_value_to_be_emitted.emplace(std::forward<decltype(v)>(v));
-        const bool need_to_scheduled = !m_time_when_value_should_be_emitted.has_value() || !m_value_to_be_emitted.has_value();
+        const bool need_to_scheduled        = !m_time_when_value_should_be_emitted.has_value() || !m_value_to_be_emitted.has_value();
         m_time_when_value_should_be_emitted = m_worker.now() + m_period;
         return need_to_scheduled ? m_time_when_value_should_be_emitted : std::optional<schedulers::time_point>{};
     }
@@ -62,17 +62,16 @@ public:
 
     std::optional<T> extract_value()
     {
-        std::lock_guard lock{m_mutex};
+        std::lock_guard  lock{m_mutex};
         std::optional<T> res{};
         m_value_to_be_emitted.swap(res);
         return res;
     }
 
     using Worker = decltype(std::declval<Scheduler>().create_worker(std::declval<composite_subscription>()));
-    const Worker& get_worker() const {return m_worker;}
+    const Worker& get_worker() const { return m_worker; }
 
 private:
-
     schedulers::duration                  m_period;
     Worker                                m_worker;
     std::mutex                            m_mutex{};
@@ -83,23 +82,19 @@ private:
 struct debounce_on_next
 {
     template<typename Value>
-    void operator()(Value&& v, const auto& subscriber, const auto& state_ptr) const
+    void operator()(Value&& v, const auto& state_ptr) const
     {
         if (const auto time_to_schedule = state_ptr->emplace_safe(std::forward<Value>(v)))
         {
             state_ptr->get_worker().schedule(time_to_schedule.value(),
-                                             [subscriber, weak_state=std::weak_ptr{state_ptr}]() mutable -> schedulers::optional_duration
+                                             [state_ptr]() mutable -> schedulers::optional_duration
                                              {
-                                                 auto locked_state = weak_state.lock();
-                                                 if (!locked_state)
-                                                    return std::nullopt;
-
-                                                 auto value_or_duration = locked_state->extract_value_or_time();
+                                                 auto value_or_duration = state_ptr->extract_value_or_time();
                                                  if (auto* duration = std::get_if<schedulers::duration>(&value_or_duration))
                                                      return *duration;
 
                                                  if (auto* value = std::get_if<std::decay_t<Value>>(&value_or_duration))
-                                                     subscriber.on_next(std::move(*value));
+                                                     state_ptr->subscriber.on_next(std::move(*value));
 
                                                  return std::nullopt;
                                              });
@@ -107,28 +102,43 @@ struct debounce_on_next
     }
 };
 
-using debounce_on_error = early_unsubscribe_on_error;
+struct debounce_on_error
+{
+    void operator()(const std::exception_ptr& err, const auto& state) const
+    {
+        state->children_subscriptions.unsubscribe();
+        state->subscriber.on_error(err);
+    }
+};
 
 struct debounce_on_completed
 {
-    void operator()(const auto& subscriber, const auto& state_ptr) const
+    void operator()(const auto& state_ptr) const
     {
         state_ptr->children_subscriptions.unsubscribe();
 
         if (auto v = state_ptr->extract_value())
-            subscriber.on_next(std::move(v.value()));
+            state_ptr->subscriber.on_next(std::move(v.value()));
 
-        subscriber.on_completed();
+        state_ptr->subscriber.on_completed();
     }
 };
 
-template<typename T, typename Scheduler>
+template<typename T, typename Scheduler, typename TSub>
 struct debounce_state_with_serialized_spinlock : debounce_state<T, Scheduler>
 {
-    using debounce_state<T, Scheduler>::debounce_state;
+    debounce_state_with_serialized_spinlock(auto&&                        sub,
+                                            schedulers::duration          period,
+                                            const Scheduler&              scheduler,
+                                            const composite_subscription& subscription_of_subscriber)
+        : debounce_state<T, Scheduler>{std::move(period), scheduler, subscription_of_subscriber}
+        , subscriber(make_serialized_subscriber(std::forward<decltype(sub)>(sub), std::ref(spinlock))) {}
 
     // spinlock because most part of time there is only one thread would be active
     utils::spinlock spinlock{};
+
+    using InnerSub = decltype(make_serialized_subscriber(std::declval<TSub>(), std::declval<std::reference_wrapper<utils::spinlock>>()));
+    InnerSub subscriber;
 };
 
 template<constraint::decayed_type Type,schedulers::constraint::scheduler TScheduler>
@@ -140,15 +150,12 @@ struct debounce_impl
     template<constraint::subscriber_of_type<Type> TSub>
     auto operator()(TSub&& in_subscriber) const
     {
-        auto state = std::make_shared<debounce_state_with_serialized_spinlock<Type, TScheduler>>(period, scheduler, in_subscriber.get_subscription());
-        // change subscriber to serialized to avoid manual using of mutex
-        auto subscriber = make_serialized_subscriber(std::forward<TSub>(in_subscriber), std::shared_ptr<utils::spinlock>{state, &state->spinlock});
+        auto state = std::make_shared<debounce_state_with_serialized_spinlock<Type, TScheduler, std::decay_t<TSub>>>(std::forward<TSub>(in_subscriber), period, scheduler, in_subscriber.get_subscription());
 
         return create_subscriber_with_state<Type>(state->children_subscriptions,
                                                   debounce_on_next{},
                                                   debounce_on_error{},
                                                   debounce_on_completed{},
-                                                  std::move(subscriber),
                                                   std::move(state));
     }
 };
