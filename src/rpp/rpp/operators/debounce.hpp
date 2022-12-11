@@ -19,7 +19,7 @@
 
 #include <rpp/utils/spinlock.hpp>
 
-#include <atomic>
+#include <type_traits>
 #include <variant>
 
 IMPLEMENTATION_FILE(debounce_tag);
@@ -27,7 +27,7 @@ IMPLEMENTATION_FILE(debounce_tag);
 namespace rpp::details
 {
 template<typename T, typename Scheduler>
-class debounce_state : early_unsubscribe_state
+class debounce_state : public early_unsubscribe_state
 {
 public:
     debounce_state(schedulers::duration period, const Scheduler& scheduler, const composite_subscription& subscription_of_subscriber)
@@ -44,14 +44,15 @@ public:
         return need_to_scheduled ? m_time_when_value_should_be_emitted : std::optional<schedulers::time_point>{};
     }
 
-    std::variant<std::monostate, T, schedulers::duration> extract_value_or_time(schedulers::time_point expected_time)
+    std::variant<std::monostate, T, schedulers::duration> extract_value_or_time()
     {
         std::lock_guard lock{m_mutex};
         if (!m_time_when_value_should_be_emitted.has_value() || !m_value_to_be_emitted.has_value())
             return std::monostate{};
 
-        if (m_time_when_value_should_be_emitted != expected_time)
-            return m_time_when_value_should_be_emitted.value() - Worker::now();
+        const auto now = m_worker.now();
+        if (m_time_when_value_should_be_emitted > now)
+            return m_time_when_value_should_be_emitted.value() - now;
 
         m_time_when_value_should_be_emitted.reset();
         auto v = std::move(m_value_to_be_emitted).value();
@@ -67,8 +68,10 @@ public:
         return res;
     }
 
+    using Worker = decltype(std::declval<Scheduler>().create_worker(std::declval<composite_subscription>()));
+    const Worker& get_worker() const {return m_worker;}
+
 private:
-    using Worker = std::decay_t<std::invoke_result_t<decltype(&Scheduler::create_worker), composite_subscription>>;
 
     schedulers::duration                  m_period;
     Worker                                m_worker;
@@ -84,17 +87,17 @@ struct debounce_on_next
     {
         if (const auto time_to_schedule = state_ptr->emplace_safe(std::forward<Value>(v)))
         {
-            state_ptr->worker.schedule(time_to_schedule.value(),
-                                       [expected_time = time_to_schedule.value(), =]() mutable -> rpp::schedulers::optional_duration
-                                       {
-                                           auto value_or_duration = state_ptr->extract_value_or_time(expected_time);
-                                           if (auto* duration = std::get_if<schedulers::time_point>(&value_or_duration))
-                                               return *duration;
+            state_ptr->get_worker().schedule(time_to_schedule.value(),
+                                             [=]() mutable -> schedulers::optional_duration
+                                             {
+                                                 auto value_or_duration = state_ptr->extract_value_or_time();
+                                                 if (auto* duration = std::get_if<schedulers::duration>(&value_or_duration))
+                                                     return *duration;
 
-                                           if (auto* value = std::get_if<std::decay_t<Value>>(&value_or_duration))
-                                               subscriber.on_next(std::move(*value));
-                                           return {};
-                                       });
+                                                 if (auto* value = std::get_if<std::decay_t<Value>>(&value_or_duration))
+                                                     subscriber.on_next(std::move(*value));
+                                                 return {};
+                                             });
         }
     }
 };

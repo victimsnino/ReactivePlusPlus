@@ -41,7 +41,7 @@ SCENARIO("debounce emit only items where timeout reached", "[operators][debounce
                 THEN("emission reached mock")
                 {
                     CHECK(scheduler.get_schedulings() == std::vector{start+debounce_delay});
-                    CHECK(scheduler.get_executions() == == std::vector{start+debounce_delay});
+                    CHECK(scheduler.get_executions() == std::vector{start+debounce_delay});
                     CHECK(mock.get_received_values() == std::vector{1});
                     CHECK(mock.get_on_error_count() == 0);
                     CHECK(mock.get_on_completed_count() == 0);
@@ -77,10 +77,22 @@ SCENARIO("debounce emit only items where timeout reached", "[operators][debounce
                     THEN("delay re-schedule schedulable to new delay timepoint")
                     {
                         CHECK(scheduler.get_schedulings() == std::vector{start+debounce_delay, start+debounce_delay/2+debounce_delay});
-                        CHECK(scheduler.get_executions().empty());
+                        CHECK(scheduler.get_executions() == std::vector{start+debounce_delay});
                         CHECK(mock.get_total_on_next_count() == 0);
                         CHECK(mock.get_on_error_count() == 0);
                         CHECK(mock.get_on_completed_count() == 0);
+                    }
+                    AND_WHEN("scheduler reached delayed time")
+                    {
+                        scheduler.time_advance(debounce_delay/2);
+                        THEN("emission reached mock")
+                        {
+                            CHECK(scheduler.get_schedulings() == std::vector{start+debounce_delay, start+debounce_delay/2+debounce_delay});
+                            CHECK(scheduler.get_executions() == std::vector{start+debounce_delay, start+debounce_delay/2+debounce_delay});
+                            CHECK(mock.get_received_values() == std::vector{2});
+                            CHECK(mock.get_on_error_count() == 0);
+                            CHECK(mock.get_on_completed_count() == 0);
+                        }
                     }
                 }
             }

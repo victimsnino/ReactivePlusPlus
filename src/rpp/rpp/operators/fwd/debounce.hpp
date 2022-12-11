@@ -31,8 +31,8 @@ struct member_overload<Type, SpecificObservable, debounce_tag>
      * 
      * \marble debounce
         {
-            source    observable   : +--1-2-----3-4--|
-            operator "debounce(4)" : +--------2------4|
+            source    observable   : +--1-2-----3---|
+            operator "debounce(4)" : +--------2-----3|
         }
      * \param period is duration of time should be passed since emission from original observable without any new emissions to emit this emission.
      * \param scheduler is scheduler used to run timer for debounce
