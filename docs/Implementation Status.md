@@ -62,7 +62,7 @@
 ### Filtering
 - [x] filter
 - [x] take
-- [ ] debounce
+- [x] debounce
 - [ ] distinct
   - [ ] distinct
   - [x] distinct_until_changed
