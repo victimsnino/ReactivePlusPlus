@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 29.585798
+%%BoundingBox: 0 0 500 239.361710
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,13 +19,13 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 16.900000 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 2.088889 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 6 def
-/cols 8 def
+/rows 9 def
+/cols 2 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
 
@@ -176,19 +176,12 @@ boxfont setfont
 (rpp::details::early_unsubscribe_state) cw
 (rpp::details::with_latest_from_state< TSelector, ValueTypes... >) cw
 (rpp::details::concat_state< ValueType >) cw
+(rpp::details::debounce_state< T, Scheduler >) cw
 (rpp::details::merge_state) cw
 (rpp::details::sample_state< Type >) cw
 (rpp::details::take_until_state_with_serialized_spinlock) cw
 (rpp::details::timeout_state< FallbackObs >) cw
 (rpp::details::with_latest_from_state< TSelector, ValueTypes >) cw
-(rpp::details::with_latest_from_state_with_serialized_spinlock< TSelector, ValueTypes >) cw
-(rpp::details::concat_state_with_serialized_spinlock< ValueType >) cw
-(rpp::details::combine_latest_state< TCombiner, Types... >) cw
-(rpp::details::combine_latest_state< TCombiner, Types >) cw
-(rpp::details::merge_state_with_serialized_mutex) cw
-(rpp::details::switch_on_next_state) cw
-(rpp::details::sample_state_with_serialized_spinlock< Type >) cw
-(rpp::details::timeout_state_with_serialized_spinlock< FallbackObs >) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
 /yspacing boxheight disty add def
@@ -200,70 +193,41 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (rpp::details::early_unsubscribe_state) 4.000000 5.000000 box
- (rpp::details::with_latest_from_state< TSelector, ValueTypes... >) 0.000000 4.000000 box
- (rpp::details::concat_state< ValueType >) 1.000000 4.000000 box
- (rpp::details::merge_state) 2.000000 4.000000 box
- (rpp::details::sample_state< Type >) 4.000000 4.000000 box
- (rpp::details::take_until_state_with_serialized_spinlock) 5.000000 4.000000 box
- (rpp::details::timeout_state< FallbackObs >) 6.000000 4.000000 box
- (rpp::details::with_latest_from_state< TSelector, ValueTypes >) 7.000000 4.000000 box
- (rpp::details::with_latest_from_state_with_serialized_spinlock< TSelector, ValueTypes >) 0.000000 3.000000 box
- (rpp::details::concat_state_with_serialized_spinlock< ValueType >) 1.000000 3.000000 box
- (rpp::details::combine_latest_state< TCombiner, Types... >) 3.000000 3.000000 box
-3.000000 3.000000 mark
- (rpp::details::combine_latest_state< TCombiner, Types >) 3.000000 2.000000 box
- (rpp::details::merge_state_with_serialized_mutex) 3.000000 1.000000 box
- (rpp::details::switch_on_next_state) 3.000000 0.000000 box
-3.000000 0.000000 mark
- (rpp::details::sample_state_with_serialized_spinlock< Type >) 4.000000 3.000000 box
- (rpp::details::timeout_state_with_serialized_spinlock< FallbackObs >) 6.000000 3.000000 box
+ (rpp::details::early_unsubscribe_state) 0.000000 8.000000 box
+ (rpp::details::with_latest_from_state< TSelector, ValueTypes... >) 1.000000 7.000000 box
+1.000000 7.000000 mark
+ (rpp::details::concat_state< ValueType >) 1.000000 6.000000 box
+1.000000 6.000000 mark
+ (rpp::details::debounce_state< T, Scheduler >) 1.000000 5.000000 box
+1.000000 5.000000 mark
+ (rpp::details::merge_state) 1.000000 4.000000 box
+1.000000 4.000000 mark
+ (rpp::details::sample_state< Type >) 1.000000 3.000000 box
+1.000000 3.000000 mark
+ (rpp::details::take_until_state_with_serialized_spinlock) 1.000000 2.000000 box
+ (rpp::details::timeout_state< FallbackObs >) 1.000000 1.000000 box
+1.000000 1.000000 mark
+ (rpp::details::with_latest_from_state< TSelector, ValueTypes >) 1.000000 0.000000 box
 
 % ----- relations -----
 
 solid
-1 4.000000 4.250000 out
+1 0.000000 7.250000 out
 solid
-0.000000 7.000000 5.000000 conn
+0 0.000000 7.500000 hedge
 solid
-0 0.000000 4.750000 in
+0 0.000000 6.500000 hedge
 solid
-1 0.000000 3.250000 out
+0 0.000000 5.500000 hedge
 solid
-0 1.000000 4.750000 in
+0 0.000000 4.500000 hedge
 solid
-1 1.000000 3.250000 out
+0 0.000000 3.500000 hedge
 solid
-0 2.000000 4.750000 in
+0 0.000000 2.500000 hedge
 solid
-1 2.000000 3.250000 out
+0 0.000000 1.500000 hedge
 solid
-0 4.000000 4.750000 in
+0 0.000000 0.500000 hedge
 solid
-1 4.000000 3.250000 out
-solid
-0 5.000000 4.750000 in
-solid
-0 6.000000 4.750000 in
-solid
-1 6.000000 3.250000 out
-solid
-0 7.000000 4.750000 in
-solid
-0 0.000000 3.750000 in
-solid
-0 1.000000 3.750000 in
-solid
-0 2.000000 3.500000 hedge
-solid
-0 2.000000 2.500000 hedge
-solid
-0 2.000000 1.500000 hedge
-solid
-0 2.000000 0.500000 hedge
-solid
-2.000000 4.000000 0.500000 vedge
-solid
-0 4.000000 3.750000 in
-solid
-0 6.000000 3.750000 in
+0.000000 8.000000 0.500000 vedge

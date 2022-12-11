@@ -1,5 +1,6 @@
 var group__utility__operators =
 [
+    [ "debounce", "group__utility__operators.html#ga617d5e64f0ca7808012c2bea0eec272d", null ],
     [ "delay", "group__utility__operators.html#gaaf883140cd425aa10c6a314eb014fb9b", null ],
     [ "do_on_completed", "group__utility__operators.html#ga2d6dfc49bf54893033b45b530f0fcb38", null ],
     [ "do_on_error", "group__utility__operators.html#ga9089d55867fc04d1f353dc636e519634", null ],

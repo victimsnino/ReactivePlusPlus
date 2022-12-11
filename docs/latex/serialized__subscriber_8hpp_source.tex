@@ -22,50 +22,73 @@
 \DoxyCodeLine{18 }
 \DoxyCodeLine{19 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{20 \{}
-\DoxyCodeLine{21 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__next__under__lock}{forwarding\_on\_next\_under\_lock}}}
-\DoxyCodeLine{22 \{}
-\DoxyCodeLine{23     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} TSerializationPrimitive>}
-\DoxyCodeLine{24     \textcolor{keywordtype}{void} operator()(T\&\& v, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber, \textcolor{keyword}{const} std::shared\_ptr<TSerializationPrimitive>\& primitive)\textcolor{keyword}{ const}}
-\DoxyCodeLine{25 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{26         std::lock\_guard lock\{*primitive\};}
-\DoxyCodeLine{27         subscriber.on\_next(std::forward<T>(v));}
-\DoxyCodeLine{28     \}}
-\DoxyCodeLine{29 \};}
-\DoxyCodeLine{30 }
-\DoxyCodeLine{31 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__error__under__lock}{forwarding\_on\_error\_under\_lock}}}
-\DoxyCodeLine{32 \{}
-\DoxyCodeLine{33     \textcolor{keyword}{template}<\textcolor{keyword}{typename} TSerializationPrimitive>}
-\DoxyCodeLine{34     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} std::exception\_ptr\&                       err,}
-\DoxyCodeLine{35                     \textcolor{keyword}{const} \textcolor{keyword}{auto}\&                                     subscriber,}
-\DoxyCodeLine{36                     \textcolor{keyword}{const} std::shared\_ptr<TSerializationPrimitive>\& primitive)\textcolor{keyword}{ const}}
+\DoxyCodeLine{21 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{22 \textcolor{keyword}{auto} lock(\textcolor{keyword}{const} std::shared\_ptr<T>\& ptr)}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24     \textcolor{keywordflow}{return} std::lock\_guard\{*ptr\};}
+\DoxyCodeLine{25 \}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{28 \textcolor{keyword}{auto} lock(\textcolor{keyword}{const} std::reference\_wrapper<T>\& ref)}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30     \textcolor{keywordflow}{return} std::lock\_guard\{ref.get()\};}
+\DoxyCodeLine{31 \}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__next__under__lock}{forwarding\_on\_next\_under\_lock}}}
+\DoxyCodeLine{34 \{}
+\DoxyCodeLine{35     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{36     \textcolor{keywordtype}{void} operator()(T\&\& v, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& primitive)\textcolor{keyword}{ const}}
 \DoxyCodeLine{37 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{38         std::lock\_guard lock\{*primitive\};}
-\DoxyCodeLine{39         subscriber.on\_error(err);}
+\DoxyCodeLine{38         \textcolor{keyword}{auto} lock\_guard = lock(primitive);}
+\DoxyCodeLine{39         subscriber.on\_next(std::forward<T>(v));}
 \DoxyCodeLine{40     \}}
 \DoxyCodeLine{41 \};}
 \DoxyCodeLine{42 }
-\DoxyCodeLine{43 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__completed__under__lock}{forwarding\_on\_completed\_under\_lock}}}
+\DoxyCodeLine{43 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__error__under__lock}{forwarding\_on\_error\_under\_lock}}}
 \DoxyCodeLine{44 \{}
-\DoxyCodeLine{45     \textcolor{keyword}{template}<\textcolor{keyword}{typename} TSerializationPrimitive>}
-\DoxyCodeLine{46     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber, \textcolor{keyword}{const} std::shared\_ptr<TSerializationPrimitive>\& primitive)\textcolor{keyword}{ const}}
-\DoxyCodeLine{47 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{48         std::lock\_guard lock\{*primitive\};}
-\DoxyCodeLine{49         subscriber.on\_completed();}
-\DoxyCodeLine{50     \}}
-\DoxyCodeLine{51 \};}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{53 \textcolor{keyword}{template}<\textcolor{keyword}{typename} TSerializationPrimitive, constra\textcolor{keywordtype}{int}::subscriber TSub>}
-\DoxyCodeLine{54 \textcolor{keyword}{auto} make\_serialized\_subscriber(TSub\&\&                                          subscriber,}
-\DoxyCodeLine{55                                 \textcolor{keyword}{const} std::shared\_ptr<TSerializationPrimitive>\& primitive)}
-\DoxyCodeLine{56 \{}
-\DoxyCodeLine{57     \textcolor{keyword}{auto} sub = subscriber.get\_subscription();}
-\DoxyCodeLine{58     \textcolor{keywordflow}{return} create\_subscriber\_with\_state<utils::extract\_subscriber\_type\_t<std::decay\_t<TSub>>>(std::move(sub),}
-\DoxyCodeLine{59                                                                                               \mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__next__under__lock}{forwarding\_on\_next\_under\_lock}}\{\},}
-\DoxyCodeLine{60                                                                                               forwarding\_on\_error\_under\_lock\{\},}
-\DoxyCodeLine{61                                                                                               forwarding\_on\_completed\_under\_lock\{\},}
-\DoxyCodeLine{62                                                                                               std::forward<TSub>(subscriber),}
-\DoxyCodeLine{63                                                                                               primitive);}
-\DoxyCodeLine{64 \}}
-\DoxyCodeLine{65 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{45     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} std::exception\_ptr\& err,}
+\DoxyCodeLine{46                     \textcolor{keyword}{const} \textcolor{keyword}{auto}\&               subscriber,}
+\DoxyCodeLine{47                     \textcolor{keyword}{const} \textcolor{keyword}{auto}\&               primitive)\textcolor{keyword}{ const}}
+\DoxyCodeLine{48 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{49         \textcolor{keyword}{auto} lock\_guard = lock(primitive);}
+\DoxyCodeLine{50         subscriber.on\_error(err);}
+\DoxyCodeLine{51     \}}
+\DoxyCodeLine{52 \};}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__completed__under__lock}{forwarding\_on\_completed\_under\_lock}}}
+\DoxyCodeLine{55 \{}
+\DoxyCodeLine{56     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& primitive)\textcolor{keyword}{ const}}
+\DoxyCodeLine{57 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{58         \textcolor{keyword}{auto} lock\_guard = lock(primitive);}
+\DoxyCodeLine{59         subscriber.on\_completed();}
+\DoxyCodeLine{60     \}}
+\DoxyCodeLine{61 \};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63 \textcolor{keyword}{template}<\textcolor{keyword}{typename} TSerializationPrimitive, constra\textcolor{keywordtype}{int}::subscriber TSub>}
+\DoxyCodeLine{64 \textcolor{keyword}{auto} make\_serialized\_subscriber(TSub\&\&                                          subscriber,}
+\DoxyCodeLine{65                                 \textcolor{keyword}{const} std::shared\_ptr<TSerializationPrimitive>\& primitive)}
+\DoxyCodeLine{66 \{}
+\DoxyCodeLine{67     \textcolor{keyword}{auto} sub = subscriber.get\_subscription();}
+\DoxyCodeLine{68     \textcolor{keywordflow}{return} create\_subscriber\_with\_state<utils::extract\_subscriber\_type\_t<std::decay\_t<TSub>>>(std::move(sub),}
+\DoxyCodeLine{69                                                                                               \mbox{\hyperlink{structrpp_1_1details_1_1forwarding__on__next__under__lock}{forwarding\_on\_next\_under\_lock}}\{\},}
+\DoxyCodeLine{70                                                                                               forwarding\_on\_error\_under\_lock\{\},}
+\DoxyCodeLine{71                                                                                               forwarding\_on\_completed\_under\_lock\{\},}
+\DoxyCodeLine{72                                                                                               std::forward<TSub>(subscriber),}
+\DoxyCodeLine{73                                                                                               primitive);}
+\DoxyCodeLine{74 \}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76 \textcolor{keyword}{template}<\textcolor{keyword}{typename} TSerializationPrimitive, constra\textcolor{keywordtype}{int}::subscriber TSub>}
+\DoxyCodeLine{77 \textcolor{keyword}{auto} make\_serialized\_subscriber(TSub\&\&                                          subscriber,}
+\DoxyCodeLine{78                                 std::reference\_wrapper<TSerializationPrimitive> primitive)}
+\DoxyCodeLine{79 \{}
+\DoxyCodeLine{80     \textcolor{keyword}{auto} sub = subscriber.get\_subscription();}
+\DoxyCodeLine{81     \textcolor{keywordflow}{return} create\_subscriber\_with\_state<utils::extract\_subscriber\_type\_t<std::decay\_t<TSub>>>(std::move(sub),}
+\DoxyCodeLine{82                                                                                               forwarding\_on\_next\_under\_lock\{\},}
+\DoxyCodeLine{83                                                                                               forwarding\_on\_error\_under\_lock\{\},}
+\DoxyCodeLine{84                                                                                               forwarding\_on\_completed\_under\_lock\{\},}
+\DoxyCodeLine{85                                                                                               std::forward<TSub>(subscriber),}
+\DoxyCodeLine{86                                                                                               primitive);}
+\DoxyCodeLine{87 \}}
+\DoxyCodeLine{88 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

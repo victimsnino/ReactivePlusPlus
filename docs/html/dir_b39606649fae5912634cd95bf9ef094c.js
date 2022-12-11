@@ -3,6 +3,7 @@ var dir_b39606649fae5912634cd95bf9ef094c =
     [ "buffer.hpp", "fwd_2buffer_8hpp_source.html", null ],
     [ "combine_latest.hpp", "fwd_2combine__latest_8hpp_source.html", null ],
     [ "concat.hpp", "fwd_2concat_8hpp_source.html", null ],
+    [ "debounce.hpp", "fwd_2debounce_8hpp_source.html", null ],
     [ "delay.hpp", "fwd_2delay_8hpp_source.html", null ],
     [ "distinct_until_changed.hpp", "fwd_2distinct__until__changed_8hpp_source.html", null ],
     [ "do.hpp", "fwd_2do_8hpp_source.html", null ],

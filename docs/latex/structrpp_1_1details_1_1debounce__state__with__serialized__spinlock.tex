@@ -1,0 +1,34 @@
+\hypertarget{structrpp_1_1details_1_1debounce__state__with__serialized__spinlock}{}\doxysection{rpp\+::details\+::debounce\+\_\+state\+\_\+with\+\_\+serialized\+\_\+spinlock\texorpdfstring{$<$}{<} T, Scheduler, TSub \texorpdfstring{$>$}{>} Struct Template Reference}
+\label{structrpp_1_1details_1_1debounce__state__with__serialized__spinlock}\index{rpp::details::debounce\_state\_with\_serialized\_spinlock$<$ T, Scheduler, TSub $>$@{rpp::details::debounce\_state\_with\_serialized\_spinlock$<$ T, Scheduler, TSub $>$}}
+Inheritance diagram for rpp\+::details\+::debounce\+\_\+state\+\_\+with\+\_\+serialized\+\_\+spinlock\texorpdfstring{$<$}{<} T, Scheduler, TSub \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{structrpp_1_1details_1_1debounce__state__with__serialized__spinlock}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1debounce__state__with__serialized__spinlock_a7cc677912fa2d30c96be0b67ad968047}\label{structrpp_1_1details_1_1debounce__state__with__serialized__spinlock_a7cc677912fa2d30c96be0b67ad968047}} 
+using {\bfseries Inner\+Sub} = decltype(make\+\_\+serialized\+\_\+subscriber(std\+::declval$<$ TSub $>$(), std\+::declval$<$ std\+::reference\+\_\+wrapper$<$ utils\+::spinlock $>$ $>$()))
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1debounce__state__with__serialized__spinlock_a266a2db7e44bbc2c4340df9de9c318ed}\label{structrpp_1_1details_1_1debounce__state__with__serialized__spinlock_a266a2db7e44bbc2c4340df9de9c318ed}} 
+{\bfseries debounce\+\_\+state\+\_\+with\+\_\+serialized\+\_\+spinlock} (auto \&\&sub, schedulers\+::duration period, const Scheduler \&scheduler, const \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\+\_\+subscription}} \&subscription\+\_\+of\+\_\+subscriber)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1debounce__state__with__serialized__spinlock_a3bb2bee6ba4bc13129be5dee9d11517a}\label{structrpp_1_1details_1_1debounce__state__with__serialized__spinlock_a3bb2bee6ba4bc13129be5dee9d11517a}} 
+utils\+::spinlock {\bfseries spinlock} \{\}
+\item 
+\mbox{\Hypertarget{structrpp_1_1details_1_1debounce__state__with__serialized__spinlock_a7f3122edcac335e327e26344d96789b4}\label{structrpp_1_1details_1_1debounce__state__with__serialized__spinlock_a7f3122edcac335e327e26344d96789b4}} 
+Inner\+Sub {\bfseries subscriber}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/debounce.\+hpp\end{DoxyCompactItemize}
