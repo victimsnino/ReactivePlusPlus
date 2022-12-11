@@ -88,9 +88,13 @@ struct debounce_on_next
         if (const auto time_to_schedule = state_ptr->emplace_safe(std::forward<Value>(v)))
         {
             state_ptr->get_worker().schedule(time_to_schedule.value(),
-                                             [=]() mutable -> schedulers::optional_duration
+                                             [subscriber, weak_state=std::weak_ptr{state_ptr}]() mutable -> schedulers::optional_duration
                                              {
-                                                 auto value_or_duration = state_ptr->extract_value_or_time();
+                                                 auto locked_state = weak_state.lock();
+                                                 if (!locked_state)
+                                                    return std::nullopt;
+
+                                                 auto value_or_duration = locked_state->extract_value_or_time();
                                                  if (auto* duration = std::get_if<schedulers::duration>(&value_or_duration))
                                                      return *duration;
 
