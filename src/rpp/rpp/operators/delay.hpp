@@ -73,8 +73,9 @@ private:
             m_worker.schedule(timepoint.value(),
                               [weak = this->weak_from_this()]()-> schedulers::optional_duration
                               {
-                                  if (auto state = weak.lock()
+                                  if (auto state = weak.lock())
                                       return state->drain_queue();
+                                  return std::nullopt;
                               });
         }
     }
