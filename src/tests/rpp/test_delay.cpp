@@ -9,6 +9,7 @@
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
 #include "mock_observer.hpp"
+#include <test_scheduler.hpp>
 
 #include <catch2/catch_test_macros.hpp>
 #include <rpp/operators/delay.hpp>
@@ -146,6 +147,19 @@ SCENARIO("delay mirrors both source observable and trigger observable", "[delay]
                 {
                     CHECK(mock.get_received_values() == std::vector{ 1, 2 });
                 }
+            }
+        }
+        WHEN("subscribe on subject via delay via test_scheduler, sent value")
+        {
+            subj.get_observable()
+                .delay(std::chrono::seconds{30000}, test_scheduler{})
+                .subscribe(mock);
+
+            subj.get_subscriber().on_next(1);
+
+            AND_THEN("no memory leak")
+            {
+                // checked via sanitizer
             }
         }
     }

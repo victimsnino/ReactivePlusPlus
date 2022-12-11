@@ -22,7 +22,8 @@ SCENARIO("debounce emit only items where timeout reached", "[operators][debounce
     GIVEN("subject of items and subscriber subscribed on it via debounce")
     {
         auto mock = mock_observer<int>{};
-        auto subj = rpp::subjects::publish_subject<int>{};
+        std::optional<rpp::subjects::publish_subject<int>> optional_subj{rpp::subjects::publish_subject<int>{}};
+        auto& subj = optional_subj.value();
         subj.get_observable().debounce(debounce_delay, scheduler).subscribe(mock);
         WHEN("emit value")
         {
@@ -94,6 +95,19 @@ SCENARIO("debounce emit only items where timeout reached", "[operators][debounce
                             CHECK(mock.get_on_completed_count() == 0);
                         }
                     }
+                }
+            }
+            AND_WHEN("subject destoryed and then schedulable reaches schedulable")
+            {
+                optional_subj.reset();
+                scheduler.time_advance(debounce_delay);
+                THEN("emission reached mock")
+                {
+                    CHECK(scheduler.get_schedulings() == std::vector{start+debounce_delay});
+                    CHECK(scheduler.get_executions() == std::vector{start+debounce_delay});
+                    CHECK(mock.get_received_values() == std::vector{1});
+                    CHECK(mock.get_on_error_count() == 0);
+                    CHECK(mock.get_on_completed_count() == 0);
                 }
             }
         }

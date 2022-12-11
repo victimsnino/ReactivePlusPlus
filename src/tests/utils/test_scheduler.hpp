@@ -58,23 +58,26 @@ public:
     class worker_strategy
     {
     public:
-        worker_strategy(std::shared_ptr<state> state)
+        worker_strategy(std::weak_ptr<state> state)
             : m_state{state} { }
 
         void defer_at(rpp::schedulers::time_point                        time_point,
                       rpp::schedulers::constraint::schedulable_fn auto&& fn) const
         {
-            if (m_state->sub.is_subscribed())
+            if (auto locked = m_state.lock())
             {
-                m_state->schedule(time_point, std::forward<decltype(fn)>(fn));
-                m_state->drain();
+                if (locked->sub.is_subscribed())
+                {
+                    locked->schedule(time_point, std::forward<decltype(fn)>(fn));
+                    locked->drain();
+                }
             }
         }
 
         static rpp::schedulers::time_point now() { return s_current_time; }
 
     private:
-        std::shared_ptr<state> m_state;
+        std::weak_ptr<state> m_state;
     };
 
     test_scheduler() {}
