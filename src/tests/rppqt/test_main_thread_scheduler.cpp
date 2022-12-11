@@ -9,6 +9,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 #include <rpp/subscriptions/composite_subscription.hpp>
+#include <thread>
 
 #include <rppqt/schedulers/main_thread_scheduler.hpp>
 
