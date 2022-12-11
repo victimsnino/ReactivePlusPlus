@@ -71,9 +71,10 @@ private:
         if (const auto timepoint = emplace_safe(std::forward<TT>(item)))
         {
             m_worker.schedule(timepoint.value(),
-                              [state = this->shared_from_this()]()-> schedulers::optional_duration
+                              [weak = this->weak_from_this()]()-> schedulers::optional_duration
                               {
-                                  return state->drain_queue();
+                                  if (auto state = weak.lock()
+                                      return state->drain_queue();
                               });
         }
     }
