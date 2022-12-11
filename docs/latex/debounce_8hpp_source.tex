@@ -133,36 +133,35 @@
 \DoxyCodeLine{129 \{}
 \DoxyCodeLine{130     \mbox{\hyperlink{structrpp_1_1details_1_1debounce__state__with__serialized__spinlock}{debounce\_state\_with\_serialized\_spinlock}}(\textcolor{keyword}{auto}\&\&                        sub,}
 \DoxyCodeLine{131                                             schedulers::duration          period,}
-\DoxyCodeLine{132                                             \textcolor{keyword}{const} Scheduler\&              scheduler,}
-\DoxyCodeLine{133                                             \textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\& subscription\_of\_subscriber)}
-\DoxyCodeLine{134         : \mbox{\hyperlink{classrpp_1_1details_1_1debounce__state}{debounce\_state<T, Scheduler>}}\{std::move(period), scheduler, subscription\_of\_subscriber\}}
-\DoxyCodeLine{135         , subscriber(make\_serialized\_subscriber(std::forward<\textcolor{keyword}{decltype}(sub)>(sub), std::ref(spinlock))) \{\}}
-\DoxyCodeLine{136 }
-\DoxyCodeLine{137     \textcolor{comment}{// spinlock because most part of time there is only one thread would be active}}
-\DoxyCodeLine{138     utils::spinlock spinlock\{\};}
-\DoxyCodeLine{139 }
-\DoxyCodeLine{140     \textcolor{keyword}{using }InnerSub = \textcolor{keyword}{decltype}(make\_serialized\_subscriber(std::declval<TSub>(), std::declval<std::reference\_wrapper<utils::spinlock>>()));}
-\DoxyCodeLine{141     InnerSub subscriber;}
-\DoxyCodeLine{142 \};}
-\DoxyCodeLine{143 }
-\DoxyCodeLine{144 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type,schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
-\DoxyCodeLine{145 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1debounce__impl}{debounce\_impl}}}
-\DoxyCodeLine{146 \{}
-\DoxyCodeLine{147     schedulers::duration period;}
-\DoxyCodeLine{148     TScheduler           scheduler;}
-\DoxyCodeLine{149 }
-\DoxyCodeLine{150     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type> TSub>}
-\DoxyCodeLine{151     \textcolor{keyword}{auto} operator()(TSub\&\& in\_subscriber)\textcolor{keyword}{ const}}
-\DoxyCodeLine{152 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{153         \textcolor{keyword}{auto} state = std::make\_shared<debounce\_state\_with\_serialized\_spinlock<Type, TScheduler, std::decay\_t<TSub>>>(std::forward<TSub>(in\_subscriber), period, scheduler, in\_subscriber.get\_subscription());}
-\DoxyCodeLine{154 }
-\DoxyCodeLine{155         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(state-\/>children\_subscriptions,}
-\DoxyCodeLine{156                                                   \mbox{\hyperlink{structrpp_1_1details_1_1debounce__on__next}{debounce\_on\_next}}\{\},}
-\DoxyCodeLine{157                                                   \mbox{\hyperlink{structrpp_1_1details_1_1debounce__on__error}{debounce\_on\_error}}\{\},}
-\DoxyCodeLine{158                                                   \mbox{\hyperlink{structrpp_1_1details_1_1debounce__on__completed}{debounce\_on\_completed}}\{\},}
-\DoxyCodeLine{159                                                   std::move(state));}
-\DoxyCodeLine{160     \}}
-\DoxyCodeLine{161 \};}
-\DoxyCodeLine{162 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{132                                             \textcolor{keyword}{const} Scheduler\&              scheduler)}
+\DoxyCodeLine{133         : \mbox{\hyperlink{classrpp_1_1details_1_1debounce__state}{debounce\_state<T, Scheduler>}}\{std::move(period), scheduler, sub.get\_subscription()\}}
+\DoxyCodeLine{134         , subscriber(make\_serialized\_subscriber(std::forward<\textcolor{keyword}{decltype}(sub)>(sub), std::ref(spinlock))) \{\}}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136     \textcolor{comment}{// spinlock because most part of time there is only one thread would be active}}
+\DoxyCodeLine{137     utils::spinlock spinlock\{\};}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139     \textcolor{keyword}{using }InnerSub = \textcolor{keyword}{decltype}(make\_serialized\_subscriber(std::declval<TSub>(), std::declval<std::reference\_wrapper<utils::spinlock>>()));}
+\DoxyCodeLine{140     InnerSub subscriber;}
+\DoxyCodeLine{141 \};}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type,schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
+\DoxyCodeLine{144 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1debounce__impl}{debounce\_impl}}}
+\DoxyCodeLine{145 \{}
+\DoxyCodeLine{146     schedulers::duration period;}
+\DoxyCodeLine{147     TScheduler           scheduler;}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{149     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type> TSub>}
+\DoxyCodeLine{150     \textcolor{keyword}{auto} operator()(TSub\&\& in\_subscriber)\textcolor{keyword}{ const}}
+\DoxyCodeLine{151 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{152         \textcolor{keyword}{auto} state = std::make\_shared<debounce\_state\_with\_serialized\_spinlock<Type, TScheduler, std::decay\_t<TSub>>>(std::forward<TSub>(in\_subscriber), period, scheduler);}
+\DoxyCodeLine{153 }
+\DoxyCodeLine{154         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(state-\/>children\_subscriptions,}
+\DoxyCodeLine{155                                                   \mbox{\hyperlink{structrpp_1_1details_1_1debounce__on__next}{debounce\_on\_next}}\{\},}
+\DoxyCodeLine{156                                                   \mbox{\hyperlink{structrpp_1_1details_1_1debounce__on__error}{debounce\_on\_error}}\{\},}
+\DoxyCodeLine{157                                                   \mbox{\hyperlink{structrpp_1_1details_1_1debounce__on__completed}{debounce\_on\_completed}}\{\},}
+\DoxyCodeLine{158                                                   std::move(state));}
+\DoxyCodeLine{159     \}}
+\DoxyCodeLine{160 \};}
+\DoxyCodeLine{161 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}
