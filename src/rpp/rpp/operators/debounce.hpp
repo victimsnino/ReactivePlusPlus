@@ -96,7 +96,8 @@ struct debounce_on_next
 
                                                  if (auto* value = std::get_if<std::decay_t<Value>>(&value_or_duration))
                                                      subscriber.on_next(std::move(*value));
-                                                 return {};
+
+                                                 return std::nullopt;
                                              });
         }
     }
