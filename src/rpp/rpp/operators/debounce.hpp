@@ -129,9 +129,8 @@ struct debounce_state_with_serialized_spinlock : debounce_state<T, Scheduler>
 {
     debounce_state_with_serialized_spinlock(auto&&                        sub,
                                             schedulers::duration          period,
-                                            const Scheduler&              scheduler,
-                                            const composite_subscription& subscription_of_subscriber)
-        : debounce_state<T, Scheduler>{std::move(period), scheduler, subscription_of_subscriber}
+                                            const Scheduler&              scheduler)
+        : debounce_state<T, Scheduler>{std::move(period), scheduler, sub.get_subscription()}
         , subscriber(make_serialized_subscriber(std::forward<decltype(sub)>(sub), std::ref(spinlock))) {}
 
     // spinlock because most part of time there is only one thread would be active
@@ -150,7 +149,7 @@ struct debounce_impl
     template<constraint::subscriber_of_type<Type> TSub>
     auto operator()(TSub&& in_subscriber) const
     {
-        auto state = std::make_shared<debounce_state_with_serialized_spinlock<Type, TScheduler, std::decay_t<TSub>>>(std::forward<TSub>(in_subscriber), period, scheduler, in_subscriber.get_subscription());
+        auto state = std::make_shared<debounce_state_with_serialized_spinlock<Type, TScheduler, std::decay_t<TSub>>>(std::forward<TSub>(in_subscriber), period, scheduler);
 
         return create_subscriber_with_state<Type>(state->children_subscriptions,
                                                   debounce_on_next{},
