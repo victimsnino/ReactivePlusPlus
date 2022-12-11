@@ -102,7 +102,7 @@ private:
             if (m_queue.empty())
             {
                 m_active = false;
-                return {};
+                return std::nullopt;
             }
 
             auto& top = m_queue.top();
