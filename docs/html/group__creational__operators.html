@@ -142,12 +142,12 @@ requires rpp::details::is_header_included&lt;rpp::details::from_tag, decltype(ca
 <tr class="memitem:ga52959b5368cc881f38a305a3b5e1ded3"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga52959b5368cc881f38a305a3b5e1ded3">rpp::observable::from_callable</a> (std::invocable&lt;&gt; auto &amp;&amp;callable)</td></tr>
 <tr class="memdesc:ga52959b5368cc881f38a305a3b5e1ded3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">rpp::specific_observable</a> that calls provided callable and emits resulting value of this callable.  <br /></td></tr>
 <tr class="separator:ga52959b5368cc881f38a305a3b5e1ded3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2c3002a4f3af8fcd0f73fab9bf5a0ea3"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler = schedulers::immediate&gt; <br />
+<tr class="memitem:ga2c3002a4f3af8fcd0f73fab9bf5a0ea3"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler = schedulers::trampoline&gt; <br />
 requires rpp::details::is_header_included&lt;rpp::details::interval_tag, TScheduler&gt;</td></tr>
 <tr class="memitem:ga2c3002a4f3af8fcd0f73fab9bf5a0ea3"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga2c3002a4f3af8fcd0f73fab9bf5a0ea3">rpp::observable::interval</a> (schedulers::duration period, const TScheduler &amp;scheduler)</td></tr>
 <tr class="memdesc:ga2c3002a4f3af8fcd0f73fab9bf5a0ea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">rpp::specific_observable</a> which emits sequence of size_t every provided time interval.  <br /></td></tr>
 <tr class="separator:ga2c3002a4f3af8fcd0f73fab9bf5a0ea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gace4fe134b05b9c02142166769df71436"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler = schedulers::immediate&gt; <br />
+<tr class="memitem:gace4fe134b05b9c02142166769df71436"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler = schedulers::trampoline&gt; <br />
 requires rpp::details::is_header_included&lt;rpp::details::interval_tag, TScheduler&gt;</td></tr>
 <tr class="memitem:gace4fe134b05b9c02142166769df71436"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gace4fe134b05b9c02142166769df71436">rpp::observable::interval</a> (schedulers::duration first_delay, schedulers::duration period, const TScheduler &amp;scheduler)</td></tr>
 <tr class="memdesc:gace4fe134b05b9c02142166769df71436"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">rpp::specific_observable</a> which emits sequence of size_t every provided time interval with first emission after provided delay.  <br /></td></tr>
@@ -394,7 +394,7 @@ requires rpp::details::is_header_included&lt;rpp::details::from_tag, TScheduler 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;schedulers::constraint::scheduler TScheduler = schedulers::immediate&gt; <br />
+template&lt;schedulers::constraint::scheduler TScheduler = schedulers::trampoline&gt; <br />
 requires rpp::details::is_header_included&lt;rpp::details::interval_tag, TScheduler&gt;</div>
       <table class="memname">
         <tr>
@@ -462,7 +462,7 @@ requires rpp::details::is_header_included&lt;rpp::details::interval_tag, TSchedu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;schedulers::constraint::scheduler TScheduler = schedulers::immediate&gt; <br />
+template&lt;schedulers::constraint::scheduler TScheduler = schedulers::trampoline&gt; <br />
 requires rpp::details::is_header_included&lt;rpp::details::interval_tag, TScheduler&gt;</div>
       <table class="memname">
         <tr>
@@ -613,7 +613,7 @@ requires (rpp::details::is_header_included&lt;rpp::details::just_tag, T, Ts...&g
 </div><div class="memdoc">
 
 <p>Creates <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">rpp::specific_observable</a> that emits a particular items and completes. </p>
-<dl class="section warning"><dt>Warning</dt><dd>this overloading uses immediate scheduler as default</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>this overloading uses trampoline scheduler as default</dd></dl>
 <div class="image">
 <object type="image/svg+xml" data="just.svg" style="pointer-events: none;"></object>
 </div>

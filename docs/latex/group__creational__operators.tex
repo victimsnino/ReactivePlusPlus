@@ -29,10 +29,10 @@ requires rpp\+::details\+::is\+\_\+header\+\_\+included$<$rpp\+::details\+::from
 {\footnotesize template$<$memory\+\_\+model memory\+\_\+model$>$ \newline
 requires rpp\+::details\+::is\+\_\+header\+\_\+included$<$rpp\+::details\+::from\+\_\+tag, decltype(callable)$>$}\\auto \mbox{\hyperlink{group__creational__operators_ga52959b5368cc881f38a305a3b5e1ded3}{rpp\+::observable\+::from\+\_\+callable}} (std\+::invocable$<$$>$ auto \&\&callable)
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that calls provided callable and emits resulting value of this callable. \end{DoxyCompactList}\item 
-{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler = schedulers\+::immediate$>$ \newline
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler = schedulers\+::trampoline$>$ \newline
 requires rpp\+::details\+::is\+\_\+header\+\_\+included$<$rpp\+::details\+::interval\+\_\+tag, TScheduler$>$}\\auto \mbox{\hyperlink{group__creational__operators_ga2c3002a4f3af8fcd0f73fab9bf5a0ea3}{rpp\+::observable\+::interval}} (schedulers\+::duration period, const TScheduler \&scheduler)
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} which emits sequence of size\+\_\+t every provided time interval. \end{DoxyCompactList}\item 
-{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler = schedulers\+::immediate$>$ \newline
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler = schedulers\+::trampoline$>$ \newline
 requires rpp\+::details\+::is\+\_\+header\+\_\+included$<$rpp\+::details\+::interval\+\_\+tag, TScheduler$>$}\\auto \mbox{\hyperlink{group__creational__operators_gace4fe134b05b9c02142166769df71436}{rpp\+::observable\+::interval}} (schedulers\+::duration first\+\_\+delay, schedulers\+::duration period, const TScheduler \&scheduler)
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} which emits sequence of size\+\_\+t every provided time interval with first emission after provided delay. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ \newline
@@ -245,7 +245,7 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \index{Creational Operators@{Creational Operators}!interval@{interval}}
 \index{interval@{interval}!Creational Operators@{Creational Operators}}
 \doxysubsubsection{\texorpdfstring{interval()}{interval()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$schedulers\+::constraint\+::scheduler TScheduler = schedulers\+::immediate$>$ \newline
+{\footnotesize\ttfamily template$<$schedulers\+::constraint\+::scheduler TScheduler = schedulers\+::trampoline$>$ \newline
 requires rpp\+::details\+::is\+\_\+header\+\_\+included$<$rpp\+::details\+::interval\+\_\+tag, TScheduler$>$\\
 auto rpp\+::observable\+::interval (\begin{DoxyParamCaption}\item[{schedulers\+::duration}]{first\+\_\+delay,  }\item[{schedulers\+::duration}]{period,  }\item[{const TScheduler \&}]{scheduler }\end{DoxyParamCaption})}
 
@@ -296,7 +296,7 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \index{Creational Operators@{Creational Operators}!interval@{interval}}
 \index{interval@{interval}!Creational Operators@{Creational Operators}}
 \doxysubsubsection{\texorpdfstring{interval()}{interval()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$schedulers\+::constraint\+::scheduler TScheduler = schedulers\+::immediate$>$ \newline
+{\footnotesize\ttfamily template$<$schedulers\+::constraint\+::scheduler TScheduler = schedulers\+::trampoline$>$ \newline
 requires rpp\+::details\+::is\+\_\+header\+\_\+included$<$rpp\+::details\+::interval\+\_\+tag, TScheduler$>$\\
 auto rpp\+::observable\+::interval (\begin{DoxyParamCaption}\item[{schedulers\+::duration}]{period,  }\item[{const TScheduler \&}]{scheduler }\end{DoxyParamCaption})}
 
@@ -411,7 +411,7 @@ auto rpp\+::observable\+::just (\begin{DoxyParamCaption}\item[{T \&\&}]{item,  }
 Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} that emits a particular items and completes. 
 
 \begin{DoxyWarning}{Warning}
-this overloading uses immediate scheduler as default
+this overloading uses trampoline scheduler as default
 \end{DoxyWarning}
 
 

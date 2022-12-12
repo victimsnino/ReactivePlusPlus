@@ -15,7 +15,7 @@
 \DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{12 }
 \DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/memory\_model.hpp>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/schedulers/immediate\_scheduler.hpp>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/schedulers/trampoline\_scheduler.hpp>}}
 \DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/sources/create.hpp>}}
 \DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/sources/fwd.hpp>}}
 \DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}}
@@ -155,10 +155,10 @@
 \DoxyCodeLine{195 \textcolor{keyword}{template}<memory\_model memory\_model \textcolor{comment}{/* = memory\_model::use\_stack */}, \textcolor{keyword}{typename} T, \textcolor{keyword}{typename} ...Ts>}
 \DoxyCodeLine{196 \textcolor{keyword}{auto} just(T\&\& item, Ts\&\& ...items) \textcolor{keyword}{requires} (rpp::details::is\_header\_included<rpp::details::just\_tag, T, Ts...> \&\& (constraint::decayed\_same\_as<T, Ts> \&\& ...))}
 \DoxyCodeLine{197 \{}
-\DoxyCodeLine{198     \textcolor{keywordflow}{return} just<memory\_model>(schedulers::immediate\{\}, std::forward<T>(item), std::forward<Ts>(items)...);}
+\DoxyCodeLine{198     \textcolor{keywordflow}{return} just<memory\_model>(schedulers::trampoline\{\}, std::forward<T>(item), std::forward<Ts>(items)...);}
 \DoxyCodeLine{199 \}}
 \DoxyCodeLine{200 }
-\DoxyCodeLine{221 \textcolor{keyword}{template}<memory\_model memory\_model \textcolor{comment}{/* = memory\_model::use\_stack */}, schedulers::constraint::scheduler TScheduler \textcolor{comment}{/* = schedulers::immediate */}>}
+\DoxyCodeLine{221 \textcolor{keyword}{template}<memory\_model memory\_model \textcolor{comment}{/* = memory\_model::use\_stack */}, schedulers::constraint::scheduler TScheduler \textcolor{comment}{/* = schedulers::trampoline */}>}
 \DoxyCodeLine{222 \textcolor{keyword}{auto} \mbox{\hyperlink{group__creational__operators_gaf796daac1f2e2450818dc95230946f54}{from\_iterable}}(constraint::iterable \textcolor{keyword}{auto}\&\& iterable, \textcolor{keyword}{const} TScheduler\& scheduler \textcolor{comment}{/* = TScheduler\{\} */}) \textcolor{keyword}{requires} rpp::details::is\_header\_included<rpp::details::from\_tag, TScheduler >}
 \DoxyCodeLine{223 \{}
 \DoxyCodeLine{224     \textcolor{keyword}{using }Container = std::decay\_t<\textcolor{keyword}{decltype}(iterable)>;}
