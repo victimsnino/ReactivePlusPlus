@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <rpp/schedulers/immediate_scheduler.hpp>
 #include <rpp/operators/lift.hpp>                           // required due to operator uses lift
 #include <rpp/operators/details/early_unsubscribe.hpp>      // early_unsubscribe
 #include <rpp/operators/details/serialized_subscriber.hpp>  // make_serialized_subscriber
@@ -101,6 +102,6 @@ struct merge_impl
 template<constraint::decayed_type Type, constraint::observable_of_type<Type> ... TObservables>
 auto merge_with_impl(TObservables&&... observables)
 {
-    return source::just(std::forward<TObservables>(observables).as_dynamic()...).merge();
+    return source::just(rpp::schedulers::immediate{}, std::forward<TObservables>(observables).as_dynamic()...).merge();
 }
 } // namespace rpp::details

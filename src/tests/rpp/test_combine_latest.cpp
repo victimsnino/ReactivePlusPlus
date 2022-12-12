@@ -23,11 +23,11 @@
 
 SCENARIO("combine_latest bundles items", "[combine_latest]")
 {
-    GIVEN("observable of -1-2-3-| combines with -4-5-6-| on default scheduler")
+    GIVEN("observable of -1-2-3-| combines with -4-5-6-| on immediate scheduler")
     {
         auto mock = mock_observer<std::tuple<int, int>>{};
-        rpp::source::just(1, 2, 3)
-                .combine_latest(rpp::source::just(4, 5, 6))
+        rpp::source::just(rpp::schedulers::immediate{}, 1, 2, 3)
+                .combine_latest(rpp::source::just(rpp::schedulers::immediate{}, 4, 5, 6))
                 .subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector<std::tuple<int, int>>{

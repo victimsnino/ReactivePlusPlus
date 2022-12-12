@@ -74,9 +74,9 @@ SCENARIO("merge for observable of observables", "[operators][merge]")
     {
         auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub)
             {
-                sub.on_next(rpp::source::just(1).as_dynamic());
+                sub.on_next(rpp::source::just(rpp::schedulers::immediate{}, 1).as_dynamic());
                 sub.on_next(rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})).as_dynamic());
-                sub.on_next(rpp::source::just(2).as_dynamic());
+                sub.on_next(rpp::source::just(rpp::schedulers::immediate{}, 2).as_dynamic());
             });
 
         WHEN("subscribe on merge of observable")

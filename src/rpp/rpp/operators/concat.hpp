@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <rpp/schedulers/immediate_scheduler.hpp>
 #include <rpp/observables/dynamic_observable.hpp>          // dynamic_observable
 #include <rpp/operators/lift.hpp>                          // required due to operator uses lift
 #include <rpp/operators/merge.hpp>                         // merge_forwarding_on_next/merge_on_error
@@ -147,6 +148,6 @@ struct concat_impl
 template<constraint::decayed_type Type, constraint::observable_of_type<Type> ... TObservables>
 auto concat_with_impl(TObservables&&... observables)
 {
-    return source::just(std::forward<TObservables>(observables).as_dynamic()...).concat();
+    return source::just(rpp::schedulers::immediate{}, std::forward<TObservables>(observables).as_dynamic()...).concat();
 }
 } // namespace rpp::details

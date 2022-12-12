@@ -25,10 +25,10 @@ SCENARIO("switch_map acts like flat_map except it unsubscribes the previous sour
     auto mock = mock_observer<int>{};
     GIVEN("observable of items")
     {
-        auto obs = rpp::source::just(1,2,3);
+        auto obs = rpp::source::just(rpp::schedulers::immediate{}, 1,2,3);
         WHEN("subscribe on it via switch_map")
         {
-            obs.switch_map([](int v){return rpp::source::just(v, v*10);})
+            obs.switch_map([](int v){return rpp::source::just(rpp::schedulers::immediate{}, v, v*10);})
                 .subscribe(mock);
             THEN("subscriber obtains values from observables obtained via switch_map")
             {
@@ -91,7 +91,7 @@ SCENARIO("switch_map acts like flat_map except it unsubscribes the previous sour
                             .as_dynamic();
                     }
 
-                    return rpp::source::just(2 * val).as_dynamic();
+                    return rpp::source::just(rpp::schedulers::immediate{}, 2 * val).as_dynamic();
                 })
                 .subscribe(mock);
             THEN("subscriber observes last two emission")
@@ -113,7 +113,7 @@ SCENARIO("switch_map acts like flat_map except it unsubscribes the previous sour
                                                     .as_dynamic();
                                         }
 
-                                        return rpp::source::just(2 * val).as_dynamic();
+                                        return rpp::source::just(rpp::schedulers::immediate{}, 2 * val).as_dynamic();
                                     })
                                     .subscribe(mock);
             THEN("subscriber observes first two emission and shall not see complete event")
