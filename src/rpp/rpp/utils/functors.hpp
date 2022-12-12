@@ -66,6 +66,9 @@ struct forwarding_on_next
     template<typename T, constraint::subscriber_of_type<std::decay_t<T>> TSub>
     void operator()(T&& v, const TSub& sub, const auto&...) const { sub.on_next(std::forward<T>(v)); }
 
+    template<typename T, constraint::observer_of_type<std::decay_t<T>> TObs>
+    void operator()(T&& v, const TObs& obs, const auto&...) const { obs.on_next(std::forward<T>(v)); }
+
     template<typename T, typename State>
     void operator()(T&& v, const std::shared_ptr<State>& state, const auto&...) const { state->subscriber.on_next(std::forward<T>(v)); }
 };
@@ -75,6 +78,9 @@ struct forwarding_on_error
     template<constraint::subscriber TSub>
     void operator()(const std::exception_ptr& err, const TSub& sub, const auto&...) const { sub.on_error(err); }
 
+    template<constraint::observer TObs>
+    void operator()(const std::exception_ptr& err, const TObs& obs, const auto&...) const { obs.on_error(err); }
+
     template<typename State>
     void operator()(const std::exception_ptr& err, const std::shared_ptr<State>& state, const auto&...) const { state->subscriber.on_error(err); }
 };
@@ -83,6 +89,9 @@ struct forwarding_on_completed
 {
     template<constraint::subscriber TSub>
     void operator()(const TSub& sub, const auto&...) const { sub.on_completed(); }
+
+    template<constraint::observer TObs>
+    void operator()(const TObs& obs, const auto&...) const { obs.on_completed(); }
 
     template<typename State>
     void operator()(const std::shared_ptr<State>& state, const auto&...) const { state->subscriber.on_completed(); }
