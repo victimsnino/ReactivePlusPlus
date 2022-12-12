@@ -26,21 +26,19 @@ namespace rpp::details
 {
 /// A non-copyable class that provides a copyable on_next for the subscriber and
 /// allows copies of on_next(s) to share the same states.
-template<constraint::decayed_type UpstreamType>
+template<constraint::decayed_type UpstreamType, constraint::subscriber_of_type<UpstreamType> Subscriber>
 struct buffer_state
 {
-    /// \param count Number of items being bundled. Note when count == 0, we'll
-    /// treat the behavior like when count == 1.
-    explicit buffer_state(size_t count)
+    template<constraint::decayed_same_as<Subscriber> TSub>
+    explicit buffer_state(size_t count, TSub&& sub)
         : max(std::max(size_t{1}, count))
+        , subscriber{std::forward<TSub>(sub)}
     {
         clear_and_reserve_buckets();
     }
 
     buffer_state(const buffer_state& other)          = delete;
-    buffer_state(buffer_state&&) noexcept            = default;
-    buffer_state& operator=(const buffer_state&)     = delete;
-    buffer_state& operator=(buffer_state&&) noexcept = default;
+    buffer_state(buffer_state&&) noexcept            = delete;
 
     void clear_and_reserve_buckets() const
     {
@@ -48,32 +46,33 @@ struct buffer_state
         buckets.reserve(max);
     }
 
-    const size_t                             max;
-    mutable buffer_bundle_type<UpstreamType> buckets;
+    const size_t                     max;
+    buffer_bundle_type<UpstreamType> buckets;
+    Subscriber                       subscriber;
 };
 
 struct buffer_on_next
 {
-    template<constraint::decayed_type UpstreamType>
-    void operator()(auto&& value, const auto& subscriber, const buffer_state<UpstreamType>& state) const
+    template<typename T, constraint::decayed_type UpstreamType, constraint::subscriber_of_type<UpstreamType> Subscriber>
+    void operator()(T&& value, const std::shared_ptr<buffer_state<UpstreamType, Subscriber>>& state) const
     {
-        state.buckets.push_back(std::forward<decltype(value)>(value));
+        state->buckets.push_back(std::forward<T>(value));
         if (state.buckets.size() == state.max)
         {
-            subscriber.on_next(std::move(state.buckets));
-            state.clear_and_reserve_buckets();
+            state->subscriber.on_next(std::move(state.buckets));
+            state->clear_and_reserve_buckets();
         }
     }
 };
 
 struct buffer_on_completed
 {
-    template<constraint::decayed_type UpstreamType>
-    void operator()(const auto& subscriber, const buffer_state<UpstreamType>& state) const
+    template<constraint::decayed_type UpstreamType, constraint::subscriber_of_type<UpstreamType> Subscriber>
+    void operator()(const buffer_state<UpstreamType, Subscriber>& state) const
     {
         if (!state.buckets.empty())
-            subscriber.on_next(std::move(state.buckets));
-        subscriber.on_completed();
+            state->subscriber.on_next(std::move(state.buckets));
+        state->subscriber.on_completed();
     }
 };
 
@@ -86,14 +85,13 @@ struct buffer_impl
     auto operator()(TSub&& subscriber) const
     {
         auto subscription = subscriber.get_subscription();
+        auto state        = std::make_shared<buffer_state<Type, std::decay_t<TSub>>>(count, std::forward<TSub>(subscriber));
 
-        // dynamic_state there to make shared_ptr for observer instead of making shared_ptr for state
-        return create_subscriber_with_dynamic_state<Type>(std::move(subscription),
-                                                          buffer_on_next{},
-                                                          utils::forwarding_on_error{},
-                                                          buffer_on_completed{},
-                                                          std::forward<TSub>(subscriber),
-                                                          buffer_state<Type>{count});
+        return create_subscriber_with_state<Type>(std::move(subscription),
+                                                  buffer_on_next{},
+                                                  utils::forwarding_on_error{},
+                                                  buffer_on_completed{},
+                                                  std::move(state));
     }
 };
 

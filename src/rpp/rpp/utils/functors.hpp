@@ -13,6 +13,7 @@
 #include <rpp/subscribers/constraints.hpp>
 
 #include <exception>
+#include <memory>
 #include <utility>
 #include <tuple>
 
@@ -62,31 +63,28 @@ struct get
 
 struct forwarding_on_next
 {
-    void operator()(auto&& v, const auto& sub, const auto&...) const { sub.on_next(std::forward<decltype(v)>(v)); }
+    template<typename T, constraint::subscriber_of_type<std::decay_t<T>> TSub>
+    void operator()(T&& v, const TSub& sub, const auto&...) const { sub.on_next(std::forward<T>(v)); }
+
+    template<typename T, typename State>
+    void operator()(T&& v, const std::shared_ptr<State>& state, const auto&...) const { state->subscriber.on_next(std::forward<T>(v)); }
 };
 
 struct forwarding_on_error
 {
-    void operator()(const std::exception_ptr& err, const auto& sub, const auto&...) const { sub.on_error(err); }
+    template<constraint::subscriber TSub>
+    void operator()(const std::exception_ptr& err, const TSub& sub, const auto&...) const { sub.on_error(err); }
+
+    template<typename State>
+    void operator()(const std::exception_ptr& err, const std::shared_ptr<State>& state, const auto&...) const { state->subscriber.on_error(err); }
 };
 
 struct forwarding_on_completed
 {
-    void operator()(const auto& sub, const auto&...) const { sub.on_completed(); }
-};
+    template<constraint::subscriber TSub>
+    void operator()(const TSub& sub, const auto&...) const { sub.on_completed(); }
 
-struct forwarding_on_next_for_pointer
-{
-    void operator()(auto&& v, const auto& sub) const { sub->on_next(std::forward<decltype(v)>(v)); }
-};
-
-struct forwarding_on_error_for_pointer
-{
-    void operator()(const std::exception_ptr& err, const auto& sub) const { sub->on_error(err); }
-};
-
-struct forwarding_on_completed_for_pointer
-{
-    void operator()(const auto& sub) const { sub->on_completed(); }
+    template<typename State>
+    void operator()(const std::shared_ptr<State>& state, const auto&...) const { state->subscriber.on_completed(); }
 };
 } // namespace rpp::utils
