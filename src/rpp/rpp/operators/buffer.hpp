@@ -26,7 +26,7 @@ namespace rpp::details
 {
 /// A non-copyable class that provides a copyable on_next for the subscriber and
 /// allows copies of on_next(s) to share the same states.
-template<constraint::decayed_type UpstreamType, constraint::subscriber_of_type<UpstreamType> Subscriber>
+template<constraint::decayed_type UpstreamType, constraint::subscriber Subscriber>
 struct buffer_state
 {
     template<constraint::decayed_same_as<Subscriber> TSub>
@@ -40,7 +40,7 @@ struct buffer_state
     buffer_state(const buffer_state& other)          = delete;
     buffer_state(buffer_state&&) noexcept            = delete;
 
-    void clear_and_reserve_buckets() const
+    void clear_and_reserve_buckets()
     {
         buckets.clear();
         buckets.reserve(max);
@@ -53,13 +53,13 @@ struct buffer_state
 
 struct buffer_on_next
 {
-    template<typename T, constraint::decayed_type UpstreamType, constraint::subscriber_of_type<UpstreamType> Subscriber>
+    template<typename T, constraint::decayed_type UpstreamType, constraint::subscriber Subscriber>
     void operator()(T&& value, const std::shared_ptr<buffer_state<UpstreamType, Subscriber>>& state) const
     {
         state->buckets.push_back(std::forward<T>(value));
-        if (state.buckets.size() == state.max)
+        if (state->buckets.size() == state->max)
         {
-            state->subscriber.on_next(std::move(state.buckets));
+            state->subscriber.on_next(std::move(state->buckets));
             state->clear_and_reserve_buckets();
         }
     }
@@ -67,11 +67,11 @@ struct buffer_on_next
 
 struct buffer_on_completed
 {
-    template<constraint::decayed_type UpstreamType, constraint::subscriber_of_type<UpstreamType> Subscriber>
-    void operator()(const buffer_state<UpstreamType, Subscriber>& state) const
+    template<constraint::decayed_type UpstreamType, constraint::subscriber Subscriber>
+    void operator()(const std::shared_ptr<buffer_state<UpstreamType, Subscriber>>& state) const
     {
-        if (!state.buckets.empty())
-            state->subscriber.on_next(std::move(state.buckets));
+        if (!state->buckets.empty())
+            state->subscriber.on_next(std::move(state->buckets));
         state->subscriber.on_completed();
     }
 };
