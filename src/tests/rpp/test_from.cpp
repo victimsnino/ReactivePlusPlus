@@ -10,11 +10,11 @@
 
 #include "copy_count_tracker.hpp"
 #include "mock_observer.hpp"
-#include "rpp/schedulers/run_loop_scheduler.hpp"
 
 #include <rpp/sources/from.hpp>
 #include <rpp/schedulers/new_thread_scheduler.hpp>
 #include <rpp/schedulers/run_loop_scheduler.hpp>
+#include <rpp/schedulers/immediate_scheduler.hpp>
 #include <catch2/catch_test_macros.hpp>
 
 
@@ -122,7 +122,7 @@ SCENARIO("from iterable", "[source][from][track_copy]")
 
     GIVEN("observable from copied iterable")
     {
-        auto obs = rpp::source::from_iterable(vals);
+        auto obs = rpp::source::from_iterable(vals, rpp::schedulers::immediate{});
         WHEN("subscribe on it")
         {
             obs.subscribe();
@@ -135,7 +135,7 @@ SCENARIO("from iterable", "[source][from][track_copy]")
     }
     GIVEN("observable from moved iterable")
     {
-        auto obs = rpp::source::from_iterable(std::move(vals));
+        auto obs = rpp::source::from_iterable(std::move(vals), rpp::schedulers::immediate{});
         WHEN("subscribe on it")
         {
             obs.subscribe();
@@ -220,7 +220,7 @@ SCENARIO("just")
     GIVEN("observable with copied item")
     {
         copy_count_tracker v{};
-        auto               obs = rpp::observable::just(v);
+        auto               obs = rpp::observable::just(rpp::schedulers::immediate{}, v);
         WHEN("subscribe on this observable")
         {
             obs.subscribe(mock);
@@ -237,7 +237,7 @@ SCENARIO("just")
     GIVEN("observable with moved item")
     {
         copy_count_tracker v{};
-        auto               obs = rpp::observable::just(std::move(v));
+        auto               obs = rpp::observable::just(rpp::schedulers::immediate{}, std::move(v));
         WHEN("subscribe on this observable")
         {
             obs.subscribe(mock);

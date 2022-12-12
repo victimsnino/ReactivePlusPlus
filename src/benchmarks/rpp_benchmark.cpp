@@ -17,6 +17,7 @@
 #include <rpp/subjects.hpp>
 #include <rpp/schedulers/run_loop_scheduler.hpp>
 #include <rpp/schedulers/trampoline_scheduler.hpp>
+#include <rpp/schedulers/immediate_scheduler.hpp>
 #include <rpp/utils/spinlock.hpp>
 
 #include <array>
