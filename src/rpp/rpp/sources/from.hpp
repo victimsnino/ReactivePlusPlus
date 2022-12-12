@@ -11,7 +11,7 @@
 #pragma once
 
 #include <rpp/memory_model.hpp>
-#include <rpp/schedulers/immediate_scheduler.hpp>
+#include <rpp/schedulers/trampoline_scheduler.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/sources/fwd.hpp>
 #include <rpp/utils/utilities.hpp>
@@ -172,7 +172,7 @@ auto just(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&
 
 /**
  * \brief Creates rpp::specific_observable that emits a particular items and completes
- * \warning this overloading uses immediate scheduler as default
+ * \warning this overloading uses trampoline scheduler as default
  * 
  * \marble just
    {
@@ -195,7 +195,7 @@ auto just(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&
 template<memory_model memory_model /* = memory_model::use_stack */, typename T, typename ...Ts>
 auto just(T&& item, Ts&& ...items) requires (rpp::details::is_header_included<rpp::details::just_tag, T, Ts...> && (constraint::decayed_same_as<T, Ts> && ...))
 {
-    return just<memory_model>(schedulers::immediate{}, std::forward<T>(item), std::forward<Ts>(items)...);
+    return just<memory_model>(schedulers::trampoline{}, std::forward<T>(item), std::forward<Ts>(items)...);
 }
 
 /**
@@ -218,7 +218,7 @@ auto just(T&& item, Ts&& ...items) requires (rpp::details::is_header_included<rp
  * \ingroup creational_operators
  * \see https://reactivex.io/documentation/operators/from.html
  */
-template<memory_model memory_model /* = memory_model::use_stack */, schedulers::constraint::scheduler TScheduler /* = schedulers::immediate */>
+template<memory_model memory_model /* = memory_model::use_stack */, schedulers::constraint::scheduler TScheduler /* = schedulers::trampoline */>
 auto from_iterable(constraint::iterable auto&& iterable, const TScheduler& scheduler /* = TScheduler{} */) requires rpp::details::is_header_included<rpp::details::from_tag, TScheduler >
 {
     using Container = std::decay_t<decltype(iterable)>;

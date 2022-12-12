@@ -13,7 +13,7 @@
 #include <rpp/sources/fwd.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/schedulers/fwd.hpp>
-#include <rpp/schedulers/immediate_scheduler.hpp>
+#include <rpp/schedulers/trampoline_scheduler.hpp>
 
 #include <type_traits>
 
@@ -42,7 +42,7 @@ namespace rpp::observable
      * \ingroup creational_operators
      * \see https://reactivex.io/documentation/operators/interval.html
      */
-    template<schedulers::constraint::scheduler TScheduler /*= schedulers::immediate*/>
+    template<schedulers::constraint::scheduler TScheduler /*= schedulers::trampoline */>
     auto interval(schedulers::duration period, const TScheduler& scheduler /* = TScheduler{} */) requires rpp::details::is_header_included<rpp::details::interval_tag, TScheduler>
     {
         return interval(period, period, scheduler);
@@ -67,7 +67,7 @@ namespace rpp::observable
      * \ingroup creational_operators
      * \see https://reactivex.io/documentation/operators/interval.html
      */
-    template<schedulers::constraint::scheduler TScheduler /*= schedulers::immediate*/>
+    template<schedulers::constraint::scheduler TScheduler /*= schedulers::trampoline*/>
     auto interval(schedulers::duration first_delay, schedulers::duration period, const TScheduler& scheduler /* = TScheduler{} */) requires rpp::details::is_header_included<rpp::details::interval_tag, TScheduler>
     {
         return source::create<size_t>([first_delay, period, scheduler](auto&& subscriber)
