@@ -22,7 +22,7 @@ IMPLEMENTATION_FILE(take_while_tag);
 namespace rpp::details
 {
 template<constraint::decayed_type Type, std::predicate<const Type&> Predicate>
-struct take_while_impl
+struct take_while_impl_on_next
 {
     RPP_NO_UNIQUE_ADDRESS Predicate predicate;
 
@@ -33,6 +33,23 @@ struct take_while_impl
             subscriber.on_next(std::forward<TVal>(value));
         else
             subscriber.on_completed();
+    }
+};
+
+template<constraint::decayed_type Type, std::predicate<const Type&> Predicate>
+struct take_while_impl
+{
+    RPP_NO_UNIQUE_ADDRESS take_while_impl_on_next<Type, Predicate> on_next;
+
+    template<constraint::subscriber TSub>
+    auto operator()(TSub&& subscriber) const
+    {
+        auto subscription = subscriber.get_subscription();
+        return create_subscriber_with_state<Type>(std::move(subscription),
+                                                  on_next,
+                                                  utils::forwarding_on_error{},
+                                                  utils::forwarding_on_completed{},
+                                                  std::forward<TSub>(subscriber));
     }
 };
 } // namespace rpp::details
