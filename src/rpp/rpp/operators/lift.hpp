@@ -22,6 +22,23 @@ IMPLEMENTATION_FILE(lift_tag);
 
 namespace rpp::details
 {
+template<constraint::decayed_type                 Type,
+         constraint::subscriber                   TSub,
+         std::invocable<Type, TSub>               OnNext,
+         std::invocable<std::exception_ptr, TSub> OnError     = utils::forwarding_on_error,
+         std::invocable<TSub>                     OnCompleted = utils::forwarding_on_completed>
+auto create_subscriber_in_lift(TSub&&        subscriber,
+                               OnNext&&      on_next      = {},
+                               OnError&&     on_error     = {},
+                               OnCompleted&& on_completed = {})
+{
+    auto subscription = subscriber.get_subscription();
+    return create_subscriber_with_state<Type>(std::move(subscription),
+                                              std::forward<OnNext>(on_next),
+                                              std::forward<OnError>(on_error),
+                                              std::forward<OnCompleted>(on_completed),
+                                              std::forward<TSub>(subscriber));
+}
 template<constraint::decayed_type Type, constraint::decayed_type OnNext, constraint::decayed_type OnError, constraint::decayed_type OnCompleted>
 struct lift_action_by_callbacks
 {
@@ -32,12 +49,7 @@ struct lift_action_by_callbacks
     template<constraint::subscriber TSub>
     auto operator()(TSub&& subscriber) const
     {
-        auto subscription = subscriber.get_subscription();
-        return create_subscriber_with_state<Type>(std::move(subscription),
-                                                  on_next,
-                                                  on_error,
-                                                  on_completed,
-                                                  std::forward<TSub>(subscriber));
+        return create_subscriber_in_lift<Type>(std::forward<TSub>(subscriber), on_next, on_error, on_completed);
     }
 };
 

@@ -24,7 +24,7 @@ IMPLEMENTATION_FILE(map_tag);
 namespace rpp::details
 {
 template<constraint::decayed_type Type, std::invocable<Type> Callable>
-struct map_impl
+struct map_impl_on_next
 {
     RPP_NO_UNIQUE_ADDRESS Callable callable;
 
@@ -32,6 +32,18 @@ struct map_impl
     void operator()(TVal&& value, const TSub& subscriber) const
     {
         subscriber.on_next(callable(utils::as_const(std::forward<TVal>(value))));
+    }
+};
+
+template<constraint::decayed_type Type, std::invocable<Type> Callable>
+struct map_impl
+{
+    RPP_NO_UNIQUE_ADDRESS map_impl_on_next<Type, Callable> on_next;
+
+    template<constraint::subscriber TSub>
+    auto operator()(TSub&& subscriber) const
+    {
+        return create_subscriber_in_lift<Type>(std::forward<TSub>(subscriber), on_next);
     }
 };
 } // namespace rpp::details
