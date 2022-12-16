@@ -14,52 +14,86 @@
 \DoxyCodeLine{10 }
 \DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/defs.hpp>}                                    \textcolor{comment}{// RPP\_NO\_UNIQUE\_ADDRESS}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/operators/details/subscriber\_with\_state.hpp>} \textcolor{comment}{// create\_subscriber\_with\_state}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/operators/fwd/lift.hpp>}                      \textcolor{comment}{// own forwarding}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/sources/create.hpp>}                          \textcolor{comment}{// create observable}}
-\DoxyCodeLine{17 }
-\DoxyCodeLine{18 IMPLEMENTATION\_FILE(lift\_tag);}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{21 \{}
-\DoxyCodeLine{22 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::decayed\_type OnNext, constra\textcolor{keywordtype}{int}::decayed\_type OnError, constra\textcolor{keywordtype}{int}::decayed\_type OnCompleted>}
-\DoxyCodeLine{23 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1lift__action__by__callbacks}{lift\_action\_by\_callbacks}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}rpp/observables/specific\_observable.hpp"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}rpp/subscribers/constraints.hpp"{}}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/defs.hpp>}                                    \textcolor{comment}{// RPP\_NO\_UNIQUE\_ADDRESS}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/operators/details/subscriber\_with\_state.hpp>} \textcolor{comment}{// create\_subscriber\_with\_state}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/operators/fwd/lift.hpp>}                      \textcolor{comment}{// own forwarding}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/sources/create.hpp>}                          \textcolor{comment}{// create observable}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 IMPLEMENTATION\_FILE(lift\_tag);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{24 \{}
-\DoxyCodeLine{25     RPP\_NO\_UNIQUE\_ADDRESS OnNext      on\_next;}
-\DoxyCodeLine{26     RPP\_NO\_UNIQUE\_ADDRESS OnError     on\_error;}
-\DoxyCodeLine{27     RPP\_NO\_UNIQUE\_ADDRESS OnCompleted on\_completed;}
-\DoxyCodeLine{28 }
-\DoxyCodeLine{29     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber TSub>}
-\DoxyCodeLine{30     \textcolor{keyword}{auto} operator()(TSub\&\& subscriber)\textcolor{keyword}{ const}}
-\DoxyCodeLine{31 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{32         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
-\DoxyCodeLine{33         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(std::move(subscription),}
-\DoxyCodeLine{34                                                   on\_next,}
-\DoxyCodeLine{35                                                   on\_error,}
-\DoxyCodeLine{36                                                   on\_completed,}
-\DoxyCodeLine{37                                                   std::forward<TSub>(subscriber));}
-\DoxyCodeLine{38     \}}
-\DoxyCodeLine{39 \};}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{48 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType, lift\_fn<NewType> OperatorFn, \textcolor{keyword}{typename} TObs>}
-\DoxyCodeLine{49 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1lift__on__subscribe}{lift\_on\_subscribe}}}
-\DoxyCodeLine{50 \{}
-\DoxyCodeLine{51     RPP\_NO\_UNIQUE\_ADDRESS TObs \_this;}
-\DoxyCodeLine{52     RPP\_NO\_UNIQUE\_ADDRESS OperatorFn op;}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{54     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<NewType> TSub>}
-\DoxyCodeLine{55     \textcolor{keywordtype}{void} operator()(TSub\&\& subscriber)\textcolor{keyword}{ const}}
-\DoxyCodeLine{56 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{57         \_this.subscribe(op(std::forward<TSub>(subscriber)));}
-\DoxyCodeLine{58     \}}
-\DoxyCodeLine{59 \};}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{61 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType, lift\_fn<NewType> OperatorFn, \textcolor{keyword}{typename} TObs>}
-\DoxyCodeLine{62 \textcolor{keyword}{auto} lift\_impl(OperatorFn\&\& op, TObs\&\& \_this)}
-\DoxyCodeLine{63 \{}
-\DoxyCodeLine{64     \textcolor{keywordflow}{return} rpp::observable::create<NewType, lift\_on\_subscribe<NewType, std::decay\_t<OperatorFn>, std::decay\_t<TObs>>>(\{ std::forward<TObs>(\_this), std::forward<OperatorFn>(op) \});}
-\DoxyCodeLine{65 \}}
-\DoxyCodeLine{66 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{25 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::decayed\_type OnNext, constra\textcolor{keywordtype}{int}::decayed\_type OnError, constra\textcolor{keywordtype}{int}::decayed\_type OnCompleted>}
+\DoxyCodeLine{26 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1lift__action__by__callbacks}{lift\_action\_by\_callbacks}}}
+\DoxyCodeLine{27 \{}
+\DoxyCodeLine{28     RPP\_NO\_UNIQUE\_ADDRESS OnNext      on\_next;}
+\DoxyCodeLine{29     RPP\_NO\_UNIQUE\_ADDRESS OnError     on\_error;}
+\DoxyCodeLine{30     RPP\_NO\_UNIQUE\_ADDRESS OnCompleted on\_completed;}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber TSub>}
+\DoxyCodeLine{33     \textcolor{keyword}{auto} operator()(TSub\&\& subscriber)\textcolor{keyword}{ const}}
+\DoxyCodeLine{34 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{35         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
+\DoxyCodeLine{36         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(std::move(subscription),}
+\DoxyCodeLine{37                                                   on\_next,}
+\DoxyCodeLine{38                                                   on\_error,}
+\DoxyCodeLine{39                                                   on\_completed,}
+\DoxyCodeLine{40                                                   std::forward<TSub>(subscriber));}
+\DoxyCodeLine{41     \}}
+\DoxyCodeLine{42 \};}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType, lift\_fn<NewType> OperatorFn>}
+\DoxyCodeLine{45 \textcolor{keyword}{using }subscriber\_type\_of\_list\_fn = utils::extract\_subscriber\_type\_t<utils::decayed\_invoke\_result\_t<OperatorFn, dynamic\_subscriber<NewType>>>;}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{54 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType, lift\_fn<NewType> OperatorFn, \textcolor{keyword}{typename} ...ChildLiftArgs>}
+\DoxyCodeLine{55 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1lift__on__subscribe}{lift\_on\_subscribe}} : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1details_1_1lift__on__subscribe}{lift\_on\_subscribe}}<NewType, OperatorFn, lift\_on\_subscribe<subscriber\_type\_of\_list\_fn<NewType, OperatorFn>, ChildLiftArgs...>> \{\};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType, lift\_fn<NewType> OperatorFn, \textcolor{keyword}{typename} TOnSubscribe>}
+\DoxyCodeLine{58 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1lift__on__subscribe}{lift\_on\_subscribe}}<NewType, OperatorFn, TOnSubscribe>}
+\DoxyCodeLine{59 \{}
+\DoxyCodeLine{60     \textcolor{keyword}{using }T = subscriber\_type\_of\_list\_fn<NewType, OperatorFn>;}
+\DoxyCodeLine{61     RPP\_NO\_UNIQUE\_ADDRESS \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable<T, TOnSubscribe>}} \_this;}
+\DoxyCodeLine{62     RPP\_NO\_UNIQUE\_ADDRESS OperatorFn                           op;}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<NewType> TSub>}
+\DoxyCodeLine{65     \textcolor{keywordtype}{void} operator()(TSub\&\& subscriber)\textcolor{keyword}{ const}}
+\DoxyCodeLine{66 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{67         \_this.subscribe(op(std::forward<TSub>(subscriber)));}
+\DoxyCodeLine{68     \}}
+\DoxyCodeLine{69 \};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType, lift\_fn<NewType> OperatorFn, \textcolor{keyword}{typename} ObservableValue, \textcolor{keyword}{typename} ...ChildLiftArgs>}
+\DoxyCodeLine{72 \textcolor{keyword}{auto} lift\_impl\_internal(OperatorFn\&\& op, \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}<ObservableValue, \mbox{\hyperlink{structrpp_1_1details_1_1lift__on__subscribe}{lift\_on\_subscribe<ObservableValue, ChildLiftArgs...>}}>\&\& \_this)}
+\DoxyCodeLine{73 \{}
+\DoxyCodeLine{74     \textcolor{keywordflow}{return} observable::create<NewType, lift\_on\_subscribe<NewType, std::decay\_t<OperatorFn>, ChildLiftArgs...>>(\{ std::move(\_this), std::forward<OperatorFn>(op) \});}
+\DoxyCodeLine{75 \}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType, lift\_fn<NewType> OperatorFn, \textcolor{keyword}{typename} ObservableValue, \textcolor{keyword}{typename} ...ChildLiftArgs>}
+\DoxyCodeLine{78 \textcolor{keyword}{auto} lift\_impl\_internal(OperatorFn\&\& op, \textcolor{keyword}{const} specific\_observable<ObservableValue, lift\_on\_subscribe<ObservableValue, ChildLiftArgs...>>\& \_this)}
+\DoxyCodeLine{79 \{}
+\DoxyCodeLine{80     \textcolor{keywordflow}{return} observable::create<NewType, lift\_on\_subscribe<NewType, std::decay\_t<OperatorFn>, ChildLiftArgs...>>(\{ \_this, std::forward<OperatorFn>(op) \});}
+\DoxyCodeLine{81 \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType, lift\_fn<NewType> OperatorFn, \textcolor{keyword}{typename} ObservableValue, \textcolor{keyword}{typename} OnSubscribe>}
+\DoxyCodeLine{84 \textcolor{keyword}{auto} lift\_impl\_internal(OperatorFn\&\& op, specific\_observable<ObservableValue, OnSubscribe>\&\& \_this)}
+\DoxyCodeLine{85 \{}
+\DoxyCodeLine{86     \textcolor{keywordflow}{return} observable::create<NewType, lift\_on\_subscribe<NewType, std::decay\_t<OperatorFn>, OnSubscribe>>(\{ std::move(\_this), std::forward<OperatorFn>(op) \});}
+\DoxyCodeLine{87 \}}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType, lift\_fn<NewType> OperatorFn, \textcolor{keyword}{typename} ObservableValue, \textcolor{keyword}{typename} OnSubscribe>}
+\DoxyCodeLine{90 \textcolor{keyword}{auto} lift\_impl\_internal(OperatorFn\&\& op, \textcolor{keyword}{const} specific\_observable<ObservableValue, OnSubscribe>\& \_this)}
+\DoxyCodeLine{91 \{}
+\DoxyCodeLine{92     \textcolor{keywordflow}{return} observable::create<NewType, lift\_on\_subscribe<NewType, std::decay\_t<OperatorFn>, OnSubscribe>>(\{ \_this, std::forward<OperatorFn>(op) \});}
+\DoxyCodeLine{93 \}}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type NewType, lift\_fn<NewType> OperatorFn, \textcolor{keyword}{typename} TObs>}
+\DoxyCodeLine{96 \textcolor{keyword}{auto} lift\_impl(OperatorFn\&\& op, TObs\&\& \_this)}
+\DoxyCodeLine{97 \{}
+\DoxyCodeLine{98     \textcolor{keywordflow}{return} lift\_impl\_internal<NewType>(std::forward<OperatorFn>(op), std::forward<TObs>(\_this));}
+\DoxyCodeLine{99 \}}
+\DoxyCodeLine{100 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

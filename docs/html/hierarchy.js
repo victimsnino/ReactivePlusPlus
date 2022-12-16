@@ -72,6 +72,7 @@ var hierarchy =
     [ "rpp::subjects::utils::details::extract_subject_type< T >", "structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html", null ],
     [ "rpp::utils::details::extract_subscriber_type< T >", "structrpp_1_1utils_1_1details_1_1extract__subscriber__type.html", null ],
     [ "rpp::details::filter_impl< Type, Predicate >", "structrpp_1_1details_1_1filter__impl.html", null ],
+    [ "rpp::details::filter_impl_on_next< Type, Predicate >", "structrpp_1_1details_1_1filter__impl__on__next.html", null ],
     [ "rpp::details::first_impl< Type >", "structrpp_1_1details_1_1first__impl.html", null ],
     [ "rpp::details::first_on_completed", "structrpp_1_1details_1_1first__on__completed.html", null ],
     [ "rpp::details::forwarding_on_completed_under_lock", "structrpp_1_1details_1_1forwarding__on__completed__under__lock.html", null ],
@@ -93,17 +94,54 @@ var hierarchy =
     [ "rpp::details::last_impl< Type >", "structrpp_1_1details_1_1last__impl.html", null ],
     [ "rpp::details::last_on_completed", "structrpp_1_1details_1_1last__on__completed.html", null ],
     [ "rpp::details::lift_action_by_callbacks< Type, OnNext, OnError, OnCompleted >", "structrpp_1_1details_1_1lift__action__by__callbacks.html", null ],
-    [ "rpp::details::lift_on_subscribe< NewType, OperatorFn, TObs >", "structrpp_1_1details_1_1lift__on__subscribe.html", null ],
+    [ "rpp::details::lift_on_subscribe< NewType, OperatorFn, ChildLiftArgs >", "structrpp_1_1details_1_1lift__on__subscribe.html", null ],
+    [ "rpp::details::lift_on_subscribe< NewType, OperatorFn, TOnSubscribe >", "structrpp_1_1details_1_1lift__on__subscribe_3_01_new_type_00_01_operator_fn_00_01_t_on_subscribe_01_4.html", null ],
     [ "rpp::details::map_impl< Type, Callable >", "structrpp_1_1details_1_1map__impl.html", null ],
+    [ "rpp::details::map_impl_on_next< Type, Callable >", "structrpp_1_1details_1_1map__impl__on__next.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, MemberTag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", [
         [ "rpp::specific_observable< Type, details::dynamic_observable_state< Type > >", "classrpp_1_1specific__observable.html", [
           [ "rpp::dynamic_observable< Type >", "classrpp_1_1dynamic__observable.html", null ]
         ] ],
+        [ "rpp::specific_observable< T, TOnSubscribe >", "classrpp_1_1specific__observable.html", null ],
         [ "rpp::specific_observable< Type, OnSubscribeFn >", "classrpp_1_1specific__observable.html", [
           [ "rpp::grouped_observable< KeyType, Type, OnSubscribeFn >", "classrpp_1_1grouped__observable.html", null ]
         ] ]
-      ] ]
+      ] ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ]
     ] ],
     [ "rpp::details::member_overload< Type, blocking_observable< Type, OriginalObservable >, details::subscribe_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::blocking_observable< Type, OriginalObservable >", "classrpp_1_1blocking__observable.html", null ]
@@ -388,6 +426,7 @@ var hierarchy =
     [ "rpp::details::take_until_impl< Type, TTriggerObservable >", "structrpp_1_1details_1_1take__until__impl.html", null ],
     [ "rpp::details::take_until_throttler_on_next", "structrpp_1_1details_1_1take__until__throttler__on__next.html", null ],
     [ "rpp::details::take_while_impl< Type, Predicate >", "structrpp_1_1details_1_1take__while__impl.html", null ],
+    [ "rpp::details::take_while_impl_on_next< Type, Predicate >", "structrpp_1_1details_1_1take__while__impl__on__next.html", null ],
     [ "rpp::details::timeout_impl< Type, FallbackObs, TScheduler >", "structrpp_1_1details_1_1timeout__impl.html", null ],
     [ "rpp::details::timeout_on_next< FallbackObs, Worker >", "structrpp_1_1details_1_1timeout__on__next.html", null ],
     [ "rpp::subjects::details::unsubscribed", "structrpp_1_1subjects_1_1details_1_1unsubscribed.html", null ],

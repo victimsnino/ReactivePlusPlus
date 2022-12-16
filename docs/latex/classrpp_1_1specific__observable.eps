@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 80.385849
+%%BoundingBox: 0 0 500 544.692749
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,12 +19,12 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 6.220000 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 0.917949 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 5 def
+/rows 39 def
 /cols 2 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
@@ -177,7 +177,40 @@ boxfont setfont
 (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) cw
 (rpp::details::typed_observable_tag< Type >) cw
 (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::buffer_tag >) cw
-(rpp::details::observable_tag) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::combine_latest_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::concat_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::delay_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::debounce_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::distinct_until_changed_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::do_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::filter_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::first_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::flat_map_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::group_by_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::last_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::lift_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::map_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::merge_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::multicast_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::observe_on_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::on_error_resume_next_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::publish_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::repeat_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::sample_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::scan_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::skip_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::start_with_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::subscribe_on_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::subscribe_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::switch_map_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::switch_on_next_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::take_last_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::take_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::take_until_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::take_while_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::timeout_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::window_tag >) cw
+(rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::with_latest_from_tag >) cw
 (rpp::grouped_observable< KeyType, Type, OnSubscribeFn >) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
@@ -190,32 +223,130 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (rpp::specific_observable< Type, OnSubscribeFn >) 0.500000 1.000000 box
- (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) 0.500000 2.000000 box
- (rpp::details::typed_observable_tag< Type >) 0.000000 3.000000 box
- (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::buffer_tag >) 1.000000 3.000000 box
- (rpp::details::observable_tag) 0.000000 4.000000 box
- (rpp::grouped_observable< KeyType, Type, OnSubscribeFn >) 0.500000 0.000000 box
+ (rpp::specific_observable< Type, OnSubscribeFn >) 0.000000 1.000000 box
+ (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) 0.000000 2.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::with_latest_from_tag >) 1.000000 3.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::window_tag >) 1.000000 4.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::timeout_tag >) 1.000000 5.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::take_while_tag >) 1.000000 6.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::take_until_tag >) 1.000000 7.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::take_tag >) 1.000000 8.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::take_last_tag >) 1.000000 9.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::switch_on_next_tag >) 1.000000 10.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::switch_map_tag >) 1.000000 11.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::subscribe_tag >) 1.000000 12.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::subscribe_on_tag >) 1.000000 13.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::start_with_tag >) 1.000000 14.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::skip_tag >) 1.000000 15.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::scan_tag >) 1.000000 16.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::sample_tag >) 1.000000 17.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::repeat_tag >) 1.000000 18.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::publish_tag >) 1.000000 19.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::on_error_resume_next_tag >) 1.000000 20.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::observe_on_tag >) 1.000000 21.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::multicast_tag >) 1.000000 22.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::merge_tag >) 1.000000 23.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::map_tag >) 1.000000 24.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::lift_tag >) 1.000000 25.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::last_tag >) 1.000000 26.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::group_by_tag >) 1.000000 27.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::flat_map_tag >) 1.000000 28.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::first_tag >) 1.000000 29.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::filter_tag >) 1.000000 30.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::do_tag >) 1.000000 31.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::distinct_until_changed_tag >) 1.000000 32.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::debounce_tag >) 1.000000 33.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::delay_tag >) 1.000000 34.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::concat_tag >) 1.000000 35.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::combine_latest_tag >) 1.000000 36.000000 box
+ (rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::buffer_tag >) 1.000000 37.000000 box
+ (rpp::details::typed_observable_tag< Type >) 1.000000 38.000000 box
+1.000000 38.000000 mark
+ (rpp::grouped_observable< KeyType, Type, OnSubscribeFn >) 0.000000 0.000000 box
 
 % ----- relations -----
 
 solid
-0 0.500000 1.000000 out
+0 0.000000 1.000000 out
 solid
-1 0.500000 2.000000 in
+1 0.000000 2.000000 in
 solid
-0 0.500000 2.000000 out
+0 0.000000 2.000000 out
 solid
-0.000000 1.000000 3.000000 conn
+1 0.000000 3.500000 hedge
 solid
-1 0.000000 3.000000 in
+1 0.000000 4.500000 hedge
 solid
-0 0.000000 3.000000 out
+1 0.000000 5.500000 hedge
 solid
-1 1.000000 3.000000 in
+1 0.000000 6.500000 hedge
 solid
-1 0.000000 4.000000 in
+1 0.000000 7.500000 hedge
 solid
-1 0.500000 0.250000 out
+1 0.000000 8.500000 hedge
 solid
-0 0.500000 0.750000 in
+1 0.000000 9.500000 hedge
+solid
+1 0.000000 10.500000 hedge
+solid
+1 0.000000 11.500000 hedge
+solid
+1 0.000000 12.500000 hedge
+solid
+1 0.000000 13.500000 hedge
+solid
+1 0.000000 14.500000 hedge
+solid
+1 0.000000 15.500000 hedge
+solid
+1 0.000000 16.500000 hedge
+solid
+1 0.000000 17.500000 hedge
+solid
+1 0.000000 18.500000 hedge
+solid
+1 0.000000 19.500000 hedge
+solid
+1 0.000000 20.500000 hedge
+solid
+1 0.000000 21.500000 hedge
+solid
+1 0.000000 22.500000 hedge
+solid
+1 0.000000 23.500000 hedge
+solid
+1 0.000000 24.500000 hedge
+solid
+1 0.000000 25.500000 hedge
+solid
+1 0.000000 26.500000 hedge
+solid
+1 0.000000 27.500000 hedge
+solid
+1 0.000000 28.500000 hedge
+solid
+1 0.000000 29.500000 hedge
+solid
+1 0.000000 30.500000 hedge
+solid
+1 0.000000 31.500000 hedge
+solid
+1 0.000000 32.500000 hedge
+solid
+1 0.000000 33.500000 hedge
+solid
+1 0.000000 34.500000 hedge
+solid
+1 0.000000 35.500000 hedge
+solid
+1 0.000000 36.500000 hedge
+solid
+1 0.000000 37.500000 hedge
+solid
+1 0.000000 38.500000 hedge
+solid
+0.000000 3.000000 38.500000 vedge
+solid
+1 0.000000 0.250000 out
+solid
+0 0.000000 0.750000 in

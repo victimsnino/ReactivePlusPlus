@@ -26,7 +26,7 @@
 \DoxyCodeLine{22 \textcolor{keyword}{namespace }rpp::details}
 \DoxyCodeLine{23 \{}
 \DoxyCodeLine{24 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, std::predicate<const Type\&> Predicate>}
-\DoxyCodeLine{25 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1take__while__impl}{take\_while\_impl}}}
+\DoxyCodeLine{25 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1take__while__impl__on__next}{take\_while\_impl\_on\_next}}}
 \DoxyCodeLine{26 \{}
 \DoxyCodeLine{27     RPP\_NO\_UNIQUE\_ADDRESS Predicate predicate;}
 \DoxyCodeLine{28 }
@@ -39,6 +39,23 @@
 \DoxyCodeLine{35             subscriber.on\_completed();}
 \DoxyCodeLine{36     \}}
 \DoxyCodeLine{37 \};}
-\DoxyCodeLine{38 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, std::predicate<const Type\&> Predicate>}
+\DoxyCodeLine{40 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1take__while__impl}{take\_while\_impl}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42     RPP\_NO\_UNIQUE\_ADDRESS \mbox{\hyperlink{structrpp_1_1details_1_1take__while__impl__on__next}{take\_while\_impl\_on\_next<Type, Predicate>}} on\_next;}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber TSub>}
+\DoxyCodeLine{45     \textcolor{keyword}{auto} operator()(TSub\&\& subscriber)\textcolor{keyword}{ const}}
+\DoxyCodeLine{46 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{47         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
+\DoxyCodeLine{48         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(std::move(subscription),}
+\DoxyCodeLine{49                                                   on\_next,}
+\DoxyCodeLine{50                                                   utils::forwarding\_on\_error\{\},}
+\DoxyCodeLine{51                                                   utils::forwarding\_on\_completed\{\},}
+\DoxyCodeLine{52                                                   std::forward<TSub>(subscriber));}
+\DoxyCodeLine{53     \}}
+\DoxyCodeLine{54 \};}
+\DoxyCodeLine{55 \} \textcolor{comment}{// namespace rpp::details}}
 
 \end{DoxyCode}

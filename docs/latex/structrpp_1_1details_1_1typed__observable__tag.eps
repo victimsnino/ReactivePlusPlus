@@ -178,6 +178,7 @@ boxfont setfont
 (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) cw
 (rpp::interface_observable< Type, SpecificObservable >) cw
 (rpp::specific_observable< Type, details::dynamic_observable_state< Type > >) cw
+(rpp::specific_observable< T, TOnSubscribe >) cw
 (rpp::specific_observable< Type, OnSubscribeFn >) cw
 (rpp::dynamic_observable< Type >) cw
 (rpp::grouped_observable< KeyType, Type, OnSubscribeFn >) cw
@@ -192,33 +193,34 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (rpp::details::typed_observable_tag< Type >) 1.000000 3.000000 box
- (rpp::details::observable_tag) 1.000000 4.000000 box
- (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) 0.500000 2.000000 box
- (rpp::interface_observable< Type, SpecificObservable >) 1.500000 2.000000 box
+ (rpp::details::typed_observable_tag< Type >) 1.500000 3.000000 box
+ (rpp::details::observable_tag) 1.500000 4.000000 box
+ (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) 1.000000 2.000000 box
+ (rpp::interface_observable< Type, SpecificObservable >) 2.000000 2.000000 box
  (rpp::specific_observable< Type, details::dynamic_observable_state< Type > >) 0.000000 1.000000 box
- (rpp::specific_observable< Type, OnSubscribeFn >) 1.000000 1.000000 box
+ (rpp::specific_observable< T, TOnSubscribe >) 1.000000 1.000000 box
+ (rpp::specific_observable< Type, OnSubscribeFn >) 2.000000 1.000000 box
  (rpp::dynamic_observable< Type >) 0.000000 0.000000 box
- (rpp::grouped_observable< KeyType, Type, OnSubscribeFn >) 1.000000 0.000000 box
+ (rpp::grouped_observable< KeyType, Type, OnSubscribeFn >) 2.000000 0.000000 box
 
 % ----- relations -----
 
 solid
-0 1.000000 3.000000 out
+0 1.500000 3.000000 out
 solid
-1 1.000000 4.000000 in
+1 1.500000 4.000000 in
 solid
-1 1.000000 2.250000 out
+1 1.500000 2.250000 out
 solid
-0.500000 1.500000 3.000000 conn
+1.000000 2.000000 3.000000 conn
 solid
-0 0.500000 2.750000 in
+0 1.000000 2.750000 in
 solid
-1 0.500000 1.250000 out
+1 1.000000 1.250000 out
 solid
-0.000000 1.000000 2.000000 conn
+0.000000 2.000000 2.000000 conn
 solid
-0 1.500000 2.750000 in
+0 2.000000 2.750000 in
 solid
 0 0.000000 1.750000 in
 solid
@@ -226,8 +228,10 @@ solid
 solid
 0 1.000000 1.750000 in
 solid
-1 1.000000 0.250000 out
+0 2.000000 1.750000 in
+solid
+1 2.000000 0.250000 out
 solid
 0 0.000000 0.750000 in
 solid
-0 1.000000 0.750000 in
+0 2.000000 0.750000 in

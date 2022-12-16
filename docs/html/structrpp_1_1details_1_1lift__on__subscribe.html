@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::details::lift_on_subscribe&lt; NewType, OperatorFn, TObs &gt; Struct Template Reference</title>
+<title>ReactivePlusPlus: rpp::details::lift_on_subscribe&lt; NewType, OperatorFn, ChildLiftArgs &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -96,11 +96,7 @@ $(document).ready(function(){initNavTree('structrpp_1_1details_1_1lift__on__subs
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structrpp_1_1details_1_1lift__on__subscribe-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::details::lift_on_subscribe&lt; NewType, OperatorFn, TObs &gt; Struct Template Reference</div></div>
+  <div class="headertitle"><div class="title">rpp::details::lift_on_subscribe&lt; NewType, OperatorFn, ChildLiftArgs &gt; Struct Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -108,26 +104,9 @@ $(document).ready(function(){initNavTree('structrpp_1_1details_1_1lift__on__subs
  <a href="structrpp_1_1details_1_1lift__on__subscribe.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="lift_8hpp_source.html">lift.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:aebb345ba92f926c82b8be68d01a245b3"><td class="memTemplParams" colspan="2"><a id="aebb345ba92f926c82b8be68d01a245b3" name="aebb345ba92f926c82b8be68d01a245b3"></a>
-template&lt;constraint::subscriber_of_type&lt; NewType &gt; TSub&gt; </td></tr>
-<tr class="memitem:aebb345ba92f926c82b8be68d01a245b3"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator()</b> (TSub &amp;&amp;subscriber) const</td></tr>
-<tr class="separator:aebb345ba92f926c82b8be68d01a245b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ab0302ee8f9d901d72def2adb63de7f66"><td class="memItemLeft" align="right" valign="top"><a id="ab0302ee8f9d901d72def2adb63de7f66" name="ab0302ee8f9d901d72def2adb63de7f66"></a>
-RPP_NO_UNIQUE_ADDRESS TObs&#160;</td><td class="memItemRight" valign="bottom"><b>_this</b></td></tr>
-<tr class="separator:ab0302ee8f9d901d72def2adb63de7f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbca8da28b29ac32b3e17c357350f157"><td class="memItemLeft" align="right" valign="top"><a id="abbca8da28b29ac32b3e17c357350f157" name="abbca8da28b29ac32b3e17c357350f157"></a>
-RPP_NO_UNIQUE_ADDRESS OperatorFn&#160;</td><td class="memItemRight" valign="bottom"><b>op</b></td></tr>
-<tr class="separator:abbca8da28b29ac32b3e17c357350f157"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;constraint::decayed_type NewType, lift_fn&lt; NewType &gt; OperatorFn, typename TObs&gt;<br />
-struct rpp::details::lift_on_subscribe&lt; NewType, OperatorFn, TObs &gt;</div><p>Functor of "lift" operator for on_subscribe overload function. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;constraint::decayed_type NewType, lift_fn&lt; NewType &gt; OperatorFn, typename ... ChildLiftArgs&gt;<br />
+struct rpp::details::lift_on_subscribe&lt; NewType, OperatorFn, ChildLiftArgs &gt;</div><p>Functor of "lift" operator for on_subscribe overload function. </p>
 <p>Each observable has an on_subscribe function and observable is activated (pub-sub channel is established) after on_subscribe is called. The on_subscribe is called when the observable is subscribed by a subscriber</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
