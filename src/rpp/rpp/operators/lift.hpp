@@ -41,6 +41,9 @@ struct lift_action_by_callbacks
     }
 };
 
+template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn>
+using subscriber_type_of_list_fn = utils::extract_subscriber_type_t<utils::decayed_invoke_result_t<OperatorFn, dynamic_subscriber<NewType>>>;
+
 /**
  * \brief Functor of "lift" operator for on_subscribe overload function.
  * \details Each observable has an on_subscribe function and observable is activated (pub-sub channel is established) after on_subscribe is called. The on_subscribe is called when the observable is subscribed by a subscriber
@@ -48,27 +51,15 @@ struct lift_action_by_callbacks
  * \param _this is the current observable.
  * \param op is the functor that provides the "operator()(subscriber_of_new_type) -> subscriber_of_old_type".
  */
-
 template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename ...ChildLiftArgs>
-struct lift_on_subscribe
-{
-    using T = utils::extract_subscriber_type_t<utils::decayed_invoke_result_t<OperatorFn, dynamic_subscriber<NewType>>>;
-    RPP_NO_UNIQUE_ADDRESS rpp::specific_observable<T, lift_on_subscribe<T, ChildLiftArgs...>> _this;
-    RPP_NO_UNIQUE_ADDRESS OperatorFn op;
-
-    template<constraint::subscriber_of_type<NewType> TSub>
-    void operator()(TSub&& subscriber) const
-    {
-        _this.subscribe(op(std::forward<TSub>(subscriber)));
-    }
-};
+struct lift_on_subscribe : public lift_on_subscribe<NewType, OperatorFn, lift_on_subscribe<subscriber_type_of_list_fn<NewType, OperatorFn>, ChildLiftArgs...>> {};
 
 template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename TOnSubscribe>
 struct lift_on_subscribe<NewType, OperatorFn, TOnSubscribe>
 {
-    using T = utils::extract_subscriber_type_t<utils::decayed_invoke_result_t<OperatorFn, dynamic_subscriber<NewType>>>;
-    RPP_NO_UNIQUE_ADDRESS rpp::specific_observable<T, TOnSubscribe> _this;
-    RPP_NO_UNIQUE_ADDRESS OperatorFn op;
+    using T = subscriber_type_of_list_fn<NewType, OperatorFn>;
+    RPP_NO_UNIQUE_ADDRESS specific_observable<T, TOnSubscribe> _this;
+    RPP_NO_UNIQUE_ADDRESS OperatorFn                           op;
 
     template<constraint::subscriber_of_type<NewType> TSub>
     void operator()(TSub&& subscriber) const
@@ -78,27 +69,27 @@ struct lift_on_subscribe<NewType, OperatorFn, TOnSubscribe>
 };
 
 template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename ObservableValue, typename ...ChildLiftArgs>
-auto lift_impl_internal(OperatorFn&& op, rpp::specific_observable<ObservableValue, lift_on_subscribe<ObservableValue, ChildLiftArgs...>>&& _this)
+auto lift_impl_internal(OperatorFn&& op, specific_observable<ObservableValue, lift_on_subscribe<ObservableValue, ChildLiftArgs...>>&& _this)
 {
-    return rpp::observable::create<NewType, lift_on_subscribe<NewType, std::decay_t<OperatorFn>, ChildLiftArgs...>>({ std::move(_this), std::forward<OperatorFn>(op) });
+    return observable::create<NewType, lift_on_subscribe<NewType, std::decay_t<OperatorFn>, ChildLiftArgs...>>({ std::move(_this), std::forward<OperatorFn>(op) });
 }
 
 template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename ObservableValue, typename ...ChildLiftArgs>
-auto lift_impl_internal(OperatorFn&& op, const rpp::specific_observable<ObservableValue, lift_on_subscribe<ObservableValue, ChildLiftArgs...>>& _this)
+auto lift_impl_internal(OperatorFn&& op, const specific_observable<ObservableValue, lift_on_subscribe<ObservableValue, ChildLiftArgs...>>& _this)
 {
-    return rpp::observable::create<NewType, lift_on_subscribe<NewType, std::decay_t<OperatorFn>, ChildLiftArgs...>>({ _this, std::forward<OperatorFn>(op) });
+    return observable::create<NewType, lift_on_subscribe<NewType, std::decay_t<OperatorFn>, ChildLiftArgs...>>({ _this, std::forward<OperatorFn>(op) });
 }
 
 template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename ObservableValue, typename OnSubscribe>
-auto lift_impl_internal(OperatorFn&& op, rpp::specific_observable<ObservableValue, OnSubscribe>&& _this)
+auto lift_impl_internal(OperatorFn&& op, specific_observable<ObservableValue, OnSubscribe>&& _this)
 {
-    return rpp::observable::create<NewType, lift_on_subscribe<NewType, std::decay_t<OperatorFn>, OnSubscribe>>({ std::move(_this), std::forward<OperatorFn>(op) });
+    return observable::create<NewType, lift_on_subscribe<NewType, std::decay_t<OperatorFn>, OnSubscribe>>({ std::move(_this), std::forward<OperatorFn>(op) });
 }
 
 template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename ObservableValue, typename OnSubscribe>
-auto lift_impl_internal(OperatorFn&& op, const rpp::specific_observable<ObservableValue, OnSubscribe>& _this)
+auto lift_impl_internal(OperatorFn&& op, const specific_observable<ObservableValue, OnSubscribe>& _this)
 {
-    return rpp::observable::create<NewType, lift_on_subscribe<NewType, std::decay_t<OperatorFn>, OnSubscribe>>({ _this, std::forward<OperatorFn>(op) });
+    return observable::create<NewType, lift_on_subscribe<NewType, std::decay_t<OperatorFn>, OnSubscribe>>({ _this, std::forward<OperatorFn>(op) });
 }
 
 template<constraint::decayed_type NewType, lift_fn<NewType> OperatorFn, typename TObs>
