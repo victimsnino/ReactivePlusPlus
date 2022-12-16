@@ -43,7 +43,12 @@ struct map_impl
     template<constraint::subscriber TSub>
     auto operator()(TSub&& subscriber) const
     {
-        return create_subscriber_in_lift<Type>(std::forward<TSub>(subscriber), on_next);
+        auto subscription = subscriber.get_subscription();
+        return create_subscriber_with_state<Type>(std::move(subscription),
+                                                  on_next,
+                                                  utils::forwarding_on_error{},
+                                                  utils::forwarding_on_completed{},
+                                                  std::forward<TSub>(subscriber));
     }
 };
 } // namespace rpp::details

@@ -23,7 +23,7 @@ IMPLEMENTATION_FILE(filter_tag);
 namespace rpp::details
 {
 template<constraint::decayed_type Type, std::predicate<const Type&> Predicate>
-struct filter_impl
+struct filter_impl_on_next
 {
     RPP_NO_UNIQUE_ADDRESS Predicate predicate;
 
@@ -35,4 +35,20 @@ struct filter_impl
     }
 };
 
+template<constraint::decayed_type Type, std::predicate<const Type&> Predicate>
+struct filter_impl
+{
+    RPP_NO_UNIQUE_ADDRESS filter_impl_on_next<Type, Predicate> on_next;
+
+    template<constraint::subscriber TSub>
+    auto operator()(TSub&& subscriber) const
+    {
+        auto subscription = subscriber.get_subscription();
+        return create_subscriber_with_state<Type>(std::move(subscription),
+                                                  on_next,
+                                                  utils::forwarding_on_error{},
+                                                  utils::forwarding_on_completed{},
+                                                  std::forward<TSub>(subscriber));
+    }
+};
 } // namespace rpp::details
