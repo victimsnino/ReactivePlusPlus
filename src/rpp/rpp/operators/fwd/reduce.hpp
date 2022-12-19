@@ -46,6 +46,7 @@ struct member_overload<Type, SpecificObservable, reduce_tag>
      * 
      * \par Example
      * \snippet reduce.cpp reduce
+     * \snippet reduce.cpp reduce_vector
 	 *
      * \ingroup transforming_operators
      * \see https://reactivex.io/documentation/operators/reduce.html
