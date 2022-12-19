@@ -80,6 +80,7 @@
 */
 
 #include <rpp/operators/concat.hpp>
+#include <rpp/operators/reduce.hpp>
 
 /**
  * \defgroup utility_operators Utility Operators

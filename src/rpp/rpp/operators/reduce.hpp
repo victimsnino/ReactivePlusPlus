@@ -13,31 +13,47 @@
 #include <rpp/defs.hpp>                                    // RPP_NO_UNIQUE_ADDRESS
 #include <rpp/operators/lift.hpp>                          // required due to operator uses lift
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
-#include <rpp/operators/fwd/scan.hpp>                      // own forwarding
-#include <rpp/operators/reduce.hpp>                        // reduce to re-use
+#include <rpp/operators/fwd/reduce.hpp>                      // own forwarding
 #include <rpp/subscribers/constraints.hpp>                 // constraint::subscriber
 #include <rpp/utils/functors.hpp>                          // forwarding_on_error
 #include <rpp/utils/utilities.hpp>                         // utils::as_const
 
 
-IMPLEMENTATION_FILE(scan_tag);
+IMPLEMENTATION_FILE(reduce_tag);
 
 namespace rpp::details
 {
-struct scan_on_next : private reduce_on_next
+template<constraint::decayed_type Result, typename AccumulatorFn>
+struct reduce_state
+{
+    mutable Result                      seed;
+    RPP_NO_UNIQUE_ADDRESS AccumulatorFn accumulator;
+};
+
+struct reduce_on_next
 {
     template<constraint::decayed_type Result, typename AccumulatorFn>
     void operator()(auto&&                                   value,
-                    const constraint::subscriber auto&       sub,
+                    const constraint::subscriber auto&,
                     const reduce_state<Result, AccumulatorFn>& state) const
     {
-        reduce_on_next::operator()(std::forward<decltype(value)>(value), sub, state);
-        sub.on_next(utils::as_const(state.seed));
+        state.seed = state.accumulator(std::move(state.seed), std::forward<decltype(value)>(value));
     }
 };
 
-template<constraint::decayed_type Type, constraint::decayed_type Result, scan_accumulator<Result, Type> AccumulatorFn>
-struct scan_impl
+struct reduce_on_completed
+{
+    template<constraint::decayed_type Result, typename AccumulatorFn>
+    void operator()(const constraint::subscriber auto&       sub,
+                    const reduce_state<Result, AccumulatorFn>& state) const
+    {
+        sub.on_next(std::move(state.seed));
+        sub.on_completed();
+    }
+};
+
+template<constraint::decayed_type Type, constraint::decayed_type Result, reduce_accumulator<Result, Type> AccumulatorFn>
+struct reduce_impl
 {
     Result                              initial_value;
     RPP_NO_UNIQUE_ADDRESS AccumulatorFn accumulator;
@@ -48,9 +64,9 @@ struct scan_impl
         auto subscription = subscriber.get_subscription();
         // dynamic_state there to make shared_ptr for observer instead of making shared_ptr for state
         return create_subscriber_with_dynamic_state<Type>(std::move(subscription),
-                                                          scan_on_next{},
+                                                          reduce_on_next{},
                                                           utils::forwarding_on_error{},
-                                                          utils::forwarding_on_completed{},
+                                                          reduce_on_completed{},
                                                           std::forward<TSub>(subscriber),
                                                           reduce_state<Result, AccumulatorFn>{initial_value, accumulator});
     }
