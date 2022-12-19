@@ -21,7 +21,7 @@ namespace rpp::details
 {
 // accepts Result and Type and returns Result
 template<typename Fn, typename Result, typename Type>
-concept scan_accumulator = std::is_invocable_r_v<std::decay_t<Result>, Fn, std::decay_t<Result>, std::decay_t<Type>>;
+concept scan_accumulator = reduce_accumulator<Fn,Result,Type>;
 
 template<constraint::decayed_type Type, constraint::decayed_type Result, scan_accumulator<Result, Type> AccumulatorFn>
 struct scan_impl;

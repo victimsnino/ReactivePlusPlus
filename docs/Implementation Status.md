@@ -106,7 +106,7 @@
 
 ### Aggregate
 
-- [ ] average
+- [x] average
 - [x] concat
 - [ ] count
 - [ ] max 

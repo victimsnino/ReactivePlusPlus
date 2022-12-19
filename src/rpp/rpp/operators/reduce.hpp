@@ -23,19 +23,20 @@ IMPLEMENTATION_FILE(reduce_tag);
 
 namespace rpp::details
 {
-template<constraint::decayed_type Result, typename AccumulatorFn>
+template<constraint::decayed_type Seed, typename AccumulatorFn, std::invocable<Seed> SelectorFn = std::identity>
 struct reduce_state
 {
-    mutable Result                      seed;
+    mutable Seed                        seed;
     RPP_NO_UNIQUE_ADDRESS AccumulatorFn accumulator;
+    RPP_NO_UNIQUE_ADDRESS SelectorFn    selector;
 };
 
 struct reduce_on_next
 {
-    template<constraint::decayed_type Result, typename AccumulatorFn>
+    template<constraint::decayed_type Result, typename AccumulatorFn, typename SelectorFn>
     void operator()(auto&&                                   value,
                     const constraint::subscriber auto&,
-                    const reduce_state<Result, AccumulatorFn>& state) const
+                    const reduce_state<Result, AccumulatorFn, SelectorFn>& state) const
     {
         state.seed = state.accumulator(std::move(state.seed), std::forward<decltype(value)>(value));
     }
@@ -43,22 +44,23 @@ struct reduce_on_next
 
 struct reduce_on_completed
 {
-    template<constraint::decayed_type Result, typename AccumulatorFn>
+    template<constraint::decayed_type Result, typename AccumulatorFn, typename SelectorFn>
     void operator()(const constraint::subscriber auto&       sub,
-                    const reduce_state<Result, AccumulatorFn>& state) const
+                    const reduce_state<Result, AccumulatorFn, SelectorFn>& state) const
     {
-        sub.on_next(std::move(state.seed));
+        sub.on_next(state.selector(std::move(state.seed)));
         sub.on_completed();
     }
 };
 
-template<constraint::decayed_type Type, constraint::decayed_type Result, reduce_accumulator<Result, Type> AccumulatorFn>
+template<constraint::decayed_type Type, constraint::decayed_type Seed, reduce_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed> ResultSelectorFn>
 struct reduce_impl
 {
-    Result                              initial_value;
-    RPP_NO_UNIQUE_ADDRESS AccumulatorFn accumulator;
+    Seed                                   initial_value;
+    RPP_NO_UNIQUE_ADDRESS AccumulatorFn    accumulator;
+    RPP_NO_UNIQUE_ADDRESS ResultSelectorFn selector;
 
-    template<constraint::subscriber_of_type<Result> TSub>
+    template<constraint::subscriber_of_type<utils::decayed_invoke_result_t<ResultSelectorFn, Seed>> TSub>
     auto operator()(TSub&& subscriber) const
     {
         auto subscription = subscriber.get_subscription();
@@ -68,8 +70,25 @@ struct reduce_impl
                                                           utils::forwarding_on_error{},
                                                           reduce_on_completed{},
                                                           std::forward<TSub>(subscriber),
-                                                          reduce_state<Result, AccumulatorFn>{initial_value, accumulator});
+                                                          reduce_state<Seed, AccumulatorFn, ResultSelectorFn>{initial_value, accumulator, selector});
     }
 };
+
+template<constraint::decayed_type CastBeforeDivide, constraint::observable TObs>
+auto average_impl(TObs&& observable)
+{
+    using Type = utils::extract_observable_type_t<std::decay_t<TObs>>;
+    return std::forward<TObs>(observable).reduce(std::pair<Type, int32_t>{},
+                                                 [](std::pair<Type, int32_t>&& seed, auto&& val)
+                                                 {
+                                                     seed.first += std::forward<decltype(val)>(val);
+                                                     ++seed.second;
+                                                     return std::move(seed);
+                                                 },
+                                                 [](std::pair<Type, int32_t> seed)
+                                                 {
+                                                     return static_cast<CastBeforeDivide>(seed.first) / seed.second;
+                                                 });
+}
 } // namespace rpp::details
 

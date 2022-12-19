@@ -31,5 +31,12 @@ int main()
             });
     // Output: vector: 1 2 3
     //! [reduce_vector]
+
+    //! [average]
+    rpp::source::just(1,2,3)
+            .average()
+            .subscribe([](int v) { std::cout << v << std::endl; });
+    // Output: 2
+    //! [average]
     return 0;
 }

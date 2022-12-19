@@ -94,6 +94,38 @@ SCENARIO("reduce reduces values and store state", "[reduce]")
     }
 }
 
+SCENARIO("average calculates average", "[reduce]")
+{
+    GIVEN("observable")
+    {
+        auto obs = rpp::source::just(1,2);
+        WHEN("subscribe on it via average")
+        {
+            auto mock = mock_observer<int>{};
+            auto r= obs.average().subscribe(mock);
+
+            THEN("observer obtained value as average int")
+            {
+                CHECK(mock.get_received_values() == std::vector{static_cast<int>(1+2)/2});
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+        WHEN("subscribe on it via average<double>")
+        {
+            auto mock = mock_observer<double>{};
+            obs.average<double>().subscribe(mock);
+
+            THEN("observer obtained value as average double")
+            {
+                CHECK(mock.get_received_values() == std::vector<double>{1.5});
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+}
+
 SCENARIO("reduce keeps state for copies", "[reduce]")
 {
     auto mock = mock_observer<int>{};
