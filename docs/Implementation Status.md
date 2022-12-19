@@ -111,7 +111,7 @@
 - [ ] count
 - [ ] max 
 - [ ] min
-- [ ] reduce
+- [x] reduce
 - [ ] sum
 
 ### Backpressure
