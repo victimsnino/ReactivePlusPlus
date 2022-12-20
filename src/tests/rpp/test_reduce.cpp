@@ -144,6 +144,154 @@ SCENARIO("average calculates average", "[reduce]")
     }
 }
 
+SCENARIO("sum calculates sum", "[reduce]")
+{
+    GIVEN("-1-2| observable")
+    {
+        auto obs = rpp::source::just(1,2);
+        WHEN("subscribe on it via sum")
+        {
+            auto mock = mock_observer<int>{};
+            auto r= obs.sum().subscribe(mock);
+
+            THEN("observer obtained value as sum int")
+            {
+                CHECK(mock.get_received_values() == std::vector{3});
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+
+    GIVEN("-| observable")
+    {
+        auto obs = rpp::source::empty<int>();
+        WHEN("subscribe on it via sum")
+        {
+            auto mock = mock_observer<int>{};
+            auto r= obs.sum().subscribe(mock);
+
+            THEN("observer obtained on_error")
+            {
+                CHECK(mock.get_received_values() == std::vector<int>{});
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
+    }
+}
+
+SCENARIO("count calculates count", "[reduce]")
+{
+    GIVEN("-1-2| observable")
+    {
+        auto obs = rpp::source::just(1,2);
+        WHEN("subscribe on it via count")
+        {
+            auto mock = mock_observer<size_t>{};
+            auto r= obs.count().subscribe(mock);
+
+            THEN("observer obtained value as count size_t")
+            {
+                CHECK(mock.get_received_values() == std::vector{size_t{2}});
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+
+    GIVEN("-| observable")
+    {
+        auto obs = rpp::source::empty<int>();
+        WHEN("subscribe on it via count")
+        {
+            auto mock = mock_observer<size_t>{};
+            auto r= obs.count().subscribe(mock);
+
+            THEN("observer obtained zero")
+            {
+                CHECK(mock.get_received_values() == std::vector<size_t>{0});
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+}
+
+SCENARIO("min calculates min", "[reduce]")
+{
+    GIVEN("-3-1-2| observable")
+    {
+        auto obs = rpp::source::just(3,1,2);
+        WHEN("subscribe on it via min")
+        {
+            auto mock = mock_observer<int>{};
+            auto r= obs.min().subscribe(mock);
+
+            THEN("observer obtained min value")
+            {
+                CHECK(mock.get_received_values() == std::vector{1});
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+
+    GIVEN("-| observable")
+    {
+        auto obs = rpp::source::empty<int>();
+        WHEN("subscribe on it via min")
+        {
+            auto mock = mock_observer<int>{};
+            auto r= obs.min().subscribe(mock);
+
+            THEN("observer obtained on_error")
+            {
+                CHECK(mock.get_received_values() == std::vector<int>{});
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
+    }
+}
+
+SCENARIO("max calculates min", "[reduce]")
+{
+    GIVEN("-3-1-2| observable")
+    {
+        auto obs = rpp::source::just(3,1,2);
+        WHEN("subscribe on it via max")
+        {
+            auto mock = mock_observer<int>{};
+            auto r= obs.max().subscribe(mock);
+
+            THEN("observer obtained max value")
+            {
+                CHECK(mock.get_received_values() == std::vector{3});
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+
+    GIVEN("-| observable")
+    {
+        auto obs = rpp::source::empty<int>();
+        WHEN("subscribe on it via max")
+        {
+            auto mock = mock_observer<int>{};
+            auto r= obs.max().subscribe(mock);
+
+            THEN("observer obtained on_error")
+            {
+                CHECK(mock.get_received_values() == std::vector<int>{});
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
+    }
+}
+
 SCENARIO("reduce keeps state for copies", "[reduce]")
 {
     auto mock = mock_observer<int>{};

@@ -23,10 +23,15 @@ namespace rpp::details
 template<typename Fn, typename Result, typename Type>
 concept reduce_accumulator = std::is_invocable_r_v<std::decay_t<Result>, Fn, std::decay_t<Result>, std::decay_t<Type>>;
 
-template<typename T, typename CastBeforeDrop>
-concept is_can_be_averaged = requires(T t, CastBeforeDrop nt)
+template<typename T>
+concept is_can_be_summed = requires(T t)
 {
     { t + t } -> std::convertible_to<T>;
+};
+
+template<typename T, typename CastBeforeDrop>
+concept is_can_be_averaged = is_can_be_summed<T> && requires(CastBeforeDrop nt)
+{
     { nt / size_t{} };
 };
 
@@ -36,11 +41,23 @@ struct reduce_impl;
 template<constraint::decayed_type CastBeforeDivide, constraint::observable TObs>
 auto average_impl(TObs&& observable);
 
+template<constraint::observable TObs>
+auto sum_impl(TObs&& observable);
+
+template<constraint::observable TObs>
+auto count_impl(TObs&& observable);
+
+template<constraint::observable TObs, typename Comparator>
+auto min_impl(TObs&& observable, Comparator&& comparator);
+
+template<constraint::observable TObs, typename Comparator>
+auto max_impl(TObs&& observable, Comparator&& comparator);
+
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, reduce_tag>
 {
     /**
-     * \brief Apply accumulator function to each emission from observable and result of accumulator from previous step and emit final value
+     * \brief Applies accumulator function to each emission from observable and result of accumulator from previous step and emits final value
      * 
      * \marble reduce
         {
@@ -71,7 +88,7 @@ struct member_overload<Type, SpecificObservable, reduce_tag>
                                          std::forward<ResultSelectorFn>(result_selector)});
     }
 
-   template<typename Seed, reduce_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed&&> ResultSelectorFn = std::identity>
+    template<typename Seed, reduce_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed&&> ResultSelectorFn = std::identity>
     auto reduce(Seed&& initial_seed, AccumulatorFn&& accumulator, ResultSelectorFn&& result_selector = {}) && requires is_header_included<reduce_tag, Seed, AccumulatorFn, ResultSelectorFn>
     {
         return std::move(*static_cast<SpecificObservable*>(this)).template lift<utils::decayed_invoke_result_t<ResultSelectorFn, std::decay_t<Seed>>>(
@@ -82,7 +99,7 @@ struct member_overload<Type, SpecificObservable, reduce_tag>
     }
 
     /**
-     * \brief Calculated the average of emissions and emit final value
+     * \brief Calculates the average of emissions and emits final value
      * 
      * \marble average
         {
@@ -90,9 +107,11 @@ struct member_overload<Type, SpecificObservable, reduce_tag>
             operator "average" : +--------2|
         }
      *
+     * \tparam CastBeforeDivide cast accumulated value to this type before division
      * \return new specific_observable with the average operator as most recent operator.
-     * \warning #include <rpp/operators/reduce.hpp>
      * \throws rpp::utils::not_enough_emissions in case of no any emissions from original observable
+     *
+     * \warning #include <rpp/operators/reduce.hpp>
      * 
      * \par Example
      * \snippet reduce.cpp average
@@ -106,10 +125,139 @@ struct member_overload<Type, SpecificObservable, reduce_tag>
         return average_impl<CastBeforeDivide>(*static_cast<const SpecificObservable*>(this));
     }
 
-   template<typename CastBeforeDivide = Type, typename ...Args>
+    template<typename CastBeforeDivide = Type, typename ...Args>
     auto average() && requires (is_header_included<reduce_tag, CastBeforeDivide, Args...> && is_can_be_averaged<Type, CastBeforeDivide>)
     {
         return average_impl<CastBeforeDivide>(std::move(*static_cast<SpecificObservable*>(this)));
+    }
+
+    
+    /**
+     * \brief Calculates the sum of emissions and emits final value
+     * 
+     * \marble sum
+        {
+            source observable  : +--1-2-3-|
+            operator "sum"     : +--------6|
+        }
+     *
+     * \return new specific_observable with the sum operator as most recent operator.
+     * \throws rpp::utils::not_enough_emissions in case of no any emissions from original observable
+     *
+     * \warning #include <rpp/operators/reduce.hpp>
+     * 
+     * \par Example
+     * \snippet reduce.cpp sum
+	 *
+     * \ingroup transforming_operators
+     * \see https://reactivex.io/documentation/operators/sum.html
+     */
+    template<typename ...Args>
+    auto sum() const & requires (is_header_included<reduce_tag, Args...> && is_can_be_summed<Type>)
+    {
+        return sum_impl(*static_cast<const SpecificObservable*>(this));
+    }
+
+    template<typename ...Args>
+    auto sum() && requires (is_header_included<reduce_tag, Args...> && is_can_be_summed<Type>)
+    {
+        return sum_impl(std::move(*static_cast<SpecificObservable*>(this)));
+    }
+
+    /**
+     * \brief Calculates the amount of emitted emissions and emits this count
+     * 
+     * \marble count
+        {
+            source observable  : +--1-2-3-|
+            operator "count"   : +--------3|
+        }
+     *
+     * \return new specific_observable with the count operator as most recent operator.
+     * \warning #include <rpp/operators/reduce.hpp>
+     * 
+     * \par Example
+     * \snippet reduce.cpp count
+	 *
+     * \ingroup transforming_operators
+     * \see https://reactivex.io/documentation/operators/count.html
+     */
+    template<typename ...Args>
+    auto count() const & requires is_header_included<reduce_tag, Args...>
+    {
+        return count_impl(*static_cast<const SpecificObservable*>(this));
+    }
+
+    template<typename ...Args>
+    auto count() && requires is_header_included<reduce_tag, Args...>
+    {
+        return count_impl(std::move(*static_cast<SpecificObservable*>(this)));
+    }
+
+    /**
+     * \brief Emits the emission which has minimal value from the whole observable
+     * 
+     * \marble min
+        {
+            source observable  : +-6-1-2-3-|
+            operator "min"     : +---------1|
+        }
+     *
+     * \param comparator is function to deduce if left value is less than right
+     * \return new specific_observable with the min operator as most recent operator.
+     * \throws rpp::utils::not_enough_emissions in case of no any emissions from original observable
+     *
+     * \warning #include <rpp/operators/reduce.hpp>
+     * 
+     * \par Example
+     * \snippet reduce.cpp min
+	 *
+     * \ingroup transforming_operators
+     * \see https://reactivex.io/documentation/operators/min.html
+     */
+    template<std::strict_weak_order<Type, Type> Comparator = std::less<Type>, typename ...Args>
+    auto min(Comparator&& comparator = {}) const & requires is_header_included<reduce_tag, Comparator, Args...>
+    {
+        return min_impl(*static_cast<const SpecificObservable*>(this), std::forward<Comparator>(comparator));
+    }
+
+    template<std::strict_weak_order<Type, Type> Comparator = std::less<Type>, typename ...Args>
+    auto min(Comparator&& comparator = {}) && requires is_header_included<reduce_tag, Comparator, Args...>
+    {
+        return min_impl(std::move(*static_cast<SpecificObservable*>(this)), std::forward<Comparator>(comparator));
+    }
+
+    /**
+     * \brief Emits the emission which has maximal value from the whole observable
+     * 
+     * \marble max
+        {
+            source observable  : +-6-1-2-3-|
+            operator "max"     : +---------6|
+        }
+     *
+     * \param comparator is function to deduce if left value is less than right
+     * \return new specific_observable with the max operator as most recent operator.
+     * \throws rpp::utils::not_enough_emissions in case of no any emissions from original observable
+     *
+     * \warning #include <rpp/operators/reduce.hpp>
+     * 
+     * \par Example
+     * \snippet reduce.cpp max
+	 *
+     * \ingroup transforming_operators
+     * \see https://reactivex.io/documentation/operators/max.html
+     */
+    template<std::strict_weak_order<Type, Type> Comparator = std::less<Type>, typename ...Args>
+    auto max(Comparator&& comparator = {}) const & requires is_header_included<reduce_tag, Comparator, Args...>
+    {
+        return max_impl(*static_cast<const SpecificObservable*>(this), std::forward<Comparator>(comparator));
+    }
+
+    template<std::strict_weak_order<Type, Type> Comparator = std::less<Type>, typename ...Args>
+    auto max(Comparator&& comparator = {}) && requires is_header_included<reduce_tag, Comparator, Args...>
+    {
+        return max_impl(std::move(*static_cast<SpecificObservable*>(this)), std::forward<Comparator>(comparator));
     }
 };
 } // namespace rpp::details

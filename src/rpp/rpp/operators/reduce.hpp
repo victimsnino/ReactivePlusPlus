@@ -105,5 +105,73 @@ auto average_impl(TObs&& observable)
                                                      return static_cast<CastBeforeDivide>(std::move(seed.first).value()) / seed.second;
                                                  });
 }
+
+template<constraint::observable TObs>
+auto sum_impl(TObs&& observable)
+{
+    using Type = utils::extract_observable_type_t<std::decay_t<TObs>>;
+    return std::forward<TObs>(observable).reduce(std::optional<Type>{},
+                                                 [](std::optional<Type>&& seed, auto&& val)
+                                                 {
+                                                     if (!seed)
+                                                         seed = std::forward<decltype(val)>(val);
+                                                     else
+                                                        seed.value() += std::forward<decltype(val)>(val);
+                                                     return std::move(seed);
+                                                 },
+                                                 [](std::optional<Type>&& seed)
+                                                 {
+                                                     if (!seed)
+                                                         throw utils::not_enough_emissions{"`sum` operator requires at least one emission to calculate sum"};
+
+                                                     return std::move(seed.value());
+                                                 });
+}
+
+template<constraint::observable TObs>
+auto count_impl(TObs&& observable)
+{
+    return std::forward<TObs>(observable).reduce(size_t{}, [](size_t seed, auto&&) { return ++seed; });
+}
+
+template<constraint::observable TObs, typename Comparator>
+auto min_impl(TObs&& observable, Comparator&& comparator)
+{
+    using Type = utils::extract_observable_type_t<std::decay_t<TObs>>;
+    return std::forward<TObs>(observable).reduce(std::optional<Type>{},
+                                                 [comparator](std::optional<Type>&& seed, auto&& val)
+                                                 {
+                                                     if (!seed || comparator(utils::as_const(val), seed.value()))
+                                                         seed = std::forward<decltype(val)>(val);
+                                                     return std::move(seed);
+                                                 },
+                                                 [](std::optional<Type>&& seed)
+                                                 {
+                                                     if (!seed)
+                                                         throw utils::not_enough_emissions{"`min` operator requires at least one emission to calculate min"};
+
+                                                     return std::move(seed.value());
+                                                 });
+}
+
+template<constraint::observable TObs, typename Comparator>
+auto max_impl(TObs&& observable, Comparator&& comparator)
+{
+    using Type = utils::extract_observable_type_t<std::decay_t<TObs>>;
+    return std::forward<TObs>(observable).reduce(std::optional<Type>{},
+                                                 [comparator](std::optional<Type>&& seed, auto&& val)
+                                                 {
+                                                     if (!seed || comparator(seed.value(), utils::as_const(val)))
+                                                         seed = std::forward<decltype(val)>(val);
+                                                     return std::move(seed);
+                                                 },
+                                                 [](std::optional<Type>&& seed)
+                                                 {
+                                                     if (!seed)
+                                                         throw utils::not_enough_emissions{"`max` operator requires at least one emission to calculate min"};
+
+                                                     return std::move(seed.value());
+                                                 });
+}
 } // namespace rpp::details
 

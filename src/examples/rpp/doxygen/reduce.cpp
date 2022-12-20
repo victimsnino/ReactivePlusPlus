@@ -38,5 +38,33 @@ int main()
             .subscribe([](int v) { std::cout << v << std::endl; });
     // Output: 2
     //! [average]
+
+    //! [sum]
+    rpp::source::just(1,2,3)
+            .sum()
+            .subscribe([](int v) { std::cout << v << std::endl; });
+    // Output: 6
+    //! [sum]
+
+    //! [count]
+    rpp::source::just(1,2,3)
+            .count()
+            .subscribe([](int v) { std::cout << v << std::endl; });
+    // Output: 3
+    //! [count]
+
+    //! [min]
+    rpp::source::just(5,1,2,3)
+            .min()
+            .subscribe([](int v) { std::cout << v << std::endl; });
+    // Output: 1
+    //! [min]
+
+    //! [max]
+    rpp::source::just(5,1,2,3)
+            .max()
+            .subscribe([](int v) { std::cout << v << std::endl; });
+    // Output: 5
+    //! [max]
     return 0;
 }
