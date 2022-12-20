@@ -28,7 +28,7 @@ struct reduce_state
 {
     mutable Seed                        seed;
     RPP_NO_UNIQUE_ADDRESS AccumulatorFn accumulator;
-    RPP_NO_UNIQUE_ADDRESS SelectorFn    selector;
+    RPP_NO_UNIQUE_ADDRESS SelectorFn    selector{};
 };
 
 struct reduce_on_next
