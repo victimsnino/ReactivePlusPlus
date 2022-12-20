@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/defs.hpp>                                    // RPP_NO_UNIQUE_ADDRESS
+#include <rpp/observables/constraints.hpp>                 
 #include <rpp/operators/lift.hpp>                          // required due to operator uses lift
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 #include <rpp/operators/fwd/reduce.hpp>                      // own forwarding
