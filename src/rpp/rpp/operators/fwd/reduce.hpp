@@ -30,7 +30,7 @@ concept is_can_be_averaged = requires(T t, CastBeforeDrop nt)
     { nt / size_t{} };
 };
 
-template<constraint::decayed_type Type, constraint::decayed_type Seed, reduce_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed> ResultSelectorFn>
+template<constraint::decayed_type Type, constraint::decayed_type Seed, reduce_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed&&> ResultSelectorFn>
 struct reduce_impl;
 
 template<constraint::decayed_type CastBeforeDivide, constraint::observable TObs>
@@ -61,7 +61,7 @@ struct member_overload<Type, SpecificObservable, reduce_tag>
      * \ingroup transforming_operators
      * \see https://reactivex.io/documentation/operators/reduce.html
      */
-    template<typename Seed, reduce_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed> ResultSelectorFn = std::identity>
+    template<typename Seed, reduce_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed&&> ResultSelectorFn = std::identity>
     auto reduce(Seed&& initial_seed, AccumulatorFn&& accumulator, ResultSelectorFn&& result_selector = {}) const & requires is_header_included<reduce_tag, Seed, AccumulatorFn, ResultSelectorFn>
     {
         return static_cast<const SpecificObservable*>(this)->template lift<utils::decayed_invoke_result_t<ResultSelectorFn, std::decay_t<Seed>>>(
@@ -71,7 +71,7 @@ struct member_overload<Type, SpecificObservable, reduce_tag>
                                          std::forward<ResultSelectorFn>(result_selector)});
     }
 
-   template<typename Seed, reduce_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed> ResultSelectorFn = std::identity>
+   template<typename Seed, reduce_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed&&> ResultSelectorFn = std::identity>
     auto reduce(Seed&& initial_seed, AccumulatorFn&& accumulator, ResultSelectorFn&& result_selector = {}) && requires is_header_included<reduce_tag, Seed, AccumulatorFn, ResultSelectorFn>
     {
         return std::move(*static_cast<SpecificObservable*>(this)).template lift<utils::decayed_invoke_result_t<ResultSelectorFn, std::decay_t<Seed>>>(
@@ -84,7 +84,7 @@ struct member_overload<Type, SpecificObservable, reduce_tag>
     /**
      * \brief Calculated the average of emissions and emit final value
      * 
-     * \marble reduce
+     * \marble average
         {
             source observable  : +--1-2-3-|
             operator "average" : +--------2|
@@ -92,6 +92,7 @@ struct member_overload<Type, SpecificObservable, reduce_tag>
      *
      * \return new specific_observable with the average operator as most recent operator.
      * \warning #include <rpp/operators/reduce.hpp>
+     * \throws rpp::utils::not_enough_emissions in case of no any emissions from original observable
      * 
      * \par Example
      * \snippet reduce.cpp average

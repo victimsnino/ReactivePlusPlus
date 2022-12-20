@@ -15,6 +15,7 @@
 #include <rpp/operators/reduce.hpp>
 
 #include <rpp/sources/just.hpp>
+#include <rpp/sources/empty.hpp>
 
 SCENARIO("reduce reduces values and store state", "[reduce]")
 {
@@ -96,7 +97,7 @@ SCENARIO("reduce reduces values and store state", "[reduce]")
 
 SCENARIO("average calculates average", "[reduce]")
 {
-    GIVEN("observable")
+    GIVEN("-1-2| observable")
     {
         auto obs = rpp::source::just(1,2);
         WHEN("subscribe on it via average")
@@ -121,6 +122,23 @@ SCENARIO("average calculates average", "[reduce]")
                 CHECK(mock.get_received_values() == std::vector<double>{1.5});
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+
+    GIVEN("-| observable")
+    {
+        auto obs = rpp::source::empty<int>();
+        WHEN("subscribe on it via average")
+        {
+            auto mock = mock_observer<int>{};
+            auto r= obs.average().subscribe(mock);
+
+            THEN("observer obtained on_error")
+            {
+                CHECK(mock.get_received_values() == std::vector<int>{});
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
             }
         }
     }

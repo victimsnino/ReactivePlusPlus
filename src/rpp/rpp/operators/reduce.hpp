@@ -23,7 +23,7 @@ IMPLEMENTATION_FILE(reduce_tag);
 
 namespace rpp::details
 {
-template<constraint::decayed_type Seed, typename AccumulatorFn, std::invocable<Seed> SelectorFn = std::identity>
+template<constraint::decayed_type Seed, typename AccumulatorFn, std::invocable<Seed&&> SelectorFn = std::identity>
 struct reduce_state
 {
     mutable Seed                        seed;
@@ -45,15 +45,23 @@ struct reduce_on_next
 struct reduce_on_completed
 {
     template<constraint::decayed_type Result, typename AccumulatorFn, typename SelectorFn>
-    void operator()(const constraint::subscriber auto&       sub,
+    void operator()(const constraint::subscriber auto&                     sub,
                     const reduce_state<Result, AccumulatorFn, SelectorFn>& state) const
     {
-        sub.on_next(state.selector(std::move(state.seed)));
+        try
+        {
+            sub.on_next(state.selector(std::move(state.seed)));
+        }
+        catch (...)
+        {
+            sub.on_error(std::current_exception());
+            return;
+        }
         sub.on_completed();
     }
 };
 
-template<constraint::decayed_type Type, constraint::decayed_type Seed, reduce_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed> ResultSelectorFn>
+template<constraint::decayed_type Type, constraint::decayed_type Seed, reduce_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed&&> ResultSelectorFn>
 struct reduce_impl
 {
     Seed                                   initial_value;
@@ -78,16 +86,23 @@ template<constraint::decayed_type CastBeforeDivide, constraint::observable TObs>
 auto average_impl(TObs&& observable)
 {
     using Type = utils::extract_observable_type_t<std::decay_t<TObs>>;
-    return std::forward<TObs>(observable).reduce(std::pair<Type, int32_t>{},
-                                                 [](std::pair<Type, int32_t>&& seed, auto&& val)
+    using Pair = std::pair<std::optional<Type>, int32_t>;
+    return std::forward<TObs>(observable).reduce(Pair{},
+                                                 [](Pair&& seed, auto&& val)
                                                  {
-                                                     seed.first += std::forward<decltype(val)>(val);
+                                                     if (seed.first)
+                                                        seed.first.value() += std::forward<decltype(val)>(val);
+                                                     else
+                                                         seed.first = std::forward<decltype(val)>(val);
                                                      ++seed.second;
                                                      return std::move(seed);
                                                  },
-                                                 [](std::pair<Type, int32_t> seed)
+                                                 [](Pair&& seed)
                                                  {
-                                                     return static_cast<CastBeforeDivide>(seed.first) / seed.second;
+                                                     if (!seed.first)
+                                                        throw utils::not_enough_emissions{"`average` operator requires at least one emission to calculate average"};
+
+                                                     return static_cast<CastBeforeDivide>(std::move(seed.first).value()) / seed.second;
                                                  });
 }
 } // namespace rpp::details
