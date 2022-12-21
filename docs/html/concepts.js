@@ -22,6 +22,9 @@ var concepts =
         [ "flat_map_callable", "conceptrpp_1_1details_1_1flat__map__callable.html", null ],
         [ "lift_fn", "conceptrpp_1_1details_1_1lift__fn.html", null ],
         [ "resume_callable", "conceptrpp_1_1details_1_1resume__callable.html", null ],
+        [ "reduce_accumulator", "conceptrpp_1_1details_1_1reduce__accumulator.html", null ],
+        [ "is_can_be_summed", "conceptrpp_1_1details_1_1is__can__be__summed.html", null ],
+        [ "is_can_be_averaged", "conceptrpp_1_1details_1_1is__can__be__averaged.html", null ],
         [ "scan_accumulator", "conceptrpp_1_1details_1_1scan__accumulator.html", null ],
         [ "switch_map_callable", "conceptrpp_1_1details_1_1switch__map__callable.html", null ]
       ] ],

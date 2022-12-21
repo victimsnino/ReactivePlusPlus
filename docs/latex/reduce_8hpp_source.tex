@@ -1,0 +1,184 @@
+\hypertarget{reduce_8hpp_source}{}\doxysection{reduce.\+hpp}
+\label{reduce_8hpp_source}\index{src/rpp/rpp/operators/reduce.hpp@{src/rpp/rpp/operators/reduce.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/defs.hpp>}                                    \textcolor{comment}{// RPP\_NO\_UNIQUE\_ADDRESS}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}                 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/operators/lift.hpp>}                          \textcolor{comment}{// required due to operator uses lift}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/operators/details/subscriber\_with\_state.hpp>} \textcolor{comment}{// create\_subscriber\_with\_state}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/operators/fwd/reduce.hpp>}                      \textcolor{comment}{// own forwarding}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}                 \textcolor{comment}{// constraint::subscriber}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <rpp/utils/functors.hpp>}                          \textcolor{comment}{// forwarding\_on\_error}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}                         \textcolor{comment}{// utils::as\_const}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 IMPLEMENTATION\_FILE(reduce\_tag);}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Seed, \textcolor{keyword}{typename} AccumulatorFn, std::invocable<Seed\&\&> SelectorFn = std::\textcolor{keywordtype}{id}entity>}
+\DoxyCodeLine{28 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1reduce__state}{reduce\_state}}}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30     \textcolor{keyword}{mutable} Seed                        seed;}
+\DoxyCodeLine{31     RPP\_NO\_UNIQUE\_ADDRESS AccumulatorFn accumulator;}
+\DoxyCodeLine{32     RPP\_NO\_UNIQUE\_ADDRESS SelectorFn    selector\{\};}
+\DoxyCodeLine{33 \};}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1reduce__on__next}{reduce\_on\_next}}}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{37     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Result, \textcolor{keyword}{typename} AccumulatorFn, \textcolor{keyword}{typename} SelectorFn>}
+\DoxyCodeLine{38     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{auto}\&\&                                   value,}
+\DoxyCodeLine{39                     \textcolor{keyword}{const} \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{constraint::subscriber}} \textcolor{keyword}{auto}\&,}
+\DoxyCodeLine{40                     \textcolor{keyword}{const} \mbox{\hyperlink{structrpp_1_1details_1_1reduce__state}{reduce\_state<Result, AccumulatorFn, SelectorFn>}}\& state)\textcolor{keyword}{ const}}
+\DoxyCodeLine{41 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{42         state.seed = state.accumulator(std::move(state.seed), std::forward<\textcolor{keyword}{decltype}(value)>(value));}
+\DoxyCodeLine{43     \}}
+\DoxyCodeLine{44 \};}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1reduce__on__completed}{reduce\_on\_completed}}}
+\DoxyCodeLine{47 \{}
+\DoxyCodeLine{48     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Result, \textcolor{keyword}{typename} AccumulatorFn, \textcolor{keyword}{typename} SelectorFn>}
+\DoxyCodeLine{49     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{constraint::subscriber}} \textcolor{keyword}{auto}\&                     sub,}
+\DoxyCodeLine{50                     \textcolor{keyword}{const} \mbox{\hyperlink{structrpp_1_1details_1_1reduce__state}{reduce\_state<Result, AccumulatorFn, SelectorFn>}}\& state)\textcolor{keyword}{ const}}
+\DoxyCodeLine{51 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{52         \textcolor{keywordflow}{try}}
+\DoxyCodeLine{53         \{}
+\DoxyCodeLine{54             sub.on\_next(state.selector(std::move(state.seed)));}
+\DoxyCodeLine{55         \}}
+\DoxyCodeLine{56         \textcolor{keywordflow}{catch} (...)}
+\DoxyCodeLine{57         \{}
+\DoxyCodeLine{58             sub.on\_error(std::current\_exception());}
+\DoxyCodeLine{59             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{60         \}}
+\DoxyCodeLine{61         sub.on\_completed();}
+\DoxyCodeLine{62     \}}
+\DoxyCodeLine{63 \};}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::decayed\_type Seed, reduce\_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed\&\&> ResultSelectorFn>}
+\DoxyCodeLine{66 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1reduce__impl}{reduce\_impl}}}
+\DoxyCodeLine{67 \{}
+\DoxyCodeLine{68     Seed                                   initial\_value;}
+\DoxyCodeLine{69     RPP\_NO\_UNIQUE\_ADDRESS AccumulatorFn    accumulator;}
+\DoxyCodeLine{70     RPP\_NO\_UNIQUE\_ADDRESS ResultSelectorFn selector;}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<utils::decayed\_invoke\_result\_t<ResultSelectorFn, Seed>> TSub>}
+\DoxyCodeLine{73     \textcolor{keyword}{auto} operator()(TSub\&\& subscriber)\textcolor{keyword}{ const}}
+\DoxyCodeLine{74 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{75         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
+\DoxyCodeLine{76         \textcolor{comment}{// dynamic\_state there to make shared\_ptr for observer instead of making shared\_ptr for state}}
+\DoxyCodeLine{77         \textcolor{keywordflow}{return} create\_subscriber\_with\_dynamic\_state<Type>(std::move(subscription),}
+\DoxyCodeLine{78                                                           \mbox{\hyperlink{structrpp_1_1details_1_1reduce__on__next}{reduce\_on\_next}}\{\},}
+\DoxyCodeLine{79                                                           utils::forwarding\_on\_error\{\},}
+\DoxyCodeLine{80                                                           \mbox{\hyperlink{structrpp_1_1details_1_1reduce__on__completed}{reduce\_on\_completed}}\{\},}
+\DoxyCodeLine{81                                                           std::forward<TSub>(subscriber),}
+\DoxyCodeLine{82                                                           \mbox{\hyperlink{structrpp_1_1details_1_1reduce__state}{reduce\_state<Seed, AccumulatorFn, ResultSelectorFn>}}\{initial\_value, accumulator, selector\});}
+\DoxyCodeLine{83     \}}
+\DoxyCodeLine{84 \};}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type CastBeforeDiv\textcolor{keywordtype}{id}e, constra\textcolor{keywordtype}{int}::observable TObs>}
+\DoxyCodeLine{87 \textcolor{keyword}{auto} average\_impl(TObs\&\& observable)}
+\DoxyCodeLine{88 \{}
+\DoxyCodeLine{89     \textcolor{keyword}{using }Type = utils::extract\_observable\_type\_t<std::decay\_t<TObs>>;}
+\DoxyCodeLine{90     \textcolor{keyword}{using }Pair = std::pair<std::optional<Type>, int32\_t>;}
+\DoxyCodeLine{91     \textcolor{keywordflow}{return} std::forward<TObs>(observable).reduce(Pair\{\},}
+\DoxyCodeLine{92                                                  [](Pair\&\& seed, \textcolor{keyword}{auto}\&\& val)}
+\DoxyCodeLine{93                                                  \{}
+\DoxyCodeLine{94                                                      \textcolor{keywordflow}{if} (seed.first)}
+\DoxyCodeLine{95                                                         seed.first.value() += std::forward<decltype(val)>(val);}
+\DoxyCodeLine{96                                                      \textcolor{keywordflow}{else}}
+\DoxyCodeLine{97                                                          seed.first = std::forward<decltype(val)>(val);}
+\DoxyCodeLine{98                                                      ++seed.second;}
+\DoxyCodeLine{99                                                      \textcolor{keywordflow}{return} std::move(seed);}
+\DoxyCodeLine{100                                                  \},}
+\DoxyCodeLine{101                                                  [](Pair\&\& seed)}
+\DoxyCodeLine{102                                                  \{}
+\DoxyCodeLine{103                                                      \textcolor{keywordflow}{if} (!seed.first)}
+\DoxyCodeLine{104                                                         \textcolor{keywordflow}{throw} utils::not\_enough\_emissions\{\textcolor{stringliteral}{"{}`average` operator requires at least one emission to calculate average"{}}\};}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106                                                      \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}CastBeforeDivide\textcolor{keyword}{>}(std::move(seed.first).value()) / seed.second;}
+\DoxyCodeLine{107                                                  \});}
+\DoxyCodeLine{108 \}}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs>}
+\DoxyCodeLine{111 \textcolor{keyword}{auto} sum\_impl(TObs\&\& observable)}
+\DoxyCodeLine{112 \{}
+\DoxyCodeLine{113     \textcolor{keyword}{using }Type = utils::extract\_observable\_type\_t<std::decay\_t<TObs>>;}
+\DoxyCodeLine{114     \textcolor{keywordflow}{return} std::forward<TObs>(observable).reduce(std::optional<Type>\{\},}
+\DoxyCodeLine{115                                                  [](std::optional<Type>\&\& seed, \textcolor{keyword}{auto}\&\& val)}
+\DoxyCodeLine{116                                                  \{}
+\DoxyCodeLine{117                                                      \textcolor{keywordflow}{if} (!seed)}
+\DoxyCodeLine{118                                                          seed = std::forward<decltype(val)>(val);}
+\DoxyCodeLine{119                                                      \textcolor{keywordflow}{else}}
+\DoxyCodeLine{120                                                         seed.value() += std::forward<decltype(val)>(val);}
+\DoxyCodeLine{121                                                      \textcolor{keywordflow}{return} std::move(seed);}
+\DoxyCodeLine{122                                                  \},}
+\DoxyCodeLine{123                                                  [](std::optional<Type>\&\& seed)}
+\DoxyCodeLine{124                                                  \{}
+\DoxyCodeLine{125                                                      \textcolor{keywordflow}{if} (!seed)}
+\DoxyCodeLine{126                                                          \textcolor{keywordflow}{throw} utils::not\_enough\_emissions\{\textcolor{stringliteral}{"{}`sum` operator requires at least one emission to calculate sum"{}}\};}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{128                                                      \textcolor{keywordflow}{return} std::move(seed.value());}
+\DoxyCodeLine{129                                                  \});}
+\DoxyCodeLine{130 \}}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs>}
+\DoxyCodeLine{133 \textcolor{keyword}{auto} count\_impl(TObs\&\& observable)}
+\DoxyCodeLine{134 \{}
+\DoxyCodeLine{135     \textcolor{keywordflow}{return} std::forward<TObs>(observable).reduce(\textcolor{keywordtype}{size\_t}\{\}, [](\textcolor{keywordtype}{size\_t} seed, \textcolor{keyword}{auto}\&\&) \{ \textcolor{keywordflow}{return} ++seed; \});}
+\DoxyCodeLine{136 \}}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs, \textcolor{keyword}{typename} Comparator>}
+\DoxyCodeLine{139 \textcolor{keyword}{auto} min\_impl(TObs\&\& observable, Comparator\&\& comparator)}
+\DoxyCodeLine{140 \{}
+\DoxyCodeLine{141     \textcolor{keyword}{using }Type = utils::extract\_observable\_type\_t<std::decay\_t<TObs>>;}
+\DoxyCodeLine{142     \textcolor{keywordflow}{return} std::forward<TObs>(observable).reduce(std::optional<Type>\{\},}
+\DoxyCodeLine{143                                                  [comparator](std::optional<Type>\&\& seed, \textcolor{keyword}{auto}\&\& val)}
+\DoxyCodeLine{144                                                  \{}
+\DoxyCodeLine{145                                                      \textcolor{keywordflow}{if} (!seed || comparator(utils::as\_const(val), seed.value()))}
+\DoxyCodeLine{146                                                          seed = std::forward<decltype(val)>(val);}
+\DoxyCodeLine{147                                                      \textcolor{keywordflow}{return} std::move(seed);}
+\DoxyCodeLine{148                                                  \},}
+\DoxyCodeLine{149                                                  [](std::optional<Type>\&\& seed)}
+\DoxyCodeLine{150                                                  \{}
+\DoxyCodeLine{151                                                      \textcolor{keywordflow}{if} (!seed)}
+\DoxyCodeLine{152                                                          \textcolor{keywordflow}{throw} utils::not\_enough\_emissions\{\textcolor{stringliteral}{"{}`min` operator requires at least one emission to calculate min"{}}\};}
+\DoxyCodeLine{153 }
+\DoxyCodeLine{154                                                      \textcolor{keywordflow}{return} std::move(seed.value());}
+\DoxyCodeLine{155                                                  \});}
+\DoxyCodeLine{156 \}}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs, \textcolor{keyword}{typename} Comparator>}
+\DoxyCodeLine{159 \textcolor{keyword}{auto} max\_impl(TObs\&\& observable, Comparator\&\& comparator)}
+\DoxyCodeLine{160 \{}
+\DoxyCodeLine{161     \textcolor{keyword}{using }Type = utils::extract\_observable\_type\_t<std::decay\_t<TObs>>;}
+\DoxyCodeLine{162     \textcolor{keywordflow}{return} std::forward<TObs>(observable).reduce(std::optional<Type>\{\},}
+\DoxyCodeLine{163                                                  [comparator](std::optional<Type>\&\& seed, \textcolor{keyword}{auto}\&\& val)}
+\DoxyCodeLine{164                                                  \{}
+\DoxyCodeLine{165                                                      \textcolor{keywordflow}{if} (!seed || comparator(seed.value(), utils::as\_const(val)))}
+\DoxyCodeLine{166                                                          seed = std::forward<decltype(val)>(val);}
+\DoxyCodeLine{167                                                      \textcolor{keywordflow}{return} std::move(seed);}
+\DoxyCodeLine{168                                                  \},}
+\DoxyCodeLine{169                                                  [](std::optional<Type>\&\& seed)}
+\DoxyCodeLine{170                                                  \{}
+\DoxyCodeLine{171                                                      \textcolor{keywordflow}{if} (!seed)}
+\DoxyCodeLine{172                                                          \textcolor{keywordflow}{throw} utils::not\_enough\_emissions\{\textcolor{stringliteral}{"{}`max` operator requires at least one emission to calculate min"{}}\};}
+\DoxyCodeLine{173 }
+\DoxyCodeLine{174                                                      \textcolor{keywordflow}{return} std::move(seed.value());}
+\DoxyCodeLine{175                                                  \});}
+\DoxyCodeLine{176 \}}
+\DoxyCodeLine{177 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{178 }
+
+\end{DoxyCode}

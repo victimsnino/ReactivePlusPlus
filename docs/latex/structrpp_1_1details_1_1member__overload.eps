@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 734.693848
+%%BoundingBox: 0 0 500 755.102051
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,12 +19,12 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 0.680556 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 0.662162 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 36 def
+/rows 37 def
 /cols 2 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
@@ -209,6 +209,7 @@ boxfont setfont
 (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) cw
 (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) cw
 (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) cw
+(rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
 /yspacing boxheight disty add def
@@ -220,7 +221,9 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (rpp::details::member_overload< Type, SpecificObservable, MemberTag >) 0.000000 35.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, MemberTag >) 0.000000 36.000000 box
+ (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) 1.000000 35.000000 box
+1.000000 35.000000 mark
  (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) 1.000000 34.000000 box
 1.000000 34.000000 mark
  (rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >) 1.000000 33.000000 box
@@ -295,7 +298,9 @@ boundx scalefactor div boundy scalefactor div scale
 % ----- relations -----
 
 solid
-1 0.000000 34.250000 out
+1 0.000000 35.250000 out
+solid
+0 0.000000 35.500000 hedge
 solid
 0 0.000000 34.500000 hedge
 solid
@@ -367,4 +372,4 @@ solid
 solid
 0 0.000000 0.500000 hedge
 solid
-0.000000 35.000000 0.500000 vedge
+0.000000 36.000000 0.500000 vedge

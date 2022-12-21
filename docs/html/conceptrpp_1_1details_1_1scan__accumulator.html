@@ -101,7 +101,8 @@ $(document).ready(function(){initNavTree('conceptrpp_1_1details_1_1scan__accumul
 <div class="contents">
 <h2 class="groupheader">Concept definition</h2>
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Fn, <span class="keyword">typename</span> Result, <span class="keyword">typename</span> Type&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1details_1_1scan__accumulator.html">rpp::details::scan_accumulator</a> =  std::is_invocable_r_v&lt;std::decay_t&lt;Result&gt;, Fn, std::decay_t&lt;Result&gt;, std::decay_t&lt;Type&gt;&gt;</div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1details_1_1scan__accumulator.html">rpp::details::scan_accumulator</a> =  <a class="code hl_concept" href="conceptrpp_1_1details_1_1reduce__accumulator.html">reduce_accumulator&lt;Fn,Result,Type&gt;</a></div>
+<div class="ttc" id="aconceptrpp_1_1details_1_1reduce__accumulator_html"><div class="ttname"><a href="conceptrpp_1_1details_1_1reduce__accumulator.html">rpp::details::reduce_accumulator</a></div><div class="ttdef"><b>Definition:</b> reduce.hpp:24</div></div>
 <div class="ttc" id="aconceptrpp_1_1details_1_1scan__accumulator_html"><div class="ttname"><a href="conceptrpp_1_1details_1_1scan__accumulator.html">rpp::details::scan_accumulator</a></div><div class="ttdef"><b>Definition:</b> scan.hpp:24</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

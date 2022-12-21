@@ -1,0 +1,146 @@
+\hypertarget{fwd_2reduce_8hpp_source}{}\doxysection{reduce.\+hpp}
+\label{fwd_2reduce_8hpp_source}\index{src/rpp/rpp/operators/fwd/reduce.hpp@{src/rpp/rpp/operators/fwd/reduce.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
+\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
+\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
+\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/details/member\_overload.hpp>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17 \textcolor{keyword}{struct }reduce\_tag;}
+\DoxyCodeLine{18 \}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22 \textcolor{comment}{// accepts Result and Type and returns Result}}
+\DoxyCodeLine{23 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Fn, \textcolor{keyword}{typename} Result, \textcolor{keyword}{typename} Type>}
+\DoxyCodeLine{24 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1details_1_1reduce__accumulator}{reduce\_accumulator}} = std::is\_invocable\_r\_v<std::decay\_t<Result>, Fn, std::decay\_t<Result>, std::decay\_t<Type>>;}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{27 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1details_1_1is__can__be__summed}{is\_can\_be\_summed}} = \textcolor{keyword}{requires}(T t)}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29     \{ t + t \} -\/> std::convertible\_to<T>;}
+\DoxyCodeLine{30 \};}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} CastBeforeDrop>}
+\DoxyCodeLine{33 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1details_1_1is__can__be__averaged}{is\_can\_be\_averaged}} = \mbox{\hyperlink{conceptrpp_1_1details_1_1is__can__be__summed}{is\_can\_be\_summed<T>}} \&\& \textcolor{keyword}{requires}(CastBeforeDrop nt)}
+\DoxyCodeLine{34 \{}
+\DoxyCodeLine{35     \{ nt / \textcolor{keywordtype}{size\_t}\{\} \};}
+\DoxyCodeLine{36 \};}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::decayed\_type Seed, reduce\_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed\&\&> ResultSelectorFn>}
+\DoxyCodeLine{39 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1reduce__impl}{reduce\_impl}};}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type CastBeforeDiv\textcolor{keywordtype}{id}e, constra\textcolor{keywordtype}{int}::observable TObs>}
+\DoxyCodeLine{42 \textcolor{keyword}{auto} average\_impl(TObs\&\& observable);}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs>}
+\DoxyCodeLine{45 \textcolor{keyword}{auto} sum\_impl(TObs\&\& observable);}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs>}
+\DoxyCodeLine{48 \textcolor{keyword}{auto} count\_impl(TObs\&\& observable);}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs, \textcolor{keyword}{typename} Comparator>}
+\DoxyCodeLine{51 \textcolor{keyword}{auto} min\_impl(TObs\&\& observable, Comparator\&\& comparator);}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs, \textcolor{keyword}{typename} Comparator>}
+\DoxyCodeLine{54 \textcolor{keyword}{auto} max\_impl(TObs\&\& observable, Comparator\&\& comparator);}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
+\DoxyCodeLine{57 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, reduce\_tag>}
+\DoxyCodeLine{58 \{}
+\DoxyCodeLine{81     \textcolor{keyword}{template}<\textcolor{keyword}{typename} Seed, reduce\_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed\&\&> ResultSelectorFn = std::\textcolor{keywordtype}{id}entity>}
+\DoxyCodeLine{82     \textcolor{keyword}{auto} reduce(Seed\&\& initial\_seed, AccumulatorFn\&\& accumulator, ResultSelectorFn\&\& result\_selector = \{\}) \textcolor{keyword}{const} \& \textcolor{keyword}{requires} is\_header\_included<reduce\_tag, Seed, AccumulatorFn, ResultSelectorFn>}
+\DoxyCodeLine{83     \{}
+\DoxyCodeLine{84         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<utils::decayed\_invoke\_result\_t<ResultSelectorFn, std::decay\_t<Seed>>>(}
+\DoxyCodeLine{85             \mbox{\hyperlink{structrpp_1_1details_1_1reduce__impl}{reduce\_impl}}<Type, std::decay\_t<Seed>, std::decay\_t<AccumulatorFn>, std::decay\_t<ResultSelectorFn>>\{}
+\DoxyCodeLine{86                                          std::forward<Seed>(initial\_seed),}
+\DoxyCodeLine{87                                          std::forward<AccumulatorFn>(accumulator),}
+\DoxyCodeLine{88                                          std::forward<ResultSelectorFn>(result\_selector)\});}
+\DoxyCodeLine{89     \}}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91     \textcolor{keyword}{template}<\textcolor{keyword}{typename} Seed, reduce\_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed\&\&> ResultSelectorFn = std::\textcolor{keywordtype}{id}entity>}
+\DoxyCodeLine{92     \textcolor{keyword}{auto} reduce(Seed\&\& initial\_seed, AccumulatorFn\&\& accumulator, ResultSelectorFn\&\& result\_selector = \{\}) \&\& \textcolor{keyword}{requires} is\_header\_included<reduce\_tag, Seed, AccumulatorFn, ResultSelectorFn>}
+\DoxyCodeLine{93     \{}
+\DoxyCodeLine{94         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template lift<utils::decayed\_invoke\_result\_t<ResultSelectorFn, std::decay\_t<Seed>>>(}
+\DoxyCodeLine{95             \mbox{\hyperlink{structrpp_1_1details_1_1reduce__impl}{reduce\_impl<Type, std::decay\_t<Seed>}}, std::decay\_t<AccumulatorFn>, std::decay\_t<ResultSelectorFn>>\{}
+\DoxyCodeLine{96                                          std::forward<Seed>(initial\_seed),}
+\DoxyCodeLine{97                                          std::forward<AccumulatorFn>(accumulator),}
+\DoxyCodeLine{98                                          std::forward<ResultSelectorFn>(result\_selector)\});}
+\DoxyCodeLine{99     \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{122     \textcolor{keyword}{template}<\textcolor{keyword}{typename} CastBeforeDivide = Type, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{123     \textcolor{keyword}{auto} average() \textcolor{keyword}{const} \& \textcolor{keyword}{requires} (is\_header\_included<reduce\_tag, CastBeforeDivide, Args...> \&\& \mbox{\hyperlink{conceptrpp_1_1details_1_1is__can__be__averaged}{is\_can\_be\_averaged<Type, CastBeforeDivide>}})}
+\DoxyCodeLine{124     \{}
+\DoxyCodeLine{125         \textcolor{keywordflow}{return} average\_impl<CastBeforeDivide>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{126     \}}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{128     \textcolor{keyword}{template}<\textcolor{keyword}{typename} CastBeforeDivide = Type, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{129     \textcolor{keyword}{auto} average() \&\& \textcolor{keyword}{requires} (is\_header\_included<reduce\_tag, CastBeforeDivide, Args...> \&\& \mbox{\hyperlink{conceptrpp_1_1details_1_1is__can__be__averaged}{is\_can\_be\_averaged<Type, CastBeforeDivide>}})}
+\DoxyCodeLine{130     \{}
+\DoxyCodeLine{131         \textcolor{keywordflow}{return} average\_impl<CastBeforeDivide>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})));}
+\DoxyCodeLine{132     \}}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134     }
+\DoxyCodeLine{155     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{156     \textcolor{keyword}{auto} sum() \textcolor{keyword}{const} \& \textcolor{keyword}{requires} (is\_header\_included<reduce\_tag, Args...> \&\& \mbox{\hyperlink{conceptrpp_1_1details_1_1is__can__be__summed}{is\_can\_be\_summed<Type>}})}
+\DoxyCodeLine{157     \{}
+\DoxyCodeLine{158         \textcolor{keywordflow}{return} sum\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{159     \}}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{162     \textcolor{keyword}{auto} sum() \&\& \textcolor{keyword}{requires} (is\_header\_included<reduce\_tag, Args...> \&\& \mbox{\hyperlink{conceptrpp_1_1details_1_1is__can__be__summed}{is\_can\_be\_summed<Type>}})}
+\DoxyCodeLine{163     \{}
+\DoxyCodeLine{164         \textcolor{keywordflow}{return} sum\_impl(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})));}
+\DoxyCodeLine{165     \}}
+\DoxyCodeLine{166 }
+\DoxyCodeLine{185     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{186     \textcolor{keyword}{auto} count() \textcolor{keyword}{const} \& \textcolor{keyword}{requires} is\_header\_included<reduce\_tag, Args...>}
+\DoxyCodeLine{187     \{}
+\DoxyCodeLine{188         \textcolor{keywordflow}{return} count\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{189     \}}
+\DoxyCodeLine{190 }
+\DoxyCodeLine{191     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{192     \textcolor{keyword}{auto} count() \&\& \textcolor{keyword}{requires} is\_header\_included<reduce\_tag, Args...>}
+\DoxyCodeLine{193     \{}
+\DoxyCodeLine{194         \textcolor{keywordflow}{return} count\_impl(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})));}
+\DoxyCodeLine{195     \}}
+\DoxyCodeLine{196 }
+\DoxyCodeLine{218     \textcolor{keyword}{template}<std::strict\_weak\_order<Type, Type> Comparator = std::less<Type>, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{219     \textcolor{keyword}{auto} min(Comparator\&\& comparator = \{\}) \textcolor{keyword}{const} \& \textcolor{keyword}{requires} is\_header\_included<reduce\_tag, Comparator, Args...>}
+\DoxyCodeLine{220     \{}
+\DoxyCodeLine{221         \textcolor{keywordflow}{return} min\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<Comparator>(comparator));}
+\DoxyCodeLine{222     \}}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224     \textcolor{keyword}{template}<std::strict\_weak\_order<Type, Type> Comparator = std::less<Type>, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{225     \textcolor{keyword}{auto} min(Comparator\&\& comparator = \{\}) \&\& \textcolor{keyword}{requires} is\_header\_included<reduce\_tag, Comparator, Args...>}
+\DoxyCodeLine{226     \{}
+\DoxyCodeLine{227         \textcolor{keywordflow}{return} min\_impl(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})), std::forward<Comparator>(comparator));}
+\DoxyCodeLine{228     \}}
+\DoxyCodeLine{229 }
+\DoxyCodeLine{251     \textcolor{keyword}{template}<std::strict\_weak\_order<Type, Type> Comparator = std::less<Type>, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{252     \textcolor{keyword}{auto} max(Comparator\&\& comparator = \{\}) \textcolor{keyword}{const} \& \textcolor{keyword}{requires} is\_header\_included<reduce\_tag, Comparator, Args...>}
+\DoxyCodeLine{253     \{}
+\DoxyCodeLine{254         \textcolor{keywordflow}{return} max\_impl(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<Comparator>(comparator));}
+\DoxyCodeLine{255     \}}
+\DoxyCodeLine{256 }
+\DoxyCodeLine{257     \textcolor{keyword}{template}<std::strict\_weak\_order<Type, Type> Comparator = std::less<Type>, \textcolor{keyword}{typename} ...Args>}
+\DoxyCodeLine{258     \textcolor{keyword}{auto} max(Comparator\&\& comparator = \{\}) \&\& \textcolor{keyword}{requires} is\_header\_included<reduce\_tag, Comparator, Args...>}
+\DoxyCodeLine{259     \{}
+\DoxyCodeLine{260         \textcolor{keywordflow}{return} max\_impl(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})), std::forward<Comparator>(comparator));}
+\DoxyCodeLine{261     \}}
+\DoxyCodeLine{262 \};}
+\DoxyCodeLine{263 \} \textcolor{comment}{// namespace rpp::details}}
+
+\end{DoxyCode}

@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 656.028381
+%%BoundingBox: 0 0 500 673.758850
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,12 +19,12 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 0.762162 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 0.742105 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 37 def
+/rows 38 def
 /cols 2 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
@@ -194,6 +194,7 @@ boxfont setfont
 (rpp::details::member_overload< Type, SpecificObservable, details::observe_on_tag >) cw
 (rpp::details::member_overload< Type, SpecificObservable, details::on_error_resume_next_tag >) cw
 (rpp::details::member_overload< Type, SpecificObservable, details::publish_tag >) cw
+(rpp::details::member_overload< Type, SpecificObservable, details::reduce_tag >) cw
 (rpp::details::member_overload< Type, SpecificObservable, details::repeat_tag >) cw
 (rpp::details::member_overload< Type, SpecificObservable, details::sample_tag >) cw
 (rpp::details::member_overload< Type, SpecificObservable, details::scan_tag >) cw
@@ -238,27 +239,28 @@ boundx scalefactor div boundy scalefactor div scale
  (rpp::details::member_overload< Type, SpecificObservable, details::scan_tag >) 1.000000 14.000000 box
  (rpp::details::member_overload< Type, SpecificObservable, details::sample_tag >) 1.000000 15.000000 box
  (rpp::details::member_overload< Type, SpecificObservable, details::repeat_tag >) 1.000000 16.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::publish_tag >) 1.000000 17.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::on_error_resume_next_tag >) 1.000000 18.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::observe_on_tag >) 1.000000 19.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::multicast_tag >) 1.000000 20.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::merge_tag >) 1.000000 21.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::map_tag >) 1.000000 22.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::lift_tag >) 1.000000 23.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::last_tag >) 1.000000 24.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::group_by_tag >) 1.000000 25.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::flat_map_tag >) 1.000000 26.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::first_tag >) 1.000000 27.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::filter_tag >) 1.000000 28.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::do_tag >) 1.000000 29.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::distinct_until_changed_tag >) 1.000000 30.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::debounce_tag >) 1.000000 31.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::delay_tag >) 1.000000 32.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::concat_tag >) 1.000000 33.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::combine_latest_tag >) 1.000000 34.000000 box
- (rpp::details::member_overload< Type, SpecificObservable, details::buffer_tag >) 1.000000 35.000000 box
- (rpp::details::typed_observable_tag< Type >) 1.000000 36.000000 box
-1.000000 36.000000 mark
+ (rpp::details::member_overload< Type, SpecificObservable, details::reduce_tag >) 1.000000 17.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::publish_tag >) 1.000000 18.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::on_error_resume_next_tag >) 1.000000 19.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::observe_on_tag >) 1.000000 20.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::multicast_tag >) 1.000000 21.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::merge_tag >) 1.000000 22.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::map_tag >) 1.000000 23.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::lift_tag >) 1.000000 24.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::last_tag >) 1.000000 25.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::group_by_tag >) 1.000000 26.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::flat_map_tag >) 1.000000 27.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::first_tag >) 1.000000 28.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::filter_tag >) 1.000000 29.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::do_tag >) 1.000000 30.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::distinct_until_changed_tag >) 1.000000 31.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::debounce_tag >) 1.000000 32.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::delay_tag >) 1.000000 33.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::concat_tag >) 1.000000 34.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::combine_latest_tag >) 1.000000 35.000000 box
+ (rpp::details::member_overload< Type, SpecificObservable, details::buffer_tag >) 1.000000 36.000000 box
+ (rpp::details::typed_observable_tag< Type >) 1.000000 37.000000 box
+1.000000 37.000000 mark
 
 % ----- relations -----
 
@@ -337,4 +339,6 @@ solid
 solid
 1 0.000000 36.500000 hedge
 solid
-0.000000 1.000000 36.500000 vedge
+1 0.000000 37.500000 hedge
+solid
+0.000000 1.000000 37.500000 vedge

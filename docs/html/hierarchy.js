@@ -141,6 +141,7 @@ var hierarchy =
       [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
       [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
       [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
+      [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ],
       [ "rpp::interface_observable< Type, specific_observable< Type, OnSubscribeFn > >", "structrpp_1_1interface__observable.html", null ]
     ] ],
     [ "rpp::details::member_overload< Type, blocking_observable< Type, OriginalObservable >, details::subscribe_tag >", "structrpp_1_1details_1_1member__overload.html", [
@@ -168,6 +169,7 @@ var hierarchy =
     [ "rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::observe_on_tag >", "structrpp_1_1details_1_1member__overload.html", null ],
     [ "rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::on_error_resume_next_tag >", "structrpp_1_1details_1_1member__overload.html", null ],
     [ "rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::publish_tag >", "structrpp_1_1details_1_1member__overload.html", null ],
+    [ "rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::reduce_tag >", "structrpp_1_1details_1_1member__overload.html", null ],
     [ "rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::repeat_tag >", "structrpp_1_1details_1_1member__overload.html", null ],
     [ "rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::sample_tag >", "structrpp_1_1details_1_1member__overload.html", null ],
     [ "rpp::details::member_overload< Type, specific_observable< Type, OnSubscribeFn >, details::scan_tag >", "structrpp_1_1details_1_1member__overload.html", null ],
@@ -246,6 +248,9 @@ var hierarchy =
     [ "rpp::details::member_overload< Type, SpecificObservable, details::publish_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, details::reduce_tag >", "structrpp_1_1details_1_1member__overload.html", [
+      [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
+    ] ],
     [ "rpp::details::member_overload< Type, SpecificObservable, details::repeat_tag >", "structrpp_1_1details_1_1member__overload.html", [
       [ "rpp::interface_observable< Type, SpecificObservable >", "structrpp_1_1interface__observable.html", null ]
     ] ],
@@ -308,6 +313,7 @@ var hierarchy =
     [ "rpp::details::member_overload< Type, SpecificObservable, observe_on_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01observe__on__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, on_error_resume_next_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01on__error__resume__next__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, publish_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01publish__tag_01_4.html", null ],
+    [ "rpp::details::member_overload< Type, SpecificObservable, reduce_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, ref_count_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01ref__count__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, repeat_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01repeat__tag_01_4.html", null ],
     [ "rpp::details::member_overload< Type, SpecificObservable, sample_tag >", "structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01sample__tag_01_4.html", null ],
@@ -355,6 +361,12 @@ var hierarchy =
     [ "rpp::subjects::details::publish_strategy< T >", "classrpp_1_1subjects_1_1details_1_1publish__strategy.html", null ],
     [ "rpp::schedulers::details::queue_worker_state< SchedulableFn >", "classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html", null ],
     [ "rpp::schedulers::details::queue_worker_state< rpp::schedulers::schedulable_wrapper >", "classrpp_1_1schedulers_1_1details_1_1queue__worker__state.html", null ],
+    [ "rpp::details::reduce_impl< Type, Seed, AccumulatorFn, ResultSelectorFn >", "structrpp_1_1details_1_1reduce__impl.html", null ],
+    [ "rpp::details::reduce_on_completed", "structrpp_1_1details_1_1reduce__on__completed.html", null ],
+    [ "rpp::details::reduce_on_next", "structrpp_1_1details_1_1reduce__on__next.html", [
+      [ "rpp::details::scan_on_next", "structrpp_1_1details_1_1scan__on__next.html", null ]
+    ] ],
+    [ "rpp::details::reduce_state< Seed, AccumulatorFn, SelectorFn >", "structrpp_1_1details_1_1reduce__state.html", null ],
     [ "rpp::details::ref_count_on_subscribe< Type, TObs >", "structrpp_1_1details_1_1ref__count__on__subscribe.html", null ],
     [ "rpp::details::ref_count_state_t", "structrpp_1_1details_1_1ref__count__state__t.html", null ],
     [ "rpp::details::repeat_on_completed< Type, SpecificObservable, Predicate >", "classrpp_1_1details_1_1repeat__on__completed.html", null ],
@@ -366,8 +378,6 @@ var hierarchy =
     [ "rpp::details::sample_on_next", "structrpp_1_1details_1_1sample__on__next.html", null ],
     [ "rpp::details::sample_with_time_impl< Type, TScheduler >", "structrpp_1_1details_1_1sample__with__time__impl.html", null ],
     [ "rpp::details::scan_impl< Type, Result, AccumulatorFn >", "structrpp_1_1details_1_1scan__impl.html", null ],
-    [ "rpp::details::scan_on_next", "structrpp_1_1details_1_1scan__on__next.html", null ],
-    [ "rpp::details::scan_state< Result, AccumulatorFn >", "structrpp_1_1details_1_1scan__state.html", null ],
     [ "rpp::schedulers::details::schedulable< SchedulableFn >", "classrpp_1_1schedulers_1_1details_1_1schedulable.html", null ],
     [ "rpp::schedulers::details::schedulable< trampoline_schedulable >", "classrpp_1_1schedulers_1_1details_1_1schedulable.html", null ],
     [ "rpp::schedulers::schedulable_wrapper< Strategy >", "classrpp_1_1schedulers_1_1schedulable__wrapper.html", null ],

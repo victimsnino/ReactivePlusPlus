@@ -22,6 +22,7 @@ var dir_3591f6ab25936dd3deeec05839e478ca =
     [ "observe_on.hpp", "observe__on_8hpp_source.html", null ],
     [ "on_error_resume_next.hpp", "on__error__resume__next_8hpp_source.html", null ],
     [ "publish.hpp", "publish_8hpp_source.html", null ],
+    [ "reduce.hpp", "reduce_8hpp_source.html", null ],
     [ "ref_count.hpp", "ref__count_8hpp_source.html", null ],
     [ "repeat.hpp", "repeat_8hpp_source.html", null ],
     [ "sample.hpp", "sample_8hpp_source.html", null ],

@@ -18,54 +18,48 @@
 \DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/operators/lift.hpp>}                          \textcolor{comment}{// required due to operator uses lift}}
 \DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/operators/details/subscriber\_with\_state.hpp>} \textcolor{comment}{// create\_subscriber\_with\_state}}
 \DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/operators/fwd/scan.hpp>}                      \textcolor{comment}{// own forwarding}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}                 \textcolor{comment}{// constraint::subscriber}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/utils/functors.hpp>}                          \textcolor{comment}{// forwarding\_on\_error}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}                         \textcolor{comment}{// utils::as\_const}}
-\DoxyCodeLine{20 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/operators/reduce.hpp>}                        \textcolor{comment}{// reduce to re-\/use}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}                 \textcolor{comment}{// constraint::subscriber}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <rpp/utils/functors.hpp>}                          \textcolor{comment}{// forwarding\_on\_error}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}                         \textcolor{comment}{// utils::as\_const}}
 \DoxyCodeLine{21 }
-\DoxyCodeLine{22 IMPLEMENTATION\_FILE(scan\_tag);}
-\DoxyCodeLine{23 }
-\DoxyCodeLine{24 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{25 \{}
-\DoxyCodeLine{26 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Result, \textcolor{keyword}{typename} AccumulatorFn>}
-\DoxyCodeLine{27 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1scan__state}{scan\_state}}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 IMPLEMENTATION\_FILE(scan\_tag);}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{keyword}{namespace }rpp::details}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1scan__on__next}{scan\_on\_next}} : \textcolor{keyword}{private} \mbox{\hyperlink{structrpp_1_1details_1_1reduce__on__next}{reduce\_on\_next}}}
 \DoxyCodeLine{28 \{}
-\DoxyCodeLine{29     \textcolor{keyword}{mutable} Result                      seed;}
-\DoxyCodeLine{30     RPP\_NO\_UNIQUE\_ADDRESS AccumulatorFn accumulator;}
-\DoxyCodeLine{31 \};}
-\DoxyCodeLine{32 }
-\DoxyCodeLine{33 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1scan__on__next}{scan\_on\_next}}}
-\DoxyCodeLine{34 \{}
-\DoxyCodeLine{35     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Result, \textcolor{keyword}{typename} AccumulatorFn>}
-\DoxyCodeLine{36     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{auto}\&\&                                   value,}
-\DoxyCodeLine{37                     \textcolor{keyword}{const} \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{constraint::subscriber}} \textcolor{keyword}{auto}\&       sub,}
-\DoxyCodeLine{38                     \textcolor{keyword}{const} \mbox{\hyperlink{structrpp_1_1details_1_1scan__state}{scan\_state<Result, AccumulatorFn>}}\& state)\textcolor{keyword}{ const}}
-\DoxyCodeLine{39 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{40         state.seed = state.accumulator(std::move(state.seed), std::forward<\textcolor{keyword}{decltype}(value)>(value));}
-\DoxyCodeLine{41         sub.on\_next(utils::as\_const(state.seed));}
-\DoxyCodeLine{42     \}}
-\DoxyCodeLine{43 \};}
+\DoxyCodeLine{29     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Result, \textcolor{keyword}{typename} AccumulatorFn>}
+\DoxyCodeLine{30     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{auto}\&\&                                   value,}
+\DoxyCodeLine{31                     \textcolor{keyword}{const} \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{constraint::subscriber}} \textcolor{keyword}{auto}\&       sub,}
+\DoxyCodeLine{32                     \textcolor{keyword}{const} \mbox{\hyperlink{structrpp_1_1details_1_1reduce__state}{reduce\_state<Result, AccumulatorFn>}}\& state)\textcolor{keyword}{ const}}
+\DoxyCodeLine{33 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{34         reduce\_on\_next::operator()(std::forward<\textcolor{keyword}{decltype}(value)>(value), sub, state);}
+\DoxyCodeLine{35         sub.on\_next(utils::as\_const(state.seed));}
+\DoxyCodeLine{36     \}}
+\DoxyCodeLine{37 \};}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::decayed\_type Result, scan\_accumulator<Result, Type> AccumulatorFn>}
+\DoxyCodeLine{40 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1scan__impl}{scan\_impl}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42     Result                              initial\_value;}
+\DoxyCodeLine{43     RPP\_NO\_UNIQUE\_ADDRESS AccumulatorFn accumulator;}
 \DoxyCodeLine{44 }
-\DoxyCodeLine{45 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::decayed\_type Result, scan\_accumulator<Result, Type> AccumulatorFn>}
-\DoxyCodeLine{46 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1scan__impl}{scan\_impl}}}
-\DoxyCodeLine{47 \{}
-\DoxyCodeLine{48     Result                              initial\_value;}
-\DoxyCodeLine{49     RPP\_NO\_UNIQUE\_ADDRESS AccumulatorFn accumulator;}
-\DoxyCodeLine{50 }
-\DoxyCodeLine{51     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Result> TSub>}
-\DoxyCodeLine{52     \textcolor{keyword}{auto} operator()(TSub\&\& subscriber)\textcolor{keyword}{ const}}
-\DoxyCodeLine{53 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{54         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
-\DoxyCodeLine{55         \textcolor{comment}{// dynamic\_state there to make shared\_ptr for observer instead of making shared\_ptr for state}}
-\DoxyCodeLine{56         \textcolor{keywordflow}{return} create\_subscriber\_with\_dynamic\_state<Type>(std::move(subscription),}
-\DoxyCodeLine{57                                                           \mbox{\hyperlink{structrpp_1_1details_1_1scan__on__next}{scan\_on\_next}}\{\},}
-\DoxyCodeLine{58                                                           utils::forwarding\_on\_error\{\},}
-\DoxyCodeLine{59                                                           utils::forwarding\_on\_completed\{\},}
-\DoxyCodeLine{60                                                           std::forward<TSub>(subscriber),}
-\DoxyCodeLine{61                                                           \mbox{\hyperlink{structrpp_1_1details_1_1scan__state}{scan\_state<Result, AccumulatorFn>}}\{initial\_value, accumulator\});}
-\DoxyCodeLine{62     \}}
-\DoxyCodeLine{63 \};}
-\DoxyCodeLine{64 \} \textcolor{comment}{// namespace rpp::details}}
-\DoxyCodeLine{65 }
+\DoxyCodeLine{45     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Result> TSub>}
+\DoxyCodeLine{46     \textcolor{keyword}{auto} operator()(TSub\&\& subscriber)\textcolor{keyword}{ const}}
+\DoxyCodeLine{47 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{48         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
+\DoxyCodeLine{49         \textcolor{comment}{// dynamic\_state there to make shared\_ptr for observer instead of making shared\_ptr for state}}
+\DoxyCodeLine{50         \textcolor{keywordflow}{return} create\_subscriber\_with\_dynamic\_state<Type>(std::move(subscription),}
+\DoxyCodeLine{51                                                           \mbox{\hyperlink{structrpp_1_1details_1_1scan__on__next}{scan\_on\_next}}\{\},}
+\DoxyCodeLine{52                                                           utils::forwarding\_on\_error\{\},}
+\DoxyCodeLine{53                                                           utils::forwarding\_on\_completed\{\},}
+\DoxyCodeLine{54                                                           std::forward<TSub>(subscriber),}
+\DoxyCodeLine{55                                                           \mbox{\hyperlink{structrpp_1_1details_1_1reduce__state}{reduce\_state<Result, AccumulatorFn>}}\{initial\_value, accumulator\});}
+\DoxyCodeLine{56     \}}
+\DoxyCodeLine{57 \};}
+\DoxyCodeLine{58 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{59 }
 
 \end{DoxyCode}

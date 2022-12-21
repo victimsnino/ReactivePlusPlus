@@ -48,8 +48,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "advanced.html",
-"group__rppqt.html",
-"structrpp_1_1details_1_1switch__on__next__impl.html"
+"group__qt__creational__operators.html#ga4e3140c3f32d2ea4b80b76fdc772278b",
+"structrpp_1_1details_1_1reduce__on__next.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
