@@ -13,7 +13,25 @@ requires (is\+\_\+header\+\_\+included$<$concat\+\_\+tag, Args...$>$\&\& \mbox{\
 \begin{DoxyCompactList}\small\item\em Converts observable of observables of items into observable of items via merging emissions but without overlapping (current observable completes THEN next started to emit its values) \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::observable\+\_\+of\+\_\+type$<$ Type $>$ ... TObservables$>$ \newline
 requires (is\+\_\+header\+\_\+included$<$concat\+\_\+tag, TObservables...$>$ \&\& sizeof...(TObservables) $>$= 1)}\\auto \mbox{\hyperlink{group__aggregate__operators_ga79ba014ced99027ccf3f263f58e3026b}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, concat\+\_\+tag $>$\+::concat\+\_\+with}} (TObservables \&\&... observables) const \&
-\begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one but without overlapping (current observable completes THEN next started to emit its values) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one but without overlapping (current observable completes THEN next started to emit its values) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Seed , reduce\+\_\+accumulator$<$ Seed, Type $>$ Accumulator\+Fn, std\+::invocable$<$ Seed \&\& $>$ Result\+Selector\+Fn = std\+::identity$>$ \newline
+requires is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Seed, Accumulator\+Fn, Result\+Selector\+Fn$>$}\\auto \mbox{\hyperlink{group__aggregate__operators_gadbd7324870bd396f776cba8a75880ce0}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, reduce\+\_\+tag $>$\+::reduce}} (Seed \&\&initial\+\_\+seed, Accumulator\+Fn \&\&accumulator, Result\+Selector\+Fn \&\&result\+\_\+selector=\{\}) const \&
+\begin{DoxyCompactList}\small\item\em Applies accumulator function to each emission from observable and result of accumulator from previous step and emits final value. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Cast\+Before\+Divide  = Type, typename ... Args$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Cast\+Before\+Divide, Args...$>$ \&\& is\+\_\+can\+\_\+be\+\_\+averaged$<$Type, Cast\+Before\+Divide$>$)}\\auto \mbox{\hyperlink{group__aggregate__operators_gac6c86c5f3ebafdf93a7abb156909330b}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, reduce\+\_\+tag $>$\+::average}} () const \&
+\begin{DoxyCompactList}\small\item\em Calculates the average of emissions and emits final value. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ... Args$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Args...$>$ \&\& is\+\_\+can\+\_\+be\+\_\+summed$<$Type$>$)}\\auto \mbox{\hyperlink{group__aggregate__operators_ga3f6b3475cee0f75abcf379e1428d4069}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, reduce\+\_\+tag $>$\+::sum}} () const \&
+\begin{DoxyCompactList}\small\item\em Calculates the sum of emissions and emits final value. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__aggregate__operators_gadd81455e5ca0880aed07bf2312e19928}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, reduce\+\_\+tag $>$\+::count}} () const \&
+\begin{DoxyCompactList}\small\item\em Calculates the amount of emitted emissions and emits this count. \end{DoxyCompactList}\item 
+{\footnotesize template$<$std\+::strict\+\_\+weak\+\_\+order$<$ Type, Type $>$ Comparator = std\+::less$<$\+Type$>$, typename ... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Comparator, Args...$>$}\\auto \mbox{\hyperlink{group__aggregate__operators_gad9dd23a7777f085a803b4185c798536a}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, reduce\+\_\+tag $>$\+::min}} (Comparator \&\&comparator=\{\}) const \&
+\begin{DoxyCompactList}\small\item\em Emits the emission which has minimal value from the whole observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$std\+::strict\+\_\+weak\+\_\+order$<$ Type, Type $>$ Comparator = std\+::less$<$\+Type$>$, typename ... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Comparator, Args...$>$}\\auto \mbox{\hyperlink{group__aggregate__operators_ga97dbe4031ca14517822a303b5a00f3e8}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, reduce\+\_\+tag $>$\+::max}} (Comparator \&\&comparator=\{\}) const \&
+\begin{DoxyCompactList}\small\item\em Emits the emission which has maximal value from the whole observable. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -25,6 +43,51 @@ Aggregate operators are operators on the entire sequence of items provided by ob
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__aggregate__operators_gac6c86c5f3ebafdf93a7abb156909330b}\label{group__aggregate__operators_gac6c86c5f3ebafdf93a7abb156909330b}} 
+\index{Aggregate Operators@{Aggregate Operators}!average@{average}}
+\index{average@{average}!Aggregate Operators@{Aggregate Operators}}
+\doxysubsubsection{\texorpdfstring{average()}{average()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$typename Cast\+Before\+Divide  = Type, typename ... Args$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Cast\+Before\+Divide, Args...$>$ \&\& is\+\_\+can\+\_\+be\+\_\+averaged$<$Type, Cast\+Before\+Divide$>$)\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, reduce\+\_\+tag $>$\+::average (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calculates the average of emissions and emits final value. 
+
+
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Cast\+Before\+Divide} & cast accumulated value to this type before division \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the average operator as most recent operator. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em rpp\+::utils\+::not\+\_\+enough\+\_\+emissions} & in case of no any emissions from original observable\\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{reduce_8hpp_source}{rpp/operators/reduce.\+hpp}}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::just(1,2,3)}
+\DoxyCodeLine{            .average()}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 2}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/average.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/average.\+html}} 
+\end{DoxySeeAlso}
 \mbox{\Hypertarget{group__aggregate__operators_gaa88f9603fc5335eb17ecf4a850ebdb66}\label{group__aggregate__operators_gaa88f9603fc5335eb17ecf4a850ebdb66}} 
 \index{Aggregate Operators@{Aggregate Operators}!concat@{concat}}
 \index{concat@{concat}!Aggregate Operators@{Aggregate Operators}}
@@ -96,4 +159,229 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/concat.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/concat.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__aggregate__operators_gadd81455e5ca0880aed07bf2312e19928}\label{group__aggregate__operators_gadd81455e5ca0880aed07bf2312e19928}} 
+\index{Aggregate Operators@{Aggregate Operators}!count@{count}}
+\index{count@{count}!Aggregate Operators@{Aggregate Operators}}
+\doxysubsubsection{\texorpdfstring{count()}{count()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$typename ... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Args...$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, reduce\+\_\+tag $>$\+::count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calculates the amount of emitted emissions and emits this count. 
+
+
+
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the count operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{reduce_8hpp_source}{rpp/operators/reduce.\+hpp}}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::just(1,2,3)}
+\DoxyCodeLine{            .count()}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 3}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/count.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/count.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__aggregate__operators_ga97dbe4031ca14517822a303b5a00f3e8}\label{group__aggregate__operators_ga97dbe4031ca14517822a303b5a00f3e8}} 
+\index{Aggregate Operators@{Aggregate Operators}!max@{max}}
+\index{max@{max}!Aggregate Operators@{Aggregate Operators}}
+\doxysubsubsection{\texorpdfstring{max()}{max()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$std\+::strict\+\_\+weak\+\_\+order$<$ Type, Type $>$ Comparator = std\+::less$<$\+Type$>$, typename ... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Comparator, Args...$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, reduce\+\_\+tag $>$\+::max (\begin{DoxyParamCaption}\item[{Comparator \&\&}]{comparator = {\ttfamily \{\}} }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Emits the emission which has maximal value from the whole observable. 
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em comparator} & is function to deduce if left value is less than right \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the max operator as most recent operator. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em rpp\+::utils\+::not\+\_\+enough\+\_\+emissions} & in case of no any emissions from original observable\\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{reduce_8hpp_source}{rpp/operators/reduce.\+hpp}}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::just(5,1,2,3)}
+\DoxyCodeLine{            .max()}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 5}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/max.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/max.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__aggregate__operators_gad9dd23a7777f085a803b4185c798536a}\label{group__aggregate__operators_gad9dd23a7777f085a803b4185c798536a}} 
+\index{Aggregate Operators@{Aggregate Operators}!min@{min}}
+\index{min@{min}!Aggregate Operators@{Aggregate Operators}}
+\doxysubsubsection{\texorpdfstring{min()}{min()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$std\+::strict\+\_\+weak\+\_\+order$<$ Type, Type $>$ Comparator = std\+::less$<$\+Type$>$, typename ... Args$>$ \newline
+requires is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Comparator, Args...$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, reduce\+\_\+tag $>$\+::min (\begin{DoxyParamCaption}\item[{Comparator \&\&}]{comparator = {\ttfamily \{\}} }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Emits the emission which has minimal value from the whole observable. 
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em comparator} & is function to deduce if left value is less than right \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the min operator as most recent operator. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em rpp\+::utils\+::not\+\_\+enough\+\_\+emissions} & in case of no any emissions from original observable\\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{reduce_8hpp_source}{rpp/operators/reduce.\+hpp}}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::just(5,1,2,3)}
+\DoxyCodeLine{            .min()}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 1}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/min.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/min.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__aggregate__operators_gadbd7324870bd396f776cba8a75880ce0}\label{group__aggregate__operators_gadbd7324870bd396f776cba8a75880ce0}} 
+\index{Aggregate Operators@{Aggregate Operators}!reduce@{reduce}}
+\index{reduce@{reduce}!Aggregate Operators@{Aggregate Operators}}
+\doxysubsubsection{\texorpdfstring{reduce()}{reduce()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$typename Seed , reduce\+\_\+accumulator$<$ Seed, Type $>$ Accumulator\+Fn, std\+::invocable$<$ Seed \&\& $>$ Result\+Selector\+Fn = std\+::identity$>$ \newline
+requires is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Seed, Accumulator\+Fn, Result\+Selector\+Fn$>$\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, reduce\+\_\+tag $>$\+::reduce (\begin{DoxyParamCaption}\item[{Seed \&\&}]{initial\+\_\+seed,  }\item[{Accumulator\+Fn \&\&}]{accumulator,  }\item[{Result\+Selector\+Fn \&\&}]{result\+\_\+selector = {\ttfamily \{\}} }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Applies accumulator function to each emission from observable and result of accumulator from previous step and emits final value. 
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em initial\+\_\+seed} & initial value for seed which will be applied for first value from observable. Then it will be replaced with result and etc. \\
+\hline
+{\em accumulator} & function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-\/reference.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the reduce operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{reduce_8hpp_source}{rpp/operators/reduce.\+hpp}}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::just(1,2,3)}
+\DoxyCodeLine{            .reduce(0, std::plus<int>\{\})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 6}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::just(1,2,3)}
+\DoxyCodeLine{            .reduce(std::vector<int>\{\}, [](std::vector<int>\&\& seed, \textcolor{keywordtype}{int} new\_value)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                seed.push\_back(new\_value);}
+\DoxyCodeLine{                \textcolor{keywordflow}{return} std::move(seed);}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            .subscribe([](\textcolor{keyword}{const} std::vector<int>\& v)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                std::cout << \textcolor{stringliteral}{"{}vector: "{}};}
+\DoxyCodeLine{                \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} val : v)}
+\DoxyCodeLine{                    std::cout << val << \textcolor{stringliteral}{"{} "{}};}
+\DoxyCodeLine{                std::cout << std::endl;}
+\DoxyCodeLine{            \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: vector: 1 2 3}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/reduce.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/reduce.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__aggregate__operators_ga3f6b3475cee0f75abcf379e1428d4069}\label{group__aggregate__operators_ga3f6b3475cee0f75abcf379e1428d4069}} 
+\index{Aggregate Operators@{Aggregate Operators}!sum@{sum}}
+\index{sum@{sum}!Aggregate Operators@{Aggregate Operators}}
+\doxysubsubsection{\texorpdfstring{sum()}{sum()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, typename Specific\+Observable $>$ \\
+template$<$typename ... Args$>$ \newline
+requires (is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Args...$>$ \&\& is\+\_\+can\+\_\+be\+\_\+summed$<$Type$>$)\\
+auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+::member\+\_\+overload}}$<$ Type, Specific\+Observable, reduce\+\_\+tag $>$\+::sum (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const \&\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calculates the sum of emissions and emits final value. 
+
+
+
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the sum operator as most recent operator. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em rpp\+::utils\+::not\+\_\+enough\+\_\+emissions} & in case of no any emissions from original observable\\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{reduce_8hpp_source}{rpp/operators/reduce.\+hpp}}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::just(1,2,3)}
+\DoxyCodeLine{            .sum()}
+\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 6}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/sum.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/sum.\+html}} 
 \end{DoxySeeAlso}

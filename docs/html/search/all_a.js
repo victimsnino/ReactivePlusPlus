@@ -4,7 +4,7 @@ var searchData=
   ['map_1',['map',['../group__transforming__operators.html#gae5dd31e4559517de5cf1145ff2005a86',1,'observable']]],
   ['map_5fimpl_2',['map_impl',['../structrpp_1_1details_1_1map__impl.html',1,'rpp::details']]],
   ['map_5fimpl_5fon_5fnext_3',['map_impl_on_next',['../structrpp_1_1details_1_1map__impl__on__next.html',1,'rpp::details']]],
-  ['max_4',['max',['../group__transforming__operators.html#ga97dbe4031ca14517822a303b5a00f3e8',1,'observable']]],
+  ['max_4',['max',['../group__aggregate__operators.html#ga97dbe4031ca14517822a303b5a00f3e8',1,'observable']]],
   ['member_5foverload_5',['member_overload',['../structrpp_1_1details_1_1member__overload.html',1,'rpp::details']]],
   ['member_5foverload_3c_20type_2c_20blocking_5fobservable_3c_20type_2c_20originalobservable_20_3e_2c_20details_3a_3asubscribe_5ftag_20_3e_6',['member_overload&lt; Type, blocking_observable&lt; Type, OriginalObservable &gt;, details::subscribe_tag &gt;',['../structrpp_1_1details_1_1member__overload.html',1,'rpp::details']]],
   ['member_5foverload_3c_20type_2c_20connectable_5fobservable_3c_20type_2c_20subject_2c_20originalobservable_20_3e_2c_20details_3a_3aref_5fcount_5ftag_20_3e_7',['member_overload&lt; Type, connectable_observable&lt; Type, Subject, OriginalObservable &gt;, details::ref_count_tag &gt;',['../structrpp_1_1details_1_1member__overload.html',1,'rpp::details']]],
@@ -125,6 +125,6 @@ var searchData=
   ['merge_5fstate_122',['merge_state',['../structrpp_1_1details_1_1merge__state.html',1,'rpp::details']]],
   ['merge_5fstate_5fwith_5fserialized_5fmutex_123',['merge_state_with_serialized_mutex',['../structrpp_1_1details_1_1merge__state__with__serialized__mutex.html',1,'rpp::details']]],
   ['merge_5fwith_124',['merge_with',['../group__combining__operators.html#gafa55b14eec1c6c40b8655e20c6edf5b2',1,'observable']]],
-  ['min_125',['min',['../group__transforming__operators.html#gad9dd23a7777f085a803b4185c798536a',1,'observable']]],
+  ['min_125',['min',['../group__aggregate__operators.html#gad9dd23a7777f085a803b4185c798536a',1,'observable']]],
   ['multicast_126',['multicast',['../group__connectable__operators.html#gade414a17091e966ce725374b631cab77',1,'observable']]]
 ];

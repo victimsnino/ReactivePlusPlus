@@ -107,7 +107,7 @@ $(document).ready(function(){initNavTree('structrpp_1_1details_1_1member__overlo
 Public Member Functions</h2></td></tr>
 <tr class="memitem:gadbd7324870bd396f776cba8a75880ce0"><td class="memTemplParams" colspan="2">template&lt;typename Seed , reduce_accumulator&lt; Seed, Type &gt; AccumulatorFn, std::invocable&lt; Seed &amp;&amp; &gt; ResultSelectorFn = std::identity&gt; <br />
 requires is_header_included&lt;reduce_tag, Seed, AccumulatorFn, ResultSelectorFn&gt;</td></tr>
-<tr class="memitem:gadbd7324870bd396f776cba8a75880ce0"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gadbd7324870bd396f776cba8a75880ce0">reduce</a> (Seed &amp;&amp;initial_seed, AccumulatorFn &amp;&amp;accumulator, ResultSelectorFn &amp;&amp;result_selector={}) const &amp;</td></tr>
+<tr class="memitem:gadbd7324870bd396f776cba8a75880ce0"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#gadbd7324870bd396f776cba8a75880ce0">reduce</a> (Seed &amp;&amp;initial_seed, AccumulatorFn &amp;&amp;accumulator, ResultSelectorFn &amp;&amp;result_selector={}) const &amp;</td></tr>
 <tr class="memdesc:gadbd7324870bd396f776cba8a75880ce0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies accumulator function to each emission from observable and result of accumulator from previous step and emits final value.  <br /></td></tr>
 <tr class="separator:gadbd7324870bd396f776cba8a75880ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa66b8c6dd4f897c2d0d9f6871caa7b5c"><td class="memTemplParams" colspan="2"><a id="aa66b8c6dd4f897c2d0d9f6871caa7b5c" name="aa66b8c6dd4f897c2d0d9f6871caa7b5c"></a>
@@ -117,7 +117,7 @@ requires is_header_included&lt;reduce_tag, Seed, AccumulatorFn, ResultSelectorFn
 <tr class="separator:aa66b8c6dd4f897c2d0d9f6871caa7b5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac6c86c5f3ebafdf93a7abb156909330b"><td class="memTemplParams" colspan="2">template&lt;typename CastBeforeDivide  = Type, typename ... Args&gt; <br />
 requires (is_header_included&lt;reduce_tag, CastBeforeDivide, Args...&gt; &amp;&amp; is_can_be_averaged&lt;Type, CastBeforeDivide&gt;)</td></tr>
-<tr class="memitem:gac6c86c5f3ebafdf93a7abb156909330b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gac6c86c5f3ebafdf93a7abb156909330b">average</a> () const &amp;</td></tr>
+<tr class="memitem:gac6c86c5f3ebafdf93a7abb156909330b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#gac6c86c5f3ebafdf93a7abb156909330b">average</a> () const &amp;</td></tr>
 <tr class="memdesc:gac6c86c5f3ebafdf93a7abb156909330b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the average of emissions and emits final value.  <br /></td></tr>
 <tr class="separator:gac6c86c5f3ebafdf93a7abb156909330b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a997bd6a436be3c7899444991a81c0e78"><td class="memTemplParams" colspan="2"><a id="a997bd6a436be3c7899444991a81c0e78" name="a997bd6a436be3c7899444991a81c0e78"></a>
@@ -127,7 +127,7 @@ requires (is_header_included&lt;reduce_tag, CastBeforeDivide, Args...&gt; &amp;&
 <tr class="separator:a997bd6a436be3c7899444991a81c0e78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3f6b3475cee0f75abcf379e1428d4069"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; <br />
 requires (is_header_included&lt;reduce_tag, Args...&gt; &amp;&amp; is_can_be_summed&lt;Type&gt;)</td></tr>
-<tr class="memitem:ga3f6b3475cee0f75abcf379e1428d4069"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#ga3f6b3475cee0f75abcf379e1428d4069">sum</a> () const &amp;</td></tr>
+<tr class="memitem:ga3f6b3475cee0f75abcf379e1428d4069"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#ga3f6b3475cee0f75abcf379e1428d4069">sum</a> () const &amp;</td></tr>
 <tr class="memdesc:ga3f6b3475cee0f75abcf379e1428d4069"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the sum of emissions and emits final value.  <br /></td></tr>
 <tr class="separator:ga3f6b3475cee0f75abcf379e1428d4069"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a745a98634f0c3f5eed2886677d8a6d30"><td class="memTemplParams" colspan="2"><a id="a745a98634f0c3f5eed2886677d8a6d30" name="a745a98634f0c3f5eed2886677d8a6d30"></a>
@@ -137,7 +137,7 @@ requires (is_header_included&lt;reduce_tag, Args...&gt; &amp;&amp; is_can_be_sum
 <tr class="separator:a745a98634f0c3f5eed2886677d8a6d30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadd81455e5ca0880aed07bf2312e19928"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; <br />
 requires is_header_included&lt;reduce_tag, Args...&gt;</td></tr>
-<tr class="memitem:gadd81455e5ca0880aed07bf2312e19928"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gadd81455e5ca0880aed07bf2312e19928">count</a> () const &amp;</td></tr>
+<tr class="memitem:gadd81455e5ca0880aed07bf2312e19928"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#gadd81455e5ca0880aed07bf2312e19928">count</a> () const &amp;</td></tr>
 <tr class="memdesc:gadd81455e5ca0880aed07bf2312e19928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the amount of emitted emissions and emits this count.  <br /></td></tr>
 <tr class="separator:gadd81455e5ca0880aed07bf2312e19928"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5342d3d39b6da8a7b8bc4abc23be7219"><td class="memTemplParams" colspan="2"><a id="a5342d3d39b6da8a7b8bc4abc23be7219" name="a5342d3d39b6da8a7b8bc4abc23be7219"></a>
@@ -147,7 +147,7 @@ requires is_header_included&lt;reduce_tag, Args...&gt;</td></tr>
 <tr class="separator:a5342d3d39b6da8a7b8bc4abc23be7219"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad9dd23a7777f085a803b4185c798536a"><td class="memTemplParams" colspan="2">template&lt;std::strict_weak_order&lt; Type, Type &gt; Comparator = std::less&lt;Type&gt;, typename ... Args&gt; <br />
 requires is_header_included&lt;reduce_tag, Comparator, Args...&gt;</td></tr>
-<tr class="memitem:gad9dd23a7777f085a803b4185c798536a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gad9dd23a7777f085a803b4185c798536a">min</a> (Comparator &amp;&amp;comparator={}) const &amp;</td></tr>
+<tr class="memitem:gad9dd23a7777f085a803b4185c798536a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#gad9dd23a7777f085a803b4185c798536a">min</a> (Comparator &amp;&amp;comparator={}) const &amp;</td></tr>
 <tr class="memdesc:gad9dd23a7777f085a803b4185c798536a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emits the emission which has minimal value from the whole observable.  <br /></td></tr>
 <tr class="separator:gad9dd23a7777f085a803b4185c798536a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04d94432c2f3c1b9aec221c6a3f1518a"><td class="memTemplParams" colspan="2"><a id="a04d94432c2f3c1b9aec221c6a3f1518a" name="a04d94432c2f3c1b9aec221c6a3f1518a"></a>
@@ -157,7 +157,7 @@ requires is_header_included&lt;reduce_tag, Comparator, Args...&gt;</td></tr>
 <tr class="separator:a04d94432c2f3c1b9aec221c6a3f1518a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga97dbe4031ca14517822a303b5a00f3e8"><td class="memTemplParams" colspan="2">template&lt;std::strict_weak_order&lt; Type, Type &gt; Comparator = std::less&lt;Type&gt;, typename ... Args&gt; <br />
 requires is_header_included&lt;reduce_tag, Comparator, Args...&gt;</td></tr>
-<tr class="memitem:ga97dbe4031ca14517822a303b5a00f3e8"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#ga97dbe4031ca14517822a303b5a00f3e8">max</a> (Comparator &amp;&amp;comparator={}) const &amp;</td></tr>
+<tr class="memitem:ga97dbe4031ca14517822a303b5a00f3e8"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#ga97dbe4031ca14517822a303b5a00f3e8">max</a> (Comparator &amp;&amp;comparator={}) const &amp;</td></tr>
 <tr class="memdesc:ga97dbe4031ca14517822a303b5a00f3e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emits the emission which has maximal value from the whole observable.  <br /></td></tr>
 <tr class="separator:ga97dbe4031ca14517822a303b5a00f3e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab5207caa226b12de29dfa94ce9873dd"><td class="memTemplParams" colspan="2"><a id="aab5207caa226b12de29dfa94ce9873dd" name="aab5207caa226b12de29dfa94ce9873dd"></a>

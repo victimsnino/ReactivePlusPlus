@@ -21,7 +21,7 @@ var searchData=
   ['conditional_20operators_18',['Conditional Operators',['../group__conditional__operators.html',1,'']]],
   ['connectable_20operators_19',['Connectable Operators',['../group__connectable__operators.html',1,'']]],
   ['connectable_5fobservable_20',['connectable_observable',['../classrpp_1_1connectable__observable.html',1,'rpp']]],
-  ['count_21',['count',['../group__transforming__operators.html#gadd81455e5ca0880aed07bf2312e19928',1,'observable']]],
+  ['count_21',['count',['../group__aggregate__operators.html#gadd81455e5ca0880aed07bf2312e19928',1,'observable']]],
   ['counted_5frepeat_5fpredicate_22',['counted_repeat_predicate',['../structrpp_1_1details_1_1counted__repeat__predicate.html',1,'rpp::details']]],
   ['create_23',['create',['../group__creational__operators.html#gae4a1f681fe61dff2350d1467f4a11e07',1,'rpp::observable']]],
   ['creational_20operators_24',['Creational Operators',['../group__creational__operators.html',1,'']]]

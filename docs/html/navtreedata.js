@@ -48,7 +48,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "advanced.html",
-"group__qt__creational__operators.html#ga4e3140c3f32d2ea4b80b76fdc772278b",
+"group__filtering__operators.html#gafb7bedd5ddce183cdce1ade16d262a06",
 "structrpp_1_1details_1_1reduce__on__next.html"
 ];
 

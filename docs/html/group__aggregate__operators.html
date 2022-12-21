@@ -117,11 +117,96 @@ requires (is_header_included&lt;concat_tag, TObservables...&gt; &amp;&amp; sizeo
 <tr class="memitem:ga79ba014ced99027ccf3f263f58e3026b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#ga79ba014ced99027ccf3f263f58e3026b">observable::concat_with</a> (TObservables &amp;&amp;... observables) const &amp;</td></tr>
 <tr class="memdesc:ga79ba014ced99027ccf3f263f58e3026b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines submissions from current observable with other observables into one but without overlapping (current observable completes THEN next started to emit its values)  <br /></td></tr>
 <tr class="separator:ga79ba014ced99027ccf3f263f58e3026b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadbd7324870bd396f776cba8a75880ce0"><td class="memTemplParams" colspan="2">template&lt;typename Seed , reduce_accumulator&lt; Seed, Type &gt; AccumulatorFn, std::invocable&lt; Seed &amp;&amp; &gt; ResultSelectorFn = std::identity&gt; <br />
+requires is_header_included&lt;reduce_tag, Seed, AccumulatorFn, ResultSelectorFn&gt;</td></tr>
+<tr class="memitem:gadbd7324870bd396f776cba8a75880ce0"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#gadbd7324870bd396f776cba8a75880ce0">observable::reduce</a> (Seed &amp;&amp;initial_seed, AccumulatorFn &amp;&amp;accumulator, ResultSelectorFn &amp;&amp;result_selector={}) const &amp;</td></tr>
+<tr class="memdesc:gadbd7324870bd396f776cba8a75880ce0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies accumulator function to each emission from observable and result of accumulator from previous step and emits final value.  <br /></td></tr>
+<tr class="separator:gadbd7324870bd396f776cba8a75880ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac6c86c5f3ebafdf93a7abb156909330b"><td class="memTemplParams" colspan="2">template&lt;typename CastBeforeDivide  = Type, typename ... Args&gt; <br />
+requires (is_header_included&lt;reduce_tag, CastBeforeDivide, Args...&gt; &amp;&amp; is_can_be_averaged&lt;Type, CastBeforeDivide&gt;)</td></tr>
+<tr class="memitem:gac6c86c5f3ebafdf93a7abb156909330b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#gac6c86c5f3ebafdf93a7abb156909330b">observable::average</a> () const &amp;</td></tr>
+<tr class="memdesc:gac6c86c5f3ebafdf93a7abb156909330b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the average of emissions and emits final value.  <br /></td></tr>
+<tr class="separator:gac6c86c5f3ebafdf93a7abb156909330b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3f6b3475cee0f75abcf379e1428d4069"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; <br />
+requires (is_header_included&lt;reduce_tag, Args...&gt; &amp;&amp; is_can_be_summed&lt;Type&gt;)</td></tr>
+<tr class="memitem:ga3f6b3475cee0f75abcf379e1428d4069"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#ga3f6b3475cee0f75abcf379e1428d4069">observable::sum</a> () const &amp;</td></tr>
+<tr class="memdesc:ga3f6b3475cee0f75abcf379e1428d4069"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the sum of emissions and emits final value.  <br /></td></tr>
+<tr class="separator:ga3f6b3475cee0f75abcf379e1428d4069"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd81455e5ca0880aed07bf2312e19928"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; <br />
+requires is_header_included&lt;reduce_tag, Args...&gt;</td></tr>
+<tr class="memitem:gadd81455e5ca0880aed07bf2312e19928"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#gadd81455e5ca0880aed07bf2312e19928">observable::count</a> () const &amp;</td></tr>
+<tr class="memdesc:gadd81455e5ca0880aed07bf2312e19928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the amount of emitted emissions and emits this count.  <br /></td></tr>
+<tr class="separator:gadd81455e5ca0880aed07bf2312e19928"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad9dd23a7777f085a803b4185c798536a"><td class="memTemplParams" colspan="2">template&lt;std::strict_weak_order&lt; Type, Type &gt; Comparator = std::less&lt;Type&gt;, typename ... Args&gt; <br />
+requires is_header_included&lt;reduce_tag, Comparator, Args...&gt;</td></tr>
+<tr class="memitem:gad9dd23a7777f085a803b4185c798536a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#gad9dd23a7777f085a803b4185c798536a">observable::min</a> (Comparator &amp;&amp;comparator={}) const &amp;</td></tr>
+<tr class="memdesc:gad9dd23a7777f085a803b4185c798536a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emits the emission which has minimal value from the whole observable.  <br /></td></tr>
+<tr class="separator:gad9dd23a7777f085a803b4185c798536a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga97dbe4031ca14517822a303b5a00f3e8"><td class="memTemplParams" colspan="2">template&lt;std::strict_weak_order&lt; Type, Type &gt; Comparator = std::less&lt;Type&gt;, typename ... Args&gt; <br />
+requires is_header_included&lt;reduce_tag, Comparator, Args...&gt;</td></tr>
+<tr class="memitem:ga97dbe4031ca14517822a303b5a00f3e8"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#ga97dbe4031ca14517822a303b5a00f3e8">observable::max</a> (Comparator &amp;&amp;comparator={}) const &amp;</td></tr>
+<tr class="memdesc:ga97dbe4031ca14517822a303b5a00f3e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emits the emission which has maximal value from the whole observable.  <br /></td></tr>
+<tr class="separator:ga97dbe4031ca14517822a303b5a00f3e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Aggregate operators are operators on the entire sequence of items provided by observable. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#mathematical">https://reactivex.io/documentation/operators.html#mathematical</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gac6c86c5f3ebafdf93a7abb156909330b" name="gac6c86c5f3ebafdf93a7abb156909330b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac6c86c5f3ebafdf93a7abb156909330b">&#9670;&#160;</a></span>average()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename CastBeforeDivide  = Type, typename ... Args&gt; <br />
+requires (is_header_included&lt;reduce_tag, CastBeforeDivide, Args...&gt; &amp;&amp; is_can_be_averaged&lt;Type, CastBeforeDivide&gt;)</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">observable</a>::average </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculates the average of emissions and emits final value. </p>
+<div class="image">
+<object type="image/svg+xml" data="average.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">CastBeforeDivide</td><td>cast accumulated value to this type before division </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the average operator as most recent operator. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">rpp::utils::not_enough_emissions</td><td>in case of no any emissions from original observable</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="reduce_8hpp_source.html">rpp/operators/reduce.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    rpp::source::just(1,2,3)</div>
+<div class="line">            .average()</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 2</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/average.html">https://reactivex.io/documentation/operators/average.html</a> </dd></dl>
+
+</div>
+</div>
 <a id="gaa88f9603fc5335eb17ecf4a850ebdb66" name="gaa88f9603fc5335eb17ecf4a850ebdb66"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaa88f9603fc5335eb17ecf4a850ebdb66">&#9670;&#160;</a></span>concat()</h2>
 
@@ -208,6 +293,291 @@ requires (is_header_included&lt;concat_tag, TObservables...&gt; &amp;&amp; sizeo
 <div class="line">    <span class="comment">// Output: 1 2</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/concat.html">https://reactivex.io/documentation/operators/concat.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="gadd81455e5ca0880aed07bf2312e19928" name="gadd81455e5ca0880aed07bf2312e19928"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadd81455e5ca0880aed07bf2312e19928">&#9670;&#160;</a></span>count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename ... Args&gt; <br />
+requires is_header_included&lt;reduce_tag, Args...&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">observable</a>::count </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculates the amount of emitted emissions and emits this count. </p>
+<div class="image">
+<object type="image/svg+xml" data="count.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the count operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="reduce_8hpp_source.html">rpp/operators/reduce.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    rpp::source::just(1,2,3)</div>
+<div class="line">            .count()</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 3</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/count.html">https://reactivex.io/documentation/operators/count.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga97dbe4031ca14517822a303b5a00f3e8" name="ga97dbe4031ca14517822a303b5a00f3e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga97dbe4031ca14517822a303b5a00f3e8">&#9670;&#160;</a></span>max()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;std::strict_weak_order&lt; Type, Type &gt; Comparator = std::less&lt;Type&gt;, typename ... Args&gt; <br />
+requires is_header_included&lt;reduce_tag, Comparator, Args...&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">observable</a>::max </td>
+          <td>(</td>
+          <td class="paramtype">Comparator &amp;&amp;&#160;</td>
+          <td class="paramname"><em>comparator</em> = <code>{}</code></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Emits the emission which has maximal value from the whole observable. </p>
+<div class="image">
+<object type="image/svg+xml" data="max.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">comparator</td><td>is function to deduce if left value is less than right </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the max operator as most recent operator. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">rpp::utils::not_enough_emissions</td><td>in case of no any emissions from original observable</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="reduce_8hpp_source.html">rpp/operators/reduce.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    rpp::source::just(5,1,2,3)</div>
+<div class="line">            .max()</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 5</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/max.html">https://reactivex.io/documentation/operators/max.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="gad9dd23a7777f085a803b4185c798536a" name="gad9dd23a7777f085a803b4185c798536a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad9dd23a7777f085a803b4185c798536a">&#9670;&#160;</a></span>min()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;std::strict_weak_order&lt; Type, Type &gt; Comparator = std::less&lt;Type&gt;, typename ... Args&gt; <br />
+requires is_header_included&lt;reduce_tag, Comparator, Args...&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">observable</a>::min </td>
+          <td>(</td>
+          <td class="paramtype">Comparator &amp;&amp;&#160;</td>
+          <td class="paramname"><em>comparator</em> = <code>{}</code></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Emits the emission which has minimal value from the whole observable. </p>
+<div class="image">
+<object type="image/svg+xml" data="min.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">comparator</td><td>is function to deduce if left value is less than right </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the min operator as most recent operator. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">rpp::utils::not_enough_emissions</td><td>in case of no any emissions from original observable</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="reduce_8hpp_source.html">rpp/operators/reduce.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    rpp::source::just(5,1,2,3)</div>
+<div class="line">            .min()</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 1</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/min.html">https://reactivex.io/documentation/operators/min.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="gadbd7324870bd396f776cba8a75880ce0" name="gadbd7324870bd396f776cba8a75880ce0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadbd7324870bd396f776cba8a75880ce0">&#9670;&#160;</a></span>reduce()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename Seed , reduce_accumulator&lt; Seed, Type &gt; AccumulatorFn, std::invocable&lt; Seed &amp;&amp; &gt; ResultSelectorFn = std::identity&gt; <br />
+requires is_header_included&lt;reduce_tag, Seed, AccumulatorFn, ResultSelectorFn&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">observable</a>::reduce </td>
+          <td>(</td>
+          <td class="paramtype">Seed &amp;&amp;&#160;</td>
+          <td class="paramname"><em>initial_seed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AccumulatorFn &amp;&amp;&#160;</td>
+          <td class="paramname"><em>accumulator</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ResultSelectorFn &amp;&amp;&#160;</td>
+          <td class="paramname"><em>result_selector</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Applies accumulator function to each emission from observable and result of accumulator from previous step and emits final value. </p>
+<div class="image">
+<object type="image/svg+xml" data="reduce.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">initial_seed</td><td>initial value for seed which will be applied for first value from observable. Then it will be replaced with result and etc. </td></tr>
+    <tr><td class="paramname">accumulator</td><td>function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the reduce operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="reduce_8hpp_source.html">rpp/operators/reduce.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    rpp::source::just(1,2,3)</div>
+<div class="line">            .reduce(0, std::plus&lt;int&gt;{})</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 6</span></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    rpp::source::just(1,2,3)</div>
+<div class="line">            .reduce(std::vector&lt;int&gt;{}, [](std::vector&lt;int&gt;&amp;&amp; seed, <span class="keywordtype">int</span> new_value)</div>
+<div class="line">            {</div>
+<div class="line">                seed.push_back(new_value);</div>
+<div class="line">                <span class="keywordflow">return</span> std::move(seed);</div>
+<div class="line">            })</div>
+<div class="line">            .subscribe([](<span class="keyword">const</span> std::vector&lt;int&gt;&amp; v)</div>
+<div class="line">            {</div>
+<div class="line">                std::cout &lt;&lt; <span class="stringliteral">&quot;vector: &quot;</span>;</div>
+<div class="line">                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> val : v)</div>
+<div class="line">                    std::cout &lt;&lt; val &lt;&lt; <span class="stringliteral">&quot; &quot;</span>;</div>
+<div class="line">                std::cout &lt;&lt; std::endl;</div>
+<div class="line">            });</div>
+<div class="line">    <span class="comment">// Output: vector: 1 2 3</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/reduce.html">https://reactivex.io/documentation/operators/reduce.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga3f6b3475cee0f75abcf379e1428d4069" name="ga3f6b3475cee0f75abcf379e1428d4069"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3f6b3475cee0f75abcf379e1428d4069">&#9670;&#160;</a></span>sum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </div>
+<div class="memtemplate">
+template&lt;typename ... Args&gt; <br />
+requires (is_header_included&lt;reduce_tag, Args...&gt; &amp;&amp; is_can_be_summed&lt;Type&gt;)</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="structrpp_1_1details_1_1member__overload.html">observable</a>::sum </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculates the sum of emissions and emits final value. </p>
+<div class="image">
+<object type="image/svg+xml" data="sum.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the sum operator as most recent operator. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">rpp::utils::not_enough_emissions</td><td>in case of no any emissions from original observable</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="reduce_8hpp_source.html">rpp/operators/reduce.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    rpp::source::just(1,2,3)</div>
+<div class="line">            .sum()</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 6</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/sum.html">https://reactivex.io/documentation/operators/sum.html</a> </dd></dl>
 
 </div>
 </div>

@@ -18,7 +18,7 @@ var searchData=
   ['on_5fsubscribe_5ffn_15',['on_subscribe_fn',['../conceptrpp_1_1constraint_1_1on__subscribe__fn.html',1,'rpp::constraint']]],
   ['op_5ffn_16',['op_fn',['../conceptrpp_1_1details_1_1op__fn.html',1,'rpp::details']]],
   ['reactiveplusplus_17',['ReactivePlusPlus',['../index.html',1,'']]],
-  ['reduce_18',['reduce',['../group__transforming__operators.html#gadbd7324870bd396f776cba8a75880ce0',1,'observable']]],
+  ['reduce_18',['reduce',['../group__aggregate__operators.html#gadbd7324870bd396f776cba8a75880ce0',1,'observable']]],
   ['reduce_5faccumulator_19',['reduce_accumulator',['../conceptrpp_1_1details_1_1reduce__accumulator.html',1,'rpp::details']]],
   ['reduce_5fimpl_20',['reduce_impl',['../structrpp_1_1details_1_1reduce__impl.html',1,'rpp::details']]],
   ['reduce_5fon_5fcompleted_21',['reduce_on_completed',['../structrpp_1_1details_1_1reduce__on__completed.html',1,'rpp::details']]],

@@ -37,7 +37,7 @@ var searchData=
   ['subscription_5fbase_34',['subscription_base',['../classrpp_1_1subscription__base.html',1,'rpp']]],
   ['subscription_5fguard_35',['subscription_guard',['../classrpp_1_1subscription__guard.html',1,'rpp']]],
   ['subscription_5fstate_36',['subscription_state',['../classrpp_1_1details_1_1subscription__state.html',1,'rpp::details']]],
-  ['sum_37',['sum',['../group__transforming__operators.html#ga3f6b3475cee0f75abcf379e1428d4069',1,'observable']]],
+  ['sum_37',['sum',['../group__aggregate__operators.html#ga3f6b3475cee0f75abcf379e1428d4069',1,'observable']]],
   ['switch_5fmap_38',['switch_map',['../group__transforming__operators.html#gae76b0e38003420a5ced3c1159bbbadde',1,'observable']]],
   ['switch_5fon_5fnext_39',['switch_on_next',['../group__combining__operators.html#ga2e3a232da875328d9d53adf7a30c25cf',1,'observable']]],
   ['switch_5fon_5fnext_5fimpl_40',['switch_on_next_impl',['../structrpp_1_1details_1_1switch__on__next__impl.html',1,'rpp::details']]],
