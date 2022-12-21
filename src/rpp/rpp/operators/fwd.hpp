@@ -29,6 +29,7 @@
 #include <rpp/operators/fwd/observe_on.hpp>
 #include <rpp/operators/fwd/on_error_resume_next.hpp>
 #include <rpp/operators/fwd/publish.hpp>
+#include <rpp/operators/fwd/reduce.hpp>
 #include <rpp/operators/fwd/ref_count.hpp>
 #include <rpp/operators/fwd/repeat.hpp>
 #include <rpp/operators/fwd/sample.hpp>

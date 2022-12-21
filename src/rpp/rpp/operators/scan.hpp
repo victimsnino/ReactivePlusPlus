@@ -14,6 +14,7 @@
 #include <rpp/operators/lift.hpp>                          // required due to operator uses lift
 #include <rpp/operators/details/subscriber_with_state.hpp> // create_subscriber_with_state
 #include <rpp/operators/fwd/scan.hpp>                      // own forwarding
+#include <rpp/operators/reduce.hpp>                        // reduce to re-use
 #include <rpp/subscribers/constraints.hpp>                 // constraint::subscriber
 #include <rpp/utils/functors.hpp>                          // forwarding_on_error
 #include <rpp/utils/utilities.hpp>                         // utils::as_const
@@ -23,21 +24,14 @@ IMPLEMENTATION_FILE(scan_tag);
 
 namespace rpp::details
 {
-template<constraint::decayed_type Result, typename AccumulatorFn>
-struct scan_state
-{
-    mutable Result                      seed;
-    RPP_NO_UNIQUE_ADDRESS AccumulatorFn accumulator;
-};
-
-struct scan_on_next
+struct scan_on_next : private reduce_on_next
 {
     template<constraint::decayed_type Result, typename AccumulatorFn>
     void operator()(auto&&                                   value,
                     const constraint::subscriber auto&       sub,
-                    const scan_state<Result, AccumulatorFn>& state) const
+                    const reduce_state<Result, AccumulatorFn>& state) const
     {
-        state.seed = state.accumulator(std::move(state.seed), std::forward<decltype(value)>(value));
+        reduce_on_next::operator()(std::forward<decltype(value)>(value), sub, state);
         sub.on_next(utils::as_const(state.seed));
     }
 };
@@ -58,7 +52,7 @@ struct scan_impl
                                                           utils::forwarding_on_error{},
                                                           utils::forwarding_on_completed{},
                                                           std::forward<TSub>(subscriber),
-                                                          scan_state<Result, AccumulatorFn>{initial_value, accumulator});
+                                                          reduce_state<Result, AccumulatorFn>{initial_value, accumulator});
     }
 };
 } // namespace rpp::details

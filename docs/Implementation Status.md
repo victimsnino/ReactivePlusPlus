@@ -106,13 +106,13 @@
 
 ### Aggregate
 
-- [ ] average
+- [x] average
 - [x] concat
-- [ ] count
-- [ ] max 
-- [ ] min
-- [ ] reduce
-- [ ] sum
+- [x] count
+- [x] max 
+- [x] min
+- [x] reduce
+- [x] sum
 
 ### Backpressure
 
