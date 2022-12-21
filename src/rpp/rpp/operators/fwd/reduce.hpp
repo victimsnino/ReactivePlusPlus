@@ -75,7 +75,7 @@ struct member_overload<Type, SpecificObservable, reduce_tag>
      * \snippet reduce.cpp reduce
      * \snippet reduce.cpp reduce_vector
 	 *
-     * \ingroup transforming_operators
+     * \ingroup aggregate_operators
      * \see https://reactivex.io/documentation/operators/reduce.html
      */
     template<typename Seed, reduce_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed&&> ResultSelectorFn = std::identity>
@@ -116,7 +116,7 @@ struct member_overload<Type, SpecificObservable, reduce_tag>
      * \par Example
      * \snippet reduce.cpp average
 	 *
-     * \ingroup transforming_operators
+     * \ingroup aggregate_operators
      * \see https://reactivex.io/documentation/operators/average.html
      */
     template<typename CastBeforeDivide = Type, typename ...Args>
@@ -149,7 +149,7 @@ struct member_overload<Type, SpecificObservable, reduce_tag>
      * \par Example
      * \snippet reduce.cpp sum
 	 *
-     * \ingroup transforming_operators
+     * \ingroup aggregate_operators
      * \see https://reactivex.io/documentation/operators/sum.html
      */
     template<typename ...Args>
@@ -179,7 +179,7 @@ struct member_overload<Type, SpecificObservable, reduce_tag>
      * \par Example
      * \snippet reduce.cpp count
 	 *
-     * \ingroup transforming_operators
+     * \ingroup aggregate_operators
      * \see https://reactivex.io/documentation/operators/count.html
      */
     template<typename ...Args>
@@ -212,7 +212,7 @@ struct member_overload<Type, SpecificObservable, reduce_tag>
      * \par Example
      * \snippet reduce.cpp min
 	 *
-     * \ingroup transforming_operators
+     * \ingroup aggregate_operators
      * \see https://reactivex.io/documentation/operators/min.html
      */
     template<std::strict_weak_order<Type, Type> Comparator = std::less<Type>, typename ...Args>
@@ -245,7 +245,7 @@ struct member_overload<Type, SpecificObservable, reduce_tag>
      * \par Example
      * \snippet reduce.cpp max
 	 *
-     * \ingroup transforming_operators
+     * \ingroup aggregate_operators
      * \see https://reactivex.io/documentation/operators/max.html
      */
     template<std::strict_weak_order<Type, Type> Comparator = std::less<Type>, typename ...Args>
