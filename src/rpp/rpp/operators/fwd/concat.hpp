@@ -30,28 +30,41 @@ auto concat_with_impl(TObservables&&... observables);
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, concat_tag>
 {
-    /**
-     * \brief Converts observable of observables of items into observable of items via merging emissions but without overlapping (current observable completes THEN next started to emit its values)
-     * 
-     * \marble concat
-        {
-            source observable                : 
-            {   
-                +--1-2-3-|
-                .....+4--6-|
-            }
-            operator "concat" : +--1-2-3-4--6-|
+   /**
+    * \brief Converts observable of observables of items into observable of items via merging emissions but without overlapping (current observable completes THEN next started to emit its values)
+    * 
+    * \marble concat
+    {
+        source observable : 
+        {   
+            +--1-2-3-|
+            .....+4--6-|
         }
-     *
-     * \return new specific_observable with the concat operator as most recent operator.
-     * \warning #include <rpp/operators/concat.hpp>
-     * 
-     * \par Example
-     * \snippet concat.cpp concat
-	 *
-     * \ingroup aggregate_operators
-     * \see https://reactivex.io/documentation/operators/concat.html
-     */
+        operator "concat" : +--1-2-3-4--6-|
+    }
+    * \details Actually it subscribes on first observable from emissions. When first observable completes, then it subscribes on second observable from emissions and etc...
+    *
+    * \return new specific_observable with the concat operator as most recent operator.
+    * \warning #include <rpp/operators/concat.hpp>
+    * 
+    * \par Example
+    * \snippet concat.cpp concat
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to store observables (== emissions) and some internal variables
+    *    - Wraps subscriber with serialization logic to be sure callbacks called serialized
+    * - <b>OnNext</b>
+    *    - If no any active observable, then subscribes on new obtained observable, else place it in queue
+    *    - When active observable completes, then subscribe on next observable from queue (if any)
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Just forwards original on_completed if no any active observable (else we need to processa all observables from queue and they would emit on_completed for subscriber)
+    *
+    * \ingroup aggregate_operators
+    * \see https://reactivex.io/documentation/operators/concat.html
+    */
     template<typename ...Args>
     auto concat() const& requires (is_header_included<concat_tag, Args...>&& rpp::constraint::observable<Type>)
     {
@@ -70,15 +83,28 @@ struct member_overload<Type, SpecificObservable, concat_tag>
     * \marble concat_with
         {
             source original_observable: +--1-2-3-|
-            source second:              +-----4--6-|
-            operator "concat_with" :    +--1-2-3------4--6-|
+            source second:              +-4--6-|
+            operator "concat_with" :    +--1-2-3--4--6-|
         }
+    * \details Actually it subscribes on original observable. When original observable completes, then it subscribes on first observable from arguments and etc...
     *
     * \return new specific_observable with the concat operator as most recent operator.
     * \warning #include <rpp/operators/concat.hpp>
     * 
     * \par Example
     * \snippet concat.cpp concat_with
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to store observables (== emissions) and some internal variables
+    *    - Wraps subscriber with serialization logic to be sure callbacks called serialized
+    * - <b>OnNext</b>
+    *    - If no any active observable, then subscribes on new obtained observable, else place it in queue
+    *    - When active observable completes, then subscribe on next observable from queue (if any)
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Just forwards original on_completed if no any active observable (else we need to processa all observables from queue and they would emit on_completed for subscriber)
     *
     * \ingroup aggregate_operators
     * \see https://reactivex.io/documentation/operators/concat.html
