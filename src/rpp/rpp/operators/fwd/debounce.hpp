@@ -26,25 +26,41 @@ struct debounce_impl;
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, debounce_tag>
 {
-    /**
-     * \brief Only emit emission if specified period of time has passed without any other emission. On each new emission timer reset.
-     * 
-     * \marble debounce
-        {
-            source    observable   : +--1-2-----3---|
-            operator "debounce(4)" : +--------2-----3|
-        }
-     * \param period is duration of time should be passed since emission from original observable without any new emissions to emit this emission.
-     * \param scheduler is scheduler used to run timer for debounce
-     * \return new specific_observable with the debounce operator as most recent operator.
-     * \warning #include <rpp/operators/debounce.hpp>
-     * 
-     * \par Example
-     * \snippet debounce.cpp debounce
-	 *
-     * \ingroup utility_operators
-     * \see https://reactivex.io/documentation/operators/debounce.html
-     */
+   /**
+    * \brief Only emit emission if specified period of time has passed without any other emission. On each new emission timer reset.
+    * 
+    * \marble debounce
+    {
+        source    observable   : +--1-2-----3---|
+        operator "debounce(4)" : +--------2-----3|
+    }
+    * \details Actually this operator resets time of last emission, schedules action to send this emission after specified period if no any new emissions till this moment.
+    *
+    * \param period is duration of time should be passed since emission from original observable without any new emissions to emit this emission.
+    * \param scheduler is scheduler used to run timer for debounce
+    * \return new specific_observable with the debounce operator as most recent operator.
+    * \warning #include <rpp/operators/debounce.hpp>
+    * 
+    * \par Example
+    * \snippet debounce.cpp debounce
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to store last emission and time.
+    *    - Wraps subscriber with serialization logic to prevent race-conditions
+    * - <b>OnNext</b>
+    *    - Saves time when emission happened
+    *    - Saves emission
+    *    - Schedule action to send this emission with check if no any new emissions
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Just forwards original on_completed
+    *    - Immediately send current active emission if any
+    *
+    * \ingroup utility_operators
+    * \see https://reactivex.io/documentation/operators/debounce.html
+    */
     template<schedulers::constraint::scheduler TScheduler>
     auto debounce(schedulers::duration period,const TScheduler& scheduler = TScheduler{}) const & requires is_header_included<debounce_tag, TScheduler>
     {
