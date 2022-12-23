@@ -44,11 +44,24 @@ struct member_overload<Type, SpecificObservable, merge_tag>
             operator "merge" : +--1-243-6-|
         }
     *
+    * \details Actually it subscribes on each observable from emissions. Resulting observables completes when ALL observables completes
+    *
     * \return new specific_observable with the merge operator as most recent operator.
     * \warning #include <rpp/operators/merge.hpp>
     * 
     * \par Example:
     * \snippet merge.cpp merge
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to store interal state
+    *    - Wraps subscriber with serialization logic to be sure callbacks called serialized
+    * - <b>OnNext</b>
+    *    - Subscribes on obtained observable
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Just forwards original on_completed when all observables emit on_completed
     * 
     * \ingroup combining_operators
     * \see https://reactivex.io/documentation/operators/merge.html

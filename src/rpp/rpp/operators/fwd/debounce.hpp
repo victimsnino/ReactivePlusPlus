@@ -34,6 +34,7 @@ struct member_overload<Type, SpecificObservable, debounce_tag>
         source    observable   : +--1-2-----3---|
         operator "debounce(4)" : +--------2-----3|
     }
+    *
     * \details Actually this operator resets time of last emission, schedules action to send this emission after specified period if no any new emissions till this moment.
     *
     * \param period is duration of time should be passed since emission from original observable without any new emissions to emit this emission.

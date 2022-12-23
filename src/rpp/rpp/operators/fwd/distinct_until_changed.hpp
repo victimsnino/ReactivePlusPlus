@@ -36,6 +36,7 @@ struct member_overload<Type, SpecificObservable, distinct_until_changed_tag>
         source observable       : +--1-1-2-2-3-2-1-|
         operator "distinct_until_changed" : +--1---2---3-2-1-|
     }
+    *
     * \details Actually this operator has `std::optional` with last item and checks everytime where new emission is same or not.
     *
     * \param equality_fn optional equality comparator function
