@@ -26,25 +26,38 @@ struct last_impl;
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, last_tag>
 {
-    /**
-     * \brief Emit only the last item provided before on_completed.
-     *
-     * \marble last
-         {
-             source observable   : +--1--2--3--|
-             operator "last"     : +--3-|
-         }
-     *
-     * \return new specific_observable with the last operator as most recent operator.
-     * \warning #include <rpp/operators/last.hpp>
-     *
-     * \par Example:
-     * \snippet last.cpp last
-     * \snippet last.cpp last empty
-     *
-     * \ingroup filtering_operators
-     * \see https://reactivex.io/documentation/operators/last.html
-     */
+   /**
+    * \brief Emit only the last item provided before on_completed.
+    *
+    * \marble last
+        {
+            source observable   : +--1--2--3--|
+            operator "last"     : +--3-|
+        }
+    *
+    * \details Actually this operator just updates `std::optional` on every new emission and emits this value on_completed
+    * \throws rpp::utils::not_enough_emissions in case of on_completed obtained without any emissions
+    *
+    * \return new specific_observable with the last operator as most recent operator.
+    * \warning #include <rpp/operators/last.hpp>
+    *
+    * \par Example:
+    * \snippet last.cpp last
+    * \snippet last.cpp last empty
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to keep `std::optional`
+    * - <b>OnNext</b>
+    *    - Just saves emission to `std::optional`
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Emits saved emission or throws exception if no any emissions
+    *
+    * \ingroup filtering_operators
+    * \see https://reactivex.io/documentation/operators/last.html
+    */
     auto last() const & requires is_header_included<last_tag, Type>
     {
         return cast_this()->template lift<Type>(last_impl<Type>{});

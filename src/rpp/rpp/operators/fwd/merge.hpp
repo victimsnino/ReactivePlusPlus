@@ -56,8 +56,10 @@ struct member_overload<Type, SpecificObservable, merge_tag>
     * - <b>On subscribe</b>
     *    - Allocates one `shared_ptr` to store interal state
     *    - Wraps subscriber with serialization logic to be sure callbacks called serialized
-    * - <b>OnNext</b>
+    * - <b>OnNext for original observable</b>
     *    - Subscribes on obtained observable
+    * - <b>OnNext for inner observable</b>
+    *    - Just forwards original on_next
     * - <b>OnError</b>
     *    - Just forwards original on_error
     * - <b>OnCompleted</b>
@@ -89,6 +91,8 @@ struct member_overload<Type, SpecificObservable, merge_tag>
             source second: +-----4--6-|
             operator "merge_with" : +--1-243-6-|
         }
+    *
+    * \details Actually it subscribes on each observable. Resulting observables completes when ALL observables completes
     * 
     * \param observables are observables whose emissions would be merged with current observable
     * \return new specific_observable with the merge operator as most recent operator.
@@ -96,6 +100,17 @@ struct member_overload<Type, SpecificObservable, merge_tag>
     * 
     * \par Example:
     * \snippet merge.cpp merge_with
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to store interal state
+    *    - Wraps subscriber with serialization logic to be sure callbacks called serialized
+    * - <b>OnNext</b>
+    *    - Just forwards original on_next
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Just forwards original on_completed when all observables emit on_completed
     *
     * \ingroup combining_operators
     * \see https://reactivex.io/documentation/operators/merge.html

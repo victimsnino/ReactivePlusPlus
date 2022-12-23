@@ -36,6 +36,7 @@ struct member_overload<Type, SpecificObservable, delay_tag>
         source observable        : +-1-2-3-|
         operator "delay: --"     : +---1-2-3-|
     }
+    *
     * \details Actually this operator just schedules emissions via provided scheduler with provided delay_duration.
     *
     * \param delay_duration is the delay duration for emitting items. Delay duration should be able to cast to rpp::schedulers::duration.
@@ -45,6 +46,16 @@ struct member_overload<Type, SpecificObservable, delay_tag>
     *
     * \par Examples
     * \snippet delay.cpp delay
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to store internal state
+    * - <b>OnNext</b>
+    *    - Move emission to queue and schedule action to drain queue (if not yet)
+    * - <b>OnError</b>
+    *    - Just forwards original on_error via scheduling
+    * - <b>OnCompleted</b>
+    *    - Just forwards original on_completed via scheduling
     *
     * \ingroup utility_operators
     * \see https://reactivex.io/documentation/operators/delay.html

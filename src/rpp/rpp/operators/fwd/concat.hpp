@@ -42,6 +42,7 @@ struct member_overload<Type, SpecificObservable, concat_tag>
         }
         operator "concat" : +--1-2-3-4--6-|
     }
+    *
     * \details Actually it subscribes on first observable from emissions. When first observable completes, then it subscribes on second observable from emissions and etc...
     *
     * \return new specific_observable with the concat operator as most recent operator.
@@ -54,13 +55,14 @@ struct member_overload<Type, SpecificObservable, concat_tag>
     * - <b>On subscribe</b>
     *    - Allocates one `shared_ptr` to store observables (== emissions) and some internal variables
     *    - Wraps subscriber with serialization logic to be sure callbacks called serialized
-    * - <b>OnNext</b>
+    * - <b>OnNext for original observable</b>
     *    - If no any active observable, then subscribes on new obtained observable, else place it in queue
-    *    - When active observable completes, then subscribe on next observable from queue (if any)
     * - <b>OnError</b>
     *    - Just forwards original on_error
-    * - <b>OnCompleted</b>
+    * - <b>OnCompleted from original observable</b>
     *    - Just forwards original on_completed if no any active observable (else we need to processa all observables from queue and they would emit on_completed for subscriber)
+    * - <b>OnCompleted from inner observable</b>
+    *    - Subscribe on next observable from queue (if any)
     *
     * \ingroup aggregate_operators
     * \see https://reactivex.io/documentation/operators/concat.html
@@ -86,6 +88,7 @@ struct member_overload<Type, SpecificObservable, concat_tag>
             source second:              +-4--6-|
             operator "concat_with" :    +--1-2-3--4--6-|
         }
+    *
     * \details Actually this operator subscribes on original observable. When original observable completes, then it subscribes on first observable from arguments and etc...
     *
     * \return new specific_observable with the concat operator as most recent operator.
@@ -98,8 +101,8 @@ struct member_overload<Type, SpecificObservable, concat_tag>
     * - <b>On subscribe</b>
     *    - Allocates one `shared_ptr` to store observables (== emissions) and some internal variables
     *    - Wraps subscriber with serialization logic to be sure callbacks called serialized
-    * - <b>OnNext for original observable</b>
-    *    - If no any active observable, then subscribes on new obtained observable, else place it in queue
+    * - <b>OnNext</b>
+    *    - Just forwards on_next
     * - <b>OnError</b>
     *    - Just forwards original on_error
     * - <b>OnCompleted from original observable</b>

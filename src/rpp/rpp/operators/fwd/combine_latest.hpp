@@ -100,6 +100,7 @@ struct member_overload<Type, SpecificObservable, combine_latest_tag>
         source other_observable          : +-5--    -6    -7    --    -8    -     -|
         operator "combine_latest:tuple"  : +---{1,5}-{1,6}-{1,7}-{2,7}-{2,8}-{3,8}-|
     }
+    *
     * \details Actually this operator subscribes on all of theses observables and emits `std::tuple` of last emissions when any of them emits new emission (and each observable emit values at least one to be able to provide combined value)
     *
     * \param observables are observables whose emissions would be combined with the current observable's emissions
