@@ -82,6 +82,32 @@ SCENARIO("first forwards error", "[first]")
     }
 }
 
+SCENARIO("first keeps state for copies", "[first]")
+{
+    auto mock = mock_observer<int>{};
+    GIVEN("observable which sends values via copy")
+    {
+        auto obs = rpp::source::create<int>([](const auto& sub)
+        {
+            for(size_t i = 0; i < 10; ++i)
+            {
+                auto copy = sub;
+                copy.on_next(1);
+            }
+        });
+        WHEN("subscribe on it via first")
+        {
+            obs.first().subscribe(mock);
+            THEN("observer obtains one value as expected")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 1 });
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+}
+
 SCENARIO("first raises error for empty", "[first]")
 {
     GIVEN("observable of ---|")
