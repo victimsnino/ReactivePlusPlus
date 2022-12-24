@@ -30,13 +30,15 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, repeat_tag>
 {
     /**
-    * \brief Re-subscribes on current observable during `on_completed` provided amount of times
+    * \brief Re-subscribes on current observable provided amount of times when `on_completed` obtained
     *
     * \marble repeat
       {
           source observable    : +-1-2-3-|
           operator "repeat(2)" : +-1-2-3-1-2-3-|
       }	
+    *
+    * \details Actually this operator re-subscribes on same observable when `on_completed` obtained while counter not reached zero
     *
     * \param count total amount of times subscription happens. For example:
     *  - `count(0)`  - means no any subscription at all
@@ -47,6 +49,17 @@ struct member_overload<Type, SpecificObservable, repeat_tag>
     * 
     * \par Examples:
     * \snippet repeat.cpp repeat
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to store counter
+    * - <b>OnNext</b>
+    *    - Just forwards original on_next
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Decrements counter
+    *    - If counter not zero, then re-subscribes on the same observable
     *
     * \ingroup utility_operators
     * \see https://reactivex.io/documentation/operators/repeat.html

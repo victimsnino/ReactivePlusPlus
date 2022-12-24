@@ -56,28 +56,40 @@ auto max_impl(TObs&& observable, Comparator&& comparator);
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, reduce_tag>
 {
-    /**
-     * \brief Applies accumulator function to each emission from observable and result of accumulator from previous step and emits final value
-     * 
-     * \marble reduce
-        {
-            source observable                  : +--1-2-3-|
-            operator "reduce: s=1, (s,x)=>s+x" : +--------7|
-        }
-     *
-     * \param initial_seed initial value for seed which will be applied for first value from observable. Then it will be replaced with result and etc. 
-     * \param accumulator function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.
-     *
-     * \return new specific_observable with the reduce operator as most recent operator.
-     * \warning #include <rpp/operators/reduce.hpp>
-     * 
-     * \par Example
-     * \snippet reduce.cpp reduce
-     * \snippet reduce.cpp reduce_vector
-	 *
-     * \ingroup aggregate_operators
-     * \see https://reactivex.io/documentation/operators/reduce.html
-     */
+   /**
+    * \brief Applies accumulator function to each emission from observable and result of accumulator from previous step and emits final value
+    * 
+    * \marble reduce
+    {
+        source observable                  : +--1-2-3-|
+        operator "reduce: s=1, (s,x)=>s+x" : +--------7|
+    }
+    * 
+    * \details Actually this operator behaves like `scan()` + `take_last(1)`, so, it just accumulates `seed` and emits it `on_completed`
+    *
+    * \param initial_seed initial value for seed which will be applied for first value from observable. Then it will be replaced with result and etc. 
+    * \param accumulator function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.
+    *
+    * \return new specific_observable with the reduce operator as most recent operator.
+    * \warning #include <rpp/operators/reduce.hpp>
+    * 
+    * \par Example
+    * \snippet reduce.cpp reduce
+    * \snippet reduce.cpp reduce_vector
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to store internal state
+    * - <b>OnNext</b>
+    *    - Applies accumulator to each emission
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Emits accumulated seed via applyting result_selector
+    *
+    * \ingroup aggregate_operators
+    * \see https://reactivex.io/documentation/operators/reduce.html
+    */
     template<typename Seed, reduce_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed&&> ResultSelectorFn = std::identity>
     auto reduce(Seed&& initial_seed, AccumulatorFn&& accumulator, ResultSelectorFn&& result_selector = {}) const & requires is_header_included<reduce_tag, Seed, AccumulatorFn, ResultSelectorFn>
     {

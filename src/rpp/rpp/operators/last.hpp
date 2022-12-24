@@ -64,12 +64,12 @@ public:
     {
         auto subscription = subscriber.get_subscription();
 
-        return create_subscriber_with_state<Type>(std::move(subscription),
-                                                  last_on_next{},
-                                                  utils::forwarding_on_error{},
-                                                  last_on_completed{},
-                                                  std::forward<TSub>(subscriber),
-                                                  last_state<Type>{});
+        return create_subscriber_with_dynamic_state<Type>(std::move(subscription),
+                                                          last_on_next{},
+                                                          utils::forwarding_on_error{},
+                                                          last_on_completed{},
+                                                          std::forward<TSub>(subscriber),
+                                                          last_state<Type>{});
     }
 };
 } // namespace rpp::details

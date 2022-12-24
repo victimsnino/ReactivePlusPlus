@@ -29,12 +29,24 @@ struct member_overload<Type, SpecificObservable, observe_on_tag>
     /**
     * \brief Emit emissions of observable starting from this point via provided scheduler
     *
+    * \details Actually this operator just schedules emissions via provided scheduler. So, actually it is delay(0) operator
+    *
     * \param scheduler is scheduler used for scheduling of OnNext
     * \return new specific_observable with the observe_on operator as most recent operator.
     * \warning #include <rpp/operators/observe_on.hpp>
     *
     * \par Example:
     * \snippet observe_on.cpp observe_on
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to store internal state
+    * - <b>OnNext</b>
+    *    - Move emission to queue and schedule action to drain queue (if not yet)
+    * - <b>OnError</b>
+    *    - Just forwards original on_error via scheduling
+    * - <b>OnCompleted</b>
+    *    - Just forwards original on_completed via scheduling
     *
     * \ingroup utility_operators
     * \see https://reactivex.io/documentation/operators/observeon.html
