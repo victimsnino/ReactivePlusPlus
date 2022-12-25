@@ -2,41 +2,41 @@
 \label{grouped__observable_8hpp_source}\index{src/rpp/rpp/observables/grouped\_observable.hpp@{src/rpp/rpp/observables/grouped\_observable.hpp}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{//                   ReactivePlusPlus library}}
-\DoxyCodeLine{2 \textcolor{comment}{// }}
-\DoxyCodeLine{3 \textcolor{comment}{//           Copyright Aleksey Loginov 2022 -\/ present.}}
-\DoxyCodeLine{4 \textcolor{comment}{//  Distributed under the Boost Software License, Version 1.0.}}
-\DoxyCodeLine{5 \textcolor{comment}{//     (See accompanying file LICENSE\_1\_0.txt or copy at}}
-\DoxyCodeLine{6 \textcolor{comment}{//           https://www.boost.org/LICENSE\_1\_0.txt)}}
-\DoxyCodeLine{7 \textcolor{comment}{// }}
-\DoxyCodeLine{8 \textcolor{comment}{//  Project home: https://github.com/victimsnino/ReactivePlusPlus}}
-\DoxyCodeLine{9 }
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <rpp/observables/specific\_observable.hpp>}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{keyword}{namespace }rpp}
-\DoxyCodeLine{15 \{}
-\DoxyCodeLine{16 \textcolor{keyword}{template}<constraint::decayed\_type KeyType,}
-\DoxyCodeLine{17          constraint::decayed\_type Type,}
-\DoxyCodeLine{18          constraint::on\_subscribe\_fn<Type> OnSubscribeFn>}
-\DoxyCodeLine{19 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable}} final : \textcolor{keyword}{public} \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}<Type, OnSubscribeFn>}
-\DoxyCodeLine{20 \{}
-\DoxyCodeLine{21 \textcolor{keyword}{public}:}
-\DoxyCodeLine{22     \mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable}}(KeyType key, \textcolor{keyword}{const} OnSubscribeFn\& on\_subscribe)}
-\DoxyCodeLine{23         : \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable<Type, OnSubscribeFn>}}\{on\_subscribe\}}
-\DoxyCodeLine{24         , m\_key\{std::move(key)\} \{\}}
-\DoxyCodeLine{25 }
-\DoxyCodeLine{26     \mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable}}(KeyType key, OnSubscribeFn\&\& on\_subscribe)}
-\DoxyCodeLine{27         : \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable<Type, OnSubscribeFn>}}\{std::move(on\_subscribe)\}}
-\DoxyCodeLine{28         , m\_key\{std::move(key)\} \{\}}
-\DoxyCodeLine{29 }
-\DoxyCodeLine{30     \textcolor{keyword}{const} KeyType\& get\_key()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_key; \}}
-\DoxyCodeLine{31 }
-\DoxyCodeLine{32 \textcolor{keyword}{private}:}
-\DoxyCodeLine{33     KeyType m\_key;}
-\DoxyCodeLine{34 \};}
-\DoxyCodeLine{35 \} \textcolor{comment}{// namespace rpp}}
-\DoxyCodeLine{36 }
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2022\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <rpp/observables/specific\_observable.hpp>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{template}<constraint::decayed\_type\ KeyType,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ constraint::decayed\_type\ Type,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ constraint::on\_subscribe\_fn<Type>\ OnSubscribeFn>}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}<Type,\ OnSubscribeFn>}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable}}(KeyType\ key,\ \textcolor{keyword}{const}\ OnSubscribeFn\&\ on\_subscribe)}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable<Type,\ OnSubscribeFn>}}\{on\_subscribe\}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ ,\ m\_key\{std::move(key)\}\ \{\}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable}}(KeyType\ key,\ OnSubscribeFn\&\&\ on\_subscribe)}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable<Type,\ OnSubscribeFn>}}\{std::move(on\_subscribe)\}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ ,\ m\_key\{std::move(key)\}\ \{\}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{const}\ KeyType\&\ get\_key()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_key;\ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00033\ \ \ \ \ KeyType\ m\_key;}
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
+\DoxyCodeLine{00036\ }
 
 \end{DoxyCode}

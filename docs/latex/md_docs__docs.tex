@@ -29,7 +29,7 @@ Action inside observable happens ONLY after subscription on this observable and 
 When you have some source of data you need to extend it somehow to make it useful! For example, let\textquotesingle{}s make it infinite instead of emitting one value\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{rpp::source::from\_callable(\&::getchar)}
-\DoxyCodeLine{   .repeat()}
+\DoxyCodeLine{\ \ \ .repeat()}
 
 \end{DoxyCode}
 
@@ -46,7 +46,7 @@ Also we can filters out digits, transform rest chars to upper. We need to add
  How long do we want to obtain values? let\textquotesingle{}s say, till \textquotesingle{}0\textquotesingle{} char. 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{...}
-\DoxyCodeLine{.take\_while([](\textcolor{keywordtype}{char} v) \{ \textcolor{keywordflow}{return} v != \textcolor{charliteral}{'0'}; \})}
+\DoxyCodeLine{.take\_while([](\textcolor{keywordtype}{char}\ v)\ \{\ \textcolor{keywordflow}{return}\ v\ !=\ \textcolor{charliteral}{'0'};\ \})}
 \DoxyCodeLine{.filter(std::not\_fn(\&::isdigit))}
 \DoxyCodeLine{.map(\&::toupper)}
 
@@ -57,11 +57,11 @@ What we want to do with resulting values? Let\textquotesingle{}s dump it to cons
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{rpp::source::from\_callable(\&::getchar)}
-\DoxyCodeLine{    .repeat()}
-\DoxyCodeLine{    .take\_while([](\textcolor{keywordtype}{char} v) \{ \textcolor{keywordflow}{return} v != \textcolor{charliteral}{'0'}; \})}
-\DoxyCodeLine{    .filter(std::not\_fn(\&::isdigit))}
-\DoxyCodeLine{    .map(\&::toupper)}
-\DoxyCodeLine{    .subscribe([](\textcolor{keywordtype}{char} v) \{ std::cout << v; \});}
+\DoxyCodeLine{\ \ \ \ .repeat()}
+\DoxyCodeLine{\ \ \ \ .take\_while([](\textcolor{keywordtype}{char}\ v)\ \{\ \textcolor{keywordflow}{return}\ v\ !=\ \textcolor{charliteral}{'0'};\ \})}
+\DoxyCodeLine{\ \ \ \ .filter(std::not\_fn(\&::isdigit))}
+\DoxyCodeLine{\ \ \ \ .map(\&::toupper)}
+\DoxyCodeLine{\ \ \ \ .subscribe([](\textcolor{keywordtype}{char}\ v)\ \{\ std::cout\ <<\ v;\ \});}
 
 \end{DoxyCode}
  Subscribe function applies any from\+:
@@ -100,34 +100,34 @@ It means, that\+:
 
 It means, that for example\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{auto} s1 = rpp::source::just(1).repeat().subscribe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\});}
-\DoxyCodeLine{\textcolor{keyword}{auto} s2 = rpp::source::just(2).repeat().subscribe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\});}
-\DoxyCodeLine{s1.merge\_with(s2).map([](\textcolor{keywordtype}{int} v)\{}
-\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{"{}enter "{}} << v << std::endl;}
-\DoxyCodeLine{    std::this\_thread::sleep\_for(std::chrono::seconds\{1\});}
-\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{"{}exit "{}} << v << std::endl;}
-\DoxyCodeLine{    \textcolor{keywordflow}{return} v;}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ s1\ =\ rpp::source::just(1).repeat().subscribe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\});}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ s2\ =\ rpp::source::just(2).repeat().subscribe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\});}
+\DoxyCodeLine{s1.merge\_with(s2).map([](\textcolor{keywordtype}{int}\ v)\{}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}enter\ "{}}\ <<\ v\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ std::this\_thread::sleep\_for(std::chrono::seconds\{1\});}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}exit\ "{}}\ <<\ v\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ v;}
 \DoxyCodeLine{\}).as\_blocking().subscribe([](\textcolor{keywordtype}{int})\{\});}
 
 \end{DoxyCode}
  will never produce something like 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{enter 1}
-\DoxyCodeLine{enter 2}
-\DoxyCodeLine{exit 2}
-\DoxyCodeLine{exit 1}
+\DoxyCodeLine{enter\ 1}
+\DoxyCodeLine{enter\ 2}
+\DoxyCodeLine{exit\ 2}
+\DoxyCodeLine{exit\ 1}
 
 \end{DoxyCode}
  only serialized 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{enter 1}
-\DoxyCodeLine{exit 1}
-\DoxyCodeLine{enter 1}
-\DoxyCodeLine{exit 1}
-\DoxyCodeLine{enter 2}
-\DoxyCodeLine{exit 2}
-\DoxyCodeLine{enter 2}
-\DoxyCodeLine{exit 2}
+\DoxyCodeLine{enter\ 1}
+\DoxyCodeLine{exit\ 1}
+\DoxyCodeLine{enter\ 1}
+\DoxyCodeLine{exit\ 1}
+\DoxyCodeLine{enter\ 2}
+\DoxyCodeLine{exit\ 2}
+\DoxyCodeLine{enter\ 2}
+\DoxyCodeLine{exit\ 2}
 
 \end{DoxyCode}
 \hypertarget{advanced_autotoc_md1}{}\doxysubsection{Observable}\label{advanced_autotoc_md1}
@@ -224,41 +224,41 @@ There detailed list with explanations\+:
 \end{DoxyItemize}\hypertarget{specific_vs_dynamic_autotoc_md28}{}\doxysubsection{Examples}\label{specific_vs_dynamic_autotoc_md28}
 So, to achieve best performance avoid usage of {\ttfamily dynamic\+\_\+} specialization till you really need it or you want to avoid extra copies/moves of original objects captured inside callbacks and prefer one-\/time {\ttfamily shared\+\_\+ptr} allication instead. For example, 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{auto} observable = rpp::observable::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ observable\ =\ rpp::observable::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ subscriber)}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    subscriber.on\_next(1);}
+\DoxyCodeLine{\ \ \ \ subscriber.on\_next(1);}
 \DoxyCodeLine{\});}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{keyword}{auto} observer = \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer}}\{[](\textcolor{keywordtype}{int} v)\{ std::cout << v;\}\};}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ observer\ =\ \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer}}\{[](\textcolor{keywordtype}{int}\ v)\{\ std::cout\ <<\ v;\}\};}
 \DoxyCodeLine{observable.subscribe(observer);}
-\DoxyCodeLine{\textcolor{comment}{// OR observable.subscribe([](int v)\{ std::cout << v;\});}}
+\DoxyCodeLine{\textcolor{comment}{//\ OR\ observable.subscribe([](int\ v)\{\ std::cout\ <<\ v;\});}}
 
 \end{DoxyCode}
  uses only {\bfseries{ONE heap allocation}} for {\ttfamily rpp\+::subscription} inside subscriber to store subscription state and no any other allocation happens. On the other hand 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{comment}{//1 dynamic\_subscriber in observable}}
-\DoxyCodeLine{\textcolor{keyword}{auto} observable = rpp::observable::create<int>([](\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp::dynamic\_subscriber<int>}}\& subscriber)}
+\DoxyCodeLine{\textcolor{comment}{//1\ dynamic\_subscriber\ in\ observable}}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ observable\ =\ rpp::observable::create<int>([](\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp::dynamic\_subscriber<int>}}\&\ subscriber)}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    subscriber.on\_next(1);}
+\DoxyCodeLine{\ \ \ \ subscriber.on\_next(1);}
 \DoxyCodeLine{\});}
 \DoxyCodeLine{}
-\DoxyCodeLine{observable.subscribe(\mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer}}\{[](\textcolor{keywordtype}{int} v)\{ std::cout << v;\}\});}
+\DoxyCodeLine{observable.subscribe(\mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer}}\{[](\textcolor{keywordtype}{int}\ v)\{\ std::cout\ <<\ v;\}\});}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{comment}{//2 dynamic\_observable}}
-\DoxyCodeLine{\mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp::dynamic\_observable}} observable = rpp::observable::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{\textcolor{comment}{//2\ dynamic\_observable}}
+\DoxyCodeLine{\mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp::dynamic\_observable}}\ observable\ =\ rpp::observable::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ subscriber)}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    subscriber.on\_next(1);}
+\DoxyCodeLine{\ \ \ \ subscriber.on\_next(1);}
 \DoxyCodeLine{\});}
 \DoxyCodeLine{}
-\DoxyCodeLine{observable.subscribe(\mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer}}\{[](\textcolor{keywordtype}{int} v)\{ std::cout << v;\}\});}
+\DoxyCodeLine{observable.subscribe(\mbox{\hyperlink{classrpp_1_1specific__observer}{rpp::specific\_observer}}\{[](\textcolor{keywordtype}{int}\ v)\{\ std::cout\ <<\ v;\}\});}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{comment}{//3 dynamic\_observer}}
-\DoxyCodeLine{\textcolor{keyword}{auto} observable = rpp::observable::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber)}
+\DoxyCodeLine{\textcolor{comment}{//3\ dynamic\_observer}}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ observable\ =\ rpp::observable::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ subscriber)}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    subscriber.on\_next(1);}
+\DoxyCodeLine{\ \ \ \ subscriber.on\_next(1);}
 \DoxyCodeLine{\});}
 \DoxyCodeLine{}
-\DoxyCodeLine{observable.subscribe(\mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp::dynamic\_observer}}\{[](\textcolor{keywordtype}{int} v)\{ std::cout << v;\}\});}
+\DoxyCodeLine{observable.subscribe(\mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp::dynamic\_observer}}\{[](\textcolor{keywordtype}{int}\ v)\{\ std::cout\ <<\ v;\}\});}
 
 \end{DoxyCode}
 

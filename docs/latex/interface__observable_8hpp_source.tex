@@ -2,110 +2,110 @@
 \label{interface__observable_8hpp_source}\index{src/rpp/rpp/observables/interface\_observable.hpp@{src/rpp/rpp/observables/interface\_observable.hpp}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
-\DoxyCodeLine{2 \textcolor{comment}{//}}
-\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
-\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
-\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
-\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
-\DoxyCodeLine{7 \textcolor{comment}{//}}
-\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
-\DoxyCodeLine{9 \textcolor{comment}{//}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/defs.hpp>}                             \textcolor{comment}{// RPP\_EMPTY\_BASES}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observables/blocking\_observable.hpp>}  \textcolor{comment}{// as\_blocking}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}          \textcolor{comment}{// own constraints}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/observables/fwd.hpp>}                  \textcolor{comment}{// own forwarding}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/operators/fwd.hpp>}                    \textcolor{comment}{// forwarding of member\_overaloads}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/utils/function\_traits.hpp>}            \textcolor{comment}{// decayed\_invoke\_result\_t}}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <type\_traits>}}
-\DoxyCodeLine{21 }
-\DoxyCodeLine{22 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{23 \{}
-\DoxyCodeLine{24 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} TObservable>}
-\DoxyCodeLine{25 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1details_1_1op__fn}{op\_fn}} = \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable<utils::decayed\_invoke\_result\_t<T, TObservable>}}>;}
-\DoxyCodeLine{26 \} \textcolor{comment}{// namespace rpp::details}}
-\DoxyCodeLine{27 }
-\DoxyCodeLine{28 \textcolor{keyword}{namespace }rpp}
-\DoxyCodeLine{29 \{}
-\DoxyCodeLine{35 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{36 \textcolor{keyword}{struct }RPP\_EMPTY\_BASES \mbox{\hyperlink{structrpp_1_1interface__observable}{interface\_observable}}}
-\DoxyCodeLine{37     : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1details_1_1typed__observable__tag}{details::typed\_observable\_tag}}<Type>}
-\DoxyCodeLine{38     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::buffer\_tag>}
-\DoxyCodeLine{39     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::combine\_latest\_tag>}
-\DoxyCodeLine{40     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::concat\_tag>}
-\DoxyCodeLine{41     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::delay\_tag>}
-\DoxyCodeLine{42     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::debounce\_tag>}
-\DoxyCodeLine{43     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::distinct\_until\_changed\_tag>}
-\DoxyCodeLine{44     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::do\_tag>}
-\DoxyCodeLine{45     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::filter\_tag>}
-\DoxyCodeLine{46     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::first\_tag>}
-\DoxyCodeLine{47     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::flat\_map\_tag>}
-\DoxyCodeLine{48     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::group\_by\_tag>}
-\DoxyCodeLine{49     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::last\_tag>}
-\DoxyCodeLine{50     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::lift\_tag>}
-\DoxyCodeLine{51     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::map\_tag>}
-\DoxyCodeLine{52     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::merge\_tag>}
-\DoxyCodeLine{53     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::multicast\_tag>}
-\DoxyCodeLine{54     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::observe\_on\_tag>}
-\DoxyCodeLine{55     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::on\_error\_resume\_next\_tag>}
-\DoxyCodeLine{56     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::publish\_tag>}
-\DoxyCodeLine{57     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::reduce\_tag>}
-\DoxyCodeLine{58     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::repeat\_tag>}
-\DoxyCodeLine{59     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::sample\_tag>}
-\DoxyCodeLine{60     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::scan\_tag>}
-\DoxyCodeLine{61     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::skip\_tag>}
-\DoxyCodeLine{62     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::start\_with\_tag>}
-\DoxyCodeLine{63     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::subscribe\_on\_tag>}
-\DoxyCodeLine{64     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::subscribe\_tag>}
-\DoxyCodeLine{65     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::switch\_map\_tag>}
-\DoxyCodeLine{66     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::switch\_on\_next\_tag>}
-\DoxyCodeLine{67     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::take\_last\_tag>}
-\DoxyCodeLine{68     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::take\_tag>}
-\DoxyCodeLine{69     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::take\_until\_tag>}
-\DoxyCodeLine{70     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::take\_while\_tag>}
-\DoxyCodeLine{71     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::timeout\_tag>}
-\DoxyCodeLine{72     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::window\_tag>}
-\DoxyCodeLine{73     , \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type, SpecificObservable, details::with\_latest\_from\_tag>}
-\DoxyCodeLine{74 \{}
-\DoxyCodeLine{75 \textcolor{keyword}{public}:}
-\DoxyCodeLine{76 }
-\DoxyCodeLine{84     \textcolor{keyword}{template}<details::op\_fn<SpecificObservable> OperatorFn>}
-\DoxyCodeLine{85     \textcolor{keyword}{auto} \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}(OperatorFn\&\& fn) \textcolor{keyword}{const} \&}
-\DoxyCodeLine{86     \{}
-\DoxyCodeLine{87         \textcolor{keywordflow}{return} fn(CastThis());}
-\DoxyCodeLine{88     \}}
-\DoxyCodeLine{89 }
-\DoxyCodeLine{90     \textcolor{keyword}{template}<details::op\_fn<SpecificObservable> OperatorFn>}
-\DoxyCodeLine{91     \textcolor{keyword}{auto} op(OperatorFn\&\& fn) \&\&}
-\DoxyCodeLine{92     \{}
-\DoxyCodeLine{93         \textcolor{keywordflow}{return} fn(MoveThis());}
-\DoxyCodeLine{94     \}}
-\DoxyCodeLine{95 }
-\DoxyCodeLine{99     \textcolor{keyword}{auto} \mbox{\hyperlink{structrpp_1_1interface__observable_a1aed1c6edd83e7091c2bdc3b15b2beee}{as\_blocking}}() const \&}
-\DoxyCodeLine{100     \{}
-\DoxyCodeLine{101         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}\{ CastThis ()\};}
-\DoxyCodeLine{102     \}}
-\DoxyCodeLine{103 }
-\DoxyCodeLine{104     \textcolor{keyword}{auto} as\_blocking()\&\&}
-\DoxyCodeLine{105     \{}
-\DoxyCodeLine{106         \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}\{ MoveThis() \};}
-\DoxyCodeLine{107     \}}
-\DoxyCodeLine{108     }
-\DoxyCodeLine{109 \textcolor{keyword}{private}:}
-\DoxyCodeLine{110     \textcolor{keyword}{const} SpecificObservable\& CastThis()\textcolor{keyword}{ const}}
-\DoxyCodeLine{111 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{112         \textcolor{keywordflow}{return} *\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
-\DoxyCodeLine{113     \}}
-\DoxyCodeLine{114 }
-\DoxyCodeLine{115     SpecificObservable\&\& MoveThis()}
-\DoxyCodeLine{116     \{}
-\DoxyCodeLine{117         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
-\DoxyCodeLine{118     \}}
-\DoxyCodeLine{119 \};}
-\DoxyCodeLine{120 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2022\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/defs.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ RPP\_EMPTY\_BASES}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/observables/blocking\_observable.hpp>}\ \ \textcolor{comment}{//\ as\_blocking}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/observables/constraints.hpp>}\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ own\ constraints}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/observables/fwd.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ own\ forwarding}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/operators/fwd.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ forwarding\ of\ member\_overaloads}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rpp/utils/function\_traits.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ decayed\_invoke\_result\_t}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ TObservable>}
+\DoxyCodeLine{00025\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1op__fn}{op\_fn}}\ =\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable<utils::decayed\_invoke\_result\_t<T,\ TObservable>}}>;}
+\DoxyCodeLine{00026\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00035\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ SpecificObservable>}
+\DoxyCodeLine{00036\ \textcolor{keyword}{struct\ }RPP\_EMPTY\_BASES\ \mbox{\hyperlink{structrpp_1_1interface__observable}{interface\_observable}}}
+\DoxyCodeLine{00037\ \ \ \ \ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structrpp_1_1details_1_1typed__observable__tag}{details::typed\_observable\_tag}}<Type>}
+\DoxyCodeLine{00038\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::buffer\_tag>}
+\DoxyCodeLine{00039\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::combine\_latest\_tag>}
+\DoxyCodeLine{00040\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::concat\_tag>}
+\DoxyCodeLine{00041\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::delay\_tag>}
+\DoxyCodeLine{00042\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::debounce\_tag>}
+\DoxyCodeLine{00043\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::distinct\_until\_changed\_tag>}
+\DoxyCodeLine{00044\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::do\_tag>}
+\DoxyCodeLine{00045\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::filter\_tag>}
+\DoxyCodeLine{00046\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::first\_tag>}
+\DoxyCodeLine{00047\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::flat\_map\_tag>}
+\DoxyCodeLine{00048\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::group\_by\_tag>}
+\DoxyCodeLine{00049\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::last\_tag>}
+\DoxyCodeLine{00050\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::lift\_tag>}
+\DoxyCodeLine{00051\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::map\_tag>}
+\DoxyCodeLine{00052\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::merge\_tag>}
+\DoxyCodeLine{00053\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::multicast\_tag>}
+\DoxyCodeLine{00054\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::observe\_on\_tag>}
+\DoxyCodeLine{00055\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::on\_error\_resume\_next\_tag>}
+\DoxyCodeLine{00056\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::publish\_tag>}
+\DoxyCodeLine{00057\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::reduce\_tag>}
+\DoxyCodeLine{00058\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::repeat\_tag>}
+\DoxyCodeLine{00059\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::sample\_tag>}
+\DoxyCodeLine{00060\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::scan\_tag>}
+\DoxyCodeLine{00061\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::skip\_tag>}
+\DoxyCodeLine{00062\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::start\_with\_tag>}
+\DoxyCodeLine{00063\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::subscribe\_on\_tag>}
+\DoxyCodeLine{00064\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::subscribe\_tag>}
+\DoxyCodeLine{00065\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::switch\_map\_tag>}
+\DoxyCodeLine{00066\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::switch\_on\_next\_tag>}
+\DoxyCodeLine{00067\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::take\_last\_tag>}
+\DoxyCodeLine{00068\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::take\_tag>}
+\DoxyCodeLine{00069\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::take\_until\_tag>}
+\DoxyCodeLine{00070\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::take\_while\_tag>}
+\DoxyCodeLine{00071\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::timeout\_tag>}
+\DoxyCodeLine{00072\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::window\_tag>}
+\DoxyCodeLine{00073\ \ \ \ \ ,\ \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{details::member\_overload}}<Type,\ SpecificObservable,\ details::with\_latest\_from\_tag>}
+\DoxyCodeLine{00074\ \{}
+\DoxyCodeLine{00075\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{template}<details::op\_fn<SpecificObservable>\ OperatorFn>}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}}(OperatorFn\&\&\ fn)\ \textcolor{keyword}{const}\ \&}
+\DoxyCodeLine{00086\ \ \ \ \ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ fn(CastThis());}
+\DoxyCodeLine{00088\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{template}<details::op\_fn<SpecificObservable>\ OperatorFn>}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{auto}\ op(OperatorFn\&\&\ fn)\ \&\&}
+\DoxyCodeLine{00092\ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ fn(MoveThis());}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{structrpp_1_1interface__observable_a1aed1c6edd83e7091c2bdc3b15b2beee}{as\_blocking}}()\ const\ \&}
+\DoxyCodeLine{00100\ \ \ \ \ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}\{\ CastThis\ ()\};}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{auto}\ as\_blocking()\&\&}
+\DoxyCodeLine{00105\ \ \ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}\{\ MoveThis()\ \};}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ \ \ \ \ }
+\DoxyCodeLine{00109\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{const}\ SpecificObservable\&\ CastThis()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00111\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
+\DoxyCodeLine{00113\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ SpecificObservable\&\&\ MoveThis()}
+\DoxyCodeLine{00116\ \ \ \ \ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ \};}
+\DoxyCodeLine{00120\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 
 \end{DoxyCode}

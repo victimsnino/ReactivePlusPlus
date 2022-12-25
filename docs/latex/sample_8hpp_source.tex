@@ -2,112 +2,112 @@
 \label{sample_8hpp_source}\index{src/rpp/rpp/operators/sample.hpp@{src/rpp/rpp/operators/sample.hpp}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
-\DoxyCodeLine{2 \textcolor{comment}{//}}
-\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
-\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
-\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
-\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
-\DoxyCodeLine{7 \textcolor{comment}{//}}
-\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
-\DoxyCodeLine{9 \textcolor{comment}{//}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/operators/lift.hpp>}          \textcolor{comment}{// required due to operator uses lift}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/operators/details/early\_unsubscribe.hpp>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/operators/details/serialized\_subscriber.hpp>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/operators/fwd/sample.hpp>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/utils/spinlock.hpp>}}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <mutex>}}
-\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <optional>}}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 IMPLEMENTATION\_FILE(sample\_tag);}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{28 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1sample__state}{sample\_state}} : \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__state}{early\_unsubscribe\_state}}}
-\DoxyCodeLine{29 \{}
-\DoxyCodeLine{30     \textcolor{keyword}{using }early\_unsubscribe\_state::early\_unsubscribe\_state;}
-\DoxyCodeLine{31 }
-\DoxyCodeLine{32     std::mutex          value\_mutex\{\};}
-\DoxyCodeLine{33     std::optional<Type> value\{\};}
-\DoxyCodeLine{34 \};}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{36 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{37 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1sample__state__with__serialized__spinlock}{sample\_state\_with\_serialized\_spinlock}} : \mbox{\hyperlink{structrpp_1_1details_1_1sample__state}{sample\_state}}<Type>}
-\DoxyCodeLine{38 \{}
-\DoxyCodeLine{39     \textcolor{keyword}{using }\mbox{\hyperlink{structrpp_1_1details_1_1sample__state}{sample\_state}}<Type>::sample\_state;}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{41     utils::spinlock spinlock\{\};}
-\DoxyCodeLine{42 \};}
-\DoxyCodeLine{43 }
-\DoxyCodeLine{44 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1sample__on__next}{sample\_on\_next}}}
-\DoxyCodeLine{45 \{}
-\DoxyCodeLine{46     \textcolor{keyword}{template}<\textcolor{keyword}{typename} Value>}
-\DoxyCodeLine{47     \textcolor{keywordtype}{void} operator()(Value\&\& value, \textcolor{keyword}{const} \textcolor{keyword}{auto}\&, \textcolor{keyword}{const} std::shared\_ptr<\mbox{\hyperlink{structrpp_1_1details_1_1sample__state}{sample\_state}}<std::decay\_t<Value>>>\& state)\textcolor{keyword}{ const}}
-\DoxyCodeLine{48 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{49         std::lock\_guard lock\{state-\/>value\_mutex\};}
-\DoxyCodeLine{50         state-\/>value.emplace(std::forward<Value>(value));}
-\DoxyCodeLine{51     \}}
-\DoxyCodeLine{52 \};}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{54 \textcolor{keyword}{using }\mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{sample\_on\_error}} = \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{early\_unsubscribe\_on\_error}};}
-\DoxyCodeLine{55 }
-\DoxyCodeLine{56 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1sample__on__completed}{sample\_on\_completed}}}
-\DoxyCodeLine{57 \{}
-\DoxyCodeLine{58     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& state)\textcolor{keyword}{ const}}
-\DoxyCodeLine{59 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{60         state-\/>children\_subscriptions.unsubscribe();}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{62         \{}
-\DoxyCodeLine{63             std::lock\_guard lock\{state-\/>value\_mutex\};}
-\DoxyCodeLine{64             \textcolor{keywordflow}{if} (state-\/>value.has\_value())}
-\DoxyCodeLine{65                 subscriber.on\_next(std::move(state-\/>value.value()));}
-\DoxyCodeLine{66         \}}
-\DoxyCodeLine{67         subscriber.on\_completed();}
-\DoxyCodeLine{68     \}}
-\DoxyCodeLine{69 \};}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{71 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
-\DoxyCodeLine{72 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1sample__with__time__impl}{sample\_with\_time\_impl}}}
-\DoxyCodeLine{73 \{}
-\DoxyCodeLine{74     schedulers::duration period;}
-\DoxyCodeLine{75     TScheduler           scheduler;}
-\DoxyCodeLine{76 }
-\DoxyCodeLine{77     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type> TSub>}
-\DoxyCodeLine{78     \textcolor{keyword}{auto} operator()(TSub\&\& in\_subscriber)\textcolor{keyword}{ const}}
-\DoxyCodeLine{79 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{80         \textcolor{keyword}{auto} state = std::make\_shared<sample\_state\_with\_serialized\_spinlock<Type>>(in\_subscriber.get\_subscription());}
-\DoxyCodeLine{81         \textcolor{comment}{// change subscriber to serialized to avoid manual using of mutex}}
-\DoxyCodeLine{82         \textcolor{keyword}{auto} subscriber = make\_serialized\_subscriber(std::forward<TSub>(in\_subscriber),}
-\DoxyCodeLine{83                                                      std::shared\_ptr<utils::spinlock>\{state, \&state-\/>spinlock\});}
-\DoxyCodeLine{84 }
-\DoxyCodeLine{85         scheduler.create\_worker(state-\/>children\_subscriptions)}
-\DoxyCodeLine{86                  .schedule(period,}
-\DoxyCodeLine{87                            [period = period, subscriber = subscriber, state]() -\/> rpp::schedulers::optional\_duration}
-\DoxyCodeLine{88                            \{}
-\DoxyCodeLine{89                                std::optional<Type> extracted\{\};}
-\DoxyCodeLine{90                                \{}
-\DoxyCodeLine{91                                    std::lock\_guard lock\{state-\/>value\_mutex\};}
-\DoxyCodeLine{92                                    std::swap(extracted, state-\/>value);}
-\DoxyCodeLine{93                                \}}
-\DoxyCodeLine{94                                \textcolor{keywordflow}{if} (extracted.has\_value())}
-\DoxyCodeLine{95                                    subscriber.on\_next(std::move(extracted.value()));}
-\DoxyCodeLine{96                                \textcolor{keywordflow}{return} period;}
-\DoxyCodeLine{97                            \});}
-\DoxyCodeLine{98 }
-\DoxyCodeLine{99         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(state-\/>children\_subscriptions,}
-\DoxyCodeLine{100                                                   \mbox{\hyperlink{structrpp_1_1details_1_1sample__on__next}{sample\_on\_next}}\{\},}
-\DoxyCodeLine{101                                                   \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{sample\_on\_error}}\{\},}
-\DoxyCodeLine{102                                                   \mbox{\hyperlink{structrpp_1_1details_1_1sample__on__completed}{sample\_on\_completed}}\{\},}
-\DoxyCodeLine{103                                                   std::move(subscriber),}
-\DoxyCodeLine{104                                                   std::move(state));}
-\DoxyCodeLine{105     \}}
-\DoxyCodeLine{106 \};}
-\DoxyCodeLine{107 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2022\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/operators/lift.hpp>}\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ required\ due\ to\ operator\ uses\ lift}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/early\_unsubscribe.hpp>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/serialized\_subscriber.hpp>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/operators/fwd/sample.hpp>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/subscribers/constraints.hpp>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rpp/utils/spinlock.hpp>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <mutex>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <optional>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ IMPLEMENTATION\_FILE(sample\_tag);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1sample__state}{sample\_state}}\ :\ \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__state}{early\_unsubscribe\_state}}}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{using\ }early\_unsubscribe\_state::early\_unsubscribe\_state;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ std::mutex\ \ \ \ \ \ \ \ \ \ value\_mutex\{\};}
+\DoxyCodeLine{00033\ \ \ \ \ std::optional<Type>\ value\{\};}
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00037\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1sample__state__with__serialized__spinlock}{sample\_state\_with\_serialized\_spinlock}}\ :\ \mbox{\hyperlink{structrpp_1_1details_1_1sample__state}{sample\_state}}<Type>}
+\DoxyCodeLine{00038\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1sample__state}{sample\_state}}<Type>::sample\_state;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ utils::spinlock\ spinlock\{\};}
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1sample__on__next}{sample\_on\_next}}}
+\DoxyCodeLine{00045\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Value>}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(Value\&\&\ value,\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&,\ \textcolor{keyword}{const}\ std::shared\_ptr<\mbox{\hyperlink{structrpp_1_1details_1_1sample__state}{sample\_state}}<std::decay\_t<Value>>>\&\ state)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{state-\/>value\_mutex\};}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ state-\/>value.emplace(std::forward<Value>(value));}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{sample\_on\_error}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{early\_unsubscribe\_on\_error}};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1sample__on__completed}{sample\_on\_completed}}}
+\DoxyCodeLine{00057\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ subscriber,\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ state)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00059\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ state-\/>children\_subscriptions.unsubscribe();}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{state-\/>value\_mutex\};}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state-\/>value.has\_value())}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ subscriber.on\_next(std::move(state-\/>value.value()));}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ subscriber.on\_completed();}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00072\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1sample__with__time__impl}{sample\_with\_time\_impl}}}
+\DoxyCodeLine{00073\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ schedulers::duration\ period;}
+\DoxyCodeLine{00075\ \ \ \ \ TScheduler\ \ \ \ \ \ \ \ \ \ \ scheduler;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type>\ TSub>}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(TSub\&\&\ in\_subscriber)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00079\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ state\ =\ std::make\_shared<sample\_state\_with\_serialized\_spinlock<Type>>(in\_subscriber.get\_subscription());}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ change\ subscriber\ to\ serialized\ to\ avoid\ manual\ using\ of\ mutex}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ subscriber\ =\ make\_serialized\_subscriber(std::forward<TSub>(in\_subscriber),}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<utils::spinlock>\{state,\ \&state-\/>spinlock\});}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ scheduler.create\_worker(state-\/>children\_subscriptions)}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .schedule(period,}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [period\ =\ period,\ subscriber\ =\ subscriber,\ state]()\ -\/>\ rpp::schedulers::optional\_duration}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::optional<Type>\ extracted\{\};}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{state-\/>value\_mutex\};}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::swap(extracted,\ state-\/>value);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (extracted.has\_value())}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ subscriber.on\_next(std::move(extracted.value()));}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ period;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ create\_subscriber\_with\_state<Type>(state-\/>children\_subscriptions,}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1sample__on__next}{sample\_on\_next}}\{\},}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{sample\_on\_error}}\{\},}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1sample__on__completed}{sample\_on\_completed}}\{\},}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::move(subscriber),}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::move(state));}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \};}
+\DoxyCodeLine{00107\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 
 \end{DoxyCode}

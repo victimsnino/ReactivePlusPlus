@@ -1,23 +1,23 @@
 \hypertarget{publish_8cpp-example}{}\doxysection{publish.\+cpp}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{keywordtype}{int} main()}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    \textcolor{keyword}{auto} observable = rpp::source::just(1,2,3).publish();}
-\DoxyCodeLine{    observable.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << \textcolor{stringliteral}{"{}\#1 "{}} << v << std::endl; \});}
-\DoxyCodeLine{    observable.subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << \textcolor{stringliteral}{"{}\#2 "{}} << v << std::endl; \});}
-\DoxyCodeLine{    observable.connect();}
-\DoxyCodeLine{    \textcolor{comment}{// Output:}}
-\DoxyCodeLine{    \textcolor{comment}{// \#1 1}}
-\DoxyCodeLine{    \textcolor{comment}{// \#2 1}}
-\DoxyCodeLine{    \textcolor{comment}{// \#1 2}}
-\DoxyCodeLine{    \textcolor{comment}{// \#2 2}}
-\DoxyCodeLine{    \textcolor{comment}{// \#1 3}}
-\DoxyCodeLine{    \textcolor{comment}{// \#2 3}}
-\DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ rpp::source::just(1,2,3).publish();}
+\DoxyCodeLine{\ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ observable.connect();}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \#1\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \#2\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \#1\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \#2\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \#1\ 3}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \#2\ 3}}
+\DoxyCodeLine{\textcolor{comment}{}\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}

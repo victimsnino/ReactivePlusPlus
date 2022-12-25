@@ -2,50 +2,50 @@
 \label{fwd_2group__by_8hpp_source}\index{src/rpp/rpp/operators/fwd/group\_by.hpp@{src/rpp/rpp/operators/fwd/group\_by.hpp}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{2 }
-\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <rpp/observables/details/member\_overload.hpp>}}
-\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <rpp/utils/function\_traits.hpp>}}
-\DoxyCodeLine{5 }
-\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <concepts>}}
-\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <functional>}}
-\DoxyCodeLine{8 }
-\DoxyCodeLine{9 }
-\DoxyCodeLine{10 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{11 \{}
-\DoxyCodeLine{12 \textcolor{keyword}{struct }group\_by\_tag;}
-\DoxyCodeLine{13 \}}
-\DoxyCodeLine{14 }
-\DoxyCodeLine{15 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{16 \{}
-\DoxyCodeLine{17 \textcolor{keyword}{template}<constraint::decayed\_type           Type,}
-\DoxyCodeLine{18          constraint::decayed\_type           TKey,}
-\DoxyCodeLine{19          std::invocable<Type>               KeySelector,}
-\DoxyCodeLine{20          std::invocable<Type>               ValueSelector,}
-\DoxyCodeLine{21          std::strict\_weak\_order<TKey, TKey> KeyComparator>}
-\DoxyCodeLine{22 \textcolor{keyword}{auto} group\_by\_impl(\textcolor{keyword}{auto}\&\& observable, KeySelector\&\& key\_selector, ValueSelector\&\& value\_selector, KeyComparator\&\& comparator);}
-\DoxyCodeLine{23 }
-\DoxyCodeLine{24 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{25 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, group\_by\_tag>}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{57     \textcolor{keyword}{template}<std::invocable<Type>               KeySelector,}
-\DoxyCodeLine{58              std::invocable<Type>               ValueSelector = std::\textcolor{keywordtype}{id}entity,}
-\DoxyCodeLine{59              \textcolor{keyword}{typename}                           TKey          = rpp::utils::decayed\_invoke\_result\_t<KeySelector, Type>,}
-\DoxyCodeLine{60              std::strict\_weak\_order<TKey, TKey> KeyComparator = std::less<TKey>>}
-\DoxyCodeLine{61     \textcolor{keyword}{auto} group\_by(KeySelector\&\& key\_selector, ValueSelector\&\& value\_selector = \{\}, KeyComparator\&\& comparator = \{\}) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<group\_by\_tag, KeySelector, ValueSelector, TKey, KeyComparator>}
-\DoxyCodeLine{62     \{}
-\DoxyCodeLine{63         \textcolor{keywordflow}{return} group\_by\_impl<Type, TKey>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}), std::forward<KeySelector>(key\_selector), std::forward<ValueSelector>(value\_selector), std::forward<KeyComparator>(comparator));}
-\DoxyCodeLine{64     \}}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{66     \textcolor{keyword}{template}<std::invocable<Type>               KeySelector,}
-\DoxyCodeLine{67              std::invocable<Type>               ValueSelector = std::\textcolor{keywordtype}{id}entity,}
-\DoxyCodeLine{68              \textcolor{keyword}{typename}                           TKey          = rpp::utils::decayed\_invoke\_result\_t<KeySelector, Type>,}
-\DoxyCodeLine{69              std::strict\_weak\_order<TKey, TKey> KeyComparator = std::less<TKey>>}
-\DoxyCodeLine{70     \textcolor{keyword}{auto} group\_by(KeySelector\&\& key\_selector, ValueSelector\&\& value\_selector = \{\}, KeyComparator\&\& comparator = \{\}) \&\& \textcolor{keyword}{requires} is\_header\_included<group\_by\_tag, KeySelector, ValueSelector, TKey, KeyComparator>}
-\DoxyCodeLine{71     \{}
-\DoxyCodeLine{72         \textcolor{keywordflow}{return} group\_by\_impl<Type, TKey>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})), std::forward<KeySelector>(key\_selector), std::forward<ValueSelector>(value\_selector), std::forward<KeyComparator>(comparator));}
-\DoxyCodeLine{73     \}    }
-\DoxyCodeLine{74 \};}
-\DoxyCodeLine{75 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <rpp/observables/details/member\_overload.hpp>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <rpp/utils/function\_traits.hpp>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <concepts>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{struct\ }group\_by\_tag;}
+\DoxyCodeLine{00013\ \}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{template}<constraint::decayed\_type\ \ \ \ \ \ \ \ \ \ \ Type,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ constraint::decayed\_type\ \ \ \ \ \ \ \ \ \ \ TKey,}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ KeySelector,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ValueSelector,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ std::strict\_weak\_order<TKey,\ TKey>\ KeyComparator>}
+\DoxyCodeLine{00022\ \textcolor{keyword}{auto}\ group\_by\_impl(\textcolor{keyword}{auto}\&\&\ observable,\ KeySelector\&\&\ key\_selector,\ ValueSelector\&\&\ value\_selector,\ KeyComparator\&\&\ comparator);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ SpecificObservable>}
+\DoxyCodeLine{00025\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type,\ SpecificObservable,\ group\_by\_tag>}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{template}<std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ KeySelector,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ValueSelector\ =\ std::\textcolor{keywordtype}{id}entity,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TKey\ \ \ \ \ \ \ \ \ \ =\ rpp::utils::decayed\_invoke\_result\_t<KeySelector,\ Type>,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::strict\_weak\_order<TKey,\ TKey>\ KeyComparator\ =\ std::less<TKey>>}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{auto}\ group\_by(KeySelector\&\&\ key\_selector,\ ValueSelector\&\&\ value\_selector\ =\ \{\},\ KeyComparator\&\&\ comparator\ =\ \{\})\ \textcolor{keyword}{const}\&\ \textcolor{keyword}{requires}\ is\_header\_included<group\_by\_tag,\ KeySelector,\ ValueSelector,\ TKey,\ KeyComparator>}
+\DoxyCodeLine{00074\ \ \ \ \ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ group\_by\_impl<Type,\ TKey>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}),\ std::forward<KeySelector>(key\_selector),\ std::forward<ValueSelector>(value\_selector),\ std::forward<KeyComparator>(comparator));}
+\DoxyCodeLine{00076\ \ \ \ \ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{template}<std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ KeySelector,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ValueSelector\ =\ std::\textcolor{keywordtype}{id}entity,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TKey\ \ \ \ \ \ \ \ \ \ =\ rpp::utils::decayed\_invoke\_result\_t<KeySelector,\ Type>,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::strict\_weak\_order<TKey,\ TKey>\ KeyComparator\ =\ std::less<TKey>>}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{auto}\ group\_by(KeySelector\&\&\ key\_selector,\ ValueSelector\&\&\ value\_selector\ =\ \{\},\ KeyComparator\&\&\ comparator\ =\ \{\})\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<group\_by\_tag,\ KeySelector,\ ValueSelector,\ TKey,\ KeyComparator>}
+\DoxyCodeLine{00083\ \ \ \ \ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ group\_by\_impl<Type,\ TKey>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})),\ std::forward<KeySelector>(key\_selector),\ std::forward<ValueSelector>(value\_selector),\ std::forward<KeyComparator>(comparator));}
+\DoxyCodeLine{00085\ \ \ \ \ \}\ \ \ \ }
+\DoxyCodeLine{00086\ \};}
+\DoxyCodeLine{00087\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 
 \end{DoxyCode}

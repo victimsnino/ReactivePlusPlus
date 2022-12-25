@@ -3,10 +3,10 @@
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp::schedulers::constraint::scheduler}} =  std::is\_base\_of\_v<details::scheduler\_tag, std::decay\_t<T>> \&\& \textcolor{keyword}{requires}(\textcolor{keyword}{const} T t)}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp::schedulers::constraint::scheduler}}\ =\ \ std::is\_base\_of\_v<details::scheduler\_tag,\ std::decay\_t<T>>\ \&\&\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ T\ t)}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    \{t.create\_worker(std::declval<rpp::composite\_subscription>())\} -\/> \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1worker}{worker}};}
+\DoxyCodeLine{\ \ \ \ \{t.create\_worker(std::declval<rpp::composite\_subscription>())\}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1worker}{worker}};}
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}

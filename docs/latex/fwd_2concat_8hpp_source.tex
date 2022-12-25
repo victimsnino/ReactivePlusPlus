@@ -2,62 +2,62 @@
 \label{fwd_2concat_8hpp_source}\index{src/rpp/rpp/operators/fwd/concat.hpp@{src/rpp/rpp/operators/fwd/concat.hpp}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
-\DoxyCodeLine{2 \textcolor{comment}{//}}
-\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
-\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
-\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
-\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
-\DoxyCodeLine{7 \textcolor{comment}{//}}
-\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
-\DoxyCodeLine{9 \textcolor{comment}{//}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}             \textcolor{comment}{// constraint::observable\_of\_type}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observables/details/member\_overload.hpp>} \textcolor{comment}{// member\_overload}}
-\DoxyCodeLine{15 }
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{18 \{}
-\DoxyCodeLine{19 \textcolor{keyword}{struct }concat\_tag;}
-\DoxyCodeLine{20 \}}
-\DoxyCodeLine{21 }
-\DoxyCodeLine{22 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{23 \{}
-\DoxyCodeLine{24 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{25 \textcolor{keyword}{struct }concat\_impl;}
-\DoxyCodeLine{26 }
-\DoxyCodeLine{27 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> ... TObservables>}
-\DoxyCodeLine{28 \textcolor{keyword}{auto} concat\_with\_impl(TObservables\&\&... observables);}
-\DoxyCodeLine{29 }
-\DoxyCodeLine{30 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{31 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, concat\_tag>}
-\DoxyCodeLine{32 \{}
-\DoxyCodeLine{55     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{56     \textcolor{keyword}{auto} concat() \textcolor{keyword}{const}\& \textcolor{keyword}{requires} (is\_header\_included<concat\_tag, Args...>\&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<Type>}})}
-\DoxyCodeLine{57     \{}
-\DoxyCodeLine{58         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template} lift<utils::extract\_observable\_type\_t<Type>>(\mbox{\hyperlink{structrpp_1_1details_1_1concat__impl}{concat\_impl<Type>}}\{\});}
-\DoxyCodeLine{59     \}}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{61     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{62     \textcolor{keyword}{auto} concat() \&\& \textcolor{keyword}{requires} (is\_header\_included<concat\_tag, Args...>\&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<Type>}})}
-\DoxyCodeLine{63     \{}
-\DoxyCodeLine{64         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template lift<utils::extract\_observable\_type\_t<Type>>(\mbox{\hyperlink{structrpp_1_1details_1_1concat__impl}{concat\_impl<Type>}}\{\});}
-\DoxyCodeLine{65     \}}
-\DoxyCodeLine{66 }
-\DoxyCodeLine{86     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> ...TObservables>}
-\DoxyCodeLine{87     \textcolor{keyword}{auto} concat\_with(TObservables\&\&... observables) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} (is\_header\_included<concat\_tag, TObservables...> \&\& \textcolor{keyword}{sizeof}...(TObservables) >= 1)}
-\DoxyCodeLine{88     \{}
-\DoxyCodeLine{89         \textcolor{keywordflow}{return} concat\_with\_impl<Type>(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>as\_dynamic(), std::forward<TObservables>(observables).as\_dynamic()...);}
-\DoxyCodeLine{90     \}}
-\DoxyCodeLine{91 }
-\DoxyCodeLine{92     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> ...TObservables>}
-\DoxyCodeLine{93     \textcolor{keyword}{auto} concat\_with(TObservables\&\&... observables) \&\& \textcolor{keyword}{requires} (is\_header\_included<concat\_tag, TObservables...> \&\& \textcolor{keyword}{sizeof}...(TObservables) >= 1)}
-\DoxyCodeLine{94     \{}
-\DoxyCodeLine{95         \textcolor{keywordflow}{return} concat\_with\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).as\_dynamic(), std::forward<TObservables>(observables).as\_dynamic()...);}
-\DoxyCodeLine{96     \}}
-\DoxyCodeLine{97 \};}
-\DoxyCodeLine{98 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2022\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/observables/constraints.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ constraint::observable\_of\_type}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/observables/details/member\_overload.hpp>}\ \textcolor{comment}{//\ member\_overload}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }concat\_tag;}
+\DoxyCodeLine{00020\ \}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00025\ \textcolor{keyword}{struct\ }concat\_impl;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::observable\_of\_type<Type>\ ...\ TObservables>}
+\DoxyCodeLine{00028\ \textcolor{keyword}{auto}\ concat\_with\_impl(TObservables\&\&...\ observables);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ SpecificObservable>}
+\DoxyCodeLine{00031\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type,\ SpecificObservable,\ concat\_tag>}
+\DoxyCodeLine{00032\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...Args>}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{auto}\ concat()\ \textcolor{keyword}{const}\&\ \textcolor{keyword}{requires}\ (is\_header\_included<concat\_tag,\ Args...>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<Type>}})}
+\DoxyCodeLine{00072\ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template}\ lift<utils::extract\_observable\_type\_t<Type>>(\mbox{\hyperlink{structrpp_1_1details_1_1concat__impl}{concat\_impl<Type>}}\{\});}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...Args>}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{auto}\ concat()\ \&\&\ \textcolor{keyword}{requires}\ (is\_header\_included<concat\_tag,\ Args...>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<Type>}})}
+\DoxyCodeLine{00078\ \ \ \ \ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template\ lift<utils::extract\_observable\_type\_t<Type>>(\mbox{\hyperlink{structrpp_1_1details_1_1concat__impl}{concat\_impl<Type>}}\{\});}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type>\ ...TObservables>}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keyword}{auto}\ concat\_with(TObservables\&\&...\ observables)\ \textcolor{keyword}{const}\&\ \textcolor{keyword}{requires}\ (is\_header\_included<concat\_tag,\ TObservables...>\ \&\&\ \textcolor{keyword}{sizeof}...(TObservables)\ >=\ 1)}
+\DoxyCodeLine{00118\ \ \ \ \ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ concat\_with\_impl<Type>(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>as\_dynamic(),\ std::forward<TObservables>(observables).as\_dynamic()...);}
+\DoxyCodeLine{00120\ \ \ \ \ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type>\ ...TObservables>}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{auto}\ concat\_with(TObservables\&\&...\ observables)\ \&\&\ \textcolor{keyword}{requires}\ (is\_header\_included<concat\_tag,\ TObservables...>\ \&\&\ \textcolor{keyword}{sizeof}...(TObservables)\ >=\ 1)}
+\DoxyCodeLine{00124\ \ \ \ \ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ concat\_with\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).as\_dynamic(),\ std::forward<TObservables>(observables).as\_dynamic()...);}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \};}
+\DoxyCodeLine{00128\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 
 \end{DoxyCode}

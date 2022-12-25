@@ -1,23 +1,23 @@
 \hypertarget{concat_8cpp-example}{}\doxysection{concat.\+cpp}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{keywordtype}{int} main()}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    rpp::source::just(rpp::source::just(1).as\_dynamic(),}
-\DoxyCodeLine{                      rpp::source::never<int>().as\_dynamic(),}
-\DoxyCodeLine{                      rpp::source::just(2).as\_dynamic())}
-\DoxyCodeLine{            .concat()}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 1}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(rpp::source::just(1).as\_dynamic(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rpp::source::never<int>().as\_dynamic(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rpp::source::just(2).as\_dynamic())}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .concat()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1}}
 \DoxyCodeLine{\textcolor{comment}{}}
-\DoxyCodeLine{    rpp::source::just(1)}
-\DoxyCodeLine{            .concat\_with(rpp::source::just(2), rpp::source::never<int>(), rpp::source::just(3))}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2}}
-\DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .concat\_with(rpp::source::just(2),\ rpp::source::never<int>(),\ rpp::source::just(3))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2}}
+\DoxyCodeLine{\textcolor{comment}{}\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}

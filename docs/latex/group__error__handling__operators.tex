@@ -35,10 +35,12 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 
 Recover from an on\+\_\+error notification by continuing the sequence without error. 
 
-The operator intercepts an on\+\_\+error notification from the source Observable and, instead of passing it through to any observers, replaces it with some other item or sequence of items. \begin{DoxyWarning}{Warning}
+The operator intercepts an {\ttfamily on\+\_\+error} notification from the source Observable and, instead of passing it through to any observers, replaces it with some other item or sequence of items. \begin{DoxyWarning}{Warning}
 This operator potentially allows the resulting Observable to terminate normally or not to terminate at all.
 \end{DoxyWarning}
 
+
+Actually this operator just subscribes on observable calculated from callback when {\ttfamily on\+\_\+error} from original observable obtained.
 
 
 \begin{DoxyParams}{Parameters}
@@ -54,28 +56,53 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Examples}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::error<int>(std::make\_exception\_ptr(std::runtime\_error\{\textcolor{stringliteral}{"{}"{}}\}))}
-\DoxyCodeLine{            .on\_error\_resume\_next([](\textcolor{keyword}{auto}\&\&)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                \textcolor{keywordflow}{return} rpp::observable::just(1, 2, 3);}
-\DoxyCodeLine{            \})}
-\DoxyCodeLine{            .subscribe([\&](\textcolor{keywordtype}{int} v)}
-\DoxyCodeLine{                       \{}
-\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"{}-\/"{}} << v;}
-\DoxyCodeLine{                       \},}
-\DoxyCodeLine{                       [\&](\textcolor{keyword}{auto}\&\&)}
-\DoxyCodeLine{                       \{}
-\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"{}-\/x"{}};}
-\DoxyCodeLine{                       \},}
-\DoxyCodeLine{                       [\&]()}
-\DoxyCodeLine{                       \{}
-\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"{}-\/|"{}} << std::endl;}
-\DoxyCodeLine{                       \});}
-\DoxyCodeLine{    \textcolor{comment}{// source: -\/x}}
-\DoxyCodeLine{    \textcolor{comment}{// output: -\/1-\/2-\/3-\/|}}
+\DoxyCodeLine{\ \ \ \ rpp::source::error<int>(std::make\_exception\_ptr(std::runtime\_error\{\textcolor{stringliteral}{"{}"{}}\}))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .on\_error\_resume\_next([](\textcolor{keyword}{auto}\&\&)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::observable::just(1,\ 2,\ 3);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([\&](\textcolor{keywordtype}{int}\ v)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&](\textcolor{keyword}{auto}\&\&)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/x"{}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ source:\ -\/x}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ output:\ -\/1-\/2-\/3-\/|}}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item None
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+next
+\end{DoxyItemize}
+\item {\bfseries{On\+Error from original observable}}
+\begin{DoxyItemize}
+\item Subscribes subscriber on observable obtained from callable
+\end{DoxyItemize}
+\item {\bfseries{On\+Error from calculated observable}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/on_error_resume_next.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/on\+\_\+error\+\_\+resume\+\_\+next.\+html}} 

@@ -2,91 +2,91 @@
 \label{specific__observable_8hpp_source}\index{src/rpp/rpp/observables/specific\_observable.hpp@{src/rpp/rpp/observables/specific\_observable.hpp}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
-\DoxyCodeLine{2 \textcolor{comment}{//}}
-\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
-\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
-\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
-\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
-\DoxyCodeLine{7 \textcolor{comment}{//}}
-\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
-\DoxyCodeLine{9 \textcolor{comment}{//}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/defs.hpp>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observables/fwd.hpp>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/observables/interface\_observable.hpp>}            \textcolor{comment}{// base\_class}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/schedulers/trampoline\_scheduler.hpp>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/subscribers/dynamic\_subscriber.hpp>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/utils/operator\_declaration.hpp>}                  \textcolor{comment}{// for header include}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}                            \textcolor{comment}{// copy\_assignable\_callable}}
-\DoxyCodeLine{20 }
-\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <utility>}}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{keyword}{namespace }rpp}
-\DoxyCodeLine{24 \{}
-\DoxyCodeLine{37 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::on\_subscribe\_fn<Type> OnSubscribeFn>}
-\DoxyCodeLine{38 \textcolor{keyword}{class }\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}} : \textcolor{keyword}{public} \mbox{\hyperlink{structrpp_1_1interface__observable}{interface\_observable}}<Type, specific\_observable<Type, OnSubscribeFn>>}
-\DoxyCodeLine{39 \{}
-\DoxyCodeLine{40 \textcolor{keyword}{public}:}
-\DoxyCodeLine{41     \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}(OnSubscribeFn\&\& on\_subscribe)}
-\DoxyCodeLine{42         : m\_on\_subscribe\{std::move(on\_subscribe) \} \{\}}
-\DoxyCodeLine{43 }
-\DoxyCodeLine{44     \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}(\textcolor{keyword}{const} OnSubscribeFn\& on\_subscribe)}
-\DoxyCodeLine{45         : m\_on\_subscribe\{on\_subscribe \} \{\}}
-\DoxyCodeLine{46 }
-\DoxyCodeLine{47     \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}\& other)                    = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{48     \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}(\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}\&\& other) \textcolor{keyword}{noexcept}                = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{49     \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}\& operator=(\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}\& other)         = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{50     \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}\& operator=(\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}\&\& other) \textcolor{keyword}{noexcept}     = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{54     \textcolor{keyword}{template} <\textcolor{keyword}{typename}...Args>}
-\DoxyCodeLine{55     [[nodiscard]] \textcolor{keyword}{auto} \mbox{\hyperlink{classrpp_1_1specific__observable_afef03ecaa089ac3df8f0bf5e664a1d9a}{as\_dynamic}}() const \& requires details::is\_header\_included<details::dynamic\_observable\_tag, Args...> \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp::dynamic\_observable<Type>}}\{*\textcolor{keyword}{this}\};            \}}
-\DoxyCodeLine{56     \textcolor{keyword}{template} <\textcolor{keyword}{typename}...Args>}
-\DoxyCodeLine{57     [[nodiscard]] \textcolor{keyword}{auto} \mbox{\hyperlink{classrpp_1_1specific__observable_afef03ecaa089ac3df8f0bf5e664a1d9a}{as\_dynamic}}() \&\& \textcolor{keyword}{requires} details::is\_header\_included<details::dynamic\_observable\_tag, Args...>    \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp::dynamic\_observable<Type>}}\{std::move(*\textcolor{keyword}{this})\}; \}}
-\DoxyCodeLine{58 }
-\DoxyCodeLine{59     \textcolor{keyword}{friend} \textcolor{keyword}{struct }details::member\_overload<Type, specific\_observable<Type, OnSubscribeFn>, details::subscribe\_tag>;}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{61 \textcolor{keyword}{private}:}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{63     \textcolor{comment}{// used by rpp::details::member\_overload<Type, specific\_observable<Type, OnSubscribeFn>, rpp::details::subscribe\_tag>;}}
-\DoxyCodeLine{64     template<constraint::subscriber\_of\_type<Type> TSub>}
-\DoxyCodeLine{65     composite\_subscription subscribe\_impl(const TSub\& subscriber) const}
-\DoxyCodeLine{66     \{}
-\DoxyCodeLine{67         \textcolor{keywordflow}{if} (subscriber.is\_subscribed())}
-\DoxyCodeLine{68             actual\_subscribe(subscriber);}
-\DoxyCodeLine{69 }
-\DoxyCodeLine{70         \textcolor{keywordflow}{return} subscriber.get\_subscription();}
-\DoxyCodeLine{71     \}}
-\DoxyCodeLine{72 }
-\DoxyCodeLine{73     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type> TSub>}
-\DoxyCodeLine{74     \textcolor{keywordtype}{void} actual\_subscribe(\textcolor{keyword}{const} TSub\& subscriber)\textcolor{keyword}{ const}}
-\DoxyCodeLine{75 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{76         \textcolor{comment}{// take ownership over current thread as early as possible to delay all next "{}current\_thread"{} schedulings. For  example, scheduling of emissions from "{}just"{} to delay it till whole chain is subscribed and ready to listened emissions}}
-\DoxyCodeLine{77         \textcolor{comment}{// For example, if we have}}
-\DoxyCodeLine{78         \textcolor{comment}{// rpp::source::just(rpp::schedulers::current\_thread\{\}, 1,2).combine\_latest(rpp::source::just(rpp::schedulers::current\_thread\{\}, 1,2))}}
-\DoxyCodeLine{79         \textcolor{comment}{//}}
-\DoxyCodeLine{80         \textcolor{comment}{// then we expect to see emissions like (1,1) (2,1) (2,2) instead of (2,1) (2,2). TO do it we need to "{}take ownership"{} over queue to prevent ANY immediate schedulings from ANY next subscriptions}}
-\DoxyCodeLine{81         \textcolor{keyword}{const} \textcolor{keyword}{auto} drain\_on\_exit\_if\_needed = schedulers::current\_thread::own\_queue\_and\_drain\_finally\_if\_not\_owned();}
-\DoxyCodeLine{82         \textcolor{keywordflow}{try}}
-\DoxyCodeLine{83         \{}
-\DoxyCodeLine{84             m\_on\_subscribe(subscriber);}
-\DoxyCodeLine{85         \}}
-\DoxyCodeLine{86         \textcolor{keywordflow}{catch} (...)}
-\DoxyCodeLine{87         \{}
-\DoxyCodeLine{88             \textcolor{keywordflow}{if} (subscriber.is\_subscribed())}
-\DoxyCodeLine{89                 subscriber.on\_error(std::current\_exception());}
-\DoxyCodeLine{90             \textcolor{keywordflow}{else}}
-\DoxyCodeLine{91                 \textcolor{keywordflow}{throw};}
-\DoxyCodeLine{92         \}}
-\DoxyCodeLine{93     \}}
-\DoxyCodeLine{94 }
-\DoxyCodeLine{95 \textcolor{keyword}{private}:}
-\DoxyCodeLine{99     RPP\_NO\_UNIQUE\_ADDRESS OnSubscribeFn m\_on\_subscribe;}
-\DoxyCodeLine{100 \};}
-\DoxyCodeLine{101 }
-\DoxyCodeLine{102 \textcolor{keyword}{template}<\textcolor{keyword}{typename} OnSub>}
-\DoxyCodeLine{103 specific\_observable(OnSub on\_subscribe) -\/> specific\_observable<utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OnSub>>, OnSub>;}
-\DoxyCodeLine{104 \} \textcolor{comment}{// namespace rpp}}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2022\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/defs.hpp>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/observables/fwd.hpp>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/observables/interface\_observable.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ base\_class}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/schedulers/trampoline\_scheduler.hpp>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/subscribers/dynamic\_subscriber.hpp>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rpp/utils/operator\_declaration.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ header\ include}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <rpp/utils/utilities.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\_assignable\_callable}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00037\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::on\_subscribe\_fn<Type>\ OnSubscribeFn>}
+\DoxyCodeLine{00038\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structrpp_1_1interface__observable}{interface\_observable}}<Type,\ specific\_observable<Type,\ OnSubscribeFn>>}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00040\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}(OnSubscribeFn\&\&\ on\_subscribe)}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ :\ m\_on\_subscribe\{std::move(on\_subscribe)\ \}\ \{\}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}(\textcolor{keyword}{const}\ OnSubscribeFn\&\ on\_subscribe)}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ :\ m\_on\_subscribe\{on\_subscribe\ \}\ \{\}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}\&\ other)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}(\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}\&\&\ other)\ \textcolor{keyword}{noexcept}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}\&\ other)\ \ \ \ \ \ \ \ \ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}\&\ operator=(\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\_observable}}\&\&\ other)\ \textcolor{keyword}{noexcept}\ \ \ \ \ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{00055\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classrpp_1_1specific__observable_afef03ecaa089ac3df8f0bf5e664a1d9a}{as\_dynamic}}()\ const\ \&\ requires\ details::is\_header\_included<details::dynamic\_observable\_tag,\ Args...>\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp::dynamic\_observable<Type>}}\{*\textcolor{keyword}{this}\};\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{00057\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classrpp_1_1specific__observable_afef03ecaa089ac3df8f0bf5e664a1d9a}{as\_dynamic}}()\ \&\&\ \textcolor{keyword}{requires}\ details::is\_header\_included<details::dynamic\_observable\_tag,\ Args...>\ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp::dynamic\_observable<Type>}}\{std::move(*\textcolor{keyword}{this})\};\ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{struct\ }details::member\_overload<Type,\ specific\_observable<Type,\ OnSubscribeFn>,\ details::subscribe\_tag>;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{//\ used\ by\ rpp::details::member\_overload<Type,\ specific\_observable<Type,\ OnSubscribeFn>,\ rpp::details::subscribe\_tag>;}}
+\DoxyCodeLine{00064\ \ \ \ \ template<constraint::subscriber\_of\_type<Type>\ TSub>}
+\DoxyCodeLine{00065\ \ \ \ \ composite\_subscription\ subscribe\_impl(const\ TSub\&\ subscriber)\ const}
+\DoxyCodeLine{00066\ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (subscriber.is\_subscribed())}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ actual\_subscribe(subscriber);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ subscriber.get\_subscription();}
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type>\ TSub>}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ actual\_subscribe(\textcolor{keyword}{const}\ TSub\&\ subscriber)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00075\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ take\ ownership\ over\ current\ thread\ as\ early\ as\ possible\ to\ delay\ all\ next\ "{}current\_thread"{}\ schedulings.\ For\ \ example,\ scheduling\ of\ emissions\ from\ "{}just"{}\ to\ delay\ it\ till\ whole\ chain\ is\ subscribed\ and\ ready\ to\ listened\ emissions}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ example,\ if\ we\ have}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ rpp::source::just(rpp::schedulers::current\_thread\{\},\ 1,2).combine\_latest(rpp::source::just(rpp::schedulers::current\_thread\{\},\ 1,2))}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ then\ we\ expect\ to\ see\ emissions\ like\ (1,1)\ (2,1)\ (2,2)\ instead\ of\ (2,1)\ (2,2).\ TO\ do\ it\ we\ need\ to\ "{}take\ ownership"{}\ over\ queue\ to\ prevent\ ANY\ immediate\ schedulings\ from\ ANY\ next\ subscriptions}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ drain\_on\_exit\_if\_needed\ =\ schedulers::current\_thread::own\_queue\_and\_drain\_finally\_if\_not\_owned();}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ m\_on\_subscribe(subscriber);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (subscriber.is\_subscribed())}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ subscriber.on\_error(std::current\_exception());}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00099\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ OnSubscribeFn\ m\_on\_subscribe;}
+\DoxyCodeLine{00100\ \};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OnSub>}
+\DoxyCodeLine{00103\ specific\_observable(OnSub\ on\_subscribe)\ -\/>\ specific\_observable<utils::extract\_subscriber\_type\_t<utils::function\_argument\_t<OnSub>>,\ OnSub>;}
+\DoxyCodeLine{00104\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 
 \end{DoxyCode}

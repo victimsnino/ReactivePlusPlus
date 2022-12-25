@@ -2,183 +2,183 @@
 \label{reduce_8hpp_source}\index{src/rpp/rpp/operators/reduce.hpp@{src/rpp/rpp/operators/reduce.hpp}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
-\DoxyCodeLine{2 \textcolor{comment}{//}}
-\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
-\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
-\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
-\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
-\DoxyCodeLine{7 \textcolor{comment}{//}}
-\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
-\DoxyCodeLine{9 \textcolor{comment}{//}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/defs.hpp>}                                    \textcolor{comment}{// RPP\_NO\_UNIQUE\_ADDRESS}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}                 }
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/operators/lift.hpp>}                          \textcolor{comment}{// required due to operator uses lift}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/operators/details/subscriber\_with\_state.hpp>} \textcolor{comment}{// create\_subscriber\_with\_state}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/operators/fwd/reduce.hpp>}                      \textcolor{comment}{// own forwarding}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}                 \textcolor{comment}{// constraint::subscriber}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <rpp/utils/functors.hpp>}                          \textcolor{comment}{// forwarding\_on\_error}}
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <rpp/utils/utilities.hpp>}                         \textcolor{comment}{// utils::as\_const}}
-\DoxyCodeLine{21 }
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 IMPLEMENTATION\_FILE(reduce\_tag);}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Seed, \textcolor{keyword}{typename} AccumulatorFn, std::invocable<Seed\&\&> SelectorFn = std::\textcolor{keywordtype}{id}entity>}
-\DoxyCodeLine{28 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1reduce__state}{reduce\_state}}}
-\DoxyCodeLine{29 \{}
-\DoxyCodeLine{30     \textcolor{keyword}{mutable} Seed                        seed;}
-\DoxyCodeLine{31     RPP\_NO\_UNIQUE\_ADDRESS AccumulatorFn accumulator;}
-\DoxyCodeLine{32     RPP\_NO\_UNIQUE\_ADDRESS SelectorFn    selector\{\};}
-\DoxyCodeLine{33 \};}
-\DoxyCodeLine{34 }
-\DoxyCodeLine{35 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1reduce__on__next}{reduce\_on\_next}}}
-\DoxyCodeLine{36 \{}
-\DoxyCodeLine{37     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Result, \textcolor{keyword}{typename} AccumulatorFn, \textcolor{keyword}{typename} SelectorFn>}
-\DoxyCodeLine{38     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{auto}\&\&                                   value,}
-\DoxyCodeLine{39                     \textcolor{keyword}{const} \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{constraint::subscriber}} \textcolor{keyword}{auto}\&,}
-\DoxyCodeLine{40                     \textcolor{keyword}{const} \mbox{\hyperlink{structrpp_1_1details_1_1reduce__state}{reduce\_state<Result, AccumulatorFn, SelectorFn>}}\& state)\textcolor{keyword}{ const}}
-\DoxyCodeLine{41 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{42         state.seed = state.accumulator(std::move(state.seed), std::forward<\textcolor{keyword}{decltype}(value)>(value));}
-\DoxyCodeLine{43     \}}
-\DoxyCodeLine{44 \};}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{46 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1reduce__on__completed}{reduce\_on\_completed}}}
-\DoxyCodeLine{47 \{}
-\DoxyCodeLine{48     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Result, \textcolor{keyword}{typename} AccumulatorFn, \textcolor{keyword}{typename} SelectorFn>}
-\DoxyCodeLine{49     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{constraint::subscriber}} \textcolor{keyword}{auto}\&                     sub,}
-\DoxyCodeLine{50                     \textcolor{keyword}{const} \mbox{\hyperlink{structrpp_1_1details_1_1reduce__state}{reduce\_state<Result, AccumulatorFn, SelectorFn>}}\& state)\textcolor{keyword}{ const}}
-\DoxyCodeLine{51 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{52         \textcolor{keywordflow}{try}}
-\DoxyCodeLine{53         \{}
-\DoxyCodeLine{54             sub.on\_next(state.selector(std::move(state.seed)));}
-\DoxyCodeLine{55         \}}
-\DoxyCodeLine{56         \textcolor{keywordflow}{catch} (...)}
-\DoxyCodeLine{57         \{}
-\DoxyCodeLine{58             sub.on\_error(std::current\_exception());}
-\DoxyCodeLine{59             \textcolor{keywordflow}{return};}
-\DoxyCodeLine{60         \}}
-\DoxyCodeLine{61         sub.on\_completed();}
-\DoxyCodeLine{62     \}}
-\DoxyCodeLine{63 \};}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{65 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::decayed\_type Seed, reduce\_accumulator<Seed, Type> AccumulatorFn, std::invocable<Seed\&\&> ResultSelectorFn>}
-\DoxyCodeLine{66 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1reduce__impl}{reduce\_impl}}}
-\DoxyCodeLine{67 \{}
-\DoxyCodeLine{68     Seed                                   initial\_value;}
-\DoxyCodeLine{69     RPP\_NO\_UNIQUE\_ADDRESS AccumulatorFn    accumulator;}
-\DoxyCodeLine{70     RPP\_NO\_UNIQUE\_ADDRESS ResultSelectorFn selector;}
-\DoxyCodeLine{71 }
-\DoxyCodeLine{72     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<utils::decayed\_invoke\_result\_t<ResultSelectorFn, Seed>> TSub>}
-\DoxyCodeLine{73     \textcolor{keyword}{auto} operator()(TSub\&\& subscriber)\textcolor{keyword}{ const}}
-\DoxyCodeLine{74 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{75         \textcolor{keyword}{auto} subscription = subscriber.get\_subscription();}
-\DoxyCodeLine{76         \textcolor{comment}{// dynamic\_state there to make shared\_ptr for observer instead of making shared\_ptr for state}}
-\DoxyCodeLine{77         \textcolor{keywordflow}{return} create\_subscriber\_with\_dynamic\_state<Type>(std::move(subscription),}
-\DoxyCodeLine{78                                                           \mbox{\hyperlink{structrpp_1_1details_1_1reduce__on__next}{reduce\_on\_next}}\{\},}
-\DoxyCodeLine{79                                                           utils::forwarding\_on\_error\{\},}
-\DoxyCodeLine{80                                                           \mbox{\hyperlink{structrpp_1_1details_1_1reduce__on__completed}{reduce\_on\_completed}}\{\},}
-\DoxyCodeLine{81                                                           std::forward<TSub>(subscriber),}
-\DoxyCodeLine{82                                                           \mbox{\hyperlink{structrpp_1_1details_1_1reduce__state}{reduce\_state<Seed, AccumulatorFn, ResultSelectorFn>}}\{initial\_value, accumulator, selector\});}
-\DoxyCodeLine{83     \}}
-\DoxyCodeLine{84 \};}
-\DoxyCodeLine{85 }
-\DoxyCodeLine{86 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type CastBeforeDiv\textcolor{keywordtype}{id}e, constra\textcolor{keywordtype}{int}::observable TObs>}
-\DoxyCodeLine{87 \textcolor{keyword}{auto} average\_impl(TObs\&\& observable)}
-\DoxyCodeLine{88 \{}
-\DoxyCodeLine{89     \textcolor{keyword}{using }Type = utils::extract\_observable\_type\_t<std::decay\_t<TObs>>;}
-\DoxyCodeLine{90     \textcolor{keyword}{using }Pair = std::pair<std::optional<Type>, int32\_t>;}
-\DoxyCodeLine{91     \textcolor{keywordflow}{return} std::forward<TObs>(observable).reduce(Pair\{\},}
-\DoxyCodeLine{92                                                  [](Pair\&\& seed, \textcolor{keyword}{auto}\&\& val)}
-\DoxyCodeLine{93                                                  \{}
-\DoxyCodeLine{94                                                      \textcolor{keywordflow}{if} (seed.first)}
-\DoxyCodeLine{95                                                         seed.first.value() += std::forward<decltype(val)>(val);}
-\DoxyCodeLine{96                                                      \textcolor{keywordflow}{else}}
-\DoxyCodeLine{97                                                          seed.first = std::forward<decltype(val)>(val);}
-\DoxyCodeLine{98                                                      ++seed.second;}
-\DoxyCodeLine{99                                                      \textcolor{keywordflow}{return} std::move(seed);}
-\DoxyCodeLine{100                                                  \},}
-\DoxyCodeLine{101                                                  [](Pair\&\& seed)}
-\DoxyCodeLine{102                                                  \{}
-\DoxyCodeLine{103                                                      \textcolor{keywordflow}{if} (!seed.first)}
-\DoxyCodeLine{104                                                         \textcolor{keywordflow}{throw} utils::not\_enough\_emissions\{\textcolor{stringliteral}{"{}`average` operator requires at least one emission to calculate average"{}}\};}
-\DoxyCodeLine{105 }
-\DoxyCodeLine{106                                                      \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}CastBeforeDivide\textcolor{keyword}{>}(std::move(seed.first).value()) / seed.second;}
-\DoxyCodeLine{107                                                  \});}
-\DoxyCodeLine{108 \}}
-\DoxyCodeLine{109 }
-\DoxyCodeLine{110 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs>}
-\DoxyCodeLine{111 \textcolor{keyword}{auto} sum\_impl(TObs\&\& observable)}
-\DoxyCodeLine{112 \{}
-\DoxyCodeLine{113     \textcolor{keyword}{using }Type = utils::extract\_observable\_type\_t<std::decay\_t<TObs>>;}
-\DoxyCodeLine{114     \textcolor{keywordflow}{return} std::forward<TObs>(observable).reduce(std::optional<Type>\{\},}
-\DoxyCodeLine{115                                                  [](std::optional<Type>\&\& seed, \textcolor{keyword}{auto}\&\& val)}
-\DoxyCodeLine{116                                                  \{}
-\DoxyCodeLine{117                                                      \textcolor{keywordflow}{if} (!seed)}
-\DoxyCodeLine{118                                                          seed = std::forward<decltype(val)>(val);}
-\DoxyCodeLine{119                                                      \textcolor{keywordflow}{else}}
-\DoxyCodeLine{120                                                         seed.value() += std::forward<decltype(val)>(val);}
-\DoxyCodeLine{121                                                      \textcolor{keywordflow}{return} std::move(seed);}
-\DoxyCodeLine{122                                                  \},}
-\DoxyCodeLine{123                                                  [](std::optional<Type>\&\& seed)}
-\DoxyCodeLine{124                                                  \{}
-\DoxyCodeLine{125                                                      \textcolor{keywordflow}{if} (!seed)}
-\DoxyCodeLine{126                                                          \textcolor{keywordflow}{throw} utils::not\_enough\_emissions\{\textcolor{stringliteral}{"{}`sum` operator requires at least one emission to calculate sum"{}}\};}
-\DoxyCodeLine{127 }
-\DoxyCodeLine{128                                                      \textcolor{keywordflow}{return} std::move(seed.value());}
-\DoxyCodeLine{129                                                  \});}
-\DoxyCodeLine{130 \}}
-\DoxyCodeLine{131 }
-\DoxyCodeLine{132 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs>}
-\DoxyCodeLine{133 \textcolor{keyword}{auto} count\_impl(TObs\&\& observable)}
-\DoxyCodeLine{134 \{}
-\DoxyCodeLine{135     \textcolor{keywordflow}{return} std::forward<TObs>(observable).reduce(\textcolor{keywordtype}{size\_t}\{\}, [](\textcolor{keywordtype}{size\_t} seed, \textcolor{keyword}{auto}\&\&) \{ \textcolor{keywordflow}{return} ++seed; \});}
-\DoxyCodeLine{136 \}}
-\DoxyCodeLine{137 }
-\DoxyCodeLine{138 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs, \textcolor{keyword}{typename} Comparator>}
-\DoxyCodeLine{139 \textcolor{keyword}{auto} min\_impl(TObs\&\& observable, Comparator\&\& comparator)}
-\DoxyCodeLine{140 \{}
-\DoxyCodeLine{141     \textcolor{keyword}{using }Type = utils::extract\_observable\_type\_t<std::decay\_t<TObs>>;}
-\DoxyCodeLine{142     \textcolor{keywordflow}{return} std::forward<TObs>(observable).reduce(std::optional<Type>\{\},}
-\DoxyCodeLine{143                                                  [comparator](std::optional<Type>\&\& seed, \textcolor{keyword}{auto}\&\& val)}
-\DoxyCodeLine{144                                                  \{}
-\DoxyCodeLine{145                                                      \textcolor{keywordflow}{if} (!seed || comparator(utils::as\_const(val), seed.value()))}
-\DoxyCodeLine{146                                                          seed = std::forward<decltype(val)>(val);}
-\DoxyCodeLine{147                                                      \textcolor{keywordflow}{return} std::move(seed);}
-\DoxyCodeLine{148                                                  \},}
-\DoxyCodeLine{149                                                  [](std::optional<Type>\&\& seed)}
-\DoxyCodeLine{150                                                  \{}
-\DoxyCodeLine{151                                                      \textcolor{keywordflow}{if} (!seed)}
-\DoxyCodeLine{152                                                          \textcolor{keywordflow}{throw} utils::not\_enough\_emissions\{\textcolor{stringliteral}{"{}`min` operator requires at least one emission to calculate min"{}}\};}
-\DoxyCodeLine{153 }
-\DoxyCodeLine{154                                                      \textcolor{keywordflow}{return} std::move(seed.value());}
-\DoxyCodeLine{155                                                  \});}
-\DoxyCodeLine{156 \}}
-\DoxyCodeLine{157 }
-\DoxyCodeLine{158 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TObs, \textcolor{keyword}{typename} Comparator>}
-\DoxyCodeLine{159 \textcolor{keyword}{auto} max\_impl(TObs\&\& observable, Comparator\&\& comparator)}
-\DoxyCodeLine{160 \{}
-\DoxyCodeLine{161     \textcolor{keyword}{using }Type = utils::extract\_observable\_type\_t<std::decay\_t<TObs>>;}
-\DoxyCodeLine{162     \textcolor{keywordflow}{return} std::forward<TObs>(observable).reduce(std::optional<Type>\{\},}
-\DoxyCodeLine{163                                                  [comparator](std::optional<Type>\&\& seed, \textcolor{keyword}{auto}\&\& val)}
-\DoxyCodeLine{164                                                  \{}
-\DoxyCodeLine{165                                                      \textcolor{keywordflow}{if} (!seed || comparator(seed.value(), utils::as\_const(val)))}
-\DoxyCodeLine{166                                                          seed = std::forward<decltype(val)>(val);}
-\DoxyCodeLine{167                                                      \textcolor{keywordflow}{return} std::move(seed);}
-\DoxyCodeLine{168                                                  \},}
-\DoxyCodeLine{169                                                  [](std::optional<Type>\&\& seed)}
-\DoxyCodeLine{170                                                  \{}
-\DoxyCodeLine{171                                                      \textcolor{keywordflow}{if} (!seed)}
-\DoxyCodeLine{172                                                          \textcolor{keywordflow}{throw} utils::not\_enough\_emissions\{\textcolor{stringliteral}{"{}`max` operator requires at least one emission to calculate min"{}}\};}
-\DoxyCodeLine{173 }
-\DoxyCodeLine{174                                                      \textcolor{keywordflow}{return} std::move(seed.value());}
-\DoxyCodeLine{175                                                  \});}
-\DoxyCodeLine{176 \}}
-\DoxyCodeLine{177 \} \textcolor{comment}{// namespace rpp::details}}
-\DoxyCodeLine{178 }
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2022\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/defs.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ RPP\_NO\_UNIQUE\_ADDRESS}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/observables/constraints.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/operators/lift.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ required\ due\ to\ operator\ uses\ lift}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/subscriber\_with\_state.hpp>}\ \textcolor{comment}{//\ create\_subscriber\_with\_state}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/operators/fwd/reduce.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ own\ forwarding}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rpp/subscribers/constraints.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ constraint::subscriber}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <rpp/utils/functors.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ forwarding\_on\_error}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <rpp/utils/utilities.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ utils::as\_const}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ IMPLEMENTATION\_FILE(reduce\_tag);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Seed,\ \textcolor{keyword}{typename}\ AccumulatorFn,\ std::invocable<Seed\&\&>\ SelectorFn\ =\ std::\textcolor{keywordtype}{id}entity>}
+\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1reduce__state}{reduce\_state}}}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{mutable}\ Seed\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed;}
+\DoxyCodeLine{00031\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ AccumulatorFn\ accumulator;}
+\DoxyCodeLine{00032\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ SelectorFn\ \ \ \ selector\{\};}
+\DoxyCodeLine{00033\ \};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1reduce__on__next}{reduce\_on\_next}}}
+\DoxyCodeLine{00036\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Result,\ \textcolor{keyword}{typename}\ AccumulatorFn,\ \textcolor{keyword}{typename}\ SelectorFn>}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{auto}\&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{constraint::subscriber}}\ \textcolor{keyword}{auto}\&,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrpp_1_1details_1_1reduce__state}{reduce\_state<Result,\ AccumulatorFn,\ SelectorFn>}}\&\ state)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00041\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ state.seed\ =\ state.accumulator(std::move(state.seed),\ std::forward<\textcolor{keyword}{decltype}(value)>(value));}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1reduce__on__completed}{reduce\_on\_completed}}}
+\DoxyCodeLine{00047\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Result,\ \textcolor{keyword}{typename}\ AccumulatorFn,\ \textcolor{keyword}{typename}\ SelectorFn>}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subscriber}{constraint::subscriber}}\ \textcolor{keyword}{auto}\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrpp_1_1details_1_1reduce__state}{reduce\_state<Result,\ AccumulatorFn,\ SelectorFn>}}\&\ state)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(state.selector(std::move(state.seed)));}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_error(std::current\_exception());}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ sub.on\_completed();}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::decayed\_type\ Seed,\ reduce\_accumulator<Seed,\ Type>\ AccumulatorFn,\ std::invocable<Seed\&\&>\ ResultSelectorFn>}
+\DoxyCodeLine{00066\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1reduce__impl}{reduce\_impl}}}
+\DoxyCodeLine{00067\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ Seed\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ initial\_value;}
+\DoxyCodeLine{00069\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ AccumulatorFn\ \ \ \ accumulator;}
+\DoxyCodeLine{00070\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ ResultSelectorFn\ selector;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<utils::decayed\_invoke\_result\_t<ResultSelectorFn,\ Seed>>\ TSub>}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(TSub\&\&\ subscriber)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00074\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ subscription\ =\ subscriber.get\_subscription();}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dynamic\_state\ there\ to\ make\ shared\_ptr\ for\ observer\ instead\ of\ making\ shared\_ptr\ for\ state}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ create\_subscriber\_with\_dynamic\_state<Type>(std::move(subscription),}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1reduce__on__next}{reduce\_on\_next}}\{\},}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utils::forwarding\_on\_error\{\},}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1reduce__on__completed}{reduce\_on\_completed}}\{\},}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<TSub>(subscriber),}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1reduce__state}{reduce\_state<Seed,\ AccumulatorFn,\ ResultSelectorFn>}}\{initial\_value,\ accumulator,\ selector\});}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ CastBeforeDiv\textcolor{keywordtype}{id}e,\ constra\textcolor{keywordtype}{int}::observable\ TObs>}
+\DoxyCodeLine{00087\ \textcolor{keyword}{auto}\ average\_impl(TObs\&\&\ observable)}
+\DoxyCodeLine{00088\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{using\ }Type\ =\ utils::extract\_observable\_type\_t<std::decay\_t<TObs>>;}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{using\ }Pair\ =\ std::pair<std::optional<Type>,\ int32\_t>;}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{return}\ std::forward<TObs>(observable).reduce(Pair\{\},}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](Pair\&\&\ seed,\ \textcolor{keyword}{auto}\&\&\ val)}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (seed.first)}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed.first.value()\ +=\ std::forward<decltype(val)>(val);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed.first\ =\ std::forward<decltype(val)>(val);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++seed.second;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(seed);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](Pair\&\&\ seed)}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!seed.first)}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ utils::not\_enough\_emissions\{\textcolor{stringliteral}{"{}`average`\ operator\ requires\ at\ least\ one\ emission\ to\ calculate\ average"{}}\};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}CastBeforeDivide\textcolor{keyword}{>}(std::move(seed.first).value())\ /\ seed.second;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00108\ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\ TObs>}
+\DoxyCodeLine{00111\ \textcolor{keyword}{auto}\ sum\_impl(TObs\&\&\ observable)}
+\DoxyCodeLine{00112\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{using\ }Type\ =\ utils::extract\_observable\_type\_t<std::decay\_t<TObs>>;}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{return}\ std::forward<TObs>(observable).reduce(std::optional<Type>\{\},}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](std::optional<Type>\&\&\ seed,\ \textcolor{keyword}{auto}\&\&\ val)}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!seed)}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed\ =\ std::forward<decltype(val)>(val);}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed.value()\ +=\ std::forward<decltype(val)>(val);}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(seed);}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](std::optional<Type>\&\&\ seed)}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!seed)}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ utils::not\_enough\_emissions\{\textcolor{stringliteral}{"{}`sum`\ operator\ requires\ at\ least\ one\ emission\ to\ calculate\ sum"{}}\};}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(seed.value());}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00130\ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\ TObs>}
+\DoxyCodeLine{00133\ \textcolor{keyword}{auto}\ count\_impl(TObs\&\&\ observable)}
+\DoxyCodeLine{00134\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordflow}{return}\ std::forward<TObs>(observable).reduce(\textcolor{keywordtype}{size\_t}\{\},\ [](\textcolor{keywordtype}{size\_t}\ seed,\ \textcolor{keyword}{auto}\&\&)\ \{\ \textcolor{keywordflow}{return}\ ++seed;\ \});}
+\DoxyCodeLine{00136\ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\ TObs,\ \textcolor{keyword}{typename}\ Comparator>}
+\DoxyCodeLine{00139\ \textcolor{keyword}{auto}\ min\_impl(TObs\&\&\ observable,\ Comparator\&\&\ comparator)}
+\DoxyCodeLine{00140\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{using\ }Type\ =\ utils::extract\_observable\_type\_t<std::decay\_t<TObs>>;}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordflow}{return}\ std::forward<TObs>(observable).reduce(std::optional<Type>\{\},}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [comparator](std::optional<Type>\&\&\ seed,\ \textcolor{keyword}{auto}\&\&\ val)}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!seed\ ||\ comparator(utils::as\_const(val),\ seed.value()))}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed\ =\ std::forward<decltype(val)>(val);}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(seed);}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](std::optional<Type>\&\&\ seed)}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!seed)}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ utils::not\_enough\_emissions\{\textcolor{stringliteral}{"{}`min`\ operator\ requires\ at\ least\ one\ emission\ to\ calculate\ min"{}}\};}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(seed.value());}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00156\ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\ TObs,\ \textcolor{keyword}{typename}\ Comparator>}
+\DoxyCodeLine{00159\ \textcolor{keyword}{auto}\ max\_impl(TObs\&\&\ observable,\ Comparator\&\&\ comparator)}
+\DoxyCodeLine{00160\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{using\ }Type\ =\ utils::extract\_observable\_type\_t<std::decay\_t<TObs>>;}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordflow}{return}\ std::forward<TObs>(observable).reduce(std::optional<Type>\{\},}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [comparator](std::optional<Type>\&\&\ seed,\ \textcolor{keyword}{auto}\&\&\ val)}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!seed\ ||\ comparator(seed.value(),\ utils::as\_const(val)))}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed\ =\ std::forward<decltype(val)>(val);}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(seed);}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](std::optional<Type>\&\&\ seed)}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!seed)}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ utils::not\_enough\_emissions\{\textcolor{stringliteral}{"{}`max`\ operator\ requires\ at\ least\ one\ emission\ to\ calculate\ min"{}}\};}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(seed.value());}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00176\ \}}
+\DoxyCodeLine{00177\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
+\DoxyCodeLine{00178\ }
 
 \end{DoxyCode}

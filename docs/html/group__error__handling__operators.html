@@ -147,10 +147,11 @@ requires is_header_included&lt;on_error_resume_next_tag, ResumeCallable&gt;</div
 </div><div class="memdoc">
 
 <p>Recover from an on_error notification by continuing the sequence without error. </p>
-<p>The operator intercepts an on_error notification from the source Observable and, instead of passing it through to any observers, replaces it with some other item or sequence of items. </p><dl class="section warning"><dt>Warning</dt><dd>This operator potentially allows the resulting Observable to terminate normally or not to terminate at all.</dd></dl>
+<p>The operator intercepts an <code>on_error</code> notification from the source Observable and, instead of passing it through to any observers, replaces it with some other item or sequence of items. </p><dl class="section warning"><dt>Warning</dt><dd>This operator potentially allows the resulting Observable to terminate normally or not to terminate at all.</dd></dl>
 <div class="image">
 <object type="image/svg+xml" data="on_error_resume_next.svg" style="pointer-events: none;"></object>
 </div>
+<p>Actually this operator just subscribes on observable calculated from callback when <code>on_error</code> from original observable obtained.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">resume_callable</td><td>A callable that is given an error pointer and shall return an Observable. </td></tr>
@@ -179,6 +180,29 @@ requires is_header_included&lt;on_error_resume_next_tag, ResumeCallable&gt;</div
 <div class="line">    <span class="comment">// source: -x</span></div>
 <div class="line">    <span class="comment">// output: -1-2-3-|</span></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>None</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Just forwards original on_next</li>
+</ul>
+</li>
+<li><b>OnError from original observable</b><ul>
+<li>Subscribes subscriber on observable obtained from callable</li>
+</ul>
+</li>
+<li><b>OnError from calculated observable</b><ul>
+<li>Just forwards original on_error</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>Just forwards original on_completed</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/on_error_resume_next.html">https://reactivex.io/documentation/operators/on_error_resume_next.html</a> </dd></dl>
 
 </div>

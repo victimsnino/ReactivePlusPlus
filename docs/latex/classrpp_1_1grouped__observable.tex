@@ -18,6 +18,49 @@ Inheritance diagram for rpp\+::grouped\+\_\+observable\texorpdfstring{$<$}{<} Ke
 \mbox{\Hypertarget{classrpp_1_1grouped__observable_aa3a6ee3df17a53ea78bcc92076c6ff44}\label{classrpp_1_1grouped__observable_aa3a6ee3df17a53ea78bcc92076c6ff44}} 
 const Key\+Type \& {\bfseries get\+\_\+key} () const
 \end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable$<$ Type, On\+Subscribe\+Fn $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_a39664b7292eeb3a845bca3e518f04870}\label{classrpp_1_1specific__observable_a39664b7292eeb3a845bca3e518f04870}} 
+{\bfseries specific\+\_\+observable} (On\+Subscribe\+Fn \&\&on\+\_\+subscribe)
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_a814e14b2540f49ac234d0f5b1d9f1666}\label{classrpp_1_1specific__observable_a814e14b2540f49ac234d0f5b1d9f1666}} 
+{\bfseries specific\+\_\+observable} (const On\+Subscribe\+Fn \&on\+\_\+subscribe)
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_a36b5f66d8761e9ff7a1948f313cc1033}\label{classrpp_1_1specific__observable_a36b5f66d8761e9ff7a1948f313cc1033}} 
+{\bfseries specific\+\_\+observable} (const \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} \&other)=default
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_a71f9a7d6013a4ca1d79e0e2109fa19ce}\label{classrpp_1_1specific__observable_a71f9a7d6013a4ca1d79e0e2109fa19ce}} 
+{\bfseries specific\+\_\+observable} (\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} \&\&other) noexcept=default
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_a2319dc2d17c285470175afa71c0dd9ae}\label{classrpp_1_1specific__observable_a2319dc2d17c285470175afa71c0dd9ae}} 
+\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} \& {\bfseries operator=} (const \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} \&other)=default
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_afd7d7a5e2dec3e7cb8f604a4e647df89}\label{classrpp_1_1specific__observable_afd7d7a5e2dec3e7cb8f604a4e647df89}} 
+\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} \& {\bfseries operator=} (\mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} \&\&other) noexcept=default
+\item 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_afef03ecaa089ac3df8f0bf5e664a1d9a}\label{classrpp_1_1specific__observable_afef03ecaa089ac3df8f0bf5e664a1d9a}} 
+{\footnotesize template$<$typename... Args$>$ \newline
+requires details\+::is\+\_\+header\+\_\+included$<$details\+::dynamic\+\_\+observable\+\_\+tag, Args...$>$}\\auto {\bfseries as\+\_\+dynamic} () const \&
+\begin{DoxyCompactList}\small\item\em Converts \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} to \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable}} via type-\/erasure mechanism. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrpp_1_1specific__observable_abca84b6ef365e051a76afcb33030d1b5}\label{classrpp_1_1specific__observable_abca84b6ef365e051a76afcb33030d1b5}} 
+{\footnotesize template$<$typename... Args$>$ \newline
+requires details\+::is\+\_\+header\+\_\+included$<$details\+::dynamic\+\_\+observable\+\_\+tag, Args...$>$}\\auto {\bfseries as\+\_\+dynamic} () \&\&
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{structrpp_1_1interface__observable}{rpp\+::interface\+\_\+observable$<$ Type, specific\+\_\+observable$<$ Type, On\+Subscribe\+Fn $>$ $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+auto \mbox{\hyperlink{group__operators_ga381218c46daf100859858d88743d058d}{op}} (Operator\+Fn \&\&fn) const \&
+\begin{DoxyCompactList}\small\item\em The apply function to observable which returns observable of another type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structrpp_1_1interface__observable_a51887f2fc4620f9ab9b45a28628ed85f}\label{structrpp_1_1interface__observable_a51887f2fc4620f9ab9b45a28628ed85f}} 
+auto {\bfseries op} (Operator\+Fn \&\&fn) \&\&
+\item 
+\mbox{\Hypertarget{structrpp_1_1interface__observable_a1aed1c6edd83e7091c2bdc3b15b2beee}\label{structrpp_1_1interface__observable_a1aed1c6edd83e7091c2bdc3b15b2beee}} 
+auto {\bfseries as\+\_\+blocking} () const \&
+\begin{DoxyCompactList}\small\item\em Converts existing observable to \mbox{\hyperlink{classrpp_1_1blocking__observable}{rpp\+::blocking\+\_\+observable}} which has another interface and abilities. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structrpp_1_1interface__observable_a681ade25e93123cd624613b16c73b6dd}\label{structrpp_1_1interface__observable_a681ade25e93123cd624613b16c73b6dd}} 
+auto {\bfseries as\+\_\+blocking} () \&\&
+\end{DoxyCompactItemize}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

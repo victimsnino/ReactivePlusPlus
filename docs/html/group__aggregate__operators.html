@@ -239,6 +239,7 @@ requires (is_header_included&lt;concat_tag, Args...&gt;&amp;&amp; <a class="el" 
 <div class="image">
 <object type="image/svg+xml" data="concat.svg" style="pointer-events: none;"></object>
 </div>
+<p>Actually it subscribes on first observable from emissions. When first observable completes, then it subscribes on second observable from emissions and etc...</p>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the concat operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="concat_8hpp_source.html">rpp/operators/concat.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    rpp::source::just(rpp::source::just(1).as_dynamic(),</div>
@@ -248,6 +249,30 @@ requires (is_header_included&lt;concat_tag, Args...&gt;&amp;&amp; <a class="el" 
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1</span></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>Allocates one <code>shared_ptr</code> to store observables (== emissions) and some internal variables</li>
+<li>Wraps subscriber with serialization logic to be sure callbacks called serialized</li>
+</ul>
+</li>
+<li><b>OnNext for original observable</b><ul>
+<li>If no any active observable, then subscribes on new obtained observable, else place it in queue</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error</li>
+</ul>
+</li>
+<li><b>OnCompleted from original observable</b><ul>
+<li>Just forwards original on_completed if no any active observable (else we need to processa all observables from queue and they would emit on_completed for subscriber)</li>
+</ul>
+</li>
+<li><b>OnCompleted from inner observable</b><ul>
+<li>Subscribe on next observable from queue (if any)</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/concat.html">https://reactivex.io/documentation/operators/concat.html</a> </dd></dl>
 
 </div>
@@ -285,6 +310,7 @@ requires (is_header_included&lt;concat_tag, TObservables...&gt; &amp;&amp; sizeo
 <div class="image">
 <object type="image/svg+xml" data="concat_with.svg" style="pointer-events: none;"></object>
 </div>
+<p>Actually this operator subscribes on original observable. When original observable completes, then it subscribes on first observable from arguments and etc...</p>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the concat operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="concat_8hpp_source.html">rpp/operators/concat.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    rpp::source::just(1)</div>
@@ -292,6 +318,30 @@ requires (is_header_included&lt;concat_tag, TObservables...&gt; &amp;&amp; sizeo
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1 2</span></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>Allocates one <code>shared_ptr</code> to store observables (== emissions) and some internal variables</li>
+<li>Wraps subscriber with serialization logic to be sure callbacks called serialized</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Just forwards on_next</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error</li>
+</ul>
+</li>
+<li><b>OnCompleted from original observable</b><ul>
+<li>Just forwards original on_completed if no any active observable (else we need to processa all observables from queue and they would emit on_completed for subscriber)</li>
+</ul>
+</li>
+<li><b>OnCompleted from inner observable</b><ul>
+<li>Subscribe on next observable from queue (if any)</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/concat.html">https://reactivex.io/documentation/operators/concat.html</a> </dd></dl>
 
 </div>
@@ -500,6 +550,7 @@ requires is_header_included&lt;reduce_tag, Seed, AccumulatorFn, ResultSelectorFn
 <div class="image">
 <object type="image/svg+xml" data="reduce.svg" style="pointer-events: none;"></object>
 </div>
+<p>Actually this operator behaves like <code>scan()</code> + <code>take_last(1)</code>, so, it just accumulates <code>seed</code> and emits it <code>on_completed</code></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">initial_seed</td><td>initial value for seed which will be applied for first value from observable. Then it will be replaced with result and etc. </td></tr>
@@ -528,6 +579,25 @@ requires is_header_included&lt;reduce_tag, Seed, AccumulatorFn, ResultSelectorFn
 <div class="line">            });</div>
 <div class="line">    <span class="comment">// Output: vector: 1 2 3</span></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>Allocates one <code>shared_ptr</code> to store internal state</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Applies accumulator to each emission</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>Emits accumulated seed via applyting result_selector</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/reduce.html">https://reactivex.io/documentation/operators/reduce.html</a> </dd></dl>
 
 </div>

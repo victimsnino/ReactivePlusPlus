@@ -2,131 +2,131 @@
 \label{timeout_8hpp_source}\index{src/rpp/rpp/operators/timeout.hpp@{src/rpp/rpp/operators/timeout.hpp}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
-\DoxyCodeLine{2 \textcolor{comment}{//}}
-\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
-\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
-\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
-\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
-\DoxyCodeLine{7 \textcolor{comment}{//}}
-\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
-\DoxyCodeLine{9 \textcolor{comment}{//}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/operators/lift.hpp>}          \textcolor{comment}{// required due to operator uses lift}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/operators/details/early\_unsubscribe.hpp>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/operators/details/serialized\_subscriber.hpp>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/operators/details/subscriber\_with\_state.hpp>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/operators/fwd/timeout.hpp>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <rpp/utils/exceptions.hpp>}}
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <rpp/sources/error.hpp>}}
-\DoxyCodeLine{21 }
-\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <rpp/utils/spinlock.hpp>}}
-\DoxyCodeLine{23 }
-\DoxyCodeLine{24 \textcolor{preprocessor}{\#include <atomic>}}
-\DoxyCodeLine{25 }
-\DoxyCodeLine{26 IMPLEMENTATION\_FILE(timeout\_tag);}
-\DoxyCodeLine{27 }
-\DoxyCodeLine{28 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{29 \{}
-\DoxyCodeLine{30 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable FallbackObs>}
-\DoxyCodeLine{31 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1timeout__state}{timeout\_state}} : \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__state}{early\_unsubscribe\_state}}}
-\DoxyCodeLine{32 \{}
-\DoxyCodeLine{33     \mbox{\hyperlink{structrpp_1_1details_1_1timeout__state}{timeout\_state}}(\textcolor{keyword}{const} FallbackObs\& fallback\_obs, \textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\& subscription\_of\_subscriber)}
-\DoxyCodeLine{34         : \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__state}{early\_unsubscribe\_state}}(subscription\_of\_subscriber)}
-\DoxyCodeLine{35         , fallback\_obs\{fallback\_obs\} \{\}}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37     FallbackObs                         fallback\_obs;}
-\DoxyCodeLine{38     std::atomic<schedulers::time\_point> last\_emission\_time\{\};}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{40     \textcolor{keyword}{static} \textcolor{keyword}{constexpr} schedulers::time\_point s\_timeout\_reached = schedulers::time\_point::min();}
-\DoxyCodeLine{41 \};}
-\DoxyCodeLine{42 }
-\DoxyCodeLine{43 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable FallbackObs, \textcolor{keyword}{typename} Worker>}
-\DoxyCodeLine{44 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1timeout__on__next}{timeout\_on\_next}}}
-\DoxyCodeLine{45 \{}
-\DoxyCodeLine{46     \textcolor{keyword}{template}<\textcolor{keyword}{typename} Value>}
-\DoxyCodeLine{47     \textcolor{keywordtype}{void} operator()(Value\&\& v, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber, \textcolor{keyword}{const} std::shared\_ptr<\mbox{\hyperlink{structrpp_1_1details_1_1timeout__state}{timeout\_state<FallbackObs>}}>\& state)\textcolor{keyword}{ const}}
-\DoxyCodeLine{48 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{49         \textcolor{keywordflow}{if} (state-\/>last\_emission\_time.exchange(Worker::now(), std::memory\_order\_acq\_rel) != \mbox{\hyperlink{structrpp_1_1details_1_1timeout__state}{timeout\_state<FallbackObs>::s\_timeout\_reached}})}
-\DoxyCodeLine{50             subscriber.on\_next(std::forward<Value>(v));}
-\DoxyCodeLine{51     \}}
-\DoxyCodeLine{52 \};}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{54 \textcolor{keyword}{using }\mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{timeout\_on\_error}}     = \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{early\_unsubscribe\_on\_error}};}
-\DoxyCodeLine{55 \textcolor{keyword}{using }\mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__completed}{timeout\_on\_completed}} = \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__completed}{early\_unsubscribe\_on\_completed}};}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{57 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable FallbackObs>}
-\DoxyCodeLine{58 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1timeout__state__with__serialized__spinlock}{timeout\_state\_with\_serialized\_spinlock}} : \mbox{\hyperlink{structrpp_1_1details_1_1timeout__state}{timeout\_state}}<FallbackObs>}
-\DoxyCodeLine{59 \{}
-\DoxyCodeLine{60     \textcolor{keyword}{using }\mbox{\hyperlink{structrpp_1_1details_1_1timeout__state}{timeout\_state}}<FallbackObs>::timeout\_state;}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{62     \textcolor{comment}{// spinlock because most part of time there is only one thread would be active}}
-\DoxyCodeLine{63     utils::spinlock spinlock\{\};}
-\DoxyCodeLine{64 \};}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{66 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable\_of\_type<Type> FallbackObs, schedulers::constra\textcolor{keywordtype}{int}::scheduler TScheduler>}
-\DoxyCodeLine{67 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1timeout__impl}{timeout\_impl}}}
-\DoxyCodeLine{68 \{}
-\DoxyCodeLine{69     schedulers::duration period;}
-\DoxyCodeLine{70     FallbackObs          fallback\_obs;}
-\DoxyCodeLine{71     TScheduler           scheduler;}
-\DoxyCodeLine{72 }
-\DoxyCodeLine{73     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type> TSub>}
-\DoxyCodeLine{74     \textcolor{keyword}{auto} operator()(TSub\&\& in\_subscriber)\textcolor{keyword}{ const}}
-\DoxyCodeLine{75 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{76         \textcolor{keyword}{auto} state = std::make\_shared<timeout\_state\_with\_serialized\_spinlock<FallbackObs>>(fallback\_obs, in\_subscriber.get\_subscription());}
-\DoxyCodeLine{77         \textcolor{comment}{// change subscriber to serialized to avoid manual using of mutex}}
-\DoxyCodeLine{78         \textcolor{keyword}{auto} subscriber = make\_serialized\_subscriber(std::forward<TSub>(in\_subscriber),}
-\DoxyCodeLine{79                                                      std::shared\_ptr<utils::spinlock>\{state, \&state-\/>spinlock\});}
-\DoxyCodeLine{80 }
-\DoxyCodeLine{81         \textcolor{keyword}{const} \textcolor{keyword}{auto} worker = scheduler.create\_worker(state-\/>children\_subscriptions);}
-\DoxyCodeLine{82         state-\/>last\_emission\_time.store(worker.now(), std::memory\_order\_relaxed);}
-\DoxyCodeLine{83 }
-\DoxyCodeLine{84         \textcolor{keyword}{const} \textcolor{keyword}{auto} last\_emission\_time = state-\/>last\_emission\_time.load(std::memory\_order\_relaxed);}
-\DoxyCodeLine{85         worker.schedule(last\_emission\_time + period,}
-\DoxyCodeLine{86                         [period = period, prev\_emission\_time = last\_emission\_time, subscriber, state]() \textcolor{keyword}{mutable} -\/> schedulers::optional\_duration}
-\DoxyCodeLine{87                         \{}
-\DoxyCodeLine{88                             \textcolor{keywordflow}{while} (\textcolor{keyword}{true})}
-\DoxyCodeLine{89                             \{}
-\DoxyCodeLine{90                                 \textcolor{comment}{// last emission time still same value -\/> timeout reached, else -\/> prev\_emission\_time}}
-\DoxyCodeLine{91                                 \textcolor{comment}{// would be update to actual emission time}}
-\DoxyCodeLine{92                                 \textcolor{keywordflow}{if} (state-\/>last\_emission\_time.compare\_exchange\_strong(prev\_emission\_time,}
-\DoxyCodeLine{93                                                                                       \mbox{\hyperlink{structrpp_1_1details_1_1timeout__state}{timeout\_state<FallbackObs>::s\_timeout\_reached}},}
-\DoxyCodeLine{94                                                                                       std::memory\_order\_acq\_rel))}
-\DoxyCodeLine{95                                     \textcolor{keywordflow}{return} time\_is\_out(state, subscriber);}
-\DoxyCodeLine{96 }
-\DoxyCodeLine{97                                 \textcolor{comment}{// if we still need to wait a bit more -\/> let's wait}}
-\DoxyCodeLine{98                                 \textcolor{keywordflow}{if} (\textcolor{keyword}{const} \textcolor{keyword}{auto} diff\_to\_schedule = (prev\_emission\_time + period) -\/ \textcolor{keyword}{decltype}(worker)::now();}
-\DoxyCodeLine{99                                     diff\_to\_schedule > rpp::schedulers::duration\{0\})}
-\DoxyCodeLine{100                                     \textcolor{keywordflow}{return} diff\_to\_schedule;}
-\DoxyCodeLine{101 }
-\DoxyCodeLine{102                                 \textcolor{comment}{// okay, we here because:}}
-\DoxyCodeLine{103                                 \textcolor{comment}{// 1) last\_emission\_time was not equal to prev\_emission\_time}}
-\DoxyCodeLine{104                                 \textcolor{comment}{// 2) last\_emission\_time + period before now -\/> we are still in timeout state}}
-\DoxyCodeLine{105                                 \textcolor{comment}{// 3) prev\_emission\_time updated to last\_emission\_time}}
-\DoxyCodeLine{106                                 \textcolor{comment}{// So we can return to begin}}
-\DoxyCodeLine{107                             \}}
-\DoxyCodeLine{108                         \});}
-\DoxyCodeLine{109 }
-\DoxyCodeLine{110         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(state-\/>children\_subscriptions,}
-\DoxyCodeLine{111                                                   \mbox{\hyperlink{structrpp_1_1details_1_1timeout__on__next}{timeout\_on\_next}}<FallbackObs, \textcolor{keyword}{decltype}(worker)>\{\},}
-\DoxyCodeLine{112                                                   \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{timeout\_on\_error}}\{\},}
-\DoxyCodeLine{113                                                   \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__completed}{timeout\_on\_completed}}\{\},}
-\DoxyCodeLine{114                                                   std::move(subscriber),}
-\DoxyCodeLine{115                                                   std::move(state));}
-\DoxyCodeLine{116     \}}
-\DoxyCodeLine{117 }
-\DoxyCodeLine{118 \textcolor{keyword}{private}:}
-\DoxyCodeLine{119     \textcolor{keyword}{static} schedulers::optional\_duration time\_is\_out(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& state, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber)}
-\DoxyCodeLine{120     \{}
-\DoxyCodeLine{121         state-\/>children\_subscriptions.unsubscribe();}
-\DoxyCodeLine{122         state-\/>fallback\_obs.subscribe(subscriber);}
-\DoxyCodeLine{123         \textcolor{keywordflow}{return} std::nullopt;}
-\DoxyCodeLine{124     \}}
-\DoxyCodeLine{125 \};}
-\DoxyCodeLine{126 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2022\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/operators/lift.hpp>}\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ required\ due\ to\ operator\ uses\ lift}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/early\_unsubscribe.hpp>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/serialized\_subscriber.hpp>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/subscriber\_with\_state.hpp>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/operators/fwd/timeout.hpp>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rpp/subscribers/constraints.hpp>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <rpp/utils/exceptions.hpp>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <rpp/sources/error.hpp>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <rpp/utils/spinlock.hpp>}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <atomic>}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ IMPLEMENTATION\_FILE(timeout\_tag);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\ FallbackObs>}
+\DoxyCodeLine{00031\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1timeout__state}{timeout\_state}}\ :\ \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__state}{early\_unsubscribe\_state}}}
+\DoxyCodeLine{00032\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1timeout__state}{timeout\_state}}(\textcolor{keyword}{const}\ FallbackObs\&\ fallback\_obs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1composite__subscription}{composite\_subscription}}\&\ subscription\_of\_subscriber)}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__state}{early\_unsubscribe\_state}}(subscription\_of\_subscriber)}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ ,\ fallback\_obs\{fallback\_obs\}\ \{\}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ FallbackObs\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fallback\_obs;}
+\DoxyCodeLine{00038\ \ \ \ \ std::atomic<schedulers::time\_point>\ last\_emission\_time\{\};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ schedulers::time\_point\ s\_timeout\_reached\ =\ schedulers::time\_point::min();}
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\ FallbackObs,\ \textcolor{keyword}{typename}\ Worker>}
+\DoxyCodeLine{00044\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1timeout__on__next}{timeout\_on\_next}}}
+\DoxyCodeLine{00045\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Value>}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(Value\&\&\ v,\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ subscriber,\ \textcolor{keyword}{const}\ std::shared\_ptr<\mbox{\hyperlink{structrpp_1_1details_1_1timeout__state}{timeout\_state<FallbackObs>}}>\&\ state)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state-\/>last\_emission\_time.exchange(Worker::now(),\ std::memory\_order\_acq\_rel)\ !=\ \mbox{\hyperlink{structrpp_1_1details_1_1timeout__state}{timeout\_state<FallbackObs>::s\_timeout\_reached}})}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ subscriber.on\_next(std::forward<Value>(v));}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{timeout\_on\_error}}\ \ \ \ \ =\ \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{early\_unsubscribe\_on\_error}};}
+\DoxyCodeLine{00055\ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__completed}{timeout\_on\_completed}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__completed}{early\_unsubscribe\_on\_completed}};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\ FallbackObs>}
+\DoxyCodeLine{00058\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1timeout__state__with__serialized__spinlock}{timeout\_state\_with\_serialized\_spinlock}}\ :\ \mbox{\hyperlink{structrpp_1_1details_1_1timeout__state}{timeout\_state}}<FallbackObs>}
+\DoxyCodeLine{00059\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1timeout__state}{timeout\_state}}<FallbackObs>::timeout\_state;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//\ spinlock\ because\ most\ part\ of\ time\ there\ is\ only\ one\ thread\ would\ be\ active}}
+\DoxyCodeLine{00063\ \ \ \ \ utils::spinlock\ spinlock\{\};}
+\DoxyCodeLine{00064\ \};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::observable\_of\_type<Type>\ FallbackObs,\ schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00067\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1timeout__impl}{timeout\_impl}}}
+\DoxyCodeLine{00068\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ schedulers::duration\ period;}
+\DoxyCodeLine{00070\ \ \ \ \ FallbackObs\ \ \ \ \ \ \ \ \ \ fallback\_obs;}
+\DoxyCodeLine{00071\ \ \ \ \ TScheduler\ \ \ \ \ \ \ \ \ \ \ scheduler;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type>\ TSub>}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(TSub\&\&\ in\_subscriber)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00075\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ state\ =\ std::make\_shared<timeout\_state\_with\_serialized\_spinlock<FallbackObs>>(fallback\_obs,\ in\_subscriber.get\_subscription());}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ change\ subscriber\ to\ serialized\ to\ avoid\ manual\ using\ of\ mutex}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ subscriber\ =\ make\_serialized\_subscriber(std::forward<TSub>(in\_subscriber),}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<utils::spinlock>\{state,\ \&state-\/>spinlock\});}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ worker\ =\ scheduler.create\_worker(state-\/>children\_subscriptions);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ state-\/>last\_emission\_time.store(worker.now(),\ std::memory\_order\_relaxed);}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ last\_emission\_time\ =\ state-\/>last\_emission\_time.load(std::memory\_order\_relaxed);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ worker.schedule(last\_emission\_time\ +\ period,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [period\ =\ period,\ prev\_emission\_time\ =\ last\_emission\_time,\ subscriber,\ state]()\ \textcolor{keyword}{mutable}\ -\/>\ schedulers::optional\_duration}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ last\ emission\ time\ still\ same\ value\ -\/>\ timeout\ reached,\ else\ -\/>\ prev\_emission\_time}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ would\ be\ update\ to\ actual\ emission\ time}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state-\/>last\_emission\_time.compare\_exchange\_strong(prev\_emission\_time,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1timeout__state}{timeout\_state<FallbackObs>::s\_timeout\_reached}},}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::memory\_order\_acq\_rel))}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ time\_is\_out(state,\ subscriber);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ we\ still\ need\ to\ wait\ a\ bit\ more\ -\/>\ let's\ wait}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ diff\_to\_schedule\ =\ (prev\_emission\_time\ +\ period)\ -\/\ \textcolor{keyword}{decltype}(worker)::now();}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ diff\_to\_schedule\ >\ rpp::schedulers::duration\{0\})}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ diff\_to\_schedule;}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ okay,\ we\ here\ because:}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1)\ last\_emission\_time\ was\ not\ equal\ to\ prev\_emission\_time}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2)\ last\_emission\_time\ +\ period\ before\ now\ -\/>\ we\ are\ still\ in\ timeout\ state}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3)\ prev\_emission\_time\ updated\ to\ last\_emission\_time}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ So\ we\ can\ return\ to\ begin}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ create\_subscriber\_with\_state<Type>(state-\/>children\_subscriptions,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1timeout__on__next}{timeout\_on\_next}}<FallbackObs,\ \textcolor{keyword}{decltype}(worker)>\{\},}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__error}{timeout\_on\_error}}\{\},}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1early__unsubscribe__on__completed}{timeout\_on\_completed}}\{\},}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::move(subscriber),}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::move(state));}
+\DoxyCodeLine{00116\ \ \ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{static}\ schedulers::optional\_duration\ time\_is\_out(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ state,\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ subscriber)}
+\DoxyCodeLine{00120\ \ \ \ \ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ state-\/>children\_subscriptions.unsubscribe();}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ state-\/>fallback\_obs.subscribe(subscriber);}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00124\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ \};}
+\DoxyCodeLine{00126\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 
 \end{DoxyCode}

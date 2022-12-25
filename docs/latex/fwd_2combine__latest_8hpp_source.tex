@@ -2,88 +2,88 @@
 \label{fwd_2combine__latest_8hpp_source}\index{src/rpp/rpp/operators/fwd/combine\_latest.hpp@{src/rpp/rpp/operators/fwd/combine\_latest.hpp}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{//                   ReactivePlusPlus library}}
-\DoxyCodeLine{2 \textcolor{comment}{//}}
-\DoxyCodeLine{3 \textcolor{comment}{//           Copyright Aleksey Loginov 2022 -\/ present.}}
-\DoxyCodeLine{4 \textcolor{comment}{//                             TC Wang 2022 -\/ present.}}
-\DoxyCodeLine{5 \textcolor{comment}{//  Distributed under the Boost Software License, Version 1.0.}}
-\DoxyCodeLine{6 \textcolor{comment}{//     (See accompanying file LICENSE\_1\_0.txt or copy at}}
-\DoxyCodeLine{7 \textcolor{comment}{//           https://www.boost.org/LICENSE\_1\_0.txt)}}
-\DoxyCodeLine{8 \textcolor{comment}{//}}
-\DoxyCodeLine{9 \textcolor{comment}{//  Project home: https://github.com/victimsnino/ReactivePlusPlus}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}              \textcolor{comment}{// constraint::observable}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observables/details/member\_overload.hpp>}  \textcolor{comment}{// member\_overload}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/utils/function\_traits.hpp>}                \textcolor{comment}{// decayed\_invoke\_result\_t}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/utils/functors.hpp>}                       \textcolor{comment}{// pack\_to\_tuple}}
-\DoxyCodeLine{17 }
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <tuple>}}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{21 \{}
-\DoxyCodeLine{22 \textcolor{keyword}{struct }combine\_latest\_tag;}
-\DoxyCodeLine{23 \}}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27 }
-\DoxyCodeLine{28 \textcolor{keyword}{template}<constraint::decayed\_type Type, \textcolor{keyword}{typename} TCombiner, constraint::observable ...TOtherObservable>}
-\DoxyCodeLine{29 \textcolor{keyword}{struct }combine\_latest\_impl;}
-\DoxyCodeLine{30 }
-\DoxyCodeLine{31 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{32 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, combine\_latest\_tag>}
-\DoxyCodeLine{33 \{}
-\DoxyCodeLine{34 }
-\DoxyCodeLine{57     \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}} ...TOtherObservable, std::invocable<Type, utils::extract\_observable\_type\_t<TOtherObservable>...> TCombiner>}
-\DoxyCodeLine{58     \textcolor{keyword}{auto} combine\_latest(TCombiner\&\& combiner, TOtherObservable\&\&...observables) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<combine\_latest\_tag, TOtherObservable...>}
-\DoxyCodeLine{59     \{}
-\DoxyCodeLine{60         \textcolor{keyword}{using }DownstreamType = utils::decayed\_invoke\_result\_t<TCombiner, Type, utils::extract\_observable\_type\_t<TOtherObservable>...>;}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{62         \textcolor{keywordflow}{return} cast\_this()-\/>template lift<DownstreamType>(}
-\DoxyCodeLine{63             \mbox{\hyperlink{structrpp_1_1details_1_1combine__latest__impl}{combine\_latest\_impl}}<Type, std::decay\_t<TCombiner>, std::decay\_t<TOtherObservable>...>\{}
-\DoxyCodeLine{64                 std::forward<TCombiner>(combiner),}
-\DoxyCodeLine{65                 std::tuple\{std::forward<TOtherObservable>(observables)...\}}
-\DoxyCodeLine{66             \});}
-\DoxyCodeLine{67     \}}
-\DoxyCodeLine{68 }
-\DoxyCodeLine{69     \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}} ...TOtherObservable, std::invocable<Type, utils::extract\_observable\_type\_t<TOtherObservable>...> TCombiner>}
-\DoxyCodeLine{70     \textcolor{keyword}{auto} combine\_latest(TCombiner\&\& combiner, TOtherObservable\&\&...observables) \&\& \textcolor{keyword}{requires} is\_header\_included<combine\_latest\_tag, TOtherObservable...>}
-\DoxyCodeLine{71     \{}
-\DoxyCodeLine{72         \textcolor{keyword}{using }DownstreamType = utils::decayed\_invoke\_result\_t<TCombiner, Type, utils::extract\_observable\_type\_t<TOtherObservable>...>;}
-\DoxyCodeLine{73 }
-\DoxyCodeLine{74         \textcolor{keywordflow}{return} move\_this().template lift<DownstreamType>(}
-\DoxyCodeLine{75             \mbox{\hyperlink{structrpp_1_1details_1_1combine__latest__impl}{combine\_latest\_impl}}<Type, std::decay\_t<TCombiner>, std::decay\_t<TOtherObservable>...>\{}
-\DoxyCodeLine{76                 std::forward<TCombiner>(combiner),}
-\DoxyCodeLine{77                 std::tuple\{std::forward<TOtherObservable>(observables)...\}}
-\DoxyCodeLine{78             \});}
-\DoxyCodeLine{79     \}}
-\DoxyCodeLine{80 }
-\DoxyCodeLine{101     \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}} ...TOtherObservable>}
-\DoxyCodeLine{102     \textcolor{keyword}{auto} combine\_latest(TOtherObservable\&\&...observables) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<combine\_latest\_tag, TOtherObservable...>}
-\DoxyCodeLine{103     \{}
-\DoxyCodeLine{104         \textcolor{keywordflow}{return} cast\_this()-\/>combine\_latest(utils::pack\_to\_tuple\{\}, std::forward<TOtherObservable>(observables)...);}
-\DoxyCodeLine{105     \}}
-\DoxyCodeLine{106 }
-\DoxyCodeLine{107     \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}} ...TOtherObservable>}
-\DoxyCodeLine{108     \textcolor{keyword}{auto} combine\_latest(TOtherObservable\&\&...observables) \&\& \textcolor{keyword}{requires} is\_header\_included<combine\_latest\_tag, TOtherObservable...>}
-\DoxyCodeLine{109     \{}
-\DoxyCodeLine{110         \textcolor{keywordflow}{return} move\_this().combine\_latest(utils::pack\_to\_tuple\{\}, std::forward<TOtherObservable>(observables)...);}
-\DoxyCodeLine{111     \}}
-\DoxyCodeLine{112 }
-\DoxyCodeLine{113 \textcolor{keyword}{private}:}
-\DoxyCodeLine{114     \textcolor{keyword}{const} SpecificObservable* cast\_this()\textcolor{keyword}{ const}}
-\DoxyCodeLine{115 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{116         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
-\DoxyCodeLine{117     \}}
-\DoxyCodeLine{118 }
-\DoxyCodeLine{119     SpecificObservable\&\& move\_this()}
-\DoxyCodeLine{120     \{}
-\DoxyCodeLine{121         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
-\DoxyCodeLine{122     \}}
-\DoxyCodeLine{123 \};}
-\DoxyCodeLine{124 }
-\DoxyCodeLine{125 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2022\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TC\ Wang\ 2022\ -\/\ present.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ \ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/observables/constraints.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ constraint::observable}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/observables/details/member\_overload.hpp>}\ \ \textcolor{comment}{//\ member\_overload}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/utils/function\_traits.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ decayed\_invoke\_result\_t}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/utils/functors.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pack\_to\_tuple}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{struct\ }combine\_latest\_tag;}
+\DoxyCodeLine{00023\ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{template}<constraint::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ TCombiner,\ constraint::observable\ ...TOtherObservable>}
+\DoxyCodeLine{00029\ \textcolor{keyword}{struct\ }combine\_latest\_impl;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ SpecificObservable>}
+\DoxyCodeLine{00032\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type,\ SpecificObservable,\ combine\_latest\_tag>}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}}\ ...TOtherObservable,\ std::invocable<Type,\ utils::extract\_observable\_type\_t<TOtherObservable>...>\ TCombiner>}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{auto}\ combine\_latest(TCombiner\&\&\ combiner,\ TOtherObservable\&\&...observables)\ \textcolor{keyword}{const}\&\ \textcolor{keyword}{requires}\ is\_header\_included<combine\_latest\_tag,\ TOtherObservable...>}
+\DoxyCodeLine{00072\ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }DownstreamType\ =\ utils::decayed\_invoke\_result\_t<TCombiner,\ Type,\ utils::extract\_observable\_type\_t<TOtherObservable>...>;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cast\_this()-\/>template\ lift<DownstreamType>(}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1combine__latest__impl}{combine\_latest\_impl}}<Type,\ std::decay\_t<TCombiner>,\ std::decay\_t<TOtherObservable>...>\{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<TCombiner>(combiner),}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::tuple\{std::forward<TOtherObservable>(observables)...\}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}}\ ...TOtherObservable,\ std::invocable<Type,\ utils::extract\_observable\_type\_t<TOtherObservable>...>\ TCombiner>}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{auto}\ combine\_latest(TCombiner\&\&\ combiner,\ TOtherObservable\&\&...observables)\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<combine\_latest\_tag,\ TOtherObservable...>}
+\DoxyCodeLine{00084\ \ \ \ \ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }DownstreamType\ =\ utils::decayed\_invoke\_result\_t<TCombiner,\ Type,\ utils::extract\_observable\_type\_t<TOtherObservable>...>;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ move\_this().template\ lift<DownstreamType>(}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1combine__latest__impl}{combine\_latest\_impl}}<Type,\ std::decay\_t<TCombiner>,\ std::decay\_t<TOtherObservable>...>\{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<TCombiner>(combiner),}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::tuple\{std::forward<TOtherObservable>(observables)...\}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}}\ ...TOtherObservable>}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{auto}\ combine\_latest(TOtherObservable\&\&...observables)\ \textcolor{keyword}{const}\&\ \textcolor{keyword}{requires}\ is\_header\_included<combine\_latest\_tag,\ TOtherObservable...>}
+\DoxyCodeLine{00130\ \ \ \ \ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cast\_this()-\/>combine\_latest(utils::pack\_to\_tuple\{\},\ std::forward<TOtherObservable>(observables)...);}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}}\ ...TOtherObservable>}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keyword}{auto}\ combine\_latest(TOtherObservable\&\&...observables)\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<combine\_latest\_tag,\ TOtherObservable...>}
+\DoxyCodeLine{00136\ \ \ \ \ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ move\_this().combine\_latest(utils::pack\_to\_tuple\{\},\ std::forward<TOtherObservable>(observables)...);}
+\DoxyCodeLine{00138\ \ \ \ \ \}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{const}\ SpecificObservable*\ cast\_this()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00142\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
+\DoxyCodeLine{00144\ \ \ \ \ \}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ SpecificObservable\&\&\ move\_this()}
+\DoxyCodeLine{00147\ \ \ \ \ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{00149\ \ \ \ \ \}}
+\DoxyCodeLine{00150\ \};}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 
 \end{DoxyCode}

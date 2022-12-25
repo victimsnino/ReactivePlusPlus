@@ -2,60 +2,60 @@
 \label{fwd_2take__until_8hpp_source}\index{src/rpp/rpp/operators/fwd/take\_until.hpp@{src/rpp/rpp/operators/fwd/take\_until.hpp}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{//                   ReactivePlusPlus library}}
-\DoxyCodeLine{2 \textcolor{comment}{//}}
-\DoxyCodeLine{3 \textcolor{comment}{//           Copyright Aleksey Loginov 2022 -\/ present.}}
-\DoxyCodeLine{4 \textcolor{comment}{//                             TC Wang 2022 -\/ present.}}
-\DoxyCodeLine{5 \textcolor{comment}{//  Distributed under the Boost Software License, Version 1.0.}}
-\DoxyCodeLine{6 \textcolor{comment}{//     (See accompanying file LICENSE\_1\_0.txt or copy at}}
-\DoxyCodeLine{7 \textcolor{comment}{//           https://www.boost.org/LICENSE\_1\_0.txt)}}
-\DoxyCodeLine{8 \textcolor{comment}{//}}
-\DoxyCodeLine{9 \textcolor{comment}{//  Project home: https://github.com/victimsnino/ReactivePlusPlus}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/observables/constraints.hpp>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/observables/details/member\_overload.hpp>}}
-\DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{17 \{}
-\DoxyCodeLine{18 \textcolor{keyword}{struct }take\_until\_tag;}
-\DoxyCodeLine{19 \}}
-\DoxyCodeLine{20 }
-\DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{22 \{}
-\DoxyCodeLine{23 }
-\DoxyCodeLine{24 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, constra\textcolor{keywordtype}{int}::observable TTriggerObservable>}
-\DoxyCodeLine{25 \textcolor{keyword}{struct }take\_until\_impl;}
-\DoxyCodeLine{26 }
-\DoxyCodeLine{27 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, \textcolor{keyword}{typename} SpecificObservable>}
-\DoxyCodeLine{28 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type, SpecificObservable, take\_until\_tag>}
-\DoxyCodeLine{29 \{}
-\DoxyCodeLine{30 }
-\DoxyCodeLine{53     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TTriggerObservable>}
-\DoxyCodeLine{54     \textcolor{keyword}{auto} take\_until(TTriggerObservable\&\& until\_observable) \textcolor{keyword}{const}\& \textcolor{keyword}{requires} is\_header\_included<take\_until\_tag, TTriggerObservable>}
-\DoxyCodeLine{55     \{}
-\DoxyCodeLine{56         \textcolor{keywordflow}{return} cast\_this()-\/>template lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1take__until__impl}{take\_until\_impl}}<Type, std::decay\_t<TTriggerObservable>>\{std::forward<TTriggerObservable>(until\_observable)\});}
-\DoxyCodeLine{57     \}}
-\DoxyCodeLine{58 }
-\DoxyCodeLine{59     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable TTriggerObservable>}
-\DoxyCodeLine{60     \textcolor{keyword}{auto} take\_until(TTriggerObservable\&\& until\_observable) \&\& \textcolor{keyword}{requires} is\_header\_included<take\_until\_tag, TTriggerObservable>}
-\DoxyCodeLine{61     \{}
-\DoxyCodeLine{62         \textcolor{keywordflow}{return} move\_this().template lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1take__until__impl}{take\_until\_impl}}<Type, std::decay\_t<TTriggerObservable>>\{std::forward<TTriggerObservable>(until\_observable)\});}
-\DoxyCodeLine{63     \}}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{65 \textcolor{keyword}{private}:}
-\DoxyCodeLine{66     \textcolor{keyword}{const} SpecificObservable* cast\_this()\textcolor{keyword}{ const}}
-\DoxyCodeLine{67 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{68         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
-\DoxyCodeLine{69     \}}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{71     SpecificObservable\&\& move\_this()}
-\DoxyCodeLine{72     \{}
-\DoxyCodeLine{73         \textcolor{keywordflow}{return} std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
-\DoxyCodeLine{74     \}}
-\DoxyCodeLine{75 \};}
-\DoxyCodeLine{76 }
-\DoxyCodeLine{77 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2022\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TC\ Wang\ 2022\ -\/\ present.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ \ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/observables/constraints.hpp>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/observables/details/member\_overload.hpp>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }take\_until\_tag;}
+\DoxyCodeLine{00019\ \}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::observable\ TTriggerObservable>}
+\DoxyCodeLine{00025\ \textcolor{keyword}{struct\ }take\_until\_impl;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ SpecificObservable>}
+\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type,\ SpecificObservable,\ take\_until\_tag>}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\ TTriggerObservable>}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{auto}\ take\_until(TTriggerObservable\&\&\ until\_observable)\ \textcolor{keyword}{const}\&\ \textcolor{keyword}{requires}\ is\_header\_included<take\_until\_tag,\ TTriggerObservable>}
+\DoxyCodeLine{00055\ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cast\_this()-\/>template\ lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1take__until__impl}{take\_until\_impl}}<Type,\ std::decay\_t<TTriggerObservable>>\{std::forward<TTriggerObservable>(until\_observable)\});}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\ TTriggerObservable>}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{auto}\ take\_until(TTriggerObservable\&\&\ until\_observable)\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<take\_until\_tag,\ TTriggerObservable>}
+\DoxyCodeLine{00061\ \ \ \ \ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ move\_this().template\ lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1take__until__impl}{take\_until\_impl}}<Type,\ std::decay\_t<TTriggerObservable>>\{std::forward<TTriggerObservable>(until\_observable)\});}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{const}\ SpecificObservable*\ cast\_this()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00067\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ SpecificObservable\&\&\ move\_this()}
+\DoxyCodeLine{00072\ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 
 \end{DoxyCode}

@@ -1,38 +1,38 @@
 \hypertarget{delay_8cpp-example}{}\doxysection{delay.\+cpp}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include <chrono>}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include <ctime>}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <ctime>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{keywordtype}{int} main()}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()}
 \DoxyCodeLine{\{}
 \DoxyCodeLine{}
-\DoxyCodeLine{    \textcolor{keyword}{auto} start = rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
 \DoxyCodeLine{}
-\DoxyCodeLine{    rpp::source::just(1, 2, 3)}
-\DoxyCodeLine{            .do\_on\_next([\&](\textcolor{keyword}{auto}\&\& v)}
-\DoxyCodeLine{                        \{}
-\DoxyCodeLine{                            \textcolor{keyword}{auto} emitting\_time = rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{                            std::cout << \textcolor{stringliteral}{"{}emit "{}} << v << \textcolor{stringliteral}{"{} in thread\{"{}} << std::this\_thread::get\_id() << \textcolor{stringliteral}{"{}\} duration since start "{}} << std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time -\/ start).count() << \textcolor{stringliteral}{"{}s"{}}<< std::endl;}
-\DoxyCodeLine{                        \})}
-\DoxyCodeLine{            .delay(std::chrono::seconds\{3\}, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
-\DoxyCodeLine{            .as\_blocking()}
-\DoxyCodeLine{            .subscribe([\&](\textcolor{keywordtype}{int} v)}
-\DoxyCodeLine{                       \{}
-\DoxyCodeLine{                           \textcolor{keyword}{auto} observing\_time = rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"{}observe "{}} << v << \textcolor{stringliteral}{"{} in thread\{"{}} << std::this\_thread::get\_id() << \textcolor{stringliteral}{"{}\} duration since start "{}} << std::chrono::duration\_cast<std::chrono::seconds>(observing\_time -\/ start).count() <<\textcolor{stringliteral}{"{}s"{}} << std::endl;}
-\DoxyCodeLine{                       \});}
-\DoxyCodeLine{    \textcolor{comment}{// Template for output:}}
-\DoxyCodeLine{    \textcolor{comment}{//    emit 1 in thread\{11772\} duration since start 0s}}
-\DoxyCodeLine{    \textcolor{comment}{//    emit 2 in thread\{11772\} duration since start 0s}}
-\DoxyCodeLine{    \textcolor{comment}{//    emit 3 in thread\{11772\} duration since start 0s}}
-\DoxyCodeLine{    \textcolor{comment}{//    observe 1 in thread\{15516\} duration since start 3s}}
-\DoxyCodeLine{    \textcolor{comment}{//    observe 2 in thread\{15516\} duration since start 3s}}
-\DoxyCodeLine{    \textcolor{comment}{//    observe 3 in thread\{15516\} duration since start 3s}}
-\DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,\ 2,\ 3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .do\_on\_next([\&](\textcolor{keyword}{auto}\&\&\ v)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ emitting\_time\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .delay(std::chrono::seconds\{3\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .as\_blocking()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([\&](\textcolor{keywordtype}{int}\ v)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observing\_time\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(observing\_time\ -\/\ start).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Template\ for\ output:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ emit\ 1\ in\ thread\{11772\}\ duration\ since\ start\ 0s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ emit\ 2\ in\ thread\{11772\}\ duration\ since\ start\ 0s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ emit\ 3\ in\ thread\{11772\}\ duration\ since\ start\ 0s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ observe\ 1\ in\ thread\{15516\}\ duration\ since\ start\ 3s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ observe\ 2\ in\ thread\{15516\}\ duration\ since\ start\ 3s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ observe\ 3\ in\ thread\{15516\}\ duration\ since\ start\ 3s}}
+\DoxyCodeLine{\textcolor{comment}{}\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}

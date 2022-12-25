@@ -56,6 +56,8 @@ Suppress consecutive duplicates of emissions from original observable.
 
 
 
+Actually this operator has {\ttfamily std\+::optional} with last item and checks everytime where new emission is same or not.
+
 
 \begin{DoxyParams}{Parameters}
 {\em equality\+\_\+fn} & optional equality comparator function \\
@@ -70,21 +72,43 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(1, 1, 2, 2, 3, 2, 1)}
-\DoxyCodeLine{            .distinct\_until\_changed()}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} val) \{ std::cout << val << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2 3 2 1}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,\ 1,\ 2,\ 2,\ 3,\ 2,\ 1)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .distinct\_until\_changed()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ val)\ \{\ std::cout\ <<\ val\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2\ 3\ 2\ 1}}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(1, 1, 2, 2, 3, 2, 1)}
-\DoxyCodeLine{        .distinct\_until\_changed([](\textcolor{keywordtype}{int} left, \textcolor{keywordtype}{int} right) \{\textcolor{keywordflow}{return} left != right; \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} val) \{ std::cout << val << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 1 1 1}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,\ 1,\ 2,\ 2,\ 3,\ 2,\ 1)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .distinct\_until\_changed([](\textcolor{keywordtype}{int}\ left,\ \textcolor{keywordtype}{int}\ right)\ \{\textcolor{keywordflow}{return}\ left\ !=\ right;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ val)\ \{\ std::cout\ <<\ val\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 1\ 1}}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to store last emission
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Checks if value in state same as new emission
+\item If new emission is not same, then updates state and emit this emission
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/distinct.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/distinct.\+html}} 
@@ -104,6 +128,8 @@ Emit only those items from an Observable that satisfies a provided predicate.
 
 
 
+Actually this operator just checks if predicate returns true, then forwards emission
+
 
 \begin{DoxyParams}{Parameters}
 {\em predicate} & is predicate used to check emitted items. true -\/\texorpdfstring{$>$}{>} items satisfies condition, false -\/\texorpdfstring{$>$}{>} not \\
@@ -118,13 +144,34 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)}
-\DoxyCodeLine{            .filter([](\textcolor{keywordtype}{int}    v) \{ \textcolor{keywordflow}{return} v \% 2 == 0; \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 0 2 4 6 8}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(0,\ 1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8,\ 9)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .filter([](\textcolor{keywordtype}{int}\ \ \ \ v)\ \{\ \textcolor{keywordflow}{return}\ v\ \%\ 2\ ==\ 0;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 0\ 2\ 4\ 6\ 8}}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item None
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Just forwards emission of predicate returns true
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/filter.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/filter.\+html}} 
@@ -142,6 +189,11 @@ emit only the first item.
 
 
 
+Actually this operator is {\ttfamily take(1)} with exception during {\ttfamily on\+\_\+completed} if no any emision happens. So, it just forwards first obtained emission and emits on\+\_\+completed immediately 
+\begin{DoxyExceptions}{Exceptions}
+{\em rpp\+::utils\+::not\+\_\+enough\+\_\+emissions} & in case of on\+\_\+completed obtained without any emissions\\
+\hline
+\end{DoxyExceptions}
 \begin{DoxyReturn}{Returns}
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the first operator as most recent operator. 
 \end{DoxyReturn}
@@ -151,29 +203,50 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(1, 2, 3, 4, 5)}
-\DoxyCodeLine{        .first()}
-\DoxyCodeLine{        .subscribe(}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} \textcolor{keyword}{auto} \&v) \{ std::cout << \textcolor{stringliteral}{"{}-\/"{}} << v; \},}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr\&) \{\},}
-\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"{}-\/|"{}} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Source: -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
-\DoxyCodeLine{    \textcolor{comment}{// Output: -\/1-\/|}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,\ 2,\ 3,\ 4,\ 5)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .first()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .subscribe(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source:\ -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ -\/1-\/|}}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::empty<int>()}
-\DoxyCodeLine{        .first()}
-\DoxyCodeLine{        .subscribe(}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} \textcolor{keyword}{auto} \&v) \{ std::cout << \textcolor{stringliteral}{"{}-\/"{}} << v; \},}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr\&) \{ std::cout << \textcolor{stringliteral}{"{}-\/x"{}} << std::endl; \},}
-\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"{}-\/|"{}} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Source: -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
-\DoxyCodeLine{    \textcolor{comment}{// Output: -\/x}}
+\DoxyCodeLine{\ \ \ \ rpp::source::empty<int>()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .first()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .subscribe(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/x"{}}\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source:\ -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ -\/x}}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to keep internal state
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Just forwards 1 emission and emit on\+\_\+completed
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item throws exception if no any emission before
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/first.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/first.\+html}} 
@@ -191,6 +264,11 @@ Emit only the last item provided before on\+\_\+completed.
 
 
 
+Actually this operator just updates {\ttfamily std\+::optional} on every new emission and emits this value on\+\_\+completed 
+\begin{DoxyExceptions}{Exceptions}
+{\em rpp\+::utils\+::not\+\_\+enough\+\_\+emissions} & in case of on\+\_\+completed obtained without any emissions\\
+\hline
+\end{DoxyExceptions}
 \begin{DoxyReturn}{Returns}
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the last operator as most recent operator. 
 \end{DoxyReturn}
@@ -200,29 +278,50 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(1, 2, 3, 4, 5)}
-\DoxyCodeLine{        .last()}
-\DoxyCodeLine{        .subscribe(}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} \textcolor{keyword}{auto} \&v) \{ std::cout << \textcolor{stringliteral}{"{}-\/"{}} << v; \},}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr \&) \{\},}
-\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"{}-\/|"{}} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Source: -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
-\DoxyCodeLine{    \textcolor{comment}{// Output: -\/5-\/|}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,\ 2,\ 3,\ 4,\ 5)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .last()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .subscribe(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\ \&)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source:\ -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ -\/5-\/|}}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::empty<int>()}
-\DoxyCodeLine{        .last()}
-\DoxyCodeLine{        .subscribe(}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} \textcolor{keyword}{auto} \&v) \{ std::cout << \textcolor{stringliteral}{"{}-\/"{}} << v; \},}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr \&) \{ std::cout << \textcolor{stringliteral}{"{}-\/x"{}}; \},}
-\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"{}-\/|"{}} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Source: -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
-\DoxyCodeLine{    \textcolor{comment}{// Output: -\/x}}
+\DoxyCodeLine{\ \ \ \ rpp::source::empty<int>()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .last()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .subscribe(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\ \&)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/x"{}};\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source:\ -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ -\/x}}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to keep {\ttfamily std\+::optional}
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Just saves emission to {\ttfamily std\+::optional}
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Emits saved emission or throws exception if no any emissions
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/last.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/last.\+html}} 
@@ -244,6 +343,8 @@ Emit item immediately in case of completion of the original observable
 
 
 
+Actually operator just schedules periodical action and on each schedulable execution just emits last emitted emission (if any)
+
 
 \begin{DoxyParams}{Parameters}
 {\em period} & sampling period \textbackslash{}scheduler scheduler to use to schedule emissions with provided sampling period \\
@@ -258,14 +359,37 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::interval(std::chrono::milliseconds\{100\}, \mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\})}
-\DoxyCodeLine{            .\mbox{\hyperlink{group__filtering__operators_gaf8aad914f52ebe2b69435a1525fe7f33}{sample\_with\_time}}(std::chrono::milliseconds\{300\}, \mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\})}
-\DoxyCodeLine{            .take(5)}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 1 4 7 10 13}}
+\DoxyCodeLine{\ \ \ \ rpp::source::interval(std::chrono::milliseconds\{100\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .\mbox{\hyperlink{group__filtering__operators_gaf8aad914f52ebe2b69435a1525fe7f33}{sample\_with\_time}}(std::chrono::milliseconds\{300\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::trampoline}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .take(5)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 4\ 7\ 10\ 13}}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to store last emitted value
+\item Schedules periodical action to emit stored value (if any)
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Updates stored value
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed
+\item Emit last emitted value (if any)
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/sample.htmlhttps://reactivex.io/documentation/operators/sample.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/sample.\+htmlhttps\+://reactivex.\+io/documentation/operators/sample.\+html}} 
@@ -297,10 +421,10 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(0,1,2,3,4,5)}
-\DoxyCodeLine{            .skip(2)}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 2 3 4 5}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(0,1,2,3,4,5)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .skip(2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 2\ 3\ 4\ 5}}
 
 \end{DoxyCodeInclude}
 
@@ -335,10 +459,10 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)}
-\DoxyCodeLine{            .take(2)}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 0 1}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(0,\ 1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8,\ 9)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .take(2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 0\ 1}}
 
 \end{DoxyCodeInclude}
 
@@ -375,10 +499,10 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)}
-\DoxyCodeLine{            .take\_last(2)}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 8 9}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(0,\ 1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8,\ 9)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .take\_last(2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 8\ 9}}
 
 \end{DoxyCodeInclude}
 

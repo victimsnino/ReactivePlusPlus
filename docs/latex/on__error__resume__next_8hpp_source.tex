@@ -2,61 +2,61 @@
 \label{on__error__resume__next_8hpp_source}\index{src/rpp/rpp/operators/on\_error\_resume\_next.hpp@{src/rpp/rpp/operators/on\_error\_resume\_next.hpp}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
-\DoxyCodeLine{2 \textcolor{comment}{//}}
-\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
-\DoxyCodeLine{4 \textcolor{comment}{//                    TC Wang 2022 -\/ present.}}
-\DoxyCodeLine{5 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
-\DoxyCodeLine{6 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
-\DoxyCodeLine{7 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
-\DoxyCodeLine{8 \textcolor{comment}{//}}
-\DoxyCodeLine{9 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
-\DoxyCodeLine{10 \textcolor{comment}{//}}
-\DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/defs.hpp>}                                    \textcolor{comment}{// RPP\_NO\_UNIQUE\_ADDRESS}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/operators/lift.hpp>}                          \textcolor{comment}{// required due to operator uses lift}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/operators/details/subscriber\_with\_state.hpp>} \textcolor{comment}{// create\_subscriber\_with\_state}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <rpp/operators/fwd/on\_error\_resume\_next.hpp>}      \textcolor{comment}{// own forwarduing}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <rpp/subscribers/constraints.hpp>}                 \textcolor{comment}{// constraint::subscriber\_of\_type}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <rpp/utils/functors.hpp>}}
-\DoxyCodeLine{20 }
-\DoxyCodeLine{21 IMPLEMENTATION\_FILE(on\_error\_resume\_next\_tag);}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{keyword}{namespace }rpp::details}
-\DoxyCodeLine{24 \{}
-\DoxyCodeLine{28 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1on__error__resume__next__on__error}{on\_error\_resume\_next\_on\_error}}}
-\DoxyCodeLine{29 \{}
-\DoxyCodeLine{30     \textcolor{keyword}{template}<rpp::details::resume\_callable ResumeCallable>}
-\DoxyCodeLine{31     \textcolor{keywordtype}{void} operator()(\textcolor{keyword}{const} std::exception\_ptr\& err,}
-\DoxyCodeLine{32                     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& subscriber,}
-\DoxyCodeLine{33                     \textcolor{keyword}{const} ResumeCallable\& \mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}})\textcolor{keyword}{ const}}
-\DoxyCodeLine{34 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{35         \textcolor{comment}{// Subscribe to next\_observable}}
-\DoxyCodeLine{36         \mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}}(err).subscribe(subscriber);}
-\DoxyCodeLine{37     \}}
-\DoxyCodeLine{38 \};}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{43 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type, rpp::details::resume\_callable ResumeCallable>}
-\DoxyCodeLine{44 \textcolor{keyword}{struct }\mbox{\hyperlink{structrpp_1_1details_1_1on__error__resume__next__impl}{on\_error\_resume\_next\_impl}}}
-\DoxyCodeLine{45 \{}
-\DoxyCodeLine{46     RPP\_NO\_UNIQUE\_ADDRESS ResumeCallable \mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}};}
-\DoxyCodeLine{47 }
-\DoxyCodeLine{48     \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type> TSub>}
-\DoxyCodeLine{49     \textcolor{keyword}{auto} operator()(TSub\&\& downstream\_subscriber)\textcolor{keyword}{ const}}
-\DoxyCodeLine{50 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{51         \textcolor{comment}{// Child subscription is for keeping the downstream subscriber's subscription alive when upstream sends on\_error event.}}
-\DoxyCodeLine{52         \textcolor{keyword}{auto} subscription = downstream\_subscriber.get\_subscription().make\_child();}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{54         \textcolor{keywordflow}{return} create\_subscriber\_with\_state<Type>(std::move(subscription),}
-\DoxyCodeLine{55                                                   rpp::utils::forwarding\_on\_next\{\},}
-\DoxyCodeLine{56                                                   \mbox{\hyperlink{structrpp_1_1details_1_1on__error__resume__next__on__error}{on\_error\_resume\_next\_on\_error}}\{\},}
-\DoxyCodeLine{57                                                   rpp::utils::forwarding\_on\_completed\{\},}
-\DoxyCodeLine{58                                                   std::forward<TSub>(downstream\_subscriber),}
-\DoxyCodeLine{59                                                   \mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}});}
-\DoxyCodeLine{60     \}}
-\DoxyCodeLine{61 \};}
-\DoxyCodeLine{62 \} \textcolor{comment}{// namespace rpp::details}}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2022\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TC\ Wang\ 2022\ -\/\ present.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/defs.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ RPP\_NO\_UNIQUE\_ADDRESS}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/operators/lift.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ required\ due\ to\ operator\ uses\ lift}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/subscriber\_with\_state.hpp>}\ \textcolor{comment}{//\ create\_subscriber\_with\_state}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/operators/fwd/on\_error\_resume\_next.hpp>}\ \ \ \ \ \ \textcolor{comment}{//\ own\ forwarduing}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rpp/subscribers/constraints.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ constraint::subscriber\_of\_type}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <rpp/utils/functors.hpp>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ IMPLEMENTATION\_FILE(on\_error\_resume\_next\_tag);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1on__error__resume__next__on__error}{on\_error\_resume\_next\_on\_error}}}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{template}<rpp::details::resume\_callable\ ResumeCallable>}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ subscriber,}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ResumeCallable\&\ \mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Subscribe\ to\ next\_observable}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}}(err).subscribe(subscriber);}
+\DoxyCodeLine{00037\ \ \ \ \ \}}
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::details::resume\_callable\ ResumeCallable>}
+\DoxyCodeLine{00044\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1on__error__resume__next__impl}{on\_error\_resume\_next\_impl}}}
+\DoxyCodeLine{00045\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ ResumeCallable\ \mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subscriber\_of\_type<Type>\ TSub>}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(TSub\&\&\ downstream\_subscriber)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00050\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Child\ subscription\ is\ for\ keeping\ the\ downstream\ subscriber's\ subscription\ alive\ when\ upstream\ sends\ on\_error\ event.}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ subscription\ =\ downstream\_subscriber.get\_subscription().make\_child();}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ create\_subscriber\_with\_state<Type>(std::move(subscription),}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rpp::utils::forwarding\_on\_next\{\},}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1on__error__resume__next__on__error}{on\_error\_resume\_next\_on\_error}}\{\},}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rpp::utils::forwarding\_on\_completed\{\},}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<TSub>(downstream\_subscriber),}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{conceptrpp_1_1details_1_1resume__callable}{resume\_callable}});}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ \};}
+\DoxyCodeLine{00062\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 
 \end{DoxyCode}

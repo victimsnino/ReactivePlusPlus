@@ -31,6 +31,26 @@ requires (!std\+::is\+\_\+same\+\_\+v$<$std\+::decay\+\_\+t$<$TObserver$>$, \mbo
 \mbox{\Hypertarget{classrpp_1_1dynamic__observer_add7053ccfed71413c07b74cc34a564f8}\label{classrpp_1_1dynamic__observer_add7053ccfed71413c07b74cc34a564f8}} 
 const \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ T $>$ \& {\bfseries as\+\_\+dynamic} () const
 \begin{DoxyCompactList}\small\item\em Do nothing for \mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp\+::dynamic\+\_\+observer}}. Created only for unification of interfaces with \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp\+::specific\+\_\+observer}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{rpp\+::details\+::dynamic\+\_\+state\+\_\+observer$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1details_1_1dynamic__state__observer_a856aa4774dcb5cc8133522e6090c7b7f}\label{classrpp_1_1details_1_1dynamic__state__observer_a856aa4774dcb5cc8133522e6090c7b7f}} 
+{\bfseries dynamic\+\_\+state\+\_\+observer} (std\+::invocable$<$ T, States... $>$ auto \&\&on\+\_\+next, std\+::invocable$<$ std\+::exception\+\_\+ptr, States... $>$ auto \&\&on\+\_\+error, std\+::invocable$<$ States... $>$ auto \&\&on\+\_\+completed, TStates \&\&... states)
+\item 
+\mbox{\Hypertarget{classrpp_1_1details_1_1dynamic__state__observer_a2c306b6ecdbddcc1f20bd3f7e76c7e0a}\label{classrpp_1_1details_1_1dynamic__state__observer_a2c306b6ecdbddcc1f20bd3f7e76c7e0a}} 
+{\bfseries dynamic\+\_\+state\+\_\+observer} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structrpp_1_1details_1_1dynamic__observer__state__base}{details\+::dynamic\+\_\+observer\+\_\+state\+\_\+base}}$<$ T $>$ $>$ state)
+\item 
+\mbox{\Hypertarget{classrpp_1_1details_1_1dynamic__state__observer_a41c06850655d7c864aedbc8a9a2437b5}\label{classrpp_1_1details_1_1dynamic__state__observer_a41c06850655d7c864aedbc8a9a2437b5}} 
+{\bfseries dynamic\+\_\+state\+\_\+observer} (TObserver \&\&obs)
+\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_aab9be8862b04c33b4c862f8dda1c99be}{on\+\_\+next}} (const T \&v) const
+\begin{DoxyCompactList}\small\item\em Observable calls this methods to notify observer about new value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a00104aed46db67cbf47f99a1b44d609b}{on\+\_\+next}} (T \&\&v) const
+\begin{DoxyCompactList}\small\item\em Observable calls this methods to notify observer about new value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a91d7e77ce90708128288524107e7dc7f}{on\+\_\+error}} (const std\+::exception\+\_\+ptr \&err) const
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about some error during generation next data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a7352ef279f72e785b5d7631e36d63707}{on\+\_\+completed}} () const
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about finish of work. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}

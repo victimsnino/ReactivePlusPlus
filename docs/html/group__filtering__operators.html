@@ -181,6 +181,7 @@ requires is_header_included&lt;distinct_until_changed_tag, EqualityFn&gt;</div>
 <div class="image">
 <object type="image/svg+xml" data="distinct_until_changed.svg" style="pointer-events: none;"></object>
 </div>
+<p>Actually this operator has <code>std::optional</code> with last item and checks everytime where new emission is same or not.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">equality_fn</td><td>optional equality comparator function </td></tr>
@@ -198,6 +199,26 @@ requires is_header_included&lt;distinct_until_changed_tag, EqualityFn&gt;</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> val) { std::cout &lt;&lt; val &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1 1 1</span></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>Allocates one <code>shared_ptr</code> to store last emission</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Checks if value in state same as new emission</li>
+<li>If new emission is not same, then updates state and emit this emission</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>Just forwards original on_completed</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/distinct.html">https://reactivex.io/documentation/operators/distinct.html</a> </dd></dl>
 
 </div>
@@ -235,6 +256,7 @@ requires is_header_included&lt;filter_tag, Predicate&gt;</div>
 <div class="image">
 <object type="image/svg+xml" data="filter.svg" style="pointer-events: none;"></object>
 </div>
+<p>Actually this operator just checks if predicate returns true, then forwards emission</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">predicate</td><td>is predicate used to check emitted items. true -&gt; items satisfies condition, false -&gt; not </td></tr>
@@ -248,6 +270,25 @@ requires is_header_included&lt;filter_tag, Predicate&gt;</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 2 4 6 8</span></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>None</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Just forwards emission of predicate returns true</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>Just forwards original on_completed</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/filter.html">https://reactivex.io/documentation/operators/filter.html</a> </dd></dl>
 
 </div>
@@ -281,6 +322,12 @@ template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </di
 <div class="image">
 <object type="image/svg+xml" data="first.svg" style="pointer-events: none;"></object>
 </div>
+<p>Actually this operator is <code>take(1)</code> with exception during <code>on_completed</code> if no any emision happens. So, it just forwards first obtained emission and emits on_completed immediately </p><dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">rpp::utils::not_enough_emissions</td><td>in case of on_completed obtained without any emissions</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the first operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="first_8hpp_source.html">rpp/operators/first.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    rpp::source::just(1, 2, 3, 4, 5)</div>
@@ -300,6 +347,25 @@ template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </di
 <div class="line">    <span class="comment">// Source: -1-2-3-4-5--|</span></div>
 <div class="line">    <span class="comment">// Output: -x</span></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>Allocates one <code>shared_ptr</code> to keep internal state</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Just forwards 1 emission and emit on_completed</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>throws exception if no any emission before</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/first.html">https://reactivex.io/documentation/operators/first.html</a> </dd></dl>
 
 </div>
@@ -333,6 +399,12 @@ template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </di
 <div class="image">
 <object type="image/svg+xml" data="last.svg" style="pointer-events: none;"></object>
 </div>
+<p>Actually this operator just updates <code>std::optional</code> on every new emission and emits this value on_completed </p><dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">rpp::utils::not_enough_emissions</td><td>in case of on_completed obtained without any emissions</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1specific__observable.html" title="Type-full observable (or typed) that has the notion of Type and upstream observables for C++ compiler...">specific_observable</a> with the last operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="last_8hpp_source.html">rpp/operators/last.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    rpp::source::just(1, 2, 3, 4, 5)</div>
@@ -352,6 +424,25 @@ template&lt;constraint::decayed_type Type, typename SpecificObservable &gt; </di
 <div class="line">    <span class="comment">// Source: -1-2-3-4-5--|</span></div>
 <div class="line">    <span class="comment">// Output: -x</span></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>Allocates one <code>shared_ptr</code> to keep <code>std::optional</code></li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Just saves emission to <code>std::optional</code></li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>Emits saved emission or throws exception if no any emissions</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/last.html">https://reactivex.io/documentation/operators/last.html</a> </dd></dl>
 
 </div>
@@ -400,6 +491,7 @@ requires is_header_included&lt;sample_tag, TScheduler, Args...&gt;</div>
 <div class="image">
 <object type="image/svg+xml" data="sample_with_time.svg" style="pointer-events: none;"></object>
 </div>
+<p>Actually operator just schedules periodical action and on each schedulable execution just emits last emitted emission (if any)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">period</td><td>sampling period \scheduler scheduler to use to schedule emissions with provided sampling period </td></tr>
@@ -414,8 +506,29 @@ requires is_header_included&lt;sample_tag, TScheduler, Args...&gt;</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1 4 7 10 13</span></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1trampoline_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a></div><div class="ttdoc">Schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition:</b> trampoline_scheduler.hpp:41</div></div>
-<div class="ttc" id="agroup__filtering__operators_html_gaf8aad914f52ebe2b69435a1525fe7f33"><div class="ttname"><a href="group__filtering__operators.html#gaf8aad914f52ebe2b69435a1525fe7f33">observable::sample_with_time</a></div><div class="ttdeci">auto sample_with_time(schedulers::duration period, const TScheduler &amp;scheduler) const &amp;</div><div class="ttdoc">Emit most recent emitted from original observable emission obtained during last period of time.</div><div class="ttdef"><b>Definition:</b> sample.hpp:48</div></div>
+<div class="ttc" id="agroup__filtering__operators_html_gaf8aad914f52ebe2b69435a1525fe7f33"><div class="ttname"><a href="group__filtering__operators.html#gaf8aad914f52ebe2b69435a1525fe7f33">observable::sample_with_time</a></div><div class="ttdeci">auto sample_with_time(schedulers::duration period, const TScheduler &amp;scheduler) const &amp;</div><div class="ttdoc">Emit most recent emitted from original observable emission obtained during last period of time.</div><div class="ttdef"><b>Definition:</b> sample.hpp:62</div></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>Allocates one <code>shared_ptr</code> to store last emitted value</li>
+<li>Schedules periodical action to emit stored value (if any)</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Updates stored value</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>Just forwards original on_completed</li>
+<li>Emit last emitted value (if any)</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/sample.htmlhttps://reactivex.io/documentation/operators/sample.html">https://reactivex.io/documentation/operators/sample.htmlhttps://reactivex.io/documentation/operators/sample.html</a> </dd></dl>
 
 </div>

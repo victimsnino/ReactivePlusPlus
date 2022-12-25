@@ -1,32 +1,32 @@
 \hypertarget{on_error_resume_next_8cpp-example}{}\doxysection{on\+\_\+error\+\_\+resume\+\_\+next.\+cpp}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{keywordtype}{int} main()}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    rpp::source::error<int>(std::make\_exception\_ptr(std::runtime\_error\{\textcolor{stringliteral}{"{}"{}}\}))}
-\DoxyCodeLine{            .on\_error\_resume\_next([](\textcolor{keyword}{auto}\&\&)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                \textcolor{keywordflow}{return} rpp::observable::just(1, 2, 3);}
-\DoxyCodeLine{            \})}
-\DoxyCodeLine{            .subscribe([\&](\textcolor{keywordtype}{int} v)}
-\DoxyCodeLine{                       \{}
-\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"{}-\/"{}} << v;}
-\DoxyCodeLine{                       \},}
-\DoxyCodeLine{                       [\&](\textcolor{keyword}{auto}\&\&)}
-\DoxyCodeLine{                       \{}
-\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"{}-\/x"{}};}
-\DoxyCodeLine{                       \},}
-\DoxyCodeLine{                       [\&]()}
-\DoxyCodeLine{                       \{}
-\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"{}-\/|"{}} << std::endl;}
-\DoxyCodeLine{                       \});}
-\DoxyCodeLine{    \textcolor{comment}{// source: -\/x}}
-\DoxyCodeLine{    \textcolor{comment}{// output: -\/1-\/2-\/3-\/|}}
-\DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\ \ \ \ rpp::source::error<int>(std::make\_exception\_ptr(std::runtime\_error\{\textcolor{stringliteral}{"{}"{}}\}))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .on\_error\_resume\_next([](\textcolor{keyword}{auto}\&\&)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::observable::just(1,\ 2,\ 3);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([\&](\textcolor{keywordtype}{int}\ v)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&](\textcolor{keyword}{auto}\&\&)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/x"{}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ source:\ -\/x}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ output:\ -\/1-\/2-\/3-\/|}}
+\DoxyCodeLine{\textcolor{comment}{}\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}

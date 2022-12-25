@@ -34,7 +34,7 @@ requires is\+\_\+header\+\_\+included$<$observe\+\_\+on\+\_\+tag, TScheduler$>$}
 \begin{DoxyCompactList}\small\item\em Emit emissions of observable starting from this point via provided scheduler. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename... Args$>$ \newline
 requires is\+\_\+header\+\_\+included$<$repeat\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__utility__operators_ga2a165810b188f9cf9b77255ed725e31a}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, repeat\+\_\+tag $>$\+::repeat}} (size\+\_\+t count) const \&
-\begin{DoxyCompactList}\small\item\em Re-\/subscribes on current observable during {\ttfamily on\+\_\+completed} provided amount of times. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Re-\/subscribes on current observable provided amount of times when {\ttfamily on\+\_\+completed} obtained. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename... Args$>$ \newline
 requires is\+\_\+header\+\_\+included$<$repeat\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__utility__operators_ga152a343d0ea926ee04cf64ebb78c5d5e}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, repeat\+\_\+tag $>$\+::repeat}} () const \&
 \begin{DoxyCompactList}\small\item\em Re-\/subscribes on current observable during {\ttfamily on\+\_\+completed} infinitely. \end{DoxyCompactList}\item 
@@ -71,7 +71,11 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 
 Only emit emission if specified period of time has passed without any other emission. On each new emission timer reset. 
 
- 
+
+
+Actually this operator resets time of last emission, schedules action to send this emission after specified period if no any new emissions till this moment.
+
+
 \begin{DoxyParams}{Parameters}
 {\em period} & is duration of time should be passed since emission from original observable without any new emissions to emit this emission. \\
 \hline
@@ -87,36 +91,61 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{        \textcolor{keyword}{auto} start = rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{        rpp::source::just(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::current\_thread}}\{\}, 1, 2, 5, 6, 9, 10)}
-\DoxyCodeLine{                .flat\_map([](\textcolor{keywordtype}{int} v)}
-\DoxyCodeLine{                \{}
-\DoxyCodeLine{                    \textcolor{keywordflow}{return} rpp::source::just(v)}
-\DoxyCodeLine{                            .delay(std::chrono::milliseconds(500) * v, \mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::current\_thread}}\{\});}
-\DoxyCodeLine{                \})}
-\DoxyCodeLine{                .tap([\&](\textcolor{keywordtype}{int} v)}
-\DoxyCodeLine{                \{}
-\DoxyCodeLine{                    std::cout << \textcolor{stringliteral}{"{}Sent value "{}} << v << \textcolor{stringliteral}{"{} at "{}} << std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now() -\/ start).count() << std::endl;}
-\DoxyCodeLine{                \})}
-\DoxyCodeLine{                .\mbox{\hyperlink{group__utility__operators_ga617d5e64f0ca7808012c2bea0eec272d}{debounce}}(std::chrono::milliseconds\{700\}, \mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::current\_thread}}\{\})}
-\DoxyCodeLine{                .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}new value "{}} << v << std::endl; \},}
-\DoxyCodeLine{                           []() \{ std::cout << \textcolor{stringliteral}{"{}completed"{}} << std::endl; \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ rpp::source::just(\mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::current\_thread}}\{\},\ 1,\ 2,\ 5,\ 6,\ 9,\ 10)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .flat\_map([](\textcolor{keywordtype}{int}\ v)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::source::just(v)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .delay(std::chrono::milliseconds(500)\ *\ v,\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::current\_thread}}\{\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .tap([\&](\textcolor{keywordtype}{int}\ v)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Sent\ value\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .\mbox{\hyperlink{group__utility__operators_ga617d5e64f0ca7808012c2bea0eec272d}{debounce}}(std::chrono::milliseconds\{700\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1trampoline}{rpp::schedulers::current\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}new\ value\ "{}}\ <<\ v\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}completed"{}}\ <<\ std::endl;\ \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{}
-\DoxyCodeLine{        \textcolor{comment}{// Output:}}
-\DoxyCodeLine{        \textcolor{comment}{// Sent value 1 at 504}}
-\DoxyCodeLine{        \textcolor{comment}{// Sent value 2 at 1009}}
-\DoxyCodeLine{        \textcolor{comment}{// new value 2}}
-\DoxyCodeLine{        \textcolor{comment}{// Sent value 5 at 2505}}
-\DoxyCodeLine{        \textcolor{comment}{// Sent value 6 at 3010}}
-\DoxyCodeLine{        \textcolor{comment}{// new value 6}}
-\DoxyCodeLine{        \textcolor{comment}{// Sent value 9 at 4507}}
-\DoxyCodeLine{        \textcolor{comment}{// Sent value 10 at 5007}}
-\DoxyCodeLine{        \textcolor{comment}{// new value 10}}
-\DoxyCodeLine{        \textcolor{comment}{// completed}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sent\ value\ 1\ at\ 504}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sent\ value\ 2\ at\ 1009}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ new\ value\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sent\ value\ 5\ at\ 2505}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sent\ value\ 6\ at\ 3010}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ new\ value\ 6}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sent\ value\ 9\ at\ 4507}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sent\ value\ 10\ at\ 5007}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ new\ value\ 10}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ completed}}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to store last emission and time.
+\item Wraps subscriber with serialization logic to prevent race-\/conditions
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Saves time when emission happened
+\item Saves emission
+\item Schedule action to send this emission with check if no any new emissions
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed
+\item Immediately send current active emission if any
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/debounce.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/debounce.\+html}} 
@@ -138,6 +167,8 @@ The delay operator modifies its source Observable by pausing for a particular in
 
 
 
+Actually this operator just schedules emissions via provided scheduler with provided delay\+\_\+duration.
+
 
 \begin{DoxyParams}{Parameters}
 {\em delay\+\_\+duration} & is the delay duration for emitting items. Delay duration should be able to cast to rpp\+::schedulers\+::duration. \\
@@ -155,31 +186,52 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{}
-\DoxyCodeLine{    \textcolor{keyword}{auto} start = rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
 \DoxyCodeLine{}
-\DoxyCodeLine{    rpp::source::just(1, 2, 3)}
-\DoxyCodeLine{            .do\_on\_next([\&](\textcolor{keyword}{auto}\&\& v)}
-\DoxyCodeLine{                        \{}
-\DoxyCodeLine{                            \textcolor{keyword}{auto} emitting\_time = rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{                            std::cout << \textcolor{stringliteral}{"{}emit "{}} << v << \textcolor{stringliteral}{"{} in thread\{"{}} << std::this\_thread::get\_id() << \textcolor{stringliteral}{"{}\} duration since start "{}} << std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time -\/ start).count() << \textcolor{stringliteral}{"{}s"{}}<< std::endl;}
-\DoxyCodeLine{                        \})}
-\DoxyCodeLine{            .\mbox{\hyperlink{group__utility__operators_gaaf883140cd425aa10c6a314eb014fb9b}{delay}}(std::chrono::seconds\{3\}, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
-\DoxyCodeLine{            .as\_blocking()}
-\DoxyCodeLine{            .subscribe([\&](\textcolor{keywordtype}{int} v)}
-\DoxyCodeLine{                       \{}
-\DoxyCodeLine{                           \textcolor{keyword}{auto} observing\_time = rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"{}observe "{}} << v << \textcolor{stringliteral}{"{} in thread\{"{}} << std::this\_thread::get\_id() << \textcolor{stringliteral}{"{}\} duration since start "{}} << std::chrono::duration\_cast<std::chrono::seconds>(observing\_time -\/ start).count() <<\textcolor{stringliteral}{"{}s"{}} << std::endl;}
-\DoxyCodeLine{                       \});}
-\DoxyCodeLine{    \textcolor{comment}{// Template for output:}}
-\DoxyCodeLine{    \textcolor{comment}{//    emit 1 in thread\{11772\} duration since start 0s}}
-\DoxyCodeLine{    \textcolor{comment}{//    emit 2 in thread\{11772\} duration since start 0s}}
-\DoxyCodeLine{    \textcolor{comment}{//    emit 3 in thread\{11772\} duration since start 0s}}
-\DoxyCodeLine{    \textcolor{comment}{//    observe 1 in thread\{15516\} duration since start 3s}}
-\DoxyCodeLine{    \textcolor{comment}{//    observe 2 in thread\{15516\} duration since start 3s}}
-\DoxyCodeLine{    \textcolor{comment}{//    observe 3 in thread\{15516\} duration since start 3s}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,\ 2,\ 3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .do\_on\_next([\&](\textcolor{keyword}{auto}\&\&\ v)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ emitting\_time\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .\mbox{\hyperlink{group__utility__operators_gaaf883140cd425aa10c6a314eb014fb9b}{delay}}(std::chrono::seconds\{3\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .as\_blocking()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([\&](\textcolor{keywordtype}{int}\ v)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observing\_time\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(observing\_time\ -\/\ start).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Template\ for\ output:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ emit\ 1\ in\ thread\{11772\}\ duration\ since\ start\ 0s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ emit\ 2\ in\ thread\{11772\}\ duration\ since\ start\ 0s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ emit\ 3\ in\ thread\{11772\}\ duration\ since\ start\ 0s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ observe\ 1\ in\ thread\{15516\}\ duration\ since\ start\ 3s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ observe\ 2\ in\ thread\{15516\}\ duration\ since\ start\ 3s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ observe\ 3\ in\ thread\{15516\}\ duration\ since\ start\ 3s}}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to store internal state
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Move emission to queue and schedule action to drain queue (if not yet)
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error via scheduling
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed via scheduling
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/delay.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/delay.\+html}} 
@@ -214,12 +266,12 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::empty<int>()}
-\DoxyCodeLine{            .do\_on\_completed([]() \{ std::cout << \textcolor{stringliteral}{"{}(TAP) Completed"{}} << std::endl; \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}) \{\}, []() \{ std::cout << \textcolor{stringliteral}{"{}Completed"{}} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output:}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) Completed}}
-\DoxyCodeLine{    \textcolor{comment}{// Completed}}
+\DoxyCodeLine{\ \ \ \ rpp::source::empty<int>()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .do\_on\_completed([]()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}(TAP)\ Completed"{}}\ <<\ std::endl;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int})\ \{\},\ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}Completed"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ (TAP)\ Completed}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Completed}}
 
 \end{DoxyCodeInclude}
 
@@ -257,12 +309,12 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::error<int>(std::make\_exception\_ptr(std::runtime\_error\{\textcolor{stringliteral}{"{}"{}}\}))}
-\DoxyCodeLine{            .do\_on\_error([](std::exception\_ptr) \{ std::cout << \textcolor{stringliteral}{"{}(TAP) NEW error"{}} << std::endl; \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}                 ) \{\}, [](std::exception\_ptr) \{ std::cout << \textcolor{stringliteral}{"{}NEW error"{}} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output:}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW error}}
-\DoxyCodeLine{    \textcolor{comment}{// NEW error}}
+\DoxyCodeLine{\ \ \ \ rpp::source::error<int>(std::make\_exception\_ptr(std::runtime\_error\{\textcolor{stringliteral}{"{}"{}}\}))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .do\_on\_error([](std::exception\_ptr)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}(TAP)\ NEW\ error"{}}\ <<\ std::endl;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\ \{\},\ [](std::exception\_ptr)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}NEW\ error"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ (TAP)\ NEW\ error}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ NEW\ error}}
 
 \end{DoxyCodeInclude}
 
@@ -300,16 +352,16 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(1, 2)}
-\DoxyCodeLine{            .do\_on\_next([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}(TAP) NEW item "{}} << v << std::endl; \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}  v) \{ std::cout << \textcolor{stringliteral}{"{}NEW item "{}} << v << std::endl; \},}
-\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"{}Completed"{}} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output:}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW item 1}}
-\DoxyCodeLine{    \textcolor{comment}{// NEW item 1}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW item 2}}
-\DoxyCodeLine{    \textcolor{comment}{// NEW item 2}}
-\DoxyCodeLine{    \textcolor{comment}{// Completed}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,\ 2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .do\_on\_next([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}(TAP)\ NEW\ item\ "{}}\ <<\ v\ <<\ std::endl;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ \ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}NEW\ item\ "{}}\ <<\ v\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}Completed"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ (TAP)\ NEW\ item\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ NEW\ item\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ (TAP)\ NEW\ item\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ NEW\ item\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Completed}}
 
 \end{DoxyCodeInclude}
 
@@ -330,6 +382,8 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 
 Emit emissions of observable starting from this point via provided scheduler. 
 
+Actually this operator just schedules emissions via provided scheduler. So, actually it is delay(0) operator
+
 
 \begin{DoxyParams}{Parameters}
 {\em scheduler} & is scheduler used for scheduling of On\+Next \\
@@ -344,19 +398,40 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    std::cout << std::this\_thread::get\_id() << std::endl;}
-\DoxyCodeLine{    rpp::source::just(10, 15, 20)}
-\DoxyCodeLine{            .observe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
-\DoxyCodeLine{            .as\_blocking()}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}["{}} << std::this\_thread::get\_id() << \textcolor{stringliteral}{"{}] : "{}} << v << \textcolor{stringliteral}{"{}\(\backslash\)n"{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Template for output:}}
-\DoxyCodeLine{    \textcolor{comment}{// TH1}}
-\DoxyCodeLine{    \textcolor{comment}{// [TH2]: 10}}
-\DoxyCodeLine{    \textcolor{comment}{// [TH2]: 15}}
-\DoxyCodeLine{    \textcolor{comment}{// [TH2]: 20}}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ std::this\_thread::get\_id()\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(10,\ 15,\ 20)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .observe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .as\_blocking()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}["{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}]\ :\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Template\ for\ output:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ TH1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [TH2]:\ 10}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [TH2]:\ 15}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [TH2]:\ 20}}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to store internal state
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Move emission to queue and schedule action to drain queue (if not yet)
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error via scheduling
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed via scheduling
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/observeon.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/observeon.\+html}} 
@@ -385,15 +460,15 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Examples\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(1, 2, 3)}
-\DoxyCodeLine{            .repeat()}
-\DoxyCodeLine{            .take(10)}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \},}
-\DoxyCodeLine{                       []()}
-\DoxyCodeLine{                       \{}
-\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"{}completed"{}} << std::endl;}
-\DoxyCodeLine{                       \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2 3 1 2 3 1 2 3 1 completed}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,\ 2,\ 3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .repeat()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .take(10)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}completed"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2\ 3\ 1\ 2\ 3\ 1\ 2\ 3\ 1\ completed}}
 
 \end{DoxyCodeInclude}
 
@@ -412,9 +487,11 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 
 
 
-Re-\/subscribes on current observable during {\ttfamily on\+\_\+completed} provided amount of times. 
+Re-\/subscribes on current observable provided amount of times when {\ttfamily on\+\_\+completed} obtained. 
 
 
+
+Actually this operator re-\/subscribes on same observable when {\ttfamily on\+\_\+completed} obtained while counter not reached zero
 
 
 \begin{DoxyParams}{Parameters}
@@ -435,17 +512,39 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Examples\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(1, 2, 3)}
-\DoxyCodeLine{            .repeat(2)}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \},}
-\DoxyCodeLine{                       []()}
-\DoxyCodeLine{                       \{}
-\DoxyCodeLine{                           std::cout << \textcolor{stringliteral}{"{}completed"{}} << std::endl;}
-\DoxyCodeLine{                       \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2 3 1 2 3 completed}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,\ 2,\ 3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .repeat(2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}completed"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2\ 3\ 1\ 2\ 3\ completed}}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to store counter
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+next
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Decrements counter
+\item If counter not zero, then re-\/subscribes on the same observable
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/repeat.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/repeat.\+html}} 
@@ -477,20 +576,20 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    std::cout << std::this\_thread::get\_id() << std::endl;}
-\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                std::cout << \textcolor{stringliteral}{"{}on\_subscribe thread "{}} << std::this\_thread::get\_id() << std::endl;}
-\DoxyCodeLine{                sub.on\_next(1);}
-\DoxyCodeLine{                sub.on\_completed();}
-\DoxyCodeLine{            \})}
-\DoxyCodeLine{            .\mbox{\hyperlink{group__utility__operators_ga2272435c76e0830c70e111b3270cd3d4}{subscribe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
-\DoxyCodeLine{            .as\_blocking()}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}["{}} << std::this\_thread::get\_id() << \textcolor{stringliteral}{"{}] : "{}} << v << \textcolor{stringliteral}{"{}\(\backslash\)n"{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Template for output:}}
-\DoxyCodeLine{    \textcolor{comment}{// TH1}}
-\DoxyCodeLine{    \textcolor{comment}{// on\_subscribe thread TH2}}
-\DoxyCodeLine{    \textcolor{comment}{// [TH2]: 1}}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ std::this\_thread::get\_id()\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}on\_subscribe\ thread\ "{}}\ <<\ std::this\_thread::get\_id()\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(1);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_completed();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .\mbox{\hyperlink{group__utility__operators_ga2272435c76e0830c70e111b3270cd3d4}{subscribe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .as\_blocking()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}["{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}]\ :\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Template\ for\ output:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ TH1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ on\_subscribe\ thread\ TH2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [TH2]:\ 1}}
 
 \end{DoxyCodeInclude}
 
@@ -532,19 +631,19 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(1, 2)}
-\DoxyCodeLine{            .tap([](\textcolor{keywordtype}{int}               v) \{ std::cout << \textcolor{stringliteral}{"{}(TAP) NEW item "{}} << v << std::endl; \},}
-\DoxyCodeLine{                 [](std::exception\_ptr) \{\},}
-\DoxyCodeLine{                 []() \{ std::cout << \textcolor{stringliteral}{"{}(TAP) Completed"{}} << std::endl; \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}NEW item "{}} << v << std::endl; \},}
-\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"{}Completed"{}} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output:}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW item 1}}
-\DoxyCodeLine{    \textcolor{comment}{// NEW item 1}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW item 2}}
-\DoxyCodeLine{    \textcolor{comment}{// NEW item 2}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) Completed}}
-\DoxyCodeLine{    \textcolor{comment}{// Completed}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,\ 2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .tap([](\textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}(TAP)\ NEW\ item\ "{}}\ <<\ v\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](std::exception\_ptr)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}(TAP)\ Completed"{}}\ <<\ std::endl;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}NEW\ item\ "{}}\ <<\ v\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}Completed"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ (TAP)\ NEW\ item\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ NEW\ item\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ (TAP)\ NEW\ item\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ NEW\ item\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ (TAP)\ Completed}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Completed}}
 
 \end{DoxyCodeInclude}
 
@@ -582,18 +681,18 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(1, 2)}
-\DoxyCodeLine{            .tap(rpp::make\_specific\_observer<int>([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}(TAP) NEW item "{}} << v << std::endl; \},}
-\DoxyCodeLine{                                                  []() \{ std::cout << \textcolor{stringliteral}{"{}(TAP) Completed"{}} << std::endl; \}))}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}NEW item "{}} << v << std::endl; \},}
-\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"{}Completed"{}} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output:}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW item 1}}
-\DoxyCodeLine{    \textcolor{comment}{// NEW item 1}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) NEW item 2}}
-\DoxyCodeLine{    \textcolor{comment}{// NEW item 2}}
-\DoxyCodeLine{    \textcolor{comment}{// (TAP) Completed}}
-\DoxyCodeLine{    \textcolor{comment}{// Completed}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,\ 2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .tap(rpp::make\_specific\_observer<int>([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}(TAP)\ NEW\ item\ "{}}\ <<\ v\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}(TAP)\ Completed"{}}\ <<\ std::endl;\ \}))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}NEW\ item\ "{}}\ <<\ v\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}Completed"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ (TAP)\ NEW\ item\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ NEW\ item\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ (TAP)\ NEW\ item\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ NEW\ item\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ (TAP)\ Completed}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Completed}}
 
 \end{DoxyCodeInclude}
 
@@ -630,35 +729,35 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{        \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<int>}} subj\{\};}
-\DoxyCodeLine{        subj.get\_observable()}
-\DoxyCodeLine{            .timeout(std::chrono::milliseconds\{450\}, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}                v) \{ std::cout << \textcolor{stringliteral}{"{}new value "{}} << v << std::endl; \},}
-\DoxyCodeLine{                       [](std::exception\_ptr err)}
-\DoxyCodeLine{                       \{}
-\DoxyCodeLine{                           \textcolor{keywordflow}{try}}
-\DoxyCodeLine{                           \{}
-\DoxyCodeLine{                               std::rethrow\_exception(err);}
-\DoxyCodeLine{                           \}}
-\DoxyCodeLine{                           \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} std::exception\& exc)}
-\DoxyCodeLine{                           \{}
-\DoxyCodeLine{                               std::cout << \textcolor{stringliteral}{"{}ERR: "{}} << exc.what() << std::endl;}
-\DoxyCodeLine{                           \}}
-\DoxyCodeLine{                       \},}
-\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"{}completed"{}} << std::endl; \});}
-\DoxyCodeLine{        \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 10; ++i)}
-\DoxyCodeLine{        \{}
-\DoxyCodeLine{            std::this\_thread::sleep\_for(std::chrono::milliseconds\{i * 100\});}
-\DoxyCodeLine{            subj.get\_subscriber().on\_next(i);}
-\DoxyCodeLine{        \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<int>}}\ subj\{\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ subj.get\_observable()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .timeout(std::chrono::milliseconds\{450\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}new\ value\ "{}}\ <<\ v\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](std::exception\_ptr\ err)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::rethrow\_exception(err);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\&\ exc)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}ERR:\ "{}}\ <<\ exc.what()\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}completed"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 10;\ ++i)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::this\_thread::sleep\_for(std::chrono::milliseconds\{i\ *\ 100\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ subj.get\_subscriber().on\_next(i);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{}
-\DoxyCodeLine{        \textcolor{comment}{// Output:}}
-\DoxyCodeLine{        \textcolor{comment}{// new value 0}}
-\DoxyCodeLine{        \textcolor{comment}{// new value 1}}
-\DoxyCodeLine{        \textcolor{comment}{// new value 2}}
-\DoxyCodeLine{        \textcolor{comment}{// new value 3}}
-\DoxyCodeLine{        \textcolor{comment}{// new value 4}}
-\DoxyCodeLine{        \textcolor{comment}{// ERR : Timeout reached}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ new\ value\ 0}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ new\ value\ 1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ new\ value\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ new\ value\ 3}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ new\ value\ 4}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ ERR\ :\ Timeout\ reached}}
 
 \end{DoxyCodeInclude}
 
@@ -697,25 +796,25 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{        \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<int>}} subj\{\};}
-\DoxyCodeLine{        subj.get\_observable()}
-\DoxyCodeLine{            .timeout(std::chrono::milliseconds\{450\}, rpp::source::just(100), \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int}                v) \{ std::cout << \textcolor{stringliteral}{"{}new value "{}} << v << std::endl; \},}
-\DoxyCodeLine{                       []() \{ std::cout << \textcolor{stringliteral}{"{}completed"{}} << std::endl; \});}
-\DoxyCodeLine{        \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 10; ++i)}
-\DoxyCodeLine{        \{}
-\DoxyCodeLine{            std::this\_thread::sleep\_for(std::chrono::milliseconds\{i * 100\});}
-\DoxyCodeLine{            subj.get\_subscriber().on\_next(i);}
-\DoxyCodeLine{        \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<int>}}\ subj\{\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ subj.get\_observable()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .timeout(std::chrono::milliseconds\{450\},\ rpp::source::just(100),\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}new\ value\ "{}}\ <<\ v\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}completed"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 10;\ ++i)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::this\_thread::sleep\_for(std::chrono::milliseconds\{i\ *\ 100\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ subj.get\_subscriber().on\_next(i);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{}
-\DoxyCodeLine{        \textcolor{comment}{// Output:}}
-\DoxyCodeLine{        \textcolor{comment}{//new value 0}}
-\DoxyCodeLine{        \textcolor{comment}{//new value 1}}
-\DoxyCodeLine{        \textcolor{comment}{//new value 2}}
-\DoxyCodeLine{        \textcolor{comment}{//new value 3}}
-\DoxyCodeLine{        \textcolor{comment}{//new value 4}}
-\DoxyCodeLine{        \textcolor{comment}{//new value 100}}
-\DoxyCodeLine{        \textcolor{comment}{//completed}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//new\ value\ 0}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//new\ value\ 1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//new\ value\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//new\ value\ 3}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//new\ value\ 4}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//new\ value\ 100}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//completed}}
 
 \end{DoxyCodeInclude}
 

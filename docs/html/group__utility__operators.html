@@ -150,7 +150,7 @@ requires is_header_included&lt;observe_on_tag, TScheduler&gt;</td></tr>
 <tr class="memitem:ga2a165810b188f9cf9b77255ed725e31a"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; <br />
 requires is_header_included&lt;repeat_tag, Args...&gt;</td></tr>
 <tr class="memitem:ga2a165810b188f9cf9b77255ed725e31a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#ga2a165810b188f9cf9b77255ed725e31a">observable::repeat</a> (size_t count) const &amp;</td></tr>
-<tr class="memdesc:ga2a165810b188f9cf9b77255ed725e31a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Re-subscribes on current observable during <code>on_completed</code> provided amount of times.  <br /></td></tr>
+<tr class="memdesc:ga2a165810b188f9cf9b77255ed725e31a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Re-subscribes on current observable provided amount of times when <code>on_completed</code> obtained.  <br /></td></tr>
 <tr class="separator:ga2a165810b188f9cf9b77255ed725e31a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga152a343d0ea926ee04cf64ebb78c5d5e"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; <br />
 requires is_header_included&lt;repeat_tag, Args...&gt;</td></tr>
@@ -220,7 +220,8 @@ requires is_header_included&lt;debounce_tag, TScheduler&gt;</div>
 <div class="image">
 <object type="image/svg+xml" data="debounce.svg" style="pointer-events: none;"></object>
 </div>
- <dl class="params"><dt>Parameters</dt><dd>
+<p>Actually this operator resets time of last emission, schedules action to send this emission after specified period if no any new emissions till this moment.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">period</td><td>is duration of time should be passed since emission from original observable without any new emissions to emit this emission. </td></tr>
     <tr><td class="paramname">scheduler</td><td>is scheduler used to run timer for debounce </td></tr>
@@ -257,8 +258,31 @@ requires is_header_included&lt;debounce_tag, TScheduler&gt;</div>
 <div class="line">        <span class="comment">// new value 10</span></div>
 <div class="line">        <span class="comment">// completed</span></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1trampoline_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1trampoline.html">rpp::schedulers::trampoline</a></div><div class="ttdoc">Schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition:</b> trampoline_scheduler.hpp:41</div></div>
-<div class="ttc" id="agroup__utility__operators_html_ga617d5e64f0ca7808012c2bea0eec272d"><div class="ttname"><a href="group__utility__operators.html#ga617d5e64f0ca7808012c2bea0eec272d">observable::debounce</a></div><div class="ttdeci">auto debounce(schedulers::duration period, const TScheduler &amp;scheduler=TScheduler{}) const &amp;</div><div class="ttdoc">Only emit emission if specified period of time has passed without any other emission....</div><div class="ttdef"><b>Definition:</b> debounce.hpp:45</div></div>
+<div class="ttc" id="agroup__utility__operators_html_ga617d5e64f0ca7808012c2bea0eec272d"><div class="ttname"><a href="group__utility__operators.html#ga617d5e64f0ca7808012c2bea0eec272d">observable::debounce</a></div><div class="ttdeci">auto debounce(schedulers::duration period, const TScheduler &amp;scheduler=TScheduler{}) const &amp;</div><div class="ttdoc">Only emit emission if specified period of time has passed without any other emission....</div><div class="ttdef"><b>Definition:</b> debounce.hpp:62</div></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>Allocates one <code>shared_ptr</code> to store last emission and time.</li>
+<li>Wraps subscriber with serialization logic to prevent race-conditions</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Saves time when emission happened</li>
+<li>Saves emission</li>
+<li>Schedule action to send this emission with check if no any new emissions</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>Just forwards original on_completed</li>
+<li>Immediately send current active emission if any</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/debounce.html">https://reactivex.io/documentation/operators/debounce.html</a> </dd></dl>
 
 </div>
@@ -307,6 +331,7 @@ requires is_header_included&lt;delay_tag, TScheduler&gt;</div>
 <div class="image">
 <object type="image/svg+xml" data="delay.svg" style="pointer-events: none;"></object>
 </div>
+<p>Actually this operator just schedules emissions via provided scheduler with provided delay_duration.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">delay_duration</td><td>is the delay duration for emitting items. Delay duration should be able to cast to rpp::schedulers::duration. </td></tr>
@@ -340,8 +365,27 @@ requires is_header_included&lt;delay_tag, TScheduler&gt;</div>
 <div class="line">    <span class="comment">//    observe 2 in thread{15516} duration since start 3s</span></div>
 <div class="line">    <span class="comment">//    observe 3 in thread{15516} duration since start 3s</span></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">scheduler which schedules execution of schedulables via queueing tasks to another thread with priorit...</div><div class="ttdef"><b>Definition:</b> new_thread_scheduler.hpp:32</div></div>
-<div class="ttc" id="agroup__utility__operators_html_gaaf883140cd425aa10c6a314eb014fb9b"><div class="ttname"><a href="group__utility__operators.html#gaaf883140cd425aa10c6a314eb014fb9b">observable::delay</a></div><div class="ttdeci">auto delay(auto &amp;&amp;delay_duration, TScheduler &amp;&amp;scheduler) const &amp;</div><div class="ttdoc">Shift the emissions from an Observable forward in time by a particular amount.</div><div class="ttdef"><b>Definition:</b> delay.hpp:48</div></div>
+<div class="ttc" id="agroup__utility__operators_html_gaaf883140cd425aa10c6a314eb014fb9b"><div class="ttname"><a href="group__utility__operators.html#gaaf883140cd425aa10c6a314eb014fb9b">observable::delay</a></div><div class="ttdeci">auto delay(auto &amp;&amp;delay_duration, TScheduler &amp;&amp;scheduler) const &amp;</div><div class="ttdoc">Shift the emissions from an Observable forward in time by a particular amount.</div><div class="ttdef"><b>Definition:</b> delay.hpp:60</div></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>Allocates one <code>shared_ptr</code> to store internal state</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Move emission to queue and schedule action to drain queue (if not yet)</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error via scheduling</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>Just forwards original on_completed via scheduling</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/delay.html">https://reactivex.io/documentation/operators/delay.html</a> </dd></dl>
 
 </div>
@@ -530,6 +574,7 @@ requires is_header_included&lt;observe_on_tag, TScheduler&gt;</div>
 </div><div class="memdoc">
 
 <p>Emit emissions of observable starting from this point via provided scheduler. </p>
+<p>Actually this operator just schedules emissions via provided scheduler. So, actually it is delay(0) operator</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">scheduler</td><td>is scheduler used for scheduling of OnNext </td></tr>
@@ -549,6 +594,25 @@ requires is_header_included&lt;observe_on_tag, TScheduler&gt;</div>
 <div class="line">    <span class="comment">// [TH2]: 15</span></div>
 <div class="line">    <span class="comment">// [TH2]: 20</span></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>Allocates one <code>shared_ptr</code> to store internal state</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Move emission to queue and schedule action to drain queue (if not yet)</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error via scheduling</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>Just forwards original on_completed via scheduling</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/observeon.html">https://reactivex.io/documentation/operators/observeon.html</a> </dd></dl>
 
 </div>
@@ -630,10 +694,11 @@ requires is_header_included&lt;repeat_tag, Args...&gt;</div>
 </table>
 </div><div class="memdoc">
 
-<p>Re-subscribes on current observable during <code>on_completed</code> provided amount of times. </p>
+<p>Re-subscribes on current observable provided amount of times when <code>on_completed</code> obtained. </p>
 <div class="image">
 <object type="image/svg+xml" data="repeat.svg" style="pointer-events: none;"></object>
 </div>
+<p>Actually this operator re-subscribes on same observable when <code>on_completed</code> obtained while counter not reached zero</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">count</td><td>total amount of times subscription happens. For example:<ul>
@@ -656,6 +721,26 @@ requires is_header_included&lt;repeat_tag, Args...&gt;</div>
 <div class="line">                       });</div>
 <div class="line">    <span class="comment">// Output: 1 2 3 1 2 3 completed</span></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>Allocates one <code>shared_ptr</code> to store counter</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Just forwards original on_next</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>Decrements counter</li>
+<li>If counter not zero, then re-subscribes on the same observable</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/repeat.html">https://reactivex.io/documentation/operators/repeat.html</a> </dd></dl>
 
 </div>

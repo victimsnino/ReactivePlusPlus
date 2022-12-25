@@ -1,57 +1,57 @@
 \hypertarget{reduce_8cpp-example}{}\doxysection{reduce.\+cpp}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{keywordtype}{int} main()}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    rpp::source::just(1,2,3)}
-\DoxyCodeLine{            .reduce(0, std::plus<int>\{\})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 6}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,2,3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .reduce(0,\ std::plus<int>\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 6}}
 \DoxyCodeLine{\textcolor{comment}{}}
-\DoxyCodeLine{    rpp::source::just(1,2,3)}
-\DoxyCodeLine{            .reduce(std::vector<int>\{\}, [](std::vector<int>\&\& seed, \textcolor{keywordtype}{int} new\_value)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                seed.push\_back(new\_value);}
-\DoxyCodeLine{                \textcolor{keywordflow}{return} std::move(seed);}
-\DoxyCodeLine{            \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keyword}{const} std::vector<int>\& v)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                std::cout << \textcolor{stringliteral}{"{}vector: "{}};}
-\DoxyCodeLine{                \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} val : v)}
-\DoxyCodeLine{                    std::cout << val << \textcolor{stringliteral}{"{} "{}};}
-\DoxyCodeLine{                std::cout << std::endl;}
-\DoxyCodeLine{            \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: vector: 1 2 3}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,2,3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .reduce(std::vector<int>\{\},\ [](std::vector<int>\&\&\ seed,\ \textcolor{keywordtype}{int}\ new\_value)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed.push\_back(new\_value);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(seed);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keyword}{const}\ std::vector<int>\&\ v)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}vector:\ "{}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ val\ :\ v)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ val\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ vector:\ 1\ 2\ 3}}
 \DoxyCodeLine{\textcolor{comment}{}}
-\DoxyCodeLine{    rpp::source::just(1,2,3)}
-\DoxyCodeLine{            .average()}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 2}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,2,3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .average()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 2}}
 \DoxyCodeLine{\textcolor{comment}{}}
-\DoxyCodeLine{    rpp::source::just(1,2,3)}
-\DoxyCodeLine{            .sum()}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 6}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,2,3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .sum()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 6}}
 \DoxyCodeLine{\textcolor{comment}{}}
-\DoxyCodeLine{    rpp::source::just(1,2,3)}
-\DoxyCodeLine{            .count()}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 3}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,2,3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .count()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 3}}
 \DoxyCodeLine{\textcolor{comment}{}}
-\DoxyCodeLine{    rpp::source::just(5,1,2,3)}
-\DoxyCodeLine{            .min()}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 1}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(5,1,2,3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .min()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1}}
 \DoxyCodeLine{\textcolor{comment}{}}
-\DoxyCodeLine{    rpp::source::just(5,1,2,3)}
-\DoxyCodeLine{            .max()}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 5}}
-\DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(5,1,2,3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .max()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 5}}
+\DoxyCodeLine{\textcolor{comment}{}\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}

@@ -110,7 +110,7 @@ Functions</h2></td></tr>
 <tr class="memitem:gaaaadd88de768811a7397897432b00f17"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; <br />
 requires is_header_included&lt;buffer_tag, Args...&gt;</td></tr>
 <tr class="memitem:gaaaadd88de768811a7397897432b00f17"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gaaaadd88de768811a7397897432b00f17">observable::buffer</a> (size_t count) const &amp;</td></tr>
-<tr class="memdesc:gaaaadd88de768811a7397897432b00f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">periodically gather items emitted by an Observable into bundles and emit these bundles rather than emitting the items one at a time  <br /></td></tr>
+<tr class="memdesc:gaaaadd88de768811a7397897432b00f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Periodically gather emissions emitted by an original Observable into bundles and emit these bundles rather than emitting the items one at a time.  <br /></td></tr>
 <tr class="separator:gaaaadd88de768811a7397897432b00f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga855aea700aa9aa9fa07e8aab7e193a1a"><td class="memTemplParams" colspan="2">template&lt;flat_map_callable&lt; Type &gt; Callable&gt; <br />
 requires is_header_included&lt;flat_map_tag, Callable&gt;</td></tr>
@@ -176,11 +176,11 @@ requires is_header_included&lt;buffer_tag, Args...&gt;</div>
 </table>
 </div><div class="memdoc">
 
-<p>periodically gather items emitted by an Observable into bundles and emit these bundles rather than emitting the items one at a time </p>
+<p>Periodically gather emissions emitted by an original Observable into bundles and emit these bundles rather than emitting the items one at a time. </p>
 <div class="image">
 <object type="image/svg+xml" data="buffer.svg" style="pointer-events: none;"></object>
 </div>
-<p>the resulting bundle is std::vector. Actually it is similar to <code>window</code> but it emits vectors instead of observables.</p>
+<p>The resulting bundle is <code>std::vector&lt;Type&gt;</code> of requested size. Actually it is similar to <code>window()</code> operator, but it emits vectors instead of observables.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">count</td><td>number of items being bundled. </td></tr>
@@ -199,6 +199,25 @@ requires is_header_included&lt;buffer_tag, Args...&gt;</div>
 <div class="line">    <span class="comment">// Source: -1-2-3-4-5--|</span></div>
 <div class="line">    <span class="comment">// Output: {1,2}-{3,4}-{5}-|</span></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>Allocates one <code>shared_ptr</code> to store <code>std::vector&lt;Type&gt;</code> of requested size.</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Accumulates emissions inside current bundle and emits this bundle when requested cound reached and starts new bundle.</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>Emits current active bundle (if any) and just forwards on_completed</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/buffer.html">https://reactivex.io/documentation/operators/buffer.html</a> </dd></dl>
 
 </div>
@@ -237,7 +256,7 @@ requires is_header_included&lt;flat_map_tag, Callable&gt;</div>
 <div class="image">
 <object type="image/svg+xml" data="flat_map.svg" style="pointer-events: none;"></object>
 </div>
-<p>Actually it makes <code>map</code> and then <code>merge</code>.</p>
+<p>Actually it makes <code>map(callable)</code> and then <code>merge</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">callable</td><td>Function to transform item to observable </td></tr>
@@ -304,7 +323,7 @@ requires is_header_included&lt;group_by_tag, KeySelector, ValueSelector, TKey, K
 <div class="image">
 <object type="image/svg+xml" data="group_by.svg" style="pointer-events: none;"></object>
 </div>
-<p>Original observable applies <code>key_selector</code> to obtain key and split values to sub-groups based on these keys and then send <a class="el" href="classrpp_1_1grouped__observable.html">rpp::grouped_observable</a> with this key. Such an grouped observables emit values which has same value of key.</p>
+<p>Actually this operator applies <code>key_selector</code> to emission to obtain key, place <a class="el" href="classrpp_1_1grouped__observable.html">rpp::grouped_observable</a> to map with corresponding map and then send observable with this key (if not yet). Original values emitted via this grouped_observables</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">key_selector</td><td>Function which determines key for provided item </td></tr>
@@ -363,8 +382,29 @@ requires is_header_included&lt;group_by_tag, KeySelector, ValueSelector, TKey, K
 <div class="line">    <span class="comment">//         Age [25] Name: Jack</span></div>
 <div class="line">    <span class="comment">//         Age [30] Name: Tom</span></div>
 <div class="line">    <span class="comment">//         Age [18] Name: Vanda</span></div>
-<div class="ttc" id="agroup__transforming__operators_html_ga61277d8115a87b4c10f7856a9a7f8d35"><div class="ttname"><a href="group__transforming__operators.html#ga61277d8115a87b4c10f7856a9a7f8d35">observable::group_by</a></div><div class="ttdeci">auto group_by(KeySelector &amp;&amp;key_selector, ValueSelector &amp;&amp;value_selector={}, KeyComparator &amp;&amp;comparator={}) const &amp;</div><div class="ttdoc">Divide original observable into multiple observables where each new observable emits some group of va...</div><div class="ttdef"><b>Definition:</b> group_by.hpp:53</div></div>
+<div class="ttc" id="agroup__transforming__operators_html_ga61277d8115a87b4c10f7856a9a7f8d35"><div class="ttname"><a href="group__transforming__operators.html#ga61277d8115a87b4c10f7856a9a7f8d35">observable::group_by</a></div><div class="ttdeci">auto group_by(KeySelector &amp;&amp;key_selector, ValueSelector &amp;&amp;value_selector={}, KeyComparator &amp;&amp;comparator={}) const &amp;</div><div class="ttdoc">Divide original observable into multiple observables where each new observable emits some group of va...</div><div class="ttdef"><b>Definition:</b> group_by.hpp:65</div></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>Allocates one <code>shared_ptr</code> to keep map&lt;key, grouped_observable&gt;</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Applies key_selector to obtained emission</li>
+<li>For calculated key create new entry in map (if not yet)</li>
+<li>Emit value via <a class="el" href="classrpp_1_1grouped__observable.html">grouped_observable</a> from map for corresponding key</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error to both subscribers of observable of grouped observables and grouped observables</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>Just forwards original on_completed to both subscribers of observable of grouped observables and grouped observables</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/groupby.html">https://reactivex.io/documentation/operators/groupby.html</a> </dd></dl>
 
 </div>
@@ -403,6 +443,7 @@ requires is_header_included&lt;map_tag, Callable&gt;</div>
 <div class="image">
 <object type="image/svg+xml" data="map.svg" style="pointer-events: none;"></object>
 </div>
+<p>Actually this operator just applies callable to each obtained emission and emit resulting value</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">callable</td><td>is callable used to provide this transformation. Should accept Type of original observable and return type for new observable </td></tr>
@@ -427,6 +468,25 @@ requires is_header_included&lt;map_tag, Callable&gt;</div>
 <div class="line">            .subscribe([](std::string v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 42 VAL</span></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>None</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Just forwards result of applying callable to emissions</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>Just forwards original on_completed</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/map.html">https://reactivex.io/documentation/operators/map.html</a> </dd></dl>
 
 </div>

@@ -10,7 +10,7 @@ Combining operators are operators that combines emissions of multiple observable
 \item 
 {\footnotesize template$<$constraint\+::observable ... TOther\+Observable, std\+::invocable$<$ Type, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ TOther\+Observable $>$... $>$ TCombiner$>$ \newline
 requires is\+\_\+header\+\_\+included$<$combine\+\_\+latest\+\_\+tag, TOther\+Observable...$>$}\\auto \mbox{\hyperlink{group__combining__operators_ga235795a45f5c6db3f6ec75204ab2d8a2}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$\+::combine\+\_\+latest}} (TCombiner \&\&combiner, TOther\+Observable \&\&...observables) const \&
-\begin{DoxyCompactList}\small\item\em Combines latest emissions from current observable and other observables when any of them emits. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Combines latest emissions from original observable and other observables when any of them emits. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::observable ... TOther\+Observable$>$ \newline
 requires is\+\_\+header\+\_\+included$<$combine\+\_\+latest\+\_\+tag, TOther\+Observable...$>$}\\auto \mbox{\hyperlink{group__combining__operators_gacd8deec9fdd88032d272e097c2b70657}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, combine\+\_\+latest\+\_\+tag $>$\+::combine\+\_\+latest}} (TOther\+Observable \&\&...observables) const \&
 \begin{DoxyCompactList}\small\item\em Combines latest emissions from current observable and other observables when any of them emits. The combining result is std\+::tuple$<$...$>$. \end{DoxyCompactList}\item 
@@ -57,12 +57,14 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 
 
 
-Combines latest emissions from current observable and other observables when any of them emits. 
+Combines latest emissions from original observable and other observables when any of them emits. 
 
 \begin{DoxyWarning}{Warning}
-According to observable contract (\href{https://reactivex.io/documentation/contract.html}{\texttt{ https\+://reactivex.\+io/documentation/contract.\+html}}) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
+According to observable contract (\href{https://reactivex.io/documentation/contract.html}{\texttt{ https\+://reactivex.\+io/documentation/contract.\+html}}) emissions from any observable should be serialized, so, resulting observable uses {\ttfamily std\+::mutex} to satisfy this requirement
 \end{DoxyWarning}
 
+
+Actually this operator subscribes on all of theses observables and emits new combined value when any of them emits new emission (and each observable emit values at least one to be able to provide combined value)
 
 
 \begin{DoxyParams}{Parameters}
@@ -80,20 +82,43 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Examples}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(1, 2, 3)                                  \textcolor{comment}{// source 1}}
-\DoxyCodeLine{        .combine\_latest(}
-\DoxyCodeLine{            [](\textcolor{keywordtype}{int} left, \textcolor{keywordtype}{int} right) \{ \textcolor{keywordflow}{return} left + right; \},   \textcolor{comment}{// custom combiner}}
-\DoxyCodeLine{            rpp::source::just(4, 5, 6))                         \textcolor{comment}{// source 2}}
-\DoxyCodeLine{        .subscribe(}
-\DoxyCodeLine{            [](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}-\/"{}} << v; \},}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr\&) \{\},}
-\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"{}-\/|"{}} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// source 1:          -\/1-\/-\/-\/2-\/-\/-\/3-\/|}}
-\DoxyCodeLine{    \textcolor{comment}{// source 2: -\/4-\/-\/-\/5-\/-\/-\/6-\/| (note that source 2 is subscribed earlier than source 1)}}
-\DoxyCodeLine{    \textcolor{comment}{// Output  : -\/7-\/8-\/9-\/|}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,\ 2,\ 3)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ source\ 1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .combine\_latest(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keywordtype}{int}\ left,\ \textcolor{keywordtype}{int}\ right)\ \{\ \textcolor{keywordflow}{return}\ left\ +\ right;\ \},\ \ \ \textcolor{comment}{//\ custom\ combiner}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ rpp::source::just(4,\ 5,\ 6))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ source\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .subscribe(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ source\ 1:\ \ \ \ \ \ \ \ \ \ -\/1-\/-\/-\/2-\/-\/-\/3-\/|}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ source\ 2:\ -\/4-\/-\/-\/5-\/-\/-\/6-\/|\ (note\ that\ source\ 2\ is\ subscribed\ earlier\ than\ source\ 1)}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output\ \ :\ -\/7-\/8-\/9-\/|}}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to store last emissions.
+\item Wraps subscriber with serialization logic to be sure callbacks called serialized
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Keeps last emission from each observable
+\item Applies combiner function and emits result if there is last emissions for each observable
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/combinelatest.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/combinelatest.\+html}} 
@@ -113,6 +138,8 @@ Combines latest emissions from current observable and other observables when any
 
 
 
+Actually this operator subscribes on all of theses observables and emits {\ttfamily std\+::tuple} of last emissions when any of them emits new emission (and each observable emit values at least one to be able to provide combined value)
+
 
 \begin{DoxyParams}{Parameters}
 {\em observables} & are observables whose emissions would be combined with the current observable\textquotesingle{}s emissions \\
@@ -127,20 +154,43 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Examples}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(1, 2, 3)                                  \textcolor{comment}{// source 1}}
-\DoxyCodeLine{        .combine\_latest(}
-\DoxyCodeLine{            [](\textcolor{keywordtype}{int} left, \textcolor{keywordtype}{int} right) \{ \textcolor{keywordflow}{return} left + right; \},   \textcolor{comment}{// custom combiner}}
-\DoxyCodeLine{            rpp::source::just(4, 5, 6))                         \textcolor{comment}{// source 2}}
-\DoxyCodeLine{        .subscribe(}
-\DoxyCodeLine{            [](\textcolor{keywordtype}{int} v) \{ std::cout << \textcolor{stringliteral}{"{}-\/"{}} << v; \},}
-\DoxyCodeLine{            [](\textcolor{keyword}{const} std::exception\_ptr\&) \{\},}
-\DoxyCodeLine{            []() \{ std::cout << \textcolor{stringliteral}{"{}-\/|"{}} << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// source 1:          -\/1-\/-\/-\/2-\/-\/-\/3-\/|}}
-\DoxyCodeLine{    \textcolor{comment}{// source 2: -\/4-\/-\/-\/5-\/-\/-\/6-\/| (note that source 2 is subscribed earlier than source 1)}}
-\DoxyCodeLine{    \textcolor{comment}{// Output  : -\/7-\/8-\/9-\/|}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,\ 2,\ 3)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ source\ 1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .combine\_latest(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keywordtype}{int}\ left,\ \textcolor{keywordtype}{int}\ right)\ \{\ \textcolor{keywordflow}{return}\ left\ +\ right;\ \},\ \ \ \textcolor{comment}{//\ custom\ combiner}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ rpp::source::just(4,\ 5,\ 6))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ source\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .subscribe(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ source\ 1:\ \ \ \ \ \ \ \ \ \ -\/1-\/-\/-\/2-\/-\/-\/3-\/|}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ source\ 2:\ -\/4-\/-\/-\/5-\/-\/-\/6-\/|\ (note\ that\ source\ 2\ is\ subscribed\ earlier\ than\ source\ 1)}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output\ \ :\ -\/7-\/8-\/9-\/|}}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to store last emissions.
+\item Wraps subscriber with serialization logic to be sure callbacks called serialized
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Keeps last emission from each observable
+\item Emits {\ttfamily std\+::tuple} of last emissions if there is last emissions for each observable
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/combinelatest.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/combinelatest.\+html}} 
@@ -163,6 +213,8 @@ According to observable contract (\href{https://reactivex.io/documentation/contr
 \end{DoxyWarning}
 
 
+Actually it subscribes on each observable from emissions. Resulting observables completes when ALL observables completes
+
 \begin{DoxyReturn}{Returns}
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the merge operator as most recent operator. 
 \end{DoxyReturn}
@@ -172,15 +224,41 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(rpp::source::just(1).as\_dynamic(),}
-\DoxyCodeLine{                      rpp::source::never<int>().as\_dynamic(),}
-\DoxyCodeLine{                      rpp::source::just(2).as\_dynamic())}
-\DoxyCodeLine{            .merge()}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(rpp::source::just(1).as\_dynamic(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rpp::source::never<int>().as\_dynamic(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rpp::source::just(2).as\_dynamic())}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .merge()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2}}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to store interal state
+\item Wraps subscriber with serialization logic to be sure callbacks called serialized
+\end{DoxyItemize}
+\item {\bfseries{On\+Next for original observable}}
+\begin{DoxyItemize}
+\item Subscribes on obtained observable
+\end{DoxyItemize}
+\item {\bfseries{On\+Next for inner observable}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+next
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed when all observables emit on\+\_\+completed
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/merge.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/merge.\+html}} 
@@ -203,6 +281,8 @@ According to observable contract (\href{https://reactivex.io/documentation/contr
 \end{DoxyWarning}
 
 
+Actually it subscribes on each observable. Resulting observables completes when ALL observables completes
+
 
 \begin{DoxyParams}{Parameters}
 {\em observables} & are observables whose emissions would be merged with current observable \\
@@ -217,13 +297,35 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(1)}
-\DoxyCodeLine{            .merge\_with(rpp::source::just(2))}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .merge\_with(rpp::source::just(2))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2}}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to store interal state
+\item Wraps subscriber with serialization logic to be sure callbacks called serialized
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+next
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed when all observables emit on\+\_\+completed
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/merge.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/merge.\+html}} 
@@ -259,10 +361,10 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(1, 2, 3)}
-\DoxyCodeLine{        .start\_with(rpp::source::just(5), rpp::source::just(6))}
-\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 5 6 1 2 3}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,\ 2,\ 3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .start\_with(rpp::source::just(5),\ rpp::source::just(6))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 5\ 6\ 1\ 2\ 3}}
 
 \end{DoxyCodeInclude}
 
@@ -306,10 +408,10 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(1,2,3)}
-\DoxyCodeLine{        .start\_with(5, 6)}
-\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 5 6 1 2 3}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,2,3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .start\_with(5,\ 6)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 5\ 6\ 1\ 2\ 3}}
 
 \end{DoxyCodeInclude}
 
@@ -341,12 +443,12 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(rpp::source::just(1).as\_dynamic(),}
-\DoxyCodeLine{                      rpp::source::never<int>().as\_dynamic(),}
-\DoxyCodeLine{                      rpp::source::just(2).as\_dynamic())}
-\DoxyCodeLine{            .switch\_on\_next()}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 1 2}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(rpp::source::just(1).as\_dynamic(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rpp::source::never<int>().as\_dynamic(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rpp::source::just(2).as\_dynamic())}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .switch\_on\_next()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2}}
 
 \end{DoxyCodeInclude}
 
@@ -383,10 +485,10 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Examples}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(1, 2, 3)}
-\DoxyCodeLine{        .with\_latest\_from(rpp::source::just(3, 4, 5, 6))}
-\DoxyCodeLine{        .subscribe([](std::tuple<int,int> v) \{ std::cout << std::get<0>(v) << \textcolor{stringliteral}{"{}:"{}} << std::get<1>(v) << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 1:6 2:6 3:6}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,\ 2,\ 3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .with\_latest\_from(rpp::source::just(3,\ 4,\ 5,\ 6))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .subscribe([](std::tuple<int,int>\ v)\ \{\ std::cout\ <<\ std::get<0>(v)\ <<\ \textcolor{stringliteral}{"{}:"{}}\ <<\ std::get<1>(v)\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1:6\ 2:6\ 3:6}}
 
 \end{DoxyCodeInclude}
 
@@ -425,11 +527,11 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \begin{DoxyParagraph}{Examples}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(1, 2, 3)}
-\DoxyCodeLine{        .with\_latest\_from([](\textcolor{keywordtype}{int} left, \textcolor{keywordtype}{int} right) \{ \textcolor{keywordflow}{return} left + right; \},}
-\DoxyCodeLine{                          rpp::source::just(3, 4, 5, 6))}
-\DoxyCodeLine{        .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 7 8 9}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(1,\ 2,\ 3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .with\_latest\_from([](\textcolor{keywordtype}{int}\ left,\ \textcolor{keywordtype}{int}\ right)\ \{\ \textcolor{keywordflow}{return}\ left\ +\ right;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rpp::source::just(3,\ 4,\ 5,\ 6))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 7\ 8\ 9}}
 
 \end{DoxyCodeInclude}
 

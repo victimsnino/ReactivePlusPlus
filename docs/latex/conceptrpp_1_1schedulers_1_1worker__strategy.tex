@@ -3,11 +3,11 @@
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1worker__strategy}{rpp::schedulers::worker\_strategy}} =  std::copyable<T> \&\& \textcolor{keyword}{requires}(\textcolor{keyword}{const} T t)}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1worker__strategy}{rpp::schedulers::worker\_strategy}}\ =\ \ std::copyable<T>\ \&\&\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ T\ t)}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    t.defer\_at(time\_point\{\}, std::declval<optional\_duration(*)()>());}
-\DoxyCodeLine{    \{ t.now() \} -\/> std::same\_as<time\_point>;}
+\DoxyCodeLine{\ \ \ \ t.defer\_at(time\_point\{\},\ std::declval<optional\_duration(*)()>());}
+\DoxyCodeLine{\ \ \ \ \{\ t.now()\ \}\ -\/>\ std::same\_as<time\_point>;}
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}

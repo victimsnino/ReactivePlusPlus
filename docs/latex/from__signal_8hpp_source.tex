@@ -2,88 +2,88 @@
 \label{from__signal_8hpp_source}\index{src/rppqt/rppqt/sources/from\_signal.hpp@{src/rppqt/rppqt/sources/from\_signal.hpp}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
-\DoxyCodeLine{2 \textcolor{comment}{//}}
-\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
-\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
-\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
-\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
-\DoxyCodeLine{7 \textcolor{comment}{//}}
-\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
-\DoxyCodeLine{9 \textcolor{comment}{//}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <QObject>}}
-\DoxyCodeLine{14 }
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rppqt/sources/fwd.hpp>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <rpp/subjects/publish\_subject.hpp>}}
-\DoxyCodeLine{17 }
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <tuple>}}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20 IMPLEMENTATION\_FILE(from\_signal\_qt\_tag);}
-\DoxyCodeLine{21 }
-\DoxyCodeLine{22 \textcolor{keyword}{namespace }rppqt::observable::details}
-\DoxyCodeLine{23 \{}
-\DoxyCodeLine{24 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Value>}
-\DoxyCodeLine{25 \textcolor{keyword}{struct }\mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event__base}{from\_signal\_on\_event\_base}}}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27     \textcolor{keyword}{using }\mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{Subject}} = \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<Value>}};}
-\DoxyCodeLine{28     \textcolor{keyword}{using }Subscriber = \textcolor{keyword}{decltype}(std::declval<Subject>().get\_subscriber());}
-\DoxyCodeLine{29 }
-\DoxyCodeLine{30     \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event__base}{from\_signal\_on\_event\_base}}(\textcolor{keyword}{const} Subscriber\& subscriber)}
-\DoxyCodeLine{31         : subscriber\{subscriber\} \{\}}
-\DoxyCodeLine{32 }
-\DoxyCodeLine{33     \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event__base}{from\_signal\_on\_event\_base}}(Subscriber\&\& subscriber)}
-\DoxyCodeLine{34         : subscriber\{std::move(subscriber)\} \{\}}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{36     Subscriber subscriber;}
-\DoxyCodeLine{37 \};}
-\DoxyCodeLine{38 }
-\DoxyCodeLine{39 \textcolor{keyword}{template}<\textcolor{keyword}{typename}... Args>}
-\DoxyCodeLine{40 \textcolor{keyword}{struct }\mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event}{from\_signal\_on\_event}} : \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event__base}{from\_signal\_on\_event\_base}}<std::tuple<std::decay\_t<Args>...>>}
-\DoxyCodeLine{41 \{}
-\DoxyCodeLine{42     \textcolor{keyword}{template}<\textcolor{keyword}{typename} ...Vals>}
-\DoxyCodeLine{43     \textcolor{keywordtype}{void} operator()(Vals\&\&... vals)\textcolor{keyword}{ const}}
-\DoxyCodeLine{44 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{45         \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event__base}{from\_signal\_on\_event\_base<std::tuple<std::decay\_t<Args>}}...>>::subscriber.on\_next(std::make\_tuple(std::forward<Vals>(vals)...));}
-\DoxyCodeLine{46     \}}
-\DoxyCodeLine{47 \};}
-\DoxyCodeLine{48 }
-\DoxyCodeLine{49 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Arg>}
-\DoxyCodeLine{50 \textcolor{keyword}{struct }\mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event}{from\_signal\_on\_event}}<Arg> : \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event__base}{from\_signal\_on\_event\_base}}<std::decay\_t<Arg>>}
-\DoxyCodeLine{51 \{}
-\DoxyCodeLine{52     \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<Arg> Val>}
-\DoxyCodeLine{53     \textcolor{keywordtype}{void} operator()(Val\&\& val)\textcolor{keyword}{ const}}
-\DoxyCodeLine{54 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{55         \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event__base}{from\_signal\_on\_event\_base<std::decay\_t<Arg>}}>::subscriber.on\_next(std::forward<Val>(val));}
-\DoxyCodeLine{56     \}}
-\DoxyCodeLine{57 \};}
-\DoxyCodeLine{58 }
-\DoxyCodeLine{59 \textcolor{keyword}{template}<>}
-\DoxyCodeLine{60 \textcolor{keyword}{struct }\mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event}{from\_signal\_on\_event}}<> : \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event__base}{from\_signal\_on\_event\_base}}<rpp::utils::none>}
-\DoxyCodeLine{61 \{}
-\DoxyCodeLine{62     \textcolor{keywordtype}{void} operator()()\textcolor{keyword}{ const}}
-\DoxyCodeLine{63 \textcolor{keyword}{    }\{}
-\DoxyCodeLine{64         subscriber.on\_next(rpp::utils::none\{\});}
-\DoxyCodeLine{65     \}}
-\DoxyCodeLine{66 \};}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{68 \}}
-\DoxyCodeLine{69 \textcolor{keyword}{namespace }rppqt::observable}
-\DoxyCodeLine{70 \{}
-\DoxyCodeLine{82 \textcolor{keyword}{template}<std::derived\_from<QObject> TSignalQObject, std::derived\_from<TSignalQObject> TObject, \textcolor{keyword}{typename} R,\textcolor{keyword}{typename} ...Args>}
-\DoxyCodeLine{83 \textcolor{keyword}{auto} \mbox{\hyperlink{group__qt__creational__operators_ga4e3140c3f32d2ea4b80b76fdc772278b}{from\_signal}}(\textcolor{keyword}{const} TObject\& \textcolor{keywordtype}{object}, R (TSignalQObject::*signal)(Args...)) \textcolor{keyword}{requires} rpp::details::is\_header\_included<rpp::details::from\_signal\_qt\_tag, TObject, R, Args...>}
-\DoxyCodeLine{84 \{}
-\DoxyCodeLine{85     \textcolor{keyword}{using }on\_next\_impl = \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event}{details::from\_signal\_on\_event}}<Args...>;}
-\DoxyCodeLine{86     \textcolor{keyword}{const} \textcolor{keyword}{auto} subj = \textcolor{keyword}{typename} on\_next\_impl::Subject\{\};}
-\DoxyCodeLine{87 }
-\DoxyCodeLine{88     \textcolor{keyword}{const} \textcolor{keyword}{auto} subscriber     = subj.get\_subscriber();}
-\DoxyCodeLine{89     QObject::connect(\&\textcolor{keywordtype}{object}, signal, on\_next\_impl\{subscriber\});}
-\DoxyCodeLine{90     QObject::connect(\&\textcolor{keywordtype}{object}, \&QObject::destroyed, [subscriber] \{ subscriber.on\_completed(); \});}
-\DoxyCodeLine{91 }
-\DoxyCodeLine{92     \textcolor{keywordflow}{return} subj.get\_observable();}
-\DoxyCodeLine{93 \}}
-\DoxyCodeLine{94 \} \textcolor{comment}{// namespace rppqt::observable}}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2022\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rppqt/sources/fwd.hpp>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/subjects/publish\_subject.hpp>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ IMPLEMENTATION\_FILE(from\_signal\_qt\_tag);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }rppqt::observable::details}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Value>}
+\DoxyCodeLine{00025\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event__base}{from\_signal\_on\_event\_base}}}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{Subject}}\ =\ \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<Value>}};}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{using\ }Subscriber\ =\ \textcolor{keyword}{decltype}(std::declval<Subject>().get\_subscriber());}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event__base}{from\_signal\_on\_event\_base}}(\textcolor{keyword}{const}\ Subscriber\&\ subscriber)}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ :\ subscriber\{subscriber\}\ \{\}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event__base}{from\_signal\_on\_event\_base}}(Subscriber\&\&\ subscriber)}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ :\ subscriber\{std::move(subscriber)\}\ \{\}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ Subscriber\ subscriber;}
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00040\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event}{from\_signal\_on\_event}}\ :\ \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event__base}{from\_signal\_on\_event\_base}}<std::tuple<std::decay\_t<Args>...>>}
+\DoxyCodeLine{00041\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...Vals>}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(Vals\&\&...\ vals)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00044\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event__base}{from\_signal\_on\_event\_base<std::tuple<std::decay\_t<Args>}}...>>::subscriber.on\_next(std::make\_tuple(std::forward<Vals>(vals)...));}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Arg>}
+\DoxyCodeLine{00050\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event}{from\_signal\_on\_event}}<Arg>\ :\ \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event__base}{from\_signal\_on\_event\_base}}<std::decay\_t<Arg>>}
+\DoxyCodeLine{00051\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<Arg>\ Val>}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(Val\&\&\ val)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event__base}{from\_signal\_on\_event\_base<std::decay\_t<Arg>}}>::subscriber.on\_next(std::forward<Val>(val));}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00060\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event}{from\_signal\_on\_event}}<>\ :\ \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event__base}{from\_signal\_on\_event\_base}}<rpp::utils::none>}
+\DoxyCodeLine{00061\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00063\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ subscriber.on\_next(rpp::utils::none\{\});}
+\DoxyCodeLine{00065\ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \}}
+\DoxyCodeLine{00069\ \textcolor{keyword}{namespace\ }rppqt::observable}
+\DoxyCodeLine{00070\ \{}
+\DoxyCodeLine{00082\ \textcolor{keyword}{template}<std::derived\_from<QObject>\ TSignalQObject,\ std::derived\_from<TSignalQObject>\ TObject,\ \textcolor{keyword}{typename}\ R,\textcolor{keyword}{typename}\ ...Args>}
+\DoxyCodeLine{00083\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__qt__creational__operators_ga4e3140c3f32d2ea4b80b76fdc772278b}{from\_signal}}(\textcolor{keyword}{const}\ TObject\&\ \textcolor{keywordtype}{object},\ R\ (TSignalQObject::*signal)(Args...))\ \textcolor{keyword}{requires}\ rpp::details::is\_header\_included<rpp::details::from\_signal\_qt\_tag,\ TObject,\ R,\ Args...>}
+\DoxyCodeLine{00084\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{using\ }on\_next\_impl\ =\ \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event}{details::from\_signal\_on\_event}}<Args...>;}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ subj\ =\ \textcolor{keyword}{typename}\ on\_next\_impl::Subject\{\};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ subscriber\ \ \ \ \ =\ subj.get\_subscriber();}
+\DoxyCodeLine{00089\ \ \ \ \ QObject::connect(\&\textcolor{keywordtype}{object},\ signal,\ on\_next\_impl\{subscriber\});}
+\DoxyCodeLine{00090\ \ \ \ \ QObject::connect(\&\textcolor{keywordtype}{object},\ \&QObject::destroyed,\ [subscriber]\ \{\ subscriber.on\_completed();\ \});}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{return}\ subj.get\_observable();}
+\DoxyCodeLine{00093\ \}}
+\DoxyCodeLine{00094\ \}\ \textcolor{comment}{//\ namespace\ rppqt::observable}}
 
 \end{DoxyCode}

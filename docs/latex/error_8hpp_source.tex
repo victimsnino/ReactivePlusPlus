@@ -2,36 +2,36 @@
 \label{error_8hpp_source}\index{src/rpp/rpp/sources/error.hpp@{src/rpp/rpp/sources/error.hpp}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{//                  ReactivePlusPlus library}}
-\DoxyCodeLine{2 \textcolor{comment}{//}}
-\DoxyCodeLine{3 \textcolor{comment}{//          Copyright Aleksey Loginov 2022 -\/ present.}}
-\DoxyCodeLine{4 \textcolor{comment}{// Distributed under the Boost Software License, Version 1.0.}}
-\DoxyCodeLine{5 \textcolor{comment}{//    (See accompanying file LICENSE\_1\_0.txt or copy at}}
-\DoxyCodeLine{6 \textcolor{comment}{//          https://www.boost.org/LICENSE\_1\_0.txt)}}
-\DoxyCodeLine{7 \textcolor{comment}{//}}
-\DoxyCodeLine{8 \textcolor{comment}{// Project home: https://github.com/victimsnino/ReactivePlusPlus}}
-\DoxyCodeLine{9 \textcolor{comment}{//}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <rpp/sources/create.hpp>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <rpp/sources/fwd.hpp>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <rpp/utils/constraints.hpp>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <exception>}}
-\DoxyCodeLine{18 }
-\DoxyCodeLine{19 IMPLEMENTATION\_FILE(error\_tag);}
-\DoxyCodeLine{20 }
-\DoxyCodeLine{21 \textcolor{keyword}{namespace }rpp::observable}
-\DoxyCodeLine{22 \{}
-\DoxyCodeLine{36 \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type Type>}
-\DoxyCodeLine{37 \textcolor{keyword}{auto} \mbox{\hyperlink{group__creational__operators_gab2d1e859439b815edd56809381d204f3}{error}}(\textcolor{keyword}{const} std::exception\_ptr\& err) \textcolor{keyword}{requires} rpp::details::is\_header\_included<rpp::details::error\_tag, Type>}
-\DoxyCodeLine{38 \{}
-\DoxyCodeLine{39     \textcolor{keywordflow}{return} create<Type>([err](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{40     \{}
-\DoxyCodeLine{41         sub.on\_error(err);}
-\DoxyCodeLine{42     \});}
-\DoxyCodeLine{43 \}}
-\DoxyCodeLine{44 \} \textcolor{comment}{// namespace rpp::observable}}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2022\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/sources/create.hpp>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/sources/fwd.hpp>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/utils/constraints.hpp>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <exception>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ IMPLEMENTATION\_FILE(error\_tag);}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }rpp::observable}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00037\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab2d1e859439b815edd56809381d204f3}{error}}(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\ \textcolor{keyword}{requires}\ rpp::details::is\_header\_included<rpp::details::error\_tag,\ Type>}
+\DoxyCodeLine{00038\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{return}\ create<Type>([err](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
+\DoxyCodeLine{00040\ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ sub.on\_error(err);}
+\DoxyCodeLine{00042\ \ \ \ \ \});}
+\DoxyCodeLine{00043\ \}}
+\DoxyCodeLine{00044\ \}\ \textcolor{comment}{//\ namespace\ rpp::observable}}
 
 \end{DoxyCode}

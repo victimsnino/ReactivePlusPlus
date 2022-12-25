@@ -79,33 +79,33 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \begin{DoxyParagraph}{Examples\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::create<int>([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                sub.on\_next(42);}
-\DoxyCodeLine{            \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(42);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 42}}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    \textcolor{keywordtype}{int}                                        val = 42;}
-\DoxyCodeLine{    rpp::source::create<int>([val](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sub)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                sub.on\_next(val);}
-\DoxyCodeLine{            \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ val\ =\ 42;}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([val](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(val);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 42}}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::create([](\textcolor{keyword}{const} \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp::dynamic\_subscriber<int>}}\& sub)}
-\DoxyCodeLine{            \{}
-\DoxyCodeLine{                sub.on\_next(42);}
-\DoxyCodeLine{            \})}
-\DoxyCodeLine{            .subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 42}}
+\DoxyCodeLine{\ \ \ \ rpp::source::create([](\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1dynamic__subscriber}{rpp::dynamic\_subscriber<int>}}\&\ sub)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(42);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 42}}
 
 \end{DoxyCodeInclude}
 
@@ -182,8 +182,8 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{        rpp::source::from\_callable([]() \{\textcolor{keywordflow}{return} 49; \}).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
-\DoxyCodeLine{        \textcolor{comment}{// Output: 49}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ rpp::source::from\_callable([]()\ \{\textcolor{keywordflow}{return}\ 49;\ \}).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:\ 49}}
 
 \end{DoxyCodeInclude}
 
@@ -220,20 +220,20 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \begin{DoxyParagraph}{Examples\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
-\DoxyCodeLine{        rpp::source::from\_iterable(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ vals\{\ 1,2,3\ \};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ rpp::source::from\_iterable(vals).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
-\DoxyCodeLine{        rpp::source::from\_iterable<rpp::memory\_model::use\_shared>(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ vals\{\ 1,2,3\ \};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ rpp::source::from\_iterable<rpp::memory\_model::use\_shared>(vals).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
-\DoxyCodeLine{        rpp::source::from\_iterable(vals, \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}).as\_blocking().subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ vals\{\ 1,2,3\ \};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ rpp::source::from\_iterable(vals,\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}).as\_blocking().subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 
 \end{DoxyCodeInclude}
 
@@ -270,21 +270,21 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \begin{DoxyParagraph}{Examples\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{        \textcolor{keyword}{auto} cur\_time = std::chrono::high\_resolution\_clock::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cur\_time\ =\ std::chrono::high\_resolution\_clock::now();}
 \DoxyCodeLine{}
-\DoxyCodeLine{        rpp::source::interval(std::chrono::seconds\{ 1\}, std::chrono::seconds\{ 2 \})}
-\DoxyCodeLine{            .take(5)}
-\DoxyCodeLine{            .subscribe([cur\_time](\textcolor{keywordtype}{size\_t} v)}
-\DoxyCodeLine{                \{}
-\DoxyCodeLine{                    \textcolor{keyword}{auto} diff = std::chrono::duration\_cast<std::chrono::seconds>(std::chrono::high\_resolution\_clock::now() -\/ cur\_time).count();}
-\DoxyCodeLine{                    std::cout << \textcolor{stringliteral}{"{}Seconds since start "{}} << diff << \textcolor{stringliteral}{"{} value "{}} << v << std::endl;}
-\DoxyCodeLine{                \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ rpp::source::interval(std::chrono::seconds\{\ 1\},\ std::chrono::seconds\{\ 2\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .take(5)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([cur\_time](\textcolor{keywordtype}{size\_t}\ v)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ diff\ =\ std::chrono::duration\_cast<std::chrono::seconds>(std::chrono::high\_resolution\_clock::now()\ -\/\ cur\_time).count();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Seconds\ since\ start\ "{}}\ <<\ diff\ <<\ \textcolor{stringliteral}{"{}\ value\ "{}}\ <<\ v\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
 \DoxyCodeLine{}
-\DoxyCodeLine{        \textcolor{comment}{// Output: Seconds since start 1 value 0}}
-\DoxyCodeLine{        \textcolor{comment}{//         Seconds since start 3 value 1}}
-\DoxyCodeLine{        \textcolor{comment}{//         Seconds since start 5 value 2}}
-\DoxyCodeLine{        \textcolor{comment}{//         Seconds since start 7 value 3}}
-\DoxyCodeLine{        \textcolor{comment}{//         Seconds since start 9 value 4}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:\ Seconds\ since\ start\ 1\ value\ 0}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Seconds\ since\ start\ 3\ value\ 1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Seconds\ since\ start\ 5\ value\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Seconds\ since\ start\ 7\ value\ 3}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Seconds\ since\ start\ 9\ value\ 4}}
 
 \end{DoxyCodeInclude}
 
@@ -321,21 +321,21 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \begin{DoxyParagraph}{Examples\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{        \textcolor{keyword}{auto} cur\_time = std::chrono::high\_resolution\_clock::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cur\_time\ =\ std::chrono::high\_resolution\_clock::now();}
 \DoxyCodeLine{}
-\DoxyCodeLine{        rpp::source::interval(std::chrono::seconds\{ 2 \})}
-\DoxyCodeLine{            .take(5)}
-\DoxyCodeLine{            .subscribe([cur\_time](\textcolor{keywordtype}{size\_t} v)}
-\DoxyCodeLine{                \{}
-\DoxyCodeLine{                    \textcolor{keyword}{auto} diff = std::chrono::duration\_cast<std::chrono::seconds>(std::chrono::high\_resolution\_clock::now() -\/ cur\_time).count();}
-\DoxyCodeLine{                    std::cout << \textcolor{stringliteral}{"{}Seconds since start "{}} << diff << \textcolor{stringliteral}{"{} value "{}} << v << std::endl;}
-\DoxyCodeLine{                \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ rpp::source::interval(std::chrono::seconds\{\ 2\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .take(5)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([cur\_time](\textcolor{keywordtype}{size\_t}\ v)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ diff\ =\ std::chrono::duration\_cast<std::chrono::seconds>(std::chrono::high\_resolution\_clock::now()\ -\/\ cur\_time).count();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Seconds\ since\ start\ "{}}\ <<\ diff\ <<\ \textcolor{stringliteral}{"{}\ value\ "{}}\ <<\ v\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
 \DoxyCodeLine{}
-\DoxyCodeLine{        \textcolor{comment}{// Output: Seconds since start 2 value 0}}
-\DoxyCodeLine{        \textcolor{comment}{//         Seconds since start 4 value 1}}
-\DoxyCodeLine{        \textcolor{comment}{//         Seconds since start 6 value 2}}
-\DoxyCodeLine{        \textcolor{comment}{//         Seconds since start 8 value 3}}
-\DoxyCodeLine{        \textcolor{comment}{//         Seconds since start 10 value 4}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:\ Seconds\ since\ start\ 2\ value\ 0}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Seconds\ since\ start\ 4\ value\ 1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Seconds\ since\ start\ 6\ value\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Seconds\ since\ start\ 8\ value\ 3}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Seconds\ since\ start\ 10\ value\ 4}}
 
 \end{DoxyCodeInclude}
 
@@ -377,20 +377,20 @@ Creates \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+
 \begin{DoxyParagraph}{Examples\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(42, 53, 10, 1).subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 42 53 10 1}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(42,\ 53,\ 10,\ 1).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 42\ 53\ 10\ 1}}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    std::array<int, 100> cheap\_to\_copy\_1\{\};}
-\DoxyCodeLine{    std::array<int, 100> cheap\_to\_copy\_2\{\};}
-\DoxyCodeLine{    rpp::source::just<rpp::memory\_model::use\_shared>(cheap\_to\_copy\_1, cheap\_to\_copy\_2).subscribe();}
+\DoxyCodeLine{\ \ \ \ std::array<int,\ 100>\ cheap\_to\_copy\_1\{\};}
+\DoxyCodeLine{\ \ \ \ std::array<int,\ 100>\ cheap\_to\_copy\_2\{\};}
+\DoxyCodeLine{\ \ \ \ rpp::source::just<rpp::memory\_model::use\_shared>(cheap\_to\_copy\_1,\ cheap\_to\_copy\_2).subscribe();}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}, 42, 53).subscribe();}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\},\ 42,\ 53).subscribe();}
 
 \end{DoxyCodeInclude}
 
@@ -433,20 +433,20 @@ this overloading uses trampoline scheduler as default
 \begin{DoxyParagraph}{Examples\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(42, 53, 10, 1).subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
-\DoxyCodeLine{    \textcolor{comment}{// Output: 42 53 10 1}}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(42,\ 53,\ 10,\ 1).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 42\ 53\ 10\ 1}}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    std::array<int, 100> cheap\_to\_copy\_1\{\};}
-\DoxyCodeLine{    std::array<int, 100> cheap\_to\_copy\_2\{\};}
-\DoxyCodeLine{    rpp::source::just<rpp::memory\_model::use\_shared>(cheap\_to\_copy\_1, cheap\_to\_copy\_2).subscribe();}
+\DoxyCodeLine{\ \ \ \ std::array<int,\ 100>\ cheap\_to\_copy\_1\{\};}
+\DoxyCodeLine{\ \ \ \ std::array<int,\ 100>\ cheap\_to\_copy\_2\{\};}
+\DoxyCodeLine{\ \ \ \ rpp::source::just<rpp::memory\_model::use\_shared>(cheap\_to\_copy\_1,\ cheap\_to\_copy\_2).subscribe();}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}, 42, 53).subscribe();}
+\DoxyCodeLine{\ \ \ \ rpp::source::just(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\},\ 42,\ 53).subscribe();}
 
 \end{DoxyCodeInclude}
 
