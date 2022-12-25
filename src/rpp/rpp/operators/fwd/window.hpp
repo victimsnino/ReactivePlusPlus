@@ -26,34 +26,46 @@ auto window_impl(TObs&& obs, size_t window_size);
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, window_tag>
 {
-    /**
-     * \brief Subdivide original observable into sub-observables (windowed observables) and emit sub-observables of items instead of original items
-     * 
-     * \marble window
-        {
-            source observable    :  +-1-2-3-4-5-|
+   /**
+    * \brief Subdivide original observable into sub-observables (windowed observables) and emit sub-observables of items instead of original items
+    * 
+    * \marble window
+    {
+        source observable    :  +-1-2-3-4-5-|
 
-            operator "window(2)" : 
-                                {   
-                                    .+1-2|
-                                    .....+3-4|
-                                    .........+5-|
-                                }
-        }
-     *
-     * \details Actually it is similar to `buffer` but it emits observable instead of container.
-     *
-     * \param window_size amount of items which every observable would have
-     *
-     * \return new specific_observable with the window operator as most recent operator.
-     * \warning #include <rpp/operators/window.hpp>
-     * 
-     * \par Example
-     * \snippet window.cpp window
-	 *
-     * \ingroup transforming_operators
-     * \see https://reactivex.io/documentation/operators/window.html
-     */
+        operator "window(2)" : 
+                            {   
+                                .+1-2|
+                                .....+3-4|
+                                .........+5-|
+                            }
+    }
+    *
+    * \details Actually it is similar to `buffer` but it emits observable instead of container.
+    *
+    * \param window_size amount of items which every observable would have
+    *
+    * \return new specific_observable with the window operator as most recent operator.
+    * \warning #include <rpp/operators/window.hpp>
+    * 
+    * \par Example
+    * \snippet window.cpp window
+    *   
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to keep internal state
+    * - <b>OnNext</b>
+    *    - Emits new window-observable if previous observable emitted requested amound of emisions
+    *    - Emits emission via active window-observable
+    *    - Completes window-observable if requested amound of emisions reached
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Just forwards original on_completed 
+    *
+    * \ingroup transforming_operators
+    * \see https://reactivex.io/documentation/operators/window.html
+    */
     template<typename ...Args>
     auto window(size_t window_size) const & requires is_header_included<window_tag, Args...>
     {

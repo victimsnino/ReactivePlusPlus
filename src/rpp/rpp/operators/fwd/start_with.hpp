@@ -39,7 +39,7 @@ struct member_overload<Type, SpecificObservable, start_with_tag>
             operator "start_with(1,2,3)" : +-1-2-3--4--6-|
         }
     *
-    * \details Actually it makes concat but arguments passed before current observable
+    * \details Actually it makes concat(rpp::source::just(vals_to_start_with)..., current_observable) so observables from argument subscribed before current observable
     *
     * \tparam memory_model memory_model strategy used to store provided values
     * \param vals list of values which should be emitted before current observable
@@ -74,7 +74,7 @@ struct member_overload<Type, SpecificObservable, start_with_tag>
             operator "start_with(-1-2-3-|)"  : +--1-2-3--4--6-|
         }
     *
-    * \details Actually it makes concat but arguments passed before current observable
+    * \details Actually it makes concat(observables_to_start_with..., current_observable) so observables from argument subscribed before current observable
     *
     * \param observables list of observables which should be used before current observable
     *
