@@ -25,24 +25,38 @@ struct take_while_impl;
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, take_while_tag>
 {
-    /**
-     * \brief Sends items provided by observable while items are satisfy predicate. When condition becomes false -> sends `on_completed`
-     *
-     * \marble take_while
-        {
-            source observable                : +--1-2-3-4-5-6-|
-            operator "take_while: x => x!=3" : +--1-2-|
-        }
-     * \param predicate is predicate used to check items
-     * \return new specific_observable with the take_while operator as most recent operator.
-     * \warning #include <rpp/operators/take_while.hpp>
-     * 
-     * \par Example:
-     * \snippet take_while.cpp take_while
-     *
-     * \ingroup conditional_operators
-     * \see https://reactivex.io/documentation/operators/takewhile.html
-     */
+   /**
+    * \brief Sends items provided by observable while items are satisfy predicate. When condition becomes false -> sends `on_completed`
+    *
+    * \marble take_while
+    {
+        source observable                : +--1-2-3-4-5-6-|
+        operator "take_while: x => x!=3" : +--1-2-|
+    }
+    *
+    * \details Actually this operator just emits values while predicate returns true
+    *
+    * \param predicate is predicate used to check items
+    * \return new specific_observable with the take_while operator as most recent operator.
+    * \warning #include <rpp/operators/take_while.hpp>
+    * 
+    * \par Example:
+    * \snippet take_while.cpp take_while
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - None
+    * - <b>OnNext</b>
+    *    - Just forwards emission if predicate returns true
+    *    - Emits OnCompleted if predicate returns false
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Just forwards original on_completed 
+    *
+    * \ingroup conditional_operators
+    * \see https://reactivex.io/documentation/operators/takewhile.html
+    */
     template<std::predicate<const Type&> Predicate>
     auto take_while(Predicate&& predicate) const& requires is_header_included<take_while_tag, Predicate>
     {

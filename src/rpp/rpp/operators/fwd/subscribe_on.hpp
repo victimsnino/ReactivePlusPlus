@@ -29,6 +29,8 @@ struct member_overload<Type, SpecificObservable, subscribe_on_tag>
 {
     /**
     * \brief OnSubscribe function for this observable will be scheduled via provided scheduler
+    *
+    * \details Actually this operator just schedules subscription on original observable to provided scheduler
     * 
     * \param scheduler is scheduler used for scheduling of OnSubscribe
     * \return new specific_observable with the subscribe_on operator as most recent operator.
