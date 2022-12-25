@@ -27,27 +27,41 @@ struct sample_with_time_impl;
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, sample_tag>
 {
-    /**
-     * \brief Emit most recent emitted from original observable emission obtained during last period of time.
-     * \details Emit item immediately in case of completion of the original observable
-     * 
-     * \marble sample_with_time
-        {
-            source observable              : +--1---2-3-4---5-6-7-|
-            operator "sample_with_time(2)" : +--1---2---4---5---7-|
-        }
-     *
-     * \param period sampling period
-     * \scheduler scheduler to use to schedule emissions with provided sampling period
-     * \return new specific_observable with the sample_with_time operator as most recent operator.
-     * \warning #include <rpp/operators/sample.hpp>
-     * 
-     * \par Example
-     * \snippet sample.cpp sample_with_time
-	 *
-     * \ingroup filtering_operators
-     * \see https://reactivex.io/documentation/operators/sample.htmlhttps://reactivex.io/documentation/operators/sample.html
-     */
+   /**
+    * \brief Emit most recent emitted from original observable emission obtained during last period of time.
+    * \details Emit item immediately in case of completion of the original observable
+    * 
+    * \marble sample_with_time
+    {
+        source observable              : +--1---2-3-4---5-6-7-|
+        operator "sample_with_time(2)" : +--1---2---4---5---7-|
+    }
+    *
+    * \details Actually operator just schedules periodical action and on each schedulable execution just emits last emitted emission (if any)
+    *
+    * \param period sampling period
+    * \scheduler scheduler to use to schedule emissions with provided sampling period
+    * \return new specific_observable with the sample_with_time operator as most recent operator.
+    * \warning #include <rpp/operators/sample.hpp>
+    * 
+    * \par Example
+    * \snippet sample.cpp sample_with_time
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to store last emitted value
+    *    - Schedules periodical action to emit stored value (if any)
+    * - <b>OnNext</b>
+    *    - Updates stored value
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Just forwards original on_completed
+    *    - Emit last emitted value (if any)
+    *
+    * \ingroup filtering_operators
+    * \see https://reactivex.io/documentation/operators/sample.htmlhttps://reactivex.io/documentation/operators/sample.html
+    */
     template<schedulers::constraint::scheduler TScheduler, typename ...Args>
     auto sample_with_time(schedulers::duration period, const TScheduler& scheduler) const & requires is_header_included<sample_tag, TScheduler, Args...>
     {

@@ -32,28 +32,41 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, combine_latest_tag>
 {
 
-    /**
-     * \brief Combines latest emissions from current observable and other observables when any of them emits.
-     * \warning According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
-     *
-     * \marble combine_latest_custom_combiner
-       {
-           source observable                                 : +---1    --    --    -2    --    -3    -|
-           source other_observable                           : +-5--    -6    -7    --    -8    -     -|
-           operator "combine_latest: x,y =>std::pair{x,y}"   : +---{1,5}-{1,6}-{1,7}-{2,7}-{2,8}-{3,8}-|
-       }
-     *
-     * \param combiner combines emissions from all the observables using custom composition.
-     * \param observables are observables whose emissions would be combined with the current observable's emissions
-     * \return new specific_observable with the combine_latest operator as most recent operator.
-     * \warning #include <rpp/operators/combine_latest.hpp>
-     *
-     * \par Examples
-     * \snippet combine_latest.cpp combine_latest custom combiner
-     *
-     * \ingroup combining_operators
-     * \see https://reactivex.io/documentation/operators/combinelatest.html
-     */
+   /**
+    * \brief Combines latest emissions from original observable and other observables when any of them emits.
+    * \warning According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses `std::mutex` to satisfy this requirement
+    *
+    * \marble combine_latest_custom_combiner
+    {
+        source observable                                 : +---1    --    --    -2    --    -3    -|
+        source other_observable                           : +-5--    -6    -7    --    -8    -     -|
+        operator "combine_latest: x,y =>std::pair{x,y}"   : +---{1,5}-{1,6}-{1,7}-{2,7}-{2,8}-{3,8}-|
+    }
+    * \details Actually this operator subscribes on all of theses observables and emits new combined value when any of them emits new emission (and each observable emit values at least one to be able to provide combined value)
+    *
+    * \param combiner combines emissions from all the observables using custom composition.
+    * \param observables are observables whose emissions would be combined with the current observable's emissions
+    * \return new specific_observable with the combine_latest operator as most recent operator.
+    * \warning #include <rpp/operators/combine_latest.hpp>
+    *
+    * \par Examples
+    * \snippet combine_latest.cpp combine_latest custom combiner
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to store last emissions.
+    *    - Wraps subscriber with serialization logic to be sure callbacks called serialized
+    * - <b>OnNext</b>
+    *    - Keeps last emission from each observable
+    *    - Applies combiner function and emits result if there is last emissions for each observable
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Just forwards original on_completed
+    *
+    * \ingroup combining_operators
+    * \see https://reactivex.io/documentation/operators/combinelatest.html
+    */
     template<constraint::observable ...TOtherObservable, std::invocable<Type, utils::extract_observable_type_t<TOtherObservable>...> TCombiner>
     auto combine_latest(TCombiner&& combiner, TOtherObservable&&...observables) const& requires is_header_included<combine_latest_tag, TOtherObservable...>
     {
@@ -78,26 +91,40 @@ struct member_overload<Type, SpecificObservable, combine_latest_tag>
             });
     }
 
-    /**
-     * \brief Combines latest emissions from current observable and other observables when any of them emits. The combining result is std::tuple<...>.
-     *
-     * \marble combine_latest
-       {
-           source observable                : +---1    --    --    -2    --    -3    -|
-           source other_observable          : +-5--    -6    -7    --    -8    -     -|
-           operator "combine_latest:tuple"  : +---{1,5}-{1,6}-{1,7}-{2,7}-{2,8}-{3,8}-|
-       }
-     *
-     * \param observables are observables whose emissions would be combined with the current observable's emissions
-     * \return new specific_observable with the combine_latest operator as most recent operator.
-     * \warning #include <rpp/operators/combine_latest.hpp>
-     *
-     * \par Examples
-     * \snippet combine_latest.cpp combine_latest custom combiner
-     *
-     * \ingroup combining_operators
-     * \see https://reactivex.io/documentation/operators/combinelatest.html
-     */
+   /**
+    * \brief Combines latest emissions from current observable and other observables when any of them emits. The combining result is std::tuple<...>.
+    *
+    * \marble combine_latest
+    {
+        source observable                : +---1    --    --    -2    --    -3    -|
+        source other_observable          : +-5--    -6    -7    --    -8    -     -|
+        operator "combine_latest:tuple"  : +---{1,5}-{1,6}-{1,7}-{2,7}-{2,8}-{3,8}-|
+    }
+    *
+    * \details Actually this operator subscribes on all of theses observables and emits `std::tuple` of last emissions when any of them emits new emission (and each observable emit values at least one to be able to provide combined value)
+    *
+    * \param observables are observables whose emissions would be combined with the current observable's emissions
+    * \return new specific_observable with the combine_latest operator as most recent operator.
+    * \warning #include <rpp/operators/combine_latest.hpp>
+    *
+    * \par Examples
+    * \snippet combine_latest.cpp combine_latest custom combiner
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to store last emissions.
+    *    - Wraps subscriber with serialization logic to be sure callbacks called serialized
+    * - <b>OnNext</b>
+    *    - Keeps last emission from each observable
+    *    - Emits `std::tuple` of last emissions if there is last emissions for each observable
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Just forwards original on_completed
+    *
+    * \ingroup combining_operators
+    * \see https://reactivex.io/documentation/operators/combinelatest.html
+    */
     template<constraint::observable ...TOtherObservable>
     auto combine_latest(TOtherObservable&&...observables) const& requires is_header_included<combine_latest_tag, TOtherObservable...>
     {

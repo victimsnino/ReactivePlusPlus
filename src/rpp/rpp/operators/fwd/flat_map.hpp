@@ -41,7 +41,7 @@ struct member_overload<Type, SpecificObservable, flat_map_tag>
             operator "flat_map: x=>just(x,x+1)" : +--12-23-34-|
         }
     *
-    * \details Actually it makes `map` and then `merge`.
+    * \details Actually it makes `map(callable)` and then `merge`.
     *
     * \param callable Function to transform item to observable
     * \return new specific_observable with the flat_map operator as most recent operator.

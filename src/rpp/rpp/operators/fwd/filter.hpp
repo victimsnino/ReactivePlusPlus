@@ -25,25 +25,37 @@ struct filter_impl;
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, filter_tag>
 {
-    /**
-     * \brief Emit only those items from an Observable that satisfies a provided predicate
-     * 
-     * \marble filter
-        {
-            source observable            : +--1-2-3-4-|
-            operator "filter: x=>x%2==0" : +----2---4-|
-        }
-     * 
-     * \param predicate is predicate used to check emitted items. true -> items satisfies condition, false -> not
-     * \return new specific_observable with the Filter operator as most recent operator.
-     * \warning #include <rpp/operators/filter.hpp>
-     * 
-     * \par Example:
-     * \snippet filter.cpp Filter
-     *
-     * \ingroup filtering_operators
-     * \see https://reactivex.io/documentation/operators/filter.html
-     */
+   /**
+    * \brief Emit only those items from an Observable that satisfies a provided predicate
+    * 
+    * \marble filter
+    {
+        source observable            : +--1-2-3-4-|
+        operator "filter: x=>x%2==0" : +----2---4-|
+    }
+    *
+    * \details Actually this operator just checks if predicate returns true, then forwards emission
+    * 
+    * \param predicate is predicate used to check emitted items. true -> items satisfies condition, false -> not
+    * \return new specific_observable with the Filter operator as most recent operator.
+    * \warning #include <rpp/operators/filter.hpp>
+    * 
+    * \par Example:
+    * \snippet filter.cpp Filter
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - None
+    * - <b>OnNext</b>
+    *    - Just forwards emission of predicate returns true
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Just forwards original on_completed 
+    *
+    * \ingroup filtering_operators
+    * \see https://reactivex.io/documentation/operators/filter.html
+    */
     template<std::predicate<const Type&> Predicate>
     auto filter(Predicate&& predicate) const& requires is_header_included<filter_tag, Predicate>
     {

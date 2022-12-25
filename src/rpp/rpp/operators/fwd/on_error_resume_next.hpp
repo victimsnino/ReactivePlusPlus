@@ -35,27 +35,41 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, on_error_resume_next_tag>
 {
 
-    /**
-     * \brief Recover from an on_error notification by continuing the sequence without error.
-     * \details The operator intercepts an on_error notification from the source Observable and, instead of passing it through to any observers, replaces it with some other item or sequence of items. 
-     * \warning This operator potentially allows the resulting Observable to terminate normally or not to terminate at all.
-     *
-     * \marble on_error_resume_next
-       {
-           source observable                       : +-1-#
-           operator "on_error_resume_next: -9-9-|" : +-1-9-9-|
-       }
-     *
-     * \param resume_callable A callable that is given an error pointer and shall return an Observable.
-     * \return new specific_observable with the on_error_resume_next operator as most recent operator.
-     * \warning #include <rpp/operators/on_error_resume_next.hpp>
-     *
-     * \par Examples
-     * \snippet on_error_resume_next.cpp on_error_resume_next
-     *
-     * \ingroup error_handling_operators
-     * \see https://reactivex.io/documentation/operators/on_error_resume_next.html
-     */
+   /**
+    * \brief Recover from an on_error notification by continuing the sequence without error.
+    * \details The operator intercepts an `on_error` notification from the source Observable and, instead of passing it through to any observers, replaces it with some other item or sequence of items. 
+    * \warning This operator potentially allows the resulting Observable to terminate normally or not to terminate at all.
+    *
+    * \marble on_error_resume_next
+    {
+        source observable                       : +-1-#
+        operator "on_error_resume_next: -9-9-|" : +-1-9-9-|
+    }
+    *
+    * \details Actually this operator just subscribes on observable calculated from callback when `on_error` from original observable obtained.
+    *
+    * \param resume_callable A callable that is given an error pointer and shall return an Observable.
+    * \return new specific_observable with the on_error_resume_next operator as most recent operator.
+    * \warning #include <rpp/operators/on_error_resume_next.hpp>
+    *
+    * \par Examples
+    * \snippet on_error_resume_next.cpp on_error_resume_next
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - None
+    * - <b>OnNext</b>
+    *    - Just forwards original on_next
+    * - <b>OnError from original observable</b>
+    *    - Subscribes subscriber on observable obtained from callable
+    * - <b>OnError from calculated observable</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Just forwards original on_completed
+    *
+    * \ingroup error_handling_operators
+    * \see https://reactivex.io/documentation/operators/on_error_resume_next.html
+    */
     template<rpp::details::resume_callable ResumeCallable>
     auto on_error_resume_next(ResumeCallable&& resume_callable) const& requires is_header_included<on_error_resume_next_tag, ResumeCallable>
     {

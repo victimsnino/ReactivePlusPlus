@@ -33,10 +33,9 @@ using first_on_next = take_on_next;
 
 struct first_on_completed
 {
-    void operator()(const constraint::subscriber auto& subscriber, const first_state& state) const
+    void operator()(const constraint::subscriber auto& subscriber, const first_state&) const
     {
-        if (state.count != 0)
-            subscriber.on_error(std::make_exception_ptr(utils::not_enough_emissions{"first() operator expects at least one emission from observable before completion"}));
+        subscriber.on_error(std::make_exception_ptr(utils::not_enough_emissions{"first() operator expects at least one emission from observable before completion"}));
     }
 };
 
@@ -50,12 +49,12 @@ public:
         auto subscription = subscriber.get_subscription();
 
         // dynamic_state there to make shared_ptr for observer instead of making shared_ptr for state
-        return create_subscriber_with_state<Type>(std::move(subscription),
-                                                  first_on_next{},
-                                                  utils::forwarding_on_error{},
-                                                  first_on_completed{},
-                                                  std::forward<TSub>(subscriber),
-                                                  first_state{});
+        return create_subscriber_with_dynamic_state<Type>(std::move(subscription),
+                                                          first_on_next{},
+                                                          utils::forwarding_on_error{},
+                                                          first_on_completed{},
+                                                          std::forward<TSub>(subscriber),
+                                                          first_state{});
     }
 };
 } // namespace rpp::details

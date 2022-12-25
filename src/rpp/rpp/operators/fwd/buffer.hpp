@@ -32,7 +32,7 @@ template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, buffer_tag>
 {
     /**
-    * \brief periodically gather items emitted by an Observable into bundles and emit these bundles rather than emitting
+    * \brief Periodically gather emissions emitted by an original Observable into bundles and emit these bundles rather than emitting
     * the items one at a time
     *
     * \marble buffer
@@ -41,7 +41,7 @@ struct member_overload<Type, SpecificObservable, buffer_tag>
             operator "buffer(2)" : +---{1,2}-{3}-|
         }
     *
-    * \details the resulting bundle is std::vector. Actually it is similar to `window` but it emits vectors instead of observables.
+    * \details The resulting bundle is `std::vector<Type>` of requested size. Actually it is similar to `window()` operator, but it emits vectors instead of observables.
     *
     * \param count number of items being bundled.
     * \return new specific_observable with the buffer operator as most recent operator.
@@ -49,6 +49,16 @@ struct member_overload<Type, SpecificObservable, buffer_tag>
     * 
     * \par Example:
     * \snippet buffer.cpp buffer
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to store `std::vector<Type>` of requested size.
+    * - <b>OnNext</b>
+    *    - Accumulates emissions inside current bundle and emits this bundle when requested cound reached and starts new bundle.
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Emits current active bundle (if any) and just forwards on_completed
     * 
     * \ingroup transforming_operators
     * \see https://reactivex.io/documentation/operators/buffer.html

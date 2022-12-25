@@ -38,7 +38,7 @@ struct member_overload<Type, SpecificObservable, group_by_tag>
        }
     *
     *
-    * \details Original observable applies `key_selector` to obtain key and split values to sub-groups based on these keys and then send rpp::grouped_observable with this key. Such an grouped observables emit values which has same value of key.
+    * \details Actually this operator applies `key_selector` to emission to obtain key, place rpp::grouped_observable to map with corresponding map and then send observable with this key (if not yet). Original values emitted via this grouped_observables
     *
     * \param key_selector Function which determines key for provided item
     * \param value_selector Function which determines value to be emitted to grouped observable
@@ -50,6 +50,18 @@ struct member_overload<Type, SpecificObservable, group_by_tag>
     * \par Example:
     * \snippet group_by.cpp group_by
     * \snippet group_by.cpp group_by selector
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to keep map<key, grouped_observable>
+    * - <b>OnNext</b>
+    *    - Applies key_selector to obtained emission
+    *    - For calculated key create new entry in map (if not yet)
+    *    - Emit value via grouped_observable from map for corresponding key
+    * - <b>OnError</b>
+    *    - Just forwards original on_error to both subscribers of observable of grouped observables and grouped observables
+    * - <b>OnCompleted</b>
+    *    - Just forwards original on_completed to both subscribers of observable of grouped observables and grouped observables
     *
     * \ingroup transforming_operators
     * \see https://reactivex.io/documentation/operators/groupby.html
