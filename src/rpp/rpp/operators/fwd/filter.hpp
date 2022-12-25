@@ -47,7 +47,7 @@ struct member_overload<Type, SpecificObservable, filter_tag>
     * - <b>On subscribe</b>
     *    - None
     * - <b>OnNext</b>
-    *    - Just forwards emission of predicate returns true
+    *    - Just forwards emission when predicate returns true
     * - <b>OnError</b>
     *    - Just forwards original on_error
     * - <b>OnCompleted</b>

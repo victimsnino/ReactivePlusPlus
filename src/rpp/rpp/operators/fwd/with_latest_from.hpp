@@ -39,6 +39,8 @@ struct member_overload<Type, SpecificObservable, with_latest_from_tag>
           source other_observable                           : +-5-6-7-    --    8-    -|
           operator "with_latest_from: x,y =>std::pair{x,y}" : +------{1,5}-{2,7}-{3,8}-|
       }
+    *
+    * \details Actually this operator just keeps last values from all other observables and combines them together with each new emission from original observable
     * 
     * \param selector is applied to current emission of current observable and latests emissions from observables
     * \param observables are observables whose emissions would be combined when current observable sends new value
@@ -47,6 +49,20 @@ struct member_overload<Type, SpecificObservable, with_latest_from_tag>
     *
     * \par Examples
     * \snippet with_latest_from.cpp with_latest_from custom selector
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to keep last values from all observables
+    * - <b>OnNext for original observable</b>
+    *    - Applies selector to new emission and all saved last values from other observable (if any value for all observables)
+    * - <b>OnNext other original observables</b>
+    *    - Just updates last value for this observable
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted for original observable</b>
+    *    - Just forwards original on_completed 
+    * - <b>OnCompleted for other observables</b>
+    *    - None
     *
     * \ingroup combining_operators
     * \see https://reactivex.io/documentation/operators/combinelatest.html

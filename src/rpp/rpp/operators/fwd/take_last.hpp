@@ -25,25 +25,38 @@ struct take_last_impl;
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, take_last_tag>
 {
-    /**
-     * \brief Emit only last `count` items provided by observable, then send `on_completed`
-     * 
-     * \marble take_last
-        {
-            source observable       : +--1-2-3-4-5-6-|
-            operator "take_last(3)" : +--------------456|
-        }
-     *
-     * \param count amount of last items to be emitted
-     * \return new specific_observable with the take_last operator as most recent operator.
-     * \warning #include <rpp/operators/take_last.hpp>
-     * 
-     * \par Example
-     * \snippet take_last.cpp take_last
-	 *
-     * \ingroup filtering_operators
-     * \see https://reactivex.io/documentation/operators/takelast.html
-     */
+   /**
+    * \brief Emit only last `count` items provided by observable, then send `on_completed`
+    * 
+    * \marble take_last
+    {
+        source observable       : +--1-2-3-4-5-6-|
+        operator "take_last(3)" : +--------------456|
+    }
+    *
+    * \details Actually this operator has buffer of requested size inside, keeps last `count` values and emit stored values on `on_completed`
+    *
+    * \param count amount of last items to be emitted
+    * \return new specific_observable with the take_last operator as most recent operator.
+    * \warning #include <rpp/operators/take_last.hpp>
+    * 
+    * \par Example
+    * \snippet take_last.cpp take_last
+    *
+    * \par Implementation details:
+    * - <b>On subscribe</b>
+    *    - Allocates one `shared_ptr` to store internal buffer
+    * - <b>OnNext</b>
+    *    - Place obtained value into queue
+    *    - If queue contains more values than expected - remove oldest one
+    * - <b>OnError</b>
+    *    - Just forwards original on_error
+    * - <b>OnCompleted</b>
+    *    - Emits values stored in queue
+    *
+    * \ingroup filtering_operators
+    * \see https://reactivex.io/documentation/operators/takelast.html
+    */
     template<typename ...Args>
     auto take_last(size_t count) const & requires is_header_included<take_last_tag, Args...>
     {
