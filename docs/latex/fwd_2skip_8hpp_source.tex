@@ -23,24 +23,24 @@
 \DoxyCodeLine{00019\ }
 \DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }rpp::details}
 \DoxyCodeLine{00021\ \{}
-\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{struct\ }skip\_impl;}
+\DoxyCodeLine{00022\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00023\ \textcolor{keyword}{struct\ }skip\_impl;}
 \DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ SpecificObservable>}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type,\ SpecificObservable,\ skip\_tag>}
-\DoxyCodeLine{00027\ \ \ \ \ \{}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ skip(\textcolor{keywordtype}{size\_t}\ count)\ \textcolor{keyword}{const}\&\ \textcolor{keyword}{requires}\ is\_header\_included<skip\_tag,\ Args...>}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template}\ lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1skip__impl}{skip\_impl<Type>}}\{count\});}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ skip(\textcolor{keywordtype}{size\_t}\ count)\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<skip\_tag,\ Args...>}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template\ lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1skip__impl}{skip\_impl<Type>}}\{count\});}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00057\ \ \ \ \ \};}
-\DoxyCodeLine{00058\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
+\DoxyCodeLine{00025\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ SpecificObservable>}
+\DoxyCodeLine{00026\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type,\ SpecificObservable,\ skip\_tag>}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{auto}\ skip(\textcolor{keywordtype}{size\_t}\ count)\ \textcolor{keyword}{const}\&\ \textcolor{keyword}{requires}\ is\_header\_included<skip\_tag,\ Args...>}
+\DoxyCodeLine{00062\ \ \ \ \ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template}\ lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1skip__impl}{skip\_impl<Type>}}\{count\});}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{auto}\ skip(\textcolor{keywordtype}{size\_t}\ count)\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<skip\_tag,\ Args...>}
+\DoxyCodeLine{00068\ \ \ \ \ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template\ lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1skip__impl}{skip\_impl<Type>}}\{count\});}
+\DoxyCodeLine{00070\ \ \ \ \ \}}
+\DoxyCodeLine{00071\ \};}
+\DoxyCodeLine{00072\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 
 \end{DoxyCode}

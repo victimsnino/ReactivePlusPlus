@@ -276,7 +276,7 @@ requires is_header_included&lt;filter_tag, Predicate&gt;</div>
 </ul>
 </li>
 <li><b>OnNext</b><ul>
-<li>Just forwards emission of predicate returns true</li>
+<li>Just forwards emission when predicate returns true</li>
 </ul>
 </li>
 <li><b>OnError</b><ul>
@@ -566,7 +566,8 @@ requires is_header_included&lt;skip_tag, Args...&gt;</div>
 <div class="image">
 <object type="image/svg+xml" data="skip.svg" style="pointer-events: none;"></object>
 </div>
- <dl class="params"><dt>Parameters</dt><dd>
+<p>Actually this operator just decrements counter and starts to forward emissions when counter reaches zero.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">count</td><td>amount of items to be skipped </td></tr>
   </table>
@@ -579,6 +580,26 @@ requires is_header_included&lt;skip_tag, Args...&gt;</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 2 3 4 5</span></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>Allocates one <code>shared_ptr</code> to store counter</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Forwards emission if counter is zero</li>
+<li>Decrements counter if not zero</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>Just forwards original on_completed</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/skip.html">https://reactivex.io/documentation/operators/skip.html</a> </dd></dl>
 
 </div>
@@ -616,7 +637,8 @@ requires is_header_included&lt;take_tag, Args...&gt;</div>
 <div class="image">
 <object type="image/svg+xml" data="take.svg" style="pointer-events: none;"></object>
 </div>
- <dl class="params"><dt>Parameters</dt><dd>
+<p>Actually this operator just emits emissions while counter is not zero and decrements counter on each emission</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">count</td><td>amount of items to be emitted. 0 - instant complete </td></tr>
   </table>
@@ -629,6 +651,27 @@ requires is_header_included&lt;take_tag, Args...&gt;</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 1</span></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>Allocate one <code>shared_ptr</code> to store counter</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Just forwards emission if counter is not zero</li>
+<li>Decrements counter if not zero</li>
+<li>If counter reached zero, then emits OnCompleted</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>Just forwards original on_completed</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/take.html">https://reactivex.io/documentation/operators/take.html</a> </dd></dl>
 
 </div>
@@ -666,6 +709,7 @@ requires is_header_included&lt;take_last_tag, Args...&gt;</div>
 <div class="image">
 <object type="image/svg+xml" data="take_last.svg" style="pointer-events: none;"></object>
 </div>
+<p>Actually this operator has buffer of requested size inside, keeps last <code>count</code> values and emit stored values on <code>on_completed</code></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">count</td><td>amount of last items to be emitted </td></tr>
@@ -679,6 +723,26 @@ requires is_header_included&lt;take_last_tag, Args...&gt;</div>
 <div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 8 9</span></div>
 </div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Implementation details:</dt><dd><ul>
+<li><b>On subscribe</b><ul>
+<li>Allocates one <code>shared_ptr</code> to store internal buffer</li>
+</ul>
+</li>
+<li><b>OnNext</b><ul>
+<li>Place obtained value into queue</li>
+<li>If queue contains more values than expected - remove oldest one</li>
+</ul>
+</li>
+<li><b>OnError</b><ul>
+<li>Just forwards original on_error</li>
+</ul>
+</li>
+<li><b>OnCompleted</b><ul>
+<li>Emits values stored in queue</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/takelast.html">https://reactivex.io/documentation/operators/takelast.html</a> </dd></dl>
 
 </div>

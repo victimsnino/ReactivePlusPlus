@@ -30,18 +30,18 @@
 \DoxyCodeLine{00026\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ SpecificObservable>}
 \DoxyCodeLine{00027\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type,\ SpecificObservable,\ window\_tag>}
 \DoxyCodeLine{00028\ \{}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...Args>}
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{auto}\ window(\textcolor{keywordtype}{size\_t}\ window\_size)\ \textcolor{keyword}{const}\ \&\ \textcolor{keyword}{requires}\ is\_header\_included<window\_tag,\ Args...>}
-\DoxyCodeLine{00059\ \ \ \ \ \{}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}),\ window\_size);}
-\DoxyCodeLine{00061\ \ \ \ \ \}}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...Args>}
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{auto}\ window(\textcolor{keywordtype}{size\_t}\ window\_size)\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<window\_tag,\ Args...>}
-\DoxyCodeLine{00065\ \ \ \ \ \{}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})),\ window\_size);}
-\DoxyCodeLine{00067\ \ \ \ \ \}}
-\DoxyCodeLine{00068\ \};}
-\DoxyCodeLine{00069\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...Args>}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{auto}\ window(\textcolor{keywordtype}{size\_t}\ window\_size)\ \textcolor{keyword}{const}\ \&\ \textcolor{keyword}{requires}\ is\_header\_included<window\_tag,\ Args...>}
+\DoxyCodeLine{00071\ \ \ \ \ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}),\ window\_size);}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...Args>}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{auto}\ window(\textcolor{keywordtype}{size\_t}\ window\_size)\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<window\_tag,\ Args...>}
+\DoxyCodeLine{00077\ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ window\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})),\ window\_size);}
+\DoxyCodeLine{00079\ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \};}
+\DoxyCodeLine{00081\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 
 \end{DoxyCode}

@@ -367,6 +367,8 @@ Apply accumulator function for each emission from observable and result of accum
 
 
 
+Acttually this operator applies provided accumulator function to seed and new emission, emits resulting value and updates seed value for next emission
+
 
 \begin{DoxyParams}{Parameters}
 {\em initial\+\_\+value} & initial value for seed which will be applied for first value from observable (instead of emitting this as first value). Then it will be replaced with result and etc. \\
@@ -410,6 +412,29 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to store seed
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Applies accumulator to each emission
+\item Updates seed value
+\item Emits new seed value
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/scan.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/scan.\+html}} 
@@ -510,6 +535,29 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to keep internal state
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Emits new window-\/observable if previous observable emitted requested amound of emisions
+\item Emits emission via active window-\/observable
+\item Completes window-\/observable if requested amound of emisions reached
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/window.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/window.\+html}} 

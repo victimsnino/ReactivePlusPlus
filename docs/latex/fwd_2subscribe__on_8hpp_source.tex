@@ -31,18 +31,18 @@
 \DoxyCodeLine{00027\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ SpecificObservable>}
 \DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type,\ SpecificObservable,\ subscribe\_on\_tag>}
 \DoxyCodeLine{00029\ \{}
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_ga2272435c76e0830c70e111b3270cd3d4}{subscribe\_on}}(\textcolor{keyword}{const}\ TScheduler\&\ scheduler)\ \textcolor{keyword}{const}\ \&\ \textcolor{keyword}{requires}\ is\_header\_included<subscribe\_on\_tag,\ TScheduler>}
-\DoxyCodeLine{00045\ \ \ \ \ \{}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ subscribe\_on\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}),\ scheduler);}
-\DoxyCodeLine{00047\ \ \ \ \ \}}
-\DoxyCodeLine{00048\ \ \ \ \ }
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
-\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{auto}\ subscribe\_on(\textcolor{keyword}{const}\ TScheduler\&\ scheduler)\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<subscribe\_on\_tag,\ TScheduler>}
-\DoxyCodeLine{00051\ \ \ \ \ \{}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ subscribe\_on\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})),\ scheduler);}
-\DoxyCodeLine{00053\ \ \ \ \ \}}
-\DoxyCodeLine{00054\ \};}
-\DoxyCodeLine{00055\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_ga2272435c76e0830c70e111b3270cd3d4}{subscribe\_on}}(\textcolor{keyword}{const}\ TScheduler\&\ scheduler)\ \textcolor{keyword}{const}\ \&\ \textcolor{keyword}{requires}\ is\_header\_included<subscribe\_on\_tag,\ TScheduler>}
+\DoxyCodeLine{00047\ \ \ \ \ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ subscribe\_on\_impl<Type>(*\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this}),\ scheduler);}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ \ \ \ \ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{auto}\ subscribe\_on(\textcolor{keyword}{const}\ TScheduler\&\ scheduler)\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<subscribe\_on\_tag,\ TScheduler>}
+\DoxyCodeLine{00053\ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ subscribe\_on\_impl<Type>(std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})),\ scheduler);}
+\DoxyCodeLine{00055\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ \};}
+\DoxyCodeLine{00057\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 
 \end{DoxyCode}

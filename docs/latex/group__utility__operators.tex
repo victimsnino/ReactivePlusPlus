@@ -562,6 +562,8 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 
 On\+Subscribe function for this observable will be scheduled via provided scheduler. 
 
+Actually this operator just schedules subscription on original observable to provided scheduler
+
 
 \begin{DoxyParams}{Parameters}
 {\em scheduler} & is scheduler used for scheduling of On\+Subscribe \\
@@ -778,7 +780,9 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 
 Forwards emissions from original observable, but subscribes on fallback observable if no any events during specified period of time (since last emission) 
 
- 
+
+
+
 \begin{DoxyParams}{Parameters}
 {\em period} & is maximum duration between emitted items before a timeout occurs \\
 \hline

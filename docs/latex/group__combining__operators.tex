@@ -345,7 +345,7 @@ Combines submissions from current observable with other observables into one but
 
 
 
-Actually it makes concat but arguments passed before current observable
+Actually it makes concat(observables\+\_\+to\+\_\+start\+\_\+with..., current\+\_\+observable) so observables from argument subscribed before current observable
 
 
 \begin{DoxyParams}{Parameters}
@@ -387,7 +387,7 @@ Combines submissions from current observable with values into one but without ov
 
 
 
-Actually it makes concat but arguments passed before current observable
+Actually it makes concat(rpp\+::source\+::just(vals\+\_\+to\+\_\+start\+\_\+with)..., current\+\_\+observable) so observables from argument subscribed before current observable
 
 
 \begin{DoxyTemplParams}{Template Parameters}
@@ -434,6 +434,8 @@ Converts observable of observables into observable of values which emits values 
 
 
 
+Actually this operator just unsubscribes from previous observable and subscribes on new observable when obtained in {\ttfamily on\+\_\+next}
+
 \begin{DoxyReturn}{Returns}
 new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the switch\+\_\+on\+\_\+next operator as most recent operator. 
 \end{DoxyReturn}
@@ -452,6 +454,28 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to store internal state
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Unsubscribed from previous observable (if any)
+\item Subscribed on new emitted observable
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed if no any active inner observable or original observable yet
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/switch.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/switch.\+html}} 
@@ -511,6 +535,8 @@ Combines latest emissions from observables with emission from current observable
 
 
 
+Actually this operator just keeps last values from all other observables and combines them together with each new emission from original observable
+
 
 \begin{DoxyParams}{Parameters}
 {\em selector} & is applied to current emission of current observable and latests emissions from observables \\
@@ -535,6 +561,35 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to keep last values from all observables
+\end{DoxyItemize}
+\item {\bfseries{On\+Next for original observable}}
+\begin{DoxyItemize}
+\item Applies selector to new emission and all saved last values from other observable (if any value for all observables)
+\end{DoxyItemize}
+\item {\bfseries{On\+Next other original observables}}
+\begin{DoxyItemize}
+\item Just updates last value for this observable
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed for original observable}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed for other observables}}
+\begin{DoxyItemize}
+\item None
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/combinelatest.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/combinelatest.\+html}} 

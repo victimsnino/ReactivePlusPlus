@@ -34,30 +34,30 @@
 \DoxyCodeLine{00030\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ SpecificObservable>}
 \DoxyCodeLine{00031\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type,\ SpecificObservable,\ with\_latest\_from\_tag>}
 \DoxyCodeLine{00032\ \{}
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}}\ ...TObservables,\ std::invocable<Type,\ utils::extract\_observable\_type\_t<TObservables>...>\ TSelector>}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{auto}\ with\_latest\_from(TSelector\&\&\ selector,\ TObservables\&\&...observables)\ \textcolor{keyword}{const}\&\ \textcolor{keyword}{requires}\ is\_header\_included<with\_latest\_from\_tag,\ TObservables...>}
-\DoxyCodeLine{00056\ \ \ \ \ \{}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template}\ lift<utils::decayed\_invoke\_result\_t<TSelector,\ Type,\ utils::extract\_observable\_type\_t<TObservables>...>>(\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__impl}{with\_latest\_from\_impl}}<Type,\ std::decay\_t<TSelector>,\ std::decay\_t<TObservables>...>\{std::forward<TSelector>(selector),\ \{\ std::forward<TObservables>(observables)...\ \}\});}
-\DoxyCodeLine{00058\ \ \ \ \ \}}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}}\ ...TObservables,\ std::invocable<Type,\ utils::extract\_observable\_type\_t<TObservables>...>\ TSelector>}
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{auto}\ with\_latest\_from(TSelector\&\&\ selector,\ TObservables\&\&...observables)\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<with\_latest\_from\_tag,\ TObservables...>}
-\DoxyCodeLine{00062\ \ \ \ \ \{}
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template\ lift<utils::decayed\_invoke\_result\_t<TSelector,\ Type,\ utils::extract\_observable\_type\_t<TObservables>...>>(\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__impl}{with\_latest\_from\_impl<Type,\ std::decay\_t<TSelector>}},\ std::decay\_t<TObservables>...>\{std::forward<TSelector>(selector),\ \{\ std::forward<TObservables>(observables)...\ \}\});}
-\DoxyCodeLine{00064\ \ \ \ \ \}}
-\DoxyCodeLine{00065\ }
-\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}}\ ...TObservables>}
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{auto}\ with\_latest\_from(TObservables\&\&...observables)\ \textcolor{keyword}{const}\&\ \textcolor{keyword}{requires}\ is\_header\_included<with\_latest\_from\_tag,\ TObservables...>}
-\DoxyCodeLine{00088\ \ \ \ \ \{}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>with\_latest\_from(utils::pack\_to\_tuple\{\},\ std::forward<TObservables>(observables)...);}
-\DoxyCodeLine{00090\ \ \ \ \ \}}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}}\ ...TObservables>}
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{auto}\ with\_latest\_from(TObservables\&\&...observables)\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<with\_latest\_from\_tag,\ TObservables...>}
-\DoxyCodeLine{00094\ \ \ \ \ \{}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).with\_latest\_from(utils::pack\_to\_tuple\{\},\ std::forward<TObservables>(observables)...);}
-\DoxyCodeLine{00096\ \ \ \ \ \}}
-\DoxyCodeLine{00097\ \};}
-\DoxyCodeLine{00098\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}}\ ...TObservables,\ std::invocable<Type,\ utils::extract\_observable\_type\_t<TObservables>...>\ TSelector>}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{auto}\ with\_latest\_from(TSelector\&\&\ selector,\ TObservables\&\&...observables)\ \textcolor{keyword}{const}\&\ \textcolor{keyword}{requires}\ is\_header\_included<with\_latest\_from\_tag,\ TObservables...>}
+\DoxyCodeLine{00072\ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template}\ lift<utils::decayed\_invoke\_result\_t<TSelector,\ Type,\ utils::extract\_observable\_type\_t<TObservables>...>>(\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__impl}{with\_latest\_from\_impl}}<Type,\ std::decay\_t<TSelector>,\ std::decay\_t<TObservables>...>\{std::forward<TSelector>(selector),\ \{\ std::forward<TObservables>(observables)...\ \}\});}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}}\ ...TObservables,\ std::invocable<Type,\ utils::extract\_observable\_type\_t<TObservables>...>\ TSelector>}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{auto}\ with\_latest\_from(TSelector\&\&\ selector,\ TObservables\&\&...observables)\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<with\_latest\_from\_tag,\ TObservables...>}
+\DoxyCodeLine{00078\ \ \ \ \ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template\ lift<utils::decayed\_invoke\_result\_t<TSelector,\ Type,\ utils::extract\_observable\_type\_t<TObservables>...>>(\mbox{\hyperlink{structrpp_1_1details_1_1with__latest__from__impl}{with\_latest\_from\_impl<Type,\ std::decay\_t<TSelector>}},\ std::decay\_t<TObservables>...>\{std::forward<TSelector>(selector),\ \{\ std::forward<TObservables>(observables)...\ \}\});}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}}\ ...TObservables>}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{auto}\ with\_latest\_from(TObservables\&\&...observables)\ \textcolor{keyword}{const}\&\ \textcolor{keyword}{requires}\ is\_header\_included<with\_latest\_from\_tag,\ TObservables...>}
+\DoxyCodeLine{00104\ \ \ \ \ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>with\_latest\_from(utils::pack\_to\_tuple\{\},\ std::forward<TObservables>(observables)...);}
+\DoxyCodeLine{00106\ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{constraint::observable}}\ ...TObservables>}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{auto}\ with\_latest\_from(TObservables\&\&...observables)\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<with\_latest\_from\_tag,\ TObservables...>}
+\DoxyCodeLine{00110\ \ \ \ \ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).with\_latest\_from(utils::pack\_to\_tuple\{\},\ std::forward<TObservables>(observables)...);}
+\DoxyCodeLine{00112\ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \};}
+\DoxyCodeLine{00114\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 
 \end{DoxyCode}

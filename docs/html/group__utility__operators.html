@@ -775,6 +775,7 @@ requires is_header_included&lt;subscribe_on_tag, TScheduler&gt;</div>
 </div><div class="memdoc">
 
 <p>OnSubscribe function for this observable will be scheduled via provided scheduler. </p>
+<p>Actually this operator just schedules subscription on original observable to provided scheduler</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">scheduler</td><td>is scheduler used for scheduling of OnSubscribe </td></tr>
@@ -797,7 +798,7 @@ requires is_header_included&lt;subscribe_on_tag, TScheduler&gt;</div>
 <div class="line">    <span class="comment">// TH1</span></div>
 <div class="line">    <span class="comment">// on_subscribe thread TH2</span></div>
 <div class="line">    <span class="comment">// [TH2]: 1</span></div>
-<div class="ttc" id="agroup__utility__operators_html_ga2272435c76e0830c70e111b3270cd3d4"><div class="ttname"><a href="group__utility__operators.html#ga2272435c76e0830c70e111b3270cd3d4">observable::subscribe_on</a></div><div class="ttdeci">auto subscribe_on(const TScheduler &amp;scheduler) const &amp;</div><div class="ttdoc">OnSubscribe function for this observable will be scheduled via provided scheduler.</div><div class="ttdef"><b>Definition:</b> subscribe_on.hpp:44</div></div>
+<div class="ttc" id="agroup__utility__operators_html_ga2272435c76e0830c70e111b3270cd3d4"><div class="ttname"><a href="group__utility__operators.html#ga2272435c76e0830c70e111b3270cd3d4">observable::subscribe_on</a></div><div class="ttdeci">auto subscribe_on(const TScheduler &amp;scheduler) const &amp;</div><div class="ttdoc">OnSubscribe function for this observable will be scheduled via provided scheduler.</div><div class="ttdef"><b>Definition:</b> subscribe_on.hpp:46</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/subscribeon.html">https://reactivex.io/documentation/operators/subscribeon.html</a> </dd></dl>
 
@@ -1070,7 +1071,7 @@ requires is_header_included&lt;timeout_tag, FallbackObs, TScheduler&gt;</div>
 <div class="image">
 <object type="image/svg+xml" data="timeout_fallback_obs.svg" style="pointer-events: none;"></object>
 </div>
- <dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">period</td><td>is maximum duration between emitted items before a timeout occurs </td></tr>
     <tr><td class="paramname">fallback_obs</td><td>is observable to subscribe on when timeout reached </td></tr>

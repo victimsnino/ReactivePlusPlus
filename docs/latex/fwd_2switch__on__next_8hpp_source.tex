@@ -24,24 +24,24 @@
 \DoxyCodeLine{00020\ }
 \DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }rpp::details}
 \DoxyCodeLine{00022\ \{}
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{struct\ }switch\_on\_next\_impl;}
+\DoxyCodeLine{00023\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00024\ \textcolor{keyword}{struct\ }switch\_on\_next\_impl;}
 \DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ SpecificObservable>}
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type,\ SpecificObservable,\ switch\_on\_next\_tag>}
-\DoxyCodeLine{00028\ \ \ \ \ \{}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...Args>}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ switch\_on\_next()\ \textcolor{keyword}{const}\&\ \textcolor{keyword}{requires}\ (is\_header\_included<switch\_on\_next\_tag,\ Args...>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<Type>}})}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template}\ lift<utils::extract\_observable\_type\_t<Type>>(\mbox{\hyperlink{structrpp_1_1details_1_1switch__on__next__impl}{switch\_on\_next\_impl<Type>}}());}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...Args>}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ switch\_on\_next()\ \&\&\ \textcolor{keyword}{requires}\ (is\_header\_included<switch\_on\_next\_tag,\ Args...>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<Type>}})}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template\ lift<utils::extract\_observable\_type\_t<Type>>(\mbox{\hyperlink{structrpp_1_1details_1_1switch__on__next__impl}{switch\_on\_next\_impl<Type>}}());}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00063\ \ \ \ \ \};}
-\DoxyCodeLine{00064\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ SpecificObservable>}
+\DoxyCodeLine{00027\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type,\ SpecificObservable,\ switch\_on\_next\_tag>}
+\DoxyCodeLine{00028\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...Args>}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{auto}\ switch\_on\_next()\ \textcolor{keyword}{const}\&\ \textcolor{keyword}{requires}\ (is\_header\_included<switch\_on\_next\_tag,\ Args...>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<Type>}})}
+\DoxyCodeLine{00067\ \ \ \ \ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template}\ lift<utils::extract\_observable\_type\_t<Type>>(\mbox{\hyperlink{structrpp_1_1details_1_1switch__on__next__impl}{switch\_on\_next\_impl<Type>}}());}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...Args>}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{auto}\ switch\_on\_next()\ \&\&\ \textcolor{keyword}{requires}\ (is\_header\_included<switch\_on\_next\_tag,\ Args...>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<Type>}})}
+\DoxyCodeLine{00073\ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template\ lift<utils::extract\_observable\_type\_t<Type>>(\mbox{\hyperlink{structrpp_1_1details_1_1switch__on__next__impl}{switch\_on\_next\_impl<Type>}}());}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 
 \end{DoxyCode}

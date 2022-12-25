@@ -32,32 +32,32 @@
 \DoxyCodeLine{00028\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ SpecificObservable>}
 \DoxyCodeLine{00029\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type,\ SpecificObservable,\ timeout\_tag>}
 \DoxyCodeLine{00030\ \{}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type>\ FallbackObs,\ schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{auto}\ timeout(schedulers::duration\ period,\ FallbackObs\&\&\ fallback\_obs,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler\ =\ TScheduler\{\})\ \textcolor{keyword}{const}\ \&\ \textcolor{keyword}{requires}\ is\_header\_included<timeout\_tag,\ FallbackObs,\ TScheduler>}
-\DoxyCodeLine{00053\ \ \ \ \ \{}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template}\ lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1timeout__impl}{timeout\_impl}}<Type,\ std::decay\_t<FallbackObs>,\ TScheduler>\{period,\ std::forward<FallbackObs>(fallback\_obs),\ scheduler\});}
-\DoxyCodeLine{00055\ \ \ \ \ \}}
-\DoxyCodeLine{00056\ }
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type>\ FallbackObs,schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{auto}\ timeout(schedulers::duration\ period,\ \ FallbackObs\&\&\ fallback\_obs,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler\ =\ TScheduler\{\})\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<timeout\_tag,\ FallbackObs,\ TScheduler>}
-\DoxyCodeLine{00059\ \ \ \ \ \{}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template\ lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1timeout__impl}{timeout\_impl}}<Type,\ std::decay\_t<FallbackObs>,\ TScheduler>\{period,\ std::forward<FallbackObs>(fallback\_obs),\ scheduler\});}
-\DoxyCodeLine{00061\ \ \ \ \ \}}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
-\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{auto}\ timeout(schedulers::duration\ period,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler\ =\ TScheduler\{\})\ \textcolor{keyword}{const}\ \&\ \textcolor{keyword}{requires}\ is\_header\_included<timeout\_tag,\ TScheduler>}
-\DoxyCodeLine{00084\ \ \ \ \ \{}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ timeout(period,\ rpp::source::error<Type>(std::make\_exception\_ptr(utils::timeout\{\textcolor{stringliteral}{"{}Timeout\ reached"{}}\})),\ scheduler);}
-\DoxyCodeLine{00086\ \ \ \ \ \}}
-\DoxyCodeLine{00087\ }
-\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{auto}\ timeout(schedulers::duration\ period,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler\ =\ TScheduler\{\})\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<timeout\_tag,\ TScheduler>}
-\DoxyCodeLine{00090\ \ \ \ \ \{}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).timeout(period,\ rpp::source::error<Type>(std::make\_exception\_ptr(utils::timeout\{\textcolor{stringliteral}{"{}Timeout\ reached"{}}\})),\ scheduler);}
-\DoxyCodeLine{00092\ \ \ \ \ \}}
-\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type>\ FallbackObs,\ schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{auto}\ timeout(schedulers::duration\ period,\ FallbackObs\&\&\ fallback\_obs,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler\ =\ TScheduler\{\})\ \textcolor{keyword}{const}\ \&\ \textcolor{keyword}{requires}\ is\_header\_included<timeout\_tag,\ FallbackObs,\ TScheduler>}
+\DoxyCodeLine{00054\ \ \ \ \ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template}\ lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1timeout__impl}{timeout\_impl}}<Type,\ std::decay\_t<FallbackObs>,\ TScheduler>\{period,\ std::forward<FallbackObs>(fallback\_obs),\ scheduler\});}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_of\_type<Type>\ FallbackObs,schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{auto}\ timeout(schedulers::duration\ period,\ \ FallbackObs\&\&\ fallback\_obs,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler\ =\ TScheduler\{\})\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<timeout\_tag,\ FallbackObs,\ TScheduler>}
+\DoxyCodeLine{00060\ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template\ lift<Type>(\mbox{\hyperlink{structrpp_1_1details_1_1timeout__impl}{timeout\_impl}}<Type,\ std::decay\_t<FallbackObs>,\ TScheduler>\{period,\ std::forward<FallbackObs>(fallback\_obs),\ scheduler\});}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{auto}\ timeout(schedulers::duration\ period,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler\ =\ TScheduler\{\})\ \textcolor{keyword}{const}\ \&\ \textcolor{keyword}{requires}\ is\_header\_included<timeout\_tag,\ TScheduler>}
+\DoxyCodeLine{00085\ \ \ \ \ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ timeout(period,\ rpp::source::error<Type>(std::make\_exception\_ptr(utils::timeout\{\textcolor{stringliteral}{"{}Timeout\ reached"{}}\})),\ scheduler);}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{auto}\ timeout(schedulers::duration\ period,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler\ =\ TScheduler\{\})\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<timeout\_tag,\ TScheduler>}
+\DoxyCodeLine{00091\ \ \ \ \ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).timeout(period,\ rpp::source::error<Type>(std::make\_exception\_ptr(utils::timeout\{\textcolor{stringliteral}{"{}Timeout\ reached"{}}\})),\ scheduler);}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
 \DoxyCodeLine{00094\ }
-\DoxyCodeLine{00095\ \};}
-\DoxyCodeLine{00096\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \};}
+\DoxyCodeLine{00097\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 
 \end{DoxyCode}

@@ -33,18 +33,18 @@
 \DoxyCodeLine{00029\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ SpecificObservable>}
 \DoxyCodeLine{00030\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{member\_overload}}<Type,\ SpecificObservable,\ scan\_tag>}
 \DoxyCodeLine{00031\ \{}
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Result,\ scan\_accumulator<Result,\ Type>\ AccumulatorFn>}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{auto}\ scan(Result\&\&\ initial\_value,\ AccumulatorFn\&\&\ accumulator)\ \textcolor{keyword}{const}\ \&\ \textcolor{keyword}{requires}\ is\_header\_included<scan\_tag,\ Result,\ AccumulatorFn>}
-\DoxyCodeLine{00056\ \ \ \ \ \{}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template}\ lift<std::decay\_t<Result>>(\mbox{\hyperlink{structrpp_1_1details_1_1scan__impl}{scan\_impl}}<Type,\ std::decay\_t<Result>,\ std::decay\_t<AccumulatorFn>>\{std::forward<Result>(initial\_value),\ std::forward<AccumulatorFn>(accumulator)\});}
-\DoxyCodeLine{00058\ \ \ \ \ \}}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Result,\ scan\_accumulator<Result,\ Type>\ AccumulatorFn>}
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{auto}\ scan(Result\&\&\ initial\_value,\ AccumulatorFn\&\&\ accumulator)\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<scan\_tag,\ Result,\ AccumulatorFn>}
-\DoxyCodeLine{00062\ \ \ \ \ \{}
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template\ lift<std::decay\_t<Result>>(\mbox{\hyperlink{structrpp_1_1details_1_1scan__impl}{scan\_impl<Type,\ std::decay\_t<Result>}},\ std::decay\_t<AccumulatorFn>>\{std::forward<Result>(initial\_value),\ std::forward<AccumulatorFn>(accumulator)\});}
-\DoxyCodeLine{00064\ \ \ \ \ \}}
-\DoxyCodeLine{00065\ \};}
-\DoxyCodeLine{00066\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Result,\ scan\_accumulator<Result,\ Type>\ AccumulatorFn>}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{auto}\ scan(Result\&\&\ initial\_value,\ AccumulatorFn\&\&\ accumulator)\ \textcolor{keyword}{const}\ \&\ \textcolor{keyword}{requires}\ is\_header\_included<scan\_tag,\ Result,\ AccumulatorFn>}
+\DoxyCodeLine{00070\ \ \ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\textcolor{keyword}{template}\ lift<std::decay\_t<Result>>(\mbox{\hyperlink{structrpp_1_1details_1_1scan__impl}{scan\_impl}}<Type,\ std::decay\_t<Result>,\ std::decay\_t<AccumulatorFn>>\{std::forward<Result>(initial\_value),\ std::forward<AccumulatorFn>(accumulator)\});}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Result,\ scan\_accumulator<Result,\ Type>\ AccumulatorFn>}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{auto}\ scan(Result\&\&\ initial\_value,\ AccumulatorFn\&\&\ accumulator)\ \&\&\ \textcolor{keyword}{requires}\ is\_header\_included<scan\_tag,\ Result,\ AccumulatorFn>}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{static\_cast<}SpecificObservable*\textcolor{keyword}{>}(\textcolor{keyword}{this})).template\ lift<std::decay\_t<Result>>(\mbox{\hyperlink{structrpp_1_1details_1_1scan__impl}{scan\_impl<Type,\ std::decay\_t<Result>}},\ std::decay\_t<AccumulatorFn>>\{std::forward<Result>(initial\_value),\ std::forward<AccumulatorFn>(accumulator)\});}
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \};}
+\DoxyCodeLine{00080\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 
 \end{DoxyCode}

@@ -161,7 +161,7 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyItemize}
 \item {\bfseries{On\+Next}}
 \begin{DoxyItemize}
-\item Just forwards emission of predicate returns true
+\item Just forwards emission when predicate returns true
 \end{DoxyItemize}
 \item {\bfseries{On\+Error}}
 \begin{DoxyItemize}
@@ -407,7 +407,11 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 
 Skip first {\ttfamily count} items provided by observable then send rest items as expected. 
 
- 
+
+
+Actually this operator just decrements counter and starts to forward emissions when counter reaches zero.
+
+
 \begin{DoxyParams}{Parameters}
 {\em count} & amount of items to be skipped \\
 \hline
@@ -429,6 +433,28 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to store counter
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Forwards emission if counter is zero
+\item Decrements counter if not zero
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/skip.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/skip.\+html}} 
 \end{DoxySeeAlso}
@@ -445,7 +471,11 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 
 Emit only first {\ttfamily count} items provided by observable, then send {\ttfamily on\+\_\+completed} 
 
- 
+
+
+Actually this operator just emits emissions while counter is not zero and decrements counter on each emission
+
+
 \begin{DoxyParams}{Parameters}
 {\em count} & amount of items to be emitted. 0 -\/ instant complete \\
 \hline
@@ -467,6 +497,29 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocate one {\ttfamily shared\+\_\+ptr} to store counter
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Just forwards emission if counter is not zero
+\item Decrements counter if not zero
+\item If counter reached zero, then emits On\+Completed
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/take.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/take.\+html}} 
 \end{DoxySeeAlso}
@@ -484,6 +537,8 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 Emit only last {\ttfamily count} items provided by observable, then send {\ttfamily on\+\_\+completed} 
 
 
+
+Actually this operator has buffer of requested size inside, keeps last {\ttfamily count} values and emit stored values on {\ttfamily on\+\_\+completed}
 
 
 \begin{DoxyParams}{Parameters}
@@ -506,6 +561,28 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to store internal buffer
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Place obtained value into queue
+\item If queue contains more values than expected -\/ remove oldest one
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Emits values stored in queue
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/takelast.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/takelast.\+html}} 

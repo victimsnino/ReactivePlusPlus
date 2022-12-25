@@ -43,6 +43,8 @@ The take\+\_\+until subscribes and begins mirroring the source Observable. It al
 \end{DoxyWarning}
 
 
+Actually this operator just subscribes on 2 observables and completes original when {\ttfamily until\+\_\+observable} emits any value
+
 
 \begin{DoxyParams}{Parameters}
 {\em until\+\_\+observable} & is the observables that stops the source observable from sending values when it emits one value or sends a on\+\_\+error/on\+\_\+completed event. \\
@@ -73,6 +75,39 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item Allocates one {\ttfamily shared\+\_\+ptr} to store internal state
+\end{DoxyItemize}
+\item {\bfseries{On\+Next for original observable}}
+\begin{DoxyItemize}
+\item Just forward original on\+\_\+next
+\end{DoxyItemize}
+\item {\bfseries{On\+Error for original observable}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed for original observable}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed
+\end{DoxyItemize}
+\item {\bfseries{On\+Next for until observable}}
+\begin{DoxyItemize}
+\item Emits on\+\_\+completed
+\end{DoxyItemize}
+\item {\bfseries{On\+Error for until observable}}
+\begin{DoxyItemize}
+\item Just forwards on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed for until observable}}
+\begin{DoxyItemize}
+\item Just forwards on\+\_\+completed
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/takeuntil.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/takeuntil.\+html}} 
 \end{DoxySeeAlso}
@@ -89,7 +124,11 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 
 Sends items provided by observable while items are satisfy predicate. When condition becomes false -\/\texorpdfstring{$>$}{>} sends {\ttfamily on\+\_\+completed} 
 
- 
+
+
+Actually this operator just emits values while predicate returns true
+
+
 \begin{DoxyParams}{Parameters}
 {\em predicate} & is predicate used to check items \\
 \hline
@@ -110,6 +149,28 @@ new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}
 
 \end{DoxyCodeInclude}
 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Implementation details\+:}
+
+\begin{DoxyItemize}
+\item {\bfseries{On subscribe}}
+\begin{DoxyItemize}
+\item None
+\end{DoxyItemize}
+\item {\bfseries{On\+Next}}
+\begin{DoxyItemize}
+\item Just forwards emission if predicate returns true
+\item Emits On\+Completed if predicate returns false
+\end{DoxyItemize}
+\item {\bfseries{On\+Error}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+error
+\end{DoxyItemize}
+\item {\bfseries{On\+Completed}}
+\begin{DoxyItemize}
+\item Just forwards original on\+\_\+completed
+\end{DoxyItemize}
+\end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/takewhile.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/takewhile.\+html}} 
