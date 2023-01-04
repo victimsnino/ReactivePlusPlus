@@ -2,13 +2,13 @@
 \Hypertarget{md_docs__docs_docs}%
 
 \begin{DoxyItemize}
-\item \mbox{\hyperlink{quick_start}{Quick Start}} -\/ fast overview how to work with RPP
-\item \mbox{\hyperlink{advanced}{Advanced Guide}} -\/ everything about RPP in details
-\item \mbox{\hyperlink{why_rpp}{Why Reactive\+Plus\+Plus?}} -\/ why Reactive\+Plus\+Plus?
-\item \mbox{\hyperlink{specific_vs_dynamic}{Performance vs Flexibility\+: Specific vs Dynamic}} -\/ overview of the concept of {\ttfamily specific\+\_\+} and {\ttfamily dynamic\+\_\+} types used in {\bfseries{RPP}} and how it affects performance
-\item \mbox{\hyperlink{memory_model}{Memory Model}} -\/ overview of new concept used in RPP related to copy/move/heap usage for objects passed inside RPP
-\item \mbox{\hyperlink{exception_guarantee}{Exception guarantee}} -\/ overview of exception guarantees provided by RPP
-\item \mbox{\hyperlink{status}{Implementation status}} -\/ current implementation status 
+\item \doxylink{quick_start}{Quick Start} -\/ fast overview how to work with RPP
+\item \doxylink{advanced}{Advanced Guide} -\/ everything about RPP in details
+\item \doxylink{why_rpp}{Why Reactive\+Plus\+Plus?} -\/ why Reactive\+Plus\+Plus?
+\item \doxylink{specific_vs_dynamic}{Performance vs Flexibility\+: Specific vs Dynamic} -\/ overview of the concept of {\ttfamily specific\+\_\+} and {\ttfamily dynamic\+\_\+} types used in {\bfseries{RPP}} and how it affects performance
+\item \doxylink{memory_model}{Memory Model} -\/ overview of new concept used in RPP related to copy/move/heap usage for objects passed inside RPP
+\item \doxylink{exception_guarantee}{Exception guarantee} -\/ overview of exception guarantees provided by RPP
+\item \doxylink{status}{Implementation status} -\/ current implementation status 
 \end{DoxyItemize}\hypertarget{quick_start}{}\doxysection{Quick Start}\label{quick_start}
 \label{quick_start_md_docs_Quick_Start}%
 \Hypertarget{quick_start_md_docs_Quick_Start}%
@@ -82,7 +82,7 @@ What we want to do with resulting values? Let\textquotesingle{}s dump it to cons
 \label{advanced_md_docs_Advanced}%
 \Hypertarget{advanced_md_docs_Advanced}%
  \hypertarget{advanced_autotoc_md0}{}\doxysubsection{Beforehand}\label{advanced_autotoc_md0}
-Before hand, please, read \mbox{\hyperlink{specific_vs_dynamic}{Performance vs Flexibility\+: Specific vs Dynamic}}
+Before hand, please, read \doxylink{specific_vs_dynamic}{Performance vs Flexibility\+: Specific vs Dynamic}
 
 Also read this one\+: \href{https://reactivex.io/documentation/contract.html}{\texttt{ Contract}}
 
@@ -137,7 +137,7 @@ Observables are just wrappers over callback function with ability to be extended
 \begin{DoxyItemize}
 \item be ready for it, so, your callback (or any state inside operators) should be cheap enough to copy
 \item if you want to avoid it, you can convert your observable to dynamic\+: it forces to move observable to {\ttfamily shared\+\_\+ptr}, as a result, no any future copies/moves
-\item some observables/operators have {\ttfamily memory\+\_\+model} (\mbox{\hyperlink{memory_model}{Memory Model}}) parameter to change strategy of handling your variable\+: keep to copy/move or move to shared\+\_\+ptr once
+\item some observables/operators have {\ttfamily memory\+\_\+model} (\doxylink{memory_model}{Memory Model}) parameter to change strategy of handling your variable\+: keep to copy/move or move to shared\+\_\+ptr once
 \end{DoxyItemize}
 
 Everytime you subscribe subscriber observable just invokes callback for this subscriber and nothing else. It means, that actually observable do nothing and doesn\textquotesingle{}t emit values, {\bfseries{callback emits values}}.
@@ -209,12 +209,12 @@ There detailed list with explanations\+:
 \item observables\+:
 \begin{DoxyItemize}
 \item \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1specific__observable.html}{\texttt{ rpp\+::specific\+\_\+observable$<$\+T, On\+Subscribe\+Fn$>$}} -\/ Stores type of {\ttfamily on\+\_\+subscribe} callback explicitly via {\ttfamily On\+Subscribe} template type. Due to explicit type of callback such an observable can obtains ANY specialization of subscriber and ANY specialization of observers without construction of {\ttfamily dynamic\+\_\+} specializations
-\item \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observable.html}{\texttt{ rpp\+::dynamic\+\_\+observable$<$\+T$>$}} -\/ stores callback as shared\+\_\+ptr to base class of {\ttfamily \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}}} and calling callback via virtual function. Due to this limitation this observable can obtain only {\ttfamily dynamic\+\_\+observer} and {\ttfamily dynamic\+\_\+subscriber}
+\item \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observable.html}{\texttt{ rpp\+::dynamic\+\_\+observable$<$\+T$>$}} -\/ stores callback as shared\+\_\+ptr to base class of {\ttfamily \doxylink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} and calling callback via virtual function. Due to this limitation this observable can obtain only {\ttfamily dynamic\+\_\+observer} and {\ttfamily dynamic\+\_\+subscriber}
 \end{DoxyItemize}
 \item observers
 \begin{DoxyItemize}
 \item \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1specific__observer.html}{\texttt{ rpp\+::specific\+\_\+observer$<$\+T, On\+Next, On\+Error, On\+Completed$>$}} -\/ Stores types of {\ttfamily on\+\_\+next, on\+\_\+error and on\+\_\+completed} callbacks explicitly via {\ttfamily On\+Next, On\+Error, On\+Completed} template types.
-\item \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observer.html}{\texttt{ rpp\+::dynamic\+\_\+observer$<$\+T$>$}} -\/ stores callbacks as shared\+\_\+ptr to base class of {\ttfamily \mbox{\hyperlink{classrpp_1_1specific__observer}{rpp\+::specific\+\_\+observer}}} and calling callbacks via virtual functions.
+\item \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/classrpp_1_1dynamic__observer.html}{\texttt{ rpp\+::dynamic\+\_\+observer$<$\+T$>$}} -\/ stores callbacks as shared\+\_\+ptr to base class of {\ttfamily \doxylink{classrpp_1_1specific__observer}{rpp\+::specific\+\_\+observer}} and calling callbacks via virtual functions.
 \end{DoxyItemize}
 \item subscribers\+:
 \begin{DoxyItemize}

@@ -39,7 +39,7 @@ Inheritance diagram for rpp\+::specific\+\_\+observable\texorpdfstring{$<$}{<} T
 \mbox{\Hypertarget{classrpp_1_1specific__observable_afef03ecaa089ac3df8f0bf5e664a1d9a}\label{classrpp_1_1specific__observable_afef03ecaa089ac3df8f0bf5e664a1d9a}} 
 {\footnotesize template$<$typename... Args$>$ \newline
 requires details\+::is\+\_\+header\+\_\+included$<$details\+::dynamic\+\_\+observable\+\_\+tag, Args...$>$}\\auto {\bfseries as\+\_\+dynamic} () const \&
-\begin{DoxyCompactList}\small\item\em Converts \mbox{\hyperlink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable}} to \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable}} via type-\/erasure mechanism. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Converts \doxylink{classrpp_1_1specific__observable}{rpp\+::specific\+\_\+observable} to \doxylink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable} via type-\/erasure mechanism. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrpp_1_1specific__observable_abca84b6ef365e051a76afcb33030d1b5}\label{classrpp_1_1specific__observable_abca84b6ef365e051a76afcb33030d1b5}} 
 {\footnotesize template$<$typename... Args$>$ \newline
 requires details\+::is\+\_\+header\+\_\+included$<$details\+::dynamic\+\_\+observable\+\_\+tag, Args...$>$}\\auto {\bfseries as\+\_\+dynamic} () \&\&
@@ -54,7 +54,7 @@ auto {\bfseries op} (Operator\+Fn \&\&fn) \&\&
 \item 
 \mbox{\Hypertarget{structrpp_1_1interface__observable_a1aed1c6edd83e7091c2bdc3b15b2beee}\label{structrpp_1_1interface__observable_a1aed1c6edd83e7091c2bdc3b15b2beee}} 
 auto {\bfseries as\+\_\+blocking} () const \&
-\begin{DoxyCompactList}\small\item\em Converts existing observable to \mbox{\hyperlink{classrpp_1_1blocking__observable}{rpp\+::blocking\+\_\+observable}} which has another interface and abilities. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Converts existing observable to \doxylink{classrpp_1_1blocking__observable}{rpp\+::blocking\+\_\+observable} which has another interface and abilities. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structrpp_1_1interface__observable_a681ade25e93123cd624613b16c73b6dd}\label{structrpp_1_1interface__observable_a681ade25e93123cd624613b16c73b6dd}} 
 auto {\bfseries as\+\_\+blocking} () \&\&
 \end{DoxyCompactItemize}
@@ -71,24 +71,24 @@ struct {\bfseries details\+::member\+\_\+overload$<$ Type, specific\+\_\+observa
 class rpp\+::specific\+\_\+observable$<$ Type, On\+Subscribe\+Fn $>$}
 Type-\/full observable (or typed) that has the notion of Type and upstream observables for C++ compiler. e.\+g. observable$<$int, map$<$bool, ...\+recursive...$>$$>$ is different from observable$<$int, filter$<$int, ...$>$$>$. 
 
-This is a C++ technique about de-\/virtualization. To achieve polymorphic behavior, we could either go for function virtualization or function overload. However, virtualization is more expensive than function overload in both compile time and runtime. Therefore, we go for function overload. Actually, we use more advanced functor paradigm for better performance. As a result it has better performance comparing to \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable}}. Use it if possible. But it has worse usability due to On\+Subscribe\+Fn template parameter.
+This is a C++ technique about de-\/virtualization. To achieve polymorphic behavior, we could either go for function virtualization or function overload. However, virtualization is more expensive than function overload in both compile time and runtime. Therefore, we go for function overload. Actually, we use more advanced functor paradigm for better performance. As a result it has better performance comparing to \doxylink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable}. Use it if possible. But it has worse usability due to On\+Subscribe\+Fn template parameter.
 
 
 \begin{DoxyParams}{Parameters}
 {\em Type} & is the value type. Observable of type means this source could emit a sequence of items of that \char`\"{}\+Type\char`\"{}. \\
 \hline
-{\em On\+Subscribe\+Fn} & is the on\+\_\+subscribe functor that is called when a subscriber subscribes to this observable. \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} stores On\+Subscribe\+Fn as member variable, so, it is stored on stack (instead of allocating it on heap).\\
+{\em On\+Subscribe\+Fn} & is the on\+\_\+subscribe functor that is called when a subscriber subscribes to this observable. \doxylink{classrpp_1_1specific__observable}{specific\+\_\+observable} stores On\+Subscribe\+Fn as member variable, so, it is stored on stack (instead of allocating it on heap).\\
 \hline
 \end{DoxyParams}
 
 
-This is a C++ technique about de-\/virtualization. To achieve polymorphic behavior, we could either go for function virtualization or function overload. However, virtualization is more expensive than function overload in both compile time and runtime. Therefore, we go for function overload. Actually, we use more advanced functor paradigm for better performance. As a result it has better performance comparing to \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable}}. Use it if possible. But it has worse usability due to On\+Subscribe\+Fn template parameter.
+This is a C++ technique about de-\/virtualization. To achieve polymorphic behavior, we could either go for function virtualization or function overload. However, virtualization is more expensive than function overload in both compile time and runtime. Therefore, we go for function overload. Actually, we use more advanced functor paradigm for better performance. As a result it has better performance comparing to \doxylink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable}. Use it if possible. But it has worse usability due to On\+Subscribe\+Fn template parameter.
 
 
 \begin{DoxyParams}{Parameters}
 {\em Type} & is the value type. Observable of type means this source could emit a sequence of items of that \char`\"{}\+Type\char`\"{}. \\
 \hline
-{\em On\+Subscribe\+Fn} & is the on\+\_\+subscribe functor that is called when a subscriber subscribes to this observable. \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} stores On\+Subscribe\+Fn as member variable, so, it is stored on stack (instead of allocating it on heap). \\
+{\em On\+Subscribe\+Fn} & is the on\+\_\+subscribe functor that is called when a subscriber subscribes to this observable. \doxylink{classrpp_1_1specific__observable}{specific\+\_\+observable} stores On\+Subscribe\+Fn as member variable, so, it is stored on stack (instead of allocating it on heap). \\
 \hline
 \end{DoxyParams}
 

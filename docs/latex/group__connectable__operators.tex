@@ -10,13 +10,13 @@ Connectable operators are operators that provide extra functionality for multica
 \item 
 {\footnotesize template$<$subjects\+::constraint\+::subject\+\_\+of\+\_\+type$<$ Type $>$ TSubject$>$ \newline
 requires is\+\_\+header\+\_\+included$<$multicast\+\_\+tag, TSubject$>$}\\auto \mbox{\hyperlink{group__connectable__operators_gade414a17091e966ce725374b631cab77}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, multicast\+\_\+tag $>$\+::multicast}} (TSubject \&\&subject) const \&
-\begin{DoxyCompactList}\small\item\em Converts ordinary observable to \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} with help of provided subject. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Converts ordinary observable to \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} with help of provided subject. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename ... Args$>$ \newline
 requires is\+\_\+header\+\_\+included$<$publish\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__connectable__operators_ga87aa80f556399c86bafcab5f7b4a7473}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, publish\+\_\+tag $>$\+::publish}} () const \&
-\begin{DoxyCompactList}\small\item\em Converts ordinary observable to \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} with help of \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp\+::subjects\+::publish\+\_\+subject}}. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Converts ordinary observable to \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} with help of \doxylink{classrpp_1_1subjects_1_1publish__subject}{rpp\+::subjects\+::publish\+\_\+subject}. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename ... Args$>$ \newline
 requires is\+\_\+header\+\_\+included$<$ref\+\_\+count\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__connectable__operators_gac1991f003be32f5432ecb084be506c15}{rpp\+::details\+::member\+\_\+overload$<$ Type, Specific\+Observable, ref\+\_\+count\+\_\+tag $>$\+::ref\+\_\+count}} () const \&
-\begin{DoxyCompactList}\small\item\em Forces \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} to behave like common observable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Forces \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} to behave like common observable. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -39,20 +39,20 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 
 
 
-Converts ordinary observable to \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} with help of provided subject. 
+Converts ordinary observable to \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} with help of provided subject. 
 
 Connectable observable is common observable, but actually it starts emissions of items only after call \char`\"{}connect\char`\"{}, \char`\"{}ref\+\_\+count\char`\"{} or any other available way. Also it uses subject to multicast values to subscribers
 
 
 \begin{DoxyParams}{Parameters}
-{\em subject} & is subject used to create \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} \\
+{\em subject} & is subject used to create \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the multicast operator as most recent operator. 
+new \doxylink{classrpp_1_1specific__observable}{specific\+\_\+observable} with the multicast operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{multicast_8hpp_source}{rpp/operators/multicast.\+hpp}}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{multicast_8hpp_source}{rpp/operators/multicast.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
@@ -87,15 +87,15 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 
 
 
-Converts ordinary observable to \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} with help of \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp\+::subjects\+::publish\+\_\+subject}}. 
+Converts ordinary observable to \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} with help of \doxylink{classrpp_1_1subjects_1_1publish__subject}{rpp\+::subjects\+::publish\+\_\+subject}. 
 
 Connectable observable is common observable, but actually it starts emissions of items only after call \char`\"{}connect\char`\"{}, \char`\"{}ref\+\_\+count\char`\"{} or any other available way. Also it uses subject to multicast values to subscribers
 
 \begin{DoxyReturn}{Returns}
-new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the publish operator as most recent operator. 
+new \doxylink{classrpp_1_1specific__observable}{specific\+\_\+observable} with the publish operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{publish_8hpp_source}{rpp/operators/publish.\+hpp}}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{publish_8hpp_source}{rpp/operators/publish.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
@@ -129,15 +129,15 @@ auto \mbox{\hyperlink{structrpp_1_1details_1_1member__overload}{rpp\+::details\+
 
 
 
-Forces \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} to behave like common observable. 
+Forces \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} to behave like common observable. 
 
-Connects \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}} on the first subscription and unsubscribes on last unsubscription
+Connects \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} on the first subscription and unsubscribes on last unsubscription
 
 \begin{DoxyReturn}{Returns}
-new \mbox{\hyperlink{classrpp_1_1specific__observable}{specific\+\_\+observable}} with the ref\+\_\+count operator as most recent operator. 
+new \doxylink{classrpp_1_1specific__observable}{specific\+\_\+observable} with the ref\+\_\+count operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{ref__count_8hpp_source}{rpp/operators/ref\+\_\+count.\+hpp}}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{ref__count_8hpp_source}{rpp/operators/ref\+\_\+count.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
