@@ -109,19 +109,25 @@ Beforehand</h1>
 </blockquote>
 <p>It means, that:</p>
 <ol type="1">
-<li>All operators implemented in RPP are following this contract and emissions from observables/operators built-in in RPP are serialized</li>
-<li>All logic inside operator's callbacks and observer can be not thread-safe due to thread-safety is guaranteed. (for example, <code>take</code> operator doesn't use mutexes or atomics due to underlying observable <b>MUST</b> emit items serialized)</li>
+<li><b>All</b> implemented in <b>RPP operators</b> are <b>following this contract</b>:<br  />
+ All built-in RPP observables/operators emit emission in the serialized way</li>
+<li>Any user-provided callbacks (for operators or observers) can be not thread-safe due to thread-safety of observable is guaranteed. <br  />
+ For example: internal logic of <code>take</code> operator doesn't use mutexes or atomics due to underlying observable <b>MUST</b> emit items in series</li>
 <li>When you implement your own operator via <code>create</code> be careful to <b>follow this contract</b>!</li>
-<li>it is true <b>EXCEPT FOR</b> subjects if they are used manually due to users can use subjects for its own purposes there is potentially place for breaking this concept. Be careful and use synchronized subjects!</li>
+<li>It is true <b>EXCEPT FOR</b> subjects if they are used manually due to users can use subjects for its own purposes there is potentially place for breaking this concept. Be careful and use synchronized subjects!</li>
 </ol>
 <p>It means, that for example: </p><div class="fragment"><div class="line"><span class="keyword">auto</span> s1 = rpp::source::just(1).repeat().subscribe_on(<a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{});</div>
 <div class="line"><span class="keyword">auto</span> s2 = rpp::source::just(2).repeat().subscribe_on(<a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{});</div>
-<div class="line">s1.merge_with(s2).map([](<span class="keywordtype">int</span> v){</div>
+<div class="line">s1.merge_with(s2)</div>
+<div class="line">  .map([](<span class="keywordtype">int</span> v)</div>
+<div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;enter &quot;</span> &lt;&lt; v &lt;&lt; std::endl;</div>
 <div class="line">    std::this_thread::sleep_for(std::chrono::seconds{1});</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;exit &quot;</span> &lt;&lt; v &lt;&lt; std::endl;</div>
 <div class="line">    <span class="keywordflow">return</span> v;</div>
-<div class="line">}).as_blocking().subscribe([](<span class="keywordtype">int</span>){});</div>
+<div class="line">  })</div>
+<div class="line">  .as_blocking()</div>
+<div class="line">  .subscribe([](<span class="keywordtype">int</span>){});</div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">scheduler which schedules execution of schedulables via queueing tasks to another thread with priorit...</div><div class="ttdef"><b>Definition:</b> new_thread_scheduler.hpp:32</div></div>
 </div><!-- fragment --><p> will never produce something like </p><div class="fragment"><div class="line">enter 1</div>
 <div class="line">enter 2</div>
@@ -137,21 +143,34 @@ Beforehand</h1>
 <div class="line">exit 2</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md1"></a>
 Observable</h1>
-<p>Observables are just wrappers over callback function with ability to be extended via operators. Everytime you apply some operator to observable, observable is copied (or moved). As a result, whole its state is copied/moved too:</p>
 <ul>
-<li>be ready for it, so, your callback (or any state inside operators) should be cheap enough to copy</li>
-<li>if you want to avoid it, you can convert your observable to dynamic: it forces to move observable to <code>shared_ptr</code>, as a result, no any future copies/moves</li>
-<li>some observables/operators have <code>memory_model</code> (<a class="el" href="memory_model.html">Memory Model</a>) parameter to change strategy of handling your variable: keep to copy/move or move to shared_ptr once</li>
+<li>Observables are just wrappers over callback.</li>
+<li>Observables can extended via operators to modify behavior</li>
+<li>Everytime you apply some operator to observable, observable is copied (or moved). As a result, whole its state is copied/moved too:<ul>
+<li>Be ready for copies/moves, so, your callback (or any state inside operators) should be cheap enough to copy</li>
+<li>If you want to avoid it, you can convert your observable to dynamic: <br  />
+ it forces to move observable's callback/state to <code>shared_ptr</code>, as a result, no any future copies/moves</li>
+<li>Some observables/operators have <code>memory_model</code> (<a class="el" href="memory_model.html">Memory Model</a>) parameter to change strategy of handling your variable: keep to copy/move or move to <code>shared_ptr</code> once</li>
 </ul>
-<p>Everytime you subscribe subscriber observable just invokes callback for this subscriber and nothing else. It means, that actually observable do nothing and doesn't emit values, <b>callback emits values</b>.</p>
+</li>
+</ul>
+<p>When you subscribe subscriber on observable, observable just invokes callback for this subscriber and nothing else. It means, that actually observable do nothing and doesn't emit values, <b>callback emits values</b>.</p>
 <p>To achieve better performance use <code>specific_observable</code> while it is possible. Same for the argument of callback (for example, when you use <code>rpp::source::create</code>): use <code>const auto&amp;</code> for subscriber to avoid implicit conversion to dynamic subscriber.</p>
 <p>By default, functional programming deals with immutable data and "pure functions". Observable follows this principle, so, it can accept only const functions for callback. </p>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Observers</h1>
-<p>Observer also follows this principle, so, it can accept only const functions for callbacks.</p>
+<p>Observer also follows principle of immutable data and pure function, so, it can accept only const functions for callbacks.</p>
+<p>Observers can be constructed with 3 types of callbacks: 1) <code>on_next(T)</code> - what to do with new obtained value. Provided value can be both: const l-value reference or r-value reference. 2) <code>on_error(std::exception_ptr)</code> - called when some exception happens inside observable. This callback is termination signal - no any future callbacks invocations expected 3) <code>on_completed()</code> - called when observable completes with success</p>
+<p>Observer can be constructed with any combinations of callbacks:</p><ul>
+<li><code>on_next</code></li>
+<li><code>on_next</code>, <code>on_error</code></li>
+<li><code>on_next</code>, <code>on_completed</code></li>
+<li><code>on_next</code>, <code>on_error</code> <code>on_completed</code></li>
+</ul>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Operators</h1>
 <p>For better compilation speed each operator placed in each own header. Due to great desire to have dot operations inside observable, observable inherits implementation of operators via <code>member_overload</code> hack: it forwards interface, but implementation placed in another file. It looks like wide-spread separation to cpp/hpp files.</p>
+<p>Currently RPP implements a lot of operators, detailed information can be found on <a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/modules.html">API Reference</a></p>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Subscriber</h1>
 <p>Subscriber is just wrapper over observer with subscription. Everytime callback received, subscriber checks for subscription state and emits value to observer if subscription is still active. </p>
