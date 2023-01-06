@@ -23,8 +23,8 @@ namespace rpp::details
 template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs>
 auto window_impl(TObs&& obs, size_t window_size);
 
-template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs>
-auto window_with_time_impl(TObs&& obs, rpp::schedulers::duration period);
+template<constraint::decayed_type Type, constraint::observable_of_type<Type> TObs, schedulers::constraint::scheduler TScheduler>
+auto window_with_time_impl(TObs&& obs, schedulers::duration period, const TScheduler& scheduler);
 
 template<constraint::decayed_type Type, typename SpecificObservable>
 struct member_overload<Type, SpecificObservable, window_tag>
@@ -121,16 +121,16 @@ struct member_overload<Type, SpecificObservable, window_tag>
     * \ingroup transforming_operators
     * \see https://reactivex.io/documentation/operators/window.html
     */
-    template<typename ...Args>
-    auto window_with_time(schedulers::duration period) const & requires is_header_included<window_tag, Args...>
+    template<schedulers::constraint::scheduler TScheduler>
+    auto window_with_time(schedulers::duration period, const TScheduler& scheduler) const & requires is_header_included<window_tag,TScheduler>
     {
-        return window_with_time_impl<Type>(*static_cast<const SpecificObservable*>(this), period);
+        return window_with_time_impl<Type>(*static_cast<const SpecificObservable*>(this), period, scheduler);
     }
 
-    template<typename ...Args>
-    auto window_with_time(schedulers::duration period) && requires is_header_included<window_tag, Args...>
+    template<schedulers::constraint::scheduler TScheduler>
+    auto window_with_time(schedulers::duration period, const TScheduler& scheduler) && requires is_header_included<window_tag,TScheduler>
     {
-        return window_with_time_impl<Type>(std::move(*static_cast<SpecificObservable*>(this)), period);
+        return window_with_time_impl<Type>(std::move(*static_cast<SpecificObservable*>(this)), period, scheduler);
     }
 };
 } // namespace rpp::details
