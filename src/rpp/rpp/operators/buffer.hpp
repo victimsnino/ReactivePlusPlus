@@ -37,11 +37,6 @@ struct buffer_state
         clear_and_reserve_buckets();
     }
 
-    buffer_state(const buffer_state& other)          = delete;
-    buffer_state(buffer_state&&) noexcept            = default;
-    buffer_state& operator=(const buffer_state&)     = delete;
-    buffer_state& operator=(buffer_state&&) noexcept = default;
-
     void clear_and_reserve_buckets() const
     {
         buckets.clear();

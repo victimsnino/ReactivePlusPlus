@@ -50,7 +50,7 @@ auto create_subscriber_with_dynamic_state(composite_subscription sub,
                                           OnCompleted&&          on_completed,
                                           States&&...            states)
 {
-    using TObs = dynamic_state_observer<Type, std::decay_t<States>...>;
+    using TObs = dynamic_observer<Type>;
     return make_specific_subscriber<Type, TObs>(std::move(sub),
                                                 std::forward<OnNext>(on_next),
                                                 std::forward<OnError>(on_error),

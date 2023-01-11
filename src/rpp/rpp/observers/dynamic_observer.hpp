@@ -61,29 +61,53 @@ std::shared_ptr<dynamic_observer_state_base<T>> make_dynamic_observer_state_from
 {
     return make_dynamic_observer_state<T, details::state_observer<T, std::decay_t<Args>...>>(std::forward<Args>(args)...);
 }
+} // namespace rpp::details
 
-template<constraint::decayed_type T, constraint::decayed_type ...States>
-class dynamic_state_observer : public details::typed_observer_tag<T>
+namespace rpp
+{
+/**
+ * \brief Dynamic (type-erased) version of observer (comparing to specific_observer)
+ * \details It uses type-erasure mechanism to hide types of OnNext, OnError and OnCompleted callbacks. But it has higher cost in the terms of performance due to usage of heap.
+ * Use it only when you need to store observer as member variable or make copy of original subscriber. In other cases prefer using "auto" to avoid converting to dynamic_observer
+ * \tparam T is type of value handled by this observer
+ * \ingroup observers
+ */
+template<constraint::decayed_type T>
+class dynamic_observer final : public details::typed_observer_tag<T>
 {
 public:
-    template<typename ...TStates>
-        requires (constraint::decayed_same_as<States, TStates> && ...)
-    dynamic_state_observer(std::invocable<T, States...> auto&&                  on_next,
-                           std::invocable<std::exception_ptr, States...> auto&& on_error,
-                           std::invocable<States...> auto&&                     on_completed,
-                           TStates&& ...                                        states)
-        : m_state{make_dynamic_observer_state_from_fns<T>(std::forward<decltype(on_next)>(on_next),
-                                                          std::forward<decltype(on_error)>(on_error),
-                                                          std::forward<decltype(on_completed)>(on_completed),
-                                                          std::forward<TStates>(states)...)} {}
+    template<typename ...States,
+        std::invocable<T, std::decay_t<States>...> OnNext,
+        std::invocable<std::exception_ptr, std::decay_t<States>...> OnError,
+        std::invocable<std::decay_t<States>...> OnCompleted>
+    dynamic_observer(OnNext&&      on_next,
+                     OnError&&     on_error,
+                     OnCompleted&& on_completed,
+                     States&& ...  states)
+        : m_state{details::make_dynamic_observer_state_from_fns<T>(std::forward<OnNext>(on_next),
+                                                                   std::forward<OnError>(on_error),
+                                                                   std::forward<OnCompleted>(on_completed),
+                                                                   std::forward<States>(states)...)} {}
 
-    dynamic_state_observer(std::shared_ptr<details::dynamic_observer_state_base<T>> state)
-        : m_state{ std::move(state) } {}
+    template<constraint::on_next_fn<T> OnNext = utils::empty_function_t<T>,
+        constraint::on_error_fn OnError = utils::rethrow_error_t,
+        constraint::on_completed_fn OnCompleted = utils::empty_function_t<>>
+    dynamic_observer(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
+        : m_state{details::make_dynamic_observer_state_from_fns<T>(std::forward<OnNext>(on_next),
+                                                                   std::forward<OnError>(on_error),
+                                                                   std::forward<OnCompleted>(on_completed))} {}
 
+    dynamic_observer(constraint::on_next_fn<T> auto&& on_next, constraint::on_completed_fn auto&& on_completed)
+        : dynamic_observer<T>{std::forward<decltype(on_next)>(on_next),
+                              utils::rethrow_error_t{},
+                              std::forward<decltype(on_completed)>(on_completed)} {}
+
+    dynamic_observer(std::shared_ptr<details::dynamic_observer_state_base<T>> state)
+        : m_state{std::move(state)} {}
 
     template<constraint::observer_of_type<T> TObserver>
-        requires (!std::is_same_v<std::decay_t<TObserver>, dynamic_state_observer<T, States...>>)
-    dynamic_state_observer(TObserver&& obs)
+        requires (!std::is_same_v<std::decay_t<TObserver>, dynamic_observer<T>>)
+    dynamic_observer(TObserver&& obs)
         : m_state{details::make_dynamic_observer_state<T, std::decay_t<TObserver>>(std::forward<TObserver>(obs))} {}
 
 
@@ -126,46 +150,13 @@ public:
         m_state->on_completed();
     }
 
-private:
-    std::shared_ptr<dynamic_observer_state_base<T>> m_state{};
-};
-} // namespace rpp::details
-
-namespace rpp
-{
-/**
- * \brief Dynamic (type-erased) version of observer (comparing to specific_observer)
- * \details It uses type-erasure mechanism to hide types of OnNext, OnError and OnCompleted callbacks. But it has higher cost in the terms of performance due to usage of heap.
- * Use it only when you need to store observer as member variable or make copy of original subscriber. In other cases prefer using "auto" to avoid converting to dynamic_observer
- * \tparam T is type of value handled by this observer
- * \ingroup observers
- */
-template<constraint::decayed_type T>
-class dynamic_observer final : public details::dynamic_state_observer<T>
-{
-public:
-    template<constraint::on_next_fn<T>   OnNext      = utils::empty_function_t<T>,
-             constraint::on_error_fn     OnError     = utils::rethrow_error_t,
-             constraint::on_completed_fn OnCompleted = utils::empty_function_t<>>
-    dynamic_observer(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
-        : details::dynamic_state_observer<T>{std::forward<OnNext>(on_next),
-                                             std::forward<OnError>(on_error),
-                                             std::forward<OnCompleted>(on_completed)} {}
-
-    dynamic_observer(constraint::on_next_fn<T> auto&& on_next, constraint::on_completed_fn auto&& on_completed)
-        : details::dynamic_state_observer<T>{std::forward<decltype(on_next)>(on_next),
-                                             utils::rethrow_error_t{},
-                                             std::forward<decltype(on_completed)>(on_completed)} {}
-
-    template<constraint::observer_of_type<T> TObserver>
-        requires (!std::is_same_v<std::decay_t<TObserver>, dynamic_observer<T>>)
-    dynamic_observer(TObserver&& obs)
-        : details::dynamic_state_observer<T>{std::forward<TObserver>(obs)} {}
-
     /**
      * \brief Do nothing for rpp::dynamic_observer. Created only for unification of interfaces with rpp::specific_observer
      */
     const dynamic_observer<T>& as_dynamic() const { return *this; }
+
+private:
+    std::shared_ptr<details::dynamic_observer_state_base<T>> m_state{};
 };
 
 template<constraint::observer TObserver>

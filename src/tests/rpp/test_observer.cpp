@@ -140,7 +140,7 @@ SCENARIO("State observer copy-count for state", "[observer]")
         auto state = copy_count_tracker{};
         auto make_observer = [](auto&& state)
         {
-            auto observer = rpp::details::state_observer{[](int, const copy_count_tracker&) {},
+            auto observer = rpp::details::state_observer_base{[](int, const copy_count_tracker&) {},
                                                          [](const std::exception_ptr&, const copy_count_tracker&) {},
                                                          [](const copy_count_tracker&) {},
                                                          std::forward<decltype(state)>(state)};
@@ -180,7 +180,7 @@ SCENARIO("State proxy calls to subscriber", "[observer]")
 
     GIVEN("state_observer")
     {
-        auto state_observer = rpp::details::state_observer{[](int v, rpp::dynamic_subscriber<int> sub)
+        auto state_observer = rpp::details::state_observer_base{[](int v, rpp::dynamic_subscriber<int> sub)
                                                            {
                                                                sub.on_next(v);
                                                            },
@@ -214,7 +214,8 @@ TEST_CASE("observer size should be equal to size of callbacks", "[observer]")
     {
         auto empty_observer = rpp::specific_observer<int>{};
 
-        CHECK(sizeof(empty_observer) == 1);
+        // 2x vtable
+        CHECK(sizeof(empty_observer) == 2*sizeof(void*));
     }
 
     SECTION("dynamic_observer")
