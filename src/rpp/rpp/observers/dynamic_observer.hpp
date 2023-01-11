@@ -55,12 +55,6 @@ std::shared_ptr<dynamic_observer_state_base<T>> make_dynamic_observer_state(Args
 {
     return std::make_shared<dynamic_observer_state<T, std::decay_t<TObserver>>>(std::forward<Args>(args)...);
 }
-
-template<constraint::decayed_type T, typename ...Args>
-std::shared_ptr<dynamic_observer_state_base<T>> make_dynamic_observer_state_from_fns(Args&& ...args)
-{
-    return make_dynamic_observer_state<T, details::state_observer<T, std::decay_t<Args>...>>(std::forward<Args>(args)...);
-}
 } // namespace rpp::details
 
 namespace rpp
@@ -84,7 +78,13 @@ public:
                      OnError&&     on_error,
                      OnCompleted&& on_completed,
                      States&& ...  states)
-        : m_state{details::make_dynamic_observer_state_from_fns<T>(std::forward<OnNext>(on_next),
+        : m_state{details::make_dynamic_observer_state<T, 
+                                                       details::state_observer<T, 
+                                                                               std::decay_t<OnNext>, 
+                                                                               std::decay_t<OnError>, 
+                                                                               std::decay_t<OnCompleted>, 
+                                                                               std::decay_t<States>...>>(
+                                                                   std::forward<OnNext>(on_next),
                                                                    std::forward<OnError>(on_error),
                                                                    std::forward<OnCompleted>(on_completed),
                                                                    std::forward<States>(states)...)} {}
@@ -93,7 +93,11 @@ public:
         constraint::on_error_fn OnError = utils::rethrow_error_t,
         constraint::on_completed_fn OnCompleted = utils::empty_function_t<>>
     dynamic_observer(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
-        : m_state{details::make_dynamic_observer_state_from_fns<T>(std::forward<OnNext>(on_next),
+        : m_state{details::make_dynamic_observer_state<T, 
+                                                       details::state_observer<T, 
+                                                                               std::decay_t<OnNext>, 
+                                                                               std::decay_t<OnError>, 
+                                                                               std::decay_t<OnCompleted>>(std::forward<OnNext>(on_next),
                                                                    std::forward<OnError>(on_error),
                                                                    std::forward<OnCompleted>(on_completed))} {}
 
