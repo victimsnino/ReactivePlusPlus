@@ -212,10 +212,10 @@ template<constraint::decayed_type T, typename State>
 using state_observer_with_state = state_observer_base<T, sizeof(State), alignof(State)>;
 
 template<constraint::decayed_type T,
-    constraint::decayed_type OnNext,
-    constraint::decayed_type OnError,
-    constraint::decayed_type OnCompleted,
-    constraint::decayed_type ...States>
+        typename                 OnNext,
+        typename                 OnError,
+        typename                 OnCompleted,
+        constraint::decayed_type ...States>
     requires (std::invocable<OnNext, T, States...> &&
         std::invocable<OnError, std::exception_ptr, States...> &&
         std::invocable<OnCompleted, States...>)
