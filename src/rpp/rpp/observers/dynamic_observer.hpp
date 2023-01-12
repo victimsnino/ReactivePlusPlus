@@ -97,7 +97,8 @@ public:
                                                        details::state_observer<T, 
                                                                                std::decay_t<OnNext>, 
                                                                                std::decay_t<OnError>, 
-                                                                               std::decay_t<OnCompleted>>(std::forward<OnNext>(on_next),
+                                                                               std::decay_t<OnCompleted>>>(
+                                                                   std::forward<OnNext>(on_next),
                                                                    std::forward<OnError>(on_error),
                                                                    std::forward<OnCompleted>(on_completed))} {}
 
