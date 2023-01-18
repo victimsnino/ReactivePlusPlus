@@ -219,12 +219,11 @@ template<constraint::decayed_type T,
     requires (std::invocable<OnNext, T, States...> &&
         std::invocable<OnError, std::exception_ptr, States...> &&
         std::invocable<OnCompleted, States...>)
-using state_observer  = state_observer_with_state<T, type_erased_observer<T, OnNext, OnError, OnCompleted, States...>>;
+class state_observer : public state_observer_with_state<T, type_erased_observer<T, OnNext, OnError, OnCompleted, States...>>
+{
+    using state_observer_with_state<T, type_erased_observer<T, OnNext, OnError, OnCompleted, States...>>::state_observer_with_state;
+};
 
 template<typename OnNext, typename ...Args>
-state_observer_base(OnNext, Args...) -> state_observer_base<std::decay_t<utils::function_argument_t<OnNext>>, 
-                                                            sizeof(type_erased_observer<std::decay_t<utils::function_argument_t<OnNext>>, OnNext, Args...>),
-                                                            alignof(type_erased_observer<std::decay_t<utils::function_argument_t<OnNext>>, OnNext, Args...>)>;
-
-
+state_observer(OnNext, Args...) -> state_observer<std::decay_t<utils::function_argument_t<OnNext>>, OnNext, Args...>;
 } // namespace rpp::details

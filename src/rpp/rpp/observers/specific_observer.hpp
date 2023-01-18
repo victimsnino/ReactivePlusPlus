@@ -35,7 +35,6 @@ class specific_observer : public details::state_observer<T, OnNext, OnError, OnC
 {
     using base = details::state_observer<T, OnNext, OnError, OnCompleted>;
 
-    using base::base;
 public:
     template<constraint::on_next_fn<T>   TOnNext      = utils::empty_function_t<T>,
              constraint::on_error_fn     TOnError     = utils::rethrow_error_t,
@@ -49,6 +48,9 @@ public:
         : base{std::forward<decltype(on_next)>(on_next),
                utils::rethrow_error_t{},
                std::forward<decltype(on_completed)>(on_completed)} {}
+
+    specific_observer(const specific_observer&) = default;
+    specific_observer(specific_observer&&) noexcept = default;
 
     /**
      * \brief Converting current rpp::specific_observer to rpp::dynamic_observer alternative with erasing of type (and using heap)
