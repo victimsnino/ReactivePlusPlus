@@ -40,7 +40,7 @@ auto extract_iterable_from_packed(const std::shared_ptr<T> & v) -> const auto&
     return *v;
 }
 
-void iterate(auto&&                                        iterable,
+void iterate(const auto&                                   iterable,
              const schedulers::constraint::scheduler auto& scheduler,
              constraint::subscriber auto&&                 subscriber)
 {
@@ -58,7 +58,7 @@ void iterate(auto&&                                        iterable,
     else
     {
         auto worker = scheduler.create_worker(subscriber.get_subscription());
-        worker.schedule([iterable=std::forward<decltype(iterable)>(iterable), 
+        worker.schedule([iterable=iterable, 
                          subscriber=std::forward<decltype(subscriber)>(subscriber), 
                          index = size_t{0}]() mutable-> schedulers::optional_duration
         {            
@@ -123,19 +123,13 @@ public:
         , m_scheduler{scheduler} {}
 
     template<constraint::subscriber TSub>
-    void operator()(TSub&& subscriber) const &
+    void operator()(TSub&& subscriber) const
     {
         details::iterate(m_iterable, m_scheduler, std::forward<TSub>(subscriber));
     }
 
-    template<constraint::subscriber TSub>
-    void operator()(TSub&& subscriber) const &&
-    {
-        details::iterate(std::move(m_iterable), m_scheduler, std::forward<TSub>(subscriber));
-    }
-
 private:
-    mutable PackedIterable           m_iterable;
+    PackedIterable                   m_iterable;
     RPP_NO_UNIQUE_ADDRESS TScheduler m_scheduler;
 };
 } // namespace rpp::observable::details
