@@ -343,11 +343,13 @@ var hierarchy =
     [ "rpp::details::observe_on_impl< Type, TScheduler >", "structrpp_1_1details_1_1observe__on__impl.html", null ],
     [ "rpp::details::observer_tag", "structrpp_1_1details_1_1observer__tag.html", [
       [ "rpp::details::typed_observer_tag< T >", "structrpp_1_1details_1_1typed__observer__tag.html", [
-        [ "rpp::details::dynamic_state_observer< T >", "classrpp_1_1details_1_1dynamic__state__observer.html", [
-          [ "rpp::dynamic_observer< T >", "classrpp_1_1dynamic__observer.html", null ]
+        [ "rpp::details::state_observer< T, utils::forwarding_on_next_for_pointer, utils::forwarding_on_error_for_pointer, utils::forwarding_on_completed_for_pointer, std::shared_ptr< dynamic_observer_state_base< T > > >", "classrpp_1_1details_1_1state__observer.html", [
+          [ "rpp::details::dynamic_state_observer< T >", "classrpp_1_1details_1_1dynamic__state__observer.html", [
+            [ "rpp::dynamic_observer< T >", "classrpp_1_1dynamic__observer.html", null ]
+          ] ],
+          [ "rpp::details::dynamic_state_observer< T, States >", "classrpp_1_1details_1_1dynamic__state__observer.html", null ]
         ] ],
         [ "rpp::details::state_observer< T, utils::empty_function_t< T >, utils::rethrow_error_t, utils::empty_function_t<> >", "classrpp_1_1details_1_1state__observer.html", null ],
-        [ "rpp::details::dynamic_state_observer< T, States >", "classrpp_1_1details_1_1dynamic__state__observer.html", null ],
         [ "rpp::details::state_observer< T, OnNext, OnError, OnCompleted, States >", "classrpp_1_1details_1_1state__observer.html", [
           [ "rpp::specific_observer< T, OnNext, OnError, OnCompleted >", "classrpp_1_1specific__observer.html", null ]
         ] ]

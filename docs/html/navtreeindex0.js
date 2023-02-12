@@ -24,10 +24,6 @@ var NAVTREEINDEX0 =
 "classrpp_1_1details_1_1dynamic__observable__state.html":[4,0,0,0,26],
 "classrpp_1_1details_1_1dynamic__observer__state.html":[4,0,0,0,27],
 "classrpp_1_1details_1_1dynamic__state__observer.html":[4,0,0,0,29],
-"classrpp_1_1details_1_1dynamic__state__observer.html#a00104aed46db67cbf47f99a1b44d609b":[4,0,0,0,29,3],
-"classrpp_1_1details_1_1dynamic__state__observer.html#a7352ef279f72e785b5d7631e36d63707":[4,0,0,0,29,0],
-"classrpp_1_1details_1_1dynamic__state__observer.html#a91d7e77ce90708128288524107e7dc7f":[4,0,0,0,29,1],
-"classrpp_1_1details_1_1dynamic__state__observer.html#aab9be8862b04c33b4c862f8dda1c99be":[4,0,0,0,29,2],
 "classrpp_1_1details_1_1group__by__state__base.html":[4,0,0,0,44],
 "classrpp_1_1details_1_1queue__based__worker.html":[4,0,0,0,101],
 "classrpp_1_1details_1_1repeat__on__completed.html":[4,0,0,0,108],
@@ -249,5 +245,9 @@ var NAVTREEINDEX0 =
 "group__filtering__operators.html#ga91e49ad9e9a20dfb34a52f54805513f3":[2,0,2,1,3],
 "group__filtering__operators.html#ga9a3df2b8a6aff25e6283b3c9f9e8e1b0":[2,0,2,1,2],
 "group__filtering__operators.html#gae2695326a24fb8534f17f0d228d3b7f2":[2,0,2,1,1],
-"group__filtering__operators.html#gaf8aad914f52ebe2b69435a1525fe7f33":[2,0,2,1,4]
+"group__filtering__operators.html#gaf8aad914f52ebe2b69435a1525fe7f33":[2,0,2,1,4],
+"group__filtering__operators.html#gafb7bedd5ddce183cdce1ade16d262a06":[2,0,2,1,0],
+"group__observables.html":[2,0,0],
+"group__observers.html":[2,0,1],
+"group__operators.html":[2,0,2]
 };

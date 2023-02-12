@@ -1,9 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"structrpp_1_1details_1_1reduce__on__next.html":[4,0,0,0,104],
-"structrpp_1_1details_1_1reduce__state.html":[4,0,0,0,105],
-"structrpp_1_1details_1_1ref__count__on__subscribe.html":[4,0,0,0,106],
-"structrpp_1_1details_1_1ref__count__state__t.html":[4,0,0,0,107],
 "structrpp_1_1details_1_1repeat__on__subscribe.html":[4,0,0,0,109],
 "structrpp_1_1details_1_1sample__on__completed.html":[4,0,0,0,110],
 "structrpp_1_1details_1_1sample__on__next.html":[4,0,0,0,111],

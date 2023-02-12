@@ -1,9 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"group__filtering__operators.html#gafb7bedd5ddce183cdce1ade16d262a06":[2,0,2,1,0],
-"group__observables.html":[2,0,0],
-"group__observers.html":[2,0,1],
-"group__operators.html":[2,0,2],
 "group__operators.html#ga381218c46daf100859858d88743d058d":[2,0,2,9],
 "group__qt__creational__operators.html":[2,1,0,0],
 "group__qt__creational__operators.html#ga4e3140c3f32d2ea4b80b76fdc772278b":[2,1,0,0,0],
@@ -249,5 +245,9 @@ var NAVTREEINDEX1 =
 "structrpp_1_1details_1_1queue__based__worker_1_1on__error.html":[4,0,0,0,101,1],
 "structrpp_1_1details_1_1queue__based__worker_1_1on__next.html":[4,0,0,0,101,2],
 "structrpp_1_1details_1_1reduce__impl.html":[4,0,0,0,102],
-"structrpp_1_1details_1_1reduce__on__completed.html":[4,0,0,0,103]
+"structrpp_1_1details_1_1reduce__on__completed.html":[4,0,0,0,103],
+"structrpp_1_1details_1_1reduce__on__next.html":[4,0,0,0,104],
+"structrpp_1_1details_1_1reduce__state.html":[4,0,0,0,105],
+"structrpp_1_1details_1_1ref__count__on__subscribe.html":[4,0,0,0,106],
+"structrpp_1_1details_1_1ref__count__state__t.html":[4,0,0,0,107]
 };

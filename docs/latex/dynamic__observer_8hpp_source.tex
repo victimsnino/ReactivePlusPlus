@@ -67,87 +67,70 @@
 \DoxyCodeLine{00063\ \}}
 \DoxyCodeLine{00064\ }
 \DoxyCodeLine{00065\ \textcolor{keyword}{template}<constraint::decayed\_type\ T,\ constraint::decayed\_type\ ...States>}
-\DoxyCodeLine{00066\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{dynamic\_state\_observer}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structrpp_1_1details_1_1typed__observer__tag}{details::typed\_observer\_tag}}<T>}
+\DoxyCodeLine{00066\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{dynamic\_state\_observer}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\_observer}}<T,\ utils::forwarding\_on\_next\_for\_pointer,utils::forwarding\_on\_error\_for\_pointer,\ utils::forwarding\_on\_completed\_for\_pointer,\ std::shared\_ptr<dynamic\_observer\_state\_base<T>>>}
 \DoxyCodeLine{00067\ \{}
-\DoxyCodeLine{00068\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...TStates>}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (constraint::decayed\_same\_as<States,\ TStates>\ \&\&\ ...)}
-\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{dynamic\_state\_observer}}(std::invocable<T,\ States...>\ \textcolor{keyword}{auto}\&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_aab9be8862b04c33b4c862f8dda1c99be}{on\_next}},}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<std::exception\_ptr,\ States...>\ \textcolor{keyword}{auto}\&\&\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a91d7e77ce90708128288524107e7dc7f}{on\_error}},}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<States...>\ \textcolor{keyword}{auto}\&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a7352ef279f72e785b5d7631e36d63707}{on\_completed}},}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TStates\&\&\ ...\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ states)}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ :\ m\_state\{make\_dynamic\_observer\_state\_from\_fns<T>(std::forward<\textcolor{keyword}{decltype}(\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_aab9be8862b04c33b4c862f8dda1c99be}{on\_next}})>(\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_aab9be8862b04c33b4c862f8dda1c99be}{on\_next}}),}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<\textcolor{keyword}{decltype}(\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a91d7e77ce90708128288524107e7dc7f}{on\_error}})>(\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a91d7e77ce90708128288524107e7dc7f}{on\_error}}),}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<\textcolor{keyword}{decltype}(\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a7352ef279f72e785b5d7631e36d63707}{on\_completed}})>(\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a7352ef279f72e785b5d7631e36d63707}{on\_completed}}),}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<TStates>(states)...)\}\ \{\}}
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{dynamic\_state\_observer}}(std::shared\_ptr<\mbox{\hyperlink{structrpp_1_1details_1_1dynamic__observer__state__base}{details::dynamic\_observer\_state\_base<T>}}>\ state)}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ :\ m\_state\{\ std::move(state)\ \}\ \{\}}
-\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{base}}\ =\ \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{state\_observer<T,\ utils::forwarding\_on\_next\_for\_pointer,utils::forwarding\_on\_error\_for\_pointer,\ utils::forwarding\_on\_completed\_for\_pointer,\ std::shared\_ptr<dynamic\_observer\_state\_base<T>}}>>;}
+\DoxyCodeLine{00069\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...TStates>}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (constraint::decayed\_same\_as<States,\ TStates>\ \&\&\ ...)}
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{dynamic\_state\_observer}}(std::invocable<T,\ States...>\ \textcolor{keyword}{auto}\&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a3d2a9f268664b6281c43faa6200fbc04}{on\_next}},}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<std::exception\_ptr,\ States...>\ \textcolor{keyword}{auto}\&\&\ \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_aaf24637b9949476f84569cb4236bf485}{on\_error}},}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<States...>\ \textcolor{keyword}{auto}\&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a446a677206acc784454ceadae9f61e4d}{on\_completed}},}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TStates\&\&\ ...\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ states)}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{base}}\{utils::forwarding\_on\_next\_for\_pointer\{\},}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utils::forwarding\_on\_error\_for\_pointer\{\},}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utils::forwarding\_on\_completed\_for\_pointer\{\},}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ make\_dynamic\_observer\_state\_from\_fns<T>(std::forward<\textcolor{keyword}{decltype}(\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a3d2a9f268664b6281c43faa6200fbc04}{on\_next}})>(\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a3d2a9f268664b6281c43faa6200fbc04}{on\_next}}),}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<\textcolor{keyword}{decltype}(\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_aaf24637b9949476f84569cb4236bf485}{on\_error}})>(\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_aaf24637b9949476f84569cb4236bf485}{on\_error}}),}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<\textcolor{keyword}{decltype}(\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a446a677206acc784454ceadae9f61e4d}{on\_completed}})>(\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a446a677206acc784454ceadae9f61e4d}{on\_completed}}),}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<TStates>(states)...)\}\ \{\}}
 \DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_of\_type<T>\ TObserver>}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!std::is\_same\_v<std::decay\_t<TObserver>,\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{dynamic\_state\_observer}}<T,\ States...>>)}
-\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{dynamic\_state\_observer}}(TObserver\&\&\ obs)}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ :\ m\_state\{details::make\_dynamic\_observer\_state<T,\ std::decay\_t<TObserver>>(std::forward<TObserver>(obs))\}\ \{\}}
-\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00084\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{dynamic\_state\_observer}}(std::shared\_ptr<\mbox{\hyperlink{structrpp_1_1details_1_1dynamic__observer__state__base}{details::dynamic\_observer\_state\_base<T>}}>\ state)}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{base}}\{utils::forwarding\_on\_next\_for\_pointer\{\},}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utils::forwarding\_on\_error\_for\_pointer\{\},}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utils::forwarding\_on\_completed\_for\_pointer\{\},}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::move(state)\}\ \{\}}
 \DoxyCodeLine{00089\ }
-\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_aab9be8862b04c33b4c862f8dda1c99be}{on\_next}}(\textcolor{keyword}{const}\ T\&\ v)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00096\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ m\_state-\/>on\_next(v);}
-\DoxyCodeLine{00098\ \ \ \ \ \}}
-\DoxyCodeLine{00099\ }
-\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a00104aed46db67cbf47f99a1b44d609b}{on\_next}}(T\&\&\ v)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00106\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ m\_state-\/>on\_next(std::move(v));}
-\DoxyCodeLine{00108\ \ \ \ \ \}}
-\DoxyCodeLine{00109\ }
-\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a91d7e77ce90708128288524107e7dc7f}{on\_error}}(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00116\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ m\_state-\/>on\_error(err);}
-\DoxyCodeLine{00118\ \ \ \ \ \}}
-\DoxyCodeLine{00119\ }
-\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a7352ef279f72e785b5d7631e36d63707}{on\_completed}}()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00125\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ m\_state-\/>on\_completed();}
-\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_of\_type<T>\ TObserver>}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!std::is\_same\_v<std::decay\_t<TObserver>,\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{dynamic\_state\_observer}}<T,\ States...>>)}
+\DoxyCodeLine{00093\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{dynamic\_state\_observer}}(TObserver\&\&\ obs)}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{dynamic\_state\_observer}}\{details::make\_dynamic\_observer\_state<T,\ std::decay\_t<TObserver>>(std::forward<TObserver>(obs))\}\ \{\}}
+\DoxyCodeLine{00095\ \};}
+\DoxyCodeLine{00096\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00099\ \{}
+\DoxyCodeLine{00107\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
+\DoxyCodeLine{00108\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{details::dynamic\_state\_observer}}<T>}
+\DoxyCodeLine{00109\ \{}
+\DoxyCodeLine{00110\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_next\_fn<T>\ \ \ OnNext\ \ \ \ \ \ =\ utils::empty\_function\_t<T>,}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ constra\textcolor{keywordtype}{int}::on\_error\_fn\ \ \ \ \ OnError\ \ \ \ \ =\ utils::rethrow\_error\_t,}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ constra\textcolor{keywordtype}{int}::on\_completed\_fn\ OnCompleted\ =\ utils::empty\_function\_t<>>}
+\DoxyCodeLine{00114\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}(OnNext\&\&\ \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a3d2a9f268664b6281c43faa6200fbc04}{on\_next}}\ =\ \{\},\ OnError\&\&\ \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_aaf24637b9949476f84569cb4236bf485}{on\_error}}\ =\ \{\},\ OnCompleted\&\&\ \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a446a677206acc784454ceadae9f61e4d}{on\_completed}}\ =\ \{\})}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{details::dynamic\_state\_observer<T>}}\{std::forward<OnNext>(\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a3d2a9f268664b6281c43faa6200fbc04}{on\_next}}),}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnError>(\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_aaf24637b9949476f84569cb4236bf485}{on\_error}}),}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a446a677206acc784454ceadae9f61e4d}{on\_completed}})\}\ \{\}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1on__next__fn}{constraint::on\_next\_fn<T>}}\ \textcolor{keyword}{auto}\&\&\ \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a3d2a9f268664b6281c43faa6200fbc04}{on\_next}},\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1on__completed__fn}{constraint::on\_completed\_fn}}\ \textcolor{keyword}{auto}\&\&\ \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a446a677206acc784454ceadae9f61e4d}{on\_completed}})}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{details::dynamic\_state\_observer<T>}}\{std::forward<decltype(on\_next)>(\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a3d2a9f268664b6281c43faa6200fbc04}{on\_next}}),}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utils::rethrow\_error\_t\{\},}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<decltype(on\_completed)>(\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a446a677206acc784454ceadae9f61e4d}{on\_completed}})\}\ \{\}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_of\_type<T>\ TObserver>}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!std::is\_same\_v<std::decay\_t<TObserver>,\ \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}}>)}
+\DoxyCodeLine{00126\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}(TObserver\&\&\ obs)}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{details::dynamic\_state\_observer<T>}}\{std::forward<TObserver>(obs)\}\ \{\}}
 \DoxyCodeLine{00128\ }
-\DoxyCodeLine{00129\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00130\ \ \ \ \ std::shared\_ptr<dynamic\_observer\_state\_base<T>>\ m\_state\{\};}
-\DoxyCodeLine{00131\ \};}
-\DoxyCodeLine{00132\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
-\DoxyCodeLine{00133\ }
-\DoxyCodeLine{00134\ \textcolor{keyword}{namespace\ }rpp}
-\DoxyCodeLine{00135\ \{}
-\DoxyCodeLine{00143\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
-\DoxyCodeLine{00144\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{details::dynamic\_state\_observer}}<T>}
-\DoxyCodeLine{00145\ \{}
-\DoxyCodeLine{00146\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::on\_next\_fn<T>\ \ \ OnNext\ \ \ \ \ \ =\ utils::empty\_function\_t<T>,}
-\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ constra\textcolor{keywordtype}{int}::on\_error\_fn\ \ \ \ \ OnError\ \ \ \ \ =\ utils::rethrow\_error\_t,}
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ constra\textcolor{keywordtype}{int}::on\_completed\_fn\ OnCompleted\ =\ utils::empty\_function\_t<>>}
-\DoxyCodeLine{00150\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}(OnNext\&\&\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_aab9be8862b04c33b4c862f8dda1c99be}{on\_next}}\ =\ \{\},\ OnError\&\&\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a91d7e77ce90708128288524107e7dc7f}{on\_error}}\ =\ \{\},\ OnCompleted\&\&\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a7352ef279f72e785b5d7631e36d63707}{on\_completed}}\ =\ \{\})}
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{details::dynamic\_state\_observer<T>}}\{std::forward<OnNext>(\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_aab9be8862b04c33b4c862f8dda1c99be}{on\_next}}),}
-\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnError>(\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a91d7e77ce90708128288524107e7dc7f}{on\_error}}),}
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a7352ef279f72e785b5d7631e36d63707}{on\_completed}})\}\ \{\}}
-\DoxyCodeLine{00154\ }
-\DoxyCodeLine{00155\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1on__next__fn}{constraint::on\_next\_fn<T>}}\ \textcolor{keyword}{auto}\&\&\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_aab9be8862b04c33b4c862f8dda1c99be}{on\_next}},\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1on__completed__fn}{constraint::on\_completed\_fn}}\ \textcolor{keyword}{auto}\&\&\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a7352ef279f72e785b5d7631e36d63707}{on\_completed}})}
-\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{details::dynamic\_state\_observer<T>}}\{std::forward<decltype(on\_next)>(\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_aab9be8862b04c33b4c862f8dda1c99be}{on\_next}}),}
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utils::rethrow\_error\_t\{\},}
-\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<decltype(on\_completed)>(\mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer_a7352ef279f72e785b5d7631e36d63707}{on\_completed}})\}\ \{\}}
-\DoxyCodeLine{00159\ }
-\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_of\_type<T>\ TObserver>}
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!std::is\_same\_v<std::decay\_t<TObserver>,\ \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}}>)}
-\DoxyCodeLine{00162\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer}}(TObserver\&\&\ obs)}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{details::dynamic\_state\_observer<T>}}\{std::forward<TObserver>(obs)\}\ \{\}}
-\DoxyCodeLine{00164\ }
-\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}}\&\ \mbox{\hyperlink{classrpp_1_1dynamic__observer_add7053ccfed71413c07b74cc34a564f8}{as\_dynamic}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};\ \}}
-\DoxyCodeLine{00169\ \};}
-\DoxyCodeLine{00170\ }
-\DoxyCodeLine{00171\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\ TObserver>}
-\DoxyCodeLine{00172\ dynamic\_observer(TObserver)-\/>dynamic\_observer<utils::extract\_observer\_type\_t<TObserver>>;}
-\DoxyCodeLine{00173\ }
-\DoxyCodeLine{00174\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OnNext,\ \textcolor{keyword}{typename}\ ...Args>}
-\DoxyCodeLine{00175\ dynamic\_observer(OnNext,\ Args...)-\/>dynamic\_observer<utils::decayed\_function\_argument\_t<OnNext>>;}
-\DoxyCodeLine{00176\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<T>}}\&\ \mbox{\hyperlink{classrpp_1_1dynamic__observer_add7053ccfed71413c07b74cc34a564f8}{as\_dynamic}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};\ \}}
+\DoxyCodeLine{00133\ \};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\ TObserver>}
+\DoxyCodeLine{00136\ dynamic\_observer(TObserver)-\/>dynamic\_observer<utils::extract\_observer\_type\_t<TObserver>>;}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OnNext,\ \textcolor{keyword}{typename}\ ...Args>}
+\DoxyCodeLine{00139\ dynamic\_observer(OnNext,\ Args...)-\/>dynamic\_observer<utils::decayed\_function\_argument\_t<OnNext>>;}
+\DoxyCodeLine{00140\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 
 \end{DoxyCode}

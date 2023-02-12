@@ -31,7 +31,7 @@ var annotated_dup =
         [ "dynamic_observable_state", "classrpp_1_1details_1_1dynamic__observable__state.html", null ],
         [ "dynamic_observer_state", "classrpp_1_1details_1_1dynamic__observer__state.html", null ],
         [ "dynamic_observer_state_base", "structrpp_1_1details_1_1dynamic__observer__state__base.html", null ],
-        [ "dynamic_state_observer", "classrpp_1_1details_1_1dynamic__state__observer.html", "classrpp_1_1details_1_1dynamic__state__observer" ],
+        [ "dynamic_state_observer", "classrpp_1_1details_1_1dynamic__state__observer.html", null ],
         [ "early_unsubscribe_on_completed", "structrpp_1_1details_1_1early__unsubscribe__on__completed.html", null ],
         [ "early_unsubscribe_on_error", "structrpp_1_1details_1_1early__unsubscribe__on__error.html", null ],
         [ "early_unsubscribe_state", "structrpp_1_1details_1_1early__unsubscribe__state.html", null ],
