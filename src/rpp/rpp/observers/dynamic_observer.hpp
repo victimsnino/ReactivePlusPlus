@@ -63,8 +63,9 @@ std::shared_ptr<dynamic_observer_state_base<T>> make_dynamic_observer_state_from
 }
 
 template<constraint::decayed_type T, constraint::decayed_type ...States>
-class dynamic_state_observer : public details::typed_observer_tag<T>
+class dynamic_state_observer : public state_observer<T, utils::forwarding_on_next_for_pointer,utils::forwarding_on_error_for_pointer, utils::forwarding_on_completed_for_pointer, std::shared_ptr<dynamic_observer_state_base<T>>>
 {
+using base = state_observer<T, utils::forwarding_on_next_for_pointer,utils::forwarding_on_error_for_pointer, utils::forwarding_on_completed_for_pointer, std::shared_ptr<dynamic_observer_state_base<T>>>;
 public:
     template<typename ...TStates>
         requires (constraint::decayed_same_as<States, TStates> && ...)
@@ -72,62 +73,25 @@ public:
                            std::invocable<std::exception_ptr, States...> auto&& on_error,
                            std::invocable<States...> auto&&                     on_completed,
                            TStates&& ...                                        states)
-        : m_state{make_dynamic_observer_state_from_fns<T>(std::forward<decltype(on_next)>(on_next),
-                                                          std::forward<decltype(on_error)>(on_error),
-                                                          std::forward<decltype(on_completed)>(on_completed),
-                                                          std::forward<TStates>(states)...)} {}
+        : base{utils::forwarding_on_next_for_pointer{},
+               utils::forwarding_on_error_for_pointer{},
+               utils::forwarding_on_completed_for_pointer{},
+               make_dynamic_observer_state_from_fns<T>(std::forward<decltype(on_next)>(on_next),
+                                                       std::forward<decltype(on_error)>(on_error),
+                                                       std::forward<decltype(on_completed)>(on_completed),
+                                                       std::forward<TStates>(states)...)} {}
 
     dynamic_state_observer(std::shared_ptr<details::dynamic_observer_state_base<T>> state)
-        : m_state{ std::move(state) } {}
+        : base{utils::forwarding_on_next_for_pointer{},
+               utils::forwarding_on_error_for_pointer{},
+               utils::forwarding_on_completed_for_pointer{},
+               std::move(state)} {}
 
 
     template<constraint::observer_of_type<T> TObserver>
         requires (!std::is_same_v<std::decay_t<TObserver>, dynamic_state_observer<T, States...>>)
     dynamic_state_observer(TObserver&& obs)
-        : m_state{details::make_dynamic_observer_state<T, std::decay_t<TObserver>>(std::forward<TObserver>(obs))} {}
-
-
-    /**
-     * \brief Observable calls this methods to notify observer about new value.
-     *
-     * \note obtains value by const-reference to original object.
-     */
-    void on_next(const T& v) const
-    {
-        m_state->on_next(v);
-    }
-
-    /**
-     * \brief Observable calls this methods to notify observer about new value.
-     *
-     * \note obtains value by rvalue-reference to original object
-     */
-    void on_next(T&& v) const
-    {
-        m_state->on_next(std::move(v));
-    }
-
-    /**
-     * \brief Observable calls this method to notify observer about some error during generation next data.
-     * \warning Obtaining this call means no any further on_next or on_completed calls
-     * \param err details of error
-     */
-    void on_error(const std::exception_ptr& err) const
-    {
-        m_state->on_error(err);
-    }
-
-    /**
-     * \brief Observable calls this method to notify observer about finish of work.
-     * \warning Obtaining this call means no any further on_next calls
-     */
-    void on_completed() const
-    {
-        m_state->on_completed();
-    }
-
-private:
-    std::shared_ptr<dynamic_observer_state_base<T>> m_state{};
+        : dynamic_state_observer{details::make_dynamic_observer_state<T, std::decay_t<TObserver>>(std::forward<TObserver>(obs))} {}
 };
 } // namespace rpp::details
 

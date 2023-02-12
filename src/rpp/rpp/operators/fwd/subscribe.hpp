@@ -102,11 +102,5 @@ private:
     {
         return static_cast<const SpecificObservable*>(this)->subscribe_impl(subscriber);
     }
-
-    template<constraint::observer_of_type<Type> Obs>
-    auto subscribe_impl(specific_subscriber<Type, Obs>&& subscriber) const
-    {
-        return static_cast<const SpecificObservable*>(this)->subscribe_impl(std::move(subscriber));
-    }
 };
 } // namespace rpp::details
