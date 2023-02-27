@@ -73,7 +73,7 @@
 \DoxyCodeLine{00069\ \textcolor{keyword}{namespace\ }rppqt::observable}
 \DoxyCodeLine{00070\ \{}
 \DoxyCodeLine{00082\ \textcolor{keyword}{template}<std::derived\_from<QObject>\ TSignalQObject,\ std::derived\_from<TSignalQObject>\ TObject,\ \textcolor{keyword}{typename}\ R,\textcolor{keyword}{typename}\ ...Args>}
-\DoxyCodeLine{00083\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__qt__creational__operators_ga4e3140c3f32d2ea4b80b76fdc772278b}{from\_signal}}(\textcolor{keyword}{const}\ TObject\&\ \textcolor{keywordtype}{object},\ R\ (TSignalQObject::*signal)(Args...))\ \textcolor{keyword}{requires}\ rpp::details::is\_header\_included<rpp::details::from\_signal\_qt\_tag,\ TObject,\ R,\ Args...>}
+\DoxyCodeLine{00083\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__qt__creational__operators_ga4e3140c3f32d2ea4b80b76fdc772278b}{from\_signal}}(\textcolor{keyword}{const}\ TObject\&\ \textcolor{keywordtype}{object},\ R\ (TSignalQObject::*signal)(Args...))\ requires\ rpp::details::is\_header\_included<rpp::details::from\_signal\_qt\_tag,\ TObject,\ R,\ Args...>}
 \DoxyCodeLine{00084\ \{}
 \DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{using\ }on\_next\_impl\ =\ \mbox{\hyperlink{structrppqt_1_1observable_1_1details_1_1from__signal__on__event}{details::from\_signal\_on\_event}}<Args...>;}
 \DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ subj\ =\ \textcolor{keyword}{typename}\ on\_next\_impl::Subject\{\};}

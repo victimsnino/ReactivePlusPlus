@@ -26,10 +26,10 @@
 \DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }rppqt::observable}
 \DoxyCodeLine{00023\ \{}
 \DoxyCodeLine{00024\ \textcolor{keyword}{template}<std::derived\_from<QObject>\ TSignalQObject,\ std::derived\_from<TSignalQObject>\ TObject,\ \textcolor{keyword}{typename}\ R,\textcolor{keyword}{typename}\ ...Args>}
-\DoxyCodeLine{00025\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__qt__creational__operators_ga4e3140c3f32d2ea4b80b76fdc772278b}{from\_signal}}(\textcolor{keyword}{const}\ TObject\&\ \textcolor{keywordtype}{object},\ R\ (TSignalQObject::*signal)(Args...))\ \textcolor{keyword}{requires}\ rpp::details::is\_header\_included<rpp::details::from\_signal\_qt\_tag,\ TObject,\ R,\ Args...>;}
+\DoxyCodeLine{00025\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__qt__creational__operators_ga4e3140c3f32d2ea4b80b76fdc772278b}{from\_signal}}(\textcolor{keyword}{const}\ TObject\&\ \textcolor{keywordtype}{object},\ R\ (TSignalQObject::*signal)(Args...))\ requires\ rpp::details::is\_header\_included<rpp::details::from\_signal\_qt\_tag,\ TObject,\ R,\ Args...>;}
 \DoxyCodeLine{00026\ \}\ \textcolor{comment}{//\ namespace\ rppqt::observable}}
 \DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ namespace\ rppqt}
+\DoxyCodeLine{00028\ \textcolor{keyword}{namespace\ }rppqt}
 \DoxyCodeLine{00029\ \{}
 \DoxyCodeLine{00030\ \textcolor{keyword}{namespace\ }source\ =\ observable;}
 \DoxyCodeLine{00031\ \}\ \textcolor{comment}{//\ namespace\ rppqt}}

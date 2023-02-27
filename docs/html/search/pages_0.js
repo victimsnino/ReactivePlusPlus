@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['advanced_20guide_0',['Advanced Guide',['../advanced.html',1,'md_docs_Docs']]],
-  ['articles_1',['Articles',['../md_docs__articles.html',1,'']]]
+  ['advanced_20guide_0',['Advanced Guide',['../advanced.html',1,'md_docs_2_docs']]],
+  ['articles_1',['Articles',['../md_docs_2_articles.html',1,'']]]
 ];

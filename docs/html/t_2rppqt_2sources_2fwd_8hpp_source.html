@@ -123,10 +123,10 @@ $(document).ready(function(){initNavTree('t_2rppqt_2sources_2fwd_8hpp_source.htm
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">namespace </span>rppqt::observable</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">template</span>&lt;std::derived_from&lt;QObject&gt; TSignalQObject, std::derived_from&lt;TSignalQObject&gt; TObject, <span class="keyword">typename</span> R,<span class="keyword">typename</span> ...Args&gt;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">auto</span> <a class="code hl_function" href="group__qt__creational__operators.html#ga4e3140c3f32d2ea4b80b76fdc772278b">from_signal</a>(<span class="keyword">const</span> TObject&amp; <span class="keywordtype">object</span>, R (TSignalQObject::*signal)(Args...)) <span class="keyword">requires</span> rpp::details::is_header_included&lt;rpp::details::from_signal_qt_tag, TObject, R, Args...&gt;;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">auto</span> <a class="code hl_function" href="group__qt__creational__operators.html#ga4e3140c3f32d2ea4b80b76fdc772278b">from_signal</a>(<span class="keyword">const</span> TObject&amp; <span class="keywordtype">object</span>, R (TSignalQObject::*signal)(Args...)) requires rpp::details::is_header_included&lt;rpp::details::from_signal_qt_tag, TObject, R, Args...&gt;;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>} <span class="comment">// namespace rppqt::observable</span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>namespace rppqt</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">namespace </span>rppqt</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>{</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">namespace </span>source = observable;</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>} <span class="comment">// namespace rppqt</span></div>

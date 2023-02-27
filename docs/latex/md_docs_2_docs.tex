@@ -1,5 +1,5 @@
-\label{md_docs__docs_docs}%
-\Hypertarget{md_docs__docs_docs}%
+\label{md_docs_2_docs_docs}%
+\Hypertarget{md_docs_2_docs_docs}%
 
 \begin{DoxyItemize}
 \item \doxylink{quick_start}{Quick Start} -\/ fast overview how to work with RPP
@@ -10,8 +10,8 @@
 \item \doxylink{exception_guarantee}{Exception guarantee} -\/ overview of exception guarantees provided by RPP
 \item \doxylink{status}{Implementation status} -\/ current implementation status 
 \end{DoxyItemize}\hypertarget{quick_start}{}\doxysection{Quick Start}\label{quick_start}
-\label{quick_start_md_docs_Quick_Start}%
-\Hypertarget{quick_start_md_docs_Quick_Start}%
+\label{quick_start_md_docs_2_quick_01_start}%
+\Hypertarget{quick_start_md_docs_2_quick_01_start}%
  \hypertarget{quick_start_autotoc_md22}{}\doxysubsection{Brief workflow}\label{quick_start_autotoc_md22}
 For the brief overview of the Reactive pattern read \href{https://reactivex.io/}{\texttt{ https\+://reactivex.\+io/}}.
 
@@ -79,8 +79,8 @@ What we want to do with resulting values? Let\textquotesingle{}s dump it to cons
 \item observer
 \item subscription, observer 
 \end{DoxyItemize}\hypertarget{advanced}{}\doxysection{Advanced Guide}\label{advanced}
-\label{advanced_md_docs_Advanced}%
-\Hypertarget{advanced_md_docs_Advanced}%
+\label{advanced_md_docs_2_advanced}%
+\Hypertarget{advanced_md_docs_2_advanced}%
  \hypertarget{advanced_autotoc_md0}{}\doxysubsection{Beforehand}\label{advanced_autotoc_md0}
 Before hand, please, read \doxylink{specific_vs_dynamic}{Performance vs Flexibility\+: Specific vs Dynamic}
 
@@ -170,8 +170,8 @@ For better compilation speed each operator placed in each own header. Due to gre
 
 Currently RPP implements a lot of operators, detailed information can be found on \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/modules.html}{\texttt{ API Reference}}\hypertarget{advanced_autotoc_md4}{}\doxysubsection{Subscriber}\label{advanced_autotoc_md4}
 Subscriber is just wrapper over observer with subscription. Everytime callback received, subscriber checks for subscription state and emits value to observer if subscription is still active. \hypertarget{why_rpp}{}\doxysection{Why Reactive\+Plus\+Plus?}\label{why_rpp}
-\label{why_rpp_md_docs_WhyRpp}%
-\Hypertarget{why_rpp_md_docs_WhyRpp}%
+\label{why_rpp_md_docs_2_why_rpp}%
+\Hypertarget{why_rpp_md_docs_2_why_rpp}%
  \hypertarget{why_rpp_autotoc_md29}{}\doxysubsection{What about existing Reactive Extension libraries for C++?}\label{why_rpp_autotoc_md29}
 Reactive programming is excelent programming paradigm and approach for creation of multi-\/threading and real-\/time programs which reacts on some events. Unfortunately, there is only one stable and fully-\/implemented library at the moment of creation of Reactive\+Plus\+Plus -\/ \href{https://github.com/ReactiveX/RxCpp}{\texttt{ Rx\+Cpp}}.
 
@@ -194,8 +194,8 @@ Another implementation of RX for c++\+: \href{https://github.com/CODIANZ/another
 \item {\bfseries{Reactive\+Plus\+Plus}} keeps balance between performance and type-\/erasing mechanism\+: Read about it in \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/specific_vs_dynamic.html}{\texttt{ $\ast$$\ast$"{}Performance vs Flexibility\+: Specific vs Dynamic"{}$\ast$$\ast$}}
 \item {\bfseries{Reactive\+Plus\+Plus}} is fast\+: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks prove that RPP faster than Rx\+CPP in most cases\+: \href{https://victimsnino.github.io/ReactivePlusPlus/benchmark}{\texttt{ Continous benchmarking results}} (check timeout operator comparison ;-\/)) 
 \end{DoxyItemize}\hypertarget{specific_vs_dynamic}{}\doxysection{Performance vs Flexibility\+: Specific vs Dynamic}\label{specific_vs_dynamic}
-\label{specific_vs_dynamic_md_docs_Specific_vs_Dynamic}%
-\Hypertarget{specific_vs_dynamic_md_docs_Specific_vs_Dynamic}%
+\label{specific_vs_dynamic_md_docs_2_specific_01vs_01_dynamic}%
+\Hypertarget{specific_vs_dynamic_md_docs_2_specific_01vs_01_dynamic}%
  \hypertarget{specific_vs_dynamic_autotoc_md26}{}\doxysubsection{Brief overview}\label{specific_vs_dynamic_autotoc_md26}
 In general Reactive Extensions can be split into three main parts from the objects perspective\+:
 \begin{DoxyItemize}
@@ -293,8 +293,8 @@ all this samples uses extra heap allocations\+:
 \end{DoxyEnumerate}
 
 For detailed comparison of performance of different operations for {\ttfamily specific\+\_\+} and {\ttfamily dynamic\+\_\+} you can find in \href{https://victimsnino.github.io/ReactivePlusPlus/benchmark}{\texttt{ Continuous Benchmarking}} \hypertarget{memory_model}{}\doxysection{Memory Model}\label{memory_model}
-\label{memory_model_md_docs_MemoryModel}%
-\Hypertarget{memory_model_md_docs_MemoryModel}%
+\label{memory_model_md_docs_2_memory_model}%
+\Hypertarget{memory_model_md_docs_2_memory_model}%
 \hypertarget{memory_model_autotoc_md20}{}\doxysubsection{Overview}\label{memory_model_autotoc_md20}
 In Reactive\+Plus\+Plus there is new concept unique for this implementation\+: rpp\+::memory\+\_\+model\+:
 
@@ -318,14 +318,14 @@ For example, {\ttfamily rpp\+::source\+::just}
  makes only 1 copy/move to shared\+\_\+ptr and then uses it instead.
 
 As a a result, users can select preferable way of handling of their types. \hypertarget{exception_guarantee}{}\doxysection{Exception guarantee}\label{exception_guarantee}
-\label{exception_guarantee_md_docs_Exception_Guarantee}%
-\Hypertarget{exception_guarantee_md_docs_Exception_Guarantee}%
+\label{exception_guarantee_md_docs_2_exception_01_guarantee}%
+\Hypertarget{exception_guarantee_md_docs_2_exception_01_guarantee}%
  \hypertarget{exception_guarantee_autotoc_md6}{}\doxysubsection{Overview}\label{exception_guarantee_autotoc_md6}
 In non-\/reactive programming functions/modules throws exception in case of something invalid. As a result, user can catch it and handle it somehow while internal state of objects can be in some state (invalid/untouched/partly valid) and etc.
 
 In reactive programming there is another way of exception mechanism\+: throwing exception as is from original place is useless. Notification about \char`\"{}something goes wrong\char`\"{} need to receive observer/subscriber, not owner of callstack. As a result, ANY exception obtained during emitting items and etc WOULD be delivered to subscriber/observer via {\ttfamily on\+\_\+error} function and then unsubscribe happens. As a result, no any raw exceptions would be throws during using RPP. In case of emitting {\ttfamily on\+\_\+error} whole internal state of observable keeps valid but it doesn\textquotesingle{}t matter -\/ whole chain would be destroyed due to {\ttfamily on\+\_\+error} forces unsubscribe. Reactive catching mechanisms like {\ttfamily catch} or {\ttfamily retry} {\bfseries{re-\/subscribes}} on observable. it means, that new chain with new states would be created, not re-\/used existing one. \hypertarget{status}{}\doxysection{Implementation status}\label{status}
-\label{status_md_docs_Implementation_Status}%
-\Hypertarget{status_md_docs_Implementation_Status}%
+\label{status_md_docs_2_implementation_01_status}%
+\Hypertarget{status_md_docs_2_implementation_01_status}%
  \hypertarget{status_autotoc_md7}{}\doxysubsection{Fundamentals}\label{status_autotoc_md7}
 
 \begin{DoxyItemize}

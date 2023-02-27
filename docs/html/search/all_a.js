@@ -117,7 +117,7 @@ var searchData=
   ['member_5foverload_3c_20type_2c_20specificobservable_2c_20timeout_5ftag_20_3e_114',['member_overload&lt; Type, SpecificObservable, timeout_tag &gt;',['../structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01timeout__tag_01_4.html',1,'rpp::details']]],
   ['member_5foverload_3c_20type_2c_20specificobservable_2c_20window_5ftag_20_3e_115',['member_overload&lt; Type, SpecificObservable, window_tag &gt;',['../structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01window__tag_01_4.html',1,'rpp::details']]],
   ['member_5foverload_3c_20type_2c_20specificobservable_2c_20with_5flatest_5ffrom_5ftag_20_3e_116',['member_overload&lt; Type, SpecificObservable, with_latest_from_tag &gt;',['../structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01with__latest__from__tag_01_4.html',1,'rpp::details']]],
-  ['memory_20model_117',['Memory Model',['../memory_model.html',1,'md_docs_Docs']]],
+  ['memory_20model_117',['Memory Model',['../memory_model.html',1,'md_docs_2_docs']]],
   ['merge_118',['merge',['../group__combining__operators.html#ga84ed0dcdeda6a4cb3a9871ab2817e114',1,'observable']]],
   ['merge_5fimpl_119',['merge_impl',['../structrpp_1_1details_1_1merge__impl.html',1,'rpp::details']]],
   ['merge_5fon_5fcompleted_120',['merge_on_completed',['../structrpp_1_1details_1_1merge__on__completed.html',1,'rpp::details']]],

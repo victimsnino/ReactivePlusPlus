@@ -25,8 +25,8 @@
 var NAVTREE =
 [
   [ "ReactivePlusPlus", "index.html", [
-    [ "Articles", "md_docs__articles.html", null ],
-    [ "Docs", "md_docs__docs.html", "md_docs__docs" ],
+    [ "Articles", "md_docs_2_articles.html", null ],
+    [ "Docs", "md_docs_2_docs.html", "md_docs_2_docs" ],
     [ "API reference", "modules.html", "modules" ],
     [ "Concepts", "concepts.html", "concepts" ],
     [ "Classes", "annotated.html", [

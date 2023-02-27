@@ -29,10 +29,10 @@
 \DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordflow}{return}\ source::create<Type>([obs\ =\ std::forward<TObs>(obs),\ scheduler]<constraint::subscriber\_of\_type<Type>\ TSub>(TSub\&\&\ subscriber)}
 \DoxyCodeLine{00026\ \ \ \ \ \{}
 \DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ worker\ =\ scheduler.create\_worker(subscriber.get\_subscription());}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ worker.schedule([obs,\ subscriber\ =\ std::forward<TSub>(subscriber)]()\ mutable\ -\/>schedulers::optional\_duration}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ worker.schedule([obs,\ subscriber\ =\ std::forward<TSub>(subscriber)]()\ \textcolor{keyword}{mutable}\ -\/>schedulers::optional\_duration}
 \DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ obs.subscribe(std::move(subscriber));}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ return\ \{\};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\};}
 \DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \});}
 \DoxyCodeLine{00033\ \ \ \ \ \});}
 \DoxyCodeLine{00034\ \}}

@@ -38,10 +38,10 @@
 \DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ source::create<size\_t>([first\_delay,\ period,\ scheduler](\textcolor{keyword}{auto}\&\&\ subscriber)}
 \DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ worker\ =\ scheduler.create\_worker(subscriber.get\_subscription());}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ worker.schedule(first\_delay,\ [counter\ =\ \textcolor{keywordtype}{size\_t}\{\},\ subscriber\ =\ std::forward<\textcolor{keyword}{decltype}(subscriber)>(subscriber),\ period]()\ mutable-\/>\ schedulers::optional\_duration}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ worker.schedule(first\_delay,\ [counter\ =\ \textcolor{keywordtype}{size\_t}\{\},\ subscriber\ =\ std::forward<decltype(subscriber)>(subscriber),\ period]()\ mutable-\/>\ schedulers::optional\_duration}
 \DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ subscriber.on\_next(counter++);}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ period;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ period;}
 \DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
 \DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \});}
 \DoxyCodeLine{00082\ \ \ \ \ \}}

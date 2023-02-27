@@ -1,4 +1,4 @@
-var md_docs__docs =
+var md_docs_2_docs =
 [
     [ "Quick Start", "quick_start.html", [
       [ "Brief workflow", "quick_start.html#autotoc_md22", [

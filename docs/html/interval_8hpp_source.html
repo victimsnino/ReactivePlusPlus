@@ -135,10 +135,10 @@ $(document).ready(function(){initNavTree('interval_8hpp_source.html',''); initRe
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">return</span> source::create&lt;size_t&gt;([first_delay, period, scheduler](<span class="keyword">auto</span>&amp;&amp; subscriber)</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        {</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            <span class="keyword">auto</span> worker = scheduler.create_worker(subscriber.get_subscription());</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            worker.schedule(first_delay, [counter = <span class="keywordtype">size_t</span>{}, subscriber = std::forward&lt;<span class="keyword">decltype</span>(subscriber)&gt;(subscriber), period]() mutable-&gt; schedulers::optional_duration</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            worker.schedule(first_delay, [counter = <span class="keywordtype">size_t</span>{}, subscriber = std::forward&lt;decltype(subscriber)&gt;(subscriber), period]() mutable-&gt; schedulers::optional_duration</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            {</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                subscriber.on_next(counter++);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                return period;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                <span class="keywordflow">return</span> period;</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            });</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        });</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
