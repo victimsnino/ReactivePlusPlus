@@ -20,6 +20,12 @@ template<typename Fn, typename Type> concept on_next_fn      = std::invocable<st
 template<typename Fn>                concept on_error_fn     = std::invocable<std::decay_t<Fn>, std::exception_ptr>;
 template<typename Fn>                concept on_completed_fn = std::invocable<std::decay_t<Fn>>;
 } // namespace rpp::constraint
+
+namespace rpp::details
+{
+struct as_dynamic_constructor_tag{};
+} // namespace rpp::details
+
 namespace rpp
 {
 template<constraint::decayed_type Type>
@@ -30,4 +36,12 @@ template<constraint::decayed_type     Type,
          constraint::on_error_fn      OnError,
          constraint::on_completed_fn  OnCompleted>
 class anonymous_observer;
+
+template<constraint::decayed_type Type>
+class dynamic_observer;
 } // namespace rpp
+
+namespace rpp::constraint
+{
+template<typename T, typename Type> concept observer_of_type = std::derived_from<T, interface_observer<Type>>;
+} // namespace rpp::constraint

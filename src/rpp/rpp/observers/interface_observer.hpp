@@ -25,5 +25,8 @@ struct interface_observer
     virtual void on_next(Type&& v) const = 0;
     virtual void on_error(const std::exception_ptr& err) const = 0;
     virtual void on_completed() const = 0;
+
+    virtual dynamic_observer<Type> as_dynamic() const & = 0;
+    virtual dynamic_observer<Type> as_dynamic() && = 0;
 };
 } // namespace rpp

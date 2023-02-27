@@ -17,6 +17,7 @@
 #include <rpp/utils/function_traits.hpp>
 
 #include <exception>
+#include <memory>
 
 namespace rpp
 {
@@ -26,6 +27,8 @@ template<constraint::decayed_type     Type,
          constraint::on_completed_fn  OnCompleted = utils::empty_function_t<>>
 class anonymous_observer final : public base_observer<Type>
 {
+    struct internal_copy{};
+
 public:
     template<constraint::decayed_same_as<OnNext>      TOnNext      = utils::empty_function_t<Type>,
              constraint::decayed_same_as<OnError>     TOnError     = utils::rethrow_error_t,
@@ -41,6 +44,27 @@ public:
         : m_storage{std::forward<TOnNext>(on_next),
                     utils::rethrow_error_t{},
                     std::forward<TOnCompleted>(on_completed)} {}
+
+    anonymous_observer(const anonymous_observer&)     = delete;
+    anonymous_observer(anonymous_observer&&) noexcept = default;
+
+    anonymous_observer(internal_copy, const anonymous_observer& other)
+        : base_observer<Type>{typename base_observer<Type>::internal_copy{}, other}
+        , m_storage{other.m_storage} {}
+
+    anonymous_observer(internal_copy, anonymous_observer&& other) noexcept
+        : base_observer<Type>{typename base_observer<Type>::internal_copy{}, other}
+        , m_storage{std::move(other.m_storage)} {}
+
+    dynamic_observer<Type> as_dynamic() const & final
+    {
+        return {std::make_shared<anonymous_observer>(internal_copy{}, *this)};
+    }
+
+    dynamic_observer<Type> as_dynamic() && final
+    {
+        return {std::make_shared<anonymous_observer>(internal_copy{}, std::move(*this))};
+    }
 
 private:
     void on_next_impl(const Type& v) const final

@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include "rpp/sources/create.hpp"
 
 #include <memory>
 
@@ -57,25 +56,25 @@ public:
 
     bool operator!=(const copy_count_tracker& other) const { return !(*this == other); }
 
-    auto get_observable(size_t count = 1)
-    {
-        return rpp::source::create<copy_count_tracker>([this, count](const auto& sub)
-        {
-            for (size_t i = 0; i < count && sub.is_subscribed(); ++i)
-                sub.on_next(*this);
-            sub.on_completed();
-        });
-    }
-
-    auto get_observable_for_move(size_t count = 1)
-    {
-        return rpp::source::create<copy_count_tracker>([this, count](const auto& sub)
-        {
-            for (size_t i = 0; i < count && sub.is_subscribed(); ++i)
-                sub.on_next(std::move(*this));
-            sub.on_completed();
-        });
-    }
+    // auto get_observable(size_t count = 1)
+    // {
+    //     return rpp::source::create<copy_count_tracker>([this, count](const auto& sub)
+    //     {
+    //         for (size_t i = 0; i < count && sub.is_subscribed(); ++i)
+    //             sub.on_next(*this);
+    //         sub.on_completed();
+    //     });
+    // }
+    //
+    // auto get_observable_for_move(size_t count = 1)
+    // {
+    //     return rpp::source::create<copy_count_tracker>([this, count](const auto& sub)
+    //     {
+    //         for (size_t i = 0; i < count && sub.is_subscribed(); ++i)
+    //             sub.on_next(std::move(*this));
+    //         sub.on_completed();
+    //     });
+    // }
 
     int get_copy_count() const { return _state->copy_count; }
     int get_move_count() const { return _state->move_count; }

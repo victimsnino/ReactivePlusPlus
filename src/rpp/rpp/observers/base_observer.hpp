@@ -13,6 +13,7 @@
 #include <rpp/observers/interface_observer.hpp>
 
 #include <exception>
+#include <utility>
 
 namespace rpp
 {
@@ -20,7 +21,9 @@ template<constraint::decayed_type Type>
 class base_observer : public interface_observer<Type>
 {
 public:
-    base_observer() = default;
+    base_observer()                         = default;
+    base_observer(const base_observer&)     = delete;
+    base_observer(base_observer&&) noexcept = default;
 
     void on_next(const Type& v) const final
     {
@@ -47,8 +50,10 @@ public:
     }
 
 protected:
-    base_observer(const base_observer&) = default;
-    base_observer(base_observer&&) noexcept = default;
+    struct internal_copy{};
+
+    base_observer(internal_copy, const base_observer& base_observer)
+        : m_is_subscribed{base_observer.m_is_subscribed} {}
 
     virtual void on_next_impl(const Type& v) const = 0;
     virtual void on_next_impl(Type&& v) const = 0;

@@ -16,6 +16,9 @@
  * \ingroup rpp
  */
 
-#include <rpp/observers/anonymous_observer.hpp>
 #include <rpp/observers/interface_observer.hpp>
+
+
+#include <rpp/observers/anonymous_observer.hpp>
 #include <rpp/observers/base_observer.hpp>
+#include <rpp/observers/dynamic_observer.hpp>
