@@ -12,9 +12,10 @@
 
 /**
  * \defgroup observers Observers
- * \brief Observer subscribe on observable and obtains values provided by observable.
+ * \brief Observer subscribes on Observable and obtains values provided by Observable.
  * \ingroup rpp
  */
 
-#include <rpp/observers/specific_observer.hpp>
-#include <rpp/observers/dynamic_observer.hpp>
+#include <rpp/observers/anonymous_observer.hpp>
+#include <rpp/observers/interface_observer.hpp>
+#include <rpp/observers/base_observer.hpp>

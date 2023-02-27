@@ -12,13 +12,7 @@
 
 #include <rpp/utils/constraints.hpp>
 
-namespace rpp::details
-{
-struct observer_tag{};
-
-template<constraint::decayed_type T>
-struct typed_observer_tag : public observer_tag {};
-} // namespace rpp::details
+#include <exception>
 
 namespace rpp::constraint
 {
@@ -26,18 +20,14 @@ template<typename Fn, typename Type> concept on_next_fn      = std::invocable<st
 template<typename Fn>                concept on_error_fn     = std::invocable<std::decay_t<Fn>, std::exception_ptr>;
 template<typename Fn>                concept on_completed_fn = std::invocable<std::decay_t<Fn>>;
 } // namespace rpp::constraint
-
 namespace rpp
 {
 template<constraint::decayed_type Type>
-class dynamic_observer;
+struct interface_observer;
 
-template<constraint::decayed_type T,
-         constraint::on_next_fn<T>   OnNext,
-         constraint::on_error_fn     OnError,
-         constraint::on_completed_fn OnCompleted>
-class specific_observer;
-
-template<typename...Args>
-using specific_observer_with_decayed_args = rpp::specific_observer<std::decay_t<Args>...>;
+template<constraint::decayed_type     Type,
+         constraint::on_next_fn<Type> OnNext,
+         constraint::on_error_fn      OnError,
+         constraint::on_completed_fn  OnCompleted>
+class anonymous_observer;
 } // namespace rpp

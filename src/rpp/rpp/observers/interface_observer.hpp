@@ -10,13 +10,20 @@
 
 #pragma once
 
+#include <rpp/observers/fwd.hpp>
+
+#include <exception>
+
 namespace rpp
 {
-enum class memory_model
+template<constraint::decayed_type Type>
+struct interface_observer
 {
-    // copy and move everywhere when needed
-    use_stack,
-    // make shared_ptr once and avoid any future copies/moves
-    use_shared,
+    virtual ~interface_observer() = default;
+
+    virtual void on_next(const Type& v) const = 0;
+    virtual void on_next(Type&& v) const = 0;
+    virtual void on_error(const std::exception_ptr& err) const = 0;
+    virtual void on_completed() const = 0;
 };
 } // namespace rpp

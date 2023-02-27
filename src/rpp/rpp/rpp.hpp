@@ -10,10 +10,5 @@
 
 #pragma once
 
-#include <rpp/observables.hpp>
+#include <rpp/fwd.hpp>
 #include <rpp/observers.hpp>
-#include <rpp/operators.hpp>
-#include <rpp/schedulers.hpp>
-#include <rpp/sources.hpp>
-#include <rpp/subscribers.hpp>
-#include <rpp/subjects.hpp>
