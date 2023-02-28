@@ -81,7 +81,7 @@ void validate_observer(const rpp::interface_observer<T>& obs,
     }
 }
 
-SCENARIO("anonymous observer calls provided actions but keeps termination", "[observer]")
+SCENARIO("anonymous observer calls provided actions but keeps termination")
 {
     GIVEN("anonymous_observer")
     {
@@ -100,7 +100,7 @@ SCENARIO("anonymous observer calls provided actions but keeps termination", "[ob
     }
 }
 
-SCENARIO("anonymous observer can be casted to dynamic_observer and still obtain callbacks", "[observer]")
+SCENARIO("anonymous observer can be casted to dynamic_observer and still obtain callbacks")
 {
     GIVEN("anonymous_observer")
     {
@@ -138,7 +138,7 @@ SCENARIO("anonymous observer can be casted to dynamic_observer and still obtain 
     }
 }
 
-SCENARIO("as_dynamic call for anonymous observer doesn't provide a lot of overhead", "[observer]")
+SCENARIO("as_dynamic call for anonymous observer doesn't provide a lot of overhead")
 {
     GIVEN("anonymous_observer")
     {

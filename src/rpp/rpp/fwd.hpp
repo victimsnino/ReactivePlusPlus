@@ -16,3 +16,4 @@
 */
 
 #include <rpp/observers/fwd.hpp>
+#include <rpp/disposables/fwd.hpp>

@@ -10,14 +10,9 @@
 
 #pragma once
 
-/**
- * \defgroup observers Observers
- * \brief Observer subscribes on Observable and obtains values provided by Observable.
- * \ingroup rpp
- */
+namespace rpp
+{
+struct interface_disposable;
 
-#include <rpp/observers/interface_observer.hpp>
-
-#include <rpp/observers/anonymous_observer.hpp>
-#include <rpp/observers/base_observer.hpp>
-#include <rpp/observers/dynamic_observer.hpp>
+class composite_disposable;
+} // namespace rpp

@@ -11,13 +11,8 @@
 #pragma once
 
 /**
- * \defgroup observers Observers
- * \brief Observer subscribes on Observable and obtains values provided by Observable.
+ * \defgroup disposables Disposables
  * \ingroup rpp
  */
 
-#include <rpp/observers/interface_observer.hpp>
-
-#include <rpp/observers/anonymous_observer.hpp>
-#include <rpp/observers/base_observer.hpp>
-#include <rpp/observers/dynamic_observer.hpp>
+#include <rpp/disposables/composite_disposable.hpp>

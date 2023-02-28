@@ -28,5 +28,7 @@ struct interface_observer
 
     virtual dynamic_observer<Type> as_dynamic() const & = 0;
     virtual dynamic_observer<Type> as_dynamic() && = 0;
+
+    // virtual void set_disposable(const composite_disposable& disposable) = 0;
 };
 } // namespace rpp
