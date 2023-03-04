@@ -10,11 +10,15 @@
 
 #pragma once
 
-/**
-* \defgroup rpp RPP
-* \brief Rpp is Reactive extension for C++20
-*/
+#include <rpp/utils/constraints.hpp>
 
-#include <rpp/observables/fwd.hpp>
-#include <rpp/observers/fwd.hpp>
-#include <rpp/disposables/fwd.hpp>
+namespace rpp
+{
+template<constraint::decayed_type Type>
+struct interface_observable;
+} // namespace rpp
+
+namespace rpp::constraint
+{
+template<typename T, typename Type> concept observable_of_type = std::derived_from<T, interface_observable<Type>>;
+} // namespace rpp::constraint

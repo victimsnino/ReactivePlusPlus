@@ -11,10 +11,10 @@
 #pragma once
 
 /**
-* \defgroup rpp RPP
-* \brief Rpp is Reactive extension for C++20
-*/
+ * \defgroup observables Observables
+ * \brief Observable is the source of any Reactive Stream. Observable provides ability to subscribe observer on some events.
+ * \see https://reactivex.io/documentation/observable.html
+ * \ingroup rpp
+ */
 
-#include <rpp/observables/fwd.hpp>
-#include <rpp/observers/fwd.hpp>
-#include <rpp/disposables/fwd.hpp>
+#include <rpp/observables/interface_observable.hpp>
