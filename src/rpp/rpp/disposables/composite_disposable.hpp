@@ -27,6 +27,7 @@ public:
         : m_state{std::make_shared<state>()} {}
 
     composite_disposable(const composite_disposable& other) = default;
+    composite_disposable(composite_disposable&& other) noexcept = default;
 
     bool is_disposed() const override
     {
@@ -41,7 +42,7 @@ public:
        m_state->dispose();
     }
 
-    void add(composite_disposable& other) const
+    void add(composite_disposable other) const
     {
         if (this == &other || other.is_disposed())
             return;
@@ -52,7 +53,7 @@ public:
             return;
         }
 
-        m_state->add(std::make_shared<composite_disposable>(other));
+        m_state->add(std::make_shared<composite_disposable>(std::move(other)));
     }
 
     static composite_disposable empty()
