@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <rpp/observers/base_observer.hpp>
+#include <rpp/observers/details/base_observer.hpp>
 
 #include <rpp/defs.hpp>
 #include <rpp/utils/functors.hpp>
@@ -25,7 +25,7 @@ template<constraint::decayed_type     Type,
          constraint::on_next_fn<Type> OnNext      = utils::empty_function_t<Type>,
          constraint::on_error_fn      OnError     = utils::rethrow_error_t,
          constraint::on_completed_fn  OnCompleted = utils::empty_function_t<>>
-class anonymous_observer final : public base_observer<Type>
+class anonymous_observer final : public details::base_observer<Type>
 {
     struct internal_copy{};
 
@@ -49,11 +49,11 @@ public:
     anonymous_observer(anonymous_observer&&) noexcept = default;
 
     anonymous_observer(internal_copy, const anonymous_observer& other)
-        : base_observer<Type>{typename base_observer<Type>::internal_copy{}, other}
+        : details::base_observer<Type>{typename details::base_observer<Type>::internal_copy{}, other}
         , m_storage{other.m_storage} {}
 
     anonymous_observer(internal_copy, anonymous_observer&& other) noexcept
-        : base_observer<Type>{typename base_observer<Type>::internal_copy{}, other}
+        : details::base_observer<Type>{typename details::base_observer<Type>::internal_copy{}, other}
         , m_storage{std::move(other.m_storage)} {}
 
     dynamic_observer<Type> as_dynamic() const & final

@@ -15,7 +15,7 @@
 #include <exception>
 #include <utility>
 
-namespace rpp
+namespace rpp::details
 {
 template<constraint::decayed_type Type>
 class base_observer : public interface_observer<Type>
@@ -63,4 +63,4 @@ protected:
 private:
     mutable bool m_is_subscribed{true};
 };
-} // namespace rpp
+} // namespace rpp::details
