@@ -17,4 +17,4 @@
  * \ingroup operators
  */
 
- #include <rpp/sources/from.hpp>
+#include <rpp/sources/from.hpp>
