@@ -14,6 +14,8 @@
 #include <rpp/observables/interface_observable.hpp>
 #include <rpp/utils/utils.hpp>
 
+IMPLEMENTATION_FILE(from_tag);
+
 namespace rpp::source::details
 {
 template<constraint::decayed_type Container>
@@ -74,8 +76,7 @@ private:
 };
 
 template<memory_model memory_model/* = memory_model::use_stack*,/ /* schedulers::constraint::scheduler TScheduler = schedulers::trampoline*/>
-auto from_iterable(constraint::iterable auto&& iterable/*, const TScheduler& scheduler = TScheduler{}*/)
-// requires rpp::details::is_header_included <rpp::details::from_tag, TScheduler > {
+auto from_iterable(constraint::iterable auto&& iterable/*, const TScheduler& scheduler = TScheduler{}*/) requires rpp::details::is_header_included <rpp::details::from_tag, decltype(iterable) /*TScheduler*/>
 {
     return iterate_observabe{ details::pack_to_container<memory_model, std::decay_t<decltype(iterable)>>(std::forward<decltype(iterable)>(iterable))};
 }

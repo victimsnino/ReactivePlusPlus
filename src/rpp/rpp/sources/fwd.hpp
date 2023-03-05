@@ -12,10 +12,16 @@
 
 #include <rpp/utils/constraints.hpp>
 #include <rpp/memory_model.hpp>
+#include <rpp/utils/operator_declaration.hpp>
+
+namespace rpp::details
+{
+struct from_tag{};
+}
 
 namespace rpp::source
 {
 template<memory_model memory_model = memory_model::use_stack/*, schedulers::constraint::scheduler TScheduler = schedulers::trampoline*/>
-auto from_iterable(constraint::iterable auto&& iterable/*, const TScheduler& scheduler = TScheduler{}*/);// requires rpp::details::is_header_included <rpp::details::from_tag, TScheduler > ;
+auto from_iterable(constraint::iterable auto&& iterable/*, const TScheduler& scheduler = TScheduler{}*/)requires rpp::details::is_header_included<rpp::details::from_tag, decltype(iterable) /*TScheduler*/>;
 } // namespace rpp::sopurce
 
