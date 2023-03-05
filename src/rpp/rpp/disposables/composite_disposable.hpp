@@ -11,8 +11,6 @@
 
 #include <rpp/disposables/interface_disposable.hpp>
 
-#include <rpp/utils/utils.hpp>
-
 #include <algorithm>
 #include <atomic>
 #include <functional>
