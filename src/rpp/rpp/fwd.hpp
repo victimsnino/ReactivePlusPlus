@@ -18,3 +18,4 @@
 #include <rpp/observables/fwd.hpp>
 #include <rpp/observers/fwd.hpp>
 #include <rpp/disposables/fwd.hpp>
+#include <rpp/sources/fwd.hpp>

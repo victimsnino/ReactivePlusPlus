@@ -25,7 +25,7 @@ template<constraint::decayed_type     Type,
          constraint::on_next_fn<Type> OnNext      = utils::empty_function_t<Type>,
          constraint::on_error_fn      OnError     = utils::rethrow_error_t,
          constraint::on_completed_fn  OnCompleted = utils::empty_function_t<>>
-class anonymous_observer final : public details::base_observer<Type>
+class anonymous_observer final : public interface_observer<Type>
 {
     struct internal_copy{};
 
@@ -45,44 +45,35 @@ public:
                     utils::rethrow_error_t{},
                     std::forward<TOnCompleted>(on_completed)} {}
 
-    anonymous_observer(const anonymous_observer&)     = delete;
+    anonymous_observer(const anonymous_observer&)     = default;
     anonymous_observer(anonymous_observer&&) noexcept = default;
 
-    anonymous_observer(internal_copy, const anonymous_observer& other)
-        : details::base_observer<Type>{typename details::base_observer<Type>::internal_copy{}, other}
-        , m_storage{other.m_storage} {}
-
-    anonymous_observer(internal_copy, anonymous_observer&& other) noexcept
-        : details::base_observer<Type>{typename details::base_observer<Type>::internal_copy{}, other}
-        , m_storage{std::move(other.m_storage)} {}
-
-    dynamic_observer<Type> as_dynamic() const & final
+    dynamic_observer<Type> as_dynamic() const & override
     {
-        return {std::make_shared<anonymous_observer>(internal_copy{}, *this)};
+        return {std::make_shared<anonymous_observer>(*this)};
     }
 
-    dynamic_observer<Type> as_dynamic() && final
+    dynamic_observer<Type> as_dynamic() && override
     {
-        return {std::make_shared<anonymous_observer>(internal_copy{}, std::move(*this))};
+        return {std::make_shared<anonymous_observer>(std::move(*this))};
     }
 
-private:
-    void on_next_impl(const Type& v) const final
+    void on_next(const Type& v) const override
     {
         m_storage.m_on_next(v);
     }
 
-    void on_next_impl(Type&& v) const final
+    void on_next(Type&& v) const override
     {
         m_storage.m_on_next(std::move(v));
     }
 
-    void on_error_impl(const std::exception_ptr& err) const final
+    void on_error(const std::exception_ptr& err) const override
     {
         m_storage.m_on_err(err);
     }
 
-    void on_completed_impl() const final
+    void on_completed() const override
     {
         m_storage.m_on_completed();
     }

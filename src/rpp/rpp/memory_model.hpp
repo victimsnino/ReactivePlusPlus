@@ -10,10 +10,13 @@
 
 #pragma once
 
-#include <iterator>
-
-namespace rpp::utils {
-
-template<constraint::iterable T>
-using iterable_value_t = std::iter_value_t<decltype(std::begin(std::declval<T>()))>;
-}
+namespace rpp
+{
+enum class memory_model
+{
+    // copy and move everywhere when needed
+    use_stack,
+    // make shared_ptr once and avoid any future copies/moves
+    use_shared,
+};
+} // namespace rpp

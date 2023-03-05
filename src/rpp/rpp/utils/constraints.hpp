@@ -11,6 +11,7 @@
 #pragma once
 
 #include <concepts>
+#include <iterator>
 
 namespace rpp::constraint
 {
@@ -19,4 +20,11 @@ concept decayed_same_as = std::same_as<std::decay_t<T>, std::decay_t<Type>>;
 
 template<typename T>
 concept decayed_type = std::same_as<std::decay_t<T>, T>;
+
+template<typename R>
+concept iterable = requires(R& rng)
+{
+    std::cbegin(rng);
+    std::cend(rng);
+};
 } // namespace rpp::constraint

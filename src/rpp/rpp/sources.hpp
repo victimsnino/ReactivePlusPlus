@@ -10,10 +10,11 @@
 
 #pragma once
 
-#include <iterator>
+/**
+ * \defgroup creational_operators Creational Operators
+ * \brief Creational operators are operators that create new observable
+ * \see https://reactivex.io/documentation/operators.html#creating
+ * \ingroup operators
+ */
 
-namespace rpp::utils {
-
-template<constraint::iterable T>
-using iterable_value_t = std::iter_value_t<decltype(std::begin(std::declval<T>()))>;
-}
+ #include <rpp/sources/from.hpp>

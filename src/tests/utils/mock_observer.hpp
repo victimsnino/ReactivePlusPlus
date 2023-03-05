@@ -15,27 +15,31 @@
 #include <vector>
 
 template<typename Type>
-class mock_observer : public rpp::details::typed_observer_tag<Type>
+class mock_observer final : public rpp::interface_observer<Type>
 {
 public:
     explicit mock_observer(bool copy_values = true) : m_state{std::make_shared<State>(copy_values)} {}
 
-    void on_next(const Type& v) const
+    void on_next(const Type& v) const override
     {
         ++m_state->m_on_next_const_ref_count;
         if (m_state->m_copy_values)
             m_state->vals.push_back(v);
     }
 
-    void on_next(Type&& v) const
+    void on_next(Type&& v) const override
     {
         ++m_state->m_on_next_move_count;
         if (m_state->m_copy_values)
             m_state->vals.push_back(std::move(v));
     }
 
-    void on_error(const std::exception_ptr&) const { ++m_state->m_on_error_count; }
-    void on_completed() const { ++m_state->m_on_completed_count; }
+    void on_error(const std::exception_ptr&) const override { ++m_state->m_on_error_count; }
+    void on_completed() const override { ++m_state->m_on_completed_count; }
+
+    rpp::dynamic_observer<Type> as_dynamic() const & override { return {std::make_shared<mock_observer>(*this)}; }
+    rpp::dynamic_observer<Type> as_dynamic() && override { return {std::make_shared<mock_observer>(std::move(*this))}; }
+
 
     [[nodiscard]] size_t get_total_on_next_count() const { return m_state->m_on_next_const_ref_count + m_state->m_on_next_move_count; }
     [[nodiscard]] size_t get_on_next_const_ref_count() const { return m_state->m_on_next_const_ref_count; }
@@ -44,8 +48,6 @@ public:
     [[nodiscard]] size_t get_on_completed_count() const { return m_state->m_on_completed_count; }
 
     std::vector<Type> get_received_values() const {return m_state->vals; }
-
-    auto as_dynamic() const {return rpp::dynamic_observer<Type>{*this};}
 
 private:
     struct State

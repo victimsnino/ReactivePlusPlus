@@ -17,7 +17,8 @@ template<typename T>
 void validate_observer(const rpp::interface_observer<T>& obs,
                        const size_t&                     on_next_count,
                        const size_t&                     on_err_count,
-                       const size_t&                     on_completed_count)
+                       const size_t&                     on_completed_count,
+                       bool                              satisfies_observer_rule)
 {
     WHEN("call on_next")
     {
@@ -47,14 +48,17 @@ void validate_observer(const rpp::interface_observer<T>& obs,
                 CHECK(on_err_count == 1);
                 CHECK(on_completed_count == 0);
             }
-            AND_WHEN("call on_next")
+            if (satisfies_observer_rule)
             {
-                obs.on_next(1);
-                THEN("on_next callback not called")
+                AND_WHEN("call on_next")
                 {
-                    CHECK(on_next_count == 1);
-                    CHECK(on_err_count == 1);
-                    CHECK(on_completed_count == 0);
+                    obs.on_next(1);
+                    THEN("on_next callback not called")
+                    {
+                        CHECK(on_next_count == 1);
+                        CHECK(on_err_count == 1);
+                        CHECK(on_completed_count == 0);
+                    }
                 }
             }
         }
@@ -67,14 +71,17 @@ void validate_observer(const rpp::interface_observer<T>& obs,
                 CHECK(on_err_count == 0);
                 CHECK(on_completed_count == 1);
             }
-             AND_WHEN("call on_next")
+            if (satisfies_observer_rule)
             {
-                obs.on_next(1);
-                THEN("on_next callback not called")
+                AND_WHEN("call on_next")
                 {
-                    CHECK(on_next_count == 1);
-                    CHECK(on_err_count == 0);
-                    CHECK(on_completed_count == 1);
+                    obs.on_next(1);
+                    THEN("on_next callback not called")
+                    {
+                        CHECK(on_next_count == 1);
+                        CHECK(on_err_count == 0);
+                        CHECK(on_completed_count == 1);
+                    }
                 }
             }
         }
@@ -93,10 +100,10 @@ SCENARIO("anonymous observer calls provided actions but keeps termination")
                                            [&](const std::exception_ptr&) { ++on_err_count; },
                                            [&]() { ++on_completed_count; }};
 
-        static_assert(!std::is_copy_constructible_v<decltype(obs)>, "anonymous observer should be not copy constructible");
+        static_assert(std::is_copy_constructible_v<decltype(obs)>, "anonymous observer should be copy constructible");
         static_assert(std::move_constructible<decltype(obs)>, "anonymous observer should be move constructible");
 
-        validate_observer(obs, on_next_count, on_err_count, on_completed_count);
+        validate_observer(obs, on_next_count, on_err_count, on_completed_count, false);
     }
 }
 
@@ -124,14 +131,14 @@ SCENARIO("anonymous observer can be casted to dynamic_observer and still obtain 
             }
             THEN("dynamic observer forwards calls to original observer")
             {
-                validate_observer(dynamic, on_next_count, on_err_count, on_completed_count);
+                validate_observer(dynamic, on_next_count, on_err_count, on_completed_count, false);
             }
             AND_WHEN("copy dynamic observer")
             {
                 THEN("copy of dynamic observer still forwards calls to original observer")
                 {
                     const auto copy_of_dynamic = dynamic;
-                    validate_observer(copy_of_dynamic, on_next_count, on_err_count, on_completed_count);
+                    validate_observer(copy_of_dynamic, on_next_count, on_err_count, on_completed_count, false);
                 }
             }
         }
