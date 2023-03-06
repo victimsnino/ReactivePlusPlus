@@ -66,7 +66,11 @@ protected:
     composite_disposable subscribe_impl(const interface_observer<utils::iterable_value_t<PackedContainer>>& observer) const override
     {
         for (const auto& v : m_container)
-            observer.on_next(v);
+        {
+            if (!observer.is_disposed())
+                observer.on_next(v);
+        }
+
         observer.on_completed();
 
         return composite_disposable::empty();

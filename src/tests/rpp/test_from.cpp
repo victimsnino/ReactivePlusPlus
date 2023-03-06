@@ -25,7 +25,7 @@ SCENARIO("from iterable", "[source][from]")
         auto obs  = rpp::source::from_iterable(vals);
         WHEN("subscribe on it")
         {
-            obs.subscribe(mock);
+            CHECK(obs.subscribe(mock).is_disposed());
             THEN("observer obtains values in the same order")
             {
                 CHECK(mock.get_received_values() == vals);
