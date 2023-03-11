@@ -1,10 +1,10 @@
 //                   ReactivePlusPlus library
-// 
+//
 //           Copyright Aleksey Loginov 2023 - present.
 //  Distributed under the Boost Software License, Version 1.0.
 //     (See accompanying file LICENSE_1_0.txt or copy at
 //           https://www.boost.org/LICENSE_1_0.txt)
-// 
+//
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
 #pragma once
@@ -71,7 +71,7 @@ private:
 
         bool is_disposed() const
         {
-            return m_current_state.load(std::memory_order_acq_rel) == State::Disposed;
+            return m_current_state.load(std::memory_order_acquire) == State::Disposed;
         }
 
         void dispose()
@@ -96,7 +96,7 @@ private:
                 if (m_current_state.compare_exchange_strong(expected, State::Edit, std::memory_order::acq_rel))
                 {
                     m_disposables.push_back(std::move(disposable));
-                    
+
                     m_current_state.store(State::None, std::memory_order::release);
                     return;
                 }
