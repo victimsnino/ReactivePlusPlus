@@ -19,7 +19,7 @@ namespace rpp
 template<constraint::decayed_type Type>
 struct interface_observer
 {
-    virtual ~interface_observer() = default;
+    virtual ~interface_observer() noexcept = default;
 
     virtual void on_next(const Type& v) const noexcept = 0;
     virtual void on_next(Type&& v) const noexcept = 0;

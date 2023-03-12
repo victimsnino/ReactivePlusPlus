@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <rpp/observers/details/base_observer.hpp>
+#include <rpp/observers/interface_observer.hpp>
 
 #include <rpp/defs.hpp>
 #include <rpp/utils/functors.hpp>

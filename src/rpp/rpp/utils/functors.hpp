@@ -22,6 +22,6 @@ struct empty_function_t
 
 struct rethrow_error_t
 {
-    [[noreturn]] void operator()(const std::exception_ptr &err) const { std::rethrow_exception(err); }
+    [[noreturn]] void operator()(const std::exception_ptr &err) const noexcept { std::rethrow_exception(err); }
 };
 } // namespace rpp::utils
