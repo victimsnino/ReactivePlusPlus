@@ -60,12 +60,26 @@ public:
 
     void on_next(const Type& v) const noexcept override
     {
-        m_storage.m_on_next(v);
+        try
+        {
+            m_storage.m_on_next(v);
+        }
+        catch(...)
+        {
+            on_error(std::current_exception());
+        }
     }
 
     void on_next(Type&& v) const noexcept override
     {
-        m_storage.m_on_next(std::move(v));
+        try
+        {
+            m_storage.m_on_next(std::move(v));
+        }
+        catch(...)
+        {
+            on_error(std::current_exception());
+        }
     }
 
     void on_error(const std::exception_ptr& err) const noexcept override
