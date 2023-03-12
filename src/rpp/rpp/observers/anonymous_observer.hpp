@@ -48,32 +48,32 @@ public:
     anonymous_observer(const anonymous_observer&)     = default;
     anonymous_observer(anonymous_observer&&) noexcept = default;
 
-    dynamic_observer<Type> as_dynamic() const & override
+    dynamic_observer<Type> as_dynamic() const & noexcept override
     {
         return {std::make_shared<anonymous_observer>(*this)};
     }
 
-    dynamic_observer<Type> as_dynamic() && override
+    dynamic_observer<Type> as_dynamic() && noexcept override
     {
         return {std::make_shared<anonymous_observer>(std::move(*this))};
     }
 
-    void on_next(const Type& v) const override
+    void on_next(const Type& v) const noexcept override
     {
         m_storage.m_on_next(v);
     }
 
-    void on_next(Type&& v) const override
+    void on_next(Type&& v) const noexcept override
     {
         m_storage.m_on_next(std::move(v));
     }
 
-    void on_error(const std::exception_ptr& err) const override
+    void on_error(const std::exception_ptr& err) const noexcept override
     {
         m_storage.m_on_err(err);
     }
 
-    void on_completed() const override
+    void on_completed() const noexcept override
     {
         m_storage.m_on_completed();
     }

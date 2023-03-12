@@ -36,28 +36,28 @@ public:
     dynamic_observer(const dynamic_observer&)     = default;
     dynamic_observer(dynamic_observer&&) noexcept = default;
 
-    void on_next(const Type& v) const final
+    void on_next(const Type& v) const noexcept final
     {
         m_observer->on_next(v);
     }
 
-    void on_next(Type&& v) const final
+    void on_next(Type&& v) const noexcept final
     {
         m_observer->on_next(std::move(v));
     }
 
-    void on_error(const std::exception_ptr& err) const final
+    void on_error(const std::exception_ptr& err) const noexcept final
     {
         m_observer->on_error(err);
     }
 
-    void on_completed() const final
+    void on_completed() const noexcept final
     {
         m_observer->on_completed();
     }
 
-    dynamic_observer<Type> as_dynamic() const & final { return *this; }
-    dynamic_observer<Type> as_dynamic() && final { return std::move(*this); }
+    dynamic_observer<Type> as_dynamic() const & noexcept final { return *this; }
+    dynamic_observer<Type> as_dynamic() && noexcept final { return std::move(*this); }
 private:
     std::shared_ptr<interface_observer<Type>> m_observer{};
 };

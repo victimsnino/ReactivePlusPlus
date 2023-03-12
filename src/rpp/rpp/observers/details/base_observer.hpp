@@ -25,25 +25,25 @@ public:
     base_observer(const base_observer&)     = delete;
     base_observer(base_observer&&) noexcept = default;
 
-    void on_next(const Type& v) const final
+    void on_next(const Type& v) const noexcept final
     {
         if (m_is_subscribed)
             on_next_impl(v);
     }
 
-    void on_next(Type&& v) const final
+    void on_next(Type&& v) const noexcept final
     {
         if (m_is_subscribed)
             on_next_impl(std::move(v));
     }
 
-    void on_error(const std::exception_ptr& err) const final
+    void on_error(const std::exception_ptr& err) const noexcept final
     {
         if (std::exchange(m_is_subscribed, false))
             on_error_impl(err);
     }
 
-    void on_completed() const final
+    void on_completed() const noexcept final
     {
         if (std::exchange(m_is_subscribed, false))
             on_completed_impl();
@@ -55,10 +55,10 @@ protected:
     base_observer(internal_copy, const base_observer& base_observer)
         : m_is_subscribed{base_observer.m_is_subscribed} {}
 
-    virtual void on_next_impl(const Type& v) const = 0;
-    virtual void on_next_impl(Type&& v) const = 0;
-    virtual void on_error_impl(const std::exception_ptr& err) const = 0;
-    virtual void on_completed_impl() const = 0;
+    virtual void on_next_impl(const Type& v) const noexcept = 0;
+    virtual void on_next_impl(Type&& v) const noexcept = 0;
+    virtual void on_error_impl(const std::exception_ptr& err) const noexcept = 0;
+    virtual void on_completed_impl() const noexcept = 0;
 
 private:
     mutable bool m_is_subscribed{true};
