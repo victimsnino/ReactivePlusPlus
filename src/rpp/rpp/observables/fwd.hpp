@@ -22,3 +22,21 @@ namespace rpp::constraint
 {
 template<typename T, typename Type> concept observable_of_type = std::derived_from<T, interface_observable<Type>>;
 } // namespace rpp::constraint
+
+namespace rpp::utils
+{
+namespace details
+{
+    template<typename T>
+    struct extract_observable_type
+    {
+        template<typename TT>
+        static TT deduce(const rpp::interface_observable<TT>&);
+
+        using type = decltype(deduce(std::declval<std::decay_t<T>>()));
+    };
+} // namespace details
+
+template<typename T>
+using extract_observable_type_t = typename details::extract_observable_type<T>::type;
+} // namespace rpp::utils

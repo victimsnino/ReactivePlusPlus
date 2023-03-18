@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include "rpp/disposables/fwd.hpp"
 #include <rpp/observers/dynamic_observer.hpp>
 
 #include <vector>
@@ -37,9 +38,10 @@ public:
     void on_error(const std::exception_ptr&) const noexcept override { ++m_state->m_on_error_count; }
     void on_completed() const noexcept override { ++m_state->m_on_completed_count; }
 
-    rpp::dynamic_observer<Type> as_dynamic() const & noexcept override { return {std::make_shared<mock_observer>(*this)}; }
-    rpp::dynamic_observer<Type> as_dynamic() && noexcept override { return {std::make_shared<mock_observer>(std::move(*this))}; }
+    bool is_disposed() const noexcept override { return false; }
+    void set_resource(const rpp::composite_disposable&) noexcept override {}
 
+    rpp::dynamic_observer<Type> as_dynamic() && noexcept override { return {std::make_shared<mock_observer>(std::move(*this))}; }
 
     [[nodiscard]] size_t get_total_on_next_count() const { return m_state->m_on_next_const_ref_count + m_state->m_on_next_move_count; }
     [[nodiscard]] size_t get_on_next_const_ref_count() const { return m_state->m_on_next_const_ref_count; }

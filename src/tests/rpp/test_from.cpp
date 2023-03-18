@@ -103,7 +103,7 @@ SCENARIO("from iterable", "[source][from]") {
     auto vals = std::vector{1, 2, 3, 4, 5, 6};
     auto obs = rpp::source::from_iterable(vals);
     WHEN("subscribe on it") {
-      CHECK(obs.subscribe(mock).is_disposed());
+      CHECK(obs.subscribe(std::move(mock)).is_disposed());
       THEN("observer obtains values in the same order") {
         CHECK(mock.get_received_values() == vals);
         CHECK(mock.get_on_completed_count() == 1);

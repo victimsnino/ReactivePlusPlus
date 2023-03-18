@@ -63,7 +63,7 @@ public:
         : m_container{std::move(container)} {}
 
 protected:
-    composite_disposable subscribe_impl(const interface_observer<utils::iterable_value_t<PackedContainer>>& observer) const noexcept override
+    void subscribe_impl(interface_observer<utils::iterable_value_t<PackedContainer>>&& observer) const noexcept override
     {
         for (const auto& v : m_container)
         {
@@ -72,9 +72,8 @@ protected:
         }
 
         observer.on_completed();
-
-        return composite_disposable::empty();
     }
+
 private:
     PackedContainer m_container;
 };

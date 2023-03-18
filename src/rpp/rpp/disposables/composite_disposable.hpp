@@ -27,6 +27,8 @@ public:
 
     composite_disposable(const composite_disposable& other) = default;
     composite_disposable(composite_disposable&& other) noexcept = default;
+    composite_disposable& operator=(const composite_disposable& other) = default;
+    composite_disposable& operator=(composite_disposable&& other) noexcept = default;
 
     bool is_disposed() const override
     {

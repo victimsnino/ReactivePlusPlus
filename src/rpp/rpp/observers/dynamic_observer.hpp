@@ -56,7 +56,16 @@ public:
         m_observer->on_completed();
     }
 
-    dynamic_observer<Type> as_dynamic() const & noexcept final { return *this; }
+    bool is_disposed() const noexcept final
+    {
+        return m_observer->is_disposed();
+    }
+
+    void set_resource(const composite_disposable& disposable) noexcept final
+    {
+        m_observer->set_resource(disposable);
+    }
+
     dynamic_observer<Type> as_dynamic() && noexcept final { return std::move(*this); }
 private:
     std::shared_ptr<interface_observer<Type>> m_observer{};

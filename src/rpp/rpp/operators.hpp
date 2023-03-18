@@ -10,8 +10,4 @@
 
 #pragma once
 
-#include <rpp/fwd.hpp>
-#include <rpp/observers.hpp>
-#include <rpp/disposables.hpp>
-#include <rpp/sources.hpp>
-#include <rpp/operators.hpp>
+#include <rpp/operators/take.hpp>

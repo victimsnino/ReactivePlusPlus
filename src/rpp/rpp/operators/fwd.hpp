@@ -10,8 +10,14 @@
 
 #pragma once
 
-#include <rpp/fwd.hpp>
-#include <rpp/observers.hpp>
-#include <rpp/disposables.hpp>
-#include <rpp/sources.hpp>
-#include <rpp/operators.hpp>
+/**
+* \defgroup operators Operators
+* \brief Operators is way to modify observables and extend with some extra custom logic
+* \see https://reactivex.io/documentation/operators.html
+* \ingroup rpp
+*/
+
+namespace rpp::operators
+{
+class take;
+}

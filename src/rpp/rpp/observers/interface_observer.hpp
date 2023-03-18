@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/observers/fwd.hpp>
+#include <rpp/disposables/fwd.hpp>
 
 #include <exception>
 
@@ -26,11 +27,9 @@ struct interface_observer
     virtual void on_error(const std::exception_ptr& err) const noexcept = 0;
     virtual void on_completed() const noexcept = 0;
 
-    virtual bool is_disposed() const noexcept { return false; }
+    virtual bool is_disposed() const noexcept = 0;
+    virtual void set_resource(const composite_disposable& disposable) noexcept = 0;
 
-    virtual dynamic_observer<Type> as_dynamic() const & noexcept = 0;
     virtual dynamic_observer<Type> as_dynamic() && noexcept = 0;
-
-    // virtual void set_disposable(const composite_disposable& disposable) = 0;
 };
 } // namespace rpp

@@ -48,11 +48,6 @@ public:
     anonymous_observer(const anonymous_observer&)     = default;
     anonymous_observer(anonymous_observer&&) noexcept = default;
 
-    dynamic_observer<Type> as_dynamic() const & noexcept override
-    {
-        return {std::make_shared<anonymous_observer>(*this)};
-    }
-
     dynamic_observer<Type> as_dynamic() && noexcept override
     {
         return {std::make_shared<anonymous_observer>(std::move(*this))};
@@ -91,6 +86,13 @@ public:
     {
         m_storage.m_on_completed();
     }
+
+    bool is_disposed() const noexcept override
+    {
+        return false;
+    }
+
+    void set_resource(const composite_disposable&) noexcept override {}
 
 private:
     // use separate "storage" due to [[no_unique]] possible issues with vtables
