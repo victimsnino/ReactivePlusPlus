@@ -41,6 +41,24 @@ template<constraint::decayed_type Type>
 class dynamic_observer;
 } // namespace rpp
 
+namespace rpp::utils
+{
+namespace details
+{
+    template<typename T>
+    struct extract_observer_type
+    {
+        template<typename TT>
+        static TT deduce(const rpp::interface_observer<TT>&);
+
+        using type = decltype(deduce(std::declval<std::decay_t<T>>()));
+    };
+
+} // namespace details
+template<typename T>
+using extract_observer_type_t = typename details::extract_observer_type<T>::type;
+} // namespace rpp::utils
+
 namespace rpp::constraint
 {
 template<typename T, typename Type> concept observer_of_type = std::derived_from<T, interface_observer<Type>>;
