@@ -9,16 +9,16 @@
 #
 
 add_subdirectory(rpp)
-add_subdirectory(rppqt)
+# add_subdirectory(rppqt)
 
-if (RPP_BUILD_BENCHMARKS)
-    add_subdirectory(benchmarks)
-endif()
+# if (RPP_BUILD_BENCHMARKS)
+#     add_subdirectory(benchmarks)
+# endif()
 
 if(RPP_BUILD_TESTS)
     add_subdirectory(tests)
 endif()
 
-if(RPP_BUILD_EXAMPLES)
-    add_subdirectory(examples)
-endif()
+# if(RPP_BUILD_EXAMPLES)
+#     add_subdirectory(examples)
+# endif()
