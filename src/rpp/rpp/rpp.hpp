@@ -11,3 +11,5 @@
 #pragma once
 
 #include <rpp/fwd.hpp>
+
+#include <rpp/observers.hpp>
