@@ -30,6 +30,9 @@ namespace rpp::details
 {
 template<constraint::decayed_type Type>
 class dynamic_strategy;
+
+template<constraint::decayed_type Type, std::invocable<Type> OnNext,  std::invocable<std::exception_ptr> OnError, std::invocable<> OnCompleted>
+struct lambda_strategy;
 } // namespace rpp::details
 
 namespace rpp
@@ -39,4 +42,18 @@ class base_observer;
 
 template<constraint::decayed_type Type>
 using dynamic_observer = base_observer<Type, details::dynamic_strategy<Type>>;
+
+template<constraint::decayed_type Type, std::invocable<Type> OnNext,  std::invocable<std::exception_ptr> OnError, std::invocable<> OnCompleted>
+using lambda_observer = base_observer<Type, details::lambda_strategy<Type, OnNext, OnError, OnCompleted>>;
+
+template<constraint::decayed_type Type,
+         std::invocable<Type> OnNext,
+         std::invocable<std::exception_ptr> OnError,
+         std::invocable<> OnCompleted>
+auto make_lambda_observer(OnNext&&      on_next,
+                          OnError&&     on_error,
+                          OnCompleted&& on_completed) -> lambda_observer<Type,
+                                                                         std::decay_t<OnNext>,
+                                                                         std::decay_t<OnError>,
+                                                                         std::decay_t<OnCompleted>>;
 } // namespace rpp

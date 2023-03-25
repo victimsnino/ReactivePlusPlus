@@ -32,7 +32,7 @@ class dynamic_strategy final
 {
 public:
     template<constraint::observer_strategy<Type> Strategy>
-        requires (!constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
+        requires (std::is_rvalue_reference_v<Strategy> && !constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
     dynamic_strategy(Strategy&& strategy)
         : m_forwarder{std::make_shared<Strategy>(std::move(strategy))}
         , m_vtable{vtable::template create<Strategy>()} {}
@@ -40,10 +40,10 @@ public:
     dynamic_strategy(const dynamic_strategy&) = default;
     dynamic_strategy(dynamic_strategy&&) noexcept = default;
 
-    void on_next(const Type& v) const noexcept                  { m_vtable->on_next_lvalue(m_forwarder, v);            }
-    void on_next(Type&& v) const noexcept                       { m_vtable->on_next_rvalue(m_forwarder, std::move(v)); }
-    void on_error(const std::exception_ptr& err) const noexcept { m_vtable->on_error(m_forwarder, err);                }
-    void on_completed() const noexcept                          { m_vtable->on_completed(m_forwarder);                 }
+    void on_next(const Type& v) const noexcept                  { m_vtable->on_next_lvalue(m_forwarder.get(), v);            }
+    void on_next(Type&& v) const noexcept                       { m_vtable->on_next_rvalue(m_forwarder.get(), std::move(v)); }
+    void on_error(const std::exception_ptr& err) const noexcept { m_vtable->on_error(m_forwarder.get(), err);                }
+    void on_completed() const noexcept                          { m_vtable->on_completed(m_forwarder.get());                 }
 
 private:
     struct vtable

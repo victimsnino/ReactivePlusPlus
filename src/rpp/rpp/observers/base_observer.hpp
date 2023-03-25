@@ -25,6 +25,11 @@ public:
     base_observer(Strategy&& strategy)
         : m_strategy{std::move(strategy)} {}
 
+    template<typename ...Args>
+        requires std::constructible_from<Strategy, Args...>
+    base_observer(Args&& ...args) 
+        : m_strategy{std::forward<Args>(args)...} {}
+
     base_observer(const base_observer&)     = delete;
     base_observer(base_observer&&) noexcept = default;
 
