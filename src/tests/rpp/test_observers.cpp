@@ -17,7 +17,7 @@ SCENARIO("lambda observer as base observer")
         std::vector<int> on_next_vals{};
         size_t on_error{};
         size_t on_completed{};
-        auto observer = rpp::make_lambda_observer<int>([&](int v){ on_next_vals.push_back(v); }, [&](const std::exception_ptr& ){ ++on_error; }, [&](){ ++ on_completed; });
+        auto observer = rpp::make_lambda_observer<int>([&](int v){ on_next_vals.push_back(v); }, [&](const std::exception_ptr& ){ ++on_error; }, [&](){ ++on_completed; });
 
         auto test_observer = [&](const auto& obs)
         {

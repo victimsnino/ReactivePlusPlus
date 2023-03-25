@@ -62,3 +62,4 @@ private:
     RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
 };
 } // namespace rpp
+

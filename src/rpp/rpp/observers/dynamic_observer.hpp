@@ -32,7 +32,7 @@ class dynamic_strategy final
 {
 public:
     template<constraint::observer_strategy<Type> Strategy>
-        requires (std::is_rvalue_reference_v<Strategy> && !constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
+        requires (std::is_rvalue_reference_v<Strategy&&> && !constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
     dynamic_strategy(Strategy&& strategy)
         : m_forwarder{std::make_shared<Strategy>(std::move(strategy))}
         , m_vtable{vtable::template create<Strategy>()} {}
