@@ -10,24 +10,13 @@ on:
     branches:
     - main
 
-
+env:
+  USE_QT: false
 
 jobs:
-  download_deps:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-
-    runs-on: ${{ matrix.os }}
-    name: Build Deps - ${{ matrix.os }}
-
-    steps:
-
   coverage:
     name: Test Coverage
 
-    needs: [download_deps]
-    
     timeout-minutes: 10
     runs-on: ubuntu-latest
     if: github.repository_owner == 'victimsnino'
@@ -40,6 +29,7 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
+      if: ${{env.USE_QT}}
       with:
         cache: true
 
@@ -59,8 +49,6 @@ jobs:
         file: build/coverage.info
 
   sanitize:
-    needs: [download_deps]
-
     name: Sanitize
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -70,6 +58,7 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
+      if: ${{env.USE_QT}}
       with:
         cache: true
 
@@ -81,7 +70,6 @@ jobs:
         testPreset: ci-sanitize
 
   tests:
-    needs: [download_deps]
 
     strategy:
       matrix:    
@@ -103,6 +91,7 @@ jobs:
     - name: Install Qt
       if: matrix.type == 'tests'
       uses: jurplel/install-qt-action@v3
+      if: ${{env.USE_QT}}
       with:
         cache: true
       
@@ -140,7 +129,6 @@ jobs:
         path: ${{github.workspace}}/build/test_results/benchmarks/*
 
   sonarcloud:
-    needs: [download_deps]
     name: Build and collect data for sonarcloud
     runs-on: ubuntu-latest
 
@@ -154,6 +142,7 @@ jobs:
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
+        if: ${{env.USE_QT}}
         with:
           cache: true
       
@@ -228,8 +217,6 @@ jobs:
         destination_dir: docs
 
   use_rpp_as_package:
-    needs: [download_deps]
-
     timeout-minutes: 20
     runs-on: ubuntu-latest
     name: Test RPP as package - ubuntu-latest
@@ -241,6 +228,7 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
+      if: ${{env.USE_QT}}
       with:
         cache: true
           
@@ -255,6 +243,6 @@ jobs:
         cmake -B sample_build -S src/examples/rpp/package
         cmake --build sample_build --parallel 2 --config Release
 
-        cmake -B qt_sample_build -S src/examples/rppqt/package
-        cmake --build qt_sample_build --parallel 2 --config Release
+        # cmake -B qt_sample_build -S src/examples/rppqt/package
+        # cmake --build qt_sample_build --parallel 2 --config Release
         
