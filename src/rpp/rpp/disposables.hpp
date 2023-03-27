@@ -10,10 +10,5 @@
 
 #pragma once
 
-/**
-* \defgroup rpp RPP
-* \brief ReactivePlusPlus (RPP) is Reactive extension for C++20
-*/
-
 #include <rpp/disposables/fwd.hpp>
-#include <rpp/observers/fwd.hpp>
+#include <rpp/disposables/composite_disposable.hpp>

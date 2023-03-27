@@ -12,4 +12,5 @@
 
 #include <rpp/fwd.hpp>
 
+#include <rpp/disposables.hpp>
 #include <rpp/observers.hpp>
