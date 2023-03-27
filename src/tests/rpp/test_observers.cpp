@@ -7,12 +7,14 @@
 // 
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
-#include <catch2/catch_test_macros.hpp>
+#include <snitch/snitch.hpp>
 #include <rpp/observers.hpp>
 
-SCENARIO("lambda observer as base observer")
+#include <vector>
+
+TEST_CASE("lambda observer as base observer")
 {
-    GIVEN("lambda observer")
+    SECTION("lambda observer")
     {
         std::vector<int> on_next_vals{};
         size_t on_error{};
@@ -25,7 +27,7 @@ SCENARIO("lambda observer as base observer")
             obs.on_next(2);
             obs.on_error(std::exception_ptr{});
             obs.on_completed();
-            THEN("lambdas obtain callbacks")
+            SECTION("lambdas obtain callbacks")
             {
                 CHECK(on_next_vals == std::vector{1,2});
                 CHECK(on_error == 1);
@@ -33,12 +35,12 @@ SCENARIO("lambda observer as base observer")
             }
         };
 
-        WHEN("call callbacks on it")
+        SECTION("call callbacks on it")
         {
             test_observer(observer);
         }
 
-        WHEN("call callbacks via dynamic_observer on it")
+        SECTION("call callbacks via dynamic_observer on it")
         {
             test_observer(std::move(observer).as_dynamic());
         }

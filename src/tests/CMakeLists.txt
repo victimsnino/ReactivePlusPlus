@@ -18,10 +18,10 @@ macro(rpp_register_tests module)
     set(TARGET ${BASE_NAME})
 
     add_executable(${TARGET} ${SOURCE})
-    target_link_libraries(${TARGET} PRIVATE Catch2::Catch2WithMain rpp_tests_utils ${module})
+    target_link_libraries(${TARGET} PRIVATE snitch::snitch rpp_tests_utils ${module})
     set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites/${module})
 
-    add_test(NAME ${TARGET} COMMAND $<TARGET_FILE:${TARGET}> -r junit -o ${RPP_TEST_RESULTS_DIR}/${TARGET}.xml)
+    add_test(NAME ${TARGET} COMMAND $<TARGET_FILE:${TARGET}>)
 
     if (${module} STREQUAL rppqt)
       rpp_add_qt_support_to_executable(${TARGET})

@@ -42,21 +42,13 @@ if (RPP_BUILD_RXCPP AND RPP_BUILD_BENCHMARKS)
   FetchContent_MakeAvailable(RxCpp)
 endif()
 
-# ===================== Catch 2 ===================
+# ===================== Snitch ===================
 if (RPP_BUILD_TESTS OR RPP_BUILD_BENCHMARKS)
-  find_package(Catch2 3 QUIET)
-
-  if(TARGET Catch2::Catch2WithMain)
-    message("-- RPP: Catch2 found as package")
-  else()
-    message("-- RPP: Catch2 not found, fetching from github... Set Catch2_DIR if you have installed Catch2")
-    Include(FetchContent)
-    
-    FetchContent_Declare(
-      Catch2
-      GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-      GIT_TAG        v3.1.0
-    )
-    FetchContent_MakeAvailable(Catch2)
-  endif()
+  Include(FetchContent)
+  
+  FetchContent_Declare(snitch
+      GIT_REPOSITORY https://github.com/cschreib/snitch.git
+      GIT_TAG        main
+    ) # update version number if needed
+  FetchContent_MakeAvailable(snitch)
 endif()
