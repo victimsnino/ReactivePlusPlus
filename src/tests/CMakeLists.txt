@@ -23,6 +23,9 @@ macro(rpp_register_tests module)
 
     add_test(NAME ${TARGET} COMMAND $<TARGET_FILE:${TARGET}>)
 
+    get_target_property(DEP_DIR snitch::snitch INTERFACE_INCLUDE_DIRECTORIES)
+    target_include_directories(${TARGET} SYSTEM PRIVATE ${DEP_DIR})
+
     if (${module} STREQUAL rppqt)
       rpp_add_qt_support_to_executable(${TARGET})
     endif()
