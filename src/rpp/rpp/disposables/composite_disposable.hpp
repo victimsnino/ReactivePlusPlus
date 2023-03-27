@@ -90,6 +90,11 @@ public:
         m_state->add(other);
     }
 
+    [[nodiscard]] bool is_empty() const noexcept
+    {
+        return !m_state;
+    }
+
     static composite_disposable empty()
     {
         return composite_disposable{empty_t{}};
@@ -146,7 +151,7 @@ inline void composite_disposable_state::dispose() {
 }
 
 template<typename T>
-inline void composite_disposable_state::add(T&& disposable) {
+void composite_disposable_state::add(T&& disposable) {
     while (true)
     {
         State expected{State::None};

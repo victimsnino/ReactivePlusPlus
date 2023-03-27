@@ -27,6 +27,12 @@ void forwarding_on_error(const void* ptr, const std::exception_ptr& err) { stati
 template<typename Strategy>
 void forwarding_on_completed(const void* ptr) { static_cast<const Strategy*>(ptr)->on_completed(); };
 
+template<typename Strategy>
+void forwarding_set_upstream(const void* ptr, const composite_disposable& d) { static_cast<const Strategy*>(ptr)->set_upstream(d); };
+
+template<typename Strategy>
+bool forwarding_is_disposed(const void* ptr) { return static_cast<const Strategy*>(ptr)->is_disposed(); };
+
 template<constraint::decayed_type Type>
 class dynamic_strategy final
 {
@@ -40,10 +46,13 @@ public:
     dynamic_strategy(const dynamic_strategy&) = default;
     dynamic_strategy(dynamic_strategy&&) noexcept = default;
 
-    void on_next(const Type& v) const noexcept                  { m_vtable->on_next_lvalue(m_forwarder.get(), v);            }
-    void on_next(Type&& v) const noexcept                       { m_vtable->on_next_rvalue(m_forwarder.get(), std::move(v)); }
-    void on_error(const std::exception_ptr& err) const noexcept { m_vtable->on_error(m_forwarder.get(), err);                }
-    void on_completed() const noexcept                          { m_vtable->on_completed(m_forwarder.get());                 }
+    void               set_upstream(const composite_disposable& d) noexcept { m_vtable->set_upstream(m_forwarder.get(), d); }
+    [[nodiscard]] bool is_disposed() const noexcept                         { return m_vtable->is_disposed(m_forwarder.get()); }
+
+    void on_next(const Type& v) const noexcept                     { m_vtable->on_next_lvalue(m_forwarder.get(), v);            }
+    void on_next(Type&& v) const noexcept                          { m_vtable->on_next_rvalue(m_forwarder.get(), std::move(v)); }
+    void on_error(const std::exception_ptr& err) const noexcept    { m_vtable->on_error(m_forwarder.get(), err);                }
+    void on_completed() const noexcept                             { m_vtable->on_completed(m_forwarder.get());                 }
 
 private:
     struct vtable
@@ -53,6 +62,9 @@ private:
         void (*on_error)(const void*, const std::exception_ptr&){};
         void (*on_completed)(const void*){};
 
+        void (*set_upstream)(const void*, const composite_disposable&){};
+        bool (*is_disposed)(const void*){};
+
         template<constraint::observer_strategy<Type> Strategy>
         static const vtable* create() noexcept
         {
@@ -60,7 +72,9 @@ private:
                 .on_next_lvalue = forwarding_on_next_lvalue<Type, Strategy>,
                 .on_next_rvalue = forwarding_on_next_rvalue<Type, Strategy>,
                 .on_error = forwarding_on_error<Strategy>,
-                .on_completed = forwarding_on_completed<Strategy>
+                .on_completed = forwarding_on_completed<Strategy>,
+                .set_upstream = forwarding_set_upstream<Strategy>,
+                .is_disposed = forwarding_is_disposed<Strategy>,
             };
             return &s_res;
         }

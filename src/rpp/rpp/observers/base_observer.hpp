@@ -13,28 +13,45 @@
 #include <rpp/defs.hpp>
 #include <rpp/observers/fwd.hpp>
 
+#include <rpp/disposables/composite_disposable.hpp>
+
 namespace rpp
 {
 template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
 class base_observer final
 {
 public:
-    base_observer(const Strategy& strategy)
-        : m_strategy{strategy} {}
-
-    base_observer(Strategy&& strategy)
-        : m_strategy{std::move(strategy)} {}
+    template<typename ...Args>
+        requires std::constructible_from<Strategy, Args...>
+    base_observer(composite_disposable disposable, Args&& ...args)
+        : m_strategy{std::forward<Args>(args)...}
+        , m_upstream{std::move(disposable)} {}
 
     template<typename ...Args>
         requires std::constructible_from<Strategy, Args...>
     base_observer(Args&& ...args)
-        : m_strategy{std::forward<Args>(args)...} {}
+        : m_strategy{std::forward<Args>(args)...}
+        , m_upstream{composite_disposable::empty()} {}
 
     base_observer(base_observer&&) noexcept = default;
 
     base_observer(const base_observer&) requires !std::same_as<Strategy, details::dynamic_strategy<Type>> = delete;
     base_observer(const base_observer&) requires std::same_as<Strategy, details::dynamic_strategy<Type>>  = default;
 
+    void set_upstream(const composite_disposable& d) noexcept
+    {
+        m_strategy.set_upstream(d);
+
+        if (m_upstream.is_empty())
+            m_upstream = d;
+        else
+            m_upstream.add(d);
+    }
+
+    [[nodiscard]] bool is_disposed() const noexcept
+    {
+        return !m_upstream.is_empty() && m_upstream.is_disposed() || m_strategy->is_disposed();
+    }
     /**
      * @brief Observable calls this methods to notify observer about new value.
      *
@@ -63,6 +80,7 @@ public:
     void on_error(const std::exception_ptr& err) const noexcept
     {
         m_strategy.on_error(err);
+        m_upstream.dispose();
     }
 
     /**
@@ -72,6 +90,7 @@ public:
     void on_completed() const noexcept
     {
         m_strategy.on_completed();
+        m_upstream.dispose();
     }
 
     /**
@@ -84,5 +103,6 @@ public:
 
 private:
     RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
+    composite_disposable           m_upstream{};
 };
 } // namespace rpp

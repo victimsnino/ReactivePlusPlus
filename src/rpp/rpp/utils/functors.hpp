@@ -10,7 +10,12 @@
 
 #pragma once
 
-namespace rpp
+
+namespace rpp::utils
 {
-class composite_disposable;
-} // namespace rpp
+template<typename ...Types>
+struct empty_function_t
+{
+    void operator()(const Types&...) const noexcept {}
+};
+} // namespace rpp::utils

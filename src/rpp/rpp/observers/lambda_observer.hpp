@@ -21,6 +21,9 @@ struct lambda_strategy
     OnNext      on_next;
     OnError     on_error;
     OnCompleted on_completed;
+
+    void set_upstream(const composite_disposable&) const noexcept {}
+    bool is_disposed() const noexcept { return false; }
 };
 } // namespace rpp::details
 
@@ -38,6 +41,26 @@ auto make_lambda_observer(OnNext&&      on_next,
                                                                          std::decay_t<OnCompleted>>
 {
     return {
+        std::forward<OnNext>(on_next),
+        std::forward<OnError>(on_error),
+        std::forward<OnCompleted>(on_completed)
+    };
+}
+
+template<constraint::decayed_type Type,
+         std::invocable<Type> OnNext,
+         std::invocable<const std::exception_ptr&> OnError,
+         std::invocable<> OnCompleted>
+auto make_lambda_observer(const rpp::composite_disposable& d,
+                          OnNext&&      on_next,
+                          OnError&&     on_error,
+                          OnCompleted&& on_completed) -> lambda_observer<Type,
+                                                                         std::decay_t<OnNext>,
+                                                                         std::decay_t<OnError>,
+                                                                         std::decay_t<OnCompleted>>
+{
+    return {
+        d,
         std::forward<OnNext>(on_next),
         std::forward<OnError>(on_error),
         std::forward<OnCompleted>(on_completed)
