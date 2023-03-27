@@ -89,9 +89,8 @@ jobs:
           fetch-depth: 0
 
     - name: Install Qt
-      if: matrix.type == 'tests'
+      if: matrix.type == 'tests' && ${{env.USE_QT}}
       uses: jurplel/install-qt-action@v3
-      if: ${{env.USE_QT}}
       with:
         cache: true
       
