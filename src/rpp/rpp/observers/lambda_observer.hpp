@@ -14,7 +14,7 @@ namespace rpp::details
 {
 template<constraint::decayed_type Type,
          std::invocable<Type> OnNext,
-         std::invocable<std::exception_ptr> OnError,
+         std::invocable<const std::exception_ptr&> OnError,
          std::invocable<> OnCompleted>
 struct lambda_strategy
 {
@@ -28,7 +28,7 @@ namespace rpp
 {
 template<constraint::decayed_type Type,
          std::invocable<Type> OnNext,
-         std::invocable<std::exception_ptr> OnError,
+         std::invocable<const std::exception_ptr&> OnError,
          std::invocable<> OnCompleted>
 auto make_lambda_observer(OnNext&&      on_next,
                           OnError&&     on_error,
