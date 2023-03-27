@@ -27,10 +27,10 @@ public:
 
     template<typename ...Args>
         requires std::constructible_from<Strategy, Args...>
-    base_observer(Args&& ...args) 
+    base_observer(Args&& ...args)
         : m_strategy{std::forward<Args>(args)...} {}
 
-    base_observer(base_observer&&) noexcept                                                                = default;
+    base_observer(base_observer&&) noexcept = default;
 
     base_observer(const base_observer&) requires !std::same_as<Strategy, details::dynamic_strategy<Type>> = delete;
     base_observer(const base_observer&) requires std::same_as<Strategy, details::dynamic_strategy<Type>>  = default;
@@ -86,4 +86,3 @@ private:
     RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
 };
 } // namespace rpp
-
