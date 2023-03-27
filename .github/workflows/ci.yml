@@ -10,9 +10,6 @@ on:
     branches:
     - main
 
-env:
-  USE_QT: false
-
 jobs:
   coverage:
     name: Test Coverage
@@ -29,7 +26,7 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
-      if: ${{env.USE_QT}}
+      if: ${{false}}
       with:
         cache: true
 
@@ -58,7 +55,7 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
-      if: ${{env.USE_QT}}
+      if: ${{false}}
       with:
         cache: true
 
@@ -89,7 +86,7 @@ jobs:
           fetch-depth: 0
 
     - name: Install Qt
-      if: matrix.type == 'tests' && ${{env.USE_QT}}
+      if: matrix.type == 'tests' && ${{false}}
       uses: jurplel/install-qt-action@v3
       with:
         cache: true
@@ -141,7 +138,7 @@ jobs:
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
-        if: ${{env.USE_QT}}
+        if: ${{false}}
         with:
           cache: true
       
@@ -227,7 +224,7 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
-      if: ${{env.USE_QT}}
+      if: ${{false}}
       with:
         cache: true
           
