@@ -112,7 +112,7 @@ DEALINGS IN THE SOFTWARE.
 
 # Credits:
 ReactivePlusPlus library uses:
-- [Catch2](https://github.com/catchorg/Catch2) for unit testing only, fetched (or used via `find_package`) automatically in case of `RPP_BUILD_TESTS` enabled
+- [snitch](https://github.com/cschreib/snitch) for unit testing only, fetched automatically in case of `RPP_BUILD_TESTS` enabled
 - [RxCpp](https://github.com/ReactiveX/RxCpp) only for comparison of performance between RPP and RxCpp in CI benchmarks. Used as cmake dependency under option
 - [reactivex.io](https://reactivex.io) as source for insipration and definition of entities used in RPP. Some comments used in RPP source code taken from [reactivex.io](https://reactivex.io)
 - [rxmarbles python](https://pypi.org/project/rxmarbles/) as generator of marbles graphs in doxygen documentation
