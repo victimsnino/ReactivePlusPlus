@@ -15,7 +15,6 @@ set(
     --exclude "*/tests/*"
     --gcov-tool "${RPP_GCOV_TOOL}"
     --rc lcov_branch_coverage=1
-    --filter branch
     CACHE STRING
     "; separated command to generate a trace for the 'coverage' target"
 )
@@ -27,7 +26,6 @@ set(
     -p "${PROJECT_SOURCE_DIR}"
     -o "${PROJECT_BINARY_DIR}/coverage_html"
     --rc lcov_branch_coverage=1
-    --filter branch
     CACHE STRING
     "; separated command to generate an HTML report for the 'coverage' target"
 )
