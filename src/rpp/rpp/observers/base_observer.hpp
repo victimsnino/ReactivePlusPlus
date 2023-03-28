@@ -14,6 +14,7 @@
 #include <rpp/observers/fwd.hpp>
 
 #include <rpp/disposables/composite_disposable.hpp>
+#include <type_traits>
 
 namespace rpp
 {
@@ -22,20 +23,20 @@ class base_observer final
 {
 public:
     template<typename ...Args>
-        requires std::constructible_from<Strategy, Args...>
+        requires (constraint::is_constructible_from<Strategy, Args&&...> || std::is_trivially_constructible_v<Strategy, Args&&...>)
     base_observer(composite_disposable disposable, Args&& ...args)
         : m_strategy{std::forward<Args>(args)...}
         , m_upstream{std::move(disposable)} {}
 
     template<typename ...Args>
-        requires std::constructible_from<Strategy, Args...>
+        requires (constraint::is_constructible_from<Strategy, Args&&...> || std::is_trivially_constructible_v<Strategy, Args&&...>)
     base_observer(Args&& ...args)
         : m_strategy{std::forward<Args>(args)...}
         , m_upstream{composite_disposable::empty()} {}
 
     base_observer(base_observer&&) noexcept = default;
 
-    base_observer(const base_observer&) requires !std::same_as<Strategy, details::dynamic_strategy<Type>> = delete;
+    base_observer(const base_observer&) requires (!std::same_as<Strategy, details::dynamic_strategy<Type>>) = delete;
     base_observer(const base_observer&) requires std::same_as<Strategy, details::dynamic_strategy<Type>>  = default;
 
     void set_upstream(const composite_disposable& d) noexcept
@@ -50,7 +51,7 @@ public:
 
     [[nodiscard]] bool is_disposed() const noexcept
     {
-        return !m_upstream.is_empty() && m_upstream.is_disposed() || m_strategy->is_disposed();
+        return (!m_upstream.is_empty() && m_upstream.is_disposed()) || m_strategy->is_disposed();
     }
     /**
      * @brief Observable calls this methods to notify observer about new value.

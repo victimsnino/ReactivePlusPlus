@@ -12,7 +12,7 @@ add_subdirectory(utils)
 
 macro(rpp_register_tests module)
   file(GLOB_RECURSE RPP_FILES "${module}/test_*.cpp")
-  foreach(SOURCE ${RPP_FILES}) 
+  foreach(SOURCE ${RPP_FILES})
     get_filename_component(BASE_NAME ${SOURCE} NAME_WE)
 
     set(TARGET ${BASE_NAME})
@@ -22,9 +22,6 @@ macro(rpp_register_tests module)
     set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites/${module})
 
     add_test(NAME ${TARGET} COMMAND $<TARGET_FILE:${TARGET}>)
-
-    get_target_property(DEP_DIR snitch::snitch INTERFACE_INCLUDE_DIRECTORIES)
-    target_include_directories(${TARGET} SYSTEM PRIVATE ${DEP_DIR})
 
     if (${module} STREQUAL rppqt)
       rpp_add_qt_support_to_executable(${TARGET})
