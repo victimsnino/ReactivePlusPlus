@@ -45,16 +45,16 @@ add_custom_target(
     coverage
     COMMAND
         gcovr
-        -r "${PROJECT_SOURCE_DIR}"
-        --object-dir="${PROJECT_BINARY_DIR}"
+        -r ${PROJECT_SOURCE_DIR}
+        --object-directory=${PROJECT_BINARY_DIR}
         -f src
         -e src/tests
         -b
         --exclude-unreachable-branches
         --exclude-throw-branches
-        --html-details "${PROJECT_BINARY_DIR}/coverage_report.html"
-        --xml "${PROJECT_BINARY_DIR}/coverage_report.xml"
-        --gcov-executable "${RPP_GCOV_TOOL}"
+        --html-details ${PROJECT_BINARY_DIR}/coverage_report.html
+        --xml ${PROJECT_BINARY_DIR}/coverage_report.xml
+        --gcov-executable ${RPP_GCOV_TOOL}
     COMMENT "Generating coverage report"
     VERBATIM
 )
