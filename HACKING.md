@@ -41,7 +41,7 @@ the project:
     {
       "name": "dev",
       "binaryDir": "${sourceDir}/build",
-      "inherits": ["dev-mode", "ci-<os>"],
+      "inherits": ["ci-<os>"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE" : "Debug",
         "RPP_BUILD_EXAMPLES" : "ON"
@@ -114,7 +114,7 @@ this target runs can be found in the `COVERAGE_TRACE_COMMAND` and
 file by default, which can be submitted to services with CI integration. The
 HTML command uses the trace command's output to generate a HTML document to
 `<binary-dir>/coverage_html` by default.
-<!-- 
+<!--
 #### `format-check` and `format-fix`
 
 These targets run the clang-format tool on the codebase to check errors and to

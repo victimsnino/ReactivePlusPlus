@@ -24,12 +24,6 @@ jobs:
     - name: Install LCov
       run: sudo apt-get update -q && sudo apt-get install lcov -q -y
 
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v3
-      if: ${{false}}
-      with:
-        cache: true
-
     - name: Run CMake
       uses: lukka/run-cmake@v10
       with:
@@ -46,35 +40,32 @@ jobs:
         file: build/coverage.info
 
   sanitize:
-    name: Sanitize
+    strategy:
+      matrix:
+        sanitizer: ["tsan", "asan", "lsan", "msan", "ubsan"]
+
+    name: Sanitize - ${{ matrix.sanitizer }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v3
-      if: ${{false}}
-      with:
-        cache: true
-
     - name: Run CMake
       uses: lukka/run-cmake@v10
       with:
-        configurePreset: ci-sanitize
+        configurePreset: ci-sanitize-${{ matrix.sanitizer }}
         buildPreset: ci-build
         testPreset: ci-sanitize
 
   tests:
-
     strategy:
-      matrix:    
-        config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest}, 
-                 {name: ci-ubuntu-clang,os: ubuntu-latest},
-                 {name: ci-windows,     os: windows-latest},
-                 {name: ci-macos,   os: macos-latest}]
-        type: [tests, benchmarks]
+      matrix:
+        config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest},
+                {name: ci-ubuntu-clang,os: ubuntu-latest},
+                {name: ci-windows,     os: windows-latest},
+                {name: ci-macos,       os: macos-latest}]
+        type: [tests]
 
     timeout-minutes: 20
     runs-on: ${{ matrix.config.os }}
@@ -85,16 +76,10 @@ jobs:
       with:
           fetch-depth: 0
 
-    - name: Install Qt
-      if: matrix.type == 'tests' && ${{false}}
-      uses: jurplel/install-qt-action@v3
-      with:
-        cache: true
-      
     - name: Install deps
       if: matrix.config.os == 'ubuntu-latest'
       run: |
-        sudo apt-get update -q && sudo apt-get install clang-tidy cppcheck libsfml-dev -y -q
+        sudo apt-get update -q && sudo apt-get install clang-tidy cppcheck -y -q
         pip install pyyaml
 
     - name: Run CMake
@@ -116,130 +101,3 @@ jobs:
       with:
         name: clang-tidy-result
         path: clang-tidy-result/fixes.yml
-
-    - name: Upload benchmark results
-      uses: actions/upload-artifact@v3
-      if: matrix.type == 'benchmarks'
-      with:
-        name: ${{ matrix.config.name }}
-        path: ${{github.workspace}}/build/test_results/benchmarks/*
-
-  sonarcloud:
-    name: Build and collect data for sonarcloud
-    runs-on: ubuntu-latest
-
-    env:
-      SONAR_SERVER_URL: "https://sonarcloud.io"
-      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v3
-        if: ${{false}}
-        with:
-          cache: true
-      
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar-wrapper
-          restore-keys: ${{ runner.os }}-sonar-wrapper
-
-      - name: Download and set up build-wrapper
-        env:
-          BUILD_WRAPPER_DOWNLOAD_URL: ${{ env.SONAR_SERVER_URL }}/static/cpp/build-wrapper-linux-x86.zip
-        run: |
-          mkdir -p $HOME/.sonar
-          curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
-          unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
-          echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
-      
-      - name: Run build-wrapper
-        env:
-          CC: gcc-10
-          CXX: g++-10
-        run: |
-          mkdir build
-          cmake -S . -B build -DRPP_BUILD_TESTS=1 -DRPP_BUILD_QT_CODE=1
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release --parallel 2
-      
-      - name: Upload results
-        uses: actions/upload-artifact@v2
-        with:
-          name: build_wrapper_results
-          path: ${{ env.BUILD_WRAPPER_OUT_DIR }}
-
-  docs:
-    name: Build Doxygen Docs
-    runs-on: ubuntu-latest
-    if: ${{false}}
-
-    steps:
-    - uses: actions/checkout@v3
-
-    - uses: actions/setup-python@v4
-      with: { python-version: "3.8" }
-
-    - name: Install deps
-      run: |
-        pip3 install rxmarbles
-        export CC=clang
-        export CXX=clang++
-        sudo apt install llvm-11 clang-11 libclang-11-dev flex bison -q -y
-        git clone https://github.com/doxygen/doxygen.git --depth 1
-        cd doxygen && mkdir build && cd build
-        cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr ..
-        make -j4
-        sudo make install
-
-    - name: Doxygen
-      run: doxygen ./Doxyfile
-    
-    - name: Update docs
-      run: |
-        grep -rl "rpp::details::member_overload" gen_docs | xargs sed -i 's/rpp::details::member_overload&lt; Type, SpecificObservable, [a-zA-Z_]*_tag &gt;/observable/g'
-        grep -rl "rpp::details::member_overload" gen_docs | xargs sed -i 's/rpp::details::member_overload<\/a>&lt; Type, SpecificObservable, [a-zA-Z_]*_tag &gt;/observable<\/a>/g'
-        grep -rl "rpp::details::member_overload" gen_docs | xargs sed -i 's/rpp::details::member_overload< Type, SpecificObservable, [a-zA-Z_]*_tag >:://g'
-    
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.event_name == 'push' && github.repository_owner == 'victimsnino'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./gen_docs
-        destination_dir: docs
-
-  use_rpp_as_package:
-    timeout-minutes: 20
-    runs-on: ubuntu-latest
-    name: Test RPP as package - ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-      with:
-          fetch-depth: 0
-
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v3
-      if: ${{false}}
-      with:
-        cache: true
-          
-    - name: Install project and build
-      env:
-        CC: gcc-10
-        CXX: g++-10
-      run: |
-        cmake -B build
-        sudo cmake --build build --target install --parallel 2 --config Release
-        
-        cmake -B sample_build -S src/examples/rpp/package
-        cmake --build sample_build --parallel 2 --config Release
-
-        # cmake -B qt_sample_build -S src/examples/rppqt/package
-        # cmake --build qt_sample_build --parallel 2 --config Release
-        

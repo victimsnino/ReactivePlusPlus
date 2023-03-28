@@ -22,29 +22,15 @@
       }
     },
     {
-      "name": "dev-mode",
-      "hidden": true,
-      "inherits": "cmake-pedantic",
-      "cacheVariables": {
-        "RPP_DEVELOPER_MODE": "ON"
-      }
-    },
-    {
-      "name": "std",
-      "description": "This preset makes sure the project actually builds with at least the specified standard",
-      "hidden": true,
-      "cacheVariables": {
-        "CMAKE_CXX_EXTENSIONS": "OFF",
-        "CMAKE_CXX_STANDARD": "20",
-        "CMAKE_CXX_STANDARD_REQUIRED": "ON"
-      }
-    },
-    {
       "name": "ci-flags",
       "hidden" : true,
-      "inherits" : ["dev-mode", "std"],
+      "inherits" : "cmake-pedantic",
       "cacheVariables": {
-        "CMAKE_EXPORT_COMPILE_COMMANDS" : "ON"
+        "CMAKE_EXPORT_COMPILE_COMMANDS" : "ON",
+        "CMAKE_CXX_EXTENSIONS": "OFF",
+        "CMAKE_CXX_STANDARD": "20",
+        "CMAKE_CXX_STANDARD_REQUIRED": "ON",
+        "RPP_DEVELOPER_MODE": "ON"
       }
     },
     {
@@ -123,7 +109,7 @@
       "hidden": true,
       "cacheVariables": {
         "RPP_BUILD_EXAMPLES" : "ON",
-        "RPP_BUILD_QT_CODE" : "ON"
+        "RPP_BUILD_QT_CODE" : "OFF"
       }
     },
     {
@@ -148,7 +134,7 @@
       "cacheVariables": {
         "RPP_ENABLE_COVERAGE": "ON",
         "CMAKE_BUILD_TYPE": "Coverage",
-        "CMAKE_CXX_FLAGS_COVERAGE": "-O0 -g --coverage -fkeep-inline-functions -fkeep-static-functions -fprofile-arcs -ftest-coverage",
+        "CMAKE_CXX_FLAGS_COVERAGE": "-Og -g --coverage -fkeep-inline-functions -fkeep-static-functions -fprofile-arcs -ftest-coverage",
         "CMAKE_EXE_LINKER_FLAGS_COVERAGE": "--coverage",
         "CMAKE_SHARED_LINKER_FLAGS_COVERAGE": "--coverage"
       }
@@ -167,11 +153,43 @@
       }
     },
     {
-      "name": "ci-sanitize",
+      "name": "ci-sanitize-tsan",
       "inherits": ["ci-build", "ci-build-tests", "ci-unix", "ci-clang"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Sanitize",
-        "CMAKE_CXX_FLAGS_SANITIZE": "-O2 -g -fsanitize=address,undefined -fno-omit-frame-pointer -fno-common"
+        "CMAKE_CXX_FLAGS_SANITIZE": "-fsanitize=thread -g -O1"
+      }
+    },
+    {
+      "name": "ci-sanitize-asan",
+      "inherits": ["ci-build", "ci-build-tests", "ci-unix", "ci-clang"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Sanitize",
+        "CMAKE_CXX_FLAGS_SANITIZE": "-fsanitize=address -fno-optimize-sibling-calls -fsanitize-address-use-after-scope -fno-omit-frame-pointer -g -O1"
+      }
+    },
+    {
+      "name": "ci-sanitize-lsan",
+      "inherits": ["ci-build", "ci-build-tests", "ci-unix", "ci-clang"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Sanitize",
+        "CMAKE_CXX_FLAGS_SANITIZE": "-fsanitize=leak -fno-omit-frame-pointer -g -O1"
+      }
+    },
+    {
+      "name": "ci-sanitize-msan",
+      "inherits": ["ci-build", "ci-build-tests", "ci-unix", "ci-clang"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Sanitize",
+        "CMAKE_CXX_FLAGS_SANITIZE": "-fsanitize=memory -fno-optimize-sibling-calls -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer -g -O2"
+      }
+    },
+    {
+      "name": "ci-sanitize-ubsan",
+      "inherits": ["ci-build", "ci-build-tests", "ci-unix", "ci-clang"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Sanitize",
+        "CMAKE_CXX_FLAGS_SANITIZE": "-fsanitize=undefined"
       }
     },
     {
