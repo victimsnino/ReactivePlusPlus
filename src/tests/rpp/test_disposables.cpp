@@ -26,7 +26,7 @@ TEST_CASE("composite disposable keeps state")
 
     SECTION("dispose on copy of disposable marks both disposable as disposed")
     {
-        auto copy = d;
+        auto copy = d; // NOLINT(performance-unnecessary-copy-initialization)
         copy.dispose();
         CHECK(copy.is_disposed());
         CHECK(d.is_disposed());

@@ -12,6 +12,7 @@
 #include <rpp/observers/fwd.hpp>
 
 #include <memory>
+#include <utility>
 
 namespace rpp::details
 {
@@ -19,7 +20,7 @@ template<typename T, typename Strategy>
 void forwarding_on_next_lvalue(const void* ptr, const T& v) { static_cast<const Strategy*>(ptr)->on_next(v); }
 
 template<typename T, typename Strategy>
-void forwarding_on_next_rvalue(const void* ptr, T&& v) { static_cast<const Strategy*>(ptr)->on_next(std::move(v)); }
+void forwarding_on_next_rvalue(const void* ptr, T&& v) { static_cast<const Strategy*>(ptr)->on_next(std::forward<T>(v)); }
 
 template<typename Strategy>
 void forwarding_on_error(const void* ptr, const std::exception_ptr& err) { static_cast<const Strategy*>(ptr)->on_error(err); }
@@ -39,8 +40,8 @@ class dynamic_strategy final
 public:
     template<constraint::observer_strategy<Type> Strategy>
         requires (std::is_rvalue_reference_v<Strategy&&> && !constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
-    dynamic_strategy(Strategy&& strategy)
-        : m_forwarder{std::make_shared<Strategy>(std::move(strategy))}
+    dynamic_strategy(Strategy&& strategy) // NOLINT(bugprone-forwarding-reference-overload)
+        : m_forwarder{std::make_shared<Strategy>(std::forward<Strategy>(strategy))}
         , m_vtable{vtable::template create<Strategy>()} {}
 
     dynamic_strategy(const dynamic_strategy&) = default;

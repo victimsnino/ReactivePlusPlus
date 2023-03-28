@@ -38,7 +38,7 @@
       "inherits" : ["ci-flags"],
       "hidden": true,
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS": "-Wall -Werror -Wextra -Wpedantic -Wcast-qual -Wformat=2 -Wundef -Werror=float-equal"
+        "CMAKE_CXX_FLAGS": "-Wall -Werror -Wextra -Wpedantic -Wcast-qual -Wformat=2 -Wundef -Werror=float-equal -Wno-gnu-zero-variadic-macro-arguments"
       }
     },
     {
@@ -75,6 +75,13 @@
       "hidden": true,
       "cacheVariables": {
         "CMAKE_CXX_CPPCHECK": "cppcheck;--inline-suppr;--std=c++20;--enable=all;--check-config;--suppress=missingIncludeSystem"
+      }
+    },
+    {
+      "name": "clang-tidy",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_CXX_CLANG_TIDY": "clang-tidy;-header-filter=${sourceDir}/src/.*;-checks=bugprone-*,concurrency-*,performance-*,-macro*;-warnings-as-errors=*;-extra-arg=-std=c++20"
       }
     },
     {
@@ -198,7 +205,7 @@
     },
     {
       "name": "ci-ubuntu-clang-tests",
-      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-clang", "cppcheck" ]
+      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-clang", "clang-tidy" ]
     },
     {
       "name": "ci-ubuntu-gcc-tests",

@@ -35,7 +35,7 @@ public:
         return !m_state || m_state->is_disposed();
     }
 
-    void dispose() const noexcept
+    void dispose() const
     {
         if (is_disposed())
             return;

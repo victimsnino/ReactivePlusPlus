@@ -54,5 +54,6 @@ if (RPP_BUILD_TESTS OR RPP_BUILD_BENCHMARKS)
 
   target_compile_options(snitch PRIVATE "-w")
   set_target_properties(snitch PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:snitch,INTERFACE_INCLUDE_DIRECTORIES>)
-
+  set_target_properties(snitch PROPERTIES CXX_CLANG_TIDY "")
+  set_target_properties(snitch PROPERTIES CXX_CPPCHECK "")
 endif()
