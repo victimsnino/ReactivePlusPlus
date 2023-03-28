@@ -21,8 +21,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install LCov
-      run: sudo apt-get update -q && sudo apt-get install lcov -q -y
+    - name: Install gcovr
+      run: sudo apt-get update -q && sudo apt-get install gcovr -q -y
 
     - name: Run CMake
       uses: lukka/run-cmake@v10
@@ -37,7 +37,7 @@ jobs:
     - name: Submit to codecov.io
       uses: codecov/codecov-action@v3
       with:
-        file: build/coverage.info
+        file: build/coverage_report.html
 
   sanitize:
     strategy:
