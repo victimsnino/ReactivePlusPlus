@@ -30,7 +30,7 @@ macro(rpp_register_tests module)
     if(MSVC)
       target_compile_options(${TARGET} PRIVATE /W4 /WX)
     else()
-      target_compile_options(${TARGET} PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion)
+      target_compile_options(${TARGET} PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion -Wno-gnu-zero-variadic-macro-arguments)
     endif()
 
   endforeach()
