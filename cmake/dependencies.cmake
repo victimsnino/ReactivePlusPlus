@@ -49,6 +49,7 @@ if (RPP_BUILD_TESTS OR RPP_BUILD_BENCHMARKS)
   FetchContent_Declare(snitch
       GIT_REPOSITORY https://github.com/cschreib/snitch.git
       GIT_TAG        main
+      SYSTEM
     ) # update version number if needed
   FetchContent_MakeAvailable(snitch)
 endif()
