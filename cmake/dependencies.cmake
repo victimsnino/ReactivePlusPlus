@@ -52,4 +52,5 @@ if (RPP_BUILD_TESTS OR RPP_BUILD_BENCHMARKS)
       SYSTEM
     ) # update version number if needed
   FetchContent_MakeAvailable(snitch)
+  set_property(TARGET snitch::snitch PROPERTY SYSTEM TRUE)
 endif()
