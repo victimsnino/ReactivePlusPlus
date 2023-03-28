@@ -53,4 +53,6 @@ if (RPP_BUILD_TESTS OR RPP_BUILD_BENCHMARKS)
   FetchContent_MakeAvailable(snitch)
 
   target_compile_options(snitch PRIVATE "-w")
+  set_target_properties(snitch PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:snitch,INTERFACE_INCLUDE_DIRECTORIES>)
+
 endif()

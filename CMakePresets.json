@@ -88,7 +88,7 @@
       "name": "cppcheck",
       "hidden": true,
       "cacheVariables": {
-        "CMAKE_CXX_CPPCHECK": "cppcheck;--inline-suppr;--std=c++20;--enable=information;--check-config;--suppress=missingIncludeSystem"
+        "CMAKE_CXX_CPPCHECK": "cppcheck;--inline-suppr;--std=c++20;--enable=all;--check-config;--suppress=missingIncludeSystem"
       }
     },
     {
@@ -184,13 +184,13 @@
     },
     {
       "name": "ci-ubuntu-gcc-tests",
-      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-gcc", "cppcheck"]      
+      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-gcc", "cppcheck"]
     },
     {
       "name": "ci-windows-tests",
       "inherits": ["ci-build", "ci-build-tests", "ci-build-examples",  "ci-win64"]
     },
-    
+
 
 
 
@@ -204,7 +204,7 @@
     },
     {
       "name": "ci-ubuntu-gcc-benchmarks",
-      "inherits": ["ci-build", "ci-build-benchmarks",  "ci-unix", "ci-gcc", "cppcheck"]      
+      "inherits": ["ci-build", "ci-build-benchmarks",  "ci-unix", "ci-gcc", "cppcheck"]
     },
     {
       "name": "ci-windows-benchmarks",
