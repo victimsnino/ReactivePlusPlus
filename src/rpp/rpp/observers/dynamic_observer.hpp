@@ -25,10 +25,10 @@ template<typename Strategy>
 void forwarding_on_error(const void* ptr, const std::exception_ptr& err) { static_cast<const Strategy*>(ptr)->on_error(err); }
 
 template<typename Strategy>
-void forwarding_on_completed(const void* ptr) { static_cast<const Strategy*>(ptr)->on_completed(); };
+void forwarding_on_completed(const void* ptr) { static_cast<const Strategy*>(ptr)->on_completed(); }
 
 template<typename Strategy>
-void forwarding_set_upstream(const void* ptr, const composite_disposable& d) { static_cast<const Strategy*>(ptr)->set_upstream(d); };
+void forwarding_set_upstream(const void* ptr, const composite_disposable& d) { static_cast<const Strategy*>(ptr)->set_upstream(d); }
 
 template<typename Strategy>
 bool forwarding_is_disposed(const void* ptr) { return static_cast<const Strategy*>(ptr)->is_disposed(); }
