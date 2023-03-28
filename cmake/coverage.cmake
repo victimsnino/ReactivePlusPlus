@@ -14,6 +14,7 @@ set(
     --include "${PROJECT_SOURCE_DIR}/*"
     --exclude "*/tests/*"
     --gcov-tool "${RPP_GCOV_TOOL}"
+    --rc lcov_branch_coverage=1
     CACHE STRING
     "; separated command to generate a trace for the 'coverage' target"
 )
