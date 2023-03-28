@@ -47,8 +47,8 @@ add_custom_target(
         gcovr
         -r ${PROJECT_SOURCE_DIR}
         --object-directory=${PROJECT_BINARY_DIR}
-        -f src
-        -e src/tests
+        -f ${PROJECT_SOURCE_DIR}/src
+        -e ${PROJECT_SOURCE_DIR}/src/tests
         -b
         --exclude-unreachable-branches
         --exclude-throw-branches
