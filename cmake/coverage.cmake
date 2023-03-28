@@ -49,10 +49,11 @@ add_custom_target(
         --object-dir="${PROJECT_BINARY_DIR}"
         -f src
         -e src/tests
-        -b --decisions --calls
+        -b
         --exclude-unreachable-branches
         --exclude-throw-branches
         --html-details "${PROJECT_BINARY_DIR}/coverage_report.html"
+        --xml "${PROJECT_BINARY_DIR}/coverage_report.xml"
         --gcov-executable "${RPP_GCOV_TOOL}"
     COMMENT "Generating coverage report"
     VERBATIM
