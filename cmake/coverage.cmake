@@ -50,6 +50,7 @@ add_custom_target(
         -f ${PROJECT_SOURCE_DIR}/src
         -e ${PROJECT_SOURCE_DIR}/src/tests
         -b
+        -s
         --exclude-unreachable-branches
         --exclude-throw-branches
         --html-details ${PROJECT_BINARY_DIR}/coverage_report.html
