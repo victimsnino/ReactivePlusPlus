@@ -26,7 +26,8 @@ TEST_CASE("lambda observer works properly as base observer")
         obs.on_next(1);
         CHECK(on_next_vals == std::vector{1});
 
-        obs.on_next(2);
+        int v{2};
+        obs.on_next(v);
         CHECK(on_next_vals == std::vector{1, 2});
 
         obs.on_error(std::exception_ptr{});
@@ -58,12 +59,14 @@ TEST_CASE("observer disposes disposable on termination callbacks")
 
     CHECK(!d.is_disposed());
     CHECK(!upstream.is_disposed());
+    CHECK(!observer.is_disposed());
 
     SECTION("calling on_error causes disposing of disposables")
     {
         observer.on_error({});
         CHECK(upstream.is_disposed());
         CHECK(d.is_disposed());
+        CHECK(observer.is_disposed());
     }
 
     SECTION("calling on_completed causes disposing of disposables")
@@ -71,45 +74,70 @@ TEST_CASE("observer disposes disposable on termination callbacks")
         observer.on_error({});
         CHECK(upstream.is_disposed());
         CHECK(d.is_disposed());
+        CHECK(observer.is_disposed());
     }
 }
 
 TEST_CASE("set_upstream without base disposable makes it main disposalbe")
 {
-    auto                      observer = rpp::make_lambda_observer<int>([](int) {}, [](const std::exception_ptr&) {}, []() {});
+    auto original_observer = rpp::make_lambda_observer<int>([](int) {}, [](const std::exception_ptr&) {}, []() {});
 
-    rpp::composite_disposable upstream{};
-    observer.set_upstream(upstream);
-    CHECK(!upstream.is_disposed());
-
-    SECTION("calling on_error causes disposing of upstream")
+    auto test_observer = [](auto&& observer)
     {
-        observer.on_error({});
-        CHECK(upstream.is_disposed());
-    }
+        rpp::composite_disposable upstream{};
+            observer.set_upstream(upstream);
+            CHECK(!upstream.is_disposed());
+            CHECK(!observer.is_disposed());
 
-    SECTION("calling on_completed causes disposing of upstream")
-    {
-        observer.on_error({});
-        CHECK(upstream.is_disposed());
-    }
+            SECTION("calling on_error causes disposing of upstream")
+            {
+                observer.on_error({});
+                CHECK(upstream.is_disposed());
+                CHECK(observer.is_disposed());
+            }
+
+            SECTION("calling on_completed causes disposing of upstream")
+            {
+                observer.on_error({});
+                CHECK(upstream.is_disposed());
+                CHECK(observer.is_disposed());
+            }
+    };
+
+    SECTION("original observer")
+        test_observer(original_observer);
+
+    SECTION("dynamic observer")
+        test_observer(std::move(original_observer).as_dynamic());
 }
 
 TEST_CASE("set_upstream depends on base disposable")
 {
     rpp::composite_disposable d{};
-    auto                      observer = rpp::make_lambda_observer<int>(d, [](int) {}, [](const std::exception_ptr&) {}, []() {});
+    auto                      original_observer = rpp::make_lambda_observer<int>(d, [](int) {}, [](const std::exception_ptr&) {}, []() {});
 
-    rpp::composite_disposable upstream{};
-
-    CHECK(!d.is_disposed());
-    CHECK(!upstream.is_disposed());
-
-    SECTION("disposing of base disposable and setting upstream disposes upstream")
+    auto test_observer = [&d](auto&& observer)
     {
-        d.dispose();
+        rpp::composite_disposable upstream{};
+
+        CHECK(!d.is_disposed());
         CHECK(!upstream.is_disposed());
-        observer.set_upstream(upstream);
-        CHECK(upstream.is_disposed());
-    }
+        CHECK(!observer.is_disposed());
+
+        SECTION("disposing of base disposable and setting upstream disposes upstream")
+        {
+            d.dispose();
+            CHECK(!upstream.is_disposed());
+            CHECK(observer.is_disposed());
+            observer.set_upstream(upstream);
+            CHECK(upstream.is_disposed());
+            CHECK(observer.is_disposed());
+        }
+    };
+
+    SECTION("original observer")
+        test_observer(original_observer);
+
+    SECTION("dynamic observer")
+        test_observer(std::move(original_observer).as_dynamic());
 }

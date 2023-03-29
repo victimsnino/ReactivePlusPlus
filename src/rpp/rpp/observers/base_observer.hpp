@@ -25,14 +25,14 @@ public:
     template<typename ...Args>
         requires (constraint::is_constructible_from<Strategy, Args&&...> || std::is_trivially_constructible_v<Strategy, Args&&...>)
     base_observer(composite_disposable disposable, Args&& ...args)
-        : m_strategy{std::forward<Args>(args)...}
-        , m_upstream{std::move(disposable)} {}
+        : m_upstream{std::move(disposable)}
+        , m_strategy{std::forward<Args>(args)...} {}
 
     template<typename ...Args>
         requires (constraint::is_constructible_from<Strategy, Args&&...> || std::is_trivially_constructible_v<Strategy, Args&&...>)
     base_observer(Args&& ...args)
-        : m_strategy{std::forward<Args>(args)...}
-        , m_upstream{composite_disposable::empty()} {}
+        : m_upstream{composite_disposable::empty()}
+        , m_strategy{std::forward<Args>(args)...} {}
 
     base_observer(base_observer&&) noexcept = default;
 
@@ -51,7 +51,7 @@ public:
 
     [[nodiscard]] bool is_disposed() const noexcept
     {
-        return (!m_upstream.is_empty() && m_upstream.is_disposed()) || m_strategy->is_disposed();
+        return (!m_upstream.is_empty() && m_upstream.is_disposed()) || m_strategy.is_disposed();
     }
     /**
      * @brief Observable calls this methods to notify observer about new value.
@@ -99,11 +99,11 @@ public:
      */
     dynamic_observer<Type> as_dynamic() &&
     {
-        return {std::move(m_strategy)};
+        return {std::move(m_upstream), std::move(m_strategy)};
     }
 
 private:
-    RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
     composite_disposable           m_upstream{};
+    RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
 };
 } // namespace rpp
