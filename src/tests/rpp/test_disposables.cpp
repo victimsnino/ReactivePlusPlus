@@ -83,4 +83,12 @@ TEST_CASE("composite disposable keeps state")
             CHECK(d.is_disposed());
         }
     }
+
+    SECTION("call dispose twice") {
+        d.dispose();
+        CHECK(d.is_disposed());
+
+        d.dispose();
+        CHECK(d.is_disposed());
+    }
 }
