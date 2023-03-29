@@ -39,6 +39,9 @@ public:
     base_observer(const base_observer&) requires (!std::same_as<Strategy, details::dynamic_strategy<Type>>) = delete;
     base_observer(const base_observer&) requires std::same_as<Strategy, details::dynamic_strategy<Type>>  = default;
 
+    /**
+     * @brief Observable calls this method to pass disposable to dispose observable IF and WHEN observer want's to unsubscribe
+     */
     void set_upstream(const composite_disposable& d)
     {
         m_strategy.set_upstream(d);
@@ -49,12 +52,18 @@ public:
             m_upstream.add(d);
     }
 
+    /**
+     * @brief Observable calls this method to check if observer interested or not in emissions
+     *
+     * @return true if observer disposed and no longer interested in emissions
+     * @return false if observer still interested in emissions
+     */
     [[nodiscard]] bool is_disposed() const noexcept
     {
         return (!m_upstream.is_empty() && m_upstream.is_disposed()) || m_strategy.is_disposed();
     }
     /**
-     * @brief Observable calls this methods to notify observer about new value.
+     * @brief Observable calls this method to notify observer about new value.
      *
      * @note obtains value by const-reference to original object.
      */
@@ -64,7 +73,7 @@ public:
     }
 
     /**
-     * @brief Observable calls this methods to notify observer about new value.
+     * @brief Observable calls this method to notify observer about new value.
      *
      * @note obtains value by rvalue-reference to original object
      */
