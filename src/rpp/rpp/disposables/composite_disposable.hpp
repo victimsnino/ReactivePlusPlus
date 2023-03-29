@@ -37,10 +37,8 @@ public:
 
     void dispose() const
     {
-        if (is_disposed())
-            return;
-
-       m_state->dispose();
+        if (m_state)
+            m_state->dispose();
     }
 
     void add(const composite_disposable& other) const
@@ -48,13 +46,10 @@ public:
         if (m_state == other.m_state || other.is_disposed())
             return;
 
-        if (is_disposed())
-        {
+        if (m_state)
+            m_state->add(other);
+        else
             other.dispose();
-            return;
-        }
-
-        m_state->add(other);
     }
 
     [[nodiscard]] bool is_empty() const noexcept
@@ -89,6 +84,9 @@ private:
                     m_disposables.clear();
                     return;
                 }
+
+                if (expected == State::Disposed)
+                    return;
             }
         }
 

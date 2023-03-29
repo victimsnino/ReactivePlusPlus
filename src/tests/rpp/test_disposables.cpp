@@ -1,10 +1,10 @@
 //                   ReactivePlusPlus library
-// 
+//
 //           Copyright Aleksey Loginov 2023 - present.
 //  Distributed under the Boost Software License, Version 1.0.
 //     (See accompanying file LICENSE_1_0.txt or copy at
 //           https://www.boost.org/LICENSE_1_0.txt)
-// 
+//
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
 #include <snitch/snitch.hpp>
@@ -52,6 +52,15 @@ TEST_CASE("composite disposable keeps state")
         }
     }
 
+    SECTION("add disposed disposable")
+    {
+        auto other = rpp::composite_disposable{};
+        other.dispose();
+        d.add(other);
+        CHECK(other.is_disposed());
+        CHECK(!d.is_disposed());
+    }
+
     SECTION("empty composite_disposable")
     {
         d = rpp::composite_disposable::empty();
@@ -63,6 +72,15 @@ TEST_CASE("composite disposable keeps state")
             CHECK(!other.is_disposed());
             d.add(other);
             CHECK(other.is_disposed());
+        }
+    }
+
+    SECTION("add self") {
+        d.add(d);
+        CHECK(!d.is_disposed());
+        SECTION("dispose self") {
+            d.dispose();
+            CHECK(d.is_disposed());
         }
     }
 }
