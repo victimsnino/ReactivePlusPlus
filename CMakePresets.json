@@ -135,13 +135,25 @@
       }
     },
     {
-      "name": "coverage-unix",
+      "name": "coverage-unix-gcc",
       "inherits": ["ci-unix", "ci-gcc"],
       "hidden": true,
       "cacheVariables": {
         "RPP_ENABLE_COVERAGE": "ON",
         "CMAKE_BUILD_TYPE": "Coverage",
         "CMAKE_CXX_FLAGS_COVERAGE": "-Og -g --coverage -fkeep-inline-functions -fkeep-static-functions -fprofile-arcs -ftest-coverage -fno-inline -fno-omit-frame-pointer -fno-optimize-sibling-calls",
+        "CMAKE_EXE_LINKER_FLAGS_COVERAGE": "--coverage",
+        "CMAKE_SHARED_LINKER_FLAGS_COVERAGE": "--coverage"
+      }
+    },
+    {
+      "name": "coverage-unix-clang",
+      "inherits": ["ci-unix", "ci-clang"],
+      "hidden": true,
+      "cacheVariables": {
+        "RPP_ENABLE_COVERAGE": "ON",
+        "CMAKE_BUILD_TYPE": "Coverage",
+        "CMAKE_CXX_FLAGS_COVERAGE": "-Og -g --coverage -fprofile-arcs -ftest-coverage -fno-inline -fno-omit-frame-pointer -fno-optimize-sibling-calls",
         "CMAKE_EXE_LINKER_FLAGS_COVERAGE": "--coverage",
         "CMAKE_SHARED_LINKER_FLAGS_COVERAGE": "--coverage"
       }
@@ -153,11 +165,12 @@
       "binaryDir": "${sourceDir}/build"
     },
     {
-      "name": "ci-coverage",
-      "inherits": ["ci-build", "ci-build-tests", "coverage-unix"],
-      "cacheVariables": {
-        "COVERAGE_HTML_COMMAND": ""
-      }
+      "name": "ci-coverage-gcc",
+      "inherits": ["ci-build", "ci-build-tests", "coverage-unix-gcc"]
+    },
+    {
+      "name": "ci-coverage-clang",
+      "inherits": ["ci-build", "ci-build-tests", "coverage-unix-clang"]
     },
     {
       "name": "ci-sanitize-tsan",
