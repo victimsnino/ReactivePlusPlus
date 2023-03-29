@@ -1,10 +1,6 @@
 # ---- Variables ----
 
 if (RPP_COVERAGE_LCOV)
-    if(NOT DEFINED RPP_GCOV_TOOL)
-        set(RPP_GCOV_TOOL "")
-    endif()
-
     # We use variables separate from what CTest uses, because those have
     # customization issues
     set(
@@ -41,9 +37,7 @@ if (RPP_COVERAGE_LCOV)
         VERBATIM
     )
 else()
-add_custom_target(
-    coverage
-    COMMAND
+    SET(COVERAGE_TRACE_COMMAND
         gcovr
         -r ${PROJECT_SOURCE_DIR}
         --object-directory=${PROJECT_BINARY_DIR}
@@ -55,7 +49,16 @@ add_custom_target(
         --exclude-throw-branches
         --html-details ${PROJECT_BINARY_DIR}/coverage_report.html
         --xml ${PROJECT_BINARY_DIR}/coverage_report.xml
-        --gcov-executable ${RPP_GCOV_TOOL}
+    )
+
+if (DEFINED RPP_GCOV_TOOL)
+    SET(COVERAGE_TRACE_COMMAND ${COVERAGE_TRACE_COMMAND} --gcov-executable ${RPP_GCOV_TOOL})
+endif()
+
+add_custom_target(
+    coverage
+    COMMAND
+        ${COVERAGE_TRACE_COMMAND}
     COMMENT "Generating coverage report"
     VERBATIM
 )
