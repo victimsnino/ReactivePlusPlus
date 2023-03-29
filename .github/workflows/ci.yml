@@ -88,16 +88,3 @@ jobs:
         configurePreset: ${{ matrix.config.name }}-${{ matrix.type }}
         buildPreset: ci-build
         testPreset: ci-tests
-
-    - name: Analyze diff with clang-tidy
-      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push' && matrix.type == 'tests'
-      run: |
-        mkdir clang-tidy-result
-        git diff -U0 origin/main | clang-tidy-diff -j 0 -p1 -path build -export-fixes clang-tidy-result/fixes.yml -extra-arg=-std=c++20 -checks=bugprone-*,concurrency-*,performance-*
-
-    - name: Upload clang-tidy results
-      uses: actions/upload-artifact@v3
-      if: matrix.config.name == 'ci-ubuntu-clang' && github.event_name != 'push' && matrix.type == 'tests'
-      with:
-        name: clang-tidy-result
-        path: clang-tidy-result/fixes.yml
