@@ -49,6 +49,7 @@ else()
         --exclude-throw-branches
         --html-details ${PROJECT_BINARY_DIR}/coverage_report.html
         --xml ${PROJECT_BINARY_DIR}/coverage_report.xml
+        --sonarqube ${PROJECT_BINARY_DIR}/coverage_sonarqube_report.xml
     )
 
 if (DEFINED RPP_GCOV_TOOL)
