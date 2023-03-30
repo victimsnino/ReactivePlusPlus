@@ -17,22 +17,22 @@
 namespace rpp::details
 {
 template<typename T, typename Strategy>
-void forwarding_on_next_lvalue(const void* ptr, const T& v) { static_cast<const Strategy*>(ptr)->on_next(v); }
+void forwarding_on_next_lvalue(const void* const ptr, const T& v) { static_cast<const Strategy*>(ptr)->on_next(v); }
 
 template<typename T, typename Strategy>
-void forwarding_on_next_rvalue(const void* ptr, T&& v) { static_cast<const Strategy*>(ptr)->on_next(std::forward<T>(v)); }
+void forwarding_on_next_rvalue(const void* const ptr, T&& v) { static_cast<const Strategy*>(ptr)->on_next(std::forward<T>(v)); }
 
 template<typename Strategy>
-void forwarding_on_error(const void* ptr, const std::exception_ptr& err) { static_cast<const Strategy*>(ptr)->on_error(err); }
+void forwarding_on_error(const void* const ptr, const std::exception_ptr& err) { static_cast<const Strategy*>(ptr)->on_error(err); }
 
 template<typename Strategy>
-void forwarding_on_completed(const void* ptr) { static_cast<const Strategy*>(ptr)->on_completed(); }
+void forwarding_on_completed(const void* const ptr) { static_cast<const Strategy*>(ptr)->on_completed(); }
 
 template<typename Strategy>
-void forwarding_set_upstream(const void* ptr, const composite_disposable& d) { static_cast<const Strategy*>(ptr)->set_upstream(d); }
+void forwarding_set_upstream(const void* const ptr, const composite_disposable& d) { static_cast<const Strategy*>(ptr)->set_upstream(d); }
 
 template<typename Strategy>
-bool forwarding_is_disposed(const void* ptr) { return static_cast<const Strategy*>(ptr)->is_disposed(); }
+bool forwarding_is_disposed(const void* const ptr) { return static_cast<const Strategy*>(ptr)->is_disposed(); }
 
 template<constraint::decayed_type Type>
 class dynamic_strategy final

@@ -127,7 +127,7 @@ private:
 
     struct empty_t {};
 
-    explicit composite_disposable(empty_t) {}
+    explicit composite_disposable(const empty_t) {}
 
     std::shared_ptr<state> m_state{};
 };

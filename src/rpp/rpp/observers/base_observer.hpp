@@ -23,7 +23,7 @@ class base_observer final
 {
 public:
     template<typename ...Args>
-        requires (constraint::is_constructible_from<Strategy, Args&&...> || std::is_trivially_constructible_v<Strategy, Args&&...>)
+        requires (constraint::is_constructible_from<Strategy, Args...> || std::is_trivially_constructible_v<Strategy, Args...>)
     explicit base_observer(composite_disposable disposable, Args&& ...args)
         : m_upstream{std::move(disposable)}
         , m_strategy{std::forward<Args>(args)...} {}
