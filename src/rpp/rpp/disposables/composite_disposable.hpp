@@ -30,7 +30,7 @@ public:
     composite_disposable& operator=(const composite_disposable& other)     = default;
     composite_disposable& operator=(composite_disposable&& other) noexcept = default;
 
-    [[nodiscard]] bool is_disposed() const noexcept
+    bool is_disposed() const noexcept
     {
         return !m_state || m_state->is_disposed();
     }
@@ -52,7 +52,7 @@ public:
             other.dispose();
     }
 
-    [[nodiscard]] bool is_empty() const noexcept
+    bool is_empty() const noexcept
     {
         return !m_state;
     }
@@ -115,11 +115,9 @@ private:
     private:
         enum class State : uint8_t
         {
-            None,
-            //< default state
-            Edit,
-            //< set it during adding new element into deps or removing. After success -> back to None
-            Disposed //< permanent state after dispose
+            None,    // default state
+            Edit,    // set it during adding new element into deps or removing. After success -> back to None
+            Disposed // permanent state after dispose
         };
 
     private:
@@ -129,8 +127,7 @@ private:
 
     struct empty_t {};
 
-    composite_disposable(empty_t)
-        : m_state{} {}
+    explicit composite_disposable(empty_t) {}
 
     std::shared_ptr<state> m_state{};
 };

@@ -24,13 +24,13 @@ class base_observer final
 public:
     template<typename ...Args>
         requires (constraint::is_constructible_from<Strategy, Args&&...> || std::is_trivially_constructible_v<Strategy, Args&&...>)
-    base_observer(composite_disposable disposable, Args&& ...args)
+    explicit base_observer(composite_disposable disposable, Args&& ...args)
         : m_upstream{std::move(disposable)}
         , m_strategy{std::forward<Args>(args)...} {}
 
     template<typename ...Args>
         requires (constraint::is_constructible_from<Strategy, Args&&...> || std::is_trivially_constructible_v<Strategy, Args&&...>)
-    base_observer(Args&& ...args)
+    explicit base_observer(Args&& ...args)
         : m_upstream{composite_disposable::empty()}
         , m_strategy{std::forward<Args>(args)...} {}
 
@@ -58,7 +58,7 @@ public:
      * @return true if observer disposed and no longer interested in emissions
      * @return false if observer still interested in emissions
      */
-    [[nodiscard]] bool is_disposed() const noexcept
+    bool is_disposed() const noexcept
     {
         return (!m_upstream.is_empty() && m_upstream.is_disposed()) || m_strategy.is_disposed();
     }

@@ -43,11 +43,11 @@ public:
 
     rpp::dynamic_observer<Type> as_dynamic() && noexcept override { return {std::make_shared<mock_observer>(std::move(*this))}; }
 
-    [[nodiscard]] size_t get_total_on_next_count() const { return m_state->m_on_next_const_ref_count + m_state->m_on_next_move_count; }
-    [[nodiscard]] size_t get_on_next_const_ref_count() const { return m_state->m_on_next_const_ref_count; }
-    [[nodiscard]] size_t get_on_next_move_count() const { return m_state->m_on_next_move_count; }
-    [[nodiscard]] size_t get_on_error_count() const { return m_state->m_on_error_count; }
-    [[nodiscard]] size_t get_on_completed_count() const { return m_state->m_on_completed_count; }
+    size_t get_total_on_next_count() const { return m_state->m_on_next_const_ref_count + m_state->m_on_next_move_count; }
+    size_t get_on_next_const_ref_count() const { return m_state->m_on_next_const_ref_count; }
+    size_t get_on_next_move_count() const { return m_state->m_on_next_move_count; }
+    size_t get_on_error_count() const { return m_state->m_on_error_count; }
+    size_t get_on_completed_count() const { return m_state->m_on_completed_count; }
 
     std::vector<Type> get_received_values() const {return m_state->vals; }
 

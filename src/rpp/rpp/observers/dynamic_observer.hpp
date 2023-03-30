@@ -40,15 +40,15 @@ class dynamic_strategy final
 public:
     template<constraint::observer_strategy<Type> Strategy>
         requires (std::is_rvalue_reference_v<Strategy&&> && !constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
-    dynamic_strategy(Strategy&& strategy) // NOLINT(bugprone-forwarding-reference-overload)
+    explicit dynamic_strategy(Strategy&& strategy) // NOLINT(bugprone-forwarding-reference-overload)
         : m_forwarder{std::make_shared<Strategy>(std::forward<Strategy>(strategy))}
         , m_vtable{vtable::template create<Strategy>()} {}
 
     dynamic_strategy(const dynamic_strategy&) = default;
     dynamic_strategy(dynamic_strategy&&) noexcept = default;
 
-    void               set_upstream(const composite_disposable& d) noexcept { m_vtable->set_upstream(m_forwarder.get(), d); }
-    [[nodiscard]] bool is_disposed() const noexcept                         { return m_vtable->is_disposed(m_forwarder.get()); }
+    void set_upstream(const composite_disposable& d) noexcept { m_vtable->set_upstream(m_forwarder.get(), d); }
+    bool is_disposed() const noexcept                         { return m_vtable->is_disposed(m_forwarder.get()); }
 
     void on_next(const Type& v) const noexcept                     { m_vtable->on_next_lvalue(m_forwarder.get(), v);            }
     void on_next(Type&& v) const noexcept                          { m_vtable->on_next_rvalue(m_forwarder.get(), std::move(v)); }

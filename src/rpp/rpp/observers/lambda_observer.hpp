@@ -10,6 +10,8 @@
 #include <rpp/observers/base_observer.hpp>
 #include <rpp/utils/function_traits.hpp>
 
+#include <rpp/defs.hpp>
+
 namespace rpp::details
 {
 template<constraint::decayed_type Type,
@@ -18,9 +20,9 @@ template<constraint::decayed_type Type,
          std::invocable<> OnCompleted>
 struct lambda_strategy
 {
-    OnNext      on_next;
-    OnError     on_error;
-    OnCompleted on_completed;
+    RPP_NO_UNIQUE_ADDRESS OnNext      on_next;
+    RPP_NO_UNIQUE_ADDRESS OnError     on_error;
+    RPP_NO_UNIQUE_ADDRESS OnCompleted on_completed;
 
     static void set_upstream(const composite_disposable&) noexcept {}
     static bool is_disposed() noexcept { return false; }
