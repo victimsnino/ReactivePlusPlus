@@ -108,7 +108,7 @@ public:
      */
     dynamic_observer<Type> as_dynamic() &&
     {
-        return {std::move(m_upstream), std::move(m_strategy)};
+        return dynamic_observer<Type>{std::move(m_upstream), std::move(m_strategy)};
     }
 
 private:
