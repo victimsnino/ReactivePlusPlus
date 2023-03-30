@@ -11,34 +11,6 @@ on:
     - main
 
 jobs:
-  coverage:
-    name: Test Coverage
-
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    if: github.repository_owner == 'victimsnino'
-
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Install gcovr
-      run: sudo apt-get update -q && sudo apt-get install gcovr -q -y
-
-    - name: Run CMake
-      uses: lukka/run-cmake@v10
-      with:
-        configurePreset: ci-coverage-gcc
-        buildPreset: ci-build
-        testPreset: ci-tests
-
-    - name: Process coverage info
-      run: cmake --build build -t coverage
-
-    - name: Submit to codecov.io
-      uses: codecov/codecov-action@v3
-      with:
-        file: build/coverage_report.xml
-
   sanitize:
     strategy:
       matrix:
@@ -90,8 +62,10 @@ jobs:
         testPreset: ci-tests
 
   sonarcloud:
-    name: Sonarcloud
+    name: Sonarcloud + coverage
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'victimsnino'
+
     env:
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
 
@@ -99,19 +73,31 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-          
+
+      - name: Install gcovr
+        run: sudo apt-get update -q && sudo apt-get install gcovr -q -y
+
       - name:  Install sonar-scanner and build-wrapper
         uses: sonarsource/sonarcloud-github-c-cpp@v1
-      
+
       - name: Run build-wrapper
         env:
           CC: gcc-10
           CXX: g++-10
         run: |
           mkdir build
-          cmake -S . -B build -DRPP_BUILD_TESTS=1
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release --parallel 2
-      
+          cmake --preset=ci-coverage-gcc
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build --preset=ci-build
+          ctest --preset=ci-tests
+
+      - name: Process coverage info
+        run: cmake --build build -t coverage
+
+      - name: Submit to codecov.io
+        uses: codecov/codecov-action@v3
+        with:
+          file: build/coverage_report.xml
+
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
