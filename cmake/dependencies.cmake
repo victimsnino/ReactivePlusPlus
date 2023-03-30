@@ -37,23 +37,54 @@ if (RPP_BUILD_RXCPP AND RPP_BUILD_BENCHMARKS)
     RxCpp
     GIT_REPOSITORY https://github.com/ReactiveX/RxCpp.git
     GIT_TAG        origin/main
+    GIT_SHALLOW TRUE
   )
 
   FetchContent_MakeAvailable(RxCpp)
+
+  target_compile_options(RxCpp PRIVATE "-w")
+  set_target_properties(RxCpp PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:RxCpp,INTERFACE_INCLUDE_DIRECTORIES>)
+  set_target_properties(RxCpp PROPERTIES CXX_CLANG_TIDY "")
+  set_target_properties(RxCpp PROPERTIES CXX_CPPCHECK "")
+  set_target_properties(RxCpp PROPERTIES FOLDER 3rdparty)
+
 endif()
 
 # ===================== Snitch ===================
-if (RPP_BUILD_TESTS OR RPP_BUILD_BENCHMARKS)
+if (RPP_BUILD_TESTS)
   Include(FetchContent)
 
   FetchContent_Declare(snitch
       GIT_REPOSITORY https://github.com/cschreib/snitch.git
       GIT_TAG        main
-    ) # update version number if needed
+      GIT_SHALLOW TRUE
+    )
   FetchContent_MakeAvailable(snitch)
 
   target_compile_options(snitch PRIVATE "-w")
   set_target_properties(snitch PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:snitch,INTERFACE_INCLUDE_DIRECTORIES>)
   set_target_properties(snitch PROPERTIES CXX_CLANG_TIDY "")
   set_target_properties(snitch PROPERTIES CXX_CPPCHECK "")
+  set_target_properties(snitch PROPERTIES FOLDER 3rdparty)
+
+endif()
+
+
+# ==================== Nanobench =================
+if (RPP_BUILD_BENCHMARKS)
+  Include(FetchContent)
+
+  FetchContent_Declare(nanobench
+      GIT_REPOSITORY https://github.com/martinus/nanobench.git
+      GIT_TAG        master
+      GIT_SHALLOW    TRUE
+    )
+  FetchContent_MakeAvailable(nanobench)
+
+  target_compile_options(nanobench PRIVATE "-w")
+  set_target_properties(nanobench PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:nanobench,INTERFACE_INCLUDE_DIRECTORIES>)
+  set_target_properties(nanobench PROPERTIES CXX_CLANG_TIDY "")
+  set_target_properties(nanobench PROPERTIES CXX_CPPCHECK "")
+  set_target_properties(nanobench PROPERTIES FOLDER 3rdparty)
+
 endif()

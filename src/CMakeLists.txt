@@ -11,9 +11,9 @@
 add_subdirectory(rpp)
 # add_subdirectory(rppqt)
 
-# if (RPP_BUILD_BENCHMARKS)
-#     add_subdirectory(benchmarks)
-# endif()
+if (RPP_BUILD_BENCHMARKS)
+    add_subdirectory(benchmarks)
+endif()
 
 if(RPP_BUILD_TESTS)
     add_subdirectory(tests)
