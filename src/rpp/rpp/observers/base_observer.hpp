@@ -29,7 +29,7 @@ public:
         , m_strategy{std::forward<Args>(args)...} {}
 
     template<typename ...Args>
-        requires (constraint::is_constructible_from<Strategy, Args&&...> || std::is_trivially_constructible_v<Strategy, Args&&...>)
+        requires (!constraint::variadic_decayed_same_as<base_observer<Type, Strategy>, Args...> && (constraint::is_constructible_from<Strategy, Args&&...> || std::is_trivially_constructible_v<Strategy, Args&&...>))
     explicit base_observer(Args&& ...args)
         : m_upstream{composite_disposable::empty()}
         , m_strategy{std::forward<Args>(args)...} {}
