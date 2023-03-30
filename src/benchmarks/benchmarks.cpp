@@ -1,33 +1,23 @@
+#include "rpp/observers/fwd.hpp"
 #include <nanobench.h>
 
-#include <cmath>
 #include <iostream>
+#include <map>
+#include <string_view>
 
-namespace {
+#include <rpp/rpp.hpp>
+#ifdef RPP_BUILD_RXCPP
+    #include <rxcpp/rx.hpp>
+#endif
 
-template <typename T>
-void fma() {
-    T x(1);
-    T y(2);
-    T z(3);
-    z = std::fma(x, y, z);
-    ankerl::nanobench::doNotOptimizeAway(z);
-}
-
-template <typename T>
-void plus_eq() {
-    T x(1);
-    T y(2);
-    T z(3);
-    z += x * y;
-    ankerl::nanobench::doNotOptimizeAway(z);
-}
-
-// char const* csv() {
-//     return R"DELIM("title";"name";"scalar";"foo";"elapsed";"total"
-// {{#result}}"{{title}}";"{{name}}";"{{context(scalar)}}";"{{context(foo)}}";{{median(elapsed)}};{{sumProduct(iterations, elapsed)}}
-// {{/result}})DELIM";
-// }
+#define BENCHMARK(NAME)     bench.title(NAME);
+#define SECTION(NAME)       bench.name(NAME);
+#define TEST_RPP(ACTION)    bench.context("source", "rpp").run(ACTION);
+#ifdef RPP_BUILD_RXCPP
+    #define TEST_RXCPP(ACTION)  bench.context("source", "rxcpp").run(ACTION);
+#else
+    #define TEST_RXCPP(ACTION)
+#endif
 
 char const* json() noexcept {
     return R"DELIM({
@@ -35,51 +25,35 @@ char const* json() noexcept {
 {{#result}}        {
             "title": "{{title}}",
             "name": "{{name}}",
-            "foo" : "{{context(foo)}",
-            "unit": "{{unit}}",
-            "batch": {{batch}},
-            "complexityN": {{complexityN}},
-            "epochs": {{epochs}},
-            "clockResolution": {{clockResolution}},
-            "clockResolutionMultiple": {{clockResolutionMultiple}},
+            "source" : "{{context(source)}}",
             "maxEpochTime": {{maxEpochTime}},
             "minEpochTime": {{minEpochTime}},
-            "minEpochIterations": {{minEpochIterations}},
-            "epochIterations": {{epochIterations}},
-            "warmup": {{warmup}},
             "relative": {{relative}},
             "median(elapsed)": {{median(elapsed)}},
             "medianAbsolutePercentError(elapsed)": {{medianAbsolutePercentError(elapsed)}},
-            "median(instructions)": {{median(instructions)}},
-            "medianAbsolutePercentError(instructions)": {{medianAbsolutePercentError(instructions)}},
-            "median(cpucycles)": {{median(cpucycles)}},
-            "median(contextswitches)": {{median(contextswitches)}},
-            "median(pagefaults)": {{median(pagefaults)}},
-            "median(branchinstructions)": {{median(branchinstructions)}},
-            "median(branchmisses)": {{median(branchmisses)}},
-            "totalTime": {{sumProduct(iterations, elapsed)}}
+            "totalTime": {{sumProduct(iterations, elapsed)}}         ]
         }{{^-last}},{{/-last}}
 {{/result}}    ]
 })DELIM";
 }
 
-} // namespace
 
-// NOLINTNEXTLINE
 int main() {
-    ankerl::nanobench::Bench bench;
-    bench.title("Addition").output(nullptr);
-    bench.context("scalar", "f32")
-        .context("foo", "bar")
-        .run("+=", plus_eq<float>)
-        .run("fma", fma<float>);
-    bench.context("scalar", "f64")
-        .context("foo", "baz")
-        .run("+=", plus_eq<double>)
-        .run("fma", fma<double>);
+    auto bench = ankerl::nanobench::Bench{}.output(nullptr);
+
+    BENCHMARK("Observer")
+    {
+        SECTION("on_next") 
+        {
+            TEST_RPP([&](){
+            });
+
+            TEST_RXCPP([&](){
+            });
+        }
+    };
 
     bench.render(json(), std::cout);
-
 }
 
 

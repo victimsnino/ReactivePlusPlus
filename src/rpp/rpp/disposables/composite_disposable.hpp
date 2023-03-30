@@ -16,6 +16,7 @@
 #include <functional>
 #include <memory>
 #include <vector>
+#include <variant>
 
 namespace rpp
 {

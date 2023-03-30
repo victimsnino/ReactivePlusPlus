@@ -12,7 +12,9 @@
 
 #include <rpp/disposables/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
+#include <rpp/utils/function_traits.hpp>
 
+#include <concepts>
 #include <exception>
 
 namespace rpp::constraint
@@ -106,4 +108,29 @@ auto make_lambda_observer(const rpp::composite_disposable& d,
                                                                          std::decay_t<OnNext>,
                                                                          std::decay_t<OnError>,
                                                                          std::decay_t<OnCompleted>>;
+
+template<typename                                  OnNext,
+         std::invocable<const std::exception_ptr&> OnError,
+         std::invocable<>                          OnCompleted,
+         constraint::decayed_type                  Type = rpp::utils::decayed_function_argument_t<OnNext>>
+    requires std::invocable<OnNext, Type>
+auto make_lambda_observer(OnNext&&      on_next,
+                          OnError&&     on_error,
+                          OnCompleted&& on_completed) 
+{
+    return make_lambda_observer<Type>(std::forward<OnNext>(on_next), std::forward<OnError>(on_error), std::forward<OnCompleted>(on_completed));
+}
+
+template<typename                                  OnNext,
+         std::invocable<const std::exception_ptr&> OnError,
+         std::invocable<>                          OnCompleted,
+         constraint::decayed_type                  Type = rpp::utils::decayed_function_argument_t<OnNext>>
+    requires std::invocable<OnNext, Type>
+auto make_lambda_observer(const rpp::composite_disposable& d,
+                          OnNext&&      on_next,
+                          OnError&&     on_error,
+                          OnCompleted&& on_completed)
+{
+    return make_lambda_observer<Type>(d, std::forward<OnNext>(on_next), std::forward<OnError>(on_error), std::forward<OnCompleted>(on_completed));
+}
 } // namespace rpp

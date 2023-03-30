@@ -42,11 +42,10 @@ if (RPP_BUILD_RXCPP AND RPP_BUILD_BENCHMARKS)
 
   FetchContent_MakeAvailable(RxCpp)
 
-  target_compile_options(RxCpp PRIVATE "-w")
-  set_target_properties(RxCpp PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:RxCpp,INTERFACE_INCLUDE_DIRECTORIES>)
-  set_target_properties(RxCpp PROPERTIES CXX_CLANG_TIDY "")
-  set_target_properties(RxCpp PROPERTIES CXX_CPPCHECK "")
-  set_target_properties(RxCpp PROPERTIES FOLDER 3rdparty)
+  set_target_properties(rxcpp PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:rxcpp,INTERFACE_INCLUDE_DIRECTORIES>)
+  set_target_properties(rxcpp PROPERTIES CXX_CLANG_TIDY "")
+  set_target_properties(rxcpp PROPERTIES CXX_CPPCHECK "")
+  set_target_properties(rxcpp PROPERTIES FOLDER 3rdparty)
 
 endif()
 

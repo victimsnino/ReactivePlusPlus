@@ -13,6 +13,11 @@ set(TARGET benchmarks)
 add_executable(${TARGET} benchmarks.cpp)
 
 target_link_libraries(${TARGET} PRIVATE rpp nanobench)
+if (RPP_BUILD_RXCPP)
+    target_link_libraries(${TARGET} PRIVATE rxcpp)
+    target_compile_definitions(${TARGET} PRIVATE RPP_BUILD_RXCPP)
+endif()
+
 set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 
 add_test(NAME ${TARGET} COMMAND  $<TARGET_FILE:${TARGET}> -r xml -o ${RPP_TEST_BENCHMARKS_RESULTS_DIR}/${TARGET}_result.txt)
