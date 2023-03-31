@@ -41,14 +41,24 @@ char const* json() noexcept {
 int main() {
     auto bench = ankerl::nanobench::Bench{}.output(nullptr);
 
-    BENCHMARK("Observer")
+    BENCHMARK("Observables")
     {
-        SECTION("on_next") 
+        SECTION("subscribe on empty observer")
         {
-            TEST_RPP([&](){
+            TEST_RPP([&]() 
+            { 
+                rpp::make_lambda_observable<int>([&](auto&& observer) 
+                { 
+                    ankerl::nanobench::doNotOptimizeAway(observer); 
+                }).subscribe([](int){}, [](const std::exception_ptr&){}, [](){});
             });
 
-            TEST_RXCPP([&](){
+            TEST_RXCPP([&]() 
+            {
+                rxcpp::observable<>::create<int>([&](auto&& observer) 
+                { 
+                    ankerl::nanobench::doNotOptimizeAway(observer); 
+                }).subscribe([](int){}, [](const std::exception_ptr&){}, [](){});
             });
         }
     };

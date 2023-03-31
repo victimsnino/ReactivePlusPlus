@@ -7,6 +7,8 @@
 //
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
+#pragma once
+
 #include <rpp/observers/base_observer.hpp>
 #include <rpp/utils/function_traits.hpp>
 
