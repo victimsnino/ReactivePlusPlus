@@ -14,7 +14,7 @@
 #include <memory>
 #include <utility>
 
-namespace rpp::details
+namespace rpp::details::observer
 {
 template<typename T, typename Strategy>
 void forwarding_on_next_lvalue(const void* const ptr, const T& v) { static_cast<const Strategy*>(ptr)->on_next(v); }
@@ -85,4 +85,4 @@ private:
     std::shared_ptr<void> m_forwarder;
     const vtable*         m_vtable;
 };
-} // namespace rpp::details
+} // namespace rpp::details::observer

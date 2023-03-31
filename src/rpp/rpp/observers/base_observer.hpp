@@ -18,26 +18,36 @@
 
 namespace rpp
 {
+/**
+ * @brief Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this class would
+ * be passed to subscribe of observable
+ *
+ * @warning By default base_observer is not copyable, only movable. If you need to COPY your observer, you need to convert it to rpp::dynamic_observer via rpp::base_observer::as_dynamic
+ * @warning Expected that observer would be subscribed only to ONE observable ever. It can keep internal state and track it it was disposed or not. So, subscribing same observer multiple time follows unspecified behavior.
+ *
+ * @tparam Type of value this observer can handle
+ * @tparam Strategy used to provide logic over observer's callbacks
+ */
 template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
 class base_observer final
 {
 public:
     template<typename ...Args>
-        requires (constraint::is_constructible_from<Strategy, Args...> || std::is_trivially_constructible_v<Strategy, Args...>)
+        requires constraint::is_constructible_from<Strategy, Args...>
     explicit base_observer(composite_disposable disposable, Args&& ...args)
         : m_upstream{std::move(disposable)}
         , m_strategy{std::forward<Args>(args)...} {}
 
     template<typename ...Args>
-        requires (!constraint::variadic_decayed_same_as<base_observer<Type, Strategy>, Args...> && (constraint::is_constructible_from<Strategy, Args&&...> || std::is_trivially_constructible_v<Strategy, Args&&...>))
+        requires (!constraint::variadic_decayed_same_as<base_observer<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args&&...>)
     explicit base_observer(Args&& ...args)
         : m_upstream{composite_disposable::empty()}
         , m_strategy{std::forward<Args>(args)...} {}
 
     base_observer(base_observer&&) noexcept = default;
 
-    base_observer(const base_observer&) requires (!std::same_as<Strategy, details::dynamic_strategy<Type>>) = delete;
-    base_observer(const base_observer&) requires std::same_as<Strategy, details::dynamic_strategy<Type>>  = default;
+    base_observer(const base_observer&) requires (!std::same_as<Strategy, details::observer::dynamic_strategy<Type>>) = delete;
+    base_observer(const base_observer&) requires std::same_as<Strategy, details::observer::dynamic_strategy<Type>>  = default;
 
     /**
      * @brief Observable calls this method to pass disposable to dispose observable IF and WHEN observer want's to unsubscribe
@@ -60,7 +70,7 @@ public:
      */
     bool is_disposed() const noexcept
     {
-        return (!m_upstream.is_empty() && m_upstream.is_disposed()) || m_strategy.is_disposed();
+        return m_is_disposed || m_strategy.is_disposed();
     }
     /**
      * @brief Observable calls this method to notify observer about new value.
@@ -69,7 +79,8 @@ public:
      */
     void on_next(const Type& v) const
     {
-        m_strategy.on_next(v);
+        if (!is_disposed())
+            m_strategy.on_next(v);
     }
 
     /**
@@ -79,7 +90,8 @@ public:
      */
     void on_next(Type&& v) const
     {
-        m_strategy.on_next(std::move(v));
+        if (!is_disposed())
+            m_strategy.on_next(std::move(v));
     }
 
     /**
@@ -89,8 +101,11 @@ public:
      */
     void on_error(const std::exception_ptr& err) const
     {
-        m_strategy.on_error(err);
-        m_upstream.dispose();
+        if (!is_disposed())
+        {
+            m_strategy.on_error(err);
+            dispose();
+        }
     }
 
     /**
@@ -99,8 +114,11 @@ public:
      */
     void on_completed() const
     {
-        m_strategy.on_completed();
-        m_upstream.dispose();
+        if (!is_disposed())
+        {
+            m_strategy.on_completed();
+            dispose();
+        }
     }
 
     /**
@@ -112,7 +130,15 @@ public:
     }
 
 private:
+    void dispose() const
+    {
+        m_is_disposed = true;
+        m_upstream.dispose();
+    }
+
+private:
     composite_disposable           m_upstream{};
     RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
+    mutable bool                   m_is_disposed = !m_upstream.is_empty() && m_upstream.is_disposed();
 };
 } // namespace rpp

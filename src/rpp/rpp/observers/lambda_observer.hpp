@@ -12,7 +12,7 @@
 
 #include <rpp/defs.hpp>
 
-namespace rpp::details
+namespace rpp::details::observer
 {
 template<constraint::decayed_type Type,
          std::invocable<Type> OnNext,
@@ -27,7 +27,7 @@ struct lambda_strategy
     static void set_upstream(const composite_disposable&) noexcept {}
     static bool is_disposed() noexcept { return false; }
 };
-} // namespace rpp::details
+} // namespace rpp::details::observer
 
 namespace rpp
 {
