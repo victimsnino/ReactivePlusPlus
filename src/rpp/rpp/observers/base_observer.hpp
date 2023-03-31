@@ -70,7 +70,7 @@ public:
      */
     bool is_disposed() const noexcept
     {
-        return m_is_disposed || m_strategy.is_disposed();
+        return m_is_disposed || is_upstream_disposed() || m_strategy.is_disposed();
     }
     /**
      * @brief Observable calls this method to notify observer about new value.
@@ -136,9 +136,14 @@ private:
         m_upstream.dispose();
     }
 
+    bool is_upstream_disposed() const 
+    {
+        return !m_upstream.is_empty() && m_upstream.is_disposed();
+    }
+
 private:
     composite_disposable           m_upstream{};
     RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
-    mutable bool                   m_is_disposed = !m_upstream.is_empty() && m_upstream.is_disposed();
+    mutable bool                   m_is_disposed = is_upstream_disposed();
 };
 } // namespace rpp

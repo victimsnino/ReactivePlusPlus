@@ -30,11 +30,31 @@ TEST_CASE("lambda observer works properly as base observer")
         obs.on_next(v);
         CHECK(on_next_vals == std::vector{1, 2});
 
-        obs.on_error(std::exception_ptr{});
-        CHECK(on_error == 1u);
+        SECTION("send on_error first") 
+        {
+            CHECK(!obs.is_disposed());
 
-        obs.on_completed();
-        CHECK(on_completed == 1u);
+            obs.on_error(std::exception_ptr{});
+            CHECK(on_error == 1u);
+            CHECK(obs.is_disposed());
+
+            obs.on_completed();
+            CHECK(on_completed == 0u);
+            CHECK(obs.is_disposed());
+        }
+
+        SECTION("send on_completed first") 
+        {
+            CHECK(!obs.is_disposed());
+
+            obs.on_completed();
+            CHECK(on_completed == 1u);
+            CHECK(obs.is_disposed());
+
+            obs.on_error(std::exception_ptr{});
+            CHECK(on_error == 0u);
+            CHECK(obs.is_disposed());
+        }
     };
 
     SECTION("lambda observer obtains callbacks") {
@@ -71,7 +91,7 @@ TEST_CASE("observer disposes disposable on termination callbacks")
 
     SECTION("calling on_completed causes disposing of disposables")
     {
-        observer.on_error({});
+        observer.on_completed();
         CHECK(upstream.is_disposed());
         CHECK(d.is_disposed());
         CHECK(observer.is_disposed());
@@ -98,7 +118,7 @@ TEST_CASE("set_upstream without base disposable makes it main disposalbe")
 
             SECTION("calling on_completed causes disposing of upstream")
             {
-                observer.on_error({});
+                observer.on_completed();
                 CHECK(upstream.is_disposed());
                 CHECK(observer.is_disposed());
             }

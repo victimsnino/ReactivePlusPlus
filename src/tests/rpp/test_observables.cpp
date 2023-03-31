@@ -17,7 +17,6 @@ TEST_CASE("lambda observable works properly as as base_observable")
     {
         ++on_subscribe_called;
         observer.on_next(1);
-        observer.on_error({});
         observer.on_completed();
     });
 
@@ -31,6 +30,6 @@ TEST_CASE("lambda observable works properly as as base_observable")
     observable.subscribe(std::move(observer));
 
     CHECK(on_next_vals == std::vector{1});
-    CHECK(on_error == 1u);
+    CHECK(on_error == 0u);
     CHECK(on_completed == 1u);
 }
