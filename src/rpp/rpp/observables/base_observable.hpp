@@ -65,8 +65,7 @@ public:
      * @return composite_disposable disposable to be able to dispose observer when it needed
      */
     template<constraint::observer_strategy<Type> ObserverStrategy>
-    [[nodiscard("If you don't need disposable, use `subscribe(obs)` instead")]]
-    composite_disposable subscribe_with(const composite_disposable& d, base_observer<Type, ObserverStrategy>&& observer) const
+    composite_disposable subscribe(const composite_disposable& d, base_observer<Type, ObserverStrategy>&& observer) const
     {
         subscribe(base_observer{d, observer});
         return d;
@@ -96,11 +95,10 @@ public:
     template<std::invocable<Type> OnNext,
              std::invocable<const std::exception_ptr&> OnError,
              std::invocable<> OnCompleted>
-    [[nodiscard("If you don't need disposable, use `subscribe(on_next, on_error, on_completed)` instead")]]
     composite_disposable subscribe(const rpp::composite_disposable& d,
-                                   OnNext&&      on_next,
-                                   OnError&&     on_error,
-                                   OnCompleted&& on_completed) const
+                                   OnNext&&                         on_next,
+                                   OnError&&                        on_error,
+                                   OnCompleted&&                    on_completed) const
     {
         subscribe(make_lambda_observer<Type>(d,
                                              std::forward<OnNext>(on_next),

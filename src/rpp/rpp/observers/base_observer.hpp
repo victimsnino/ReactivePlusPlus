@@ -16,6 +16,8 @@
 #include <rpp/disposables/composite_disposable.hpp>
 #include <type_traits>
 
+#include <optional>
+
 namespace rpp
 {
 /**
@@ -34,15 +36,14 @@ class base_observer final
 public:
     template<typename ...Args>
         requires constraint::is_constructible_from<Strategy, Args...>
-    explicit base_observer(composite_disposable disposable, Args&& ...args)
+    explicit base_observer(std::optional<composite_disposable> disposable, Args&& ...args)
         : m_upstream{std::move(disposable)}
         , m_strategy{std::forward<Args>(args)...} {}
 
     template<typename ...Args>
         requires (!constraint::variadic_decayed_same_as<base_observer<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args&&...>)
     explicit base_observer(Args&& ...args)
-        : m_upstream{composite_disposable::empty()}
-        , m_strategy{std::forward<Args>(args)...} {}
+        : m_strategy{std::forward<Args>(args)...} {}
 
     base_observer(base_observer&&) noexcept = default;
 
@@ -56,10 +57,10 @@ public:
     {
         m_strategy.set_upstream(d);
 
-        if (m_upstream.is_empty())
+        if (!m_upstream)
             m_upstream = d;
         else
-            m_upstream.add(d);
+            m_upstream->add(d);
     }
 
     /**
@@ -133,17 +134,18 @@ private:
     void dispose() const
     {
         m_is_disposed = true;
-        m_upstream.dispose();
+        if (m_upstream)
+            m_upstream->dispose();
     }
 
     bool is_upstream_disposed() const 
     {
-        return !m_upstream.is_empty() && m_upstream.is_disposed();
+        return m_upstream && m_upstream->is_disposed();
     }
 
 private:
-    composite_disposable           m_upstream{};
-    RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
-    mutable bool                   m_is_disposed = is_upstream_disposed();
+    std::optional<composite_disposable> m_upstream{};
+    RPP_NO_UNIQUE_ADDRESS Strategy      m_strategy;
+    mutable bool                        m_is_disposed = is_upstream_disposed();
 };
 } // namespace rpp

@@ -7,10 +7,11 @@
 //
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
+#include "rpp/disposables/composite_disposable.hpp"
 #include <snitch/snitch.hpp>
 #include <rpp/observables.hpp>
 
-TEST_CASE("lambda observable works properly as as base_observable")
+TEST_CASE("lambda observable works properly as base_observable")
 {
     size_t on_subscribe_called{};
     auto observable = rpp::make_lambda_observable<int>([&](auto&& observer)
@@ -20,16 +21,26 @@ TEST_CASE("lambda observable works properly as as base_observable")
         observer.on_completed();
     });
 
-    std::vector<int> on_next_vals{};
-    size_t           on_error{};
-    size_t           on_completed{};
-    auto             observer = rpp::make_lambda_observer<int>([&](int v) { on_next_vals.push_back(v); },
-                                                               [&](const std::exception_ptr&) { ++on_error; },
-                                                               [&]() { ++on_completed; });
+    SECTION("subscribe valid observer") 
+    {
+        std::vector<int> on_next_vals{};
+        size_t           on_error{};
+        size_t           on_completed{};
 
-    observable.subscribe(std::move(observer));
+        observable.subscribe([&](int v) { on_next_vals.push_back(v); },
+                             [&](const std::exception_ptr&) { ++on_error; },
+                             [&]() { ++on_completed; });
 
-    CHECK(on_next_vals == std::vector{1});
-    CHECK(on_error == 0u);
-    CHECK(on_completed == 1u);
+        CHECK(on_subscribe_called == 1u);
+        CHECK(on_next_vals == std::vector{1});
+        CHECK(on_error == 0u);
+        CHECK(on_completed == 1u);
+    }
+
+    SECTION("subscribe disposed observer")
+    {
+        observable.subscribe(rpp::composite_disposable::empty(), [](int) {}, [](const std::exception_ptr&) {}, []() {});
+
+        CHECK(on_subscribe_called == 0u);
+    }
 }
