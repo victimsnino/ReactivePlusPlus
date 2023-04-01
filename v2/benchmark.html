@@ -5,40 +5,91 @@
 </head>
 
 <body>
-    <div id="graphs"></div>
+    <div id="graphs" style="width: 100%"></div>
     <script>
         fetch('benchmark_results.json')
             .then(res => res.json())
             .then(json => {
                 var title = 'Addition';
 
-                var grouped = json.results
-                    .reduce((acc, v) => {
-                        group = v["foo"]
-                        acc[group] = (acc[group] || []);
-                        acc[group].push(v);
-                        return acc;
+                var groupBy = function(xs, key) {
+                    return xs.reduce(function(rv, x) {
+                        (rv[x[key]] = rv[x[key]] || []).push(x);
+                        return rv;
                     }, {});
+                };
 
-                    for (const [key, value] of Object.entries(grouped)) {
-                        var layout = {
-                            <!-- title: { text: key }, -->
-                            showlegend: true,
-                            hovermode: "x unified",
-                            yaxis: { title: 'time per unit', rangemode: 'tozero', autorange: true }
-                        };
+                for (const [platform, platform_results] of Object.entries(json))  {
+                    var platformDetails = document.createElement('details');
+                    var platformSummary = document.createElement('summary');
+                    platformSummary.innerHTML += "<h2 style='display:inline'>"+platform+"</h2>";
+                    platformDetails.style.position = "relative";
+                    platformDetails.style.width = "100%";
 
-                        var elemDiv = document.createElement('div');
-                        var details = document.createElement('details');
-                        var summary = document.createElement('summary');
-                        summary.innerHTML += key;
+                    for (const [title, resultsPerTitle] of Object.entries(groupBy(platform_results, "title"))) {
+                        var titleDetails = document.createElement('details');
+                        var titleSummary = document.createElement('summary');
+                        var graphDiv = document.createElement('div');
+                        titleSummary.innerHTML += "<h3 style='display:inline'>"+title+"</h3>"
+                        titleSummary.style.marginLeft = 15;
+                        titleDetails.style.position = "relative";
+                        titleDetails.style.width = "100%";
+                        graphDiv.style.position = "relative";
+                        graphDiv.style.width = "100%";
+                        graphDiv.style.borderWidth = 5;
 
-                        Plotly.newPlot(details, value.map(v => Object.assign({ name: v["title"], x: [5, 15], y: [v["median(elapsed)"], v["totalTime"]], type: 'scatter' })), layout, {responsive: true});
 
-                        details.appendChild(summary);
-                        elemDiv.appendChild(details);
-                        document.getElementById("graphs").appendChild(elemDiv);
+                        var commits = Object.keys(groupBy(resultsPerTitle, "commit"));
+ 
+                        var resultsPerName = groupBy(resultsPerTitle, "name");
+                        console.log(resultsPerName);
+
+                        var data = Object.entries(resultsPerName)
+                                         .flatMap(([name, results]) => {
+                                             return Object.entries(groupBy(results, "source"))
+                                                 .map(([source, results]) => {
+                                                     return {
+                                                         name: "[" + source + "] " + name,
+                                                         x: results.map(v => commits.indexOf(v["commit"])),
+                                                         y: results.map(v => v["median(elapsed)"]),
+                                                         type: "scatter"
+                                                     }
+                                                 });
+                                         });
+                        
+                                         console.log(data);
+
+                        Plotly.newPlot(graphDiv,
+                                      data,
+                                      {
+                                          title: { text: title },
+                                          showlegend: true,
+                                          hovermode: "x unified",
+                                          yaxis: { 
+                                            title: 'ns', 
+                                            autorange: true 
+                                          },
+                                          xaxis: {
+                                            title : "commit",
+                                            tickvals: [...Array(commits.length).keys()],
+                                            ticktext: commits,
+                                            autorange: true,
+                                          },
+                                          autosize: true
+                                      },
+                                      { responsive: true });
+
+                        
+                        titleDetails.appendChild(graphDiv);
+                        titleDetails.appendChild(titleSummary);
+                        platformDetails.appendChild(titleDetails);
                     }
+
+                    platformDetails.appendChild(platformSummary);
+                    document.getElementById("graphs").appendChild(platformDetails);
+                }
+
+                window.dispatchEvent(new Event('resize'));
             });
     </script>
 </body>
