@@ -30,7 +30,7 @@ for platform, results in new_data.items():
     res.setdefault(platform, []).extend(results);
 
     for title, title_data in groupby(res[platform], lambda x:x["title"]):
-        print(f"<details><summary>\n\n### {title} \n</summary>\n")
+        print(f"<details><summary>\n\n### {title} \n</summary>\n\n")
         print("name | rxcpp | rpp | prev rpp | ratio")
         print("--- | --- | --- | --- | --- ")
         for name, name_data in groupby(title_data, lambda x: x["name"]):
