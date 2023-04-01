@@ -47,9 +47,6 @@ jobs:
         run: |
           python3 ${{github.workspace}}/ci/process_benchmark_data.py ${{ github.event.workflow_run.head_sha }} "${{github.event.workflow_run.head_commit.message}}" > comment-body.txt
           body=$(cat comment-body.txt)
-          body="${body//'%'/'%25'}"
-          body="${body//$'\n'/'%0A'}"
-          body="${body//$'\r'/'%0D'}" 
           echo body=$body >> $GITHUB_OUTPUT
         id: results
 
