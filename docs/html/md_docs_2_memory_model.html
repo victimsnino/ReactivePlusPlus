@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: Implementation status</title>
+<title>ReactivePlusPlus: Memory Model</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('status.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('md_docs_2_memory_model.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,216 +96,22 @@ $(document).ready(function(){initNavTree('status.html',''); initResizable(); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Implementation status </div></div>
+  <div class="headertitle"><div class="title">Memory Model </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_docs_2_implementation_01_status"></a> </p>
-<h1><a class="anchor" id="autotoc_md7"></a>
-Fundamentals</h1>
-<ul>
-<li>[x] Observables<ul>
-<li>[x] Specific Observable</li>
-<li>[x] Dynamic Observable</li>
-<li>[x] Blocking Observable</li>
-<li>[x] Connectable Observable</li>
-</ul>
-</li>
-<li>[x] Observers<ul>
-<li>[x] Specific Observer</li>
-<li>[x] Dynamic Observer</li>
-</ul>
-</li>
-<li>[x] Subscribers<ul>
-<li>[x] Specific Subscriber</li>
-<li>[x] Dynamic Subscriber</li>
-</ul>
-</li>
-<li>[x] Subscriptions<ul>
-<li>[x] Composite Subscription</li>
-<li>[x] Callback Subscription</li>
-</ul>
-</li>
-<li>[ ] Schedulers<ul>
-<li>[x] Immediate</li>
-<li>[x] New Thread</li>
-<li>[x] CurrentThread/Trampoline</li>
-<li>[x] RunLoop</li>
-<li>[ ] EventLoop</li>
-</ul>
-</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md8"></a>
-Creating Observables</h1>
-<ul>
-<li>[x] Create</li>
-<li>[x] Just<ul>
-<li>[x] + memory_model</li>
-</ul>
-</li>
-<li>[x] empty/never/error</li>
-<li>[ ] from<ul>
-<li>[x] iterable</li>
-<li>[ ] future</li>
-<li>[ ] promise</li>
-<li>[x] callable</li>
-<li>[ ] async</li>
-</ul>
-</li>
-<li>[ ] defer</li>
-<li>[x] interval</li>
-<li>[ ] range</li>
-<li>[ ] repeat</li>
-<li>[ ] timer</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md9"></a>
-Operators</h1>
-<h2><a class="anchor" id="autotoc_md10"></a>
-Transforming</h2>
-<ul>
-<li>[x] map</li>
-<li>[x] group_by</li>
-<li>[x] flat_map</li>
-<li>[x] scan</li>
-<li>[ ] buffer<ul>
-<li>[x] count<ul>
-<li>[ ] skip</li>
-</ul>
-</li>
-<li>[ ] time</li>
-<li>[ ] time_or_count</li>
-</ul>
-</li>
-<li>[ ] window<ul>
-<li>[x] count<ul>
-<li>[ ] skip</li>
-</ul>
-</li>
-<li>[ ] time</li>
-<li>[ ] time_or_count</li>
-</ul>
-</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md11"></a>
-Filtering</h2>
-<ul>
-<li>[x] filter</li>
-<li>[x] take</li>
-<li>[x] debounce</li>
-<li>[ ] distinct<ul>
-<li>[ ] distinct</li>
-<li>[x] distinct_until_changed</li>
-</ul>
-</li>
-<li>[ ] element_at</li>
-<li>[x] first</li>
-<li>[ ] ignore_elements</li>
-<li>[x] last</li>
-<li>[ ] sample<ul>
-<li>[ ] sample (observable)</li>
-<li>[x] sample_with_time</li>
-</ul>
-</li>
-<li>[x] skip</li>
-<li>[ ] skip_last</li>
-<li>[x] take_last</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md12"></a>
-Conditional</h2>
-<ul>
-<li>[x] take_while</li>
-<li>[ ] all</li>
-<li>[ ] amb</li>
-<li>[ ] contains</li>
-<li>[ ] default_if_empty</li>
-<li>[ ] sequence_equal</li>
-<li>[ ] skip_until</li>
-<li>[ ] skip_while</li>
-<li>[x] take_until</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md13"></a>
-Combining</h2>
-<ul>
-<li>[x] merge<ul>
-<li>[x] observable of observables</li>
-<li>[x] merge with</li>
-<li>[ ] merge delay error</li>
-</ul>
-</li>
-<li>[ ] switch<ul>
-<li>[x] switch_map</li>
-<li>[x] switch_on_next</li>
-<li>[ ] switch_if_empty</li>
-</ul>
-</li>
-<li>[x] with_latest_from</li>
-<li>[x] start_with</li>
-<li>[x] combine_latest</li>
-<li>[ ] zip</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md14"></a>
-Aggregate</h2>
-<ul>
-<li>[x] average</li>
-<li>[x] concat</li>
-<li>[x] count</li>
-<li>[x] max</li>
-<li>[x] min</li>
-<li>[x] reduce</li>
-<li>[x] sum</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md15"></a>
-Backpressure</h2>
-<ul>
-<li>[ ] backpressure ???</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md16"></a>
-Error handling</h2>
-<ul>
-<li>[x] catch</li>
-<li>[ ] retry</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md17"></a>
-Utility</h2>
-<ul>
-<li>[x] observe_on</li>
-<li>[x] repeat<ul>
-<li>[ ] scheduling (by default trampoline ?)</li>
-</ul>
-</li>
-<li>[x] subscribe_on</li>
-<li>[x] delay</li>
-<li>[x] do/tap<ul>
-<li>[x] tap with observer</li>
-<li>[x] tap with callbacks</li>
-<li>[x] do_on_next</li>
-<li>[x] do_on_error</li>
-<li>[x] do_on_completed</li>
-</ul>
-</li>
-<li>[x] timeout<ul>
-<li>[x] timeout</li>
-<li>[x] timeout with fallback observable</li>
-</ul>
-</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md18"></a>
-Connectable</h2>
-<ul>
-<li>[x] publish</li>
-<li>[x] multicast</li>
-<li>[x] connect</li>
-<li>[x] ref_count</li>
-<li>[ ] replay</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md19"></a>
-Subjects</h1>
-<ul>
-<li>[x] publish_subject</li>
-<li>[x] behavior_subject</li>
-<li>[ ] serialized_subject</li>
-<li>[ ] replay_subject</li>
-<li>[ ] async_subject </li>
-</ul>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md20"></a>
+Overview</h1>
+<p>In ReactivePlusPlus there is new concept unique for this implementation: rpp::memory_model:</p>
+<p>Some of the operators and sources like <code>rpp::source::just</code> or <code>rpp::operators::start_with</code> accepts user's variables for usage. Some of this types can be such an expensive to copy or move and it would be preferable to copy it once to heap, but some other types (like POD) are cheap enough and usage of heap would be overkill. But these variables should be saved inside somehow!</p>
+<p>So, RPP provides ability to select strategy "how to deal with such a variables" via <code>rpp::memory_model</code> enum.</p>
+<h1><a class="anchor" id="autotoc_md21"></a>
+Examples</h1>
+<p>For example, <code>rpp::source::just</code></p>
+<div class="fragment"><div class="line">rpp::source::just(my_custom_variable);</div>
+</div><!-- fragment --><p> by default <code>just</code> uses <code>rpp::memory_model::use_stack</code> and <code>my_custom_variable</code> would be copied and moved everywhere when needed. On the other hand</p>
+<div class="fragment"><div class="line">rpp::source::just&lt;rpp::memory_model::use_shared&gt;(my_custom_variable);</div>
+</div><!-- fragment --><p> makes only 1 copy/move to shared_ptr and then uses it instead.</p>
+<p>As a a result, users can select preferable way of handling of their types. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

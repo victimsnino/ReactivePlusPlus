@@ -1,0 +1,194 @@
+\hypertarget{md_docs_2_implementation_01_status_autotoc_md7}{}\doxysection{Fundamentals}\label{md_docs_2_implementation_01_status_autotoc_md7}
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Observables
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Specific Observable
+\item \mbox{[}x\mbox{]} Dynamic Observable
+\item \mbox{[}x\mbox{]} Blocking Observable
+\item \mbox{[}x\mbox{]} Connectable Observable
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} Observers
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Specific Observer
+\item \mbox{[}x\mbox{]} Dynamic Observer
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} Subscribers
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Specific Subscriber
+\item \mbox{[}x\mbox{]} Dynamic Subscriber
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} Subscriptions
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Composite Subscription
+\item \mbox{[}x\mbox{]} Callback Subscription
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} Schedulers
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Immediate
+\item \mbox{[}x\mbox{]} New Thread
+\item \mbox{[}x\mbox{]} Current\+Thread/\+Trampoline
+\item \mbox{[}x\mbox{]} Run\+Loop
+\item \mbox{[} \mbox{]} Event\+Loop
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_docs_2_implementation_01_status_autotoc_md8}{}\doxysection{Creating Observables}\label{md_docs_2_implementation_01_status_autotoc_md8}
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Create
+\item \mbox{[}x\mbox{]} Just
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} + memory\+\_\+model
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} empty/never/error
+\item \mbox{[} \mbox{]} from
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} iterable
+\item \mbox{[} \mbox{]} future
+\item \mbox{[} \mbox{]} promise
+\item \mbox{[}x\mbox{]} callable
+\item \mbox{[} \mbox{]} async
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} defer
+\item \mbox{[}x\mbox{]} interval
+\item \mbox{[} \mbox{]} range
+\item \mbox{[} \mbox{]} repeat
+\item \mbox{[} \mbox{]} timer
+\end{DoxyItemize}\hypertarget{md_docs_2_implementation_01_status_autotoc_md9}{}\doxysection{Operators}\label{md_docs_2_implementation_01_status_autotoc_md9}
+\hypertarget{md_docs_2_implementation_01_status_autotoc_md10}{}\doxysubsection{Transforming}\label{md_docs_2_implementation_01_status_autotoc_md10}
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} map
+\item \mbox{[}x\mbox{]} group\+\_\+by
+\item \mbox{[}x\mbox{]} flat\+\_\+map
+\item \mbox{[}x\mbox{]} scan
+\item \mbox{[} \mbox{]} buffer
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} count
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} skip
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} time
+\item \mbox{[} \mbox{]} time\+\_\+or\+\_\+count
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} window
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} count
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} skip
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} time
+\item \mbox{[} \mbox{]} time\+\_\+or\+\_\+count
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_docs_2_implementation_01_status_autotoc_md11}{}\doxysubsection{Filtering}\label{md_docs_2_implementation_01_status_autotoc_md11}
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} filter
+\item \mbox{[}x\mbox{]} take
+\item \mbox{[}x\mbox{]} debounce
+\item \mbox{[} \mbox{]} distinct
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} distinct
+\item \mbox{[}x\mbox{]} distinct\+\_\+until\+\_\+changed
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} element\+\_\+at
+\item \mbox{[}x\mbox{]} first
+\item \mbox{[} \mbox{]} ignore\+\_\+elements
+\item \mbox{[}x\mbox{]} last
+\item \mbox{[} \mbox{]} sample
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} sample (observable)
+\item \mbox{[}x\mbox{]} sample\+\_\+with\+\_\+time
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} skip
+\item \mbox{[} \mbox{]} skip\+\_\+last
+\item \mbox{[}x\mbox{]} take\+\_\+last
+\end{DoxyItemize}\hypertarget{md_docs_2_implementation_01_status_autotoc_md12}{}\doxysubsection{Conditional}\label{md_docs_2_implementation_01_status_autotoc_md12}
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} take\+\_\+while
+\item \mbox{[} \mbox{]} all
+\item \mbox{[} \mbox{]} amb
+\item \mbox{[} \mbox{]} contains
+\item \mbox{[} \mbox{]} default\+\_\+if\+\_\+empty
+\item \mbox{[} \mbox{]} sequence\+\_\+equal
+\item \mbox{[} \mbox{]} skip\+\_\+until
+\item \mbox{[} \mbox{]} skip\+\_\+while
+\item \mbox{[}x\mbox{]} take\+\_\+until
+\end{DoxyItemize}\hypertarget{md_docs_2_implementation_01_status_autotoc_md13}{}\doxysubsection{Combining}\label{md_docs_2_implementation_01_status_autotoc_md13}
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} merge
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} observable of observables
+\item \mbox{[}x\mbox{]} merge with
+\item \mbox{[} \mbox{]} merge delay error
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} switch
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} switch\+\_\+map
+\item \mbox{[}x\mbox{]} switch\+\_\+on\+\_\+next
+\item \mbox{[} \mbox{]} switch\+\_\+if\+\_\+empty
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} with\+\_\+latest\+\_\+from
+\item \mbox{[}x\mbox{]} start\+\_\+with
+\item \mbox{[}x\mbox{]} combine\+\_\+latest
+\item \mbox{[} \mbox{]} zip
+\end{DoxyItemize}\hypertarget{md_docs_2_implementation_01_status_autotoc_md14}{}\doxysubsection{Aggregate}\label{md_docs_2_implementation_01_status_autotoc_md14}
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} average
+\item \mbox{[}x\mbox{]} concat
+\item \mbox{[}x\mbox{]} count
+\item \mbox{[}x\mbox{]} max
+\item \mbox{[}x\mbox{]} min
+\item \mbox{[}x\mbox{]} reduce
+\item \mbox{[}x\mbox{]} sum
+\end{DoxyItemize}\hypertarget{md_docs_2_implementation_01_status_autotoc_md15}{}\doxysubsection{Backpressure}\label{md_docs_2_implementation_01_status_autotoc_md15}
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} backpressure ???
+\end{DoxyItemize}\hypertarget{md_docs_2_implementation_01_status_autotoc_md16}{}\doxysubsection{Error handling}\label{md_docs_2_implementation_01_status_autotoc_md16}
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} catch
+\item \mbox{[} \mbox{]} retry
+\end{DoxyItemize}\hypertarget{md_docs_2_implementation_01_status_autotoc_md17}{}\doxysubsection{Utility}\label{md_docs_2_implementation_01_status_autotoc_md17}
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} observe\+\_\+on
+\item \mbox{[}x\mbox{]} repeat
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} scheduling (by default trampoline ?)
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} subscribe\+\_\+on
+\item \mbox{[}x\mbox{]} delay
+\item \mbox{[}x\mbox{]} do/tap
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} tap with observer
+\item \mbox{[}x\mbox{]} tap with callbacks
+\item \mbox{[}x\mbox{]} do\+\_\+on\+\_\+next
+\item \mbox{[}x\mbox{]} do\+\_\+on\+\_\+error
+\item \mbox{[}x\mbox{]} do\+\_\+on\+\_\+completed
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} timeout
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} timeout
+\item \mbox{[}x\mbox{]} timeout with fallback observable
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_docs_2_implementation_01_status_autotoc_md18}{}\doxysubsection{Connectable}\label{md_docs_2_implementation_01_status_autotoc_md18}
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} publish
+\item \mbox{[}x\mbox{]} multicast
+\item \mbox{[}x\mbox{]} connect
+\item \mbox{[}x\mbox{]} ref\+\_\+count
+\item \mbox{[} \mbox{]} replay
+\end{DoxyItemize}\hypertarget{md_docs_2_implementation_01_status_autotoc_md19}{}\doxysection{Subjects}\label{md_docs_2_implementation_01_status_autotoc_md19}
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} publish\+\_\+subject
+\item \mbox{[}x\mbox{]} behavior\+\_\+subject
+\item \mbox{[} \mbox{]} serialized\+\_\+subject
+\item \mbox{[} \mbox{]} replay\+\_\+subject
+\item \mbox{[} \mbox{]} async\+\_\+subject 
+\end{DoxyItemize}

@@ -1,0 +1,67 @@
+\hypertarget{md_docs_2_quick_01_start_autotoc_md22}{}\doxysection{Brief workflow}\label{md_docs_2_quick_01_start_autotoc_md22}
+For the brief overview of the Reactive pattern read \href{https://reactivex.io/}{\texttt{ https\+://reactivex.\+io/}}.
+
+In short, creation of programs with help of Reactive\+Plus\+Plus split into several parts\+:\hypertarget{md_docs_2_quick_01_start_autotoc_md23}{}\doxysubsection{1) Define observables}\label{md_docs_2_quick_01_start_autotoc_md23}
+Observables are sources of your future streams. First of all you need to create some observable which emits values. You can select from some \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/group__creational__operators.html}{\texttt{ predefined}} or built your own.
+
+For example, 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{rpp::source::from\_callable(\&::getchar)}
+
+\end{DoxyCode}
+ observable which emits one char from {\ttfamily cin} via invoking of provided function once after subscription
+
+Action inside observable happens ONLY after subscription on this observable and ONLY for provided subscriber/observer. It means, that you can subscribe on the same observable multiple times! But actually each of this subscriber would see its \char`\"{}own\char`\"{} observable -\/ function invoked especially for this one.\hypertarget{md_docs_2_quick_01_start_autotoc_md24}{}\doxysubsection{2) Chain observable}\label{md_docs_2_quick_01_start_autotoc_md24}
+When you have some source of data you need to extend it somehow to make it useful! For example, let\textquotesingle{}s make it infinite instead of emitting one value\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{rpp::source::from\_callable(\&::getchar)}
+\DoxyCodeLine{\ \ \ .repeat()}
+
+\end{DoxyCode}
+
+
+Also we can filters out digits, transform rest chars to upper. We need to add
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{...}
+\DoxyCodeLine{.filter(std::not\_fn(\&::isdigit))}
+\DoxyCodeLine{.map(\&::toupper)}
+
+\end{DoxyCode}
+ How long do we want to obtain values? let\textquotesingle{}s say, till \textquotesingle{}0\textquotesingle{} char. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{...}
+\DoxyCodeLine{.take\_while([](\textcolor{keywordtype}{char}\ v)\ \{\ \textcolor{keywordflow}{return}\ v\ !=\ \textcolor{charliteral}{'0'};\ \})}
+\DoxyCodeLine{.filter(std::not\_fn(\&::isdigit))}
+\DoxyCodeLine{.map(\&::toupper)}
+
+\end{DoxyCode}
+\hypertarget{md_docs_2_quick_01_start_autotoc_md25}{}\doxysubsection{3) Subscription}\label{md_docs_2_quick_01_start_autotoc_md25}
+What we want to do with resulting values? Let\textquotesingle{}s dump it to console. Resulting code looks like\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{rpp::source::from\_callable(\&::getchar)}
+\DoxyCodeLine{\ \ \ \ .repeat()}
+\DoxyCodeLine{\ \ \ \ .take\_while([](\textcolor{keywordtype}{char}\ v)\ \{\ \textcolor{keywordflow}{return}\ v\ !=\ \textcolor{charliteral}{'0'};\ \})}
+\DoxyCodeLine{\ \ \ \ .filter(std::not\_fn(\&::isdigit))}
+\DoxyCodeLine{\ \ \ \ .map(\&::toupper)}
+\DoxyCodeLine{\ \ \ \ .subscribe([](\textcolor{keywordtype}{char}\ v)\ \{\ std::cout\ <<\ v;\ \});}
+
+\end{DoxyCode}
+ Subscribe function applies any from\+:
+\begin{DoxyItemize}
+\item \mbox{[}none\mbox{]}
+\item subscription
+\item {\ttfamily on\+\_\+next}
+\item subscription, {\ttfamily on\+\_\+next}
+\item {\ttfamily on\+\_\+next}, {\ttfamily on\+\_\+error}
+\item subscription, {\ttfamily on\+\_\+next}, {\ttfamily on\+\_\+error}
+\item {\ttfamily on\+\_\+next}, {\ttfamily on\+\_\+completed}
+\item subscription, {\ttfamily on\+\_\+next}, {\ttfamily on\+\_\+completed}
+\item on\+\_\+next{\ttfamily ,}on\+\_\+erroron\+\_\+completed{\ttfamily }
+\item {\ttfamily subscription,}on\+\_\+next{\ttfamily ,}on\+\_\+erroron\+\_\+completed\`{}
+\item observer
+\item subscription, observer 
+\end{DoxyItemize}

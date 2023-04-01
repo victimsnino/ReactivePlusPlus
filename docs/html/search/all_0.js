@@ -1,7 +1,7 @@
 var searchData=
 [
   ['add_0',['add',['../classrpp_1_1composite__subscription.html#aee6a1f22ecbfa2f1dce0b63f20084b99',1,'rpp::composite_subscription::add(const TSub &amp;sub=TSub{}) const'],['../classrpp_1_1composite__subscription.html#ad22b5ea02b68b8714ae7c2710ca671aa',1,'rpp::composite_subscription::add(const callback_subscription &amp;sub) const']]],
-  ['advanced_20guide_1',['Advanced Guide',['../advanced.html',1,'md_docs_2_docs']]],
+  ['advanced_20guide_1',['Advanced Guide',['../md_docs_2_advanced.html',1,'']]],
   ['aggregate_20operators_2',['Aggregate Operators',['../group__aggregate__operators.html',1,'']]],
   ['articles_3',['Articles',['../md_docs_2_articles.html',1,'']]],
   ['as_5fblocking_4',['as_blocking',['../structrpp_1_1interface__observable.html#a1aed1c6edd83e7091c2bdc3b15b2beee',1,'rpp::interface_observable']]],

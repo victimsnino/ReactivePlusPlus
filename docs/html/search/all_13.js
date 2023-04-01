@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['why_20reactiveplusplus_3f_0',['Why ReactivePlusPlus?',['../why_rpp.html',1,'md_docs_2_docs']]],
+  ['why_20reactiveplusplus_3f_0',['Why ReactivePlusPlus?',['../md_docs_2_why_rpp.html',1,'']]],
   ['window_1',['window',['../group__transforming__operators.html#gaae1e46e322134df2b377da37a2b2f8d4',1,'observable']]],
   ['window_5flift_5fimpl_2',['window_lift_impl',['../structrpp_1_1details_1_1window__lift__impl.html',1,'rpp::details']]],
   ['window_5fon_5fcompleted_3',['window_on_completed',['../structrpp_1_1details_1_1window__on__completed.html',1,'rpp::details']]],

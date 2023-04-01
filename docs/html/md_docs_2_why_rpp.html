@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: Memory Model</title>
+<title>ReactivePlusPlus: Why ReactivePlusPlus?</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('memory_model.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('md_docs_2_why_rpp.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,23 +96,30 @@ $(document).ready(function(){initNavTree('memory_model.html',''); initResizable(
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Memory Model </div></div>
+  <div class="headertitle"><div class="title">Why ReactivePlusPlus? </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_docs_2_memory_model"></a></p>
-<h1><a class="anchor" id="autotoc_md20"></a>
-Overview</h1>
-<p>In ReactivePlusPlus there is new concept unique for this implementation: rpp::memory_model:</p>
-<p>Some of the operators and sources like <code>rpp::source::just</code> or <code>rpp::operators::start_with</code> accepts user's variables for usage. Some of this types can be such an expensive to copy or move and it would be preferable to copy it once to heap, but some other types (like POD) are cheap enough and usage of heap would be overkill. But these variables should be saved inside somehow!</p>
-<p>So, RPP provides ability to select strategy "how to deal with such a variables" via <code>rpp::memory_model</code> enum.</p>
-<h1><a class="anchor" id="autotoc_md21"></a>
-Examples</h1>
-<p>For example, <code>rpp::source::just</code></p>
-<div class="fragment"><div class="line">rpp::source::just(my_custom_variable);</div>
-</div><!-- fragment --><p> by default <code>just</code> uses <code>rpp::memory_model::use_stack</code> and <code>my_custom_variable</code> would be copied and moved everywhere when needed. On the other hand</p>
-<div class="fragment"><div class="line">rpp::source::just&lt;rpp::memory_model::use_shared&gt;(my_custom_variable);</div>
-</div><!-- fragment --><p> makes only 1 copy/move to shared_ptr and then uses it instead.</p>
-<p>As a a result, users can select preferable way of handling of their types. </p>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md29"></a>
+What about existing Reactive Extension libraries for C++?</h1>
+<p>Reactive programming is excelent programming paradigm and approach for creation of multi-threading and real-time programs which reacts on some events. Unfortunately, there is only one stable and fully-implemented library at the moment of creation of ReactivePlusPlus - <a href="https://github.com/ReactiveX/RxCpp">RxCpp</a>.</p>
+<p><a href="https://github.com/ReactiveX/RxCpp">RxCpp</a> is great and awesome library and perfect implementation of ReactiveX approach. However RxCpp has some disadvantages:</p><ul>
+<li>It is a bit **"old" library written in C++11** with some parts written in the <b>pre-C++11 style</b> (mess of old-style classes and wrappers)</li>
+<li><b>Issue</b> with <b>template parameters</b>: <code>rxcpp::observable</code> contains <b>full chain of operators</b> as second template parameter... where each operator has a bunch of another template parameters itself. It forces <b>IDEs</b> works <b>slower</b> while parsing resulting type of observable. Also it forces to generate <b>heavier binaries and debug symbols and slower build time</b>.</li>
+<li>It has high perfomance cost due to tremendous amount of usage of heap.</li>
+<li>Some parts of code written with non-effective logic (e.g. <code>timeout</code> operator - rpp version faster in about 17000-25000%...)</li>
+</ul>
+<p>Another implementation of RX for c++: <a href="https://github.com/CODIANZ/another-rxcpp">another-rxcpp</a>. It partly solves issues of RxCpp via <b>eliminating of template parameter</b> with help of <b>type-erasing</b> and making each callback as <code>std::function</code>. As a result issue with templates resvoled, but this approach has disadvantages related to runtime: resulting size of observers/observables becomes greater due to heavy <code>std::function</code> object, usage of heap for storing everything causes perfomance issues, implementation is just pretty simple and provides a lot of copies of passed objects.</p>
+<h1><a class="anchor" id="autotoc_md30"></a>
+Why ReactivePlusPlus?</h1>
+<p><b>ReactivePlusPlus</b> tries to solve all mentioned issues:</p><ul>
+<li><b>ReactivePlusPlus</b> written in <b>Modern C++ (C++20)</b> with concepts which makes code-base a lot more understandable and clean:<ul>
+<li>Concepts provide more clear errors and checks: you will understand that pass something incorrect before compilation in IDE or during compilation with understandable errors instead of _"invalid template class map_invalid_t"_</li>
+<li>Everywhere while possible used deduction of template arguments, for example, type of values of observable by type of subscriber used in on_subscribe and etc</li>
+</ul>
+</li>
+<li><b>ReactivePlusPlus</b> keeps balance between performance and type-erasing mechanism: Read about it in <a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/specific_vs_dynamic.html">**"Performance vs Flexibility: Specific vs Dynamic"**</a></li>
+<li><b>ReactivePlusPlus</b> is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks prove that RPP faster than RxCPP in most cases: <a href="https://victimsnino.github.io/ReactivePlusPlus/benchmark">Continous benchmarking results</a> (check timeout operator comparison ;-)) </li>
+</ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

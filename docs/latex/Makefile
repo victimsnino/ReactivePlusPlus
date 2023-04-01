@@ -13,7 +13,7 @@ $(MANUAL_FILE).pdf: clean $(MANUAL_FILE).tex
 	$(MKIDX_CMD) $(MANUAL_FILE).idx
 	$(LATEX_CMD) $(MANUAL_FILE)
 	latex_count=$(LATEX_COUNT) ; \
-	while egrep -s 'Rerun (LaTeX|to get cross-references right|to get bibliographical references right)' $(MANUAL_FILE).log && [ $$latex_count -gt 0 ] ;\
+	while grep -E -s 'Rerun (LaTeX|to get cross-references right|to get bibliographical references right)' $(MANUAL_FILE).log && [ $$latex_count -gt 0 ] ;\
 	    do \
 	      echo "Rerunning latex...." ;\
 	      $(LATEX_CMD) $(MANUAL_FILE) ;\

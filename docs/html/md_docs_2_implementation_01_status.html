@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: Why ReactivePlusPlus?</title>
+<title>ReactivePlusPlus: Implementation status</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('why_rpp.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('md_docs_2_implementation_01_status.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,30 +96,214 @@ $(document).ready(function(){initNavTree('why_rpp.html',''); initResizable(); })
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Why ReactivePlusPlus? </div></div>
+  <div class="headertitle"><div class="title">Implementation status </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_docs_2_why_rpp"></a> </p>
-<h1><a class="anchor" id="autotoc_md29"></a>
-What about existing Reactive Extension libraries for C++?</h1>
-<p>Reactive programming is excelent programming paradigm and approach for creation of multi-threading and real-time programs which reacts on some events. Unfortunately, there is only one stable and fully-implemented library at the moment of creation of ReactivePlusPlus - <a href="https://github.com/ReactiveX/RxCpp">RxCpp</a>.</p>
-<p><a href="https://github.com/ReactiveX/RxCpp">RxCpp</a> is great and awesome library and perfect implementation of ReactiveX approach. However RxCpp has some disadvantages:</p><ul>
-<li>It is a bit **"old" library written in C++11** with some parts written in the <b>pre-C++11 style</b> (mess of old-style classes and wrappers)</li>
-<li><b>Issue</b> with <b>template parameters</b>: <code>rxcpp::observable</code> contains <b>full chain of operators</b> as second template parameter... where each operator has a bunch of another template parameters itself. It forces <b>IDEs</b> works <b>slower</b> while parsing resulting type of observable. Also it forces to generate <b>heavier binaries and debug symbols and slower build time</b>.</li>
-<li>It has high perfomance cost due to tremendous amount of usage of heap.</li>
-<li>Some parts of code written with non-effective logic (e.g. <code>timeout</code> operator - rpp version faster in about 17000-25000%...)</li>
-</ul>
-<p>Another implementation of RX for c++: <a href="https://github.com/CODIANZ/another-rxcpp">another-rxcpp</a>. It partly solves issues of RxCpp via <b>eliminating of template parameter</b> with help of <b>type-erasing</b> and making each callback as <code>std::function</code>. As a result issue with templates resvoled, but this approach has disadvantages related to runtime: resulting size of observers/observables becomes greater due to heavy <code>std::function</code> object, usage of heap for storing everything causes perfomance issues, implementation is just pretty simple and provides a lot of copies of passed objects.</p>
-<h1><a class="anchor" id="autotoc_md30"></a>
-Why ReactivePlusPlus?</h1>
-<p><b>ReactivePlusPlus</b> tries to solve all mentioned issues:</p><ul>
-<li><b>ReactivePlusPlus</b> written in <b>Modern C++ (C++20)</b> with concepts which makes code-base a lot more understandable and clean:<ul>
-<li>Concepts provide more clear errors and checks: you will understand that pass something incorrect before compilation in IDE or during compilation with understandable errors instead of _"invalid template class map_invalid_t"_</li>
-<li>Everywhere while possible used deduction of template arguments, for example, type of values of observable by type of subscriber used in on_subscribe and etc</li>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md7"></a>
+Fundamentals</h1>
+<ul>
+<li>[x] Observables<ul>
+<li>[x] Specific Observable</li>
+<li>[x] Dynamic Observable</li>
+<li>[x] Blocking Observable</li>
+<li>[x] Connectable Observable</li>
 </ul>
 </li>
-<li><b>ReactivePlusPlus</b> keeps balance between performance and type-erasing mechanism: Read about it in <a href="https://victimsnino.github.io/ReactivePlusPlus/docs/html/specific_vs_dynamic.html">**"Performance vs Flexibility: Specific vs Dynamic"**</a></li>
-<li><b>ReactivePlusPlus</b> is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks prove that RPP faster than RxCPP in most cases: <a href="https://victimsnino.github.io/ReactivePlusPlus/benchmark">Continous benchmarking results</a> (check timeout operator comparison ;-)) </li>
+<li>[x] Observers<ul>
+<li>[x] Specific Observer</li>
+<li>[x] Dynamic Observer</li>
+</ul>
+</li>
+<li>[x] Subscribers<ul>
+<li>[x] Specific Subscriber</li>
+<li>[x] Dynamic Subscriber</li>
+</ul>
+</li>
+<li>[x] Subscriptions<ul>
+<li>[x] Composite Subscription</li>
+<li>[x] Callback Subscription</li>
+</ul>
+</li>
+<li>[ ] Schedulers<ul>
+<li>[x] Immediate</li>
+<li>[x] New Thread</li>
+<li>[x] CurrentThread/Trampoline</li>
+<li>[x] RunLoop</li>
+<li>[ ] EventLoop</li>
+</ul>
+</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md8"></a>
+Creating Observables</h1>
+<ul>
+<li>[x] Create</li>
+<li>[x] Just<ul>
+<li>[x] + memory_model</li>
+</ul>
+</li>
+<li>[x] empty/never/error</li>
+<li>[ ] from<ul>
+<li>[x] iterable</li>
+<li>[ ] future</li>
+<li>[ ] promise</li>
+<li>[x] callable</li>
+<li>[ ] async</li>
+</ul>
+</li>
+<li>[ ] defer</li>
+<li>[x] interval</li>
+<li>[ ] range</li>
+<li>[ ] repeat</li>
+<li>[ ] timer</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md9"></a>
+Operators</h1>
+<h2><a class="anchor" id="autotoc_md10"></a>
+Transforming</h2>
+<ul>
+<li>[x] map</li>
+<li>[x] group_by</li>
+<li>[x] flat_map</li>
+<li>[x] scan</li>
+<li>[ ] buffer<ul>
+<li>[x] count<ul>
+<li>[ ] skip</li>
+</ul>
+</li>
+<li>[ ] time</li>
+<li>[ ] time_or_count</li>
+</ul>
+</li>
+<li>[ ] window<ul>
+<li>[x] count<ul>
+<li>[ ] skip</li>
+</ul>
+</li>
+<li>[ ] time</li>
+<li>[ ] time_or_count</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md11"></a>
+Filtering</h2>
+<ul>
+<li>[x] filter</li>
+<li>[x] take</li>
+<li>[x] debounce</li>
+<li>[ ] distinct<ul>
+<li>[ ] distinct</li>
+<li>[x] distinct_until_changed</li>
+</ul>
+</li>
+<li>[ ] element_at</li>
+<li>[x] first</li>
+<li>[ ] ignore_elements</li>
+<li>[x] last</li>
+<li>[ ] sample<ul>
+<li>[ ] sample (observable)</li>
+<li>[x] sample_with_time</li>
+</ul>
+</li>
+<li>[x] skip</li>
+<li>[ ] skip_last</li>
+<li>[x] take_last</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md12"></a>
+Conditional</h2>
+<ul>
+<li>[x] take_while</li>
+<li>[ ] all</li>
+<li>[ ] amb</li>
+<li>[ ] contains</li>
+<li>[ ] default_if_empty</li>
+<li>[ ] sequence_equal</li>
+<li>[ ] skip_until</li>
+<li>[ ] skip_while</li>
+<li>[x] take_until</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md13"></a>
+Combining</h2>
+<ul>
+<li>[x] merge<ul>
+<li>[x] observable of observables</li>
+<li>[x] merge with</li>
+<li>[ ] merge delay error</li>
+</ul>
+</li>
+<li>[ ] switch<ul>
+<li>[x] switch_map</li>
+<li>[x] switch_on_next</li>
+<li>[ ] switch_if_empty</li>
+</ul>
+</li>
+<li>[x] with_latest_from</li>
+<li>[x] start_with</li>
+<li>[x] combine_latest</li>
+<li>[ ] zip</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md14"></a>
+Aggregate</h2>
+<ul>
+<li>[x] average</li>
+<li>[x] concat</li>
+<li>[x] count</li>
+<li>[x] max</li>
+<li>[x] min</li>
+<li>[x] reduce</li>
+<li>[x] sum</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md15"></a>
+Backpressure</h2>
+<ul>
+<li>[ ] backpressure ???</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md16"></a>
+Error handling</h2>
+<ul>
+<li>[x] catch</li>
+<li>[ ] retry</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md17"></a>
+Utility</h2>
+<ul>
+<li>[x] observe_on</li>
+<li>[x] repeat<ul>
+<li>[ ] scheduling (by default trampoline ?)</li>
+</ul>
+</li>
+<li>[x] subscribe_on</li>
+<li>[x] delay</li>
+<li>[x] do/tap<ul>
+<li>[x] tap with observer</li>
+<li>[x] tap with callbacks</li>
+<li>[x] do_on_next</li>
+<li>[x] do_on_error</li>
+<li>[x] do_on_completed</li>
+</ul>
+</li>
+<li>[x] timeout<ul>
+<li>[x] timeout</li>
+<li>[x] timeout with fallback observable</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md18"></a>
+Connectable</h2>
+<ul>
+<li>[x] publish</li>
+<li>[x] multicast</li>
+<li>[x] connect</li>
+<li>[x] ref_count</li>
+<li>[ ] replay</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md19"></a>
+Subjects</h1>
+<ul>
+<li>[x] publish_subject</li>
+<li>[x] behavior_subject</li>
+<li>[ ] serialized_subject</li>
+<li>[ ] replay_subject</li>
+<li>[ ] async_subject </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

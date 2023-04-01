@@ -17,7 +17,7 @@ var searchData=
   ['do_5fon_5fcompleted_14',['do_on_completed',['../group__utility__operators.html#ga2d6dfc49bf54893033b45b530f0fcb38',1,'observable']]],
   ['do_5fon_5ferror_15',['do_on_error',['../group__utility__operators.html#ga9089d55867fc04d1f353dc636e519634',1,'observable']]],
   ['do_5fon_5fnext_16',['do_on_next',['../group__utility__operators.html#ga1e80d15de566a980aa0ddcb2c529977f',1,'observable']]],
-  ['docs_17',['Docs',['../md_docs_2_docs.html',1,'']]],
+  ['docs_17',['Docs',['../docs.html',1,'']]],
   ['dynamic_5fobservable_18',['dynamic_observable',['../classrpp_1_1dynamic__observable.html',1,'rpp']]],
   ['dynamic_5fobservable_5fstate_19',['dynamic_observable_state',['../classrpp_1_1details_1_1dynamic__observable__state.html',1,'rpp::details']]],
   ['dynamic_5fobserver_20',['dynamic_observer',['../classrpp_1_1dynamic__observer.html',1,'rpp']]],

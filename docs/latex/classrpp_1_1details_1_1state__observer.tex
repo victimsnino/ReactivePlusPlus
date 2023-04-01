@@ -18,7 +18,7 @@ Inheritance diagram for rpp\+::details\+::state\+\_\+observer\texorpdfstring{$<$
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1state__observer_addb396d4a60d80d16543ba8aa9e1ae1a}\label{classrpp_1_1details_1_1state__observer_addb396d4a60d80d16543ba8aa9e1ae1a}} 
+\Hypertarget{classrpp_1_1details_1_1state__observer_addb396d4a60d80d16543ba8aa9e1ae1a}\label{classrpp_1_1details_1_1state__observer_addb396d4a60d80d16543ba8aa9e1ae1a} 
 {\footnotesize template$<$typename ... TStates$>$ \newline
 requires (constraint\+::decayed\+\_\+same\+\_\+as$<$States, TStates$>$ \&\& ...)}\\{\bfseries state\+\_\+observer} (std\+::invocable$<$ T, States... $>$ auto \&\&\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a3d2a9f268664b6281c43faa6200fbc04}{on\+\_\+next}}, std\+::invocable$<$ std\+::exception\+\_\+ptr, States... $>$ auto \&\&\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_aaf24637b9949476f84569cb4236bf485}{on\+\_\+error}}, std\+::invocable$<$ States... $>$ auto \&\&\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a446a677206acc784454ceadae9f61e4d}{on\+\_\+completed}}, TStates \&\&...states)
 \item 
@@ -39,7 +39,7 @@ class rpp\+::details\+::state\+\_\+observer$<$ T, On\+Next, On\+Error, On\+Compl
 Special type of \doxylink{classrpp_1_1specific__observer}{specific\+\_\+observer} which has some state which this observer stores and pass to each callback. Actually it is base class for all observers. 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classrpp_1_1details_1_1state__observer_a446a677206acc784454ceadae9f61e4d}\label{classrpp_1_1details_1_1state__observer_a446a677206acc784454ceadae9f61e4d}} 
+\Hypertarget{classrpp_1_1details_1_1state__observer_a446a677206acc784454ceadae9f61e4d}\label{classrpp_1_1details_1_1state__observer_a446a677206acc784454ceadae9f61e4d} 
 \index{rpp::details::state\_observer$<$ T, OnNext, OnError, OnCompleted, States $>$@{rpp::details::state\_observer$<$ T, OnNext, OnError, OnCompleted, States $>$}!on\_completed@{on\_completed}}
 \index{on\_completed@{on\_completed}!rpp::details::state\_observer$<$ T, OnNext, OnError, OnCompleted, States $>$@{rpp::details::state\_observer$<$ T, OnNext, OnError, OnCompleted, States $>$}}
 \doxysubsubsection{\texorpdfstring{on\_completed()}{on\_completed()}}
@@ -53,7 +53,7 @@ Observable calls this method to notify observer about finish of work.
 \begin{DoxyWarning}{Warning}
 Obtaining this call means no any further on\+\_\+next calls 
 \end{DoxyWarning}
-\mbox{\Hypertarget{classrpp_1_1details_1_1state__observer_aaf24637b9949476f84569cb4236bf485}\label{classrpp_1_1details_1_1state__observer_aaf24637b9949476f84569cb4236bf485}} 
+\Hypertarget{classrpp_1_1details_1_1state__observer_aaf24637b9949476f84569cb4236bf485}\label{classrpp_1_1details_1_1state__observer_aaf24637b9949476f84569cb4236bf485} 
 \index{rpp::details::state\_observer$<$ T, OnNext, OnError, OnCompleted, States $>$@{rpp::details::state\_observer$<$ T, OnNext, OnError, OnCompleted, States $>$}!on\_error@{on\_error}}
 \index{on\_error@{on\_error}!rpp::details::state\_observer$<$ T, OnNext, OnError, OnCompleted, States $>$@{rpp::details::state\_observer$<$ T, OnNext, OnError, OnCompleted, States $>$}}
 \doxysubsubsection{\texorpdfstring{on\_error()}{on\_error()}}
@@ -72,7 +72,7 @@ Obtaining this call means no any further on\+\_\+next or on\+\_\+completed calls
 {\em err} & details of error \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classrpp_1_1details_1_1state__observer_a3d2a9f268664b6281c43faa6200fbc04}\label{classrpp_1_1details_1_1state__observer_a3d2a9f268664b6281c43faa6200fbc04}} 
+\Hypertarget{classrpp_1_1details_1_1state__observer_a3d2a9f268664b6281c43faa6200fbc04}\label{classrpp_1_1details_1_1state__observer_a3d2a9f268664b6281c43faa6200fbc04} 
 \index{rpp::details::state\_observer$<$ T, OnNext, OnError, OnCompleted, States $>$@{rpp::details::state\_observer$<$ T, OnNext, OnError, OnCompleted, States $>$}!on\_next@{on\_next}}
 \index{on\_next@{on\_next}!rpp::details::state\_observer$<$ T, OnNext, OnError, OnCompleted, States $>$@{rpp::details::state\_observer$<$ T, OnNext, OnError, OnCompleted, States $>$}}
 \doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
@@ -86,7 +86,7 @@ Observable calls this methods to notify observer about new value.
 \begin{DoxyNote}{Note}
 obtains value by const-\/reference to original object. 
 \end{DoxyNote}
-\mbox{\Hypertarget{classrpp_1_1details_1_1state__observer_a7ec0d4bfa60015761082ecf333bda99b}\label{classrpp_1_1details_1_1state__observer_a7ec0d4bfa60015761082ecf333bda99b}} 
+\Hypertarget{classrpp_1_1details_1_1state__observer_a7ec0d4bfa60015761082ecf333bda99b}\label{classrpp_1_1details_1_1state__observer_a7ec0d4bfa60015761082ecf333bda99b} 
 \index{rpp::details::state\_observer$<$ T, OnNext, OnError, OnCompleted, States $>$@{rpp::details::state\_observer$<$ T, OnNext, OnError, OnCompleted, States $>$}!on\_next@{on\_next}}
 \index{on\_next@{on\_next}!rpp::details::state\_observer$<$ T, OnNext, OnError, OnCompleted, States $>$@{rpp::details::state\_observer$<$ T, OnNext, OnError, OnCompleted, States $>$}}
 \doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}

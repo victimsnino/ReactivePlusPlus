@@ -9,21 +9,21 @@ Inheritance diagram for rpp\+::details\+::dynamic\+\_\+state\+\_\+observer\texor
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1dynamic__state__observer_a856aa4774dcb5cc8133522e6090c7b7f}\label{classrpp_1_1details_1_1dynamic__state__observer_a856aa4774dcb5cc8133522e6090c7b7f}} 
+\Hypertarget{classrpp_1_1details_1_1dynamic__state__observer_a856aa4774dcb5cc8133522e6090c7b7f}\label{classrpp_1_1details_1_1dynamic__state__observer_a856aa4774dcb5cc8133522e6090c7b7f} 
 {\footnotesize template$<$typename ... TStates$>$ \newline
 requires (constraint\+::decayed\+\_\+same\+\_\+as$<$States, TStates$>$ \&\& ...)}\\{\bfseries dynamic\+\_\+state\+\_\+observer} (std\+::invocable$<$ T, States... $>$ auto \&\&\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a3d2a9f268664b6281c43faa6200fbc04}{on\+\_\+next}}, std\+::invocable$<$ std\+::exception\+\_\+ptr, States... $>$ auto \&\&\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_aaf24637b9949476f84569cb4236bf485}{on\+\_\+error}}, std\+::invocable$<$ States... $>$ auto \&\&\mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a446a677206acc784454ceadae9f61e4d}{on\+\_\+completed}}, TStates \&\&... states)
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1dynamic__state__observer_a2c306b6ecdbddcc1f20bd3f7e76c7e0a}\label{classrpp_1_1details_1_1dynamic__state__observer_a2c306b6ecdbddcc1f20bd3f7e76c7e0a}} 
+\Hypertarget{classrpp_1_1details_1_1dynamic__state__observer_a2c306b6ecdbddcc1f20bd3f7e76c7e0a}\label{classrpp_1_1details_1_1dynamic__state__observer_a2c306b6ecdbddcc1f20bd3f7e76c7e0a} 
 {\bfseries dynamic\+\_\+state\+\_\+observer} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structrpp_1_1details_1_1dynamic__observer__state__base}{details\+::dynamic\+\_\+observer\+\_\+state\+\_\+base}}$<$ T $>$ $>$ state)
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1dynamic__state__observer_a41c06850655d7c864aedbc8a9a2437b5}\label{classrpp_1_1details_1_1dynamic__state__observer_a41c06850655d7c864aedbc8a9a2437b5}} 
+\Hypertarget{classrpp_1_1details_1_1dynamic__state__observer_a41c06850655d7c864aedbc8a9a2437b5}\label{classrpp_1_1details_1_1dynamic__state__observer_a41c06850655d7c864aedbc8a9a2437b5} 
 {\footnotesize template$<$constraint\+::observer\+\_\+of\+\_\+type$<$ T $>$ TObserver$>$ \newline
 requires (!std\+::is\+\_\+same\+\_\+v$<$std\+::decay\+\_\+t$<$TObserver$>$, \mbox{\hyperlink{classrpp_1_1details_1_1dynamic__state__observer}{dynamic\+\_\+state\+\_\+observer}}$<$T, States...$>$$>$)}\\{\bfseries dynamic\+\_\+state\+\_\+observer} (TObserver \&\&obs)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1state__observer}{rpp\+::details\+::state\+\_\+observer$<$ T, utils\+::forwarding\+\_\+on\+\_\+next\+\_\+for\+\_\+pointer, utils\+::forwarding\+\_\+on\+\_\+error\+\_\+for\+\_\+pointer, utils\+::forwarding\+\_\+on\+\_\+completed\+\_\+for\+\_\+pointer, std\+::shared\+\_\+ptr$<$ dynamic\+\_\+observer\+\_\+state\+\_\+base$<$ T $>$ $>$ $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1state__observer_addb396d4a60d80d16543ba8aa9e1ae1a}\label{classrpp_1_1details_1_1state__observer_addb396d4a60d80d16543ba8aa9e1ae1a}} 
+\Hypertarget{classrpp_1_1details_1_1state__observer_addb396d4a60d80d16543ba8aa9e1ae1a}\label{classrpp_1_1details_1_1state__observer_addb396d4a60d80d16543ba8aa9e1ae1a} 
 {\bfseries state\+\_\+observer} (std\+::invocable$<$ T, States... $>$ auto \&\&on\+\_\+next, std\+::invocable$<$ std\+::exception\+\_\+ptr, States... $>$ auto \&\&on\+\_\+error, std\+::invocable$<$ States... $>$ auto \&\&on\+\_\+completed, TStates \&\&...states)
 \item 
 void \mbox{\hyperlink{classrpp_1_1details_1_1state__observer_a3d2a9f268664b6281c43faa6200fbc04}{on\+\_\+next}} (const T \&v) const

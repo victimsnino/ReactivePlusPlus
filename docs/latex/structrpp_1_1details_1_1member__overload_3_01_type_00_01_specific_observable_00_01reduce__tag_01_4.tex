@@ -6,42 +6,42 @@
 {\footnotesize template$<$typename Seed , reduce\+\_\+accumulator$<$ Seed, Type $>$ Accumulator\+Fn, std\+::invocable$<$ Seed \&\& $>$ Result\+Selector\+Fn = std\+::identity$>$ \newline
 requires is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Seed, Accumulator\+Fn, Result\+Selector\+Fn$>$}\\auto \mbox{\hyperlink{group__aggregate__operators_gadbd7324870bd396f776cba8a75880ce0}{reduce}} (Seed \&\&initial\+\_\+seed, Accumulator\+Fn \&\&accumulator, Result\+Selector\+Fn \&\&result\+\_\+selector=\{\}) const \&
 \begin{DoxyCompactList}\small\item\em Applies accumulator function to each emission from observable and result of accumulator from previous step and emits final value. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_aa66b8c6dd4f897c2d0d9f6871caa7b5c}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_aa66b8c6dd4f897c2d0d9f6871caa7b5c}} 
+\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_aa66b8c6dd4f897c2d0d9f6871caa7b5c}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_aa66b8c6dd4f897c2d0d9f6871caa7b5c} 
 {\footnotesize template$<$typename Seed , reduce\+\_\+accumulator$<$ Seed, Type $>$ Accumulator\+Fn, std\+::invocable$<$ Seed \&\& $>$ Result\+Selector\+Fn = std\+::identity$>$ \newline
 requires is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Seed, Accumulator\+Fn, Result\+Selector\+Fn$>$}\\auto {\bfseries reduce} (Seed \&\&initial\+\_\+seed, Accumulator\+Fn \&\&accumulator, Result\+Selector\+Fn \&\&result\+\_\+selector=\{\}) \&\&
 \item 
 {\footnotesize template$<$typename Cast\+Before\+Divide  = Type, typename ... Args$>$ \newline
 requires (is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Cast\+Before\+Divide, Args...$>$ \&\& is\+\_\+can\+\_\+be\+\_\+averaged$<$Type, Cast\+Before\+Divide$>$)}\\auto \mbox{\hyperlink{group__aggregate__operators_gac6c86c5f3ebafdf93a7abb156909330b}{average}} () const \&
 \begin{DoxyCompactList}\small\item\em Calculates the average of emissions and emits final value. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_a997bd6a436be3c7899444991a81c0e78}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_a997bd6a436be3c7899444991a81c0e78}} 
+\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_a997bd6a436be3c7899444991a81c0e78}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_a997bd6a436be3c7899444991a81c0e78} 
 {\footnotesize template$<$typename Cast\+Before\+Divide  = Type, typename ... Args$>$ \newline
 requires (is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Cast\+Before\+Divide, Args...$>$ \&\& is\+\_\+can\+\_\+be\+\_\+averaged$<$Type, Cast\+Before\+Divide$>$)}\\auto {\bfseries average} () \&\&
 \item 
 {\footnotesize template$<$typename ... Args$>$ \newline
 requires (is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Args...$>$ \&\& is\+\_\+can\+\_\+be\+\_\+summed$<$Type$>$)}\\auto \mbox{\hyperlink{group__aggregate__operators_ga3f6b3475cee0f75abcf379e1428d4069}{sum}} () const \&
 \begin{DoxyCompactList}\small\item\em Calculates the sum of emissions and emits final value. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_a745a98634f0c3f5eed2886677d8a6d30}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_a745a98634f0c3f5eed2886677d8a6d30}} 
+\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_a745a98634f0c3f5eed2886677d8a6d30}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_a745a98634f0c3f5eed2886677d8a6d30} 
 {\footnotesize template$<$typename ... Args$>$ \newline
 requires (is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Args...$>$ \&\& is\+\_\+can\+\_\+be\+\_\+summed$<$Type$>$)}\\auto {\bfseries sum} () \&\&
 \item 
 {\footnotesize template$<$typename ... Args$>$ \newline
 requires is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Args...$>$}\\auto \mbox{\hyperlink{group__aggregate__operators_gadd81455e5ca0880aed07bf2312e19928}{count}} () const \&
 \begin{DoxyCompactList}\small\item\em Calculates the amount of emitted emissions and emits this count. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_a5342d3d39b6da8a7b8bc4abc23be7219}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_a5342d3d39b6da8a7b8bc4abc23be7219}} 
+\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_a5342d3d39b6da8a7b8bc4abc23be7219}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_a5342d3d39b6da8a7b8bc4abc23be7219} 
 {\footnotesize template$<$typename ... Args$>$ \newline
 requires is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Args...$>$}\\auto {\bfseries count} () \&\&
 \item 
 {\footnotesize template$<$std\+::strict\+\_\+weak\+\_\+order$<$ Type, Type $>$ Comparator = std\+::less$<$\+Type$>$, typename ... Args$>$ \newline
 requires is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Comparator, Args...$>$}\\auto \mbox{\hyperlink{group__aggregate__operators_gad9dd23a7777f085a803b4185c798536a}{min}} (Comparator \&\&comparator=\{\}) const \&
 \begin{DoxyCompactList}\small\item\em Emits the emission which has minimal value from the whole observable. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_a04d94432c2f3c1b9aec221c6a3f1518a}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_a04d94432c2f3c1b9aec221c6a3f1518a}} 
+\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_a04d94432c2f3c1b9aec221c6a3f1518a}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_a04d94432c2f3c1b9aec221c6a3f1518a} 
 {\footnotesize template$<$std\+::strict\+\_\+weak\+\_\+order$<$ Type, Type $>$ Comparator = std\+::less$<$\+Type$>$, typename ... Args$>$ \newline
 requires is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Comparator, Args...$>$}\\auto {\bfseries min} (Comparator \&\&comparator=\{\}) \&\&
 \item 
 {\footnotesize template$<$std\+::strict\+\_\+weak\+\_\+order$<$ Type, Type $>$ Comparator = std\+::less$<$\+Type$>$, typename ... Args$>$ \newline
 requires is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Comparator, Args...$>$}\\auto \mbox{\hyperlink{group__aggregate__operators_ga97dbe4031ca14517822a303b5a00f3e8}{max}} (Comparator \&\&comparator=\{\}) const \&
 \begin{DoxyCompactList}\small\item\em Emits the emission which has maximal value from the whole observable. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_aab5207caa226b12de29dfa94ce9873dd}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_aab5207caa226b12de29dfa94ce9873dd}} 
+\Hypertarget{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_aab5207caa226b12de29dfa94ce9873dd}\label{structrpp_1_1details_1_1member__overload_3_01_type_00_01_specific_observable_00_01reduce__tag_01_4_aab5207caa226b12de29dfa94ce9873dd} 
 {\footnotesize template$<$std\+::strict\+\_\+weak\+\_\+order$<$ Type, Type $>$ Comparator = std\+::less$<$\+Type$>$, typename ... Args$>$ \newline
 requires is\+\_\+header\+\_\+included$<$reduce\+\_\+tag, Comparator, Args...$>$}\\auto {\bfseries max} (Comparator \&\&comparator=\{\}) \&\&
 \end{DoxyCompactItemize}
