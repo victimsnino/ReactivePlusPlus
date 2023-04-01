@@ -50,7 +50,7 @@ jobs:
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}" 
-          echo ::set-output name=body::$body
+          echo body=$body >> $GITHUB_OUTPUT
         id: results
 
       - name: Find Comment
@@ -66,6 +66,7 @@ jobs:
         if: github.event.workflow_run.event == 'push'
         uses: peter-evans/commit-comment@v2
         with:
+          sha: ${{ github.event.workflow_run.head_sha }}
           body: ${{ steps.results.outputs.body }}
 
       - name: Update comment
