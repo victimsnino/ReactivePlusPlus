@@ -20,4 +20,4 @@ endif()
 
 set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 
-add_test(NAME ${TARGET} COMMAND  $<TARGET_FILE:${TARGET}> -r xml -o ${RPP_TEST_BENCHMARKS_RESULTS_DIR}/${TARGET}_result.txt)
+add_test(NAME ${TARGET} COMMAND  $<TARGET_FILE:${TARGET}> > ${RPP_TEST_RESULTS_DIR}/benchmarks_results.json)

@@ -1,4 +1,4 @@
-name: CI
+name: CI v2
 
 on:
   push:
@@ -37,7 +37,7 @@ jobs:
                 {name: ci-ubuntu-clang,os: ubuntu-latest},
                 {name: ci-windows,     os: windows-latest},
                 {name: ci-macos,       os: macos-latest}]
-        type: [tests]
+        type: [tests, benchmarks]
 
     timeout-minutes: 20
     runs-on: ${{ matrix.config.os }}
@@ -60,6 +60,13 @@ jobs:
         configurePreset: ${{ matrix.config.name }}-${{ matrix.type }}
         buildPreset: ci-build
         testPreset: ci-tests
+
+    - name: Upload benchmark results
+      uses: actions/upload-artifact@v3
+      if: matrix.type == 'benchmarks'
+      with:
+        name: ${{ matrix.config.name }}
+        path: ${{github.workspace}}/build/test_results/benchmarks_results.json
 
   sonarcloud:
     name: Sonarcloud + coverage
