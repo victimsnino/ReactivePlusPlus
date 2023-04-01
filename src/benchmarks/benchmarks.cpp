@@ -1,6 +1,7 @@
 #include "rpp/observers/fwd.hpp"
 #include <nanobench.h>
 
+#include <fstream>
 #include <iostream>
 #include <map>
 #include <string_view>
@@ -33,7 +34,8 @@ char const* json() noexcept {
 }
 
 
-int main() {
+int main(int argc, char* argv[]) 
+{
     auto bench = ankerl::nanobench::Bench{}.output(nullptr);
 
     BENCHMARK("Observables")
@@ -58,5 +60,11 @@ int main() {
         }
     };
 
+    if (argc > 1) {
+        std::ofstream of{argv[1]};
+        bench.render(json(), of);
+        of.close();
+    }
+    
     bench.render(json(), std::cout);
 }
