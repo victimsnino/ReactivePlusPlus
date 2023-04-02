@@ -20,7 +20,7 @@ def print_metric(v):
     return f"{v:.2f} ns" if v else "-"
 
 for platform, results in new_data.items():
-    print(f"<details><summary> ## {platform} </summary>")
+    print(f"<details>\n<summary>\n\n## {platform}\n</summary>")
     for r in results:
         r["commit"] = git_commit
         r["commit_message"] = commit_message
@@ -30,7 +30,7 @@ for platform, results in new_data.items():
     res.setdefault(platform, []).extend(results);
 
     for title, title_data in groupby(res[platform], lambda x:x["title"]):
-        print(f"<details><summary>\n\n### {title} \n</summary>\n\n")
+        print(f"<details>\n<summary>\n\n### {title} \n</summary>\n\n")
         print("name | rxcpp | rpp | prev rpp | ratio")
         print("--- | --- | --- | --- | --- ")
         for name, name_data in groupby(title_data, lambda x: x["name"]):
