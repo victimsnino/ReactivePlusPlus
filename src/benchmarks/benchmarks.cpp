@@ -38,9 +38,9 @@ int main(int argc, char* argv[])
 {
     auto bench = ankerl::nanobench::Bench{}.output(nullptr);
 
-    BENCHMARK("Observables")
+    BENCHMARK("General")
     {
-        SECTION("subscribe on empty observer")
+        SECTION("Subscribe empty callbacks to empty observable")
         {
             TEST_RPP([&]() 
             { 
