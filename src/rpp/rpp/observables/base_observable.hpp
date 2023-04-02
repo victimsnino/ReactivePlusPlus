@@ -103,10 +103,11 @@ public:
                                    OnError&&                        on_error,
                                    OnCompleted&&                    on_completed) const
     {
-        subscribe(make_lambda_observer<Type>(d,
-                                             std::forward<OnNext>(on_next),
-                                             std::forward<OnError>(on_error),
-                                             std::forward<OnCompleted>(on_completed)));
+        if (!d.is_disposed())
+            subscribe(make_lambda_observer<Type>(d,
+                                                std::forward<OnNext>(on_next),
+                                                std::forward<OnError>(on_error),
+                                                std::forward<OnCompleted>(on_completed)));
         return d;
     }
 
