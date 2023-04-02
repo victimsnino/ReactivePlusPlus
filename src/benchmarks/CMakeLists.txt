@@ -16,6 +16,9 @@ target_link_libraries(${TARGET} PRIVATE rpp nanobench)
 if (RPP_BUILD_RXCPP)
     target_link_libraries(${TARGET} PRIVATE rxcpp)
     target_compile_definitions(${TARGET} PRIVATE RPP_BUILD_RXCPP)
+
+    get_target_property(DEP_DIR rxcpp INTERFACE_INCLUDE_DIRECTORIES)
+    target_include_directories(${TARGET} SYSTEM PRIVATE ${DEP_DIR})
 endif()
 
 set_target_properties(${TARGET} PROPERTIES FOLDER Tests)

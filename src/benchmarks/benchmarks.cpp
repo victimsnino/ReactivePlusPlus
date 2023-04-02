@@ -1,4 +1,5 @@
 #include "rpp/observers/fwd.hpp"
+#include "rpp/sources/fwd.hpp"
 #include <nanobench.h>
 
 #include <fstream>
@@ -11,8 +12,8 @@
     #include <rxcpp/rx.hpp>
 #endif
 
-#define BENCHMARK(NAME)     bench.title(NAME);
-#define SECTION(NAME)       bench.name(NAME);
+#define BENCHMARK(NAME)     bench.context("benchmark_title", NAME);
+#define SECTION(NAME)       bench.context("benchmark_name", NAME);
 #define TEST_RPP(ACTION)    bench.context("source", "rpp").run(ACTION);
 #ifdef RPP_BUILD_RXCPP
     #define TEST_RXCPP(ACTION)  bench.context("source", "rxcpp").run(ACTION);
@@ -23,8 +24,8 @@
 char const* json() noexcept {
     return R"DELIM([
 {{#result}}        {
-            "title": "{{title}}",
-            "name": "{{name}}",
+            "title": "{{context(benchmark_title)}}",
+            "name": "{{context(benchmark_name)}}",
             "source" : "{{context(source)}}",
             "median(elapsed)": {{median(elapsed)}},
             "medianAbsolutePercentError(elapsed)": {{medianAbsolutePercentError(elapsed)}}
@@ -34,9 +35,9 @@ char const* json() noexcept {
 }
 
 
-int main(int argc, char* argv[]) 
+int main(int argc, char* argv[]) // NOLINT
 {
-    auto bench = ankerl::nanobench::Bench{}.output(nullptr);
+    auto bench = ankerl::nanobench::Bench{}.output(nullptr).warmup(3);
 
     BENCHMARK("General")
     {
@@ -56,6 +57,23 @@ int main(int argc, char* argv[])
                 { 
                     ankerl::nanobench::doNotOptimizeAway(observer); 
                 }).subscribe([](int){}, [](const std::exception_ptr&){}, [](){});
+            });
+        }
+    };
+
+    BENCHMARK("Sources")
+    {
+        SECTION("from array of 1 - create + subscribe + immediate")
+        {
+            std::array<int, 1> vals{123};
+            TEST_RPP([&]() 
+            { 
+                rpp::source::from_iterable(vals).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }, [](const std::exception_ptr&){}, [](){});
+            });
+
+            TEST_RXCPP([&]() 
+            {
+                rxcpp::observable<>::iterate(vals).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }, [](const std::exception_ptr&){}, [](){});
             });
         }
     };
