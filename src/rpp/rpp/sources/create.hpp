@@ -37,9 +37,7 @@ namespace rpp::source
        operator "create:  on_next(1), on_next(3), on_completed()": +--1--3--|
    }
  *
- * @warning Be sure, that your callback doesn't violates observable rules:
- * 1) observable must to emit emissions in serial way
- * 2) observable must not to call any callbacks after termination events - on_error/on_completed
+ * @warning Be sure, that your callback doesn't violates observable rule - observable must to emit emissions in serial way
  *
  * @tparam Type is type of values observable would emit
  * @tparam OnSubscribe is callback function to implement core logic of observable
