@@ -29,9 +29,61 @@ using create_observable = base_observable<Type, details::create_strategy<Type, O
 
 namespace rpp::source
 {
+/**
+ * @brief Construct observable specialized with passed callback function. Most easiesest way to construct observable "on the fly" via lambda and etc.
+ *
+ * @marble create
+   {
+       operator "create:  on_next(1), on_next(3), on_completed()": +--1--3--|
+   }
+ *
+ * @warning Be sure, that your callback doesn't violates observable rules:
+ * 1) observable must to emit emissions in serial way
+ * 2) observable must not to call any callbacks after termination events - on_error/on_completed
+ *
+ * @tparam Type is type of values observable would emit
+ * @tparam OnSubscribe is callback function to implement core logic of observable
+ *  
+ * @par Examples:
+ * @snippet create.cpp create
+ * @snippet create.cpp create with capture
+ * @snippet create.cpp create type deduction
+ *
+ * @ingroup creational_operators
+ * @see https://reactivex.io/documentation/operators/create.html
+ */
 template<constraint::decayed_type Type, constraint::on_subscribe<Type> OnSubscribe>
 auto create(OnSubscribe&& on_subscribe)
 {
     return create_observable<Type, std::decay_t<OnSubscribe>>{std::forward<OnSubscribe>(on_subscribe)};
+}
+
+/**
+ * @brief Construct observable specialized with passed callback function. Most easiesest way to construct observable "on the fly" via lambda and etc.
+ *
+ * @marble create
+   {
+       operator "create:  on_next(1), on_next(3), on_completed()": +--1--3--|
+   }
+ *
+ * @warning Be sure, that your callback doesn't violates observable rules:
+ * 1) observable must to emit emissions in serial way
+ * 2) observable must not to call any callbacks after termination events - on_error/on_completed
+ *
+ * @tparam Type is type of values observable would emit
+ * @tparam OnSubscribe is callback function to implement core logic of observable
+ *
+ * @par Examples:
+ * @snippet create.cpp create
+ * @snippet create.cpp create with capture
+ * @snippet create.cpp create type deduction
+ *
+ * @ingroup creational_operators
+ * @see https://reactivex.io/documentation/operators/create.html
+ */
+template<typename OnSubscribe, constraint::decayed_type Type>
+auto create(OnSubscribe&& on_subscribe)
+{
+    return create<Type>(std::forward<OnSubscribe>(on_subscribe));
 }
 }

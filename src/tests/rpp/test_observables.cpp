@@ -12,7 +12,7 @@
 #include <rpp/observables.hpp>
 #include <rpp/sources/create.hpp>
 
-TEST_CASE("lambda observable works properly as base_observable")
+TEST_CASE("create observable works properly as base_observable")
 {
     size_t on_subscribe_called{};
     auto observable = rpp::source::create<int>([&](auto&& observer)
