@@ -15,6 +15,12 @@
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
 
+struct my_container_with_error : std::vector<int>
+{
+    using std::vector<int>::vector;
+    std::vector<int>::const_iterator begin() const { throw std::runtime_error{""}; }
+};
+
 TEST_CASE("from iterable emit items from container")
 {
     auto mock = mock_observer_strategy<int>();
@@ -80,22 +86,20 @@ TEST_CASE("from iterable emit items from container")
     //         }
     //     }
     // }
-    // SECTION("observable from iterable with exceiption on begin")
-    // {
-    //     auto run_loop = rpp::schedulers::run_loop{};
-    //     auto obs = rpp::source::from_iterable(my_container_with_error{}, run_loop);
-    //     SECTION("subscribe on it and dispatch once")
-    //     {
-    //         obs.subscribe(mock);
-    //         run_loop.dispatch();
-    //         SECTION("observer obtains error")
-    //         {
-    //             CHECK(mock.get_total_on_next_count() == 0);
-    //             CHECK(mock.get_on_error_count() == 1);
-    //             CHECK(mock.get_on_completed_count() == 0);
-    //         }
-    //     }
-    // }
+    SECTION("observable from iterable with exceiption on begin")
+    {
+        auto obs = rpp::source::from_iterable(my_container_with_error{});
+        SECTION("subscribe on it and dispatch once")
+        {
+            obs.subscribe(mock.get_observer());
+            SECTION("observer obtains error")
+            {
+                CHECK(mock.get_total_on_next_count() == 0);
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
+    }
 }
 
 TEST_CASE("from iterable doesn't provides extra copies")

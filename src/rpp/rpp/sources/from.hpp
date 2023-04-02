@@ -13,6 +13,7 @@
 #include <rpp/observables/base_observable.hpp>
 #include <rpp/utils/utils.hpp>
 
+#include <exception>
 #include <memory>
 
 namespace rpp::details
@@ -56,13 +57,20 @@ struct from_iterable_strategy
     template<constraint::observer_strategy<utils::iterable_value_t<PackedContainer>> Strategy>
     void subscribe(base_observer<utils::iterable_value_t<PackedContainer>, Strategy>&& observer) const
     {
-        for (const auto& v : container)
+        try
         {
-            if (!observer.is_disposed())
-                observer.on_next(v);
-        }
+            for (const auto& v : container)
+            {
+                if (!observer.is_disposed())
+                    observer.on_next(v);
+            }
 
-        observer.on_completed();
+            observer.on_completed();
+        }
+        catch (...)
+        {
+            observer.on_error(std::current_exception());
+        }
     }
 };
 
