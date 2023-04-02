@@ -35,8 +35,11 @@ public:
     explicit base_observable(Args&& ...args)
         : m_strategy{std::forward<Args>(args)...} {}
 
+    base_observable(const base_observable&)     = default;
+    base_observable(base_observable&&) noexcept = default;
+
     /**
-     * @brief Subscribe passed observer to emissions from this observable.
+     * @brief Subscribes passed observer to emissions from this observable.
      *
      * @warning Observer must be moved in to subscribe method. (Not recommended) If you need to copy observer, convert it to dynamic_observer
      */
