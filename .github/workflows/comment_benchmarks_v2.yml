@@ -46,7 +46,11 @@ jobs:
       - name: Process benchmarks
         run: |
           python3 ${{github.workspace}}/ci/process_benchmark_data.py ${{ github.event.workflow_run.head_sha }} "${{github.event.workflow_run.head_commit.message}}" > comment-body.txt
-          echo "body=$(cat comment-body.txt)" >> $GITHUB_OUTPUT
+          body="$(cat comment-body.txt)"
+          delimiter="$(openssl rand -hex 8)"
+          echo "body<<$delimiter" >> $GITHUB_OUTPUT
+          echo "$body" >> $GITHUB_OUTPUT
+          echo "$delimiter" >> $GITHUB_OUTPUT
         id: results
 
       - name: Find Comment
