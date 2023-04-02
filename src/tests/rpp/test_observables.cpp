@@ -10,11 +10,12 @@
 #include "rpp/disposables/composite_disposable.hpp"
 #include <snitch/snitch.hpp>
 #include <rpp/observables.hpp>
+#include <rpp/sources/create.hpp>
 
 TEST_CASE("lambda observable works properly as base_observable")
 {
     size_t on_subscribe_called{};
-    auto observable = rpp::make_lambda_observable<int>([&](auto&& observer)
+    auto observable = rpp::source::create<int>([&](auto&& observer)
     {
         ++on_subscribe_called;
         observer.on_next(1);

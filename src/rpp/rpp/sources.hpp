@@ -11,11 +11,13 @@
 #pragma once
 
 /**
-* \defgroup rpp RPP
-* \brief ReactivePlusPlus (RPP) is Reactive extension for C++20
-*/
+ * \defgroup creational_operators Creational Operators
+ * \brief Creational operators are operators that create new observable
+ * \see https://reactivex.io/documentation/operators.html#creating
+ * \ingroup operators
+ */
 
-#include <rpp/disposables/fwd.hpp>
-#include <rpp/observers/fwd.hpp>
-#include <rpp/observables/fwd.hpp>
-#include <rpp/sources/fwd.hpp>
+ #include <rpp/sources/fwd.hpp>
+ 
+ #include <rpp/sources/create.hpp>
+ #include <rpp/sources/from.hpp>

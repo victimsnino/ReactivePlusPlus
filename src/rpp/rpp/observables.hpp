@@ -19,4 +19,3 @@
 
 #include <rpp/observables/fwd.hpp>
 #include <rpp/observables/base_observable.hpp>
-#include <rpp/observables/lambda_observable.hpp>

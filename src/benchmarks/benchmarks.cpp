@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
         {
             TEST_RPP([&]() 
             { 
-                rpp::make_lambda_observable<int>([&](auto&& observer) 
+                rpp::source::create<int>([&](auto&& observer) 
                 { 
                     ankerl::nanobench::doNotOptimizeAway(observer); 
                 }).subscribe([](int){}, [](const std::exception_ptr&){}, [](){});

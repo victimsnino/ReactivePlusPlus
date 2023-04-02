@@ -9,13 +9,13 @@
 
 #pragma once
 
-#include <rpp/observables/fwd.hpp>
+#include <rpp/sources/fwd.hpp>
 #include <rpp/observables/base_observable.hpp>
 
-namespace rpp::details::observable
+namespace rpp::details
 {
 template<constraint::decayed_type Type, constraint::on_subscribe<Type> OnSubscribe>
-struct lambda_strategy
+struct create_strategy
 {
     OnSubscribe subscribe;
 };
@@ -24,8 +24,14 @@ struct lambda_strategy
 namespace rpp
 {
 template<constraint::decayed_type Type, constraint::on_subscribe<Type> OnSubscribe>
-auto make_lambda_observable(OnSubscribe&& on_subscribe) -> lambda_observable<Type, std::decay_t<OnSubscribe>>
+using create_observable = base_observable<Type, details::create_strategy<Type, OnSubscribe>>;
+}
+
+namespace rpp::source
 {
-    return lambda_observable<Type, std::decay_t<OnSubscribe>>{std::forward<OnSubscribe>(on_subscribe)};
+template<constraint::decayed_type Type, constraint::on_subscribe<Type> OnSubscribe>
+auto create(OnSubscribe&& on_subscribe)
+{
+    return create_observable<Type, std::decay_t<OnSubscribe>>{std::forward<OnSubscribe>(on_subscribe)};
 }
 }
