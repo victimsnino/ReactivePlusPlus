@@ -15,6 +15,8 @@
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
 
+#include <stdexcept>
+
 struct my_container_with_error : std::vector<int>
 {
     using std::vector<int>::vector;
