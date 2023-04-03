@@ -24,7 +24,7 @@ class shared_container
 public:
     template<typename ...Ts>
         requires (!constraint::variadic_decayed_same_as<shared_container<Container>, Ts...>)
-    shared_container(Ts&&...items)
+    explicit shared_container(Ts&&...items)
         // raw "new" call to avoid extra copy/moves for items
         : m_container{new Container{std::forward<Ts>(items)...}} {}
 
@@ -59,7 +59,7 @@ struct from_iterable_strategy
     PackedContainer container;
 
     template<constraint::observer_strategy<utils::iterable_value_t<PackedContainer>> Strategy>
-    void subscribe(base_observer<utils::iterable_value_t<PackedContainer>, Strategy>&& observer) const
+    void subscribe(const base_observer<utils::iterable_value_t<PackedContainer>, Strategy>& observer) const
     {
         try
         {

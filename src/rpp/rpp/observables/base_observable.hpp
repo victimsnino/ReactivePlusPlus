@@ -70,7 +70,7 @@ public:
     template<constraint::observer_strategy<Type> ObserverStrategy>
     composite_disposable subscribe(const composite_disposable& d, base_observer<Type, ObserverStrategy>&& observer) const
     {
-        subscribe(base_observer{d, observer});
+        subscribe(base_observer{d, std::move(observer)});
         return d;
     }
 
