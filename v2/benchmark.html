@@ -28,6 +28,9 @@
 
                     for (const [title, resultsPerTitle] of Object.entries(groupBy(platform_results, "title"))) {
                         var titleDetails = document.createElement('details');
+                        titleDetails.addEventListener("toggle", function() {
+                            window.dispatchEvent(new Event('resize'));
+                        });
                         var titleSummary = document.createElement('summary');
                         var graphDiv = document.createElement('div');
                         titleSummary.innerHTML += "<h3 style='display:inline'>"+title+"</h3>"
@@ -41,8 +44,8 @@
 
                         var commits = groupBy(resultsPerTitle, "commit");
                         var commitKeys = Object.keys(commits);
-                        var commitNames = Object.values(commits).map(v=>v["commit"]+": " + v["commit_message"]);
- 
+                        var commitNames = Object.values(commits).map(v=>v[0]["commit"]+": " + v[0]["commit_message"]);
+
                         var resultsPerName = groupBy(resultsPerTitle, "name");
                         console.log(resultsPerName);
 
@@ -53,12 +56,16 @@
                                                      return {
                                                          name: "[" + source + "] " + name,
                                                          x: results.map(v => commitKeys.indexOf(v["commit"])),
-                                                         y: results.map(v => v["median(elapsed)"]),
-                                                         type: "scatter"
+                                                         y: results.map(v => v["median(elapsed)"].toFixed(2)+" ns"),
+                                                         type: "scatter",
+                                                         mode : "lines+markers",
+                                                         line: {
+                                                            dash: source == "rxcpp" ? "dot" : "line"
+                                                         }
                                                      }
                                                  });
                                          });
-                        
+
                                          console.log(data);
 
                         Plotly.newPlot(graphDiv,
@@ -67,9 +74,10 @@
                                           title: { text: title },
                                           showlegend: true,
                                           hovermode: "x unified",
-                                          yaxis: { 
-                                            title: 'ns', 
-                                            autorange: true 
+                                          yaxis: {
+                                            title: 'ns',
+                                            autorange: true,
+                                            rangemode: "tozero"
                                           },
                                           xaxis: {
                                             title : "commit",
@@ -82,7 +90,7 @@
                                       },
                                       { responsive: true });
 
-                        
+
                         titleDetails.appendChild(graphDiv);
                         titleDetails.appendChild(titleSummary);
                         platformDetails.appendChild(titleDetails);
