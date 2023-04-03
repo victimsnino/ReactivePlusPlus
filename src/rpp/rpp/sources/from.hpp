@@ -23,9 +23,13 @@ class shared_container
 {
 public:
     template<typename ...Ts>
+        requires (!constraint::variadic_decayed_same_as<shared_container<Container>, Ts...>)
     shared_container(Ts&&...items)
         // raw "new" call to avoid extra copy/moves for items
         : m_container{new Container{std::forward<Ts>(items)...}} {}
+
+    shared_container(const shared_container&) = default;
+    shared_container(shared_container&&) noexcept = default;
 
     auto begin() const { return std::begin(*m_container); }
     auto end() const { return std::end(*m_container); }
@@ -85,7 +89,7 @@ namespace rpp::source
 {
 /**
  * @brief Creates observable that emits a items from provided iterable
- * 
+ *
  * @marble from_iterable
    {
        operator "from_iterable({1,2,3,5})": +-1-2-3-5-|
@@ -104,7 +108,7 @@ namespace rpp::source
  * @see https://reactivex.io/documentation/operators/from.html
  */
 template<memory_model memory_model/* = memory_model::use_stack*,*/ /* schedulers::constraint::scheduler TScheduler = schedulers::trampoline*/>
-auto from_iterable(constraint::iterable auto&& iterable) 
+auto from_iterable(constraint::iterable auto&& iterable)
 {
     return details::make_from_iterable_observable(details::pack_to_container<memory_model, std::decay_t<decltype(iterable)>>(std::forward<decltype(iterable)>(iterable)));
 }
