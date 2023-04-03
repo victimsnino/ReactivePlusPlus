@@ -10,13 +10,18 @@
 
 #pragma once
 
-namespace rpp
-{
-enum class memory_model
+#include <concepts>
+
+namespace rpp::memory_model
 {
     // copy and move everywhere when needed
-    use_stack,
+    struct use_stack{};
     // make shared_ptr once and avoid any future copies/moves
-    use_shared,
-};
-} // namespace rpp
+    struct use_shared{};
+} // namespace rpp::memory_model
+
+namespace rpp::constraint
+{
+template<typename T>
+concept memory_model = std::same_as<rpp::memory_model::use_shared, T> || std::same_as<rpp::memory_model::use_stack, T>;
+}

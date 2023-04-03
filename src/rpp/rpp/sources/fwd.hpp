@@ -31,6 +31,6 @@ auto create(OnSubscribe&& on_subscribe);
 template<typename OnSubscribe, constraint::decayed_type Type = rpp::utils::extract_observer_type_t<rpp::utils::decayed_function_argument_t<OnSubscribe>>>
 auto create(OnSubscribe&& on_subscribe);
 
-template<memory_model memory_model= memory_model::use_stack/*, schedulers::constraint::scheduler TScheduler = schedulers::trampoline*/>
+template<constraint::memory_model memory_model= memory_model::use_stack/*, schedulers::constraint::scheduler TScheduler = schedulers::trampoline*/>
 auto from_iterable(constraint::iterable auto&& iterable) ;
 } // namespace rpp::source
