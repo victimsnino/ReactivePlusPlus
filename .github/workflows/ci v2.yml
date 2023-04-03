@@ -29,6 +29,41 @@ jobs:
         configurePreset: ci-sanitize-${{ matrix.sanitizer }}
         buildPreset: ci-build
         testPreset: ci-sanitize
+    
+  pvs:
+    name: PVS
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install tools
+      run: |
+        wget -q -O - https://files.pvs-studio.com/etc/pubkey.txt \
+          | sudo apt-key add -
+        sudo wget -O /etc/apt/sources.list.d/viva64.list \
+          https://files.pvs-studio.com/etc/viva64.list
+        sudo apt update
+        sudo apt install pvs-studio
+        pvs-studio-analyzer credentials ${{ secrets.PVS_STUDIO_CREDENTIALS }}
+
+    - name: Run CMake
+      uses: lukka/run-cmake@v10
+      with:
+        configurePreset: ci-ubuntu-clang
+        buildPreset: ci-build
+
+    - name: Analyze and prepare report
+      run: |
+          pvs-studio-analyzer analyze -f build/compile_commands.json -j
+          plog-converter -t sarif -o pvs-report.sarif PVS-Studio.log
+        
+    - name: Publish report
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: pvs-report.sarif
+        category: PVS-Studio
 
   tests:
     strategy:
