@@ -39,7 +39,9 @@
                         graphDiv.style.borderWidth = 5;
 
 
-                        var commits = Object.keys(groupBy(resultsPerTitle, "commit"));
+                        var commits = groupBy(resultsPerTitle, "commit");
+                        var commitKeys = Object.keys(commits);
+                        var commitNames = Object.values(commits).map(v=>v["commit"]+": " + v["commit_message"]);
  
                         var resultsPerName = groupBy(resultsPerTitle, "name");
                         console.log(resultsPerName);
@@ -50,7 +52,7 @@
                                                  .map(([source, results]) => {
                                                      return {
                                                          name: "[" + source + "] " + name,
-                                                         x: results.map(v => commits.indexOf(v["commit"])),
+                                                         x: results.map(v => commitKeys.indexOf(v["commit"])),
                                                          y: results.map(v => v["median(elapsed)"]),
                                                          type: "scatter"
                                                      }
@@ -71,8 +73,9 @@
                                           },
                                           xaxis: {
                                             title : "commit",
-                                            tickvals: [...Array(commits.length).keys()],
-                                            ticktext: commits,
+                                            tickvals: [...Array(commitNames.length).keys()],
+                                            ticktext: commitNames,
+                                            tickangle: -35,
                                             autorange: true,
                                           },
                                           autosize: true
