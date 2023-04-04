@@ -11,16 +11,15 @@
 #pragma once
 
 #include <rpp/operators/fwd.hpp>
-#include <rpp/observables/base_observable.hpp>
-#include <rpp/observers/base_observer.hpp>
+#include <rpp/operators/details/strategy.hpp>
 #include <cstddef>
 
 namespace rpp::operators::details
 {
 struct take_observer_strategy
 {
-    template<constraint::observer_strategy<utils::iterable_value_t<PackedContainer>> Strategy>
-    void subscribe(const base_observer<utils::iterable_value_t<PackedContainer>, Strategy>& observer) const
+    size_t count{};
+
 };
 }
 
@@ -39,7 +38,7 @@ namespace rpp::operators
 * @param count amount of items to be emitted. 0 - instant complete
 * @return new specific_observable with the Take operator as most recent operator.
 * @warning #include <rpp/operators/take.hpp>
-* 
+*
 * @par Example:
 * @snippet take.cpp take
 *
@@ -49,13 +48,13 @@ namespace rpp::operators
 class take
 {
 public:
-    take(size_t count) 
+    take(size_t count)
         : m_count{count} {}
 
     template<constraint::observable TObservable>
-    auto operator()(TObservable&& observable) const 
+    auto operator()(TObservable&& observable) const
     {
-
+        return details::operator_observable<TObservable, details::take_observer_strategy, size_t>{std::forward<TObservable>(observable), m_count};
     }
 
 private:
