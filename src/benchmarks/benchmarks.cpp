@@ -78,6 +78,23 @@ int main(int argc, char* argv[]) // NOLINT
         }
     };
 
+    
+    BENCHMARK("Filtering Operators")
+    {
+        SECTION("take(1)")
+        {
+            TEST_RPP([&]() 
+            { 
+                (rpp::source::create<int>([](const auto& obs){ obs.on_next(1); }) | rpp::operators::take(1)).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }, [](const std::exception_ptr&){}, [](){});
+            });
+
+            TEST_RXCPP([&]() 
+            {
+                (rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);}) | rxcpp::operators::take(1)).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }, [](const std::exception_ptr&){}, [](){});
+            });
+        }
+    };
+
     if (argc > 1) {
         std::ofstream of{argv[1]};
         bench.render(json(), of);
