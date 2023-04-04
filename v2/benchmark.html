@@ -56,7 +56,7 @@
                                                      return {
                                                          name: "[" + source + "] " + name,
                                                          x: results.map(v => commitKeys.indexOf(v["commit"])),
-                                                         y: results.map(v => v["median(elapsed)"].toFixed(2)+" ns"),
+                                                         y: results.map(v => v["median(elapsed)"].toFixed(2)),
                                                          type: "scatter",
                                                          mode : "lines+markers",
                                                          line: {
@@ -75,16 +75,19 @@
                                           showlegend: true,
                                           hovermode: "x unified",
                                           yaxis: {
-                                            title: 'ns',
+                                            title: 'ns/iter',
                                             autorange: true,
                                             rangemode: "tozero"
                                           },
                                           xaxis: {
-                                            title : "commit",
                                             tickvals: [...Array(commitNames.length).keys()],
+                                            tickmode: "array",
                                             ticktext: commitNames,
                                             tickangle: -35,
                                             autorange: true,
+                                            rangeslider : {
+                                                visible: true
+                                            }
                                           },
                                           autosize: true
                                       },
