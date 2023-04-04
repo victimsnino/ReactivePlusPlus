@@ -56,7 +56,7 @@ jobs:
 
     - name: Analyze and prepare report
       run: |
-          pvs-studio-analyzer analyze -f build/compile_commands.json -j -r . -e build/_deps/
+          pvs-studio-analyzer analyze -f build/compile_commands.json -j -e build/_deps/
           plog-converter -t sarif -o pvs-report.sarif PVS-Studio.log
         
     - name: Publish report
