@@ -111,6 +111,18 @@ public:
         return d;
     }
 
+    template<constraint::operators<const base_observable<Type, Strategy>&> Op>
+    auto operator|(Op&& op) const &
+    {
+        return op(*this);
+    }
+
+    template<constraint::operators<base_observable<Type, Strategy>&&> Op>
+    auto operator|(Op&& op) && 
+    {
+        return op(std::move(*this));
+    }
+
 private:
     RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
 };

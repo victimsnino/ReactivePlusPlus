@@ -10,21 +10,44 @@
 
 #pragma once
 
+#include "rpp/utils/constraints.hpp"
 #include <rpp/operators/fwd.hpp>
+#include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <cstddef>
 
 namespace rpp::operators::details
 {
-struct take_observer_strategy
+class RPP_EMPTY_BASES take_observer_strategy : public forwarding_on_error_strategy
+                                             , public forwarding_on_completed_strategy
+                                             , public forwarding_disposable_strategy
 {
-    size_t count{};
+public:
+    take_observer_strategy(size_t count) : count{count} {}
 
+    template<typename T>
+    void on_next(const rpp::constraint::observer auto& obs, T&& v) const
+    {
+        if (count > 0)
+        {
+            --count;
+            obs.on_next(std::forward<T>(v));
+        }
+
+        if (count == 0)
+            obs.on_completed();
+    }
+
+private:
+    mutable size_t count{};
 };
 }
 
 namespace rpp::operators
 {
+template<constraint::observable TObservable>
+using take_observable = details::operator_observable<std::decay_t<TObservable>, details::take_observer_strategy, size_t>;
+
 /**
 * @brief Emit only first `count` items provided by observable, then send `on_completed`
 *
@@ -54,7 +77,7 @@ public:
     template<constraint::observable TObservable>
     auto operator()(TObservable&& observable) const
     {
-        return details::operator_observable<TObservable, details::take_observer_strategy, size_t>{std::forward<TObservable>(observable), m_count};
+        return take_observable<TObservable>{std::forward<TObservable>(observable), m_count};
     }
 
 private:

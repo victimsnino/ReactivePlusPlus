@@ -29,14 +29,15 @@ concept operator_strategy = requires(const S& const_strategy,
                                      S& strategy,
                                      const Type& v,
                                      const composite_disposable disposable,
-                                     const dynamic_observer<Type>& const_observer)
+                                     const dynamic_observer<Type>& const_observer,
+                                     dynamic_observer<Type>& observer)
 {
     const_strategy.on_next(const_observer, v);
     const_strategy.on_next(const_observer, Type{});
     const_strategy.on_error(const_observer, std::exception_ptr{});
     const_strategy.on_completed(const_observer);
 
-    strategy.set_upstream(disposable);
+    strategy.set_upstream(observer, disposable);
     { strategy.is_disposed() } -> std::same_as<bool>;
 };
 }
@@ -53,17 +54,17 @@ public:
 
     template<typename...Args>
     operator_strategy_base(observer&& observer, Args&&...args)
-        : m_observer{std::in_place_index_t<0>{}, std::move(observer)}
+        : m_observer{std::in_place_index<0>, observer}
         , m_strategy{std::forward<Args>(args)...} {}
 
     operator_strategy_base(const operator_strategy_base&) = delete;
     operator_strategy_base(operator_strategy_base&& other) noexcept
-        : m_observer{std::in_place_index_t<1>{}, std::move(other).get_move_observer()} {}
+        : m_observer{std::in_place_index<1>, std::move(other).get_move_observer()} {}
 
     operator_strategy_base& operator=(const operator_strategy_base&) = delete;
     operator_strategy_base& operator=(operator_strategy_base&&) = delete;
 
-    void set_upstream(const composite_disposable& d)   { m_strategy.set_upstream(d); }
+    void set_upstream(const composite_disposable& d)   { m_strategy.set_upstream(get_observer(), d); }
     bool is_disposed() const noexcept                  { return m_strategy.is_disposed() || get_observer().is_disposed(); }
 
     void on_next(const T& v) const                     { m_strategy.on_next(get_observer(), v); }
@@ -87,14 +88,14 @@ private:
         return std::visit([](auto& v) -> const observer& {return v;}, m_observer);
     }
 private:
-    std::variant<std::reference_wrapper<observer>, observer> m_observer{};
+    std::variant<std::reference_wrapper<observer>, observer> m_observer;
     Strategy                                                 m_strategy;
 };
 
 struct forwarding_on_next_strategy
 {
-    template<typename T, rpp::constraint::observer_strategy<T> ObserverStrategy>
-    void on_next(const rpp::base_observer<T, ObserverStrategy>& obs, T&& v) const
+    template<typename T>
+    void on_next(const rpp::constraint::observer auto& obs, T&& v) const
     {
         obs.on_next(std::forward<T>(v));
     }
@@ -102,8 +103,7 @@ struct forwarding_on_next_strategy
 
 struct forwarding_on_error_strategy
 {
-    template<rpp::constraint::decayed_type T, rpp::constraint::observer_strategy<T> ObserverStrategy>
-    void on_error(const rpp::base_observer<T, ObserverStrategy>& obs, const std::exception_ptr& err) const
+    void on_error(const rpp::constraint::observer auto & obs, const std::exception_ptr& err) const
     {
         obs.on_error(err);
     }
@@ -111,23 +111,23 @@ struct forwarding_on_error_strategy
 
 struct forwarding_on_completed_strategy
 {
-    template<rpp::constraint::decayed_type T, rpp::constraint::observer_strategy<T> ObserverStrategy>
-    void on_completed(const rpp::base_observer<T, ObserverStrategy>& obs) const
+    void on_completed(const rpp::constraint::observer auto& obs) const
     {
         obs.on_completed();
     }
 };
 
-struct none_disposable_strategy
+struct forwarding_disposable_strategy
 {
-    static void set_upstream(const rpp::composite_disposable& ) {}
+    template<rpp::constraint::decayed_type T, rpp::constraint::observer_strategy<T> ObserverStrategy>
+    static void set_upstream(rpp::base_observer<T, ObserverStrategy>& observer, const rpp::composite_disposable& d) {observer.set_upstream(d); }
     static bool is_disposed() {return false; }
 };
 
 template<rpp::constraint::observable Observable,
          constraint::operator_strategy<rpp::utils::extract_observable_type_t<Observable>> Strategy,
          typename... Args>
-    requires (rpp::constraint::is_constructible_from<Strategy, Args...> && rpp::constraint::decayed_type<Observable>)
+    requires (rpp::constraint::is_constructible_from<Strategy, Args...> && rpp::constraint::decayed_type<Observable> && (rpp::constraint::decayed_type<Args> && ...))
 class operator_observable_strategy
 {
     using T = rpp::utils::extract_observable_type_t<Observable>;
@@ -147,7 +147,7 @@ public:
     {
         m_observable.subscribe(std::apply([&observer](const Args&... vals)
                                           {
-                                            return base_observer<T, Strategy>{std::move(observer), vals...};
+                                            return base_observer<T, operator_strategy_base<base_observer<T, ObserverStrategy>, Strategy>>{std::move(observer), vals...};
                                           },
                                           m_vals));
     }

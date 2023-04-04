@@ -53,4 +53,10 @@ namespace rpp::constraint
 {
 template<typename T>
 concept observable = rpp::utils::details::extract_observable_type<std::decay_t<T>>::value;
+
+template<typename Op, typename TObs>
+concept operators = requires(const Op& op, TObs obs) 
+{
+    {op(obs)} -> rpp::constraint::observable;
+};
 }
