@@ -12,6 +12,7 @@
 
 #include <rpp/defs.hpp>
 #include <rpp/observers/fwd.hpp>
+#include <rpp/observers/dynamic_observer.hpp>
 
 #include <rpp/disposables/composite_disposable.hpp>
 #include <type_traits>

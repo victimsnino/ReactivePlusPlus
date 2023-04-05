@@ -16,6 +16,7 @@
 
 #include <concepts>
 #include <exception>
+#include <type_traits>
 
 namespace rpp::constraint
 {
@@ -131,10 +132,10 @@ namespace rpp::utils
 namespace details
 {
     template<typename T>
-    struct extract_observer_type;
+    struct extract_observer_type : std::false_type{};
 
     template<typename TT, typename Strategy>
-    struct extract_observer_type<rpp::base_observer<TT, Strategy>>
+    struct extract_observer_type<rpp::base_observer<TT, Strategy>> : std::true_type
     {
         using type = TT;
     };
@@ -143,3 +144,9 @@ namespace details
 template<typename T>
 using extract_observer_type_t = typename details::extract_observer_type<T>::type;
 } // namespace rpp::utils
+
+namespace rpp::constraint 
+{
+template<typename T>
+concept observer = rpp::utils::details::extract_observer_type<std::decay_t<T>>::value;
+}

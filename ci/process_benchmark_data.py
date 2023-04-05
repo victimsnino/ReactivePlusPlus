@@ -1,7 +1,12 @@
 import json
 import sys
 import os
-from itertools import groupby
+
+def group_by(data, key_selector):
+    res = {}
+    for v in data:
+        res.setdefault(key_selector(v), []).append(v)
+    return res.items()
 
 git_commit     = str(sys.argv[1])[:8]
 commit_message = sys.argv[2].split("\n")[0] if len(sys.argv) > 2 else "Current PR"
@@ -31,18 +36,18 @@ for platform, results in new_data.items():
 
     res.setdefault(platform, []).extend(results);
 
-    for title, title_data in groupby(res[platform], lambda x:x["title"]):
+    for title, title_data in group_by(res[platform], lambda x:x["title"]):
         print(f"<details>\n<summary>\n\n### {title} \n</summary>\n\n")
         print("name | rxcpp | rpp | prev rpp | ratio")
         print("--- | --- | --- | --- | --- ")
-        for name, name_data in groupby(title_data, lambda x: x["name"]):
-            last_2_commits = [list(v) for _, v in groupby(name_data, lambda x: x["commit"])][-2:]
+        for name, name_data in group_by(title_data, lambda x: x["name"]):
+            last_2_commits = [list(v) for _, v in group_by(name_data, lambda x: x["commit"])][-2:]
 
             prev_value = None
             if len(last_2_commits) == 2:
-                prev_value = {k:list(v)[0] for k, v in groupby(last_2_commits[-2], lambda x: x["source"])}.get('rpp', {}).get('median(elapsed)')
+                prev_value = {k:list(v)[0] for k, v in group_by(last_2_commits[-2], lambda x: x["source"])}.get('rpp', {}).get('median(elapsed)')
 
-            cur_vals = {k: list(v)[0] for k, v in groupby(last_2_commits[-1], lambda x: x["source"])}
+            cur_vals = {k: list(v)[0] for k, v in group_by(last_2_commits[-1], lambda x: x["source"])}
             rpp_value = cur_vals.get('rpp', {}).get('median(elapsed)')
             rxcpp_value = cur_vals.get('rxcpp', {}).get('median(elapsed)')
 

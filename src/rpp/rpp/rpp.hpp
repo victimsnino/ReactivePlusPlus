@@ -16,3 +16,4 @@
 #include <rpp/observers.hpp>
 #include <rpp/observables.hpp>
 #include <rpp/sources.hpp>
+#include <rpp/operators.hpp>

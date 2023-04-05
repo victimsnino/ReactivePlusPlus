@@ -14,6 +14,7 @@
 #include <rpp/utils/function_traits.hpp>
 
 #include <concepts>
+#include <type_traits>
 
 namespace rpp::constraint
 {
@@ -28,4 +29,34 @@ namespace rpp
 {
 template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
 class base_observable;
+}
+
+namespace rpp::utils
+{
+namespace details
+{
+    template<typename T>
+    struct extract_observable_type : std::false_type{};
+
+    template<typename TT, typename Strategy>
+    struct extract_observable_type<rpp::base_observable<TT, Strategy>> : std::true_type
+    {
+        using type = TT;
+    };
+
+} // namespace details
+template<typename T>
+using extract_observable_type_t = typename details::extract_observable_type<T>::type;
+} // namespace rpp::utils
+
+namespace rpp::constraint 
+{
+template<typename T>
+concept observable = rpp::utils::details::extract_observable_type<std::decay_t<T>>::value;
+
+template<typename Op, typename TObs>
+concept operators = requires(const Op& op, TObs obs) 
+{
+    {op(obs)} -> rpp::constraint::observable;
+};
 }
