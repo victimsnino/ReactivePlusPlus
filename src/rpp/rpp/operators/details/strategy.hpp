@@ -10,12 +10,11 @@
 
 #pragma once
 
-#include "rpp/disposables/composite_disposable.hpp"
-#include "rpp/observables/fwd.hpp"
-#include "rpp/utils/constraints.hpp"
-#include <rpp/observables/base_observable.hpp>
 #include <rpp/observers/fwd.hpp>
 #include <rpp/sources/fwd.hpp>
+#include <rpp/disposables/composite_disposable.hpp>
+#include <rpp/observables/base_observable.hpp>
+#include <rpp/utils/constraints.hpp>
 
 #include <exception>
 #include <functional>
@@ -43,7 +42,7 @@ concept operator_strategy = requires(const S& const_strategy,
 }
 namespace rpp::operators::details
 {
-template<rpp::constraint::observer T, constraint::operator_strategy<T> Strategy>
+template<rpp::constraint::observer T, constraint::operator_strategy<rpp::utils::extract_observer_type_t<T>> Strategy>
 class operator_strategy_base;
 
 template<rpp::constraint::decayed_type T, rpp::constraint::observer_strategy<T> ObserverStrategy, constraint::operator_strategy<T> Strategy>
@@ -52,6 +51,10 @@ class operator_strategy_base<rpp::base_observer<T, ObserverStrategy>, Strategy>
 public:
     using observer = base_observer<T, ObserverStrategy>;
 
+    /**
+     * @brief Construct a new operator strategy for passed observer
+     * @warning Passed observer would not be moved inside, only rvalue reference saved inside. Actual move happens ONLY in case of move of this strategy
+     */
     template<typename...Args>
     operator_strategy_base(observer&& observer, Args&&...args)
         : m_observer{std::in_place_index<0>, observer}
@@ -59,7 +62,7 @@ public:
 
     operator_strategy_base(const operator_strategy_base&) = delete;
     operator_strategy_base(operator_strategy_base&& other) noexcept
-        : m_observer{std::in_place_index<1>, std::move(other).get_move_observer()} {}
+        : m_observer{std::in_place_index<1>, std::move(other).get_observer()} {}
 
     operator_strategy_base& operator=(const operator_strategy_base&) = delete;
     operator_strategy_base& operator=(operator_strategy_base&&) = delete;
@@ -73,19 +76,19 @@ public:
     void on_completed() const                          { m_strategy.on_completed(get_observer()); }
 
 private:
-    observer&& get_move_observer()
+    observer&& get_observer() &&
     {
-        return std::visit([](auto& v) -> observer&& {return std::move(v);}, m_observer);
+        return std::visit([](observer& v) -> observer&& {return std::move(v);}, m_observer);
     }
 
-    observer& get_observer()
+    observer& get_observer() &
     {
-        return std::visit([](auto& v) -> observer& {return v;}, m_observer);
+        return std::visit([](observer& v) -> observer& {return v;}, m_observer);
     }
 
-    const observer& get_observer() const
+    const observer& get_observer() const &
     {
-        return std::visit([](auto& v) -> const observer& {return v;}, m_observer);
+        return std::visit([](observer& v) -> const observer& {return v;}, m_observer);
     }
 private:
     std::variant<std::reference_wrapper<observer>, observer> m_observer;
