@@ -45,9 +45,9 @@ TEST_CASE("take operator limits emissions")
         CHECK(mock.get_on_completed_count() == 1);
     }
 
-    SECTION("subscribe via take(2)")
+    SECTION("subscribe via take(2) | take(3)")
     {
-        (obs | rpp::operators::take{2}).subscribe(mock.get_observer());
+        (obs | rpp::operators::take{2} | rpp::operators::take{3}).subscribe(mock.get_observer());
 
         CHECK(mock.get_received_values() == std::vector{0, 1});
         CHECK(mock.get_on_error_count() == 0);
