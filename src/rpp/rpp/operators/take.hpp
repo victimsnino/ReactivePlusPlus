@@ -23,7 +23,7 @@ class RPP_EMPTY_BASES take_observer_strategy : public forwarding_on_error_strate
                                              , public forwarding_disposable_strategy
 {
 public:
-    take_observer_strategy(size_t count) : count{count} {}
+    explicit take_observer_strategy(const size_t count) : count{count} {}
 
     template<typename T>
     void on_next(const rpp::constraint::observer auto& obs, T&& v) const
@@ -71,7 +71,7 @@ public:
     * @ingroup filtering_operators
     * @see https://reactivex.io/documentation/operators/take.html
     */
-    take(size_t count)
+    explicit take(const size_t count)
         : m_count{count} {}
 
     template<constraint::observable TObservable>

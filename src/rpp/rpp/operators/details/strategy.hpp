@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
 #include <rpp/observers/fwd.hpp>
 #include <rpp/sources/fwd.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
@@ -67,6 +68,8 @@ public:
     operator_strategy_base& operator=(const operator_strategy_base&) = delete;
     operator_strategy_base& operator=(operator_strategy_base&&) = delete;
 
+    ~operator_strategy_base() noexcept = default;
+
     void set_upstream(const composite_disposable& d)   { m_strategy.set_upstream(get_observer(), d); }
     bool is_disposed() const noexcept                  { return m_strategy.is_disposed() || get_observer().is_disposed(); }
 
@@ -90,9 +93,10 @@ private:
     {
         return std::visit([](const observer& v) -> const observer& {return v;}, m_observer);
     }
+
 private:
     std::variant<std::reference_wrapper<observer>, observer> m_observer;
-    Strategy                                                 m_strategy;
+    RPP_NO_UNIQUE_ADDRESS Strategy                           m_strategy;
 };
 
 struct forwarding_on_next_strategy
