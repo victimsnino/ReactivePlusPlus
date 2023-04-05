@@ -65,8 +65,10 @@ struct from_iterable_strategy
         {
             for (const auto& v : container)
             {
-                if (!observer.is_disposed())
-                    observer.on_next(v);
+                if (observer.is_disposed())
+                    return;
+                
+                observer.on_next(v);
             }
 
             observer.on_completed();
