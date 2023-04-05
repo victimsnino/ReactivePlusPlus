@@ -88,7 +88,7 @@ private:
 
     const observer& get_observer() const &
     {
-        return std::visit([](observer& v) -> const observer& {return v;}, m_observer);
+        return std::visit([](const observer& v) -> const observer& {return v;}, m_observer);
     }
 private:
     std::variant<std::reference_wrapper<observer>, observer> m_observer;
