@@ -32,6 +32,7 @@ TEST_CASE("take operator can be applied to observable")
 
     SECTION("subscribe via take(3)")
     {
+        rpp::operators::take{1};
         (obs | rpp::operators::take{create_count}).subscribe(mock.get_observer());
 
         CHECK(mock.get_received_values() == std::vector{0, 1, 2});
