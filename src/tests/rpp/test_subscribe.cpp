@@ -17,10 +17,35 @@
 TEST_CASE("subscribe as operator")
 {
     mock_observer_strategy<int> mock{};
-    auto observable = rpp::source::create<int>([](const auto&){});
+    auto observable = rpp::source::create<int>([](const auto& obs){ obs.on_next(1); });
+    
+    SECTION("subscribe observer")
+    {
+        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(mock.get_observer())), void>);
+        observable | rpp::operators::subscribe(mock.get_observer());
+        CHECK(mock.get_received_values() == std::vector{1});
+    }
+    
+    SECTION("subscribe observer with disposable")
+    {
+        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::composite_disposable{}, mock.get_observer())), rpp::composite_disposable>);
+        auto d = observable | rpp::operators::subscribe(rpp::composite_disposable{}, mock.get_observer());
+        CHECK(d.is_disposed());
+        CHECK(mock.get_received_values() == std::vector{1});
+    }
+    
+    SECTION("subscribe lambdas")
+    {
+        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe([](const auto&){}, [](const std::exception_ptr&){}, [](){})), void>);
+        observable | rpp::operators::subscribe([&mock](const auto& v){ mock.on_next(v);}, [](const std::exception_ptr&){}, [](){});
+        CHECK(mock.get_received_values() == std::vector{1});
+    }
 
-    static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(mock.get_observer())), void>);
-    static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::composite_disposable{}, mock.get_observer())), rpp::composite_disposable>);
-    static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe([](const auto&){}, [](const std::exception_ptr&){}, [](){})), void>);
-    static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::composite_disposable{}, [](const auto&){}, [](const std::exception_ptr&){}, [](){})), rpp::composite_disposable>);
+    SECTION("subscribe lambdas with disposable")
+    {
+        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::composite_disposable{}, [](const auto&){}, [](const std::exception_ptr&){}, [](){})), rpp::composite_disposable>);
+        auto d = observable | rpp::operators::subscribe(rpp::composite_disposable{}, [&mock](const auto& v){ mock.on_next(v);}, [](const std::exception_ptr&){}, [](){});
+        CHECK(d.is_disposed());
+        CHECK(mock.get_received_values() == std::vector{1});
+    }
 }
