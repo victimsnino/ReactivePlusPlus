@@ -147,3 +147,35 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" #Consult https://docs.sonarcloud.io/advanced-setup/ci-based-analysis/sonarscanner-cli/ for more information and options
+
+  docs:
+    name: Build Doxygen Docs
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-python@v4
+      with: { python-version: "3.8" }
+
+    - name: Install deps
+      run: |
+        pip3 install rxmarbles
+        export CC=clang
+        export CXX=clang++
+        sudo apt install llvm-11 clang-11 libclang-11-dev flex bison -q -y
+        git clone https://github.com/doxygen/doxygen.git --depth 1
+        cd doxygen && mkdir build && cd build
+        cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr ..
+        make -j4
+        sudo make install
+    - name: Doxygen
+      run: doxygen ./Doxyfile
+    
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.event_name == 'push' && github.repository_owner == 'victimsnino'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./gen_docs
+        destination_dir: v2/docs
