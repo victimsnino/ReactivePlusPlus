@@ -11,9 +11,11 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/sources/from.hpp>
+#include <rpp/operators/take.hpp>
 #include <functional>
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
+#include "rpp/sources/fwd.hpp"
 
 #include <stdexcept>
 
@@ -22,6 +24,26 @@ struct my_container_with_error : std::vector<int>
     using std::vector<int>::vector;
     std::vector<int>::const_iterator begin() const { throw std::runtime_error{""}; }
 };
+
+struct infinite_container
+{
+    struct iterator
+    {
+        using iterator_category = std::forward_iterator_tag;
+        using difference_type   = std::ptrdiff_t;
+        using value_type        = int;
+        using pointer           = int*;
+
+        value_type operator*() const { return 1; }
+        iterator& operator++() { return *this; }
+        iterator operator++(int) { return *this; }
+        friend bool operator!= (const iterator&, const iterator&) { return true; };
+    };
+
+    iterator begin() const { return {}; }
+    iterator end() const { return {}; }
+};
+
 
 TEST_CASE("from iterable emit items from container")
 {
@@ -34,6 +56,25 @@ TEST_CASE("from iterable emit items from container")
         CHECK(mock.get_received_values() == vals);
         CHECK(mock.get_on_completed_count() == 1);
     }
+
+    SECTION("observable created from empty vector emits only on_completed")
+    {
+        auto vals = std::vector<int>{};
+        auto obs  = rpp::source::from_iterable(vals);
+        obs.subscribe(mock.get_observer());
+        CHECK(mock.get_received_values() == vals);
+        CHECK(mock.get_on_completed_count() == 1);
+    }
+
+    SECTION("subscribe via take(1) to observable created from infinite container")
+    {
+        rpp::source::from_iterable(infinite_container{}) | rpp::operators::take(1)
+                                                        | rpp::operators::subscribe(mock.get_observer());
+
+        CHECK(mock.get_received_values() == std::vector{1});
+        CHECK(mock.get_on_completed_count() == 1);
+    }
+
     // SECTION("observable from iterable with scheduler")
     // {
     //     auto vals     = std::vector{1, 2, 3, 4, 5, 6};
@@ -122,7 +163,7 @@ TEST_CASE("from iterable doesn't provides extra copies")
     {
         auto obs = rpp::source::from_iterable(std::move(vals)/*, rpp::schedulers::immediate{}*/);
         obs.subscribe([](const auto&){},[](const auto&){},[](){});
-        CHECK(tracker.get_copy_count() - initial_copy == 0); 
+        CHECK(tracker.get_copy_count() - initial_copy == 0);
         CHECK(tracker.get_move_count() - initial_move == 2); // 1 move to wrapped container + 1 move lambda to observable
     }
 
