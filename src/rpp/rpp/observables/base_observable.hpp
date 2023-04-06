@@ -126,13 +126,13 @@ public:
     }
 
     template<typename...Args>
-    auto operator|(const rpp::operators::subscribe<Args...>& op) const &
+    auto operator|(const rpp::operators::subscribe<Args...>& op) const
     {
         return op(*this);
     }
 
     template<typename...Args>
-    auto operator|(rpp::operators::subscribe<Args...>&& op) const &
+    auto operator|(rpp::operators::subscribe<Args...>&& op) const
     {
         return std::move(op)(*this);
     }
