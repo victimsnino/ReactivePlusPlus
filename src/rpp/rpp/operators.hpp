@@ -13,11 +13,19 @@
 /**
 * \defgroup operators Operators
 * \brief Operators is way to modify observables and extend with some extra custom logic
-* \see https://reactivex.io/documentation/operators.html 
+* \see https://reactivex.io/documentation/operators.html
 * \ingroup rpp
 */
 
 #include <rpp/operators/fwd.hpp>
+
+/**
+ * \defgroup transforming_operators Transforming Operators
+ * \brief Transforming operators are operators that transform items provided by observable
+ * \see https://reactivex.io/documentation/operators.html#transforming
+ * \ingroup operators
+ */
+ #include <rpp/operators/subscribe.hpp>
 
 
 /**
