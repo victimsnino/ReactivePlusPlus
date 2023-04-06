@@ -17,7 +17,11 @@
 TEST_CASE("subscribe as operator")
 {
     mock_observer_strategy<int> mock{};
-    auto observable = rpp::source::create<int>([](const auto& obs){ obs.on_next(1); });
+    auto observable = rpp::source::create<int>([](const auto& obs)
+    { 
+        obs.on_next(1);
+        obs.on_completed();
+    });
     
     SECTION("subscribe observer")
     {
