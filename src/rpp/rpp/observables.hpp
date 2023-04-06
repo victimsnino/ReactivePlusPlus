@@ -11,10 +11,10 @@
 #pragma once
 
 /**
- * \defgroup observables Observables
- * \brief Observable is the source of any Reactive Stream. Observable provides ability to subscribe observer on some events.
- * \see https://reactivex.io/documentation/observable.html
- * \ingroup rpp
+ * @defgroup observables Observables
+ * @brief Observable is the source of any Reactive Stream. Observable provides ability to subscribe observer on some events.
+ * @see https://reactivex.io/documentation/observable.html
+ * @ingroup rpp
  */
 
 #include <rpp/observables/fwd.hpp>
