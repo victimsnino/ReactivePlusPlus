@@ -39,6 +39,7 @@
                         titleDetails.style.width = "100%";
                         graphDiv.style.position = "relative";
                         graphDiv.style.width = "100%";
+                        graphDiv.style.height = "50%";
                         graphDiv.style.borderWidth = 5;
 
 
@@ -71,7 +72,6 @@
                         Plotly.newPlot(graphDiv,
                                       data,
                                       {
-                                          title: { text: title },
                                           showlegend: true,
                                           hovermode: "x unified",
                                           yaxis: {
@@ -83,10 +83,13 @@
                                             tickvals: [...Array(commitNames.length).keys()],
                                             tickmode: "array",
                                             ticktext: commitNames,
-                                            tickangle: -35,
+                                            tickangle: -30,
                                             autorange: true,
                                             rangeslider : {
                                                 visible: true
+                                            },
+                                            tickfont: {
+                                                size: 8
                                             }
                                           },
                                           autosize: true
