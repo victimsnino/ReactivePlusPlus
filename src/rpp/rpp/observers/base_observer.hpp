@@ -124,7 +124,7 @@ public:
     }
 
     /**
-     * \brief Convert current observer to type-erased version. Useful if you need to COPY your observer or to store different observers in same container.
+     * @brief Convert current observer to type-erased version. Useful if you need to COPY your observer or to store different observers in same container.
      */
     dynamic_observer<Type> as_dynamic() &&
     {
@@ -139,7 +139,7 @@ private:
             m_upstream->dispose();
     }
 
-    bool is_upstream_disposed() const 
+    bool is_upstream_disposed() const
     {
         return m_upstream && m_upstream->is_disposed();
     }

@@ -11,13 +11,13 @@
 #pragma once
 
 /**
- * \defgroup creational_operators Creational Operators
- * \brief Creational operators are operators that create new observable
- * \see https://reactivex.io/documentation/operators.html#creating
- * \ingroup operators
+ * @defgroup creational_operators Creational Operators
+ * @brief Creational operators are operators that create new observable
+ * @see https://reactivex.io/documentation/operators.html#creating
+ * @ingroup operators
  */
 
  #include <rpp/sources/fwd.hpp>
- 
+
  #include <rpp/sources/create.hpp>
  #include <rpp/sources/from.hpp>

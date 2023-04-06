@@ -65,6 +65,7 @@ TEST_CASE("composite disposable keeps state")
     {
         d = rpp::composite_disposable::empty();
         CHECK(d.is_disposed());
+        d.dispose();
 
         SECTION("adding non disposed disposable to empty forces it to be disposed")
         {

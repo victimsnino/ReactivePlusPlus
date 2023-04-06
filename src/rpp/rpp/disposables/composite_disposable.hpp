@@ -53,11 +53,6 @@ public:
             other.dispose();
     }
 
-    bool is_empty() const noexcept
-    {
-        return !m_state;
-    }
-
     static composite_disposable empty()
     {
         return composite_disposable{empty_t{}};

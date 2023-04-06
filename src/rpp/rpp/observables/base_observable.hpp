@@ -24,9 +24,13 @@ namespace rpp
 {
 /**
  * @brief Base class for any observable used in RPP. It handles core callbacks of observable.
+ * @details Observable provides ony core function: subscribe - it accepts observer (or any way to construct it) and then invokes underlying Strategy to emit emissions somehow.
+ * @warning Actually observable "doesn't emit nothing", it only invokes Strategy! Strategy COULD emit emissions immediately OR place observer to some place to obtain emissions later (for example subjects)
  *
  * @tparam Type of value this observable would provide
  * @tparam Strategy used to provide logic over observable's callbacks
+ *
+ * @ingroup observables
  */
 template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
 class base_observable final

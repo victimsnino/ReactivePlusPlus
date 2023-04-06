@@ -11,9 +11,9 @@
 #pragma once
 
 /**
- * \defgroup observers Observers
- * \brief Observer subscribes on Observable and obtains values provided by Observable.
- * \ingroup rpp
+ * @defgroup observers Observers
+ * @brief Observer subscribes on Observable and obtains values provided by Observable.
+ * @ingroup rpp
  */
 
 #include <rpp/observers/fwd.hpp>
