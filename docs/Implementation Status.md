@@ -2,41 +2,38 @@
 
 ## Fundamentals
 
-- [x] Observables
+- [ ] Observables
   - [x] Specific Observable
-  - [x] Dynamic Observable
-  - [x] Blocking Observable
-  - [x] Connectable Observable
+  - [ ] Dynamic Observable
+  - [ ] Blocking Observable
+  - [ ] Connectable Observable
 - [x] Observers
   - [x] Specific Observer
   - [x] Dynamic Observer
-- [x] Subscribers
-  - [x] Specific Subscriber
-  - [x] Dynamic Subscriber
-- [x] Subscriptions
+- [ ] Subscriptions
   - [x] Composite Subscription
-  - [x] Callback Subscription 
+  - [ ] Callback Subscription
 - [ ] Schedulers
-  - [x] Immediate
-  - [x] New Thread
-  - [x] CurrentThread/Trampoline
-  - [x] RunLoop
+  - [ ] Immediate
+  - [ ] New Thread
+  - [ ] CurrentThread/Trampoline
+  - [ ] RunLoop
   - [ ] EventLoop
 
 ## Creating Observables
 
 - [x] Create
-- [x] Just 
-  - [x] + memory_model
-- [x] empty/never/error
+- [ ] Just
+  - [ ] + memory_model
+- [ ] empty/never/error
 - [ ] from
   - [x] iterable
   - [ ] future
   - [ ] promise
-  - [x] callable
+  - [ ] callable
   - [ ] async
 - [ ] defer
-- [x] interval
+- [ ] interval
 - [ ] range
 - [ ] repeat
 - [ ] timer
@@ -44,42 +41,42 @@
 ## Operators
 ### Transforming
 
-- [x] map
-- [x] group_by
-- [x] flat_map
-- [x] scan
+- [ ] map
+- [ ] group_by
+- [ ] flat_map
+- [ ] scan
 - [ ] buffer
-  - [x] count
+  - [ ] count
     - [ ] skip
   - [ ] time
   - [ ] time_or_count
 - [ ] window
-  - [x] count
+  - [ ] count
     - [ ] skip
   - [ ] time
   - [ ] time_or_count
 
 ### Filtering
-- [x] filter
+- [ ] filter
 - [x] take
-- [x] debounce
+- [ ] debounce
 - [ ] distinct
   - [ ] distinct
-  - [x] distinct_until_changed
+  - [ ] distinct_until_changed
 - [ ] element_at
-- [x] first
+- [ ] first
 - [ ] ignore_elements
-- [x] last
+- [ ] last
 - [ ] sample
   - [ ] sample (observable)
-  - [x] sample_with_time
-- [x] skip
+  - [ ] sample_with_time
+- [ ] skip
 - [ ] skip_last
-- [x] take_last
+- [ ] take_last
 
 ### Conditional
 
-- [x] take_while
+- [ ] take_while
 - [ ] all
 - [ ] amb
 - [ ] contains
@@ -87,70 +84,70 @@
 - [ ] sequence_equal
 - [ ] skip_until
 - [ ] skip_while
-- [x] take_until
+- [ ] take_until
 
 ### Combining
 
-- [x] merge
-  - [x] observable of observables
-  - [x] merge with
+- [ ] merge
+  - [ ] observable of observables
+  - [ ] merge with
   - [ ] merge delay error
 - [ ] switch
-  - [x] switch_map
-  - [x] switch_on_next
+  - [ ] switch_map
+  - [ ] switch_on_next
   - [ ] switch_if_empty
-- [x] with_latest_from
-- [x] start_with
-- [x] combine_latest
+- [ ] with_latest_from
+- [ ] start_with
+- [ ] combine_latest
 - [ ] zip
 
 ### Aggregate
 
-- [x] average
-- [x] concat
-- [x] count
-- [x] max 
-- [x] min
-- [x] reduce
-- [x] sum
+- [ ] average
+- [ ] concat
+- [ ] count
+- [ ] max
+- [ ] min
+- [ ] reduce
+- [ ] sum
 
 ### Backpressure
 
 - [ ] backpressure ???
 
 ### Error handling
-- [x] catch
+- [ ] catch
 - [ ] retry
 
 ### Utility
 
-- [x] observe_on
-- [x] repeat
+- [ ] observe_on
+- [ ] repeat
   - [ ] scheduling (by default trampoline ?)
-- [x] subscribe_on
-- [x] delay
-- [x] do/tap
-  - [x] tap with observer
-  - [x] tap with callbacks
-  - [x] do_on_next
-  - [x] do_on_error
-  - [x] do_on_completed
-- [x] timeout 
-  - [x] timeout
-  - [x] timeout with fallback observable
+- [ ] subscribe_on
+- [ ] delay
+- [ ] do/tap
+  - [ ] tap with observer
+  - [ ] tap with callbacks
+  - [ ] do_on_next
+  - [ ] do_on_error
+  - [ ] do_on_completed
+- [ ] timeout
+  - [ ] timeout
+  - [ ] timeout with fallback observable
 
 ### Connectable
 
-- [x] publish
-- [x] multicast
-- [x] connect
-- [x] ref_count
+- [ ] publish
+- [ ] multicast
+- [ ] connect
+- [ ] ref_count
 - [ ] replay
 
 ## Subjects
 
-- [x] publish_subject
-- [x] behavior_subject
+- [ ] publish_subject
+- [ ] behavior_subject
 - [ ] serialized_subject
 - [ ] replay_subject
 - [ ] async_subject
