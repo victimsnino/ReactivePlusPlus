@@ -20,17 +20,19 @@ If you are going to know more details about developing for RPP check [HACKING](H
 
 In short: ReactivePlusPlus is library for building asynchronous event-driven streams of data with help of sequences of primitive operators in the declarative form.
 
+RPP v2 follows zero-overhead principle and most of the operators are (and will) minimize overhead. How? Due to elimination of heap allocations and avoiding unnecessary things. During implementatuon of v1 i've found a lot of cases where RPP does unnecessary expensive things.
+
 Currently ReactivePlusPlus is still under development but it has a lot of implemented operators for now. List of implemented features can be found in [API Reference](https://victimsnino.github.io/ReactivePlusPlus/docs/html/group__rpp.html) with very detailed documentation for each of them
 
 **Example**:
 
 ```cpp
 rpp::source::from_callable(&::getchar)
-   .repeat()
-   .take_while([](char v) { return v != '0'; })
-   .filter(std::not_fn(&::isdigit))
-   .map(&::toupper)
-   .subscribe([](char v) { std::cout << v; });
+   | rpp::operators::repeat()
+   | rpp::operators::take_while([](char v) { return v != '0'; })
+   | rpp::operators::filter(std::not_fn(&::isdigit))
+   | rpp::operators::map(&::toupper)
+   | rpp::operators::subscribe([](char v) { std::cout << v; });
 ```
 
 ### QT Support
@@ -45,30 +47,30 @@ QLabel      label{};
 QPushButton button{"CLick me"};
 
 auto amount_of_clicks = rppqt::source::from_signal(button, &QPushButton::pressed) // <-------
-                          .scan(size_t{}, [](size_t seed, const auto&) { return seed + 1; })
-                          .start_with(size_t{})
-                          .publish()
-                          .ref_count();
+                          | rpp::operators::scan(size_t{}, [](size_t seed, const auto&) { return seed + 1; })
+                          | rpp::operators::start_with(size_t{})
+                          | rpp::operators::publish()
+                          | rpp::operators::ref_count();
 
 amount_of_clicks
-  .observe_on(rpp::schedulers::new_thread{})
-  .tap([](const auto&)
+  | rpp::operators::observe_on(rpp::schedulers::new_thread{})
+  | rpp::operators::tap([](const auto&)
       {
           std::cout << "Some long computation...." << std::endl;
           std::this_thread::sleep_for(std::chrono::seconds{1});
       })
-  .observe_on(rppqt::schedulers::main_thread_scheduler{}) // <---------------
-  .combine_latest([](size_t slow_clicks, size_t fast_clicks)
+  | rpp::operators::observe_on(rppqt::schedulers::main_thread_scheduler{}) // <---------------
+  | rpp::operators::combine_latest([](size_t slow_clicks, size_t fast_clicks)
                   {
                       return QString{"Slow clicks are %1. Fast clicks are %2"}.arg(slow_clicks).arg(fast_clicks);
                   },
                   amount_of_clicks)
-  .subscribe([&](const QString& text) { label.setText(text); });
+  | rpp::operators::subscribe([&](const QString& text) { label.setText(text); });
 ```
 
 ## Features:
 
-Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. As a result it is fast, readable, easy to use and well-documented. And it is proven with [continous benchmarking results and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
+Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. v2 written to follow zero-overhead principle As a result it is fast, readable, easy to use and well-documented. And it is proven with [continous benchmarking results of v2 and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
 
 **NOTE**: ReactivePlusPlus is library for C++20. So, it works only on compilers that supports most C++20 features. List of minimal supported compilers:
 - (ubuntu) gcc-10
@@ -78,9 +80,9 @@ Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Pe
 
 # Useful links
 - [Why ReactivePlusPlus? What about existing Reactive Extension libraries for C++?](https://victimsnino.github.io/ReactivePlusPlus/docs/html/why_rpp.html)
-- [Manual and doxygen documentation](https://victimsnino.github.io/ReactivePlusPlus/docs/html/index.html)
+- [Manual and doxygen documentation](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/index.html)
 - [Examples](https://github.com/victimsnino/ReactivePlusPlus/tree/main/src/examples)
-- [Continous benchmarking results, comparison of `dynamic` and `specific` and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/benchmark)
+- [Continous benchmarking results, comparison of `dynamic` and `specific` and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
 - [Articles/Turorials/Guides](https://github.com/victimsnino/ReactivePlusPlus/blob/main/docs/Articles.md)
 - [CONTRIBUTING](CONTRIBUTING.md) document.
 
