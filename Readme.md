@@ -16,6 +16,9 @@ ReactivePlusPlus is reactive programming library for C++ language inspired by "o
 See the [BUILDING](BUILDING.md) document to know how to build RPP.
 If you are going to know more details about developing for RPP check [HACKING](HACKING.md) document.
 
+## Note:
+Curretnly I'm working on RPP v2 (`v2` branch). It follows "zero-overhead principle" and minimizes overhead during usage of RPP.
+
 ## Implementation status:
 
 In short: ReactivePlusPlus is library for building asynchronous event-driven streams of data with help of sequences of primitive operators in the declarative form.
