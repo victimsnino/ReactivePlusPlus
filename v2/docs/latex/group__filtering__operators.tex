@@ -1,0 +1,58 @@
+\hypertarget{group__filtering__operators}{}\doxysection{Filtering Operators}
+\label{group__filtering__operators}\index{Filtering Operators@{Filtering Operators}}
+
+
+Filtering operators are operators that emit only part of items that satisfies some condition.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{group__filtering__operators_ga92d21453c3aee6c9a8e6e90e53d8377c}{rpp\+::operators\+::take\+::take}} (const size\+\_\+t count)
+\begin{DoxyCompactList}\small\item\em Emit only first {\ttfamily count} items provided by observable, then send {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Filtering operators are operators that emit only part of items that satisfies some condition. 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators.html\#filtering}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html\#filtering}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{group__filtering__operators_ga92d21453c3aee6c9a8e6e90e53d8377c}\label{group__filtering__operators_ga92d21453c3aee6c9a8e6e90e53d8377c} 
+\index{Filtering Operators@{Filtering Operators}!take@{take}}
+\index{take@{take}!Filtering Operators@{Filtering Operators}}
+\doxysubsubsection{\texorpdfstring{take()}{take()}}
+{\footnotesize\ttfamily rpp\+::operators\+::take\+::take (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Emit only first {\ttfamily count} items provided by observable, then send {\ttfamily on\+\_\+completed} 
+
+
+
+Actually this operator just emits emissions while counter is not zero and decrements counter on each emission
+
+
+\begin{DoxyParams}{Parameters}
+{\em count} & amount of items to be emitted. 0 -\/ instant complete \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new specific\+\_\+observable with the Take operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{take_8hpp_source}{rpp/operators/take.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/take.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/take.\+html}} 
+\end{DoxySeeAlso}

@@ -1,0 +1,89 @@
+\hypertarget{md_docs_2_advanced_autotoc_md0}{}\doxysection{Beforehand}\label{md_docs_2_advanced_autotoc_md0}
+Before hand, please, read specific\+\_\+vs\+\_\+dynamic
+
+Also read this one\+: \href{https://reactivex.io/documentation/contract.html}{\texttt{ Contract}}
+
+Let\textquotesingle{}s review this one in details\+: \begin{quote}
+Observables must issue notifications to observers serially (not in parallel). They may issue these notifications from different threads, but there must be a formal happens-\/before relationship between the notifications. \end{quote}
+It means, that\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{All}} implemented in {\bfseries{RPP operators}} are {\bfseries{following this contract}}\+:~\newline
+ All built-\/in RPP observables/operators emit emission in the serialized way
+\item Any user-\/provided callbacks (for operators or observers) can be not thread-\/safe due to thread-\/safety of observable is guaranteed. ~\newline
+ For example\+: internal logic of {\ttfamily take} operator doesn\textquotesingle{}t use mutexes or atomics due to underlying observable {\bfseries{MUST}} emit items in series
+\item When you implement your own operator via {\ttfamily create} be careful to {\bfseries{follow this contract}}!
+\item It is true {\bfseries{EXCEPT FOR}} subjects if they are used manually due to users can use subjects for its own purposes there is potentially place for breaking this concept. Be careful and use synchronized subjects!
+\end{DoxyEnumerate}
+
+It means, that for example\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ s1\ =\ rpp::source::just(1).repeat().subscribe\_on(rpp::schedulers::new\_thread\{\});}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ s2\ =\ rpp::source::just(2).repeat().subscribe\_on(rpp::schedulers::new\_thread\{\});}
+\DoxyCodeLine{s1.merge\_with(s2)}
+\DoxyCodeLine{\ \ .map([](\textcolor{keywordtype}{int}\ v)}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}enter\ "{}}\ <<\ v\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ std::this\_thread::sleep\_for(std::chrono::seconds\{1\});}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}exit\ "{}}\ <<\ v\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{\ \ \})}
+\DoxyCodeLine{\ \ .as\_blocking()}
+\DoxyCodeLine{\ \ .subscribe([](\textcolor{keywordtype}{int})\{\});}
+
+\end{DoxyCode}
+ will never produce something like 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{enter\ 1}
+\DoxyCodeLine{enter\ 2}
+\DoxyCodeLine{exit\ 2}
+\DoxyCodeLine{exit\ 1}
+
+\end{DoxyCode}
+ only serialized 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{enter\ 1}
+\DoxyCodeLine{exit\ 1}
+\DoxyCodeLine{enter\ 1}
+\DoxyCodeLine{exit\ 1}
+\DoxyCodeLine{enter\ 2}
+\DoxyCodeLine{exit\ 2}
+\DoxyCodeLine{enter\ 2}
+\DoxyCodeLine{exit\ 2}
+
+\end{DoxyCode}
+\hypertarget{md_docs_2_advanced_autotoc_md1}{}\doxysection{Observable}\label{md_docs_2_advanced_autotoc_md1}
+
+\begin{DoxyItemize}
+\item Observables are just wrappers over callback.
+\item Observables can extended via operators to modify behavior
+\item Everytime you apply some operator to observable, observable is copied (or moved). As a result, whole its state is copied/moved too\+:
+\begin{DoxyItemize}
+\item Be ready for copies/moves, so, your callback (or any state inside operators) should be cheap enough to copy
+\item If you want to avoid it, you can convert your observable to dynamic\+: ~\newline
+ it forces to move observable\textquotesingle{}s callback/state to {\ttfamily shared\+\_\+ptr}, as a result, no any future copies/moves
+\item Some observables/operators have {\ttfamily memory\+\_\+model} (memory\+\_\+model) parameter to change strategy of handling your variable\+: keep to copy/move or move to {\ttfamily shared\+\_\+ptr} once
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+When you subscribe subscriber on observable, observable just invokes callback for this subscriber and nothing else. It means, that actually observable do nothing and doesn\textquotesingle{}t emit values, {\bfseries{callback emits values}}.
+
+To achieve better performance use {\ttfamily specific\+\_\+observable} while it is possible. Same for the argument of callback (for example, when you use {\ttfamily \doxylink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{rpp\+::source\+::create}})\+: use {\ttfamily const auto\&} for subscriber to avoid implicit conversion to dynamic subscriber.
+
+By default, functional programming deals with immutable data and \char`\"{}pure functions\char`\"{}. Observable follows this principle, so, it can accept only const functions for callback. \hypertarget{md_docs_2_advanced_autotoc_md2}{}\doxysection{Observers}\label{md_docs_2_advanced_autotoc_md2}
+Observer also follows principle of immutable data and pure function, so, it can accept only const functions for callbacks.
+
+Observers can be constructed with 3 types of callbacks\+: 1) {\ttfamily on\+\_\+next(\+T)} -\/ what to do with new obtained value. Provided value can be both\+: const l-\/value reference or r-\/value reference. 2) {\ttfamily on\+\_\+error(std\+::exception\+\_\+ptr)} -\/ called when some exception happens inside observable. This callback is termination signal -\/ no any future callbacks invocations expected 3) {\ttfamily on\+\_\+completed()} -\/ called when observable completes with success
+
+Observer can be constructed with any combinations of callbacks\+:
+\begin{DoxyItemize}
+\item {\ttfamily on\+\_\+next}
+\item {\ttfamily on\+\_\+next}, {\ttfamily on\+\_\+error}
+\item {\ttfamily on\+\_\+next}, {\ttfamily on\+\_\+completed}
+\item {\ttfamily on\+\_\+next}, {\ttfamily on\+\_\+error} {\ttfamily on\+\_\+completed}
+\end{DoxyItemize}\hypertarget{md_docs_2_advanced_autotoc_md3}{}\doxysection{Operators}\label{md_docs_2_advanced_autotoc_md3}
+For better compilation speed each operator placed in each own header. Due to great desire to have dot operations inside observable, observable inherits implementation of operators via {\ttfamily member\+\_\+overload} hack\+: it forwards interface, but implementation placed in another file. It looks like wide-\/spread separation to cpp/hpp files.
+
+Currently RPP implements a lot of operators, detailed information can be found on \href{https://victimsnino.github.io/ReactivePlusPlus/docs/html/modules.html}{\texttt{ API Reference}}\hypertarget{md_docs_2_advanced_autotoc_md4}{}\doxysection{Subscriber}\label{md_docs_2_advanced_autotoc_md4}
+Subscriber is just wrapper over observer with subscription. Everytime callback received, subscriber checks for subscription state and emits value to observer if subscription is still active. 

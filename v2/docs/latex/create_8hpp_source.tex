@@ -1,0 +1,49 @@
+\hypertarget{create_8hpp_source}{}\doxysection{create.\+hpp}
+\label{create_8hpp_source}\index{src/rpp/rpp/sources/create.hpp@{src/rpp/rpp/sources/create.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2023\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <rpp/sources/fwd.hpp>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/observables/base\_observable.hpp>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::on\_subscribe<Type>\ OnSubscribe>}
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1create__strategy}{create\_strategy}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ OnSubscribe\ subscribe;}
+\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00022\ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::on\_subscribe<Type>\ OnSubscribe>}
+\DoxyCodeLine{00027\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1base__observable}{create\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1base__observable}{base\_observable<Type,\ details::create\_strategy<Type,\ OnSubscribe>}}>;}
+\DoxyCodeLine{00028\ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{namespace\ }rpp::source}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00053\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::on\_subscribe<Type>\ OnSubscribe>}
+\DoxyCodeLine{00054\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{create}}(OnSubscribe\&\&\ on\_subscribe)}
+\DoxyCodeLine{00055\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{return}\ create\_observable<Type,\ std::decay\_t<OnSubscribe>>\{std::forward<OnSubscribe>(on\_subscribe)\};}
+\DoxyCodeLine{00057\ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OnSubscribe,\ constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00083\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{create}}(OnSubscribe\&\&\ on\_subscribe)}
+\DoxyCodeLine{00084\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{return}\ create<Type>(std::forward<OnSubscribe>(on\_subscribe));}
+\DoxyCodeLine{00086\ \}}
+\DoxyCodeLine{00087\ \}}
+
+\end{DoxyCode}

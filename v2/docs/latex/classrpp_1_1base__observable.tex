@@ -1,0 +1,127 @@
+\hypertarget{classrpp_1_1base__observable}{}\doxysection{rpp\+::base\+\_\+observable\texorpdfstring{$<$}{<} Type, Strategy \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classrpp_1_1base__observable}\index{rpp::base\_observable$<$ Type, Strategy $>$@{rpp::base\_observable$<$ Type, Strategy $>$}}
+
+
+Base class for any observable used in RPP. It handles core callbacks of observable.  
+
+
+
+
+{\ttfamily \#include $<$base\+\_\+observable.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1base__observable_a56aeda5281c50fc77ee16658ae9fd4ec}\label{classrpp_1_1base__observable_a56aeda5281c50fc77ee16658ae9fd4ec} 
+{\footnotesize template$<$typename ... Args$>$ \newline
+requires (!constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperlink{classrpp_1_1base__observable}{base\+\_\+observable}}$<$Type, Strategy$>$, Args...$>$ \&\& constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args\&\&...$>$)}\\{\bfseries base\+\_\+observable} (Args \&\&...args)
+\item 
+\Hypertarget{classrpp_1_1base__observable_adb9dc4c3430fb1f005e2639a397eba6e}\label{classrpp_1_1base__observable_adb9dc4c3430fb1f005e2639a397eba6e} 
+{\bfseries base\+\_\+observable} (const \mbox{\hyperlink{classrpp_1_1base__observable}{base\+\_\+observable}} \&)=default
+\item 
+\Hypertarget{classrpp_1_1base__observable_a2bd25b9281eda086f879aa687aa30a25}\label{classrpp_1_1base__observable_a2bd25b9281eda086f879aa687aa30a25} 
+{\bfseries base\+\_\+observable} (\mbox{\hyperlink{classrpp_1_1base__observable}{base\+\_\+observable}} \&\&) noexcept=default
+\item 
+{\footnotesize template$<$constraint\+::observer\+\_\+strategy$<$ Type $>$ Observer\+Strategy$>$ }\\void \mbox{\hyperlink{classrpp_1_1base__observable_a633129119e3df1d4c37e0fe1b921c6cc}{subscribe}} (\mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}}$<$ Type, Observer\+Strategy $>$ \&\&observer) const
+\begin{DoxyCompactList}\small\item\em Subscribes passed observer to emissions from this observable. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1base__observable_af73a80881fac033f6b9eafb851f6514f}{subscribe}} (\mbox{\hyperlink{classrpp_1_1base__observer}{dynamic\+\_\+observer}}$<$ Type $>$ observer) const
+\begin{DoxyCompactList}\small\item\em Subscribe passed observer to emissions from this observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::observer\+\_\+strategy$<$ Type $>$ Observer\+Strategy$>$ }\\\mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \mbox{\hyperlink{classrpp_1_1base__observable_a50c11f30f86390f4a337091488ebbc5c}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&d, \mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}}$<$ Type, Observer\+Strategy $>$ \&\&observer) const
+\begin{DoxyCompactList}\small\item\em Subscribe passed observer to emissions from this observable. \end{DoxyCompactList}\item 
+\Hypertarget{classrpp_1_1base__observable_a8f3113ede5d4c0bcfffae513ca503204}\label{classrpp_1_1base__observable_a8f3113ede5d4c0bcfffae513ca503204} 
+{\footnotesize template$<$std\+::invocable$<$ Type $>$ On\+Next, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error, std\+::invocable$<$$>$ On\+Completed$>$ }\\void {\bfseries subscribe} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error, On\+Completed \&\&on\+\_\+completed) const
+\begin{DoxyCompactList}\small\item\em Construct rpp\+::lambda\+\_\+observer on the fly and subscribe it to emissions from this observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$std\+::invocable$<$ Type $>$ On\+Next, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error, std\+::invocable$<$$>$ On\+Completed$>$ }\\\mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \mbox{\hyperlink{classrpp_1_1base__observable_ae2a1bbf34a8ba721d5706d732b744c1d}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp\+::composite\+\_\+disposable}} \&d, On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error, On\+Completed \&\&on\+\_\+completed) const
+\begin{DoxyCompactList}\small\item\em Construct rpp\+::lambda\+\_\+observer on the fly and subscribe it to emissions from this observable. \end{DoxyCompactList}\item 
+\Hypertarget{classrpp_1_1base__observable_abea9843ca5ecef5a0f9114053607f600}\label{classrpp_1_1base__observable_abea9843ca5ecef5a0f9114053607f600} 
+{\footnotesize template$<$constraint\+::operators$<$const \mbox{\hyperlink{classrpp_1_1base__observable}{base\+\_\+observable}}$<$ Type, Strategy $>$ \& $>$ Op$>$ }\\auto {\bfseries operator$\vert$} (Op \&\&op) const \&
+\item 
+\Hypertarget{classrpp_1_1base__observable_ab966a10a168ea4089428c1cda14b4a2f}\label{classrpp_1_1base__observable_ab966a10a168ea4089428c1cda14b4a2f} 
+{\footnotesize template$<$constraint\+::operators$<$\mbox{\hyperlink{classrpp_1_1base__observable}{base\+\_\+observable}}$<$ Type, Strategy $>$ \&\& $>$ Op$>$ }\\auto {\bfseries operator$\vert$} (Op \&\&op) \&\&
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$constraint\+::decayed\+\_\+type Type, constraint\+::observable\+\_\+strategy$<$ Type $>$ Strategy$>$\newline
+class rpp\+::base\+\_\+observable$<$ Type, Strategy $>$}
+Base class for any observable used in RPP. It handles core callbacks of observable. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & of value this observable would provide \\
+\hline
+{\em Strategy} & used to provide logic over observable\textquotesingle{}s callbacks \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classrpp_1_1base__observable_a633129119e3df1d4c37e0fe1b921c6cc}\label{classrpp_1_1base__observable_a633129119e3df1d4c37e0fe1b921c6cc} 
+\index{rpp::base\_observable$<$ Type, Strategy $>$@{rpp::base\_observable$<$ Type, Strategy $>$}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!rpp::base\_observable$<$ Type, Strategy $>$@{rpp::base\_observable$<$ Type, Strategy $>$}}
+\doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::observable\+\_\+strategy$<$ Type $>$ Strategy$>$ \\
+template$<$constraint\+::observer\+\_\+strategy$<$ Type $>$ Observer\+Strategy$>$ \\
+void \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}}$<$ Type, Strategy $>$\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}}$<$ Type, Observer\+Strategy $>$ \&\&}]{observer }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Subscribes passed observer to emissions from this observable. 
+
+\begin{DoxyWarning}{Warning}
+Observer must be moved in to subscribe method. (Not recommended) If you need to copy observer, convert it to dynamic\+\_\+observer 
+\end{DoxyWarning}
+\Hypertarget{classrpp_1_1base__observable_a50c11f30f86390f4a337091488ebbc5c}\label{classrpp_1_1base__observable_a50c11f30f86390f4a337091488ebbc5c} 
+\index{rpp::base\_observable$<$ Type, Strategy $>$@{rpp::base\_observable$<$ Type, Strategy $>$}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!rpp::base\_observable$<$ Type, Strategy $>$@{rpp::base\_observable$<$ Type, Strategy $>$}}
+\doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::observable\+\_\+strategy$<$ Type $>$ Strategy$>$ \\
+template$<$constraint\+::observer\+\_\+strategy$<$ Type $>$ Observer\+Strategy$>$ \\
+\mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}}$<$ Type, Strategy $>$\+::subscribe (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&}]{d,  }\item[{\mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}}$<$ Type, Observer\+Strategy $>$ \&\&}]{observer }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Subscribe passed observer to emissions from this observable. 
+
+This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed. \begin{DoxyWarning}{Warning}
+This overloading has some performance penalties, use it only when you really need to use disposable
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em d} & is disposable to be attached to observer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classrpp_1_1composite__disposable}{composite\+\_\+disposable} disposable to be able to dispose observer when it needed 
+\end{DoxyReturn}
+\Hypertarget{classrpp_1_1base__observable_ae2a1bbf34a8ba721d5706d732b744c1d}\label{classrpp_1_1base__observable_ae2a1bbf34a8ba721d5706d732b744c1d} 
+\index{rpp::base\_observable$<$ Type, Strategy $>$@{rpp::base\_observable$<$ Type, Strategy $>$}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!rpp::base\_observable$<$ Type, Strategy $>$@{rpp::base\_observable$<$ Type, Strategy $>$}}
+\doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::observable\+\_\+strategy$<$ Type $>$ Strategy$>$ \\
+template$<$std\+::invocable$<$ Type $>$ On\+Next, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error, std\+::invocable$<$$>$ On\+Completed$>$ \\
+\mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}}$<$ Type, Strategy $>$\+::subscribe (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp\+::composite\+\_\+disposable}} \&}]{d,  }\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Error \&\&}]{on\+\_\+error,  }\item[{On\+Completed \&\&}]{on\+\_\+completed }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct rpp\+::lambda\+\_\+observer on the fly and subscribe it to emissions from this observable. 
+
+This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed. \begin{DoxyWarning}{Warning}
+This overloading has some performance penalties, use it only when you really need to use disposable 
+\end{DoxyWarning}
+\Hypertarget{classrpp_1_1base__observable_af73a80881fac033f6b9eafb851f6514f}\label{classrpp_1_1base__observable_af73a80881fac033f6b9eafb851f6514f} 
+\index{rpp::base\_observable$<$ Type, Strategy $>$@{rpp::base\_observable$<$ Type, Strategy $>$}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!rpp::base\_observable$<$ Type, Strategy $>$@{rpp::base\_observable$<$ Type, Strategy $>$}}
+\doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::observable\+\_\+strategy$<$ Type $>$ Strategy$>$ \\
+void \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}}$<$ Type, Strategy $>$\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1base__observer}{dynamic\+\_\+observer}}$<$ Type $>$}]{observer }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Subscribe passed observer to emissions from this observable. 
+
+Special overloading for dynamic observer to enable copy of observer 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/observables/base\+\_\+observable.\+hpp\end{DoxyCompactItemize}

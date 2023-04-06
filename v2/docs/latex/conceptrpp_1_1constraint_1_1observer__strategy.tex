@@ -1,0 +1,39 @@
+\hypertarget{conceptrpp_1_1constraint_1_1observer__strategy}{}\doxysection{rpp\+::constraint\+::observer\+\_\+strategy Concept Reference}
+\label{conceptrpp_1_1constraint_1_1observer__strategy}\index{rpp::constraint::observer\_strategy@{rpp::constraint::observer\_strategy}}
+
+
+Concept to define strategy to override observer behavior. Strategy must be able to handle all observer\textquotesingle{}s callbacks\+: on\+\_\+next/on\+\_\+error/on\+\_\+completed.  
+
+
+
+
+{\ttfamily \#include $<$fwd.\+hpp$>$}
+
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S,\ \textcolor{keyword}{typename}\ Type>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp::constraint::observer\_strategy}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ const\_strategy,\ S\&\ strategy,\ \textcolor{keyword}{const}\ Type\&\ v,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp::composite\_disposable}}\&\ disposable)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ const\_strategy.on\_next(v);}
+\DoxyCodeLine{\ \ \ \ const\_strategy.on\_next(Type\{\});}
+\DoxyCodeLine{\ \ \ \ const\_strategy.on\_error(std::exception\_ptr\{\});}
+\DoxyCodeLine{\ \ \ \ const\_strategy.on\_completed();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ strategy.set\_upstream(disposable);}
+\DoxyCodeLine{\ \ \ \ \{\ strategy.is\_disposed()\ \}\ -\/>\ std::same\_as<bool>;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+Concept to define strategy to override observer behavior. Strategy must be able to handle all observer\textquotesingle{}s callbacks\+: on\+\_\+next/on\+\_\+error/on\+\_\+completed. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em S} & is Strategy \\
+\hline
+{\em Type} & is type of value observer would obtain \\
+\hline
+\end{DoxyTemplParams}

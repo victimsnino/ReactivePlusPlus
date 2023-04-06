@@ -1,0 +1,23 @@
+\hypertarget{md_docs_2_memory_model_autotoc_md20}{}\doxysection{Overview}\label{md_docs_2_memory_model_autotoc_md20}
+In Reactive\+Plus\+Plus there is new concept unique for this implementation\+: rpp\+::memory\+\_\+model\+:
+
+Some of the operators and sources like {\ttfamily rpp\+::source\+::just} or {\ttfamily rpp\+::operators\+::start\+\_\+with} accepts user\textquotesingle{}s variables for usage. Some of this types can be such an expensive to copy or move and it would be preferable to copy it once to heap, but some other types (like POD) are cheap enough and usage of heap would be overkill. But these variables should be saved inside somehow!
+
+So, RPP provides ability to select strategy \char`\"{}how to deal with such a variables\char`\"{} via {\ttfamily rpp\+::memory\+\_\+model} enum.\hypertarget{md_docs_2_memory_model_autotoc_md21}{}\doxysection{Examples}\label{md_docs_2_memory_model_autotoc_md21}
+For example, {\ttfamily rpp\+::source\+::just}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{rpp::source::just(my\_custom\_variable);}
+
+\end{DoxyCode}
+ by default {\ttfamily just} uses {\ttfamily \doxylink{structrpp_1_1memory__model_1_1use__stack}{rpp\+::memory\+\_\+model\+::use\+\_\+stack}} and {\ttfamily my\+\_\+custom\+\_\+variable} would be copied and moved everywhere when needed. On the other hand
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{rpp::source::just<rpp::memory\_model::use\_shared>(my\_custom\_variable);}
+
+\end{DoxyCode}
+ makes only 1 copy/move to shared\+\_\+ptr and then uses it instead.
+
+As a a result, users can select preferable way of handling of their types. 
