@@ -13,4 +13,6 @@
 namespace rpp::operators
 {
 class take;
+template<typename...Args>
+class subscribe;
 }

@@ -9,11 +9,13 @@
 
 #pragma once
 
+#include "rpp/operators/fwd.hpp"
 #include <rpp/observables/fwd.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/observers/lambda_observer.hpp>
 
 #include <rpp/disposables/composite_disposable.hpp>
+#include <rpp/operators/subscribe.hpp>
 
 #include <rpp/defs.hpp>
 
@@ -70,7 +72,7 @@ public:
     template<constraint::observer_strategy<Type> ObserverStrategy>
     composite_disposable subscribe(const composite_disposable& d, base_observer<Type, ObserverStrategy>&& observer) const
     {
-        subscribe(base_observer{d, std::move(observer)});
+        subscribe(base_observer<Type, base_observer<Type, ObserverStrategy>>{d, std::move(observer)});
         return d;
     }
 
@@ -118,9 +120,21 @@ public:
     }
 
     template<constraint::operators<base_observable<Type, Strategy>&&> Op>
-    auto operator|(Op&& op) && 
+    auto operator|(Op&& op) &&
     {
         return op(std::move(*this));
+    }
+
+    template<typename...Args>
+    auto operator|(const rpp::operators::subscribe<Args...>& op) const &
+    {
+        return op(*this);
+    }
+
+    template<typename...Args>
+    auto operator|(rpp::operators::subscribe<Args...>&& op) const &
+    {
+        return std::move(op)(*this);
     }
 
 private:

@@ -43,20 +43,39 @@ int main(int argc, char* argv[]) // NOLINT
     {
         SECTION("Subscribe empty callbacks to empty observable")
         {
-            TEST_RPP([&]() 
-            { 
-                rpp::source::create<int>([&](auto&& observer) 
-                { 
-                    ankerl::nanobench::doNotOptimizeAway(observer); 
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([&](auto&& observer)
+                {
+                    ankerl::nanobench::doNotOptimizeAway(observer);
                 }).subscribe([](int){}, [](const std::exception_ptr&){}, [](){});
             });
 
-            TEST_RXCPP([&]() 
+            TEST_RXCPP([&]()
             {
-                rxcpp::observable<>::create<int>([&](auto&& observer) 
-                { 
-                    ankerl::nanobench::doNotOptimizeAway(observer); 
+                rxcpp::observable<>::create<int>([&](auto&& observer)
+                {
+                    ankerl::nanobench::doNotOptimizeAway(observer);
                 }).subscribe([](int){}, [](const std::exception_ptr&){}, [](){});
+            });
+        }
+
+        SECTION("Subscribe empty callbacks to empty observable via pipe operator")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([&](auto&& observer)
+                {
+                    ankerl::nanobench::doNotOptimizeAway(observer);
+                }) | rpp::operators::subscribe([](int){}, [](const std::exception_ptr&){}, [](){});
+            });
+
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([&](auto&& observer)
+                {
+                    ankerl::nanobench::doNotOptimizeAway(observer);
+                }) | rxcpp::operators::subscribe<int>([](int){}, [](const std::exception_ptr&){}, [](){});
             });
         }
     };
@@ -66,29 +85,29 @@ int main(int argc, char* argv[]) // NOLINT
         SECTION("from array of 1 - create + subscribe + immediate")
         {
             std::array<int, 1> vals{123};
-            TEST_RPP([&]() 
-            { 
+            TEST_RPP([&]()
+            {
                 rpp::source::from_iterable(vals).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }, [](const std::exception_ptr&){}, [](){});
             });
 
-            TEST_RXCPP([&]() 
+            TEST_RXCPP([&]()
             {
                 rxcpp::observable<>::iterate(vals).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }, [](const std::exception_ptr&){}, [](){});
             });
         }
     };
 
-    
+
     BENCHMARK("Filtering Operators")
     {
         SECTION("take(1)")
         {
-            TEST_RPP([&]() 
-            { 
+            TEST_RPP([&]()
+            {
                 (rpp::source::create<int>([](const auto& obs){ obs.on_next(1); }) | rpp::operators::take(1)).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }, [](const std::exception_ptr&){}, [](){});
             });
 
-            TEST_RXCPP([&]() 
+            TEST_RXCPP([&]()
             {
                 (rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);}) | rxcpp::operators::take(1)).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }, [](const std::exception_ptr&){}, [](){});
             });
@@ -100,6 +119,6 @@ int main(int argc, char* argv[]) // NOLINT
         bench.render(json(), of);
         of.close();
     }
-    
+
     bench.render(json(), std::cout);
 }
