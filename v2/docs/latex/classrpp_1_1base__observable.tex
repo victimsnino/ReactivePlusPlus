@@ -52,6 +52,9 @@ void \mbox{\hyperlink{classrpp_1_1base__observable_af73a80881fac033f6b9eafb851f6
 class rpp\+::base\+\_\+observable$<$ Type, Strategy $>$}
 Base class for any observable used in RPP. It handles core callbacks of observable. 
 
+Observable provides ony core function\+: subscribe -\/ it accepts observer (or any way to construct it) and then invokes underlying Strategy to emit emissions somehow. \begin{DoxyWarning}{Warning}
+Actually observable \char`\"{}doesn\textquotesingle{}t emit nothing\char`\"{}, it only invokes Strategy! Strategy COULD emit emissions immediately OR place observer to some place to obtain emissions later (for example subjects)
+\end{DoxyWarning}
 
 \begin{DoxyTemplParams}{Template Parameters}
 {\em Type} & of value this observable would provide \\

@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('classrpp_1_1base__observable.html','')
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classrpp_1_1base__observable-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::base_observable&lt; Type, Strategy &gt; Class Template Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
+  <div class="headertitle"><div class="title">rpp::base_observable&lt; Type, Strategy &gt; Class Template Reference<span class="mlabels"><span class="mlabel">final</span></span><div class="ingroups"><a class="el" href="group__rpp.html">RPP</a> &raquo; <a class="el" href="group__observables.html">Observables</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -161,6 +161,7 @@ template&lt;typename... Args&gt; </td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;constraint::decayed_type Type, constraint::observable_strategy&lt; Type &gt; Strategy&gt;<br />
 class rpp::base_observable&lt; Type, Strategy &gt;</div><p>Base class for any observable used in RPP. It handles core callbacks of observable. </p>
+<p>Observable provides ony core function: subscribe - it accepts observer (or any way to construct it) and then invokes underlying Strategy to emit emissions somehow. </p><dl class="section warning"><dt>Warning</dt><dd>Actually observable "doesn't emit nothing", it only invokes Strategy! Strategy COULD emit emissions immediately OR place observer to some place to obtain emissions later (for example subjects)</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Type</td><td>of value this observable would provide </td></tr>
