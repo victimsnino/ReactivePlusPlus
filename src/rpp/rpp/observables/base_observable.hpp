@@ -9,7 +9,6 @@
 
 #pragma once
 
-#include "rpp/operators/fwd.hpp"
 #include <rpp/observables/fwd.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/observers/lambda_observer.hpp>

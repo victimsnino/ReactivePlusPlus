@@ -17,7 +17,7 @@ namespace rpp::details
 template<constraint::decayed_type Type, constraint::on_subscribe<Type> OnSubscribe>
 struct create_strategy
 {
-    OnSubscribe subscribe;
+    RPP_NO_UNIQUE_ADDRESS OnSubscribe subscribe;
 };
 }
 
@@ -41,7 +41,7 @@ namespace rpp::source
  *
  * @tparam Type is type of values observable would emit
  * @tparam OnSubscribe is callback function to implement core logic of observable
- *  
+ *
  * @par Examples:
  * @snippet create.cpp create
  * @snippet create.cpp create with capture

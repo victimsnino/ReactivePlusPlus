@@ -28,14 +28,14 @@ public:
      * @warning Observer must be moved in to subscribe method. (Not recommended) If you need to copy observer, convert
      * it to dynamic_observer
      */
-    subscribe(base_observer<Type, ObserverStrategy>&& observer)
+    explicit subscribe(base_observer<Type, ObserverStrategy>&& observer)
     : m_observer{std::move(observer)} {}
 
     /**
      * @brief Subscribe passed observer to emissions from this observable.
      * @details Special overloading for dynamic observer to enable copy of observer
      */
-    subscribe(const dynamic_observer<Type>& observer)
+    explicit subscribe(const dynamic_observer<Type>& observer)
         requires std::same_as<ObserverStrategy, details::observer::dynamic_strategy<Type>>
         : m_observer{observer}
     {
@@ -63,7 +63,7 @@ public:
      * @param d is disposable to be attached to observer
      * @return composite_disposable disposable to be able to dispose observer when it needed
      */
-    subscribe(rpp::composite_disposable d, base_observer<Type, ObserverStrategy>&& observer)
+    explicit subscribe(rpp::composite_disposable d, base_observer<Type, ObserverStrategy>&& observer)
         : m_disposable{std::move(d)}
         , m_observer{std::move(observer)} {}
 
@@ -76,7 +76,7 @@ public:
      * @param d is disposable to be attached to observer
      * @return composite_disposable disposable to be able to dispose observer when it needed
      */
-    subscribe(rpp::composite_disposable d, const dynamic_observer<Type>& observer)
+    explicit subscribe(rpp::composite_disposable d, const dynamic_observer<Type>& observer)
         requires std::same_as<ObserverStrategy, details::observer::dynamic_strategy<Type>>
         : m_disposable{std::move(d)}
         , m_observer{observer}
@@ -103,7 +103,7 @@ public:
      * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from this observable
      */
     template<rpp::constraint::decayed_same_as<OnNext> TOnNext, rpp::constraint::decayed_same_as<OnError> TOnError, rpp::constraint::decayed_same_as<OnCompleted> TOnCompleted>
-    subscribe(TOnNext&& on_next, TOnError&& on_error, TOnCompleted&& on_completed)
+    explicit subscribe(TOnNext&& on_next, TOnError&& on_error, TOnCompleted&& on_completed)
         : m_on_next{std::forward<TOnNext>(on_next)}
         , m_on_error{std::forward<TOnError>(on_error)}
         , m_on_completed{std::forward<TOnCompleted>(on_completed)}
@@ -126,9 +126,9 @@ public:
     }
 
 private:
-    OnNext m_on_next;
-    OnError m_on_error;
-    OnCompleted m_on_completed;
+    RPP_NO_UNIQUE_ADDRESS OnNext m_on_next;
+    RPP_NO_UNIQUE_ADDRESS OnError m_on_error;
+    RPP_NO_UNIQUE_ADDRESS OnCompleted m_on_completed;
 };
 
 template<typename OnNext, std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
@@ -139,7 +139,7 @@ public:
      * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from this observable
      */
     template<rpp::constraint::decayed_same_as<OnNext> TOnNext, rpp::constraint::decayed_same_as<OnError> TOnError, rpp::constraint::decayed_same_as<OnCompleted> TOnCompleted>
-    subscribe(rpp::composite_disposable d, TOnNext&& on_next, TOnError&& on_error, TOnCompleted&& on_completed)
+    explicit subscribe(rpp::composite_disposable d, TOnNext&& on_next, TOnError&& on_error, TOnCompleted&& on_completed)
         : m_disposable{std::move(d)}
         , m_on_next{std::forward<TOnNext>(on_next)}
         , m_on_error{std::forward<TOnError>(on_error)}
@@ -168,9 +168,9 @@ public:
 
 private:
     rpp::composite_disposable m_disposable;
-    OnNext                    m_on_next;
-    OnError                   m_on_error;
-    OnCompleted               m_on_completed;
+    RPP_NO_UNIQUE_ADDRESS OnNext                    m_on_next;
+    RPP_NO_UNIQUE_ADDRESS OnError                   m_on_error;
+    RPP_NO_UNIQUE_ADDRESS OnCompleted               m_on_completed;
 };
 
 template<typename ...Args>
