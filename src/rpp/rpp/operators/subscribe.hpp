@@ -35,9 +35,9 @@ public:
      * @brief Subscribe passed observer to emissions from this observable.
      * @details Special overloading for dynamic observer to enable copy of observer
      */
-    subscribe(dynamic_observer<Type> observer)
+    subscribe(const dynamic_observer<Type>& observer)
         requires std::same_as<ObserverStrategy, details::observer::dynamic_strategy<Type>>
-        : m_observer{std::move(observer)}
+        : m_observer{observer}
     {
     }
 
@@ -76,10 +76,10 @@ public:
      * @param d is disposable to be attached to observer
      * @return composite_disposable disposable to be able to dispose observer when it needed
      */
-    subscribe(rpp::composite_disposable d, dynamic_observer<Type> observer)
+    subscribe(rpp::composite_disposable d, const dynamic_observer<Type>& observer)
         requires std::same_as<ObserverStrategy, details::observer::dynamic_strategy<Type>>
         : m_disposable{std::move(d)}
-        , m_observer{std::move(observer)}
+        , m_observer{observer}
     {
     }
 
