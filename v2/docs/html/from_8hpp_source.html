@@ -157,7 +157,7 @@ $(document).ready(function(){initNavTree('from_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type PackedContainer&gt;</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1from__iterable__strategy.html">   57</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1from__iterable__strategy.html">from_iterable_strategy</a></div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    PackedContainer container;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    RPP_NO_UNIQUE_ADDRESS PackedContainer container;</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observer_strategy&lt;utils::iterable_value_t&lt;PackedContainer&gt;&gt; Strategy&gt;</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordtype">void</span> subscribe(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1base__observer.html">base_observer</a>&lt;utils::iterable_value_t&lt;PackedContainer&gt;, Strategy&gt;&amp; observer)<span class="keyword"> const</span></div>
@@ -168,7 +168,7 @@ $(document).ready(function(){initNavTree('from_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            {</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                <span class="keywordflow">if</span> (observer.is_disposed())</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                    <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                observer.on_next(v);</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            }</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
@@ -196,7 +196,7 @@ $(document).ready(function(){initNavTree('from_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordflow">return</span> details::make_from_iterable_observable(details::pack_to_container&lt;memory_model, std::decay_t&lt;<span class="keyword">decltype</span>(iterable)&gt;&gt;(std::forward&lt;<span class="keyword">decltype</span>(iterable)&gt;(iterable)));</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>}</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
-<div class="ttc" id="aclassrpp_1_1base__observable_html"><div class="ttname"><a href="classrpp_1_1base__observable.html">rpp::base_observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition:</b> base_observable.hpp:37</div></div>
+<div class="ttc" id="aclassrpp_1_1base__observable_html"><div class="ttname"><a href="classrpp_1_1base__observable.html">rpp::base_observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition:</b> base_observable.hpp:36</div></div>
 <div class="ttc" id="aclassrpp_1_1base__observer_html"><div class="ttname"><a href="classrpp_1_1base__observer.html">rpp::base_observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:36</div></div>
 <div class="ttc" id="aclassrpp_1_1details_1_1shared__container_html"><div class="ttname"><a href="classrpp_1_1details_1_1shared__container.html">rpp::details::shared_container</a></div><div class="ttdef"><b>Definition:</b> from.hpp:23</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1memory__model_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1memory__model.html">rpp::constraint::memory_model</a></div><div class="ttdef"><b>Definition:</b> memory_model.hpp:26</div></div>

@@ -33,7 +33,7 @@
 \DoxyCodeLine{00029\ \textcolor{keywordtype}{void}\ forwarding\_on\_completed(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{const}\ ptr)\ \{\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }Strategy*\textcolor{keyword}{>}(ptr)-\/>on\_completed();\ \}}
 \DoxyCodeLine{00030\ }
 \DoxyCodeLine{00031\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Strategy>}
-\DoxyCodeLine{00032\ \textcolor{keywordtype}{void}\ forwarding\_set\_upstream(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{const}\ ptr,\ \textcolor{keyword}{const}\ composite\_disposable\&\ d)\ \{\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }Strategy*\textcolor{keyword}{>}(ptr)-\/>set\_upstream(d);\ \}}
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{void}\ forwarding\_set\_upstream(\textcolor{keywordtype}{void}*\ \textcolor{keyword}{const}\ ptr,\ \textcolor{keyword}{const}\ composite\_disposable\&\ d)\ \{\ \textcolor{keyword}{static\_cast<}Strategy*\textcolor{keyword}{>}(ptr)-\/>set\_upstream(d);\ \}}
 \DoxyCodeLine{00033\ }
 \DoxyCodeLine{00034\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Strategy>}
 \DoxyCodeLine{00035\ \textcolor{keywordtype}{bool}\ forwarding\_is\_disposed(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{const}\ ptr)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }Strategy*\textcolor{keyword}{>}(ptr)-\/>is\_disposed();\ \}}
@@ -67,7 +67,7 @@
 \DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ void\ (*on\_error)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*,\ \textcolor{keyword}{const}\ std::exception\_ptr\&)\{\};}
 \DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ void\ (*on\_completed)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*)\{\};}
 \DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ void\ (*set\_upstream)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\_disposable}}\&)\{\};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ void\ (*set\_upstream)(\textcolor{keywordtype}{void}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\_disposable}}\&)\{\};}
 \DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ bool\ (*is\_disposed)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*)\{\};}
 \DoxyCodeLine{00068\ }
 \DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_strategy<Type>\ Strategy>}
