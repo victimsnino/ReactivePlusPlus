@@ -55,7 +55,7 @@ for platform, results in new_data.items():
             if prev_value and rpp_value:
                 ratio = rpp_value/prev_value
 
-            print(f"{name} | {print_metric(rxcpp_value)} | {print_metric(rpp_value)}| {print_metric(prev_value)} | {ratio}")
+            print(f"{name} | {print_metric(rxcpp_value)} | {print_metric(rpp_value)}| {print_metric(prev_value)} | {f"{ratio:.2f}" if ratio else "-"}")
         print("\n</details>")
     print(f"</details>")
 
