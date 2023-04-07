@@ -29,7 +29,7 @@ template<typename Strategy>
 void forwarding_on_completed(const void* const ptr) { static_cast<const Strategy*>(ptr)->on_completed(); }
 
 template<typename Strategy>
-void forwarding_set_upstream(const void* const ptr, const composite_disposable& d) { static_cast<const Strategy*>(ptr)->set_upstream(d); }
+void forwarding_set_upstream(void* const ptr, const composite_disposable& d) { static_cast<Strategy*>(ptr)->set_upstream(d); }
 
 template<typename Strategy>
 bool forwarding_is_disposed(const void* const ptr) { return static_cast<const Strategy*>(ptr)->is_disposed(); }
@@ -63,7 +63,7 @@ private:
         void (*on_error)(const void*, const std::exception_ptr&){};
         void (*on_completed)(const void*){};
 
-        void (*set_upstream)(const void*, const composite_disposable&){};
+        void (*set_upstream)(void*, const composite_disposable&){};
         bool (*is_disposed)(const void*){};
 
         template<constraint::observer_strategy<Type> Strategy>

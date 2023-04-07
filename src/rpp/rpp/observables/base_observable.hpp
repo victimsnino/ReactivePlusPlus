@@ -9,7 +9,6 @@
 
 #pragma once
 
-#include "rpp/operators/fwd.hpp"
 #include <rpp/observables/fwd.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/observers/lambda_observer.hpp>
@@ -62,7 +61,7 @@ public:
      */
     void subscribe(dynamic_observer<Type> observer) const
     {
-        subscribe(std::move(observer));
+        subscribe<details::observer::dynamic_strategy<Type>>(std::move(observer));
     }
 
     /**

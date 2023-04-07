@@ -56,7 +56,7 @@ auto pack_variadic(Ts&& ...items)
 template<constraint::decayed_type PackedContainer>
 struct from_iterable_strategy
 {
-    PackedContainer container;
+    RPP_NO_UNIQUE_ADDRESS PackedContainer container;
 
     template<constraint::observer_strategy<utils::iterable_value_t<PackedContainer>> Strategy>
     void subscribe(const base_observer<utils::iterable_value_t<PackedContainer>, Strategy>& observer) const
@@ -67,7 +67,7 @@ struct from_iterable_strategy
             {
                 if (observer.is_disposed())
                     return;
-                
+
                 observer.on_next(v);
             }
 
