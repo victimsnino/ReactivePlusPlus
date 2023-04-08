@@ -38,39 +38,6 @@ rpp::source::from_callable(&::getchar)
    | rpp::operators::subscribe([](char v) { std::cout << v; });
 ```
 
-### QT Support
-
-On a par with this ReactivePlusPlus provides native support for QT via RppQt target (extension over original RPP). List of implemented features can be found in [QT API Reference](https://victimsnino.github.io/ReactivePlusPlus/docs/html/group__rppqt.html) with very detailed documentation for each of them.
-
-Currently it provides ability to create observable from QT signal of some QObject and scheduler to schedule emissions to "main" thread.
-
-**Example**:
-```cpp
-QLabel      label{};
-QPushButton button{"CLick me"};
-
-auto amount_of_clicks = rppqt::source::from_signal(button, &QPushButton::pressed) // <-------
-                          | rpp::operators::scan(size_t{}, [](size_t seed, const auto&) { return seed + 1; })
-                          | rpp::operators::start_with(size_t{})
-                          | rpp::operators::publish()
-                          | rpp::operators::ref_count();
-
-amount_of_clicks
-  | rpp::operators::observe_on(rpp::schedulers::new_thread{})
-  | rpp::operators::tap([](const auto&)
-      {
-          std::cout << "Some long computation...." << std::endl;
-          std::this_thread::sleep_for(std::chrono::seconds{1});
-      })
-  | rpp::operators::observe_on(rppqt::schedulers::main_thread_scheduler{}) // <---------------
-  | rpp::operators::combine_latest([](size_t slow_clicks, size_t fast_clicks)
-                  {
-                      return QString{"Slow clicks are %1. Fast clicks are %2"}.arg(slow_clicks).arg(fast_clicks);
-                  },
-                  amount_of_clicks)
-  | rpp::operators::subscribe([&](const QString& text) { label.setText(text); });
-```
-
 ## Features:
 
 Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. v2 written to follow zero-overhead principle As a result it is fast, readable, easy to use and well-documented. And it is proven with [continous benchmarking results of v2 and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
