@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include "rpp/utils/constraints.hpp"
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/observers/fwd.hpp>
@@ -21,9 +22,12 @@ class worker
 {
 public:
     template<typename...Args>
-        requires rpp::constraint::is_constructible_from<Strategy, Args&&...>
+        requires (!rpp::constraint::variadic_decayed_same_as<worker<Strategy>, Args...> && rpp::constraint::is_constructible_from<Strategy, Args&&...>)
     worker(Args&& ...args) 
         : m_strategy(std::forward<Args>(args)...) {}
+
+    worker(const worker&) = default;
+    worker(worker&&) noexcept = default;
 
     template<rpp::constraint::observer TObs, typename...Args>
     rpp::composite_disposable schedule(constraint::schedulable_fn<TObs, Args...> auto&& fn, TObs&& obs, Args&&...args) const
