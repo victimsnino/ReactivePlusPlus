@@ -1,4 +1,6 @@
 #include "rpp/observers/fwd.hpp"
+#include "rpp/schedulers/fwd.hpp"
+#include "rpp/schedulers/immediate.hpp"
 #include "rpp/sources/fwd.hpp"
 #include <nanobench.h>
 
@@ -96,6 +98,22 @@ int main(int argc, char* argv[]) // NOLINT
             });
         }
     };
+
+    BENCHMARK("Schedulers")
+    {
+        SECTION("immediate scheduler create worker + schedule")
+        {
+            auto obs = rpp::make_lambda_observer([](int){ });
+            TEST_RPP([&]() 
+            {
+                rpp::schedulers::immediate{}.create_worker().schedule([](const auto&){ return rpp::schedulers::optional_duration{}; }, obs);
+            });
+            TEST_RXCPP([&]()
+            {
+                rxcpp::identity_immediate().create_coordinator().get_worker().schedule([](const auto&){});
+            });
+        }
+    }
 
 
     BENCHMARK("Filtering Operators")
