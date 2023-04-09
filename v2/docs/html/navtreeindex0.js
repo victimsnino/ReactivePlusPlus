@@ -75,7 +75,6 @@ var NAVTREEINDEX0 =
 "functions_func.html":[3,3,1],
 "fwd_8hpp_source.html":[4,0,0,0,0,7],
 "group__creational__operators.html":[1,0,2,2],
-"group__creational__operators.html#gaae957a58dedecdf6e3ec279e256bdfe3":[1,0,2,2,1],
 "group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513":[1,0,2,2,0],
 "group__filtering__operators.html":[1,0,2,1],
 "group__filtering__operators.html#ga92d21453c3aee6c9a8e6e90e53d8377c":[1,0,2,1,0],
@@ -86,6 +85,8 @@ var NAVTREEINDEX0 =
 "group__transforming__operators.html":[1,0,2,0],
 "hierarchy.html":[3,2],
 "index.html":[],
+"just_8cpp-example.html":[5,2],
+"just_8hpp_source.html":[4,0,0,0,0,4,3],
 "lambda__observer_8hpp_source.html":[4,0,0,0,0,2,3],
 "md_docs_2_implementation_01_status.html":[0],
 "md_docs_2_implementation_01_status.html#autotoc_md0":[0,0],
@@ -128,6 +129,6 @@ var NAVTREEINDEX0 =
 "structrpp_1_1utils_1_1details_1_1extract__observer__type.html":[3,0,0,3,0,2],
 "structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1base__observer_3_01_t_t_00_01_strategy_01_4_01_4.html":[3,0,0,3,0,3],
 "subscribe_8hpp_source.html":[4,0,0,0,0,3,2],
-"take_8cpp-example.html":[5,2],
+"take_8cpp-example.html":[5,3],
 "take_8hpp_source.html":[4,0,0,0,0,3,3]
 };

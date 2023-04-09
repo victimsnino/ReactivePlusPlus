@@ -36,7 +36,10 @@
 \DoxyCodeLine{00032\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{create}}(OnSubscribe\&\&\ on\_subscribe);}
 \DoxyCodeLine{00033\ }
 \DoxyCodeLine{00034\ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1memory__model}{constraint::memory\_model}}\ memory\_model=\ \mbox{\hyperlink{structrpp_1_1memory__model_1_1use__stack}{memory\_model::use\_stack}}\textcolor{comment}{/*,\ schedulers::constraint::scheduler\ TScheduler\ =\ schedulers::trampoline*/}>}
-\DoxyCodeLine{00035\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gaae957a58dedecdf6e3ec279e256bdfe3}{from\_iterable}}(constraint::iterable\ \textcolor{keyword}{auto}\&\&\ iterable)\ ;}
-\DoxyCodeLine{00036\ \}\ \textcolor{comment}{//\ namespace\ rpp::source}}
+\DoxyCodeLine{00035\ \textcolor{keyword}{auto}\ from\_iterable(constraint::iterable\ \textcolor{keyword}{auto}\&\&\ iterable)\ ;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1memory__model}{constraint::memory\_model}}\ memory\_model\ =\ \mbox{\hyperlink{structrpp_1_1memory__model_1_1use__stack}{memory\_model::use\_stack}},\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ ...Ts>}
+\DoxyCodeLine{00038\ \textcolor{keyword}{auto}\ just(T\&\&\ item,\ Ts\&\&\ ...items)\ \textcolor{keyword}{requires}\ (constraint::decayed\_same\_as<T,\ Ts>\ \&\&\ ...);}
+\DoxyCodeLine{00039\ \}\ \textcolor{comment}{//\ namespace\ rpp::source}}
 
 \end{DoxyCode}

@@ -111,10 +111,6 @@ Functions</h2></td></tr>
 <tr class="memitem:gae68c87e7ae3a505258b733082bf68513"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">rpp::source::create</a> (OnSubscribe &amp;&amp;on_subscribe)</td></tr>
 <tr class="memdesc:gae68c87e7ae3a505258b733082bf68513"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct observable specialized with passed callback function. Most easiesest way to construct observable "on the fly" via lambda and etc.  <br /></td></tr>
 <tr class="separator:gae68c87e7ae3a505258b733082bf68513"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaae957a58dedecdf6e3ec279e256bdfe3"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model memory_model&gt; </td></tr>
-<tr class="memitem:gaae957a58dedecdf6e3ec279e256bdfe3"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gaae957a58dedecdf6e3ec279e256bdfe3">rpp::source::from_iterable</a> (constraint::iterable auto &amp;&amp;iterable)</td></tr>
-<tr class="memdesc:gaae957a58dedecdf6e3ec279e256bdfe3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates observable that emits a items from provided iterable.  <br /></td></tr>
-<tr class="separator:gaae957a58dedecdf6e3ec279e256bdfe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Creational operators are operators that create new observable. </p>
@@ -191,55 +187,6 @@ template&lt;constraint::decayed_type Type, constraint::on_subscribe&lt; Type &gt
 <div class="line">    <span class="comment">// Output: 42</span></div>
 </div><!-- fragment --> <div class="fragment"></div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/create.html">https://reactivex.io/documentation/operators/create.html</a> </dd></dl>
-
-</div>
-</div>
-<a id="gaae957a58dedecdf6e3ec279e256bdfe3" name="gaae957a58dedecdf6e3ec279e256bdfe3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaae957a58dedecdf6e3ec279e256bdfe3">&#9670;&#160;</a></span>from_iterable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;constraint::memory_model memory_model&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">auto rpp::source::from_iterable </td>
-          <td>(</td>
-          <td class="paramtype">constraint::iterable auto &amp;&amp;&#160;</td>
-          <td class="paramname"><em>iterable</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates observable that emits a items from provided iterable. </p>
-<div class="image">
-<object type="image/svg+xml" data="from_iterable.svg" style="pointer-events: none;"></object>
-</div>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">memory_model</td><td>rpp::memory_model strategy used to handle provided iterable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">scheduler</td><td>is scheduler used for scheduling of submissions: next item will be submitted to scheduler when previous one is executed </td></tr>
-    <tr><td class="paramname">iterable</td><td>container with values which will be flattened</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">        std::vector&lt;int&gt; vals{ 1,2,3 };</div>
-<div class="line">        <a class="code hl_function" href="group__creational__operators.html#gaae957a58dedecdf6e3ec279e256bdfe3">rpp::source::from_iterable</a>(vals).subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
-<div class="ttc" id="agroup__creational__operators_html_gaae957a58dedecdf6e3ec279e256bdfe3"><div class="ttname"><a href="group__creational__operators.html#gaae957a58dedecdf6e3ec279e256bdfe3">rpp::source::from_iterable</a></div><div class="ttdeci">auto from_iterable(constraint::iterable auto &amp;&amp;iterable)</div><div class="ttdoc">Creates observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition:</b> from.hpp:110</div></div>
-</div><!-- fragment --> <div class="fragment"><div class="line">        std::vector&lt;int&gt; vals{ 1,2,3 };</div>
-<div class="line">        rpp::source::from_iterable&lt;rpp::memory_model::use_shared&gt;(vals).subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">    <span class="comment">//     std::vector&lt;int&gt; vals{ 1,2,3 };</span></div>
-<div class="line">    <span class="comment">//     rpp::source::from_iterable(vals, rpp::schedulers::new_thread{}).as_blocking().subscribe([](int v) {std::cout &lt;&lt; v &lt;&lt; &quot; &quot;; });</span></div>
-</div><!-- fragment --></dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/from.html">https://reactivex.io/documentation/operators/from.html</a> </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="from_8cpp-example.html#a0">from.cpp</a>, and <a class="el" href="take_8cpp-example.html#a0">take.cpp</a>.</dd>
-</dl>
 
 </div>
 </div>

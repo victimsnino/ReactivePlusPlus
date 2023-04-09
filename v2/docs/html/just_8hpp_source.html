@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::operators::take Class Reference</title>
+<title>ReactivePlusPlus: src/rpp/rpp/sources/just.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('classrpp_1_1operators_1_1take.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('just_8hpp_source.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,35 +96,28 @@ $(document).ready(function(){initNavTree('classrpp_1_1operators_1_1take.html',''
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classrpp_1_1operators_1_1take-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::operators::take Class Reference</div></div>
+  <div class="headertitle"><div class="title">just.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ga92d21453c3aee6c9a8e6e90e53d8377c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga92d21453c3aee6c9a8e6e90e53d8377c">take</a> (const size_t count)</td></tr>
-<tr class="memdesc:ga92d21453c3aee6c9a8e6e90e53d8377c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only first <code>count</code> items provided by observable, then send <code>on_completed</code>  <br /></td></tr>
-<tr class="separator:ga92d21453c3aee6c9a8e6e90e53d8377c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96d8fac29f2a295c64ca523f59dc68b4"><td class="memTemplParams" colspan="2"><a id="a96d8fac29f2a295c64ca523f59dc68b4" name="a96d8fac29f2a295c64ca523f59dc68b4"></a>
-template&lt;constraint::observable TObservable&gt; </td></tr>
-<tr class="memitem:a96d8fac29f2a295c64ca523f59dc68b4"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator()</b> (TObservable &amp;&amp;observable) const</td></tr>
-<tr class="separator:a96d8fac29f2a295c64ca523f59dc68b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section examples"><dt>Examples</dt><dd><a class="el" href="take_8cpp-example.html#_a0">take.cpp</a>.</dd>
-</dl>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/rpp/rpp/operators/<a class="el" href="take_8hpp_source.html">take.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//                  ReactivePlusPlus library</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//          Copyright Aleksey Loginov 2022 - present.</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Distributed under the Boost Software License, Version 1.0.</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">//    (See accompanying file LICENSE_1_0.txt or copy at</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">//          https://www.boost.org/LICENSE_1_0.txt)</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">//</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">// Project home: https://github.com/victimsnino/ReactivePlusPlus</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">//</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;rpp/sources/from.hpp&gt;</span></div>
+</div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>operators</b></li><li class="navelem"><a class="el" href="classrpp_1_1operators_1_1take.html">take</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_adaf39b9fc4fffd972703658707b0113.html">rpp</a></li><li class="navelem"><a class="el" href="dir_0afe0b2d744d0bd4513ad200b3c712f0.html">rpp</a></li><li class="navelem"><a class="el" href="dir_b74590698e221afff25b66eda0de4de6.html">sources</a></li><li class="navelem"><b>just.hpp</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7 </li>
   </ul>
 </div>

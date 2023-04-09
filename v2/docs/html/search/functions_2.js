@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['from_5fiterable_0',['from_iterable',['../group__creational__operators.html#gaae957a58dedecdf6e3ec279e256bdfe3',1,'rpp::source']]]
+  ['is_5fdisposed_0',['is_disposed',['../classrpp_1_1base__observer.html#a85b8cb5af6fa25e750188c2f676155ba',1,'rpp::base_observer']]]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::operators::take Class Reference</title>
+<title>ReactivePlusPlus: just.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('classrpp_1_1operators_1_1take.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('just_8cpp-example.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,35 +96,32 @@ $(document).ready(function(){initNavTree('classrpp_1_1operators_1_1take.html',''
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classrpp_1_1operators_1_1take-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::operators::take Class Reference</div></div>
+  <div class="headertitle"><div class="title">just.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ga92d21453c3aee6c9a8e6e90e53d8377c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga92d21453c3aee6c9a8e6e90e53d8377c">take</a> (const size_t count)</td></tr>
-<tr class="memdesc:ga92d21453c3aee6c9a8e6e90e53d8377c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only first <code>count</code> items provided by observable, then send <code>on_completed</code>  <br /></td></tr>
-<tr class="separator:ga92d21453c3aee6c9a8e6e90e53d8377c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96d8fac29f2a295c64ca523f59dc68b4"><td class="memTemplParams" colspan="2"><a id="a96d8fac29f2a295c64ca523f59dc68b4" name="a96d8fac29f2a295c64ca523f59dc68b4"></a>
-template&lt;constraint::observable TObservable&gt; </td></tr>
-<tr class="memitem:a96d8fac29f2a295c64ca523f59dc68b4"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator()</b> (TObservable &amp;&amp;observable) const</td></tr>
-<tr class="separator:a96d8fac29f2a295c64ca523f59dc68b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section examples"><dt>Examples</dt><dd><a class="el" href="take_8cpp-example.html#_a0">take.cpp</a>.</dd>
-</dl>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/rpp/rpp/operators/<a class="el" href="take_8hpp_source.html">take.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/rpp.hpp&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main() <span class="comment">// NOLINT</span></div>
+<div class="line">{</div>
+<div class="line">    rpp::source::just(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 42 53 10 1</span></div>
+<div class="line"><span class="comment"></span> </div>
+<div class="line">    std::array&lt;int, 100&gt; cheap_to_copy_1{};</div>
+<div class="line">    std::array&lt;int, 100&gt; cheap_to_copy_2{};</div>
+<div class="line">    rpp::source::just&lt;rpp::memory_model::use_shared&gt;(cheap_to_copy_1, cheap_to_copy_2).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// //! [just scheduler]</span></div>
+<div class="line">    <span class="comment">// rpp::source::just(rpp::schedulers::new_thread{}, 42, 53).subscribe();</span></div>
+<div class="line">    <span class="comment">// //! [just scheduler]</span></div>
+<div class="line">}</div>
+</div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>operators</b></li><li class="navelem"><a class="el" href="classrpp_1_1operators_1_1take.html">take</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7 </li>
   </ul>
 </div>

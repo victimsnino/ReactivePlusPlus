@@ -9,9 +9,7 @@ Creational operators are operators that create new observable.
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe$<$ Type $>$ On\+Subscribe$>$ }\\auto \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{rpp\+::source\+::create}} (On\+Subscribe \&\&on\+\_\+subscribe)
-\begin{DoxyCompactList}\small\item\em Construct observable specialized with passed callback function. Most easiesest way to construct observable \char`\"{}on the fly\char`\"{} via lambda and etc. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::memory\+\_\+model memory\+\_\+model$>$ }\\auto \mbox{\hyperlink{group__creational__operators_gaae957a58dedecdf6e3ec279e256bdfe3}{rpp\+::source\+::from\+\_\+iterable}} (constraint\+::iterable auto \&\&iterable)
-\begin{DoxyCompactList}\small\item\em Creates observable that emits a items from provided iterable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Construct observable specialized with passed callback function. Most easiesest way to construct observable \char`\"{}on the fly\char`\"{} via lambda and etc. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -118,55 +116,3 @@ Be sure, that your callback doesn\textquotesingle{}t violates observable rules\+
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}} 
 \end{DoxySeeAlso}
-\Hypertarget{group__creational__operators_gaae957a58dedecdf6e3ec279e256bdfe3}\label{group__creational__operators_gaae957a58dedecdf6e3ec279e256bdfe3} 
-\index{Creational Operators@{Creational Operators}!from\_iterable@{from\_iterable}}
-\index{from\_iterable@{from\_iterable}!Creational Operators@{Creational Operators}}
-\doxysubsubsection{\texorpdfstring{from\_iterable()}{from\_iterable()}}
-{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model memory\+\_\+model$>$ \\
-auto rpp\+::source\+::from\+\_\+iterable (\begin{DoxyParamCaption}\item[{constraint\+::iterable auto \&\&}]{iterable }\end{DoxyParamCaption})}
-
-
-
-Creates observable that emits a items from provided iterable. 
-
-
-
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em memory\+\_\+model} & rpp\+::memory\+\_\+model strategy used to handle provided iterable \\
-\hline
-\end{DoxyTemplParams}
-
-\begin{DoxyParams}{Parameters}
-{\em scheduler} & is scheduler used for scheduling of submissions\+: next item will be submitted to scheduler when previous one is executed \\
-\hline
-{\em iterable} & container with values which will be flattened\\
-\hline
-\end{DoxyParams}
-\begin{DoxyParagraph}{Examples\+:}
-
-\begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ vals\{\ 1,2,3\ \};}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gaae957a58dedecdf6e3ec279e256bdfe3}{rpp::source::from\_iterable}}(vals).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
-
-\end{DoxyCodeInclude}
- 
-\begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ vals\{\ 1,2,3\ \};}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ rpp::source::from\_iterable<rpp::memory\_model::use\_shared>(vals).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
-
-\end{DoxyCodeInclude}
- 
-\begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ std::vector<int>\ vals\{\ 1,2,3\ \};}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ rpp::source::from\_iterable(vals,\ rpp::schedulers::new\_thread\{\}).as\_blocking().subscribe([](int\ v)\ \{std::cout\ <<\ v\ <<\ "{}\ "{};\ \});}}
-
-\end{DoxyCodeInclude}
-
-\end{DoxyParagraph}
-\begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators/from.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/from.\+html}} 
-\end{DoxySeeAlso}
-\begin{Desc}
-\item[Examples]\par
-\mbox{\hyperlink{from_8cpp-example}{from.\+cpp}}, and \mbox{\hyperlink{take_8cpp-example}{take.\+cpp}}.\end{Desc}

@@ -94,10 +94,44 @@
 \DoxyCodeLine{00090\ \textcolor{keyword}{namespace\ }rpp::source}
 \DoxyCodeLine{00091\ \{}
 \DoxyCodeLine{00112\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\textcolor{comment}{/*\ =\ memory\_model::use\_stack*,*/}\ \textcolor{comment}{/*\ schedulers::constraint::scheduler\ TScheduler\ =\ schedulers::trampoline*/}>}
-\DoxyCodeLine{00113\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gaae957a58dedecdf6e3ec279e256bdfe3}{from\_iterable}}(constraint::iterable\ \textcolor{keyword}{auto}\&\&\ iterable)}
+\DoxyCodeLine{00113\ \textcolor{keyword}{auto}\ from\_iterable(constraint::iterable\ \textcolor{keyword}{auto}\&\&\ iterable)}
 \DoxyCodeLine{00114\ \{}
 \DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{return}\ details::make\_from\_iterable\_observable(details::pack\_to\_container<memory\_model,\ std::decay\_t<\textcolor{keyword}{decltype}(iterable)>>(std::forward<\textcolor{keyword}{decltype}(iterable)>(iterable)));}
 \DoxyCodeLine{00116\ \}}
-\DoxyCodeLine{00117\ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{comment}{//\ /**}}
+\DoxyCodeLine{00119\ \textcolor{comment}{//\ \ *\ @brief\ Creates\ rpp::base\_observable\ that\ emits\ a\ particular\ items\ and\ completes}}
+\DoxyCodeLine{00120\ \textcolor{comment}{//\ \ *\ }}
+\DoxyCodeLine{00121\ \textcolor{comment}{//\ \ *\ @marble\ just}}
+\DoxyCodeLine{00122\ \textcolor{comment}{//\ \ \ \ \{}}
+\DoxyCodeLine{00123\ \textcolor{comment}{//\ \ \ \ \ \ \ \ operator\ "{}just(1,2,3,5)"{}:\ +-\/1-\/2-\/3-\/5-\/|}}
+\DoxyCodeLine{00124\ \textcolor{comment}{//\ \ \ \ \}}}
+\DoxyCodeLine{00125\ \textcolor{comment}{//\ \ *}}
+\DoxyCodeLine{00126\ \textcolor{comment}{//\ \ *\ @tparam\ memory\_model\ rpp::memory\_model\ startegy\ used\ to\ handle\ provided\ items}}
+\DoxyCodeLine{00127\ \textcolor{comment}{//\ \ *\ @tparam\ Scheduler\ type\ of\ scheduler\ used\ for\ scheduling\ of\ submissions:\ next\ item\ will\ be\ submitted\ to\ scheduler\ when\ previous\ one\ is\ executed}}
+\DoxyCodeLine{00128\ \textcolor{comment}{//\ \ *\ @param\ item\ first\ value\ to\ be\ sent}}
+\DoxyCodeLine{00129\ \textcolor{comment}{//\ \ *\ @param\ items\ rest\ values\ to\ be\ sent}}
+\DoxyCodeLine{00130\ \textcolor{comment}{//\ \ *\ @return\ rpp::base\_observable\ which\ emits\ provided\ items}}
+\DoxyCodeLine{00131\ \textcolor{comment}{//\ \ *}}
+\DoxyCodeLine{00132\ \textcolor{comment}{//\ \ *\ @par\ Examples:}}
+\DoxyCodeLine{00133\ \textcolor{comment}{//\ \ *\ @snippet\ just.cpp\ just}}
+\DoxyCodeLine{00134\ \textcolor{comment}{//\ \ *\ @snippet\ just.cpp\ just\ memory\ model}}
+\DoxyCodeLine{00135\ \textcolor{comment}{//\ \ *\ @snippet\ just.cpp\ just\ scheduler}}
+\DoxyCodeLine{00136\ \textcolor{comment}{//\ \ *}}
+\DoxyCodeLine{00137\ \textcolor{comment}{//\ \ *\ @ingroup\ creational\_operators}}
+\DoxyCodeLine{00138\ \textcolor{comment}{//\ \ *\ @see\ https://reactivex.io/documentation/operators/just.html}}
+\DoxyCodeLine{00139\ \textcolor{comment}{//\ \ */}}
+\DoxyCodeLine{00140\ \textcolor{comment}{//\ template<constraint::memory\_model\ memory\_model\ /*\ =\ memory\_model::use\_stack\ */,\ typename\ T,\ typename\ ...Ts>}}
+\DoxyCodeLine{00141\ \textcolor{comment}{//\ auto\ just(const\ schedulers::constraint::scheduler\ auto\&\ scheduler,\ T\&\&\ item,\ Ts\&\&\ ...items)\ requires\ (rpp::details::is\_header\_included<rpp::details::just\_tag,\ T,\ Ts...>\ \&\&\ (constraint::decayed\_same\_as<T,\ Ts>\ \&\&\ ...))}}
+\DoxyCodeLine{00142\ \textcolor{comment}{//\ \{}}
+\DoxyCodeLine{00143\ \textcolor{comment}{//\ \ \ \ \ return\ create<std::decay\_t<T>>(details::iterate\_impl\{details::pack\_variadic<memory\_model,\ std::decay\_t<T>>(std::forward<T>(item),\ std::forward<Ts>(items)...),\ scheduler\ \});}}
+\DoxyCodeLine{00144\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00168\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*\ =\ memory\_model::use\_stack\ */},\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ ...Ts>}
+\DoxyCodeLine{00169\ \textcolor{keyword}{auto}\ just(T\&\&\ item,\ Ts\&\&\ ...items)\ \textcolor{keyword}{requires}\ (constraint::decayed\_same\_as<T,\ Ts>\ \&\&\ ...)}
+\DoxyCodeLine{00170\ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordflow}{return}\ details::make\_from\_iterable\_observable(details::pack\_variadic<memory\_model,\ std::decay\_t<T>>(std::forward<T>(item),\ std::forward<Ts>(items)...));}
+\DoxyCodeLine{00172\ \}}
+\DoxyCodeLine{00173\ \}}
 
 \end{DoxyCode}
