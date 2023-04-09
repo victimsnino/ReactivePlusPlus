@@ -33,7 +33,7 @@ public:
     template<rpp::constraint::observer TObs, typename...Args>
     rpp::composite_disposable schedule(constraint::schedulable_fn<TObs, Args...> auto&& fn, TObs&& obs, Args&&...args) const
     {
-        return schedule(m_strategy.now(), std::forward<decltype(fn)>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
+        return m_strategy.defer(std::forward<decltype(fn)>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
     }
 
     template<rpp::constraint::observer TObs, typename...Args>
