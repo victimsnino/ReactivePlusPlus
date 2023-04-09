@@ -43,7 +43,10 @@ bool immediate_scheduling_while_condition(time_point&                           
         }
 
         if (const auto duration = fn(obs, args...))
-            time_point = time_point + duration.value();
+        {
+            if (duration.value() != 0)
+                time_point = clock_type::now() + duration.value();
+        }
         else
             return false;
     }
