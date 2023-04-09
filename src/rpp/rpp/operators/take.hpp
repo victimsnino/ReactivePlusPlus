@@ -61,7 +61,7 @@ public:
     * @details Actually this operator just emits emissions while counter is not zero and decrements counter on each emission
     *
     * @param count amount of items to be emitted. 0 - instant complete
-    * @return new specific_observable with the Take operator as most recent operator.
+    * @return new rpp::base_observable with the Take operator as most recent operator.
     * @warning #include <rpp/operators/take.hpp>
     *
     * @par Example:

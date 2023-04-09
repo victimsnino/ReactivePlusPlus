@@ -114,4 +114,60 @@ auto from_iterable(constraint::iterable auto&& iterable)
 {
     return details::make_from_iterable_observable(details::pack_to_container<memory_model, std::decay_t<decltype(iterable)>>(std::forward<decltype(iterable)>(iterable)));
 }
+
+// /**
+//  * @brief Creates rpp::base_observable that emits a particular items and completes
+//  * 
+//  * @marble just
+//    {
+//        operator "just(1,2,3,5)": +-1-2-3-5-|
+//    }
+//  *
+//  * @tparam memory_model rpp::memory_model startegy used to handle provided items
+//  * @tparam Scheduler type of scheduler used for scheduling of submissions: next item will be submitted to scheduler when previous one is executed
+//  * @param item first value to be sent
+//  * @param items rest values to be sent
+//  * @return rpp::base_observable which emits provided items
+//  *
+//  * @par Examples:
+//  * @snippet just.cpp just
+//  * @snippet just.cpp just memory model
+//  * @snippet just.cpp just scheduler
+//  *
+//  * @ingroup creational_operators
+//  * @see https://reactivex.io/documentation/operators/just.html
+//  */
+// template<constraint::memory_model memory_model /* = memory_model::use_stack */, typename T, typename ...Ts>
+// auto just(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&& ...items) requires (rpp::details::is_header_included<rpp::details::just_tag, T, Ts...> && (constraint::decayed_same_as<T, Ts> && ...))
+// {
+//     return create<std::decay_t<T>>(details::iterate_impl{details::pack_variadic<memory_model, std::decay_t<T>>(std::forward<T>(item), std::forward<Ts>(items)...), scheduler });
+// }
+
+/**
+ * @brief Creates rpp::base_observable that emits a particular items and completes
+ * @warning this overloading uses trampoline scheduler as default
+ * 
+ * @marble just
+   {
+       operator "just(1,2,3,5)": +-1-2-3-5-|
+   }
+ * 
+ * @tparam memory_model rpp::memory_model strategy used to handle provided items
+ * @param item first value to be sent
+ * @param items rest values to be sent
+ * @return rpp::base_observable which emits provided items
+ *
+ * @par Examples:
+ * @snippet just.cpp just
+ * @snippet just.cpp just memory model
+ * @snippet just.cpp just scheduler
+ *
+ * @ingroup creational_operators
+ * @see https://reactivex.io/documentation/operators/just.html
+ */
+template<constraint::memory_model memory_model /* = memory_model::use_stack */, typename T, typename ...Ts>
+auto just(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...)
+{
+    return details::make_from_iterable_observable(details::pack_variadic<memory_model, std::decay_t<T>>(std::forward<T>(item), std::forward<Ts>(items)...));
+}
 }
