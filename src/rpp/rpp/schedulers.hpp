@@ -10,9 +10,11 @@
 
 #pragma once
 
-namespace rpp::operators
-{
-class take;
-template<typename...Args>
-class subscribe;
-}
+/**
+ * @defgroup schedulers Schedulers
+ * @brief Scheduler is the way to introduce multi-threading in your application via RPP
+ * @see https://reactivex.io/documentation/scheduler.html
+ * @ingroup rpp
+ */
+
+#include <rpp/schedulers/immediate.hpp>

@@ -53,9 +53,10 @@ public:
             other.dispose();
     }
 
-    static composite_disposable empty()
+    static composite_disposable& empty()
     {
-        return composite_disposable{empty_t{}};
+        static composite_disposable d{empty_t{}};
+        return d;
     }
 
 private:
