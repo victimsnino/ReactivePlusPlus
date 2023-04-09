@@ -103,10 +103,9 @@ int main(int argc, char* argv[]) // NOLINT
     {
         SECTION("immediate scheduler create worker + schedule")
         {
-            auto obs = rpp::make_lambda_observer([](int){ });
             TEST_RPP([&]() 
             {
-                rpp::schedulers::immediate{}.create_worker().schedule([](const auto&){ return rpp::schedulers::optional_duration{}; }, obs);
+                rpp::schedulers::immediate{}.create_worker().schedule([](const auto&){ return rpp::schedulers::optional_duration{}; }, rpp::make_lambda_observer([](int){ }));
             });
             TEST_RXCPP([&]()
             {
