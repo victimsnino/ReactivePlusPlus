@@ -1,6 +1,6 @@
 //                  ReactivePlusPlus library
 //
-//          Copyright Aleksey Loginov 2022 - present.
+//          Copyright Aleksey Loginov 2023 - present.
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          https://www.boost.org/LICENSE_1_0.txt)
@@ -52,7 +52,7 @@ public:
     base_observer(const base_observer&) requires std::same_as<Strategy, details::observer::dynamic_strategy<Type>>  = default;
 
     /**
-     * @brief Observable calls this method to pass disposable to dispose observable IF and WHEN observer want's to unsubscribe
+     * @brief Observable calls this method to pass disposable to dispose observable IF and WHEN observer want's to unsubscribe.
      */
     void set_upstream(const composite_disposable& d)
     {
