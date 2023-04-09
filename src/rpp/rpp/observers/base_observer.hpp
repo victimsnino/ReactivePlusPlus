@@ -131,6 +131,11 @@ public:
         return dynamic_observer<Type>{std::move(m_upstream), std::move(m_strategy)};
     }
 
+    operator dynamic_observer<Type>() && 
+    {
+        return std::move(*this).as_dynamic();
+    }
+
 private:
     void dispose() const
     {
