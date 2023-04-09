@@ -221,94 +221,94 @@ TEST_CASE("from iterable doesn't provides extra copies")
 //     }
 // }
 
-// TEST_CASE("just")
-// {
-//     mock_observer<copy_count_tracker> mock{ false };
+TEST_CASE("just")
+{
+    mock_observer_strategy<copy_count_tracker> mock{ false };
 
-//     SECTION("observable with copied item")
-//     {
-//         copy_count_tracker v{};
-//         auto               obs = rpp::observable::just(rpp::schedulers::immediate{}, v);
-//         SECTION("subscribe on this observable")
-//         {
-//             obs.subscribe(mock);
-//             SECTION("value obtained")
-//             {
-//                 CHECK(mock.get_on_next_const_ref_count() == 1);
-//                 CHECK(mock.get_on_next_move_count() == 0);
-//                 CHECK(mock.get_on_completed_count() == 1);
-//                 CHECK(v.get_copy_count() == 1); // 1 copy into array
-//                 CHECK(v.get_move_count() <= 2); // 1 move of array into lambda + 1 move lambda into observable
-//             }
-//         }
-//     }
-//     SECTION("observable with moved item")
-//     {
-//         copy_count_tracker v{};
-//         auto               obs = rpp::observable::just(rpp::schedulers::immediate{}, std::move(v));
-//         SECTION("subscribe on this observable")
-//         {
-//             obs.subscribe(mock);
-//             SECTION("value obtained")
-//             {
-//                 CHECK(mock.get_on_next_const_ref_count() == 1);
-//                 CHECK(mock.get_on_next_move_count() == 0);
-//                 CHECK(mock.get_on_completed_count() == 1);
-//                 CHECK(v.get_copy_count() == 0);
-//                 CHECK(v.get_move_count() <= 3); // 1 move into array + 1 move array to function for observable + 1 move into observable
-//             }
-//         }
-//     }
-//     SECTION("observable with copied item + use_sahred")
-//     {
-//         copy_count_tracker v{};
-//         auto               obs = rpp::observable::just<rpp::memory_model::use_shared>(v);
-//         SECTION("subscribe on this observable")
-//         {
-//             obs.subscribe(mock);
-//             SECTION("value obtained")
-//             {
-//                 CHECK(mock.get_on_next_const_ref_count() == 1);
-//                 CHECK(mock.get_on_next_move_count() == 0);
-//                 CHECK(mock.get_on_completed_count() == 1);
-//                 CHECK(v.get_copy_count() == 1); // 1 copy into shared_ptr
-//                 CHECK(v.get_move_count() == 0);
-//             }
-//         }
-//     }
-//     SECTION("observable with moved item + use_shared")
-//     {
-//         copy_count_tracker v{};
-//         auto               obs = rpp::observable::just<rpp::memory_model::use_shared>(std::move(v));
-//         SECTION("subscribe on this observable")
-//         {
-//             obs.subscribe(mock);
-//             SECTION("value obtained")
-//             {
-//                 CHECK(mock.get_on_next_const_ref_count() == 1);
-//                 CHECK(mock.get_on_next_move_count() == 0);
-//                 CHECK(mock.get_on_completed_count() == 1);
-//                 CHECK(v.get_copy_count() == 0);
-//                 CHECK(v.get_move_count() == 1); // 1 move into shared_ptr
-//             }
-//         }
-//     }
-// }
+    SECTION("observable with copied item")
+    {
+        copy_count_tracker v{};
+        auto               obs = rpp::source::just(/*rpp::schedulers::immediate{},*/ v);
+        SECTION("subscribe on this observable")
+        {
+            obs.subscribe(mock.get_observer());
+            SECTION("value obtained")
+            {
+                CHECK(mock.get_on_next_const_ref_count() == 1);
+                CHECK(mock.get_on_next_move_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+                CHECK(v.get_copy_count() == 1); // 1 copy into array
+                CHECK(v.get_move_count() == 1); // 1 move lambda into observable
+            }
+        }
+    }
+    SECTION("observable with moved item")
+    {
+        copy_count_tracker v{};
+        auto               obs = rpp::source::just(/*rpp::schedulers::immediate{},*/ std::move(v));
+        SECTION("subscribe on this observable")
+        {
+            obs.subscribe(mock.get_observer());
+            SECTION("value obtained")
+            {
+                CHECK(mock.get_on_next_const_ref_count() == 1);
+                CHECK(mock.get_on_next_move_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+                CHECK(v.get_copy_count() == 0); // NOLINT
+                CHECK(v.get_move_count() == 2); // 1 move into array + + 1 move into observable
+            }
+        }
+    }
+    SECTION("observable with copied item + use_sahred")
+    {
+        copy_count_tracker v{};
+        auto               obs = rpp::source::just<rpp::memory_model::use_shared>(v);
+        SECTION("subscribe on this observable")
+        {
+            obs.subscribe(mock.get_observer());
+            SECTION("value obtained")
+            {
+                CHECK(mock.get_on_next_const_ref_count() == 1);
+                CHECK(mock.get_on_next_move_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+                CHECK(v.get_copy_count() == 1); // 1 copy into shared_ptr
+                CHECK(v.get_move_count() == 0);
+            }
+        }
+    }
+    SECTION("observable with moved item + use_shared")
+    {
+        copy_count_tracker v{};
+        auto               obs = rpp::source::just<rpp::memory_model::use_shared>(std::move(v));
+        SECTION("subscribe on this observable")
+        {
+            obs.subscribe(mock.get_observer());
+            SECTION("value obtained")
+            {
+                CHECK(mock.get_on_next_const_ref_count() == 1);
+                CHECK(mock.get_on_next_move_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+                CHECK(v.get_copy_count() == 0); // NOLINT
+                CHECK(v.get_move_count() == 1); // 1 move into shared_ptr
+            }
+        }
+    }
+}
 
-// TEST_CASE("just variadic")
-// {
-//     auto mock = mock_observer<int>();
-//     SECTION("observable just variadic")
-//     {
-//         auto obs = rpp::source::just(1, 2, 3, 4, 5, 6);
-//         SECTION("subscribe on it")
-//         {
-//             obs.subscribe(mock);
-//             SECTION("observer obtains values in the same order")
-//             {
-//                 CHECK(mock.get_received_values() == std::vector{ 1, 2, 3, 4, 5, 6 });
-//                 CHECK(mock.get_on_completed_count() == 1);
-//             }
-//         }
-//     }
-// }
+TEST_CASE("just variadic")
+{
+    auto mock = mock_observer_strategy<int>();
+    SECTION("observable just variadic")
+    {
+        auto obs = rpp::source::just(1, 2, 3, 4, 5, 6);
+        SECTION("subscribe on it")
+        {
+            obs.subscribe(mock.get_observer());
+            SECTION("observer obtains values in the same order")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 1, 2, 3, 4, 5, 6 });
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+}
