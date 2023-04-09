@@ -152,11 +152,11 @@ public:
     template<rpp::constraint::observer_strategy<T> ObserverStrategy>
     void subscribe(base_observer<T, ObserverStrategy>&& observer) const
     {
-        m_observable.subscribe(std::apply([&observer](const Args&... vals)
-                                          {
-                                            return base_observer<T, operator_strategy_base<base_observer<T, ObserverStrategy>, Strategy>>{std::move(observer), vals...};
-                                          },
-                                          m_vals));
+       std::apply([&observer, this](const Args&... vals)
+                  {
+                       m_observable.subscribe(base_observer<T, operator_strategy_base<base_observer<T, ObserverStrategy>, Strategy>>{std::move(observer), vals...});
+                  },
+                  m_vals);
     }
 
 private:
