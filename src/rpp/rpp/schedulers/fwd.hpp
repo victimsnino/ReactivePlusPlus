@@ -45,7 +45,7 @@ namespace rpp::schedulers
 {
 template<constraint::strategy Strategy>
 class worker;
-};
+}
 
 namespace rpp::schedulers::constraint
 {
