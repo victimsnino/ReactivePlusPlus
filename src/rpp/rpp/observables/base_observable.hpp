@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include "rpp/utils/functors.hpp"
 #include <rpp/observables/fwd.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/observers/lambda_observer.hpp>
@@ -83,11 +84,11 @@ public:
      * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from this observable
      */
     template<std::invocable<Type> OnNext,
-             std::invocable<const std::exception_ptr&> OnError,
-             std::invocable<> OnCompleted>
+             std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t,
+             std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
     void subscribe(OnNext&&      on_next,
-                   OnError&&     on_error,
-                   OnCompleted&& on_completed) const
+                   OnError&&     on_error = {},
+                   OnCompleted&& on_completed = {}) const
     {
         subscribe(make_lambda_observer<Type>(std::forward<OnNext>(on_next),
                                              std::forward<OnError>(on_error),
@@ -101,12 +102,12 @@ public:
      * @warning This overloading has some performance penalties, use it only when you really need to use disposable
      */
     template<std::invocable<Type> OnNext,
-             std::invocable<const std::exception_ptr&> OnError,
-             std::invocable<> OnCompleted>
+             std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t,
+             std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
     composite_disposable subscribe(const rpp::composite_disposable& d,
                                    OnNext&&                         on_next,
-                                   OnError&&                        on_error,
-                                   OnCompleted&&                    on_completed) const
+                                   OnError&&                        on_error = {},
+                                   OnCompleted&&                    on_completed = {}) const
     {
         if (!d.is_disposed())
             subscribe(make_lambda_observer<Type>(d,

@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <stdexcept>
 
 namespace rpp::utils
 {
@@ -17,5 +18,10 @@ template<typename ...Types>
 struct empty_function_t
 {
     void operator()(const Types&...) const noexcept {}
+};
+
+struct rethrow_error_t
+{
+    [[noreturn]] void operator()(const std::exception_ptr &err) const { std::rethrow_exception(err); }
 };
 } // namespace rpp::utils
