@@ -152,11 +152,11 @@
 \DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_strategy<T>\ ObserverStrategy>}
 \DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{subscribe}}(\mbox{\hyperlink{classrpp_1_1base__observer}{base\_observer<T,\ ObserverStrategy>}}\&\&\ observer)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00154\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ m\_observable.subscribe(std::apply([\&observer](\textcolor{keyword}{const}\ Args\&...\ vals)}
-\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1base__observer}{base\_observer<T,\ operator\_strategy\_base<base\_observer<T,\ ObserverStrategy>}},\ Strategy>>\{std::move(observer),\ vals...\};}
-\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
-\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_vals));}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ std::apply([\&observer,\ \textcolor{keyword}{this}](\textcolor{keyword}{const}\ Args\&...\ vals)}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observable.subscribe(\mbox{\hyperlink{classrpp_1_1base__observer}{base\_observer}}<T,\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1operator__strategy__base}{operator\_strategy\_base}}<\mbox{\hyperlink{classrpp_1_1base__observer}{base\_observer<T,\ ObserverStrategy>}},\ Strategy>>\{std::move(observer),\ vals...\});}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_vals);}
 \DoxyCodeLine{00160\ \ \ \ \ \}}
 \DoxyCodeLine{00161\ }
 \DoxyCodeLine{00162\ \textcolor{keyword}{private}:}
