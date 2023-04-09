@@ -33,4 +33,7 @@ auto create(OnSubscribe&& on_subscribe);
 
 template<constraint::memory_model memory_model= memory_model::use_stack/*, schedulers::constraint::scheduler TScheduler = schedulers::trampoline*/>
 auto from_iterable(constraint::iterable auto&& iterable) ;
+
+template<constraint::memory_model memory_model = memory_model::use_stack, typename T, typename ...Ts>
+auto just(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...);
 } // namespace rpp::source
