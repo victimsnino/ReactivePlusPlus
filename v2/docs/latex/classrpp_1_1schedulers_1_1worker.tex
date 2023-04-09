@@ -1,0 +1,35 @@
+\hypertarget{classrpp_1_1schedulers_1_1worker}{}\doxysection{rpp\+::schedulers\+::worker\texorpdfstring{$<$}{<} Strategy \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classrpp_1_1schedulers_1_1worker}\index{rpp::schedulers::worker$<$ Strategy $>$@{rpp::schedulers::worker$<$ Strategy $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1worker_aa02e0511b37b290cbe314b55f5aad776}\label{classrpp_1_1schedulers_1_1worker_aa02e0511b37b290cbe314b55f5aad776} 
+{\footnotesize template$<$typename... Args$>$ \newline
+requires (!rpp\+::constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}$<$Strategy$>$, Args...$>$ \&\& rpp\+::constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args\&\&...$>$)}\\{\bfseries worker} (Args \&\&...args)
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1worker_aa16a6a8ce8c2c9d1074a11855f32aca4}\label{classrpp_1_1schedulers_1_1worker_aa16a6a8ce8c2c9d1074a11855f32aca4} 
+{\bfseries worker} (const \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}} \&)=default
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1worker_a30a71f1071b31090f2c71d7524c49770}\label{classrpp_1_1schedulers_1_1worker_a30a71f1071b31090f2c71d7524c49770} 
+{\bfseries worker} (\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}} \&\&) noexcept=default
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1worker_a1731e3cf908a19359afd0eb7ccca6d47}\label{classrpp_1_1schedulers_1_1worker_a1731e3cf908a19359afd0eb7ccca6d47} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp\+::constraint\+::observer}} TObs, typename... Args$>$ }\\\mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp\+::composite\+\_\+disposable}} {\bfseries schedule} (constraint\+::schedulable\+\_\+fn$<$ TObs, Args... $>$ auto \&\&fn, TObs \&\&obs, Args \&\&...args) const
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1worker_abca0f3b08e6d8a1c896179410c59a221}\label{classrpp_1_1schedulers_1_1worker_abca0f3b08e6d8a1c896179410c59a221} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp\+::constraint\+::observer}} TObs, typename... Args$>$ }\\\mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp\+::composite\+\_\+disposable}} {\bfseries schedule} (const duration delay, constraint\+::schedulable\+\_\+fn$<$ TObs, Args... $>$ auto \&\&fn, TObs \&\&obs, Args \&\&...args) const
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1worker_a31076b296a3585bcd56e91ef071aa4c5}\label{classrpp_1_1schedulers_1_1worker_a31076b296a3585bcd56e91ef071aa4c5} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp\+::constraint\+::observer}} TObs, typename... Args$>$ }\\\mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp\+::composite\+\_\+disposable}} {\bfseries schedule} (const time\+\_\+point time\+\_\+point, constraint\+::schedulable\+\_\+fn$<$ TObs, Args... $>$ auto \&\&fn, TObs \&\&obs, Args \&\&...args) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1worker_ae70b400bd61a27837b84e5769c102688}\label{classrpp_1_1schedulers_1_1worker_ae70b400bd61a27837b84e5769c102688} 
+static time\+\_\+point {\bfseries now} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/schedulers/details/worker.\+hpp\end{DoxyCompactItemize}

@@ -36,6 +36,16 @@ var annotated_dup =
         [ "subscribe< rpp::composite_disposable, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01_on_next_00_01_on_error_00_01_on_completed_01_4" ],
         [ "take", "classrpp_1_1operators_1_1take.html", "classrpp_1_1operators_1_1take" ]
       ] ],
+      [ "schedulers", null, [
+        [ "constraint", null, [
+          [ "details", null, [
+            [ "is_worker", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html", null ],
+            [ "is_worker< rpp::schedulers::worker< Strategy > >", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html", null ]
+          ] ]
+        ] ],
+        [ "immediate", "classrpp_1_1schedulers_1_1immediate.html", "classrpp_1_1schedulers_1_1immediate" ],
+        [ "worker", "classrpp_1_1schedulers_1_1worker.html", null ]
+      ] ],
       [ "utils", null, [
         [ "details", null, [
           [ "extract_observable_type", "structrpp_1_1utils_1_1details_1_1extract__observable__type.html", null ],
