@@ -150,7 +150,20 @@ template&lt;constraint::decayed_type Type, constraint::on_subscribe&lt; Type &gt
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"></div><!-- fragment --> <div class="fragment"></div><!-- fragment --> <div class="fragment"></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    rpp::source::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
+<div class="line">            {</div>
+<div class="line">                sub.on_next(42);</div>
+<div class="line">            })</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 42</span></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <span class="keywordtype">int</span> val = 42;</div>
+<div class="line">    rpp::source::create&lt;int&gt;([val](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
+<div class="line">            {</div>
+<div class="line">                sub.on_next(val);</div>
+<div class="line">            })</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 42</span></div>
+</div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/create.html">https://reactivex.io/documentation/operators/create.html</a></dd></dl>
 <div class="image">
 <object type="image/svg+xml" data="create.svg" style="pointer-events: none;"></object>
@@ -163,7 +176,20 @@ template&lt;constraint::decayed_type Type, constraint::on_subscribe&lt; Type &gt
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"></div><!-- fragment --> <div class="fragment"></div><!-- fragment --> <div class="fragment"></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    rpp::source::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
+<div class="line">            {</div>
+<div class="line">                sub.on_next(42);</div>
+<div class="line">            })</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 42</span></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <span class="keywordtype">int</span> val = 42;</div>
+<div class="line">    rpp::source::create&lt;int&gt;([val](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
+<div class="line">            {</div>
+<div class="line">                sub.on_next(val);</div>
+<div class="line">            })</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 42</span></div>
+</div><!-- fragment --> <div class="fragment"></div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/create.html">https://reactivex.io/documentation/operators/create.html</a> </dd></dl>
 
 </div>
@@ -203,8 +229,17 @@ template&lt;constraint::memory_model memory_model&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"></div><!-- fragment --> <div class="fragment"></div><!-- fragment --> <div class="fragment"></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">        std::vector&lt;int&gt; vals{ 1,2,3 };</div>
+<div class="line">        <a class="code hl_function" href="group__creational__operators.html#gaae957a58dedecdf6e3ec279e256bdfe3">rpp::source::from_iterable</a>(vals).subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="ttc" id="agroup__creational__operators_html_gaae957a58dedecdf6e3ec279e256bdfe3"><div class="ttname"><a href="group__creational__operators.html#gaae957a58dedecdf6e3ec279e256bdfe3">rpp::source::from_iterable</a></div><div class="ttdeci">auto from_iterable(constraint::iterable auto &amp;&amp;iterable)</div><div class="ttdoc">Creates observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition:</b> from.hpp:110</div></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">        std::vector&lt;int&gt; vals{ 1,2,3 };</div>
+<div class="line">        rpp::source::from_iterable&lt;rpp::memory_model::use_shared&gt;(vals).subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <span class="comment">//     std::vector&lt;int&gt; vals{ 1,2,3 };</span></div>
+<div class="line">    <span class="comment">//     rpp::source::from_iterable(vals, rpp::schedulers::new_thread{}).as_blocking().subscribe([](int v) {std::cout &lt;&lt; v &lt;&lt; &quot; &quot;; });</span></div>
+</div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/from.html">https://reactivex.io/documentation/operators/from.html</a> </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="from_8cpp-example.html#a0">from.cpp</a>, and <a class="el" href="take_8cpp-example.html#a0">take.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>

@@ -49,14 +49,23 @@ Be sure, that your callback doesn\textquotesingle{}t violates observable rule -\
 \begin{DoxyParagraph}{Examples\+:}
 
 \begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(42);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 42}}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-
-\end{DoxyCodeInclude}
- 
-\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ val\ =\ 42;}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([val](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(val);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 42}}
 
 \end{DoxyCodeInclude}
 
@@ -81,10 +90,23 @@ Be sure, that your callback doesn\textquotesingle{}t violates observable rules\+
 \begin{DoxyParagraph}{Examples\+:}
 
 \begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(42);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 42}}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ val\ =\ 42;}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([val](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(val);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 42}}
 
 \end{DoxyCodeInclude}
  
@@ -124,14 +146,20 @@ Creates observable that emits a items from provided iterable.
 \begin{DoxyParagraph}{Examples\+:}
 
 \begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ vals\{\ 1,2,3\ \};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gaae957a58dedecdf6e3ec279e256bdfe3}{rpp::source::from\_iterable}}(vals).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ vals\{\ 1,2,3\ \};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ rpp::source::from\_iterable<rpp::memory\_model::use\_shared>(vals).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ std::vector<int>\ vals\{\ 1,2,3\ \};}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ rpp::source::from\_iterable(vals,\ rpp::schedulers::new\_thread\{\}).as\_blocking().subscribe([](int\ v)\ \{std::cout\ <<\ v\ <<\ "{}\ "{};\ \});}}
 
 \end{DoxyCodeInclude}
 
@@ -139,3 +167,6 @@ Creates observable that emits a items from provided iterable.
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/from.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/from.\+html}} 
 \end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{from_8cpp-example}{from.\+cpp}}, and \mbox{\hyperlink{take_8cpp-example}{take.\+cpp}}.\end{Desc}

@@ -94,24 +94,29 @@
 \DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1base__observer}{dynamic\_observer<Type>}}\{std::move(m\_upstream),\ std::move(m\_strategy)\};}
 \DoxyCodeLine{00132\ \ \ \ \ \}}
 \DoxyCodeLine{00133\ }
-\DoxyCodeLine{00134\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{void}\ dispose()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00136\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ m\_is\_disposed\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_upstream)}
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ m\_upstream-\/>dispose();}
-\DoxyCodeLine{00140\ \ \ \ \ \}}
-\DoxyCodeLine{00141\ }
-\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_upstream\_disposed()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00143\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_upstream\ \&\&\ m\_upstream-\/>is\_disposed();}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{operator}\ \mbox{\hyperlink{classrpp_1_1base__observer}{dynamic\_observer<Type>}}()\ \&\&\ }
+\DoxyCodeLine{00135\ \ \ \ \ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*this).\mbox{\hyperlink{classrpp_1_1base__observer_a601d0b432a3f88eeeee64e886efba9bd}{as\_dynamic}}();}
+\DoxyCodeLine{00137\ \ \ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{void}\ dispose()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00141\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ m\_is\_disposed\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_upstream)}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ m\_upstream-\/>dispose();}
 \DoxyCodeLine{00145\ \ \ \ \ \}}
 \DoxyCodeLine{00146\ }
-\DoxyCodeLine{00147\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00148\ \ \ \ \ std::optional<composite\_disposable>\ m\_upstream\{\};}
-\DoxyCodeLine{00149\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Strategy\ \ \ \ \ \ m\_strategy;}
-\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{mutable}\ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_is\_disposed\ =\ is\_upstream\_disposed();}
-\DoxyCodeLine{00151\ \};}
-\DoxyCodeLine{00152\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_upstream\_disposed()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00148\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_upstream\ \&\&\ m\_upstream-\/>is\_disposed();}
+\DoxyCodeLine{00150\ \ \ \ \ \}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00153\ \ \ \ \ std::optional<composite\_disposable>\ m\_upstream\{\};}
+\DoxyCodeLine{00154\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Strategy\ \ \ \ \ \ m\_strategy;}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keyword}{mutable}\ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_is\_disposed\ =\ is\_upstream\_disposed();}
+\DoxyCodeLine{00156\ \};}
+\DoxyCodeLine{00157\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 
 \end{DoxyCode}

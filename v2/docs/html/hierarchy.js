@@ -29,8 +29,20 @@ var hierarchy =
     [ "rpp::operators::subscribe< Args >", "classrpp_1_1operators_1_1subscribe.html", null ],
     [ "rpp::operators::subscribe< base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1subscribe_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4.html", null ],
     [ "rpp::operators::subscribe< OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1subscribe_3_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", null ],
+    [ "rpp::operators::subscribe< OnNext, OnError, rpp::utils::empty_function_t<> >", "classrpp_1_1operators_1_1subscribe.html", [
+      [ "rpp::operators::subscribe< OnNext, OnError >", "classrpp_1_1operators_1_1subscribe_3_01_on_next_00_01_on_error_01_4.html", null ]
+    ] ],
+    [ "rpp::operators::subscribe< OnNext, rpp::utils::rethrow_error_t, rpp::utils::empty_function_t<> >", "classrpp_1_1operators_1_1subscribe.html", [
+      [ "rpp::operators::subscribe< OnNext >", "classrpp_1_1operators_1_1subscribe_3_01_on_next_01_4.html", null ]
+    ] ],
     [ "rpp::operators::subscribe< rpp::composite_disposable, base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01base__observer_3_01_typde3c24d84d647c49022f81644e91fa69.html", null ],
     [ "rpp::operators::subscribe< rpp::composite_disposable, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", null ],
+    [ "rpp::operators::subscribe< rpp::composite_disposable, OnNext, OnError, rpp::utils::empty_function_t<> >", "classrpp_1_1operators_1_1subscribe.html", [
+      [ "rpp::operators::subscribe< rpp::composite_disposable, OnNext, OnError >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01_on_next_00_01_on_error_01_4.html", null ]
+    ] ],
+    [ "rpp::operators::subscribe< rpp::composite_disposable, OnNext, rpp::utils::rethrow_error_t, rpp::utils::empty_function_t<> >", "classrpp_1_1operators_1_1subscribe.html", [
+      [ "rpp::operators::subscribe< rpp::composite_disposable, OnNext >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01_on_next_01_4.html", null ]
+    ] ],
     [ "rpp::operators::take", "classrpp_1_1operators_1_1take.html", null ],
     [ "std::true_type", null, [
       [ "rpp::utils::details::extract_observable_type< rpp::base_observable< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observable__type_3_01rpp_1_1base__observable_3_01_t_t_00_01_strategy_01_4_01_4.html", null ],

@@ -27,8 +27,12 @@ var annotated_dup =
         ] ],
         [ "subscribe", "classrpp_1_1operators_1_1subscribe.html", null ],
         [ "subscribe< base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1subscribe_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4.html", "classrpp_1_1operators_1_1subscribe_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4" ],
+        [ "subscribe< OnNext >", "classrpp_1_1operators_1_1subscribe_3_01_on_next_01_4.html", null ],
+        [ "subscribe< OnNext, OnError >", "classrpp_1_1operators_1_1subscribe_3_01_on_next_00_01_on_error_01_4.html", null ],
         [ "subscribe< OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1subscribe_3_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", "classrpp_1_1operators_1_1subscribe_3_01_on_next_00_01_on_error_00_01_on_completed_01_4" ],
         [ "subscribe< rpp::composite_disposable, base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01base__observer_3_01_typde3c24d84d647c49022f81644e91fa69.html", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01base__observer_3_01_typde3c24d84d647c49022f81644e91fa69" ],
+        [ "subscribe< rpp::composite_disposable, OnNext >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01_on_next_01_4.html", null ],
+        [ "subscribe< rpp::composite_disposable, OnNext, OnError >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01_on_next_00_01_on_error_01_4.html", null ],
         [ "subscribe< rpp::composite_disposable, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01_on_next_00_01_on_error_00_01_on_completed_01_4" ],
         [ "take", "classrpp_1_1operators_1_1take.html", "classrpp_1_1operators_1_1take" ]
       ] ],
