@@ -53,7 +53,7 @@ public:
             other.dispose();
     }
 
-    static composite_disposable& empty()
+    static const composite_disposable& empty()
     {
         static composite_disposable d{empty_t{}};
         return d;

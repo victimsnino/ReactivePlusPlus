@@ -10,10 +10,11 @@
 
 #pragma once
 
-#include "rpp/utils/constraints.hpp"
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/observers/fwd.hpp>
+#include <rpp/utils/constraints.hpp>
+#include <rpp/defs.hpp>
 
 namespace rpp::schedulers
 {
@@ -23,7 +24,7 @@ class worker
 public:
     template<typename...Args>
         requires (!rpp::constraint::variadic_decayed_same_as<worker<Strategy>, Args...> && rpp::constraint::is_constructible_from<Strategy, Args&&...>)
-    worker(Args&& ...args) 
+    explicit worker(Args&& ...args) 
         : m_strategy(std::forward<Args>(args)...) {}
 
     worker(const worker&) = default;
@@ -36,13 +37,13 @@ public:
     }
 
     template<rpp::constraint::observer TObs, typename...Args>
-    rpp::composite_disposable schedule(duration delay, constraint::schedulable_fn<TObs, Args...> auto&& fn, TObs&& obs, Args&&...args) const
+    rpp::composite_disposable schedule(const duration delay, constraint::schedulable_fn<TObs, Args...> auto&& fn, TObs&& obs, Args&&...args) const
     {
         return schedule(m_strategy.now() + delay, std::forward<decltype(fn)>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
     }
 
     template<rpp::constraint::observer TObs, typename...Args>
-    rpp::composite_disposable schedule(time_point time_point, constraint::schedulable_fn<TObs, Args...> auto&& fn, TObs&& obs, Args&&...args) const
+    rpp::composite_disposable schedule(const time_point time_point, constraint::schedulable_fn<TObs, Args...> auto&& fn, TObs&& obs, Args&&...args) const
     {
         return m_strategy.defer_at(time_point, std::forward<decltype(fn)>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
     }
@@ -50,6 +51,6 @@ public:
     static time_point now() { return Strategy::now(); }
 
 private:
-    Strategy m_strategy;
+    RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
 };
 }
