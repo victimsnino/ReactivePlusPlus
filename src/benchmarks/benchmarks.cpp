@@ -117,7 +117,7 @@ int main(int argc, char* argv[]) // NOLINT
 
     BENCHMARK("Transforming Operators")
     {
-        SECTION("map(v*2)")
+        SECTION("create+map(v*2)+subscribe")
         {
             TEST_RPP([&]()
             {
