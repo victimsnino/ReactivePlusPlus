@@ -33,7 +33,7 @@ TEST_CASE("operator_base_strategy works as expected")
     auto observer = rpp::make_lambda_observer([tracker, &mock](int v){ mock.on_next(v); }, [](const std::exception_ptr&){}, [](){});
     auto initial_copies = tracker.get_copy_count();
     auto initial_moves = tracker.get_move_count();
-    rpp::operators::details::operator_strategy_base<decltype(observer), test_strategy> op_strategy{std::move(observer)};
+    rpp::operators::details::operator_strategy_base<int, decltype(observer), test_strategy> op_strategy{std::move(observer)};
 
     SECTION("operator_strategy delays actual move of observer till move")
     {
