@@ -86,9 +86,16 @@ public:
 
     template<constraint::observable TObservable>
         requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>> && !std::same_as<void, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>>)
-    auto operator()(TObservable&& observable) const
+    auto operator()(TObservable&& observable) const &
     {
         return map_observable<TObservable, Fn>{std::forward<TObservable>(observable), m_fn};
+    }
+
+    template<constraint::observable TObservable>
+        requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>> && !std::same_as<void, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>>)
+    auto operator()(TObservable&& observable) &&
+    {
+        return map_observable<TObservable, Fn>{std::forward<TObservable>(observable), std::move(m_fn)};
     }
 
 private:

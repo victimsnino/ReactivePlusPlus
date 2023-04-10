@@ -120,13 +120,13 @@ public:
     template<constraint::operators<const base_observable<Type, Strategy>&> Op>
     auto operator|(Op&& op) const &
     {
-        return op(*this);
+        return std::forward<Op>(op)(*this);
     }
 
     template<constraint::operators<base_observable<Type, Strategy>&&> Op>
     auto operator|(Op&& op) &&
     {
-        return op(std::move(*this));
+        return std::forward<Op>(op)(std::move(*this));
     }
 
     template<typename...Args>
