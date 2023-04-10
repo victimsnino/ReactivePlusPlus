@@ -104,16 +104,16 @@ $(document).ready(function(){initNavTree('group__filtering__operators.html','');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga92d21453c3aee6c9a8e6e90e53d8377c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga92d21453c3aee6c9a8e6e90e53d8377c">rpp::operators::take::take</a> (const size_t count)</td></tr>
-<tr class="memdesc:ga92d21453c3aee6c9a8e6e90e53d8377c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only first <code>count</code> items provided by observable, then send <code>on_completed</code>  <a href="group__filtering__operators.html#ga92d21453c3aee6c9a8e6e90e53d8377c">More...</a><br /></td></tr>
-<tr class="separator:ga92d21453c3aee6c9a8e6e90e53d8377c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf32161437c2c6cd7d5a0e5170a333cbb"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a> (size_t count)</td></tr>
+<tr class="memdesc:gaf32161437c2c6cd7d5a0e5170a333cbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only first <code>count</code> items provided by observable, then send <code>on_completed</code>  <a href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">More...</a><br /></td></tr>
+<tr class="separator:gaf32161437c2c6cd7d5a0e5170a333cbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Filtering operators are operators that emit only part of items that satisfies some condition. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#filtering">https://reactivex.io/documentation/operators.html#filtering</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga92d21453c3aee6c9a8e6e90e53d8377c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga92d21453c3aee6c9a8e6e90e53d8377c">&#9670;&nbsp;</a></span>take()</h2>
+<a id="gaf32161437c2c6cd7d5a0e5170a333cbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf32161437c2c6cd7d5a0e5170a333cbb">&#9670;&nbsp;</a></span>take()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -122,16 +122,16 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">rpp::operators::take::take </td>
+          <td class="memname">auto rpp::operators::take </td>
           <td>(</td>
-          <td class="paramtype">const size_t&#160;</td>
+          <td class="paramtype">size_t&#160;</td>
           <td class="paramname"><em>count</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -150,13 +150,15 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::base_observable</a> with the Take operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="take_8hpp_source.html">rpp/operators/take.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    rpp::source::from_iterable(std::vector{0,1,2,3,4})</div>
-<div class="line">            | <a class="code" href="classrpp_1_1operators_1_1take.html">rpp::operators::take</a>(2)</div>
+<div class="line">            | <a class="code" href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a>(2)</div>
 <div class="line">            | <a class="code" href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 1</span></div>
-<div class="ttc" id="aclassrpp_1_1operators_1_1subscribe_html"><div class="ttname"><a href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:19</div></div>
-<div class="ttc" id="aclassrpp_1_1operators_1_1take_html"><div class="ttname"><a href="classrpp_1_1operators_1_1take.html">rpp::operators::take</a></div><div class="ttdef"><b>Definition:</b> take.hpp:50</div></div>
+<div class="ttc" id="aclassrpp_1_1operators_1_1subscribe_html"><div class="ttname"><a href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:20</div></div>
+<div class="ttc" id="agroup__filtering__operators_html_gaf32161437c2c6cd7d5a0e5170a333cbb"><div class="ttname"><a href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a></div><div class="ttdeci">auto take(size_t count)</div><div class="ttdoc">Emit only first count items provided by observable, then send on_completed</div><div class="ttdef"><b>Definition:</b> take.hpp:76</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/take.html">https://reactivex.io/documentation/operators/take.html</a> </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="take_8cpp-example.html#a0">take.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>

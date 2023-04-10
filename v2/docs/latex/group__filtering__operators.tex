@@ -8,7 +8,7 @@ Filtering operators are operators that emit only part of items that satisfies so
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{group__filtering__operators_ga92d21453c3aee6c9a8e6e90e53d8377c}{rpp\+::operators\+::take\+::take}} (const size\+\_\+t count)
+auto \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{rpp\+::operators\+::take}} (size\+\_\+t count)
 \begin{DoxyCompactList}\small\item\em Emit only first {\ttfamily count} items provided by observable, then send {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -21,11 +21,11 @@ Filtering operators are operators that emit only part of items that satisfies so
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{group__filtering__operators_ga92d21453c3aee6c9a8e6e90e53d8377c}\label{group__filtering__operators_ga92d21453c3aee6c9a8e6e90e53d8377c}} 
+\mbox{\Hypertarget{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}\label{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}} 
 \index{Filtering Operators@{Filtering Operators}!take@{take}}
 \index{take@{take}!Filtering Operators@{Filtering Operators}}
 \doxysubsubsection{\texorpdfstring{take()}{take()}}
-{\footnotesize\ttfamily rpp\+::operators\+::take\+::take (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::take (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -50,7 +50,7 @@ new \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}}
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{    rpp::source::from\_iterable(std::vector\{0,1,2,3,4\})}
-\DoxyCodeLine{            | \mbox{\hyperlink{classrpp_1_1operators_1_1take}{rpp::operators::take}}(2)}
+\DoxyCodeLine{            | \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{rpp::operators::take}}(2)}
 \DoxyCodeLine{            | \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 0 1}}
 
@@ -60,3 +60,6 @@ new \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/take.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/take.\+html}} 
 \end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{take_8cpp-example}{take.\+cpp}}.\end{Desc}

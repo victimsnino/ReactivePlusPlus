@@ -137,37 +137,37 @@ $(document).ready(function(){initNavTree('take_8hpp_source.html',''); initResiza
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    constexpr <span class="keyword">static</span> <a class="code" href="structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy.html">forwarding_set_upstream_strategy</a> set_upstream{};</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    constexpr <span class="keyword">static</span> <a class="code" href="structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy.html">forwarding_is_disposed_strategy</a> is_disposed{};</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;};</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">namespace </span>rpp::operators</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;{</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable TObservable&gt;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">using</span> <a class="code" href="classrpp_1_1base__observable.html">take_observable</a> = <a class="code" href="classrpp_1_1base__observable.html">details::identity_operator_observable&lt;std::decay_t&lt;TObservable&gt;</a>, <a class="code" href="structrpp_1_1operators_1_1details_1_1take__observer__strategy.html">details::take_observer_strategy</a>, <span class="keywordtype">size_t</span>&gt;;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classrpp_1_1operators_1_1take.html">   49</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1operators_1_1take.html">take</a></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;{</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="group__filtering__operators.html#ga92d21453c3aee6c9a8e6e90e53d8377c">take</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span> count)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        : m_count{count} {}</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable TObservable&gt;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">auto</span> operator()(TObservable&amp;&amp; observable)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classrpp_1_1base__observable.html">take_observable&lt;TObservable&gt;</a>{std::forward&lt;TObservable&gt;(observable), m_count};</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">size_t</span> m_count;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::observable TObservable&gt;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">using</span> <a class="code" href="classrpp_1_1base__observable.html">take_observable</a> = <a class="code" href="classrpp_1_1base__observable.html">details::identity_operator_observable&lt;std::decay_t&lt;TObservable&gt;</a>, <a class="code" href="structrpp_1_1operators_1_1details_1_1take__observer__strategy.html">details::take_observer_strategy</a>, <span class="keywordtype">size_t</span>&gt;;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1take__t.html">   46</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1operators_1_1details_1_1take__t.html">take_t</a></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">size_t</span> count;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::observable TObservable&gt;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">auto</span> operator()(TObservable&amp;&amp; observable)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classrpp_1_1base__observable.html">take_observable&lt;TObservable&gt;</a>{std::forward&lt;TObservable&gt;(observable), count};</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">namespace </span>rpp::operators</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;{</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code" href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">take</a>(<span class="keywordtype">size_t</span> count)</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;{</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="structrpp_1_1operators_1_1details_1_1take__t.html">details::take_t</a>{count};</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;} <span class="comment">// namespace rpp::operators</span></div>
 <div class="ttc" id="aclassrpp_1_1base__observable_html"><div class="ttname"><a href="classrpp_1_1base__observable.html">rpp::base_observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition:</b> base_observable.hpp:37</div></div>
-<div class="ttc" id="aclassrpp_1_1operators_1_1take_html"><div class="ttname"><a href="classrpp_1_1operators_1_1take.html">rpp::operators::take</a></div><div class="ttdef"><b>Definition:</b> take.hpp:50</div></div>
-<div class="ttc" id="agroup__filtering__operators_html_ga92d21453c3aee6c9a8e6e90e53d8377c"><div class="ttname"><a href="group__filtering__operators.html#ga92d21453c3aee6c9a8e6e90e53d8377c">rpp::operators::take::take</a></div><div class="ttdeci">take(const size_t count)</div><div class="ttdoc">Emit only first count items provided by observable, then send on_completed</div><div class="ttdef"><b>Definition:</b> take.hpp:68</div></div>
+<div class="ttc" id="agroup__filtering__operators_html_gaf32161437c2c6cd7d5a0e5170a333cbb"><div class="ttname"><a href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a></div><div class="ttdeci">auto take(size_t count)</div><div class="ttdoc">Emit only first count items provided by observable, then send on_completed</div><div class="ttdef"><b>Definition:</b> take.hpp:76</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy.html">rpp::operators::details::forwarding_is_disposed_strategy</a></div><div class="ttdef"><b>Definition:</b> strategy.hpp:134</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy.html">rpp::operators::details::forwarding_on_completed_strategy</a></div><div class="ttdef"><b>Definition:</b> strategy.hpp:120</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1forwarding__on__error__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1forwarding__on__error__strategy.html">rpp::operators::details::forwarding_on_error_strategy</a></div><div class="ttdef"><b>Definition:</b> strategy.hpp:112</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy.html">rpp::operators::details::forwarding_set_upstream_strategy</a></div><div class="ttdef"><b>Definition:</b> strategy.hpp:128</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1take__observer__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1take__observer__strategy.html">rpp::operators::details::take_observer_strategy</a></div><div class="ttdef"><b>Definition:</b> take.hpp:21</div></div>
+<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1take__t_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1take__t.html">rpp::operators::details::take_t</a></div><div class="ttdef"><b>Definition:</b> take.hpp:47</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

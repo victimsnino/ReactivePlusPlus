@@ -5,10 +5,10 @@
 Transforming operators are operators that transform items provided by observable.  
 
 
-\doxysubsection*{Classes}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-class \mbox{\hyperlink{classrpp_1_1operators_1_1map}{rpp\+::operators\+::map$<$ Fn $>$}}
+{\footnotesize template$<$typename Fn $>$ }\\auto \mbox{\hyperlink{group__transforming__operators_ga82264251fb2aa1afebdabcac65cf7452}{rpp\+::operators\+::map}} (Fn \&\&fn)
 \begin{DoxyCompactList}\small\item\em Transform the items emitted by an Observable via applying a function to each item and emitting result. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -18,3 +18,63 @@ Transforming operators are operators that transform items provided by observable
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators.html\#transforming}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html\#transforming}} 
 \end{DoxySeeAlso}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__transforming__operators_ga82264251fb2aa1afebdabcac65cf7452}\label{group__transforming__operators_ga82264251fb2aa1afebdabcac65cf7452}} 
+\index{Transforming Operators@{Transforming Operators}!map@{map}}
+\index{map@{map}!Transforming Operators@{Transforming Operators}}
+\doxysubsubsection{\texorpdfstring{map()}{map()}}
+{\footnotesize\ttfamily template$<$typename Fn $>$ \\
+auto rpp\+::operators\+::map (\begin{DoxyParamCaption}\item[{Fn \&\&}]{fn }\end{DoxyParamCaption})}
+
+
+
+Transform the items emitted by an Observable via applying a function to each item and emitting result. 
+
+\begin{DoxyNote}{Note}
+The Map operator can keep same type of value or change it to some another type.
+\end{DoxyNote}
+
+
+Actually this operator just applies callable to each obtained emission and emit resulting value
+
+
+\begin{DoxyParams}{Parameters}
+{\em callable} & is callable used to provide this transformation. Should accept Type of original observable and return type for new observable \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}} with the Map operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{map_8hpp_source}{rpp/operators/map.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example with same type\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::just(42) }
+\DoxyCodeLine{        | \mbox{\hyperlink{group__transforming__operators_ga82264251fb2aa1afebdabcac65cf7452}{rpp::operators::map}}([](\textcolor{keywordtype}{int} value) \{ \textcolor{keywordflow}{return} value + 10; \}) }
+\DoxyCodeLine{        | \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 52}}
+
+\end{DoxyCodeInclude}
+ 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Example with changed type\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    rpp::source::just(42)}
+\DoxyCodeLine{            | \mbox{\hyperlink{group__transforming__operators_ga82264251fb2aa1afebdabcac65cf7452}{rpp::operators::map}}([](\textcolor{keywordtype}{int} value) \{ \textcolor{keywordflow}{return} std::to\_string(value) + \textcolor{stringliteral}{"{} VAL"{}}; \})}
+\DoxyCodeLine{            | \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keyword}{const} std::string\& v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42 VAL}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/map.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/map.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{map_8cpp-example}{map.\+cpp}}.\end{Desc}

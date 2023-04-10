@@ -19,8 +19,8 @@ var hierarchy =
     [ "rpp::details::from_iterable_strategy< PackedContainer >", "structrpp_1_1details_1_1from__iterable__strategy.html", null ],
     [ "rpp::schedulers::immediate", "classrpp_1_1schedulers_1_1immediate.html", null ],
     [ "rpp::details::observer::lambda_strategy< Type, OnNext, OnError, OnCompleted >", "structrpp_1_1details_1_1observer_1_1lambda__strategy.html", null ],
-    [ "rpp::operators::map< Fn >", "classrpp_1_1operators_1_1map.html", null ],
     [ "rpp::operators::details::map_observer_strategy< Fn >", "structrpp_1_1operators_1_1details_1_1map__observer__strategy.html", null ],
+    [ "rpp::operators::details::map_t< Fn >", "structrpp_1_1operators_1_1details_1_1map__t.html", null ],
     [ "rpp::operators::details::operator_strategy_base< T, TObs, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base.html", null ],
     [ "rpp::operators::details::operator_strategy_base< T, rpp::base_observer< TT, ObserverStrategy >, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1base__observer_35d914c2b4e35f15683ffab6e26f444be.html", null ],
     [ "rpp::details::shared_container< Container >", "classrpp_1_1details_1_1shared__container.html", null ],
@@ -41,8 +41,8 @@ var hierarchy =
     [ "rpp::operators::subscribe< rpp::composite_disposable, OnNext, rpp::utils::rethrow_error_t, rpp::utils::empty_function_t<> >", "classrpp_1_1operators_1_1subscribe.html", [
       [ "rpp::operators::subscribe< rpp::composite_disposable, OnNext >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01_on_next_01_4.html", null ]
     ] ],
-    [ "rpp::operators::take", "classrpp_1_1operators_1_1take.html", null ],
     [ "rpp::operators::details::take_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__observer__strategy.html", null ],
+    [ "rpp::operators::details::take_t", "structrpp_1_1operators_1_1details_1_1take__t.html", null ],
     [ "std::true_type", null, [
       [ "rpp::schedulers::constraint::details::is_worker< rpp::schedulers::worker< Strategy > >", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html", null ],
       [ "rpp::utils::details::extract_observable_type< rpp::base_observable< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observable__type_3_01rpp_1_1base__observable_3_01_t_t_00_01_strategy_01_4_01_4.html", null ],

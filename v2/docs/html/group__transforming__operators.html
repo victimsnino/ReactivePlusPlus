@@ -93,7 +93,7 @@ $(document).ready(function(){initNavTree('group__transforming__operators.html','
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Transforming Operators<div class="ingroups"><a class="el" href="group__rpp.html">RPP</a> &raquo; <a class="el" href="group__operators.html">Operators</a></div></div>  </div>
 </div><!--header-->
@@ -102,15 +102,67 @@ $(document).ready(function(){initNavTree('group__transforming__operators.html','
 <p>Transforming operators are operators that transform items provided by observable.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1operators_1_1map.html">rpp::operators::map&lt; Fn &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform the items emitted by an Observable via applying a function to each item and emitting result.  <a href="classrpp_1_1operators_1_1map.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga82264251fb2aa1afebdabcac65cf7452"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; </td></tr>
+<tr class="memitem:ga82264251fb2aa1afebdabcac65cf7452"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#ga82264251fb2aa1afebdabcac65cf7452">rpp::operators::map</a> (Fn &amp;&amp;fn)</td></tr>
+<tr class="memdesc:ga82264251fb2aa1afebdabcac65cf7452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform the items emitted by an Observable via applying a function to each item and emitting result.  <a href="group__transforming__operators.html#ga82264251fb2aa1afebdabcac65cf7452">More...</a><br /></td></tr>
+<tr class="separator:ga82264251fb2aa1afebdabcac65cf7452"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Transforming operators are operators that transform items provided by observable. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#transforming">https://reactivex.io/documentation/operators.html#transforming</a> </dd></dl>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ga82264251fb2aa1afebdabcac65cf7452"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga82264251fb2aa1afebdabcac65cf7452">&#9670;&nbsp;</a></span>map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Fn &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::map </td>
+          <td>(</td>
+          <td class="paramtype">Fn &amp;&amp;&#160;</td>
+          <td class="paramname"><em>fn</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Transform the items emitted by an Observable via applying a function to each item and emitting result. </p>
+<dl class="section note"><dt>Note</dt><dd>The Map operator can keep same type of value or change it to some another type.</dd></dl>
+<div class="image">
+<object type="image/svg+xml" data="map.svg" style="pointer-events: none;"></object>
+</div>
+<p>Actually this operator just applies callable to each obtained emission and emit resulting value</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">callable</td><td>is callable used to provide this transformation. Should accept Type of original observable and return type for new observable </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::base_observable</a> with the Map operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="map_8hpp_source.html">rpp/operators/map.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example with same type:</dt><dd><div class="fragment"><div class="line">    rpp::source::just(42) </div>
+<div class="line">        | <a class="code" href="group__transforming__operators.html#ga82264251fb2aa1afebdabcac65cf7452">rpp::operators::map</a>([](<span class="keywordtype">int</span> value) { <span class="keywordflow">return</span> value + 10; }) </div>
+<div class="line">        | <a class="code" href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 52</span></div>
+<div class="ttc" id="aclassrpp_1_1operators_1_1subscribe_html"><div class="ttname"><a href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:20</div></div>
+<div class="ttc" id="agroup__transforming__operators_html_ga82264251fb2aa1afebdabcac65cf7452"><div class="ttname"><a href="group__transforming__operators.html#ga82264251fb2aa1afebdabcac65cf7452">rpp::operators::map</a></div><div class="ttdeci">auto map(Fn &amp;&amp;fn)</div><div class="ttdoc">Transform the items emitted by an Observable via applying a function to each item and emitting result...</div><div class="ttdef"><b>Definition:</b> map.hpp:91</div></div>
+</div><!-- fragment --> </dd></dl>
+<dl class="section user"><dt>Example with changed type:</dt><dd><div class="fragment"><div class="line">    rpp::source::just(42)</div>
+<div class="line">            | <a class="code" href="group__transforming__operators.html#ga82264251fb2aa1afebdabcac65cf7452">rpp::operators::map</a>([](<span class="keywordtype">int</span> value) { <span class="keywordflow">return</span> std::to_string(value) + <span class="stringliteral">&quot; VAL&quot;</span>; })</div>
+<div class="line">            | <a class="code" href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a>([](<span class="keyword">const</span> std::string&amp; v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 42 VAL</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/map.html">https://reactivex.io/documentation/operators/map.html</a> </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="map_8cpp-example.html#a0">map.cpp</a>.</dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
