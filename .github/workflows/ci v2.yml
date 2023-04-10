@@ -30,7 +30,7 @@ jobs:
         configurePreset: ci-sanitize-${{ matrix.sanitizer }}
         buildPreset: ci-build
         testPreset: ci-sanitize
-    
+
   pvs:
     name: PVS sanitizer
     runs-on: ubuntu-latest
@@ -38,7 +38,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Install tools
       run: |
         wget -q -O - https://files.pvs-studio.com/etc/pubkey.txt \
@@ -60,7 +60,7 @@ jobs:
       run: |
           pvs-studio-analyzer analyze -f build/compile_commands.json -j -e build/_deps/
           plog-converter -t sarif -o pvs-report.sarif PVS-Studio.log
-        
+
     - name: Publish report
       uses: github/codeql-action/upload-sarif@v2
       with:
@@ -161,17 +161,12 @@ jobs:
     - name: Install deps
       run: |
         pip3 install rxmarbles
-        export CC=clang
-        export CXX=clang++
-        sudo apt install llvm-11 clang-11 libclang-11-dev flex bison -q -y
-        git clone https://github.com/doxygen/doxygen.git --depth 1
-        cd doxygen && mkdir build && cd build
-        cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr ..
-        make -j4
-        sudo make install
+        sudo apt-get install doxygen
+        doxygen --version
+
     - name: Doxygen
       run: doxygen ./Doxyfile
-    
+
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       if: github.event_name == 'push' && github.repository_owner == 'victimsnino'

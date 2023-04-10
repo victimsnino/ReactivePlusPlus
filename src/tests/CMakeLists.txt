@@ -10,30 +10,36 @@
 
 add_subdirectory(utils)
 
+macro(add_test_target target_name module files)
+  set(TARGET ${target_name})
+
+  add_executable(${TARGET} ${files})
+  target_link_libraries(${TARGET} PRIVATE snitch::snitch rpp_tests_utils ${module})
+  set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites/${module})
+
+  add_test(NAME ${TARGET} COMMAND $<TARGET_FILE:${TARGET}>)
+
+  if (${module} STREQUAL rppqt)
+    rpp_add_qt_support_to_executable(${TARGET})
+  endif()
+
+  if(MSVC)
+    target_compile_options(${TARGET} PRIVATE /W4 /WX /wd4702)
+  else()
+    target_compile_options(${TARGET} PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion -Wno-gnu-zero-variadic-macro-arguments)
+  endif()
+endmacro()
+
 macro(rpp_register_tests module)
   file(GLOB_RECURSE RPP_FILES "${module}/test_*.cpp")
-  foreach(SOURCE ${RPP_FILES})
-    get_filename_component(BASE_NAME ${SOURCE} NAME_WE)
-
-    set(TARGET ${BASE_NAME})
-
-    add_executable(${TARGET} ${SOURCE})
-    target_link_libraries(${TARGET} PRIVATE snitch::snitch rpp_tests_utils ${module})
-    set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites/${module})
-
-    add_test(NAME ${TARGET} COMMAND $<TARGET_FILE:${TARGET}>)
-
-    if (${module} STREQUAL rppqt)
-      rpp_add_qt_support_to_executable(${TARGET})
-    endif()
-
-    if(MSVC)
-      target_compile_options(${TARGET} PRIVATE /W4 /WX)
-    else()
-      target_compile_options(${TARGET} PRIVATE -Wall -Wextra -Wpedantic -Werror -Wconversion -Wno-gnu-zero-variadic-macro-arguments)
-    endif()
-
-  endforeach()
+  if (RPP_BUILD_TESTS_TOGETHER)
+    add_test_target(test_${module} ${module} "${RPP_FILES}")
+  else()
+    foreach(SOURCE ${RPP_FILES})
+      get_filename_component(BASE_NAME ${SOURCE} NAME_WE)
+      add_test_target(${BASE_NAME} ${module} ${SOURCE})
+    endforeach()
+  endif()
 endmacro()
 
 rpp_register_tests(rpp)
