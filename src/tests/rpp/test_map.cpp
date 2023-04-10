@@ -15,6 +15,7 @@
 
 #include "mock_observer.hpp"
 #include "rpp/operators/fwd.hpp"
+#include "rpp/operators/take.hpp"
 
 #include <stdexcept>
 #include <string>
@@ -32,7 +33,7 @@ TEST_CASE("map modifies values and forward errors/completions")
     {
         mock_observer_strategy<std::string> mock{};
 
-        obs | rpp::operators::map{[](int v){return std::string("TEST ") + std::to_string(v);}} | rpp::operators::subscribe(mock.get_observer());
+        obs | rpp::operators::map([](int v){return std::string("TEST ") + std::to_string(v);}) | rpp::operators::subscribe(mock.get_observer());
 
         CHECK(mock.get_received_values() == std::vector<std::string>{"TEST 1", "TEST 2"});
         CHECK(mock.get_on_error_count() == 0);
@@ -44,7 +45,7 @@ TEST_CASE("map modifies values and forward errors/completions")
     {
         mock_observer_strategy<int> mock{};
 
-        obs | rpp::operators::map{[](int) -> int { throw std::runtime_error{""}; }} | rpp::operators::subscribe(mock.get_observer()); // NOLINT
+        obs | rpp::operators::map([](int) -> int { throw std::runtime_error{""}; }) | rpp::operators::subscribe(mock.get_observer()); // NOLINT
 
         CHECK(mock.get_received_values() == std::vector<int>{});
         CHECK(mock.get_on_error_count() == 1);
