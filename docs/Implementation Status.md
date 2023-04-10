@@ -41,7 +41,7 @@
 ## Operators
 ### Transforming
 
-- [ ] map
+- [x] map
 - [ ] group_by
 - [ ] flat_map
 - [ ] scan
