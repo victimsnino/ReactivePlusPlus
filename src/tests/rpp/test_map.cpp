@@ -44,7 +44,7 @@ TEST_CASE("map modifies values and forward errors/completions")
     {
         mock_observer_strategy<int> mock{};
 
-        obs | rpp::operators::map{[](int v) -> int { throw std::runtime_error{""}; return v;}} | rpp::operators::subscribe(mock.get_observer());
+        obs | rpp::operators::map{[](int v) -> int { throw std::runtime_error{""}; }} | rpp::operators::subscribe(mock.get_observer());
 
         CHECK(mock.get_received_values() == std::vector<int>{});
         CHECK(mock.get_on_error_count() == 1);
