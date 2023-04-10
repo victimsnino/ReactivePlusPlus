@@ -39,46 +39,46 @@ struct RPP_EMPTY_BASES take_observer_strategy
     constexpr static forwarding_set_upstream_strategy set_upstream{};
     constexpr static forwarding_is_disposed_strategy is_disposed{};
 };
+
+template<rpp::constraint::observable TObservable>
+using take_observable = details::identity_operator_observable<std::decay_t<TObservable>, details::take_observer_strategy, size_t>;
+
+struct take_t
+{
+    size_t count;
+
+    template<rpp::constraint::observable TObservable>
+    auto operator()(TObservable&& observable) const
+    {
+        return take_observable<TObservable>{std::forward<TObservable>(observable), count};
+    }
+};
 }
 
 namespace rpp::operators
 {
-template<constraint::observable TObservable>
-using take_observable = details::identity_operator_observable<std::decay_t<TObservable>, details::take_observer_strategy, size_t>;
-
-class take
+/**
+ * @brief Emit only first `count` items provided by observable, then send `on_completed`
+ *
+ * @marble take
+ {
+     source observable  : +--1-2-3-4-5-6-|
+     operator "take(3)" : +--1-2-3|
+ }
+ * @details Actually this operator just emits emissions while counter is not zero and decrements counter on each emission
+ *
+ * @param count amount of items to be emitted. 0 - instant complete
+ * @return new rpp::base_observable with the Take operator as most recent operator.
+ * @warning #include <rpp/operators/take.hpp>
+ *
+ * @par Example:
+ * @snippet take.cpp take
+ *
+ * @ingroup filtering_operators
+ * @see https://reactivex.io/documentation/operators/take.html
+ */
+inline auto take(size_t count)
 {
-public:
-    /**
-    * @brief Emit only first `count` items provided by observable, then send `on_completed`
-    *
-    * @marble take
-    {
-        source observable  : +--1-2-3-4-5-6-|
-        operator "take(3)" : +--1-2-3|
-    }
-    * @details Actually this operator just emits emissions while counter is not zero and decrements counter on each emission
-    *
-    * @param count amount of items to be emitted. 0 - instant complete
-    * @return new rpp::base_observable with the Take operator as most recent operator.
-    * @warning #include <rpp/operators/take.hpp>
-    *
-    * @par Example:
-    * @snippet take.cpp take
-    *
-    * @ingroup filtering_operators
-    * @see https://reactivex.io/documentation/operators/take.html
-    */
-    explicit take(const size_t count)
-        : m_count{count} {}
-
-    template<constraint::observable TObservable>
-    auto operator()(TObservable&& observable) const
-    {
-        return take_observable<TObservable>{std::forward<TObservable>(observable), m_count};
-    }
-
-private:
-    size_t m_count;
-};
+    return details::take_t{count};
+}
 } // namespace rpp::operators

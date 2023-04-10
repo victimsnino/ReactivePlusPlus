@@ -11,13 +11,14 @@
 #pragma once
 
 #include <rpp/utils/constraints.hpp>
+
 namespace rpp::operators
 {
-class take;
+auto take(size_t count);
 
 template<typename...Args>
 class subscribe;
 
-template<constraint::decayed_type Fn>
-class map;
+template<typename Fn>
+auto map(Fn&& fn);
 }

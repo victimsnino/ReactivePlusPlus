@@ -34,16 +34,38 @@ struct RPP_EMPTY_BASES map_observer_strategy
     constexpr static forwarding_set_upstream_strategy set_upstream{};
     constexpr static forwarding_is_disposed_strategy is_disposed{};
 };
+
+template<rpp::constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>> Fn>
+using map_observable = operator_observable<std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>,
+                                           TObservable,
+                                           map_observer_strategy<Fn>,
+                                           Fn>;
+
+
+template<rpp::constraint::decayed_type Fn>
+struct map_t
+{
+public:
+    RPP_NO_UNIQUE_ADDRESS Fn m_fn;
+
+    template<rpp::constraint::observable TObservable>
+        requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>> && !std::same_as<void, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>>)
+    auto operator()(TObservable&& observable) const &
+    {
+        return map_observable<TObservable, Fn>{std::forward<TObservable>(observable), m_fn};
+    }
+
+    template<rpp::constraint::observable TObservable>
+        requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>> && !std::same_as<void, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>>)
+    auto operator()(TObservable&& observable) &&
+    {
+        return map_observable<TObservable, Fn>{std::forward<TObservable>(observable), std::move(m_fn)};
+    }
+};
 }
 
 namespace rpp::operators
 {
-template<constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>> Fn>
-using map_observable = details::operator_observable<std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>,
-                                                    TObservable,
-                                                    details::map_observer_strategy<Fn>,
-                                                    Fn>;
-
 /**
  * @brief Transform the items emitted by an Observable via applying a function to each item and emitting result
  * @note The Map operator can keep same type of value or change it to some another type.
@@ -69,39 +91,9 @@ using map_observable = details::operator_observable<std::invoke_result_t<Fn, rpp
  * @ingroup transforming_operators
  * @see https://reactivex.io/documentation/operators/map.html
  */
-template<constraint::decayed_type Fn>
-class map
+template<typename Fn>
+auto map(Fn&& fn) 
 {
-public:
-    explicit map(const Fn& fn) requires(!rpp::constraint::decayed_same_as<Fn, map<Fn>>)
-        : m_fn{fn}
-    {
-    }
-
-    explicit map(Fn&& fn) requires(!rpp::constraint::decayed_same_as<Fn, map<Fn>>)
-        : m_fn{std::move(fn)}{}
-
-    map(const map&) = default;
-    map(map&&) noexcept = default;
-
-    template<constraint::observable TObservable>
-        requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>> && !std::same_as<void, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>>)
-    auto operator()(TObservable&& observable) const &
-    {
-        return map_observable<TObservable, Fn>{std::forward<TObservable>(observable), m_fn};
-    }
-
-    template<constraint::observable TObservable>
-        requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>> && !std::same_as<void, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>>)
-    auto operator()(TObservable&& observable) &&
-    {
-        return map_observable<TObservable, Fn>{std::forward<TObservable>(observable), std::move(m_fn)};
-    }
-
-private:
-    RPP_NO_UNIQUE_ADDRESS Fn m_fn;
-};
-
-template<constraint::decayed_type Fn>
-map(const Fn&) -> map<Fn>;
+    return details::map_t<std::decay_t<Fn>>{std::forward<Fn>(fn)};
+}
 } // namespace rpp::operators
