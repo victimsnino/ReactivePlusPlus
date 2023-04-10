@@ -165,8 +165,8 @@ public:
     }
 
 private:
-    Observable          m_observable;
-    std::tuple<Args...> m_vals{};
+    RPP_NO_UNIQUE_ADDRESS Observable          m_observable;
+    RPP_NO_UNIQUE_ADDRESS std::tuple<Args...> m_vals{};
 };
 
 template<rpp::constraint::observable Observable,

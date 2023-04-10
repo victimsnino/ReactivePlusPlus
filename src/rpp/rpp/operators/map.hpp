@@ -73,12 +73,12 @@ template<constraint::decayed_type Fn>
 class map
 {
 public:
-    map(const Fn& fn) requires(!rpp::constraint::decayed_same_as<Fn, map<Fn>>)
+    explicit map(const Fn& fn) requires(!rpp::constraint::decayed_same_as<Fn, map<Fn>>)
         : m_fn{fn}
     {
     }
 
-    map(Fn&& fn) requires(!rpp::constraint::decayed_same_as<Fn, map<Fn>>)
+    explicit map(Fn&& fn) requires(!rpp::constraint::decayed_same_as<Fn, map<Fn>>)
         : m_fn{std::move(fn)}{}
 
     map(const map&) = default;
