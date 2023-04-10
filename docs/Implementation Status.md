@@ -23,8 +23,8 @@
 ## Creating Observables
 
 - [x] Create
-- [ ] Just
-  - [ ] + memory_model
+- [x] Just
+  - [x] + memory_model
 - [ ] empty/never/error
 - [ ] from
   - [x] iterable
