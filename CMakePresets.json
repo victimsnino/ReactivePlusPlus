@@ -166,11 +166,17 @@
     },
     {
       "name": "ci-coverage-gcc",
-      "inherits": ["ci-build", "ci-build-tests", "coverage-unix-gcc"]
+      "inherits": ["ci-build", "ci-build-tests", "coverage-unix-gcc"],
+      "cacheVariables": {
+        "RPP_BUILD_TESTS_TOGETHER" : true
+      }
     },
     {
       "name": "ci-coverage-clang",
-      "inherits": ["ci-build", "ci-build-tests", "coverage-unix-clang"]
+      "inherits": ["ci-build", "ci-build-tests", "coverage-unix-clang"],
+      "cacheVariables": {
+        "RPP_BUILD_TESTS_TOGETHER" : true
+      }
     },
     {
       "name": "ci-sanitize-tsan",
