@@ -159,7 +159,9 @@ jobs:
       with: { python-version: "3.8" }
 
     - name: Install deps
-      run: doxygen --version
+      run: |
+        pip3 install rxmarbles
+        doxygen --version
 
     - name: Doxygen
       run: doxygen ./Doxyfile
