@@ -1,0 +1,29 @@
+\hypertarget{map_8cpp-example}{}\doxysection{map.\+cpp}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main() \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    rpp::source::just(42)}
+\DoxyCodeLine{            | \mbox{\hyperlink{classrpp_1_1operators_1_1map}{rpp::operators::map}}\{[](\textcolor{keywordtype}{int} value)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                \textcolor{keywordflow}{return} value + 10;}
+\DoxyCodeLine{            \}\}}
+\DoxyCodeLine{            | \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 52}}
+\DoxyCodeLine{\textcolor{comment}{}}
+\DoxyCodeLine{    rpp::source::just(42)}
+\DoxyCodeLine{            | \mbox{\hyperlink{classrpp_1_1operators_1_1map}{rpp::operators::map}}([](\textcolor{keywordtype}{int} value)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                \textcolor{keywordflow}{return} std::to\_string(value) + \textcolor{stringliteral}{"{} VAL"{}};}
+\DoxyCodeLine{            \})}
+\DoxyCodeLine{            | \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keyword}{const} std::string\& v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42 VAL}}
+\DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

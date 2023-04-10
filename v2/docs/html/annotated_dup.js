@@ -17,14 +17,17 @@ var annotated_dup =
       [ "operators", null, [
         [ "details", null, [
           [ "operator_strategy_base", "classrpp_1_1operators_1_1details_1_1operator__strategy__base.html", null ],
-          [ "operator_strategy_base< rpp::base_observer< T, ObserverStrategy >, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01rpp_1_1base__observer_3_01_t_00440527fb0e737c881abef674946fce52.html", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01rpp_1_1base__observer_3_01_t_00440527fb0e737c881abef674946fce52" ],
+          [ "operator_strategy_base< T, rpp::base_observer< TT, ObserverStrategy >, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1base__observer_35d914c2b4e35f15683ffab6e26f444be.html", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1base__observer_35d914c2b4e35f15683ffab6e26f444be" ],
           [ "forwarding_on_next_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__on__next__strategy.html", "structrpp_1_1operators_1_1details_1_1forwarding__on__next__strategy" ],
           [ "forwarding_on_error_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__on__error__strategy.html", "structrpp_1_1operators_1_1details_1_1forwarding__on__error__strategy" ],
           [ "forwarding_on_completed_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy.html", "structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy" ],
-          [ "forwarding_disposable_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__disposable__strategy.html", null ],
-          [ "take_observer_strategy", "classrpp_1_1operators_1_1details_1_1take__observer__strategy.html", "classrpp_1_1operators_1_1details_1_1take__observer__strategy" ]
+          [ "forwarding_set_upstream_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy.html", "structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy" ],
+          [ "forwarding_is_disposed_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy.html", "structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy" ],
+          [ "map_observer_strategy", "structrpp_1_1operators_1_1details_1_1map__observer__strategy.html", "structrpp_1_1operators_1_1details_1_1map__observer__strategy" ],
+          [ "take_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__observer__strategy.html", "structrpp_1_1operators_1_1details_1_1take__observer__strategy" ]
         ] ],
         [ "subscribe", "classrpp_1_1operators_1_1subscribe.html", null ],
+        [ "map", "classrpp_1_1operators_1_1map.html", "classrpp_1_1operators_1_1map" ],
         [ "subscribe< base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1subscribe_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4.html", "classrpp_1_1operators_1_1subscribe_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4" ],
         [ "subscribe< rpp::composite_disposable, base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01base__observer_3_01_typde3c24d84d647c49022f81644e91fa69.html", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01base__observer_3_01_typde3c24d84d647c49022f81644e91fa69" ],
         [ "subscribe< OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1subscribe_3_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", "classrpp_1_1operators_1_1subscribe_3_01_on_next_00_01_on_error_00_01_on_completed_01_4" ],
