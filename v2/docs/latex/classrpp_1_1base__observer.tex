@@ -1,4 +1,4 @@
-\hypertarget{classrpp_1_1base__observer}{}\doxysection{rpp\+::base\+\_\+observer\texorpdfstring{$<$}{<} Type, Strategy \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classrpp_1_1base__observer}{}\doxysection{rpp\+::base\+\_\+observer$<$ Type, Strategy $>$ Class Template Reference}
 \label{classrpp_1_1base__observer}\index{rpp::base\_observer$<$ Type, Strategy $>$@{rpp::base\_observer$<$ Type, Strategy $>$}}
 
 
@@ -12,26 +12,15 @@ Base class for any observer used in RPP. It handles core callbacks of observers.
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classrpp_1_1base__observer_aabf067bbf825cdcc49451e44e4d5ec3b}\label{classrpp_1_1base__observer_aabf067bbf825cdcc49451e44e4d5ec3b} 
-{\footnotesize template$<$typename ... Args$>$ \newline
-requires constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args...$>$}\\{\bfseries base\+\_\+observer} (std\+::optional$<$ \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} $>$ disposable, Args \&\&...args)
+\mbox{\Hypertarget{classrpp_1_1base__observer_afcd52637036bacc59e295fb6e30cd288}\label{classrpp_1_1base__observer_afcd52637036bacc59e295fb6e30cd288}} 
+{\footnotesize template$<$typename ... Args$>$ }\\requires constraint\+::is\+\_\+constructible\+\_\+from$<$ Strategy, Args... $>$ {\bfseries base\+\_\+observer} (std\+::optional$<$ \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} $>$ disposable, Args \&\&...args)
 \item 
-\Hypertarget{classrpp_1_1base__observer_a78e5c81188a159d6c9ba22778f649441}\label{classrpp_1_1base__observer_a78e5c81188a159d6c9ba22778f649441} 
-{\footnotesize template$<$typename ... Args$>$ \newline
-requires (!constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}}$<$Type, Strategy$>$, Args...$>$ \&\& constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args\&\&...$>$)}\\{\bfseries base\+\_\+observer} (Args \&\&...args)
+\mbox{\Hypertarget{classrpp_1_1base__observer_a732358c9205456d374b562109e980e89}\label{classrpp_1_1base__observer_a732358c9205456d374b562109e980e89}} 
+{\footnotesize template$<$typename ... Args$>$ }\\{\bfseries requires} (!constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$ \mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}}$<$ Type, Strategy $>$, Args... $>$ \&\&constraint\+::is\+\_\+constructible\+\_\+from$<$ Strategy, Args \&\&... $>$) explicit \mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}}(Args \&\&...args)
 \item 
-\Hypertarget{classrpp_1_1base__observer_a7190fb11d6d1b6f1a96b089239910e10}\label{classrpp_1_1base__observer_a7190fb11d6d1b6f1a96b089239910e10} 
+\mbox{\Hypertarget{classrpp_1_1base__observer_a7190fb11d6d1b6f1a96b089239910e10}\label{classrpp_1_1base__observer_a7190fb11d6d1b6f1a96b089239910e10}} 
 {\bfseries base\+\_\+observer} (\mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}} \&\&) noexcept=default
 \item 
-\Hypertarget{classrpp_1_1base__observer_a306f122d8775cd4bfa939debe41123df}\label{classrpp_1_1base__observer_a306f122d8775cd4bfa939debe41123df} 
-{\bfseries base\+\_\+observer} (const \mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}} \&)=delete
-\item 
-\Hypertarget{classrpp_1_1base__observer_aff5f11a5eb27aee6ada289e69d6dc9fb}\label{classrpp_1_1base__observer_aff5f11a5eb27aee6ada289e69d6dc9fb} 
-{\bfseries base\+\_\+observer} (const \mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}} \&)=default
-\item 
-\Hypertarget{classrpp_1_1base__observer_a60cc35782ffc3eb972befffdf1487384}\label{classrpp_1_1base__observer_a60cc35782ffc3eb972befffdf1487384} 
-void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&d)
-\begin{DoxyCompactList}\small\item\em Observable calls this method to pass disposable to dispose observable IF and WHEN observer want\textquotesingle{}s to unsubscribe. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classrpp_1_1base__observer_a85b8cb5af6fa25e750188c2f676155ba}{is\+\_\+disposed}} () const noexcept
 \begin{DoxyCompactList}\small\item\em Observable calls this method to check if observer interested or not in emissions. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrpp_1_1base__observer_ab79ca008036a92a36599e3e9069f232e}{on\+\_\+next}} (const Type \&v) const
@@ -42,21 +31,28 @@ void \mbox{\hyperlink{classrpp_1_1base__observer_a4156158c477508bfa243d5b20e6f44
 \begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about some error during generation next data. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrpp_1_1base__observer_a1f29d9521b4bfb02cb8126d7cc0eeb54}{on\+\_\+completed}} () const
 \begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about completion of emissions. \end{DoxyCompactList}\item 
-\Hypertarget{classrpp_1_1base__observer_a601d0b432a3f88eeeee64e886efba9bd}\label{classrpp_1_1base__observer_a601d0b432a3f88eeeee64e886efba9bd} 
-\mbox{\hyperlink{classrpp_1_1base__observer}{dynamic\+\_\+observer}}$<$ Type $>$ {\bfseries as\+\_\+dynamic} () \&\&
+\mbox{\Hypertarget{classrpp_1_1base__observer_ad3fdacd0240836e2495565645f5c153d}\label{classrpp_1_1base__observer_ad3fdacd0240836e2495565645f5c153d}} 
+\mbox{\hyperlink{classrpp_1_1base__observer}{dynamic\+\_\+observer}}$<$ Type $>$ \mbox{\hyperlink{classrpp_1_1base__observer_ad3fdacd0240836e2495565645f5c153d}{as\+\_\+dynamic}} () \&\&
 \begin{DoxyCompactList}\small\item\em Convert current observer to type-\/erased version. Useful if you need to COPY your observer or to store different observers in same container. \end{DoxyCompactList}\item 
-\Hypertarget{classrpp_1_1base__observer_a7aba1825f3ba1a4c38b683952abf4805}\label{classrpp_1_1base__observer_a7aba1825f3ba1a4c38b683952abf4805} 
-{\bfseries operator dynamic\+\_\+observer} () \&\&
+\mbox{\Hypertarget{classrpp_1_1base__observer_a5e048121310a05ddacd1f0097d1959ea}\label{classrpp_1_1base__observer_a5e048121310a05ddacd1f0097d1959ea}} 
+{\bfseries operator dynamic\+\_\+observer$<$ Type $>$} () \&\&
 \end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1base__observer_ae5529f1765970ff64e43836d3787223f}\label{classrpp_1_1base__observer_ae5529f1765970ff64e43836d3787223f}} 
+\mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}}(const \mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}} \&) requires(!std \mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}}(const \mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}} \&) requires std void \mbox{\hyperlink{classrpp_1_1base__observer_ae5529f1765970ff64e43836d3787223f}{set\+\_\+upstream}} (const \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&d)
+\begin{DoxyCompactList}\small\item\em Observable calls this method to pass disposable to dispose observable IF and WHEN observer want\textquotesingle{}s to unsubscribe. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 \subsubsection*{template$<$constraint\+::decayed\+\_\+type Type, constraint\+::observer\+\_\+strategy$<$ Type $>$ Strategy$>$\newline
 class rpp\+::base\+\_\+observer$<$ Type, Strategy $>$}
+
 Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this class would be passed to subscribe of observable. 
 
 \begin{DoxyWarning}{Warning}
-By default \doxylink{classrpp_1_1base__observer}{base\+\_\+observer} is not copyable, only movable. If you need to COPY your observer, you need to convert it to rpp\+::dynamic\+\_\+observer via \doxylink{classrpp_1_1base__observer_a601d0b432a3f88eeeee64e886efba9bd}{rpp\+::base\+\_\+observer\+::as\+\_\+dynamic} 
+By default \mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}} is not copyable, only movable. If you need to COPY your observer, you need to convert it to rpp\+::dynamic\+\_\+observer via \mbox{\hyperlink{classrpp_1_1base__observer_ad3fdacd0240836e2495565645f5c153d}{rpp\+::base\+\_\+observer\+::as\+\_\+dynamic}} 
 
 Expected that observer would be subscribed only to ONE observable ever. It can keep internal state and track it it was disposed or not. So, subscribing same observer multiple time follows unspecified behavior.
 \end{DoxyWarning}
@@ -70,7 +66,7 @@ Expected that observer would be subscribed only to ONE observable ever. It can k
 
 
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classrpp_1_1base__observer_a85b8cb5af6fa25e750188c2f676155ba}\label{classrpp_1_1base__observer_a85b8cb5af6fa25e750188c2f676155ba} 
+\mbox{\Hypertarget{classrpp_1_1base__observer_a85b8cb5af6fa25e750188c2f676155ba}\label{classrpp_1_1base__observer_a85b8cb5af6fa25e750188c2f676155ba}} 
 \index{rpp::base\_observer$<$ Type, Strategy $>$@{rpp::base\_observer$<$ Type, Strategy $>$}!is\_disposed@{is\_disposed}}
 \index{is\_disposed@{is\_disposed}!rpp::base\_observer$<$ Type, Strategy $>$@{rpp::base\_observer$<$ Type, Strategy $>$}}
 \doxysubsubsection{\texorpdfstring{is\_disposed()}{is\_disposed()}}
@@ -86,7 +82,7 @@ true if observer disposed and no longer interested in emissions
 
 false if observer still interested in emissions 
 \end{DoxyReturn}
-\Hypertarget{classrpp_1_1base__observer_a1f29d9521b4bfb02cb8126d7cc0eeb54}\label{classrpp_1_1base__observer_a1f29d9521b4bfb02cb8126d7cc0eeb54} 
+\mbox{\Hypertarget{classrpp_1_1base__observer_a1f29d9521b4bfb02cb8126d7cc0eeb54}\label{classrpp_1_1base__observer_a1f29d9521b4bfb02cb8126d7cc0eeb54}} 
 \index{rpp::base\_observer$<$ Type, Strategy $>$@{rpp::base\_observer$<$ Type, Strategy $>$}!on\_completed@{on\_completed}}
 \index{on\_completed@{on\_completed}!rpp::base\_observer$<$ Type, Strategy $>$@{rpp::base\_observer$<$ Type, Strategy $>$}}
 \doxysubsubsection{\texorpdfstring{on\_completed()}{on\_completed()}}
@@ -100,7 +96,7 @@ Observable calls this method to notify observer about completion of emissions.
 \begin{DoxyWarning}{Warning}
 Obtaining this of this call means no any further on\+\_\+next/on\+\_\+error or on\+\_\+completed calls from this Observable 
 \end{DoxyWarning}
-\Hypertarget{classrpp_1_1base__observer_a4156158c477508bfa243d5b20e6f447f}\label{classrpp_1_1base__observer_a4156158c477508bfa243d5b20e6f447f} 
+\mbox{\Hypertarget{classrpp_1_1base__observer_a4156158c477508bfa243d5b20e6f447f}\label{classrpp_1_1base__observer_a4156158c477508bfa243d5b20e6f447f}} 
 \index{rpp::base\_observer$<$ Type, Strategy $>$@{rpp::base\_observer$<$ Type, Strategy $>$}!on\_error@{on\_error}}
 \index{on\_error@{on\_error}!rpp::base\_observer$<$ Type, Strategy $>$@{rpp::base\_observer$<$ Type, Strategy $>$}}
 \doxysubsubsection{\texorpdfstring{on\_error()}{on\_error()}}
@@ -119,7 +115,7 @@ Obtaining this of this call means no any further on\+\_\+next/on\+\_\+error or o
 {\em err} & details of error \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classrpp_1_1base__observer_ab79ca008036a92a36599e3e9069f232e}\label{classrpp_1_1base__observer_ab79ca008036a92a36599e3e9069f232e} 
+\mbox{\Hypertarget{classrpp_1_1base__observer_ab79ca008036a92a36599e3e9069f232e}\label{classrpp_1_1base__observer_ab79ca008036a92a36599e3e9069f232e}} 
 \index{rpp::base\_observer$<$ Type, Strategy $>$@{rpp::base\_observer$<$ Type, Strategy $>$}!on\_next@{on\_next}}
 \index{on\_next@{on\_next}!rpp::base\_observer$<$ Type, Strategy $>$@{rpp::base\_observer$<$ Type, Strategy $>$}}
 \doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
@@ -133,7 +129,7 @@ Observable calls this method to notify observer about new value.
 \begin{DoxyNote}{Note}
 obtains value by const-\/reference to original object. 
 \end{DoxyNote}
-\Hypertarget{classrpp_1_1base__observer_a5e99695b8ed41cbe0d054310a3f64864}\label{classrpp_1_1base__observer_a5e99695b8ed41cbe0d054310a3f64864} 
+\mbox{\Hypertarget{classrpp_1_1base__observer_a5e99695b8ed41cbe0d054310a3f64864}\label{classrpp_1_1base__observer_a5e99695b8ed41cbe0d054310a3f64864}} 
 \index{rpp::base\_observer$<$ Type, Strategy $>$@{rpp::base\_observer$<$ Type, Strategy $>$}!on\_next@{on\_next}}
 \index{on\_next@{on\_next}!rpp::base\_observer$<$ Type, Strategy $>$@{rpp::base\_observer$<$ Type, Strategy $>$}}
 \doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}

@@ -21,7 +21,7 @@ Filtering operators are operators that emit only part of items that satisfies so
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{group__filtering__operators_ga92d21453c3aee6c9a8e6e90e53d8377c}\label{group__filtering__operators_ga92d21453c3aee6c9a8e6e90e53d8377c} 
+\mbox{\Hypertarget{group__filtering__operators_ga92d21453c3aee6c9a8e6e90e53d8377c}\label{group__filtering__operators_ga92d21453c3aee6c9a8e6e90e53d8377c}} 
 \index{Filtering Operators@{Filtering Operators}!take@{take}}
 \index{take@{take}!Filtering Operators@{Filtering Operators}}
 \doxysubsubsection{\texorpdfstring{take()}{take()}}
@@ -41,18 +41,18 @@ Actually this operator just emits emissions while counter is not zero and decrem
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-new \doxylink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable} with the Take operator as most recent operator. 
+new \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}} with the Take operator as most recent operator. 
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\doxylink{take_8hpp_source}{rpp/operators/take.\+hpp}\texorpdfstring{$>$}{>}
+\#include $<$\mbox{\hyperlink{take_8hpp_source}{rpp/operators/take.\+hpp}}$>$
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ rpp::source::from\_iterable(std::vector\{0,1,2,3,4\})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{classrpp_1_1operators_1_1take}{rpp::operators::take}}(2)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 0\ 1}}
+\DoxyCodeLine{    rpp::source::from\_iterable(std::vector\{0,1,2,3,4\})}
+\DoxyCodeLine{            | \mbox{\hyperlink{classrpp_1_1operators_1_1take}{rpp::operators::take}}(2)}
+\DoxyCodeLine{            | \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 0 1}}
 
 \end{DoxyCodeInclude}
 

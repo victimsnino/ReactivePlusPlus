@@ -24,7 +24,6 @@ var hierarchy =
     [ "rpp::details::from_iterable_strategy< PackedContainer >", "structrpp_1_1details_1_1from__iterable__strategy.html", null ],
     [ "rpp::schedulers::immediate", "classrpp_1_1schedulers_1_1immediate.html", null ],
     [ "rpp::details::observer::lambda_strategy< Type, OnNext, OnError, OnCompleted >", "structrpp_1_1details_1_1observer_1_1lambda__strategy.html", null ],
-    [ "rpp::operators::details::operator_observable_strategy< Observable, Strategy, Args >", "classrpp_1_1operators_1_1details_1_1operator__observable__strategy.html", null ],
     [ "rpp::operators::details::operator_strategy_base< T, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base.html", null ],
     [ "rpp::operators::details::operator_strategy_base< rpp::base_observer< T, ObserverStrategy >, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01rpp_1_1base__observer_3_01_t_00440527fb0e737c881abef674946fce52.html", null ],
     [ "rpp::details::shared_container< Container >", "classrpp_1_1details_1_1shared__container.html", null ],

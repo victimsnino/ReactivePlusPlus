@@ -1,0 +1,4 @@
+var structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1base__observer_3_01_t_t_00_01_strategy_01_4_01_4 =
+[
+    [ "type", "structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1base__observer_3_01_t_t_00_01_strategy_01_4_01_4.html#a84363cd4aa0d4d522d8190f446e78175", null ]
+];

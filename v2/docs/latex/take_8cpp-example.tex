@@ -1,17 +1,17 @@
 \hypertarget{take_8cpp-example}{}\doxysection{take.\+cpp}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}rpp/sources/fwd.hpp"{}}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}rpp/sources/fwd.hpp"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()\ \textcolor{comment}{//\ NOLINT}}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main() \textcolor{comment}{// NOLINT}}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \ \ rpp::source::from\_iterable(std::vector\{0,1,2,3,4\})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{classrpp_1_1operators_1_1take}{rpp::operators::take}}(2)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 0\ 1}}
-\DoxyCodeLine{\textcolor{comment}{}\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{    rpp::source::from\_iterable(std::vector\{0,1,2,3,4\})}
+\DoxyCodeLine{            | \mbox{\hyperlink{classrpp_1_1operators_1_1take}{rpp::operators::take}}(2)}
+\DoxyCodeLine{            | \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int} v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 0 1}}
+\DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
 \DoxyCodeLine{\}}
 
 \end{DoxyCodeInclude}

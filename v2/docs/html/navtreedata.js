@@ -25,31 +25,31 @@
 var NAVTREE =
 [
   [ "ReactivePlusPlus", "index.html", [
-    [ "Implementation status", "md_docs_2_implementation_01_status.html", [
-      [ "Fundamentals", "md_docs_2_implementation_01_status.html#autotoc_md0", null ],
-      [ "Creating Observables", "md_docs_2_implementation_01_status.html#autotoc_md1", null ],
-      [ "Operators", "md_docs_2_implementation_01_status.html#autotoc_md2", [
-        [ "Transforming", "md_docs_2_implementation_01_status.html#autotoc_md3", null ],
-        [ "Filtering", "md_docs_2_implementation_01_status.html#autotoc_md4", null ],
-        [ "Conditional", "md_docs_2_implementation_01_status.html#autotoc_md5", null ],
-        [ "Combining", "md_docs_2_implementation_01_status.html#autotoc_md6", null ],
-        [ "Aggregate", "md_docs_2_implementation_01_status.html#autotoc_md7", null ],
-        [ "Backpressure", "md_docs_2_implementation_01_status.html#autotoc_md8", null ],
-        [ "Error handling", "md_docs_2_implementation_01_status.html#autotoc_md9", null ],
-        [ "Utility", "md_docs_2_implementation_01_status.html#autotoc_md10", null ],
-        [ "Connectable", "md_docs_2_implementation_01_status.html#autotoc_md11", null ]
+    [ "Implementation status", "status.html", [
+      [ "Fundamentals", "status.html#autotoc_md0", null ],
+      [ "Creating Observables", "status.html#autotoc_md1", null ],
+      [ "Operators", "status.html#autotoc_md2", [
+        [ "Transforming", "status.html#autotoc_md3", null ],
+        [ "Filtering", "status.html#autotoc_md4", null ],
+        [ "Conditional", "status.html#autotoc_md5", null ],
+        [ "Combining", "status.html#autotoc_md6", null ],
+        [ "Aggregate", "status.html#autotoc_md7", null ],
+        [ "Backpressure", "status.html#autotoc_md8", null ],
+        [ "Error handling", "status.html#autotoc_md9", null ],
+        [ "Utility", "status.html#autotoc_md10", null ],
+        [ "Connectable", "status.html#autotoc_md11", null ]
       ] ],
-      [ "Subjects", "md_docs_2_implementation_01_status.html#autotoc_md12", null ]
+      [ "Subjects", "status.html#autotoc_md12", null ]
     ] ],
     [ "API reference", "modules.html", "modules" ],
-    [ "Concepts", "concepts.html", "concepts" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ]
+        [ "Functions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
