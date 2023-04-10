@@ -16,11 +16,13 @@
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/sources/create.hpp>
 
-struct test_strategy : public rpp::operators::details::forwarding_on_next_strategy,
-                       public rpp::operators::details::forwarding_on_error_strategy,
-                       public rpp::operators::details::forwarding_on_completed_strategy,
-                       public rpp::operators::details::forwarding_disposable_strategy
+struct test_strategy
 {
+    constexpr static rpp::operators::details::forwarding_on_next_strategy on_next{};
+    constexpr static rpp::operators::details::forwarding_on_error_strategy on_error{};
+    constexpr static rpp::operators::details::forwarding_on_completed_strategy on_completed{};
+    constexpr static rpp::operators::details::forwarding_set_upstream_strategy set_upstream{};
+    constexpr static rpp::operators::details::forwarding_is_disposed_strategy is_disposed{};
 };
 
 TEST_CASE("operator_base_strategy works as expected")
@@ -31,9 +33,9 @@ TEST_CASE("operator_base_strategy works as expected")
     auto observer = rpp::make_lambda_observer([tracker, &mock](int v){ mock.on_next(v); }, [](const std::exception_ptr&){}, [](){});
     auto initial_copies = tracker.get_copy_count();
     auto initial_moves = tracker.get_move_count();
-    rpp::operators::details::operator_strategy_base<decltype(observer), test_strategy> op_strategy{std::move(observer)};
+    rpp::operators::details::operator_strategy_base<int, decltype(observer), test_strategy> op_strategy{std::move(observer)};
 
-    SECTION("operator_strategy delays actual move of observer till move") 
+    SECTION("operator_strategy delays actual move of observer till move")
     {
         CHECK(tracker.get_copy_count() == initial_copies);
         CHECK(tracker.get_move_count() == initial_moves);

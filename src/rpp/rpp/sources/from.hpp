@@ -13,6 +13,7 @@
 #include <rpp/observables/base_observable.hpp>
 #include <rpp/utils/utils.hpp>
 
+#include <array>
 #include <exception>
 #include <memory>
 
@@ -117,7 +118,7 @@ auto from_iterable(constraint::iterable auto&& iterable)
 
 // /**
 //  * @brief Creates rpp::base_observable that emits a particular items and completes
-//  * 
+//  *
 //  * @marble just
 //    {
 //        operator "just(1,2,3,5)": +-1-2-3-5-|
@@ -146,12 +147,12 @@ auto from_iterable(constraint::iterable auto&& iterable)
 /**
  * @brief Creates rpp::base_observable that emits a particular items and completes
  * @warning this overloading uses trampoline scheduler as default
- * 
+ *
  * @marble just
    {
        operator "just(1,2,3,5)": +-1-2-3-5-|
    }
- * 
+ *
  * @tparam memory_model rpp::memory_model strategy used to handle provided items
  * @param item first value to be sent
  * @param items rest values to be sent

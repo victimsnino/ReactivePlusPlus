@@ -25,6 +25,8 @@
  * @see https://reactivex.io/documentation/operators.html#transforming
  * @ingroup operators
  */
+
+ #include <rpp/operators/map.hpp>
  #include <rpp/operators/subscribe.hpp>
 
 
