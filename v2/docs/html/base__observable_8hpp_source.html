@@ -183,13 +183,13 @@ $(document).ready(function(){initNavTree('base__observable_8hpp_source.html','')
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::operators&lt;const base_observable&lt;Type, Strategy&gt;&amp;&gt; Op&gt;</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keyword">auto</span> operator|(Op&amp;&amp; op) <span class="keyword">const</span> &amp;</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    {</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">return</span> op(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">return</span> std::forward&lt;Op&gt;(op)(*this);</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    }</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::operators&lt;base_observable&lt;Type, Strategy&gt;&amp;&amp;&gt; Op&gt;</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">auto</span> operator|(Op&amp;&amp; op) &amp;&amp;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    {</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordflow">return</span> op(std::move(*<span class="keyword">this</span>));</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordflow">return</span> std::forward&lt;Op&gt;(op)(std::move(*<span class="keyword">this</span>));</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    }</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>...Args&gt;</div>

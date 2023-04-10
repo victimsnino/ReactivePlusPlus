@@ -159,18 +159,25 @@ $(document).ready(function(){initNavTree('map_8hpp_source.html',''); initResizab
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    template&lt;constraint::observable TObservable&gt;</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        requires (std::invocable&lt;Fn, rpp::utils::extract_observable_type_t&lt;TObservable&gt;&gt; &amp;&amp; !std::same_as&lt;<span class="keywordtype">void</span>, std::invoke_result_t&lt;Fn, rpp::utils::extract_observable_type_t&lt;TObservable&gt;&gt;&gt;)</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    auto operator()(TObservable&amp;&amp; observable)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    auto operator()(TObservable&amp;&amp; observable) const &amp;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    {</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">return</span> map_observable&lt;TObservable, Fn&gt;{std::forward&lt;TObservable&gt;(observable), m_fn};</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    RPP_NO_UNIQUE_ADDRESS Fn m_fn;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;};</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Fn&gt;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;map(<span class="keyword">const</span> Fn&amp;) -&gt; map&lt;Fn&gt;;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;} <span class="comment">// namespace rpp::operators</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observable TObservable&gt;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        requires (std::invocable&lt;Fn, rpp::utils::extract_observable_type_t&lt;TObservable&gt;&gt; &amp;&amp; !std::same_as&lt;<span class="keywordtype">void</span>, std::invoke_result_t&lt;Fn, rpp::utils::extract_observable_type_t&lt;TObservable&gt;&gt;&gt;)</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    auto operator()(TObservable&amp;&amp; observable) &amp;&amp;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">return</span> map_observable&lt;TObservable, Fn&gt;{std::forward&lt;TObservable&gt;(observable), std::move(m_fn)};</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    RPP_NO_UNIQUE_ADDRESS Fn m_fn;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;};</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Fn&gt;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;map(<span class="keyword">const</span> Fn&amp;) -&gt; map&lt;Fn&gt;;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;} <span class="comment">// namespace rpp::operators</span></div>
 <div class="ttc" id="aclassrpp_1_1base__observable_html"><div class="ttname"><a href="classrpp_1_1base__observable.html">rpp::base_observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition:</b> base_observable.hpp:37</div></div>
 <div class="ttc" id="aclassrpp_1_1operators_1_1map_html"><div class="ttname"><a href="classrpp_1_1operators_1_1map.html">rpp::operators::map</a></div><div class="ttdoc">Transform the items emitted by an Observable via applying a function to each item and emitting result...</div><div class="ttdef"><b>Definition:</b> map.hpp:70</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy.html">rpp::operators::details::forwarding_is_disposed_strategy</a></div><div class="ttdef"><b>Definition:</b> strategy.hpp:134</div></div>
