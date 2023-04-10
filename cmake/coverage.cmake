@@ -43,6 +43,7 @@ else()
         --object-directory=${PROJECT_BINARY_DIR}
         -f ${PROJECT_SOURCE_DIR}/src
         -e ${PROJECT_SOURCE_DIR}/src/tests
+        -e ${PROJECT_SOURCE_DIR}/src/examples
         -b
         -s
         --exclude-unreachable-branches
