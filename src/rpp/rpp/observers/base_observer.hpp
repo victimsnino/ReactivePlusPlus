@@ -15,6 +15,7 @@
 #include <rpp/observers/dynamic_observer.hpp>
 
 #include <rpp/disposables/composite_disposable.hpp>
+#include <exception>
 #include <type_traits>
 
 #include <optional>
@@ -81,8 +82,15 @@ public:
      */
     void on_next(const Type& v) const
     {
-        if (!is_disposed())
-            m_strategy.on_next(v);
+        try
+        {
+            if (!is_disposed())
+                m_strategy.on_next(v);
+        }
+        catch(...)
+        {
+            on_error(std::current_exception());
+        }
     }
 
     /**
@@ -92,8 +100,15 @@ public:
      */
     void on_next(Type&& v) const
     {
-        if (!is_disposed())
-            m_strategy.on_next(std::move(v));
+        try
+        {
+            if (!is_disposed())
+                m_strategy.on_next(std::move(v));
+        }
+        catch(...)
+        {
+            on_error(std::current_exception());
+        }
     }
 
     /**
@@ -131,7 +146,7 @@ public:
         return dynamic_observer<Type>{std::move(m_upstream), std::move(m_strategy)};
     }
 
-    operator dynamic_observer<Type>() && 
+    operator dynamic_observer<Type>() &&
     {
         return std::move(*this).as_dynamic();
     }

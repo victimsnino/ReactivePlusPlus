@@ -17,12 +17,9 @@
 
 namespace rpp::operators::details
 {
-class RPP_EMPTY_BASES take_observer_strategy : public forwarding_on_error_strategy
-                                             , public forwarding_on_completed_strategy
-                                             , public forwarding_disposable_strategy
+struct RPP_EMPTY_BASES take_observer_strategy
 {
-public:
-    explicit take_observer_strategy(const size_t count) : count{count} {}
+    mutable size_t count{};
 
     template<typename T>
     void on_next(const rpp::constraint::observer auto& obs, T&& v) const
@@ -37,15 +34,17 @@ public:
             obs.on_completed();
     }
 
-private:
-    mutable size_t count{};
+    constexpr static forwarding_on_error_strategy on_error{};
+    constexpr static forwarding_on_completed_strategy on_completed{};
+    constexpr static forwarding_set_upstream_strategy set_upstream{};
+    constexpr static forwarding_is_disposed_strategy is_disposed{};
 };
 }
 
 namespace rpp::operators
 {
 template<constraint::observable TObservable>
-using take_observable = details::operator_observable<std::decay_t<TObservable>, details::take_observer_strategy, size_t>;
+using take_observable = details::identity_operator_observable<std::decay_t<TObservable>, details::take_observer_strategy, size_t>;
 
 class take
 {

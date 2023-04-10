@@ -10,9 +10,14 @@
 
 #pragma once
 
+#include <rpp/utils/constraints.hpp>
 namespace rpp::operators
 {
 class take;
+
 template<typename...Args>
 class subscribe;
+
+template<constraint::decayed_type Fn>
+class map;
 }
