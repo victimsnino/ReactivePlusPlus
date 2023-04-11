@@ -20,5 +20,5 @@ template<typename...Args>
 class subscribe;
 
 template<typename Fn>
-auto map(Fn&& fn);
+auto map(Fn&& callable);
 }
