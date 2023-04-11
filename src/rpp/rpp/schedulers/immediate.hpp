@@ -31,9 +31,7 @@ public:
         template<typename...Args>
         static composite_disposable defer(constraint::schedulable_fn<Args...> auto&& fn, Args&&...args)
         {
-            time_point t{};
-            details::immediate_scheduling_while_condition(t, rpp::utils::return_true{}, std::forward<decltype(fn)>(fn), std::forward<Args>(args)...);
-            return rpp::composite_disposable::empty();
+            return defer(time_point{}, std::forward<decltype(fn)>(fn), std::forward<Args>(args)...);
         }
 
         template<typename...Args>
