@@ -92,8 +92,8 @@ namespace rpp::operators
  * @see https://reactivex.io/documentation/operators/map.html
  */
 template<typename Fn>
-auto map(Fn&& fn) 
+auto map(Fn&& callable) 
 {
-    return details::map_t<std::decay_t<Fn>>{std::forward<Fn>(fn)};
+    return details::map_t<std::decay_t<Fn>>{std::forward<Fn>(callable)};
 }
 } // namespace rpp::operators
