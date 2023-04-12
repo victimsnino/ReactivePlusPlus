@@ -34,11 +34,11 @@ public:
             details::immediate_scheduling_while_condition(time_point, rpp::utils::return_true{}, std::forward<decltype(fn)>(fn), std::forward<Args>(args)...);
             return rpp::disposable_wrapper{};
         }
-        
+
         template<typename...Args>
         static disposable_wrapper defer(constraint::schedulable_fn<Args...> auto&& fn, Args&&...args)
         {
-            return defer(time_point{}, std::forward<decltype(fn)>(fn), std::forward<Args>(args)...);
+            return defer_at(time_point{}, std::forward<decltype(fn)>(fn), std::forward<Args>(args)...);
         }
 
         static time_point now() { return clock_type::now();  }

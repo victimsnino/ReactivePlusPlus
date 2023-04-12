@@ -47,6 +47,13 @@ public:
         , m_strategy{std::forward<Args>(args)...} {}
 
     template<typename ...Args>
+        requires constraint::is_constructible_from<Strategy, Args...>
+    explicit base_observer(std::variant<disposable_wrapper, bool> disposable, disposable_wrapper upstream, Args&& ...args)
+        : m_disposable{std::move(disposable)}
+        , m_upstream{std::move(upstream)}
+        , m_strategy{std::forward<Args>(args)...} {}
+
+    template<typename ...Args>
         requires (!constraint::variadic_decayed_same_as<base_observer<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args&&...>)
     explicit base_observer(Args&& ...args)
         : m_disposable{std::in_place_type_t<bool>{}}
@@ -155,7 +162,7 @@ public:
      */
     dynamic_observer<Type> as_dynamic() &&
     {
-        return dynamic_observer<Type>{std::move(m_upstream), std::move(m_strategy)};
+        return dynamic_observer<Type>{std::move(m_disposable), std::move(m_upstream), std::move(m_strategy)};
     }
 
     operator dynamic_observer<Type>() &&
@@ -163,7 +170,6 @@ public:
         return std::move(*this).as_dynamic();
     }
 
-private:
     void dispose() const
     {
         std::visit(rpp::utils::overloaded{[](bool& is_disposed) { is_disposed = true; },
