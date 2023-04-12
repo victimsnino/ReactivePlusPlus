@@ -71,6 +71,29 @@ TEST_CASE("lambda observer works properly as base observer")
     }
 }
 
+TEST_CASE("as_dynamic keeps disposing")
+{
+    auto check    = [](auto&& observer)
+    {
+        observer.dispose();
+        auto dynamic = std::forward<decltype(observer)>(observer).as_dynamic();
+        CHECK(dynamic.is_disposed());
+    };
+
+    SECTION("observer")
+    {
+        check(rpp::make_lambda_observer<int>([](int) {}, [](const std::exception_ptr&) {}, []() {}));
+    }
+    SECTION("observer with disposable")
+    {
+        check(rpp::make_lambda_observer<int>(std::make_shared<rpp::base_disposable>(), [](int) {}, [](const std::exception_ptr&) {}, []() {}));
+    }
+    SECTION("observer with disposed disposable")
+    {
+        check(rpp::make_lambda_observer<int>(std::shared_ptr<rpp::base_disposable>(), [](int) {}, [](const std::exception_ptr&) {}, []() {}));
+    }
+}
+
 TEST_CASE("observer disposes disposable on termination callbacks")
 {
     auto d = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
