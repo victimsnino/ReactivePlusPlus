@@ -12,6 +12,7 @@
 
 #include <rpp/disposables/fwd.hpp>
 
+#include <atomic>
 #include <vector>
 
 namespace rpp
