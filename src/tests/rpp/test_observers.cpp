@@ -205,6 +205,16 @@ TEST_CASE("set_upstream depends on base disposable")
             CHECK(upstream.is_disposed());
             CHECK(observer.is_disposed());
         }
+
+        SECTION("setting upstream and disposing of base disposable disposes upstream")
+        {
+            observer.set_upstream(upstream);
+            CHECK(!upstream.is_disposed());
+            CHECK(!observer.is_disposed());
+            d.dispose();
+            CHECK(upstream.is_disposed());
+            CHECK(observer.is_disposed());
+        }
     };
 
     SECTION("original observer")
