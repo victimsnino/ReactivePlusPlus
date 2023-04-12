@@ -21,7 +21,7 @@
 #include <stdexcept>
 #include <type_traits>
 
-#include <optional>
+#include <variant>
 
 namespace rpp
 {
