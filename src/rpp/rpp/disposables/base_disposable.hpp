@@ -26,7 +26,7 @@ public:
     base_disposable(const base_disposable&) = delete;
     base_disposable(base_disposable&&)      = delete;
 
-    bool is_disposed() const noexcept
+    bool is_disposed() const
     {
         return m_current_state.load(std::memory_order_acquire) == State::Disposed;
     }

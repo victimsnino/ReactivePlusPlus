@@ -48,13 +48,13 @@ public:
     dynamic_strategy(const dynamic_strategy&) = default;
     dynamic_strategy(dynamic_strategy&&) noexcept = default;
 
-    void set_upstream(const disposable_wrapper& d) noexcept { m_vtable->set_upstream(m_forwarder.get(), d); }
-    bool is_disposed() const noexcept                       { return m_vtable->is_disposed(m_forwarder.get()); }
+    void set_upstream(const disposable_wrapper& d) { m_vtable->set_upstream(m_forwarder.get(), d); }
+    bool is_disposed() const                       { return m_vtable->is_disposed(m_forwarder.get()); }
 
-    void on_next(const Type& v) const noexcept                     { m_vtable->on_next_lvalue(m_forwarder.get(), v);            }
-    void on_next(Type&& v) const noexcept                          { m_vtable->on_next_rvalue(m_forwarder.get(), std::move(v)); }
-    void on_error(const std::exception_ptr& err) const noexcept    { m_vtable->on_error(m_forwarder.get(), err);                }
-    void on_completed() const noexcept                             { m_vtable->on_completed(m_forwarder.get());                 }
+    void on_next(const Type& v) const                     { m_vtable->on_next_lvalue(m_forwarder.get(), v);            }
+    void on_next(Type&& v) const                          { m_vtable->on_next_rvalue(m_forwarder.get(), std::move(v)); }
+    void on_error(const std::exception_ptr& err) const    { m_vtable->on_error(m_forwarder.get(), err);                }
+    void on_completed() const                             { m_vtable->on_completed(m_forwarder.get());                 }
 
 private:
     struct vtable

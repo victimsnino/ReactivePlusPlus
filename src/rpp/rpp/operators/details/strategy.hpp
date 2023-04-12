@@ -71,7 +71,7 @@ public:
     ~operator_strategy_base() noexcept = default;
 
     void set_upstream(const disposable_wrapper& d)     { m_strategy.set_upstream(get_observer(), d); }
-    bool is_disposed() const noexcept                  { return m_strategy.is_disposed() || get_observer().is_disposed(); }
+    bool is_disposed() const                           { return m_strategy.is_disposed() || get_observer().is_disposed(); }
 
     void on_next(const T& v) const                     { m_strategy.on_next(get_observer(), v); }
     void on_next(T&& v) const                          { m_strategy.on_next(get_observer(), std::move(v)); }
