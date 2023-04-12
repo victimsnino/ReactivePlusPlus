@@ -50,8 +50,7 @@ public:
     template<typename ...Args>
         requires (!constraint::variadic_decayed_same_as<base_observer<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args&&...>)
     explicit base_observer(Args&& ...args)
-        : m_disposable{std::in_place_type_t<bool>{}}
-        , m_strategy{std::forward<Args>(args)...} {}
+        : m_strategy{std::forward<Args>(args)...} {}
 
     template<constraint::observer_strategy<Type> TStrategy>
         requires (std::same_as<Strategy, details::observer::dynamic_strategy<Type>> && !std::same_as<TStrategy, details::observer::dynamic_strategy<Type>>)
@@ -75,7 +74,7 @@ public:
         else
             throw rpp::utils::error_set_upstream_calle_twice{};
 
-        if (const auto* disposable = std::get_if<disposable_wrapper>(&m_disposable))
+        if (const auto disposable = std::get_if<disposable_wrapper>(&m_disposable))
             disposable->add(d.get_original());
 
         m_strategy.set_upstream(d);
@@ -184,7 +183,7 @@ private:
     friend class base_observer<Type,  details::observer::dynamic_strategy<Type>>;
 
 private:
-    mutable std::variant<disposable_wrapper, bool> m_disposable;
+    mutable std::variant<disposable_wrapper, bool> m_disposable{false};
     disposable_wrapper                             m_upstream{};
     RPP_NO_UNIQUE_ADDRESS Strategy                 m_strategy;
 };

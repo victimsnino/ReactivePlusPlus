@@ -85,7 +85,7 @@ TEST_CASE("as_dynamic keeps disposing")
         SECTION("set upstream, convert to dynamic and dispose")
         {
             auto d = std::make_shared<rpp::base_disposable>();
-            observer.set_upstream(d);
+            observer.set_upstream(rpp::disposable_wrapper{d});
             auto dynamic = std::forward<decltype(observer)>(observer).as_dynamic();
             dynamic.dispose();
             CHECK(d->is_disposed());
@@ -98,11 +98,11 @@ TEST_CASE("as_dynamic keeps disposing")
     }
     SECTION("observer with disposable")
     {
-        check(rpp::make_lambda_observer<int>(std::make_shared<rpp::base_disposable>(), [](int) {}, [](const std::exception_ptr&) {}, []() {}));
+        check(rpp::make_lambda_observer<int>(rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()}, [](int) {}, [](const std::exception_ptr&) {}, []() {}));
     }
     SECTION("observer with disposed disposable")
     {
-        check(rpp::make_lambda_observer<int>(std::shared_ptr<rpp::base_disposable>(), [](int) {}, [](const std::exception_ptr&) {}, []() {}));
+        check(rpp::make_lambda_observer<int>(rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()}, [](int) {}, [](const std::exception_ptr&) {}, []() {}));
     }
 }
 
@@ -172,15 +172,15 @@ TEST_CASE("set_upstream can't be called multiple times")
 {
     auto check = [](auto&& observer)
     {
-        observer.set_upstream(std::make_shared<rpp::base_disposable>());
-        CHECK_THROWS_AS(observer.set_upstream(std::make_shared<rpp::base_disposable>()), rpp::utils::error_set_upstream_calle_twice);
+        observer.set_upstream(rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()});
+        CHECK_THROWS_AS(observer.set_upstream(rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()}), rpp::utils::error_set_upstream_calle_twice);
     };
 
     SECTION("observer")
         check(rpp::make_lambda_observer<int>([](int) {}, [](const std::exception_ptr&) {}, []() {}));
 
     SECTION("observer with disposable")
-        check(rpp::make_lambda_observer<int>(std::make_shared<rpp::base_disposable>(), [](int) {}, [](const std::exception_ptr&) {}, []() {}));
+        check(rpp::make_lambda_observer<int>(rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()}, [](int) {}, [](const std::exception_ptr&) {}, []() {}));
 }
 
 TEST_CASE("set_upstream depends on base disposable")

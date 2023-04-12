@@ -38,8 +38,8 @@ public:
     void on_error(const std::exception_ptr&) const noexcept { ++m_state->m_on_error_count; }
     void on_completed() const noexcept { ++m_state->m_on_completed_count; }
 
-    bool is_disposed() const noexcept { return false; }
-    void set_upstream(const rpp::disposable_wrapper&) noexcept {}
+    static bool is_disposed() noexcept { return false; }
+    static void set_upstream(const rpp::disposable_wrapper&) noexcept {}
 
     size_t get_total_on_next_count() const { return m_state->m_on_next_const_ref_count + m_state->m_on_next_move_count; }
     size_t get_on_next_const_ref_count() const { return m_state->m_on_next_const_ref_count; }

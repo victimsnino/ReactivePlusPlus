@@ -40,7 +40,7 @@ public:
             {
                 dispose_impl();
 
-                for (auto& d : m_disposables)
+                for (const auto& d : m_disposables)
                     d->dispose();
 
                 m_disposables.clear();
