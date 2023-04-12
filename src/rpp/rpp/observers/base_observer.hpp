@@ -86,7 +86,7 @@ public:
      * @return true if observer disposed and no longer interested in emissions
      * @return false if observer still interested in emissions
      */
-    bool is_disposed() const noexcept
+    bool is_disposed() const
     {
         return std::visit(rpp::utils::overloaded{[](bool is_disposed) { return is_disposed; },
                                                  [](const disposable_wrapper& disposable)
