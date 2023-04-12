@@ -75,9 +75,21 @@ TEST_CASE("as_dynamic keeps disposing")
 {
     auto check    = [](auto&& observer)
     {
-        observer.dispose();
-        auto dynamic = std::forward<decltype(observer)>(observer).as_dynamic();
-        CHECK(dynamic.is_disposed());
+        SECTION("dispose and convert to dynamic")
+        {
+            observer.dispose();
+            auto dynamic = std::forward<decltype(observer)>(observer).as_dynamic();
+            CHECK(dynamic.is_disposed());
+        }
+
+        SECTION("set upstream, convert to dynamic and dispose")
+        {
+            auto d = std::make_shared<rpp::base_disposable>();
+            observer.set_upstream(d);
+            auto dynamic = std::forward<decltype(observer)>(observer).as_dynamic();
+            dynamic.dispose();
+            CHECK(d->is_disposed());
+        }
     };
 
     SECTION("observer")
@@ -154,6 +166,21 @@ TEST_CASE("set_upstream without base disposable makes it main disposalbe")
 
     SECTION("dynamic observer")
         test_observer(std::move(original_observer).as_dynamic());
+}
+
+TEST_CASE("set_upstream can't be called multiple times")
+{
+    auto check = [](auto&& observer)
+    {
+        observer.set_upstream(std::make_shared<rpp::base_disposable>());
+        CHECK_THROWS_AS(observer.set_upstream(std::make_shared<rpp::base_disposable>()), rpp::utils::error_set_upstream_calle_twice);
+    };
+
+    SECTION("observer")
+        check(rpp::make_lambda_observer<int>([](int) {}, [](const std::exception_ptr&) {}, []() {}));
+
+    SECTION("observer with disposable")
+        check(rpp::make_lambda_observer<int>(std::make_shared<rpp::base_disposable>(), [](int) {}, [](const std::exception_ptr&) {}, []() {}));
 }
 
 TEST_CASE("set_upstream depends on base disposable")

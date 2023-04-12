@@ -16,6 +16,7 @@
 #include <rpp/disposables/base_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/utils/functors.hpp>
+#include <rpp/utils/exceptions.hpp>
 
 #include <exception>
 #include <stdexcept>
@@ -72,7 +73,7 @@ public:
         if (!m_upstream.get_original())
             m_upstream = d;
         else
-            throw std::logic_error{"set_upstream called twice for the same observer"};
+            throw rpp::utils::error_set_upstream_calle_twice{};
 
         if (const auto* disposable = std::get_if<disposable_wrapper>(&m_disposable))
             disposable->add(d.get_original());
