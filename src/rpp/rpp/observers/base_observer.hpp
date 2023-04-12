@@ -72,7 +72,7 @@ public:
         if (!m_upstream.get_original())
             m_upstream = d;
         else
-            throw rpp::utils::error_set_upstream_calle_twice{};
+            throw utils::error_set_upstream_calle_twice{};
 
         if (const auto disposable = std::get_if<disposable_wrapper>(&m_disposable))
             disposable->add(d.get_original());
@@ -88,9 +88,9 @@ public:
      */
     bool is_disposed() const
     {
-        return std::visit(rpp::utils::overloaded{[](bool is_disposed) { return is_disposed; },
-                                                 [](const disposable_wrapper& disposable)
-                                                 { return disposable.is_disposed(); }},
+        return std::visit(utils::overloaded{[](bool is_disposed) { return is_disposed; },
+                                            [](const disposable_wrapper& disposable)
+                                            { return disposable.is_disposed(); }},
                           m_disposable) ||
             m_strategy.is_disposed();
     }
@@ -172,8 +172,8 @@ public:
 
     void dispose() const
     {
-        std::visit(rpp::utils::overloaded{[](bool& is_disposed) { is_disposed = true; },
-                                          [](const disposable_wrapper& disposable) { disposable.dispose(); }},
+        std::visit(utils::overloaded{[](bool& is_disposed) { is_disposed = true; },
+                                     [](const disposable_wrapper& disposable) { disposable.dispose(); }},
                    m_disposable);
 
         m_upstream.dispose();
