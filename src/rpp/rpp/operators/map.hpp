@@ -10,10 +10,10 @@
 
 #pragma once
 
-#include "rpp/utils/constraints.hpp"
 #include <rpp/operators/fwd.hpp>
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
+#include <rpp/utils/constraints.hpp>
 #include <cstddef>
 
 namespace rpp::operators::details
@@ -92,7 +92,7 @@ namespace rpp::operators
  * @see https://reactivex.io/documentation/operators/map.html
  */
 template<typename Fn>
-auto map(Fn&& callable) 
+auto map(Fn&& callable)
 {
     return details::map_t<std::decay_t<Fn>>{std::forward<Fn>(callable)};
 }
