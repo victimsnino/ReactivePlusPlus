@@ -16,7 +16,7 @@
 #include <rpp/schedulers/details/utils.hpp>
 #include <rpp/utils/functors.hpp>
 
-namespace rpp::schedulers 
+namespace rpp::schedulers
 {
 /**
  * @brief immediately calls provided schedulable or waits for time_point (in the caller-thread)
@@ -29,16 +29,16 @@ public:
     {
     public:
         template<typename...Args>
-        static composite_disposable defer(constraint::schedulable_fn<Args...> auto&& fn, Args&&...args)
+        static disposable_wrapper defer(constraint::schedulable_fn<Args...> auto&& fn, Args&&...args)
         {
             return defer(time_point{}, std::forward<decltype(fn)>(fn), std::forward<Args>(args)...);
         }
 
         template<typename...Args>
-        static composite_disposable defer_at(time_point time_point, constraint::schedulable_fn<Args...> auto&& fn, Args&&...args)
+        static disposable_wrapper defer_at(time_point time_point, constraint::schedulable_fn<Args...> auto&& fn, Args&&...args)
         {
             details::immediate_scheduling_while_condition(time_point, rpp::utils::return_true{}, std::forward<decltype(fn)>(fn), std::forward<Args>(args)...);
-            return rpp::composite_disposable::empty();
+            return rpp::disposable_wrapper{};
         }
 
         static time_point now() { return clock_type::now();  }

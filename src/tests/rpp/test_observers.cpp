@@ -7,9 +7,11 @@
 //
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
+#include "rpp/disposables/fwd.hpp"
 #include <snitch/snitch.hpp>
 #include <rpp/observers.hpp>
 
+#include <memory>
 #include <vector>
 
 TEST_CASE("lambda observer works properly as base observer")
@@ -30,7 +32,7 @@ TEST_CASE("lambda observer works properly as base observer")
         obs.on_next(v);
         CHECK(on_next_vals == std::vector{1, 2});
 
-        SECTION("send on_error first") 
+        SECTION("send on_error first")
         {
             CHECK(!obs.is_disposed());
 
@@ -43,7 +45,7 @@ TEST_CASE("lambda observer works properly as base observer")
             CHECK(obs.is_disposed());
         }
 
-        SECTION("send on_completed first") 
+        SECTION("send on_completed first")
         {
             CHECK(!obs.is_disposed());
 
@@ -71,10 +73,10 @@ TEST_CASE("lambda observer works properly as base observer")
 
 TEST_CASE("observer disposes disposable on termination callbacks")
 {
-    rpp::composite_disposable d{};
+    auto d = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
     auto                      observer = rpp::make_lambda_observer<int>(d, [](int) {}, [](const std::exception_ptr&) {}, []() {});
 
-    rpp::composite_disposable upstream{};
+    auto upstream = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
     observer.set_upstream(upstream);
 
     CHECK(!d.is_disposed());
@@ -104,24 +106,24 @@ TEST_CASE("set_upstream without base disposable makes it main disposalbe")
 
     auto test_observer = [](auto&& observer)
     {
-        rpp::composite_disposable upstream{};
-            observer.set_upstream(upstream);
-            CHECK(!upstream.is_disposed());
-            CHECK(!observer.is_disposed());
+        auto upstream = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
+        observer.set_upstream(upstream);
+        CHECK(!upstream.is_disposed());
+        CHECK(!observer.is_disposed());
 
-            SECTION("calling on_error causes disposing of upstream")
-            {
-                observer.on_error({});
-                CHECK(upstream.is_disposed());
-                CHECK(observer.is_disposed());
-            }
+        SECTION("calling on_error causes disposing of upstream")
+        {
+            observer.on_error({});
+            CHECK(upstream.is_disposed());
+            CHECK(observer.is_disposed());
+        }
 
-            SECTION("calling on_completed causes disposing of upstream")
-            {
-                observer.on_completed();
-                CHECK(upstream.is_disposed());
-                CHECK(observer.is_disposed());
-            }
+        SECTION("calling on_completed causes disposing of upstream")
+        {
+            observer.on_completed();
+            CHECK(upstream.is_disposed());
+            CHECK(observer.is_disposed());
+        }
     };
 
     SECTION("original observer")
@@ -133,12 +135,12 @@ TEST_CASE("set_upstream without base disposable makes it main disposalbe")
 
 TEST_CASE("set_upstream depends on base disposable")
 {
-    rpp::composite_disposable d{};
+    auto d = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
     auto                      original_observer = rpp::make_lambda_observer<int>(d, [](int) {}, [](const std::exception_ptr&) {}, []() {});
 
     auto test_observer = [&d](auto&& observer)
     {
-        rpp::composite_disposable upstream{};
+        auto upstream = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
 
         CHECK(!d.is_disposed());
         CHECK(!upstream.is_disposed());

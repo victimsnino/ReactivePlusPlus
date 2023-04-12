@@ -13,7 +13,7 @@
 #include <rpp/defs.hpp>
 #include <rpp/observers/fwd.hpp>
 #include <rpp/sources/fwd.hpp>
-#include <rpp/disposables/composite_disposable.hpp>
+#include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/observables/base_observable.hpp>
 #include <rpp/utils/constraints.hpp>
 
@@ -28,7 +28,7 @@ template<typename S, typename Type>
 concept operator_strategy = requires(const S& const_strategy,
                                      S& strategy,
                                      const Type& v,
-                                     const composite_disposable disposable,
+                                     const disposable_wrapper disposable,
                                      const dynamic_observer<Type>& const_observer,
                                      dynamic_observer<Type>& observer)
 {
@@ -70,7 +70,7 @@ public:
 
     ~operator_strategy_base() noexcept = default;
 
-    void set_upstream(const composite_disposable& d)   { m_strategy.set_upstream(get_observer(), d); }
+    void set_upstream(const disposable_wrapper& d)     { m_strategy.set_upstream(get_observer(), d); }
     bool is_disposed() const noexcept                  { return m_strategy.is_disposed() || get_observer().is_disposed(); }
 
     void on_next(const T& v) const                     { m_strategy.on_next(get_observer(), v); }
@@ -127,7 +127,7 @@ struct forwarding_on_completed_strategy
 struct forwarding_set_upstream_strategy
 {
     template<rpp::constraint::decayed_type T, rpp::constraint::observer_strategy<T> ObserverStrategy>
-    void operator()(rpp::base_observer<T, ObserverStrategy>& observer, const rpp::composite_disposable& d) const {observer.set_upstream(d); }
+    void operator()(rpp::base_observer<T, ObserverStrategy>& observer, const rpp::disposable_wrapper& d) const {observer.set_upstream(d); }
 };
 
 struct forwarding_is_disposed_strategy

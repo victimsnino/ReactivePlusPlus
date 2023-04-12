@@ -29,7 +29,7 @@ namespace rpp::constraint
  * @tparam Type is type of value observer would obtain
  */
 template<typename S, typename Type>
-concept observer_strategy = requires(const S& const_strategy, S& strategy, const Type& v, const rpp::composite_disposable& disposable)
+concept observer_strategy = requires(const S& const_strategy, S& strategy, const Type& v, const rpp::disposable_wrapper& disposable)
 {
     const_strategy.on_next(v);
     const_strategy.on_next(Type{});
@@ -93,7 +93,7 @@ template<constraint::decayed_type Type,
          std::invocable<Type>                      OnNext,
          std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t,
          std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>>
-auto make_lambda_observer(const rpp::composite_disposable& d,
+auto make_lambda_observer(const rpp::disposable_wrapper& d,
                           OnNext&&      on_next,
                           OnError&&     on_error = {},
                           OnCompleted&& on_completed = {}) -> lambda_observer<Type,
@@ -118,7 +118,7 @@ template<typename                                  OnNext,
          std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>,
          constraint::decayed_type                  Type = rpp::utils::decayed_function_argument_t<OnNext>>
     requires std::invocable<OnNext, Type>
-auto make_lambda_observer(const rpp::composite_disposable& d,
+auto make_lambda_observer(const rpp::disposable_wrapper& d,
                           OnNext&&      on_next,
                           OnError&&     on_error = {},
                           OnCompleted&& on_completed = {})
@@ -146,7 +146,7 @@ template<typename T>
 using extract_observer_type_t = typename details::extract_observer_type<T>::type;
 } // namespace rpp::utils
 
-namespace rpp::constraint 
+namespace rpp::constraint
 {
 template<typename T>
 concept observer = rpp::utils::details::extract_observer_type<std::decay_t<T>>::value;

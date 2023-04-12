@@ -7,7 +7,7 @@
 //
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
-#include "rpp/disposables/composite_disposable.hpp"
+#include "rpp/disposables/fwd.hpp"
 #include <snitch/snitch.hpp>
 #include <rpp/observables.hpp>
 #include <rpp/sources/create.hpp>
@@ -22,7 +22,7 @@ TEST_CASE("create observable works properly as base_observable")
         observer.on_completed();
     });
 
-    SECTION("subscribe valid observer") 
+    SECTION("subscribe valid observer")
     {
         std::vector<int> on_next_vals{};
         size_t           on_error{};
@@ -40,7 +40,7 @@ TEST_CASE("create observable works properly as base_observable")
 
     SECTION("subscribe disposed observer")
     {
-        observable.subscribe(rpp::composite_disposable::empty(), [](int) {}, [](const std::exception_ptr&) {}, []() {});
+        observable.subscribe(rpp::disposable_wrapper{}, [](int) {}, [](const std::exception_ptr&) {}, []() {});
 
         CHECK(on_subscribe_called == 0u);
     }

@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include "rpp/disposables/fwd.hpp"
 #include <rpp/observers/fwd.hpp>
 
 #include <memory>
@@ -29,7 +30,7 @@ template<typename Strategy>
 void forwarding_on_completed(const void* const ptr) { static_cast<const Strategy*>(ptr)->on_completed(); }
 
 template<typename Strategy>
-void forwarding_set_upstream(void* const ptr, const composite_disposable& d) { static_cast<Strategy*>(ptr)->set_upstream(d); }
+void forwarding_set_upstream(void* const ptr, const disposable_wrapper& d) { static_cast<Strategy*>(ptr)->set_upstream(d); }
 
 template<typename Strategy>
 bool forwarding_is_disposed(const void* const ptr) { return static_cast<const Strategy*>(ptr)->is_disposed(); }
@@ -47,8 +48,8 @@ public:
     dynamic_strategy(const dynamic_strategy&) = default;
     dynamic_strategy(dynamic_strategy&&) noexcept = default;
 
-    void set_upstream(const composite_disposable& d) noexcept { m_vtable->set_upstream(m_forwarder.get(), d); }
-    bool is_disposed() const noexcept                         { return m_vtable->is_disposed(m_forwarder.get()); }
+    void set_upstream(const disposable_wrapper& d) noexcept { m_vtable->set_upstream(m_forwarder.get(), d); }
+    bool is_disposed() const noexcept                       { return m_vtable->is_disposed(m_forwarder.get()); }
 
     void on_next(const Type& v) const noexcept                     { m_vtable->on_next_lvalue(m_forwarder.get(), v);            }
     void on_next(Type&& v) const noexcept                          { m_vtable->on_next_rvalue(m_forwarder.get(), std::move(v)); }
@@ -63,7 +64,7 @@ private:
         void (*on_error)(const void*, const std::exception_ptr&){};
         void (*on_completed)(const void*){};
 
-        void (*set_upstream)(void*, const composite_disposable&){};
+        void (*set_upstream)(void*, const disposable_wrapper&){};
         bool (*is_disposed)(const void*){};
 
         template<constraint::observer_strategy<Type> Strategy>

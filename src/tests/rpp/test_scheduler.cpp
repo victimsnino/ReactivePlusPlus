@@ -60,7 +60,7 @@ static std::string simulate_nested_scheduling(const auto& worker, const auto& ob
 TEST_CASE("Immediate scheduler")
 {
     auto scheduler = rpp::schedulers::immediate{};
-    auto d = rpp::composite_disposable{};
+    auto d = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
     auto obs = rpp::make_lambda_observer(d, [](int){ });
 
     auto   worker = scheduler.create_worker();
@@ -74,7 +74,7 @@ TEST_CASE("Immediate scheduler")
                 return rpp::schedulers::duration{};
             return {};
         }, obs);
-        
+
         CHECK(call_count == 2);
     }
 

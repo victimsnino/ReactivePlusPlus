@@ -10,9 +10,9 @@
 - [x] Observers
   - [x] Specific Observer
   - [x] Dynamic Observer
-- [ ] Subscriptions
-  - [x] Composite Subscription
-  - [ ] Callback Subscription
+- [ ] Disposables
+  - [x] Base Disposable
+  - [ ] Callback Disposable
 - [ ] Schedulers
   - [ ] Immediate
   - [ ] New Thread

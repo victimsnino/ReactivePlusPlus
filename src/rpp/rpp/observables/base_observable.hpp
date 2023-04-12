@@ -9,12 +9,12 @@
 
 #pragma once
 
-#include "rpp/utils/functors.hpp"
 #include <rpp/observables/fwd.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/observers/lambda_observer.hpp>
 
-#include <rpp/disposables/composite_disposable.hpp>
+#include <rpp/disposables/base_disposable.hpp>
+#include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/operators/subscribe.hpp>
 
 #include <rpp/defs.hpp>
@@ -70,14 +70,14 @@ public:
      * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed.
      * @warning This overloading has some performance penalties, use it only when you really need to use disposable
      *
-     * @param d is disposable to be attached to observer
-     * @return composite_disposable disposable to be able to dispose observer when it needed
+     * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
+     * @return disposable_wrapper is disposable to be able to dispose observer when it needed
      */
     template<constraint::observer_strategy<Type> ObserverStrategy>
-    composite_disposable subscribe(const composite_disposable& d, base_observer<Type, ObserverStrategy>&& observer) const
-    {
-        subscribe(base_observer<Type, base_observer<Type, ObserverStrategy>>{d, std::move(observer)});
-        return d;
+    disposable_wrapper subscribe(const disposable_wrapper& d, base_observer<Type, ObserverStrategy>&& observer) const
+    {   if (!d.is_disposed())
+            subscribe(base_observer<Type, base_observer<Type, ObserverStrategy>>{d, std::move(observer)});
+        return disposable_wrapper{d};
     }
 
     /**
@@ -100,14 +100,14 @@ public:
      * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from this observable
      * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed.
      * @warning This overloading has some performance penalties, use it only when you really need to use disposable
+     *
+     * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
+     * @return disposable_wrapper is disposable to be able to dispose observer when it needed
      */
-    template<std::invocable<Type> OnNext,
-             std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t,
-             std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
-    composite_disposable subscribe(const rpp::composite_disposable& d,
-                                   OnNext&&                         on_next,
-                                   OnError&&                        on_error = {},
-                                   OnCompleted&&                    on_completed = {}) const
+    template<std::invocable<Type>                      OnNext,
+             std::invocable<const std::exception_ptr&> OnError     = rpp::utils::rethrow_error_t,
+             std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>>
+    disposable_wrapper subscribe(const disposable_wrapper& d, OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const
     {
         if (!d.is_disposed())
             subscribe(make_lambda_observer<Type>(d,

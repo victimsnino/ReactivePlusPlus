@@ -26,7 +26,7 @@ struct lambda_strategy
     RPP_NO_UNIQUE_ADDRESS OnError     on_error;
     RPP_NO_UNIQUE_ADDRESS OnCompleted on_completed;
 
-    static void set_upstream(const composite_disposable&) noexcept {}
+    static void set_upstream(const disposable_wrapper&) noexcept {}
     static bool is_disposed() noexcept { return false; }
 };
 } // namespace rpp::details::observer
@@ -59,7 +59,7 @@ template<constraint::decayed_type Type,
          std::invocable<Type> OnNext,
          std::invocable<const std::exception_ptr&> OnError,
          std::invocable<> OnCompleted>
-auto make_lambda_observer(const rpp::composite_disposable& d,
+auto make_lambda_observer(const rpp::disposable_wrapper& d,
                           OnNext&&      on_next,
                           OnError&&     on_error,
                           OnCompleted&& on_completed) -> lambda_observer<Type,
