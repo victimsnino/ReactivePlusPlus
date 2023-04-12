@@ -15,13 +15,13 @@
 #include <memory>
 #include <utility>
 
-namespace rpp::utils::details
+namespace rpp::schedulers::details
 {
 class schedulable_base
 {
 public:
-    schedulable_base(const rpp::schedulers::time_point time_point, std::shared_ptr<schedulable_base> next) 
-        : m_time_point{time_point} 
+    schedulable_base(const time_point time_point, std::shared_ptr<schedulable_base> next)
+        : m_time_point{time_point}
         , m_next{std::move(next)}
         {}
 
@@ -30,18 +30,18 @@ public:
         m_next = next;
     }
 
-    const std::shared_ptr<schedulable_base>& get_next() const 
-    { 
-        return m_next; 
+    const std::shared_ptr<schedulable_base>& get_next() const
+    {
+        return m_next;
     }
 
-    rpp::schedulers::time_point get_timepoint() const 
+    time_point get_timepoint() const
     {
         return m_time_point;
     }
 
 private:
-    rpp::schedulers::time_point       m_time_point;
+    time_point       m_time_point;
     std::shared_ptr<schedulable_base> m_next{};
 };
 
@@ -49,7 +49,7 @@ class schedulables_shared_queue
 {
 public:
     template<rpp::constraint::observer TObs, typename...Args>
-    void push(const rpp::schedulers::time_point time_point, rpp::schedulers::constraint::schedulable_fn<TObs, Args...> auto&& fn, TObs&& obs, Args&&...args)
+    void push(const time_point time_point, constraint::schedulable_fn<TObs, Args...> auto&& fn, TObs&& obs, Args&&...args)
     {
         if (obs.is_disposed())
             return;
@@ -70,7 +70,7 @@ public:
     }
 
     bool empty() const { return !m_head; }
-    
+
 private:
     std::shared_ptr<schedulable_base> m_head{};
 };
