@@ -22,8 +22,6 @@
 #include <stdexcept>
 #include <type_traits>
 
-#include <variant>
-
 namespace rpp
 {
 /**
@@ -44,8 +42,9 @@ public:
     template<typename ...Args>
         requires constraint::is_constructible_from<Strategy, Args...>
     explicit base_observer(disposable_wrapper disposable, Args&& ...args)
-        : m_disposable{std::move(disposable)}
-        , m_strategy{std::forward<Args>(args)...} {}
+        : m_external_disposable{std::move(disposable)}
+        , m_strategy{std::forward<Args>(args)...}
+        , m_is_disposed(m_external_disposable.is_disposed()) {}
 
     template<typename ...Args>
         requires (!constraint::variadic_decayed_same_as<base_observer<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args&&...>)
@@ -55,9 +54,10 @@ public:
     template<constraint::observer_strategy<Type> TStrategy>
         requires (std::same_as<Strategy, details::observer::dynamic_strategy<Type>> && !std::same_as<TStrategy, details::observer::dynamic_strategy<Type>>)
     explicit base_observer(typename base_observer<Type, TStrategy>::as_dynamic_tag, base_observer<Type, TStrategy>&& other)
-        : m_disposable{std::move(other.m_disposable)}
+        : m_external_disposable{std::move(other.m_external_disposable)}
         , m_upstream{std::move(other.m_upstream)}
-        , m_strategy{std::move(other.m_strategy)} {}
+        , m_strategy{std::move(other.m_strategy)}
+        , m_is_disposed(other.m_is_disposed) {}
 
     base_observer(base_observer&&) noexcept = default;
 
@@ -74,7 +74,7 @@ public:
         else
             throw utils::error_set_upstream_calle_twice{};
 
-        if (const auto disposable = std::get_if<disposable_wrapper>(&m_disposable))
+        if (const auto& disposable = m_external_disposable.get_original())
             disposable->add(d.get_original());
 
         m_strategy.set_upstream(d);
@@ -88,11 +88,7 @@ public:
      */
     bool is_disposed() const
     {
-        return std::visit(utils::overloaded{[](bool is_disposed) { return is_disposed; },
-                                            [](const disposable_wrapper& disposable)
-                                            { return disposable.is_disposed(); }},
-                          m_disposable) ||
-            m_strategy.is_disposed();
+        return m_is_disposed || (m_external_disposable.get_original() && m_external_disposable.is_disposed()) ||  m_strategy.is_disposed();
     }
     /**
      * @brief Observable calls this method to notify observer about new value.
@@ -172,19 +168,19 @@ public:
 
     void dispose() const
     {
-        std::visit(utils::overloaded{[](bool& is_disposed) { is_disposed = true; },
-                                     [](const disposable_wrapper& disposable) { disposable.dispose(); }},
-                   m_disposable);
-
+        m_is_disposed = true;
+        m_external_disposable.dispose();
         m_upstream.dispose();
     }
+
 private:
     struct as_dynamic_tag{};
     friend class base_observer<Type,  details::observer::dynamic_strategy<Type>>;
 
 private:
-    mutable std::variant<disposable_wrapper, bool> m_disposable{false};
-    disposable_wrapper                             m_upstream{};
-    RPP_NO_UNIQUE_ADDRESS Strategy                 m_strategy;
+    disposable_wrapper             m_external_disposable{};
+    disposable_wrapper             m_upstream{};
+    RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
+    mutable bool                   m_is_disposed{false};
 };
 } // namespace rpp
