@@ -42,8 +42,8 @@ public:
     template<typename ...Args>
         requires constraint::is_constructible_from<Strategy, Args...>
     explicit base_observer(disposable_wrapper disposable, Args&& ...args)
-        : m_external_disposable{std::move(disposable)}
-        , m_strategy{std::forward<Args>(args)...}
+        : m_strategy{std::forward<Args>(args)...}
+        , m_external_disposable{std::move(disposable)}
         , m_is_disposed(m_external_disposable.is_disposed()) {}
 
     template<typename ...Args>
@@ -54,9 +54,9 @@ public:
     template<constraint::observer_strategy<Type> TStrategy>
         requires (std::same_as<Strategy, details::observer::dynamic_strategy<Type>> && !std::same_as<TStrategy, details::observer::dynamic_strategy<Type>>)
     explicit base_observer(typename base_observer<Type, TStrategy>::as_dynamic_tag, base_observer<Type, TStrategy>&& other)
-        : m_external_disposable{std::move(other.m_external_disposable)}
+        : m_strategy{std::move(other.m_strategy)}
+        , m_external_disposable{std::move(other.m_external_disposable)}
         , m_upstream{std::move(other.m_upstream)}
-        , m_strategy{std::move(other.m_strategy)}
         , m_is_disposed(other.m_is_disposed) {}
 
     base_observer(base_observer&&) noexcept = default;
@@ -178,9 +178,9 @@ private:
     friend class base_observer<Type,  details::observer::dynamic_strategy<Type>>;
 
 private:
+    RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
     disposable_wrapper             m_external_disposable{};
     disposable_wrapper             m_upstream{};
-    RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
     mutable bool                   m_is_disposed{false};
 };
 } // namespace rpp
