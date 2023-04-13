@@ -62,15 +62,15 @@ template<constraint::decayed_type Type,
 auto make_lambda_observer(const rpp::disposable_wrapper& d,
                           OnNext&&      on_next,
                           OnError&&     on_error,
-                          OnCompleted&& on_completed) -> lambda_observer<Type,
-                                                                         std::decay_t<OnNext>,
-                                                                         std::decay_t<OnError>,
-                                                                         std::decay_t<OnCompleted>>
+                          OnCompleted&& on_completed) -> lambda_observer_with_disposable<Type,
+                                                                                         std::decay_t<OnNext>,
+                                                                                         std::decay_t<OnError>,
+                                                                                         std::decay_t<OnCompleted>>
 {
-    return lambda_observer<Type,
-                           std::decay_t<OnNext>,
-                           std::decay_t<OnError>,
-                           std::decay_t<OnCompleted>>
+    return lambda_observer_with_disposable<Type,
+                                           std::decay_t<OnNext>,
+                                           std::decay_t<OnError>,
+                                           std::decay_t<OnCompleted>>
     {
         d,
         std::forward<OnNext>(on_next),

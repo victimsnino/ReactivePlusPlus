@@ -76,7 +76,7 @@ public:
     template<constraint::observer_strategy<Type> ObserverStrategy>
     disposable_wrapper subscribe(const disposable_wrapper& d, base_observer<Type, ObserverStrategy>&& observer) const
     {   if (!d.is_disposed())
-            subscribe(base_observer<Type, base_observer<Type, ObserverStrategy>>{d, std::move(observer)});
+            subscribe(base_observer<Type, rpp::details::with_disposable<base_observer<Type, ObserverStrategy>>>{d, std::move(observer)});
         return disposable_wrapper{d};
     }
 

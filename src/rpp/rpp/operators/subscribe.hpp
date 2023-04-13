@@ -87,7 +87,7 @@ public:
     template<rpp::constraint::observable_strategy<Type> Strategy>
     rpp::disposable_wrapper operator()(const rpp::base_observable<Type, Strategy>& observalbe) && {
         if (!m_disposable.is_disposed() && !m_observer.is_disposed())
-            observalbe.subscribe(base_observer<Type, base_observer<Type, ObserverStrategy>>{m_disposable, std::move(m_observer)});
+            observalbe.subscribe(base_observer<Type, rpp::details::with_disposable<base_observer<Type, ObserverStrategy>>>{m_disposable, std::move(m_observer)});
         return m_disposable;
     }
 

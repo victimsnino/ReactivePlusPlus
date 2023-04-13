@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include "rpp/utils/constraints.hpp"
 #include <rpp/defs.hpp>
 #include <rpp/observers/fwd.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
@@ -22,6 +23,108 @@
 #include <stdexcept>
 #include <type_traits>
 
+namespace rpp::details
+{
+
+
+class external_disposable_strategy
+{
+public:
+    external_disposable_strategy(disposable_wrapper disposable) : m_external_disposable(std::move(disposable)) {}
+
+    void set_upstream(const disposable_wrapper& d)
+    {
+        if (!m_upstream.get_original())
+            m_upstream = d;
+        else
+            throw utils::error_set_upstream_calle_twice{};
+
+        if (const auto& disposable = m_external_disposable.get_original())
+            disposable->add(d.get_original());
+    }
+
+    bool is_disposed() const
+    {
+        return m_external_disposable.is_disposed();
+    }
+
+    void dispose() const
+    {
+        m_external_disposable.dispose();
+        m_upstream.dispose();
+    }
+
+private:
+    disposable_wrapper             m_external_disposable{};
+    disposable_wrapper             m_upstream{};
+};
+
+class local_disposable_strategy
+{
+public:
+    local_disposable_strategy() = default;
+
+    void set_upstream(const disposable_wrapper& d)
+    {
+        if (!m_upstream.get_original())
+            m_upstream = d;
+        else
+            throw utils::error_set_upstream_calle_twice{};
+    }
+
+    bool is_disposed() const
+    {
+        return m_is_disposed;
+    }
+
+    void dispose() const
+    {
+        m_is_disposed = true;
+        m_upstream.dispose();
+    }
+
+private:
+    disposable_wrapper m_upstream{};
+    mutable bool       m_is_disposed{false};
+};
+
+struct none_disposable_strategy
+{
+    static void set_upstream(const disposable_wrapper&) {}
+    static bool is_disposed() { return false; }
+    static void dispose() {}
+};
+
+template<typename T>
+struct clean_strategy
+{
+    using type = T;
+};
+
+template<typename T>
+struct clean_strategy<with_disposable<T>>
+{
+    using type = T;
+};
+
+template<typename T>
+struct deduce_disposable_strategy
+{
+    using type = local_disposable_strategy;
+};
+
+template<typename T>
+struct deduce_disposable_strategy<with_disposable<T>>
+{
+    using type = external_disposable_strategy;
+};
+
+template<typename T>
+struct deduce_disposable_strategy<observer::dynamic_strategy<T>>
+{
+    using type = none_disposable_strategy;
+};
+}
 namespace rpp
 {
 /**
@@ -38,43 +141,39 @@ namespace rpp
 template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
 class base_observer final
 {
+    using DisposablesStrategy = typename details::deduce_disposable_strategy<Strategy>::type;
+    using CleanStrategy = typename details::clean_strategy<Strategy>::type;
+
 public:
     template<typename ...Args>
-        requires (!std::same_as<Strategy, details::observer::dynamic_strategy<Type>> && constraint::is_constructible_from<Strategy, Args...>)
+        requires (std::same_as<DisposablesStrategy, details::external_disposable_strategy> && constraint::is_constructible_from<CleanStrategy, Args&&...>)
     explicit base_observer(disposable_wrapper disposable, Args&& ...args)
         : m_strategy{std::forward<Args>(args)...}
-        , m_external_disposable{std::move(disposable)}
-        , m_is_disposed(m_external_disposable.is_disposed()) {}
+        , m_disposable{std::move(disposable)} {}
 
     template<typename ...Args>
-        requires (!std::same_as<Strategy, details::observer::dynamic_strategy<Type>> && !constraint::variadic_decayed_same_as<base_observer<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args&&...>)
+        requires (std::same_as<DisposablesStrategy, details::local_disposable_strategy> && constraint::is_constructible_from<CleanStrategy, Args&&...>)
     explicit base_observer(Args&& ...args)
-        : m_strategy{std::forward<Args>(args)...} {}
+        : m_strategy{std::forward<Args>(args)...}
+        {}
 
     template<constraint::observer_strategy<Type> TStrategy>
-        requires (std::same_as<Strategy, details::observer::dynamic_strategy<Type>> && !std::same_as<TStrategy, details::observer::dynamic_strategy<Type>>)
+        requires (std::same_as<CleanStrategy, details::observer::dynamic_strategy<Type>> && !std::same_as<TStrategy, details::observer::dynamic_strategy<Type>>)
     explicit base_observer(typename base_observer<Type, TStrategy>::as_dynamic_tag, base_observer<Type, TStrategy>&& other)
         : m_strategy{std::move(other)}
         {}
 
     base_observer(base_observer&&) noexcept = default;
 
-    base_observer(const base_observer&) requires (!std::same_as<Strategy, details::observer::dynamic_strategy<Type>>) = delete;
-    base_observer(const base_observer&) requires std::same_as<Strategy, details::observer::dynamic_strategy<Type>>  = default;
+    base_observer(const base_observer&) requires (!std::same_as<CleanStrategy, details::observer::dynamic_strategy<Type>>) = delete;
+    base_observer(const base_observer&) requires std::same_as<CleanStrategy, details::observer::dynamic_strategy<Type>>  = default;
 
     /**
      * @brief Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe.
      */
     void set_upstream(const disposable_wrapper& d)
     {
-        if (!m_upstream.get_original())
-            m_upstream = d;
-        else
-            throw utils::error_set_upstream_calle_twice{};
-
-        if (const auto& disposable = m_external_disposable.get_original())
-            disposable->add(d.get_original());
-
+        m_disposable.set_upstream(d);
         m_strategy.set_upstream(d);
     }
 
@@ -86,7 +185,7 @@ public:
      */
     bool is_disposed() const
     {
-        return m_is_disposed || (m_external_disposable.get_original() && m_external_disposable.is_disposed()) ||  m_strategy.is_disposed();
+        return m_disposable.is_disposed() ||  m_strategy.is_disposed();
     }
     /**
      * @brief Observable calls this method to notify observer about new value.
@@ -166,9 +265,7 @@ public:
 
     void dispose() const
     {
-        m_is_disposed = true;
-        m_external_disposable.dispose();
-        m_upstream.dispose();
+        m_disposable.dispose();
     }
 
 private:
@@ -176,9 +273,7 @@ private:
     friend class base_observer<Type,  details::observer::dynamic_strategy<Type>>;
 
 private:
-    RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
-    disposable_wrapper             m_external_disposable{};
-    disposable_wrapper             m_upstream{};
-    mutable bool                   m_is_disposed{false};
+    RPP_NO_UNIQUE_ADDRESS CleanStrategy       m_strategy;
+    RPP_NO_UNIQUE_ADDRESS DisposablesStrategy m_disposable;
 };
 } // namespace rpp
