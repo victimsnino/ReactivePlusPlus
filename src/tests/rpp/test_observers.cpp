@@ -77,7 +77,7 @@ TEST_CASE("as_dynamic keeps disposing")
     {
         SECTION("dispose and convert to dynamic")
         {
-            observer.dispose();
+            observer.on_completed();
             auto dynamic = std::forward<decltype(observer)>(observer).as_dynamic();
             CHECK(dynamic.is_disposed());
         }
@@ -87,8 +87,16 @@ TEST_CASE("as_dynamic keeps disposing")
             auto d = std::make_shared<rpp::base_disposable>();
             observer.set_upstream(rpp::disposable_wrapper{d});
             auto dynamic = std::forward<decltype(observer)>(observer).as_dynamic();
-            dynamic.dispose();
+            dynamic.on_completed();
             CHECK(d->is_disposed());
+        }
+
+        SECTION("convert to dynamic, copy and dispose")
+        {
+            auto dynamic = std::forward<decltype(observer)>(observer).as_dynamic();
+            auto copy_of_dynamic = dynamic;
+            dynamic.on_completed();
+            CHECK(copy_of_dynamic.is_disposed());
         }
     };
 

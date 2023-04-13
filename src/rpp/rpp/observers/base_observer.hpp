@@ -40,24 +40,22 @@ class base_observer final
 {
 public:
     template<typename ...Args>
-        requires constraint::is_constructible_from<Strategy, Args...>
+        requires (!std::same_as<Strategy, details::observer::dynamic_strategy<Type>> && constraint::is_constructible_from<Strategy, Args...>)
     explicit base_observer(disposable_wrapper disposable, Args&& ...args)
         : m_strategy{std::forward<Args>(args)...}
         , m_external_disposable{std::move(disposable)}
         , m_is_disposed(m_external_disposable.is_disposed()) {}
 
     template<typename ...Args>
-        requires (!constraint::variadic_decayed_same_as<base_observer<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args&&...>)
+        requires (!std::same_as<Strategy, details::observer::dynamic_strategy<Type>> && !constraint::variadic_decayed_same_as<base_observer<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args&&...>)
     explicit base_observer(Args&& ...args)
         : m_strategy{std::forward<Args>(args)...} {}
 
     template<constraint::observer_strategy<Type> TStrategy>
         requires (std::same_as<Strategy, details::observer::dynamic_strategy<Type>> && !std::same_as<TStrategy, details::observer::dynamic_strategy<Type>>)
     explicit base_observer(typename base_observer<Type, TStrategy>::as_dynamic_tag, base_observer<Type, TStrategy>&& other)
-        : m_strategy{std::move(other.m_strategy)}
-        , m_external_disposable{std::move(other.m_external_disposable)}
-        , m_upstream{std::move(other.m_upstream)}
-        , m_is_disposed(other.m_is_disposed) {}
+        : m_strategy{std::move(other)}
+        {}
 
     base_observer(base_observer&&) noexcept = default;
 
