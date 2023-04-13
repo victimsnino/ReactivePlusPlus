@@ -158,15 +158,15 @@ public:
         {}
 
     template<constraint::observer_strategy<Type> TStrategy>
-        requires (std::same_as<CleanStrategy, details::observer::dynamic_strategy<Type>> && !std::same_as<TStrategy, details::observer::dynamic_strategy<Type>>)
+        requires (std::same_as<Strategy, details::observer::dynamic_strategy<Type>> && !std::same_as<TStrategy, details::observer::dynamic_strategy<Type>>)
     explicit base_observer(typename base_observer<Type, TStrategy>::as_dynamic_tag, base_observer<Type, TStrategy>&& other)
         : m_strategy{std::move(other)}
         {}
 
     base_observer(base_observer&&) noexcept = default;
 
-    base_observer(const base_observer&) requires (!std::same_as<CleanStrategy, details::observer::dynamic_strategy<Type>>) = delete;
-    base_observer(const base_observer&) requires std::same_as<CleanStrategy, details::observer::dynamic_strategy<Type>>  = default;
+    base_observer(const base_observer&) requires (!std::same_as<Strategy, details::observer::dynamic_strategy<Type>>) = delete;
+    base_observer(const base_observer&) requires std::same_as<Strategy, details::observer::dynamic_strategy<Type>>  = default;
 
     /**
      * @brief Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe.
