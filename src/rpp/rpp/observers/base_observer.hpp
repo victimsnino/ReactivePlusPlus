@@ -25,19 +25,33 @@
 
 namespace rpp::details
 {
-
-
-class external_disposable_strategy
+class upstream_disposable
 {
 public:
-    external_disposable_strategy(disposable_wrapper disposable) : m_external_disposable(std::move(disposable)) {}
-
     void set_upstream(const disposable_wrapper& d)
     {
         if (!m_upstream.get_original())
             m_upstream = d;
         else
             throw utils::error_set_upstream_calle_twice{};
+    }
+
+    void dispose() const
+    {
+        m_upstream.dispose();
+    }
+
+private:
+    disposable_wrapper             m_upstream{};
+};
+class external_disposable_strategy : public upstream_disposable
+{
+public:
+    external_disposable_strategy(disposable_wrapper disposable) : m_external_disposable(std::move(disposable)) {}
+
+    void set_upstream(const disposable_wrapper& d)
+    {
+        upstream_disposable::set_upstream(d);
 
         if (const auto& disposable = m_external_disposable.get_original())
             disposable->add(d.get_original());
@@ -51,26 +65,17 @@ public:
     void dispose() const
     {
         m_external_disposable.dispose();
-        m_upstream.dispose();
+        upstream_disposable::dispose();
     }
 
 private:
     disposable_wrapper             m_external_disposable{};
-    disposable_wrapper             m_upstream{};
 };
 
-class local_disposable_strategy
+class local_disposable_strategy : public upstream_disposable
 {
 public:
     local_disposable_strategy() = default;
-
-    void set_upstream(const disposable_wrapper& d)
-    {
-        if (!m_upstream.get_original())
-            m_upstream = d;
-        else
-            throw utils::error_set_upstream_calle_twice{};
-    }
 
     bool is_disposed() const
     {
@@ -80,11 +85,10 @@ public:
     void dispose() const
     {
         m_is_disposed = true;
-        m_upstream.dispose();
+        upstream_disposable::dispose();
     }
 
 private:
-    disposable_wrapper m_upstream{};
     mutable bool       m_is_disposed{false};
 };
 
