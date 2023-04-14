@@ -94,7 +94,7 @@ TEST_CASE("as_dynamic keeps disposing")
         SECTION("convert to dynamic, copy and dispose")
         {
             auto dynamic = std::forward<decltype(observer)>(observer).as_dynamic();
-            auto copy_of_dynamic = dynamic;
+            auto copy_of_dynamic = dynamic; // NOLINT
             dynamic.on_completed();
             CHECK(copy_of_dynamic.is_disposed());
         }
