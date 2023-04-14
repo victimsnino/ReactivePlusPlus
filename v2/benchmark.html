@@ -43,9 +43,15 @@
                         graphDiv.style.borderWidth = 5;
 
 
-                        var commits = groupBy(resultsPerTitle, "commit");
-                        var commitKeys = Object.keys(commits);
-                        var commitNames = Object.values(commits).map(v=>v[0]["commit"]+": " + v[0]["commit_message"]);
+                        var reduced = resultsPerTitle.reduce((seed, current)=>{
+                            if (seed.keys.indexOf(current["commit"]) == -1) {
+                                seed.keys.push(current["commit"]);
+                                seed.names.push(current["commit"]+": " + current["commit_message"]);
+                            }
+                            return seed;
+                        }, {keys: [], names: []});
+                        var commitKeys = reduced.keys;
+                        var commitNames = reduced.names;
 
                         var resultsPerName = groupBy(resultsPerTitle, "name");
                         console.log(resultsPerName);
