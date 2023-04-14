@@ -28,7 +28,7 @@ namespace rpp::details
 class upstream_disposable
 {
 public:
-    void set_upstream(const disposable_wrapper& d)
+    inline void set_upstream(const disposable_wrapper& d)
     {
         if (!m_upstream.get_original())
             m_upstream = d;
@@ -36,7 +36,7 @@ public:
             throw utils::error_set_upstream_calle_twice{};
     }
 
-    void dispose() const
+    inline void dispose() const
     {
         m_upstream.dispose();
     }
@@ -57,12 +57,12 @@ public:
             disposable->add(d.get_original());
     }
 
-    bool is_disposed() const
+    inline bool is_disposed() const
     {
         return m_external_disposable.is_disposed();
     }
 
-    void dispose() const
+    inline void dispose() const
     {
         m_external_disposable.dispose();
         upstream_disposable::dispose();
@@ -77,26 +77,26 @@ class local_disposable_strategy : public upstream_disposable
 public:
     local_disposable_strategy() = default;
 
-    bool is_disposed() const
+    inline bool is_disposed() const
     {
         return m_is_disposed;
     }
 
-    void dispose() const
+    inline void dispose() const
     {
         m_is_disposed = true;
         upstream_disposable::dispose();
     }
 
 private:
-    mutable bool       m_is_disposed{false};
+    mutable bool m_is_disposed{false};
 };
 
 struct none_disposable_strategy
 {
-    static void set_upstream(const disposable_wrapper&) {}
-    static bool is_disposed() { return false; }
-    static void dispose() {}
+    inline static void set_upstream(const disposable_wrapper&) {}
+    inline static bool is_disposed() { return false; }
+    inline static void dispose() {}
 };
 
 template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy, typename DisposablesStrategy>
@@ -129,7 +129,7 @@ public:
      * @return true if observer disposed and no longer interested in emissions
      * @return false if observer still interested in emissions
      */
-    bool is_disposed() const
+    inline bool is_disposed() const
     {
         return m_disposable.is_disposed() ||  m_strategy.is_disposed();
     }
