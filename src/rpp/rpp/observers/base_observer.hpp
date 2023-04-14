@@ -99,79 +99,21 @@ struct none_disposable_strategy
     static void dispose() {}
 };
 
-template<typename T>
-struct clean_strategy
+template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy, typename DisposablesStrategy>
+class base_observer_impl
 {
-    using type = T;
-};
+protected:
+    template<typename... Args>
+        requires constraint::is_constructible_from<Strategy, Args&&...>
+    base_observer_impl(DisposablesStrategy&& strategy, Args&&... args)
+        : m_strategy{std::forward<Args>(args)...}, m_disposable{std::move(strategy)}
+    {
+    }
 
-template<typename T>
-struct clean_strategy<with_disposable<T>>
-{
-    using type = T;
-};
-
-template<typename T>
-struct deduce_disposable_strategy
-{
-    using type = local_disposable_strategy;
-};
-
-template<typename T>
-struct deduce_disposable_strategy<with_disposable<T>>
-{
-    using type = external_disposable_strategy;
-};
-
-template<typename T>
-struct deduce_disposable_strategy<observer::dynamic_strategy<T>>
-{
-    using type = none_disposable_strategy;
-};
-}
-namespace rpp
-{
-/**
- * @brief Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this class would
- * be passed to subscribe of observable
- *
- * @warning By default base_observer is not copyable, only movable. If you need to COPY your observer, you need to convert it to rpp::dynamic_observer via rpp::base_observer::as_dynamic
- * @warning Expected that observer would be subscribed only to ONE observable ever. It can keep internal state and track it it was disposed or not. So, subscribing same observer multiple time follows unspecified behavior.
- * @warning If you are passing disposable to ctor, then state of this disposable would be used used (if empty disposable or disposed -> observer is disposed by default)
- *
- * @tparam Type of value this observer can handle
- * @tparam Strategy used to provide logic over observer's callbacks
- */
-template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
-class base_observer final
-{
-    using DisposablesStrategy = typename details::deduce_disposable_strategy<Strategy>::type;
-    using CleanStrategy = typename details::clean_strategy<Strategy>::type;
+    base_observer_impl(const base_observer_impl&)     = default;
+    base_observer_impl(base_observer_impl&&) noexcept = default;
 
 public:
-    template<typename ...Args>
-        requires (std::same_as<DisposablesStrategy, details::external_disposable_strategy> && constraint::is_constructible_from<CleanStrategy, Args&&...>)
-    explicit base_observer(disposable_wrapper disposable, Args&& ...args)
-        : m_strategy{std::forward<Args>(args)...}
-        , m_disposable{std::move(disposable)} {}
-
-    template<typename ...Args>
-        requires (std::same_as<DisposablesStrategy, details::local_disposable_strategy> && constraint::is_constructible_from<CleanStrategy, Args&&...>)
-    explicit base_observer(Args&& ...args)
-        : m_strategy{std::forward<Args>(args)...}
-        {}
-
-    template<constraint::observer_strategy<Type> TStrategy>
-        requires (std::same_as<Strategy, details::observer::dynamic_strategy<Type>> && !std::same_as<TStrategy, details::observer::dynamic_strategy<Type>>)
-    explicit base_observer(typename base_observer<Type, TStrategy>::as_dynamic_tag, base_observer<Type, TStrategy>&& other)
-        : m_strategy{std::move(other)}
-        {}
-
-    base_observer(base_observer&&) noexcept = default;
-
-    base_observer(const base_observer&) requires (!std::same_as<Strategy, details::observer::dynamic_strategy<Type>>) = delete;
-    base_observer(const base_observer&) requires std::same_as<Strategy, details::observer::dynamic_strategy<Type>>  = default;
-
     /**
      * @brief Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe.
      */
@@ -237,7 +179,7 @@ public:
         if (!is_disposed())
         {
             m_strategy.on_error(err);
-            dispose();
+            m_disposable.dispose();
         }
     }
 
@@ -250,34 +192,100 @@ public:
         if (!is_disposed())
         {
             m_strategy.on_completed();
-            dispose();
+            m_disposable.dispose();
         }
     }
+
+private:
+    RPP_NO_UNIQUE_ADDRESS Strategy            m_strategy;
+    RPP_NO_UNIQUE_ADDRESS DisposablesStrategy m_disposable;
+};
+}
+namespace rpp
+{
+/**
+ * @brief Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this class would
+ * be passed to subscribe of observable
+ *
+ * @warning By default base_observer is not copyable, only movable. If you need to COPY your observer, you need to convert it to rpp::dynamic_observer via rpp::base_observer::as_dynamic
+ * @warning Expected that observer would be subscribed only to ONE observable ever. It can keep internal state and track it it was disposed or not. So, subscribing same observer multiple time follows unspecified behavior.
+ * @warning If you are passing disposable to ctor, then state of this disposable would be used used (if empty disposable or disposed -> observer is disposed by default)
+ *
+ * @tparam Type of value this observer can handle
+ * @tparam Strategy used to provide logic over observer's callbacks
+ */
+template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
+class base_observer;
+
+template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
+class base_observer final : public details::base_observer_impl<Type, Strategy, details::local_disposable_strategy>
+{
+public:
+    template<typename ...Args>
+        requires (constraint::is_constructible_from<Strategy, Args&&...>)
+    explicit base_observer(Args&& ...args)
+        : details::base_observer_impl<Type, Strategy, details::local_disposable_strategy>{details::local_disposable_strategy{}, std::forward<Args>(args)...}
+    {}
+
+    base_observer(const base_observer&)     = delete;
+    base_observer(base_observer&&) noexcept = default;
 
     /**
      * @brief Convert current observer to type-erased version. Useful if you need to COPY your observer or to store different observers in same container.
      */
     dynamic_observer<Type> as_dynamic() &&
     {
-        return dynamic_observer<Type>{as_dynamic_tag{}, std::move(*this)};
+        return dynamic_observer<Type>{std::move(*this)};
     }
-
-    operator dynamic_observer<Type>() &&
-    {
-        return std::move(*this).as_dynamic();
-    }
-
-    void dispose() const
-    {
-        m_disposable.dispose();
-    }
-
-private:
-    struct as_dynamic_tag{};
-    friend class base_observer<Type,  details::observer::dynamic_strategy<Type>>;
-
-private:
-    RPP_NO_UNIQUE_ADDRESS CleanStrategy       m_strategy;
-    RPP_NO_UNIQUE_ADDRESS DisposablesStrategy m_disposable;
 };
+
+template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
+class base_observer<Type, details::with_disposable<Strategy>> final
+    : public details::base_observer_impl<Type, Strategy, details::external_disposable_strategy>
+{
+public:
+    template<typename ...Args>
+        requires (constraint::is_constructible_from<Strategy, Args&&...>)
+    explicit base_observer(disposable_wrapper disposable, Args&& ...args)
+        : details::base_observer_impl<Type, Strategy, details::external_disposable_strategy>{details::external_disposable_strategy{std::move(disposable)}, std::forward<Args>(args)...}
+    {}
+
+    base_observer(const base_observer&)     = delete;
+    base_observer(base_observer&&) noexcept = default;
+
+    /**
+     * @brief Convert current observer to type-erased version. Useful if you need to COPY your observer or to store different observers in same container.
+     */
+    dynamic_observer<Type> as_dynamic() &&
+    {
+        return dynamic_observer<Type>{std::move(*this)};
+    }
+};
+
+template<constraint::decayed_type Type>
+class base_observer<Type, rpp::details::observer::dynamic_strategy<Type>> final
+    : public details::base_observer_impl<Type, rpp::details::observer::dynamic_strategy<Type>, details::none_disposable_strategy>
+{
+public:
+    template<constraint::observer_strategy<Type> TStrategy>
+        requires (!std::same_as<TStrategy, rpp::details::observer::dynamic_strategy<Type>>)
+    explicit base_observer(base_observer<Type, TStrategy>&& other)
+        : details::base_observer_impl<Type, rpp::details::observer::dynamic_strategy<Type>, details::none_disposable_strategy>{details::none_disposable_strategy{}, std::move(other)}
+    {}
+
+    base_observer(const base_observer&)     = default;
+    base_observer(base_observer&&) noexcept = default;
+
+    dynamic_observer<Type> as_dynamic() &&
+    {
+        return std::move(*this);
+    }
+
+    const dynamic_observer<Type>& as_dynamic() &
+    {
+        return *this;
+    }
+};
+
+
 } // namespace rpp
