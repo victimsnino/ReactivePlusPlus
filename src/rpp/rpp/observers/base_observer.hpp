@@ -222,7 +222,7 @@ class base_observer final : public details::base_observer_impl<Type, Strategy, d
 {
 public:
     template<typename ...Args>
-        requires (constraint::is_constructible_from<Strategy, Args&&...>)
+        requires (!constraint::variadic_decayed_same_as<base_observer<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args&&...>)
     explicit base_observer(Args&& ...args)
         : details::base_observer_impl<Type, Strategy, details::local_disposable_strategy>{details::local_disposable_strategy{}, std::forward<Args>(args)...}
     {}
