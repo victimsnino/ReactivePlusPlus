@@ -28,7 +28,7 @@ namespace rpp::details
 class upstream_disposable
 {
 public:
-    inline void set_upstream(const disposable_wrapper& d)
+    void set_upstream(const disposable_wrapper& d)
     {
         if (!m_upstream.get_original())
             m_upstream = d;
@@ -36,7 +36,7 @@ public:
             throw utils::error_set_upstream_calle_twice{};
     }
 
-    inline void dispose() const
+    void dispose() const
     {
         m_upstream.dispose();
     }
@@ -47,7 +47,7 @@ private:
 class external_disposable_strategy : public upstream_disposable
 {
 public:
-    external_disposable_strategy(disposable_wrapper disposable) : m_external_disposable(std::move(disposable)) {}
+    explicit external_disposable_strategy(disposable_wrapper disposable) : m_external_disposable(std::move(disposable)) {}
 
     void set_upstream(const disposable_wrapper& d)
     {
@@ -57,12 +57,12 @@ public:
             disposable->add(d.get_original());
     }
 
-    inline bool is_disposed() const
+    bool is_disposed() const
     {
         return m_external_disposable.is_disposed();
     }
 
-    inline void dispose() const
+    void dispose() const
     {
         m_external_disposable.dispose();
         upstream_disposable::dispose();
@@ -77,12 +77,12 @@ class local_disposable_strategy : public upstream_disposable
 public:
     local_disposable_strategy() = default;
 
-    inline bool is_disposed() const
+    bool is_disposed() const
     {
         return m_is_disposed;
     }
 
-    inline void dispose() const
+    void dispose() const
     {
         m_is_disposed = true;
         upstream_disposable::dispose();
@@ -94,9 +94,9 @@ private:
 
 struct none_disposable_strategy
 {
-    inline static void set_upstream(const disposable_wrapper&) {}
-    inline static bool is_disposed() { return false; }
-    inline static void dispose() {}
+    static void set_upstream(const disposable_wrapper&) {}
+    static bool is_disposed() { return false; }
+    static void dispose() {}
 };
 
 template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy, typename DisposablesStrategy>
@@ -105,7 +105,7 @@ class base_observer_impl
 protected:
     template<typename... Args>
         requires constraint::is_constructible_from<Strategy, Args&&...>
-    base_observer_impl(DisposablesStrategy&& strategy, Args&&... args)
+    explicit base_observer_impl(DisposablesStrategy&& strategy, Args&&... args)
         : m_strategy{std::forward<Args>(args)...}, m_disposable{std::move(strategy)}
     {
     }
@@ -129,7 +129,7 @@ public:
      * @return true if observer disposed and no longer interested in emissions
      * @return false if observer still interested in emissions
      */
-    inline bool is_disposed() const
+    bool is_disposed() const
     {
         return m_disposable.is_disposed() ||  m_strategy.is_disposed();
     }
