@@ -63,7 +63,8 @@ public:
 
     operator_strategy_base(const operator_strategy_base&) = delete;
     operator_strategy_base(operator_strategy_base&& other) noexcept
-        : m_observer{std::in_place_index<1>, std::move(other).get_observer()} {}
+        : m_observer{std::in_place_index<1>, std::move(other).get_observer()}
+        , m_strategy{std::move(other.strategy)}{}
 
     operator_strategy_base& operator=(const operator_strategy_base&) = delete;
     operator_strategy_base& operator=(operator_strategy_base&&) = delete;
