@@ -37,6 +37,14 @@ TEST_CASE("subscribe as operator")
         CHECK(mock.get_received_values() == std::vector{1});
     }
 
+    SECTION("subscribe observer with disposed disposable")
+    {
+        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::disposable_wrapper{}, mock.get_observer())), rpp::disposable_wrapper>);
+        auto d = observable | rpp::operators::subscribe(rpp::disposable_wrapper{}, mock.get_observer());
+        CHECK(d.is_disposed());
+        CHECK(mock.get_received_values().empty());
+    }
+
     SECTION("subscribe dynamic observer")
     {
         static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(mock.get_observer().as_dynamic())), void>);
@@ -52,6 +60,14 @@ TEST_CASE("subscribe as operator")
         CHECK(mock.get_received_values() == std::vector{1});
     }
 
+    SECTION("subscribe dynamic observer with disposed disposable")
+    {
+        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::disposable_wrapper{}, mock.get_observer().as_dynamic())), rpp::disposable_wrapper>);
+        auto d = observable | rpp::operators::subscribe(rpp::disposable_wrapper{}, mock.get_observer().as_dynamic());
+        CHECK(d.is_disposed());
+        CHECK(mock.get_received_values().empty());
+    }
+
     SECTION("subscribe lambdas")
     {
         static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe([](const auto&){}, [](const std::exception_ptr&){}, [](){})), void>);
@@ -65,6 +81,14 @@ TEST_CASE("subscribe as operator")
         auto d = observable | rpp::operators::subscribe(rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()}, [&mock](const auto& v){ mock.on_next(v);}, [](const std::exception_ptr&){}, [](){});
         CHECK(d.is_disposed());
         CHECK(mock.get_received_values() == std::vector{1});
+    }
+
+    SECTION("subscribe lambdas with disposed disposable")
+    {
+        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::disposable_wrapper{}, [](const auto&){}, [](const std::exception_ptr&){}, [](){})), rpp::disposable_wrapper>);
+        auto d = observable | rpp::operators::subscribe(rpp::disposable_wrapper{}, [&mock](const auto& v){ mock.on_next(v);}, [](const std::exception_ptr&){}, [](){});
+        CHECK(d.is_disposed());
+        CHECK(mock.get_received_values().empty());
     }
 }
 
@@ -92,6 +116,14 @@ TEST_CASE("subscribe as member")
         CHECK(mock.get_received_values() == std::vector{1});
     }
 
+    SECTION("subscribe observer with disposed disposable")
+    {
+        static_assert(std::is_same_v<decltype(observable.subscribe(rpp::disposable_wrapper{}, mock.get_observer())), rpp::disposable_wrapper>);
+        auto d = observable.subscribe(rpp::disposable_wrapper{}, mock.get_observer());
+        CHECK(d.is_disposed());
+        CHECK(mock.get_received_values().empty());
+    }
+
     SECTION("subscribe dynamic observer")
     {
         static_assert(std::is_same_v<decltype(observable.subscribe(mock.get_observer().as_dynamic())), void>);
@@ -107,6 +139,14 @@ TEST_CASE("subscribe as member")
         CHECK(mock.get_received_values() == std::vector{1});
     }
 
+    SECTION("subscribe dynamic observer with disposed disposable")
+    {
+        static_assert(std::is_same_v<decltype(observable.subscribe(rpp::disposable_wrapper{}, mock.get_observer().as_dynamic())), rpp::disposable_wrapper>);
+        auto d = observable.subscribe(rpp::disposable_wrapper{}, mock.get_observer().as_dynamic());
+        CHECK(d.is_disposed());
+        CHECK(mock.get_received_values().empty());
+    }
+
     SECTION("subscribe lambdas")
     {
         static_assert(std::is_same_v<decltype(observable.subscribe([](const auto&){}, [](const std::exception_ptr&){}, [](){})), void>);
@@ -120,5 +160,13 @@ TEST_CASE("subscribe as member")
         auto d = observable.subscribe(rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()}, [&mock](const auto& v){ mock.on_next(v);}, [](const std::exception_ptr&){}, [](){});
         CHECK(d.is_disposed());
         CHECK(mock.get_received_values() == std::vector{1});
+    }
+
+    SECTION("subscribe lambdas with disposed disposable")
+    {
+        static_assert(std::is_same_v<decltype(observable.subscribe(rpp::disposable_wrapper{}, [](const auto&){}, [](const std::exception_ptr&){}, [](){})), rpp::disposable_wrapper>);
+        auto d = observable.subscribe(rpp::disposable_wrapper{}, [&mock](const auto& v){ mock.on_next(v);}, [](const std::exception_ptr&){}, [](){});
+        CHECK(d.is_disposed());
+        CHECK(mock.get_received_values().empty());
     }
 }
