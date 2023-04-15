@@ -189,6 +189,9 @@ TEST_CASE("set_upstream can't be called multiple times")
 
     SECTION("observer with disposable")
         check(rpp::make_lambda_observer<int>(rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()}, [](int) {}, [](const std::exception_ptr&) {}, []() {}));
+
+    SECTION("observer with empty disposable")
+        check(rpp::make_lambda_observer<int>(rpp::disposable_wrapper{}, [](int) {}, [](const std::exception_ptr&) {}, []() {}));
 }
 
 TEST_CASE("set_upstream depends on base disposable")
