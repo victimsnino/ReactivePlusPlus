@@ -34,10 +34,10 @@ template<typename Fn, typename...Args>
 concept schedulable_fn = std::is_invocable_r_v<optional_duration, Fn, Args...>;
 
 template<typename S>
-concept strategy = requires(const S& s, const rpp::dynamic_observer<int>& obs) 
+concept strategy = requires(const S& s, const rpp::dynamic_observer<int>& obs)
 {
-    {s.defer(std::declval<optional_duration(*)(const rpp::dynamic_observer<int>&)>(), obs)} -> rpp::constraint::decayed_same_as<rpp::composite_disposable>;
-    {s.defer_at(time_point{}, std::declval<optional_duration(*)(const rpp::dynamic_observer<int>&)>(), obs)} -> rpp::constraint::decayed_same_as<rpp::composite_disposable>;
+    {s.defer(std::declval<optional_duration(*)(const rpp::dynamic_observer<int>&)>(), obs)} -> rpp::constraint::decayed_same_as<rpp::disposable_wrapper>;
+    {s.defer_at(time_point{}, std::declval<optional_duration(*)(const rpp::dynamic_observer<int>&)>(), obs)} -> rpp::constraint::decayed_same_as<rpp::disposable_wrapper>;
     {S::now()} -> std::same_as<time_point>;
 };
 }

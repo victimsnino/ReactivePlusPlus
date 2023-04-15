@@ -14,22 +14,21 @@
 #include <rpp/sources/create.hpp>
 
 #include "mock_observer.hpp"
-#include "rpp/disposables/composite_disposable.hpp"
 
 TEST_CASE("take operator limits emissions")
 {
     int actually_values_sent{};
     auto obs = rpp::source::create<int>([&actually_values_sent](auto&& obs)
     {
-        auto d = rpp::composite_disposable{};
-        obs.set_upstream(d);
+        auto upstream = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
+        obs.set_upstream(upstream);
 
         while(!obs.is_disposed())
         {
             obs.on_next(actually_values_sent++);
         }
 
-        CHECK(d.is_disposed());
+        CHECK(upstream.is_disposed());
         CHECK(obs.is_disposed());
     });
 

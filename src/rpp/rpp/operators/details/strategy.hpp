@@ -13,7 +13,7 @@
 #include <rpp/defs.hpp>
 #include <rpp/observers/fwd.hpp>
 #include <rpp/sources/fwd.hpp>
-#include <rpp/disposables/composite_disposable.hpp>
+#include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/observables/base_observable.hpp>
 #include <rpp/utils/constraints.hpp>
 
@@ -28,7 +28,7 @@ template<typename S, typename Type>
 concept operator_strategy = requires(const S& const_strategy,
                                      S& strategy,
                                      const Type& v,
-                                     const composite_disposable disposable,
+                                     const disposable_wrapper disposable,
                                      const dynamic_observer<Type>& const_observer,
                                      dynamic_observer<Type>& observer)
 {
@@ -58,45 +58,28 @@ public:
      */
     template<typename...Args>
     operator_strategy_base(observer&& observer, Args&&...args)
-        : m_observer{std::in_place_index<0>, observer}
+        : m_observer{std::move(observer)}
         , m_strategy{std::forward<Args>(args)...} {}
 
     operator_strategy_base(const operator_strategy_base&) = delete;
-    operator_strategy_base(operator_strategy_base&& other) noexcept
-        : m_observer{std::in_place_index<1>, std::move(other).get_observer()} {}
+    operator_strategy_base(operator_strategy_base&& other) noexcept = default;
 
     operator_strategy_base& operator=(const operator_strategy_base&) = delete;
     operator_strategy_base& operator=(operator_strategy_base&&) = delete;
 
     ~operator_strategy_base() noexcept = default;
 
-    void set_upstream(const composite_disposable& d)   { m_strategy.set_upstream(get_observer(), d); }
-    bool is_disposed() const noexcept                  { return m_strategy.is_disposed() || get_observer().is_disposed(); }
+    void set_upstream(const disposable_wrapper& d)     { m_strategy.set_upstream(m_observer, d); }
+    bool is_disposed() const                           { return m_strategy.is_disposed() || m_observer.is_disposed(); }
 
-    void on_next(const T& v) const                     { m_strategy.on_next(get_observer(), v); }
-    void on_next(T&& v) const                          { m_strategy.on_next(get_observer(), std::move(v)); }
-    void on_error(const std::exception_ptr& err) const { m_strategy.on_error(get_observer(), err); }
-    void on_completed() const                          { m_strategy.on_completed(get_observer()); }
-
-private:
-    observer&& get_observer() &&
-    {
-        return std::visit([](observer& v) -> observer&& {return std::move(v);}, m_observer);
-    }
-
-    observer& get_observer() &
-    {
-        return std::visit([](observer& v) -> observer& {return v;}, m_observer);
-    }
-
-    const observer& get_observer() const &
-    {
-        return std::visit([](const observer& v) -> const observer& {return v;}, m_observer);
-    }
+    void on_next(const T& v) const                     { m_strategy.on_next(m_observer, v); }
+    void on_next(T&& v) const                          { m_strategy.on_next(m_observer, std::move(v)); }
+    void on_error(const std::exception_ptr& err) const { m_strategy.on_error(m_observer, err); }
+    void on_completed() const                          { m_strategy.on_completed(m_observer); }
 
 private:
-    std::variant<std::reference_wrapper<observer>, observer> m_observer;
-    RPP_NO_UNIQUE_ADDRESS Strategy                           m_strategy;
+    observer                       m_observer;
+    RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
 };
 
 struct forwarding_on_next_strategy
@@ -127,7 +110,7 @@ struct forwarding_on_completed_strategy
 struct forwarding_set_upstream_strategy
 {
     template<rpp::constraint::decayed_type T, rpp::constraint::observer_strategy<T> ObserverStrategy>
-    void operator()(rpp::base_observer<T, ObserverStrategy>& observer, const rpp::composite_disposable& d) const {observer.set_upstream(d); }
+    void operator()(rpp::base_observer<T, ObserverStrategy>& observer, const rpp::disposable_wrapper& d) const {observer.set_upstream(d); }
 };
 
 struct forwarding_is_disposed_strategy

@@ -10,6 +10,12 @@
 
 #pragma once
 
-#include <rpp/disposables/fwd.hpp>
-#include <rpp/disposables/base_disposable.hpp>
-#include <rpp/disposables/disposable_wrapper.hpp>
+#include <stdexcept>
+
+namespace rpp::utils
+{
+struct error_set_upstream_calle_twice : std::logic_error
+{
+    error_set_upstream_calle_twice() : std::logic_error{"set_upstream called twice, but expected only once"} {}
+};
+}
