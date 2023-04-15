@@ -1,11 +1,10 @@
 var indexSectionsWithContent =
 {
-  0: "abcdefilmorstuw",
-  1: "bcdefilmostuw",
+  0: "abcdefilmnorstuw",
+  1: "bcdefilmnostuw",
   2: "acimorst",
-  3: "s",
-  4: "cforst",
-  5: "i"
+  3: "cforst",
+  4: "i"
 };
 
 var indexSectionNames =
@@ -13,9 +12,8 @@ var indexSectionNames =
   0: "all",
   1: "classes",
   2: "functions",
-  3: "variables",
-  4: "groups",
-  5: "pages"
+  3: "groups",
+  4: "pages"
 };
 
 var indexSectionLabels =
@@ -23,8 +21,7 @@ var indexSectionLabels =
   0: "All",
   1: "Classes",
   2: "Functions",
-  3: "Variables",
-  4: "Modules",
-  5: "Pages"
+  3: "Modules",
+  4: "Pages"
 };
 

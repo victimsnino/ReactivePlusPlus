@@ -6,6 +6,12 @@ var annotated_dup =
           [ "dynamic_strategy", "classrpp_1_1details_1_1observer_1_1dynamic__strategy.html", "classrpp_1_1details_1_1observer_1_1dynamic__strategy" ],
           [ "lambda_strategy", "structrpp_1_1details_1_1observer_1_1lambda__strategy.html", "structrpp_1_1details_1_1observer_1_1lambda__strategy" ]
         ] ],
+        [ "upstream_disposable", "classrpp_1_1details_1_1upstream__disposable.html", "classrpp_1_1details_1_1upstream__disposable" ],
+        [ "external_disposable_strategy", "classrpp_1_1details_1_1external__disposable__strategy.html", "classrpp_1_1details_1_1external__disposable__strategy" ],
+        [ "local_disposable_strategy", "classrpp_1_1details_1_1local__disposable__strategy.html", "classrpp_1_1details_1_1local__disposable__strategy" ],
+        [ "none_disposable_strategy", "structrpp_1_1details_1_1none__disposable__strategy.html", null ],
+        [ "base_observer_impl", "classrpp_1_1details_1_1base__observer__impl.html", "classrpp_1_1details_1_1base__observer__impl" ],
+        [ "with_disposable", "structrpp_1_1details_1_1with__disposable.html", "structrpp_1_1details_1_1with__disposable" ],
         [ "create_strategy", "structrpp_1_1details_1_1create__strategy.html", "structrpp_1_1details_1_1create__strategy" ],
         [ "shared_container", "classrpp_1_1details_1_1shared__container.html", "classrpp_1_1details_1_1shared__container" ],
         [ "from_iterable_strategy", "structrpp_1_1details_1_1from__iterable__strategy.html", "structrpp_1_1details_1_1from__iterable__strategy" ]
@@ -30,13 +36,13 @@ var annotated_dup =
         ] ],
         [ "subscribe", "classrpp_1_1operators_1_1subscribe.html", null ],
         [ "subscribe< base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1subscribe_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4.html", "classrpp_1_1operators_1_1subscribe_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4" ],
-        [ "subscribe< rpp::composite_disposable, base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01base__observer_3_01_typde3c24d84d647c49022f81644e91fa69.html", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01base__observer_3_01_typde3c24d84d647c49022f81644e91fa69" ],
+        [ "subscribe< rpp::disposable_wrapper, base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01base__observer_3_01_type_52af88234a61d7c1f18ff0964bddbfbd.html", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01base__observer_3_01_type_52af88234a61d7c1f18ff0964bddbfbd" ],
         [ "subscribe< OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1subscribe_3_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", "classrpp_1_1operators_1_1subscribe_3_01_on_next_00_01_on_error_00_01_on_completed_01_4" ],
         [ "subscribe< OnNext >", "classrpp_1_1operators_1_1subscribe_3_01_on_next_01_4.html", null ],
         [ "subscribe< OnNext, OnError >", "classrpp_1_1operators_1_1subscribe_3_01_on_next_00_01_on_error_01_4.html", null ],
-        [ "subscribe< rpp::composite_disposable, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01_on_next_00_01_on_error_00_01_on_completed_01_4" ],
-        [ "subscribe< rpp::composite_disposable, OnNext >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01_on_next_01_4.html", null ],
-        [ "subscribe< rpp::composite_disposable, OnNext, OnError >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01_on_next_00_01_on_error_01_4.html", null ]
+        [ "subscribe< rpp::disposable_wrapper, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01_on_next_00_01_on_error_00_01_on_completed_01_4" ],
+        [ "subscribe< rpp::disposable_wrapper, OnNext >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01_on_next_01_4.html", null ],
+        [ "subscribe< rpp::disposable_wrapper, OnNext, OnError >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01_on_next_00_01_on_error_01_4.html", null ]
       ] ],
       [ "schedulers", null, [
         [ "constraint", null, [
@@ -56,8 +62,11 @@ var annotated_dup =
           [ "extract_observer_type< rpp::base_observer< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1base__observer_3_01_t_t_00_01_strategy_01_4_01_4.html", "structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1base__observer_3_01_t_t_00_01_strategy_01_4_01_4" ]
         ] ]
       ] ],
-      [ "composite_disposable", "classrpp_1_1composite__disposable.html", "classrpp_1_1composite__disposable" ],
+      [ "base_disposable", "classrpp_1_1base__disposable.html", "classrpp_1_1base__disposable" ],
+      [ "disposable_wrapper", "classrpp_1_1disposable__wrapper.html", "classrpp_1_1disposable__wrapper" ],
       [ "base_observable", "classrpp_1_1base__observable.html", "classrpp_1_1base__observable" ],
-      [ "base_observer", "classrpp_1_1base__observer.html", "classrpp_1_1base__observer" ]
+      [ "base_observer", "classrpp_1_1base__observer.html", "classrpp_1_1base__observer" ],
+      [ "base_observer< Type, details::with_disposable< Strategy > >", "classrpp_1_1base__observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4.html", "classrpp_1_1base__observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4" ],
+      [ "base_observer< Type, rpp::details::observer::dynamic_strategy< Type > >", "classrpp_1_1base__observer_3_01_type_00_01rpp_1_1details_1_1observer_1_1dynamic__strategy_3_01_type_01_4_01_4.html", "classrpp_1_1base__observer_3_01_type_00_01rpp_1_1details_1_1observer_1_1dynamic__strategy_3_01_type_01_4_01_4" ]
     ] ]
 ];

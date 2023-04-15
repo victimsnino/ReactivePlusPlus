@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['is_5fdisposed_109',['is_disposed',['../classrpp_1_1base__observer.html#a85b8cb5af6fa25e750188c2f676155ba',1,'rpp::base_observer']]]
+  ['is_5fdisposed_135',['is_disposed',['../classrpp_1_1details_1_1base__observer__impl.html#a7f862e21ba7ced64ebb98d5c7517deaa',1,'rpp::details::base_observer_impl']]]
 ];

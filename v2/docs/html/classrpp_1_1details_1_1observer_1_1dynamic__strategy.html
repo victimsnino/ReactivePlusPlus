@@ -95,6 +95,7 @@ $(document).ready(function(){initNavTree('classrpp_1_1details_1_1observer_1_1dyn
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classrpp_1_1details_1_1observer_1_1dynamic__strategy-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">rpp::details::observer::dynamic_strategy&lt; Type &gt; Class Template Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
@@ -103,35 +104,63 @@ $(document).ready(function(){initNavTree('classrpp_1_1details_1_1observer_1_1dyn
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4d42a4e18900d4ee00bea4b6018988a6"><td class="memTemplParams" colspan="2"><a id="a4d42a4e18900d4ee00bea4b6018988a6"></a>
+<tr class="memitem:a2fec1d03de892d88c2eb692580d22cd1"><td class="memTemplParams" colspan="2"><a id="a2fec1d03de892d88c2eb692580d22cd1"></a>
 template&lt;constraint::observer_strategy&lt; Type &gt; Strategy&gt; </td></tr>
-<tr class="memitem:a4d42a4e18900d4ee00bea4b6018988a6"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>requires</b> (std::is_rvalue_reference_v&lt; Strategy &amp;&amp; &gt; &amp;&amp;!constraint::decayed_same_as&lt; Strategy, <a class="el" href="classrpp_1_1details_1_1observer_1_1dynamic__strategy.html">dynamic_strategy</a>&lt; Type &gt;&gt;) explicit <a class="el" href="classrpp_1_1details_1_1observer_1_1dynamic__strategy.html">dynamic_strategy</a>(Strategy &amp;&amp;strategy)</td></tr>
-<tr class="separator:a4d42a4e18900d4ee00bea4b6018988a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a210115261cb2b39854e2e1a207cd1459"><td class="memItemLeft" align="right" valign="top"><a id="a210115261cb2b39854e2e1a207cd1459"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>dynamic_strategy</b> (const <a class="el" href="classrpp_1_1details_1_1observer_1_1dynamic__strategy.html">dynamic_strategy</a> &amp;)=default</td></tr>
-<tr class="separator:a210115261cb2b39854e2e1a207cd1459"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fec1d03de892d88c2eb692580d22cd1"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>requires</b> (!constraint::decayed_same_as&lt; Strategy, <a class="el" href="classrpp_1_1details_1_1observer_1_1dynamic__strategy.html">dynamic_strategy</a>&lt; Type &gt;&gt;) explicit <a class="el" href="classrpp_1_1details_1_1observer_1_1dynamic__strategy.html">dynamic_strategy</a>(<a class="el" href="classrpp_1_1base__observer.html">base_observer</a>&lt; Type</td></tr>
+<tr class="separator:a2fec1d03de892d88c2eb692580d22cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a216e7a8b0225c19892f2e481efc55b41"><td class="memItemLeft" align="right" valign="top"><a id="a216e7a8b0225c19892f2e481efc55b41"></a>
+Strategy&#160;</td><td class="memItemRight" valign="bottom"><b>Strategy</b> (std::move(observer))}</td></tr>
+<tr class="separator:a216e7a8b0225c19892f2e481efc55b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a0f6febbb77cb1294ca0016941df691"><td class="memItemLeft" align="right" valign="top"><a id="a2a0f6febbb77cb1294ca0016941df691"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>dynamic_strategy</b> (<a class="el" href="classrpp_1_1details_1_1observer_1_1dynamic__strategy.html">dynamic_strategy</a> &amp;&amp;) noexcept=default</td></tr>
 <tr class="separator:a2a0f6febbb77cb1294ca0016941df691"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2169c6db79e22b0f4f0b92488736dd0a"><td class="memItemLeft" align="right" valign="top"><a id="a2169c6db79e22b0f4f0b92488736dd0a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_upstream</b> (const <a class="el" href="classrpp_1_1composite__disposable.html">composite_disposable</a> &amp;d) noexcept</td></tr>
-<tr class="separator:a2169c6db79e22b0f4f0b92488736dd0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2d624c344fd8a7c820ae62e919e4272"><td class="memItemLeft" align="right" valign="top"><a id="ad2d624c344fd8a7c820ae62e919e4272"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_disposed</b> () const noexcept</td></tr>
-<tr class="separator:ad2d624c344fd8a7c820ae62e919e4272"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a945277881501ae2df203ec05983077ce"><td class="memItemLeft" align="right" valign="top"><a id="a945277881501ae2df203ec05983077ce"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>on_next</b> (const Type &amp;v) const noexcept</td></tr>
-<tr class="separator:a945277881501ae2df203ec05983077ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa51b9b565d6ba21cf48e053fd0894968"><td class="memItemLeft" align="right" valign="top"><a id="aa51b9b565d6ba21cf48e053fd0894968"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>on_next</b> (Type &amp;&amp;v) const noexcept</td></tr>
-<tr class="separator:aa51b9b565d6ba21cf48e053fd0894968"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a287b6471132b9f3f87bfd40384e65b66"><td class="memItemLeft" align="right" valign="top"><a id="a287b6471132b9f3f87bfd40384e65b66"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>on_error</b> (const std::exception_ptr &amp;err) const noexcept</td></tr>
-<tr class="separator:a287b6471132b9f3f87bfd40384e65b66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8715903fdc4be6ab35d441a50b49f1e0"><td class="memItemLeft" align="right" valign="top"><a id="a8715903fdc4be6ab35d441a50b49f1e0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>on_completed</b> () const noexcept</td></tr>
-<tr class="separator:a8715903fdc4be6ab35d441a50b49f1e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c4bac0968ef4f53cd3444c2ecdb07eb"><td class="memItemLeft" align="right" valign="top"><a id="a7c4bac0968ef4f53cd3444c2ecdb07eb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_upstream</b> (const <a class="el" href="classrpp_1_1disposable__wrapper.html">disposable_wrapper</a> &amp;d)</td></tr>
+<tr class="separator:a7c4bac0968ef4f53cd3444c2ecdb07eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0273ccddb92d5a8cb9e79ec4616ad923"><td class="memItemLeft" align="right" valign="top"><a id="a0273ccddb92d5a8cb9e79ec4616ad923"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_disposed</b> () const</td></tr>
+<tr class="separator:a0273ccddb92d5a8cb9e79ec4616ad923"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a614f00818ec63fa47dfb7f359e6e29a5"><td class="memItemLeft" align="right" valign="top"><a id="a614f00818ec63fa47dfb7f359e6e29a5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_next</b> (const Type &amp;v) const</td></tr>
+<tr class="separator:a614f00818ec63fa47dfb7f359e6e29a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a563f34e1d53792dd566c81ca18728027"><td class="memItemLeft" align="right" valign="top"><a id="a563f34e1d53792dd566c81ca18728027"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_next</b> (Type &amp;&amp;v) const</td></tr>
+<tr class="separator:a563f34e1d53792dd566c81ca18728027"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8342dd2bb52712ebf0b86b49fff3f29"><td class="memItemLeft" align="right" valign="top"><a id="aa8342dd2bb52712ebf0b86b49fff3f29"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_error</b> (const std::exception_ptr &amp;err) const</td></tr>
+<tr class="separator:aa8342dd2bb52712ebf0b86b49fff3f29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec53b8541bdbada9cfdf0e0ffc649d99"><td class="memItemLeft" align="right" valign="top"><a id="aec53b8541bdbada9cfdf0e0ffc649d99"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_completed</b> () const</td></tr>
+<tr class="separator:aec53b8541bdbada9cfdf0e0ffc649d99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a617a0eb5a226a45adf2b5b68e8f3e91c"><td class="memItemLeft" align="right" valign="top"><a id="a617a0eb5a226a45adf2b5b68e8f3e91c"></a>
+Strategy &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><b>observer</b>: m_forwarder{std::make_shared&lt;<a class="el" href="classrpp_1_1base__observer.html">base_observer</a>&lt;Type</td></tr>
+<tr class="separator:a617a0eb5a226a45adf2b5b68e8f3e91c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a398fe5005e8ae0f13dac5d6b19cfa0af"><td class="memItemLeft" align="right" valign="top">Strategy&#160;</td><td class="memItemRight" valign="bottom"><b>m_vtable</b></td></tr>
+<tr class="separator:a398fe5005e8ae0f13dac5d6b19cfa0af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a398fe5005e8ae0f13dac5d6b19cfa0af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a398fe5005e8ae0f13dac5d6b19cfa0af">&#9670;&nbsp;</a></span>m_vtable</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">Strategy <a class="el" href="classrpp_1_1details_1_1observer_1_1dynamic__strategy.html">rpp::details::observer::dynamic_strategy</a>&lt; Type &gt;::m_vtable</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">{vtable::template create&lt;base_observer&lt;Type, Strategy&gt;&gt;()} {}</div>
+<div class="line"> </div>
+<div class="line">    dynamic_strategy(<span class="keyword">const</span> dynamic_strategy&amp;) = <span class="keywordflow">default</span></div>
+</div><!-- fragment -->
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/rpp/rpp/observers/<a class="el" href="dynamic__observer_8hpp_source.html">dynamic_observer.hpp</a></li>
 </ul>

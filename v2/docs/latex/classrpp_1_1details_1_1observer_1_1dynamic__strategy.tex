@@ -3,33 +3,58 @@
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a4d42a4e18900d4ee00bea4b6018988a6}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a4d42a4e18900d4ee00bea4b6018988a6}} 
-{\footnotesize template$<$constraint\+::observer\+\_\+strategy$<$ Type $>$ Strategy$>$ }\\{\bfseries requires} (std\+::is\+\_\+rvalue\+\_\+reference\+\_\+v$<$ Strategy \&\& $>$ \&\&!constraint\+::decayed\+\_\+same\+\_\+as$<$ Strategy, \mbox{\hyperlink{classrpp_1_1details_1_1observer_1_1dynamic__strategy}{dynamic\+\_\+strategy}}$<$ Type $>$$>$) explicit \mbox{\hyperlink{classrpp_1_1details_1_1observer_1_1dynamic__strategy}{dynamic\+\_\+strategy}}(Strategy \&\&strategy)
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a2fec1d03de892d88c2eb692580d22cd1}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a2fec1d03de892d88c2eb692580d22cd1}} 
+{\footnotesize template$<$constraint\+::observer\+\_\+strategy$<$ Type $>$ Strategy$>$ }\\{\bfseries requires} (!constraint\+::decayed\+\_\+same\+\_\+as$<$ Strategy, \mbox{\hyperlink{classrpp_1_1details_1_1observer_1_1dynamic__strategy}{dynamic\+\_\+strategy}}$<$ Type $>$$>$) explicit \mbox{\hyperlink{classrpp_1_1details_1_1observer_1_1dynamic__strategy}{dynamic\+\_\+strategy}}(\mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}}$<$ Type
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a210115261cb2b39854e2e1a207cd1459}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a210115261cb2b39854e2e1a207cd1459}} 
-{\bfseries dynamic\+\_\+strategy} (const \mbox{\hyperlink{classrpp_1_1details_1_1observer_1_1dynamic__strategy}{dynamic\+\_\+strategy}} \&)=default
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a216e7a8b0225c19892f2e481efc55b41}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a216e7a8b0225c19892f2e481efc55b41}} 
+Strategy {\bfseries Strategy} (std\+::move(observer))\}
 \item 
 \mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a2a0f6febbb77cb1294ca0016941df691}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a2a0f6febbb77cb1294ca0016941df691}} 
 {\bfseries dynamic\+\_\+strategy} (\mbox{\hyperlink{classrpp_1_1details_1_1observer_1_1dynamic__strategy}{dynamic\+\_\+strategy}} \&\&) noexcept=default
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a2169c6db79e22b0f4f0b92488736dd0a}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a2169c6db79e22b0f4f0b92488736dd0a}} 
-void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&d) noexcept
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a7c4bac0968ef4f53cd3444c2ecdb07eb}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a7c4bac0968ef4f53cd3444c2ecdb07eb}} 
+void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\+\_\+wrapper}} \&d)
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_ad2d624c344fd8a7c820ae62e919e4272}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_ad2d624c344fd8a7c820ae62e919e4272}} 
-bool {\bfseries is\+\_\+disposed} () const noexcept
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a0273ccddb92d5a8cb9e79ec4616ad923}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a0273ccddb92d5a8cb9e79ec4616ad923}} 
+bool {\bfseries is\+\_\+disposed} () const
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a945277881501ae2df203ec05983077ce}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a945277881501ae2df203ec05983077ce}} 
-void {\bfseries on\+\_\+next} (const Type \&v) const noexcept
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a614f00818ec63fa47dfb7f359e6e29a5}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a614f00818ec63fa47dfb7f359e6e29a5}} 
+void {\bfseries on\+\_\+next} (const Type \&v) const
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_aa51b9b565d6ba21cf48e053fd0894968}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_aa51b9b565d6ba21cf48e053fd0894968}} 
-void {\bfseries on\+\_\+next} (Type \&\&v) const noexcept
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a563f34e1d53792dd566c81ca18728027}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a563f34e1d53792dd566c81ca18728027}} 
+void {\bfseries on\+\_\+next} (Type \&\&v) const
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a287b6471132b9f3f87bfd40384e65b66}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a287b6471132b9f3f87bfd40384e65b66}} 
-void {\bfseries on\+\_\+error} (const std\+::exception\+\_\+ptr \&err) const noexcept
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_aa8342dd2bb52712ebf0b86b49fff3f29}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_aa8342dd2bb52712ebf0b86b49fff3f29}} 
+void {\bfseries on\+\_\+error} (const std\+::exception\+\_\+ptr \&err) const
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a8715903fdc4be6ab35d441a50b49f1e0}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a8715903fdc4be6ab35d441a50b49f1e0}} 
-void {\bfseries on\+\_\+completed} () const noexcept
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_aec53b8541bdbada9cfdf0e0ffc649d99}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_aec53b8541bdbada9cfdf0e0ffc649d99}} 
+void {\bfseries on\+\_\+completed} () const
 \end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a617a0eb5a226a45adf2b5b68e8f3e91c}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a617a0eb5a226a45adf2b5b68e8f3e91c}} 
+Strategy \&\& {\bfseries observer}\+: m\+\_\+forwarder\{std\+::make\+\_\+shared$<$\mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}}$<$Type
+\item 
+Strategy {\bfseries m\+\_\+vtable}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a398fe5005e8ae0f13dac5d6b19cfa0af}\label{classrpp_1_1details_1_1observer_1_1dynamic__strategy_a398fe5005e8ae0f13dac5d6b19cfa0af}} 
+\index{rpp::details::observer::dynamic\_strategy$<$ Type $>$@{rpp::details::observer::dynamic\_strategy$<$ Type $>$}!m\_vtable@{m\_vtable}}
+\index{m\_vtable@{m\_vtable}!rpp::details::observer::dynamic\_strategy$<$ Type $>$@{rpp::details::observer::dynamic\_strategy$<$ Type $>$}}
+\doxysubsubsection{\texorpdfstring{m\_vtable}{m\_vtable}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
+Strategy \mbox{\hyperlink{classrpp_1_1details_1_1observer_1_1dynamic__strategy}{rpp\+::details\+::observer\+::dynamic\+\_\+strategy}}$<$ Type $>$\+::m\+\_\+vtable}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{vtable::template create<base\_observer<Type, Strategy>>()\} \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    dynamic\_strategy(\textcolor{keyword}{const} dynamic\_strategy\&) = \textcolor{keywordflow}{default}}
+
+\end{DoxyCode}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

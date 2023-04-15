@@ -108,135 +108,258 @@ $(document).ready(function(){initNavTree('base__observer_8hpp_source.html',''); 
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;rpp/defs.hpp&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;rpp/observers/fwd.hpp&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;rpp/observers/dynamic_observer.hpp&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;rpp/disposables/composite_disposable.hpp&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;exception&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span>rpp</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observer_strategy&lt;Type&gt; Strategy&gt;</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classrpp_1_1base__observer.html">   36</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1base__observer.html">base_observer</a> final</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        requires constraint::is_constructible_from&lt;Strategy, Args...&gt;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>(std::optional&lt;composite_disposable&gt; disposable, Args&amp;&amp; ...args)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        : m_upstream{std::move(disposable)}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        , m_strategy{std::forward&lt;Args&gt;(args)...} {}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        requires (!constraint::variadic_decayed_same_as&lt;<a class="code" href="classrpp_1_1base__observer.html">base_observer&lt;Type, Strategy&gt;</a>, Args...&gt; &amp;&amp; constraint::is_constructible_from&lt;Strategy, Args&amp;&amp;...&gt;)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>(Args&amp;&amp; ...args)</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        : m_strategy{std::forward&lt;Args&gt;(args)...} {}</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>(<a class="code" href="classrpp_1_1base__observer.html">base_observer</a>&amp;&amp;) noexcept = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;rpp/utils/constraints.hpp&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;rpp/defs.hpp&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;rpp/observers/fwd.hpp&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;rpp/observers/dynamic_observer.hpp&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;rpp/disposables/base_disposable.hpp&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;rpp/disposables/disposable_wrapper.hpp&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/functors.hpp&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/exceptions.hpp&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;exception&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">namespace </span>rpp::details</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1upstream__disposable.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1details_1_1upstream__disposable.html">upstream_disposable</a></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> set_upstream_impl(<span class="keyword">const</span> <a class="code" href="classrpp_1_1disposable__wrapper.html">disposable_wrapper</a>&amp; d)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">if</span> (!m_upstream.get_original())</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            m_upstream = d;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="keywordflow">throw</span> utils::error_set_upstream_calle_twice{};</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> dispose_impl()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        m_upstream.dispose();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="classrpp_1_1disposable__wrapper.html">disposable_wrapper</a>             m_upstream{};</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1external__disposable__strategy.html">   47</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1details_1_1external__disposable__strategy.html">external_disposable_strategy</a> : <span class="keyword">private</span> <a class="code" href="classrpp_1_1details_1_1upstream__disposable.html">upstream_disposable</a></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;{</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classrpp_1_1details_1_1external__disposable__strategy.html">external_disposable_strategy</a>(<a class="code" href="classrpp_1_1disposable__wrapper.html">disposable_wrapper</a> disposable) : m_external_disposable(std::move(disposable)) {}</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>&amp;) requires (!std::same_as&lt;Strategy, <a class="code" href="classrpp_1_1details_1_1observer_1_1dynamic__strategy.html">details::observer::dynamic_strategy&lt;Type&gt;</a>&gt;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>&amp;) requires std::same_as&lt;Strategy, details::observer::dynamic_strategy&lt;Type&gt;&gt;  = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classrpp_1_1base__observer.html#ae5529f1765970ff64e43836d3787223f">   58</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1base__observer.html#ae5529f1765970ff64e43836d3787223f">set_upstream</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1composite__disposable.html">composite_disposable</a>&amp; d)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        m_strategy.set_upstream(d);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">if</span> (!m_upstream)</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            m_upstream = d;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            m_upstream-&gt;add(d);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classrpp_1_1base__observer.html#a85b8cb5af6fa25e750188c2f676155ba">   74</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classrpp_1_1base__observer.html#a85b8cb5af6fa25e750188c2f676155ba">is_disposed</a>() const noexcept</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">return</span> m_is_disposed || is_upstream_disposed() || m_strategy.is_disposed();</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classrpp_1_1base__observer.html#ab79ca008036a92a36599e3e9069f232e">   83</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1base__observer.html#ab79ca008036a92a36599e3e9069f232e">on_next</a>(<span class="keyword">const</span> Type&amp; v)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">try</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="keywordflow">if</span> (!<a class="code" href="classrpp_1_1base__observer.html#a85b8cb5af6fa25e750188c2f676155ba">is_disposed</a>())</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                m_strategy.on_next(v);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">catch</span>(...)</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            <a class="code" href="classrpp_1_1base__observer.html#a4156158c477508bfa243d5b20e6f447f">on_error</a>(std::current_exception());</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        }</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    }</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="classrpp_1_1base__observer.html#a5e99695b8ed41cbe0d054310a3f64864">  101</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1base__observer.html#a5e99695b8ed41cbe0d054310a3f64864">on_next</a>(Type&amp;&amp; v)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">try</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordflow">if</span> (!<a class="code" href="classrpp_1_1base__observer.html#a85b8cb5af6fa25e750188c2f676155ba">is_disposed</a>())</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                m_strategy.on_next(std::move(v));</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        }</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">catch</span>(...)</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        {</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <a class="code" href="classrpp_1_1base__observer.html#a4156158c477508bfa243d5b20e6f447f">on_error</a>(std::current_exception());</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        }</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    }</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="classrpp_1_1base__observer.html#a4156158c477508bfa243d5b20e6f447f">  119</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1base__observer.html#a4156158c477508bfa243d5b20e6f447f">on_error</a>(<span class="keyword">const</span> std::exception_ptr&amp; err)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="classrpp_1_1base__observer.html#a85b8cb5af6fa25e750188c2f676155ba">is_disposed</a>())</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        {</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            m_strategy.on_error(err);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            dispose();</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> set_upstream(<span class="keyword">const</span> <a class="code" href="classrpp_1_1disposable__wrapper.html">disposable_wrapper</a>&amp; d)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        upstream_disposable::set_upstream_impl(d);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        m_external_disposable.add(d.get_original());</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">bool</span> is_disposed()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">return</span> m_external_disposable.is_disposed();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> dispose()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        m_external_disposable.dispose();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        upstream_disposable::dispose_impl();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="classrpp_1_1disposable__wrapper.html">disposable_wrapper</a>             m_external_disposable{};</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;};</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1local__disposable__strategy.html">   73</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1details_1_1local__disposable__strategy.html">local_disposable_strategy</a> : <span class="keyword">private</span> <a class="code" href="classrpp_1_1details_1_1upstream__disposable.html">upstream_disposable</a></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;{</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="classrpp_1_1details_1_1local__disposable__strategy.html">local_disposable_strategy</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> set_upstream(<span class="keyword">const</span> <a class="code" href="classrpp_1_1disposable__wrapper.html">disposable_wrapper</a>&amp; d)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        upstream_disposable::set_upstream_impl(d);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">bool</span> is_disposed()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">return</span> m_is_disposed;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> dispose()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        m_is_disposed = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        upstream_disposable::dispose_impl();</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">mutable</span> <span class="keywordtype">bool</span> m_is_disposed{<span class="keyword">false</span>};</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;};</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1none__disposable__strategy.html">   97</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrpp_1_1details_1_1none__disposable__strategy.html">none_disposable_strategy</a></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;{</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_upstream(<span class="keyword">const</span> <a class="code" href="classrpp_1_1disposable__wrapper.html">disposable_wrapper</a>&amp;) {}</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> is_disposed() { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> dispose() {}</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;};</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observer_strategy&lt;Type&gt; Strategy, <span class="keyword">typename</span> DisposablesStrategy&gt;</div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1base__observer__impl.html">  105</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1details_1_1base__observer__impl.html">base_observer_impl</a></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;{</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        requires constraint::is_constructible_from&lt;Strategy, Args&amp;&amp;...&gt;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html">base_observer_impl</a>(DisposablesStrategy&amp;&amp; strategy, Args&amp;&amp;... args)</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        : m_strategy{std::forward&lt;Args&gt;(args)...}, m_disposable{std::move(strategy)}</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    }</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html">base_observer_impl</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html">base_observer_impl</a>&amp;)     = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html">base_observer_impl</a>(<a class="code" href="classrpp_1_1details_1_1base__observer__impl.html">base_observer_impl</a>&amp;&amp;) noexcept = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1base__observer__impl.html#a3a3fcf0776edf7cd6fd816ddf10f11fd">  122</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html#a3a3fcf0776edf7cd6fd816ddf10f11fd">set_upstream</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1disposable__wrapper.html">disposable_wrapper</a>&amp; d)</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        m_disposable.set_upstream(d);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        m_strategy.set_upstream(d);</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="classrpp_1_1base__observer.html#a1f29d9521b4bfb02cb8126d7cc0eeb54">  132</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1base__observer.html#a1f29d9521b4bfb02cb8126d7cc0eeb54">on_completed</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="classrpp_1_1base__observer.html#a85b8cb5af6fa25e750188c2f676155ba">is_disposed</a>())</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        {</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            m_strategy.on_completed();</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            dispose();</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        }</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    }</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="classrpp_1_1base__observer.html#ad3fdacd0240836e2495565645f5c153d">  144</a></span>&#160;    <a class="code" href="classrpp_1_1base__observer.html">dynamic_observer&lt;Type&gt;</a> <a class="code" href="classrpp_1_1base__observer.html#ad3fdacd0240836e2495565645f5c153d">as_dynamic</a>() &amp;&amp;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    {</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classrpp_1_1base__observer.html">dynamic_observer&lt;Type&gt;</a>{std::move(m_upstream), std::move(m_strategy)};</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    }</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keyword">operator</span> <a class="code" href="classrpp_1_1base__observer.html">dynamic_observer&lt;Type&gt;</a>() &amp;&amp;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    {</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">return</span> std::move(*this).<a class="code" href="classrpp_1_1base__observer.html#ad3fdacd0240836e2495565645f5c153d">as_dynamic</a>();</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    }</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordtype">void</span> dispose()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        m_is_disposed = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">if</span> (m_upstream)</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            m_upstream-&gt;dispose();</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    }</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordtype">bool</span> is_upstream_disposed()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keywordflow">return</span> m_upstream &amp;&amp; m_upstream-&gt;is_disposed();</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    }</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    std::optional&lt;composite_disposable&gt; m_upstream{};</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    RPP_NO_UNIQUE_ADDRESS Strategy      m_strategy;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keyword">mutable</span> <span class="keywordtype">bool</span>                        m_is_disposed = is_upstream_disposed();</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;};</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;} <span class="comment">// namespace rpp</span></div>
-<div class="ttc" id="aclassrpp_1_1base__observer_html"><div class="ttname"><a href="classrpp_1_1base__observer.html">rpp::base_observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:37</div></div>
-<div class="ttc" id="aclassrpp_1_1base__observer_html_a1f29d9521b4bfb02cb8126d7cc0eeb54"><div class="ttname"><a href="classrpp_1_1base__observer.html#a1f29d9521b4bfb02cb8126d7cc0eeb54">rpp::base_observer::on_completed</a></div><div class="ttdeci">void on_completed() const</div><div class="ttdoc">Observable calls this method to notify observer about completion of emissions.</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:132</div></div>
-<div class="ttc" id="aclassrpp_1_1base__observer_html_a4156158c477508bfa243d5b20e6f447f"><div class="ttname"><a href="classrpp_1_1base__observer.html#a4156158c477508bfa243d5b20e6f447f">rpp::base_observer::on_error</a></div><div class="ttdeci">void on_error(const std::exception_ptr &amp;err) const</div><div class="ttdoc">Observable calls this method to notify observer about some error during generation next data.</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:119</div></div>
-<div class="ttc" id="aclassrpp_1_1base__observer_html_a5e99695b8ed41cbe0d054310a3f64864"><div class="ttname"><a href="classrpp_1_1base__observer.html#a5e99695b8ed41cbe0d054310a3f64864">rpp::base_observer::on_next</a></div><div class="ttdeci">void on_next(Type &amp;&amp;v) const</div><div class="ttdoc">Observable calls this method to notify observer about new value.</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:101</div></div>
-<div class="ttc" id="aclassrpp_1_1base__observer_html_a85b8cb5af6fa25e750188c2f676155ba"><div class="ttname"><a href="classrpp_1_1base__observer.html#a85b8cb5af6fa25e750188c2f676155ba">rpp::base_observer::is_disposed</a></div><div class="ttdeci">bool is_disposed() const noexcept</div><div class="ttdoc">Observable calls this method to check if observer interested or not in emissions.</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:74</div></div>
-<div class="ttc" id="aclassrpp_1_1base__observer_html_ab79ca008036a92a36599e3e9069f232e"><div class="ttname"><a href="classrpp_1_1base__observer.html#ab79ca008036a92a36599e3e9069f232e">rpp::base_observer::on_next</a></div><div class="ttdeci">void on_next(const Type &amp;v) const</div><div class="ttdoc">Observable calls this method to notify observer about new value.</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:83</div></div>
-<div class="ttc" id="aclassrpp_1_1base__observer_html_ad3fdacd0240836e2495565645f5c153d"><div class="ttname"><a href="classrpp_1_1base__observer.html#ad3fdacd0240836e2495565645f5c153d">rpp::base_observer::as_dynamic</a></div><div class="ttdeci">dynamic_observer&lt; Type &gt; as_dynamic() &amp;&amp;</div><div class="ttdoc">Convert current observer to type-erased version. Useful if you need to COPY your observer or to store...</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:144</div></div>
-<div class="ttc" id="aclassrpp_1_1base__observer_html_ae5529f1765970ff64e43836d3787223f"><div class="ttname"><a href="classrpp_1_1base__observer.html#ae5529f1765970ff64e43836d3787223f">rpp::base_observer::set_upstream</a></div><div class="ttdeci">base_observer(const base_observer &amp;) requires(!std base_observer(const base_observer &amp;) requires std void set_upstream(const composite_disposable &amp;d)</div><div class="ttdoc">Observable calls this method to pass disposable to dispose observable IF and WHEN observer want's to ...</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:58</div></div>
-<div class="ttc" id="aclassrpp_1_1composite__disposable_html"><div class="ttname"><a href="classrpp_1_1composite__disposable.html">rpp::composite_disposable</a></div><div class="ttdef"><b>Definition:</b> composite_disposable.hpp:24</div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1observer_1_1dynamic__strategy_html"><div class="ttname"><a href="classrpp_1_1details_1_1observer_1_1dynamic__strategy.html">rpp::details::observer::dynamic_strategy</a></div><div class="ttdef"><b>Definition:</b> dynamic_observer.hpp:39</div></div>
+<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1base__observer__impl.html#a7f862e21ba7ced64ebb98d5c7517deaa">  134</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html#a7f862e21ba7ced64ebb98d5c7517deaa">is_disposed</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keywordflow">return</span> m_disposable.is_disposed() ||  m_strategy.is_disposed();</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    }</div>
+<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1base__observer__impl.html#aba67c3e9762a57c31357e57aefe00dbd">  143</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html#aba67c3e9762a57c31357e57aefe00dbd">on_next</a>(<span class="keyword">const</span> Type&amp; v)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keywordflow">try</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            <span class="keywordflow">if</span> (!<a class="code" href="classrpp_1_1details_1_1base__observer__impl.html#a7f862e21ba7ced64ebb98d5c7517deaa">is_disposed</a>())</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                m_strategy.on_next(v);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        }</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <span class="keywordflow">catch</span>(...)</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        {</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html#ae446f63a5d3083233fe3a9b4e8bc0e82">on_error</a>(std::current_exception());</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        }</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    }</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1base__observer__impl.html#ad598611131c388e8ccd68ee9c78a8cfe">  161</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html#ad598611131c388e8ccd68ee9c78a8cfe">on_next</a>(Type&amp;&amp; v)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <span class="keywordflow">try</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            <span class="keywordflow">if</span> (!<a class="code" href="classrpp_1_1details_1_1base__observer__impl.html#a7f862e21ba7ced64ebb98d5c7517deaa">is_disposed</a>())</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                m_strategy.on_next(std::move(v));</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        }</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keywordflow">catch</span>(...)</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        {</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html#ae446f63a5d3083233fe3a9b4e8bc0e82">on_error</a>(std::current_exception());</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        }</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    }</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00179"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1base__observer__impl.html#ae446f63a5d3083233fe3a9b4e8bc0e82">  179</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html#ae446f63a5d3083233fe3a9b4e8bc0e82">on_error</a>(<span class="keyword">const</span> std::exception_ptr&amp; err)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="classrpp_1_1details_1_1base__observer__impl.html#a7f862e21ba7ced64ebb98d5c7517deaa">is_disposed</a>())</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        {</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            m_strategy.on_error(err);</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            m_disposable.dispose();</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        }</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    }</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
+<div class="line"><a name="l00192"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1base__observer__impl.html#abf44f06b8dd8bebb2990673aa664a806">  192</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html#abf44f06b8dd8bebb2990673aa664a806">on_completed</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="classrpp_1_1details_1_1base__observer__impl.html#a7f862e21ba7ced64ebb98d5c7517deaa">is_disposed</a>())</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        {</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;            m_strategy.on_completed();</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            m_disposable.dispose();</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        }</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    }</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    RPP_NO_UNIQUE_ADDRESS Strategy            m_strategy;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    RPP_NO_UNIQUE_ADDRESS DisposablesStrategy m_disposable;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;};</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;}</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="keyword">namespace </span>rpp</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;{</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observer_strategy&lt;Type&gt; Strategy&gt;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="keyword">class </span>base_observer;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observer_strategy&lt;Type&gt; Strategy&gt;</div>
+<div class="line"><a name="l00223"></a><span class="lineno"><a class="line" href="classrpp_1_1base__observer.html">  223</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1base__observer.html">base_observer</a> final : <span class="keyword">public</span> <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html">details::base_observer_impl</a>&lt;Type, Strategy, details::local_disposable_strategy&gt;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;{</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        requires (!constraint::variadic_decayed_same_as&lt;<a class="code" href="classrpp_1_1base__observer.html">base_observer&lt;Type, Strategy&gt;</a>, Args...&gt; &amp;&amp; constraint::is_constructible_from&lt;Strategy, Args&amp;&amp;...&gt;)</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>(Args&amp;&amp; ...args)</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        : <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html">details::base_observer_impl&lt;Type, Strategy, details::local_disposable_strategy&gt;</a>{<a class="code" href="classrpp_1_1details_1_1local__disposable__strategy.html">details::local_disposable_strategy</a>{}, std::forward&lt;Args&gt;(args)...}</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    {}</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>&amp;)     = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>(<a class="code" href="classrpp_1_1base__observer.html">base_observer</a>&amp;&amp;) noexcept = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
+<div class="line"><a name="l00238"></a><span class="lineno"><a class="line" href="classrpp_1_1base__observer.html#ad3fdacd0240836e2495565645f5c153d">  238</a></span>&#160;    <a class="code" href="classrpp_1_1base__observer.html">dynamic_observer&lt;Type&gt;</a> <a class="code" href="classrpp_1_1base__observer.html#ad3fdacd0240836e2495565645f5c153d">as_dynamic</a>() &amp;&amp;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    {</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classrpp_1_1base__observer.html">dynamic_observer&lt;Type&gt;</a>{std::move(*<span class="keyword">this</span>)};</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    }</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;};</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::observer_strategy&lt;Type&gt; Strategy&gt;</div>
+<div class="line"><a name="l00245"></a><span class="lineno"><a class="line" href="classrpp_1_1base__observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4.html">  245</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1base__observer.html">base_observer</a>&lt;Type, details::with_disposable&lt;Strategy&gt;&gt; final</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    : <span class="keyword">public</span> <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html">details::base_observer_impl</a>&lt;Type, Strategy, details::external_disposable_strategy&gt;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;{</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        requires (constraint::is_constructible_from&lt;Strategy, Args&amp;&amp;...&gt;)</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>(<a class="code" href="classrpp_1_1disposable__wrapper.html">disposable_wrapper</a> disposable, Args&amp;&amp; ...args)</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        : <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html">details::base_observer_impl&lt;Type, Strategy, details::external_disposable_strategy&gt;</a>{<a class="code" href="classrpp_1_1details_1_1external__disposable__strategy.html">details::external_disposable_strategy</a>{std::move(disposable)}, std::forward&lt;Args&gt;(args)...}</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    {}</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160; </div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>&amp;)     = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>(<a class="code" href="classrpp_1_1base__observer.html">base_observer</a>&amp;&amp;) noexcept = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
+<div class="line"><a name="l00261"></a><span class="lineno"><a class="line" href="classrpp_1_1base__observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4.html#a2f751aed6fd9148168f9818a0f4ddc6e">  261</a></span>&#160;    <a class="code" href="classrpp_1_1base__observer.html">dynamic_observer&lt;Type&gt;</a> <a class="code" href="classrpp_1_1base__observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4.html#a2f751aed6fd9148168f9818a0f4ddc6e">as_dynamic</a>() &amp;&amp;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    {</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classrpp_1_1base__observer.html">dynamic_observer&lt;Type&gt;</a>{std::move(*<span class="keyword">this</span>)};</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    }</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;};</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a name="l00268"></a><span class="lineno"><a class="line" href="classrpp_1_1base__observer_3_01_type_00_01rpp_1_1details_1_1observer_1_1dynamic__strategy_3_01_type_01_4_01_4.html">  268</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1base__observer.html">base_observer</a>&lt;Type, rpp::<a class="code" href="classrpp_1_1details_1_1observer_1_1dynamic__strategy.html">details::observer::dynamic_strategy</a>&lt;Type&gt;&gt; final</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    : <span class="keyword">public</span> <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html">details::base_observer_impl</a>&lt;Type, rpp::details::observer::dynamic_strategy&lt;Type&gt;, details::none_disposable_strategy&gt;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;{</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observer_strategy&lt;Type&gt; TStrategy&gt;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        requires (!std::same_as&lt;TStrategy, <a class="code" href="classrpp_1_1details_1_1observer_1_1dynamic__strategy.html">rpp::details::observer::dynamic_strategy&lt;Type&gt;</a>&gt;)</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>(<a class="code" href="classrpp_1_1base__observer.html">base_observer&lt;Type, TStrategy&gt;</a>&amp;&amp; other)</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        : <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html">details::base_observer_impl&lt;Type, rpp::details::observer::dynamic_strategy&lt;Type&gt;</a>, <a class="code" href="structrpp_1_1details_1_1none__disposable__strategy.html">details::none_disposable_strategy</a>&gt;{<a class="code" href="structrpp_1_1details_1_1none__disposable__strategy.html">details::none_disposable_strategy</a>{}, std::move(other)}</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    {}</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; </div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>&amp;)     = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <a class="code" href="classrpp_1_1base__observer.html">base_observer</a>(<a class="code" href="classrpp_1_1base__observer.html">base_observer</a>&amp;&amp;) noexcept = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160; </div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <a class="code" href="classrpp_1_1base__observer.html">dynamic_observer&lt;Type&gt;</a> <a class="code" href="classrpp_1_1base__observer.html#ad3fdacd0240836e2495565645f5c153d">as_dynamic</a>() &amp;&amp;</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    {</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        <span class="keywordflow">return</span> std::move(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    }</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160; </div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keyword">const</span> <a class="code" href="classrpp_1_1base__observer.html">dynamic_observer&lt;Type&gt;</a>&amp; <a class="code" href="classrpp_1_1base__observer.html#ad3fdacd0240836e2495565645f5c153d">as_dynamic</a>() &amp;</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    {</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    }</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;};</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;} <span class="comment">// namespace rpp</span></div>
+<div class="ttc" id="aclassrpp_1_1base__observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4_html_a2f751aed6fd9148168f9818a0f4ddc6e"><div class="ttname"><a href="classrpp_1_1base__observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4.html#a2f751aed6fd9148168f9818a0f4ddc6e">rpp::base_observer&lt; Type, details::with_disposable&lt; Strategy &gt; &gt;::as_dynamic</a></div><div class="ttdeci">dynamic_observer&lt; Type &gt; as_dynamic() &amp;&amp;</div><div class="ttdoc">Convert current observer to type-erased version. Useful if you need to COPY your observer or to store...</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:261</div></div>
+<div class="ttc" id="aclassrpp_1_1base__observer_html"><div class="ttname"><a href="classrpp_1_1base__observer.html">rpp::base_observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:224</div></div>
+<div class="ttc" id="aclassrpp_1_1base__observer_html_ad3fdacd0240836e2495565645f5c153d"><div class="ttname"><a href="classrpp_1_1base__observer.html#ad3fdacd0240836e2495565645f5c153d">rpp::base_observer::as_dynamic</a></div><div class="ttdeci">dynamic_observer&lt; Type &gt; as_dynamic() &amp;&amp;</div><div class="ttdoc">Convert current observer to type-erased version. Useful if you need to COPY your observer or to store...</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:238</div></div>
+<div class="ttc" id="aclassrpp_1_1details_1_1base__observer__impl_html"><div class="ttname"><a href="classrpp_1_1details_1_1base__observer__impl.html">rpp::details::base_observer_impl</a></div><div class="ttdef"><b>Definition:</b> base_observer.hpp:106</div></div>
+<div class="ttc" id="aclassrpp_1_1details_1_1base__observer__impl_html_a3a3fcf0776edf7cd6fd816ddf10f11fd"><div class="ttname"><a href="classrpp_1_1details_1_1base__observer__impl.html#a3a3fcf0776edf7cd6fd816ddf10f11fd">rpp::details::base_observer_impl::set_upstream</a></div><div class="ttdeci">void set_upstream(const disposable_wrapper &amp;d)</div><div class="ttdoc">Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer want...</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:122</div></div>
+<div class="ttc" id="aclassrpp_1_1details_1_1base__observer__impl_html_a7f862e21ba7ced64ebb98d5c7517deaa"><div class="ttname"><a href="classrpp_1_1details_1_1base__observer__impl.html#a7f862e21ba7ced64ebb98d5c7517deaa">rpp::details::base_observer_impl::is_disposed</a></div><div class="ttdeci">bool is_disposed() const</div><div class="ttdoc">Observable calls this method to check if observer interested or not in emissions.</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:134</div></div>
+<div class="ttc" id="aclassrpp_1_1details_1_1base__observer__impl_html_aba67c3e9762a57c31357e57aefe00dbd"><div class="ttname"><a href="classrpp_1_1details_1_1base__observer__impl.html#aba67c3e9762a57c31357e57aefe00dbd">rpp::details::base_observer_impl::on_next</a></div><div class="ttdeci">void on_next(const Type &amp;v) const</div><div class="ttdoc">Observable calls this method to notify observer about new value.</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:143</div></div>
+<div class="ttc" id="aclassrpp_1_1details_1_1base__observer__impl_html_abf44f06b8dd8bebb2990673aa664a806"><div class="ttname"><a href="classrpp_1_1details_1_1base__observer__impl.html#abf44f06b8dd8bebb2990673aa664a806">rpp::details::base_observer_impl::on_completed</a></div><div class="ttdeci">void on_completed() const</div><div class="ttdoc">Observable calls this method to notify observer about completion of emissions.</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:192</div></div>
+<div class="ttc" id="aclassrpp_1_1details_1_1base__observer__impl_html_ad598611131c388e8ccd68ee9c78a8cfe"><div class="ttname"><a href="classrpp_1_1details_1_1base__observer__impl.html#ad598611131c388e8ccd68ee9c78a8cfe">rpp::details::base_observer_impl::on_next</a></div><div class="ttdeci">void on_next(Type &amp;&amp;v) const</div><div class="ttdoc">Observable calls this method to notify observer about new value.</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:161</div></div>
+<div class="ttc" id="aclassrpp_1_1details_1_1base__observer__impl_html_ae446f63a5d3083233fe3a9b4e8bc0e82"><div class="ttname"><a href="classrpp_1_1details_1_1base__observer__impl.html#ae446f63a5d3083233fe3a9b4e8bc0e82">rpp::details::base_observer_impl::on_error</a></div><div class="ttdeci">void on_error(const std::exception_ptr &amp;err) const</div><div class="ttdoc">Observable calls this method to notify observer about some error during generation next data.</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:179</div></div>
+<div class="ttc" id="aclassrpp_1_1details_1_1external__disposable__strategy_html"><div class="ttname"><a href="classrpp_1_1details_1_1external__disposable__strategy.html">rpp::details::external_disposable_strategy</a></div><div class="ttdef"><b>Definition:</b> base_observer.hpp:48</div></div>
+<div class="ttc" id="aclassrpp_1_1details_1_1local__disposable__strategy_html"><div class="ttname"><a href="classrpp_1_1details_1_1local__disposable__strategy.html">rpp::details::local_disposable_strategy</a></div><div class="ttdef"><b>Definition:</b> base_observer.hpp:74</div></div>
+<div class="ttc" id="aclassrpp_1_1details_1_1observer_1_1dynamic__strategy_html"><div class="ttname"><a href="classrpp_1_1details_1_1observer_1_1dynamic__strategy.html">rpp::details::observer::dynamic_strategy</a></div><div class="ttdef"><b>Definition:</b> dynamic_observer.hpp:40</div></div>
+<div class="ttc" id="aclassrpp_1_1details_1_1upstream__disposable_html"><div class="ttname"><a href="classrpp_1_1details_1_1upstream__disposable.html">rpp::details::upstream_disposable</a></div><div class="ttdef"><b>Definition:</b> base_observer.hpp:29</div></div>
+<div class="ttc" id="aclassrpp_1_1disposable__wrapper_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper.html">rpp::disposable_wrapper</a></div><div class="ttdef"><b>Definition:</b> disposable_wrapper.hpp:19</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1none__disposable__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1none__disposable__strategy.html">rpp::details::none_disposable_strategy</a></div><div class="ttdef"><b>Definition:</b> base_observer.hpp:98</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

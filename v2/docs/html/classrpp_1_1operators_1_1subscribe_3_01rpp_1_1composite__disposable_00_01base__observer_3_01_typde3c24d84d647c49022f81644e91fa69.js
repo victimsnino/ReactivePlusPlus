@@ -1,6 +1,0 @@
-var classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01base__observer_3_01_typde3c24d84d647c49022f81644e91fa69 =
-[
-    [ "subscribe", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01base__observer_3_01_typde3c24d84d647c49022f81644e91fa69.html#a1520ba566fc6e5d9fee3a38b574dfd1e", null ],
-    [ "subscribe", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01base__observer_3_01_typde3c24d84d647c49022f81644e91fa69.html#a33d53050b75b601af1bba290c0912f8e", null ],
-    [ "operator()", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1composite__disposable_00_01base__observer_3_01_typde3c24d84d647c49022f81644e91fa69.html#a28a2fc315269e5783405c9f63e9eaf3a", null ]
-];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['dynamic_5fstrategy_8',['dynamic_strategy',['../classrpp_1_1details_1_1observer_1_1dynamic__strategy.html',1,'rpp::details::observer']]]
+  ['disposable_5fwrapper_15',['disposable_wrapper',['../classrpp_1_1disposable__wrapper.html',1,'rpp']]],
+  ['dynamic_5fstrategy_16',['dynamic_strategy',['../classrpp_1_1details_1_1observer_1_1dynamic__strategy.html',1,'rpp::details::observer']]]
 ];

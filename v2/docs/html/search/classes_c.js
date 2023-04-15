@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['worker_105',['worker',['../classrpp_1_1schedulers_1_1worker.html',1,'rpp::schedulers']]],
-  ['worker_5fstrategy_106',['worker_strategy',['../classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html',1,'rpp::schedulers::immediate']]]
+  ['upstream_5fdisposable_127',['upstream_disposable',['../classrpp_1_1details_1_1upstream__disposable.html',1,'rpp::details']]],
+  ['use_5fshared_128',['use_shared',['../structrpp_1_1memory__model_1_1use__shared.html',1,'rpp::memory_model']]],
+  ['use_5fstack_129',['use_stack',['../structrpp_1_1memory__model_1_1use__stack.html',1,'rpp::memory_model']]]
 ];
