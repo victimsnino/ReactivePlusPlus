@@ -231,3 +231,27 @@ TEST_CASE("set_upstream depends on base disposable")
     SECTION("dynamic observer")
         test_observer(std::move(original_observer).as_dynamic());
 }
+
+TEST_CASE("set_upstream disposing when empty base disposable")
+{
+    auto                      original_observer = rpp::make_lambda_observer<int>(rpp::disposable_wrapper{}, [](int) {}, [](const std::exception_ptr&) {}, []() {});
+
+    auto test_observer = [](auto&& observer)
+    {
+        auto upstream = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
+
+        CHECK(!upstream.is_disposed());
+        CHECK(observer.is_disposed());
+
+        observer.set_upstream(upstream);
+
+        CHECK(upstream.is_disposed());
+        CHECK(observer.is_disposed());
+    };
+
+    SECTION("original observer")
+        test_observer(original_observer);
+
+    SECTION("dynamic observer")
+        test_observer(std::move(original_observer).as_dynamic());
+}
