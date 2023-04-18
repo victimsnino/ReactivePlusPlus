@@ -14,8 +14,19 @@
 
 namespace rpp::schedulers::details
 {
-// keep old_timepoint to easily understand if we need to sleep (due to sleep is expensive enough even if time in the "past")
-inline thread_local time_point s_last_sleep_timepoint{};
+
+inline bool sleep_until(const time_point target)
+{
+    // keep old_timepoint to easily understand if we need to sleep (due to sleep is expensive enough even if time in the "past")
+    thread_local time_point s_last_sleep_timepoint{};
+    if (s_last_sleep_timepoint < target)
+    {
+        std::this_thread::sleep_until(target);
+        s_last_sleep_timepoint = target;
+        return true;
+    }
+    return false;
+}
 
 /**
  * @brief Makes immediate-like scheduling for provided arguments
@@ -30,17 +41,8 @@ bool immediate_scheduling_while_condition(time_point&                           
 {
     while (condition())
     {
-        if (obs.is_disposed())
+        if (obs.is_disposed() || (sleep_until(time_point) && obs.is_disposed()))
             return false;
-
-        if (s_last_sleep_timepoint < time_point)
-        {
-            std::this_thread::sleep_until(time_point);
-            s_last_sleep_timepoint = time_point;
-
-            if (obs.is_disposed())
-                return false;
-        }
 
         if (const auto duration = fn(obs, args...))
         {
