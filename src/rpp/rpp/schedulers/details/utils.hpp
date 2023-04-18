@@ -14,45 +14,36 @@
 
 namespace rpp::schedulers::details
 {
-
-inline bool sleep_until(const time_point target)
-{
-    // keep old_timepoint to easily understand if we need to sleep (due to sleep is expensive enough even if time in the "past")
-    thread_local time_point s_last_sleep_timepoint{};
-    if (s_last_sleep_timepoint < target)
-    {
-        std::this_thread::sleep_until(target);
-        s_last_sleep_timepoint = target;
-        return true;
-    }
-    return false;
-}
-
 /**
  * @brief Makes immediate-like scheduling for provided arguments
- * @returns false in case of subscription unsubscribed or schedulable doesn't requested to re-schedule, true - in case of condition failed
+ * @returns nullopt in case of subscription unsubscribed or schedulable doesn't requested to re-schedule, some value - in case of condition failed but still some duration to delay action
  **/
 template<rpp::constraint::observer TObs, typename... Args>
-bool immediate_scheduling_while_condition(time_point&                                      time_point,
-                                          const std::predicate auto&                       condition,
-                                          constraint::schedulable_fn<TObs, Args...> auto&& fn,
-                                          TObs&&                                           obs,
-                                          Args&&... args)
+optional_duration immediate_scheduling_while_condition(duration                                         duration,
+                                                       const std::predicate auto&                       condition,
+                                                       constraint::schedulable_fn<TObs, Args...> auto&& fn,
+                                                       TObs&&                                           obs,
+                                                       Args&&... args)
 {
     while (condition())
     {
-        if (obs.is_disposed() || (sleep_until(time_point) && obs.is_disposed()))
-            return false;
+        if (obs.is_disposed())
+            return {};
 
-        if (const auto duration = fn(obs, args...))
+        if (duration > duration::zero())
         {
-            if (duration.value() != duration::zero())
-                time_point = clock_type::now() + duration.value();
+            std::this_thread::sleep_for(duration);
+
+            if (obs.is_disposed())
+                return {};
         }
+
+        if (const auto new_duration = fn(obs, args...))
+            duration = new_duration;
         else
-            return false;
+            return {};
     }
 
-    return true;
+    return duration;
 }
 } // namespace rpp::schedulers::details

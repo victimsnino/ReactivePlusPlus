@@ -78,22 +78,6 @@ TEST_CASE("Immediate scheduler")
         CHECK(call_count == 2);
     }
 
-    SECTION("immediate scheduler schedules action at provided timepoint")
-    {
-        auto now  = rpp::schedulers::clock_type::now();
-        auto diff = std::chrono::milliseconds{500};
-
-        rpp::schedulers::time_point execute_time{};
-        worker.schedule(now + diff,
-                        [&call_count, &execute_time](const auto&) -> rpp::schedulers::optional_duration
-                        {
-                            ++call_count;
-                            execute_time = rpp::schedulers::clock_type::now();
-                            return {};
-                        }, obs);
-        REQUIRE(call_count == 1);
-        REQUIRE(execute_time - now >= diff);
-    }
     SECTION("immediate scheduler schedules action with delay")
     {
         auto now  = rpp::schedulers::clock_type::now();

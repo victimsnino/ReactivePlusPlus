@@ -33,22 +33,14 @@ public:
     template<rpp::constraint::observer TObs, typename...Args, constraint::schedulable_fn<TObs, Args...> Fn>
     void schedule(Fn&& fn, TObs&& obs, Args&&...args) const
     {
-        m_strategy.defer(std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
+        schedule(duration{}, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
     }
 
     template<rpp::constraint::observer TObs, typename...Args, constraint::schedulable_fn<TObs, Args...> Fn>
     void schedule(const duration delay, Fn&& fn, TObs&& obs, Args&&...args) const
     {
-        schedule(m_strategy.now() + delay, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
+        m_strategy.defer_for(delay, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
     }
-
-    template<rpp::constraint::observer TObs, typename...Args, constraint::schedulable_fn<TObs, Args...> Fn>
-    void schedule(const time_point time_point, Fn&& fn, TObs&& obs, Args&&...args) const
-    {
-        m_strategy.defer_at(time_point, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
-    }
-
-    static time_point now() { return Strategy::now(); }
 
     rpp::disposable_wrapper get_disposable() const { return m_strategy.get_disposable(); }
 

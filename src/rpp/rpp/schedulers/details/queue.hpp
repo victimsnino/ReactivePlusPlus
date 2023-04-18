@@ -9,20 +9,25 @@
 
 #pragma once
 
+#include "rpp/disposables/disposable_wrapper.hpp"
 #include <rpp/schedulers/fwd.hpp>
+#include <rpp/disposables/base_disposable.hpp>
 
+#include <condition_variable>
 #include <queue>
 #include <memory>
+#include <tuple>
+#include <utility>
 
 namespace rpp::schedulers::details
 {
 class schedulable_wrapper
 {
 public:
-    template<typename Fn, typename... Args>
-    schedulable_wrapper(Fn&& fn, Args&&... args)
-        : m_data{std::make_shared<proxy<std::decay_t<Fn>, std::decay_t<Args>...>>(std::forward<Fn>(fn), std::forward<Args>(args)...)},
-          m_vtable(&vtable::create<std::decay_t<Fn>, std::decay_t<Args>...>())
+    template<rpp::constraint::observer TObs, typename...Args, constraint::schedulable_fn<TObs, Args...> Fn>
+    schedulable_wrapper(Fn&& fn, TObs&& observer, Args&&... args)
+        : m_data{std::make_shared<proxy<std::decay_t<Fn>, std::decay_t<TObs>, std::decay_t<Args>...>>(std::forward<Fn>(fn), std::forward<TObs>(observer), std::forward<Args>(args)...)}
+        , m_vtable(&vtable::create<proxy<std::decay_t<Fn>, std::decay_t<TObs>, std::decay_t<Args>...>>())
     {
     }
 
@@ -36,15 +41,8 @@ private:
         Fn                        fn{};
         std::tuple<TObs, Args...> args{};
 
-        bool is_disposed() const
-        {
-            return std::get<0>(args).is_disposed();
-        }
-
-        optional_duration invoke()
-        {
-            return std::apply(fn, args);
-        }
+        optional_duration invoke() { return std::apply(fn, args); }
+        bool              is_disposed() const { return std::get<0>(args).is_disposed(); }
     };
 
     struct vtable
@@ -56,8 +54,8 @@ private:
         static const vtable* create() noexcept
         {
             static vtable s_res{
-                .invoke = +[](const void* proxy) { return static_cast<Proxy*>(proxy)->invoke(); },
-                .is_disposed = +[](const void* proxy) { return static_cast<Proxy*>(proxy)->is_disposed(); }
+                .invoke = +[](void* proxy) { return static_cast<Proxy*>(proxy)->invoke(); },
+                .is_disposed = +[](const void* proxy) { return static_cast<const Proxy*>(proxy)->is_disposed(); }
             };
             return &s_res;
         }
@@ -86,7 +84,7 @@ public:
     }
 
     time_point            get_time_point() const { return m_time_point; }
-    schedulable_wrapper&& extract() { return std::move(m_function); }
+    const schedulable_wrapper& get_function() const { return m_function; }
 
 private:
     schedulable_wrapper m_function;
@@ -94,18 +92,95 @@ private:
     size_t              m_id;
 };
 
-class queue
+template<typename Mutex>
+class queue final : public base_disposable
 {
 public:
     queue() = default;
+    ~queue() noexcept { dispose(); }
 
-    template<rpp::constraint::observer TObs, typename...Args>
-    void emplace(const time_point time_point, constraint::schedulable_fn<TObs, Args...> auto&& fn, TObs&& obs, Args&&...args) const
+    template<rpp::constraint::observer TObs, typename...Args, constraint::schedulable_fn<TObs, Args...> Fn>
+    void emplace(const duration duration, Fn&& fn, TObs&& obs, Args&&...args)
     {
-        m_queue.emplace(Args &&args...)
+        emplace(duration, schedulable_wrapper{std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...});
     }
+
+    void emplace(const duration duration, schedulable_wrapper&& wrapper) 
+    {
+        {
+            std::lock_guard lock{m_mutex};
+            if (!is_disposed())
+                m_queue.emplace(clock_type::now()+duration, m_current_id++,std::move(wrapper));
+        }
+        m_cv.notify_one();
+    }
+
+    bool is_empty() const
+    {
+        std::lock_guard lock{ m_mutex };
+        return m_queue.empty();
+    }
+
+    bool is_any_ready_schedulable() const
+    {
+        std::lock_guard lock{ m_mutex };
+        return is_any_ready_schedulable_unsafe();
+    }
+
+    void dispatch_wait() 
+    {
+        while (!is_disposed()) 
+        {
+            std::unique_lock lock{m_mutex};
+            m_cv.wait(lock, [&] { return !m_queue.empty() || is_disposed(); });
+
+            if (m_queue.empty() || !m_cv.wait_until(lock, m_queue.top().get_time_point(), [&] { return is_any_ready_schedulable_unsafe() || is_disposed(); }))
+                continue;
+
+            if (is_disposed())
+                return;
+
+            auto fn = m_queue.top().get_function();
+            m_queue.pop();
+            lock.unlock();
+
+            dispatch(std::move(fn));
+            return;
+        }
+    }
+
+private:
+    void dispatch(schedulable_wrapper&& fn)
+    {
+        if (fn.is_disposed())
+            return;
+
+        if (const auto duration = fn())
+        {
+            emplace(duration.value(), std::move(fn));
+        }
+    }
+
+    bool is_any_ready_schedulable_unsafe() const
+    {
+        return !m_queue.empty() && m_queue.top().get_time_point() <= clock_type::now();
+    }
+    
+    void dispose_impl() override 
+    {
+        {
+            std::lock_guard lock{m_mutex};
+            m_queue = std::priority_queue<schedulable>{};
+        }
+        m_cv.notify_one();
+    }
+
 private:
     std::priority_queue<schedulable> m_queue{};
+    Mutex                            m_mutex{};
+    std::condition_variable          m_cv{};
     size_t                           m_current_id{};
 };
+
+using mutex_queue = queue<std::mutex>;
 }
