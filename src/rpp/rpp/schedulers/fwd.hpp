@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include "rpp/disposables/disposable_wrapper.hpp"
 #include <rpp/disposables/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
@@ -36,9 +37,10 @@ concept schedulable_fn = std::is_invocable_r_v<optional_duration, Fn, Args...>;
 template<typename S>
 concept strategy = requires(const S& s, const rpp::dynamic_observer<int>& obs)
 {
-    {s.defer(std::declval<optional_duration(*)(const rpp::dynamic_observer<int>&)>(), obs)} -> rpp::constraint::decayed_same_as<rpp::disposable_wrapper>;
-    {s.defer_at(time_point{}, std::declval<optional_duration(*)(const rpp::dynamic_observer<int>&)>(), obs)} -> rpp::constraint::decayed_same_as<rpp::disposable_wrapper>;
+    {s.defer(std::declval<optional_duration(*)(const rpp::dynamic_observer<int>&)>(), obs)} -> std::same_as<void>;
+    {s.defer_at(time_point{}, std::declval<optional_duration(*)(const rpp::dynamic_observer<int>&)>(), obs)} -> std::same_as<void>;
     {S::now()} -> std::same_as<time_point>;
+    {s.get_disposable()} -> std::same_as<rpp::disposable_wrapper>;
 };
 }
 

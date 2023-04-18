@@ -11,6 +11,7 @@
 #pragma once
 
 
+#include "rpp/disposables/disposable_wrapper.hpp"
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/schedulers/details/worker.hpp>
 #include <rpp/schedulers/details/utils.hpp>
@@ -29,19 +30,20 @@ public:
     {
     public:
         template<typename...Args>
-        static disposable_wrapper defer_at(time_point time_point, constraint::schedulable_fn<Args...> auto&& fn, Args&&...args)
+        static void defer_at(time_point time_point, constraint::schedulable_fn<Args...> auto&& fn, Args&&...args)
         {
             details::immediate_scheduling_while_condition(time_point, rpp::utils::return_true{}, std::forward<decltype(fn)>(fn), std::forward<Args>(args)...);
-            return rpp::disposable_wrapper{};
         }
 
         template<typename...Args>
-        static disposable_wrapper defer(constraint::schedulable_fn<Args...> auto&& fn, Args&&...args)
+        static void defer(constraint::schedulable_fn<Args...> auto&& fn, Args&&...args)
         {
-            return defer_at(time_point{}, std::forward<decltype(fn)>(fn), std::forward<Args>(args)...);
+            defer_at(time_point{}, std::forward<decltype(fn)>(fn), std::forward<Args>(args)...);
         }
 
         static time_point now() { return clock_type::now();  }
+
+        rpp::disposable_wrapper get_disposable() const {return rpp::disposable_wrapper{}; }
     };
 
     static rpp::schedulers::worker<worker_strategy> create_worker()
