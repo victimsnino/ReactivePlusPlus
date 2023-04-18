@@ -137,7 +137,7 @@ int main(int argc, char* argv[]) // NOLINT
 
     BENCHMARK("Filtering Operators")
     {
-        SECTION("take(1)")
+        SECTION("create+take(1)+subscribe")
         {
             TEST_RPP([&]()
             {
