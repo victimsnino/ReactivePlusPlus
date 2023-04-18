@@ -30,22 +30,22 @@ public:
     worker(const worker&) = default;
     worker(worker&&) noexcept = default;
 
-    template<rpp::constraint::observer TObs, typename...Args>
-    void schedule(constraint::schedulable_fn<TObs, Args...> auto&& fn, TObs&& obs, Args&&...args) const
+    template<rpp::constraint::observer TObs, typename...Args, constraint::schedulable_fn<TObs, Args...> Fn>
+    void schedule(Fn&& fn, TObs&& obs, Args&&...args) const
     {
-        m_strategy.defer(std::forward<decltype(fn)>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
+        m_strategy.defer(std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
     }
 
-    template<rpp::constraint::observer TObs, typename...Args>
-    void schedule(const duration delay, constraint::schedulable_fn<TObs, Args...> auto&& fn, TObs&& obs, Args&&...args) const
+    template<rpp::constraint::observer TObs, typename...Args, constraint::schedulable_fn<TObs, Args...> Fn>
+    void schedule(const duration delay, Fn&& fn, TObs&& obs, Args&&...args) const
     {
-        return schedule(m_strategy.now() + delay, std::forward<decltype(fn)>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
+        schedule(m_strategy.now() + delay, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
     }
 
-    template<rpp::constraint::observer TObs, typename...Args>
-    void schedule(const time_point time_point, constraint::schedulable_fn<TObs, Args...> auto&& fn, TObs&& obs, Args&&...args) const
+    template<rpp::constraint::observer TObs, typename...Args, constraint::schedulable_fn<TObs, Args...> Fn>
+    void schedule(const time_point time_point, Fn&& fn, TObs&& obs, Args&&...args) const
     {
-        return m_strategy.defer_at(time_point, std::forward<decltype(fn)>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
+        m_strategy.defer_at(time_point, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
     }
 
     static time_point now() { return Strategy::now(); }

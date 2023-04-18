@@ -11,11 +11,11 @@
 #pragma once
 
 
-#include "rpp/disposables/disposable_wrapper.hpp"
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/schedulers/details/worker.hpp>
 #include <rpp/schedulers/details/utils.hpp>
 #include <rpp/utils/functors.hpp>
+#include <rpp/disposables/disposable_wrapper.hpp>
 
 namespace rpp::schedulers
 {
@@ -29,16 +29,16 @@ public:
     class worker_strategy
     {
     public:
-        template<typename...Args>
-        static void defer_at(time_point time_point, constraint::schedulable_fn<Args...> auto&& fn, Args&&...args)
+        template<rpp::constraint::observer TObs, typename...Args, constraint::schedulable_fn<TObs, Args...> Fn>
+        static void defer_at(time_point time_point, Fn&& fn, TObs&& obs, Args&&...args)
         {
-            details::immediate_scheduling_while_condition(time_point, rpp::utils::return_true{}, std::forward<decltype(fn)>(fn), std::forward<Args>(args)...);
+            details::immediate_scheduling_while_condition(time_point, rpp::utils::return_true{}, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
         }
 
-        template<typename...Args>
-        static void defer(constraint::schedulable_fn<Args...> auto&& fn, Args&&...args)
+        template<rpp::constraint::observer TObs, typename...Args, constraint::schedulable_fn<TObs, Args...> Fn>
+        static void defer(Fn&& fn, TObs&& obs, Args&&...args)
         {
-            defer_at(time_point{}, std::forward<decltype(fn)>(fn), std::forward<Args>(args)...);
+            defer_at(time_point{}, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
         }
 
         static time_point now() { return clock_type::now();  }

@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include "rpp/disposables/disposable_wrapper.hpp"
 #include <rpp/disposables/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
