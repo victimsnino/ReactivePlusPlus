@@ -121,13 +121,21 @@ public:
         return m_queue.empty();
     }
 
-    bool is_any_ready_schedulable() const
+    bool dispatch_if_ready() 
     {
         std::lock_guard lock{ m_mutex };
-        return is_any_ready_schedulable_unsafe();
+        if (!is_any_ready_schedulable_unsafe())
+            return false;
+        
+        auto fn = m_queue.top().get_function();
+        m_queue.pop();
+        lock.unlock();
+
+        dispatch_impl(std::move(fn));
+        return true;
     }
 
-    void dispatch_wait() 
+    void dispatch() 
     {
         while (!is_disposed()) 
         {
@@ -144,13 +152,13 @@ public:
             m_queue.pop();
             lock.unlock();
 
-            dispatch(std::move(fn));
+            dispatch_impl(std::move(fn));
             return;
         }
     }
 
 private:
-    void dispatch(schedulable_wrapper&& fn)
+    void dispatch_impl(schedulable_wrapper&& fn)
     {
         if (fn.is_disposed())
             return;
