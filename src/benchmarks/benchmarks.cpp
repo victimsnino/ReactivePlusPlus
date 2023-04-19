@@ -1,7 +1,3 @@
-#include "rpp/observers/fwd.hpp"
-#include "rpp/schedulers/fwd.hpp"
-#include "rpp/schedulers/immediate.hpp"
-#include "rpp/sources/fwd.hpp"
 #include <nanobench.h>
 
 #include <fstream>
@@ -105,15 +101,58 @@ int main(int argc, char* argv[]) // NOLINT
         {
             TEST_RPP([&]()
             {
-                rpp::schedulers::immediate{}.create_worker().schedule([](const auto& v){ ankerl::nanobench::doNotOptimizeAway(v); return rpp::schedulers::optional_duration{}; }, rpp::make_lambda_observer([](int){ }));
+                rpp::schedulers::immediate::create_worker().schedule([](const auto& v){ ankerl::nanobench::doNotOptimizeAway(v); return rpp::schedulers::optional_duration{}; }, rpp::make_lambda_observer([](int){ }));
             });
             TEST_RXCPP([&]()
             {
                 rxcpp::identity_immediate().create_coordinator().get_worker().schedule([](const auto& v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
-    }
+        SECTION("current_thread scheduler create worker + schedule")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::schedulers::current_thread::create_worker().schedule([](const auto& v){ ankerl::nanobench::doNotOptimizeAway(v); return rpp::schedulers::optional_duration{}; }, rpp::make_lambda_observer([](int){ }));
+            });
+            TEST_RXCPP([&]()
+            {
+                rxcpp::identity_current_thread().create_coordinator().get_worker().schedule([](const auto& v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+        SECTION("current_thread scheduler create worker + schedule + recursive schedule")
+        {
+            TEST_RPP(
+                [&]()
+                {
+                    const auto worker = rpp::schedulers::current_thread::create_worker();
+                    worker.schedule(
+                        [&worker](auto&& v)
+                        {
+                            worker.schedule(
+                                [](const auto& v)
+                                {
+                                    ankerl::nanobench::doNotOptimizeAway(v);
+                                    return rpp::schedulers::optional_duration{};
+                                },
+                                std::move(v));
+                            return rpp::schedulers::optional_duration{};
+                        },
+                        rpp::make_lambda_observer([](int) {}));
+                });
+            TEST_RXCPP(
+                [&]()
+                {
+                    const auto worker = rxcpp::identity_current_thread()
+                        .create_coordinator()
+                        .get_worker();
 
+                    worker.schedule([&worker](const auto&)
+                                    { 
+                                        worker.schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); }); 
+                                    });
+                });
+        }
+    }
 
     BENCHMARK("Transforming Operators")
     {
