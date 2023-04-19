@@ -193,7 +193,7 @@ private:
 private:
     std::priority_queue<schedulable> m_queue{};
     Mutex                            m_mutex{};
-    std::condition_variable          m_cv{};
+    std::condition_variable_any      m_cv{};
     size_t                           m_current_id{};
 };
 
