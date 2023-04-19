@@ -52,7 +52,7 @@ public:
                 return;
 
             const bool someone_owns_queue = s_queue.has_value();
-            const auto drain_on_exit      = utils::finally_action(!someone_owns_queue ? &drain_queue : +[] {});
+            const auto drain_on_exit      = utils::finally_action(!someone_owns_queue ? &drain_queue : +[]{});
             if (!someone_owns_queue)
             {
                 s_queue.emplace();

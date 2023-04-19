@@ -31,7 +31,7 @@ namespace rpp::schedulers::constraint
 {
 // returns std::nullopt in case of don't need to re-schedule schedulable or some duration which will be added to "now" and re-scheduled
 template<typename Fn, typename...Args>
-concept schedulable_fn = std::is_invocable_r_v<optional_duration, Fn, Args...>;
+concept schedulable_fn = std::is_invocable_r_v<optional_duration, Fn, Args...> && std::same_as<optional_duration, std::invoke_result_t<Fn, Args...>>;
 
 template<typename S>
 concept strategy = requires(const S& s, const rpp::dynamic_observer<int>& obs)

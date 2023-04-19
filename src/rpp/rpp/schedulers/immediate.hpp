@@ -34,7 +34,7 @@ public:
             details::immediate_scheduling_while_condition(duration, rpp::utils::return_true{}, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
         }
 
-        static rpp::disposable_wrapper get_disposable() const {return rpp::disposable_wrapper{}; }
+        static rpp::disposable_wrapper get_disposable() {return rpp::disposable_wrapper{}; }
     };
 
     static rpp::schedulers::worker<worker_strategy> create_worker()

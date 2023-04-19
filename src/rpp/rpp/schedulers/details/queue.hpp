@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include "rpp/utils/constraints.hpp"
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/disposables/base_disposable.hpp>
 #include <rpp/utils/utils.hpp>
@@ -27,7 +28,7 @@ public:
     template<rpp::constraint::observer TObs, typename...Args, constraint::schedulable_fn<TObs, Args...> Fn>
     schedulable_wrapper(Fn&& fn, TObs&& observer, Args&&... args)
         : m_data{std::make_shared<proxy<std::decay_t<Fn>, std::decay_t<TObs>, std::decay_t<Args>...>>(std::forward<Fn>(fn), std::forward<TObs>(observer), std::forward<Args>(args)...)}
-        , m_vtable(&vtable::create<proxy<std::decay_t<Fn>, std::decay_t<TObs>, std::decay_t<Args>...>>())
+        , m_vtable(vtable::create<proxy<std::decay_t<Fn>, std::decay_t<TObs>, std::decay_t<Args>...>>())
     {
     }
 
@@ -36,13 +37,22 @@ public:
 
 private:
     template<typename Fn, typename TObs, typename... Args>
-    struct proxy
+    class proxy
     {
-        Fn                        fn{};
-        std::tuple<TObs, Args...> args{};
+    public:
+        proxy(rpp::constraint::decayed_same_as<Fn> auto&& in_fn,
+              rpp::constraint::decayed_same_as<TObs> auto&& in_obs,
+              auto&& ...in_args) 
+            : fn{std::forward<decltype(in_fn)>(in_fn)}
+            , args(std::forward<decltype(in_obs)>(in_obs), std::forward<decltype(in_args)>(in_args)...)
+        {}
 
         optional_duration invoke() { return std::apply(fn, args); }
         bool              is_disposed() const { return std::get<0>(args).is_disposed(); }
+
+    private:
+        Fn                        fn;
+        std::tuple<TObs, Args...> args;
     };
 
     struct vtable
@@ -61,7 +71,7 @@ private:
         }
     };
     std::shared_ptr<void> m_data{};
-    vtable*               m_vtable{};
+    const vtable*         m_vtable{};
 };
 
 class schedulable
@@ -124,15 +134,7 @@ public:
     bool dispatch_if_ready()
     {
         std::lock_guard lock{ m_mutex };
-        if (!is_any_ready_schedulable_unsafe())
-            return false;
-
-        auto fn = m_queue.top().get_function();
-        m_queue.pop();
-        lock.unlock();
-
-        dispatch_impl(std::move(fn));
-        return true;
+        return dispatch_if_ready_impl(lock);
     }
 
     void dispatch()
@@ -151,33 +153,31 @@ public:
                 return;
             }
 
-            if (!m_cv.wait_until(lock,
-                                 m_queue.top().get_time_point(),
-                                 [&] { return is_any_ready_schedulable_unsafe() || is_disposed(); }))
-                continue;
-
-            if (is_disposed())
+            if (m_cv.wait_until(lock,
+                                m_queue.top().get_time_point(),
+                                [&] { return dispatch_if_ready_impl(lock) || is_disposed(); }))
                 return;
-
-            auto fn = m_queue.top().get_function();
-            m_queue.pop();
-            lock.unlock();
-
-            dispatch_impl(std::move(fn));
-            return;
         }
     }
 
 private:
-    void dispatch_impl(schedulable_wrapper&& fn)
+    bool dispatch_if_ready_impl(std::unique_lock<Mutex>& lock)
     {
-        if (fn.is_disposed())
-            return;
+        if (!is_any_ready_schedulable_unsafe())
+            return false;
 
-        if (const auto duration = fn())
+        auto fn = m_queue.top().get_function();
+        m_queue.pop();
+        lock.unlock();
+
+        if (!fn.is_disposed())
         {
-            emplace(duration.value(), std::move(fn));
+            if (const auto duration = fn())
+            {
+                emplace(duration.value(), std::move(fn));
+            }
         }
+        return true;
     }
 
     bool is_any_ready_schedulable_unsafe()
