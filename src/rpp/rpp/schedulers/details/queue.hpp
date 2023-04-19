@@ -9,9 +9,9 @@
 
 #pragma once
 
-#include "rpp/disposables/disposable_wrapper.hpp"
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/disposables/base_disposable.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <condition_variable>
 #include <queue>
@@ -105,7 +105,7 @@ public:
         emplace(duration, schedulable_wrapper{std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...});
     }
 
-    void emplace(const duration duration, schedulable_wrapper&& wrapper) 
+    void emplace(const duration duration, schedulable_wrapper&& wrapper)
     {
         {
             std::lock_guard lock{m_mutex};
@@ -121,12 +121,12 @@ public:
         return m_queue.empty();
     }
 
-    bool dispatch_if_ready() 
+    bool dispatch_if_ready()
     {
         std::lock_guard lock{ m_mutex };
         if (!is_any_ready_schedulable_unsafe())
             return false;
-        
+
         auto fn = m_queue.top().get_function();
         m_queue.pop();
         lock.unlock();
@@ -135,9 +135,9 @@ public:
         return true;
     }
 
-    void dispatch() 
+    void dispatch()
     {
-        while (!is_disposed()) 
+        while (!is_disposed())
         {
             std::unique_lock lock{m_mutex};
             m_cv.wait(lock, [&] { return !m_queue.empty() || is_disposed(); });
@@ -169,12 +169,19 @@ private:
         }
     }
 
-    bool is_any_ready_schedulable_unsafe() const
+    bool is_any_ready_schedulable_unsafe()
     {
-        return !m_queue.empty() && m_queue.top().get_time_point() <= clock_type::now();
+        while (!m_queue.empty())
+        {
+            if (m_queue.top().get_function().is_disposed())
+                m_queue.pop();
+            else
+                return m_queue.top().get_time_point() <= clock_type::now();
+        }
+        return false;
     }
-    
-    void dispose_impl() override 
+
+    void dispose_impl() override
     {
         {
             std::lock_guard lock{m_mutex};
@@ -191,4 +198,5 @@ private:
 };
 
 using mutex_queue = queue<std::mutex>;
+using none_lock_queue = queue<rpp::utils::none_lock>;
 }

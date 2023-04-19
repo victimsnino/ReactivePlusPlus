@@ -18,7 +18,7 @@
 
 namespace rpp::schedulers
 {
-template<constraint::strategy Strategy>
+template<rpp::schedulers::constraint::strategy Strategy>
 class worker
 {
 public:

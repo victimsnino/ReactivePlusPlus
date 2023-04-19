@@ -10,7 +10,6 @@
 
 #pragma once
 
-
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/schedulers/details/worker.hpp>
 #include <rpp/schedulers/details/utils.hpp>
@@ -35,7 +34,7 @@ public:
             details::immediate_scheduling_while_condition(duration, rpp::utils::return_true{}, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
         }
 
-        rpp::disposable_wrapper get_disposable() const {return rpp::disposable_wrapper{}; }
+        static rpp::disposable_wrapper get_disposable() const {return rpp::disposable_wrapper{}; }
     };
 
     static rpp::schedulers::worker<worker_strategy> create_worker()

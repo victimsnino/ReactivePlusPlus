@@ -43,8 +43,11 @@ concept strategy = requires(const S& s, const rpp::dynamic_observer<int>& obs)
 
 namespace rpp::schedulers
 {
-template<constraint::strategy Strategy>
+template<rpp::schedulers::constraint::strategy Strategy>
 class worker;
+
+class immediate;
+class current_thread;
 }
 
 namespace rpp::schedulers::constraint

@@ -10,10 +10,41 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
+#include <rpp/utils/constraints.hpp>
+
+#include <concepts>
 #include <iterator>
 
 namespace rpp::utils {
 
 template<constraint::iterable T>
 using iterable_value_t = std::iter_value_t<decltype(std::begin(std::declval<T>()))>;
+
+struct none_lock
+{
+    static void lock() {}
+    static void unlock() {}
+};
+
+/**
+ * @brief Calls passed function during destruction
+ */
+template<std::invocable Fn>
+class finally_action
+{
+public:
+    finally_action(Fn&& fn)
+        : m_fn{std::move(fn)} {}
+
+    finally_action(const Fn& fn)
+        : m_fn{fn} {}
+
+    ~finally_action() noexcept
+    {
+        m_fn();
+    }
+private:
+    RPP_NO_UNIQUE_ADDRESS Fn m_fn;
+};
 }

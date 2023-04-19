@@ -39,7 +39,7 @@ optional_duration immediate_scheduling_while_condition(duration                 
         }
 
         if (const auto new_duration = fn(obs, args...))
-            duration = new_duration;
+            duration = new_duration.value();
         else
             return {};
     }
