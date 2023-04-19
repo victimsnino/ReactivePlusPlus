@@ -142,7 +142,18 @@ public:
             std::unique_lock lock{m_mutex};
             m_cv.wait(lock, [&] { return !m_queue.empty() || is_disposed(); });
 
-            if (m_queue.empty() || !m_cv.wait_until(lock, m_queue.top().get_time_point(), [&] { return is_any_ready_schedulable_unsafe() || is_disposed(); }))
+            if (m_queue.empty())
+                continue;
+
+            if (m_queue.top().get_function().is_disposed())
+            {
+                m_queue.pop();
+                return;
+            }
+
+            if (!m_cv.wait_until(lock,
+                                 m_queue.top().get_time_point(),
+                                 [&] { return is_any_ready_schedulable_unsafe() || is_disposed(); }))
                 continue;
 
             if (is_disposed())
@@ -171,14 +182,7 @@ private:
 
     bool is_any_ready_schedulable_unsafe()
     {
-        while (!m_queue.empty())
-        {
-            if (m_queue.top().get_function().is_disposed())
-                m_queue.pop();
-            else
-                return m_queue.top().get_time_point() <= clock_type::now();
-        }
-        return false;
+        return !m_queue.empty() && m_queue.top().get_time_point() <= clock_type::now();
     }
 
     void dispose_impl() override
