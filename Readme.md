@@ -7,7 +7,7 @@
 
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=victimsnino_ReactivePlusPlus&metric=ncloc&branch=v2)](https://sonarcloud.io/summary/new_code?id=victimsnino_ReactivePlusPlus&branch=v2)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=victimsnino_ReactivePlusPlus&metric=sqale_rating&branch=v2)](https://sonarcloud.io/summary/new_code?id=victimsnino_ReactivePlusPlus&branch=v2)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/victimsnino/ReactivePlusPlus)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/victimsnino/ReactivePlusPlus)](https://img.shields.io/github/commit-activity/m/victimsnino/ReactivePlusPlus/v2)
 
 ## Usage:
 
