@@ -28,7 +28,7 @@ namespace rpp::schedulers
  */
 class current_thread
 {
-    inline static thread_local std::optional<details::none_lock_queue> s_queue{};
+    inline static thread_local std::optional<details::thread_local_queue> s_queue{};
 
     static void drain_queue()
     {

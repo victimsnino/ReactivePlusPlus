@@ -15,6 +15,8 @@
 
 #include <concepts>
 #include <iterator>
+#include <mutex>
+#include <thread>
 
 namespace rpp::utils {
 
@@ -25,6 +27,19 @@ struct none_lock
 {
     static void lock() {}
     static void unlock() {}
+};
+
+struct none_condition_variable
+{
+    static void notify_one() {}
+    static void wait(std::unique_lock<none_lock>&, const auto&) {}
+
+    template<typename _Clock, typename _Duration>
+    static bool wait_until(std::unique_lock<none_lock>&, const std::chrono::time_point<_Clock, _Duration>& time, const auto& predicate)
+    {
+        std::this_thread::sleep_until(time);
+        return predicate();
+    }
 };
 
 /**

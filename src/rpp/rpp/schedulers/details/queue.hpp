@@ -102,7 +102,7 @@ private:
     size_t              m_id;
 };
 
-template<typename Mutex>
+template<typename Mutex, typename ConditionVariable>
 class queue final : public base_disposable
 {
 public:
@@ -196,11 +196,11 @@ private:
 
 private:
     std::priority_queue<schedulable> m_queue{};
-    Mutex                            m_mutex{};
-    std::condition_variable_any      m_cv{};
+    mutable Mutex                    m_mutex{};
+    ConditionVariable                m_cv{};
     size_t                           m_current_id{};
 };
 
-using mutex_queue = queue<std::mutex>;
-using none_lock_queue = queue<rpp::utils::none_lock>;
+using shared_queue = queue<std::mutex, std::condition_variable>;
+using thread_local_queue = queue<rpp::utils::none_lock, rpp::utils::none_condition_variable>;
 }
