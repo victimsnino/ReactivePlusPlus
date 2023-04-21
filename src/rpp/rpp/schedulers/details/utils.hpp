@@ -10,6 +10,7 @@
 #pragma once
 
 #include <rpp/schedulers/fwd.hpp>
+#include <optional>
 #include <thread>
 
 namespace rpp::schedulers::details
@@ -28,20 +29,20 @@ optional_duration immediate_scheduling_while_condition(duration                 
     while (condition())
     {
         if (obs.is_disposed())
-            return {};
+            return std::nullopt;
 
         if (duration > duration::zero())
         {
             std::this_thread::sleep_for(duration);
 
             if (obs.is_disposed())
-                return {};
+                return std::nullopt;
         }
 
         if (const auto new_duration = fn(obs, args...))
             duration = new_duration.value();
         else
-            return {};
+            return std::nullopt;
     }
 
     return duration;
