@@ -42,7 +42,7 @@ private:
     public:
         proxy(rpp::constraint::decayed_same_as<Fn> auto&& in_fn,
               rpp::constraint::decayed_same_as<TObs> auto&& in_obs,
-              auto&& ...in_args) 
+              auto&& ...in_args)
             : fn{std::forward<decltype(in_fn)>(in_fn)}
             , args(std::forward<decltype(in_obs)>(in_obs), std::forward<decltype(in_args)>(in_args)...)
         {}
@@ -102,7 +102,6 @@ private:
     size_t              m_id;
 };
 
-template<typename Mutex, typename ConditionVariable>
 class queue final : public base_disposable
 {
 public:
@@ -133,7 +132,7 @@ public:
 
     bool dispatch_if_ready()
     {
-        std::lock_guard lock{ m_mutex };
+        std::unique_lock lock{ m_mutex };
         return dispatch_if_ready_impl(lock);
     }
 
@@ -161,7 +160,7 @@ public:
     }
 
 private:
-    bool dispatch_if_ready_impl(std::unique_lock<Mutex>& lock)
+    bool dispatch_if_ready_impl(std::unique_lock<std::mutex>& lock)
     {
         if (!is_any_ready_schedulable_unsafe())
             return false;
@@ -196,11 +195,8 @@ private:
 
 private:
     std::priority_queue<schedulable> m_queue{};
-    mutable Mutex                    m_mutex{};
-    ConditionVariable                m_cv{};
+    mutable std::mutex               m_mutex{};
+    std::condition_variable          m_cv{};
     size_t                           m_current_id{};
 };
-
-using shared_queue = queue<std::mutex, std::condition_variable>;
-using thread_local_queue = queue<rpp::utils::none_lock, rpp::utils::none_condition_variable>;
 }

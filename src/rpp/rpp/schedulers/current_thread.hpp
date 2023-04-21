@@ -14,6 +14,7 @@
 #include <rpp/schedulers/details/utils.hpp>
 #include <rpp/schedulers/details/worker.hpp>
 #include <rpp/schedulers/fwd.hpp>
+#include <thread>
 
 namespace rpp::schedulers
 {
@@ -28,17 +29,56 @@ namespace rpp::schedulers
  */
 class current_thread
 {
-    inline static thread_local std::optional<details::thread_local_queue> s_queue{};
+    inline static thread_local std::optional<std::priority_queue<details::schedulable>> s_queue{};
+    inline static thread_local size_t s_counter{};
 
-    static void drain_queue()
+    static void sleep_until(time_point timepoint)
     {
-        if (!s_queue.has_value())
+        static thread_local time_point s_sleep_in_this_thread{};
+        if (timepoint <= s_sleep_in_this_thread)
             return;
 
-        auto reset_at_final = utils::finally_action{[] { s_queue.reset(); }};
+        std::this_thread::sleep_until(timepoint);
+        s_sleep_in_this_thread = timepoint;
+    }
 
-        while (!s_queue->is_empty())
-            s_queue->dispatch();
+    static void drain_queue(std::optional<std::priority_queue<details::schedulable>>& queue)
+    {
+        if (!queue.has_value())
+            return;
+
+        while (!queue->empty())
+        {
+            if (queue->top().get_function().is_disposed())
+            {
+                queue->pop();
+                continue;
+            }
+
+            sleep_until(queue->top().get_time_point());
+
+            auto function = queue->top().get_function();
+            queue->pop();
+
+            optional_duration duration{0};
+            // immediate like scheduling
+            do
+            {
+                if (duration.value() > duration::zero() && !function.is_disposed())
+                    std::this_thread::sleep_for(duration.value());
+
+                if (function.is_disposed())
+                    duration.reset();
+                else
+                    duration = function();
+
+            } while (queue->empty() && duration.has_value());
+
+            if (duration.has_value())
+                queue->emplace(clock_type::now() + duration.value(), s_counter++, std::move(function));
+        }
+
+        queue.reset();
     }
 
 public:
@@ -51,19 +91,22 @@ public:
             if (obs.is_disposed())
                 return;
 
-            const bool someone_owns_queue = s_queue.has_value();
-            const auto drain_on_exit      = utils::finally_action(!someone_owns_queue ? &drain_queue : +[]{});
+            auto& queue = s_queue;
+            const bool someone_owns_queue = queue.has_value();
             if (!someone_owns_queue)
             {
-                s_queue.emplace();
+                queue.emplace();
 
-                const auto optional_duration = details::immediate_scheduling_while_condition(duration, [](){ return s_queue->is_empty(); }, fn, obs, args...);
+                const auto optional_duration = details::immediate_scheduling_while_condition(duration, [&queue](){ return queue->empty(); }, fn, obs, args...);
                 if (!optional_duration || obs.is_disposed())
-                    return;
+                    return drain_queue(queue);
                 duration = optional_duration.value();
             }
 
-            s_queue->emplace(duration, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
+            queue->emplace(clock_type::now() + duration, s_counter++, details::schedulable_wrapper{std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...});
+
+            if (!someone_owns_queue)
+                drain_queue(queue);
         }
 
         static rpp::disposable_wrapper get_disposable() { return rpp::disposable_wrapper{}; }
