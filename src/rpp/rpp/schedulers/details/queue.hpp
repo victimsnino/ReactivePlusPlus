@@ -175,8 +175,8 @@ private:
     {
         if (!m_head || timepoint < m_head->get_timepoint())
         {
+            schedulable->set_next(std::move(m_head));
             m_head = std::move(schedulable);
-            m_head->set_next({});
             return;
         }
 

@@ -53,9 +53,7 @@ class current_thread
         {
             auto top = queue->pop();
             if (top->is_disposed())
-            {
                 continue;
-            }
 
             sleep_until(top->get_timepoint());
 
