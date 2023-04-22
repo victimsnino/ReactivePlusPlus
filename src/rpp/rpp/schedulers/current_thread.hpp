@@ -32,7 +32,7 @@ class current_thread
     inline static thread_local std::optional<std::priority_queue<details::schedulable>> s_queue{};
     inline static thread_local size_t s_counter{};
 
-    static void sleep_until(time_point timepoint)
+    static void sleep_until(const time_point timepoint)
     {
         static thread_local time_point s_sleep_in_this_thread{};
         if (timepoint <= s_sleep_in_this_thread)
