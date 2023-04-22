@@ -31,16 +31,19 @@ class current_thread
 {
     inline static thread_local std::optional<std::priority_queue<details::schedulable>> s_queue{};
     inline static thread_local size_t s_counter{};
+    inline static thread_local time_point s_last_now_time{};
 
     static void sleep_until(const time_point timepoint)
     {
-        static thread_local time_point s_sleep_in_this_thread{};
-        if (timepoint <= s_sleep_in_this_thread)
+        if (timepoint <= s_last_now_time)
             return;
 
-        std::this_thread::sleep_until(timepoint);
-        s_sleep_in_this_thread = timepoint;
+        const auto now = clock_type::now();
+        std::this_thread::sleep_for(timepoint - now);
+        s_last_now_time = std::max(now, timepoint);
     }
+
+    static time_point get_now() { return s_last_now_time = clock_type::now(); }
 
     static void drain_queue(std::optional<std::priority_queue<details::schedulable>>& queue)
     {
@@ -75,7 +78,7 @@ class current_thread
             } while (queue->empty() && duration.has_value());
 
             if (duration.has_value())
-                queue->emplace(clock_type::now() + duration.value(), s_counter++, std::move(function));
+                queue->emplace(get_now() + duration.value(), s_counter++, std::move(function));
         }
 
         queue.reset();
@@ -103,7 +106,7 @@ public:
                 duration = optional_duration.value();
             }
 
-            queue->emplace(clock_type::now() + duration, s_counter++, details::schedulable_wrapper{std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...});
+            queue->emplace(get_now() + duration, s_counter++, details::schedulable_wrapper{std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...});
 
             if (!someone_owns_queue)
                 drain_queue(queue);
