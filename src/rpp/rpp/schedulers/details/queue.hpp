@@ -105,16 +105,17 @@ namespace rpp::schedulers::details
 class schedulable_base
 {
 public:
-    schedulable_base(const time_point time_point) : m_time_point{time_point} {}
+    schedulable_base(const time_point& time_point) : m_time_point{time_point} {}
 
     virtual ~schedulable_base() noexcept = default;
 
     virtual optional_duration operator()()        = 0;
     virtual bool              is_disposed() const = 0;
 
-    time_point                               get_timepoint() const { return m_time_point; }
-    const std::shared_ptr<schedulable_base>& get_next() const { return m_next; }
+    time_point get_timepoint() const { return m_time_point; }
+    void       set_timepoint(const time_point& timepoint) { m_time_point = timepoint; }
 
+    const std::shared_ptr<schedulable_base>& get_next() const { return m_next; }
     void set_next(std::shared_ptr<schedulable_base> next) { m_next = std::move(next); }
 
 private:
@@ -128,7 +129,7 @@ class specific_schedulable final : public schedulable_base
 {
 public:
     template<rpp::constraint::decayed_same_as<Fn> TFn, rpp::constraint::decayed_same_as<TObs> TTObs, typename... TArgs>
-    specific_schedulable(const time_point time_point, TFn&& in_fn, TTObs&& in_obs, TArgs&&... in_args)
+    specific_schedulable(const time_point& time_point, TFn&& in_fn, TTObs&& in_obs, TArgs&&... in_args)
         : schedulable_base{time_point}
         , m_args(std::forward<TTObs>(in_obs), std::forward<TArgs>(in_args)...)
         , m_fn{std::forward<TFn>(in_fn)}
@@ -147,20 +148,20 @@ class schedulables_queue
 {
 public:
     template<rpp::constraint::observer TObs, typename... Args, constraint::schedulable_fn<TObs, Args...> Fn>
-    void emplace(time_point timepoint, Fn&& fn, TObs&& obs, Args&&... args)
+    void emplace(const time_point& timepoint, Fn&& fn, TObs&& obs, Args&&... args)
     {
         using schedulable_type = specific_schedulable<std::decay_t<Fn>, std::decay_t<TObs>, std::decay_t<Args>...>;
 
-        emplace_impl(timepoint,
-                     std::make_shared<schedulable_type>(timepoint, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...));
+        emplace_impl(std::make_shared<schedulable_type>(timepoint, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...));
     }
 
-    void emplace(const time_point timepoint, std::shared_ptr<schedulable_base>&& schedulable)
+    void emplace(const time_point& timepoint, std::shared_ptr<schedulable_base>&& schedulable)
     {
         if (!schedulable)
             return;
 
-        emplace_impl(timepoint, std::move(schedulable));
+        schedulable->set_timepoint(timepoint);
+        emplace_impl(std::move(schedulable));
     }
 
     bool is_empty() const { return !m_head; }
@@ -171,9 +172,9 @@ public:
     }
 
 private:
-    void emplace_impl(const time_point timepoint, std::shared_ptr<schedulable_base>&& schedulable)
+    void emplace_impl(std::shared_ptr<schedulable_base>&& schedulable)
     {
-        if (!m_head || timepoint < m_head->get_timepoint())
+        if (!m_head || schedulable->get_timepoint() < m_head->get_timepoint())
         {
             schedulable->set_next(std::move(m_head));
             m_head = std::move(schedulable);
@@ -183,7 +184,7 @@ private:
         schedulable_base* current = m_head.get();
         while (const auto& next = current->get_next())
         {
-            if (timepoint < next->get_timepoint())
+            if (schedulable->get_timepoint() < next->get_timepoint())
                 break;
             current = next.get();
         }
