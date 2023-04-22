@@ -41,9 +41,9 @@ private:
     class proxy
     {
     public:
-        template<rpp::constraint::decayed_same_as<Fn> TFn, rpp::constraint::decayed_same_as<TObs> TTObs, typename... Args>
-        proxy(TFn&& in_fn, TTObs&& in_obs, Args&&... in_args)
-            : fn{std::forward<TFn>(in_fn)}, args(std::forward<TTObs>(in_obs), std::forward<Args>(in_args)...)
+        template<rpp::constraint::decayed_same_as<Fn> TFn, rpp::constraint::decayed_same_as<TObs> TTObs, typename... TArgs>
+        proxy(TFn&& in_fn, TTObs&& in_obs, TArgs&&... in_args)
+            : fn{std::forward<TFn>(in_fn)}, args(std::forward<TTObs>(in_obs), std::forward<TArgs>(in_args)...)
         {
         }
 
