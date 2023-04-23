@@ -116,7 +116,14 @@ public:
     void       set_timepoint(const time_point& timepoint) { m_time_point = timepoint; }
 
     const std::shared_ptr<schedulable_base>& get_next() const { return m_next; }
-    void set_next(std::shared_ptr<schedulable_base> next) { m_next = std::move(next); }
+    void set_next(std::shared_ptr<schedulable_base>&& next) { m_next = std::move(next); }
+
+    void update_next(std::shared_ptr<schedulable_base>&& next) 
+    {
+        if (next)
+            next->set_next(std::move(m_next));
+        m_next = std::move(next);
+    }
 
 private:
     std::shared_ptr<schedulable_base> m_next{};
@@ -189,8 +196,7 @@ private:
             current = next.get();
         }
 
-        schedulable->set_next(current->get_next());
-        current->set_next(std::move(schedulable));
+        current->update_next(std::move(schedulable));
     }
 private:
     std::shared_ptr<schedulable_base> m_head{};
