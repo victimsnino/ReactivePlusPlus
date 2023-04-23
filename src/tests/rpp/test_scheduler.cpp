@@ -475,6 +475,24 @@ TEST_CASE("current_thread scheduler")
         CHECK(call_count == 0);
     }
 
+    SECTION("current_thread scheduler does nothing with recrusive disposed observer")
+    {
+        worker.schedule([&call_count, &d, &worker](const auto& obs) -> rpp::schedulers::optional_duration
+        {
+            d.dispose();
+            worker.schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
+            {
+                ++call_count;
+                return std::chrono::nanoseconds{1};
+            },
+            obs);
+
+            return std::chrono::nanoseconds{1};
+        }, obs);
+
+        CHECK(call_count == 0);
+    }
+
     SECTION("current_thread scheduler does not reschedule after disposing inside schedulable")
     {
         worker.schedule([&call_count, &d](const auto&) -> rpp::schedulers::optional_duration
