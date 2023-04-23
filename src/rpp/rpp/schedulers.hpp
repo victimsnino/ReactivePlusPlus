@@ -18,3 +18,4 @@
  */
 
 #include <rpp/schedulers/immediate.hpp>
+#include <rpp/schedulers/current_thread.hpp>

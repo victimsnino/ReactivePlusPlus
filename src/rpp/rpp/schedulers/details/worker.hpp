@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include "rpp/observers/base_observer.hpp"
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/observers/fwd.hpp>
@@ -18,7 +19,7 @@
 
 namespace rpp::schedulers
 {
-template<constraint::strategy Strategy>
+template<rpp::schedulers::constraint::strategy Strategy>
 class worker
 {
 public:
@@ -30,25 +31,31 @@ public:
     worker(const worker&) = default;
     worker(worker&&) noexcept = default;
 
-    template<rpp::constraint::observer TObs, typename...Args>
-    rpp::disposable_wrapper schedule(constraint::schedulable_fn<TObs, Args...> auto&& fn, TObs&& obs, Args&&...args) const
+    template<typename ObsType, typename ObsStrategy, typename...Args, constraint::schedulable_fn<rpp::base_observer<ObsType, ObsStrategy>, Args...> Fn>
+    void schedule(Fn&& fn, rpp::base_observer<ObsType, ObsStrategy>&& obs, Args&&...args) const
     {
-        return m_strategy.defer(std::forward<decltype(fn)>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
+        schedule(duration{}, std::forward<Fn>(fn), std::move(obs), std::forward<Args>(args)...);
     }
 
-    template<rpp::constraint::observer TObs, typename...Args>
-    rpp::disposable_wrapper schedule(const duration delay, constraint::schedulable_fn<TObs, Args...> auto&& fn, TObs&& obs, Args&&...args) const
+    template<typename ObsType, typename ObsStrategy, typename...Args, constraint::schedulable_fn<rpp::base_observer<ObsType, ObsStrategy>, Args...> Fn>
+    void schedule(const duration delay, Fn&& fn, rpp::base_observer<ObsType, ObsStrategy>&& obs, Args&&...args) const
     {
-        return schedule(m_strategy.now() + delay, std::forward<decltype(fn)>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
+        m_strategy.defer_for(delay, std::forward<Fn>(fn), std::move(obs), std::forward<Args>(args)...);
+    }
+    
+    template<typename ObsType, typename...Args, constraint::schedulable_fn<rpp::dynamic_observer<ObsType>, Args...> Fn>
+    void schedule(Fn&& fn, const rpp::dynamic_observer<ObsType>& obs, Args&&...args) const
+    {
+        schedule(duration{}, std::forward<Fn>(fn), obs, std::forward<Args>(args)...);
     }
 
-    template<rpp::constraint::observer TObs, typename...Args>
-    rpp::disposable_wrapper schedule(const time_point time_point, constraint::schedulable_fn<TObs, Args...> auto&& fn, TObs&& obs, Args&&...args) const
+    template<typename ObsType, typename...Args, constraint::schedulable_fn<rpp::dynamic_observer<ObsType>, Args...> Fn>
+    void schedule(const duration delay, Fn&& fn,  const rpp::dynamic_observer<ObsType>& obs, Args&&...args) const
     {
-        return m_strategy.defer_at(time_point, std::forward<decltype(fn)>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
+        m_strategy.defer_for(delay, std::forward<Fn>(fn), obs, std::forward<Args>(args)...);
     }
 
-    static time_point now() { return Strategy::now(); }
+    rpp::disposable_wrapper get_disposable() const { return m_strategy.get_disposable(); }
 
 private:
     RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
