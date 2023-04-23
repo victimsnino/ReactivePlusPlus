@@ -66,7 +66,7 @@ Include(FetchContent)
 FetchContent_Declare(
     RPP
     GIT_REPOSITORY https://github.com/victimsnino/ReactivePlusPlus.git
-    GIT_TAG        origin/main
+    GIT_TAG        origin/v2
 )
 
 FetchContent_MakeAvailable(RPP)
