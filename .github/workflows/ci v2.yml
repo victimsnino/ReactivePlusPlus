@@ -3,13 +3,11 @@ name: CI v2
 on:
   push:
     branches:
-    # - main
     - v2
 
   pull_request:
     branches:
     - v2
-#     - main
 
 jobs:
   sanitize:
@@ -35,6 +33,7 @@ jobs:
     name: PVS sanitizer
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    if: github.repository_owner == 'victimsnino'
 
     steps:
     - uses: actions/checkout@v3
