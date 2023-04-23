@@ -80,7 +80,7 @@ static std::string simulate_complex_scheduling(const auto& worker, const auto& o
 
                 out.push_back("Task 2 ends "s + get_thread_id_as_string());
                 if (counter++ < 1)
-                    return rpp::schedulers::duration{};
+                    return std::chrono::nanoseconds{1};
                 return std::nullopt;
             }, obs, int{});
 
@@ -90,7 +90,7 @@ static std::string simulate_complex_scheduling(const auto& worker, const auto& o
 
                 out.push_back("Task 3 ends "s + get_thread_id_as_string());
                 if (counter++ < 1)
-                    return rpp::schedulers::duration{};
+                    return std::chrono::nanoseconds{1};
                 return std::nullopt;
             }, obs, int{});
 
@@ -124,7 +124,7 @@ static std::string simulate_complex_scheduling_with_delay(const auto& worker, co
 
                 out.push_back("Task 2 ends "s + get_thread_id_as_string());
                 if (counter++ < 1)
-                    return rpp::schedulers::duration{};
+                    return std::chrono::nanoseconds{1};
                 return std::nullopt;
             }, obs, int{});
 
@@ -134,7 +134,7 @@ static std::string simulate_complex_scheduling_with_delay(const auto& worker, co
 
                 out.push_back("Task 3 ends "s + get_thread_id_as_string());
                 if (counter++ < 1)
-                    return rpp::schedulers::duration{};
+                    return std::chrono::nanoseconds{1};
                 return std::nullopt;
             }, obs, int{});
 
@@ -165,7 +165,7 @@ TEST_CASE("Immediate scheduler")
         worker.schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
         {
             if (++call_count <= 1)
-                return rpp::schedulers::duration{};
+                return std::chrono::nanoseconds{1};
             return {};
         }, obs);
 
@@ -269,7 +269,7 @@ TEST_CASE("Immediate scheduler")
         worker.schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
         {
             ++call_count;
-            return rpp::schedulers::duration{};
+            return std::chrono::nanoseconds{1};
         }, obs);
 
         CHECK(call_count == 0);
@@ -300,7 +300,7 @@ TEST_CASE("Immediate scheduler")
         {
             if (++call_count > 1)
                 d.dispose();
-            return rpp::schedulers::duration{};
+            return std::chrono::nanoseconds{1};
         }, obs);
 
         CHECK(call_count == 2);
@@ -326,7 +326,7 @@ TEST_CASE("current_thread scheduler")
         worker.schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
         {
             if (++call_count <= 1)
-                return rpp::schedulers::duration{};
+                return std::chrono::nanoseconds{1};
             return std::nullopt;
         }, obs);
 
@@ -469,7 +469,7 @@ TEST_CASE("current_thread scheduler")
         worker.schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
         {
             ++call_count;
-            return rpp::schedulers::duration{};
+            return std::chrono::nanoseconds{1};
         }, obs);
 
         CHECK(call_count == 0);
@@ -481,7 +481,7 @@ TEST_CASE("current_thread scheduler")
         {
             if (++call_count > 1)
                 d.dispose();
-            return rpp::schedulers::duration{};
+            return std::chrono::nanoseconds{1};
         }, obs);
 
         CHECK(call_count == 2);
@@ -495,7 +495,7 @@ TEST_CASE("current_thread scheduler")
             {
                 if (++call_count > 1)
                     d.dispose();
-                return rpp::schedulers::duration{};
+                return std::chrono::nanoseconds{1};
             },
             obs);
             return std::nullopt;
@@ -513,7 +513,7 @@ TEST_CASE("current_thread scheduler")
             {
                 if (++call_count > 1)
                     d.dispose();
-                return rpp::schedulers::duration{};
+                return std::chrono::nanoseconds{1};
             }, obs);
             return std::nullopt;
         }, obs);
@@ -529,11 +529,11 @@ TEST_CASE("current_thread scheduler")
                             worker.schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
                                             {
                                                 ++call_count;
-                                                return rpp::schedulers::duration{};
+                                                return std::chrono::nanoseconds{1};
                                             },
                                             obs);
                             d.dispose();
-                            return rpp::schedulers::duration{};
+                            return std::chrono::nanoseconds{1};
                         },
                         obs);
 
