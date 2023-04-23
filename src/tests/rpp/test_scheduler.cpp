@@ -60,6 +60,94 @@ static std::string simulate_nested_scheduling(const auto& worker, const auto& ob
     return threadid;
 }
 
+static std::string simulate_complex_scheduling(const auto& worker, const auto& obs, std::vector<std::string>& out)
+{
+    std::thread thread([&]
+    {
+        worker.schedule([&](const auto&)
+        {
+            out.push_back("Task 1 starts "s + get_thread_id_as_string());
+
+            worker.schedule([&](const auto&, int& counter) -> rpp::schedulers::optional_duration
+            {
+                out.push_back("Task 2 starts "s + get_thread_id_as_string());
+
+                worker.schedule([&](const auto&)
+                {
+                    out.push_back("Task 4 runs "s + get_thread_id_as_string());
+                    return rpp::schedulers::optional_duration{};
+                }, obs);
+
+                out.push_back("Task 2 ends "s + get_thread_id_as_string());
+                if (counter++ < 1)
+                    return rpp::schedulers::duration{};
+                return std::nullopt;
+            }, obs, int{});
+
+            worker.schedule([&](const auto&, int& counter) -> rpp::schedulers::optional_duration
+            {
+                out.push_back("Task 3 starts "s + get_thread_id_as_string());
+
+                out.push_back("Task 3 ends "s + get_thread_id_as_string());
+                if (counter++ < 1)
+                    return rpp::schedulers::duration{};
+                return std::nullopt;
+            }, obs, int{});
+
+            out.push_back("Task 1 ends "s + get_thread_id_as_string());
+            return rpp::schedulers::optional_duration{};
+        }, obs);
+    });
+
+    auto threadid = get_thread_id_as_string(thread.get_id());
+    thread.join();
+    return threadid;
+}
+
+static std::string simulate_complex_scheduling_with_delay(const auto& worker, const auto& obs, std::vector<std::string>& out)
+{
+    std::thread thread([&]
+    {
+        worker.schedule([&](const auto&)
+        {
+            out.push_back("Task 1 starts "s + get_thread_id_as_string());
+
+            worker.schedule([&](const auto&, int& counter) -> rpp::schedulers::optional_duration
+            {
+                out.push_back("Task 2 starts "s + get_thread_id_as_string());
+
+                worker.schedule(std::chrono::milliseconds{50}, [&](const auto&)
+                {
+                    out.push_back("Task 4 runs "s + get_thread_id_as_string());
+                    return rpp::schedulers::optional_duration{};
+                }, obs);
+
+                out.push_back("Task 2 ends "s + get_thread_id_as_string());
+                if (counter++ < 1)
+                    return rpp::schedulers::duration{};
+                return std::nullopt;
+            }, obs, int{});
+
+            worker.schedule([&](const auto&, int& counter) -> rpp::schedulers::optional_duration
+            {
+                out.push_back("Task 3 starts "s + get_thread_id_as_string());
+
+                out.push_back("Task 3 ends "s + get_thread_id_as_string());
+                if (counter++ < 1)
+                    return rpp::schedulers::duration{};
+                return std::nullopt;
+            }, obs, int{});
+
+            out.push_back("Task 1 ends "s + get_thread_id_as_string());
+            return rpp::schedulers::optional_duration{};
+        }, obs);
+    });
+
+    auto threadid = get_thread_id_as_string(thread.get_id());
+    thread.join();
+    return threadid;
+}
+
 TEST_CASE("Immediate scheduler")
 {
     auto scheduler = rpp::schedulers::immediate{};
@@ -67,6 +155,9 @@ TEST_CASE("Immediate scheduler")
     auto obs = rpp::make_lambda_observer(d, [](int){ }).as_dynamic();
 
     auto   worker = scheduler.create_worker();
+
+    CHECK(worker.get_disposable().is_disposed());
+
     size_t call_count{};
 
     SECTION("immediate scheduler schedules and re-schedules action immediately")
@@ -129,6 +220,49 @@ TEST_CASE("Immediate scheduler")
                     });
     }
 
+    SECTION("immediate scheduler with complex scheduling with delay should be like call-stack in a recursive order")
+    {
+        std::vector<std::string> call_stack;
+
+            auto execution_thread = simulate_complex_scheduling_with_delay(worker, obs, call_stack);
+
+            REQUIRE(call_stack == std::vector<std::string>{
+                    "Task 1 starts "s + execution_thread,
+                    "Task 2 starts "s + execution_thread,
+                    "Task 4 runs "s + execution_thread,
+                    "Task 2 ends "s + execution_thread,
+                    "Task 2 starts "s + execution_thread,
+                    "Task 4 runs "s + execution_thread,
+                    "Task 2 ends "s + execution_thread,
+                    "Task 3 starts "s + execution_thread,
+                    "Task 3 ends "s + execution_thread,
+                    "Task 3 starts "s + execution_thread,
+                    "Task 3 ends "s + execution_thread,
+                    "Task 1 ends "s + execution_thread,
+            });
+    }
+    SECTION("immediate scheduler with complex scheduling should be like call-stack in a recursive order")
+    {
+        std::vector<std::string> call_stack;
+
+            auto execution_thread = simulate_complex_scheduling(worker, obs, call_stack);
+
+            REQUIRE(call_stack == std::vector<std::string>{
+                    "Task 1 starts "s + execution_thread,
+                    "Task 2 starts "s + execution_thread,
+                    "Task 4 runs "s + execution_thread,
+                    "Task 2 ends "s + execution_thread,
+                    "Task 2 starts "s + execution_thread,
+                    "Task 4 runs "s + execution_thread,
+                    "Task 2 ends "s + execution_thread,
+                    "Task 3 starts "s + execution_thread,
+                    "Task 3 ends "s + execution_thread,
+                    "Task 3 starts "s + execution_thread,
+                    "Task 3 ends "s + execution_thread,
+                    "Task 1 ends "s + execution_thread,
+            });
+    }
+
     SECTION("immediate scheduler does nothing with disposed observer")
     {
         d.dispose();
@@ -139,6 +273,25 @@ TEST_CASE("Immediate scheduler")
         }, obs);
 
         CHECK(call_count == 0);
+    }
+
+    SECTION("immediate scheduler does nothing with observer disposed during wait")
+    {
+        worker.schedule(
+            [&call_count, obs](const auto&) -> rpp::schedulers::optional_duration
+            {
+                ++call_count;
+                std::thread{[obs]()
+                            {
+                                std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                                obs.on_completed();
+                            }}
+                    .detach();
+                return std::chrono::milliseconds{100};
+            },
+            obs);
+
+        CHECK(call_count == 1);
     }
 
     SECTION("immediate scheduler does not reschedule after disposing inside schedulable")
@@ -165,6 +318,7 @@ TEST_CASE("current_thread scheduler")
     auto obs = rpp::make_lambda_observer(d, [](int){ }).as_dynamic();
 
     auto worker = rpp::schedulers::current_thread::create_worker();
+    CHECK(worker.get_disposable().is_disposed());
     size_t call_count{};
 
     SECTION("current_thread scheduler schedules and re-schedules action immediately")
@@ -177,6 +331,44 @@ TEST_CASE("current_thread scheduler")
         }, obs);
 
         CHECK(call_count == 2);
+    }
+
+    SECTION("current_thread scheduler recursive scheduling")
+    {
+        worker.schedule([&call_count, &worker, &obs](const auto&) -> rpp::schedulers::optional_duration
+        {
+            worker.schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
+            {
+                if (++call_count <= 1)
+                    return std::chrono::nanoseconds{1};
+                return std::nullopt;
+            }, obs);
+            return std::nullopt;
+        }, obs);
+
+        CHECK(call_count == 2);
+    }
+
+    SECTION("current_thread scheduler recursive scheduling with original")
+    {
+        worker.schedule(
+            [&call_count, &worker, &obs](const auto&) -> rpp::schedulers::optional_duration
+            {
+                worker.schedule(
+                    [&call_count](const auto&) -> rpp::schedulers::optional_duration
+                    {
+                        if (++call_count <= 1)
+                            return std::chrono::nanoseconds{1};
+                        return std::nullopt;
+                    },
+                    obs);
+                if (call_count == 0)
+                    return std::chrono::nanoseconds{1};
+                return std::nullopt;
+            },
+            obs);
+
+        CHECK(call_count == 3);
     }
 
     SECTION("current_thread scheduler schedules action with delay")
@@ -227,7 +419,50 @@ TEST_CASE("current_thread scheduler")
             });
     }
 
-    
+    SECTION("current_thread scheduler with complex scheduling should defer actual execution of tasks")
+    {
+        std::vector<std::string> call_stack;
+
+            auto execution_thread = simulate_complex_scheduling(worker, obs, call_stack);
+
+            REQUIRE(call_stack == std::vector<std::string>{
+                    "Task 1 starts "s + execution_thread,
+                    "Task 1 ends "s + execution_thread,
+                    "Task 2 starts "s + execution_thread,
+                    "Task 2 ends "s + execution_thread,
+                    "Task 3 starts "s + execution_thread,
+                    "Task 3 ends "s + execution_thread,
+                    "Task 4 runs "s + execution_thread,
+                    "Task 2 starts "s + execution_thread,
+                    "Task 2 ends "s + execution_thread,
+                    "Task 3 starts "s + execution_thread,
+                    "Task 3 ends "s + execution_thread,
+                    "Task 4 runs "s + execution_thread,
+            });
+    }
+
+    SECTION("current_thread scheduler with complex scheduling with delay should defer actual execution of tasks")
+    {
+        std::vector<std::string> call_stack;
+
+            auto execution_thread = simulate_complex_scheduling_with_delay(worker, obs, call_stack);
+
+            REQUIRE(call_stack == std::vector<std::string>{
+                    "Task 1 starts "s + execution_thread,
+                    "Task 1 ends "s + execution_thread,
+                    "Task 2 starts "s + execution_thread,
+                    "Task 2 ends "s + execution_thread,
+                    "Task 3 starts "s + execution_thread,
+                    "Task 3 ends "s + execution_thread,
+                    "Task 2 starts "s + execution_thread,
+                    "Task 2 ends "s + execution_thread,
+                    "Task 3 starts "s + execution_thread,
+                    "Task 3 ends "s + execution_thread,
+                    "Task 4 runs "s + execution_thread,
+                    "Task 4 runs "s + execution_thread,
+            });
+    }
+
     SECTION("current_thread scheduler does nothing with disposed observer")
     {
         d.dispose();

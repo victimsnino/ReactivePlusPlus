@@ -46,9 +46,6 @@ class current_thread
 
     static void drain_queue(std::optional<details::schedulables_queue>& queue)
     {
-        if (!queue.has_value())
-            return;
-
         while (!queue->is_empty())
         {
             auto top = queue->pop();
