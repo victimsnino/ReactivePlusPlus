@@ -487,6 +487,40 @@ TEST_CASE("current_thread scheduler")
         CHECK(call_count == 2);
     }
 
+    SECTION("current_thread scheduler does not reschedule after disposing inside recursive schedulable")
+    {
+        worker.schedule([&call_count, &d, &worker](const auto& obs) -> rpp::schedulers::optional_duration
+        {
+            worker.schedule([&call_count, &d](const auto&) -> rpp::schedulers::optional_duration
+            {
+                if (++call_count > 1)
+                    d.dispose();
+                return rpp::schedulers::duration{};
+            },
+            obs);
+            return std::nullopt;
+        },
+        obs);
+
+        CHECK(call_count == 2);
+    }
+
+    SECTION("current_thread scheduler does not reschedule after disposing inside recursive schedulable")
+    {
+        worker.schedule([&call_count, &d, &worker](const auto& obs) -> rpp::schedulers::optional_duration
+        {
+            worker.schedule([&call_count, &d](const auto&) -> rpp::schedulers::optional_duration
+            {
+                if (++call_count > 1)
+                    d.dispose();
+                return rpp::schedulers::duration{};
+            }, obs);
+            return std::nullopt;
+        }, obs);
+
+        CHECK(call_count == 2);
+    }
+
     SECTION("current_thread scheduler does not dispatch schedulable after disposing of disposable")
     {
         worker.schedule([&call_count, &d, &worker](const auto& obs) -> rpp::schedulers::optional_duration
