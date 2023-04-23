@@ -28,17 +28,16 @@ template<std::invocable Fn>
 class finally_action
 {
 public:
-    finally_action(Fn&& fn)
-        : m_fn{std::move(fn)} {}
+    explicit finally_action(Fn&& fn) : m_fn{std::move(fn)} {}
 
-    finally_action(const Fn& fn)
-        : m_fn{fn} {}
+    explicit finally_action(const Fn& fn) : m_fn{fn} {}
 
-    ~finally_action() noexcept
-    {
-        m_fn();
-    }
+    finally_action(const finally_action&)     = delete;
+    finally_action(finally_action&&) noexcept = delete;
+
+    ~finally_action() noexcept { m_fn(); }
+
 private:
     RPP_NO_UNIQUE_ADDRESS Fn m_fn;
 };
-}
+} // namespace rpp::utils

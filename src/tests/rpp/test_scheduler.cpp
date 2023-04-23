@@ -283,11 +283,11 @@ TEST_CASE("Immediate scheduler")
                 ++call_count;
                 std::thread{[obs]()
                             {
-                                std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                                std::this_thread::sleep_for(std::chrono::milliseconds(10));
                                 obs.on_completed();
                             }}
                     .detach();
-                return std::chrono::milliseconds{100};
+                return std::chrono::milliseconds{200};
             },
             obs);
 
