@@ -108,52 +108,60 @@ $(document).ready(function(){initNavTree('worker_8hpp_source.html',''); initResi
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;rpp/schedulers/fwd.hpp&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;rpp/disposables/disposable_wrapper.hpp&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;rpp/observers/fwd.hpp&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/constraints.hpp&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;rpp/defs.hpp&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span>rpp::schedulers</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::strategy Strategy&gt;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classrpp_1_1schedulers_1_1worker.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>...Args&gt;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        requires (!rpp::constraint::variadic_decayed_same_as&lt;<a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker&lt;Strategy&gt;</a>, Args...&gt; &amp;&amp; rpp::constraint::is_constructible_from&lt;Strategy, Args&amp;&amp;...&gt;)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>(Args&amp;&amp; ...args)</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        : m_strategy(std::forward&lt;Args&gt;(args)...) {}</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>&amp;) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>(<a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>&amp;&amp;) noexcept = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">template</span>&lt;rpp::constraint::observer TObs, <span class="keyword">typename</span>...Args&gt;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="classrpp_1_1disposable__wrapper.html">rpp::disposable_wrapper</a> schedule(constraint::schedulable_fn&lt;TObs, Args...&gt; <span class="keyword">auto</span>&amp;&amp; fn, TObs&amp;&amp; obs, Args&amp;&amp;...args)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">return</span> m_strategy.defer(std::forward&lt;decltype(fn)&gt;(fn), std::forward&lt;TObs&gt;(obs), std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">template</span>&lt;rpp::constraint::observer TObs, <span class="keyword">typename</span>...Args&gt;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="classrpp_1_1disposable__wrapper.html">rpp::disposable_wrapper</a> schedule(<span class="keyword">const</span> duration delay, constraint::schedulable_fn&lt;TObs, Args...&gt; <span class="keyword">auto</span>&amp;&amp; fn, TObs&amp;&amp; obs, Args&amp;&amp;...args)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">return</span> schedule(m_strategy.now() + delay, std::forward&lt;decltype(fn)&gt;(fn), std::forward&lt;TObs&gt;(obs), std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">template</span>&lt;rpp::constraint::observer TObs, <span class="keyword">typename</span>...Args&gt;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="classrpp_1_1disposable__wrapper.html">rpp::disposable_wrapper</a> schedule(<span class="keyword">const</span> time_point time_point, constraint::schedulable_fn&lt;TObs, Args...&gt; <span class="keyword">auto</span>&amp;&amp; fn, TObs&amp;&amp; obs, Args&amp;&amp;...args)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">return</span> m_strategy.defer_at(time_point, std::forward&lt;decltype(fn)&gt;(fn), std::forward&lt;TObs&gt;(obs), std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">static</span> time_point now() { <span class="keywordflow">return</span> Strategy::now(); }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;rpp/observers/base_observer.hpp&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;rpp/schedulers/fwd.hpp&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;rpp/disposables/disposable_wrapper.hpp&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;rpp/observers/fwd.hpp&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/constraints.hpp&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;rpp/defs.hpp&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>rpp::schedulers</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">template</span>&lt;rpp::schedulers::constra<span class="keywordtype">int</span>::strategy Strategy&gt;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classrpp_1_1schedulers_1_1worker.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>...Args&gt;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        requires (!rpp::constraint::variadic_decayed_same_as&lt;<a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker&lt;Strategy&gt;</a>, Args...&gt; &amp;&amp; rpp::constraint::is_constructible_from&lt;Strategy, Args&amp;&amp;...&gt;)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>(Args&amp;&amp; ...args)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        : m_strategy(std::forward&lt;Args&gt;(args)...) {}</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>(<span class="keyword">const</span> <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>(<a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>&amp;&amp;) noexcept = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ObsType, <span class="keyword">typename</span> ObsStrategy, <span class="keyword">typename</span>...Args, constraint::schedulable_fn&lt;rpp::base_observer&lt;ObsType, ObsStrategy&gt;, Args...&gt; Fn&gt;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> schedule(Fn&amp;&amp; fn, <a class="code" href="classrpp_1_1base__observer.html">rpp::base_observer&lt;ObsType, ObsStrategy&gt;</a>&amp;&amp; obs, Args&amp;&amp;...args)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        schedule(duration{}, std::forward&lt;Fn&gt;(fn), std::move(obs), std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ObsType, <span class="keyword">typename</span> ObsStrategy, <span class="keyword">typename</span>...Args, constraint::schedulable_fn&lt;rpp::base_observer&lt;ObsType, ObsStrategy&gt;, Args...&gt; Fn&gt;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> schedule(<span class="keyword">const</span> duration delay, Fn&amp;&amp; fn, <a class="code" href="classrpp_1_1base__observer.html">rpp::base_observer&lt;ObsType, ObsStrategy&gt;</a>&amp;&amp; obs, Args&amp;&amp;...args)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        m_strategy.defer_for(delay, std::forward&lt;Fn&gt;(fn), std::move(obs), std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ObsType, <span class="keyword">typename</span>...Args, constraint::schedulable_fn&lt;rpp::dynamic_observer&lt;ObsType&gt;, Args...&gt; Fn&gt;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> schedule(Fn&amp;&amp; fn, <span class="keyword">const</span> <a class="code" href="classrpp_1_1base__observer.html">rpp::dynamic_observer&lt;ObsType&gt;</a>&amp; obs, Args&amp;&amp;...args)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        schedule(duration{}, std::forward&lt;Fn&gt;(fn), obs, std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ObsType, <span class="keyword">typename</span>...Args, constraint::schedulable_fn&lt;rpp::dynamic_observer&lt;ObsType&gt;, Args...&gt; Fn&gt;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> schedule(<span class="keyword">const</span> duration delay, Fn&amp;&amp; fn,  <span class="keyword">const</span> <a class="code" href="classrpp_1_1base__observer.html">rpp::dynamic_observer&lt;ObsType&gt;</a>&amp; obs, Args&amp;&amp;...args)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        m_strategy.defer_for(delay, std::forward&lt;Fn&gt;(fn), obs, std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="classrpp_1_1disposable__wrapper.html">rpp::disposable_wrapper</a> get_disposable()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_strategy.get_disposable(); }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;};</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
+<div class="ttc" id="aclassrpp_1_1base__observer_html"><div class="ttname"><a href="classrpp_1_1base__observer.html">rpp::base_observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:224</div></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper.html">rpp::disposable_wrapper</a></div><div class="ttdef"><b>Definition:</b> disposable_wrapper.hpp:19</div></div>
-<div class="ttc" id="aclassrpp_1_1schedulers_1_1worker_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker</a></div><div class="ttdef"><b>Definition:</b> worker.hpp:23</div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1worker_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker</a></div><div class="ttdef"><b>Definition:</b> worker.hpp:24</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

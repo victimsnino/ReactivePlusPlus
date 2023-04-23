@@ -12,20 +12,20 @@
 \mbox{\Hypertarget{classrpp_1_1schedulers_1_1worker_a30a71f1071b31090f2c71d7524c49770}\label{classrpp_1_1schedulers_1_1worker_a30a71f1071b31090f2c71d7524c49770}} 
 {\bfseries worker} (\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}} \&\&) noexcept=default
 \item 
-\mbox{\Hypertarget{classrpp_1_1schedulers_1_1worker_ae48c5e59328e88de5fdb7ce569aed789}\label{classrpp_1_1schedulers_1_1worker_ae48c5e59328e88de5fdb7ce569aed789}} 
-{\footnotesize template$<$rpp\+::constraint\+::observer TObs, typename... Args$>$ }\\\mbox{\hyperlink{classrpp_1_1disposable__wrapper}{rpp\+::disposable\+\_\+wrapper}} {\bfseries schedule} (constraint\+::schedulable\+\_\+fn$<$ TObs, Args... $>$ auto \&\&fn, TObs \&\&obs, Args \&\&...args) const
+\mbox{\Hypertarget{classrpp_1_1schedulers_1_1worker_ab33f1eafe9c67f5a00fc3da97a8c4472}\label{classrpp_1_1schedulers_1_1worker_ab33f1eafe9c67f5a00fc3da97a8c4472}} 
+{\footnotesize template$<$typename Obs\+Type , typename Obs\+Strategy , typename... Args, constraint\+::schedulable\+\_\+fn$<$ rpp\+::base\+\_\+observer$<$ Obs\+Type, Obs\+Strategy $>$, Args... $>$ Fn$>$ }\\void {\bfseries schedule} (Fn \&\&fn, \mbox{\hyperlink{classrpp_1_1base__observer}{rpp\+::base\+\_\+observer}}$<$ Obs\+Type, Obs\+Strategy $>$ \&\&obs, Args \&\&...args) const
 \item 
-\mbox{\Hypertarget{classrpp_1_1schedulers_1_1worker_a3127920b0b12114d81c683102306779d}\label{classrpp_1_1schedulers_1_1worker_a3127920b0b12114d81c683102306779d}} 
-{\footnotesize template$<$rpp\+::constraint\+::observer TObs, typename... Args$>$ }\\\mbox{\hyperlink{classrpp_1_1disposable__wrapper}{rpp\+::disposable\+\_\+wrapper}} {\bfseries schedule} (const duration delay, constraint\+::schedulable\+\_\+fn$<$ TObs, Args... $>$ auto \&\&fn, TObs \&\&obs, Args \&\&...args) const
+\mbox{\Hypertarget{classrpp_1_1schedulers_1_1worker_ae4cb928c427176adfa45a9a799201718}\label{classrpp_1_1schedulers_1_1worker_ae4cb928c427176adfa45a9a799201718}} 
+{\footnotesize template$<$typename Obs\+Type , typename Obs\+Strategy , typename... Args, constraint\+::schedulable\+\_\+fn$<$ rpp\+::base\+\_\+observer$<$ Obs\+Type, Obs\+Strategy $>$, Args... $>$ Fn$>$ }\\void {\bfseries schedule} (const duration delay, Fn \&\&fn, \mbox{\hyperlink{classrpp_1_1base__observer}{rpp\+::base\+\_\+observer}}$<$ Obs\+Type, Obs\+Strategy $>$ \&\&obs, Args \&\&...args) const
 \item 
-\mbox{\Hypertarget{classrpp_1_1schedulers_1_1worker_a0b0adf122273d71daf8c20a7f75d4cc9}\label{classrpp_1_1schedulers_1_1worker_a0b0adf122273d71daf8c20a7f75d4cc9}} 
-{\footnotesize template$<$rpp\+::constraint\+::observer TObs, typename... Args$>$ }\\\mbox{\hyperlink{classrpp_1_1disposable__wrapper}{rpp\+::disposable\+\_\+wrapper}} {\bfseries schedule} (const time\+\_\+point time\+\_\+point, constraint\+::schedulable\+\_\+fn$<$ TObs, Args... $>$ auto \&\&fn, TObs \&\&obs, Args \&\&...args) const
-\end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions}
-\begin{DoxyCompactItemize}
+\mbox{\Hypertarget{classrpp_1_1schedulers_1_1worker_aa2d8236a68be239e67809640497e4a23}\label{classrpp_1_1schedulers_1_1worker_aa2d8236a68be239e67809640497e4a23}} 
+{\footnotesize template$<$typename Obs\+Type , typename... Args, constraint\+::schedulable\+\_\+fn$<$ rpp\+::dynamic\+\_\+observer$<$ Obs\+Type $>$, Args... $>$ Fn$>$ }\\void {\bfseries schedule} (Fn \&\&fn, const \mbox{\hyperlink{classrpp_1_1base__observer}{rpp\+::dynamic\+\_\+observer}}$<$ Obs\+Type $>$ \&obs, Args \&\&...args) const
 \item 
-\mbox{\Hypertarget{classrpp_1_1schedulers_1_1worker_ae70b400bd61a27837b84e5769c102688}\label{classrpp_1_1schedulers_1_1worker_ae70b400bd61a27837b84e5769c102688}} 
-static time\+\_\+point {\bfseries now} ()
+\mbox{\Hypertarget{classrpp_1_1schedulers_1_1worker_a5b56d15a400c5fbca98accc68dfd16a7}\label{classrpp_1_1schedulers_1_1worker_a5b56d15a400c5fbca98accc68dfd16a7}} 
+{\footnotesize template$<$typename Obs\+Type , typename... Args, constraint\+::schedulable\+\_\+fn$<$ rpp\+::dynamic\+\_\+observer$<$ Obs\+Type $>$, Args... $>$ Fn$>$ }\\void {\bfseries schedule} (const duration delay, Fn \&\&fn, const \mbox{\hyperlink{classrpp_1_1base__observer}{rpp\+::dynamic\+\_\+observer}}$<$ Obs\+Type $>$ \&obs, Args \&\&...args) const
+\item 
+\mbox{\Hypertarget{classrpp_1_1schedulers_1_1worker_a94dab011af0cb9c49429146a68584806}\label{classrpp_1_1schedulers_1_1worker_a94dab011af0cb9c49429146a68584806}} 
+\mbox{\hyperlink{classrpp_1_1disposable__wrapper}{rpp\+::disposable\+\_\+wrapper}} {\bfseries get\+\_\+disposable} () const
 \end{DoxyCompactItemize}
 
 

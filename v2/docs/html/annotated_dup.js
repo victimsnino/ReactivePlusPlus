@@ -51,6 +51,12 @@ var annotated_dup =
             [ "is_worker< rpp::schedulers::worker< Strategy > >", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html", null ]
           ] ]
         ] ],
+        [ "details", null, [
+          [ "schedulable_base", "classrpp_1_1schedulers_1_1details_1_1schedulable__base.html", "classrpp_1_1schedulers_1_1details_1_1schedulable__base" ],
+          [ "specific_schedulable", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable" ],
+          [ "schedulables_queue", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue" ]
+        ] ],
+        [ "current_thread", "classrpp_1_1schedulers_1_1current__thread.html", "classrpp_1_1schedulers_1_1current__thread" ],
         [ "worker", "classrpp_1_1schedulers_1_1worker.html", "classrpp_1_1schedulers_1_1worker" ],
         [ "immediate", "classrpp_1_1schedulers_1_1immediate.html", "classrpp_1_1schedulers_1_1immediate" ]
       ] ],

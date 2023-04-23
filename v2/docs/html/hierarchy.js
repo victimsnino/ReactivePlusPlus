@@ -15,6 +15,7 @@ var hierarchy =
       [ "rpp::base_observer< Type, Strategy >", "classrpp_1_1base__observer.html", null ]
     ] ],
     [ "rpp::details::create_strategy< Type, OnSubscribe >", "structrpp_1_1details_1_1create__strategy.html", null ],
+    [ "rpp::schedulers::current_thread", "classrpp_1_1schedulers_1_1current__thread.html", null ],
     [ "rpp::disposable_wrapper", "classrpp_1_1disposable__wrapper.html", null ],
     [ "rpp::details::observer::dynamic_strategy< Type >", "classrpp_1_1details_1_1observer_1_1dynamic__strategy.html", null ],
     [ "std::false_type", null, [
@@ -35,6 +36,10 @@ var hierarchy =
     [ "rpp::details::none_disposable_strategy", "structrpp_1_1details_1_1none__disposable__strategy.html", null ],
     [ "rpp::operators::details::operator_strategy_base< T, TObs, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base.html", null ],
     [ "rpp::operators::details::operator_strategy_base< T, rpp::base_observer< TT, ObserverStrategy >, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1base__observer_35d914c2b4e35f15683ffab6e26f444be.html", null ],
+    [ "rpp::schedulers::details::schedulable_base", "classrpp_1_1schedulers_1_1details_1_1schedulable__base.html", [
+      [ "rpp::schedulers::details::specific_schedulable< Fn, TObs, Args >", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html", null ]
+    ] ],
+    [ "rpp::schedulers::details::schedulables_queue", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
     [ "rpp::details::shared_container< Container >", "classrpp_1_1details_1_1shared__container.html", null ],
     [ "rpp::operators::subscribe< Args >", "classrpp_1_1operators_1_1subscribe.html", null ],
     [ "rpp::operators::subscribe< base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1subscribe_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4.html", null ],
@@ -68,5 +73,6 @@ var hierarchy =
     [ "rpp::memory_model::use_stack", "structrpp_1_1memory__model_1_1use__stack.html", null ],
     [ "rpp::details::with_disposable< S >", "structrpp_1_1details_1_1with__disposable.html", null ],
     [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ],
+    [ "rpp::schedulers::current_thread::worker_strategy", "classrpp_1_1schedulers_1_1current__thread_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ]
 ];
