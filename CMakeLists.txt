@@ -26,7 +26,7 @@ include(cmake/prelude.cmake)
 
 project(
     ReactivePlusPlus
-    VERSION 0.2.0
+    VERSION 2.0.0
     DESCRIPTION "ReactivePlusPlus is library for building asynchronous event-driven streams of data with help of sequences of primitive operators in the declarative form"
     HOMEPAGE_URL "https://github.com/victimsnino/ReactivePlusPlus"
     LANGUAGES CXX
