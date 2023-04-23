@@ -19,6 +19,8 @@ If you are going to know more details about developing for RPP check [HACKING](H
 ## Note V2:
 Currently I'm working on RPP v2 (v2 branch). It follows "zero-overhead principle" and minimizes overhead during usage of RPP. v2 started from the scratch, so, each operator would be implemented from the scratch. Implementation status can be tracked [there](https://github.com/victimsnino/ReactivePlusPlus/blob/v2/docs/Implementation%20Status.md)
 
+You still can use previous implementation. It placed in `v1` branch
+
 ## Implementation status:
 
 In short: ReactivePlusPlus is library for building asynchronous event-driven streams of data with help of sequences of primitive operators in the declarative form.
