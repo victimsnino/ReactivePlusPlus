@@ -15,9 +15,9 @@ int main() // NOLINT
     //! [just]
 
     //! [just memory model]
-    std::array<int, 100> cheap_to_copy_1{};
-    std::array<int, 100> cheap_to_copy_2{};
-    rpp::source::just<rpp::memory_model::use_shared>(cheap_to_copy_1, cheap_to_copy_2).subscribe([](const auto&){});
+    std::array<int, 100> expensive_to_copy_1{};
+    std::array<int, 100> expensive_to_copy_2{};
+    rpp::source::just<rpp::memory_model::use_shared>(expensive_to_copy_1, expensive_to_copy_2).subscribe([](const auto&){});
     //! [just memory model]
 
     // //! [just scheduler]
