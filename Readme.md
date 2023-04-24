@@ -27,7 +27,7 @@ In short: ReactivePlusPlus is library for building asynchronous event-driven str
 
 RPP v2 follows zero-overhead principle and most of the operators are (and will) minimize overhead. How? Due to elimination of heap allocations and avoiding unnecessary things. During implementatuon of v1 i've found a lot of cases where RPP does unnecessary expensive things.
 
-Currently ReactivePlusPlus is still under development but it has a lot of implemented operators for now. List of implemented features can be found in [API Reference](https://victimsnino.github.io/ReactivePlusPlus/docs/html/group__rpp.html) with very detailed documentation for each of them
+Currently ReactivePlusPlus is still under development but it has a lot of implemented operators for now. List of implemented features can be found in [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) with very detailed documentation for each of them
 
 **Example**:
 
@@ -51,11 +51,10 @@ Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Pe
 - (macos) Apple Clang 14
 
 # Useful links
-- [Why ReactivePlusPlus? What about existing Reactive Extension libraries for C++?](https://victimsnino.github.io/ReactivePlusPlus/docs/html/why_rpp.html)
 - [Manual and doxygen documentation](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/index.html)
-- [Examples](https://github.com/victimsnino/ReactivePlusPlus/tree/main/src/examples)
+- [Examples](https://github.com/victimsnino/ReactivePlusPlus/tree/v2/src/examples)
 - [Continous benchmarking results, comparison of `dynamic` and `specific` and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
-- [Articles/Turorials/Guides](https://github.com/victimsnino/ReactivePlusPlus/blob/main/docs/Articles.md)
+- [Articles/Turorials/Guides](https://github.com/victimsnino/ReactivePlusPlus/blob/v2/docs/Articles.md)
 - [CONTRIBUTING](CONTRIBUTING.md) document.
 
 # Licensing
