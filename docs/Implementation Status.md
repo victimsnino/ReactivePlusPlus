@@ -14,9 +14,10 @@
   - [x] Base Disposable
   - [ ] Callback Disposable
 - [ ] Schedulers
-  - [ ] Immediate
+  - [x] Immediate
   - [ ] New Thread
-  - [ ] CurrentThread/Trampoline
+  - [x] CurrentThread
+  - [?] Trampoline
   - [ ] RunLoop
   - [ ] EventLoop
 
