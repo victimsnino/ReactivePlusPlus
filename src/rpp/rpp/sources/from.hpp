@@ -86,7 +86,7 @@ struct from_iterable_strategy
         } 
         else 
         {
-            auto worker = scheduler.create_worker();
+            const auto worker = scheduler.create_worker();
             observer.set_upstream(worker.get_disposable());
             worker.schedule([](const base_observer<utils::iterable_value_t<PackedContainer>, Strategy>& observer, const PackedContainer& container, size_t& index) -> rpp::schedulers::optional_duration
             {
