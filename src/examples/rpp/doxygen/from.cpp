@@ -1,5 +1,3 @@
-#include "rpp/schedulers/current_thread.hpp"
-#include "rpp/schedulers/immediate.hpp"
 #include <rpp/rpp.hpp>
 
 #include <iostream>
