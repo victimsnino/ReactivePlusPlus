@@ -15,8 +15,12 @@
 #include <functional>
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
+#include "rpp/observers/fwd.hpp"
+#include "rpp/schedulers/fwd.hpp"
+#include "rpp/schedulers/immediate.hpp"
 #include "rpp/sources/fwd.hpp"
 
+#include <optional>
 #include <stdexcept>
 
 struct my_container_with_error : std::vector<int>
@@ -73,6 +77,30 @@ TEST_CASE("from iterable emit items from container")
 
         CHECK(mock.get_received_values() == std::vector{1});
         CHECK(mock.get_on_completed_count() == 1);
+    }
+
+    SECTION("observable created from vector with scheduler emits values via provided scheduler")
+    {
+        auto obs_immediate = rpp::source::from_iterable(std::vector{1, 1, 1}, rpp::schedulers::immediate{});
+        auto obs_default   = rpp::source::from_iterable(std::vector{2, 2, 2});
+
+        rpp::schedulers::current_thread::create_worker().schedule([&obs_immediate, &obs_default, &mock](const auto&)
+        {
+            obs_default.subscribe(mock.get_observer());
+            CHECK(mock.get_received_values().empty());
+            CHECK(mock.get_on_error_count() == 0);
+            CHECK(mock.get_on_completed_count() == 0);
+
+            obs_immediate.subscribe(mock.get_observer());
+            CHECK(mock.get_received_values() == std::vector{1,1,1});
+            CHECK(mock.get_on_error_count() == 0);
+            CHECK(mock.get_on_completed_count() == 1);
+            return rpp::schedulers::optional_duration{};
+        }, mock.get_observer());
+
+        CHECK(mock.get_received_values() == std::vector{1,1,1,2,2,2});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 2);
     }
 
     // SECTION("observable from iterable with scheduler")
