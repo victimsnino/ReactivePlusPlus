@@ -69,7 +69,7 @@ TEST_CASE("from iterable emit items from container")
     SECTION("subscribe via take(1) to observable created from infinite container")
     {
         rpp::source::from_iterable(infinite_container{}) | rpp::operators::take(1)
-                                                        | rpp::operators::subscribe(mock.get_observer());
+                                                         | rpp::operators::subscribe(mock.get_observer());
 
         CHECK(mock.get_received_values() == std::vector{1});
         CHECK(mock.get_on_completed_count() == 1);
