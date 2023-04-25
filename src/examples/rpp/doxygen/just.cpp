@@ -1,3 +1,5 @@
+#include "rpp/schedulers/current_thread.hpp"
+#include "rpp/schedulers/immediate.hpp"
 #include <rpp/rpp.hpp>
 
 #include <iostream>
@@ -21,6 +23,7 @@ int main() // NOLINT
     //! [just memory model]
 
     // //! [just scheduler]
-    // rpp::source::just(rpp::schedulers::new_thread{}, 42, 53).subscribe();
+    rpp::source::just(rpp::schedulers::immediate{}, 42, 53).subscribe([](const auto&){});
+    rpp::source::just(rpp::schedulers::current_thread{}, 42, 53).subscribe([](const auto&){});
     // //! [just scheduler]
 }
