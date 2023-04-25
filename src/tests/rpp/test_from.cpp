@@ -159,16 +159,26 @@ TEST_CASE("from iterable emit items from container")
     // }
     SECTION("observable from iterable with exceiption on begin")
     {
-        auto obs = rpp::source::from_iterable(my_container_with_error{});
-        SECTION("subscribe on it and dispatch once")
+        auto test = [&mock](const auto& obs)
         {
-            obs.subscribe(mock.get_observer());
-            SECTION("observer obtains error")
+            SECTION("subscribe on it and dispatch once")
             {
-                CHECK(mock.get_total_on_next_count() == 0);
-                CHECK(mock.get_on_error_count() == 1);
-                CHECK(mock.get_on_completed_count() == 0);
+                obs.subscribe(mock.get_observer());
+                SECTION("observer obtains error")
+                {
+                    CHECK(mock.get_total_on_next_count() == 0);
+                    CHECK(mock.get_on_error_count() == 1);
+                    CHECK(mock.get_on_completed_count() == 0);
+                }
             }
+        };
+        SECTION("immediate scheduler")
+        {
+            test(rpp::source::from_iterable(my_container_with_error{}, rpp::schedulers::immediate{}));
+        }
+        SECTION("current_thread scheduler")
+        {
+            test(rpp::source::from_iterable(my_container_with_error{}, rpp::schedulers::current_thread{}));
         }
     }
 }
@@ -182,14 +192,14 @@ TEST_CASE("from iterable doesn't provides extra copies")
 
     SECTION("observable from copied iterable doesn't provide extra copies")
     {
-        auto obs = rpp::source::from_iterable(vals/*, rpp::schedulers::immediate{}*/);
+        auto obs = rpp::source::from_iterable(vals);
         obs.subscribe([](const auto&){},[](const auto&){},[](){});
         CHECK(tracker.get_copy_count() - initial_copy == 1); // 1 copy to wrapped container
         CHECK(tracker.get_move_count() - initial_move == 1); // 1 move lambda to observable
     }
     SECTION("observable from moved iterable doesn't provide extra copies")
     {
-        auto obs = rpp::source::from_iterable(std::move(vals)/*, rpp::schedulers::immediate{}*/);
+        auto obs = rpp::source::from_iterable(std::move(vals));
         obs.subscribe([](const auto&){},[](const auto&){},[](){});
         CHECK(tracker.get_copy_count() - initial_copy == 0);
         CHECK(tracker.get_move_count() - initial_move == 2); // 1 move to wrapped container + 1 move lambda to observable
@@ -256,7 +266,7 @@ TEST_CASE("just")
     SECTION("observable with copied item")
     {
         copy_count_tracker v{};
-        auto               obs = rpp::source::just(/*rpp::schedulers::immediate{},*/ v);
+        auto               obs = rpp::source::just(rpp::schedulers::current_thread{}, v);
         SECTION("subscribe on this observable")
         {
             obs.subscribe(mock.get_observer());
@@ -273,7 +283,7 @@ TEST_CASE("just")
     SECTION("observable with moved item")
     {
         copy_count_tracker v{};
-        auto               obs = rpp::source::just(/*rpp::schedulers::immediate{},*/ std::move(v));
+        auto               obs = rpp::source::just(rpp::schedulers::immediate{}, std::move(v));
         SECTION("subscribe on this observable")
         {
             obs.subscribe(mock.get_observer());
@@ -287,7 +297,7 @@ TEST_CASE("just")
             }
         }
     }
-    SECTION("observable with copied item + use_sahred")
+    SECTION("observable with copied item + use_shared")
     {
         copy_count_tracker v{};
         auto               obs = rpp::source::just<rpp::memory_model::use_shared>(v);
