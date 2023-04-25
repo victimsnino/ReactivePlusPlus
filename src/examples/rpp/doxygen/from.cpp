@@ -1,3 +1,5 @@
+#include "rpp/schedulers/current_thread.hpp"
+#include "rpp/schedulers/immediate.hpp"
 #include <rpp/rpp.hpp>
 
 #include <iostream>
@@ -22,12 +24,13 @@ int main() // NOLINT
         //! [from_iterable with model]
     }
 
-    // {
-    //     //! [from_iterable with scheduler]
-    //     std::vector<int> vals{ 1,2,3 };
-    //     rpp::source::from_iterable(vals, rpp::schedulers::new_thread{}).as_blocking().subscribe([](int v) {std::cout << v << " "; });
-    //     //! [from_iterable with scheduler]
-    // }
+    {
+        //! [from_iterable with scheduler]
+        std::vector<int> vals{ 1,2,3 };
+        rpp::source::from_iterable(vals, rpp::schedulers::immediate{}).subscribe([](int v) {std::cout << v << " "; });
+        rpp::source::from_iterable(vals, rpp::schedulers::current_thread{}).subscribe([](int v) {std::cout << v << " "; });
+        //! [from_iterable with scheduler]
+    }
 
     // {
     //     //! [from_callable]
