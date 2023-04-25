@@ -9,11 +9,10 @@
 
 #pragma once
 
-#include "rpp/schedulers/current_thread.hpp"
-#include "rpp/schedulers/fwd.hpp"
 #include <rpp/sources/fwd.hpp>
 #include <rpp/observables/base_observable.hpp>
 #include <rpp/utils/utils.hpp>
+#include <rpp/schedulers/current_thread.hpp>
 
 #include <array>
 #include <exception>

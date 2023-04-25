@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include "rpp/schedulers/current_thread.hpp"
 #include <rpp/observers/fwd.hpp>
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
