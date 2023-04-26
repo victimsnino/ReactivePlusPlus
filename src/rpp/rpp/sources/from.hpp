@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include "rpp/defs.hpp"
 #include <rpp/sources/fwd.hpp>
 #include <rpp/observables/base_observable.hpp>
 #include <rpp/utils/utils.hpp>
@@ -99,8 +100,9 @@ private:
         std::advance(itr, m_index);
         return itr;
     }
+
 private:
-    Container                                                 m_container{};
+    RPP_NO_UNIQUE_ADDRESS Container                           m_container{};
     mutable size_t                                            m_index{};
     mutable std::optional<decltype(std::cbegin(m_container))> m_iterator{};
 };
@@ -152,17 +154,14 @@ struct from_iterable_strategy
         {
             const auto worker = scheduler.create_worker();
             observer.set_upstream(worker.get_disposable());
-            worker.schedule([](const base_observer<utils::iterable_value_t<PackedContainer>, Strategy>& observer, const PackedContainer& container) -> rpp::schedulers::optional_duration
+            worker.schedule([](const base_observer<utils::iterable_value_t<PackedContainer>, Strategy>& observer, const PackedContainer& cont) -> rpp::schedulers::optional_duration
             {
                 try
                 {
-                    const auto  end = std::cend(container);
-                    auto        itr = container.get_actual_iterator();
-
-                    if (itr != end)
+                    if (const auto itr = cont.get_actual_iterator(); itr != std::cend(cont))
                     {
                         observer.on_next(utils::as_const(*itr));
-                        if (container.increment_iterator()) // it was not last
+                        if (cont.increment_iterator()) // it was not last
                             return schedulers::duration{}; // re-schedule this
                     }
 

@@ -76,7 +76,7 @@ TEMPLATE_TEST_CASE("from iterable emit items from container", "", rpp::scheduler
     SECTION("subscribe via take(1) to observable created from infinite container")
     {
         rpp::source::from_iterable(infinite_container{}, TestType{}) | rpp::operators::take(1)
-                                                                    | rpp::operators::subscribe(mock.get_observer());
+                                                                     | rpp::operators::subscribe(mock.get_observer());
 
         CHECK(mock.get_received_values() == std::vector{1});
         CHECK(mock.get_on_completed_count() == 1);
@@ -181,7 +181,7 @@ TEST_CASE("from iterable with different schedulers")
     }
 }
 
-TEST_CASE("from iterable doesn't provides extra copies")
+TEMPLATE_TEST_CASE("from iterable doesn't provides extra copies", "", rpp::schedulers::current_thread, rpp::schedulers::immediate)
 {
     copy_count_tracker tracker{};
     auto               vals         = std::array{tracker};
@@ -190,14 +190,14 @@ TEST_CASE("from iterable doesn't provides extra copies")
 
     SECTION("observable from copied iterable doesn't provide extra copies")
     {
-        auto obs = rpp::source::from_iterable(vals);
+        auto obs = rpp::source::from_iterable(vals, TestType{});
         obs.subscribe([](const auto&){},[](const auto&){},[](){});
         CHECK(tracker.get_copy_count() - initial_copy == 1); // 1 copy to wrapped container
         CHECK(tracker.get_move_count() - initial_move == 1); // 1 move lambda to observable
     }
     SECTION("observable from moved iterable doesn't provide extra copies")
     {
-        auto obs = rpp::source::from_iterable(std::move(vals));
+        auto obs = rpp::source::from_iterable(std::move(vals), TestType{});
         obs.subscribe([](const auto&){},[](const auto&){},[](){});
         CHECK(tracker.get_copy_count() - initial_copy == 0);
         CHECK(tracker.get_move_count() - initial_move == 2); // 1 move to wrapped container + 1 move lambda to observable
@@ -205,14 +205,14 @@ TEST_CASE("from iterable doesn't provides extra copies")
 
     SECTION("observable from copied iterable with shared memory model doesn't provide extra copies")
     {
-        auto obs = rpp::source::from_iterable<rpp::memory_model::use_shared>(vals);
+        auto obs = rpp::source::from_iterable<rpp::memory_model::use_shared>(vals, TestType{}); // NOLINT
         obs.subscribe([](const auto&){},[](const auto&){},[](){});
         CHECK(tracker.get_copy_count() - initial_copy == 1); // 1 copy to shared_ptr
         CHECK(tracker.get_move_count() - initial_move == 0);
     }
     SECTION("observable from moved iterable doesn't provide extra copies")
     {
-        auto obs = rpp::source::from_iterable<rpp::memory_model::use_shared>(std::move(vals)); // NOLINT
+        auto obs = rpp::source::from_iterable<rpp::memory_model::use_shared>(std::move(vals), TestType{}); // NOLINT
         obs.subscribe([](const auto&){},[](const auto&){},[](){});
         CHECK(tracker.get_copy_count() - initial_copy == 0);
         CHECK(tracker.get_move_count() - initial_move == 1); // 1 move to shared_ptr
