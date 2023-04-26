@@ -34,18 +34,82 @@ public:
     shared_container(const shared_container&) = default;
     shared_container(shared_container&&) noexcept = default;
 
-    auto begin() const { return std::begin(*m_container); }
-    auto end() const { return std::end(*m_container); }
+    auto begin() const { return std::cbegin(*m_container); }
+    auto end() const { return std::cend(*m_container); }
+
+    auto get_actual_iterator() const
+    {
+        if (!m_iterator)
+            m_iterator = begin();
+        return m_iterator.value();
+    }
+    bool increment_iterator() const
+    {
+        if (!m_iterator)
+            m_iterator = begin();
+        return ++(m_iterator.value()) != end();
+    }
 
 private:
-    std::shared_ptr<Container> m_container{};
+    std::shared_ptr<Container>                                 m_container{};
+    mutable std::optional<decltype(std::cbegin(*m_container))> m_iterator;
+};
+
+template<constraint::decayed_type Container>
+class container_with_iterator
+{
+public:
+    template<typename ...Ts>
+        requires (!constraint::variadic_decayed_same_as<container_with_iterator<Container>, Ts...>)
+    explicit container_with_iterator(Ts&&...items)
+        : m_container{std::forward<Ts>(items)...} {}
+
+    container_with_iterator(const container_with_iterator& other)
+        : m_container{other.m_container}
+        , m_index(other.m_index)
+    {}
+
+    container_with_iterator(container_with_iterator&& other)
+        : m_container{std::move(other.m_container)}
+        , m_index(other.m_index)
+    {}
+
+    auto begin() const { return std::cbegin(m_container); }
+    auto end() const { return std::cend(m_container); }
+
+    auto get_actual_iterator() const
+    {
+        if (!m_iterator)
+            m_iterator = get_default_iterator_value();
+        return m_iterator.value();
+    }
+    bool increment_iterator() const
+    {
+        if (!m_iterator)
+            m_iterator = get_default_iterator_value();
+
+        ++m_index;
+        return ++(m_iterator.value()) != end();
+    }
+
+private:
+    auto get_default_iterator_value() const
+    {
+        auto itr = begin();
+        std::advance(itr, m_index);
+        return itr;
+    }
+private:
+    Container                                                 m_container{};
+    mutable size_t                                            m_index{};
+    mutable std::optional<decltype(std::cbegin(m_container))> m_iterator{};
 };
 
 template<constraint::memory_model memory_model, constraint::iterable Container, typename ...Ts>
 auto pack_to_container(Ts&& ...items)
 {
     if constexpr (std::same_as<memory_model, rpp::memory_model::use_stack>)
-        return Container{std::forward<Ts>(items)...};
+        return container_with_iterator<Container>{std::forward<Ts>(items)...};
     else
         return shared_container<Container>{std::forward<Ts>(items)...};
 }
@@ -88,22 +152,18 @@ struct from_iterable_strategy
         {
             const auto worker = scheduler.create_worker();
             observer.set_upstream(worker.get_disposable());
-            worker.schedule([](const base_observer<utils::iterable_value_t<PackedContainer>, Strategy>& observer, const PackedContainer& container, size_t& index) -> rpp::schedulers::optional_duration
+            worker.schedule([](const base_observer<utils::iterable_value_t<PackedContainer>, Strategy>& observer, const PackedContainer& container) -> rpp::schedulers::optional_duration
             {
                 try
                 {
                     const auto  end = std::cend(container);
-                    auto        itr = std::cbegin(container);
-                    std::advance(itr, index);
+                    auto        itr = container.get_actual_iterator();
 
                     if (itr != end)
                     {
                         observer.on_next(utils::as_const(*itr));
-                        if (std::next(itr) != end) // it was not last
-                        {
-                            ++index;
+                        if (container.increment_iterator()) // it was not last
                             return schedulers::duration{}; // re-schedule this
-                        }
                     }
 
                     observer.on_completed();
@@ -113,7 +173,7 @@ struct from_iterable_strategy
                     observer.on_error(std::current_exception());
                 }
                 return std::nullopt;
-            }, std::move(observer), container, size_t{});
+            }, std::move(observer), container);
         }
     }
 };
