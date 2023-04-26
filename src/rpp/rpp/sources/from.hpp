@@ -17,6 +17,7 @@
 #include <array>
 #include <exception>
 #include <memory>
+#include <utility>
 
 namespace rpp::details
 {
@@ -64,7 +65,7 @@ struct from_iterable_strategy
     template<constraint::observer_strategy<utils::iterable_value_t<PackedContainer>> Strategy>
     void subscribe(base_observer<utils::iterable_value_t<PackedContainer>, Strategy>&& observer) const
     {
-        if constexpr (std::same_as<TScheduler, schedulers::current_thread>)
+        if constexpr (std::same_as<TScheduler, schedulers::immediate>)
         {
             try
             {
@@ -82,8 +83,8 @@ struct from_iterable_strategy
             {
                 observer.on_error(std::current_exception());
             }
-        } 
-        else 
+        }
+        else
         {
             const auto worker = scheduler.create_worker();
             observer.set_upstream(worker.get_disposable());
@@ -148,7 +149,7 @@ namespace rpp::source
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/from.html
  */
-template<constraint::memory_model memory_model/* = memory_model::use_stack*/, schedulers::constraint::scheduler TScheduler /* = schedulers::trampoline*/>
+template<constraint::memory_model memory_model/* = memory_model::use_stack*/, schedulers::constraint::scheduler TScheduler /* = schedulers::current_thread*/>
 auto from_iterable(constraint::iterable auto&& iterable, const TScheduler& scheduler /* = TScheduler{}*/)
 {
     return details::make_from_iterable_observable(details::pack_to_container<memory_model, std::decay_t<decltype(iterable)>>(std::forward<decltype(iterable)>(iterable)), scheduler);

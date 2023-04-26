@@ -12,6 +12,7 @@
 
 #include <rpp/sources/from.hpp>
 #include <rpp/operators/take.hpp>
+#include <cstddef>
 #include <functional>
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
@@ -33,7 +34,7 @@ struct infinite_container
 {
     struct iterator
     {
-        using iterator_category = std::forward_iterator_tag;
+        using iterator_category = std::input_iterator_tag;
         using difference_type   = std::ptrdiff_t;
         using value_type        = int;
         using pointer           = int*;
@@ -41,6 +42,7 @@ struct infinite_container
         value_type operator*() const { return 1; }
         iterator& operator++() { return *this; }
         iterator operator++(int) { return *this; }
+        friend bool operator== (const iterator&, const iterator&) { return false; };
         friend bool operator!= (const iterator&, const iterator&) { return true; };
     };
 

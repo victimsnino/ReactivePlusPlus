@@ -92,7 +92,7 @@ public:
                 if (!optional_duration || obs.is_disposed())
                     return drain_queue(queue);
                 duration = optional_duration.value();
-            } 
+            }
             else if (obs.is_disposed())
                 return;
 
