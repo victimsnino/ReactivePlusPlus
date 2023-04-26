@@ -16,6 +16,7 @@
 #include <functional>
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
+#include "rpp/memory_model.hpp"
 #include "rpp/observers/fwd.hpp"
 #include "rpp/schedulers/current_thread.hpp"
 #include "rpp/schedulers/fwd.hpp"
@@ -52,13 +53,20 @@ struct infinite_container
 };
 
 
-TEMPLATE_TEST_CASE("from iterable emit items from container", "", rpp::schedulers::current_thread, rpp::schedulers::immediate)
+TEMPLATE_TEST_CASE("from iterable emit items from container",
+                   "",
+                   std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_stack>,
+                   std::pair<rpp::schedulers::immediate, rpp::memory_model::use_stack>,
+                   std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_shared>,
+                   std::pair<rpp::schedulers::immediate, rpp::memory_model::use_shared>)
 {
+    using memory_model = std::tuple_element_t<1, TestType>;
+    using scheduler = std::tuple_element_t<0, TestType>;
     auto mock = mock_observer_strategy<int>();
     SECTION("observable created from vector emits items to observer in the same order")
     {
         auto vals = std::vector{1, 2, 3, 4, 5, 6};
-        auto obs  = rpp::source::from_iterable(vals, TestType{});
+        auto obs  = rpp::source::from_iterable<memory_model>(vals, scheduler{});
         obs.subscribe(mock.get_observer());
         CHECK(mock.get_received_values() == vals);
         CHECK(mock.get_on_completed_count() == 1);
@@ -67,7 +75,7 @@ TEMPLATE_TEST_CASE("from iterable emit items from container", "", rpp::scheduler
     SECTION("observable created from empty vector emits only on_completed")
     {
         auto vals = std::vector<int>{};
-        auto obs  = rpp::source::from_iterable(vals, TestType{});
+        auto obs  = rpp::source::from_iterable<memory_model>(vals, scheduler{});
         obs.subscribe(mock.get_observer());
         CHECK(mock.get_received_values() == vals);
         CHECK(mock.get_on_completed_count() == 1);
@@ -75,7 +83,7 @@ TEMPLATE_TEST_CASE("from iterable emit items from container", "", rpp::scheduler
 
     SECTION("subscribe via take(1) to observable created from infinite container")
     {
-        rpp::source::from_iterable(infinite_container{}, TestType{}) | rpp::operators::take(1)
+        rpp::source::from_iterable<memory_model>(infinite_container{}, scheduler{}) | rpp::operators::take(1)
                                                                      | rpp::operators::subscribe(mock.get_observer());
 
         CHECK(mock.get_received_values() == std::vector{1});
@@ -138,7 +146,7 @@ TEMPLATE_TEST_CASE("from iterable emit items from container", "", rpp::scheduler
     // }
     SECTION("observable from iterable with exceiption on begin")
     {
-        const auto obs = rpp::source::from_iterable(my_container_with_error{}, TestType{});
+        const auto obs = rpp::source::from_iterable<memory_model>(my_container_with_error{}, scheduler{});
         SECTION("subscribe on it and dispatch once")
         {
             obs.subscribe(mock.get_observer());
@@ -152,14 +160,14 @@ TEMPLATE_TEST_CASE("from iterable emit items from container", "", rpp::scheduler
     }
 }
 
-TEST_CASE("from iterable with different schedulers")
+TEMPLATE_TEST_CASE("from iterable with different schedulers", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     auto mock = mock_observer_strategy<int>();
 
     SECTION("observable created from vector with scheduler emits values via provided scheduler")
     {
-        auto obs_immediate = rpp::source::from_iterable(std::vector{1, 1, 1}, rpp::schedulers::immediate{});
-        auto obs_default   = rpp::source::from_iterable(std::vector{2, 2, 2});
+        auto obs_immediate = rpp::source::from_iterable<TestType>(std::vector{1, 1, 1}, rpp::schedulers::immediate{});
+        auto obs_default   = rpp::source::from_iterable<TestType>(std::vector{2, 2, 2});
 
         rpp::schedulers::current_thread::create_worker().schedule([&obs_immediate, &obs_default, &mock](const auto&)
         {
@@ -257,14 +265,14 @@ TEMPLATE_TEST_CASE("from iterable doesn't provides extra copies", "", rpp::sched
 //     }
 // }
 
-TEMPLATE_TEST_CASE("just", "", rpp::schedulers::current_thread, rpp::schedulers::immediate)
+TEST_CASE("just")
 {
     mock_observer_strategy<copy_count_tracker> mock{ false };
 
     SECTION("observable with copied item")
     {
         copy_count_tracker v{};
-        auto               obs = rpp::source::just(TestType{}, v);
+        auto               obs = rpp::source::just(v);
         SECTION("subscribe on this observable")
         {
             obs.subscribe(mock.get_observer());
@@ -315,7 +323,7 @@ TEMPLATE_TEST_CASE("just", "", rpp::schedulers::current_thread, rpp::schedulers:
     SECTION("observable with moved item + use_shared")
     {
         copy_count_tracker v{};
-        auto               obs = rpp::source::just<rpp::memory_model::use_shared>(TestType{}, std::move(v));
+        auto               obs = rpp::source::just<rpp::memory_model::use_shared>(std::move(v));
         SECTION("subscribe on this observable")
         {
             obs.subscribe(mock.get_observer());
@@ -337,6 +345,19 @@ TEST_CASE("just variadic")
     SECTION("observable just variadic")
     {
         auto obs = rpp::source::just(1, 2, 3, 4, 5, 6);
+        SECTION("subscribe on it")
+        {
+            obs.subscribe(mock.get_observer());
+            SECTION("observer obtains values in the same order")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 1, 2, 3, 4, 5, 6 });
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+    SECTION("observable just variadic with immediate")
+    {
+        auto obs = rpp::source::just(rpp::schedulers::immediate{}, 1, 2, 3, 4, 5, 6);
         SECTION("subscribe on it")
         {
             obs.subscribe(mock.get_observer());
