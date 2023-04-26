@@ -69,7 +69,7 @@ public:
         , m_index(other.m_index)
     {}
 
-    container_with_iterator(container_with_iterator&& other)
+    container_with_iterator(container_with_iterator&& other) noexcept
         : m_container{std::move(other.m_container)}
         , m_index(other.m_index)
     {}
