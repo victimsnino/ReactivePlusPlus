@@ -99,8 +99,8 @@
       "name": "ci-clang",
       "hidden": true,
       "environment": {
-        "CC" : "clang",
-        "CXX": "clang++"
+        "CC" : "clang-14",
+        "CXX": "clang++-14"
       }
     },
     {
@@ -153,9 +153,9 @@
       "cacheVariables": {
         "RPP_ENABLE_COVERAGE": "ON",
         "CMAKE_BUILD_TYPE": "Coverage",
-        "CMAKE_CXX_FLAGS_COVERAGE": "-O0 -g --coverage -fprofile-arcs -ftest-coverage -fno-inline -fno-omit-frame-pointer -fno-optimize-sibling-calls",
-        "CMAKE_EXE_LINKER_FLAGS_COVERAGE": "--coverage",
-        "CMAKE_SHARED_LINKER_FLAGS_COVERAGE": "--coverage"
+        "CMAKE_CXX_FLAGS_COVERAGE": "-fprofile-instr-generate -fcoverage-mapping",
+        "CMAKE_EXE_LINKER_FLAGS_COVERAGE": "-fprofile-instr-generate -fcoverage-mapping",
+        "RPP_USE_LLVM_COV" : "ON"
       }
     },
 
