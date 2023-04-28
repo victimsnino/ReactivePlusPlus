@@ -117,8 +117,8 @@ jobs:
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
-      - name: Install gcovr
-        run: sudo apt-get update -q && sudo apt-get install gcovr -q -y
+      - name: Install llvm
+        run: sudo apt-get update -q && sudo apt-get install llvm -q -y
 
       - name:  Install sonar-scanner and build-wrapper
         uses: sonarsource/sonarcloud-github-c-cpp@v1

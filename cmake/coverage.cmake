@@ -8,8 +8,8 @@ if (RPP_USE_LLVM_COV)
     add_custom_target(
         coverage
         COMMAND llvm-profdata merge -sparse ${RPP_TEST_RESULTS_DIR}/test_rpp.profraw -o ${RPP_TEST_RESULTS_DIR}/test_rpp.profdata
-        COMMAND llvm-cov report -instr-profile=${RPP_TEST_RESULTS_DIR}/test_rpp.profdata $<TARGET_FILE:test_rpp> ${PROJECT_SOURCE_DIR}/src
-        COMMAND llvm-cov show --show-branches=count --show-expansions --instr-profile=${RPP_TEST_RESULTS_DIR}/test_rpp.profdata $<TARGET_FILE:test_rpp> > ${RPP_TEST_RESULTS_DIR}/coverage.txt
+        COMMAND llvm-cov report --ignore-filename-regex=build|test -instr-profile=${RPP_TEST_RESULTS_DIR}/test_rpp.profdata $<TARGET_FILE:test_rpp>
+        COMMAND llvm-cov show --ignore-filename-regex=build|test --show-branches=count --show-expansions --instr-profile=${RPP_TEST_RESULTS_DIR}/test_rpp.profdata $<TARGET_FILE:test_rpp> > ${RPP_TEST_RESULTS_DIR}/coverage.txt
         # COMMAND llvm-cov export -instr-profile=${RPP_TEST_RESULTS_DIR}/test_rpp.profdata $<TARGET_FILE:test_rpp> > ${RPP_TEST_RESULTS_DIR}/coverage.json
         COMMENT "Generating coverage report"
         VERBATIM
