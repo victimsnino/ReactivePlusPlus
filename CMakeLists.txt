@@ -33,14 +33,24 @@ project(
 )
 
 include(cmake/project-is-top-level.cmake)
-include(cmake/variables.cmake)
-include(cmake/dependencies.cmake)
 
 if (RPP_BUILD_TESTS OR RPP_BUILD_BENCHMARKS)
   enable_testing()
   set(RPP_TEST_RESULTS_DIR  ${CMAKE_BINARY_DIR}/test_results)
   file(MAKE_DIRECTORY ${RPP_TEST_RESULTS_DIR})
+  
+  macro(add_test_with_coverage TARGET)
+    if (RPP_USE_LLVM_COV)
+      add_test(NAME ${TARGET} COMMAND ${CMAKE_COMMAND} -E env LLVM_PROFILE_FILE=${RPP_TEST_RESULTS_DIR}/${TARGET}.profraw $<TARGET_FILE:${TARGET}>)
+    else()
+      add_test(NAME ${TARGET} COMMAND $<TARGET_FILE:${TARGET}>)
+    endif()
+  endmacro()
 endif()
+
+include(cmake/variables.cmake)
+include(cmake/dependencies.cmake)
+
 
 add_subdirectory(src)
 

@@ -124,12 +124,9 @@ jobs:
         uses: sonarsource/sonarcloud-github-c-cpp@v1
 
       - name: Run build-wrapper
-        env:
-          CC: gcc-10
-          CXX: g++-10
         run: |
           mkdir build
-          cmake --preset=ci-coverage-gcc
+          cmake --preset=ci-coverage-clang
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build --preset=ci-build
           ctest --preset=ci-tests
 
@@ -139,7 +136,7 @@ jobs:
       - name: Submit to codecov.io
         uses: codecov/codecov-action@v3
         with:
-          file: build/coverage_report.xml
+          file: build/test_results/coverage.txt
 
       - name: Run sonar-scanner
         env:

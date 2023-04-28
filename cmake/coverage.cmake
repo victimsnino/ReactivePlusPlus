@@ -1,6 +1,19 @@
 # ---- Variables ----
 
-if (RPP_USE_LLVM_COVERAGE)
+if (RPP_USE_LLVM_COV)
+    if (NOT RPP_BUILD_TESTS_TOGETHER)
+        message( FATAL_ERROR "Expected to set RPP_BUILD_TESTS_TOGETHER flag when build coverage via llvm cov")
+    endif()
+
+    add_custom_target(
+        coverage
+        COMMAND llvm-profdata merge -sparse ${RPP_TEST_RESULTS_DIR}/test_rpp.profraw -o ${RPP_TEST_RESULTS_DIR}/test_rpp.profdata
+        COMMAND llvm-cov report -instr-profile=${RPP_TEST_RESULTS_DIR}/test_rpp.profdata $<TARGET_FILE:test_rpp> ${PROJECT_SOURCE_DIR}/src
+        COMMAND llvm-cov show --show-branches=count --show-expansions --instr-profile=${RPP_TEST_RESULTS_DIR}/test_rpp.profdata $<TARGET_FILE:test_rpp> > ${RPP_TEST_RESULTS_DIR}/coverage.txt
+        # COMMAND llvm-cov export -instr-profile=${RPP_TEST_RESULTS_DIR}/test_rpp.profdata $<TARGET_FILE:test_rpp> > ${RPP_TEST_RESULTS_DIR}/coverage.json
+        COMMENT "Generating coverage report"
+        VERBATIM
+    )
 
 elseif (RPP_COVERAGE_LCOV)
     # We use variables separate from what CTest uses, because those have
