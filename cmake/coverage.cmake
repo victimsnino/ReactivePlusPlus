@@ -1,6 +1,8 @@
 # ---- Variables ----
 
-if (RPP_COVERAGE_LCOV)
+if (RPP_USE_LLVM_COVERAGE)
+
+elseif (RPP_COVERAGE_LCOV)
     # We use variables separate from what CTest uses, because those have
     # customization issues
     set(
