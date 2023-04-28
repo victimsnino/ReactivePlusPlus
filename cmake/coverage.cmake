@@ -1,6 +1,22 @@
 # ---- Variables ----
 
-if (RPP_COVERAGE_LCOV)
+if (RPP_USE_LLVM_COV)
+    if (NOT RPP_BUILD_TESTS_TOGETHER)
+        message( FATAL_ERROR "Expected to set RPP_BUILD_TESTS_TOGETHER flag when build coverage via llvm cov")
+    endif()
+
+    add_custom_target(
+        coverage
+        COMMAND llvm-profdata merge -sparse ${RPP_TEST_RESULTS_DIR}/test_rpp.profraw -o ${RPP_TEST_RESULTS_DIR}/test_rpp.profdata
+        COMMAND llvm-cov report --ignore-filename-regex=build|tests -instr-profile=${RPP_TEST_RESULTS_DIR}/test_rpp.profdata $<TARGET_FILE:test_rpp>
+        COMMAND llvm-cov show --ignore-filename-regex=build|tests --show-branches=count --show-expansions --show-line-counts --show-line-counts-or-regions --show-regions --instr-profile=${RPP_TEST_RESULTS_DIR}/test_rpp.profdata $<TARGET_FILE:test_rpp> > ${RPP_TEST_RESULTS_DIR}/coverage.txt
+        COMMAND llvm-cov show --ignore-filename-regex=build|tests --show-branches=count --show-expansions --show-line-counts --show-line-counts-or-regions --show-regions --instr-profile=${RPP_TEST_RESULTS_DIR}/test_rpp.profdata $<TARGET_FILE:test_rpp> --format=html > ${RPP_TEST_RESULTS_DIR}/coverage.html
+        # COMMAND llvm-cov export -instr-profile=${RPP_TEST_RESULTS_DIR}/test_rpp.profdata $<TARGET_FILE:test_rpp> > ${RPP_TEST_RESULTS_DIR}/coverage.json
+        COMMENT "Generating coverage report"
+        VERBATIM
+    )
+
+elseif (RPP_COVERAGE_LCOV)
     # We use variables separate from what CTest uses, because those have
     # customization issues
     set(

@@ -17,7 +17,7 @@ macro(add_test_target target_name module files)
   target_link_libraries(${TARGET} PRIVATE snitch::snitch rpp_tests_utils ${module})
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites/${module})
 
-  add_test(NAME ${TARGET} COMMAND $<TARGET_FILE:${TARGET}>)
+  add_test_with_coverage(${TARGET})
 
   if (${module} STREQUAL rppqt)
     rpp_add_qt_support_to_executable(${TARGET})
