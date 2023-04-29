@@ -227,43 +227,44 @@ TEMPLATE_TEST_CASE("from iterable doesn't provides extra copies", "", rpp::sched
     }
 }
 
-// TEST_CASE("from callable", "[source][from]")
-// {
-//     SECTION("observable from callable")
-//     {
-//         size_t count_of_calls{};
-//         auto callable = [&count_of_calls]() -> int {return static_cast<int>(++count_of_calls); };
-//         auto observable = rpp::source::from_callable(callable);
-//         SECTION("subscribe on this observable")
-//         {
-//             auto mock = mock_observer<int>{};
-//             observable.subscribe(mock);
-//             SECTION("callable called only once and observable returns value of this function")
-//             {
-//                 CHECK(mock.get_received_values() == std::vector{ 1 });
-//                 CHECK(mock.get_on_completed_count() == 1);
-//                 CHECK(count_of_calls == 1);
-//             }
-//         }
-//     }
-//     SECTION("observable from callable with error")
-//     {
-//         volatile bool none{true};
-//         auto callable = [&]() -> int { if (none) throw std::runtime_error{ "" }; return 0; };
-//         auto observable = rpp::source::from_callable(callable);
-//         SECTION("subscribe on this observable")
-//         {
-//             auto mock = mock_observer<int>{};
-//             observable.subscribe(mock);
-//             SECTION("observer obtains error")
-//             {
-//                 CHECK(mock.get_total_on_next_count() == 0);
-//                 CHECK(mock.get_on_error_count() == 1);
-//                 CHECK(mock.get_on_completed_count() == 0);
-//             }
-//         }
-//     }
-// }
+TEST_CASE("from callable", "[source][from]")
+{
+    auto mock = mock_observer_strategy<int>{};
+
+    SECTION("observable from callable")
+    {
+        size_t count_of_calls{};
+        auto callable = [&count_of_calls]() -> int {return static_cast<int>(++count_of_calls); };
+
+        auto observable = rpp::source::from_callable(callable);
+        SECTION("subscribe on this observable")
+        {
+            observable.subscribe(mock.get_observer());
+            SECTION("callable called only once and observable returns value of this function")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 1 });
+                CHECK(mock.get_on_completed_count() == 1);
+                CHECK(count_of_calls == 1);
+            }
+        }
+    }
+    SECTION("observable from callable with error")
+    {
+        volatile bool none{true};
+        auto callable = [&]() -> int { if (none) throw std::runtime_error{ "" }; return 0; };
+        auto observable = rpp::source::from_callable(callable);
+        SECTION("subscribe on this observable")
+        {
+            observable.subscribe(mock.get_observer());
+            SECTION("observer obtains error")
+            {
+                CHECK(mock.get_total_on_next_count() == 0);
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
+    }
+}
 
 TEST_CASE("just")
 {
