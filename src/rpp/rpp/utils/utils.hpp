@@ -22,10 +22,18 @@ template<constraint::iterable T>
 using iterable_value_t = std::iter_value_t<decltype(std::begin(std::declval<T>()))>;
 
 template<class T>
-constexpr const T& as_const(const T& v) noexcept { return v; }
+constexpr std::add_const_t<T>& as_const(const T& v) noexcept { return v; }
 
 template<class T>
 constexpr T&& as_const(T&& v) noexcept requires std::is_rvalue_reference_v<T&&> { return std::forward<T>(v); }
+
+struct convertible_to_any
+{
+    convertible_to_any() = default;
+    
+    template<typename T>
+    operator T();
+};
 
 /**
  * @brief Calls passed function during destruction

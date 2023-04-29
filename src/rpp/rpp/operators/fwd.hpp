@@ -10,7 +10,9 @@
 
 #pragma once
 
+#include <rpp/utils/function_traits.hpp>
 #include <rpp/utils/constraints.hpp>
+#include <rpp/utils/utils.hpp>
 
 namespace rpp::operators
 {
@@ -20,5 +22,10 @@ template<typename...Args>
 class subscribe;
 
 template<typename Fn>
+    requires (!utils::is_callable<Fn> || !std::same_as<void, std::invoke_result_t<Fn, utils::convertible_to_any>>)
 auto map(Fn&& callable);
+
+template<typename Fn>
+    requires (!utils::is_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
+auto filter(Fn&& callable);
 }
