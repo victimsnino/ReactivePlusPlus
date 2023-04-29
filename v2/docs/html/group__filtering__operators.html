@@ -104,6 +104,10 @@ $(document).ready(function(){initNavTree('group__filtering__operators.html','');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga2abd3c94ab456e3e1227ea3c330c038b"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; </td></tr>
+<tr class="memitem:ga2abd3c94ab456e3e1227ea3c330c038b"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga2abd3c94ab456e3e1227ea3c330c038b">rpp::operators::requires</a> (!utils::is_callable&lt; Fn &gt;||std::same_as&lt; bool, std::invoke_result_t&lt; Fn, utils::convertible_to_any &gt;&gt;) auto filter(Fn &amp;&amp;callable)</td></tr>
+<tr class="memdesc:ga2abd3c94ab456e3e1227ea3c330c038b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only those items from an Observable that satisfies a provided predicate.  <a href="group__filtering__operators.html#ga2abd3c94ab456e3e1227ea3c330c038b">More...</a><br /></td></tr>
+<tr class="separator:ga2abd3c94ab456e3e1227ea3c330c038b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf32161437c2c6cd7d5a0e5170a333cbb"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a> (size_t count)</td></tr>
 <tr class="memdesc:gaf32161437c2c6cd7d5a0e5170a333cbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only first <code>count</code> items provided by observable, then send <code>on_completed</code>  <a href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">More...</a><br /></td></tr>
 <tr class="separator:gaf32161437c2c6cd7d5a0e5170a333cbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -112,6 +116,48 @@ Functions</h2></td></tr>
 <p>Filtering operators are operators that emit only part of items that satisfies some condition. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#filtering">https://reactivex.io/documentation/operators.html#filtering</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga2abd3c94ab456e3e1227ea3c330c038b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2abd3c94ab456e3e1227ea3c330c038b">&#9670;&nbsp;</a></span>requires()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Fn &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">rpp::operators::requires </td>
+          <td>(</td>
+          <td class="paramtype">!utils::is_callable&lt; Fn &gt;||std::same_as&lt; bool, std::invoke_result_t&lt; Fn, utils::convertible_to_any &gt;&gt;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> &amp;&amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Emit only those items from an Observable that satisfies a provided predicate. </p>
+<div class="image">
+<object type="image/svg+xml" data="filter.svg" style="pointer-events: none;"></object>
+</div>
+<p>Actually this operator just checks if predicate returns true, then forwards emission</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">predicate</td><td>is predicate used to check emitted items. true -&gt; items satisfies condition, false -&gt; not </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new specific_observable with the Filter operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="filter_8hpp_source.html">rpp/operators/filter.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)</div>
+<div class="line">            |rpp::operators::filter([](<span class="keywordtype">int</span>    v) { <span class="keywordflow">return</span> v % 2 == 0; })</div>
+<div class="line">            |<a class="code" href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 0 2 4 6 8</span></div>
+<div class="ttc" id="aclassrpp_1_1operators_1_1subscribe_html"><div class="ttname"><a href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:22</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gace2e7ce42142e6838b2524bf1dc31923"><div class="ttname"><a href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</div><div class="ttdoc">Creates rpp::base_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:229</div></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/filter.html">https://reactivex.io/documentation/operators/filter.html</a> </dd></dl>
+
+</div>
+</div>
 <a id="gaf32161437c2c6cd7d5a0e5170a333cbb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaf32161437c2c6cd7d5a0e5170a333cbb">&#9670;&nbsp;</a></span>take()</h2>
 
@@ -153,7 +199,6 @@ Functions</h2></td></tr>
 <div class="line">            | <a class="code" href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a>(2)</div>
 <div class="line">            | <a class="code" href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 1</span></div>
-<div class="ttc" id="aclassrpp_1_1operators_1_1subscribe_html"><div class="ttname"><a href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:20</div></div>
 <div class="ttc" id="agroup__creational__operators_html_ga08b06422b6486a2107cf8012293bb29f"><div class="ttname"><a href="group__creational__operators.html#ga08b06422b6486a2107cf8012293bb29f">rpp::source::from_iterable</a></div><div class="ttdeci">auto from_iterable(constraint::iterable auto &amp;&amp;iterable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Creates observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition:</b> from.hpp:204</div></div>
 <div class="ttc" id="agroup__filtering__operators_html_gaf32161437c2c6cd7d5a0e5170a333cbb"><div class="ttname"><a href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a></div><div class="ttdeci">auto take(size_t count)</div><div class="ttdoc">Emit only first count items provided by observable, then send on_completed</div><div class="ttdef"><b>Definition:</b> take.hpp:76</div></div>
 </div><!-- fragment --></dd></dl>

@@ -8,12 +8,12 @@
 \DoxyCodeLine{\textcolor{keywordtype}{int} main() \textcolor{comment}{// NOLINT}}
 \DoxyCodeLine{\{}
 \DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gace2e7ce42142e6838b2524bf1dc31923}{rpp::source::just}}(42) }
-\DoxyCodeLine{        | \mbox{\hyperlink{group__transforming__operators_gafa8770084a6551a0eff47efda216a490}{rpp::operators::map}}([](\textcolor{keywordtype}{int} value) \{ \textcolor{keywordflow}{return} value + 10; \}) }
+\DoxyCodeLine{        | rpp::operators::map([](\textcolor{keywordtype}{int} value) \{ \textcolor{keywordflow}{return} value + 10; \}) }
 \DoxyCodeLine{        | \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 52}}
 \DoxyCodeLine{\textcolor{comment}{}}
 \DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gace2e7ce42142e6838b2524bf1dc31923}{rpp::source::just}}(42)}
-\DoxyCodeLine{            | \mbox{\hyperlink{group__transforming__operators_gafa8770084a6551a0eff47efda216a490}{rpp::operators::map}}([](\textcolor{keywordtype}{int} value) \{ \textcolor{keywordflow}{return} std::to\_string(value) + \textcolor{stringliteral}{"{} VAL"{}}; \})}
+\DoxyCodeLine{            | rpp::operators::map([](\textcolor{keywordtype}{int} value) \{ \textcolor{keywordflow}{return} std::to\_string(value) + \textcolor{stringliteral}{"{} VAL"{}}; \})}
 \DoxyCodeLine{            | \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keyword}{const} std::string\& v) \{ std::cout << v << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 42 VAL}}
 \DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}

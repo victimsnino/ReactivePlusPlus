@@ -30,6 +30,8 @@ var annotated_dup =
           [ "forwarding_on_completed_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy.html", "structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy" ],
           [ "forwarding_set_upstream_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy.html", "structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy" ],
           [ "forwarding_is_disposed_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy.html", "structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy" ],
+          [ "filter_observer_strategy", "structrpp_1_1operators_1_1details_1_1filter__observer__strategy.html", "structrpp_1_1operators_1_1details_1_1filter__observer__strategy" ],
+          [ "filter_t", "structrpp_1_1operators_1_1details_1_1filter__t.html", "structrpp_1_1operators_1_1details_1_1filter__t" ],
           [ "map_observer_strategy", "structrpp_1_1operators_1_1details_1_1map__observer__strategy.html", "structrpp_1_1operators_1_1details_1_1map__observer__strategy" ],
           [ "map_t", "structrpp_1_1operators_1_1details_1_1map__t.html", "structrpp_1_1operators_1_1details_1_1map__t" ],
           [ "take_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__observer__strategy.html", "structrpp_1_1operators_1_1details_1_1take__observer__strategy" ],

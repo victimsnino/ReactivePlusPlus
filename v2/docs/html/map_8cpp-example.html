@@ -103,19 +103,18 @@ $(document).ready(function(){initNavTree('map_8cpp-example.html',''); initResiza
 <div class="line"><span class="keywordtype">int</span> main() <span class="comment">// NOLINT</span></div>
 <div class="line">{</div>
 <div class="line">    <a name="a0"></a><a class="code" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a>(42) </div>
-<div class="line">        | <a name="a1"></a><a class="code" href="group__transforming__operators.html#gafa8770084a6551a0eff47efda216a490">rpp::operators::map</a>([](<span class="keywordtype">int</span> value) { <span class="keywordflow">return</span> value + 10; }) </div>
-<div class="line">        | <a name="_a2"></a><a class="code" href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">        | rpp::operators::map([](<span class="keywordtype">int</span> value) { <span class="keywordflow">return</span> value + 10; }) </div>
+<div class="line">        | <a name="_a1"></a><a class="code" href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 52</span></div>
 <div class="line"><span class="comment"></span> </div>
 <div class="line">    <a class="code" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a>(42)</div>
-<div class="line">            | <a class="code" href="group__transforming__operators.html#gafa8770084a6551a0eff47efda216a490">rpp::operators::map</a>([](<span class="keywordtype">int</span> value) { <span class="keywordflow">return</span> std::to_string(value) + <span class="stringliteral">&quot; VAL&quot;</span>; })</div>
+<div class="line">            | rpp::operators::map([](<span class="keywordtype">int</span> value) { <span class="keywordflow">return</span> std::to_string(value) + <span class="stringliteral">&quot; VAL&quot;</span>; })</div>
 <div class="line">            | <a class="code" href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a>([](<span class="keyword">const</span> std::string&amp; v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 42 VAL</span></div>
 <div class="line"><span class="comment"></span>    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassrpp_1_1operators_1_1subscribe_html"><div class="ttname"><a href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:20</div></div>
+<div class="ttc" id="aclassrpp_1_1operators_1_1subscribe_html"><div class="ttname"><a href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:22</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gace2e7ce42142e6838b2524bf1dc31923"><div class="ttname"><a href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</div><div class="ttdoc">Creates rpp::base_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:229</div></div>
-<div class="ttc" id="agroup__transforming__operators_html_gafa8770084a6551a0eff47efda216a490"><div class="ttname"><a href="group__transforming__operators.html#gafa8770084a6551a0eff47efda216a490">rpp::operators::map</a></div><div class="ttdeci">auto map(Fn &amp;&amp;callable)</div><div class="ttdoc">Transform the items emitted by an Observable via applying a function to each item and emitting result...</div><div class="ttdef"><b>Definition:</b> map.hpp:91</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

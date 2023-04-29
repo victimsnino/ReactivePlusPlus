@@ -1,4 +1,4 @@
 var group__transforming__operators =
 [
-    [ "map", "group__transforming__operators.html#gafa8770084a6551a0eff47efda216a490", null ]
+    [ "requires", "group__transforming__operators.html#ga98c209458f11aad08f0da295e231d6c0", null ]
 ];

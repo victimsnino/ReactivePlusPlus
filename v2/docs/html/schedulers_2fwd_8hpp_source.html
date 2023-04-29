@@ -132,7 +132,7 @@ $(document).ready(function(){initNavTree('schedulers_2fwd_8hpp_source.html','');
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;concept schedulable_fn = std::is_invocable_r_v&lt;optional_duration, Fn, Args&amp;...&gt; &amp;&amp; std::same_as&lt;optional_duration, std::invoke_result_t&lt;Fn, Args&amp;...&gt;&gt;;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> S&gt;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;concept strategy = requires(<span class="keyword">const</span> S&amp; s, <span class="keyword">const</span> <a class="code" href="classrpp_1_1base__observer.html">rpp::dynamic_observer&lt;int&gt;</a>&amp; obs)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;concept strategy = <a class="code" href="group__transforming__operators.html#ga98c209458f11aad08f0da295e231d6c0">requires</a>(<span class="keyword">const</span> S&amp; s, <span class="keyword">const</span> <a class="code" href="classrpp_1_1base__observer.html">rpp::dynamic_observer&lt;int&gt;</a>&amp; obs)</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    {s.defer_for(duration{}, std::declval&lt;optional_duration(*)(<span class="keyword">const</span> <a class="code" href="classrpp_1_1base__observer.html">rpp::dynamic_observer&lt;int&gt;</a>&amp;)&gt;(), obs)} -&gt; std::same_as&lt;void&gt;;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    {s.get_disposable()} -&gt; std::same_as&lt;rpp::disposable_wrapper&gt;;</div>
@@ -163,13 +163,14 @@ $(document).ready(function(){initNavTree('schedulers_2fwd_8hpp_source.html','');
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;concept <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a> = <a class="code" href="structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html">details::is_worker&lt;W&gt;::value</a>;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> S&gt;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;concept scheduler = requires(<span class="keyword">const</span> S&amp; s)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;concept scheduler = <a class="code" href="group__transforming__operators.html#ga98c209458f11aad08f0da295e231d6c0">requires</a>(<span class="keyword">const</span> S&amp; s)</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;{</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    {s.create_worker()} -&gt; <a class="code" href="classrpp_1_1schedulers_1_1worker.html">worker</a>;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;};</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
 <div class="ttc" id="aclassrpp_1_1base__observer_html"><div class="ttname"><a href="classrpp_1_1base__observer.html">rpp::base_observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition:</b> base_observer.hpp:223</div></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1worker_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker</a></div><div class="ttdef"><b>Definition:</b> worker.hpp:23</div></div>
+<div class="ttc" id="agroup__transforming__operators_html_ga98c209458f11aad08f0da295e231d6c0"><div class="ttname"><a href="group__transforming__operators.html#ga98c209458f11aad08f0da295e231d6c0">rpp::operators::requires</a></div><div class="ttdeci">requires(!utils::is_callable&lt; Fn &gt;||!std::same_as&lt; void, std::invoke_result_t&lt; Fn, utils::convertible_to_any &gt;&gt;) auto map(Fn &amp;&amp;callable)</div><div class="ttdoc">Transform the items emitted by an Observable via applying a function to each item and emitting result...</div><div class="ttdef"><b>Definition:</b> map.hpp:91</div></div>
 <div class="ttc" id="astructrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_html"><div class="ttname"><a href="structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html">rpp::schedulers::constraint::details::is_worker</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:58</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

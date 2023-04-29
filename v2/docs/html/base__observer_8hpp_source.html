@@ -203,7 +203,7 @@ $(document).ready(function(){initNavTree('base__observer_8hpp_source.html',''); 
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;{</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        requires constraint::is_constructible_from&lt;Strategy, Args&amp;&amp;...&gt;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <a class="code" href="group__filtering__operators.html#ga2abd3c94ab456e3e1227ea3c330c038b">requires</a> constraint::is_constructible_from&lt;Strategy, Args&amp;&amp;...&gt;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classrpp_1_1details_1_1base__observer__impl.html">base_observer_impl</a>(DisposablesStrategy&amp;&amp; strategy, Args&amp;&amp;... args)</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        : m_strategy{std::forward&lt;Args&gt;(args)...}, m_disposable{std::move(strategy)}</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    {</div>
@@ -358,6 +358,7 @@ $(document).ready(function(){initNavTree('base__observer_8hpp_source.html',''); 
 <div class="ttc" id="aclassrpp_1_1details_1_1observer_1_1dynamic__strategy_html"><div class="ttname"><a href="classrpp_1_1details_1_1observer_1_1dynamic__strategy.html">rpp::details::observer::dynamic_strategy</a></div><div class="ttdef"><b>Definition:</b> dynamic_observer.hpp:40</div></div>
 <div class="ttc" id="aclassrpp_1_1details_1_1upstream__disposable_html"><div class="ttname"><a href="classrpp_1_1details_1_1upstream__disposable.html">rpp::details::upstream_disposable</a></div><div class="ttdef"><b>Definition:</b> base_observer.hpp:28</div></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper.html">rpp::disposable_wrapper</a></div><div class="ttdef"><b>Definition:</b> disposable_wrapper.hpp:19</div></div>
+<div class="ttc" id="agroup__filtering__operators_html_ga2abd3c94ab456e3e1227ea3c330c038b"><div class="ttname"><a href="group__filtering__operators.html#ga2abd3c94ab456e3e1227ea3c330c038b">rpp::operators::requires</a></div><div class="ttdeci">requires(!utils::is_callable&lt; Fn &gt;||std::same_as&lt; bool, std::invoke_result_t&lt; Fn, utils::convertible_to_any &gt;&gt;) auto filter(Fn &amp;&amp;callable)</div><div class="ttdoc">Emit only those items from an Observable that satisfies a provided predicate.</div><div class="ttdef"><b>Definition:</b> filter.hpp:88</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1none__disposable__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1none__disposable__strategy.html">rpp::details::none_disposable_strategy</a></div><div class="ttdef"><b>Definition:</b> base_observer.hpp:97</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
