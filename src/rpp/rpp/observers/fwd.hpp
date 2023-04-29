@@ -29,10 +29,10 @@ namespace rpp::constraint
  * @tparam Type is type of value observer would obtain
  */
 template<typename S, typename Type>
-concept observer_strategy = requires(const S& const_strategy, S& strategy, const Type& v, const rpp::disposable_wrapper& disposable)
+concept observer_strategy = requires(const S& const_strategy, S& strategy, const Type& v, Type& mv, const rpp::disposable_wrapper& disposable)
 {
     const_strategy.on_next(v);
-    const_strategy.on_next(Type{});
+    const_strategy.on_next(std::move(mv));
     const_strategy.on_error(std::exception_ptr{});
     const_strategy.on_completed();
 

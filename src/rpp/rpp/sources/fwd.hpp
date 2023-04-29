@@ -40,4 +40,7 @@ auto just(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> 
 
 template<constraint::memory_model memory_model = memory_model::use_stack, typename T, typename ...Ts>
 auto just(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...);
+
+template<constraint::memory_model memory_model  = memory_model::use_stack>
+auto from_callable(std::invocable<> auto&& callable);
 } // namespace rpp::source

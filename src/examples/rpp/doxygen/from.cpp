@@ -30,11 +30,11 @@ int main() // NOLINT
         //! [from_iterable with scheduler]
     }
 
-    // {
-    //     //! [from_callable]
-    //     rpp::source::from_callable([]() {return 49; }).subscribe([](int v) {std::cout << v << " "; });
-    //     // Output: 49
-    //     //! [from_callable]
-    // }
+    {
+        //! [from_callable]
+        rpp::source::from_callable([]() {return 49; }).subscribe([](int v) {std::cout << v << " "; });
+        // Output: 49
+        //! [from_callable]
+    }
     return 0;
 }

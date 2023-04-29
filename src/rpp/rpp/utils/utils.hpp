@@ -18,6 +18,8 @@
 
 namespace rpp::utils {
 
+struct none{};
+
 template<constraint::iterable T>
 using iterable_value_t = std::iter_value_t<decltype(std::begin(std::declval<T>()))>;
 

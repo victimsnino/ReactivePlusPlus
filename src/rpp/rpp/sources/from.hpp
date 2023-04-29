@@ -9,11 +9,12 @@
 
 #pragma once
 
-#include "rpp/defs.hpp"
+#include <rpp/defs.hpp>
 #include <rpp/sources/fwd.hpp>
 #include <rpp/observables/base_observable.hpp>
 #include <rpp/utils/utils.hpp>
 #include <rpp/schedulers/current_thread.hpp>
+#include <rpp/operators/map.hpp>
 
 #include <array>
 #include <exception>
@@ -263,5 +264,32 @@ template<constraint::memory_model memory_model /* = memory_model::use_stack */, 
 auto just(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...)
 {
     return details::make_from_iterable_observable(details::pack_variadic<memory_model, std::decay_t<T>>(std::forward<T>(item), std::forward<Ts>(items)...), schedulers::current_thread{});
+}
+
+/**
+ * @brief Creates rpp::specific_observable that calls provided callable and emits resulting value of this callable
+ * 
+ * @marble from_callable
+   {
+       operator "from_callable: [](){return 42;}": +-(42)--|
+   }
+ *
+ * @tparam memory_model rpp::memory_model strategy used to handle callable
+ *
+ * @par Example
+ * @snippet from.cpp from_callable
+ *
+ * @ingroup creational_operators
+ * @see https://reactivex.io/documentation/operators/from.html
+ */
+template<constraint::memory_model memory_model /* = memory_model::use_stack */>
+auto from_callable(std::invocable<> auto&& callable)
+{
+    auto obs = just<memory_model>(std::forward<decltype(callable)>(callable));
+
+    if constexpr (std::same_as<utils::decayed_invoke_result_t<decltype(callable)>, void>)
+        return std::move(obs) | rpp::operators::map([](auto&& fn) { fn(); return utils::none{};});
+    else
+        return std::move(obs) | rpp::operators::map([](auto&& fn) { return fn(); });
 }
 }

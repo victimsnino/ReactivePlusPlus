@@ -16,25 +16,25 @@
 namespace rpp::utils
 {
 template<typename T, typename = void>
-struct is_callable_t : std::false_type{};
+struct is_not_template_callable_t : std::false_type{};
 
 template<typename T>
-struct is_callable_t<T, std::void_t<decltype(&T::operator())>> : std::true_type{};
+struct is_not_template_callable_t<T, std::void_t<decltype(&T::operator())>> : std::true_type{};
 
 template<class T, class R, class... Args>
-struct is_callable_t<R (T::*)(Args ...) const> : std::true_type{};
+struct is_not_template_callable_t<R (T::*)(Args ...) const> : std::true_type{};
 
 template<class T, class R, class... Args>
-struct is_callable_t<R (T::*)(Args ...)> : std::true_type{};
+struct is_not_template_callable_t<R (T::*)(Args ...)> : std::true_type{};
 
 template<class R, class... Args>
-struct is_callable_t<R (*)(Args ...)> : std::true_type{};
+struct is_not_template_callable_t<R (*)(Args ...)> : std::true_type{};
 
 template<typename T>
-concept is_callable = is_callable_t<T>::value;
+concept is_not_template_callable = is_not_template_callable_t<T>::value;
 
 // Lambda
-template<is_callable T>
+template<is_not_template_callable T>
 struct function_traits : function_traits<decltype(&T::operator())> {};
 
 // Operator of lambda

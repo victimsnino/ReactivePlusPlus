@@ -57,6 +57,6 @@ concept observable = rpp::utils::details::extract_observable_type<std::decay_t<T
 template<typename Op, typename TObs>
 concept operators = requires(const Op& op, TObs obs) 
 {
-    {op(obs)} -> rpp::constraint::observable;
+    {op(static_cast<TObs>(obs))} -> rpp::constraint::observable;
 };
 }

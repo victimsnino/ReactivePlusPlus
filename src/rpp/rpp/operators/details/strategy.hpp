@@ -28,12 +28,13 @@ template<typename S, typename Type>
 concept operator_strategy = requires(const S& const_strategy,
                                      S& strategy,
                                      const Type& v,
+                                     Type&& mv,
                                      const disposable_wrapper disposable,
                                      const dynamic_observer<Type>& const_observer,
                                      dynamic_observer<Type>& observer)
 {
     const_strategy.on_next(const_observer, v);
-    const_strategy.on_next(const_observer, Type{});
+    const_strategy.on_next(const_observer, std::move(mv));
     const_strategy.on_error(const_observer, std::exception_ptr{});
     const_strategy.on_completed(const_observer);
 
