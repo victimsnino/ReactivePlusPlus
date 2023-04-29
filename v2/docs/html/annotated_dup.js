@@ -35,7 +35,9 @@ var annotated_dup =
           [ "map_observer_strategy", "structrpp_1_1operators_1_1details_1_1map__observer__strategy.html", "structrpp_1_1operators_1_1details_1_1map__observer__strategy" ],
           [ "map_t", "structrpp_1_1operators_1_1details_1_1map__t.html", "structrpp_1_1operators_1_1details_1_1map__t" ],
           [ "take_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__observer__strategy.html", "structrpp_1_1operators_1_1details_1_1take__observer__strategy" ],
-          [ "take_t", "structrpp_1_1operators_1_1details_1_1take__t.html", "structrpp_1_1operators_1_1details_1_1take__t" ]
+          [ "take_t", "structrpp_1_1operators_1_1details_1_1take__t.html", "structrpp_1_1operators_1_1details_1_1take__t" ],
+          [ "take_while_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html", "structrpp_1_1operators_1_1details_1_1take__while__observer__strategy" ],
+          [ "take_while_t", "structrpp_1_1operators_1_1details_1_1take__while__t.html", "structrpp_1_1operators_1_1details_1_1take__while__t" ]
         ] ],
         [ "subscribe", "classrpp_1_1operators_1_1subscribe.html", null ],
         [ "subscribe< base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1subscribe_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4.html", "classrpp_1_1operators_1_1subscribe_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4" ],

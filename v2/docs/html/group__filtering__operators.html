@@ -135,6 +135,7 @@ template&lt;typename Fn &gt; </div>
 </div><div class="memdoc">
 
 <p>Emit only those items from an Observable that satisfies a provided predicate. </p>
+<p>Sends items from observable while items are satisfy predicate. When condition becomes false -&gt; sends <code>on_completed</code></p>
 <div class="image">
 <object type="image/svg+xml" data="filter.svg" style="pointer-events: none;"></object>
 </div>
@@ -154,7 +155,25 @@ template&lt;typename Fn &gt; </div>
 <div class="ttc" id="aclassrpp_1_1operators_1_1subscribe_html"><div class="ttname"><a href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:22</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gace2e7ce42142e6838b2524bf1dc31923"><div class="ttname"><a href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</div><div class="ttdoc">Creates rpp::base_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:230</div></div>
 </div><!-- fragment --></dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/filter.html">https://reactivex.io/documentation/operators/filter.html</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/filter.html">https://reactivex.io/documentation/operators/filter.html</a></dd></dl>
+<div class="image">
+<object type="image/svg+xml" data="take_while.svg" style="pointer-events: none;"></object>
+</div>
+<p>Actually this operator just emits values while predicate returns true</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">predicate</td><td>is predicate used to check items </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new specific_observable with the take_while operator as most recent operator. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="take__while_8hpp_source.html">rpp/operators/take_while.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)</div>
+<div class="line">            | rpp::operators::take_while([](<span class="keywordtype">int</span> v) { <span class="keywordflow">return</span> v != 5; })</div>
+<div class="line">            | <a class="code" href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span>  v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 0 1 2 3 4</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/takewhile.html">https://reactivex.io/documentation/operators/takewhile.html</a> </dd></dl>
 
 </div>
 </div>

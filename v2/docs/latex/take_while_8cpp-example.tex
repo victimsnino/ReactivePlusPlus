@@ -1,0 +1,17 @@
+\hypertarget{take_while_8cpp-example}{}\doxysection{take\+\_\+while.\+cpp}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rpp/rpp.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main() \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gace2e7ce42142e6838b2524bf1dc31923}{rpp::source::just}}(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)}
+\DoxyCodeLine{            | rpp::operators::take\_while([](\textcolor{keywordtype}{int} v) \{ \textcolor{keywordflow}{return} v != 5; \})}
+\DoxyCodeLine{            | \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}  v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 0 1 2 3 4}}
+\DoxyCodeLine{\textcolor{comment}{}    \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

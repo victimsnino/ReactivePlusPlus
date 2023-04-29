@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"status.html#autotoc_md7":[0,2,4],
 "status.html#autotoc_md8":[0,2,5],
 "status.html#autotoc_md9":[0,2,6],
 "strategy_8hpp_source.html":[3,0,0,0,0,3,0,0],
@@ -48,6 +49,13 @@ var NAVTREEINDEX1 =
 "structrpp_1_1operators_1_1details_1_1take__t.html":[2,0,0,2,0,12],
 "structrpp_1_1operators_1_1details_1_1take__t.html#a1673c7161dd12f28641c91d9211df0a6":[2,0,0,2,0,12,0],
 "structrpp_1_1operators_1_1details_1_1take__t.html#a223ce5c0087e2247e011ef10e6dca6ba":[2,0,0,2,0,12,1],
+"structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html":[2,0,0,2,0,13],
+"structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html#a260a40025cd67dda1c7942489ff3df3a":[2,0,0,2,0,13,1],
+"structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html#af08469ebdbf998ac2029a0d49215f819":[2,0,0,2,0,13,0],
+"structrpp_1_1operators_1_1details_1_1take__while__t.html":[2,0,0,2,0,14],
+"structrpp_1_1operators_1_1details_1_1take__while__t.html#ab1ebc6bfb545d9506862edbc1c3fabf1":[2,0,0,2,0,14,0],
+"structrpp_1_1operators_1_1details_1_1take__while__t.html#abcbfb8abb0937c9ffb3a498b9ab2e601":[2,0,0,2,0,14,1],
+"structrpp_1_1operators_1_1details_1_1take__while__t.html#adbd8d4071345ea1a873189218a8281df":[2,0,0,2,0,14,2],
 "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html":[2,0,0,3,0,0,0],
 "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html":[2,0,0,3,0,0,1],
 "structrpp_1_1utils_1_1details_1_1extract__observable__type.html":[2,0,0,4,0,0],
@@ -59,6 +67,8 @@ var NAVTREEINDEX1 =
 "subscribe_8hpp_source.html":[3,0,0,0,0,3,4],
 "take_8cpp-example.html":[4,5],
 "take_8hpp_source.html":[3,0,0,0,0,3,5],
+"take__while_8hpp_source.html":[3,0,0,0,0,3,6],
+"take_while_8cpp-example.html":[4,6],
 "utils_8hpp_source.html":[3,0,0,0,0,4,0,1],
 "worker_8hpp_source.html":[3,0,0,0,0,4,0,2]
 };

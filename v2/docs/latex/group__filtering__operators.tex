@@ -34,6 +34,8 @@ rpp\+::operators\+::requires (\begin{DoxyParamCaption}\item[{!utils\+::is\+\_\+n
 
 Emit only those items from an Observable that satisfies a provided predicate. 
 
+Sends items from observable while items are satisfy predicate. When condition becomes false -\/$>$ sends {\ttfamily on\+\_\+completed}
+
 
 
 Actually this operator just checks if predicate returns true, then forwards emission
@@ -61,7 +63,36 @@ new specific\+\_\+observable with the Filter operator as most recent operator.
 
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators/filter.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/filter.\+html}} 
+\href{https://reactivex.io/documentation/operators/filter.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/filter.\+html}}
+\end{DoxySeeAlso}
+
+
+Actually this operator just emits values while predicate returns true
+
+
+\begin{DoxyParams}{Parameters}
+{\em predicate} & is predicate used to check items \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new specific\+\_\+observable with the take\+\_\+while operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include $<$\mbox{\hyperlink{take__while_8hpp_source}{rpp/operators/take\+\_\+while.\+hpp}}$>$
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gace2e7ce42142e6838b2524bf1dc31923}{rpp::source::just}}(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)}
+\DoxyCodeLine{            | rpp::operators::take\_while([](\textcolor{keywordtype}{int} v) \{ \textcolor{keywordflow}{return} v != 5; \})}
+\DoxyCodeLine{            | \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}  v) \{ std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 0 1 2 3 4}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/takewhile.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/takewhile.\+html}} 
 \end{DoxySeeAlso}
 \mbox{\Hypertarget{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}\label{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}} 
 \index{Filtering Operators@{Filtering Operators}!take@{take}}

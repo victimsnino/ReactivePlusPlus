@@ -63,6 +63,8 @@ var hierarchy =
     ] ],
     [ "rpp::operators::details::take_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__observer__strategy.html", null ],
     [ "rpp::operators::details::take_t", "structrpp_1_1operators_1_1details_1_1take__t.html", null ],
+    [ "rpp::operators::details::take_while_observer_strategy< Fn >", "structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html", null ],
+    [ "rpp::operators::details::take_while_t< Fn >", "structrpp_1_1operators_1_1details_1_1take__while__t.html", null ],
     [ "std::true_type", null, [
       [ "rpp::schedulers::constraint::details::is_worker< rpp::schedulers::worker< Strategy > >", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html", null ],
       [ "rpp::utils::details::extract_observable_type< rpp::base_observable< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observable__type_3_01rpp_1_1base__observable_3_01_t_t_00_01_strategy_01_4_01_4.html", null ],
