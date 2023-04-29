@@ -248,6 +248,25 @@ TEST_CASE("from callable", "[source][from]")
             }
         }
     }
+    SECTION("observable from callable with void")
+    {
+        size_t count_of_calls{};
+        auto callable = [&count_of_calls]() -> void { ++count_of_calls; };
+
+        auto observable = rpp::source::from_callable(callable);
+        auto none_mock = mock_observer_strategy<rpp::utils::none>{};
+
+        SECTION("subscribe on this observable")
+        {
+            observable.subscribe(none_mock.get_observer());
+            SECTION("callable called only once and observable returns value of this function")
+            {
+                CHECK(none_mock.get_received_values().size() == 1);
+                CHECK(none_mock.get_on_completed_count() == 1);
+                CHECK(count_of_calls == 1);
+            }
+        }
+    }
     SECTION("observable from callable with error")
     {
         volatile bool none{true};
