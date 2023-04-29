@@ -77,7 +77,7 @@
 
 ### Conditional
 
-- [ ] take_while
+- [x] take_while
 - [ ] all
 - [ ] amb
 - [ ] contains
