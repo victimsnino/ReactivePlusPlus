@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('just_8cpp-example.html',''); initResiz
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() <span class="comment">// NOLINT</span></div>
 <div class="line">{</div>
-<div class="line">    rpp::source::just(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <a name="a0"></a><a class="code" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a>(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 42 53 10 1</span></div>
 <div class="line"><span class="comment"></span> </div>
 <div class="line">    std::array&lt;int, 100&gt; expensive_to_copy_1{};</div>
@@ -111,9 +111,13 @@ $(document).ready(function(){initNavTree('just_8cpp-example.html',''); initResiz
 <div class="line">    rpp::source::just&lt;rpp::memory_model::use_shared&gt;(expensive_to_copy_1, expensive_to_copy_2).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// //! [just scheduler]</span></div>
-<div class="line">    <span class="comment">// rpp::source::just(rpp::schedulers::new_thread{}, 42, 53).subscribe();</span></div>
+<div class="line">    <a class="code" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a>(<a name="_a1"></a><a class="code" href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a>{}, 42, 53).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
+<div class="line">    <a class="code" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a>(<a name="_a2"></a><a class="code" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{}, 42, 53).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
 <div class="line">    <span class="comment">// //! [just scheduler]</span></div>
 <div class="line">}</div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1current__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a></div><div class="ttdoc">Schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition:</b> current_thread.hpp:31</div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1immediate_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a></div><div class="ttdoc">immediately calls provided schedulable or waits for time_point (in the caller-thread)</div><div class="ttdef"><b>Definition:</b> immediate.hpp:26</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gace2e7ce42142e6838b2524bf1dc31923"><div class="ttname"><a href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</div><div class="ttdoc">Creates rpp::base_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:229</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

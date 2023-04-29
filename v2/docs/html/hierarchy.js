@@ -14,6 +14,7 @@ var hierarchy =
       [ "rpp::base_observer< TT, ObserverStrategy >", "classrpp_1_1base__observer.html", null ],
       [ "rpp::base_observer< Type, Strategy >", "classrpp_1_1base__observer.html", null ]
     ] ],
+    [ "rpp::details::container_with_iterator< Container >", "classrpp_1_1details_1_1container__with__iterator.html", null ],
     [ "rpp::details::create_strategy< Type, OnSubscribe >", "structrpp_1_1details_1_1create__strategy.html", null ],
     [ "rpp::schedulers::current_thread", "classrpp_1_1schedulers_1_1current__thread.html", null ],
     [ "rpp::disposable_wrapper", "classrpp_1_1disposable__wrapper.html", null ],
@@ -28,7 +29,7 @@ var hierarchy =
     [ "rpp::operators::details::forwarding_on_error_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__on__error__strategy.html", null ],
     [ "rpp::operators::details::forwarding_on_next_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__on__next__strategy.html", null ],
     [ "rpp::operators::details::forwarding_set_upstream_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy.html", null ],
-    [ "rpp::details::from_iterable_strategy< PackedContainer >", "structrpp_1_1details_1_1from__iterable__strategy.html", null ],
+    [ "rpp::details::from_iterable_strategy< PackedContainer, TScheduler >", "structrpp_1_1details_1_1from__iterable__strategy.html", null ],
     [ "rpp::schedulers::immediate", "classrpp_1_1schedulers_1_1immediate.html", null ],
     [ "rpp::details::observer::lambda_strategy< Type, OnNext, OnError, OnCompleted >", "structrpp_1_1details_1_1observer_1_1lambda__strategy.html", null ],
     [ "rpp::operators::details::map_observer_strategy< Fn >", "structrpp_1_1operators_1_1details_1_1map__observer__strategy.html", null ],

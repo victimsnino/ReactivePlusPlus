@@ -9,7 +9,13 @@ Creational operators are operators that create new observable.
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe$<$ Type $>$ On\+Subscribe$>$ }\\auto \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{rpp\+::source\+::create}} (On\+Subscribe \&\&on\+\_\+subscribe)
-\begin{DoxyCompactList}\small\item\em Construct observable specialized with passed callback function. Most easiesest way to construct observable \char`\"{}on the fly\char`\"{} via lambda and etc. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Construct observable specialized with passed callback function. Most easiesest way to construct observable \char`\"{}on the fly\char`\"{} via lambda and etc. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::memory\+\_\+model memory\+\_\+model, schedulers\+::constraint\+::scheduler TScheduler$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga08b06422b6486a2107cf8012293bb29f}{rpp\+::source\+::from\+\_\+iterable}} (constraint\+::iterable auto \&\&iterable, const TScheduler \&scheduler)
+\begin{DoxyCompactList}\small\item\em Creates observable that emits a items from provided iterable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::memory\+\_\+model memory\+\_\+model, typename T , typename ... Ts$>$ }\\auto \mbox{\hyperlink{group__creational__operators_gace2e7ce42142e6838b2524bf1dc31923}{rpp\+::source\+::just}} (const schedulers\+::constraint\+::scheduler auto \&scheduler, T \&\&item, Ts \&\&...items) requires(constraint
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}} that emits a particular items and completes. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::memory\+\_\+model memory\+\_\+model, typename T , typename ... Ts$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga39f9f32332614fe2c96912fe137de691}{rpp\+::source\+::just}} (T \&\&item, Ts \&\&...items) requires(constraint
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}} that emits a particular items and completes. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -113,4 +119,171 @@ Be sure, that your callback doesn\textquotesingle{}t violates observable rules\+
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__creational__operators_ga08b06422b6486a2107cf8012293bb29f}\label{group__creational__operators_ga08b06422b6486a2107cf8012293bb29f}} 
+\index{Creational Operators@{Creational Operators}!from\_iterable@{from\_iterable}}
+\index{from\_iterable@{from\_iterable}!Creational Operators@{Creational Operators}}
+\doxysubsubsection{\texorpdfstring{from\_iterable()}{from\_iterable()}}
+{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model memory\+\_\+model, schedulers\+::constraint\+::scheduler TScheduler$>$ \\
+auto rpp\+::source\+::from\+\_\+iterable (\begin{DoxyParamCaption}\item[{constraint\+::iterable auto \&\&}]{iterable,  }\item[{const TScheduler \&}]{scheduler }\end{DoxyParamCaption})}
+
+
+
+Creates observable that emits a items from provided iterable. 
+
+
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em memory\+\_\+model} & rpp\+::memory\+\_\+model strategy used to handle provided iterable \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em scheduler} & is scheduler used for scheduling of submissions\+: next item will be submitted to scheduler when previous one is executed \\
+\hline
+{\em iterable} & container with values which will be flattened\\
+\hline
+\end{DoxyParams}
+\begin{DoxyParagraph}{Examples\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
+\DoxyCodeLine{        \mbox{\hyperlink{group__creational__operators_ga08b06422b6486a2107cf8012293bb29f}{rpp::source::from\_iterable}}(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
+\DoxyCodeLine{        rpp::source::from\_iterable<rpp::memory\_model::use\_shared>(vals).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{        std::vector<int> vals\{ 1,2,3 \};}
+\DoxyCodeLine{        \mbox{\hyperlink{group__creational__operators_ga08b06422b6486a2107cf8012293bb29f}{rpp::source::from\_iterable}}(vals, \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\}).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{        \mbox{\hyperlink{group__creational__operators_ga08b06422b6486a2107cf8012293bb29f}{rpp::source::from\_iterable}}(vals, \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\}).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/from.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/from.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{from_8cpp-example}{from.\+cpp}}, and \mbox{\hyperlink{take_8cpp-example}{take.\+cpp}}.\end{Desc}
+\mbox{\Hypertarget{group__creational__operators_gace2e7ce42142e6838b2524bf1dc31923}\label{group__creational__operators_gace2e7ce42142e6838b2524bf1dc31923}} 
+\index{Creational Operators@{Creational Operators}!just@{just}}
+\index{just@{just}!Creational Operators@{Creational Operators}}
+\doxysubsubsection{\texorpdfstring{just()}{just()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model memory\+\_\+model, typename T , typename ... Ts$>$ \\
+auto rpp\+::source\+::just (\begin{DoxyParamCaption}\item[{const schedulers\+::constraint\+::scheduler auto \&}]{scheduler,  }\item[{T \&\&}]{item,  }\item[{Ts \&\&...}]{items }\end{DoxyParamCaption})}
+
+
+
+Creates \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}} that emits a particular items and completes. 
+
+
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em memory\+\_\+model} & rpp\+::memory\+\_\+model startegy used to handle provided items \\
+\hline
+{\em Scheduler} & type of scheduler used for scheduling of submissions\+: next item will be submitted to scheduler when previous one is executed \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em item} & first value to be sent \\
+\hline
+{\em items} & rest values to be sent \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}} which emits provided items
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Examples\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gace2e7ce42142e6838b2524bf1dc31923}{rpp::source::just}}(42, 53, 10, 1).subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42 53 10 1}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    std::array<int, 100> expensive\_to\_copy\_1\{\};}
+\DoxyCodeLine{    std::array<int, 100> expensive\_to\_copy\_2\{\};}
+\DoxyCodeLine{    rpp::source::just<rpp::memory\_model::use\_shared>(expensive\_to\_copy\_1, expensive\_to\_copy\_2).subscribe([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\&)\{\});}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gace2e7ce42142e6838b2524bf1dc31923}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\}, 42, 53).subscribe([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\&)\{\});}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gace2e7ce42142e6838b2524bf1dc31923}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\}, 42, 53).subscribe([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\&)\{\});}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/just.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/just.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{just_8cpp-example}{just.\+cpp}}, and \mbox{\hyperlink{map_8cpp-example}{map.\+cpp}}.\end{Desc}
+\mbox{\Hypertarget{group__creational__operators_ga39f9f32332614fe2c96912fe137de691}\label{group__creational__operators_ga39f9f32332614fe2c96912fe137de691}} 
+\index{Creational Operators@{Creational Operators}!just@{just}}
+\index{just@{just}!Creational Operators@{Creational Operators}}
+\doxysubsubsection{\texorpdfstring{just()}{just()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model memory\+\_\+model, typename T , typename ... Ts$>$ \\
+auto rpp\+::source\+::just (\begin{DoxyParamCaption}\item[{T \&\&}]{item,  }\item[{Ts \&\&...}]{items }\end{DoxyParamCaption})}
+
+
+
+Creates \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}} that emits a particular items and completes. 
+
+\begin{DoxyWarning}{Warning}
+this overloading uses trampoline scheduler as default
+\end{DoxyWarning}
+
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em memory\+\_\+model} & rpp\+::memory\+\_\+model strategy used to handle provided items \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em item} & first value to be sent \\
+\hline
+{\em items} & rest values to be sent \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}} which emits provided items
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Examples\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gace2e7ce42142e6838b2524bf1dc31923}{rpp::source::just}}(42, 53, 10, 1).subscribe([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
+\DoxyCodeLine{    \textcolor{comment}{// Output: 42 53 10 1}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    std::array<int, 100> expensive\_to\_copy\_1\{\};}
+\DoxyCodeLine{    std::array<int, 100> expensive\_to\_copy\_2\{\};}
+\DoxyCodeLine{    rpp::source::just<rpp::memory\_model::use\_shared>(expensive\_to\_copy\_1, expensive\_to\_copy\_2).subscribe([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\&)\{\});}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gace2e7ce42142e6838b2524bf1dc31923}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\}, 42, 53).subscribe([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\&)\{\});}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gace2e7ce42142e6838b2524bf1dc31923}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\}, 42, 53).subscribe([](\textcolor{keyword}{const} \textcolor{keyword}{auto}\&)\{\});}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/just.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/just.\+html}} 
 \end{DoxySeeAlso}

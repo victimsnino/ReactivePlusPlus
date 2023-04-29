@@ -53,7 +53,7 @@ new \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}}
 \begin{DoxyParagraph}{Example with same type\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(42) }
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gace2e7ce42142e6838b2524bf1dc31923}{rpp::source::just}}(42) }
 \DoxyCodeLine{        | \mbox{\hyperlink{group__transforming__operators_gafa8770084a6551a0eff47efda216a490}{rpp::operators::map}}([](\textcolor{keywordtype}{int} value) \{ \textcolor{keywordflow}{return} value + 10; \}) }
 \DoxyCodeLine{        | \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int} v) \{ std::cout << v << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 52}}
@@ -64,7 +64,7 @@ new \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}}
 \begin{DoxyParagraph}{Example with changed type\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{    rpp::source::just(42)}
+\DoxyCodeLine{    \mbox{\hyperlink{group__creational__operators_gace2e7ce42142e6838b2524bf1dc31923}{rpp::source::just}}(42)}
 \DoxyCodeLine{            | \mbox{\hyperlink{group__transforming__operators_gafa8770084a6551a0eff47efda216a490}{rpp::operators::map}}([](\textcolor{keywordtype}{int} value) \{ \textcolor{keywordflow}{return} std::to\_string(value) + \textcolor{stringliteral}{"{} VAL"{}}; \})}
 \DoxyCodeLine{            | \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keyword}{const} std::string\& v) \{ std::cout << v << std::endl; \});}
 \DoxyCodeLine{    \textcolor{comment}{// Output: 42 VAL}}

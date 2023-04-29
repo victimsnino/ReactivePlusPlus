@@ -109,32 +109,38 @@ $(document).ready(function(){initNavTree('sources_2fwd_8hpp_source.html',''); in
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;rpp/observers/fwd.hpp&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/constraints.hpp&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;rpp/memory_model.hpp&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>rpp::constraint</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> S, <span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;concept on_subscribe = requires(<span class="keyword">const</span> S&amp; strategy, dynamic_observer&lt;T&gt;&amp;&amp; observer) {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    strategy(std::move(observer))} -&gt; std::same_as&lt;void&gt;;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">namespace </span>rpp::source</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::on_subscribe&lt;Type&gt; OnSubscribe&gt;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">auto</span> <a class="code" href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">create</a>(OnSubscribe&amp;&amp; on_subscribe);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> OnSubscribe, constra<span class="keywordtype">int</span>::decayed_type Type = rpp::utils::extract_observer_type_t&lt;rpp::utils::decayed_function_argument_t&lt;OnSubscribe&gt;&gt;&gt;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">auto</span> <a class="code" href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">create</a>(OnSubscribe&amp;&amp; on_subscribe);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">template</span>&lt;constraint::memory_model memory_model= memory_model::use_stack<span class="comment">/*, schedulers::constraint::scheduler TScheduler = schedulers::trampoline*/</span>&gt;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">auto</span> from_iterable(constraint::iterable <span class="keyword">auto</span>&amp;&amp; iterable) ;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">template</span>&lt;constraint::memory_model memory_model = memory_model::use_stack, <span class="keyword">typename</span> T, <span class="keyword">typename</span> ...Ts&gt;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">auto</span> just(T&amp;&amp; item, Ts&amp;&amp; ...items) requires (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace rpp::source</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;rpp/schedulers/fwd.hpp&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;rpp/utils/constraints.hpp&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;rpp/memory_model.hpp&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>rpp::constraint</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> S, <span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;concept on_subscribe = requires(<span class="keyword">const</span> S&amp; strategy, dynamic_observer&lt;T&gt;&amp;&amp; observer) {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    strategy(std::move(observer))} -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;};</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">namespace </span>rpp::source</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::on_subscribe&lt;Type&gt; OnSubscribe&gt;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">auto</span> <a class="code" href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">create</a>(OnSubscribe&amp;&amp; on_subscribe);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> OnSubscribe, constra<span class="keywordtype">int</span>::decayed_type Type = rpp::utils::extract_observer_type_t&lt;rpp::utils::decayed_function_argument_t&lt;OnSubscribe&gt;&gt;&gt;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">auto</span> <a class="code" href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">create</a>(OnSubscribe&amp;&amp; on_subscribe);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::memory_model memory_model= memory_model::use_stack, schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler = schedulers::current_thread&gt;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">auto</span> <a class="code" href="group__creational__operators.html#ga08b06422b6486a2107cf8012293bb29f">from_iterable</a>(constraint::iterable <span class="keyword">auto</span>&amp;&amp; iterable, <span class="keyword">const</span> TScheduler&amp; scheduler = TScheduler{});</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">template</span>&lt;constraint::memory_model memory_model = memory_model::use_stack, <span class="keyword">typename</span> T, <span class="keyword">typename</span> ...Ts&gt;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">auto</span> <a class="code" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">just</a>(T&amp;&amp; item, Ts&amp;&amp; ...items) requires (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">template</span>&lt;constraint::memory_model memory_model = memory_model::use_stack, <span class="keyword">typename</span> T, <span class="keyword">typename</span> ...Ts&gt;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">auto</span> <a class="code" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">just</a>(<span class="keyword">const</span> schedulers::constraint::scheduler <span class="keyword">auto</span>&amp; scheduler, T&amp;&amp; item, Ts&amp;&amp; ...items) requires (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace rpp::source</span></div>
+<div class="ttc" id="agroup__creational__operators_html_ga08b06422b6486a2107cf8012293bb29f"><div class="ttname"><a href="group__creational__operators.html#ga08b06422b6486a2107cf8012293bb29f">rpp::source::from_iterable</a></div><div class="ttdeci">auto from_iterable(constraint::iterable auto &amp;&amp;iterable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Creates observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition:</b> from.hpp:204</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gace2e7ce42142e6838b2524bf1dc31923"><div class="ttname"><a href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</div><div class="ttdoc">Creates rpp::base_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:229</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gae68c87e7ae3a505258b733082bf68513"><div class="ttname"><a href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">rpp::source::create</a></div><div class="ttdeci">auto create(OnSubscribe &amp;&amp;on_subscribe)</div><div class="ttdoc">Construct observable specialized with passed callback function. Most easiesest way to construct obser...</div><div class="ttdef"><b>Definition:</b> create.hpp:50</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

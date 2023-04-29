@@ -14,6 +14,7 @@ var annotated_dup =
         [ "with_disposable", "structrpp_1_1details_1_1with__disposable.html", "structrpp_1_1details_1_1with__disposable" ],
         [ "create_strategy", "structrpp_1_1details_1_1create__strategy.html", "structrpp_1_1details_1_1create__strategy" ],
         [ "shared_container", "classrpp_1_1details_1_1shared__container.html", "classrpp_1_1details_1_1shared__container" ],
+        [ "container_with_iterator", "classrpp_1_1details_1_1container__with__iterator.html", "classrpp_1_1details_1_1container__with__iterator" ],
         [ "from_iterable_strategy", "structrpp_1_1details_1_1from__iterable__strategy.html", "structrpp_1_1details_1_1from__iterable__strategy" ]
       ] ],
       [ "memory_model", null, [

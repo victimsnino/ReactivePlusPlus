@@ -108,6 +108,18 @@ Functions</h2></td></tr>
 <tr class="memitem:gae68c87e7ae3a505258b733082bf68513"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">rpp::source::create</a> (OnSubscribe &amp;&amp;on_subscribe)</td></tr>
 <tr class="memdesc:gae68c87e7ae3a505258b733082bf68513"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct observable specialized with passed callback function. Most easiesest way to construct observable "on the fly" via lambda and etc.  <a href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">More...</a><br /></td></tr>
 <tr class="separator:gae68c87e7ae3a505258b733082bf68513"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga08b06422b6486a2107cf8012293bb29f"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model memory_model, schedulers::constraint::scheduler TScheduler&gt; </td></tr>
+<tr class="memitem:ga08b06422b6486a2107cf8012293bb29f"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga08b06422b6486a2107cf8012293bb29f">rpp::source::from_iterable</a> (constraint::iterable auto &amp;&amp;iterable, const TScheduler &amp;scheduler)</td></tr>
+<tr class="memdesc:ga08b06422b6486a2107cf8012293bb29f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates observable that emits a items from provided iterable.  <a href="group__creational__operators.html#ga08b06422b6486a2107cf8012293bb29f">More...</a><br /></td></tr>
+<tr class="separator:ga08b06422b6486a2107cf8012293bb29f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gace2e7ce42142e6838b2524bf1dc31923"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model memory_model, typename T , typename ... Ts&gt; </td></tr>
+<tr class="memitem:gace2e7ce42142e6838b2524bf1dc31923"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a> (const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</td></tr>
+<tr class="memdesc:gace2e7ce42142e6838b2524bf1dc31923"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::base_observable</a> that emits a particular items and completes.  <a href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">More...</a><br /></td></tr>
+<tr class="separator:gace2e7ce42142e6838b2524bf1dc31923"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga39f9f32332614fe2c96912fe137de691"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model memory_model, typename T , typename ... Ts&gt; </td></tr>
+<tr class="memitem:ga39f9f32332614fe2c96912fe137de691"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga39f9f32332614fe2c96912fe137de691">rpp::source::just</a> (T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</td></tr>
+<tr class="memdesc:ga39f9f32332614fe2c96912fe137de691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::base_observable</a> that emits a particular items and completes.  <a href="group__creational__operators.html#ga39f9f32332614fe2c96912fe137de691">More...</a><br /></td></tr>
+<tr class="separator:ga39f9f32332614fe2c96912fe137de691"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Creational operators are operators that create new observable. </p>
@@ -184,6 +196,195 @@ template&lt;constraint::decayed_type Type, constraint::on_subscribe&lt; Type &gt
 <div class="line">    <span class="comment">// Output: 42</span></div>
 </div><!-- fragment --> <div class="fragment"></div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/create.html">https://reactivex.io/documentation/operators/create.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga08b06422b6486a2107cf8012293bb29f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga08b06422b6486a2107cf8012293bb29f">&#9670;&nbsp;</a></span>from_iterable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::memory_model memory_model, schedulers::constraint::scheduler TScheduler&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::source::from_iterable </td>
+          <td>(</td>
+          <td class="paramtype">constraint::iterable auto &amp;&amp;&#160;</td>
+          <td class="paramname"><em>iterable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TScheduler &amp;&#160;</td>
+          <td class="paramname"><em>scheduler</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates observable that emits a items from provided iterable. </p>
+<div class="image">
+<object type="image/svg+xml" data="from_iterable.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">memory_model</td><td>rpp::memory_model strategy used to handle provided iterable </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scheduler</td><td>is scheduler used for scheduling of submissions: next item will be submitted to scheduler when previous one is executed </td></tr>
+    <tr><td class="paramname">iterable</td><td>container with values which will be flattened</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">        std::vector&lt;int&gt; vals{ 1,2,3 };</div>
+<div class="line">        <a class="code" href="group__creational__operators.html#ga08b06422b6486a2107cf8012293bb29f">rpp::source::from_iterable</a>(vals).subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="ttc" id="agroup__creational__operators_html_ga08b06422b6486a2107cf8012293bb29f"><div class="ttname"><a href="group__creational__operators.html#ga08b06422b6486a2107cf8012293bb29f">rpp::source::from_iterable</a></div><div class="ttdeci">auto from_iterable(constraint::iterable auto &amp;&amp;iterable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Creates observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition:</b> from.hpp:204</div></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">        std::vector&lt;int&gt; vals{ 1,2,3 };</div>
+<div class="line">        rpp::source::from_iterable&lt;rpp::memory_model::use_shared&gt;(vals).subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">        std::vector&lt;int&gt; vals{ 1,2,3 };</div>
+<div class="line">        <a class="code" href="group__creational__operators.html#ga08b06422b6486a2107cf8012293bb29f">rpp::source::from_iterable</a>(vals, <a class="code" href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a>{}).subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">        <a class="code" href="group__creational__operators.html#ga08b06422b6486a2107cf8012293bb29f">rpp::source::from_iterable</a>(vals, <a class="code" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{}).subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1current__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a></div><div class="ttdoc">Schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition:</b> current_thread.hpp:31</div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1immediate_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a></div><div class="ttdoc">immediately calls provided schedulable or waits for time_point (in the caller-thread)</div><div class="ttdef"><b>Definition:</b> immediate.hpp:26</div></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/from.html">https://reactivex.io/documentation/operators/from.html</a> </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="from_8cpp-example.html#a0">from.cpp</a>, and <a class="el" href="take_8cpp-example.html#a0">take.cpp</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="gace2e7ce42142e6838b2524bf1dc31923"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gace2e7ce42142e6838b2524bf1dc31923">&#9670;&nbsp;</a></span>just() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::memory_model memory_model, typename T , typename ... Ts&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::source::just </td>
+          <td>(</td>
+          <td class="paramtype">const schedulers::constraint::scheduler auto &amp;&#160;</td>
+          <td class="paramname"><em>scheduler</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T &amp;&amp;&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ts &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>items</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates <a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::base_observable</a> that emits a particular items and completes. </p>
+<div class="image">
+<object type="image/svg+xml" data="just.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">memory_model</td><td>rpp::memory_model startegy used to handle provided items </td></tr>
+    <tr><td class="paramname">Scheduler</td><td>type of scheduler used for scheduling of submissions: next item will be submitted to scheduler when previous one is executed </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">item</td><td>first value to be sent </td></tr>
+    <tr><td class="paramname">items</td><td>rest values to be sent </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::base_observable</a> which emits provided items</dd></dl>
+<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a>(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 42 53 10 1</span></div>
+<div class="ttc" id="agroup__creational__operators_html_gace2e7ce42142e6838b2524bf1dc31923"><div class="ttname"><a href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</div><div class="ttdoc">Creates rpp::base_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:229</div></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    std::array&lt;int, 100&gt; expensive_to_copy_1{};</div>
+<div class="line">    std::array&lt;int, 100&gt; expensive_to_copy_2{};</div>
+<div class="line">    rpp::source::just&lt;rpp::memory_model::use_shared&gt;(expensive_to_copy_1, expensive_to_copy_2).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a>(<a class="code" href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a>{}, 42, 53).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
+<div class="line">    <a class="code" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a>(<a class="code" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{}, 42, 53).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/just.html">https://reactivex.io/documentation/operators/just.html</a> </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="just_8cpp-example.html#a0">just.cpp</a>, and <a class="el" href="map_8cpp-example.html#a0">map.cpp</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="ga39f9f32332614fe2c96912fe137de691"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga39f9f32332614fe2c96912fe137de691">&#9670;&nbsp;</a></span>just() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::memory_model memory_model, typename T , typename ... Ts&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::source::just </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&amp;&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ts &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>items</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates <a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::base_observable</a> that emits a particular items and completes. </p>
+<dl class="section warning"><dt>Warning</dt><dd>this overloading uses trampoline scheduler as default</dd></dl>
+<div class="image">
+<object type="image/svg+xml" data="just.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">memory_model</td><td>rpp::memory_model strategy used to handle provided items </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">item</td><td>first value to be sent </td></tr>
+    <tr><td class="paramname">items</td><td>rest values to be sent </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::base_observable</a> which emits provided items</dd></dl>
+<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a>(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output: 42 53 10 1</span></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    std::array&lt;int, 100&gt; expensive_to_copy_1{};</div>
+<div class="line">    std::array&lt;int, 100&gt; expensive_to_copy_2{};</div>
+<div class="line">    rpp::source::just&lt;rpp::memory_model::use_shared&gt;(expensive_to_copy_1, expensive_to_copy_2).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a>(<a class="code" href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a>{}, 42, 53).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
+<div class="line">    <a class="code" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a>(<a class="code" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{}, 42, 53).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/just.html">https://reactivex.io/documentation/operators/just.html</a> </dd></dl>
 
 </div>
 </div>

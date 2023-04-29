@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['map_144',['map',['../group__transforming__operators.html#gafa8770084a6551a0eff47efda216a490',1,'rpp::operators']]]
+  ['is_5fdisposed_148',['is_disposed',['../classrpp_1_1details_1_1base__observer__impl.html#a7f862e21ba7ced64ebb98d5c7517deaa',1,'rpp::details::base_observer_impl']]]
 ];

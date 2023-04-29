@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['map_37',['map',['../group__transforming__operators.html#gafa8770084a6551a0eff47efda216a490',1,'rpp::operators']]],
-  ['map_5fobserver_5fstrategy_38',['map_observer_strategy',['../structrpp_1_1operators_1_1details_1_1map__observer__strategy.html',1,'rpp::operators::details']]],
-  ['map_5ft_39',['map_t',['../structrpp_1_1operators_1_1details_1_1map__t.html',1,'rpp::operators::details']]]
+  ['lambda_5fstrategy_38',['lambda_strategy',['../structrpp_1_1details_1_1observer_1_1lambda__strategy.html',1,'rpp::details::observer']]],
+  ['local_5fdisposable_5fstrategy_39',['local_disposable_strategy',['../classrpp_1_1details_1_1local__disposable__strategy.html',1,'rpp::details']]]
 ];
