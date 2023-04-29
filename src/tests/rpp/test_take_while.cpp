@@ -28,7 +28,18 @@ TEST_CASE("take_while")
                 sub.on_next(v++);
         });
 
-    obs | rpp::operators::take_while([](int val) { return val <= 5; }) | rpp::operators::subscribe(mock.get_observer());
+    SECTION("take while val <= 5")
+    {
+        obs | rpp::operators::take_while([](int val) { return val <= 5; }) | rpp::operators::subscribe(mock.get_observer());
 
-    CHECK(mock.get_received_values() == std::vector{0, 1, 2, 3, 4, 5});
+        CHECK(mock.get_received_values() == std::vector{0, 1, 2, 3, 4, 5});
+    }
+
+    SECTION("take while false")
+    {
+        auto op=rpp::operators::take_while([](auto) { return false; });
+        obs | op | rpp::operators::subscribe(mock.get_observer());
+
+        CHECK(mock.get_received_values().empty());
+    }
 }
