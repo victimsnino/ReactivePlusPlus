@@ -32,7 +32,9 @@ concept iterable = requires(R& rng)
 };
 
 template<typename T, typename...Args>
-concept is_constructible_from = requires(Args...args) {
+concept is_constructible_from = requires(Args...args) 
+{
     {T{static_cast<Args&&>(args)...}} -> std::same_as<T>;
 };
+
 } // namespace rpp::constraint

@@ -46,7 +46,7 @@ namespace details
 
 } // namespace details
 template<typename T>
-using extract_observable_type_t = typename details::extract_observable_type<T>::type;
+using extract_observable_type_t = typename details::extract_observable_type<std::decay_t<T>>::type;
 } // namespace rpp::utils
 
 namespace rpp::constraint 

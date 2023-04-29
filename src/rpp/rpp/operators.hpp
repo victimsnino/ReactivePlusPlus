@@ -36,4 +36,6 @@
  * @see https://reactivex.io/documentation/operators.html#filtering
  * @ingroup operators
  */
+
+ #include <rpp/operators/filter.hpp>
  #include <rpp/operators/take.hpp>
