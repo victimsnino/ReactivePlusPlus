@@ -4,7 +4,7 @@
 /**
  * \example take_while.cpp
  **/
-int main()
+int main() // NOLINT
 {
     //! [take_while]
     rpp::source::just(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
