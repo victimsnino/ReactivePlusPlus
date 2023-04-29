@@ -6,7 +6,7 @@
  * \example from.cpp
  **/
 
-int main() // NOLINT
+int main()
 {
     {
         //! [from_iterable]

@@ -6,7 +6,7 @@
  * \example map.cpp
  **/
 
-int main() // NOLINT
+int main()
 {
     //! [Same type]
     rpp::source::just(42) 
