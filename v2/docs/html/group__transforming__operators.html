@@ -104,17 +104,17 @@ $(document).ready(function(){initNavTree('group__transforming__operators.html','
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga98c209458f11aad08f0da295e231d6c0"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; </td></tr>
-<tr class="memitem:ga98c209458f11aad08f0da295e231d6c0"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#ga98c209458f11aad08f0da295e231d6c0">rpp::operators::requires</a> (!utils::is_callable&lt; Fn &gt;||!std::same_as&lt; void, std::invoke_result_t&lt; Fn, utils::convertible_to_any &gt;&gt;) auto map(Fn &amp;&amp;callable)</td></tr>
-<tr class="memdesc:ga98c209458f11aad08f0da295e231d6c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform the items emitted by an Observable via applying a function to each item and emitting result.  <a href="group__transforming__operators.html#ga98c209458f11aad08f0da295e231d6c0">More...</a><br /></td></tr>
-<tr class="separator:ga98c209458f11aad08f0da295e231d6c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae34ba856f898543f469ccbb3ba3b1109"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; </td></tr>
+<tr class="memitem:gae34ba856f898543f469ccbb3ba3b1109"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gae34ba856f898543f469ccbb3ba3b1109">rpp::operators::requires</a> (!utils::is_not_template_callable&lt; Fn &gt;||!std::same_as&lt; void, std::invoke_result_t&lt; Fn, utils::convertible_to_any &gt;&gt;) auto map(Fn &amp;&amp;callable)</td></tr>
+<tr class="memdesc:gae34ba856f898543f469ccbb3ba3b1109"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform the items emitted by an Observable via applying a function to each item and emitting result.  <a href="group__transforming__operators.html#gae34ba856f898543f469ccbb3ba3b1109">More...</a><br /></td></tr>
+<tr class="separator:gae34ba856f898543f469ccbb3ba3b1109"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Transforming operators are operators that transform items provided by observable. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#transforming">https://reactivex.io/documentation/operators.html#transforming</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga98c209458f11aad08f0da295e231d6c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga98c209458f11aad08f0da295e231d6c0">&#9670;&nbsp;</a></span>requires()</h2>
+<a id="gae34ba856f898543f469ccbb3ba3b1109"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae34ba856f898543f469ccbb3ba3b1109">&#9670;&nbsp;</a></span>requires()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -124,7 +124,7 @@ template&lt;typename Fn &gt; </div>
         <tr>
           <td class="memname">rpp::operators::requires </td>
           <td>(</td>
-          <td class="paramtype">!utils::is_callable&lt; Fn &gt;||!std::same_as&lt; void, std::invoke_result_t&lt; Fn, utils::convertible_to_any &gt;&gt;&#160;</td>
+          <td class="paramtype">!utils::is_not_template_callable&lt; Fn &gt;||!std::same_as&lt; void, std::invoke_result_t&lt; Fn, utils::convertible_to_any &gt;&gt;&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> &amp;&amp;</td>
         </tr>
@@ -150,7 +150,7 @@ template&lt;typename Fn &gt; </div>
 <div class="line">        | <a class="code" href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 52</span></div>
 <div class="ttc" id="aclassrpp_1_1operators_1_1subscribe_html"><div class="ttname"><a href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:22</div></div>
-<div class="ttc" id="agroup__creational__operators_html_gace2e7ce42142e6838b2524bf1dc31923"><div class="ttname"><a href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</div><div class="ttdoc">Creates rpp::base_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:229</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gace2e7ce42142e6838b2524bf1dc31923"><div class="ttname"><a href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a></div><div class="ttdeci">auto just(const schedulers::constraint::scheduler auto &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items) requires(constraint</div><div class="ttdoc">Creates rpp::base_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:230</div></div>
 </div><!-- fragment --> </dd></dl>
 <dl class="section user"><dt>Example with changed type:</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__creational__operators.html#gace2e7ce42142e6838b2524bf1dc31923">rpp::source::just</a>(42)</div>
 <div class="line">            | rpp::operators::map([](<span class="keywordtype">int</span> value) { <span class="keywordflow">return</span> std::to_string(value) + <span class="stringliteral">&quot; VAL&quot;</span>; })</div>

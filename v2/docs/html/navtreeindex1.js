@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"status.html#autotoc_md8":[0,2,5],
 "status.html#autotoc_md9":[0,2,6],
 "strategy_8hpp_source.html":[3,0,0,0,0,3,0,0],
 "structrpp_1_1details_1_1create__strategy.html":[2,0,0,0,7],

@@ -8,7 +8,7 @@ Filtering operators are operators that emit only part of items that satisfies so
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename Fn $>$ }\\\mbox{\hyperlink{group__filtering__operators_ga2abd3c94ab456e3e1227ea3c330c038b}{rpp\+::operators\+::requires}} (!utils\+::is\+\_\+callable$<$ Fn $>$$\vert$$\vert$std\+::same\+\_\+as$<$ bool, std\+::invoke\+\_\+result\+\_\+t$<$ Fn, utils\+::convertible\+\_\+to\+\_\+any $>$$>$) auto filter(Fn \&\&callable)
+{\footnotesize template$<$typename Fn $>$ }\\\mbox{\hyperlink{group__filtering__operators_gaf730bd818d3f7cb017ba8b2f89113543}{rpp\+::operators\+::requires}} (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$ Fn $>$$\vert$$\vert$std\+::same\+\_\+as$<$ bool, std\+::invoke\+\_\+result\+\_\+t$<$ Fn, utils\+::convertible\+\_\+to\+\_\+any $>$$>$) auto filter(Fn \&\&callable)
 \begin{DoxyCompactList}\small\item\em Emit only those items from an Observable that satisfies a provided predicate. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{rpp\+::operators\+::take}} (size\+\_\+t count)
 \begin{DoxyCompactList}\small\item\em Emit only first {\ttfamily count} items provided by observable, then send {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -23,12 +23,12 @@ Filtering operators are operators that emit only part of items that satisfies so
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{group__filtering__operators_ga2abd3c94ab456e3e1227ea3c330c038b}\label{group__filtering__operators_ga2abd3c94ab456e3e1227ea3c330c038b}} 
+\mbox{\Hypertarget{group__filtering__operators_gaf730bd818d3f7cb017ba8b2f89113543}\label{group__filtering__operators_gaf730bd818d3f7cb017ba8b2f89113543}} 
 \index{Filtering Operators@{Filtering Operators}!requires@{requires}}
 \index{requires@{requires}!Filtering Operators@{Filtering Operators}}
 \doxysubsubsection{\texorpdfstring{requires()}{requires()}}
 {\footnotesize\ttfamily template$<$typename Fn $>$ \\
-rpp\+::operators\+::requires (\begin{DoxyParamCaption}\item[{!utils\+::is\+\_\+callable$<$ Fn $>$$\vert$$\vert$std\+::same\+\_\+as$<$ bool, std\+::invoke\+\_\+result\+\_\+t$<$ Fn, utils\+::convertible\+\_\+to\+\_\+any $>$$>$}]{ }\end{DoxyParamCaption}) \&\&}
+rpp\+::operators\+::requires (\begin{DoxyParamCaption}\item[{!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$ Fn $>$$\vert$$\vert$std\+::same\+\_\+as$<$ bool, std\+::invoke\+\_\+result\+\_\+t$<$ Fn, utils\+::convertible\+\_\+to\+\_\+any $>$$>$}]{ }\end{DoxyParamCaption}) \&\&}
 
 
 

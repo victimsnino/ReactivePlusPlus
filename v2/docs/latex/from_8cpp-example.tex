@@ -23,12 +23,10 @@
 \DoxyCodeLine{        \mbox{\hyperlink{group__creational__operators_ga08b06422b6486a2107cf8012293bb29f}{rpp::source::from\_iterable}}(vals, \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\}).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
 \DoxyCodeLine{    \}}
 \DoxyCodeLine{}
-\DoxyCodeLine{    \textcolor{comment}{// \{}}
-\DoxyCodeLine{    \textcolor{comment}{//     //! [from\_callable]}}
-\DoxyCodeLine{    \textcolor{comment}{//     rpp::source::from\_callable([]() \{return 49; \}).subscribe([](int v) \{std::cout << v << "{} "{}; \});}}
-\DoxyCodeLine{    \textcolor{comment}{//     // Output: 49}}
-\DoxyCodeLine{    \textcolor{comment}{//     //! [from\_callable]}}
-\DoxyCodeLine{    \textcolor{comment}{// \}}}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{group__creational__operators_ga0dba7e64f45d8c70ea2e3b829ce31237}{rpp::source::from\_callable}}([]() \{\textcolor{keywordflow}{return} 49; \}).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{        \textcolor{comment}{// Output: 49}}
+\DoxyCodeLine{\textcolor{comment}{}    \}}
 \DoxyCodeLine{    \textcolor{keywordflow}{return} 0;}
 \DoxyCodeLine{\}}
 

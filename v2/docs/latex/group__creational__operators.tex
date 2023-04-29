@@ -15,7 +15,9 @@ Creational operators are operators that create new observable.
 {\footnotesize template$<$constraint\+::memory\+\_\+model memory\+\_\+model, typename T , typename ... Ts$>$ }\\auto \mbox{\hyperlink{group__creational__operators_gace2e7ce42142e6838b2524bf1dc31923}{rpp\+::source\+::just}} (const schedulers\+::constraint\+::scheduler auto \&scheduler, T \&\&item, Ts \&\&...items) requires(constraint
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}} that emits a particular items and completes. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::memory\+\_\+model memory\+\_\+model, typename T , typename ... Ts$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga39f9f32332614fe2c96912fe137de691}{rpp\+::source\+::just}} (T \&\&item, Ts \&\&...items) requires(constraint
-\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}} that emits a particular items and completes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}} that emits a particular items and completes. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::memory\+\_\+model memory\+\_\+model$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga0dba7e64f45d8c70ea2e3b829ce31237}{rpp\+::source\+::from\+\_\+callable}} (std\+::invocable$<$$>$ auto \&\&callable)
+\begin{DoxyCompactList}\small\item\em Creates rpp\+::specific\+\_\+observable that calls provided callable and emits resulting value of this callable. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -120,6 +122,39 @@ Be sure, that your callback doesn\textquotesingle{}t violates observable rules\+
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}} 
 \end{DoxySeeAlso}
+\mbox{\Hypertarget{group__creational__operators_ga0dba7e64f45d8c70ea2e3b829ce31237}\label{group__creational__operators_ga0dba7e64f45d8c70ea2e3b829ce31237}} 
+\index{Creational Operators@{Creational Operators}!from\_callable@{from\_callable}}
+\index{from\_callable@{from\_callable}!Creational Operators@{Creational Operators}}
+\doxysubsubsection{\texorpdfstring{from\_callable()}{from\_callable()}}
+{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model memory\+\_\+model$>$ \\
+auto rpp\+::source\+::from\+\_\+callable (\begin{DoxyParamCaption}\item[{std\+::invocable$<$$>$ auto \&\&}]{callable }\end{DoxyParamCaption})}
+
+
+
+Creates rpp\+::specific\+\_\+observable that calls provided callable and emits resulting value of this callable. 
+
+
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em memory\+\_\+model} & rpp\+::memory\+\_\+model strategy used to handle callable\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{        \mbox{\hyperlink{group__creational__operators_ga0dba7e64f45d8c70ea2e3b829ce31237}{rpp::source::from\_callable}}([]() \{\textcolor{keywordflow}{return} 49; \}).subscribe([](\textcolor{keywordtype}{int} v) \{std::cout << v << \textcolor{stringliteral}{"{} "{}}; \});}
+\DoxyCodeLine{        \textcolor{comment}{// Output: 49}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/from.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/from.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{from_8cpp-example}{from.\+cpp}}.\end{Desc}
 \mbox{\Hypertarget{group__creational__operators_ga08b06422b6486a2107cf8012293bb29f}\label{group__creational__operators_ga08b06422b6486a2107cf8012293bb29f}} 
 \index{Creational Operators@{Creational Operators}!from\_iterable@{from\_iterable}}
 \index{from\_iterable@{from\_iterable}!Creational Operators@{Creational Operators}}

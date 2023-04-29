@@ -8,7 +8,7 @@ Transforming operators are operators that transform items provided by observable
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename Fn $>$ }\\\mbox{\hyperlink{group__transforming__operators_ga98c209458f11aad08f0da295e231d6c0}{rpp\+::operators\+::requires}} (!utils\+::is\+\_\+callable$<$ Fn $>$$\vert$$\vert$!std\+::same\+\_\+as$<$ void, std\+::invoke\+\_\+result\+\_\+t$<$ Fn, utils\+::convertible\+\_\+to\+\_\+any $>$$>$) auto map(Fn \&\&callable)
+{\footnotesize template$<$typename Fn $>$ }\\\mbox{\hyperlink{group__transforming__operators_gae34ba856f898543f469ccbb3ba3b1109}{rpp\+::operators\+::requires}} (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$ Fn $>$$\vert$$\vert$!std\+::same\+\_\+as$<$ void, std\+::invoke\+\_\+result\+\_\+t$<$ Fn, utils\+::convertible\+\_\+to\+\_\+any $>$$>$) auto map(Fn \&\&callable)
 \begin{DoxyCompactList}\small\item\em Transform the items emitted by an Observable via applying a function to each item and emitting result. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -21,12 +21,12 @@ Transforming operators are operators that transform items provided by observable
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{group__transforming__operators_ga98c209458f11aad08f0da295e231d6c0}\label{group__transforming__operators_ga98c209458f11aad08f0da295e231d6c0}} 
+\mbox{\Hypertarget{group__transforming__operators_gae34ba856f898543f469ccbb3ba3b1109}\label{group__transforming__operators_gae34ba856f898543f469ccbb3ba3b1109}} 
 \index{Transforming Operators@{Transforming Operators}!requires@{requires}}
 \index{requires@{requires}!Transforming Operators@{Transforming Operators}}
 \doxysubsubsection{\texorpdfstring{requires()}{requires()}}
 {\footnotesize\ttfamily template$<$typename Fn $>$ \\
-rpp\+::operators\+::requires (\begin{DoxyParamCaption}\item[{!utils\+::is\+\_\+callable$<$ Fn $>$$\vert$$\vert$!std\+::same\+\_\+as$<$ void, std\+::invoke\+\_\+result\+\_\+t$<$ Fn, utils\+::convertible\+\_\+to\+\_\+any $>$$>$}]{ }\end{DoxyParamCaption}) \&\&}
+rpp\+::operators\+::requires (\begin{DoxyParamCaption}\item[{!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$ Fn $>$$\vert$$\vert$!std\+::same\+\_\+as$<$ void, std\+::invoke\+\_\+result\+\_\+t$<$ Fn, utils\+::convertible\+\_\+to\+\_\+any $>$$>$}]{ }\end{DoxyParamCaption}) \&\&}
 
 
 
