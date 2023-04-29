@@ -149,22 +149,22 @@ struct from_iterable_strategy
         {
             const auto worker = scheduler.create_worker();
             observer.set_upstream(worker.get_disposable());
-            worker.schedule([](const base_observer<utils::iterable_value_t<PackedContainer>, Strategy>& observer, const PackedContainer& cont) -> rpp::schedulers::optional_duration
+            worker.schedule([](const base_observer<utils::iterable_value_t<PackedContainer>, Strategy>& obs, const PackedContainer& cont) -> rpp::schedulers::optional_duration
             {
                 try
                 {
                     if (const auto itr = cont.get_actual_iterator(); itr != std::cend(cont))
                     {
-                        observer.on_next(utils::as_const(*itr));
+                        obs.on_next(utils::as_const(*itr));
                         if (cont.increment_iterator()) // it was not last
                             return schedulers::duration{}; // re-schedule this
                     }
 
-                    observer.on_completed();
+                    obs.on_completed();
                 }
                 catch(...)
                 {
-                    observer.on_error(std::current_exception());
+                    obs.on_error(std::current_exception());
                 }
                 return std::nullopt;
             }, std::move(observer), container);
