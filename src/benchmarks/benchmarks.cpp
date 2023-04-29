@@ -167,6 +167,26 @@ int main(int argc, char* argv[]) // NOLINT
         }
     }
 
+    BENCHMARK("Conditional Operators")
+    {
+        SECTION("create+take_while(false)+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
+                    | rpp::operators::take_while([](int v){return false; })
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
+                    | rxcpp::operators::take_while([](int v){return false; })
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+    };
+
     BENCHMARK("Transforming Operators")
     {
         SECTION("create+map(v*2)+subscribe")
