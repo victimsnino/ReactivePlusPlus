@@ -4,7 +4,7 @@
 /**
  * @example filter.cpp
  **/
-int main()
+int main() // NOLINT
 {
     //! [Filter]
     rpp::source::just(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)

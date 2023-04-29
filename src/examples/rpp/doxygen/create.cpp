@@ -7,7 +7,7 @@
  * \example create.cpp
  **/
 
-int main()
+int main() // NOLINT
 {
     //! [create]
     rpp::source::create<int>([](const auto& sub)

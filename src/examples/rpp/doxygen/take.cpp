@@ -5,7 +5,7 @@
 /**
  * \example take.cpp
  **/
-int main()
+int main() // NOLINT
 {
     //! [take]
     rpp::source::from_iterable(std::vector{0,1,2,3,4})
