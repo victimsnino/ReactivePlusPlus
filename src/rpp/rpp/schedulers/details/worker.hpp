@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include "rpp/observers/base_observer.hpp"
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/observers/fwd.hpp>

@@ -12,11 +12,18 @@
 
 #include <rpp/sources/from.hpp>
 #include <rpp/operators/take.hpp>
+#include <cstddef>
 #include <functional>
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
+#include "rpp/memory_model.hpp"
+#include "rpp/observers/fwd.hpp"
+#include "rpp/schedulers/current_thread.hpp"
+#include "rpp/schedulers/fwd.hpp"
+#include "rpp/schedulers/immediate.hpp"
 #include "rpp/sources/fwd.hpp"
 
+#include <optional>
 #include <stdexcept>
 
 struct my_container_with_error : std::vector<int>
@@ -29,7 +36,7 @@ struct infinite_container
 {
     struct iterator
     {
-        using iterator_category = std::forward_iterator_tag;
+        using iterator_category = std::input_iterator_tag;
         using difference_type   = std::ptrdiff_t;
         using value_type        = int;
         using pointer           = int*;
@@ -37,6 +44,7 @@ struct infinite_container
         value_type operator*() const { return 1; }
         iterator& operator++() { return *this; }
         iterator operator++(int) { return *this; }
+        friend bool operator== (const iterator&, const iterator&) { return false; };
         friend bool operator!= (const iterator&, const iterator&) { return true; };
     };
 
@@ -45,13 +53,20 @@ struct infinite_container
 };
 
 
-TEST_CASE("from iterable emit items from container")
+TEMPLATE_TEST_CASE("from iterable emit items from container",
+                   "",
+                   std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_stack>,
+                   std::pair<rpp::schedulers::immediate, rpp::memory_model::use_stack>,
+                   std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_shared>,
+                   std::pair<rpp::schedulers::immediate, rpp::memory_model::use_shared>)
 {
+    using memory_model = std::tuple_element_t<1, TestType>;
+    using scheduler = std::tuple_element_t<0, TestType>;
     auto mock = mock_observer_strategy<int>();
     SECTION("observable created from vector emits items to observer in the same order")
     {
         auto vals = std::vector{1, 2, 3, 4, 5, 6};
-        auto obs  = rpp::source::from_iterable(vals);
+        auto obs  = rpp::source::from_iterable<memory_model>(vals, scheduler{});
         obs.subscribe(mock.get_observer());
         CHECK(mock.get_received_values() == vals);
         CHECK(mock.get_on_completed_count() == 1);
@@ -60,7 +75,7 @@ TEST_CASE("from iterable emit items from container")
     SECTION("observable created from empty vector emits only on_completed")
     {
         auto vals = std::vector<int>{};
-        auto obs  = rpp::source::from_iterable(vals);
+        auto obs  = rpp::source::from_iterable<memory_model>(vals, scheduler{});
         obs.subscribe(mock.get_observer());
         CHECK(mock.get_received_values() == vals);
         CHECK(mock.get_on_completed_count() == 1);
@@ -68,8 +83,8 @@ TEST_CASE("from iterable emit items from container")
 
     SECTION("subscribe via take(1) to observable created from infinite container")
     {
-        rpp::source::from_iterable(infinite_container{}) | rpp::operators::take(1)
-                                                        | rpp::operators::subscribe(mock.get_observer());
+        rpp::source::from_iterable<memory_model>(infinite_container{}, scheduler{}) | rpp::operators::take(1)
+                                                                     | rpp::operators::subscribe(mock.get_observer());
 
         CHECK(mock.get_received_values() == std::vector{1});
         CHECK(mock.get_on_completed_count() == 1);
@@ -131,7 +146,7 @@ TEST_CASE("from iterable emit items from container")
     // }
     SECTION("observable from iterable with exceiption on begin")
     {
-        auto obs = rpp::source::from_iterable(my_container_with_error{});
+        const auto obs = rpp::source::from_iterable<memory_model>(my_container_with_error{}, scheduler{});
         SECTION("subscribe on it and dispatch once")
         {
             obs.subscribe(mock.get_observer());
@@ -145,7 +160,36 @@ TEST_CASE("from iterable emit items from container")
     }
 }
 
-TEST_CASE("from iterable doesn't provides extra copies")
+TEMPLATE_TEST_CASE("from iterable with different schedulers", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
+{
+    auto mock = mock_observer_strategy<int>();
+
+    SECTION("observable created from vector with scheduler emits values via provided scheduler")
+    {
+        auto obs_immediate = rpp::source::from_iterable<TestType>(std::vector{1, 1, 1}, rpp::schedulers::immediate{});
+        auto obs_default   = rpp::source::from_iterable<TestType>(std::vector{2, 2, 2});
+
+        rpp::schedulers::current_thread::create_worker().schedule([&obs_immediate, &obs_default, &mock](const auto&)
+        {
+            obs_default.subscribe(mock.get_observer());
+            CHECK(mock.get_received_values().empty());
+            CHECK(mock.get_on_error_count() == 0);
+            CHECK(mock.get_on_completed_count() == 0);
+
+            obs_immediate.subscribe(mock.get_observer());
+            CHECK(mock.get_received_values() == std::vector{1,1,1});
+            CHECK(mock.get_on_error_count() == 0);
+            CHECK(mock.get_on_completed_count() == 1);
+            return rpp::schedulers::optional_duration{};
+        }, mock.get_observer());
+
+        CHECK(mock.get_received_values() == std::vector{1,1,1,2,2,2});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 2);
+    }
+}
+
+TEMPLATE_TEST_CASE("from iterable doesn't provides extra copies", "", rpp::schedulers::current_thread, rpp::schedulers::immediate)
 {
     copy_count_tracker tracker{};
     auto               vals         = std::array{tracker};
@@ -154,14 +198,14 @@ TEST_CASE("from iterable doesn't provides extra copies")
 
     SECTION("observable from copied iterable doesn't provide extra copies")
     {
-        auto obs = rpp::source::from_iterable(vals/*, rpp::schedulers::immediate{}*/);
+        auto obs = rpp::source::from_iterable(vals, TestType{});
         obs.subscribe([](const auto&){},[](const auto&){},[](){});
         CHECK(tracker.get_copy_count() - initial_copy == 1); // 1 copy to wrapped container
         CHECK(tracker.get_move_count() - initial_move == 1); // 1 move lambda to observable
     }
     SECTION("observable from moved iterable doesn't provide extra copies")
     {
-        auto obs = rpp::source::from_iterable(std::move(vals)/*, rpp::schedulers::immediate{}*/);
+        auto obs = rpp::source::from_iterable(std::move(vals), TestType{});
         obs.subscribe([](const auto&){},[](const auto&){},[](){});
         CHECK(tracker.get_copy_count() - initial_copy == 0);
         CHECK(tracker.get_move_count() - initial_move == 2); // 1 move to wrapped container + 1 move lambda to observable
@@ -169,14 +213,14 @@ TEST_CASE("from iterable doesn't provides extra copies")
 
     SECTION("observable from copied iterable with shared memory model doesn't provide extra copies")
     {
-        auto obs = rpp::source::from_iterable<rpp::memory_model::use_shared>(vals);
+        auto obs = rpp::source::from_iterable<rpp::memory_model::use_shared>(vals, TestType{}); // NOLINT
         obs.subscribe([](const auto&){},[](const auto&){},[](){});
         CHECK(tracker.get_copy_count() - initial_copy == 1); // 1 copy to shared_ptr
         CHECK(tracker.get_move_count() - initial_move == 0);
     }
     SECTION("observable from moved iterable doesn't provide extra copies")
     {
-        auto obs = rpp::source::from_iterable<rpp::memory_model::use_shared>(std::move(vals)); // NOLINT
+        auto obs = rpp::source::from_iterable<rpp::memory_model::use_shared>(std::move(vals), TestType{}); // NOLINT
         obs.subscribe([](const auto&){},[](const auto&){},[](){});
         CHECK(tracker.get_copy_count() - initial_copy == 0);
         CHECK(tracker.get_move_count() - initial_move == 1); // 1 move to shared_ptr
@@ -228,7 +272,7 @@ TEST_CASE("just")
     SECTION("observable with copied item")
     {
         copy_count_tracker v{};
-        auto               obs = rpp::source::just(/*rpp::schedulers::immediate{},*/ v);
+        auto               obs = rpp::source::just(v);
         SECTION("subscribe on this observable")
         {
             obs.subscribe(mock.get_observer());
@@ -245,7 +289,7 @@ TEST_CASE("just")
     SECTION("observable with moved item")
     {
         copy_count_tracker v{};
-        auto               obs = rpp::source::just(/*rpp::schedulers::immediate{},*/ std::move(v));
+        auto               obs = rpp::source::just(std::move(v));
         SECTION("subscribe on this observable")
         {
             obs.subscribe(mock.get_observer());
@@ -259,7 +303,7 @@ TEST_CASE("just")
             }
         }
     }
-    SECTION("observable with copied item + use_sahred")
+    SECTION("observable with copied item + use_shared")
     {
         copy_count_tracker v{};
         auto               obs = rpp::source::just<rpp::memory_model::use_shared>(v);
@@ -301,6 +345,19 @@ TEST_CASE("just variadic")
     SECTION("observable just variadic")
     {
         auto obs = rpp::source::just(1, 2, 3, 4, 5, 6);
+        SECTION("subscribe on it")
+        {
+            obs.subscribe(mock.get_observer());
+            SECTION("observer obtains values in the same order")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 1, 2, 3, 4, 5, 6 });
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+    SECTION("observable just variadic with immediate")
+    {
+        auto obs = rpp::source::just(rpp::schedulers::immediate{}, 1, 2, 3, 4, 5, 6);
         SECTION("subscribe on it")
         {
             obs.subscribe(mock.get_observer());
