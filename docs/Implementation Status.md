@@ -58,7 +58,7 @@
   - [ ] time_or_count
 
 ### Filtering
-- [ ] filter
+- [x] filter
 - [x] take
 - [ ] debounce
 - [ ] distinct
