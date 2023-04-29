@@ -29,6 +29,8 @@ constexpr T&& as_const(T&& v) noexcept requires std::is_rvalue_reference_v<T&&> 
 
 struct convertible_to_any
 {
+    convertible_to_any() = default;
+    
     template<typename T>
     operator T();
 };

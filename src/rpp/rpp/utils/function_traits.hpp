@@ -59,16 +59,16 @@ struct function_traits<R (*)(Args ...)>
     using result = R;
     using arguments = std::tuple<Args...>;
 
-    template<size_t i = 0>
+    template<std::size_t i = 0>
         requires (sizeof...(Args) > i)
     using argument = std::tuple_element_t<i, arguments>;
 };
 
-template<typename T, size_t i = 0>
+template<typename T, std::size_t i = 0>
 using function_argument_t = typename function_traits<T>::template argument<i>;
 
 
-template<typename T, size_t i = 0>
+template<typename T, std::size_t i = 0>
 using decayed_function_argument_t = std::decay_t<function_argument_t<T, i>>;
 
 template<typename Fn, typename ...Args>
