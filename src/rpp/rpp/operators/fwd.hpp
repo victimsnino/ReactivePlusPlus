@@ -28,4 +28,8 @@ auto map(Fn&& callable);
 template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
 auto filter(Fn&& callable);
+
+template<typename Fn>
+    requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
+auto take_while(Fn&& callable);
 }

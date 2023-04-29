@@ -14,12 +14,10 @@
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
 
-#include <type_traits>
-
 namespace rpp::operators::details
 {
 template<rpp::constraint::decayed_type Fn>
-struct RPP_EMPTY_BASES filter_observer_strategy
+struct RPP_EMPTY_BASES take_while_observer_strategy
 {
     RPP_NO_UNIQUE_ADDRESS Fn fn;
 
@@ -28,6 +26,8 @@ struct RPP_EMPTY_BASES filter_observer_strategy
     {
         if (fn(rpp::utils::as_const(v)))
             obs.on_next(std::forward<T>(v));
+        else
+            obs.on_completed();
     }
 
     constexpr static forwarding_on_error_strategy on_error{};
@@ -38,11 +38,11 @@ struct RPP_EMPTY_BASES filter_observer_strategy
 
 
 template<rpp::constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>> Fn>
-using filter_observable = identity_operator_observable<std::decay_t<TObservable>, filter_observer_strategy<Fn>, Fn>;
+using take_while_observable = identity_operator_observable<std::decay_t<TObservable>, take_while_observer_strategy<Fn>, Fn>;
 
 
 template<rpp::constraint::decayed_type Fn>
-struct filter_t
+struct take_while_t
 {
 public:
     RPP_NO_UNIQUE_ADDRESS Fn m_fn;
@@ -51,45 +51,44 @@ public:
         requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>> && std::same_as<bool, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>>)
     auto operator()(TObservable&& observable) const &
     {
-        return filter_observable<TObservable, Fn>{std::forward<TObservable>(observable), m_fn};
+        return take_while_observable<TObservable, Fn>{std::forward<TObservable>(observable), m_fn};
     }
 
     template<rpp::constraint::observable TObservable>
         requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>> && std::same_as<bool, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>>)
     auto operator()(TObservable&& observable) &&
     {
-        return filter_observable<TObservable, Fn>{std::forward<TObservable>(observable), std::move(m_fn)};
+        return take_while_observable<TObservable, Fn>{std::forward<TObservable>(observable), std::move(m_fn)};
     }
 };
 }
-
 namespace rpp::operators
 {
 /**
-* @brief Emit only those items from an Observable that satisfies a provided predicate
-* 
-* @marble filter
-{
-    source observable            : +--1-2-3-4-|
-    operator "filter: x=>x%2==0" : +----2---4-|
-}
-*
-* @details Actually this operator just checks if predicate returns true, then forwards emission
-* 
-* @param predicate is predicate used to check emitted items. true -> items satisfies condition, false -> not
-* @return new specific_observable with the Filter operator as most recent operator.
-* @warning #include <rpp/operators/filter.hpp>
-* 
-* @par Example:
-* @snippet filter.cpp Filter
-*
-* @ingroup filtering_operators
-* @see https://reactivex.io/documentation/operators/filter.html
-*/
+ * @brief Sends items from observable while items are satisfy predicate. When condition becomes false -> sends `on_completed`
+ *
+ * @marble take_while
+ {
+     source observable                : +--1-2-3-4-5-6-|
+     operator "take_while: x => x!=3" : +--1-2-|
+ }
+ *
+ * @details Actually this operator just emits values while predicate returns true
+ *
+ * @param predicate is predicate used to check items
+ * @return new specific_observable with the take_while operator as most recent operator.
+ * @warning #include <rpp/operators/take_while.hpp>
+ * 
+ * @par Example:
+ * @snippet take_while.cpp take_while
+ *
+ * @ingroup conditional_operators
+ * @see https://reactivex.io/documentation/operators/takewhile.html
+ */
 template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
-auto filter(Fn&& callable)
+auto take_while(Fn&& callable)
 {
-    return details::filter_t<std::decay_t<Fn>>{std::forward<Fn>(callable)};
+    return details::take_while_t<std::decay_t<Fn>>{std::forward<Fn>(callable)};
 }
 } // namespace rpp::operators

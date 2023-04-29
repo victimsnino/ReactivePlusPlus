@@ -13,7 +13,6 @@
 #include <rpp/operators/fwd.hpp>
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
-#include <rpp/utils/constraints.hpp>
 #include <cstddef>
 
 namespace rpp::operators::details
@@ -45,7 +44,6 @@ using map_observable = operator_observable<std::invoke_result_t<Fn, rpp::utils::
 template<rpp::constraint::decayed_type Fn>
 struct map_t
 {
-public:
     RPP_NO_UNIQUE_ADDRESS Fn m_fn;
 
     template<rpp::constraint::observable TObservable>

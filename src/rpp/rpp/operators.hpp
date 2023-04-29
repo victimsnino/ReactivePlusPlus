@@ -39,3 +39,13 @@
 
  #include <rpp/operators/filter.hpp>
  #include <rpp/operators/take.hpp>
+
+ /**
+ * @defgroup conditional_operators Conditional Operators
+ * @brief Conditional operators are operators that emit items based on some condition including condition of items from other observables
+ * @see https://reactivex.io/documentation/operators.html#conditional
+ * @ingroup operators
+ */
+
+ #include <rpp/operators/take_while.hpp>
+ 
