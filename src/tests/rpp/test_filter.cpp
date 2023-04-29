@@ -33,7 +33,8 @@ TEST_CASE("filter")
 
     SECTION("filter emits only satisfying values")
     {
-        obs | rpp::operators::filter([](auto v){return v % 2 == 0;}) | rpp::operators::subscribe(mock.get_observer());
+        auto filter = rpp::operators::filter([](auto v){return v % 2 == 0;});
+        obs | filter | rpp::operators::subscribe(mock.get_observer());
 
         CHECK(mock.get_received_values() == std::vector{2, 4});
         CHECK(mock.get_on_error_count() == 0);
