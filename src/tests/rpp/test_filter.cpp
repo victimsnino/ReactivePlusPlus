@@ -44,8 +44,6 @@ TEST_CASE("filter")
 
     SECTION("filter with exception value")
     {
-        mock_observer_strategy<int> mock{};
-
         obs | rpp::operators::filter([](int) -> bool { throw std::runtime_error{""}; }) | rpp::operators::subscribe(mock.get_observer()); // NOLINT
 
         CHECK(mock.get_received_values() == std::vector<int>{});
