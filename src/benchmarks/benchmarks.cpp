@@ -205,6 +205,22 @@ int main(int argc, char* argv[]) // NOLINT
                     | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }, [](const std::exception_ptr&){}, [](){});
             });
         }
+        SECTION("create+filter(true)+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
+                    | rpp::operators::filter([](int){return true;})
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }, [](const std::exception_ptr&){}, [](){});
+            });
+
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
+                    | rxcpp::operators::filter([](int){return true;})
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }, [](const std::exception_ptr&){}, [](){});
+            });
+        }
     };
 
     if (argc > 1) {
