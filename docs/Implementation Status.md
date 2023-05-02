@@ -1,4 +1,4 @@
-# Implementation status {#status}
+# Implementation status
 
 ## Fundamentals
 
