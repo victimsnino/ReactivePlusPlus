@@ -13,6 +13,11 @@
 /**
  * @defgroup observers Observers
  * @brief Observer subscribes on Observable and obtains values provided by Observable.
+ * @details Observer is kind of wrapper over 3 core functions:
+ * - on_next(T) - callback with new emission provided by observable
+ * - on_error(err) - failure termination callback with reason of failure of observable (why observable can't continue processing)
+ * - on_completed() - succeed termination callback - observable is done, no any future emissions from this
+ * @see https://reactivex.io/documentation/observable.html
  * @ingroup rpp
  */
 
