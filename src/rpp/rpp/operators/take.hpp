@@ -67,6 +67,11 @@ namespace rpp::operators
  }
  * @details Actually this operator just emits emissions while counter is not zero and decrements counter on each emission
  *
+ * @par Performance notes:
+ * - No any heap allocations
+ * - No any copies/moves
+ * - Just simple `size_t` decrementing
+ *
  * @param count amount of items to be emitted. 0 - instant complete
  * @return new rpp::base_observable with the Take operator as most recent operator.
  * @warning #include <rpp/operators/take.hpp>

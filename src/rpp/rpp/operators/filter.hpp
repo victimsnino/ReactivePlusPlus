@@ -76,6 +76,10 @@ namespace rpp::operators
 *
 * @details Actually this operator just checks if predicate returns true, then forwards emission
 * 
+* @par Performance notes:
+* - No any heap allocations
+* - No any copies/moves
+*
 * @param predicate is predicate used to check emitted items. true -> items satisfies condition, false -> not
 * @return new specific_observable with the Filter operator as most recent operator.
 * @warning #include <rpp/operators/filter.hpp>
@@ -88,8 +92,8 @@ namespace rpp::operators
 */
 template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
-auto filter(Fn&& callable)
+auto filter(Fn&& predicate)
 {
-    return details::filter_t<std::decay_t<Fn>>{std::forward<Fn>(callable)};
+    return details::filter_t<std::decay_t<Fn>>{std::forward<Fn>(predicate)};
 }
 } // namespace rpp::operators

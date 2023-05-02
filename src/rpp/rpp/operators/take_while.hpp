@@ -75,7 +75,11 @@ namespace rpp::operators
  *
  * @details Actually this operator just emits values while predicate returns true
  *
- * @param predicate is predicate used to check items
+ * @par Performance notes:
+ * - No any heap allocations
+ * - No any copies/moves
+ *
+ * @param predicate is predicate used to check items. Accepts value from observable and returns `true` if value should be forwarded and `false` if emissions should be stopped and observable should be terminated.
  * @return new specific_observable with the take_while operator as most recent operator.
  * @warning #include <rpp/operators/take_while.hpp>
  * 
@@ -87,8 +91,8 @@ namespace rpp::operators
  */
 template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
-auto take_while(Fn&& callable)
+auto take_while(Fn&& predicate)
 {
-    return details::take_while_t<std::decay_t<Fn>>{std::forward<Fn>(callable)};
+    return details::take_while_t<std::decay_t<Fn>>{std::forward<Fn>(predicate)};
 }
 } // namespace rpp::operators

@@ -76,8 +76,12 @@ namespace rpp::operators
  *
  * @details Actually this operator just applies callable to each obtained emission and emit resulting value
  *
- * @param callable is callable used to provide this transformation. Should accept Type of original observable and return type for new observable
- * @return new rpp::base_observable with the Map operator as most recent operator.
+ * @par Performance notes:
+ * - No any heap allocations
+ * - No any copies/moves
+ *
+ * @param callable is callable used to provide this transformation. Should accept `Type` of original observable and return type for new observable
+ * @return new `rpp::base_observable` with the Map operator as most recent operator.
  * @warning #include <rpp/operators/map.hpp>
  *
  * @par Example with same type:

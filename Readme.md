@@ -1,23 +1,25 @@
 # ReactivePlusPlus
-[![CI v2](https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/ci%20v2.yml/badge.svg?branch=v2)](https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/ci%20v2.yml)
-[![codecov](https://codecov.io/gh/victimsnino/ReactivePlusPlus/branch/v2/graph/badge.svg?token=INEHPRF18E)](https://app.codecov.io/gh/victimsnino/ReactivePlusPlus/tree/v2)
 [![GitHub](https://img.shields.io/github/license/victimsnino/ReactivePlusPlus)](https://github.com/victimsnino/ReactivePlusPlus/blob/main/LICENSE)
+[![C++20](https://img.shields.io/badge/C%2B%2B-20-green.svg)](https://isocpp.org/std/the-standard )
+[![CI v2](https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/ci%20v2.yml/badge.svg?branch=v2)](https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/ci%20v2.yml)
 [![Join the chat at https://gitter.im/ReactivePlusPlus/community](https://badges.gitter.im/ReactivePlusPlus/community.svg)](https://gitter.im/ReactivePlusPlus/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Join the chat in Discord: https://discord.gg/KWMR3RNkVz](https://img.shields.io/badge/Discord-Chat!-brightgreen.svg)](https://discord.gg/KWMR3RNkVz)
 
+[![codecov](https://codecov.io/gh/victimsnino/ReactivePlusPlus/branch/v2/graph/badge.svg?token=INEHPRF18E)](https://app.codecov.io/gh/victimsnino/ReactivePlusPlus/tree/v2)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=victimsnino_ReactivePlusPlus&metric=ncloc&branch=v2)](https://sonarcloud.io/summary/new_code?id=victimsnino_ReactivePlusPlus&branch=v2)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=victimsnino_ReactivePlusPlus&metric=sqale_rating&branch=v2)](https://sonarcloud.io/summary/new_code?id=victimsnino_ReactivePlusPlus&branch=v2)
 ![GitHub commit activity (v2)](https://img.shields.io/github/commit-activity/m/victimsnino/ReactivePlusPlus/v2)
 
 ## Usage:
 
-ReactivePlusPlus is reactive programming library for C++ language inspired by "official implementation" ([RxCpp](https://github.com/ReactiveX/RxCpp)) and original idea ([ReactiveX](https://reactivex.io/)) that only depends on standard library and C++20 features.
+ReactivePlusPlus is reactive programming library for C++20 language inspired by "official implementation" ([RxCpp](https://github.com/ReactiveX/RxCpp)) and original idea ([ReactiveX](https://reactivex.io/)) that only depends on standard library and C++20 features (mostly on concepts).
 
 See the [BUILDING](BUILDING.md) document to know how to build RPP.
 If you are going to know more details about developing for RPP check [HACKING](HACKING.md) document.
 
 ## Note V2:
-Currently I'm working on RPP v2 (v2 branch). It follows "zero-overhead principle" and minimizes overhead during usage of RPP. v2 started from the scratch, so, each operator would be implemented from the scratch. Implementation status can be tracked in [#324](https://github.com/victimsnino/ReactivePlusPlus/issues/324)
+Currently I'm working on RPP v2 (`v2` branch). It follows **"zero-overhead principle"** and minimizes overhead during usage of RPP. For example, `v1`'s `create+map+subscribe` spends about `63.7768ns`, while `v2` is about `0.4ns`.
+v2 started from the scratch, so, each operator would be re-implemented. Implementation status can be tracked in [#324](https://github.com/victimsnino/ReactivePlusPlus/issues/324)
 
 You still can use previous implementation. It placed in `v1` branch
 
@@ -25,9 +27,9 @@ You still can use previous implementation. It placed in `v1` branch
 
 In short: ReactivePlusPlus is library for building asynchronous event-driven streams of data with help of sequences of primitive operators in the declarative form.
 
-RPP v2 follows zero-overhead principle and most of the operators are (and will) minimize overhead. How? Due to elimination of heap allocations and avoiding unnecessary things. During implementatuon of v1 i've found a lot of cases where RPP does unnecessary expensive things.
+RPP v2 follows zero-overhead principle and most of the operators are (and will) minimize overhead. How? Due to elimination of heap allocations and avoiding unnecessary things. During implementatuon of v1 i've found a lot of cases where RPP does unnecessary expensive things. As a result, `v2` does only required things and nothing else. It follow to fantastic performance.
 
-Currently ReactivePlusPlus is still under development but it has a lot of implemented operators for now. List of implemented features can be found in [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) with very detailed documentation for each of them
+Currently ReactivePlusPlus is still under development but it has a lot of implemented operators for now. List of implemented features can be found in [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) with very detailed documentation for each of them.
 
 **Example**:
 
@@ -51,10 +53,9 @@ Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Pe
 - (macos) Apple Clang 14
 
 # Useful links
-- [Manual and doxygen documentation](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/index.html)
+- [Doxygen documentation](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html)
 - [Examples](https://github.com/victimsnino/ReactivePlusPlus/tree/v2/src/examples)
-- [Continous benchmarking results, comparison of `dynamic` and `specific` and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
-- [Articles/Turorials/Guides](https://github.com/victimsnino/ReactivePlusPlus/blob/v2/docs/Articles.md)
+- [Continous benchmarking results and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
 - [CONTRIBUTING](CONTRIBUTING.md) document.
 
 # Licensing

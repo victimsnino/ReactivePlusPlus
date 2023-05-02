@@ -12,7 +12,8 @@
 
 /**
  * @defgroup observables Observables
- * @brief Observable is the source of any Reactive Stream. Observable provides ability to subscribe observer on some events.
+ * @brief Observable is the source of any Reactive Stream.
+ * @details Observable provides ability to subscribe observer on stream of events. After subscription observable would emit values to observer.
  * @see https://reactivex.io/documentation/observable.html
  * @ingroup rpp
  */

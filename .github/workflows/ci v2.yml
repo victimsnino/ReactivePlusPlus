@@ -154,14 +154,16 @@ jobs:
     - uses: actions/setup-python@v4
       with: { python-version: "3.8" }
 
+    - uses: ssciwr/doxygen-install@v1
+
     - name: Install deps
       run: |
         pip3 install rxmarbles
-        sudo apt-get install doxygen
+        sudo apt-get install texlive-font-utils
         doxygen --version
 
     - name: Doxygen
-      run: doxygen ./Doxyfile
+      run: doxygen
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3

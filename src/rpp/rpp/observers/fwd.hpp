@@ -27,6 +27,8 @@ namespace rpp::constraint
  *
  * @tparam S is Strategy
  * @tparam Type is type of value observer would obtain
+ *
+ * @ingroup observers
  */
 template<typename S, typename Type>
 concept observer_strategy = requires(const S& const_strategy, S& strategy, const Type& v, Type& mv, const rpp::disposable_wrapper& disposable)
@@ -75,10 +77,12 @@ template<constraint::decayed_type Type, constraint::observer_strategy<Type> Stra
 class base_observer;
 
 /**
- * @brief Type-erased version of the rpp::base_observer. Any observer can be converted to dynamic_observer via rpp::base_observer::as_dynamic member function.
- * @details To provide type-erasure it uses std::shared_ptr. As a result it has worse performance, but it is ONLY way to copy observer.
+ * @brief Type-erased version of the `rpp::base_observer`. Any observer can be converted to dynamic_observer via `rpp::base_observer::as_dynamic` member function.
+ * @details To provide type-erasure it uses `std::shared_ptr`. As a result it has worse performance, but it is **ONLY** way to copy observer.
  *
  * @tparam Type of value this observer can handle
+ *
+ * @ingroup observers
  */
 template<constraint::decayed_type Type>
 using dynamic_observer = base_observer<Type, details::observer::dynamic_strategy<Type>>;
@@ -90,6 +94,8 @@ using dynamic_observer = base_observer<Type, details::observer::dynamic_strategy
  * @tparam OnNext is type of callback to handle on_next(const Type&) and on_next(Type&&)
  * @tparam OnError is type of callback to handle on_error(const std::exception_ptr&)
  * @tparam OnCompleted is type of callback to handle on_completed()
+ *
+ * @ingroup observers
  */
 template<constraint::decayed_type Type, std::invocable<Type> OnNext,  std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
 using lambda_observer = base_observer<Type, details::observer::lambda_strategy<Type, OnNext, OnError, OnCompleted>>;

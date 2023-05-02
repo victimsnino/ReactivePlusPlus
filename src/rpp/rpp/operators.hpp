@@ -13,6 +13,9 @@
 /**
 * @defgroup operators Operators
 * @brief Operators is way to modify observables and extend with some extra custom logic
+* @details By default observable emits some values with some underlying logic. For example, it iterates over vector and emits values. 
+* But operators provide ability to make such an stream a bit more complex, for example, emit only SOME values, transform to string and etc. 
+* As a result, it would be ANOTHER stream of ANOTHER values, but more suitable for some specific case.
 * @see https://reactivex.io/documentation/operators.html
 * @ingroup rpp
 */
