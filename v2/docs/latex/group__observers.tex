@@ -5,5 +5,76 @@
 Observer subscribes on Observable and obtains values provided by Observable.  
 
 
+\doxysubsection*{Concepts}
+\begin{DoxyCompactItemize}
+\item 
+concept \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp\+::constraint\+::observer\+\_\+strategy}}
+\begin{DoxyCompactList}\small\item\em Concept to define strategy to override observer behavior. Strategy must be able to handle all observer\textquotesingle{}s callbacks\+: on\+\_\+next/on\+\_\+error/on\+\_\+completed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classrpp_1_1base__observer}{rpp\+::base\+\_\+observer$<$ Type, Strategy $>$}}
+\begin{DoxyCompactList}\small\item\em Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this class would be passed to subscribe of observable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\using \mbox{\hyperlink{group__observers_gac1c33b452ca9e0a58fbde9da538ca5f1}{rpp\+::dynamic\+\_\+observer}} = \mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}}$<$ Type, \mbox{\hyperlink{classrpp_1_1details_1_1observer_1_1dynamic__strategy}{details\+::observer\+::dynamic\+\_\+strategy}}$<$ Type $>$ $>$
+\begin{DoxyCompactList}\small\item\em Type-\/erased version of the {\ttfamily \mbox{\hyperlink{classrpp_1_1base__observer}{rpp\+::base\+\_\+observer}}}. Any observer can be converted to dynamic\+\_\+observer via {\ttfamily \mbox{\hyperlink{classrpp_1_1base__observer_a601d0b432a3f88eeeee64e886efba9bd}{rpp\+::base\+\_\+observer\+::as\+\_\+dynamic}}} member function. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::decayed\+\_\+type Type, std\+::invocable$<$ Type $>$ On\+Next, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error, std\+::invocable$<$$>$ On\+Completed$>$ }\\using \mbox{\hyperlink{group__observers_ga5ccae622968e072637073c844bac0b5f}{rpp\+::lambda\+\_\+observer}} = \mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}}$<$ Type, \mbox{\hyperlink{structrpp_1_1details_1_1observer_1_1lambda__strategy}{details\+::observer\+::lambda\+\_\+strategy}}$<$ Type, On\+Next, On\+Error, On\+Completed $>$ $>$
+\begin{DoxyCompactList}\small\item\em Observer specialized with passed callbacks. Most easiesest way to construct observer \char`\"{}on the fly\char`\"{} via lambdas and etc. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
 Observer subscribes on Observable and obtains values provided by Observable. 
 
+Observer is kind of wrapper over 3 core functions\+:
+\begin{DoxyItemize}
+\item on\+\_\+next(\+T) -\/ callback with new emission provided by observable
+\item on\+\_\+error(err) -\/ failure termination callback with reason of failure of observable (why observable can\textquotesingle{}t continue processing)
+\item on\+\_\+completed() -\/ succeed termination callback -\/ observable is done, no any future emissions from this \begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/observable.html}{\texttt{ https\+://reactivex.\+io/documentation/observable.\+html}} 
+\end{DoxySeeAlso}
+
+\end{DoxyItemize}
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{group__observers_gac1c33b452ca9e0a58fbde9da538ca5f1}\label{group__observers_gac1c33b452ca9e0a58fbde9da538ca5f1}} 
+\index{Observers@{Observers}!dynamic\_observer@{dynamic\_observer}}
+\index{dynamic\_observer@{dynamic\_observer}!Observers@{Observers}}
+\doxysubsubsection{\texorpdfstring{dynamic\_observer}{dynamic\_observer}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
+using \mbox{\hyperlink{group__observers_gac1c33b452ca9e0a58fbde9da538ca5f1}{rpp\+::dynamic\+\_\+observer}} = typedef \mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}}$<$Type, \mbox{\hyperlink{classrpp_1_1details_1_1observer_1_1dynamic__strategy}{details\+::observer\+::dynamic\+\_\+strategy}}$<$Type$>$ $>$}
+
+
+
+Type-\/erased version of the {\ttfamily \mbox{\hyperlink{classrpp_1_1base__observer}{rpp\+::base\+\_\+observer}}}. Any observer can be converted to dynamic\+\_\+observer via {\ttfamily \mbox{\hyperlink{classrpp_1_1base__observer_a601d0b432a3f88eeeee64e886efba9bd}{rpp\+::base\+\_\+observer\+::as\+\_\+dynamic}}} member function. 
+
+To provide type-\/erasure it uses {\ttfamily std\+::shared\+\_\+ptr}. As a result it has worse performance, but it is {\bfseries{ONLY}} way to copy observer.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & of value this observer can handle \\
+\hline
+\end{DoxyTemplParams}
+\mbox{\Hypertarget{group__observers_ga5ccae622968e072637073c844bac0b5f}\label{group__observers_ga5ccae622968e072637073c844bac0b5f}} 
+\index{Observers@{Observers}!lambda\_observer@{lambda\_observer}}
+\index{lambda\_observer@{lambda\_observer}!Observers@{Observers}}
+\doxysubsubsection{\texorpdfstring{lambda\_observer}{lambda\_observer}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, std\+::invocable$<$ Type $>$ On\+Next, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error, std\+::invocable$<$$>$ On\+Completed$>$ \\
+using \mbox{\hyperlink{group__observers_ga5ccae622968e072637073c844bac0b5f}{rpp\+::lambda\+\_\+observer}} = typedef \mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}}$<$Type, \mbox{\hyperlink{structrpp_1_1details_1_1observer_1_1lambda__strategy}{details\+::observer\+::lambda\+\_\+strategy}}$<$Type, On\+Next, On\+Error, On\+Completed$>$ $>$}
+
+
+
+Observer specialized with passed callbacks. Most easiesest way to construct observer \char`\"{}on the fly\char`\"{} via lambdas and etc. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & of value this observer can handle \\
+\hline
+{\em On\+Next} & is type of callback to handle on\+\_\+next(const Type\&) and on\+\_\+next(\+Type\&\&) \\
+\hline
+{\em On\+Error} & is type of callback to handle on\+\_\+error(const std\+::exception\+\_\+ptr\&) \\
+\hline
+{\em On\+Completed} & is type of callback to handle on\+\_\+completed() \\
+\hline
+\end{DoxyTemplParams}

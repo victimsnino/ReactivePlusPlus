@@ -1,4 +1,4 @@
 var group__transforming__operators =
 [
-    [ "requires", "group__transforming__operators.html#gae34ba856f898543f469ccbb3ba3b1109", null ]
+    [ "rpp::operators::map", "group__transforming__operators.html#gaa1e52694559ad873f33b62ada4c45675", null ]
 ];

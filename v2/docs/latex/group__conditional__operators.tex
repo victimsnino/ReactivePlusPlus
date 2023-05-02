@@ -5,8 +5,71 @@
 Conditional operators are operators that emit items based on some condition including condition of items from other observables.  
 
 
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Fn $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__conditional__operators_gad40c85eab44ed3bcb4649137088ebd68}{rpp\+::operators\+::take\+\_\+while}} (Fn \&\&predicate)
+\begin{DoxyCompactList}\small\item\em Sends items from observable while items are satisfy predicate. When condition becomes false -\/\texorpdfstring{$>$}{>} sends {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
 Conditional operators are operators that emit items based on some condition including condition of items from other observables. 
 
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators.html\#conditional}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html\#conditional}} 
 \end{DoxySeeAlso}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__conditional__operators_gad40c85eab44ed3bcb4649137088ebd68}\label{group__conditional__operators_gad40c85eab44ed3bcb4649137088ebd68}} 
+\index{Conditional Operators@{Conditional Operators}!take\_while@{take\_while}}
+\index{take\_while@{take\_while}!Conditional Operators@{Conditional Operators}}
+\doxysubsubsection{\texorpdfstring{take\_while()}{take\_while()}}
+{\footnotesize\ttfamily template$<$typename Fn $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+auto rpp\+::operators\+::take\+\_\+while (\begin{DoxyParamCaption}\item[{Fn \&\&}]{predicate }\end{DoxyParamCaption})}
+
+
+
+Sends items from observable while items are satisfy predicate. When condition becomes false -\/\texorpdfstring{$>$}{>} sends {\ttfamily on\+\_\+completed} 
+
+
+
+Actually this operator just emits values while predicate returns true
+
+\begin{DoxyParagraph}{Performance notes\+:}
+
+\begin{DoxyItemize}
+\item No any heap allocations
+\item No any copies/moves
+\end{DoxyItemize}
+\end{DoxyParagraph}
+
+\begin{DoxyParams}{Parameters}
+{\em predicate} & is predicate used to check items. Accepts value from observable and returns {\ttfamily true} if value should be forwarded and {\ttfamily false} if emissions should be stopped and observable should be terminated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new specific\+\_\+observable with the take\+\_\+while operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{take__while_8hpp_source}{rpp/operators/take\+\_\+while.\+hpp}}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga2113275ba18c9cda80c5d576a9098639}{rpp::source::just}}(0,\ 1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8,\ 9)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__conditional__operators_gad40c85eab44ed3bcb4649137088ebd68}{rpp::operators::take\_while}}([](\textcolor{keywordtype}{int}\ v)\ \{\ \textcolor{keywordflow}{return}\ v\ !=\ 5;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ \ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 0\ 1\ 2\ 3\ 4}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/takewhile.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/takewhile.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{take_while_8cpp-example}{take\+\_\+while.\+cpp}}.\end{Desc}

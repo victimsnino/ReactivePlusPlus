@@ -1,0 +1,12 @@
+\hypertarget{conceptrpp_1_1constraint_1_1operators}{}\doxysection{rpp\+::constraint\+::operators Concept Reference}
+\label{conceptrpp_1_1constraint_1_1operators}\index{rpp::constraint::operators@{rpp::constraint::operators}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op,\ \textcolor{keyword}{typename}\ TObs>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operators}{rpp::constraint::operators}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Op\&\ op,\ TObs\ obs)\ }
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \{op(\textcolor{keyword}{static\_cast<}TObs\textcolor{keyword}{>}(obs))\}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}};}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

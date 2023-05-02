@@ -1,0 +1,41 @@
+\hypertarget{operators_2fwd_8hpp_source}{}\doxysection{fwd.\+hpp}
+\label{operators_2fwd_8hpp_source}\index{src/rpp/rpp/operators/fwd.hpp@{src/rpp/rpp/operators/fwd.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2023\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/utils/function\_traits.hpp>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/utils/constraints.hpp>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/utils/utils.hpp>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }rpp::operators}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{take}}(\textcolor{keywordtype}{size\_t}\ count);}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{subscribe}};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ !std::same\_as<void,\ std::invoke\_result\_t<Fn,\ utils::convertible\_to\_any>>)}
+\DoxyCodeLine{00026\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{map}}(Fn\&\&\ callable);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ std::same\_as<bool,\ std::invoke\_result\_t<Fn,\ utils::convertible\_to\_any>>)}
+\DoxyCodeLine{00030\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__filtering__operators_ga3ddeadf25b1cb3105f628ea11dc3a28a}{filter}}(Fn\&\&\ predicate);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ std::same\_as<bool,\ std::invoke\_result\_t<Fn,\ utils::convertible\_to\_any>>)}
+\DoxyCodeLine{00034\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__conditional__operators_gad40c85eab44ed3bcb4649137088ebd68}{take\_while}}(Fn\&\&\ predicate);}
+\DoxyCodeLine{00035\ \}}
+
+\end{DoxyCode}

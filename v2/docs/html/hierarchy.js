@@ -10,8 +10,8 @@ var hierarchy =
       [ "rpp::base_observer< Type, details::with_disposable< Strategy > >", "classrpp_1_1base__observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4.html", null ]
     ] ],
     [ "rpp::details::base_observer_impl< Type, Strategy, details::local_disposable_strategy >", "classrpp_1_1details_1_1base__observer__impl.html", [
-      [ "rpp::base_observer< Type, ObserverStrategy >", "classrpp_1_1base__observer.html", null ],
       [ "rpp::base_observer< TT, ObserverStrategy >", "classrpp_1_1base__observer.html", null ],
+      [ "rpp::base_observer< Type, ObserverStrategy >", "classrpp_1_1base__observer.html", null ],
       [ "rpp::base_observer< Type, Strategy >", "classrpp_1_1base__observer.html", null ]
     ] ],
     [ "rpp::details::container_with_iterator< Container >", "classrpp_1_1details_1_1container__with__iterator.html", null ],
@@ -37,6 +37,7 @@ var hierarchy =
     [ "rpp::operators::details::map_observer_strategy< Fn >", "structrpp_1_1operators_1_1details_1_1map__observer__strategy.html", null ],
     [ "rpp::operators::details::map_t< Fn >", "structrpp_1_1operators_1_1details_1_1map__t.html", null ],
     [ "rpp::details::none_disposable_strategy", "structrpp_1_1details_1_1none__disposable__strategy.html", null ],
+    [ "rpp::operators::details::operator_observable_strategy< Observable, T, Strategy, Args >", "classrpp_1_1operators_1_1details_1_1operator__observable__strategy.html", null ],
     [ "rpp::operators::details::operator_strategy_base< T, TObs, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base.html", null ],
     [ "rpp::operators::details::operator_strategy_base< T, rpp::base_observer< TT, ObserverStrategy >, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1base__observer_35d914c2b4e35f15683ffab6e26f444be.html", null ],
     [ "rpp::schedulers::details::schedulable_base", "classrpp_1_1schedulers_1_1details_1_1schedulable__base.html", [

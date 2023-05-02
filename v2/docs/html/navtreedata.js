@@ -42,6 +42,7 @@ var NAVTREE =
       [ "Subjects", "md_docs__implementation__status.html#autotoc_md13", null ]
     ] ],
     [ "API reference", "modules.html", "modules" ],
+    [ "Concepts", "concepts.html", "concepts" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -60,8 +61,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html",
-"schedulers_8hpp_source.html"
+"annotated.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

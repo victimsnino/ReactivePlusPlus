@@ -1,4 +1,0 @@
-var structrpp_1_1utils_1_1details_1_1extract__observable__type_3_01rpp_1_1base__observable_3_01_t_t_00_01_strategy_01_4_01_4 =
-[
-    [ "type", "structrpp_1_1utils_1_1details_1_1extract__observable__type_3_01rpp_1_1base__observable_3_01_t_t_00_01_strategy_01_4_01_4.html#af539593689845f061967f973ef079b8a", null ]
-];

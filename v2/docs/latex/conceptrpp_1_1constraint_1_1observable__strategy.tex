@@ -1,0 +1,12 @@
+\hypertarget{conceptrpp_1_1constraint_1_1observable__strategy}{}\doxysection{rpp\+::constraint\+::observable\+\_\+strategy Concept Reference}
+\label{conceptrpp_1_1constraint_1_1observable__strategy}\index{rpp::constraint::observable\_strategy@{rpp::constraint::observable\_strategy}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable__strategy}{rpp::constraint::observable\_strategy}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ strategy,\ dynamic\_observer<T>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}})}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \{strategy.subscribe(std::move(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}}))\}\ -\/>\ std::same\_as<void>;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

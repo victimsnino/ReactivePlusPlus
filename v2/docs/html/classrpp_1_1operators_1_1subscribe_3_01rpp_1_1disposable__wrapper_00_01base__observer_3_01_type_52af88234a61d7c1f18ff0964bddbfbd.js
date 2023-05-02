@@ -1,6 +1,5 @@
 var classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01base__observer_3_01_type_52af88234a61d7c1f18ff0964bddbfbd =
 [
     [ "subscribe", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01base__observer_3_01_type_52af88234a61d7c1f18ff0964bddbfbd.html#a59c789a6673b466108d840182cf99383", null ],
-    [ "subscribe", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01base__observer_3_01_type_52af88234a61d7c1f18ff0964bddbfbd.html#ab2fc7259dd6b1610d8b031920cf53b75", null ],
-    [ "operator()", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01base__observer_3_01_type_52af88234a61d7c1f18ff0964bddbfbd.html#a2383e0b7a790485ad7da5ada56649a0c", null ]
+    [ "subscribe", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01base__observer_3_01_type_52af88234a61d7c1f18ff0964bddbfbd.html#af96ec25e49546be22a10d853b27ad79f", null ]
 ];

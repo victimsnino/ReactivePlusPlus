@@ -1,0 +1,13 @@
+\hypertarget{conceptrpp_1_1schedulers_1_1constraint_1_1strategy}{}\doxysection{rpp\+::schedulers\+::constraint\+::strategy Concept Reference}
+\label{conceptrpp_1_1schedulers_1_1constraint_1_1strategy}\index{rpp::schedulers::constraint::strategy@{rpp::schedulers::constraint::strategy}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1strategy}{rpp::schedulers::constraint::strategy}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ s,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1base__observer}{rpp::dynamic\_observer<int>}}\&\ obs)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \{s.defer\_for(duration\{\},\ std::declval<optional\_duration(*)(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1base__observer}{rpp::dynamic\_observer<int>}}\&)>(),\ obs)\}\ -\/>\ std::same\_as<void>;}
+\DoxyCodeLine{\ \ \ \ \{s.get\_disposable()\}\ -\/>\ std::same\_as<rpp::disposable\_wrapper>;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
