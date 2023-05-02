@@ -157,11 +157,11 @@ jobs:
     - name: Install deps
       run: |
         pip3 install rxmarbles
-        sudo apt-get install doxygen
+        sudo apt-get update -q && sudo apt-get install doxygen
         doxygen --version
 
     - name: Doxygen
-      uses: mattnotmitt/doxygen-action@v1.9.5
+      run: doxygen
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
