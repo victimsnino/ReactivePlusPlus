@@ -11,13 +11,12 @@
 #pragma once
 
 #include <rpp/operators/fwd.hpp>
-#include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <cstddef>
 
 namespace rpp::operators::details
 {
-struct RPP_EMPTY_BASES take_observer_strategy
+struct take_observer_strategy
 {
     mutable size_t count{};
 

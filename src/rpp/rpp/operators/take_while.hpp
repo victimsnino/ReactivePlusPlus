@@ -17,7 +17,7 @@
 namespace rpp::operators::details
 {
 template<rpp::constraint::decayed_type Fn>
-struct RPP_EMPTY_BASES take_while_observer_strategy
+struct take_while_observer_strategy
 {
     RPP_NO_UNIQUE_ADDRESS Fn fn;
 

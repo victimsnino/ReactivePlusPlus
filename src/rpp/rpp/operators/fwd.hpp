@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <rpp/observables/fwd.hpp>
 #include <rpp/utils/function_traits.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/utils/utils.hpp>
@@ -32,4 +33,10 @@ auto filter(Fn&& callable);
 template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
 auto take_while(Fn&& callable);
+
+inline auto concat();
+
+template<constraint::observable ...TObservables>
+    requires (sizeof...(TObservables) >= 1)
+auto concat_with(TObservables&&... observables);
 }
