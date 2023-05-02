@@ -25,21 +25,21 @@
 var NAVTREE =
 [
   [ "ReactivePlusPlus", "index.html", [
-    [ "Implementation status", "status.html", [
-      [ "Fundamentals", "status.html#autotoc_md0", null ],
-      [ "Creating Observables", "status.html#autotoc_md1", null ],
-      [ "Operators", "status.html#autotoc_md2", [
-        [ "Transforming", "status.html#autotoc_md3", null ],
-        [ "Filtering", "status.html#autotoc_md4", null ],
-        [ "Conditional", "status.html#autotoc_md5", null ],
-        [ "Combining", "status.html#autotoc_md6", null ],
-        [ "Aggregate", "status.html#autotoc_md7", null ],
-        [ "Backpressure", "status.html#autotoc_md8", null ],
-        [ "Error handling", "status.html#autotoc_md9", null ],
-        [ "Utility", "status.html#autotoc_md10", null ],
-        [ "Connectable", "status.html#autotoc_md11", null ]
+    [ "Implementation status", "md_docs__implementation__status.html", [
+      [ "Fundamentals", "md_docs__implementation__status.html#autotoc_md1", null ],
+      [ "Creating Observables", "md_docs__implementation__status.html#autotoc_md2", null ],
+      [ "Operators", "md_docs__implementation__status.html#autotoc_md3", [
+        [ "Transforming", "md_docs__implementation__status.html#autotoc_md4", null ],
+        [ "Filtering", "md_docs__implementation__status.html#autotoc_md5", null ],
+        [ "Conditional", "md_docs__implementation__status.html#autotoc_md6", null ],
+        [ "Combining", "md_docs__implementation__status.html#autotoc_md7", null ],
+        [ "Aggregate", "md_docs__implementation__status.html#autotoc_md8", null ],
+        [ "Backpressure", "md_docs__implementation__status.html#autotoc_md9", null ],
+        [ "Error handling", "md_docs__implementation__status.html#autotoc_md10", null ],
+        [ "Utility", "md_docs__implementation__status.html#autotoc_md11", null ],
+        [ "Connectable", "md_docs__implementation__status.html#autotoc_md12", null ]
       ] ],
-      [ "Subjects", "status.html#autotoc_md12", null ]
+      [ "Subjects", "md_docs__implementation__status.html#autotoc_md13", null ]
     ] ],
     [ "API reference", "modules.html", "modules" ],
     [ "Classes", "annotated.html", [
@@ -61,7 +61,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"status.html#autotoc_md7"
+"schedulers_8hpp_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
