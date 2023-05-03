@@ -25,10 +25,27 @@ concept observable_strategy = requires(const S& strategy, dynamic_observer<T>&& 
 };
 }
 
+namespace rpp::details::observable
+{
+template<constraint::decayed_type Type>
+class dynamic_strategy;
+}
+
 namespace rpp
 {
 template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
 class base_observable;
+
+/**
+ * @brief Type-erased version of the `rpp::base_observable`. Any observable can be converted to dynamic_observable via `rpp::base_observable::as_dynamic` member function.
+ * @details To provide type-erasure it uses `std::shared_ptr`. As a result it has worse performance.
+ *
+ * @tparam Type of value this obsevalbe can provide
+ *
+ * @ingroup observables
+ */
+template<constraint::decayed_type Type>
+using dynamic_observable = base_observable<Type, details::observable::dynamic_strategy<Type>>;
 }
 
 namespace rpp::utils
