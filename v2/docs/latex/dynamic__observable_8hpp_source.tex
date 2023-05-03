@@ -1,0 +1,70 @@
+\hypertarget{dynamic__observable_8hpp_source}{}\doxysection{dynamic\+\_\+observable.\+hpp}
+\label{dynamic__observable_8hpp_source}\index{src/rpp/rpp/observables/dynamic\_observable.hpp@{src/rpp/rpp/observables/dynamic\_observable.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2023\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <rpp/observables/fwd.hpp>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/observers/dynamic\_observer.hpp>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }rpp::details::observable}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Observable>}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{void}\ forwarding\_subscribe(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{const}\ ptr,\ dynamic\_observer<T>\&\&\ obs)\ \{\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }Observable*\textcolor{keyword}{>}(ptr)-\/>subscribe(std::move(obs));\ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1observable_1_1dynamic__strategy}{dynamic\_strategy}}\ final}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!constraint::decayed\_same\_as<Strategy,\ dynamic\_strategy<Type>>)}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1details_1_1observable_1_1dynamic__strategy}{dynamic\_strategy}}(\mbox{\hyperlink{classrpp_1_1base__observable}{base\_observable<Type,\ Strategy>}}\&\&\ observable)}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ :\ m\_forwarder\{std::make\_shared<base\_observable<Type,\ Strategy>>(std::move(observable))\}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ ,\ m\_vtable\{vtable::template\ create<base\_observable<Type,\ Strategy>>()\}\ \{\}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!constraint::decayed\_same\_as<Strategy,\ dynamic\_strategy<Type>>)}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1details_1_1observable_1_1dynamic__strategy}{dynamic\_strategy}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1base__observable}{base\_observable<Type,\ Strategy>}}\&\ observable)}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ :\ m\_forwarder\{std::make\_shared<base\_observable<Type,\ Strategy>>(observable)\}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ ,\ m\_vtable\{vtable::template\ create<base\_observable<Type,\ Strategy>>()\}\ \{\}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_strategy<Type>\ ObserverStrategy>}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(\mbox{\hyperlink{classrpp_1_1base__observer}{base\_observer<Type,\ ObserverStrategy>}}\&\&\ observer)\textcolor{keyword}{\ const\ }}
+\DoxyCodeLine{00041\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ m\_vtable-\/>subscribe(m\_forwarder.get(),\ std::move(observer).as\_dynamic());}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{struct\ }vtable}
+\DoxyCodeLine{00047\ \ \ \ \ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ void\ (*subscribe)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*,\ \mbox{\hyperlink{classrpp_1_1base__observer}{dynamic\_observer<Type>}}\&\&)\{\};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\ Observable>}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ vtable*\ create()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ vtable\ s\_res\{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .subscribe\ =\ forwarding\_subscribe<Type,\ Observable>}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&s\_res;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00061\ \ \ \ \ std::shared\_ptr<void>\ m\_forwarder;}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{const}\ vtable*\ \ \ \ \ \ \ \ \ m\_vtable;}
+\DoxyCodeLine{00063\ \};}
+\DoxyCodeLine{00064\ \}\ \textcolor{comment}{//\ namespace\ rpp::details::observer}}
+
+\end{DoxyCode}

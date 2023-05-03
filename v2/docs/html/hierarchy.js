@@ -18,6 +18,7 @@ var hierarchy =
     [ "rpp::details::create_strategy< Type, OnSubscribe >", "structrpp_1_1details_1_1create__strategy.html", null ],
     [ "rpp::schedulers::current_thread", "classrpp_1_1schedulers_1_1current__thread.html", null ],
     [ "rpp::disposable_wrapper", "classrpp_1_1disposable__wrapper.html", null ],
+    [ "rpp::details::observable::dynamic_strategy< Type >", "classrpp_1_1details_1_1observable_1_1dynamic__strategy.html", null ],
     [ "rpp::details::observer::dynamic_strategy< Type >", "classrpp_1_1details_1_1observer_1_1dynamic__strategy.html", null ],
     [ "std::false_type", null, [
       [ "rpp::schedulers::constraint::details::is_worker< T >", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html", null ],

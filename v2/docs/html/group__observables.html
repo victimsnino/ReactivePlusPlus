@@ -97,7 +97,8 @@ $(document).ready(function(){initNavTree('group__observables.html',''); initResi
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle"><div class="title">Observables<div class="ingroups"><a class="el" href="group__rpp.html">RPP</a></div></div></div>
 </div><!--header-->
 <div class="contents">
@@ -110,10 +111,43 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1base__observable.html">rpp::base_observable&lt; Type, Strategy &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for any observable used in RPP. It handles core callbacks of observable.  <a href="classrpp_1_1base__observable.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga88eda222875e61f61dbf2b3801b0a5de"><td class="memTemplParams" colspan="2">template&lt;constraint::decayed_type Type&gt; </td></tr>
+<tr class="memitem:ga88eda222875e61f61dbf2b3801b0a5de"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observables.html#ga88eda222875e61f61dbf2b3801b0a5de">rpp::dynamic_observable</a> = <a class="el" href="classrpp_1_1base__observable.html">base_observable</a>&lt; Type, <a class="el" href="classrpp_1_1details_1_1observable_1_1dynamic__strategy.html">details::observable::dynamic_strategy</a>&lt; Type &gt; &gt;</td></tr>
+<tr class="memdesc:ga88eda222875e61f61dbf2b3801b0a5de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type-erased version of the <code><a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::base_observable</a></code>. Any observable can be converted to dynamic_observable via <code><a class="el" href="classrpp_1_1base__observable.html#a18f4936f315e07782a29adc76d050fbc" title="Convert observable to type-erased versio.">rpp::base_observable::as_dynamic</a></code> member function.  <br /></td></tr>
+<tr class="separator:ga88eda222875e61f61dbf2b3801b0a5de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Observable is the source of any Reactive Stream. </p>
 <p>Observable provides ability to subscribe observer on stream of events. After subscription observable would emit values to observer. </p><dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/observable.html">https://reactivex.io/documentation/observable.html</a> </dd></dl>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="ga88eda222875e61f61dbf2b3801b0a5de" name="ga88eda222875e61f61dbf2b3801b0a5de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga88eda222875e61f61dbf2b3801b0a5de">&#9670;&#160;</a></span>dynamic_observable</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="group__observables.html#ga88eda222875e61f61dbf2b3801b0a5de">rpp::dynamic_observable</a> = typedef <a class="el" href="classrpp_1_1base__observable.html">base_observable</a>&lt;Type, <a class="el" href="classrpp_1_1details_1_1observable_1_1dynamic__strategy.html">details::observable::dynamic_strategy</a>&lt;Type&gt; &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type-erased version of the <code><a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::base_observable</a></code>. Any observable can be converted to dynamic_observable via <code><a class="el" href="classrpp_1_1base__observable.html#a18f4936f315e07782a29adc76d050fbc" title="Convert observable to type-erased versio.">rpp::base_observable::as_dynamic</a></code> member function. </p>
+<p>To provide type-erasure it uses <code>std::shared_ptr</code>. As a result it has worse performance.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Type</td><td>of value this obsevalbe can provide </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

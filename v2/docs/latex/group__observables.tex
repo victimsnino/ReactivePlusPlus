@@ -10,6 +10,11 @@ Observable is the source of any Reactive Stream.
 \item 
 class \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable$<$ Type, Strategy $>$}}
 \begin{DoxyCompactList}\small\item\em Base class for any observable used in RPP. It handles core callbacks of observable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\using \mbox{\hyperlink{group__observables_ga88eda222875e61f61dbf2b3801b0a5de}{rpp\+::dynamic\+\_\+observable}} = \mbox{\hyperlink{classrpp_1_1base__observable}{base\+\_\+observable}}$<$ Type, \mbox{\hyperlink{classrpp_1_1details_1_1observable_1_1dynamic__strategy}{details\+::observable\+::dynamic\+\_\+strategy}}$<$ Type $>$ $>$
+\begin{DoxyCompactList}\small\item\em Type-\/erased version of the {\ttfamily \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}}}. Any observable can be converted to dynamic\+\_\+observable via {\ttfamily \mbox{\hyperlink{classrpp_1_1base__observable_a18f4936f315e07782a29adc76d050fbc}{rpp\+::base\+\_\+observable\+::as\+\_\+dynamic}}} member function. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -18,3 +23,24 @@ Observable is the source of any Reactive Stream.
 Observable provides ability to subscribe observer on stream of events. After subscription observable would emit values to observer. \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/observable.html}{\texttt{ https\+://reactivex.\+io/documentation/observable.\+html}} 
 \end{DoxySeeAlso}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{group__observables_ga88eda222875e61f61dbf2b3801b0a5de}\label{group__observables_ga88eda222875e61f61dbf2b3801b0a5de}} 
+\index{Observables@{Observables}!dynamic\_observable@{dynamic\_observable}}
+\index{dynamic\_observable@{dynamic\_observable}!Observables@{Observables}}
+\doxysubsubsection{\texorpdfstring{dynamic\_observable}{dynamic\_observable}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
+using \mbox{\hyperlink{group__observables_ga88eda222875e61f61dbf2b3801b0a5de}{rpp\+::dynamic\+\_\+observable}} = typedef \mbox{\hyperlink{classrpp_1_1base__observable}{base\+\_\+observable}}$<$Type, \mbox{\hyperlink{classrpp_1_1details_1_1observable_1_1dynamic__strategy}{details\+::observable\+::dynamic\+\_\+strategy}}$<$Type$>$ $>$}
+
+
+
+Type-\/erased version of the {\ttfamily \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}}}. Any observable can be converted to dynamic\+\_\+observable via {\ttfamily \mbox{\hyperlink{classrpp_1_1base__observable_a18f4936f315e07782a29adc76d050fbc}{rpp\+::base\+\_\+observable\+::as\+\_\+dynamic}}} member function. 
+
+To provide type-\/erasure it uses {\ttfamily std\+::shared\+\_\+ptr}. As a result it has worse performance.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & of value this obsevalbe can provide \\
+\hline
+\end{DoxyTemplParams}

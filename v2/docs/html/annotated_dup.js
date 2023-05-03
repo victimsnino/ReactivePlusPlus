@@ -2,6 +2,9 @@ var annotated_dup =
 [
     [ "rpp", null, [
       [ "details", null, [
+        [ "observable", null, [
+          [ "dynamic_strategy", "classrpp_1_1details_1_1observable_1_1dynamic__strategy.html", null ]
+        ] ],
         [ "observer", null, [
           [ "dynamic_strategy", "classrpp_1_1details_1_1observer_1_1dynamic__strategy.html", null ],
           [ "lambda_strategy", "structrpp_1_1details_1_1observer_1_1lambda__strategy.html", null ]
