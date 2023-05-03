@@ -10,6 +10,7 @@
 #pragma once
 
 #include <rpp/observables/fwd.hpp>
+#include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/observers/lambda_observer.hpp>
 
@@ -116,6 +117,12 @@ public:
                                                 std::forward<OnCompleted>(on_completed)));
         return d;
     }
+
+    /**
+     * @brief Convert observable to type-erased versio
+     */
+    auto as_dynamic() const& { return rpp::dynamic_observable<Type>{*this}; }
+    auto as_dynamic() && { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
     template<constraint::operators<const base_observable<Type, Strategy>&> Op>
     auto operator|(Op&& op) const &

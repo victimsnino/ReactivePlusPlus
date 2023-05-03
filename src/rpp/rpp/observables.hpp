@@ -20,3 +20,4 @@
 
 #include <rpp/observables/fwd.hpp>
 #include <rpp/observables/base_observable.hpp>
+#include <rpp/observables/dynamic_observable.hpp>
