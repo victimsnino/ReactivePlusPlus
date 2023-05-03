@@ -121,6 +121,7 @@ struct forwarding_is_disposed_strategy
 
 template<rpp::constraint::observable Observable,
          rpp::constraint::decayed_type T,
+         bool use_shared_version,
          constraint::operator_strategy<rpp::utils::extract_observable_type_t<Observable>> Strategy,
          typename... Args>
     requires (rpp::constraint::is_constructible_from<Strategy, Args...> && rpp::constraint::decayed_type<Observable> && (rpp::constraint::decayed_type<Args> && ...))
@@ -142,6 +143,10 @@ public:
     {
        std::apply([&observer, this](const Args&... vals)
                   {
+                    if constexpr (use_shared_version)
+                        m_observable.subscribe(base_observer<rpp::utils::extract_observable_type_t<Observable>,
+                                                            operator_strategy_base<rpp::utils::extract_observable_type_t<Observable>, base_observer<T, ObserverStrategy>, Strategy>>{std::move(observer), vals...});
+                    else
                        m_observable.subscribe(base_observer<rpp::utils::extract_observable_type_t<Observable>,
                                                             operator_strategy_base<rpp::utils::extract_observable_type_t<Observable>, base_observer<T, ObserverStrategy>, Strategy>>{std::move(observer), vals...});
                   },
@@ -157,12 +162,12 @@ template<rpp::constraint::observable Observable,
          constraint::operator_strategy<rpp::utils::extract_observable_type_t<Observable>> Strategy,
          typename... Args>
 using identity_operator_observable = rpp::base_observable<rpp::utils::extract_observable_type_t<Observable>,
-                                                          operator_observable_strategy<std::decay_t<Observable>, rpp::utils::extract_observable_type_t<Observable>, Strategy, Args...>>;
+                                                          operator_observable_strategy<std::decay_t<Observable>, rpp::utils::extract_observable_type_t<Observable>, false, Strategy, Args...>>;
 
 template<rpp::constraint::decayed_type T,
          rpp::constraint::observable Observable,
          constraint::operator_strategy<rpp::utils::extract_observable_type_t<Observable>> Strategy,
          typename... Args>
 using operator_observable = rpp::base_observable<T,
-                                                 operator_observable_strategy<std::decay_t<Observable>, T, Strategy, Args...>>;
+                                                 operator_observable_strategy<std::decay_t<Observable>, T, false, Strategy, Args...>>;
 }

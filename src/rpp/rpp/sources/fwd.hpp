@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/observers/fwd.hpp>
+#include <rpp/observables/fwd.hpp>
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/memory_model.hpp>
@@ -43,4 +44,8 @@ auto just(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&
 
 template<constraint::memory_model memory_model  = memory_model::use_stack>
 auto from_callable(std::invocable<> auto&& callable);
+
+template<rpp::constraint::observable TObservable, rpp::constraint::observable ...TObservables>
+    requires (std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservables>> && ...)
+auto concat(TObservable&& obs, TObservables&&...others);
 } // namespace rpp::source
