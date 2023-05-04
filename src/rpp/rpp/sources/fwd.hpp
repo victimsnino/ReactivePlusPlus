@@ -14,6 +14,7 @@
 #include <rpp/observables/fwd.hpp>
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
+#include <rpp/utils/utils.hpp>
 #include <rpp/memory_model.hpp>
 
 namespace rpp::constraint
@@ -48,4 +49,8 @@ auto from_callable(std::invocable<> auto&& callable);
 template<rpp::constraint::observable TObservable, rpp::constraint::observable ...TObservables>
     requires (std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservables>> && ...)
 auto concat(TObservable&& obs, TObservables&&...others);
+
+template<constraint::iterable Iterable>
+    requires constraint::observable<utils::iterable_value_t<Iterable>>
+auto concat(Iterable&& iterable);
 } // namespace rpp::source

@@ -1,4 +1,3 @@
-#include "rpp/observers/fwd.hpp"
 #include <rpp/rpp.hpp>
 
 #include <iostream>

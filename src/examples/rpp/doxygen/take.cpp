@@ -1,4 +1,3 @@
-#include "rpp/sources/fwd.hpp"
 #include <rpp/rpp.hpp>
 #include <iostream>
 
