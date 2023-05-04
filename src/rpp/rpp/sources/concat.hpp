@@ -22,16 +22,16 @@
 
 namespace rpp::details
 {
-template<rpp::constraint::observable TObservable, rpp::constraint::observable ...TObservables>
+template<constraint::memory_model memory_model, rpp::constraint::observable TObservable, rpp::constraint::observable ...TObservables>
 auto pack_observables(TObservable&& obs, TObservables&&...others)
 {
     if constexpr ((rpp::constraint::decayed_same_as<TObservable, TObservables> && ...))
     {
-        return pack_variadic<memory_model::use_stack, std::decay_t<TObservable>>(std::forward<TObservable>(obs), std::forward<TObservables>(others)...);
+        return pack_variadic<memory_model, std::decay_t<TObservable>>(std::forward<TObservable>(obs), std::forward<TObservables>(others)...);
     }
     else
     {
-        return pack_variadic<memory_model::use_stack, dynamic_observable<utils::extract_observable_type_t<TObservable>>>(std::forward<TObservable>(obs).as_dynamic(), std::forward<TObservables>(others).as_dynamic()...);
+        return pack_variadic<memory_model, dynamic_observable<utils::extract_observable_type_t<TObservable>>>(std::forward<TObservable>(obs).as_dynamic(), std::forward<TObservables>(others).as_dynamic()...);
     }
 }
 
@@ -127,6 +127,10 @@ namespace rpp::source
  }
  *
  * @details Actually it subscribes on first observable from emissions. When first observable completes, then it subscribes on second observable from emissions and etc...
+ * 
+ * @param obs first observalbe to subscribe on
+ * @param others rest list of observables to subscribe on
+ * @tparam memory_model rpp::memory_model strategy used to handle provided observables
  *
  * @return new base_observvable with the concat operator as most recent operator.
  * @warning #include <rpp/operators/concat.hpp>
@@ -137,11 +141,11 @@ namespace rpp::source
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/concat.html
  */
-template<rpp::constraint::observable TObservable, rpp::constraint::observable ...TObservables>
+template<constraint::memory_model memory_model /*= memory_model::use_stack*/, rpp::constraint::observable TObservable, rpp::constraint::observable ...TObservables>
     requires (std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservables>> && ...)
 auto concat(TObservable&& obs, TObservables&&...others)
 {
-    return make_concat_from_iterable(pack_observables(std::forward<TObservable>(obs), std::forward<TObservables>(others)...));
+    return make_concat_from_iterable(pack_observables<memory_model>(std::forward<TObservable>(obs), std::forward<TObservables>(others)...));
 }
 
 /**
@@ -159,6 +163,8 @@ auto concat(TObservable&& obs, TObservables&&...others)
  *
  * @details Actually it subscribes on first observable from emissions. When first observable completes, then it subscribes on second observable from emissions and etc...
  *
+ * @iterable is container with observables to subscribe on
+ * @tparam memory_model rpp::memory_model strategy used to handle provided observables
  * @return new base_observvable with the concat operator as most recent operator.
  * @warning #include <rpp/operators/concat.hpp>
  * 
@@ -168,10 +174,10 @@ auto concat(TObservable&& obs, TObservables&&...others)
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/concat.html
  */
-template<constraint::iterable Iterable>
+template<constraint::memory_model memory_model /*= memory_model::use_stack*/, constraint::iterable Iterable>
     requires constraint::observable<utils::iterable_value_t<Iterable>>
 auto concat(Iterable&& iterable)
 {
-    return make_concat_from_iterable(details::pack_to_container<memory_model::use_stack, std::decay_t<Iterable>>(std::forward<Iterable>(iterable)));
+    return make_concat_from_iterable(details::pack_to_container<memory_model, std::decay_t<Iterable>>(std::forward<Iterable>(iterable)));
 }
 }

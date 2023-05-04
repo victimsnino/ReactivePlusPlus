@@ -11,15 +11,17 @@
 #include <snitch/snitch.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/concat.hpp>
+#include <snitch/snitch_macros_test_case.hpp>
 
 #include "mock_observer.hpp"
+#include "rpp/memory_model.hpp"
 
-TEST_CASE("concat as source")
+TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     mock_observer_strategy<int> mock{};
     SECTION("concat of solo observable")
     {
-        auto observable = rpp::source::concat(rpp::source::just(1, 2));
+        auto observable = rpp::source::concat<TestType>(rpp::source::just(1, 2));
         observable.subscribe(mock.get_observer());
 
         CHECK(mock.get_received_values() == std::vector{1,2});
@@ -28,8 +30,7 @@ TEST_CASE("concat as source")
     }
     SECTION("concat of multiple same observables")
     {
-        auto observable = rpp::source::concat(rpp::source::just(1, 2), rpp::source::just(1, 2));
-        static_assert(std::same_as<decltype(observable), rpp::base_observable<int, rpp::details::concat_strategy<rpp::details::container_with_iterator<std::array<rpp::base_observable<int, rpp::details::from_iterable_strategy<rpp::details::container_with_iterator<std::array<int, 2>>, rpp::schedulers::current_thread>>, 2>>>>>);
+        auto observable = rpp::source::concat<TestType>(rpp::source::just(1, 2), rpp::source::just(1, 2));
         observable.subscribe(mock.get_observer());
 
         CHECK(mock.get_received_values() == std::vector{1,2, 1, 2});
@@ -38,8 +39,7 @@ TEST_CASE("concat as source")
     }
     SECTION("concat of multiple different observables")
     {
-        auto observable = rpp::source::concat(rpp::source::just(1, 2), rpp::source::just(1));
-        static_assert(std::same_as<decltype(observable), rpp::base_observable<int, rpp::details::concat_strategy<rpp::details::container_with_iterator<std::array<rpp::dynamic_observable<int>, 2>>>>>);
+        auto observable = rpp::source::concat<TestType>(rpp::source::just(1, 2), rpp::source::just(1));
         observable.subscribe(mock.get_observer());
 
         CHECK(mock.get_received_values() == std::vector{1,2,1});
