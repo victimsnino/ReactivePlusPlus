@@ -15,6 +15,7 @@
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/utils/utils.hpp>
+#include <rpp/utils/function_traits.hpp>
 #include <rpp/memory_model.hpp>
 
 namespace rpp::constraint
@@ -31,7 +32,7 @@ namespace rpp::source
 template<constraint::decayed_type Type, constraint::on_subscribe<Type> OnSubscribe>
 auto create(OnSubscribe&& on_subscribe);
 
-template<typename OnSubscribe, constraint::decayed_type Type = rpp::utils::extract_observer_type_t<rpp::utils::decayed_function_argument_t<OnSubscribe>>>
+template<utils::is_not_template_callable OnSubscribe, constraint::decayed_type Type = rpp::utils::extract_observer_type_t<rpp::utils::decayed_function_argument_t<OnSubscribe>>>
 auto create(OnSubscribe&& on_subscribe);
 
 template<constraint::memory_model memory_model= memory_model::use_stack, constraint::iterable Iterable, schedulers::constraint::scheduler TScheduler = schedulers::current_thread>

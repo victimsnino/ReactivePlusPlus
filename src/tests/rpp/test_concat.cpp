@@ -11,10 +11,12 @@
 #include <snitch/snitch.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/concat.hpp>
+#include <rpp/sources/create.hpp>
 #include <snitch/snitch_macros_test_case.hpp>
 
 #include "mock_observer.hpp"
-#include "rpp/memory_model.hpp"
+
+#include <optional>
 
 TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
@@ -45,5 +47,50 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
         CHECK(mock.get_received_values() == std::vector{1,2,1});
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
+    }
+    SECTION("concat of array of different observables")
+    {
+        auto observable = rpp::source::concat<TestType>(std::array{rpp::source::just(1, 2), rpp::source::just(1, 1)});
+        observable.subscribe(mock.get_observer());
+
+        CHECK(mock.get_received_values() == std::vector{1,2,1, 1});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 1);
+    }
+    SECTION("concat stop if no completion")
+    {
+        std::optional<rpp::dynamic_observer<int>> observer{};
+        auto observable = rpp::source::concat<TestType>(rpp::source::just(1, 2), rpp::source::create<int>([&](auto&& obs){ observer.emplace(std::forward<decltype(obs)>(obs).as_dynamic()); }), rpp::source::just(3));
+        observable.subscribe(mock.get_observer());
+
+        CHECK(mock.get_received_values() == std::vector{1,2});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 0);
+        REQUIRE(observer.has_value());
+
+        SECTION("send completion later")
+        {
+            observer->on_completed();
+
+            CHECK(mock.get_received_values() == std::vector{1,2,3});
+            CHECK(mock.get_on_error_count() == 0);
+            CHECK(mock.get_on_completed_count() == 1);
+        }
+        SECTION("send emission later")
+        {
+            observer->on_next(10);
+
+            CHECK(mock.get_received_values() == std::vector{1,2,10});
+            CHECK(mock.get_on_error_count() == 0);
+            CHECK(mock.get_on_completed_count() == 0);
+        }
+        SECTION("send error later")
+        {
+            observer->on_error({});
+
+            CHECK(mock.get_received_values() == std::vector{1,2});
+            CHECK(mock.get_on_error_count() == 1);
+            CHECK(mock.get_on_completed_count() == 0);
+        }
     }
 }
