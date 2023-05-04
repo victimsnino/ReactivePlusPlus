@@ -106,6 +106,18 @@ int main(int argc, char* argv[]) // NOLINT
                 rxcpp::observable<>::iterate(vals, rxcpp::identity_current_thread()).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
+        SECTION("concat_as_source of just(1)")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::concat(rpp::source::just(1)).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::just(rxcpp::observable<>::just(1)) | rxcpp::operators::concat() | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
     };
 
     BENCHMARK("Schedulers")
