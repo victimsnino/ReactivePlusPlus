@@ -66,8 +66,7 @@ class concat_disposable final : public base_disposable, public std::enable_share
     using Type = utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
 
 public:
-    concat_disposable(PackedContainer&& container) : m_container{std::move(container)} {}
-    concat_disposable(const PackedContainer& container) : m_container{container} {}
+    explicit concat_disposable(const PackedContainer& container) : m_container{container} {}
 
     template<constraint::observer_strategy<Type> Strategy>
     void drain(base_observer<Type, Strategy>&& observer)
