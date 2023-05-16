@@ -47,6 +47,9 @@ public:
     }
     bool increment_iterator() const
     {
+        if (!m_iterator)
+            m_iterator = begin();
+
         return ++(m_iterator.value()) != end();
     }
 
@@ -89,6 +92,9 @@ public:
     }
     bool increment_iterator() const
     {
+        if (!m_iterator)
+            m_iterator = get_default_iterator_value();
+
         ++m_index;
         return ++(m_iterator.value()) != end();
     }

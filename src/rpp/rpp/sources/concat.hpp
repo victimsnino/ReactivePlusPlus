@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include "rpp/utils/constraints.hpp"
 #include <rpp/sources/fwd.hpp>
 #include <rpp/sources/from.hpp>
 #include <rpp/observables/base_observable.hpp>
@@ -50,6 +51,7 @@ struct concat_source_observer_strategy
 
     void on_completed(rpp::constraint::observer auto& observer) const
     {
+        container.increment_iterator();
         concat_strategy<PackedContainer>::drain(std::move(container), std::move(observer));
     }
 };
@@ -68,21 +70,20 @@ struct concat_strategy
     }
 
     template<constraint::observer_strategy<Type> Strategy>
-    static void drain(PackedContainer container, base_observer<Type, Strategy>&& observer)
+    static void drain(constraint::decayed_same_as<PackedContainer> auto&& container, base_observer<Type, Strategy>&& observer)
     {
         if (observer.is_disposed())
             return;
 
         if (const auto itr = container.get_actual_iterator(); itr != std::cend(container))
         {
-            container.increment_iterator();
             decltype(auto) observable = PackedContainer::extract_value_from_itr(itr);
             observable.subscribe(base_observer<Type,
                                                rpp::operators::details::operator_strategy_base<Type, base_observer<Type, Strategy>,
                                                concat_source_observer_strategy<PackedContainer>>>
                                                {
-                                                std::move(observer),
-                                                std::move(container)
+                                                   std::move(observer),
+                                                   std::forward<decltype(container)>(container)
                                                });
         }
         else
