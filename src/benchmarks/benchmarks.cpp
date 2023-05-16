@@ -115,7 +115,7 @@ int main(int argc, char* argv[]) // NOLINT
 
             TEST_RXCPP([&]()
             {
-                rxcpp::observable<>::just(rxcpp::identity_immediate(), rxcpp::observable<>::just(rxcpp::identity_immediate(), 1)) | rxcpp::operators::concat() | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+                rxcpp::observable<>::just(rxcpp::observable<>::just(1, rxcpp::identity_immediate()), rxcpp::identity_immediate()) | rxcpp::operators::concat() | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
     };
