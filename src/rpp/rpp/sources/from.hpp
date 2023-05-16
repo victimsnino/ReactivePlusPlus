@@ -50,6 +50,10 @@ public:
         return ++(m_iterator.value()) != end();
     }
 
+    static const auto& extract_value_from_itr(const auto& itr) {
+        return *itr;
+    }
+
 private:
     std::shared_ptr<Container>                                 m_container{};
     mutable std::optional<decltype(std::cbegin(*m_container))> m_iterator;
@@ -87,6 +91,10 @@ public:
     {
         ++m_index;
         return ++(m_iterator.value()) != end();
+    }
+
+    static auto extract_value_from_itr(const auto& itr) {
+        return std::move(*itr);
     }
 
 private:
@@ -268,7 +276,7 @@ auto just(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> 
 
 /**
  * @brief Creates rpp::specific_observable that calls provided callable and emits resulting value of this callable
- * 
+ *
  * @marble from_callable
    {
        operator "from_callable: [](){return 42;}": +-(42)--|

@@ -76,9 +76,14 @@ struct concat_strategy
         if (const auto itr = container.get_actual_iterator(); itr != std::cend(container))
         {
             container.increment_iterator();
-            const auto observable = *itr;
-            observable.subscribe(base_observer<Type, rpp::operators::details::operator_strategy_base<Type, base_observer<Type, Strategy>, concat_source_observer_strategy<PackedContainer>>>{std::move(observer),
-                                                                                                                                                                                             std::move(container)});
+            decltype(auto) observable = PackedContainer::extract_value_from_itr(itr);
+            observable.subscribe(base_observer<Type,
+                                               rpp::operators::details::operator_strategy_base<Type, base_observer<Type, Strategy>,
+                                               concat_source_observer_strategy<PackedContainer>>>
+                                               {
+                                                std::move(observer),
+                                                std::move(container)
+                                               });
         }
         else
         {
