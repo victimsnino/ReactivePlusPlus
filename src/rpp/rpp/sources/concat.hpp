@@ -42,7 +42,7 @@ struct concat_source_observer_strategy
 {
     using Type = utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
 
-    mutable PackedContainer container;
+    RPP_NO_UNIQUE_ADDRESS mutable PackedContainer container;
 
     constexpr static operators::details::forwarding_on_next_strategy on_next{};
     constexpr static operators::details::forwarding_on_error_strategy on_error{};
@@ -72,9 +72,6 @@ struct concat_strategy
     template<constraint::observer_strategy<Type> Strategy>
     static void drain(constraint::decayed_same_as<PackedContainer> auto&& container, base_observer<Type, Strategy>&& observer)
     {
-        if (observer.is_disposed())
-            return;
-
         if (const auto itr = container.get_actual_iterator(); itr != std::cend(container))
         {
             decltype(auto) observable = PackedContainer::extract_value_from_itr(itr);
