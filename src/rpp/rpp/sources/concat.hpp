@@ -9,16 +9,14 @@
 
 #pragma once
 
-#include "rpp/memory_model.hpp"
-#include "rpp/observables/fwd.hpp"
 #include <rpp/sources/fwd.hpp>
 #include <rpp/sources/from.hpp>
 #include <rpp/observables/base_observable.hpp>
 #include <rpp/observables/dynamic_observable.hpp>
+#include <rpp/operators/details/strategy.hpp>
 #include <rpp/disposables/base_disposable.hpp>
+#include <rpp/memory_model.hpp>
 
-#include <memory>
-#include <utility>
 
 namespace rpp::details
 {
@@ -36,54 +34,24 @@ auto pack_observables(TObservable&& obs, TObservables&&...others)
 }
 
 template<constraint::decayed_type PackedContainer>
-class concat_disposable;
+struct concat_strategy;
 
-template<constraint::decayed_type PackedContainer, constraint::observer_strategy<utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>> Strategy>
+template<constraint::decayed_type PackedContainer>
 struct concat_source_observer_strategy
 {
     using Type = utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
 
-    mutable base_observer<Type, Strategy>               observer;
-    std::shared_ptr<concat_disposable<PackedContainer>> disposable;
+    mutable PackedContainer container;
 
-    void set_upstream(const disposable_wrapper& d)     { disposable->add(d.get_original()); }
-    bool is_disposed() const                           { return observer.is_disposed(); }
+    constexpr static operators::details::forwarding_on_next_strategy on_next{};
+    constexpr static operators::details::forwarding_on_error_strategy on_error{};
+    constexpr static operators::details::forwarding_set_upstream_strategy set_upstream{};
+    constexpr static operators::details::forwarding_is_disposed_strategy is_disposed{};
 
-    void on_next(const Type& v) const                  { observer.on_next(v); }
-    void on_next(Type&& v) const                       { observer.on_next(std::move(v)); }
-    void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
-
-    void on_completed() const
+    void on_completed(rpp::constraint::observer auto& observer) const
     {
-        disposable->drain(std::move(observer));
+        concat_strategy<PackedContainer>::drain(std::move(container), std::move(observer));
     }
-};
-
-
-template<constraint::decayed_type PackedContainer>
-class concat_disposable final : public base_disposable, public std::enable_shared_from_this<concat_disposable<PackedContainer>>
-{
-    using Type = utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
-
-public:
-    explicit concat_disposable(const PackedContainer& container) : m_container{container} {}
-
-    template<constraint::observer_strategy<Type> Strategy>
-    void drain(base_observer<Type, Strategy>&& observer)
-    {
-        if (const auto itr = m_container.get_actual_iterator(); itr != std::cend(m_container))
-        {
-            m_container.increment_iterator();
-            itr->subscribe(base_observer<Type, concat_source_observer_strategy<PackedContainer, Strategy>>{std::move(observer), this->shared_from_this()});
-        } 
-        else 
-        {
-            observer.on_completed();
-        }
-    }
-
-private:
-    RPP_NO_UNIQUE_ADDRESS PackedContainer m_container;
 };
 
 template<constraint::decayed_type PackedContainer>
@@ -96,10 +64,26 @@ struct concat_strategy
     template<constraint::observer_strategy<Type> Strategy>
     void subscribe(base_observer<Type, Strategy>&& observer) const
     {
-        auto disposable = std::make_shared<concat_disposable<PackedContainer>>(container);
-        
-        observer.set_upstream(disposable_wrapper{disposable});
-        disposable->drain(std::move(observer));
+        drain(container, std::move(observer));
+    }
+
+    template<constraint::observer_strategy<Type> Strategy>
+    static void drain(PackedContainer container, base_observer<Type, Strategy>&& observer)
+    {
+        if (observer.is_disposed())
+            return;
+
+        if (const auto itr = container.get_actual_iterator(); itr != std::cend(container))
+        {
+            container.increment_iterator();
+            const auto observable = *itr;
+            observable.subscribe(base_observer<Type, rpp::operators::details::operator_strategy_base<Type, base_observer<Type, Strategy>, concat_source_observer_strategy<PackedContainer>>>{std::move(observer),
+                                                                                                                                                                                             std::move(container)});
+        }
+        else
+        {
+            observer.on_completed();
+        }
     }
 };
 
@@ -109,16 +93,16 @@ auto make_concat_from_iterable(PackedContainer&& container)
     return base_observable<utils::extract_observable_type_t<utils::iterable_value_t<std::decay_t<PackedContainer>>>,
                            concat_strategy<std::decay_t<PackedContainer>>>{std::forward<PackedContainer>(container)};
 }
-}
+} // namespace rpp::details
 namespace rpp::source
 {
 /**
  * @brief Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values)
- * 
+ *
  * @marble concat
  {
-     source observable : 
-     {   
+     source observable :
+     {
          +--1-2-3-|
          .....+4--6-|
      }
@@ -126,14 +110,14 @@ namespace rpp::source
  }
  *
  * @details Actually it subscribes on first observable from emissions. When first observable completes, then it subscribes on second observable from emissions and etc...
- * 
+ *
  * @param obs first observalbe to subscribe on
  * @param others rest list of observables to subscribe on
  * @tparam memory_model rpp::memory_model strategy used to handle provided observables
  *
  * @return new base_observvable with the concat operator as most recent operator.
  * @warning #include <rpp/operators/concat.hpp>
- * 
+ *
  * @par Example
  * @snippet concat.cpp concat_as_source
  *
@@ -149,11 +133,11 @@ auto concat(TObservable&& obs, TObservables&&...others)
 
 /**
  * @brief Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values)
- * 
+ *
  * @marble concat
  {
-     source observable : 
-     {   
+     source observable :
+     {
          +--1-2-3-|
          .....+4--6-|
      }
@@ -166,7 +150,7 @@ auto concat(TObservable&& obs, TObservables&&...others)
  * @tparam memory_model rpp::memory_model strategy used to handle provided observables
  * @return new base_observvable with the concat operator as most recent operator.
  * @warning #include <rpp/operators/concat.hpp>
- * 
+ *
  * @par Example
  * @snippet concat.cpp concat_as_source_vector
  *

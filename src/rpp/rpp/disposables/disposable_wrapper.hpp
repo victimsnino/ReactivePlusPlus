@@ -18,7 +18,7 @@ namespace rpp
 class disposable_wrapper
 {
 public:
-    explicit disposable_wrapper(std::shared_ptr<base_disposable> disposable = {}) : m_disposable{std::move(disposable)} {}
+    disposable_wrapper(std::shared_ptr<base_disposable> disposable = {}) : m_disposable{std::move(disposable)} {}
 
     bool is_disposed() const { return !m_disposable || m_disposable->is_disposed(); }
 

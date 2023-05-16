@@ -17,7 +17,7 @@
 namespace rpp::operators::details
 {
 template<rpp::constraint::decayed_type Fn>
-struct RPP_EMPTY_BASES take_while_observer_strategy
+struct take_while_observer_strategy
 {
     RPP_NO_UNIQUE_ADDRESS Fn fn;
 
@@ -82,7 +82,7 @@ namespace rpp::operators
  * @param predicate is predicate used to check items. Accepts value from observable and returns `true` if value should be forwarded and `false` if emissions should be stopped and observable should be terminated.
  * @return new specific_observable with the take_while operator as most recent operator.
  * @warning #include <rpp/operators/take_while.hpp>
- * 
+ *
  * @par Example:
  * @snippet take_while.cpp take_while
  *

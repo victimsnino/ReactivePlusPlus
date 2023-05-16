@@ -29,10 +29,8 @@ class upstream_disposable
 protected:
     void set_upstream_impl(const disposable_wrapper& d)
     {
-        if (!m_upstream.get_original())
-            m_upstream = d;
-        else
-            throw utils::error_set_upstream_calle_twice{};
+        m_upstream.dispose();
+        m_upstream = d;
     }
 
     void dispose_impl() const
@@ -41,7 +39,7 @@ protected:
     }
 
 private:
-    disposable_wrapper             m_upstream{};
+    disposable_wrapper m_upstream{};
 };
 class external_disposable_strategy : private upstream_disposable
 {
@@ -117,9 +115,15 @@ protected:
 public:
     /**
      * @brief Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe.
+     * @note This method can be called multiple times, but new call means "replace upstream with this new one". So, tracked only last one
      */
     void set_upstream(const disposable_wrapper& d)
     {
+        if (is_disposed()) {
+            d.dispose();
+            return;
+        }
+
         m_disposable.set_upstream(d);
         m_strategy.set_upstream(d);
     }
@@ -205,16 +209,15 @@ private:
 namespace rpp
 {
 /**
- * @brief Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this class would be passed to subscribe of observable
+ * @brief Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this class would
+ * be passed to subscribe of observable
  *
- * @warning By default base_observer is not copyable, only movable. If you need to COPY your observer, you need to convert it to `rpp::dynamic_observer` via `rpp::base_observer::as_dynamic` member function.
- * @warning Expected that observer would be subscribed only to ONE observable ever. It can keep internal state and track it it was disposed or not. So, subscribing same observer multiple times follows unspecified behavior.
- * @warning If you are passing disposable to ctor, then state of this disposable would be used (if empty disposable or disposed -> observer is disposed by default)
+ * @warning By default base_observer is not copyable, only movable. If you need to COPY your observer, you need to convert it to rpp::dynamic_observer via rpp::base_observer::as_dynamic
+ * @warning Expected that observer would be subscribed only to ONE observable ever. It can keep internal state and track it it was disposed or not. So, subscribing same observer multiple time follows unspecified behavior.
+ * @warning If you are passing disposable to ctor, then state of this disposable would be used used (if empty disposable or disposed -> observer is disposed by default)
  *
  * @tparam Type of value this observer can handle
  * @tparam Strategy used to provide logic over observer's callbacks
- *
- * @ingroup observers
  */
 template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
 class base_observer;

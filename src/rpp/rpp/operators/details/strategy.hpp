@@ -35,8 +35,8 @@ concept operator_strategy = requires(const S& const_strategy,
 {
     const_strategy.on_next(const_observer, v);
     const_strategy.on_next(const_observer, std::move(mv));
-    const_strategy.on_error(const_observer, std::exception_ptr{});
-    const_strategy.on_completed(const_observer);
+    const_strategy.on_error(observer, std::exception_ptr{});
+    const_strategy.on_completed(observer);
 
     strategy.set_upstream(observer, disposable);
     { strategy.is_disposed() } -> std::same_as<bool>;
@@ -79,7 +79,7 @@ public:
     void on_completed() const                          { m_strategy.on_completed(m_observer); }
 
 private:
-    observer                       m_observer;
+    mutable observer               m_observer;
     RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
 };
 
