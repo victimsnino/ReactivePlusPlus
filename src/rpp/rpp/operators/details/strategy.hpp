@@ -35,8 +35,8 @@ concept operator_strategy = requires(const S& const_strategy,
 {
     const_strategy.on_next(const_observer, v);
     const_strategy.on_next(const_observer, std::move(mv));
-    const_strategy.on_error(const_observer, std::exception_ptr{});
-    const_strategy.on_completed(const_observer);
+    const_strategy.on_error(observer, std::exception_ptr{});
+    const_strategy.on_completed(observer);
 
     strategy.set_upstream(observer, disposable);
     { strategy.is_disposed() } -> std::same_as<bool>;
@@ -79,7 +79,7 @@ public:
     void on_completed() const                          { m_strategy.on_completed(m_observer); }
 
 private:
-    observer                       m_observer;
+    mutable observer               m_observer;
     RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
 };
 
@@ -142,7 +142,7 @@ public:
     {
        std::apply([&observer, this](const Args&... vals)
                   {
-                       m_observable.subscribe(base_observer<rpp::utils::extract_observable_type_t<Observable>,
+                        m_observable.subscribe(base_observer<rpp::utils::extract_observable_type_t<Observable>,
                                                             operator_strategy_base<rpp::utils::extract_observable_type_t<Observable>, base_observer<T, ObserverStrategy>, Strategy>>{std::move(observer), vals...});
                   },
                   m_vals);

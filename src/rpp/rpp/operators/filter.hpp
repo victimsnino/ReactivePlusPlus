@@ -19,7 +19,7 @@
 namespace rpp::operators::details
 {
 template<rpp::constraint::decayed_type Fn>
-struct RPP_EMPTY_BASES filter_observer_strategy
+struct filter_observer_strategy
 {
     RPP_NO_UNIQUE_ADDRESS Fn fn;
 
@@ -67,7 +67,7 @@ namespace rpp::operators
 {
 /**
 * @brief Emit only those items from an Observable that satisfies a provided predicate
-* 
+*
 * @marble filter
 {
     source observable            : +--1-2-3-4-|
@@ -75,7 +75,7 @@ namespace rpp::operators
 }
 *
 * @details Actually this operator just checks if predicate returns true, then forwards emission
-* 
+*
 * @par Performance notes:
 * - No any heap allocations
 * - No any copies/moves
@@ -83,7 +83,7 @@ namespace rpp::operators
 * @param predicate is predicate used to check emitted items. true -> items satisfies condition, false -> not
 * @return new specific_observable with the Filter operator as most recent operator.
 * @warning #include <rpp/operators/filter.hpp>
-* 
+*
 * @par Example:
 * @snippet filter.cpp Filter
 *

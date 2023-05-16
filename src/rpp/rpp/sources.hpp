@@ -21,3 +21,4 @@
 
  #include <rpp/sources/create.hpp>
  #include <rpp/sources/from.hpp>
+ #include <rpp/sources/concat.hpp>

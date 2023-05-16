@@ -47,7 +47,14 @@ public:
     }
     bool increment_iterator() const
     {
+        if (!m_iterator)
+            m_iterator = begin();
+
         return ++(m_iterator.value()) != end();
+    }
+
+    static const auto& extract_value_from_itr(const auto& itr) {
+        return *itr;
     }
 
 private:
@@ -85,8 +92,15 @@ public:
     }
     bool increment_iterator() const
     {
+        if (!m_iterator)
+            m_iterator = get_default_iterator_value();
+
         ++m_index;
         return ++(m_iterator.value()) != end();
+    }
+
+    static auto extract_value_from_itr(const auto& itr) {
+        return std::move(*itr);
     }
 
 private:
@@ -204,10 +218,10 @@ namespace rpp::source
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/from.html
  */
-template<constraint::memory_model memory_model/* = memory_model::use_stack*/, schedulers::constraint::scheduler TScheduler /* = schedulers::current_thread*/>
-auto from_iterable(constraint::iterable auto&& iterable, const TScheduler& scheduler /* = TScheduler{}*/)
+template<constraint::memory_model memory_model/* = memory_model::use_stack*/, constraint::iterable Iterable, schedulers::constraint::scheduler TScheduler /* = schedulers::current_thread*/>
+auto from_iterable(Iterable&& iterable, const TScheduler& scheduler /* = TScheduler{}*/)
 {
-    return details::make_from_iterable_observable(details::pack_to_container<memory_model, std::decay_t<decltype(iterable)>>(std::forward<decltype(iterable)>(iterable)), scheduler);
+    return details::make_from_iterable_observable(details::pack_to_container<memory_model, std::decay_t<Iterable>>(std::forward<Iterable>(iterable)), scheduler);
 }
 
 /**
@@ -232,8 +246,8 @@ auto from_iterable(constraint::iterable auto&& iterable, const TScheduler& sched
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/just.html
  */
-template<constraint::memory_model memory_model /* = memory_model::use_stack */, typename T, typename ...Ts>
-auto just(const schedulers::constraint::scheduler auto& scheduler, T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...)
+template<constraint::memory_model memory_model /* = memory_model::use_stack */, schedulers::constraint::scheduler TScheduler, typename T, typename ...Ts>
+auto just(const TScheduler& scheduler, T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...)
 {
     return details::make_from_iterable_observable(details::pack_variadic<memory_model, std::decay_t<T>>(std::forward<T>(item), std::forward<Ts>(items)...), scheduler);
 }
@@ -268,7 +282,7 @@ auto just(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> 
 
 /**
  * @brief Creates rpp::specific_observable that calls provided callable and emits resulting value of this callable
- * 
+ *
  * @marble from_callable
    {
        operator "from_callable: [](){return 42;}": +-(42)--|
@@ -282,12 +296,12 @@ auto just(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> 
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/from.html
  */
-template<constraint::memory_model memory_model /* = memory_model::use_stack */>
-auto from_callable(std::invocable<> auto&& callable)
+template<constraint::memory_model memory_model /* = memory_model::use_stack */, std::invocable<> Callable>
+auto from_callable(Callable&& callable)
 {
-    auto obs = just<memory_model>(std::forward<decltype(callable)>(callable));
+    auto obs = just<memory_model>(std::forward<Callable>(callable));
 
-    if constexpr (std::same_as<utils::decayed_invoke_result_t<decltype(callable)>, void>)
+    if constexpr (std::same_as<utils::decayed_invoke_result_t<Callable>, void>)
         return std::move(obs) | rpp::operators::map([](auto&& fn) { fn(); return utils::none{};});
     else
         return std::move(obs) | rpp::operators::map([](auto&& fn) { return fn(); });

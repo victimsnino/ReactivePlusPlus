@@ -176,12 +176,15 @@ TEST_CASE("set_upstream without base disposable makes it main disposalbe")
         test_observer(std::move(original_observer).as_dynamic());
 }
 
-TEST_CASE("set_upstream can't be called multiple times")
+TEST_CASE("set_upstream can be called multiple times")
 {
     auto check = [](auto&& observer)
     {
+        auto d1 = std::make_shared<rpp::base_disposable>();
+        observer.set_upstream(rpp::disposable_wrapper{d1});
+        CHECK(d1->is_disposed() == observer.is_disposed());
         observer.set_upstream(rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()});
-        CHECK_THROWS_AS(observer.set_upstream(rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()}), rpp::utils::error_set_upstream_calle_twice);
+        CHECK(d1->is_disposed());
     };
 
     SECTION("observer")

@@ -17,7 +17,7 @@
 
 namespace rpp::operators::details
 {
-struct RPP_EMPTY_BASES take_observer_strategy
+struct take_observer_strategy
 {
     mutable size_t count{};
 
