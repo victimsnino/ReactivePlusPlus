@@ -9,7 +9,7 @@ var searchData=
   ['forwarding_5fon_5ferror_5fstrategy_6',['forwarding_on_error_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__on__error__strategy.html',1,'rpp::operators::details']]],
   ['forwarding_5fon_5fnext_5fstrategy_7',['forwarding_on_next_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__on__next__strategy.html',1,'rpp::operators::details']]],
   ['forwarding_5fset_5fupstream_5fstrategy_8',['forwarding_set_upstream_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy.html',1,'rpp::operators::details']]],
-  ['from_5fcallable_9',['from_callable',['../group__creational__operators.html#ga0dba7e64f45d8c70ea2e3b829ce31237',1,'rpp::source']]],
-  ['from_5fiterable_10',['from_iterable',['../group__creational__operators.html#ga08b06422b6486a2107cf8012293bb29f',1,'rpp::source']]],
+  ['from_5fcallable_9',['from_callable',['../group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75',1,'rpp::source']]],
+  ['from_5fiterable_10',['from_iterable',['../group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c',1,'rpp::source']]],
   ['from_5fiterable_5fstrategy_11',['from_iterable_strategy',['../structrpp_1_1details_1_1from__iterable__strategy.html',1,'rpp::details']]]
 ];

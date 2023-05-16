@@ -39,8 +39,8 @@
 \DoxyCodeLine{00035\ \{}
 \DoxyCodeLine{00036\ \ \ \ \ const\_strategy.on\_next(const\_observer,\ v);}
 \DoxyCodeLine{00037\ \ \ \ \ const\_strategy.on\_next(const\_observer,\ std::move(mv));}
-\DoxyCodeLine{00038\ \ \ \ \ const\_strategy.on\_error(const\_observer,\ std::exception\_ptr\{\});}
-\DoxyCodeLine{00039\ \ \ \ \ const\_strategy.on\_completed(const\_observer);}
+\DoxyCodeLine{00038\ \ \ \ \ const\_strategy.on\_error(observer,\ std::exception\_ptr\{\});}
+\DoxyCodeLine{00039\ \ \ \ \ const\_strategy.on\_completed(observer);}
 \DoxyCodeLine{00040\ }
 \DoxyCodeLine{00041\ \ \ \ \ strategy.set\_upstream(observer,\ disposable);}
 \DoxyCodeLine{00042\ \ \ \ \ \{\ strategy.is\_disposed()\ \}\ -\/>\ std::same\_as<bool>;}
@@ -79,7 +79,7 @@
 \DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ m\_strategy.on\_completed(m\_observer);\ \}}
 \DoxyCodeLine{00080\ }
 \DoxyCodeLine{00081\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00082\ \ \ \ \ observer\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer;}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{mutable}\ observer\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer;}
 \DoxyCodeLine{00083\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Strategy\ m\_strategy;}
 \DoxyCodeLine{00084\ \};}
 \DoxyCodeLine{00085\ }
@@ -142,7 +142,7 @@
 \DoxyCodeLine{00142\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00143\ \ \ \ \ \ \ \ std::apply([\&observer,\ \textcolor{keyword}{this}](\textcolor{keyword}{const}\ Args\&...\ vals)}
 \DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observable.subscribe(\mbox{\hyperlink{classrpp_1_1base__observer}{base\_observer}}<rpp::utils::extract\_observable\_type\_t<Observable>,}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observable.subscribe(\mbox{\hyperlink{classrpp_1_1base__observer}{base\_observer}}<rpp::utils::extract\_observable\_type\_t<Observable>,}
 \DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1operator__strategy__base}{operator\_strategy\_base}}<rpp::utils::extract\_observable\_type\_t<Observable>,\ \mbox{\hyperlink{classrpp_1_1base__observer}{base\_observer<T,\ ObserverStrategy>}},\ Strategy>>\{std::move(observer),\ vals...\});}
 \DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
 \DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_vals);}

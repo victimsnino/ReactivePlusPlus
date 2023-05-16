@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('classrpp_1_1base__observer.html',''); 
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classrpp_1_1base__observer-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::base_observer&lt; Type, Strategy &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__rpp.html">RPP</a> &raquo; <a class="el" href="group__observers.html">Observers</a></div></div></div>
+  <div class="headertitle"><div class="title">rpp::base_observer&lt; Type, Strategy &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -133,9 +133,8 @@ requires (!constraint::variadic_decayed_same_as&lt;<a class="el" href="classrpp_
 <tr class="memdesc:a601d0b432a3f88eeeee64e886efba9bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert current observer to type-erased version. Useful if you need to COPY your observer or to store different observers in same container. <br /></td></tr>
 <tr class="separator:a601d0b432a3f88eeeee64e886efba9bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classrpp_1_1details_1_1base__observer__impl"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classrpp_1_1details_1_1base__observer__impl')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classrpp_1_1details_1_1base__observer__impl.html">rpp::details::base_observer_impl&lt; Type, Strategy, details::local_disposable_strategy &gt;</a></td></tr>
-<tr class="memitem:a3a3fcf0776edf7cd6fd816ddf10f11fd inherit pub_methods_classrpp_1_1details_1_1base__observer__impl"><td class="memItemLeft" align="right" valign="top"><a id="a3a3fcf0776edf7cd6fd816ddf10f11fd" name="a3a3fcf0776edf7cd6fd816ddf10f11fd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_upstream</b> (const <a class="el" href="classrpp_1_1disposable__wrapper.html">disposable_wrapper</a> &amp;d)</td></tr>
-<tr class="memdesc:a3a3fcf0776edf7cd6fd816ddf10f11fd inherit pub_methods_classrpp_1_1details_1_1base__observer__impl"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe. <br /></td></tr>
+<tr class="memitem:a3a3fcf0776edf7cd6fd816ddf10f11fd inherit pub_methods_classrpp_1_1details_1_1base__observer__impl"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1details_1_1base__observer__impl.html#a3a3fcf0776edf7cd6fd816ddf10f11fd">set_upstream</a> (const <a class="el" href="classrpp_1_1disposable__wrapper.html">disposable_wrapper</a> &amp;d)</td></tr>
+<tr class="memdesc:a3a3fcf0776edf7cd6fd816ddf10f11fd inherit pub_methods_classrpp_1_1details_1_1base__observer__impl"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe.  <br /></td></tr>
 <tr class="separator:a3a3fcf0776edf7cd6fd816ddf10f11fd inherit pub_methods_classrpp_1_1details_1_1base__observer__impl"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f862e21ba7ced64ebb98d5c7517deaa inherit pub_methods_classrpp_1_1details_1_1base__observer__impl"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1details_1_1base__observer__impl.html#a7f862e21ba7ced64ebb98d5c7517deaa">is_disposed</a> () const</td></tr>
 <tr class="memdesc:a7f862e21ba7ced64ebb98d5c7517deaa inherit pub_methods_classrpp_1_1details_1_1base__observer__impl"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this method to check if observer interested or not in emissions.  <br /></td></tr>
@@ -169,11 +168,11 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Type &gt; Strategy&gt;<br />
 class rpp::base_observer&lt; Type, Strategy &gt;</div><p>Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this class would be passed to subscribe of observable. </p>
-<dl class="section warning"><dt>Warning</dt><dd>By default <a class="el" href="classrpp_1_1base__observer.html" title="Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...">base_observer</a> is not copyable, only movable. If you need to COPY your observer, you need to convert it to <code><a class="el" href="group__observers.html#gac1c33b452ca9e0a58fbde9da538ca5f1" title="Type-erased version of the rpp::base_observer. Any observer can be converted to dynamic_observer via ...">rpp::dynamic_observer</a></code> via <code><a class="el" href="classrpp_1_1base__observer.html#a601d0b432a3f88eeeee64e886efba9bd" title="Convert current observer to type-erased version. Useful if you need to COPY your observer or to store...">rpp::base_observer::as_dynamic</a></code> member function. </dd>
+<dl class="section warning"><dt>Warning</dt><dd>By default <a class="el" href="classrpp_1_1base__observer.html" title="Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...">base_observer</a> is not copyable, only movable. If you need to COPY your observer, you need to convert it to <a class="el" href="group__observers.html#gac1c33b452ca9e0a58fbde9da538ca5f1" title="Type-erased version of the rpp::base_observer. Any observer can be converted to dynamic_observer via ...">rpp::dynamic_observer</a> via <a class="el" href="classrpp_1_1base__observer.html#a601d0b432a3f88eeeee64e886efba9bd" title="Convert current observer to type-erased version. Useful if you need to COPY your observer or to store...">rpp::base_observer::as_dynamic</a> </dd>
 <dd>
-Expected that observer would be subscribed only to ONE observable ever. It can keep internal state and track it it was disposed or not. So, subscribing same observer multiple times follows unspecified behavior. </dd>
+Expected that observer would be subscribed only to ONE observable ever. It can keep internal state and track it it was disposed or not. So, subscribing same observer multiple time follows unspecified behavior. </dd>
 <dd>
-If you are passing disposable to ctor, then state of this disposable would be used (if empty disposable or disposed -&gt; observer is disposed by default)</dd></dl>
+If you are passing disposable to ctor, then state of this disposable would be used used (if empty disposable or disposed -&gt; observer is disposed by default)</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Type</td><td>of value this observer can handle </td></tr>

@@ -1,0 +1,20 @@
+\hypertarget{concat_8cpp-example}{}\doxysection{concat.\+cpp}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}rpp/sources/fwd.hpp"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()\ \textcolor{comment}{//\ NOLINT}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{rpp::source::concat}}(\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1),\ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(2),\ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,2,3)).subscribe([](\textcolor{keywordtype}{int}\ v)\{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{},\ "{}};\},\ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\{\},\ []()\{std::cout\ <<\ \textcolor{stringliteral}{"{}completed\(\backslash\)n"{}};\});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1,\ 2,\ 1,\ 2,\ 3,\ completed}}
+\DoxyCodeLine{\textcolor{comment}{}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ observables\ =\ std::vector\{\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1),\ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(2)\};}
+\DoxyCodeLine{\ \ \ \ rpp::source::concat<rpp::memory\_model::use\_shared>(observables).subscribe([](\textcolor{keywordtype}{int}\ v)\{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{},\ "{}};\},\ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\{\},\ []()\{std::cout\ <<\ \textcolor{stringliteral}{"{}completed\(\backslash\)n"{}};\});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1,\ 2,\ completed}}
+\DoxyCodeLine{\textcolor{comment}{}\}}
+
+\end{DoxyCodeInclude}
+ 

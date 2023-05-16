@@ -10,6 +10,8 @@ var annotated_dup =
           [ "lambda_strategy", "structrpp_1_1details_1_1observer_1_1lambda__strategy.html", null ]
         ] ],
         [ "base_observer_impl", "classrpp_1_1details_1_1base__observer__impl.html", "classrpp_1_1details_1_1base__observer__impl" ],
+        [ "concat_source_observer_strategy", "structrpp_1_1details_1_1concat__source__observer__strategy.html", null ],
+        [ "concat_strategy", "structrpp_1_1details_1_1concat__strategy.html", null ],
         [ "container_with_iterator", "classrpp_1_1details_1_1container__with__iterator.html", null ],
         [ "create_strategy", "structrpp_1_1details_1_1create__strategy.html", null ],
         [ "external_disposable_strategy", "classrpp_1_1details_1_1external__disposable__strategy.html", null ],

@@ -3,8 +3,7 @@
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1base__observer__impl_a3a3fcf0776edf7cd6fd816ddf10f11fd}\label{classrpp_1_1details_1_1base__observer__impl_a3a3fcf0776edf7cd6fd816ddf10f11fd}} 
-void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\+\_\+wrapper}} \&d)
+void \mbox{\hyperlink{classrpp_1_1details_1_1base__observer__impl_a3a3fcf0776edf7cd6fd816ddf10f11fd}{set\+\_\+upstream}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\+\_\+wrapper}} \&d)
 \begin{DoxyCompactList}\small\item\em Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classrpp_1_1details_1_1base__observer__impl_a7f862e21ba7ced64ebb98d5c7517deaa}{is\+\_\+disposed}} () const
 \begin{DoxyCompactList}\small\item\em Observable calls this method to check if observer interested or not in emissions. \end{DoxyCompactList}\item 
@@ -108,6 +107,20 @@ Observable calls this method to notify observer about new value.
 
 \begin{DoxyNote}{Note}
 obtains value by rvalue-\/reference to original object 
+\end{DoxyNote}
+\mbox{\Hypertarget{classrpp_1_1details_1_1base__observer__impl_a3a3fcf0776edf7cd6fd816ddf10f11fd}\label{classrpp_1_1details_1_1base__observer__impl_a3a3fcf0776edf7cd6fd816ddf10f11fd}} 
+\index{rpp::details::base\_observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$@{rpp::details::base\_observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$}!set\_upstream@{set\_upstream}}
+\index{set\_upstream@{set\_upstream}!rpp::details::base\_observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$@{rpp::details::base\_observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$}}
+\doxysubsubsection{\texorpdfstring{set\_upstream()}{set\_upstream()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::observer\+\_\+strategy$<$ Type $>$ Strategy, typename Disposables\+Strategy $>$ \\
+void \mbox{\hyperlink{classrpp_1_1details_1_1base__observer__impl}{rpp\+::details\+::base\+\_\+observer\+\_\+impl}}$<$ Type, Strategy, Disposables\+Strategy $>$\+::set\+\_\+upstream (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\+\_\+wrapper}} \&}]{d }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe. 
+
+\begin{DoxyNote}{Note}
+This method can be called multiple times, but new call means \char`\"{}replace upstream with this new one\char`\"{}. So, tracked only last one 
 \end{DoxyNote}
 
 

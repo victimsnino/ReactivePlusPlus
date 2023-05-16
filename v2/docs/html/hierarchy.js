@@ -14,6 +14,8 @@ var hierarchy =
       [ "rpp::base_observer< Type, ObserverStrategy >", "classrpp_1_1base__observer.html", null ],
       [ "rpp::base_observer< Type, Strategy >", "classrpp_1_1base__observer.html", null ]
     ] ],
+    [ "rpp::details::concat_source_observer_strategy< PackedContainer >", "structrpp_1_1details_1_1concat__source__observer__strategy.html", null ],
+    [ "rpp::details::concat_strategy< PackedContainer >", "structrpp_1_1details_1_1concat__strategy.html", null ],
     [ "rpp::details::container_with_iterator< Container >", "classrpp_1_1details_1_1container__with__iterator.html", null ],
     [ "rpp::details::create_strategy< Type, OnSubscribe >", "structrpp_1_1details_1_1create__strategy.html", null ],
     [ "rpp::schedulers::current_thread", "classrpp_1_1schedulers_1_1current__thread.html", null ],

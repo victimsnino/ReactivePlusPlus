@@ -30,8 +30,7 @@ requires (!constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperl
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1base__observer__impl}{rpp\+::details\+::base\+\_\+observer\+\_\+impl$<$ Type, Strategy, details\+::local\+\_\+disposable\+\_\+strategy $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1base__observer__impl_a3a3fcf0776edf7cd6fd816ddf10f11fd}\label{classrpp_1_1details_1_1base__observer__impl_a3a3fcf0776edf7cd6fd816ddf10f11fd}} 
-void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\+\_\+wrapper}} \&d)
+void \mbox{\hyperlink{classrpp_1_1details_1_1base__observer__impl_a3a3fcf0776edf7cd6fd816ddf10f11fd}{set\+\_\+upstream}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\+\_\+wrapper}} \&d)
 \begin{DoxyCompactList}\small\item\em Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classrpp_1_1details_1_1base__observer__impl_a7f862e21ba7ced64ebb98d5c7517deaa}{is\+\_\+disposed}} () const
 \begin{DoxyCompactList}\small\item\em Observable calls this method to check if observer interested or not in emissions. \end{DoxyCompactList}\item 
@@ -64,11 +63,11 @@ class rpp\+::base\+\_\+observer$<$ Type, Strategy $>$}
 Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this class would be passed to subscribe of observable. 
 
 \begin{DoxyWarning}{Warning}
-By default \mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}} is not copyable, only movable. If you need to COPY your observer, you need to convert it to {\ttfamily \mbox{\hyperlink{group__observers_gac1c33b452ca9e0a58fbde9da538ca5f1}{rpp\+::dynamic\+\_\+observer}}} via {\ttfamily \mbox{\hyperlink{classrpp_1_1base__observer_a601d0b432a3f88eeeee64e886efba9bd}{rpp\+::base\+\_\+observer\+::as\+\_\+dynamic}}} member function. 
+By default \mbox{\hyperlink{classrpp_1_1base__observer}{base\+\_\+observer}} is not copyable, only movable. If you need to COPY your observer, you need to convert it to \mbox{\hyperlink{group__observers_gac1c33b452ca9e0a58fbde9da538ca5f1}{rpp\+::dynamic\+\_\+observer}} via \mbox{\hyperlink{classrpp_1_1base__observer_a601d0b432a3f88eeeee64e886efba9bd}{rpp\+::base\+\_\+observer\+::as\+\_\+dynamic}} 
 
-Expected that observer would be subscribed only to ONE observable ever. It can keep internal state and track it it was disposed or not. So, subscribing same observer multiple times follows unspecified behavior. 
+Expected that observer would be subscribed only to ONE observable ever. It can keep internal state and track it it was disposed or not. So, subscribing same observer multiple time follows unspecified behavior. 
 
-If you are passing disposable to ctor, then state of this disposable would be used (if empty disposable or disposed -\/\texorpdfstring{$>$}{>} observer is disposed by default)
+If you are passing disposable to ctor, then state of this disposable would be used used (if empty disposable or disposed -\/\texorpdfstring{$>$}{>} observer is disposed by default)
 \end{DoxyWarning}
 
 \begin{DoxyTemplParams}{Template Parameters}

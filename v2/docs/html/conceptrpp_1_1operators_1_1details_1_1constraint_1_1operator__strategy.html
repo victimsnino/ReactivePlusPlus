@@ -111,8 +111,8 @@ $(document).ready(function(){initNavTree('conceptrpp_1_1operators_1_1details_1_1
 <div class="line">{</div>
 <div class="line">    const_strategy.on_next(const_observer, v);</div>
 <div class="line">    const_strategy.on_next(const_observer, std::move(mv));</div>
-<div class="line">    const_strategy.on_error(const_observer, std::exception_ptr{});</div>
-<div class="line">    const_strategy.on_completed(const_observer);</div>
+<div class="line">    const_strategy.on_error(observer, std::exception_ptr{});</div>
+<div class="line">    const_strategy.on_completed(observer);</div>
 <div class="line"> </div>
 <div class="line">    strategy.set_upstream(observer, disposable);</div>
 <div class="line">    { strategy.is_disposed() } -&gt; std::same_as&lt;bool&gt;;</div>

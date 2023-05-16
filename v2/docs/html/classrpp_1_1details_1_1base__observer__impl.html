@@ -106,9 +106,8 @@ $(document).ready(function(){initNavTree('classrpp_1_1details_1_1base__observer_
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3a3fcf0776edf7cd6fd816ddf10f11fd"><td class="memItemLeft" align="right" valign="top"><a id="a3a3fcf0776edf7cd6fd816ddf10f11fd" name="a3a3fcf0776edf7cd6fd816ddf10f11fd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_upstream</b> (const <a class="el" href="classrpp_1_1disposable__wrapper.html">disposable_wrapper</a> &amp;d)</td></tr>
-<tr class="memdesc:a3a3fcf0776edf7cd6fd816ddf10f11fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe. <br /></td></tr>
+<tr class="memitem:a3a3fcf0776edf7cd6fd816ddf10f11fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1details_1_1base__observer__impl.html#a3a3fcf0776edf7cd6fd816ddf10f11fd">set_upstream</a> (const <a class="el" href="classrpp_1_1disposable__wrapper.html">disposable_wrapper</a> &amp;d)</td></tr>
+<tr class="memdesc:a3a3fcf0776edf7cd6fd816ddf10f11fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe.  <br /></td></tr>
 <tr class="separator:a3a3fcf0776edf7cd6fd816ddf10f11fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f862e21ba7ced64ebb98d5c7517deaa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1details_1_1base__observer__impl.html#a7f862e21ba7ced64ebb98d5c7517deaa">is_disposed</a> () const</td></tr>
 <tr class="memdesc:a7f862e21ba7ced64ebb98d5c7517deaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this method to check if observer interested or not in emissions.  <br /></td></tr>
@@ -299,6 +298,37 @@ template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Typ
 
 <p>Observable calls this method to notify observer about new value. </p>
 <dl class="section note"><dt>Note</dt><dd>obtains value by rvalue-reference to original object </dd></dl>
+
+</div>
+</div>
+<a id="a3a3fcf0776edf7cd6fd816ddf10f11fd" name="a3a3fcf0776edf7cd6fd816ddf10f11fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a3fcf0776edf7cd6fd816ddf10f11fd">&#9670;&#160;</a></span>set_upstream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Type &gt; Strategy, typename DisposablesStrategy &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classrpp_1_1details_1_1base__observer__impl.html">rpp::details::base_observer_impl</a>&lt; Type, Strategy, DisposablesStrategy &gt;::set_upstream </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classrpp_1_1disposable__wrapper.html">disposable_wrapper</a> &amp;&#160;</td>
+          <td class="paramname"><em>d</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe. </p>
+<dl class="section note"><dt>Note</dt><dd>This method can be called multiple times, but new call means "replace upstream with this new one". So, tracked only last one </dd></dl>
 
 </div>
 </div>
