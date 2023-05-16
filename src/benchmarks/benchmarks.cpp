@@ -106,7 +106,7 @@ int main(int argc, char* argv[]) // NOLINT
                 rxcpp::observable<>::iterate(vals, rxcpp::identity_current_thread()).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
-        SECTION("concat_as_source of just(1)")
+        SECTION("concat_as_source of just(1 immediate) create + subscribe")
         {
             TEST_RPP([&]()
             {
