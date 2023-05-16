@@ -110,12 +110,12 @@ int main(int argc, char* argv[]) // NOLINT
         {
             TEST_RPP([&]()
             {
-                rpp::source::concat(rpp::source::just(1)).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+                rpp::source::concat(rpp::source::just(rpp::schedulers::immediate{}, 1)).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
 
             TEST_RXCPP([&]()
             {
-                rxcpp::observable<>::just(rxcpp::observable<>::just(1)) | rxcpp::operators::concat() | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+                rxcpp::observable<>::just(rxcpp::identity_immediate(), rxcpp::observable<>::just(rxcpp::identity_immediate(), 1)) | rxcpp::operators::concat() | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
     };
@@ -172,8 +172,8 @@ int main(int argc, char* argv[]) // NOLINT
                         .get_worker();
 
                     worker.schedule([&worker](const auto&)
-                                    { 
-                                        worker.schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); }); 
+                                    {
+                                        worker.schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); });
                                     });
                 });
         }
