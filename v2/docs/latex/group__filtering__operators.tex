@@ -43,8 +43,8 @@ Actually this operator just checks if predicate returns true, then forwards emis
 \begin{DoxyParagraph}{Performance notes\+:}
 
 \begin{DoxyItemize}
-\item No any heap allocations
-\item No any copies/moves
+\item No any heap allocations at all
+\item No any copies/moves of emissions, just passing by const\& to predicate and then forwarding
 \end{DoxyItemize}
 \end{DoxyParagraph}
 
@@ -52,9 +52,6 @@ Actually this operator just checks if predicate returns true, then forwards emis
 {\em predicate} & is predicate used to check emitted items. true -\/\texorpdfstring{$>$}{>} items satisfies condition, false -\/\texorpdfstring{$>$}{>} not \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-new specific\+\_\+observable with the Filter operator as most recent operator. 
-\end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
 \#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{filter_8hpp_source}{rpp/operators/filter.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
@@ -93,7 +90,7 @@ Actually this operator just emits emissions while counter is not zero and decrem
 
 \begin{DoxyItemize}
 \item No any heap allocations
-\item No any copies/moves
+\item No any copies/moves just forwarding of emission
 \item Just simple {\ttfamily size\+\_\+t} decrementing
 \end{DoxyItemize}
 \end{DoxyParagraph}
@@ -102,9 +99,6 @@ Actually this operator just emits emissions while counter is not zero and decrem
 {\em count} & amount of items to be emitted. 0 -\/ instant complete \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-new \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}} with the Take operator as most recent operator. 
-\end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
 \#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{take_8hpp_source}{rpp/operators/take.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}

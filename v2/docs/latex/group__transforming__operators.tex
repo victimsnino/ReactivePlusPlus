@@ -10,7 +10,7 @@ Transforming operators are operators that transform items provided by observable
 \item 
 {\footnotesize template$<$typename Fn $>$ \newline
 requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ !std\+::same\+\_\+as$<$void, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{rpp\+::operators\+::map}} (Fn \&\&callable)
-\begin{DoxyCompactList}\small\item\em Transform the items emitted by an Observable via applying a function to each item and emitting result. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Transforms the items emitted by an Observable via applying a function to each item and emitting result. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -32,7 +32,7 @@ auto rpp\+::operators\+::map (\begin{DoxyParamCaption}\item[{Fn \&\&}]{callable 
 
 
 
-Transform the items emitted by an Observable via applying a function to each item and emitting result. 
+Transforms the items emitted by an Observable via applying a function to each item and emitting result. 
 
 \begin{DoxyNote}{Note}
 The Map operator can keep same type of value or change it to some another type.
@@ -44,8 +44,8 @@ Actually this operator just applies callable to each obtained emission and emit 
 \begin{DoxyParagraph}{Performance notes\+:}
 
 \begin{DoxyItemize}
-\item No any heap allocations
-\item No any copies/moves
+\item No any heap allocations at all
+\item No any copies/moves of emissions, just forwarding to callable
 \end{DoxyItemize}
 \end{DoxyParagraph}
 
@@ -53,9 +53,6 @@ Actually this operator just applies callable to each obtained emission and emit 
 {\em callable} & is callable used to provide this transformation. Should accept {\ttfamily Type} of original observable and return type for new observable \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-new {\ttfamily \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}}} with the Map operator as most recent operator. 
-\end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
 \#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{map_8hpp_source}{rpp/operators/map.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}

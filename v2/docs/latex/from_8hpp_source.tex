@@ -208,28 +208,28 @@
 \DoxyCodeLine{00224\ \ \ \ \ \textcolor{keywordflow}{return}\ details::make\_from\_iterable\_observable(details::pack\_to\_container<memory\_model,\ std::decay\_t<Iterable>>(std::forward<Iterable>(iterable)),\ scheduler);}
 \DoxyCodeLine{00225\ \}}
 \DoxyCodeLine{00226\ }
-\DoxyCodeLine{00249\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*\ =\ memory\_model::use\_stack\ */},\ schedulers::constraint::scheduler\ TScheduler,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ ...Ts>}
-\DoxyCodeLine{00250\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{just}}(\textcolor{keyword}{const}\ TScheduler\&\ scheduler,\ T\&\&\ item,\ Ts\&\&\ ...items)\ \textcolor{keyword}{requires}\ (constraint::decayed\_same\_as<T,\ Ts>\ \&\&\ ...)}
-\DoxyCodeLine{00251\ \{}
-\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keywordflow}{return}\ details::make\_from\_iterable\_observable(details::pack\_variadic<memory\_model,\ std::decay\_t<T>>(std::forward<T>(item),\ std::forward<Ts>(items)...),\ scheduler);}
-\DoxyCodeLine{00253\ \}}
-\DoxyCodeLine{00254\ }
-\DoxyCodeLine{00277\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*\ =\ memory\_model::use\_stack\ */},\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ ...Ts>}
-\DoxyCodeLine{00278\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{just}}(T\&\&\ item,\ Ts\&\&\ ...items)\ \textcolor{keyword}{requires}\ (constraint::decayed\_same\_as<T,\ Ts>\ \&\&\ ...)}
-\DoxyCodeLine{00279\ \{}
-\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keywordflow}{return}\ details::make\_from\_iterable\_observable(details::pack\_variadic<memory\_model,\ std::decay\_t<T>>(std::forward<T>(item),\ std::forward<Ts>(items)...),\ schedulers::current\_thread\{\});}
-\DoxyCodeLine{00281\ \}}
-\DoxyCodeLine{00282\ }
-\DoxyCodeLine{00299\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*\ =\ memory\_model::use\_stack\ */},\ std::invocable<>\ Callable>}
-\DoxyCodeLine{00300\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}{from\_callable}}(Callable\&\&\ callable)}
-\DoxyCodeLine{00301\ \{}
-\DoxyCodeLine{00302\ \ \ \ \ \textcolor{keyword}{auto}\ obs\ =\ just<memory\_model>(std::forward<Callable>(callable));}
-\DoxyCodeLine{00303\ }
-\DoxyCodeLine{00304\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::same\_as<utils::decayed\_invoke\_result\_t<Callable>,\ \textcolor{keywordtype}{void}>)}
-\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(obs)\ |\ \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{rpp::operators::map}}([](\textcolor{keyword}{auto}\&\&\ fn)\ \{\ fn();\ \textcolor{keywordflow}{return}\ utils::none\{\};\});}
-\DoxyCodeLine{00306\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(obs)\ |\ \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{rpp::operators::map}}([](\textcolor{keyword}{auto}\&\&\ fn)\ \{\ \textcolor{keywordflow}{return}\ fn();\ \});}
-\DoxyCodeLine{00308\ \}}
-\DoxyCodeLine{00309\ \}}
+\DoxyCodeLine{00248\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*\ =\ memory\_model::use\_stack\ */},\ schedulers::constraint::scheduler\ TScheduler,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ ...Ts>}
+\DoxyCodeLine{00249\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{just}}(\textcolor{keyword}{const}\ TScheduler\&\ scheduler,\ T\&\&\ item,\ Ts\&\&\ ...items)\ \textcolor{keyword}{requires}\ (constraint::decayed\_same\_as<T,\ Ts>\ \&\&\ ...)}
+\DoxyCodeLine{00250\ \{}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keywordflow}{return}\ details::make\_from\_iterable\_observable(details::pack\_variadic<memory\_model,\ std::decay\_t<T>>(std::forward<T>(item),\ std::forward<Ts>(items)...),\ scheduler);}
+\DoxyCodeLine{00252\ \}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00275\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*\ =\ memory\_model::use\_stack\ */},\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ ...Ts>}
+\DoxyCodeLine{00276\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{just}}(T\&\&\ item,\ Ts\&\&\ ...items)\ \textcolor{keyword}{requires}\ (constraint::decayed\_same\_as<T,\ Ts>\ \&\&\ ...)}
+\DoxyCodeLine{00277\ \{}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordflow}{return}\ details::make\_from\_iterable\_observable(details::pack\_variadic<memory\_model,\ std::decay\_t<T>>(std::forward<T>(item),\ std::forward<Ts>(items)...),\ schedulers::current\_thread\{\});}
+\DoxyCodeLine{00279\ \}}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00297\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*\ =\ memory\_model::use\_stack\ */},\ std::invocable<>\ Callable>}
+\DoxyCodeLine{00298\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}{from\_callable}}(Callable\&\&\ callable)}
+\DoxyCodeLine{00299\ \{}
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{keyword}{auto}\ obs\ =\ just<memory\_model>(std::forward<Callable>(callable));}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::same\_as<utils::decayed\_invoke\_result\_t<Callable>,\ \textcolor{keywordtype}{void}>)}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(obs)\ |\ \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{rpp::operators::map}}([](\textcolor{keyword}{auto}\&\&\ fn)\ \{\ fn();\ \textcolor{keywordflow}{return}\ utils::none\{\};\});}
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(obs)\ |\ \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{rpp::operators::map}}([](\textcolor{keyword}{auto}\&\&\ fn)\ \{\ \textcolor{keywordflow}{return}\ fn();\ \});}
+\DoxyCodeLine{00306\ \}}
+\DoxyCodeLine{00307\ \}}
 
 \end{DoxyCode}

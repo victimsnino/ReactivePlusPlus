@@ -9,9 +9,9 @@ Utility operators are operators that provide some extra functionality without ch
 \begin{DoxyCompactItemize}
 \item 
 auto \mbox{\hyperlink{group__utility__operators_ga96a3c17903a50c2f6dfd66d8b90a96f2}{rpp\+::operators\+::repeat}} (size\+\_\+t count)
-\begin{DoxyCompactList}\small\item\em Re-\/subscribes on current observable provided amount of times when {\ttfamily on\+\_\+completed} obtained. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Repeats the Observabe\textquotesingle{}s sequence of emissions {\ttfamily count} times via re-\/subscribing on it during {\ttfamily on\+\_\+completed} call while {\ttfamily count} not reached. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp\+::operators\+::repeat}} ()
-\begin{DoxyCompactList}\small\item\em Re-\/subscribes on current observable during {\ttfamily on\+\_\+completed} infinitely. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Repeats the Observabe\textquotesingle{}s sequence of emissions infinite amount of times via re-\/subscribing on it during {\ttfamily on\+\_\+completed}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -31,13 +31,12 @@ Utility operators are operators that provide some extra functionality without ch
 
 
 
-Re-\/subscribes on current observable during {\ttfamily on\+\_\+completed} infinitely. 
+Repeats the Observabe\textquotesingle{}s sequence of emissions infinite amount of times via re-\/subscribing on it during {\ttfamily on\+\_\+completed}. 
 
 
 
-\begin{DoxyReturn}{Returns}
-new \mbox{\hyperlink{classrpp_1_1base__observable}{base\+\_\+observable}} with the repeat operator as most recent operator. 
-\end{DoxyReturn}
+Actually this operator is kind of {\ttfamily concat(obs, obs...)}
+
 \begin{DoxyWarning}{Warning}
 \#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{repeat_8hpp_source}{rpp/operators/repeat.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
@@ -72,11 +71,11 @@ new \mbox{\hyperlink{classrpp_1_1base__observable}{base\+\_\+observable}} with t
 
 
 
-Re-\/subscribes on current observable provided amount of times when {\ttfamily on\+\_\+completed} obtained. 
+Repeats the Observabe\textquotesingle{}s sequence of emissions {\ttfamily count} times via re-\/subscribing on it during {\ttfamily on\+\_\+completed} call while {\ttfamily count} not reached. 
 
 
 
-Actually this operator does concat(obs, obs, obs....)
+Actually this operator is kind of {\ttfamily concat(obs, obs...)} where obs repeated {\ttfamily count} times
 
 
 \begin{DoxyParams}{Parameters}
@@ -84,13 +83,10 @@ Actually this operator does concat(obs, obs, obs....)
 \begin{DoxyItemize}
 \item {\ttfamily repeat(0)} -\/ means no any subscription at all
 \item {\ttfamily repeat(1)} -\/ behave like ordinal observable
-\item {\ttfamily repeat(10)} -\/ 1 normal subscription and 9 re-\/subscriptions during on\+\_\+completed 
+\item {\ttfamily repeat(10)} -\/ 1 normal subscription and 9 re-\/subscriptions during {\ttfamily on\+\_\+completed}
 \end{DoxyItemize}\\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-new \mbox{\hyperlink{classrpp_1_1base__observable}{base\+\_\+observable}} with the repeat operator as most recent operator. 
-\end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
 \#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{repeat_8hpp_source}{rpp/operators/repeat.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}

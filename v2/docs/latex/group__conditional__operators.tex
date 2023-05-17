@@ -41,8 +41,8 @@ Actually this operator just emits values while predicate returns true
 \begin{DoxyParagraph}{Performance notes\+:}
 
 \begin{DoxyItemize}
-\item No any heap allocations
-\item No any copies/moves
+\item No any heap allocations at all
+\item No any copies/moves of emissions, just passing to predicate by const\& and then forwarding
 \end{DoxyItemize}
 \end{DoxyParagraph}
 
@@ -50,9 +50,6 @@ Actually this operator just emits values while predicate returns true
 {\em predicate} & is predicate used to check items. Accepts value from observable and returns {\ttfamily true} if value should be forwarded and {\ttfamily false} if emissions should be stopped and observable should be terminated. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-new specific\+\_\+observable with the take\+\_\+while operator as most recent operator. 
-\end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
 \#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{take__while_8hpp_source}{rpp/operators/take\+\_\+while.\+hpp}}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}

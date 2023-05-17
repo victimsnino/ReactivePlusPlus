@@ -108,10 +108,10 @@ $(document).ready(function(){initNavTree('group__utility__operators.html',''); i
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga96a3c17903a50c2f6dfd66d8b90a96f2"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#ga96a3c17903a50c2f6dfd66d8b90a96f2">rpp::operators::repeat</a> (size_t count)</td></tr>
-<tr class="memdesc:ga96a3c17903a50c2f6dfd66d8b90a96f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Re-subscribes on current observable provided amount of times when <code>on_completed</code> obtained.  <br /></td></tr>
+<tr class="memdesc:ga96a3c17903a50c2f6dfd66d8b90a96f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repeats the Observabe's sequence of emissions <code>count</code> times via re-subscribing on it during <code>on_completed</code> call while <code>count</code> not reached.  <br /></td></tr>
 <tr class="separator:ga96a3c17903a50c2f6dfd66d8b90a96f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga41ef49dc75a3eadb0eb3fda7c3692c40"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a> ()</td></tr>
-<tr class="memdesc:ga41ef49dc75a3eadb0eb3fda7c3692c40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Re-subscribes on current observable during <code>on_completed</code> infinitely.  <br /></td></tr>
+<tr class="memdesc:ga41ef49dc75a3eadb0eb3fda7c3692c40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repeats the Observabe's sequence of emissions infinite amount of times via re-subscribing on it during <code>on_completed</code>.  <br /></td></tr>
 <tr class="separator:ga41ef49dc75a3eadb0eb3fda7c3692c40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -141,11 +141,11 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Re-subscribes on current observable during <code>on_completed</code> infinitely. </p>
+<p>Repeats the Observabe's sequence of emissions infinite amount of times via re-subscribing on it during <code>on_completed</code>. </p>
 <div class="image">
 <object type="image/svg+xml" data="repeat_infinitely.svg" style="pointer-events: none;"></object>
 </div>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">base_observable</a> with the repeat operator as most recent operator. </dd></dl>
+<p>Actually this operator is kind of <code>concat(obs, obs...)</code></p>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="repeat_8hpp_source.html">rpp/operators/repeat.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1, 2, 3)</div>
 <div class="line">            | <a class="code hl_function" href="group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a>()</div>
@@ -158,9 +158,9 @@ Functions</h2></td></tr>
 <div class="line">                                        });</div>
 <div class="line">    <span class="comment">// Output: 1 2 3 1 2 3 1 2 3 1 completed</span></div>
 <div class="ttc" id="aclassrpp_1_1operators_1_1subscribe_html"><div class="ttname"><a href="classrpp_1_1operators_1_1subscribe.html">rpp::operators::subscribe</a></div><div class="ttdef"><b>Definition:</b> fwd.hpp:22</div></div>
-<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::base_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:244</div></div>
-<div class="ttc" id="agroup__filtering__operators_html_gaf32161437c2c6cd7d5a0e5170a333cbb"><div class="ttname"><a href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a></div><div class="ttdeci">auto take(size_t count)</div><div class="ttdoc">Emit only first count items provided by observable, then send on_completed</div><div class="ttdef"><b>Definition:</b> take.hpp:81</div></div>
-<div class="ttc" id="agroup__utility__operators_html_ga41ef49dc75a3eadb0eb3fda7c3692c40"><div class="ttname"><a href="group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a></div><div class="ttdeci">auto repeat()</div><div class="ttdoc">Re-subscribes on current observable during on_completed infinitely.</div><div class="ttdef"><b>Definition:</b> repeat.hpp:84</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::base_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:243</div></div>
+<div class="ttc" id="agroup__filtering__operators_html_gaf32161437c2c6cd7d5a0e5170a333cbb"><div class="ttname"><a href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a></div><div class="ttdeci">auto take(size_t count)</div><div class="ttdoc">Emit only first count items provided by observable, then send on_completed</div><div class="ttdef"><b>Definition:</b> take.hpp:80</div></div>
+<div class="ttc" id="agroup__utility__operators_html_ga41ef49dc75a3eadb0eb3fda7c3692c40"><div class="ttname"><a href="group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a></div><div class="ttdeci">auto repeat()</div><div class="ttdoc">Repeats the Observabe's sequence of emissions infinite amount of times via re-subscribing on it durin...</div><div class="ttdef"><b>Definition:</b> repeat.hpp:85</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/repeat.html">https://reactivex.io/documentation/operators/repeat.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="repeat_8cpp-example.html#a1">repeat.cpp</a>.</dd>
@@ -192,23 +192,22 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Re-subscribes on current observable provided amount of times when <code>on_completed</code> obtained. </p>
+<p>Repeats the Observabe's sequence of emissions <code>count</code> times via re-subscribing on it during <code>on_completed</code> call while <code>count</code> not reached. </p>
 <div class="image">
 <object type="image/svg+xml" data="repeat.svg" style="pointer-events: none;"></object>
 </div>
-<p>Actually this operator does concat(obs, obs, obs....)</p>
+<p>Actually this operator is kind of <code>concat(obs, obs...)</code> where obs repeated <code>count</code> times</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">count</td><td>total amount of times subscription happens. For example:<ul>
 <li><code>repeat(0)</code> - means no any subscription at all</li>
 <li><code>repeat(1)</code> - behave like ordinal observable</li>
-<li><code>repeat(10)</code> - 1 normal subscription and 9 re-subscriptions during on_completed </li>
+<li><code>repeat(10)</code> - 1 normal subscription and 9 re-subscriptions during <code>on_completed</code></li>
 </ul>
 </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">base_observable</a> with the repeat operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="repeat_8hpp_source.html">rpp/operators/repeat.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1, 2, 3)</div>
 <div class="line">            | <a class="code hl_function" href="group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a>(2)</div>

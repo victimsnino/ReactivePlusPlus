@@ -174,12 +174,11 @@ requires constraint::observable&lt;utils::iterable_value_t&lt;Iterable&gt;&gt;</
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new base_observvable with the concat operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;rpp/operators/concat.hpp&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <span class="keyword">auto</span> observables = std::vector{<a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1), <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(2)};</div>
 <div class="line">    rpp::source::concat&lt;rpp::memory_model::use_shared&gt;(observables).subscribe([](<span class="keywordtype">int</span> v){std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;}, [](<span class="keyword">const</span> std::exception_ptr&amp;){}, [](){std::cout &lt;&lt; <span class="stringliteral">&quot;completed\n&quot;</span>;});</div>
 <div class="line">    <span class="comment">// Output: 1, 2, completed</span></div>
-<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::base_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:244</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::base_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:243</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/concat.html">https://reactivex.io/documentation/operators/concat.html</a> </dd></dl>
 
@@ -232,11 +231,10 @@ requires (std::same_as&lt;rpp::utils::extract_observable_type_t&lt;TObservable&g
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new base_observvable with the concat operator as most recent operator. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;rpp/operators/concat.hpp&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::concat</a>(<a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1), <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(2), <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1,2,3)).subscribe([](<span class="keywordtype">int</span> v){std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;}, [](<span class="keyword">const</span> std::exception_ptr&amp;){}, [](){std::cout &lt;&lt; <span class="stringliteral">&quot;completed\n&quot;</span>;});</div>
 <div class="line">    <span class="comment">// Output: 1, 2, 1, 2, 3, completed</span></div>
-<div class="ttc" id="agroup__creational__operators_html_ga5bf57bc7e432fb38565810144a75b972"><div class="ttname"><a href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;...others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition:</b> concat.hpp:124</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga5bf57bc7e432fb38565810144a75b972"><div class="ttname"><a href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;...others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition:</b> concat.hpp:123</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/concat.html">https://reactivex.io/documentation/operators/concat.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="concat_8cpp-example.html#a0">concat.cpp</a>.</dd>
@@ -348,7 +346,7 @@ template&lt;constraint::memory_model memory_model, std::invocable&lt;&gt; Callab
 </dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">        <a class="code hl_function" href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a>([]() {<span class="keywordflow">return</span> 49; }).subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">        <span class="comment">// Output: 49</span></div>
-<div class="ttc" id="agroup__creational__operators_html_ga519523490394660d7e8c46d2d5612f75"><div class="ttname"><a href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a></div><div class="ttdeci">auto from_callable(Callable &amp;&amp;callable)</div><div class="ttdoc">Creates rpp::specific_observable that calls provided callable and emits resulting value of this calla...</div><div class="ttdef"><b>Definition:</b> from.hpp:288</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga519523490394660d7e8c46d2d5612f75"><div class="ttname"><a href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a></div><div class="ttdeci">auto from_callable(Callable &amp;&amp;callable)</div><div class="ttdoc">Creates rpp::specific_observable that calls provided callable and emits resulting value of this calla...</div><div class="ttdef"><b>Definition:</b> from.hpp:286</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/from.html">https://reactivex.io/documentation/operators/from.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="from_8cpp-example.html#a3">from.cpp</a>.</dd>
@@ -467,11 +465,10 @@ requires (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">item</td><td>first value to be sent </td></tr>
-    <tr><td class="paramname">items</td><td>rest values to be sent </td></tr>
+    <tr><td class="paramname">items</td><td>rest values to be sent</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::base_observable</a> which emits provided items</dd></dl>
 <dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 42 53 10 1</span></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">    std::array&lt;int, 100&gt; expensive_to_copy_1{};</div>
@@ -529,11 +526,10 @@ requires (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">item</td><td>first value to be sent </td></tr>
-    <tr><td class="paramname">items</td><td>rest values to be sent </td></tr>
+    <tr><td class="paramname">items</td><td>rest values to be sent</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::base_observable</a> which emits provided items</dd></dl>
 <dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 42 53 10 1</span></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">    std::array&lt;int, 100&gt; expensive_to_copy_1{};</div>

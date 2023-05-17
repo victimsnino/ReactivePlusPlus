@@ -103,19 +103,19 @@
 \DoxyCodeLine{00099\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 \DoxyCodeLine{00100\ \textcolor{keyword}{namespace\ }rpp::source}
 \DoxyCodeLine{00101\ \{}
-\DoxyCodeLine{00130\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*=\ memory\_model::use\_stack*/},\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ ...TObservables>}
-\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keyword}{requires}\ (std::same\_as<rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::utils::extract\_observable\_type\_t<TObservables>>\ \&\&\ ...)}
-\DoxyCodeLine{00132\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{concat}}(TObservable\&\&\ obs,\ TObservables\&\&...others)}
-\DoxyCodeLine{00133\ \{}
-\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordflow}{return}\ make\_concat\_from\_iterable(pack\_observables<memory\_model>(std::forward<TObservable>(obs),\ std::forward<TObservables>(others)...));}
-\DoxyCodeLine{00135\ \}}
-\DoxyCodeLine{00136\ }
-\DoxyCodeLine{00163\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*=\ memory\_model::use\_stack*/},\ constraint::iterable\ Iterable>}
-\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keyword}{requires}\ constraint::observable<utils::iterable\_value\_t<Iterable>>}
-\DoxyCodeLine{00165\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{concat}}(Iterable\&\&\ iterable)}
-\DoxyCodeLine{00166\ \{}
-\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{return}\ make\_concat\_from\_iterable(details::pack\_to\_container<memory\_model,\ std::decay\_t<Iterable>>(std::forward<Iterable>(iterable)));}
-\DoxyCodeLine{00168\ \}}
-\DoxyCodeLine{00169\ \}}
+\DoxyCodeLine{00129\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*=\ memory\_model::use\_stack*/},\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ ...TObservables>}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{requires}\ (std::same\_as<rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::utils::extract\_observable\_type\_t<TObservables>>\ \&\&\ ...)}
+\DoxyCodeLine{00131\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{concat}}(TObservable\&\&\ obs,\ TObservables\&\&...others)}
+\DoxyCodeLine{00132\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordflow}{return}\ make\_concat\_from\_iterable(pack\_observables<memory\_model>(std::forward<TObservable>(obs),\ std::forward<TObservables>(others)...));}
+\DoxyCodeLine{00134\ \}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00161\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*=\ memory\_model::use\_stack*/},\ constraint::iterable\ Iterable>}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keyword}{requires}\ constraint::observable<utils::iterable\_value\_t<Iterable>>}
+\DoxyCodeLine{00163\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{concat}}(Iterable\&\&\ iterable)}
+\DoxyCodeLine{00164\ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{return}\ make\_concat\_from\_iterable(details::pack\_to\_container<memory\_model,\ std::decay\_t<Iterable>>(std::forward<Iterable>(iterable)));}
+\DoxyCodeLine{00166\ \}}
+\DoxyCodeLine{00167\ \}}
 
 \end{DoxyCode}
