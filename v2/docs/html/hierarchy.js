@@ -50,23 +50,11 @@ var hierarchy =
     ] ],
     [ "rpp::schedulers::details::schedulables_queue", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
     [ "rpp::details::shared_container< Container >", "classrpp_1_1details_1_1shared__container.html", null ],
-    [ "rpp::operators::subscribe< Args >", "classrpp_1_1operators_1_1subscribe.html", null ],
-    [ "rpp::operators::subscribe< base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1subscribe_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4.html", null ],
-    [ "rpp::operators::subscribe< OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1subscribe_3_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", null ],
-    [ "rpp::operators::subscribe< OnNext, OnError, rpp::utils::empty_function_t<> >", "classrpp_1_1operators_1_1subscribe.html", [
-      [ "rpp::operators::subscribe< OnNext, OnError >", "classrpp_1_1operators_1_1subscribe_3_01_on_next_00_01_on_error_01_4.html", null ]
-    ] ],
-    [ "rpp::operators::subscribe< OnNext, rpp::utils::rethrow_error_t, rpp::utils::empty_function_t<> >", "classrpp_1_1operators_1_1subscribe.html", [
-      [ "rpp::operators::subscribe< OnNext >", "classrpp_1_1operators_1_1subscribe_3_01_on_next_01_4.html", null ]
-    ] ],
-    [ "rpp::operators::subscribe< rpp::disposable_wrapper, base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01base__observer_3_01_type_52af88234a61d7c1f18ff0964bddbfbd.html", null ],
-    [ "rpp::operators::subscribe< rpp::disposable_wrapper, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", null ],
-    [ "rpp::operators::subscribe< rpp::disposable_wrapper, OnNext, OnError, rpp::utils::empty_function_t<> >", "classrpp_1_1operators_1_1subscribe.html", [
-      [ "rpp::operators::subscribe< rpp::disposable_wrapper, OnNext, OnError >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01_on_next_00_01_on_error_01_4.html", null ]
-    ] ],
-    [ "rpp::operators::subscribe< rpp::disposable_wrapper, OnNext, rpp::utils::rethrow_error_t, rpp::utils::empty_function_t<> >", "classrpp_1_1operators_1_1subscribe.html", [
-      [ "rpp::operators::subscribe< rpp::disposable_wrapper, OnNext >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01_on_next_01_4.html", null ]
-    ] ],
+    [ "rpp::operators::details::subscribe_t< Args >", "classrpp_1_1operators_1_1details_1_1subscribe__t.html", null ],
+    [ "rpp::operators::details::subscribe_t< base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4.html", null ],
+    [ "rpp::operators::details::subscribe_t< OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", null ],
+    [ "rpp::operators::details::subscribe_t< rpp::disposable_wrapper, base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1disposable__wrapper_00_01base__obseraece05f3d0d3f96e3e1d2ddbe70210f1.html", null ],
+    [ "rpp::operators::details::subscribe_t< rpp::disposable_wrapper, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1disposable__wrapper_00_01_on_next_008b074dfa292c9ee62dbc2678700d276b.html", null ],
     [ "rpp::operators::details::take_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__observer__strategy.html", null ],
     [ "rpp::operators::details::take_t", "structrpp_1_1operators_1_1details_1_1take__t.html", null ],
     [ "rpp::operators::details::take_while_observer_strategy< Fn >", "structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html", null ],

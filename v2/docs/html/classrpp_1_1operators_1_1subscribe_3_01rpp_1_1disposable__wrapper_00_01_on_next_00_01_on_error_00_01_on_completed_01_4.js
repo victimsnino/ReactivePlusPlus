@@ -1,4 +1,0 @@
-var classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01_on_next_00_01_on_error_00_01_on_completed_01_4 =
-[
-    [ "subscribe", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01_on_next_00_01_on_error_00_01_on_completed_01_4.html#a64bc1f1ba8de1ff9cb76508f3299a4c5", null ]
-];

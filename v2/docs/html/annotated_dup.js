@@ -42,20 +42,16 @@ var annotated_dup =
           [ "operator_strategy_base", "classrpp_1_1operators_1_1details_1_1operator__strategy__base.html", null ],
           [ "operator_strategy_base< T, rpp::base_observer< TT, ObserverStrategy >, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1base__observer_35d914c2b4e35f15683ffab6e26f444be.html", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1base__observer_35d914c2b4e35f15683ffab6e26f444be" ],
           [ "repeat_t", "structrpp_1_1operators_1_1details_1_1repeat__t.html", null ],
+          [ "subscribe_t", "classrpp_1_1operators_1_1details_1_1subscribe__t.html", null ],
+          [ "subscribe_t< base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4.html", null ],
+          [ "subscribe_t< OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", null ],
+          [ "subscribe_t< rpp::disposable_wrapper, base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1disposable__wrapper_00_01base__obseraece05f3d0d3f96e3e1d2ddbe70210f1.html", null ],
+          [ "subscribe_t< rpp::disposable_wrapper, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1disposable__wrapper_00_01_on_next_008b074dfa292c9ee62dbc2678700d276b.html", null ],
           [ "take_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__observer__strategy.html", null ],
           [ "take_t", "structrpp_1_1operators_1_1details_1_1take__t.html", null ],
           [ "take_while_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html", null ],
           [ "take_while_t", "structrpp_1_1operators_1_1details_1_1take__while__t.html", null ]
-        ] ],
-        [ "subscribe", "classrpp_1_1operators_1_1subscribe.html", null ],
-        [ "subscribe< base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1subscribe_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4.html", "classrpp_1_1operators_1_1subscribe_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4" ],
-        [ "subscribe< OnNext >", "classrpp_1_1operators_1_1subscribe_3_01_on_next_01_4.html", null ],
-        [ "subscribe< OnNext, OnError >", "classrpp_1_1operators_1_1subscribe_3_01_on_next_00_01_on_error_01_4.html", null ],
-        [ "subscribe< OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1subscribe_3_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", "classrpp_1_1operators_1_1subscribe_3_01_on_next_00_01_on_error_00_01_on_completed_01_4" ],
-        [ "subscribe< rpp::disposable_wrapper, base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01base__observer_3_01_type_52af88234a61d7c1f18ff0964bddbfbd.html", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01base__observer_3_01_type_52af88234a61d7c1f18ff0964bddbfbd" ],
-        [ "subscribe< rpp::disposable_wrapper, OnNext >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01_on_next_01_4.html", null ],
-        [ "subscribe< rpp::disposable_wrapper, OnNext, OnError >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01_on_next_00_01_on_error_01_4.html", null ],
-        [ "subscribe< rpp::disposable_wrapper, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", "classrpp_1_1operators_1_1subscribe_3_01rpp_1_1disposable__wrapper_00_01_on_next_00_01_on_error_00_01_on_completed_01_4" ]
+        ] ]
       ] ],
       [ "schedulers", null, [
         [ "constraint", null, [
