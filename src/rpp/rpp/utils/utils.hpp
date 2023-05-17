@@ -32,7 +32,7 @@ constexpr T&& as_const(T&& v) noexcept requires std::is_rvalue_reference_v<T&&> 
 struct convertible_to_any
 {
     convertible_to_any() = default;
-    
+
     template<typename T>
     operator T();
 };
@@ -55,5 +55,77 @@ public:
 
 private:
     RPP_NO_UNIQUE_ADDRESS Fn m_fn;
+};
+
+template<rpp::constraint::decayed_type T>
+class repeated_container
+{
+public:
+    repeated_container(T&& value, size_t count) : m_value{std::move(value)}, m_count{count} {}
+    repeated_container(const T& value, size_t count) : m_value{value}, m_count{count} {}
+
+    class iterator
+    {
+    public:
+        iterator(const repeated_container* container, size_t index) : m_container{container}, m_index{index} {}
+
+        using iterator_category = std::input_iterator_tag;
+        using difference_type   = std::ptrdiff_t;
+        using value_type        = T;
+        using pointer           = T*;
+
+        const value_type& operator*() const { return m_container->m_value; }
+        iterator& operator++() { ++m_index; return *this; }
+        iterator operator++(int) { auto old = *this; ++(*this); return old; }
+
+        bool operator==(const iterator&) const = default;
+        bool operator!=(const iterator&) const = default;
+
+    private:
+        const repeated_container* m_container;
+        size_t m_index;
+    };
+
+    iterator begin() const { return {this, 0}; }
+    iterator end() const { return {this, m_count}; }
+
+private:
+    T m_value;
+    size_t m_count;
+};
+
+template<rpp::constraint::decayed_type T>
+class infinite_repeated_container
+{
+public:
+    infinite_repeated_container(T&& value) : m_value{std::move(value)} {}
+    infinite_repeated_container(const T& value) : m_value{value} {}
+
+    class iterator
+    {
+    public:
+        iterator(const infinite_repeated_container* container) : m_container{container} {}
+
+        using iterator_category = std::input_iterator_tag;
+        using difference_type   = std::ptrdiff_t;
+        using value_type        = T;
+        using pointer           = T*;
+
+        const value_type& operator*() const { return m_container->m_value; }
+        iterator& operator++() { return *this; }
+        iterator operator++(int) { return *this; }
+
+        bool operator==(const iterator&) const = default;
+        bool operator!=(const iterator&) const = default;
+
+    private:
+        const infinite_repeated_container* m_container;
+    };
+
+    iterator begin() const { return {this}; }
+    iterator end() const { return {nullptr}; }
+
+private:
+    T m_value;
 };
 } // namespace rpp::utils
