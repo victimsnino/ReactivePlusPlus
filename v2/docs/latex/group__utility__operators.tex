@@ -1,0 +1,112 @@
+\hypertarget{group__utility__operators}{}\doxysection{Utility Operators}
+\label{group__utility__operators}\index{Utility Operators@{Utility Operators}}
+
+
+Utility operators are operators that provide some extra functionality without changing of original values, but changing of behaviour.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+auto \mbox{\hyperlink{group__utility__operators_ga96a3c17903a50c2f6dfd66d8b90a96f2}{rpp\+::operators\+::repeat}} (size\+\_\+t count)
+\begin{DoxyCompactList}\small\item\em Re-\/subscribes on current observable provided amount of times when {\ttfamily on\+\_\+completed} obtained. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp\+::operators\+::repeat}} ()
+\begin{DoxyCompactList}\small\item\em Re-\/subscribes on current observable during {\ttfamily on\+\_\+completed} infinitely. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Utility operators are operators that provide some extra functionality without changing of original values, but changing of behaviour. 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators.html\#utility}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html\#utility}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}\label{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}} 
+\index{Utility Operators@{Utility Operators}!repeat@{repeat}}
+\index{repeat@{repeat}!Utility Operators@{Utility Operators}}
+\doxysubsubsection{\texorpdfstring{repeat()}{repeat()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::repeat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Re-\/subscribes on current observable during {\ttfamily on\+\_\+completed} infinitely. 
+
+
+
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1base__observable}{base\+\_\+observable}} with the repeat operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{repeat_8hpp_source}{rpp/operators/repeat.\+hpp}}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Examples\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 2,\ 3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp::operators::repeat}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{rpp::operators::take}}(10)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}completed"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2\ 3\ 1\ 2\ 3\ 1\ 2\ 3\ 1\ completed}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/repeat.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/repeat.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{repeat_8cpp-example}{repeat.\+cpp}}.\end{Desc}
+\mbox{\Hypertarget{group__utility__operators_ga96a3c17903a50c2f6dfd66d8b90a96f2}\label{group__utility__operators_ga96a3c17903a50c2f6dfd66d8b90a96f2}} 
+\index{Utility Operators@{Utility Operators}!repeat@{repeat}}
+\index{repeat@{repeat}!Utility Operators@{Utility Operators}}
+\doxysubsubsection{\texorpdfstring{repeat()}{repeat()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::repeat (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Re-\/subscribes on current observable provided amount of times when {\ttfamily on\+\_\+completed} obtained. 
+
+
+
+Actually this operator does concat(obs, obs, obs....)
+
+
+\begin{DoxyParams}{Parameters}
+{\em count} & total amount of times subscription happens. For example\+:
+\begin{DoxyItemize}
+\item {\ttfamily repeat(0)} -\/ means no any subscription at all
+\item {\ttfamily repeat(1)} -\/ behave like ordinal observable
+\item {\ttfamily repeat(10)} -\/ 1 normal subscription and 9 re-\/subscriptions during on\+\_\+completed 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new \mbox{\hyperlink{classrpp_1_1base__observable}{base\+\_\+observable}} with the repeat operator as most recent operator. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{repeat_8hpp_source}{rpp/operators/repeat.\+hpp}}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Examples\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 2,\ 3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp::operators::repeat}}(2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{classrpp_1_1operators_1_1subscribe}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}completed"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2\ 3\ 1\ 2\ 3\ completed}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/repeat.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/repeat.\+html}} 
+\end{DoxySeeAlso}

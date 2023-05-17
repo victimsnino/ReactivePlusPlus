@@ -8,9 +8,11 @@ var searchData=
   ['on_5fsubscribe_5',['on_subscribe',['../conceptrpp_1_1constraint_1_1on__subscribe.html',1,'rpp::constraint']]],
   ['operator_5fstrategy_6',['operator_strategy',['../conceptrpp_1_1operators_1_1details_1_1constraint_1_1operator__strategy.html',1,'rpp::operators::details::constraint']]],
   ['operators_7',['operators',['../conceptrpp_1_1constraint_1_1operators.html',1,'rpp::constraint']]],
-  ['rpp_8',['RPP',['../group__rpp.html',1,'']]],
-  ['schedulable_5ffn_9',['schedulable_fn',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn.html',1,'rpp::schedulers::constraint']]],
-  ['scheduler_10',['scheduler',['../conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html',1,'rpp::schedulers::constraint']]],
-  ['strategy_11',['strategy',['../conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html',1,'rpp::schedulers::constraint']]],
-  ['worker_12',['worker',['../conceptrpp_1_1schedulers_1_1constraint_1_1worker.html',1,'rpp::schedulers::constraint']]]
+  ['repeat_8',['repeat',['../group__utility__operators.html#ga96a3c17903a50c2f6dfd66d8b90a96f2',1,'rpp::operators::repeat(size_t count)'],['../group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40',1,'rpp::operators::repeat()']]],
+  ['repeat_5ft_9',['repeat_t',['../structrpp_1_1operators_1_1details_1_1repeat__t.html',1,'rpp::operators::details']]],
+  ['rpp_10',['RPP',['../group__rpp.html',1,'']]],
+  ['schedulable_5ffn_11',['schedulable_fn',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn.html',1,'rpp::schedulers::constraint']]],
+  ['scheduler_12',['scheduler',['../conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html',1,'rpp::schedulers::constraint']]],
+  ['strategy_13',['strategy',['../conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html',1,'rpp::schedulers::constraint']]],
+  ['worker_14',['worker',['../conceptrpp_1_1schedulers_1_1constraint_1_1worker.html',1,'rpp::schedulers::constraint']]]
 ];

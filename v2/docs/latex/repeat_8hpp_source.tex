@@ -1,0 +1,60 @@
+\hypertarget{repeat_8hpp_source}{}\doxysection{repeat.\+hpp}
+\label{repeat_8hpp_source}\index{src/rpp/rpp/operators/repeat.hpp@{src/rpp/rpp/operators/repeat.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2023\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/operators/fwd.hpp>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/sources/concat.hpp>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/utils/utils.hpp>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }rpp::operators::details}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1repeat__t}{repeat\_t}}}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ count;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(TObservable\&\&\ observable)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00028\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{rpp::source::concat}}(utils::repeated\_container\{std::forward<TObservable>(observable),\ count\});}
+\DoxyCodeLine{00030\ \ \ \ \ \}}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1infinite__repeat__t}{infinite\_repeat\_t}}}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(TObservable\&\&\ observable)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00037\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{rpp::source::concat}}(utils::infinite\_repeated\_container\{std::forward<TObservable>(observable)\});}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{namespace\ }rpp::operators}
+\DoxyCodeLine{00044\ \{}
+\DoxyCodeLine{00069\ \textcolor{keyword}{inline}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{repeat}}(\textcolor{keywordtype}{size\_t}\ count)}
+\DoxyCodeLine{00070\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1repeat__t}{details::repeat\_t}}\{count\};}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{inline}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{repeat}}()}
+\DoxyCodeLine{00093\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{return}\ details::infinite\_repeat\_t\{\};}
+\DoxyCodeLine{00095\ \}}
+\DoxyCodeLine{00096\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+
+\end{DoxyCode}
