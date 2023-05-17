@@ -18,9 +18,6 @@ namespace rpp::operators
 {
 auto take(size_t count);
 
-template<typename...Args>
-class subscribe;
-
 template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || !std::same_as<void, std::invoke_result_t<Fn, utils::convertible_to_any>>)
 auto map(Fn&& callable);
