@@ -34,4 +34,5 @@ template<typename Fn>
 auto take_while(Fn&& predicate);
 
 auto repeat(size_t count);
+auto repeat();
 }

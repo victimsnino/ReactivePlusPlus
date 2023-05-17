@@ -93,4 +93,39 @@ private:
     T m_value;
     size_t m_count;
 };
+
+template<rpp::constraint::decayed_type T>
+class infinite_repeated_container
+{
+public:
+    infinite_repeated_container(T&& value) : m_value{std::move(value)} {}
+    infinite_repeated_container(const T& value) : m_value{value} {}
+
+    class iterator
+    {
+    public:
+        iterator(const infinite_repeated_container* container) : m_container{container} {}
+
+        using iterator_category = std::input_iterator_tag;
+        using difference_type   = std::ptrdiff_t;
+        using value_type        = T;
+        using pointer           = T*;
+
+        const value_type& operator*() const { return m_container->m_value; }
+        iterator& operator++() { return *this; }
+        iterator operator++(int) { return *this; }
+
+        bool operator==(const iterator&) const = default;
+        bool operator!=(const iterator&) const = default;
+
+    private:
+        const infinite_repeated_container* m_container;
+    };
+
+    iterator begin() const { return {this}; }
+    iterator end() const { return {nullptr}; }
+
+private:
+    T m_value;
+};
 } // namespace rpp::utils

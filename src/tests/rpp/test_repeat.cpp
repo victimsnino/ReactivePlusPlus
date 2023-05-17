@@ -11,12 +11,13 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/operators/repeat.hpp>
+#include <rpp/operators/take.hpp>
 #include <rpp/sources/create.hpp>
 
 #include "mock_observer.hpp"
 
 
-TEST_CASE("repeat resubscribes", "[operators][repeat]")
+TEST_CASE("repeat resubscribes")
 {
     auto observer = mock_observer_strategy<int>();
     SECTION("observable with value")
@@ -62,17 +63,17 @@ TEST_CASE("repeat resubscribes", "[operators][repeat]")
                 CHECK(observer.get_on_completed_count() == 1);
             }
         }
-        // SECTION("subscribe on it via repeat()")
-        // {
-        //     observable.repeat().take(10).subscribe(observer);
-        //     SECTION("sent value infinitely")
-        //     {
-        //         CHECK(subscribe_count == 10);
-        //         CHECK(observer.get_total_on_next_count() == 10);
-        //         CHECK(observer.get_on_error_count() == 0);
-        //         CHECK(observer.get_on_completed_count() == 1);
-        //     }
-        // }
+        SECTION("subscribe on it via repeat()")
+        {
+            observable | rpp::operators::repeat() | rpp::operators::take(10) | rpp::operators::subscribe(observer.get_observer());
+            SECTION("sent value infinitely")
+            {
+                CHECK(subscribe_count == 10);
+                CHECK(observer.get_total_on_next_count() == 10);
+                CHECK(observer.get_on_error_count() == 0);
+                CHECK(observer.get_on_completed_count() == 1);
+            }
+        }
     }
     SECTION("observable with on_error")
     {

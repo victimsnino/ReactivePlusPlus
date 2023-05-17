@@ -29,6 +29,15 @@ struct repeat_t
         return rpp::source::concat(utils::repeated_container{std::forward<TObservable>(observable), count});
     }
 };
+
+struct infinite_repeat_t
+{
+    template<rpp::constraint::observable TObservable>
+    auto operator()(TObservable&& observable) const
+    {
+        return rpp::source::concat(utils::infinite_repeated_container{std::forward<TObservable>(observable)});
+    }
+};
 }
 
 namespace rpp::operators
@@ -60,5 +69,28 @@ namespace rpp::operators
 inline auto repeat(size_t count)
 {
     return details::repeat_t{count};
+}
+
+/**
+* @brief Re-subscribes on current observable during `on_completed` infinitely
+*
+* @marble repeat_infinitely
+    {
+        source observable : +-1-2-3-|
+        operator "repeat" : +-1-2-3-1-2-3-1-2-3>
+    }
+*
+* @return new base_observable with the repeat operator as most recent operator.
+* @warning #include <rpp/operators/repeat.hpp>
+*
+* @par Examples:
+* @snippet repeat.cpp repeat_infinitely
+*
+* @ingroup utility_operators
+* @see https://reactivex.io/documentation/operators/repeat.html
+*/
+inline auto repeat()
+{
+    return details::infinite_repeat_t{};
 }
 } // namespace rpp::operators
