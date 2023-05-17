@@ -69,11 +69,10 @@ namespace rpp::operators
  *
  * @par Performance notes:
  * - No any heap allocations
- * - No any copies/moves
+ * - No any copies/moves just forwarding of emission
  * - Just simple `size_t` decrementing
  *
  * @param count amount of items to be emitted. 0 - instant complete
- * @return new rpp::base_observable with the Take operator as most recent operator.
  * @warning #include <rpp/operators/take.hpp>
  *
  * @par Example:

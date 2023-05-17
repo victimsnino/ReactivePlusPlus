@@ -65,7 +65,7 @@ struct map_t
 namespace rpp::operators
 {
 /**
- * @brief Transform the items emitted by an Observable via applying a function to each item and emitting result
+ * @brief Transforms the items emitted by an Observable via applying a function to each item and emitting result
  * @note The Map operator can keep same type of value or change it to some another type.
  *
  * @marble map
@@ -77,11 +77,10 @@ namespace rpp::operators
  * @details Actually this operator just applies callable to each obtained emission and emit resulting value
  *
  * @par Performance notes:
- * - No any heap allocations
- * - No any copies/moves
+ * - No any heap allocations at all
+ * - No any copies/moves of emissions, just forwarding to callable
  *
  * @param callable is callable used to provide this transformation. Should accept `Type` of original observable and return type for new observable
- * @return new `rpp::base_observable` with the Map operator as most recent operator.
  * @warning #include <rpp/operators/map.hpp>
  *
  * @par Example with same type:

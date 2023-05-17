@@ -43,7 +43,7 @@ struct infinite_repeat_t
 namespace rpp::operators
 {
 /**
- * @brief Re-subscribes on current observable provided amount of times when `on_completed` obtained
+ * @brief Repeats the Observabe's sequence of emissions `count` times via re-subscribing on it during `on_completed` call while `count` not reached.
  *
  * @marble repeat
      {
@@ -51,13 +51,13 @@ namespace rpp::operators
          operator "repeat(2)" : +-1-2-3-1-2-3-|
      }
  *
- * @details Actually this operator does concat(obs, obs, obs....)
+ * @details Actually this operator is kind of `concat(obs, obs...)` where obs repeated `count` times
  *
  * @param count total amount of times subscription happens. For example:
  *  - `repeat(0)`  - means no any subscription at all
  *  - `repeat(1)`  - behave like ordinal observable
- *  - `repeat(10)` - 1 normal subscription and 9 re-subscriptions during on_completed
- * @return new base_observable with the repeat operator as most recent operator.
+ *  - `repeat(10)` - 1 normal subscription and 9 re-subscriptions during `on_completed`
+ *
  * @warning #include <rpp/operators/repeat.hpp>
  *
  * @par Examples:
@@ -72,23 +72,24 @@ inline auto repeat(size_t count)
 }
 
 /**
-* @brief Re-subscribes on current observable during `on_completed` infinitely
-*
-* @marble repeat_infinitely
-    {
-        source observable : +-1-2-3-|
-        operator "repeat" : +-1-2-3-1-2-3-1-2-3>
-    }
-*
-* @return new base_observable with the repeat operator as most recent operator.
-* @warning #include <rpp/operators/repeat.hpp>
-*
-* @par Examples:
-* @snippet repeat.cpp repeat_infinitely
-*
-* @ingroup utility_operators
-* @see https://reactivex.io/documentation/operators/repeat.html
-*/
+ * @brief Repeats the Observabe's sequence of emissions infinite amount of times via re-subscribing on it during `on_completed`.
+ *
+ * @marble repeat_infinitely
+     {
+         source observable : +-1-2-3-|
+         operator "repeat" : +-1-2-3-1-2-3-1-2-3>
+     }
+ *
+ * @details Actually this operator is kind of `concat(obs, obs...)`
+ *
+ * @warning #include <rpp/operators/repeat.hpp>
+ *
+ * @par Examples:
+ * @snippet repeat.cpp repeat_infinitely
+ *
+ * @ingroup utility_operators
+ * @see https://reactivex.io/documentation/operators/repeat.html
+ */
 inline auto repeat()
 {
     return details::infinite_repeat_t{};

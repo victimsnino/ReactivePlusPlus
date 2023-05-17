@@ -77,11 +77,10 @@ namespace rpp::operators
 * @details Actually this operator just checks if predicate returns true, then forwards emission
 *
 * @par Performance notes:
-* - No any heap allocations
-* - No any copies/moves
+* - No any heap allocations at all
+* - No any copies/moves of emissions, just passing by const& to predicate and then forwarding
 *
 * @param predicate is predicate used to check emitted items. true -> items satisfies condition, false -> not
-* @return new specific_observable with the Filter operator as most recent operator.
 * @warning #include <rpp/operators/filter.hpp>
 *
 * @par Example:

@@ -118,7 +118,6 @@ namespace rpp::source
  * @param others rest list of observables to subscribe on
  * @tparam memory_model rpp::memory_model strategy used to handle provided observables
  *
- * @return new base_observvable with the concat operator as most recent operator.
  * @warning #include <rpp/operators/concat.hpp>
  *
  * @par Example
@@ -151,7 +150,6 @@ auto concat(TObservable&& obs, TObservables&&...others)
  *
  * @iterable is container with observables to subscribe on
  * @tparam memory_model rpp::memory_model strategy used to handle provided observables
- * @return new base_observvable with the concat operator as most recent operator.
  * @warning #include <rpp/operators/concat.hpp>
  *
  * @par Example

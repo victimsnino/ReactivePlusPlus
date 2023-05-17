@@ -236,7 +236,6 @@ auto from_iterable(Iterable&& iterable, const TScheduler& scheduler /* = TSchedu
  * @tparam Scheduler type of scheduler used for scheduling of submissions: next item will be submitted to scheduler when previous one is executed
  * @param item first value to be sent
  * @param items rest values to be sent
- * @return rpp::base_observable which emits provided items
  *
  * @par Examples:
  * @snippet just.cpp just
@@ -264,7 +263,6 @@ auto just(const TScheduler& scheduler, T&& item, Ts&& ...items) requires (constr
  * @tparam memory_model rpp::memory_model strategy used to handle provided items
  * @param item first value to be sent
  * @param items rest values to be sent
- * @return rpp::base_observable which emits provided items
  *
  * @par Examples:
  * @snippet just.cpp just
