@@ -23,10 +23,22 @@ TEST_CASE("scan scans values and store state")
     {
         auto mock = mock_observer_strategy<int>{};
 
-        obs | rpp::operators::scan(0, std::plus<int>{}) | rpp::operators::subscribe(mock.get_observer());
+        obs | rpp::operators::scan(10, std::plus<int>{}) | rpp::operators::subscribe(mock.get_observer());
         SECTION("observer obtains partial sums")
         {
-            CHECK(mock.get_received_values() == std::vector{0, 1, 3, 6});
+            CHECK(mock.get_received_values() == std::vector{10, 11, 13, 16});
+            CHECK(mock.get_on_error_count() == 0);
+            CHECK(mock.get_on_completed_count() == 1);
+        }
+    }
+    SECTION("subscribe on it via scan with plus with no seed")
+    {
+        auto mock = mock_observer_strategy<int>{};
+
+        obs | rpp::operators::scan(std::plus<int>{}) | rpp::operators::subscribe(mock.get_observer());
+        SECTION("observer obtains partial sums")
+        {
+            CHECK(mock.get_received_values() == std::vector{1, 3, 6});
             CHECK(mock.get_on_error_count() == 0);
             CHECK(mock.get_on_completed_count() == 1);
         }
@@ -71,6 +83,26 @@ TEST_CASE("scan scans values and store state")
         SECTION("observer obtains only on_error")
         {
             CHECK(mock.get_received_values() == std::vector{0});
+            CHECK(mock.get_on_error_count() == 1);
+            CHECK(mock.get_on_completed_count() == 0);
+        }
+    }
+    SECTION("subscribe on it via scan with exception with no seed")
+    {
+        auto mock = mock_observer_strategy<int>{};
+
+        volatile bool none{};
+        obs | rpp::operators::scan([&](int, int)-> int
+                    {
+                        if (none)
+                            return 0;
+                        throw std::runtime_error{""};
+                    })
+            | rpp::operators::subscribe(mock.get_observer());
+
+        SECTION("observer obtains only on_error")
+        {
+            CHECK(mock.get_received_values() == std::vector{1});
             CHECK(mock.get_on_error_count() == 1);
             CHECK(mock.get_on_completed_count() == 0);
         }

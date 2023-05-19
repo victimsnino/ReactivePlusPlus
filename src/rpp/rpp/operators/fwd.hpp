@@ -36,4 +36,7 @@ auto repeat();
 template<typename InitialValue, typename Fn>
     requires (!utils::is_not_template_callable<Fn> || std::same_as<std::decay_t<InitialValue>, std::invoke_result_t<Fn, std::decay_t<InitialValue>&&, utils::convertible_to_any>>)
 auto scan(InitialValue&& initial_value, Fn&& accumulator);
+
+template<typename Fn>
+auto scan(Fn&& accumulator);
 }

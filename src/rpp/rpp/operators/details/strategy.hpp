@@ -47,7 +47,7 @@ concept operator_strategy = requires(const S& const_strategy,
 }
 namespace rpp::operators::details
 {
-template<rpp::constraint::decayed_type T, rpp::constraint::observer TObs, constraint::operator_strategy<rpp::utils::extract_observer_type_t<T>> Strategy>
+template<rpp::constraint::decayed_type T, rpp::constraint::observer TObs, constraint::operator_strategy<rpp::utils::extract_observer_type_t<TObs>> Strategy>
 class operator_strategy_base;
 
 template<rpp::constraint::decayed_type T, rpp::constraint::decayed_type TT, rpp::constraint::observer_strategy<TT> ObserverStrategy, constraint::operator_strategy<TT> Strategy>
