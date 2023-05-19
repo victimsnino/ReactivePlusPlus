@@ -132,6 +132,10 @@ namespace rpp::operators
  * @details Actually this operator applies provided accumulator function to seed and new emission, emits resulting value and updates seed value for next emission
  * @warning Initial value would be used as first value from this observable (would be sent during subscription) and initial value for cache
  *
+ * @par Performance notes:
+ * - No any heap allocations at all
+ * - Keep actual seed/cache inside observable and updating it every emission
+ *
  * @param initial_value initial value for seed which would be sent during subscription and applied for first value from observable. Then it will be replaced with result and etc.
  * @param accumulator function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.
  *
@@ -162,6 +166,10 @@ auto scan(InitialValue&& initial_value, Fn&& accumulator)
  *
  * @details Actually this operator applies provided accumulator function to seed and new emission, emits resulting value and updates seed value for next emission
  * @warning There is no initial value for seed, so, first value would be used as seed value and forwarded as is.
+ *
+ * @par Performance notes:
+ * - No any heap allocations at all
+ * - Keep actual seed/cache inside observable and updating it every emission
  *
  * @param accumulator function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.
  *
