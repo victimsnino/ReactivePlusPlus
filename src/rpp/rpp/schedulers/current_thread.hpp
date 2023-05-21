@@ -10,10 +10,10 @@
 
 #pragma once
 
+#include <rpp/schedulers/fwd.hpp>
 #include <rpp/schedulers/details/queue.hpp>
 #include <rpp/schedulers/details/utils.hpp>
 #include <rpp/schedulers/details/worker.hpp>
-#include <rpp/schedulers/fwd.hpp>
 #include <thread>
 
 namespace rpp::schedulers
@@ -29,6 +29,8 @@ namespace rpp::schedulers
  */
 class current_thread
 {
+    friend class new_thread;
+    
     inline static thread_local std::optional<details::schedulables_queue> s_queue{};
     inline static thread_local time_point s_last_now_time{};
 
