@@ -22,7 +22,7 @@ TEST_CASE("scan scans values and store state")
     SECTION("subscribe on it via scan with plus")
     {
         auto mock = mock_observer_strategy<int>{};
-
+        
         obs | rpp::operators::scan(10, std::plus<int>{}) | rpp::operators::subscribe(mock.get_observer());
         SECTION("observer obtains partial sums")
         {
@@ -36,6 +36,32 @@ TEST_CASE("scan scans values and store state")
         auto mock = mock_observer_strategy<int>{};
 
         obs | rpp::operators::scan(std::plus<int>{}) | rpp::operators::subscribe(mock.get_observer());
+        SECTION("observer obtains partial sums")
+        {
+            CHECK(mock.get_received_values() == std::vector{1, 3, 6});
+            CHECK(mock.get_on_error_count() == 0);
+            CHECK(mock.get_on_completed_count() == 1);
+        }
+    }
+    SECTION("subscribe on it via scan as lvalue with plus")
+    {
+        auto mock = mock_observer_strategy<int>{};
+        
+        auto op =  rpp::operators::scan(10, std::plus<int>{});
+        obs | op | rpp::operators::subscribe(mock.get_observer());
+        SECTION("observer obtains partial sums")
+        {
+            CHECK(mock.get_received_values() == std::vector{10, 11, 13, 16});
+            CHECK(mock.get_on_error_count() == 0);
+            CHECK(mock.get_on_completed_count() == 1);
+        }
+    }
+    SECTION("subscribe on it via scan with plus as lvalue with no seed")
+    {
+        auto mock = mock_observer_strategy<int>{};
+
+        auto op = rpp::operators::scan(std::plus<int>{});
+        obs | op | rpp::operators::subscribe(mock.get_observer());
         SECTION("observer obtains partial sums")
         {
             CHECK(mock.get_received_values() == std::vector{1, 3, 6});
