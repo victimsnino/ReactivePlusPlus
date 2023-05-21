@@ -19,6 +19,7 @@ var hierarchy =
     [ "rpp::details::container_with_iterator< Container >", "classrpp_1_1details_1_1container__with__iterator.html", null ],
     [ "rpp::details::create_strategy< Type, OnSubscribe >", "structrpp_1_1details_1_1create__strategy.html", null ],
     [ "rpp::schedulers::current_thread", "classrpp_1_1schedulers_1_1current__thread.html", null ],
+    [ "rpp::disposable_guard", "classrpp_1_1disposable__guard.html", null ],
     [ "rpp::disposable_wrapper", "classrpp_1_1disposable__wrapper.html", null ],
     [ "rpp::details::observable::dynamic_strategy< Type >", "classrpp_1_1details_1_1observable_1_1dynamic__strategy.html", null ],
     [ "rpp::details::observer::dynamic_strategy< Type >", "classrpp_1_1details_1_1observer_1_1dynamic__strategy.html", null ],
