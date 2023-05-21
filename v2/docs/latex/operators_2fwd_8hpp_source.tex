@@ -36,6 +36,13 @@
 \DoxyCodeLine{00032\ }
 \DoxyCodeLine{00033\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{repeat}}(\textcolor{keywordtype}{size\_t}\ count);}
 \DoxyCodeLine{00034\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{repeat}}();}
-\DoxyCodeLine{00035\ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ InitialValue,\ \textcolor{keyword}{typename}\ Fn>}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ std::same\_as<std::decay\_t<InitialValue>,\ std::invoke\_result\_t<Fn,\ std::decay\_t<InitialValue>\&\&,\ utils::convertible\_to\_any>>)}
+\DoxyCodeLine{00038\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_gaf2998543817ac9d789bd2787f3a5e29d}{scan}}(InitialValue\&\&\ initial\_value,\ Fn\&\&\ accumulator);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
+\DoxyCodeLine{00041\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_gaf2998543817ac9d789bd2787f3a5e29d}{scan}}(Fn\&\&\ accumulator);}
+\DoxyCodeLine{00042\ \}}
 
 \end{DoxyCode}

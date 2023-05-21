@@ -23,6 +23,7 @@ var hierarchy =
     [ "rpp::disposable_wrapper", "classrpp_1_1disposable__wrapper.html", null ],
     [ "rpp::details::observable::dynamic_strategy< Type >", "classrpp_1_1details_1_1observable_1_1dynamic__strategy.html", null ],
     [ "rpp::details::observer::dynamic_strategy< Type >", "classrpp_1_1details_1_1observer_1_1dynamic__strategy.html", null ],
+    [ "rpp::operators::details::empty_on_subscribe", "structrpp_1_1operators_1_1details_1_1empty__on__subscribe.html", null ],
     [ "std::false_type", null, [
       [ "rpp::schedulers::constraint::details::is_worker< T >", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html", null ],
       [ "rpp::utils::details::extract_observable_type< T >", "structrpp_1_1utils_1_1details_1_1extract__observable__type.html", null ],
@@ -46,6 +47,10 @@ var hierarchy =
     [ "rpp::operators::details::operator_strategy_base< T, TObs, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base.html", null ],
     [ "rpp::operators::details::operator_strategy_base< T, rpp::base_observer< TT, ObserverStrategy >, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1base__observer_35d914c2b4e35f15683ffab6e26f444be.html", null ],
     [ "rpp::operators::details::repeat_t", "structrpp_1_1operators_1_1details_1_1repeat__t.html", null ],
+    [ "rpp::operators::details::scan_no_seed_observer_strategy< Seed, Fn >", "structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html", null ],
+    [ "rpp::operators::details::scan_no_seed_t< Fn >", "structrpp_1_1operators_1_1details_1_1scan__no__seed__t.html", null ],
+    [ "rpp::operators::details::scan_observer_strategy< Seed, Fn >", "structrpp_1_1operators_1_1details_1_1scan__observer__strategy.html", null ],
+    [ "rpp::operators::details::scan_t< InitialValue, Fn >", "structrpp_1_1operators_1_1details_1_1scan__t.html", null ],
     [ "rpp::schedulers::details::schedulable_base", "classrpp_1_1schedulers_1_1details_1_1schedulable__base.html", [
       [ "rpp::schedulers::details::specific_schedulable< Fn, TObs, Args >", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html", null ]
     ] ],

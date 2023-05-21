@@ -36,44 +36,46 @@
 \DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy}{forwarding\_on\_completed\_strategy}}\ on\_completed\{\};}
 \DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy}{forwarding\_set\_upstream\_strategy}}\ set\_upstream\{\};}
 \DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy}{forwarding\_is\_disposed\_strategy}}\ is\_disposed\{\};}
-\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1empty__on__subscribe}{empty\_on\_subscribe}}\ on\_subscribe\{\};}
 \DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable,\ std::invocable<rpp::utils::extract\_observable\_type\_t<TObservable>>\ Fn>}
-\DoxyCodeLine{00038\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1base__observable}{map\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1base__observable}{operator\_observable<std::invoke\_result\_t<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>}}>,}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TObservable,}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1map__observer__strategy}{map\_observer\_strategy<Fn>}},}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Fn>;}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Fn>}
-\DoxyCodeLine{00045\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1map__t}{map\_t}}}
-\DoxyCodeLine{00046\ \{}
-\DoxyCodeLine{00047\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Fn\ m\_fn;}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::invocable<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>>\ \&\&\ !std::same\_as<void,\ std::invoke\_result\_t<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>>>)}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ observable)\ \textcolor{keyword}{const}\ \&}
-\DoxyCodeLine{00052\ \ \ \ \ \{}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1base__observable}{map\_observable<TObservable,\ Fn>}}\{std::forward<TObservable>(observable),\ m\_fn\};}
-\DoxyCodeLine{00054\ \ \ \ \ \}}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::invocable<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>>\ \&\&\ !std::same\_as<void,\ std::invoke\_result\_t<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>>>)}
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ observable)\ \&\&}
-\DoxyCodeLine{00059\ \ \ \ \ \{}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1base__observable}{map\_observable<TObservable,\ Fn>}}\{std::forward<TObservable>(observable),\ std::move(m\_fn)\};}
-\DoxyCodeLine{00061\ \ \ \ \ \}}
-\DoxyCodeLine{00062\ \};}
-\DoxyCodeLine{00063\ \}}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \textcolor{keyword}{namespace\ }rpp::operators}
-\DoxyCodeLine{00066\ \{}
-\DoxyCodeLine{00095\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ !std::same\_as<void,\ std::invoke\_result\_t<Fn,\ utils::convertible\_to\_any>>)}
-\DoxyCodeLine{00097\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{map}}(Fn\&\&\ callable)}
-\DoxyCodeLine{00098\ \{}
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1map__t}{details::map\_t<std::decay\_t<Fn>}}>\{std::forward<Fn>(callable)\};}
-\DoxyCodeLine{00100\ \}}
-\DoxyCodeLine{00101\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable,\ std::invocable<rpp::utils::extract\_observable\_type\_t<TObservable>>\ Fn>}
+\DoxyCodeLine{00040\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1base__observable}{map\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1base__observable}{operator\_observable<std::invoke\_result\_t<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>}}>,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TObservable,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1map__observer__strategy}{map\_observer\_strategy<Fn>}},}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Fn>;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Fn>}
+\DoxyCodeLine{00047\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1map__t}{map\_t}}}
+\DoxyCodeLine{00048\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Fn\ m\_fn;}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::invocable<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>>\ \&\&\ !std::same\_as<void,\ std::invoke\_result\_t<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>>>)}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ observable)\ \textcolor{keyword}{const}\ \&}
+\DoxyCodeLine{00054\ \ \ \ \ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1base__observable}{map\_observable<TObservable,\ Fn>}}\{std::forward<TObservable>(observable),\ m\_fn\};}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::invocable<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>>\ \&\&\ !std::same\_as<void,\ std::invoke\_result\_t<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>>>)}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ observable)\ \&\&}
+\DoxyCodeLine{00061\ \ \ \ \ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1base__observable}{map\_observable<TObservable,\ Fn>}}\{std::forward<TObservable>(observable),\ std::move(m\_fn)\};}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ \};}
+\DoxyCodeLine{00065\ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{namespace\ }rpp::operators}
+\DoxyCodeLine{00068\ \{}
+\DoxyCodeLine{00097\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ !std::same\_as<void,\ std::invoke\_result\_t<Fn,\ utils::convertible\_to\_any>>)}
+\DoxyCodeLine{00099\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{map}}(Fn\&\&\ callable)}
+\DoxyCodeLine{00100\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1map__t}{details::map\_t<std::decay\_t<Fn>}}>\{std::forward<Fn>(callable)\};}
+\DoxyCodeLine{00102\ \}}
+\DoxyCodeLine{00103\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
 
 \end{DoxyCode}

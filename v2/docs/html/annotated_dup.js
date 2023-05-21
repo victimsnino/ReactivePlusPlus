@@ -28,6 +28,7 @@ var annotated_dup =
       ] ],
       [ "operators", null, [
         [ "details", null, [
+          [ "empty_on_subscribe", "structrpp_1_1operators_1_1details_1_1empty__on__subscribe.html", null ],
           [ "filter_observer_strategy", "structrpp_1_1operators_1_1details_1_1filter__observer__strategy.html", null ],
           [ "filter_t", "structrpp_1_1operators_1_1details_1_1filter__t.html", null ],
           [ "forwarding_is_disposed_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy.html", null ],
@@ -42,6 +43,10 @@ var annotated_dup =
           [ "operator_strategy_base", "classrpp_1_1operators_1_1details_1_1operator__strategy__base.html", null ],
           [ "operator_strategy_base< T, rpp::base_observer< TT, ObserverStrategy >, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1base__observer_35d914c2b4e35f15683ffab6e26f444be.html", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1base__observer_35d914c2b4e35f15683ffab6e26f444be" ],
           [ "repeat_t", "structrpp_1_1operators_1_1details_1_1repeat__t.html", null ],
+          [ "scan_no_seed_observer_strategy", "structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html", null ],
+          [ "scan_no_seed_t", "structrpp_1_1operators_1_1details_1_1scan__no__seed__t.html", null ],
+          [ "scan_observer_strategy", "structrpp_1_1operators_1_1details_1_1scan__observer__strategy.html", null ],
+          [ "scan_t", "structrpp_1_1operators_1_1details_1_1scan__t.html", null ],
           [ "subscribe_t", "classrpp_1_1operators_1_1details_1_1subscribe__t.html", null ],
           [ "subscribe_t< base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4.html", null ],
           [ "subscribe_t< OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", null ],

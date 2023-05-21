@@ -7,6 +7,7 @@ var examples =
     [ "just.cpp", "just_8cpp-example.html", null ],
     [ "map.cpp", "map_8cpp-example.html", null ],
     [ "repeat.cpp", "repeat_8cpp-example.html", null ],
+    [ "scan.cpp", "scan_8cpp-example.html", null ],
     [ "take.cpp", "take_8cpp-example.html", null ],
     [ "take_while.cpp", "take_while_8cpp-example.html", null ]
 ];

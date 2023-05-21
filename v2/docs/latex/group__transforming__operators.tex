@@ -10,7 +10,12 @@ Transforming operators are operators that transform items provided by observable
 \item 
 {\footnotesize template$<$typename Fn $>$ \newline
 requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ !std\+::same\+\_\+as$<$void, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{rpp\+::operators\+::map}} (Fn \&\&callable)
-\begin{DoxyCompactList}\small\item\em Transforms the items emitted by an Observable via applying a function to each item and emitting result. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Transforms the items emitted by an Observable via applying a function to each item and emitting result. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Initial\+Value , typename Fn $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ std\+::same\+\_\+as$<$std\+::decay\+\_\+t$<$Initial\+Value$>$, std\+::invoke\+\_\+result\+\_\+t$<$Fn, std\+::decay\+\_\+t$<$Initial\+Value$>$\&\&, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__transforming__operators_gaf2998543817ac9d789bd2787f3a5e29d}{rpp\+::operators\+::scan}} (Initial\+Value \&\&initial\+\_\+value, Fn \&\&accumulator)
+\begin{DoxyCompactList}\small\item\em Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Fn $>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gaced4a6e7bc0556b40b07d7efd97d7ee3}{rpp\+::operators\+::scan}} (Fn \&\&accumulator)
+\begin{DoxyCompactList}\small\item\em Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -84,3 +89,120 @@ Actually this operator just applies callable to each obtained emission and emit 
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{map_8cpp-example}{map.\+cpp}}.\end{Desc}
+\mbox{\Hypertarget{group__transforming__operators_gaced4a6e7bc0556b40b07d7efd97d7ee3}\label{group__transforming__operators_gaced4a6e7bc0556b40b07d7efd97d7ee3}} 
+\index{Transforming Operators@{Transforming Operators}!scan@{scan}}
+\index{scan@{scan}!Transforming Operators@{Transforming Operators}}
+\doxysubsubsection{\texorpdfstring{scan()}{scan()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Fn $>$ \\
+auto rpp\+::operators\+::scan (\begin{DoxyParamCaption}\item[{Fn \&\&}]{accumulator }\end{DoxyParamCaption})}
+
+
+
+Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. 
+
+
+
+Actually this operator applies provided accumulator function to seed and new emission, emits resulting value and updates seed value for next emission \begin{DoxyWarning}{Warning}
+There is no initial value for seed, so, first value would be used as seed value and forwarded as is.
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Performance notes\+:}
+
+\begin{DoxyItemize}
+\item No any heap allocations at all
+\item Keep actual seed/cache inside observable and updating it every emission
+\end{DoxyItemize}
+\end{DoxyParagraph}
+
+\begin{DoxyParams}{Parameters}
+{\em accumulator} & function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-\/reference.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{scan_8hpp_source}{rpp/operators/scan.\+hpp}}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,2,3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_gaf2998543817ac9d789bd2787f3a5e29d}{rpp::operators::scan}}(std::plus<int>\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 3\ 6}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/scan.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/scan.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__transforming__operators_gaf2998543817ac9d789bd2787f3a5e29d}\label{group__transforming__operators_gaf2998543817ac9d789bd2787f3a5e29d}} 
+\index{Transforming Operators@{Transforming Operators}!scan@{scan}}
+\index{scan@{scan}!Transforming Operators@{Transforming Operators}}
+\doxysubsubsection{\texorpdfstring{scan()}{scan()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Initial\+Value , typename Fn $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ std\+::same\+\_\+as$<$std\+::decay\+\_\+t$<$Initial\+Value$>$, std\+::invoke\+\_\+result\+\_\+t$<$Fn, std\+::decay\+\_\+t$<$Initial\+Value$>$\&\&, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+auto rpp\+::operators\+::scan (\begin{DoxyParamCaption}\item[{Initial\+Value \&\&}]{initial\+\_\+value,  }\item[{Fn \&\&}]{accumulator }\end{DoxyParamCaption})}
+
+
+
+Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. 
+
+
+
+Actually this operator applies provided accumulator function to seed and new emission, emits resulting value and updates seed value for next emission \begin{DoxyWarning}{Warning}
+Initial value would be used as first value from this observable (would be sent during subscription) and initial value for cache
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Performance notes\+:}
+
+\begin{DoxyItemize}
+\item No any heap allocations at all
+\item Keep actual seed/cache inside observable and updating it every emission
+\end{DoxyItemize}
+\end{DoxyParagraph}
+
+\begin{DoxyParams}{Parameters}
+{\em initial\+\_\+value} & initial value for seed which would be sent during subscription and applied for first value from observable. Then it will be replaced with result and etc. \\
+\hline
+{\em accumulator} & function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-\/reference.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{scan_8hpp_source}{rpp/operators/scan.\+hpp}}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,2,3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_gaf2998543817ac9d789bd2787f3a5e29d}{rpp::operators::scan}}(10,\ std::plus<int>\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 10\ 11\ 13\ 16}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,2,3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_gaf2998543817ac9d789bd2787f3a5e29d}{rpp::operators::scan}}(std::vector<int>\{\},\ [](std::vector<int>\&\&\ seed,\ \textcolor{keywordtype}{int}\ new\_value)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seed.push\_back(new\_value);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(seed);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keyword}{const}\ std::vector<int>\&\ v)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}vector:\ "{}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ val\ :\ v)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ val\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ vector:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ vector:\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ vector:\ 1\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ vector:\ 1\ 2\ 3}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/scan.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/scan.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{scan_8cpp-example}{scan.\+cpp}}.\end{Desc}
