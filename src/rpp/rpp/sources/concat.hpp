@@ -44,6 +44,7 @@ struct concat_source_observer_strategy
 
     RPP_NO_UNIQUE_ADDRESS mutable PackedContainer container;
 
+    constexpr static operators::details::empty_on_subscribe on_subscribe{};
     constexpr static operators::details::forwarding_on_next_strategy on_next{};
     constexpr static operators::details::forwarding_on_error_strategy on_error{};
     constexpr static operators::details::forwarding_set_upstream_strategy set_upstream{};

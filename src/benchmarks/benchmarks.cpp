@@ -217,6 +217,22 @@ int main(int argc, char* argv[]) // NOLINT
                     | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
+        SECTION("create+scan(10, std::plus)+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
+                    | rpp::operators::scan(10, std::plus<int>{})
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
+                    | rxcpp::operators::scan(10, std::plus<int>{})
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
     };
 
     BENCHMARK("Filtering Operators")

@@ -34,6 +34,7 @@ struct filter_observer_strategy
     constexpr static forwarding_on_completed_strategy on_completed{};
     constexpr static forwarding_set_upstream_strategy set_upstream{};
     constexpr static forwarding_is_disposed_strategy is_disposed{};
+    constexpr static empty_on_subscribe on_subscribe{};
 };
 
 
