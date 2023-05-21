@@ -8,6 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
+#include "mock_observer.hpp"
 #include "rpp/disposables/fwd.hpp"
 #include "rpp/schedulers/fwd.hpp"
 #include <snitch/snitch.hpp>
@@ -17,6 +18,7 @@
 #include <chrono>
 #include <optional>
 #include <sstream>
+#include <stdexcept>
 #include <thread>
 
 using namespace std::string_literals;
@@ -152,7 +154,8 @@ TEST_CASE("Immediate scheduler")
 {
     auto scheduler = rpp::schedulers::immediate{};
     auto d = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
-    auto obs = rpp::make_lambda_observer(d, [](int){ }).as_dynamic();
+    auto mock_obs = mock_observer_strategy<int>{};
+    auto obs = mock_obs.get_observer(d).as_dynamic();
 
     auto   worker = scheduler.create_worker();
 
@@ -310,12 +313,19 @@ TEST_CASE("Immediate scheduler")
     {
         worker.schedule([](const auto&, int, const std::string&){ return rpp::schedulers::optional_duration{}; }, obs, int{}, std::string{});
     }
+
+    SECTION("error during schedulable")
+    {
+        worker.schedule([](const auto&) -> rpp::schedulers::optional_duration {throw std::runtime_error{"test"};}, obs);
+        CHECK(mock_obs.get_on_error_count()  == 1);
+    }
 }
 
 TEST_CASE("current_thread scheduler")
 {
     auto d = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
-    auto obs = rpp::make_lambda_observer(d, [](int){ }).as_dynamic();
+     auto mock_obs = mock_observer_strategy<int>{};
+    auto obs = mock_obs.get_observer(d).as_dynamic();
 
     auto worker = rpp::schedulers::current_thread::create_worker();
     CHECK(worker.get_disposable().is_disposed());
@@ -576,6 +586,24 @@ TEST_CASE("current_thread scheduler")
     SECTION("current_thread scheduler forwards any arguments")
     {
         worker.schedule([](const auto&, int, const std::string&){ return rpp::schedulers::optional_duration{}; }, obs, int{}, std::string{});
+    }
+
+
+    SECTION("error during schedulable")
+    {
+        worker.schedule([](const auto&) -> rpp::schedulers::optional_duration {throw std::runtime_error{"test"};}, obs);
+        CHECK(mock_obs.get_on_error_count()  == 1);
+    }
+
+    SECTION("error during recursive schedulable")
+    {
+        worker.schedule([&worker](const auto& obs) 
+        {   
+            worker.schedule([](const auto&) -> rpp::schedulers::optional_duration {throw std::runtime_error{"test"};}, obs);
+            return rpp::schedulers::optional_duration{};
+        }, obs);
+
+        CHECK(mock_obs.get_on_error_count()  == 1);
     }
 }
 
