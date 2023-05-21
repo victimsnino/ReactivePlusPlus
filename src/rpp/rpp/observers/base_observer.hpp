@@ -17,6 +17,7 @@
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/utils/functors.hpp>
 #include <rpp/utils/exceptions.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <exception>
 #include <stdexcept>
@@ -183,8 +184,8 @@ public:
     {
         if (!is_disposed())
         {
+            rpp::utils::finally_action finally{[&]{ m_disposable.dispose(); }};
             m_strategy.on_error(err);
-            m_disposable.dispose();
         }
     }
 
@@ -196,8 +197,8 @@ public:
     {
         if (!is_disposed())
         {
+            rpp::utils::finally_action finally{[&]{ m_disposable.dispose(); }};
             m_strategy.on_completed();
-            m_disposable.dispose();
         }
     }
 
