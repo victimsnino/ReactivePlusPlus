@@ -16,6 +16,8 @@
 #include <rpp/utils/utils.hpp>
 
 #include <condition_variable>
+#include <exception>
+#include <optional>
 #include <queue>
 #include <memory>
 #include <tuple>
@@ -64,7 +66,18 @@ public:
     {
     }
 
-    optional_duration operator()() override { return std::apply(m_fn, m_args); }
+    optional_duration operator()() override 
+    { 
+        try
+        {
+            return std::apply(m_fn, m_args); 
+        }
+        catch(...)
+        {
+            std::get<0>(m_args).on_error(std::current_exception());
+            return std::nullopt;
+        }
+    }
     bool              is_disposed() const override { return std::get<0>(m_args).is_disposed(); }
 
 private:
