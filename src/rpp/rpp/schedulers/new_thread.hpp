@@ -62,8 +62,9 @@ class new_thread
         }
 
         private:
-            static void data_thread(std::atomic_flag&                       is_disposed,
-                                    std::unique_lock<std::recursive_mutex> lock,
+            static void data_thread(std::unique_lock<std::recursive_mutex> lock,
+
+                                    std::atomic_flag&                       is_disposed,
                                     std::condition_variable_any&           cv,
                                     details::schedulables_queue*&          queue_ptr)
             {
@@ -107,7 +108,7 @@ class new_thread
             std::condition_variable_any  m_cv{};
             std::atomic_flag              m_is_disposed{};
 
-            std::thread m_thread{data_thread, m_is_disposed, std::unique_lock{m_queue_mutex}, m_cv, m_queue_ptr};
+            std::thread m_thread{&data_thread, std::unique_lock{m_queue_mutex}, std::ref(m_is_disposed), std::ref(m_cv), std::ref(m_queue_ptr)};
     };
 
 public:
