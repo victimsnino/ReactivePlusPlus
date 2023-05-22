@@ -45,7 +45,7 @@ class new_thread
 
         void dispose_impl() override
         {
-            m_is_disposed.test_and_set(std::memory_order_relaxed);
+            m_is_disposed.store(true, std::memory_order_relaxed);
             m_cv.notify_one();
             m_thread.join();
         }
@@ -64,17 +64,17 @@ class new_thread
         private:
             static void data_thread(std::unique_lock<std::recursive_mutex> lock,
 
-                                    std::atomic_flag&                       is_disposed,
+                                    const std::atomic_bool&                is_disposed,
                                     std::condition_variable_any&           cv,
                                     details::schedulables_queue*&          queue_ptr)
             {
                 queue_ptr = &current_thread::s_queue.emplace();
 
-                while (!is_disposed.test(std::memory_order_relaxed))
+                while (!is_disposed.load(std::memory_order_relaxed))
                 {
-                    cv.wait(lock, [&] { return is_disposed.test(std::memory_order_relaxed) || !queue_ptr->is_empty(); });
+                    cv.wait(lock, [&] { return is_disposed.load(std::memory_order_relaxed) || !queue_ptr->is_empty(); });
 
-                    if (is_disposed.test(std::memory_order_relaxed))
+                    if (is_disposed.load(std::memory_order_relaxed))
                         break;
 
                     if (queue_ptr->top()->is_disposed())
@@ -106,7 +106,7 @@ class new_thread
             std::recursive_mutex         m_queue_mutex{};
             details::schedulables_queue* m_queue_ptr{};
             std::condition_variable_any  m_cv{};
-            std::atomic_flag              m_is_disposed{};
+            std::atomic_bool             m_is_disposed{};
 
             std::thread m_thread{&data_thread, std::unique_lock{m_queue_mutex}, std::ref(m_is_disposed), std::ref(m_cv), std::ref(m_queue_ptr)};
     };
