@@ -181,19 +181,19 @@ int main(int argc, char* argv[]) // NOLINT
 
     BENCHMARK("Conditional Operators")
     {
-        SECTION("create+take_while(false)+subscribe")
+        SECTION("create+take_while(true)+subscribe")
         {
             TEST_RPP([&]()
             {
                 rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
-                    | rpp::operators::take_while([](int){return false; })
+                    | rpp::operators::take_while([](int){return true; })
                     | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
 
             TEST_RXCPP([&]()
             {
                 rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
-                    | rxcpp::operators::take_while([](int){return false; })
+                    | rxcpp::operators::take_while([](int){return true; })
                     | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
