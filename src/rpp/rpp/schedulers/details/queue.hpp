@@ -78,7 +78,7 @@ public:
             return std::nullopt;
         }
     }
-    bool              is_disposed() const override { return std::get<0>(m_args).is_disposed(); }
+    bool is_disposed() const override { return std::get<0>(m_args).is_disposed(); }
 
 private:
     std::tuple<TObs, Args...> m_args;

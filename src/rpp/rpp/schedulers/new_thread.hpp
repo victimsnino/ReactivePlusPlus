@@ -76,13 +76,17 @@ class new_thread
                     if (is_disposed.test(std::memory_order_relaxed))
                         break;
 
-                    if (!cv.wait_until(lock,
-                                       queue_ptr->top()->get_timepoint(),
-                                       [&]
-                                       {
-                                           return is_disposed.test(std::memory_order_relaxed) || queue_ptr->top()->get_timepoint() <= clock_type::now();
-                                       }))
+                    if (queue_ptr->top()->is_disposed())
+                    {
+                        queue_ptr->pop();
                         continue;
+                    }
+
+                    if (const auto now = clock_type::now(); now < queue_ptr->top()->get_timepoint())
+                    {
+                        cv.wait_for(lock, queue_ptr->top()->get_timepoint() - now);
+                        continue;
+                    }
 
                     auto top = queue_ptr->pop();
 
