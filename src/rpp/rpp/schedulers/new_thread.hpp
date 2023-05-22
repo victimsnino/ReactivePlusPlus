@@ -45,9 +45,13 @@ class new_thread
 
         void dispose_impl() override
         {
-            m_is_disposed.store(true, std::memory_order_relaxed);
-            m_cv.notify_one();
-            m_thread.join();
+            std::call_once(m_once,
+                           [&]
+                           {
+                               m_is_disposed.store(true, std::memory_order_acq_rel);
+                               m_cv.notify_all();
+                               m_thread.join();
+                           });
         }
 
         template<rpp::constraint::observer TObs, typename... Args, constraint::schedulable_fn<TObs, Args...> Fn>
@@ -58,7 +62,7 @@ class new_thread
                 if (m_queue_ptr)
                     m_queue_ptr->emplace(time_point, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
             }
-            m_cv.notify_one();
+            m_cv.notify_all();
         }
 
         private:
@@ -70,11 +74,11 @@ class new_thread
             {
                 queue_ptr = &current_thread::s_queue.emplace();
 
-                while (!is_disposed.load(std::memory_order_relaxed))
+                while (!is_disposed.load(std::memory_order_acq_rel))
                 {
-                    cv.wait(lock, [&] { return is_disposed.load(std::memory_order_relaxed) || !queue_ptr->is_empty(); });
+                    cv.wait(lock, [&] { return is_disposed.load(std::memory_order_acq_rel) || !queue_ptr->is_empty(); });
 
-                    if (is_disposed.load(std::memory_order_relaxed))
+                    if (is_disposed.load(std::memory_order_acq_rel))
                         break;
 
                     if (queue_ptr->top()->is_disposed())
@@ -107,6 +111,7 @@ class new_thread
             details::schedulables_queue* m_queue_ptr{};
             std::condition_variable_any  m_cv{};
             std::atomic_bool             m_is_disposed{};
+            std::once_flag               m_once{};
 
             std::thread m_thread{&data_thread, std::unique_lock{m_queue_mutex}, std::ref(m_is_disposed), std::ref(m_cv), std::ref(m_queue_ptr)};
     };
@@ -125,7 +130,7 @@ public:
 
         rpp::disposable_wrapper get_disposable() const { return rpp::disposable_wrapper{m_state}; }
 
-    private:
+private:
         std::shared_ptr<disposable> m_state = std::make_shared<disposable>();
     };
 

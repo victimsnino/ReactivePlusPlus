@@ -10,10 +10,12 @@
 
 #include "mock_observer.hpp"
 #include "rpp/disposables/fwd.hpp"
+#include "rpp/schedulers/current_thread.hpp"
 #include "rpp/schedulers/fwd.hpp"
 #include <snitch/snitch.hpp>
 #include <rpp/schedulers.hpp>
 #include <rpp/observers/lambda_observer.hpp>
+#include <snitch/snitch_macros_test_case.hpp>
 
 #include <chrono>
 #include <optional>
@@ -321,17 +323,17 @@ TEST_CASE("Immediate scheduler")
     }
 }
 
-TEST_CASE("current_thread scheduler")
+TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread, rpp::schedulers::new_thread)
 {
     auto d = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
-     auto mock_obs = mock_observer_strategy<int>{};
+    auto mock_obs = mock_observer_strategy<int>{};
     auto obs = mock_obs.get_observer(d).as_dynamic();
 
-    auto worker = rpp::schedulers::current_thread::create_worker();
+    auto worker = TestType::create_worker();
     CHECK(worker.get_disposable().is_disposed());
     size_t call_count{};
 
-    SECTION("current_thread scheduler schedules and re-schedules action immediately")
+    SECTION("scheduler schedules and re-schedules action immediately")
     {
         worker.schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
         {
@@ -343,7 +345,7 @@ TEST_CASE("current_thread scheduler")
         CHECK(call_count == 2);
     }
 
-    SECTION("current_thread scheduler recursive scheduling")
+    SECTION("scheduler recursive scheduling")
     {
         worker.schedule([&call_count, &worker, &obs](const auto&) -> rpp::schedulers::optional_duration
         {
@@ -359,7 +361,7 @@ TEST_CASE("current_thread scheduler")
         CHECK(call_count == 2);
     }
 
-    SECTION("current_thread scheduler recursive scheduling with original")
+    SECTION("scheduler recursive scheduling with original")
     {
         worker.schedule(
             [&call_count, &worker, &obs](const auto&) -> rpp::schedulers::optional_duration
@@ -381,7 +383,7 @@ TEST_CASE("current_thread scheduler")
         CHECK(call_count == 3);
     }
 
-    SECTION("current_thread scheduler schedules action with delay")
+    SECTION("scheduler schedules action with delay")
     {
         auto now  = rpp::schedulers::clock_type::now();
         auto diff = std::chrono::milliseconds{500};
@@ -398,7 +400,7 @@ TEST_CASE("current_thread scheduler")
         REQUIRE(execute_time - now >= diff);
     }
 
-    SECTION("current_thread scheduler re-schedules action at provided timepoint")
+    SECTION("scheduler re-schedules action at provided timepoint")
     {
         std::vector<rpp::schedulers::time_point> executions{};
         std::chrono::milliseconds                diff = std::chrono::milliseconds{500};
@@ -414,7 +416,7 @@ TEST_CASE("current_thread scheduler")
         REQUIRE(executions[1] - executions[0] >= (diff - std::chrono::milliseconds(100)));
     }
 
-    SECTION("current_thread scheduler with nesting scheduling should defer actual execution of tasks")
+    SECTION("scheduler with nesting scheduling should defer actual execution of tasks")
     {
         std::vector<std::string> call_stack;
 
@@ -429,7 +431,7 @@ TEST_CASE("current_thread scheduler")
             });
     }
 
-    SECTION("current_thread scheduler with complex scheduling should defer actual execution of tasks")
+    SECTION("scheduler with complex scheduling should defer actual execution of tasks")
     {
         std::vector<std::string> call_stack;
 
@@ -451,7 +453,7 @@ TEST_CASE("current_thread scheduler")
             });
     }
 
-    SECTION("current_thread scheduler with complex scheduling with delay should defer actual execution of tasks")
+    SECTION("scheduler with complex scheduling with delay should defer actual execution of tasks")
     {
         std::vector<std::string> call_stack;
 
@@ -473,7 +475,7 @@ TEST_CASE("current_thread scheduler")
             });
     }
 
-    SECTION("current_thread scheduler does nothing with disposed observer")
+    SECTION("scheduler does nothing with disposed observer")
     {
         d.dispose();
         worker.schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
@@ -485,7 +487,7 @@ TEST_CASE("current_thread scheduler")
         CHECK(call_count == 0);
     }
 
-    SECTION("current_thread scheduler does nothing with recrusive disposed observer")
+    SECTION("scheduler does nothing with recrusive disposed observer")
     {
         worker.schedule([&call_count, &d, &worker](const auto& obs) -> rpp::schedulers::optional_duration
         {
@@ -503,7 +505,7 @@ TEST_CASE("current_thread scheduler")
         CHECK(call_count == 0);
     }
 
-    SECTION("current_thread scheduler does not reschedule after disposing inside schedulable")
+    SECTION("scheduler does not reschedule after disposing inside schedulable")
     {
         worker.schedule([&call_count, &d](const auto&) -> rpp::schedulers::optional_duration
         {
@@ -515,7 +517,7 @@ TEST_CASE("current_thread scheduler")
         CHECK(call_count == 2);
     }
 
-    SECTION("current_thread scheduler does not reschedule after disposing inside recursive schedulable")
+    SECTION("scheduler does not reschedule after disposing inside recursive schedulable")
     {
         worker.schedule([&call_count, &d, &worker](const auto& obs) -> rpp::schedulers::optional_duration
         {
@@ -533,7 +535,7 @@ TEST_CASE("current_thread scheduler")
         CHECK(call_count == 2);
     }
 
-    SECTION("current_thread scheduler does not reschedule after disposing inside recursive schedulable")
+    SECTION("scheduler does not reschedule after disposing inside recursive schedulable")
     {
         worker.schedule([&call_count, &d, &worker](const auto& obs) -> rpp::schedulers::optional_duration
         {
@@ -549,7 +551,7 @@ TEST_CASE("current_thread scheduler")
         CHECK(call_count == 2);
     }
 
-    SECTION("current_thread scheduler does not dispatch schedulable after disposing of disposable")
+    SECTION("scheduler does not dispatch schedulable after disposing of disposable")
     {
         worker.schedule([&call_count, &d, &worker](const auto& obs) -> rpp::schedulers::optional_duration
                         {
@@ -568,7 +570,7 @@ TEST_CASE("current_thread scheduler")
         CHECK(call_count == 1);
     }
 
-    SECTION("current_thread scheduler respects to time point")
+    SECTION("scheduler respects to time point")
     {
         std::vector<int> executions{};
         worker.schedule([&executions, &worker](const auto& obs) -> rpp::schedulers::optional_duration
@@ -583,11 +585,10 @@ TEST_CASE("current_thread scheduler")
         CHECK(executions == std::vector{1,2,3});
     }
 
-    SECTION("current_thread scheduler forwards any arguments")
+    SECTION("scheduler forwards any arguments")
     {
         worker.schedule([](const auto&, int, const std::string&){ return rpp::schedulers::optional_duration{}; }, obs, int{}, std::string{});
     }
-
 
     SECTION("error during schedulable")
     {
