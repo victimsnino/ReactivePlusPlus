@@ -41,7 +41,7 @@ public:
     const std::shared_ptr<schedulable_base>& get_next() const { return m_next; }
     void set_next(std::shared_ptr<schedulable_base>&& next) { m_next = std::move(next); }
 
-    void update_next(std::shared_ptr<schedulable_base>&& next) 
+    void update_next(std::shared_ptr<schedulable_base>&& next)
     {
         if (next)
             next->set_next(std::move(m_next));
@@ -66,11 +66,11 @@ public:
     {
     }
 
-    optional_duration operator()() override 
-    { 
+    optional_duration operator()() override
+    {
         try
         {
-            return std::apply(m_fn, m_args); 
+            return std::apply(m_fn, m_args);
         }
         catch(...)
         {
@@ -85,7 +85,7 @@ private:
     RPP_NO_UNIQUE_ADDRESS Fn  m_fn;
 };
 
-class schedulables_queue 
+class schedulables_queue
 {
 public:
     template<rpp::constraint::observer TObs, typename... Args, constraint::schedulable_fn<TObs, Args...> Fn>
@@ -110,6 +110,11 @@ public:
     std::shared_ptr<schedulable_base> pop()
     {
         return std::exchange(m_head, m_head->get_next());
+    }
+
+    const std::shared_ptr<schedulable_base>& top() const
+    {
+        return m_head;
     }
 
 private:
