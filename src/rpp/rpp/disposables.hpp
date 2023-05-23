@@ -13,3 +13,4 @@
 #include <rpp/disposables/fwd.hpp>
 #include <rpp/disposables/base_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
+#include <rpp/disposables/callback_disposable.hpp>
