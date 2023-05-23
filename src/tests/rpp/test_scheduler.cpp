@@ -673,3 +673,30 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
     }
 }
 
+TEST_CASE("new_thread utilized current_thread")
+{
+    std::atomic_bool inner_schedule_executed{};
+    auto mock = mock_observer_strategy<int>{};
+    {
+        auto worker = rpp::schedulers::new_thread::create_worker();
+        auto obs = mock.get_observer().as_dynamic();
+        obs.set_upstream(worker.get_disposable());
+        worker.schedule([&inner_schedule_executed](const auto& obs)
+        {
+            rpp::schedulers::current_thread::create_worker().schedule([&inner_schedule_executed](const auto&)
+            {
+                inner_schedule_executed = true;
+                return rpp::schedulers::optional_duration{};
+            }, obs);
+
+            if (inner_schedule_executed)
+                throw std::logic_error{"current_thread executed inside new_thread"};
+            return rpp::schedulers::optional_duration{};
+        }, obs);
+    }
+
+    while (!inner_schedule_executed){};
+
+    CHECK(inner_schedule_executed);
+    CHECK(mock.get_on_error_count() == 0);
+}
