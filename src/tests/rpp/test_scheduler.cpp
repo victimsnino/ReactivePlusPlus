@@ -20,6 +20,7 @@
 #include <future>
 #include <optional>
 #include <sstream>
+#include <string>
 #include <stdexcept>
 #include <thread>
 
@@ -325,7 +326,7 @@ TEST_CASE("Immediate scheduler")
 
 TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread, rpp::schedulers::new_thread)
 {
-    auto d = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
+    auto d = std::make_shared<rpp::base_disposable>();
     auto mock_obs = mock_observer_strategy<int>{};
     auto obs = std::optional{mock_obs.get_observer(d).as_dynamic()};
 
@@ -336,6 +337,23 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
     obs->set_upstream(worker->get_disposable());
     size_t call_count{};
 
+    std::promise<std::string> thread_of_schedule_promise{};
+    worker->schedule([&](const auto&)
+    {
+        thread_of_schedule_promise.set_value(get_thread_id_as_string(std::this_thread::get_id()));
+        return rpp::schedulers::optional_duration{};;
+    }, obs.value());
+
+    auto thread_of_execution = thread_of_schedule_promise.get_future().get();
+
+    auto get_thread = [&thread_of_execution]([[maybe_unused]] const std::string& thread_of_schedule)
+    {
+        if constexpr (std::same_as<TestType, rpp::schedulers::current_thread>)
+            return thread_of_schedule;
+        else
+            return thread_of_execution;
+    };
+
     auto wait_till_finished = [&]
     {
         std::promise<void> p{};
@@ -343,7 +361,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         worker->get_disposable().add(rpp::make_callback_disposable([&p]{p.set_value();}));
         worker.reset();
         obs.reset();
-        d.dispose();
+        d.reset();
         future.wait();
     };
 
@@ -442,7 +460,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
     {
         std::vector<std::string> call_stack;
 
-        auto execution_thread = simulate_nested_scheduling(worker.value(), obs.value(), call_stack);
+        auto execution_thread = get_thread(simulate_nested_scheduling(worker.value(), obs.value(), call_stack));
 
         wait_till_finished();
 
@@ -459,7 +477,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
     {
         std::vector<std::string> call_stack;
 
-        auto execution_thread = simulate_complex_scheduling(worker.value(), obs.value(), call_stack);
+        auto execution_thread = get_thread(simulate_complex_scheduling(worker.value(), obs.value(), call_stack));
 
         wait_till_finished();
 
@@ -483,7 +501,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
     {
         std::vector<std::string> call_stack;
 
-        auto execution_thread = simulate_complex_scheduling_with_delay(worker.value(), obs.value(), call_stack);
+        auto execution_thread = get_thread(simulate_complex_scheduling_with_delay(worker.value(), obs.value(), call_stack));
 
         wait_till_finished();
 
@@ -505,7 +523,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 
     SECTION("scheduler does nothing with disposed observer")
     {
-        d.dispose();
+        d->dispose();
         worker->schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
         {
             ++call_count;
@@ -519,9 +537,9 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 
     SECTION("scheduler does nothing with recursive disposed observer")
     {
-        worker->schedule([&call_count, &d, worker](const auto& obs) -> rpp::schedulers::optional_duration
+        worker->schedule([&call_count, d, worker](const auto& obs) -> rpp::schedulers::optional_duration
         {
-            d.dispose();
+            d->dispose();
             worker->schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
             {
                 ++call_count;
@@ -539,10 +557,10 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 
     SECTION("scheduler does not reschedule after disposing inside schedulable")
     {
-        worker->schedule([&call_count, &d](const auto&) -> rpp::schedulers::optional_duration
+        worker->schedule([&call_count, d](const auto&) -> rpp::schedulers::optional_duration
         {
             if (++call_count > 1)
-                d.dispose();
+                d->dispose();
             return std::chrono::nanoseconds{1};
         }, obs.value());
 
@@ -553,12 +571,12 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 
     SECTION("scheduler does not reschedule after disposing inside recursive schedulable")
     {
-        worker->schedule([&call_count, &d, worker](const auto& obs) -> rpp::schedulers::optional_duration
+        worker->schedule([&call_count, d, worker](const auto& obs) -> rpp::schedulers::optional_duration
         {
-            worker->schedule([&call_count, &d](const auto&) -> rpp::schedulers::optional_duration
+            worker->schedule([&call_count, d](const auto&) -> rpp::schedulers::optional_duration
             {
                 if (++call_count > 1)
-                    d.dispose();
+                    d->dispose();
                 return std::chrono::nanoseconds{1};
             },
             obs);
@@ -573,12 +591,12 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 
     SECTION("scheduler does not reschedule after disposing inside recursive schedulable")
     {
-        worker->schedule([&call_count, &d, worker](const auto& obs) -> rpp::schedulers::optional_duration
+        worker->schedule([&call_count, d, worker](const auto& obs) -> rpp::schedulers::optional_duration
         {
-            worker->schedule([&call_count, &d](const auto&) -> rpp::schedulers::optional_duration
+            worker->schedule([&call_count, d](const auto&) -> rpp::schedulers::optional_duration
             {
                 if (++call_count > 1)
-                    d.dispose();
+                    d->dispose();
                 return std::chrono::nanoseconds{1};
             }, obs);
             return std::nullopt;
@@ -591,7 +609,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 
     SECTION("scheduler does not dispatch schedulable after disposing of disposable")
     {
-        worker->schedule([&call_count, &d, worker](const auto& obs) -> rpp::schedulers::optional_duration
+        worker->schedule([&call_count, d, worker](const auto& obs) -> rpp::schedulers::optional_duration
                         {
                             ++call_count;
                             worker->schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
@@ -600,7 +618,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
                                                 return std::chrono::nanoseconds{1};
                                             },
                                             obs);
-                            d.dispose();
+                            d->dispose();
                             return std::chrono::nanoseconds{1};
                         },
                         obs.value());

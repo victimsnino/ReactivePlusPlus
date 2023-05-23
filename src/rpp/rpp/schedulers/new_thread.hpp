@@ -59,7 +59,10 @@ class new_thread
                            {
                                m_is_disposed.store(true, std::memory_order_relaxed);
                                m_cv.notify_all();
-                               m_thread.join();
+                               if (m_thread.get_id() != std::this_thread::get_id())
+                                   m_thread.join();
+                               else
+                                   m_thread.detach();
                            });
         }
 
