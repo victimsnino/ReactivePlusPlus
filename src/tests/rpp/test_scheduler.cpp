@@ -346,7 +346,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 
     auto thread_of_execution = thread_of_schedule_promise.get_future().get();
 
-    auto get_thread = [&thread_of_execution]([[maybe_unused]] const std::string& thread_of_schedule)
+    auto get_thread = [&]([[maybe_unused]] const std::string& thread_of_schedule)
     {
         if constexpr (std::same_as<TestType, rpp::schedulers::current_thread>)
             return thread_of_schedule;
