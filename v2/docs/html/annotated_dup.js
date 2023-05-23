@@ -72,6 +72,7 @@ var annotated_dup =
         ] ],
         [ "current_thread", "classrpp_1_1schedulers_1_1current__thread.html", "classrpp_1_1schedulers_1_1current__thread" ],
         [ "immediate", "classrpp_1_1schedulers_1_1immediate.html", "classrpp_1_1schedulers_1_1immediate" ],
+        [ "new_thread", "classrpp_1_1schedulers_1_1new__thread.html", "classrpp_1_1schedulers_1_1new__thread" ],
         [ "worker", "classrpp_1_1schedulers_1_1worker.html", null ]
       ] ],
       [ "utils", null, [
@@ -87,6 +88,7 @@ var annotated_dup =
       [ "base_observer", "classrpp_1_1base__observer.html", "classrpp_1_1base__observer" ],
       [ "base_observer< Type, details::with_disposable< Strategy > >", "classrpp_1_1base__observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4.html", "classrpp_1_1base__observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4" ],
       [ "base_observer< Type, rpp::details::observer::dynamic_strategy< Type > >", "classrpp_1_1base__observer_3_01_type_00_01rpp_1_1details_1_1observer_1_1dynamic__strategy_3_01_type_01_4_01_4.html", null ],
+      [ "callback_disposable", "classrpp_1_1callback__disposable.html", null ],
       [ "disposable_guard", "classrpp_1_1disposable__guard.html", null ],
       [ "disposable_wrapper", "classrpp_1_1disposable__wrapper.html", null ]
     ] ]

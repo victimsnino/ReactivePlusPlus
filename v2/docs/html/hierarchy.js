@@ -1,6 +1,8 @@
 var hierarchy =
 [
-    [ "rpp::base_disposable", "classrpp_1_1base__disposable.html", null ],
+    [ "rpp::base_disposable", "classrpp_1_1base__disposable.html", [
+      [ "rpp::callback_disposable< Fn >", "classrpp_1_1callback__disposable.html", null ]
+    ] ],
     [ "rpp::base_observable< Type, Strategy >", "classrpp_1_1base__observable.html", null ],
     [ "rpp::details::base_observer_impl< Type, Strategy, DisposablesStrategy >", "classrpp_1_1details_1_1base__observer__impl.html", null ],
     [ "rpp::details::base_observer_impl< Type, rpp::details::observer::dynamic_strategy< Type >, details::none_disposable_strategy >", "classrpp_1_1details_1_1base__observer__impl.html", [
@@ -42,6 +44,7 @@ var hierarchy =
     [ "rpp::details::observer::lambda_strategy< Type, OnNext, OnError, OnCompleted >", "structrpp_1_1details_1_1observer_1_1lambda__strategy.html", null ],
     [ "rpp::operators::details::map_observer_strategy< Fn >", "structrpp_1_1operators_1_1details_1_1map__observer__strategy.html", null ],
     [ "rpp::operators::details::map_t< Fn >", "structrpp_1_1operators_1_1details_1_1map__t.html", null ],
+    [ "rpp::schedulers::new_thread", "classrpp_1_1schedulers_1_1new__thread.html", null ],
     [ "rpp::details::none_disposable_strategy", "structrpp_1_1details_1_1none__disposable__strategy.html", null ],
     [ "rpp::operators::details::operator_observable_strategy< Observable, T, Strategy, Args >", "classrpp_1_1operators_1_1details_1_1operator__observable__strategy.html", null ],
     [ "rpp::operators::details::operator_strategy_base< T, TObs, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base.html", null ],
@@ -79,5 +82,6 @@ var hierarchy =
     [ "rpp::details::with_disposable< S >", "structrpp_1_1details_1_1with__disposable.html", null ],
     [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ],
     [ "rpp::schedulers::current_thread::worker_strategy", "classrpp_1_1schedulers_1_1current__thread_1_1worker__strategy.html", null ],
-    [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ]
+    [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
+    [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ]
 ];

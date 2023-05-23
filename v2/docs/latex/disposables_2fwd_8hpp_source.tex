@@ -22,6 +22,12 @@
 \DoxyCodeLine{00018\ \textcolor{keyword}{using\ }disposable\_ptr\ =\ std::shared\_ptr<base\_disposable>;}
 \DoxyCodeLine{00019\ }
 \DoxyCodeLine{00020\ \textcolor{keyword}{class\ }disposable\_wrapper;}
-\DoxyCodeLine{00021\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{template}<std::invocable\ Fn>}
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }callback\_disposable;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{template}<std::invocable\ Fn>}
+\DoxyCodeLine{00026\ \textcolor{keyword}{auto}\ make\_callback\_disposable(Fn\&\&\ invocable);}
+\DoxyCodeLine{00027\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 
 \end{DoxyCode}
