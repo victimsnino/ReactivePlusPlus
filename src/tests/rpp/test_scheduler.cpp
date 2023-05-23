@@ -10,14 +10,14 @@
 
 #include "mock_observer.hpp"
 #include "rpp/disposables/fwd.hpp"
-#include "rpp/schedulers/current_thread.hpp"
-#include "rpp/schedulers/fwd.hpp"
+
+#include <rpp/disposables/callback_disposable.hpp>
 #include <snitch/snitch.hpp>
 #include <rpp/schedulers.hpp>
 #include <rpp/observers/lambda_observer.hpp>
-#include <snitch/snitch_macros_test_case.hpp>
 
 #include <chrono>
+#include <future>
 #include <optional>
 #include <sstream>
 #include <stdexcept>
@@ -32,15 +32,15 @@ static std::string get_thread_id_as_string(std::thread::id id = std::this_thread
     return ss.str();
 }
 
-static std::string simulate_nested_scheduling(const auto& worker, const auto& obs, std::vector<std::string>& out)
+static std::string simulate_nested_scheduling(auto worker, const auto& obs, std::vector<std::string>& out)
 {
-    std::thread thread([&]
+    std::thread thread([&, worker]
     {
-        worker.schedule([&](const auto&)
+        worker.schedule([&, worker](const auto&)
         {
             out.push_back("Task 1 starts "s + get_thread_id_as_string());
 
-            worker.schedule([&](const auto&)
+            worker.schedule([&, worker](const auto&)
             {
                 out.push_back("Task 2 starts "s + get_thread_id_as_string());
 
@@ -66,13 +66,13 @@ static std::string simulate_nested_scheduling(const auto& worker, const auto& ob
 
 static std::string simulate_complex_scheduling(const auto& worker, const auto& obs, std::vector<std::string>& out)
 {
-    std::thread thread([&]
+    std::thread thread([&, worker]
     {
-        worker.schedule([&](const auto&)
+        worker.schedule([&, worker](const auto&)
         {
             out.push_back("Task 1 starts "s + get_thread_id_as_string());
 
-            worker.schedule([&](const auto&, int& counter) -> rpp::schedulers::optional_duration
+            worker.schedule([&, worker](const auto&, int& counter) -> rpp::schedulers::optional_duration
             {
                 out.push_back("Task 2 starts "s + get_thread_id_as_string());
 
@@ -110,13 +110,13 @@ static std::string simulate_complex_scheduling(const auto& worker, const auto& o
 
 static std::string simulate_complex_scheduling_with_delay(const auto& worker, const auto& obs, std::vector<std::string>& out)
 {
-    std::thread thread([&]
+    std::thread thread([&, worker]
     {
-        worker.schedule([&](const auto&)
+        worker.schedule([&, worker](const auto&)
         {
             out.push_back("Task 1 starts "s + get_thread_id_as_string());
 
-            worker.schedule([&](const auto&, int& counter) -> rpp::schedulers::optional_duration
+            worker.schedule([&, worker](const auto&, int& counter) -> rpp::schedulers::optional_duration
             {
                 out.push_back("Task 2 starts "s + get_thread_id_as_string());
 
@@ -159,7 +159,7 @@ TEST_CASE("Immediate scheduler")
     auto mock_obs = mock_observer_strategy<int>{};
     auto obs = mock_obs.get_observer(d).as_dynamic();
 
-    auto   worker = scheduler.create_worker();
+    auto worker = scheduler.create_worker();
 
     CHECK(worker.get_disposable().is_disposed());
 
@@ -327,58 +327,75 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 {
     auto d = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
     auto mock_obs = mock_observer_strategy<int>{};
-    auto obs = mock_obs.get_observer(d).as_dynamic();
+    auto obs = std::optional{mock_obs.get_observer(d).as_dynamic()};
 
-    auto worker = TestType::create_worker();
-    CHECK(worker.get_disposable().is_disposed());
+    auto worker = std::optional{TestType::create_worker()};
+    if constexpr (std::same_as<TestType, rpp::schedulers::current_thread>)
+        CHECK(worker->get_disposable().is_disposed());
+
+    obs->set_upstream(worker->get_disposable());
     size_t call_count{};
+
+    auto wait_till_finished = [&]
+    {
+        std::promise<void> p{};
+        auto future = p.get_future();
+        worker->get_disposable().add(rpp::make_callback_disposable([&p]{p.set_value();}));
+        worker.reset();
+        obs.reset();
+        d.dispose();
+        future.wait();
+    };
 
     SECTION("scheduler schedules and re-schedules action immediately")
     {
-        worker.schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
+        worker->schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
         {
             if (++call_count <= 1)
                 return std::chrono::nanoseconds{1};
             return std::nullopt;
-        }, obs);
+        }, obs.value());
+
+        wait_till_finished();
 
         CHECK(call_count == 2);
     }
 
     SECTION("scheduler recursive scheduling")
     {
-        worker.schedule([&call_count, &worker, &obs](const auto&) -> rpp::schedulers::optional_duration
+        worker->schedule([&call_count, worker](const auto& obs) -> rpp::schedulers::optional_duration
         {
-            worker.schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
+            worker->schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
             {
                 if (++call_count <= 1)
                     return std::chrono::nanoseconds{1};
                 return std::nullopt;
             }, obs);
             return std::nullopt;
-        }, obs);
+        }, obs.value());
+
+        wait_till_finished();
 
         CHECK(call_count == 2);
     }
 
     SECTION("scheduler recursive scheduling with original")
     {
-        worker.schedule(
-            [&call_count, &worker, &obs](const auto&) -> rpp::schedulers::optional_duration
+        worker->schedule([&call_count, worker](const auto& obs) -> rpp::schedulers::optional_duration
+        {
+            worker->schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
             {
-                worker.schedule(
-                    [&call_count](const auto&) -> rpp::schedulers::optional_duration
-                    {
-                        if (++call_count <= 1)
-                            return std::chrono::nanoseconds{1};
-                        return std::nullopt;
-                    },
-                    obs);
-                if (call_count == 0)
+                if (++call_count <= 1)
                     return std::chrono::nanoseconds{1};
                 return std::nullopt;
-            },
-            obs);
+            }, obs);
+
+            if (call_count == 0)
+                return std::chrono::nanoseconds{1};
+            return std::nullopt;
+        }, obs.value());
+
+        wait_till_finished();
 
         CHECK(call_count == 3);
     }
@@ -389,13 +406,16 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         auto diff = std::chrono::milliseconds{500};
 
         rpp::schedulers::time_point execute_time{};
-        worker.schedule(diff,
+        worker->schedule(diff,
                         [&call_count, &execute_time](const auto&) -> rpp::schedulers::optional_duration
                         {
                             ++call_count;
                             execute_time = rpp::schedulers::clock_type::now();
                             return {};
-                        }, obs);
+                        }, obs.value());
+
+        wait_till_finished();
+
         REQUIRE(call_count == 1);
         REQUIRE(execute_time - now >= diff);
     }
@@ -404,13 +424,15 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
     {
         std::vector<rpp::schedulers::time_point> executions{};
         std::chrono::milliseconds                diff = std::chrono::milliseconds{500};
-        worker.schedule([&call_count,&executions, &diff](const auto&) -> rpp::schedulers::optional_duration
+        worker->schedule([&call_count,&executions, &diff](const auto&) -> rpp::schedulers::optional_duration
                         {
                             executions.push_back(rpp::schedulers::clock_type::now());
                             if (++call_count <= 1)
                                 return diff;
                             return {};
-                        }, obs);
+                        }, obs.value());
+
+        wait_till_finished();
 
         REQUIRE(call_count == 2);
         REQUIRE(executions[1] - executions[0] >= (diff - std::chrono::milliseconds(100)));
@@ -420,79 +442,87 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
     {
         std::vector<std::string> call_stack;
 
-            auto execution_thread = simulate_nested_scheduling(worker, obs, call_stack);
+        auto execution_thread = simulate_nested_scheduling(worker.value(), obs.value(), call_stack);
 
-            REQUIRE(call_stack == std::vector<std::string>{
-                    "Task 1 starts "s + execution_thread,
-                    "Task 1 ends "s + execution_thread,
-                    "Task 2 starts "s + execution_thread,
-                    "Task 2 ends "s + execution_thread,
-                    "Task 3 runs "s + execution_thread,
-            });
+        wait_till_finished();
+
+        REQUIRE(call_stack == std::vector<std::string>{
+                "Task 1 starts "s + execution_thread,
+                "Task 1 ends "s + execution_thread,
+                "Task 2 starts "s + execution_thread,
+                "Task 2 ends "s + execution_thread,
+                "Task 3 runs "s + execution_thread,
+        });
     }
 
     SECTION("scheduler with complex scheduling should defer actual execution of tasks")
     {
         std::vector<std::string> call_stack;
 
-            auto execution_thread = simulate_complex_scheduling(worker, obs, call_stack);
+        auto execution_thread = simulate_complex_scheduling(worker.value(), obs.value(), call_stack);
 
-            REQUIRE(call_stack == std::vector<std::string>{
-                    "Task 1 starts "s + execution_thread,
-                    "Task 1 ends "s + execution_thread,
-                    "Task 2 starts "s + execution_thread,
-                    "Task 2 ends "s + execution_thread,
-                    "Task 3 starts "s + execution_thread,
-                    "Task 3 ends "s + execution_thread,
-                    "Task 4 runs "s + execution_thread,
-                    "Task 2 starts "s + execution_thread,
-                    "Task 2 ends "s + execution_thread,
-                    "Task 3 starts "s + execution_thread,
-                    "Task 3 ends "s + execution_thread,
-                    "Task 4 runs "s + execution_thread,
-            });
+        wait_till_finished();
+
+        REQUIRE(call_stack == std::vector<std::string>{
+                "Task 1 starts "s + execution_thread,
+                "Task 1 ends "s + execution_thread,
+                "Task 2 starts "s + execution_thread,
+                "Task 2 ends "s + execution_thread,
+                "Task 3 starts "s + execution_thread,
+                "Task 3 ends "s + execution_thread,
+                "Task 4 runs "s + execution_thread,
+                "Task 2 starts "s + execution_thread,
+                "Task 2 ends "s + execution_thread,
+                "Task 3 starts "s + execution_thread,
+                "Task 3 ends "s + execution_thread,
+                "Task 4 runs "s + execution_thread,
+        });
     }
 
     SECTION("scheduler with complex scheduling with delay should defer actual execution of tasks")
     {
         std::vector<std::string> call_stack;
 
-            auto execution_thread = simulate_complex_scheduling_with_delay(worker, obs, call_stack);
+        auto execution_thread = simulate_complex_scheduling_with_delay(worker.value(), obs.value(), call_stack);
 
-            REQUIRE(call_stack == std::vector<std::string>{
-                    "Task 1 starts "s + execution_thread,
-                    "Task 1 ends "s + execution_thread,
-                    "Task 2 starts "s + execution_thread,
-                    "Task 2 ends "s + execution_thread,
-                    "Task 3 starts "s + execution_thread,
-                    "Task 3 ends "s + execution_thread,
-                    "Task 2 starts "s + execution_thread,
-                    "Task 2 ends "s + execution_thread,
-                    "Task 3 starts "s + execution_thread,
-                    "Task 3 ends "s + execution_thread,
-                    "Task 4 runs "s + execution_thread,
-                    "Task 4 runs "s + execution_thread,
-            });
+        wait_till_finished();
+
+        REQUIRE(call_stack == std::vector<std::string>{
+                "Task 1 starts "s + execution_thread,
+                "Task 1 ends "s + execution_thread,
+                "Task 2 starts "s + execution_thread,
+                "Task 2 ends "s + execution_thread,
+                "Task 3 starts "s + execution_thread,
+                "Task 3 ends "s + execution_thread,
+                "Task 2 starts "s + execution_thread,
+                "Task 2 ends "s + execution_thread,
+                "Task 3 starts "s + execution_thread,
+                "Task 3 ends "s + execution_thread,
+                "Task 4 runs "s + execution_thread,
+                "Task 4 runs "s + execution_thread,
+        });
     }
 
     SECTION("scheduler does nothing with disposed observer")
     {
         d.dispose();
-        worker.schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
+        worker->schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
         {
             ++call_count;
             return std::chrono::nanoseconds{1};
-        }, obs);
+        }, obs.value());
+
+        wait_till_finished();
 
         CHECK(call_count == 0);
     }
 
-    SECTION("scheduler does nothing with recrusive disposed observer")
+    SECTION("scheduler does nothing with recursive disposed observer")
     {
-        worker.schedule([&call_count, &d, &worker](const auto& obs) -> rpp::schedulers::optional_duration
+        worker->schedule([&call_count, &d, worker](const auto& obs) -> rpp::schedulers::optional_duration
         {
             d.dispose();
-            worker.schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
+            worker->schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
             {
                 ++call_count;
                 return std::chrono::nanoseconds{1};
@@ -500,28 +530,32 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
             obs);
 
             return std::chrono::nanoseconds{1};
-        }, obs);
+        }, obs.value());
+
+        wait_till_finished();
 
         CHECK(call_count == 0);
     }
 
     SECTION("scheduler does not reschedule after disposing inside schedulable")
     {
-        worker.schedule([&call_count, &d](const auto&) -> rpp::schedulers::optional_duration
+        worker->schedule([&call_count, &d](const auto&) -> rpp::schedulers::optional_duration
         {
             if (++call_count > 1)
                 d.dispose();
             return std::chrono::nanoseconds{1};
-        }, obs);
+        }, obs.value());
+
+        wait_till_finished();
 
         CHECK(call_count == 2);
     }
 
     SECTION("scheduler does not reschedule after disposing inside recursive schedulable")
     {
-        worker.schedule([&call_count, &d, &worker](const auto& obs) -> rpp::schedulers::optional_duration
+        worker->schedule([&call_count, &d, worker](const auto& obs) -> rpp::schedulers::optional_duration
         {
-            worker.schedule([&call_count, &d](const auto&) -> rpp::schedulers::optional_duration
+            worker->schedule([&call_count, &d](const auto&) -> rpp::schedulers::optional_duration
             {
                 if (++call_count > 1)
                     d.dispose();
@@ -530,33 +564,37 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
             obs);
             return std::nullopt;
         },
-        obs);
+        obs.value());
+
+        wait_till_finished();
 
         CHECK(call_count == 2);
     }
 
     SECTION("scheduler does not reschedule after disposing inside recursive schedulable")
     {
-        worker.schedule([&call_count, &d, &worker](const auto& obs) -> rpp::schedulers::optional_duration
+        worker->schedule([&call_count, &d, worker](const auto& obs) -> rpp::schedulers::optional_duration
         {
-            worker.schedule([&call_count, &d](const auto&) -> rpp::schedulers::optional_duration
+            worker->schedule([&call_count, &d](const auto&) -> rpp::schedulers::optional_duration
             {
                 if (++call_count > 1)
                     d.dispose();
                 return std::chrono::nanoseconds{1};
             }, obs);
             return std::nullopt;
-        }, obs);
+        }, obs.value());
+
+        wait_till_finished();
 
         CHECK(call_count == 2);
     }
 
     SECTION("scheduler does not dispatch schedulable after disposing of disposable")
     {
-        worker.schedule([&call_count, &d, &worker](const auto& obs) -> rpp::schedulers::optional_duration
+        worker->schedule([&call_count, &d, worker](const auto& obs) -> rpp::schedulers::optional_duration
                         {
                             ++call_count;
-                            worker.schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
+                            worker->schedule([&call_count](const auto&) -> rpp::schedulers::optional_duration
                                             {
                                                 ++call_count;
                                                 return std::chrono::nanoseconds{1};
@@ -565,7 +603,9 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
                             d.dispose();
                             return std::chrono::nanoseconds{1};
                         },
-                        obs);
+                        obs.value());
+
+        wait_till_finished();
 
         CHECK(call_count == 1);
     }
@@ -573,36 +613,43 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
     SECTION("scheduler respects to time point")
     {
         std::vector<int> executions{};
-        worker.schedule([&executions, &worker](const auto& obs) -> rpp::schedulers::optional_duration
+        worker->schedule([&executions, worker](const auto& obs) -> rpp::schedulers::optional_duration
                         {
-                            worker.schedule(std::chrono::milliseconds{3}, [&executions](const auto&){executions.push_back(3); return rpp::schedulers::optional_duration{};}, obs);
-                            worker.schedule(std::chrono::milliseconds{1}, [&executions](const auto&){executions.push_back(1); return rpp::schedulers::optional_duration{};}, obs);
-                            worker.schedule(std::chrono::milliseconds{2}, [&executions](const auto&){executions.push_back(2); return rpp::schedulers::optional_duration{};}, obs);
+                            worker->schedule(std::chrono::milliseconds{3}, [&executions](const auto&){executions.push_back(3); return rpp::schedulers::optional_duration{};}, obs);
+                            worker->schedule(std::chrono::milliseconds{1}, [&executions](const auto&){executions.push_back(1); return rpp::schedulers::optional_duration{};}, obs);
+                            worker->schedule(std::chrono::milliseconds{2}, [&executions](const auto&){executions.push_back(2); return rpp::schedulers::optional_duration{};}, obs);
                             return rpp::schedulers::optional_duration{};
                         },
-                        obs);
+                        obs.value());
+
+        wait_till_finished();
 
         CHECK(executions == std::vector{1,2,3});
     }
 
     SECTION("scheduler forwards any arguments")
     {
-        worker.schedule([](const auto&, int, const std::string&){ return rpp::schedulers::optional_duration{}; }, obs, int{}, std::string{});
+        worker->schedule([](const auto&, int, const std::string&){ return rpp::schedulers::optional_duration{}; }, obs.value(), int{}, std::string{});
     }
 
     SECTION("error during schedulable")
     {
-        worker.schedule([](const auto&) -> rpp::schedulers::optional_duration {throw std::runtime_error{"test"};}, obs);
+        worker->schedule([](const auto&) -> rpp::schedulers::optional_duration {throw std::runtime_error{"test"};}, obs.value());
+
+        wait_till_finished();
+
         CHECK(mock_obs.get_on_error_count()  == 1);
     }
 
     SECTION("error during recursive schedulable")
     {
-        worker.schedule([&worker](const auto& obs) 
-        {   
-            worker.schedule([](const auto&) -> rpp::schedulers::optional_duration {throw std::runtime_error{"test"};}, obs);
+        worker->schedule([worker](const auto& obs)
+        {
+            worker->schedule([](const auto&) -> rpp::schedulers::optional_duration {throw std::runtime_error{"test"};}, obs);
             return rpp::schedulers::optional_duration{};
-        }, obs);
+        }, obs.value());
+
+        wait_till_finished();
 
         CHECK(mock_obs.get_on_error_count()  == 1);
     }

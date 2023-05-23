@@ -32,26 +32,12 @@ class new_thread
     {
     public:
         disposable() {
-            // wait until thread is initialized
-            std::lock_guard lock{m_queue_mutex};
-            if (!m_queue_ptr)
-                throw std::logic_error{"Queue was not initialized unexpectedly"};
+            while (!m_queue_ptr.load(std::memory_order_relaxed)) {};
         }
 
         ~disposable() override
         {
-            dispose_impl();
-        }
-
-        void dispose_impl() override
-        {
-            std::call_once(m_once,
-                           [&]
-                           {
-                               m_is_disposed.store(true, std::memory_order_acq_rel);
-                               m_cv.notify_all();
-                               m_thread.join();
-                           });
+            dispose();
         }
 
         template<rpp::constraint::observer TObs, typename... Args, constraint::schedulable_fn<TObs, Args...> Fn>
@@ -59,61 +45,74 @@ class new_thread
         {
             {
                 std::lock_guard lock{m_queue_mutex};
-                if (m_queue_ptr)
-                    m_queue_ptr->emplace(time_point, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
+                if (const auto queue = m_queue_ptr.load(std::memory_order_relaxed))
+                    queue->emplace(time_point, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
             }
             m_cv.notify_all();
         }
 
-        private:
-            static void data_thread(std::unique_lock<std::recursive_mutex> lock,
+    private:
+        void dispose_impl() override
+        {
+            std::call_once(m_once,
+                           [&]
+                           {
+                               m_is_disposed.store(true, std::memory_order_relaxed);
+                               m_cv.notify_all();
+                               m_thread.join();
+                           });
+        }
 
-                                    const std::atomic_bool&                is_disposed,
-                                    std::condition_variable_any&           cv,
-                                    details::schedulables_queue*&          queue_ptr)
+        static void data_thread(std::recursive_mutex&                      mutex,
+                                const std::atomic_bool&                    is_disposed,
+                                std::condition_variable_any&               cv,
+                                std::atomic<details::schedulables_queue*>& queue_ptr)
+        {
+            std::unique_lock lock{mutex};
+            auto& queue = current_thread::s_queue;
+            queue_ptr.store(&queue.emplace(), std::memory_order_relaxed);
+
+            while (!is_disposed.load(std::memory_order_relaxed))
             {
-                queue_ptr = &current_thread::s_queue.emplace();
+                cv.wait(lock, [&] { return is_disposed.load(std::memory_order_relaxed) || !queue->is_empty(); });
 
-                while (!is_disposed.load(std::memory_order_acq_rel))
+                if (is_disposed.load(std::memory_order_relaxed))
+                    break;
+
+                if (queue->top()->is_disposed())
                 {
-                    cv.wait(lock, [&] { return is_disposed.load(std::memory_order_acq_rel) || !queue_ptr->is_empty(); });
-
-                    if (is_disposed.load(std::memory_order_acq_rel))
-                        break;
-
-                    if (queue_ptr->top()->is_disposed())
-                    {
-                        queue_ptr->pop();
-                        continue;
-                    }
-
-                    if (const auto now = clock_type::now(); now < queue_ptr->top()->get_timepoint())
-                    {
-                        cv.wait_for(lock, queue_ptr->top()->get_timepoint() - now);
-                        continue;
-                    }
-
-                    auto top = queue_ptr->pop();
-
-                    // we need to keep lock locked due to we have chance to use current_thread during invoking of this schedulable
-                    if (const auto duration = (*top)()) {
-                        queue_ptr->emplace(clock_type::now() + duration.value(), std::move(top));
-                    }
+                    queue->pop();
+                    continue;
                 }
 
-                current_thread::s_queue.reset();
-                queue_ptr = nullptr;
+                if (const auto now = clock_type::now(); now < queue->top()->get_timepoint())
+                {
+                    cv.wait_for(lock, queue->top()->get_timepoint() - now);
+                    continue;
+                }
+
+                auto top = queue->pop();
+
+                // we need to keep lock locked due to we have chance to use current_thread during invoking of this schedulable
+                if (const auto duration = (*top)())
+                {
+                    queue->emplace(clock_type::now() + duration.value(), std::move(top));
+                }
             }
+
+            queue.reset();
+            queue_ptr.store(nullptr, std::memory_order_relaxed);
+        }
 
         private:
             // recursive due to we need to keep lock during invoking of schedulable, but there is chance of recursive scheduling
-            std::recursive_mutex         m_queue_mutex{};
-            details::schedulables_queue* m_queue_ptr{};
-            std::condition_variable_any  m_cv{};
-            std::atomic_bool             m_is_disposed{};
-            std::once_flag               m_once{};
+            std::recursive_mutex                      m_queue_mutex{};
+            std::atomic<details::schedulables_queue*> m_queue_ptr{};
+            std::condition_variable_any               m_cv{};
+            std::atomic_bool                          m_is_disposed{};
+            std::once_flag                            m_once{};
 
-            std::thread m_thread{&data_thread, std::unique_lock{m_queue_mutex}, std::ref(m_is_disposed), std::ref(m_cv), std::ref(m_queue_ptr)};
+            std::thread m_thread{&data_thread, std::ref(m_queue_mutex), std::ref(m_is_disposed), std::ref(m_cv), std::ref(m_queue_ptr)};
     };
 
 public:

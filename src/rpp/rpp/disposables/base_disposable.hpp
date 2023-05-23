@@ -75,6 +75,12 @@ public:
         }
     }
 
+    template<std::invocable Fn>
+    void add(Fn&& invocable)
+    {
+        add(std::make_shared<rpp::callback_disposable<std::decay_t<Fn>>>(std::forward<Fn>(invocable)));
+    }
+
 protected:
     virtual void dispose_impl() {}
 

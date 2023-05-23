@@ -18,4 +18,10 @@ class base_disposable;
 using disposable_ptr = std::shared_ptr<base_disposable>;
 
 class disposable_wrapper;
+
+template<std::invocable Fn>
+class callback_disposable;
+
+template<std::invocable Fn>
+auto make_callback_disposable(Fn&& invocable);
 } // namespace rpp
