@@ -114,7 +114,7 @@ TEST_CASE("blocking_observable blocks subscribe call")
     SECTION("on_error inside observable")
     {
         auto op = rpp::operators::as_blocking();
-        rpp::source::create<int>([](auto&& observer)
+        auto obs =  rpp::source::create<int>([](auto&& observer)
         {
             std::thread(
                 [observer=std::forward<decltype(observer)>(observer)]
@@ -123,7 +123,9 @@ TEST_CASE("blocking_observable blocks subscribe call")
                     observer.on_error({});
                 })
                 .detach();
-        }) 
+        });
+
+        obs
         | op
         | rpp::operators::subscribe(mock.get_observer().as_dynamic());
 
