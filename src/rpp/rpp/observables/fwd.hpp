@@ -29,6 +29,9 @@ namespace rpp::details::observables
 {
 template<constraint::decayed_type Type>
 class dynamic_strategy;
+
+template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
+class blocking_strategy;
 }
 
 namespace rpp
@@ -46,6 +49,12 @@ class observable;
  */
 template<constraint::decayed_type Type>
 using dynamic_observable = observable<Type, details::observables::dynamic_strategy<Type>>;
+
+/**
+ * @brief `rpp::blocking_observable` blocks `subscribe` call till on_completed/on_error happens.
+ */
+template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
+using blocking_observable = observable<Type, details::observables::blocking_strategy<Type, Strategy>>;
 }
 
 namespace rpp::utils

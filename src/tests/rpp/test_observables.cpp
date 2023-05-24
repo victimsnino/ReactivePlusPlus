@@ -7,10 +7,16 @@
 //
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
+#include "mock_observer.hpp"
 #include "rpp/disposables/fwd.hpp"
+#include "rpp/operators/fwd.hpp"
+#include "rpp/operators/subscribe.hpp"
 #include <snitch/snitch.hpp>
 #include <rpp/observables.hpp>
 #include <rpp/sources/create.hpp>
+#include <rpp/operators/as_blocking.hpp>
+#include <chrono>
+#include <thread>
 
 TEST_CASE("create observable works properly as observable")
 {
@@ -82,5 +88,47 @@ TEST_CASE("create observable works properly as observable")
     SECTION("dynamic observable via move")
     {
         test(std::move(observable).as_dynamic()); // NOLINT
+    }
+}
+
+TEST_CASE("blocking_observable blocks subscribe call")
+{
+    mock_observer_strategy<int> mock{};
+    SECTION("on_completed inside observable")
+    {
+        rpp::source::create<int>([](auto&& observer)
+        {
+            std::thread(
+                [observer=std::forward<decltype(observer)>(observer)]
+                {
+                    std::this_thread::sleep_for(std::chrono::milliseconds{100});
+                    observer.on_completed();
+                })
+                .detach();
+        }) 
+        | rpp::operators::as_blocking() 
+        | rpp::operators::subscribe(mock.get_observer().as_dynamic());
+
+        CHECK(mock.get_on_completed_count() == 1);
+    }
+    SECTION("on_error inside observable")
+    {
+        auto op = rpp::operators::as_blocking();
+        auto obs =  rpp::source::create<int>([](auto&& observer)
+        {
+            std::thread(
+                [observer=std::forward<decltype(observer)>(observer)]
+                {
+                    std::this_thread::sleep_for(std::chrono::milliseconds{100});
+                    observer.on_error({});
+                })
+                .detach();
+        });
+
+        obs
+        | op
+        | rpp::operators::subscribe(mock.get_observer().as_dynamic());
+
+        CHECK(mock.get_on_error_count() == 1);
     }
 }
