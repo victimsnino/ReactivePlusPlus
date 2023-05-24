@@ -54,14 +54,14 @@ template<rpp::constraint::decayed_type T, rpp::constraint::decayed_type TT, rpp:
 class operator_strategy_base<T, rpp::observer<TT, ObserverStrategy>, Strategy>
 {
 public:
-    using observer = observer<TT, ObserverStrategy>;
+    using captured_observer = observer<TT, ObserverStrategy>;
 
     /**
      * @brief Construct a new operator strategy for passed observer
      * @warning Passed observer would not be moved inside, only rvalue reference saved inside. Actual move happens ONLY in case of move of this strategy
      */
     template<typename...Args>
-    operator_strategy_base(observer&& observer, Args&&...args)
+    operator_strategy_base(captured_observer&& observer, Args&&...args)
         : m_observer{std::move(observer)}
         , m_strategy{std::forward<Args>(args)...}
         {
@@ -85,7 +85,7 @@ public:
     void on_completed() const                          { m_strategy.on_completed(m_observer); }
 
 private:
-    mutable observer               m_observer;
+    mutable captured_observer      m_observer;
     RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
 };
 
