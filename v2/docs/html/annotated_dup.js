@@ -3,6 +3,8 @@ var annotated_dup =
     [ "rpp", null, [
       [ "details", null, [
         [ "observables", null, [
+          [ "blocking_observer_strategy", "structrpp_1_1details_1_1observables_1_1blocking__observer__strategy.html", null ],
+          [ "blocking_strategy", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
           [ "dynamic_strategy", "classrpp_1_1details_1_1observables_1_1dynamic__strategy.html", null ]
         ] ],
         [ "observers", null, [
@@ -28,6 +30,7 @@ var annotated_dup =
       ] ],
       [ "operators", null, [
         [ "details", null, [
+          [ "as_blocking_t", "structrpp_1_1operators_1_1details_1_1as__blocking__t.html", null ],
           [ "empty_on_subscribe", "structrpp_1_1operators_1_1details_1_1empty__on__subscribe.html", null ],
           [ "filter_observer_strategy", "structrpp_1_1operators_1_1details_1_1filter__observer__strategy.html", null ],
           [ "filter_t", "structrpp_1_1operators_1_1details_1_1filter__t.html", null ],

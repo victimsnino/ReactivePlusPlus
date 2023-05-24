@@ -8,6 +8,8 @@ Utility operators are operators that provide some extra functionality without ch
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+auto \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp\+::operators\+::as\+\_\+blocking}} ()
+\begin{DoxyCompactList}\small\item\em Converts {\ttfamily \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable}}} to {\ttfamily rpp\+::blocking\+\_\+observable} \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__utility__operators_ga96a3c17903a50c2f6dfd66d8b90a96f2}{rpp\+::operators\+::repeat}} (size\+\_\+t count)
 \begin{DoxyCompactList}\small\item\em Repeats the Observabe\textquotesingle{}s sequence of emissions {\ttfamily count} times via re-\/subscribing on it during {\ttfamily on\+\_\+completed} call while {\ttfamily count} not reached. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp\+::operators\+::repeat}} ()
@@ -23,7 +25,17 @@ Utility operators are operators that provide some extra functionality without ch
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}\label{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}} 
+\mbox{\Hypertarget{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}\label{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}} 
+\index{Utility Operators@{Utility Operators}!as\_blocking@{as\_blocking}}
+\index{as\_blocking@{as\_blocking}!Utility Operators@{Utility Operators}}
+\doxysubsubsection{\texorpdfstring{as\_blocking()}{as\_blocking()}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::as\+\_\+blocking (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Converts {\ttfamily \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable}}} to {\ttfamily rpp\+::blocking\+\_\+observable} 
+
+{\ttfamily rpp\+::blocking\+\_\+observable} blocks {\ttfamily subscribe} call till on\+\_\+completed/on\+\_\+error happens. \mbox{\Hypertarget{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}\label{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}} 
 \index{Utility Operators@{Utility Operators}!repeat@{repeat}}
 \index{repeat@{repeat}!Utility Operators@{Utility Operators}}
 \doxysubsubsection{\texorpdfstring{repeat()}{repeat()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}

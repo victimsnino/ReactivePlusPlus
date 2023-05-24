@@ -1,7 +1,11 @@
 var searchData=
 [
-  ['immediate_0',['immediate',['../classrpp_1_1schedulers_1_1immediate.html',1,'rpp::schedulers']]],
-  ['infinite_5frepeat_5ft_1',['infinite_repeat_t',['../structrpp_1_1operators_1_1details_1_1infinite__repeat__t.html',1,'rpp::operators::details']]],
-  ['is_5fworker_2',['is_worker',['../structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html',1,'rpp::schedulers::constraint::details']]],
-  ['is_5fworker_3c_20rpp_3a_3aschedulers_3a_3aworker_3c_20strategy_20_3e_20_3e_3',['is_worker&lt; rpp::schedulers::worker&lt; Strategy &gt; &gt;',['../structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html',1,'rpp::schedulers::constraint::details']]]
+  ['filter_5fobserver_5fstrategy_0',['filter_observer_strategy',['../structrpp_1_1operators_1_1details_1_1filter__observer__strategy.html',1,'rpp::operators::details']]],
+  ['filter_5ft_1',['filter_t',['../structrpp_1_1operators_1_1details_1_1filter__t.html',1,'rpp::operators::details']]],
+  ['forwarding_5fis_5fdisposed_5fstrategy_2',['forwarding_is_disposed_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy.html',1,'rpp::operators::details']]],
+  ['forwarding_5fon_5fcompleted_5fstrategy_3',['forwarding_on_completed_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy.html',1,'rpp::operators::details']]],
+  ['forwarding_5fon_5ferror_5fstrategy_4',['forwarding_on_error_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__on__error__strategy.html',1,'rpp::operators::details']]],
+  ['forwarding_5fon_5fnext_5fstrategy_5',['forwarding_on_next_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__on__next__strategy.html',1,'rpp::operators::details']]],
+  ['forwarding_5fset_5fupstream_5fstrategy_6',['forwarding_set_upstream_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy.html',1,'rpp::operators::details']]],
+  ['from_5fiterable_5fstrategy_7',['from_iterable_strategy',['../structrpp_1_1details_1_1from__iterable__strategy.html',1,'rpp::details']]]
 ];

@@ -107,6 +107,9 @@ $(document).ready(function(){initNavTree('group__utility__operators.html',''); i
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga9df008c11eeff8c9383e56bf36e28ec2"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#ga9df008c11eeff8c9383e56bf36e28ec2">rpp::operators::as_blocking</a> ()</td></tr>
+<tr class="memdesc:ga9df008c11eeff8c9383e56bf36e28ec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts <code><a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a></code> to <code>rpp::blocking_observable</code>  <br /></td></tr>
+<tr class="separator:ga9df008c11eeff8c9383e56bf36e28ec2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga96a3c17903a50c2f6dfd66d8b90a96f2"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#ga96a3c17903a50c2f6dfd66d8b90a96f2">rpp::operators::repeat</a> (size_t count)</td></tr>
 <tr class="memdesc:ga96a3c17903a50c2f6dfd66d8b90a96f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repeats the Observabe's sequence of emissions <code>count</code> times via re-subscribing on it during <code>on_completed</code> call while <code>count</code> not reached.  <br /></td></tr>
 <tr class="separator:ga96a3c17903a50c2f6dfd66d8b90a96f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -118,6 +121,34 @@ Functions</h2></td></tr>
 <p>Utility operators are operators that provide some extra functionality without changing of original values, but changing of behaviour. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#utility">https://reactivex.io/documentation/operators.html#utility</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga9df008c11eeff8c9383e56bf36e28ec2" name="ga9df008c11eeff8c9383e56bf36e28ec2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9df008c11eeff8c9383e56bf36e28ec2">&#9670;&#160;</a></span>as_blocking()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::as_blocking </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts <code><a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a></code> to <code>rpp::blocking_observable</code> </p>
+<p><code>rpp::blocking_observable</code> blocks <code>subscribe</code> call till on_completed/on_error happens. </p>
+
+</div>
+</div>
 <a id="ga41ef49dc75a3eadb0eb3fda7c3692c40" name="ga41ef49dc75a3eadb0eb3fda7c3692c40"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga41ef49dc75a3eadb0eb3fda7c3692c40">&#9670;&#160;</a></span>repeat() <span class="overload">[1/2]</span></h2>
 

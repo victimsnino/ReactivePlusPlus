@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['map_5fobserver_5fstrategy_0',['map_observer_strategy',['../structrpp_1_1operators_1_1details_1_1map__observer__strategy.html',1,'rpp::operators::details']]],
-  ['map_5ft_1',['map_t',['../structrpp_1_1operators_1_1details_1_1map__t.html',1,'rpp::operators::details']]]
+  ['lambda_5fstrategy_0',['lambda_strategy',['../structrpp_1_1details_1_1observers_1_1lambda__strategy.html',1,'rpp::details::observers']]],
+  ['local_5fdisposable_5fstrategy_1',['local_disposable_strategy',['../classrpp_1_1details_1_1local__disposable__strategy.html',1,'rpp::details']]]
 ];
