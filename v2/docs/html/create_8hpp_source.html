@@ -111,7 +111,7 @@ $(document).ready(function(){initNavTree('create_8hpp_source.html',''); initResi
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;rpp/sources/fwd.hpp&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;rpp/observables/base_observable.hpp&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;rpp/observables/observable.hpp&gt;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>rpp::details</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
@@ -125,7 +125,7 @@ $(document).ready(function(){initNavTree('create_8hpp_source.html',''); initResi
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span>rpp</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type, constra<span class="keywordtype">int</span>::on_subscribe&lt;Type&gt; OnSubscribe&gt;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">using </span><a class="code hl_class" href="classrpp_1_1base__observable.html">create_observable</a> = <a class="code hl_class" href="classrpp_1_1base__observable.html">base_observable&lt;Type, details::create_strategy&lt;Type, OnSubscribe&gt;</a>&gt;;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">using </span><a class="code hl_class" href="classrpp_1_1observable.html">create_observable</a> = <a class="code hl_class" href="classrpp_1_1observable.html">observable&lt;Type, details::create_strategy&lt;Type, OnSubscribe&gt;</a>&gt;;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">namespace </span>rpp::source</div>
@@ -142,7 +142,7 @@ $(document).ready(function(){initNavTree('create_8hpp_source.html',''); initResi
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">return</span> create&lt;Type&gt;(std::forward&lt;OnSubscribe&gt;(on_subscribe));</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
-<div class="ttc" id="aclassrpp_1_1base__observable_html"><div class="ttname"><a href="classrpp_1_1base__observable.html">rpp::base_observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition:</b> base_observable.hpp:38</div></div>
+<div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition:</b> observable.hpp:38</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gae68c87e7ae3a505258b733082bf68513"><div class="ttname"><a href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">rpp::source::create</a></div><div class="ttdeci">auto create(OnSubscribe &amp;&amp;on_subscribe)</div><div class="ttdoc">Construct observable specialized with passed callback function. Most easiesest way to construct obser...</div><div class="ttdef"><b>Definition:</b> create.hpp:50</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1create__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1create__strategy.html">rpp::details::create_strategy</a></div><div class="ttdef"><b>Definition:</b> create.hpp:19</div></div>
 </div><!-- fragment --></div><!-- contents -->

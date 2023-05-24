@@ -50,7 +50,7 @@
 \DoxyCodeLine{00046\ \};}
 \DoxyCodeLine{00047\ }
 \DoxyCodeLine{00048\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ InitialValue,\ std::invocable<InitialValue\&\&,\ rpp::utils::extract\_observable\_type\_t<TObservable>>\ Fn>}
-\DoxyCodeLine{00049\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1base__observable}{scan\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1base__observable}{operator\_observable<InitialValue,\ TObservable,\ scan\_observer\_strategy<InitialValue,\ Fn>}},\ InitialValue,\ Fn>;}
+\DoxyCodeLine{00049\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{scan\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{operator\_observable<InitialValue,\ TObservable,\ scan\_observer\_strategy<InitialValue,\ Fn>}},\ InitialValue,\ Fn>;}
 \DoxyCodeLine{00050\ }
 \DoxyCodeLine{00051\ }
 \DoxyCodeLine{00052\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ InitialValue,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Fn>}
@@ -61,16 +61,16 @@
 \DoxyCodeLine{00057\ }
 \DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
 \DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::invocable<Fn,\ InitialValue\&\&,\ rpp::utils::extract\_observable\_type\_t<TObservable>>\ \&\&\ std::same\_as<InitialValue,\ std::invoke\_result\_t<Fn,\ InitialValue\&\&,\ rpp::utils::extract\_observable\_type\_t<TObservable>>>)}
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ observable)\ \textcolor{keyword}{const}\ \&}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \textcolor{keyword}{const}\ \&}
 \DoxyCodeLine{00061\ \ \ \ \ \{}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1base__observable}{scan\_observable<TObservable,\ InitialValue,\ Fn>}}\{std::forward<TObservable>(observable),\ m\_initial\_value,\ m\_fn\};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{scan\_observable<TObservable,\ InitialValue,\ Fn>}}\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ m\_initial\_value,\ m\_fn\};}
 \DoxyCodeLine{00063\ \ \ \ \ \}}
 \DoxyCodeLine{00064\ }
 \DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
 \DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::invocable<Fn,\ InitialValue\&\&,\ rpp::utils::extract\_observable\_type\_t<TObservable>>\ \&\&\ std::same\_as<InitialValue,\ std::invoke\_result\_t<Fn,\ InitialValue\&\&,\ rpp::utils::extract\_observable\_type\_t<TObservable>>>)}
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ observable)\ \&\&}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \&\&}
 \DoxyCodeLine{00068\ \ \ \ \ \{}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1base__observable}{scan\_observable<TObservable,\ InitialValue,\ Fn>}}\{std::forward<TObservable>(observable),\ std::move(m\_initial\_value),\ std::move(m\_fn)\};}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{scan\_observable<TObservable,\ InitialValue,\ Fn>}}\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ std::move(m\_initial\_value),\ std::move(m\_fn)\};}
 \DoxyCodeLine{00070\ \ \ \ \ \}}
 \DoxyCodeLine{00071\ \};}
 \DoxyCodeLine{00072\ }
@@ -99,7 +99,7 @@
 \DoxyCodeLine{00095\ \};}
 \DoxyCodeLine{00096\ }
 \DoxyCodeLine{00097\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable,\ std::invocable<rpp::utils::extract\_observable\_type\_t<TObservable>\&\&,\ rpp::utils::extract\_observable\_type\_t<TObservable>>\ Fn>}
-\DoxyCodeLine{00098\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1base__observable}{scan\_no\_seed\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1base__observable}{identity\_operator\_observable<TObservable,\ scan\_no\_seed\_observer\_strategy<rpp::utils::extract\_observable\_type\_t<TObservable>}},\ Fn>,\ Fn>;}
+\DoxyCodeLine{00098\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{scan\_no\_seed\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{identity\_operator\_observable<TObservable,\ scan\_no\_seed\_observer\_strategy<rpp::utils::extract\_observable\_type\_t<TObservable>}},\ Fn>,\ Fn>;}
 \DoxyCodeLine{00099\ }
 \DoxyCodeLine{00100\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Fn>}
 \DoxyCodeLine{00101\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1scan__no__seed__t}{scan\_no\_seed\_t}}}
@@ -108,16 +108,16 @@
 \DoxyCodeLine{00104\ }
 \DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
 \DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::invocable<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>\&\&,\ rpp::utils::extract\_observable\_type\_t<TObservable>>\ \&\&\ std::same\_as<rpp::utils::extract\_observable\_type\_t<TObservable>,\ std::invoke\_result\_t<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>\&\&,\ rpp::utils::extract\_observable\_type\_t<TObservable>>>)}
-\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ observable)\ \textcolor{keyword}{const}\ \&}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \textcolor{keyword}{const}\ \&}
 \DoxyCodeLine{00108\ \ \ \ \ \{}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1base__observable}{scan\_no\_seed\_observable<TObservable,\ Fn>}}\{std::forward<TObservable>(observable),\ m\_fn\};}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{scan\_no\_seed\_observable<TObservable,\ Fn>}}\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ m\_fn\};}
 \DoxyCodeLine{00110\ \ \ \ \ \}}
 \DoxyCodeLine{00111\ }
 \DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
 \DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::invocable<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>\&\&,\ rpp::utils::extract\_observable\_type\_t<TObservable>>\ \&\&\ std::same\_as<rpp::utils::extract\_observable\_type\_t<TObservable>,\ std::invoke\_result\_t<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>\&\&,\ rpp::utils::extract\_observable\_type\_t<TObservable>>>)}
-\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ observable)\ \&\&}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \&\&}
 \DoxyCodeLine{00115\ \ \ \ \ \{}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1base__observable}{scan\_no\_seed\_observable<TObservable,\ Fn>}}\{std::forward<TObservable>(observable),\ std::move(m\_fn)\};}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{scan\_no\_seed\_observable<TObservable,\ Fn>}}\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ std::move(m\_fn)\};}
 \DoxyCodeLine{00117\ \ \ \ \ \}}
 \DoxyCodeLine{00118\ \};}
 \DoxyCodeLine{00119\ \}}

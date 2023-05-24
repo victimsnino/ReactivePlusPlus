@@ -13,18 +13,18 @@
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <rpp/observers/base\_observer.hpp>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <rpp/observers/observer.hpp>}}
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/utils/function\_traits.hpp>}}
 \DoxyCodeLine{00014\ }
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/defs.hpp>}}
 \DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }rpp::details::observer}
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }rpp::details::observers}
 \DoxyCodeLine{00018\ \{}
 \DoxyCodeLine{00019\ \textcolor{keyword}{template}<constraint::decayed\_type\ Type,}
 \DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ std::invocable<Type>\ OnNext,}
 \DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ std::invocable<const\ std::exception\_ptr\&>\ OnError,}
 \DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ std::invocable<>\ OnCompleted>}
-\DoxyCodeLine{00023\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1observer_1_1lambda__strategy}{lambda\_strategy}}}
+\DoxyCodeLine{00023\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1observers_1_1lambda__strategy}{lambda\_strategy}}}
 \DoxyCodeLine{00024\ \{}
 \DoxyCodeLine{00025\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ OnNext\ \ \ \ \ \ on\_next;}
 \DoxyCodeLine{00026\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ OnError\ \ \ \ \ on\_error;}
@@ -33,7 +33,7 @@
 \DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\_wrapper}}\&)\ \textcolor{keyword}{noexcept}\ \{\}}
 \DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_disposed()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
 \DoxyCodeLine{00031\ \};}
-\DoxyCodeLine{00032\ \}\ \textcolor{comment}{//\ namespace\ rpp::details::observer}}
+\DoxyCodeLine{00032\ \}}
 \DoxyCodeLine{00033\ }
 \DoxyCodeLine{00034\ \textcolor{keyword}{namespace\ }rpp}
 \DoxyCodeLine{00035\ \{}
@@ -43,12 +43,12 @@
 \DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ std::invocable<>\ OnCompleted>}
 \DoxyCodeLine{00040\ \textcolor{keyword}{auto}\ make\_lambda\_observer(OnNext\&\&\ \ \ \ \ \ on\_next,}
 \DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnError\&\&\ \ \ \ \ on\_error,}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\&\&\ on\_completed)\ -\/>\ \mbox{\hyperlink{classrpp_1_1base__observer}{lambda\_observer}}<Type,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\&\&\ on\_completed)\ -\/>\ \mbox{\hyperlink{classrpp_1_1observer}{lambda\_observer}}<Type,}
 \DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnNext>,}
 \DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnError>,}
 \DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnCompleted>>}
 \DoxyCodeLine{00046\ \{}
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1base__observer}{lambda\_observer}}<Type,}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{lambda\_observer}}<Type,}
 \DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnNext>,}
 \DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnError>,}
 \DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnCompleted>>}

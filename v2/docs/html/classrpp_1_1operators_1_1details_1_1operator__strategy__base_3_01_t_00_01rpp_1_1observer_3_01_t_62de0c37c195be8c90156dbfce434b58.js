@@ -1,0 +1,4 @@
+var classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1observer_3_01_t_62de0c37c195be8c90156dbfce434b58 =
+[
+    [ "operator_strategy_base", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1observer_3_01_t_62de0c37c195be8c90156dbfce434b58.html#a3ef54cbbfa49c38b4ee17024c8d8741f", null ]
+];

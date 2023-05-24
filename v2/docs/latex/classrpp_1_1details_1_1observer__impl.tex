@@ -1,0 +1,129 @@
+\hypertarget{classrpp_1_1details_1_1observer__impl}{}\doxysection{rpp\+::details\+::observer\+\_\+impl\texorpdfstring{$<$}{<} Type, Strategy, Disposables\+Strategy \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classrpp_1_1details_1_1observer__impl}\index{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$@{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab95f4dd062581fb8432fadcee8abb95d}{set\+\_\+upstream}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\+\_\+wrapper}} \&d)
+\begin{DoxyCompactList}\small\item\em Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a2bb8f58f82b00f869bee069110da6cec}{is\+\_\+disposed}} () const
+\begin{DoxyCompactList}\small\item\em Observable calls this method to check if observer interested or not in emissions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a3f62ca3c8185f01e98ef1b086fe8a14c}{on\+\_\+next}} (const Type \&v) const
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about new value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_add5f80b1ea0c9ef551fa5c33c2080498}{on\+\_\+next}} (Type \&\&v) const
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about new value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a1d2bb775101fc1c0da5bc8154bc97738}{on\+\_\+error}} (const std\+::exception\+\_\+ptr \&err) const
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about some error during generation next data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a4b5b3745d4e02c41a26dc40791a9896a}{on\+\_\+completed}} () const
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about completion of emissions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer__impl_a2f010efd5f0b78ddde9a8ab205005de4}\label{classrpp_1_1details_1_1observer__impl_a2f010efd5f0b78ddde9a8ab205005de4}} 
+{\footnotesize template$<$typename... Args$>$ \newline
+requires constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args\&\&...$>$}\\{\bfseries observer\+\_\+impl} (Disposables\+Strategy \&\&strategy, Args \&\&... args)
+\item 
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer__impl_a1086c5aeaf72f4976434d15225602a37}\label{classrpp_1_1details_1_1observer__impl_a1086c5aeaf72f4976434d15225602a37}} 
+{\bfseries observer\+\_\+impl} (const \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{observer\+\_\+impl}} \&)=default
+\item 
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer__impl_a39bca0c357ae3b52feafcc19ad055eb3}\label{classrpp_1_1details_1_1observer__impl_a39bca0c357ae3b52feafcc19ad055eb3}} 
+{\bfseries observer\+\_\+impl} (\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{observer\+\_\+impl}} \&\&) noexcept=default
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer__impl_a2bb8f58f82b00f869bee069110da6cec}\label{classrpp_1_1details_1_1observer__impl_a2bb8f58f82b00f869bee069110da6cec}} 
+\index{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$@{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$}!is\_disposed@{is\_disposed}}
+\index{is\_disposed@{is\_disposed}!rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$@{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$}}
+\doxysubsubsection{\texorpdfstring{is\_disposed()}{is\_disposed()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::observer\+\_\+strategy$<$ Type $>$ Strategy, typename Disposables\+Strategy $>$ \\
+bool \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl}}$<$ Type, Strategy, Disposables\+Strategy $>$\+::is\+\_\+disposed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Observable calls this method to check if observer interested or not in emissions. 
+
+\begin{DoxyReturn}{Returns}
+true if observer disposed and no longer interested in emissions 
+
+false if observer still interested in emissions 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer__impl_a4b5b3745d4e02c41a26dc40791a9896a}\label{classrpp_1_1details_1_1observer__impl_a4b5b3745d4e02c41a26dc40791a9896a}} 
+\index{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$@{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$}!on\_completed@{on\_completed}}
+\index{on\_completed@{on\_completed}!rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$@{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$}}
+\doxysubsubsection{\texorpdfstring{on\_completed()}{on\_completed()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::observer\+\_\+strategy$<$ Type $>$ Strategy, typename Disposables\+Strategy $>$ \\
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl}}$<$ Type, Strategy, Disposables\+Strategy $>$\+::on\+\_\+completed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Observable calls this method to notify observer about completion of emissions. 
+
+\begin{DoxyWarning}{Warning}
+Obtaining this of this call means no any further on\+\_\+next/on\+\_\+error or on\+\_\+completed calls from this Observable 
+\end{DoxyWarning}
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer__impl_a1d2bb775101fc1c0da5bc8154bc97738}\label{classrpp_1_1details_1_1observer__impl_a1d2bb775101fc1c0da5bc8154bc97738}} 
+\index{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$@{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$}!on\_error@{on\_error}}
+\index{on\_error@{on\_error}!rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$@{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$}}
+\doxysubsubsection{\texorpdfstring{on\_error()}{on\_error()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::observer\+\_\+strategy$<$ Type $>$ Strategy, typename Disposables\+Strategy $>$ \\
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl}}$<$ Type, Strategy, Disposables\+Strategy $>$\+::on\+\_\+error (\begin{DoxyParamCaption}\item[{const std\+::exception\+\_\+ptr \&}]{err }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Observable calls this method to notify observer about some error during generation next data. 
+
+\begin{DoxyWarning}{Warning}
+Obtaining this of this call means no any further on\+\_\+next/on\+\_\+error or on\+\_\+completed calls from this Observable 
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em err} & details of error \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer__impl_a3f62ca3c8185f01e98ef1b086fe8a14c}\label{classrpp_1_1details_1_1observer__impl_a3f62ca3c8185f01e98ef1b086fe8a14c}} 
+\index{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$@{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$}!on\_next@{on\_next}}
+\index{on\_next@{on\_next}!rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$@{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$}}
+\doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::observer\+\_\+strategy$<$ Type $>$ Strategy, typename Disposables\+Strategy $>$ \\
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl}}$<$ Type, Strategy, Disposables\+Strategy $>$\+::on\+\_\+next (\begin{DoxyParamCaption}\item[{const Type \&}]{v }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Observable calls this method to notify observer about new value. 
+
+\begin{DoxyNote}{Note}
+obtains value by const-\/reference to original object. 
+\end{DoxyNote}
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer__impl_add5f80b1ea0c9ef551fa5c33c2080498}\label{classrpp_1_1details_1_1observer__impl_add5f80b1ea0c9ef551fa5c33c2080498}} 
+\index{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$@{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$}!on\_next@{on\_next}}
+\index{on\_next@{on\_next}!rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$@{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$}}
+\doxysubsubsection{\texorpdfstring{on\_next()}{on\_next()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::observer\+\_\+strategy$<$ Type $>$ Strategy, typename Disposables\+Strategy $>$ \\
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl}}$<$ Type, Strategy, Disposables\+Strategy $>$\+::on\+\_\+next (\begin{DoxyParamCaption}\item[{Type \&\&}]{v }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Observable calls this method to notify observer about new value. 
+
+\begin{DoxyNote}{Note}
+obtains value by rvalue-\/reference to original object 
+\end{DoxyNote}
+\mbox{\Hypertarget{classrpp_1_1details_1_1observer__impl_ab95f4dd062581fb8432fadcee8abb95d}\label{classrpp_1_1details_1_1observer__impl_ab95f4dd062581fb8432fadcee8abb95d}} 
+\index{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$@{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$}!set\_upstream@{set\_upstream}}
+\index{set\_upstream@{set\_upstream}!rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$@{rpp::details::observer\_impl$<$ Type, Strategy, DisposablesStrategy $>$}}
+\doxysubsubsection{\texorpdfstring{set\_upstream()}{set\_upstream()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::observer\+\_\+strategy$<$ Type $>$ Strategy, typename Disposables\+Strategy $>$ \\
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl}}$<$ Type, Strategy, Disposables\+Strategy $>$\+::set\+\_\+upstream (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\+\_\+wrapper}} \&}]{d }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe. 
+
+\begin{DoxyNote}{Note}
+This method can be called multiple times, but new call means \char`\"{}replace upstream with this new one\char`\"{}. So, tracked only last one 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/observers/observer.\+hpp\end{DoxyCompactItemize}

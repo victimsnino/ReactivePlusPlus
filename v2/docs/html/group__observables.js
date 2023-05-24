@@ -1,12 +1,12 @@
 var group__observables =
 [
-    [ "rpp::base_observable< Type, Strategy >", "classrpp_1_1base__observable.html", [
-      [ "as_dynamic", "classrpp_1_1base__observable.html#a18f4936f315e07782a29adc76d050fbc", null ],
-      [ "subscribe", "classrpp_1_1base__observable.html#a633129119e3df1d4c37e0fe1b921c6cc", null ],
-      [ "subscribe", "classrpp_1_1base__observable.html#a343c0bc34716a23ac6f9d9cd2adfde8d", null ],
-      [ "subscribe", "classrpp_1_1base__observable.html#a1f28c613f2d1f6da9030de7bf3b5b763", null ],
-      [ "subscribe", "classrpp_1_1base__observable.html#af73a80881fac033f6b9eafb851f6514f", null ],
-      [ "subscribe", "classrpp_1_1base__observable.html#af7ff4adbbb10b8bdab3beec36df7b687", null ]
+    [ "rpp::observable< Type, Strategy >", "classrpp_1_1observable.html", [
+      [ "as_dynamic", "classrpp_1_1observable.html#ab820514612d4314b99528525db6afd4f", null ],
+      [ "subscribe", "classrpp_1_1observable.html#a96bd73c0bf7be82a196decaa12cc295d", null ],
+      [ "subscribe", "classrpp_1_1observable.html#a7c3ab53aa04419d2e52c5593e1cdad4c", null ],
+      [ "subscribe", "classrpp_1_1observable.html#aa2621e98393f224a7689c6e08003c027", null ],
+      [ "subscribe", "classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182", null ],
+      [ "subscribe", "classrpp_1_1observable.html#af2de791d83ffb2944c69839a08453c61", null ]
     ] ],
-    [ "rpp::dynamic_observable", "group__observables.html#ga88eda222875e61f61dbf2b3801b0a5de", null ]
+    [ "rpp::dynamic_observable", "group__observables.html#gaf40b08a4edc0f64303aeb7ac958f876e", null ]
 ];

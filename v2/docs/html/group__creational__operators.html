@@ -128,12 +128,12 @@ requires constraint::observable&lt;utils::iterable_value_t&lt;Iterable&gt;&gt;</
 <tr class="memitem:gae60bdb9b493443d2786b0eee8bfe17ab"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model memory_model, schedulers::constraint::scheduler TScheduler, typename T , typename ... Ts&gt; <br />
 requires (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</td></tr>
 <tr class="memitem:gae60bdb9b493443d2786b0eee8bfe17ab"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a> (const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</td></tr>
-<tr class="memdesc:gae60bdb9b493443d2786b0eee8bfe17ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::base_observable</a> that emits a particular items and completes.  <br /></td></tr>
+<tr class="memdesc:gae60bdb9b493443d2786b0eee8bfe17ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits a particular items and completes.  <br /></td></tr>
 <tr class="separator:gae60bdb9b493443d2786b0eee8bfe17ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9104f4682dddefb9021bb9f2c2025494"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model memory_model, typename T , typename ... Ts&gt; <br />
 requires (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</td></tr>
 <tr class="memitem:ga9104f4682dddefb9021bb9f2c2025494"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga9104f4682dddefb9021bb9f2c2025494">rpp::source::just</a> (T &amp;&amp;item, Ts &amp;&amp;...items)</td></tr>
-<tr class="memdesc:ga9104f4682dddefb9021bb9f2c2025494"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::base_observable</a> that emits a particular items and completes.  <br /></td></tr>
+<tr class="memdesc:ga9104f4682dddefb9021bb9f2c2025494"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits a particular items and completes.  <br /></td></tr>
 <tr class="separator:ga9104f4682dddefb9021bb9f2c2025494"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga519523490394660d7e8c46d2d5612f75"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model memory_model, std::invocable&lt;&gt; Callable&gt; </td></tr>
 <tr class="memitem:ga519523490394660d7e8c46d2d5612f75"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a> (Callable &amp;&amp;callable)</td></tr>
@@ -178,7 +178,7 @@ requires constraint::observable&lt;utils::iterable_value_t&lt;Iterable&gt;&gt;</
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <span class="keyword">auto</span> observables = std::vector{<a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1), <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(2)};</div>
 <div class="line">    rpp::source::concat&lt;rpp::memory_model::use_shared&gt;(observables).subscribe([](<span class="keywordtype">int</span> v){std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;}, [](<span class="keyword">const</span> std::exception_ptr&amp;){}, [](){std::cout &lt;&lt; <span class="stringliteral">&quot;completed\n&quot;</span>;});</div>
 <div class="line">    <span class="comment">// Output: 1, 2, completed</span></div>
-<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::base_observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:243</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:243</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/concat.html">https://reactivex.io/documentation/operators/concat.html</a> </dd></dl>
 
@@ -451,7 +451,7 @@ requires (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</div>
       </table>
 </div><div class="memdoc">
 
-<p>Creates <a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::base_observable</a> that emits a particular items and completes. </p>
+<p>Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits a particular items and completes. </p>
 <div class="image">
 <object type="image/svg+xml" data="just.svg" style="pointer-events: none;"></object>
 </div>
@@ -512,7 +512,7 @@ requires (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</div>
       </table>
 </div><div class="memdoc">
 
-<p>Creates <a class="el" href="classrpp_1_1base__observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::base_observable</a> that emits a particular items and completes. </p>
+<p>Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits a particular items and completes. </p>
 <dl class="section warning"><dt>Warning</dt><dd>this overloading uses trampoline scheduler as default</dd></dl>
 <div class="image">
 <object type="image/svg+xml" data="just.svg" style="pointer-events: none;"></object>

@@ -47,16 +47,16 @@
 \DoxyCodeLine{00043\ \};}
 \DoxyCodeLine{00044\ }
 \DoxyCodeLine{00045\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
-\DoxyCodeLine{00046\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1base__observable}{take\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1base__observable}{details::identity\_operator\_observable<std::decay\_t<TObservable>}},\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1take__observer__strategy}{details::take\_observer\_strategy}},\ \textcolor{keywordtype}{size\_t}>;}
+\DoxyCodeLine{00046\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{take\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{details::identity\_operator\_observable<std::decay\_t<TObservable>}},\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1take__observer__strategy}{details::take\_observer\_strategy}},\ \textcolor{keywordtype}{size\_t}>;}
 \DoxyCodeLine{00047\ }
 \DoxyCodeLine{00048\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1take__t}{take\_t}}}
 \DoxyCodeLine{00049\ \{}
 \DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ count;}
 \DoxyCodeLine{00051\ }
 \DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(TObservable\&\&\ observable)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00054\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1base__observable}{take\_observable<TObservable>}}\{std::forward<TObservable>(observable),\ count\};}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{take\_observable<TObservable>}}\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ count\};}
 \DoxyCodeLine{00056\ \ \ \ \ \}}
 \DoxyCodeLine{00057\ \};}
 \DoxyCodeLine{00058\ \}}

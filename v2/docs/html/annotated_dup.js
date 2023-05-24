@@ -2,14 +2,13 @@ var annotated_dup =
 [
     [ "rpp", null, [
       [ "details", null, [
-        [ "observable", null, [
-          [ "dynamic_strategy", "classrpp_1_1details_1_1observable_1_1dynamic__strategy.html", null ]
+        [ "observables", null, [
+          [ "dynamic_strategy", "classrpp_1_1details_1_1observables_1_1dynamic__strategy.html", null ]
         ] ],
-        [ "observer", null, [
-          [ "dynamic_strategy", "classrpp_1_1details_1_1observer_1_1dynamic__strategy.html", null ],
-          [ "lambda_strategy", "structrpp_1_1details_1_1observer_1_1lambda__strategy.html", null ]
+        [ "observers", null, [
+          [ "dynamic_strategy", "classrpp_1_1details_1_1observers_1_1dynamic__strategy.html", null ],
+          [ "lambda_strategy", "structrpp_1_1details_1_1observers_1_1lambda__strategy.html", null ]
         ] ],
-        [ "base_observer_impl", "classrpp_1_1details_1_1base__observer__impl.html", "classrpp_1_1details_1_1base__observer__impl" ],
         [ "concat_source_observer_strategy", "structrpp_1_1details_1_1concat__source__observer__strategy.html", null ],
         [ "concat_strategy", "structrpp_1_1details_1_1concat__strategy.html", null ],
         [ "container_with_iterator", "classrpp_1_1details_1_1container__with__iterator.html", null ],
@@ -18,6 +17,7 @@ var annotated_dup =
         [ "from_iterable_strategy", "structrpp_1_1details_1_1from__iterable__strategy.html", null ],
         [ "local_disposable_strategy", "classrpp_1_1details_1_1local__disposable__strategy.html", null ],
         [ "none_disposable_strategy", "structrpp_1_1details_1_1none__disposable__strategy.html", null ],
+        [ "observer_impl", "classrpp_1_1details_1_1observer__impl.html", "classrpp_1_1details_1_1observer__impl" ],
         [ "shared_container", "classrpp_1_1details_1_1shared__container.html", null ],
         [ "upstream_disposable", "classrpp_1_1details_1_1upstream__disposable.html", null ],
         [ "with_disposable", "structrpp_1_1details_1_1with__disposable.html", null ]
@@ -41,16 +41,16 @@ var annotated_dup =
           [ "map_t", "structrpp_1_1operators_1_1details_1_1map__t.html", null ],
           [ "operator_observable_strategy", "classrpp_1_1operators_1_1details_1_1operator__observable__strategy.html", null ],
           [ "operator_strategy_base", "classrpp_1_1operators_1_1details_1_1operator__strategy__base.html", null ],
-          [ "operator_strategy_base< T, rpp::base_observer< TT, ObserverStrategy >, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1base__observer_35d914c2b4e35f15683ffab6e26f444be.html", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1base__observer_35d914c2b4e35f15683ffab6e26f444be" ],
+          [ "operator_strategy_base< T, rpp::observer< TT, ObserverStrategy >, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1observer_3_01_t_62de0c37c195be8c90156dbfce434b58.html", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1observer_3_01_t_62de0c37c195be8c90156dbfce434b58" ],
           [ "repeat_t", "structrpp_1_1operators_1_1details_1_1repeat__t.html", null ],
           [ "scan_no_seed_observer_strategy", "structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html", null ],
           [ "scan_no_seed_t", "structrpp_1_1operators_1_1details_1_1scan__no__seed__t.html", null ],
           [ "scan_observer_strategy", "structrpp_1_1operators_1_1details_1_1scan__observer__strategy.html", null ],
           [ "scan_t", "structrpp_1_1operators_1_1details_1_1scan__t.html", null ],
           [ "subscribe_t", "classrpp_1_1operators_1_1details_1_1subscribe__t.html", null ],
-          [ "subscribe_t< base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01base__observer_3_01_type_00_01_observer_strategy_01_4_01_4.html", null ],
+          [ "subscribe_t< observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01observer_3_01_type_00_01_observer_strategy_01_4_01_4.html", null ],
           [ "subscribe_t< OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", null ],
-          [ "subscribe_t< rpp::disposable_wrapper, base_observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1disposable__wrapper_00_01base__obseraece05f3d0d3f96e3e1d2ddbe70210f1.html", null ],
+          [ "subscribe_t< rpp::disposable_wrapper, observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1disposable__wrapper_00_01observer_3_3c120f32fc45cc12c0627a8e1e4f3f85.html", null ],
           [ "subscribe_t< rpp::disposable_wrapper, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1disposable__wrapper_00_01_on_next_008b074dfa292c9ee62dbc2678700d276b.html", null ],
           [ "take_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__observer__strategy.html", null ],
           [ "take_t", "structrpp_1_1operators_1_1details_1_1take__t.html", null ],
@@ -78,18 +78,18 @@ var annotated_dup =
       [ "utils", null, [
         [ "details", null, [
           [ "extract_observable_type", "structrpp_1_1utils_1_1details_1_1extract__observable__type.html", null ],
-          [ "extract_observable_type< rpp::base_observable< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observable__type_3_01rpp_1_1base__observable_3_01_t_t_00_01_strategy_01_4_01_4.html", null ],
+          [ "extract_observable_type< rpp::observable< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observable__type_3_01rpp_1_1observable_3_01_t_t_00_01_strategy_01_4_01_4.html", null ],
           [ "extract_observer_type", "structrpp_1_1utils_1_1details_1_1extract__observer__type.html", null ],
-          [ "extract_observer_type< rpp::base_observer< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1base__observer_3_01_t_t_00_01_strategy_01_4_01_4.html", null ]
+          [ "extract_observer_type< rpp::observer< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1observer_3_01_t_t_00_01_strategy_01_4_01_4.html", null ]
         ] ]
       ] ],
       [ "base_disposable", "classrpp_1_1base__disposable.html", null ],
-      [ "base_observable", "classrpp_1_1base__observable.html", "classrpp_1_1base__observable" ],
-      [ "base_observer", "classrpp_1_1base__observer.html", "classrpp_1_1base__observer" ],
-      [ "base_observer< Type, details::with_disposable< Strategy > >", "classrpp_1_1base__observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4.html", "classrpp_1_1base__observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4" ],
-      [ "base_observer< Type, rpp::details::observer::dynamic_strategy< Type > >", "classrpp_1_1base__observer_3_01_type_00_01rpp_1_1details_1_1observer_1_1dynamic__strategy_3_01_type_01_4_01_4.html", null ],
       [ "callback_disposable", "classrpp_1_1callback__disposable.html", null ],
       [ "disposable_guard", "classrpp_1_1disposable__guard.html", null ],
-      [ "disposable_wrapper", "classrpp_1_1disposable__wrapper.html", null ]
+      [ "disposable_wrapper", "classrpp_1_1disposable__wrapper.html", null ],
+      [ "observable", "classrpp_1_1observable.html", "classrpp_1_1observable" ],
+      [ "observer", "classrpp_1_1observer.html", "classrpp_1_1observer" ],
+      [ "observer< Type, details::with_disposable< Strategy > >", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4.html", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4" ],
+      [ "observer< Type, rpp::details::observers::dynamic_strategy< Type > >", "classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4.html", null ]
     ] ]
 ];

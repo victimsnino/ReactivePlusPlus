@@ -34,26 +34,26 @@
 \DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}\&)\ =\ \textcolor{keywordflow}{default};}
 \DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}\&\&)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
 \DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ObsType,\ \textcolor{keyword}{typename}\ ObsStrategy,\ \textcolor{keyword}{typename}...Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn<rpp::base\_observer<ObsType,\ ObsStrategy>}},\ Args...>\ Fn>}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ schedule(Fn\&\&\ fn,\ \mbox{\hyperlink{classrpp_1_1base__observer}{rpp::base\_observer<ObsType,\ ObsStrategy>}}\&\&\ obs,\ Args\&\&...args)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ObsType,\ \textcolor{keyword}{typename}\ ObsStrategy,\ \textcolor{keyword}{typename}...Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn<rpp::observer<ObsType,\ ObsStrategy>}},\ Args...>\ Fn>}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ schedule(Fn\&\&\ fn,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<ObsType,\ ObsStrategy>}}\&\&\ obs,\ Args\&\&...args)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00035\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ schedule(duration\{\},\ std::forward<Fn>(fn),\ std::move(obs),\ std::forward<Args>(args)...);}
 \DoxyCodeLine{00037\ \ \ \ \ \}}
 \DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ObsType,\ \textcolor{keyword}{typename}\ ObsStrategy,\ \textcolor{keyword}{typename}...Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn<rpp::base\_observer<ObsType,\ ObsStrategy>}},\ Args...>\ Fn>}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ schedule(\textcolor{keyword}{const}\ duration\ delay,\ Fn\&\&\ fn,\ \mbox{\hyperlink{classrpp_1_1base__observer}{rpp::base\_observer<ObsType,\ ObsStrategy>}}\&\&\ obs,\ Args\&\&...args)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ObsType,\ \textcolor{keyword}{typename}\ ObsStrategy,\ \textcolor{keyword}{typename}...Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn<rpp::observer<ObsType,\ ObsStrategy>}},\ Args...>\ Fn>}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ schedule(\textcolor{keyword}{const}\ duration\ delay,\ Fn\&\&\ fn,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<ObsType,\ ObsStrategy>}}\&\&\ obs,\ Args\&\&...args)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00041\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ m\_strategy.defer\_for(delay,\ std::forward<Fn>(fn),\ std::move(obs),\ std::forward<Args>(args)...);}
 \DoxyCodeLine{00043\ \ \ \ \ \}}
-\DoxyCodeLine{00044\ \ \ \ \ }
+\DoxyCodeLine{00044\ }
 \DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ObsType,\ \textcolor{keyword}{typename}...Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn<rpp::dynamic\_observer<ObsType>}},\ Args...>\ Fn>}
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ schedule(Fn\&\&\ fn,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1base__observer}{rpp::dynamic\_observer<ObsType>}}\&\ obs,\ Args\&\&...args)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ schedule(Fn\&\&\ fn,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::dynamic\_observer<ObsType>}}\&\ obs,\ Args\&\&...args)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00047\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ schedule(duration\{\},\ std::forward<Fn>(fn),\ obs,\ std::forward<Args>(args)...);}
 \DoxyCodeLine{00049\ \ \ \ \ \}}
 \DoxyCodeLine{00050\ }
 \DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ObsType,\ \textcolor{keyword}{typename}...Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn<rpp::dynamic\_observer<ObsType>}},\ Args...>\ Fn>}
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ schedule(\textcolor{keyword}{const}\ duration\ delay,\ Fn\&\&\ fn,\ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1base__observer}{rpp::dynamic\_observer<ObsType>}}\&\ obs,\ Args\&\&...args)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ schedule(\textcolor{keyword}{const}\ duration\ delay,\ Fn\&\&\ fn,\ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::dynamic\_observer<ObsType>}}\&\ obs,\ Args\&\&...args)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00053\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ m\_strategy.defer\_for(delay,\ std::forward<Fn>(fn),\ obs,\ std::forward<Args>(args)...);}
 \DoxyCodeLine{00055\ \ \ \ \ \}}

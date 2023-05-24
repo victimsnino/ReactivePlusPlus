@@ -15,7 +15,7 @@
 \DoxyCodeLine{00011\ }
 \DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <rpp/defs.hpp>}}
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/sources/fwd.hpp>}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/observables/base\_observable.hpp>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/observables/observable.hpp>}}
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/utils/utils.hpp>}}
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/schedulers/current\_thread.hpp>}}
 \DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/operators/map.hpp>}}
@@ -143,7 +143,7 @@
 \DoxyCodeLine{00139\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TScheduler\ \ \ \ \ \ scheduler;}
 \DoxyCodeLine{00140\ }
 \DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_strategy<utils::iterable\_value\_t<PackedContainer>>\ Strategy>}
-\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(\mbox{\hyperlink{classrpp_1_1base__observer}{base\_observer}}<utils::iterable\_value\_t<PackedContainer>,\ Strategy>\&\&\ observer)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(\mbox{\hyperlink{classrpp_1_1observer}{observer}}<utils::iterable\_value\_t<PackedContainer>,\ Strategy>\&\&\ obs)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00143\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::same\_as<TScheduler,\ schedulers::immediate>)}
 \DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \{}
@@ -151,24 +151,24 @@
 \DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v\ :\ container)}
 \DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (observer.is\_disposed())}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (obs.is\_disposed())}
 \DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{00152\ }
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ observer.on\_next(v);}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_next(v);}
 \DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00155\ }
-\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ observer.on\_completed();}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_completed();}
 \DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
 \DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ observer.on\_error(std::current\_exception());}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_error(std::current\_exception());}
 \DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
 \DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ worker\ =\ scheduler.create\_worker();}
-\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ observer.set\_upstream(worker.get\_disposable());}
-\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ worker.schedule([](\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1base__observer}{base\_observer}}<utils::iterable\_value\_t<PackedContainer>,\ Strategy>\&\ obs,\ \textcolor{keyword}{const}\ PackedContainer\&\ cont)\ -\/>\ rpp::schedulers::optional\_duration}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ obs.set\_upstream(worker.get\_disposable());}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ worker.schedule([](\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}<utils::iterable\_value\_t<PackedContainer>,\ Strategy>\&\ obs,\ \textcolor{keyword}{const}\ PackedContainer\&\ cont)\ -\/>\ rpp::schedulers::optional\_duration}
 \DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
 \DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
@@ -186,7 +186,7 @@
 \DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_error(std::current\_exception());}
 \DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
-\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \},\ std::move(observer),\ container);}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \},\ std::move(obs),\ container);}
 \DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00187\ \ \ \ \ \}}
 \DoxyCodeLine{00188\ \};}
@@ -194,7 +194,7 @@
 \DoxyCodeLine{00190\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ PackedContainer,\ schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
 \DoxyCodeLine{00191\ \textcolor{keyword}{auto}\ make\_from\_iterable\_observable(PackedContainer\&\&\ container,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler)}
 \DoxyCodeLine{00192\ \{}
-\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1base__observable}{base\_observable<utils::iterable\_value\_t<std::decay\_t<PackedContainer>}}>,}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{observable<utils::iterable\_value\_t<std::decay\_t<PackedContainer>}}>,}
 \DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1from__iterable__strategy}{details::from\_iterable\_strategy<std::decay\_t<PackedContainer>}},\ TScheduler>>\{std::forward<PackedContainer>(container),}
 \DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scheduler\};}
 \DoxyCodeLine{00196\ \}}

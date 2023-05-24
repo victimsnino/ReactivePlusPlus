@@ -38,9 +38,9 @@
 \DoxyCodeLine{00034\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{schedulable\_fn}}\ =\ std::is\_invocable\_r\_v<optional\_duration,\ Fn,\ Args\&...>\ \&\&\ std::same\_as<optional\_duration,\ std::invoke\_result\_t<Fn,\ Args\&...>>;}
 \DoxyCodeLine{00035\ }
 \DoxyCodeLine{00036\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S>}
-\DoxyCodeLine{00037\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1strategy}{strategy}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ s,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1base__observer}{rpp::dynamic\_observer<int>}}\&\ obs)}
+\DoxyCodeLine{00037\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1strategy}{strategy}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ s,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::dynamic\_observer<int>}}\&\ obs)}
 \DoxyCodeLine{00038\ \{}
-\DoxyCodeLine{00039\ \ \ \ \ \{s.defer\_for(duration\{\},\ std::declval<optional\_duration(*)(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1base__observer}{rpp::dynamic\_observer<int>}}\&)>(),\ obs)\}\ -\/>\ std::same\_as<void>;}
+\DoxyCodeLine{00039\ \ \ \ \ \{s.defer\_for(duration\{\},\ std::declval<optional\_duration(*)(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::dynamic\_observer<int>}}\&)>(),\ obs)\}\ -\/>\ std::same\_as<void>;}
 \DoxyCodeLine{00040\ \ \ \ \ \{s.get\_disposable()\}\ -\/>\ std::same\_as<rpp::disposable\_wrapper>;}
 \DoxyCodeLine{00041\ \};}
 \DoxyCodeLine{00042\ \}}

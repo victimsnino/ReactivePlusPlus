@@ -20,10 +20,10 @@ requires constraint\+::observable$<$utils\+::iterable\+\_\+value\+\_\+t$<$Iterab
 \begin{DoxyCompactList}\small\item\em Creates observable that emits a items from provided iterable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::memory\+\_\+model memory\+\_\+model, schedulers\+::constraint\+::scheduler TScheduler, typename T , typename ... Ts$>$ \newline
 requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp\+::source\+::just}} (const TScheduler \&scheduler, T \&\&item, Ts \&\&...items)
-\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}} that emits a particular items and completes. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable}} that emits a particular items and completes. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::memory\+\_\+model memory\+\_\+model, typename T , typename ... Ts$>$ \newline
 requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__creational__operators_ga9104f4682dddefb9021bb9f2c2025494}{rpp\+::source\+::just}} (T \&\&item, Ts \&\&...items)
-\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}} that emits a particular items and completes. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable}} that emits a particular items and completes. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::memory\+\_\+model memory\+\_\+model, std\+::invocable$<$$>$ Callable$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}{rpp\+::source\+::from\+\_\+callable}} (Callable \&\&callable)
 \begin{DoxyCompactList}\small\item\em Creates rpp\+::specific\+\_\+observable that calls provided callable and emits resulting value of this callable. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -311,7 +311,7 @@ auto rpp\+::source\+::just (\begin{DoxyParamCaption}\item[{const TScheduler \&}]
 
 
 
-Creates \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}} that emits a particular items and completes. 
+Creates \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable}} that emits a particular items and completes. 
 
 
 
@@ -367,7 +367,7 @@ auto rpp\+::source\+::just (\begin{DoxyParamCaption}\item[{T \&\&}]{item,  }\ite
 
 
 
-Creates \mbox{\hyperlink{classrpp_1_1base__observable}{rpp\+::base\+\_\+observable}} that emits a particular items and completes. 
+Creates \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable}} that emits a particular items and completes. 
 
 \begin{DoxyWarning}{Warning}
 this overloading uses trampoline scheduler as default

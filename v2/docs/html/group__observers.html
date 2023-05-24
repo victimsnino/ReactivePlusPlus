@@ -114,14 +114,14 @@ Concepts</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:gac1c33b452ca9e0a58fbde9da538ca5f1"><td class="memTemplParams" colspan="2">template&lt;constraint::decayed_type Type&gt; </td></tr>
-<tr class="memitem:gac1c33b452ca9e0a58fbde9da538ca5f1"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observers.html#gac1c33b452ca9e0a58fbde9da538ca5f1">rpp::dynamic_observer</a> = <a class="el" href="classrpp_1_1base__observer.html">base_observer</a>&lt; Type, <a class="el" href="classrpp_1_1details_1_1observer_1_1dynamic__strategy.html">details::observer::dynamic_strategy</a>&lt; Type &gt; &gt;</td></tr>
-<tr class="memdesc:gac1c33b452ca9e0a58fbde9da538ca5f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type-erased version of the <code><a class="el" href="classrpp_1_1base__observer.html" title="Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...">rpp::base_observer</a></code>. Any observer can be converted to dynamic_observer via <code><a class="el" href="classrpp_1_1base__observer.html#a601d0b432a3f88eeeee64e886efba9bd" title="Convert current observer to type-erased version. Useful if you need to COPY your observer or to store...">rpp::base_observer::as_dynamic</a></code> member function.  <br /></td></tr>
-<tr class="separator:gac1c33b452ca9e0a58fbde9da538ca5f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5ccae622968e072637073c844bac0b5f"><td class="memTemplParams" colspan="2">template&lt;constraint::decayed_type Type, std::invocable&lt; Type &gt; OnNext, std::invocable&lt; const std::exception_ptr &amp; &gt; OnError, std::invocable&lt;&gt; OnCompleted&gt; </td></tr>
-<tr class="memitem:ga5ccae622968e072637073c844bac0b5f"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observers.html#ga5ccae622968e072637073c844bac0b5f">rpp::lambda_observer</a> = <a class="el" href="classrpp_1_1base__observer.html">base_observer</a>&lt; Type, <a class="el" href="structrpp_1_1details_1_1observer_1_1lambda__strategy.html">details::observer::lambda_strategy</a>&lt; Type, OnNext, OnError, OnCompleted &gt; &gt;</td></tr>
-<tr class="memdesc:ga5ccae622968e072637073c844bac0b5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observer specialized with passed callbacks. Most easiesest way to construct observer "on the fly" via lambdas and etc.  <br /></td></tr>
-<tr class="separator:ga5ccae622968e072637073c844bac0b5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaccd025034d57327e6a31b2106619197b"><td class="memTemplParams" colspan="2">template&lt;constraint::decayed_type Type&gt; </td></tr>
+<tr class="memitem:gaccd025034d57327e6a31b2106619197b"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observers.html#gaccd025034d57327e6a31b2106619197b">rpp::dynamic_observer</a> = <a class="el" href="classrpp_1_1observer.html">observer</a>&lt; Type, <a class="el" href="classrpp_1_1details_1_1observers_1_1dynamic__strategy.html">details::observers::dynamic_strategy</a>&lt; Type &gt; &gt;</td></tr>
+<tr class="memdesc:gaccd025034d57327e6a31b2106619197b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type-erased version of the <code><a class="el" href="classrpp_1_1observer.html" title="Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...">rpp::observer</a></code>. Any observer can be converted to dynamic_observer via <code><a class="el" href="classrpp_1_1observer.html#ab008a79c1c7825554c91dbc6d130ece4" title="Convert current observer to type-erased version. Useful if you need to COPY your observer or to store...">rpp::observer::as_dynamic</a></code> member function.  <br /></td></tr>
+<tr class="separator:gaccd025034d57327e6a31b2106619197b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad7a2b4cbca14301bec3f5a5f59146c94"><td class="memTemplParams" colspan="2">template&lt;constraint::decayed_type Type, std::invocable&lt; Type &gt; OnNext, std::invocable&lt; const std::exception_ptr &amp; &gt; OnError, std::invocable&lt;&gt; OnCompleted&gt; </td></tr>
+<tr class="memitem:gad7a2b4cbca14301bec3f5a5f59146c94"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__observers.html#gad7a2b4cbca14301bec3f5a5f59146c94">rpp::lambda_observer</a> = <a class="el" href="classrpp_1_1observer.html">observer</a>&lt; Type, <a class="el" href="structrpp_1_1details_1_1observers_1_1lambda__strategy.html">details::observers::lambda_strategy</a>&lt; Type, OnNext, OnError, OnCompleted &gt; &gt;</td></tr>
+<tr class="memdesc:gad7a2b4cbca14301bec3f5a5f59146c94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observer specialized with passed callbacks. Most easiesest way to construct observer "on the fly" via lambdas and etc.  <br /></td></tr>
+<tr class="separator:gad7a2b4cbca14301bec3f5a5f59146c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Observer subscribes on Observable and obtains values provided by Observable. </p>
@@ -132,8 +132,8 @@ Typedefs</h2></td></tr>
 </li>
 </ul>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="gac1c33b452ca9e0a58fbde9da538ca5f1" name="gac1c33b452ca9e0a58fbde9da538ca5f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac1c33b452ca9e0a58fbde9da538ca5f1">&#9670;&#160;</a></span>dynamic_observer</h2>
+<a id="gaccd025034d57327e6a31b2106619197b" name="gaccd025034d57327e6a31b2106619197b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaccd025034d57327e6a31b2106619197b">&#9670;&#160;</a></span>dynamic_observer</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -141,12 +141,12 @@ Typedefs</h2></td></tr>
 template&lt;constraint::decayed_type Type&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__observers.html#gac1c33b452ca9e0a58fbde9da538ca5f1">rpp::dynamic_observer</a> = typedef <a class="el" href="classrpp_1_1base__observer.html">base_observer</a>&lt;Type, <a class="el" href="classrpp_1_1details_1_1observer_1_1dynamic__strategy.html">details::observer::dynamic_strategy</a>&lt;Type&gt; &gt;</td>
+          <td class="memname">using <a class="el" href="group__observers.html#gaccd025034d57327e6a31b2106619197b">rpp::dynamic_observer</a> = typedef <a class="el" href="classrpp_1_1observer.html">observer</a>&lt;Type, <a class="el" href="classrpp_1_1details_1_1observers_1_1dynamic__strategy.html">details::observers::dynamic_strategy</a>&lt;Type&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Type-erased version of the <code><a class="el" href="classrpp_1_1base__observer.html" title="Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...">rpp::base_observer</a></code>. Any observer can be converted to dynamic_observer via <code><a class="el" href="classrpp_1_1base__observer.html#a601d0b432a3f88eeeee64e886efba9bd" title="Convert current observer to type-erased version. Useful if you need to COPY your observer or to store...">rpp::base_observer::as_dynamic</a></code> member function. </p>
+<p>Type-erased version of the <code><a class="el" href="classrpp_1_1observer.html" title="Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...">rpp::observer</a></code>. Any observer can be converted to dynamic_observer via <code><a class="el" href="classrpp_1_1observer.html#ab008a79c1c7825554c91dbc6d130ece4" title="Convert current observer to type-erased version. Useful if you need to COPY your observer or to store...">rpp::observer::as_dynamic</a></code> member function. </p>
 <p>To provide type-erasure it uses <code>std::shared_ptr</code>. As a result it has worse performance, but it is <b>ONLY</b> way to copy observer.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
@@ -157,8 +157,8 @@ template&lt;constraint::decayed_type Type&gt; </div>
 
 </div>
 </div>
-<a id="ga5ccae622968e072637073c844bac0b5f" name="ga5ccae622968e072637073c844bac0b5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5ccae622968e072637073c844bac0b5f">&#9670;&#160;</a></span>lambda_observer</h2>
+<a id="gad7a2b4cbca14301bec3f5a5f59146c94" name="gad7a2b4cbca14301bec3f5a5f59146c94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad7a2b4cbca14301bec3f5a5f59146c94">&#9670;&#160;</a></span>lambda_observer</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -166,7 +166,7 @@ template&lt;constraint::decayed_type Type&gt; </div>
 template&lt;constraint::decayed_type Type, std::invocable&lt; Type &gt; OnNext, std::invocable&lt; const std::exception_ptr &amp; &gt; OnError, std::invocable&lt;&gt; OnCompleted&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__observers.html#ga5ccae622968e072637073c844bac0b5f">rpp::lambda_observer</a> = typedef <a class="el" href="classrpp_1_1base__observer.html">base_observer</a>&lt;Type, <a class="el" href="structrpp_1_1details_1_1observer_1_1lambda__strategy.html">details::observer::lambda_strategy</a>&lt;Type, OnNext, OnError, OnCompleted&gt; &gt;</td>
+          <td class="memname">using <a class="el" href="group__observers.html#gad7a2b4cbca14301bec3f5a5f59146c94">rpp::lambda_observer</a> = typedef <a class="el" href="classrpp_1_1observer.html">observer</a>&lt;Type, <a class="el" href="structrpp_1_1details_1_1observers_1_1lambda__strategy.html">details::observers::lambda_strategy</a>&lt;Type, OnNext, OnError, OnCompleted&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
