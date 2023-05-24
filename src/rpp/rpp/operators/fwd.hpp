@@ -16,19 +16,15 @@
 
 namespace rpp::operators
 {
-auto take(size_t count);
-
-template<typename Fn>
-    requires (!utils::is_not_template_callable<Fn> || !std::same_as<void, std::invoke_result_t<Fn, utils::convertible_to_any>>)
-auto map(Fn&& callable);
+auto as_blocking();
 
 template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
 auto filter(Fn&& predicate);
 
 template<typename Fn>
-    requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
-auto take_while(Fn&& predicate);
+    requires (!utils::is_not_template_callable<Fn> || !std::same_as<void, std::invoke_result_t<Fn, utils::convertible_to_any>>)
+auto map(Fn&& callable);
 
 auto repeat(size_t count);
 auto repeat();
@@ -39,4 +35,10 @@ auto scan(InitialValue&& initial_value, Fn&& accumulator);
 
 template<typename Fn>
 auto scan(Fn&& accumulator);
+
+template<typename Fn>
+    requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
+auto take_while(Fn&& predicate);
+
+auto take(size_t count);
 }
