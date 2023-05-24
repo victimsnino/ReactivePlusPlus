@@ -11,7 +11,7 @@
 #pragma once
 
 #include "rpp/disposables/fwd.hpp"
-#include <rpp/observers/base_observer.hpp>
+#include <rpp/observers/observer.hpp>
 
 #include <vector>
 
@@ -49,8 +49,8 @@ public:
 
     std::vector<Type> get_received_values() const {return m_state->vals; }
 
-    auto get_observer() const {return rpp::base_observer<Type, mock_observer_strategy<Type>>{*this}; }
-    auto get_observer(rpp::disposable_wrapper d) const {return rpp::base_observer<Type, rpp::details::with_disposable<mock_observer_strategy<Type>>>{std::move(d), *this}; }
+    auto get_observer() const {return rpp::observer<Type, mock_observer_strategy<Type>>{*this}; }
+    auto get_observer(rpp::disposable_wrapper d) const {return rpp::observer<Type, rpp::details::with_disposable<mock_observer_strategy<Type>>>{std::move(d), *this}; }
 
 private:
     struct State

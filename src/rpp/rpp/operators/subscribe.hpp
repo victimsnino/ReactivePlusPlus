@@ -12,7 +12,7 @@
 
 #include <rpp/observers/fwd.hpp>
 #include <rpp/operators/fwd.hpp>
-#include <rpp/observers/base_observer.hpp>
+#include <rpp/observers/observer.hpp>
 #include <rpp/observables/fwd.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/utils/functors.hpp>
@@ -24,41 +24,41 @@ template<typename...Args>
 class subscribe_t;
 
 template<rpp::constraint::decayed_type Type, rpp::constraint::observer_strategy<Type> ObserverStrategy>
-class subscribe_t<base_observer<Type, ObserverStrategy>>
+class subscribe_t<observer<Type, ObserverStrategy>>
 {
 public:
-    explicit subscribe_t(base_observer<Type, ObserverStrategy>&& observer)
+    explicit subscribe_t(observer<Type, ObserverStrategy>&& observer)
         : m_observer{std::move(observer)} {}
 
 
     template<rpp::constraint::observable_strategy<Type> Strategy>
-    void operator()(const rpp::base_observable<Type, Strategy>& observalbe) && {
+    void operator()(const rpp::observable<Type, Strategy>& observalbe) && {
         if (!m_observer.is_disposed())
             observalbe.subscribe(std::move(m_observer));
     }
 
 private:
-    base_observer<Type, ObserverStrategy> m_observer;
+    observer<Type, ObserverStrategy> m_observer;
 };
 
 template<rpp::constraint::decayed_type Type, rpp::constraint::observer_strategy<Type> ObserverStrategy>
-class subscribe_t<rpp::disposable_wrapper, base_observer<Type, ObserverStrategy>>
+class subscribe_t<rpp::disposable_wrapper, observer<Type, ObserverStrategy>>
 {
 public:
-    explicit subscribe_t(rpp::disposable_wrapper&& d, base_observer<Type, ObserverStrategy>&& observer)
+    explicit subscribe_t(rpp::disposable_wrapper&& d, observer<Type, ObserverStrategy>&& observer)
         : m_disposable{std::move(d)}
         , m_observer{std::move(observer)} {}
 
     template<rpp::constraint::observable_strategy<Type> Strategy>
-    rpp::disposable_wrapper operator()(const rpp::base_observable<Type, Strategy>& observalbe) && {
+    rpp::disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observalbe) && {
         if (!m_disposable.is_disposed() && !m_observer.is_disposed())
-            observalbe.subscribe(base_observer<Type, rpp::details::with_disposable<base_observer<Type, ObserverStrategy>>>{m_disposable, std::move(m_observer)});
+            observalbe.subscribe(observer<Type, rpp::details::with_disposable<observer<Type, ObserverStrategy>>>{m_disposable, std::move(m_observer)});
         return m_disposable;
     }
 
 private:
     rpp::disposable_wrapper               m_disposable;
-    base_observer<Type, ObserverStrategy> m_observer;
+    observer<Type, ObserverStrategy> m_observer;
 };
 
 template<typename OnNext, std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
@@ -76,14 +76,14 @@ public:
 
     template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
         requires std::invocable<OnNext, Type>
-    void operator()(const rpp::base_observable<Type, Strategy>& observalbe) &&
+    void operator()(const rpp::observable<Type, Strategy>& observalbe) &&
     {
         observalbe.subscribe(make_lambda_observer<Type>(std::move(m_on_next), std::move(m_on_error), std::move(m_on_completed)));
     }
 
     template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
         requires std::invocable<OnNext, Type>
-    void operator()(const rpp::base_observable<Type, Strategy>& observalbe) const &
+    void operator()(const rpp::observable<Type, Strategy>& observalbe) const &
     {
         observalbe.subscribe(make_lambda_observer<Type>(m_on_next, m_on_error, m_on_completed));
     }
@@ -110,7 +110,7 @@ public:
 
     template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
         requires std::invocable<OnNext, Type>
-    rpp::disposable_wrapper operator()(const rpp::base_observable<Type, Strategy>& observalbe) &&
+    rpp::disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observalbe) &&
     {
         if (!m_disposable.is_disposed())
             observalbe.subscribe(make_lambda_observer<Type>(m_disposable, std::move(m_on_next), std::move(m_on_error), std::move(m_on_completed)));
@@ -119,7 +119,7 @@ public:
 
     template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
         requires std::invocable<OnNext, Type>
-    rpp::disposable_wrapper operator()(const rpp::base_observable<Type, Strategy>& observalbe) const &
+    rpp::disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observalbe) const &
     {
         if (!m_disposable.is_disposed())
             observalbe.subscribe(make_lambda_observer<Type>(m_disposable, m_on_next, m_on_error, m_on_completed));
@@ -146,7 +146,7 @@ namespace rpp::operators
  * it to dynamic_observer
  */
 template<rpp::constraint::decayed_type Type, rpp::constraint::observer_strategy<Type> ObserverStrategy>
-auto subscribe(base_observer<Type, ObserverStrategy>&& observer)
+auto subscribe(observer<Type, ObserverStrategy>&& observer)
 {
     return details::subscribe_t{std::move(observer)};
 }
@@ -159,7 +159,7 @@ auto subscribe(base_observer<Type, ObserverStrategy>&& observer)
  * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
  */
 template<rpp::constraint::decayed_type Type, rpp::constraint::observer_strategy<Type> ObserverStrategy>
-auto subscribe(rpp::disposable_wrapper disposable, base_observer<Type, ObserverStrategy>&& observer)
+auto subscribe(rpp::disposable_wrapper disposable, observer<Type, ObserverStrategy>&& observer)
 {
     return details::subscribe_t{std::move(disposable), std::move(observer)};
 }

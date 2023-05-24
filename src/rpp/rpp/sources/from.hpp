@@ -11,7 +11,7 @@
 
 #include <rpp/defs.hpp>
 #include <rpp/sources/fwd.hpp>
-#include <rpp/observables/base_observable.hpp>
+#include <rpp/observables/observable.hpp>
 #include <rpp/utils/utils.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 #include <rpp/operators/map.hpp>
@@ -139,7 +139,7 @@ struct from_iterable_strategy
     RPP_NO_UNIQUE_ADDRESS TScheduler      scheduler;
 
     template<constraint::observer_strategy<utils::iterable_value_t<PackedContainer>> Strategy>
-    void subscribe(base_observer<utils::iterable_value_t<PackedContainer>, Strategy>&& observer) const
+    void subscribe(observer<utils::iterable_value_t<PackedContainer>, Strategy>&& obs) const
     {
         if constexpr (std::same_as<TScheduler, schedulers::immediate>)
         {
@@ -147,24 +147,24 @@ struct from_iterable_strategy
             {
                 for (const auto& v : container)
                 {
-                    if (observer.is_disposed())
+                    if (obs.is_disposed())
                         return;
 
-                    observer.on_next(v);
+                    obs.on_next(v);
                 }
 
-                observer.on_completed();
+                obs.on_completed();
             }
             catch (...)
             {
-                observer.on_error(std::current_exception());
+                obs.on_error(std::current_exception());
             }
         }
         else
         {
             const auto worker = scheduler.create_worker();
-            observer.set_upstream(worker.get_disposable());
-            worker.schedule([](const base_observer<utils::iterable_value_t<PackedContainer>, Strategy>& obs, const PackedContainer& cont) -> rpp::schedulers::optional_duration
+            obs.set_upstream(worker.get_disposable());
+            worker.schedule([](const observer<utils::iterable_value_t<PackedContainer>, Strategy>& obs, const PackedContainer& cont) -> rpp::schedulers::optional_duration
             {
                 try
                 {
@@ -182,7 +182,7 @@ struct from_iterable_strategy
                     obs.on_error(std::current_exception());
                 }
                 return std::nullopt;
-            }, std::move(observer), container);
+            }, std::move(obs), container);
         }
     }
 };
@@ -190,7 +190,7 @@ struct from_iterable_strategy
 template<typename PackedContainer, schedulers::constraint::scheduler TScheduler>
 auto make_from_iterable_observable(PackedContainer&& container, const TScheduler& scheduler)
 {
-    return base_observable<utils::iterable_value_t<std::decay_t<PackedContainer>>,
+    return observable<utils::iterable_value_t<std::decay_t<PackedContainer>>,
                            details::from_iterable_strategy<std::decay_t<PackedContainer>, TScheduler>>{std::forward<PackedContainer>(container),
                                                                                                        scheduler};
 }
@@ -225,7 +225,7 @@ auto from_iterable(Iterable&& iterable, const TScheduler& scheduler /* = TSchedu
 }
 
 /**
- * @brief Creates rpp::base_observable that emits a particular items and completes
+ * @brief Creates rpp::observable that emits a particular items and completes
  *
  * @marble just
    {
@@ -252,7 +252,7 @@ auto just(const TScheduler& scheduler, T&& item, Ts&& ...items) requires (constr
 }
 
 /**
- * @brief Creates rpp::base_observable that emits a particular items and completes
+ * @brief Creates rpp::observable that emits a particular items and completes
  * @warning this overloading uses trampoline scheduler as default
  *
  * @marble just

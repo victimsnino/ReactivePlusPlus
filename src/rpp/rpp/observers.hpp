@@ -22,6 +22,6 @@
  */
 
 #include <rpp/observers/fwd.hpp>
-#include <rpp/observers/base_observer.hpp>
+#include <rpp/observers/observer.hpp>
 #include <rpp/observers/lambda_observer.hpp>
 #include <rpp/observers/dynamic_observer.hpp>

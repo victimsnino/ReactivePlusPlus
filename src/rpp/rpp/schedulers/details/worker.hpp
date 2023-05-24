@@ -30,18 +30,18 @@ public:
     worker(const worker&) = default;
     worker(worker&&) noexcept = default;
 
-    template<typename ObsType, typename ObsStrategy, typename...Args, constraint::schedulable_fn<rpp::base_observer<ObsType, ObsStrategy>, Args...> Fn>
-    void schedule(Fn&& fn, rpp::base_observer<ObsType, ObsStrategy>&& obs, Args&&...args) const
+    template<typename ObsType, typename ObsStrategy, typename...Args, constraint::schedulable_fn<rpp::observer<ObsType, ObsStrategy>, Args...> Fn>
+    void schedule(Fn&& fn, rpp::observer<ObsType, ObsStrategy>&& obs, Args&&...args) const
     {
         schedule(duration{}, std::forward<Fn>(fn), std::move(obs), std::forward<Args>(args)...);
     }
 
-    template<typename ObsType, typename ObsStrategy, typename...Args, constraint::schedulable_fn<rpp::base_observer<ObsType, ObsStrategy>, Args...> Fn>
-    void schedule(const duration delay, Fn&& fn, rpp::base_observer<ObsType, ObsStrategy>&& obs, Args&&...args) const
+    template<typename ObsType, typename ObsStrategy, typename...Args, constraint::schedulable_fn<rpp::observer<ObsType, ObsStrategy>, Args...> Fn>
+    void schedule(const duration delay, Fn&& fn, rpp::observer<ObsType, ObsStrategy>&& obs, Args&&...args) const
     {
         m_strategy.defer_for(delay, std::forward<Fn>(fn), std::move(obs), std::forward<Args>(args)...);
     }
-    
+
     template<typename ObsType, typename...Args, constraint::schedulable_fn<rpp::dynamic_observer<ObsType>, Args...> Fn>
     void schedule(Fn&& fn, const rpp::dynamic_observer<ObsType>& obs, Args&&...args) const
     {
