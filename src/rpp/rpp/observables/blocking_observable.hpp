@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
 #include <rpp/observables/fwd.hpp>
 #include <rpp/operators/details/strategy.hpp>
 
@@ -56,6 +57,6 @@ public:
     }
 
 private:
-    observable<Type, Strategy> m_original;
+    RPP_NO_UNIQUE_ADDRESS observable<Type, Strategy> m_original;
 };
 }
