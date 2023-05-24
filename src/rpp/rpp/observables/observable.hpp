@@ -34,16 +34,16 @@ namespace rpp
  * @ingroup observables
  */
 template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
-class base_observable final
+class observable final
 {
 public:
     template<typename ...Args>
-        requires (!constraint::variadic_decayed_same_as<base_observable<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args&&...>)
-    explicit base_observable(Args&& ...args)
+        requires (!constraint::variadic_decayed_same_as<observable<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args&&...>)
+    explicit observable(Args&& ...args)
         : m_strategy{std::forward<Args>(args)...} {}
 
-    base_observable(const base_observable&)     = default;
-    base_observable(base_observable&&) noexcept = default;
+    observable(const observable&)     = default;
+    observable(observable&&) noexcept = default;
 
     /**
      * @brief Subscribes passed observer to emissions from this observable.
@@ -51,7 +51,7 @@ public:
      * @warning Observer must be moved in to subscribe method. (Not recommended) If you need to copy observer, convert it to dynamic_observer
      */
     template<constraint::observer_strategy<Type> ObserverStrategy>
-    void subscribe(base_observer<Type, ObserverStrategy>&& observer) const
+    void subscribe(observer<Type, ObserverStrategy>&& observer) const
     {
         if (!observer.is_disposed())
             m_strategy.subscribe(std::move(observer));
@@ -75,9 +75,9 @@ public:
      * @return disposable_wrapper is disposable to be able to dispose observer when it needed
      */
     template<constraint::observer_strategy<Type> ObserverStrategy>
-    disposable_wrapper subscribe(const disposable_wrapper& d, base_observer<Type, ObserverStrategy>&& observer) const
+    disposable_wrapper subscribe(const disposable_wrapper& d, observer<Type, ObserverStrategy>&& observer) const
     {   if (!d.is_disposed())
-            m_strategy.subscribe(base_observer<Type, rpp::details::with_disposable<base_observer<Type, ObserverStrategy>>>{d, std::move(observer)});
+            m_strategy.subscribe(observer<Type, rpp::details::with_disposable<observer<Type, ObserverStrategy>>>{d, std::move(observer)});
         return disposable_wrapper{d};
     }
 
@@ -124,13 +124,13 @@ public:
     auto as_dynamic() const& { return rpp::dynamic_observable<Type>{*this}; }
     auto as_dynamic() && { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
-    template<constraint::operators<const base_observable<Type, Strategy>&> Op>
+    template<constraint::operators<const observable<Type, Strategy>&> Op>
     auto operator|(Op&& op) const &
     {
         return std::forward<Op>(op)(*this);
     }
 
-    template<constraint::operators<base_observable<Type, Strategy>&&> Op>
+    template<constraint::operators<observable<Type, Strategy>&&> Op>
     auto operator|(Op&& op) &&
     {
         return std::forward<Op>(op)(std::move(*this));

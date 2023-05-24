@@ -26,18 +26,18 @@ class dynamic_strategy final
 public:
     template<constraint::observable_strategy<Type> Strategy>
         requires (!constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
-    explicit dynamic_strategy(base_observable<Type, Strategy>&& observable)
-        : m_forwarder{std::make_shared<base_observable<Type, Strategy>>(std::move(observable))}
-        , m_vtable{vtable::template create<base_observable<Type, Strategy>>()} {}
+    explicit dynamic_strategy(observable<Type, Strategy>&& observable)
+        : m_forwarder{std::make_shared<observable<Type, Strategy>>(std::move(observable))}
+        , m_vtable{vtable::template create<observable<Type, Strategy>>()} {}
 
     template<constraint::observable_strategy<Type> Strategy>
         requires (!constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
-    explicit dynamic_strategy(const base_observable<Type, Strategy>& observable)
-        : m_forwarder{std::make_shared<base_observable<Type, Strategy>>(observable)}
-        , m_vtable{vtable::template create<base_observable<Type, Strategy>>()} {}
-        
+    explicit dynamic_strategy(const observable<Type, Strategy>& observable)
+        : m_forwarder{std::make_shared<observable<Type, Strategy>>(observable)}
+        , m_vtable{vtable::template create<observable<Type, Strategy>>()} {}
+
     template<constraint::observer_strategy<Type> ObserverStrategy>
-    void subscribe(base_observer<Type, ObserverStrategy>&& observer) const 
+    void subscribe(observer<Type, ObserverStrategy>&& observer) const
     {
         m_vtable->subscribe(m_forwarder.get(), std::move(observer).as_dynamic());
     }

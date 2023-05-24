@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include <rpp/observers/base_observer.hpp>
+#include <rpp/observers/observer.hpp>
 #include <rpp/utils/function_traits.hpp>
 
 #include <rpp/defs.hpp>

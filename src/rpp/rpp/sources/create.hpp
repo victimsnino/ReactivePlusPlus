@@ -10,7 +10,7 @@
 #pragma once
 
 #include <rpp/sources/fwd.hpp>
-#include <rpp/observables/base_observable.hpp>
+#include <rpp/observables/observable.hpp>
 
 namespace rpp::details
 {
@@ -24,7 +24,7 @@ struct create_strategy
 namespace rpp
 {
 template<constraint::decayed_type Type, constraint::on_subscribe<Type> OnSubscribe>
-using create_observable = base_observable<Type, details::create_strategy<Type, OnSubscribe>>;
+using create_observable = observable<Type, details::create_strategy<Type, OnSubscribe>>;
 }
 
 namespace rpp::source

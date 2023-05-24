@@ -74,10 +74,10 @@ struct with_disposable
 namespace rpp
 {
 template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
-class base_observer;
+class observer;
 
 /**
- * @brief Type-erased version of the `rpp::base_observer`. Any observer can be converted to dynamic_observer via `rpp::base_observer::as_dynamic` member function.
+ * @brief Type-erased version of the `rpp::observer`. Any observer can be converted to dynamic_observer via `rpp::observer::as_dynamic` member function.
  * @details To provide type-erasure it uses `std::shared_ptr`. As a result it has worse performance, but it is **ONLY** way to copy observer.
  *
  * @tparam Type of value this observer can handle
@@ -85,7 +85,7 @@ class base_observer;
  * @ingroup observers
  */
 template<constraint::decayed_type Type>
-using dynamic_observer = base_observer<Type, details::observer::dynamic_strategy<Type>>;
+using dynamic_observer = observer<Type, details::observer::dynamic_strategy<Type>>;
 
 /**
  * @brief Observer specialized with passed callbacks. Most easiesest way to construct observer "on the fly" via lambdas and etc.
@@ -98,10 +98,10 @@ using dynamic_observer = base_observer<Type, details::observer::dynamic_strategy
  * @ingroup observers
  */
 template<constraint::decayed_type Type, std::invocable<Type> OnNext,  std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
-using lambda_observer = base_observer<Type, details::observer::lambda_strategy<Type, OnNext, OnError, OnCompleted>>;
+using lambda_observer = observer<Type, details::observer::lambda_strategy<Type, OnNext, OnError, OnCompleted>>;
 
 template<constraint::decayed_type Type, std::invocable<Type> OnNext,  std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
-using lambda_observer_with_disposable = base_observer<Type, details::with_disposable<details::observer::lambda_strategy<Type, OnNext, OnError, OnCompleted>>>;
+using lambda_observer_with_disposable = observer<Type, details::with_disposable<details::observer::lambda_strategy<Type, OnNext, OnError, OnCompleted>>>;
 
 template<constraint::decayed_type Type,
          std::invocable<Type>                      OnNext,
@@ -161,7 +161,7 @@ namespace details
     struct extract_observer_type : std::false_type{};
 
     template<typename TT, typename Strategy>
-    struct extract_observer_type<rpp::base_observer<TT, Strategy>> : std::true_type
+    struct extract_observer_type<rpp::observer<TT, Strategy>> : std::true_type
     {
         using type = TT;
     };

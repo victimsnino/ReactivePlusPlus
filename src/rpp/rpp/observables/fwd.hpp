@@ -34,10 +34,10 @@ class dynamic_strategy;
 namespace rpp
 {
 template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
-class base_observable;
+class observable;
 
 /**
- * @brief Type-erased version of the `rpp::base_observable`. Any observable can be converted to dynamic_observable via `rpp::base_observable::as_dynamic` member function.
+ * @brief Type-erased version of the `rpp::observable`. Any observable can be converted to dynamic_observable via `rpp::observable::as_dynamic` member function.
  * @details To provide type-erasure it uses `std::shared_ptr`. As a result it has worse performance.
  *
  * @tparam Type of value this obsevalbe can provide
@@ -45,7 +45,7 @@ class base_observable;
  * @ingroup observables
  */
 template<constraint::decayed_type Type>
-using dynamic_observable = base_observable<Type, details::observable::dynamic_strategy<Type>>;
+using dynamic_observable = observable<Type, details::observable::dynamic_strategy<Type>>;
 }
 
 namespace rpp::utils
@@ -56,7 +56,7 @@ namespace details
     struct extract_observable_type : std::false_type{};
 
     template<typename TT, typename Strategy>
-    struct extract_observable_type<rpp::base_observable<TT, Strategy>> : std::true_type
+    struct extract_observable_type<rpp::observable<TT, Strategy>> : std::true_type
     {
         using type = TT;
     };
@@ -66,13 +66,13 @@ template<typename T>
 using extract_observable_type_t = typename details::extract_observable_type<std::decay_t<T>>::type;
 } // namespace rpp::utils
 
-namespace rpp::constraint 
+namespace rpp::constraint
 {
 template<typename T>
 concept observable = rpp::utils::details::extract_observable_type<std::decay_t<T>>::value;
 
 template<typename Op, typename TObs>
-concept operators = requires(const Op& op, TObs obs) 
+concept operators = requires(const Op& op, TObs obs)
 {
     {op(static_cast<TObs>(obs))} -> rpp::constraint::observable;
 };

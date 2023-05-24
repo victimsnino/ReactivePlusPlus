@@ -12,7 +12,7 @@
 #include "rpp/utils/constraints.hpp"
 #include <rpp/sources/fwd.hpp>
 #include <rpp/sources/from.hpp>
-#include <rpp/observables/base_observable.hpp>
+#include <rpp/observables/observable.hpp>
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/disposables/base_disposable.hpp>
@@ -65,19 +65,19 @@ struct concat_strategy
     using Type = utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
 
     template<constraint::observer_strategy<Type> Strategy>
-    void subscribe(base_observer<Type, Strategy>&& observer) const
+    void subscribe(observer<Type, Strategy>&& observer) const
     {
         drain(container, std::move(observer));
     }
 
     template<constraint::observer_strategy<Type> Strategy>
-    static void drain(constraint::decayed_same_as<PackedContainer> auto&& container, base_observer<Type, Strategy>&& observer)
+    static void drain(constraint::decayed_same_as<PackedContainer> auto&& container, observer<Type, Strategy>&& observer)
     {
         if (const auto itr = container.get_actual_iterator(); itr != std::cend(container))
         {
             decltype(auto) observable = PackedContainer::extract_value_from_itr(itr);
-            observable.subscribe(base_observer<Type,
-                                               rpp::operators::details::operator_strategy_base<Type, base_observer<Type, Strategy>,
+            observable.subscribe(observer<Type,
+                                               rpp::operators::details::operator_strategy_base<Type, observer<Type, Strategy>,
                                                concat_source_observer_strategy<PackedContainer>>>
                                                {
                                                    std::move(observer),
@@ -94,7 +94,7 @@ struct concat_strategy
 template<typename PackedContainer>
 auto make_concat_from_iterable(PackedContainer&& container)
 {
-    return base_observable<utils::extract_observable_type_t<utils::iterable_value_t<std::decay_t<PackedContainer>>>,
+    return observable<utils::extract_observable_type_t<utils::iterable_value_t<std::decay_t<PackedContainer>>>,
                            concat_strategy<std::decay_t<PackedContainer>>>{std::forward<PackedContainer>(container)};
 }
 } // namespace rpp::details
