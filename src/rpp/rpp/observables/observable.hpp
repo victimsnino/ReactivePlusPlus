@@ -63,7 +63,7 @@ public:
      */
     void subscribe(dynamic_observer<Type> observer) const
     {
-        subscribe<details::observer::dynamic_strategy<Type>>(std::move(observer));
+        subscribe<details::observers::dynamic_strategy<Type>>(std::move(observer));
     }
 
     /**
@@ -75,9 +75,9 @@ public:
      * @return disposable_wrapper is disposable to be able to dispose observer when it needed
      */
     template<constraint::observer_strategy<Type> ObserverStrategy>
-    disposable_wrapper subscribe(const disposable_wrapper& d, observer<Type, ObserverStrategy>&& observer) const
+    disposable_wrapper subscribe(const disposable_wrapper& d, observer<Type, ObserverStrategy>&& obs) const
     {   if (!d.is_disposed())
-            m_strategy.subscribe(observer<Type, rpp::details::with_disposable<observer<Type, ObserverStrategy>>>{d, std::move(observer)});
+            m_strategy.subscribe(observer<Type, rpp::details::with_disposable<observer<Type, ObserverStrategy>>>{d, std::move(obs)});
         return disposable_wrapper{d};
     }
 

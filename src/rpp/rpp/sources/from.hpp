@@ -139,7 +139,7 @@ struct from_iterable_strategy
     RPP_NO_UNIQUE_ADDRESS TScheduler      scheduler;
 
     template<constraint::observer_strategy<utils::iterable_value_t<PackedContainer>> Strategy>
-    void subscribe(observer<utils::iterable_value_t<PackedContainer>, Strategy>&& observer) const
+    void subscribe(observer<utils::iterable_value_t<PackedContainer>, Strategy>&& obs) const
     {
         if constexpr (std::same_as<TScheduler, schedulers::immediate>)
         {
@@ -147,23 +147,23 @@ struct from_iterable_strategy
             {
                 for (const auto& v : container)
                 {
-                    if (observer.is_disposed())
+                    if (obs.is_disposed())
                         return;
 
-                    observer.on_next(v);
+                    obs.on_next(v);
                 }
 
-                observer.on_completed();
+                obs.on_completed();
             }
             catch (...)
             {
-                observer.on_error(std::current_exception());
+                obs.on_error(std::current_exception());
             }
         }
         else
         {
             const auto worker = scheduler.create_worker();
-            observer.set_upstream(worker.get_disposable());
+            obs.set_upstream(worker.get_disposable());
             worker.schedule([](const observer<utils::iterable_value_t<PackedContainer>, Strategy>& obs, const PackedContainer& cont) -> rpp::schedulers::optional_duration
             {
                 try
@@ -182,7 +182,7 @@ struct from_iterable_strategy
                     obs.on_error(std::current_exception());
                 }
                 return std::nullopt;
-            }, std::move(observer), container);
+            }, std::move(obs), container);
         }
     }
 };

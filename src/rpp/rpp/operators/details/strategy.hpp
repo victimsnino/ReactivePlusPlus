@@ -149,12 +149,12 @@ public:
         , m_vals{std::forward<TArgs>(args)...} {}
 
     template<rpp::constraint::observer_strategy<T> ObserverStrategy>
-    void subscribe(observer<T, ObserverStrategy>&& observer) const
+    void subscribe(observer<T, ObserverStrategy>&& obs) const
     {
-       std::apply([&observer, this](const Args&... vals)
+       std::apply([&obs, this](const Args&... vals)
                   {
                         m_observable.subscribe(observer<rpp::utils::extract_observable_type_t<Observable>,
-                                                            operator_strategy_base<rpp::utils::extract_observable_type_t<Observable>, observer<T, ObserverStrategy>, Strategy>>{std::move(observer), vals...});
+                                                            operator_strategy_base<rpp::utils::extract_observable_type_t<Observable>, observer<T, ObserverStrategy>, Strategy>>{std::move(obs), vals...});
                   },
                   m_vals);
     }

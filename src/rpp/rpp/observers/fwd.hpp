@@ -43,7 +43,7 @@ concept observer_strategy = requires(const S& const_strategy, S& strategy, const
 };
 } // namespace rpp::constraint
 
-namespace rpp::details::observer
+namespace rpp::details::observers
 {
 template<constraint::decayed_type Type>
 class dynamic_strategy;
@@ -53,7 +53,7 @@ template<constraint::decayed_type                  Type,
          std::invocable<const std::exception_ptr&> OnError,
          std::invocable<>                          OnCompleted>
 struct lambda_strategy;
-} // namespace rpp::details
+}
 
 namespace rpp::details
 {
@@ -85,7 +85,7 @@ class observer;
  * @ingroup observers
  */
 template<constraint::decayed_type Type>
-using dynamic_observer = observer<Type, details::observer::dynamic_strategy<Type>>;
+using dynamic_observer = observer<Type, details::observers::dynamic_strategy<Type>>;
 
 /**
  * @brief Observer specialized with passed callbacks. Most easiesest way to construct observer "on the fly" via lambdas and etc.
@@ -98,10 +98,10 @@ using dynamic_observer = observer<Type, details::observer::dynamic_strategy<Type
  * @ingroup observers
  */
 template<constraint::decayed_type Type, std::invocable<Type> OnNext,  std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
-using lambda_observer = observer<Type, details::observer::lambda_strategy<Type, OnNext, OnError, OnCompleted>>;
+using lambda_observer = observer<Type, details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>;
 
 template<constraint::decayed_type Type, std::invocable<Type> OnNext,  std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
-using lambda_observer_with_disposable = observer<Type, details::with_disposable<details::observer::lambda_strategy<Type, OnNext, OnError, OnCompleted>>>;
+using lambda_observer_with_disposable = observer<Type, details::with_disposable<details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>>;
 
 template<constraint::decayed_type Type,
          std::invocable<Type>                      OnNext,

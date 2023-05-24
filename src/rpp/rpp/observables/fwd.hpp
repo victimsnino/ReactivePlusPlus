@@ -25,7 +25,7 @@ concept observable_strategy = requires(const S& strategy, dynamic_observer<T>&& 
 };
 }
 
-namespace rpp::details::observable
+namespace rpp::details::observables
 {
 template<constraint::decayed_type Type>
 class dynamic_strategy;
@@ -45,7 +45,7 @@ class observable;
  * @ingroup observables
  */
 template<constraint::decayed_type Type>
-using dynamic_observable = observable<Type, details::observable::dynamic_strategy<Type>>;
+using dynamic_observable = observable<Type, details::observables::dynamic_strategy<Type>>;
 }
 
 namespace rpp::utils

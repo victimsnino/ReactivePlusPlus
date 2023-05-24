@@ -14,7 +14,7 @@
 
 #include <rpp/defs.hpp>
 
-namespace rpp::details::observer
+namespace rpp::details::observers
 {
 template<constraint::decayed_type Type,
          std::invocable<Type> OnNext,
@@ -29,7 +29,7 @@ struct lambda_strategy
     static void set_upstream(const disposable_wrapper&) noexcept {}
     static bool is_disposed() noexcept { return false; }
 };
-} // namespace rpp::details::observer
+}
 
 namespace rpp
 {

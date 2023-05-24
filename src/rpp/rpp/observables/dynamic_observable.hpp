@@ -15,7 +15,7 @@
 #include <memory>
 #include <utility>
 
-namespace rpp::details::observable
+namespace rpp::details::observables
 {
 template<typename T, typename Observable>
 void forwarding_subscribe(const void* const ptr, dynamic_observer<T>&& obs) { static_cast<const Observable*>(ptr)->subscribe(std::move(obs)); }
@@ -26,14 +26,14 @@ class dynamic_strategy final
 public:
     template<constraint::observable_strategy<Type> Strategy>
         requires (!constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
-    explicit dynamic_strategy(observable<Type, Strategy>&& observable)
-        : m_forwarder{std::make_shared<observable<Type, Strategy>>(std::move(observable))}
+    explicit dynamic_strategy(observable<Type, Strategy>&& obs)
+        : m_forwarder{std::make_shared<observable<Type, Strategy>>(std::move(obs))}
         , m_vtable{vtable::template create<observable<Type, Strategy>>()} {}
 
     template<constraint::observable_strategy<Type> Strategy>
         requires (!constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
-    explicit dynamic_strategy(const observable<Type, Strategy>& observable)
-        : m_forwarder{std::make_shared<observable<Type, Strategy>>(observable)}
+    explicit dynamic_strategy(const observable<Type, Strategy>& obs)
+        : m_forwarder{std::make_shared<observable<Type, Strategy>>(obs)}
         , m_vtable{vtable::template create<observable<Type, Strategy>>()} {}
 
     template<constraint::observer_strategy<Type> ObserverStrategy>
@@ -61,4 +61,4 @@ private:
     std::shared_ptr<void> m_forwarder;
     const vtable*         m_vtable;
 };
-} // namespace rpp::details::observer
+}

@@ -269,14 +269,14 @@ public:
 };
 
 template<constraint::decayed_type Type>
-class observer<Type, rpp::details::observer::dynamic_strategy<Type>> final
-    : public details::observer_impl<Type, rpp::details::observer::dynamic_strategy<Type>, details::none_disposable_strategy>
+class observer<Type, rpp::details::observers::dynamic_strategy<Type>> final
+    : public details::observer_impl<Type, rpp::details::observers::dynamic_strategy<Type>, details::none_disposable_strategy>
 {
 public:
     template<constraint::observer_strategy<Type> TStrategy>
-        requires (!std::same_as<TStrategy, rpp::details::observer::dynamic_strategy<Type>>)
+        requires (!std::same_as<TStrategy, rpp::details::observers::dynamic_strategy<Type>>)
     explicit observer(observer<Type, TStrategy>&& other)
-        : details::observer_impl<Type, rpp::details::observer::dynamic_strategy<Type>, details::none_disposable_strategy>{details::none_disposable_strategy{}, std::move(other)}
+        : details::observer_impl<Type, rpp::details::observers::dynamic_strategy<Type>, details::none_disposable_strategy>{details::none_disposable_strategy{}, std::move(other)}
     {}
 
     observer(const observer&)     = default;

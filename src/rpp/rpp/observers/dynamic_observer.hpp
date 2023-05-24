@@ -15,7 +15,7 @@
 #include <memory>
 #include <utility>
 
-namespace rpp::details::observer
+namespace rpp::details::observers
 {
 template<typename T, typename Strategy>
 void forwarding_on_next_lvalue(const void* const ptr, const T& v) { static_cast<const Strategy*>(ptr)->on_next(v); }
@@ -41,8 +41,8 @@ class dynamic_strategy final
 public:
     template<constraint::observer_strategy<Type> Strategy>
         requires (!constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
-    explicit dynamic_strategy(observer<Type, Strategy>&& observer)
-        : m_forwarder{std::make_shared<observer<Type, Strategy>>(std::move(observer))}
+    explicit dynamic_strategy(observer<Type, Strategy>&& obs)
+        : m_forwarder{std::make_shared<observer<Type, Strategy>>(std::move(obs))}
         , m_vtable{vtable::template create<observer<Type, Strategy>>()} {}
 
     dynamic_strategy(const dynamic_strategy&) = default;
@@ -86,4 +86,4 @@ private:
     std::shared_ptr<void> m_forwarder;
     const vtable*         m_vtable;
 };
-} // namespace rpp::details::observer
+}

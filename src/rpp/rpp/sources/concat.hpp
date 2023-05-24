@@ -65,13 +65,13 @@ struct concat_strategy
     using Type = utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
 
     template<constraint::observer_strategy<Type> Strategy>
-    void subscribe(observer<Type, Strategy>&& observer) const
+    void subscribe(observer<Type, Strategy>&& obs) const
     {
-        drain(container, std::move(observer));
+        drain(container, std::move(obs));
     }
 
     template<constraint::observer_strategy<Type> Strategy>
-    static void drain(constraint::decayed_same_as<PackedContainer> auto&& container, observer<Type, Strategy>&& observer)
+    static void drain(constraint::decayed_same_as<PackedContainer> auto&& container, observer<Type, Strategy>&& obs)
     {
         if (const auto itr = container.get_actual_iterator(); itr != std::cend(container))
         {
@@ -80,13 +80,13 @@ struct concat_strategy
                                                rpp::operators::details::operator_strategy_base<Type, observer<Type, Strategy>,
                                                concat_source_observer_strategy<PackedContainer>>>
                                                {
-                                                   std::move(observer),
+                                                   std::move(obs),
                                                    std::forward<decltype(container)>(container)
                                                });
         }
         else
         {
-            observer.on_completed();
+            obs.on_completed();
         }
     }
 };
