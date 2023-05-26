@@ -172,3 +172,32 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./gen_docs
         destination_dir: v2/docs
+
+  use_rpp_as_package:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    name: Test RPP as package - ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+          fetch-depth: 0
+
+    # - name: Install Qt
+    #   uses: jurplel/install-qt-action@v3
+    #   with:
+    #     cache: true
+          
+    - name: Install project and build
+      env:
+        CC: gcc-10
+        CXX: g++-10
+      run: |
+        cmake -B build
+        sudo cmake --build build --target install --parallel 2 --config Release
+        
+        cmake -B sample_build -S src/examples/rpp/package
+        cmake --build sample_build --parallel 2 --config Release
+
+        # cmake -B qt_sample_build -S src/examples/rppqt/package
+        # cmake --build qt_sample_build --parallel 2 --config Release
