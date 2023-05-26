@@ -41,4 +41,11 @@ When dealing with input that is **distributed in time**, there are two ways to h
 
 Reactive programming is a powerful way to handle input that is distributed in time. Instead of constantly polling for updates or waiting for input to arrive, reactive programming allows you to register callbacks to be executed when the input becomes available.
 
-## Core types
+## Overview of Reactive Programming
+
+In short Reactive Programming can be described in the following way:
+**Observer** subscribes to **Observable**. **Observable** will notify it's subscribed **observers** automatically of any new events/emissions. During subscription **observable** can return **disposable** (== subscription) which gives ability to track and dispose of the subscription.
+
+In addition to this **Reactive Programming** provides a list of **operators** - way to modify **observable**'s emissions to adapt values to **observer**.
+
+For example,
