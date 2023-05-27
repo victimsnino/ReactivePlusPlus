@@ -1,6 +1,8 @@
 # User Guide
 
-## What is Reactive Programming?
+## Introduction
+
+### What is Reactive Programming?
 
 **Reactive programming** is a *design paradigm* that focuses on building applications that can efficiently respond to asynchronous **events**.
 
@@ -43,7 +45,7 @@ Reactive programming is a powerful way to handle input that is distributed in ti
 
 See https://reactivex.io/intro.html for more details.
 
-## Core concepts of Reactive Programming
+### Core concepts of Reactive Programming
 
 In short, Reactive Programming can be described as follows:
 - An **Observer** subscribes to an **Observable**.
@@ -118,7 +120,7 @@ See https://reactivex.io/documentation/observable.html for more details.
 
 In such an way it is not powerful enough, so Reactive Programming provides a list of **operators**.
 
-## Operators
+### Operators
 
 **Operators** are ways to modify the **Observable**'s emissions to adapt values to the **Observer**.
 
@@ -149,7 +151,7 @@ You can check documentation for each operator on [API Reference](https://victims
 
 See https://reactivex.io/documentation/operators.html for more details about operators concept.
 
-## Schedulers
+### Schedulers
 
 Reactive programming becomes even more powerful when observables can operate across multiple threads, rather than being confined to the thread of creation and subscription. This allows for non-blocking, asynchronous operations and provides significant advantages over raw iteration or other pull-based approaches. To enable multithreading in your observables, you can use **Schedulers**.
 
@@ -164,3 +166,14 @@ Checkout [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/
 
 See https://reactivex.io/documentation/scheduler.html for more details about scheduler concept.
 
+### Disposable
+
+In reactive programming, a **disposable** is an object that represents a resource that needs to be released or disposed of when it is no longer needed. This can include things like file handles, network connections, or any other resource that needs to be cleaned up after use.
+
+The purpose of a disposable is to provide a way to manage resources in a safe and efficient manner. By using disposables, you can ensure that resources are released in a timely manner, preventing memory leaks and other issues that can arise from resource leaks.
+
+In most cases disposables are placed in observers. RPP's observer can use two types of disposables:
+
+1. **Upstream disposable** - This is a disposable that the observable puts into the observer. The upstream disposable keeps some state or callback that should be disposed of when the observer is disposed. This ensures that any resources used by the observable are properly cleaned up when the observer obtains on_error/on_completed or disposed in any other way.
+
+2. **External disposable** - This is a disposable that allows the observer to be disposed of from outside the observer itself. This can be useful in situations where you need to cancel an ongoing operation or release resources before the observable has completed its work.
