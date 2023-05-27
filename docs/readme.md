@@ -177,3 +177,54 @@ In most cases disposables are placed in observers. RPP's observer can use two ty
 1. **Upstream disposable** - This is a disposable that the observable puts into the observer. The upstream disposable keeps some state or callback that should be disposed of when the observer is disposed. This ensures that any resources used by the observable are properly cleaned up when the observer obtains on_error/on_completed or disposed in any other way.
 
 2. **External disposable** - This is a disposable that allows the observer to be disposed of from outside the observer itself. This can be useful in situations where you need to cancel an ongoing operation or release resources before the observable has completed its work.
+
+## Advanced
+
+Reactive programming has [Observable Contract](https://reactivex.io/documentation/contract.html). Please, read it.
+
+This contact has next important part:
+
+> Observables must issue notifications to observers serially (not in parallel). They may issue these notifications from different threads, but there must be a formal happens-before relationship between the notifications
+
+RPP follows this contract and especially this part. It means, that:
+
+1. **All** implemented in **RPP operators** are **following this contract**:<br>
+    All built-in RPP observables/operators emit emission serially
+2. Any user-provided callbacks (for operators or observers) can be not thread-safe due to thread-safety of observable is guaranteed. <br>
+   For example: internal logic of `take` operator doesn't use mutexes or atomics due to underlying observable **MUST** emit items serially
+3. When you implement your own operator via `create` be careful to **follow this contract**!
+4. It is true **EXCEPT FOR** subjects if they are used manually due to users can use subjects for its own purposes there is potentially place for breaking this concept. Be careful and use synchronized subjects instead if can't guarantee serial emissions!
+
+It means, that for example:
+```cpp
+    auto s1 = rpp::source::just(1) | rpp::operators::repeat() | rpp::operators::subscribe_on(rpp::schedulers::new_thread{});
+    auto s2 = rpp::source::just(2) | rpp::operators::repeat() | rpp::operators::subscribe_on(rpp::schedulers::new_thread{});
+    s1 | rpp::operators::merge_with(s2)
+       | rpp::operators::map([](int v)
+      {
+        std::cout << "enter " << v << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds{1});
+        std::cout << "exit " << v << std::endl;
+        return v;
+      })
+      | rpp::operators::as_blocking()
+      | rpp::operators::subscribe([](int){});
+```
+will never produce something like 
+```
+enter 1
+enter 2
+exit 2
+exit 1
+```
+only serially
+```
+enter 1
+exit 1
+enter 1
+exit 1
+enter 2
+exit 2
+enter 2
+exit 2
+```
