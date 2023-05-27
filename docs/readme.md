@@ -151,13 +151,14 @@ See https://reactivex.io/documentation/operators.html for more details about ope
 
 ## Schedulers
 
-It would be not powerful enough, if observable have to work in thread of creation and subscription - it is blocking pull-based operation, so, there is no any real advantages over raw iteration or something like this. To make your observables multithreaded you can use **Schedulers**.
+Reactive programming becomes even more powerful when observables can operate across multiple threads, rather than being confined to the thread of creation and subscription. This allows for non-blocking, asynchronous operations and provides significant advantages over raw iteration or other pull-based approaches. To enable multithreading in your observables, you can use **Schedulers**.
 
-By default **Observable** will do its work in thread where **subscribe** happens. **subscribe_on** operator changes this behavior and forces observable to do **subscription** and any further work in specified **scheduler**. 
+By default, an **Observable** will perform its work in the thread where the **subscribe** operation occurs. However, you can change this behavior using the **subscribe_on** operator. This operator forces the observable to perform the **subscription** and any subsequent work in the specified **scheduler**.
 
-**observe_on** operator specifies **scheduler** which would be used for emission during passing further operators.
+The **observe_on** operator specifies the **scheduler** that will be used for emission during the processing of further operators after **observe_on**.
 
-**Scheduler** itself controls some type of multhreaded (or not) behavior. For example, **scheduler** can use new thread, thread pool or raw queue to process it.
+A **Scheduler** is responsible for controlling the type of multithreading behavior (or lack thereof) used in the observable. For example, a **scheduler** can utilize a new thread, a thread pool, or a raw queue to manage its processing.
+
 
 Checkout [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) to learn more about schedulers in RPP.
 
