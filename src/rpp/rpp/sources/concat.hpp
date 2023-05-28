@@ -101,18 +101,18 @@ private:
         try
         {
             const auto itr = container.get_actual_iterator();
-            if (itr == std::cend(container))
+            if (itr != std::cend(container))
             {
-                obs.on_completed();
-                return std::nullopt;
+                return PackedContainer::extract_value_from_itr(itr);
             }
-            return PackedContainer::extract_value_from_itr(itr);
         }
         catch (...)
         {
             obs.on_error(std::current_exception());
             return std::nullopt;
         }
+        obs.on_completed();
+        return std::nullopt;
     }
     
 };
