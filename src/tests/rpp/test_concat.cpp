@@ -18,9 +18,48 @@
 #include "mock_observer.hpp"
 #include "rpp/disposables/base_disposable.hpp"
 #include "rpp/disposables/disposable_wrapper.hpp"
+#include "rpp/observables/fwd.hpp"
 
 #include <memory>
 #include <optional>
+#include <stdexcept>
+
+struct my_container_with_error : std::vector<rpp::dynamic_observable<int>>
+{
+    using std::vector<rpp::dynamic_observable<int>>::vector;
+    std::vector<rpp::dynamic_observable<int>>::const_iterator begin() const { throw std::runtime_error{""}; }
+};
+
+struct my_container_with_error_on_increment
+{
+public:
+    class iterator
+    {
+    public:
+        iterator(const my_container_with_error_on_increment* container) : m_container{container} {}
+
+        using iterator_category = std::input_iterator_tag;
+        using difference_type   = std::ptrdiff_t;
+        using value_type        = rpp::dynamic_observable<int>;
+        using pointer           = rpp::dynamic_observable<int>*;
+
+        const value_type& operator*() const { return m_container->m_obs; }
+        iterator& operator++() { throw std::runtime_error{""}; }
+        iterator operator++(int) { throw std::runtime_error{""}; }
+
+        bool operator==(const iterator&) const {return false;};
+        bool operator!=(const iterator&) const {return true;};
+
+    private:
+        const my_container_with_error_on_increment* m_container;
+    };
+
+    iterator begin() const { return {this}; }
+    iterator end() const { return {nullptr}; }
+
+private:
+    rpp::dynamic_observable<int> m_obs = rpp::source::just(1).as_dynamic();
+};
 
 TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
@@ -148,5 +187,19 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
 
         CHECK(d->is_disposed());
         CHECK(d2->is_disposed());
+    }
+
+    SECTION("container with error on begin")
+    {
+        rpp::source::concat<TestType>(my_container_with_error{}).subscribe(mock.get_observer());
+
+        CHECK(mock.get_on_error_count() == 1);
+    }
+
+    SECTION("container with error on increment")
+    {
+        rpp::source::concat<TestType>(my_container_with_error_on_increment{}).subscribe(mock.get_observer());
+
+        CHECK(mock.get_on_error_count() == 1);
     }
 }
