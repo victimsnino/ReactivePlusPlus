@@ -143,13 +143,13 @@ $(document).ready(function(){initNavTree('from_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">auto</span> get_actual_iterator()<span class="keyword"> const</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">if</span> (!m_iterator)</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            m_iterator = begin();</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            m_iterator.emplace(begin());</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">return</span> m_iterator.value();</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    }</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">bool</span> increment_iterator()<span class="keyword"> const</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">if</span> (!m_iterator)</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            m_iterator = begin();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            m_iterator.emplace(begin());</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">return</span> ++(m_iterator.value()) != end();</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    }</div>
@@ -188,13 +188,13 @@ $(document).ready(function(){initNavTree('from_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">auto</span> get_actual_iterator()<span class="keyword"> const</span></div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordflow">if</span> (!m_iterator)</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            m_iterator = get_default_iterator_value();</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            m_iterator.emplace(get_default_iterator_value());</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">return</span> m_iterator.value();</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    }</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordtype">bool</span> increment_iterator()<span class="keyword"> const</span></div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordflow">if</span> (!m_iterator)</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            m_iterator = get_default_iterator_value();</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            m_iterator.emplace(get_default_iterator_value());</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        ++m_index;</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">return</span> ++(m_iterator.value()) != end();</div>

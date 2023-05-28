@@ -46,13 +46,13 @@
 \DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{auto}\ get\_actual\_iterator()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00043\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_iterator)}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ m\_iterator\ =\ begin();}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ m\_iterator.emplace(begin());}
 \DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_iterator.value();}
 \DoxyCodeLine{00047\ \ \ \ \ \}}
 \DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{bool}\ increment\_iterator()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00049\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_iterator)}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ m\_iterator\ =\ begin();}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ m\_iterator.emplace(begin());}
 \DoxyCodeLine{00052\ }
 \DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ++(m\_iterator.value())\ !=\ end();}
 \DoxyCodeLine{00054\ \ \ \ \ \}}
@@ -91,13 +91,13 @@
 \DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{auto}\ get\_actual\_iterator()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00088\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_iterator)}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ m\_iterator\ =\ get\_default\_iterator\_value();}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ m\_iterator.emplace(get\_default\_iterator\_value());}
 \DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_iterator.value();}
 \DoxyCodeLine{00092\ \ \ \ \ \}}
 \DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{bool}\ increment\_iterator()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00094\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_iterator)}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ m\_iterator\ =\ get\_default\_iterator\_value();}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ m\_iterator.emplace(get\_default\_iterator\_value());}
 \DoxyCodeLine{00097\ }
 \DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ ++m\_index;}
 \DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ++(m\_iterator.value())\ !=\ end();}
