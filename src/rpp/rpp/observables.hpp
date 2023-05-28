@@ -21,3 +21,4 @@
 #include <rpp/observables/fwd.hpp>
 #include <rpp/observables/observable.hpp>
 #include <rpp/observables/dynamic_observable.hpp>
+#include <rpp/observables/blocking_observable.hpp>
