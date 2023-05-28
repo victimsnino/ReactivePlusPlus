@@ -144,6 +144,8 @@ namespace rpp::operators
  *
  * @warning Observer must be moved in to subscribe method. (Not recommended) If you need to copy observer, convert
  * it to dynamic_observer
+ *
+ * @ingroup utility_operators
  */
 template<rpp::constraint::decayed_type Type, rpp::constraint::observer_strategy<Type> ObserverStrategy>
 auto subscribe(observer<Type, ObserverStrategy>&& observer)
@@ -157,6 +159,8 @@ auto subscribe(observer<Type, ObserverStrategy>&& observer)
  * @warning This overloading has some performance penalties, use it only when you really need to use disposable
  *
  * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
+ *
+ * @ingroup utility_operators
  */
 template<rpp::constraint::decayed_type Type, rpp::constraint::observer_strategy<Type> ObserverStrategy>
 auto subscribe(rpp::disposable_wrapper disposable, observer<Type, ObserverStrategy>&& observer)
@@ -166,6 +170,8 @@ auto subscribe(rpp::disposable_wrapper disposable, observer<Type, ObserverStrate
 
 /**
  * @brief Subscribes passed observer to emissions from this observable.
+ *
+ * @ingroup utility_operators
  */
 template<rpp::constraint::decayed_type Type>
 auto subscribe(dynamic_observer<Type> observer)
@@ -179,6 +185,8 @@ auto subscribe(dynamic_observer<Type> observer)
  * @warning This overloading has some performance penalties, use it only when you really need to use disposable
  *
  * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
+ *
+ * @ingroup utility_operators
  */
 template<rpp::constraint::decayed_type Type>
 auto subscribe(rpp::disposable_wrapper disposable, dynamic_observer<Type> observer)
@@ -188,6 +196,8 @@ auto subscribe(rpp::disposable_wrapper disposable, dynamic_observer<Type> observ
 
 /**
  * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from observable
+ *
+ * @ingroup utility_operators
  */
 template<typename OnNext = rpp::utils::empty_function_any_t, std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t, std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
 auto subscribe(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
@@ -201,6 +211,8 @@ auto subscribe(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_
  * @warning This overloading has some performance penalties, use it only when you really need to use disposable
  *
  * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
+ *
+ * @ingroup utility_operators
  */
 template<typename OnNext = rpp::utils::empty_function_any_t, std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t, std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
 auto subscribe(rpp::disposable_wrapper d, OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
