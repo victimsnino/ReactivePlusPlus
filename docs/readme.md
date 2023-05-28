@@ -18,10 +18,13 @@ int main()
 Input/output itself can be split into the following two types:
 
 - **Static** - Your application or function just accepts such an input and handles it somehow. For example, arguments from the command line or arguments of your function:
+
 ```cpp
 int sum(int a, int b) { return a + b; }
 ```
+
 - **Distributed in time** - Your application or function doesn't know **when** input (or parts of input) will arrive, but knows **what** to do when it happens:
+
 ```cpp
 #include <iostream>
 
@@ -43,11 +46,12 @@ When dealing with input that is **distributed in time**, there are two ways to h
 
 Reactive programming is a powerful way to handle input that is distributed in time. Instead of constantly polling for updates or waiting for input to arrive, reactive programming allows you to register callbacks to be executed when the input becomes available.
 
-See https://reactivex.io/intro.html for more details.
+See <https://reactivex.io/intro.html> for more details.
 
 ### Core concepts of Reactive Programming
 
 In short, Reactive Programming can be described as follows:
+
 - An **Observer** subscribes to an **Observable**.
 - The **Observable** automatically notifies its subscribed **Observers** of any new events/emissions. **Observable** could invoke next **observer**'s method:
   - **on_next(T)** - notifies about new event/emission
@@ -116,7 +120,7 @@ int main()
 
 There we are creating observable that emits digits from console input:In case of user promted something else it is **error** for our observable (it is expected to emit ONLY digits). In this case we are notifying observer about it and just stopping. When user prompts `0`, it means "end of observable".
 
-See https://reactivex.io/documentation/observable.html for more details.
+See <https://reactivex.io/documentation/observable.html> for more details.
 
 In such an way it is not powerful enough, so Reactive Programming provides a list of **operators**.
 
@@ -149,7 +153,7 @@ int main()
 
 You can check documentation for each operator on [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) page. Below you can find details about how operator works and how to create your own custom operator in RPP.
 
-See https://reactivex.io/documentation/operators.html for more details about operators concept.
+See <https://reactivex.io/documentation/operators.html> for more details about operators concept.
 
 ### Schedulers
 
@@ -161,10 +165,9 @@ The **observe_on** operator specifies the **scheduler** that will be used for em
 
 A **Scheduler** is responsible for controlling the type of multithreading behavior (or lack thereof) used in the observable. For example, a **scheduler** can utilize a new thread, a thread pool, or a raw queue to manage its processing.
 
-
 Checkout [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) to learn more about schedulers in RPP.
 
-See https://reactivex.io/documentation/scheduler.html for more details about scheduler concept.
+See <https://reactivex.io/documentation/scheduler.html> for more details about scheduler concept.
 
 ### Disposable
 
@@ -179,6 +182,8 @@ In most cases disposables are placed in observers. RPP's observer can use two ty
 2. **External disposable** - This is a disposable that allows the observer to be disposed of from outside the observer itself. This can be useful in situations where you need to cancel an ongoing operation or release resources before the observable has completed its work.
 
 ## Advanced
+
+### Observable contract
 
 Reactive programming has [Observable Contract](https://reactivex.io/documentation/contract.html). Please, read it.
 
@@ -196,6 +201,7 @@ RPP follows this contract and especially this part. It means, that:
 4. It is true **EXCEPT FOR** subjects if they are used manually due to users can use subjects for its own purposes there is potentially place for breaking this concept. Be careful and use synchronized subjects instead if can't guarantee serial emissions!
 
 It means, that for example:
+
 ```cpp
     auto s1 = rpp::source::just(1) | rpp::operators::repeat() | rpp::operators::subscribe_on(rpp::schedulers::new_thread{});
     auto s2 = rpp::source::just(2) | rpp::operators::repeat() | rpp::operators::subscribe_on(rpp::schedulers::new_thread{});
@@ -209,16 +215,21 @@ It means, that for example:
       })
       | rpp::operators::as_blocking()
       | rpp::operators::subscribe([](int){});
+
 ```
-will never produce something like 
-```
+
+will never produce something like
+
+```log
 enter 1
 enter 2
 exit 2
 exit 1
 ```
+
 only serially
-```
+
+```log
 enter 1
 exit 1
 enter 1
