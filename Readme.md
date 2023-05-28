@@ -12,26 +12,41 @@
 
 ## Usage:
 
-ReactivePlusPlus is reactive programming library for C++20 language inspired by "official implementation" ([RxCpp](https://github.com/ReactiveX/RxCpp)) and original idea ([ReactiveX](https://reactivex.io/)) that only depends on standard library and C++20 features (mostly on concepts).
+ReactivePlusPlus is reactive programming library for C++20 language inspired by "official implementation" ([RxCpp](https://github.com/ReactiveX/RxCpp)) and original idea ([ReactiveX](https://reactivex.io/)) that only depends on standard library and C++20 features (mostly on [concepts](https://en.cppreference.com/w/cpp/language/constraints)).
 
-See the [BUILDING](BUILDING.md) document to know how to build RPP.
+See the [BUILDING](BUILDING.md) document to know how to build/install RPP.
 If you are going to know more details about developing for RPP check [HACKING](HACKING.md) document.
 
-## Note V2:
-Currently I'm working on RPP v2 (`v2` branch). It follows **"zero-overhead principle"** and minimizes overhead during usage of RPP. For example, `v1`'s `create+map+subscribe` spends about `63.7768ns`, while `v2` is about `0.4ns`.
-v2 started from the scratch, so, each operator would be re-implemented. Implementation status can be tracked in [#324](https://github.com/victimsnino/ReactivePlusPlus/issues/324)
+## Documentation:
+
+Refer to [manual documentation]() for better understanding of concepts of Reactive Programming and [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) itself.
+
+## Note about V2:
+Currently I'm working on RPP v2 (`v2` branch). RPP v2 follows [**"zero-overhead principle"**](https://en.cppreference.com/w/cpp/language/Zero-overhead_principle) and most of the operators are (and will) minimize overhead.
+
+**How?** Due to elimination of heap allocations and avoiding unnecessary things. During implementatuon of `v1` I've found a lot of cases where RPP does unnecessary expensive things. As a result, `v2` does only required things and nothing else.
+
+For example, `v1`'s `create+map+subscribe` spends about `63.7768ns`, while `v2` is about `0.4ns`.
+
+v2 started from the scratch, so, each operator would be re-implemented from the scratch too. Implementation status can be tracked in [#324](https://github.com/victimsnino/ReactivePlusPlus/issues/324)
 
 You still can use previous implementation. It placed in `v1` branch
 
-## Implementation status:
+## Overview:
 
 In short: ReactivePlusPlus is library for building asynchronous event-driven streams of data with help of sequences of primitive operators in the declarative form.
 
-RPP v2 follows zero-overhead principle and most of the operators are (and will) minimize overhead. How? Due to elimination of heap allocations and avoiding unnecessary things. During implementatuon of v1 i've found a lot of cases where RPP does unnecessary expensive things. As a result, `v2` does only required things and nothing else. It follow to fantastic performance.
-
 Currently ReactivePlusPlus is still under development but it has a lot of implemented operators for now. List of implemented features can be found in [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) with very detailed documentation for each of them.
 
-**Example**:
+Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. v2 written to follow zero-overhead principle As a result it is fast, readable, easy to use and well-documented. And it is proven with [continous benchmarking results of v2 and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
+
+**NOTE**: ReactivePlusPlus is library for C++20. So, it works only on compilers that supports most C++20 features. List of minimal supported compilers:
+- (ubuntu) gcc-10
+- (ubuntu) clang-11
+- (windows) visual studio 2022
+- (macos) Apple Clang 14
+
+## Example:
 
 ```cpp
 rpp::source::from_callable(&::getchar)
@@ -42,21 +57,16 @@ rpp::source::from_callable(&::getchar)
    | rpp::operators::subscribe([](char v) { std::cout << v; });
 ```
 
-## Features:
-
-Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. v2 written to follow zero-overhead principle As a result it is fast, readable, easy to use and well-documented. And it is proven with [continous benchmarking results of v2 and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
-
-**NOTE**: ReactivePlusPlus is library for C++20. So, it works only on compilers that supports most C++20 features. List of minimal supported compilers:
-- (ubuntu) gcc-10
-- (ubuntu) clang-11
-- (windows) visual studio 2022
-- (macos) Apple Clang 14
+There we are creating observable which emits value via invoking of `getchar` function, then `repeat`s it infinite amount of time till termination event happes. It emits values while symbol is not equal to `0`, takes only not digits, maps them to upper case and then just prints to console.
 
 # Useful links
-- [Doxygen documentation](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html)
+- [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html)
 - [Examples](https://github.com/victimsnino/ReactivePlusPlus/tree/v2/src/examples)
+- [reactivex.io](https://reactivex.io) describes everything related to reactive programming.
+- [rxmarbles](https://rxmarbles.com/) interactive diagrams of observables/operators
 - [Continous benchmarking results and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
-- [CONTRIBUTING](CONTRIBUTING.md) document.
+- [BUILDING](BUILDING.md)
+- [CONTRIBUTING](CONTRIBUTING.md)
 
 # Licensing
 
