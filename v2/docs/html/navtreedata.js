@@ -25,21 +25,17 @@
 var NAVTREE =
 [
   [ "ReactivePlusPlus", "index.html", [
-    [ "Implementation status", "md_docs__implementation__status.html", [
-      [ "Fundamentals", "md_docs__implementation__status.html#autotoc_md1", null ],
-      [ "Creating Observables", "md_docs__implementation__status.html#autotoc_md2", null ],
-      [ "Operators", "md_docs__implementation__status.html#autotoc_md3", [
-        [ "Transforming", "md_docs__implementation__status.html#autotoc_md4", null ],
-        [ "Filtering", "md_docs__implementation__status.html#autotoc_md5", null ],
-        [ "Conditional", "md_docs__implementation__status.html#autotoc_md6", null ],
-        [ "Combining", "md_docs__implementation__status.html#autotoc_md7", null ],
-        [ "Aggregate", "md_docs__implementation__status.html#autotoc_md8", null ],
-        [ "Backpressure", "md_docs__implementation__status.html#autotoc_md9", null ],
-        [ "Error handling", "md_docs__implementation__status.html#autotoc_md10", null ],
-        [ "Utility", "md_docs__implementation__status.html#autotoc_md11", null ],
-        [ "Connectable", "md_docs__implementation__status.html#autotoc_md12", null ]
+    [ "User Guide", "md_docs_readme.html", [
+      [ "Introduction", "md_docs_readme.html#autotoc_md1", [
+        [ "What is Reactive Programming?", "md_docs_readme.html#autotoc_md2", null ],
+        [ "Core concepts of Reactive Programming", "md_docs_readme.html#autotoc_md3", null ],
+        [ "Operators", "md_docs_readme.html#autotoc_md4", null ],
+        [ "Schedulers", "md_docs_readme.html#autotoc_md5", null ],
+        [ "Disposable", "md_docs_readme.html#autotoc_md6", null ]
       ] ],
-      [ "Subjects", "md_docs__implementation__status.html#autotoc_md13", null ]
+      [ "Advanced", "md_docs_readme.html#autotoc_md7", [
+        [ "Observable contract", "md_docs_readme.html#autotoc_md8", null ]
+      ] ]
     ] ],
     [ "API reference", "modules.html", "modules" ],
     [ "Concepts", "concepts.html", "concepts" ],
