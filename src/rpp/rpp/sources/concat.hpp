@@ -17,6 +17,8 @@
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/disposables/base_disposable.hpp>
 #include <rpp/memory_model.hpp>
+#include <exception>
+#include <optional>
 
 
 namespace rpp::details
@@ -52,7 +54,15 @@ struct concat_source_observer_strategy
 
     void on_completed(rpp::constraint::observer auto& observer) const
     {
-        container.increment_iterator();
+        try
+        {
+            container.increment_iterator();
+        }
+        catch(...)
+        {
+            observer.on_error(std::current_exception());
+            return;
+        }
         concat_strategy<PackedContainer>::drain(std::move(container), std::move(observer));
     }
 };
@@ -73,22 +83,38 @@ struct concat_strategy
     template<constraint::observer_strategy<Type> Strategy>
     static void drain(constraint::decayed_same_as<PackedContainer> auto&& container, observer<Type, Strategy>&& obs)
     {
-        if (const auto itr = container.get_actual_iterator(); itr != std::cend(container))
+        if (const auto observable = extract_observable(container, obs))
         {
-            decltype(auto) observable = PackedContainer::extract_value_from_itr(itr);
-            observable.subscribe(observer<Type,
-                                               rpp::operators::details::operator_strategy_base<Type, observer<Type, Strategy>,
-                                               concat_source_observer_strategy<PackedContainer>>>
-                                               {
-                                                   std::move(obs),
-                                                   std::forward<decltype(container)>(container)
-                                               });
-        }
-        else
-        {
-            obs.on_completed();
+            observable->subscribe(observer<Type,
+                                           rpp::operators::details::operator_strategy_base<Type, observer<Type, Strategy>,
+                                           concat_source_observer_strategy<PackedContainer>>>
+                                           {
+                                               std::move(obs),
+                                               std::forward<decltype(container)>(container)
+                                           });
         }
     }
+
+private:
+    static std::optional<utils::iterable_value_t<PackedContainer>> extract_observable(const PackedContainer& container, const auto& obs)
+    {
+        try
+        {
+            const auto itr = container.get_actual_iterator();
+            if (itr != std::cend(container))
+            {
+                return PackedContainer::extract_value_from_itr(itr);
+            }
+        }
+        catch (...)
+        {
+            obs.on_error(std::current_exception());
+            return std::nullopt;
+        }
+        obs.on_completed();
+        return std::nullopt;
+    }
+    
 };
 
 template<typename PackedContainer>

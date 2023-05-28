@@ -36,6 +36,9 @@ public:
         : m_forwarder{std::make_shared<observable<Type, Strategy>>(obs)}
         , m_vtable{vtable::template create<observable<Type, Strategy>>()} {}
 
+    dynamic_strategy(const dynamic_strategy&) = default;
+    dynamic_strategy(dynamic_strategy&&) noexcept = default;
+
     template<constraint::observer_strategy<Type> ObserverStrategy>
     void subscribe(observer<Type, ObserverStrategy>&& observer) const
     {

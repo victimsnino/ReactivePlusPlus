@@ -42,13 +42,13 @@ public:
     auto get_actual_iterator() const
     {
         if (!m_iterator)
-            m_iterator = begin();
+            m_iterator.emplace(begin());
         return m_iterator.value();
     }
     bool increment_iterator() const
     {
         if (!m_iterator)
-            m_iterator = begin();
+            m_iterator.emplace(begin());
 
         return ++(m_iterator.value()) != end();
     }
@@ -87,13 +87,13 @@ public:
     auto get_actual_iterator() const
     {
         if (!m_iterator)
-            m_iterator = get_default_iterator_value();
+            m_iterator.emplace(get_default_iterator_value());
         return m_iterator.value();
     }
     bool increment_iterator() const
     {
         if (!m_iterator)
-            m_iterator = get_default_iterator_value();
+            m_iterator.emplace(get_default_iterator_value());
 
         ++m_index;
         return ++(m_iterator.value()) != end();
