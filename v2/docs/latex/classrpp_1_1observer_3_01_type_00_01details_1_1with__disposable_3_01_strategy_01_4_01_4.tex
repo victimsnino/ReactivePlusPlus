@@ -27,15 +27,15 @@ requires (constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args\&\&...$
 \item 
 void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab95f4dd062581fb8432fadcee8abb95d}{set\+\_\+upstream}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\+\_\+wrapper}} \&d)
 \begin{DoxyCompactList}\small\item\em Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a2bb8f58f82b00f869bee069110da6cec}{is\+\_\+disposed}} () const
+bool \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab4d6f3e513e55f94547c8fa4d042f0cb}{is\+\_\+disposed}} () const noexcept
 \begin{DoxyCompactList}\small\item\em Observable calls this method to check if observer interested or not in emissions. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a3f62ca3c8185f01e98ef1b086fe8a14c}{on\+\_\+next}} (const Type \&v) const
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\+\_\+next}} (const Type \&v) const noexcept
 \begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about new value. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_add5f80b1ea0c9ef551fa5c33c2080498}{on\+\_\+next}} (Type \&\&v) const
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a3f97f7bceb8484af908ed4134d88104b}{on\+\_\+next}} (Type \&\&v) const noexcept
 \begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about new value. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a1d2bb775101fc1c0da5bc8154bc97738}{on\+\_\+error}} (const std\+::exception\+\_\+ptr \&err) const
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_aa55c5a334bc39c92218f7b51e5126bbc}{on\+\_\+error}} (const std\+::exception\+\_\+ptr \&err) const noexcept
 \begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about some error during generation next data. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a4b5b3745d4e02c41a26dc40791a9896a}{on\+\_\+completed}} () const
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01a2d3b2cf1d1b4}{on\+\_\+completed}} () const noexcept
 \begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about completion of emissions. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 \doxysubsubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, details\+::external\+\_\+disposable\+\_\+strategy $>$}}}
