@@ -53,7 +53,7 @@ public:
         m_external_disposable.add(d.get_original());
     }
 
-    bool is_disposed() const
+    bool is_disposed() const noexcept
     {
         return m_external_disposable.is_disposed();
     }
@@ -77,7 +77,7 @@ public:
         upstream_disposable::set_upstream_impl(d);
     }
 
-    bool is_disposed() const
+    bool is_disposed() const noexcept
     {
         return m_is_disposed;
     }
@@ -95,7 +95,7 @@ private:
 struct none_disposable_strategy
 {
     static void set_upstream(const disposable_wrapper&) {}
-    static bool is_disposed() { return false; }
+    static bool is_disposed() noexcept { return false; }
     static void dispose() {}
 };
 
@@ -135,7 +135,7 @@ public:
      * @return true if observer disposed and no longer interested in emissions
      * @return false if observer still interested in emissions
      */
-    bool is_disposed() const
+    bool is_disposed() const noexcept
     {
         return m_disposable.is_disposed() ||  m_strategy.is_disposed();
     }
@@ -144,7 +144,7 @@ public:
      *
      * @note obtains value by const-reference to original object.
      */
-    void on_next(const Type& v) const
+    void on_next(const Type& v) const noexcept
     {
         try
         {
@@ -162,7 +162,7 @@ public:
      *
      * @note obtains value by rvalue-reference to original object
      */
-    void on_next(Type&& v) const
+    void on_next(Type&& v) const noexcept
     {
         try
         {
@@ -180,7 +180,7 @@ public:
      * @warning Obtaining this of this call means no any further on_next/on_error or on_completed calls from this Observable
      * @param err details of error
      */
-    void on_error(const std::exception_ptr& err) const
+    void on_error(const std::exception_ptr& err) const noexcept
     {
         if (!is_disposed())
         {
@@ -193,7 +193,7 @@ public:
      * @brief Observable calls this method to notify observer about completion of emissions.
      * @warning Obtaining this of this call means no any further on_next/on_error or on_completed calls from this Observable
      */
-    void on_completed() const
+    void on_completed() const noexcept
     {
         if (!is_disposed())
         {
