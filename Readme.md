@@ -60,6 +60,7 @@ rpp::source::from_callable(&::getchar)
 There we are creating observable which emits value via invoking of `getchar` function, then `repeat`s it infinite amount of time till termination event happes. It emits values while symbol is not equal to `0`, takes only not digits, maps them to upper case and then just prints to console.
 
 # Useful links
+- [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_readme.html)
 - [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html)
 - [Examples](https://github.com/victimsnino/ReactivePlusPlus/tree/v2/src/examples)
 - [reactivex.io](https://reactivex.io) describes everything related to reactive programming.
