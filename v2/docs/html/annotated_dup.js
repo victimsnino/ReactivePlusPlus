@@ -31,6 +31,8 @@ var annotated_dup =
       [ "operators", null, [
         [ "details", null, [
           [ "as_blocking_t", "structrpp_1_1operators_1_1details_1_1as__blocking__t.html", null ],
+          [ "distinct_until_changed_observer_strategy", "structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy.html", null ],
+          [ "distinct_until_changed_t", "structrpp_1_1operators_1_1details_1_1distinct__until__changed__t.html", null ],
           [ "empty_on_subscribe", "structrpp_1_1operators_1_1details_1_1empty__on__subscribe.html", null ],
           [ "filter_observer_strategy", "structrpp_1_1operators_1_1details_1_1filter__observer__strategy.html", null ],
           [ "filter_t", "structrpp_1_1operators_1_1details_1_1filter__t.html", null ],

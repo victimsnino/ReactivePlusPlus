@@ -8,6 +8,9 @@ Filtering operators are operators that emit only part of items that satisfies so
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+{\footnotesize template$<$typename Equality\+Fn $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ $\vert$$\vert$ std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Equality\+Fn, utils\+::convertible\+\_\+to\+\_\+any, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}{rpp\+::operators\+::distinct\+\_\+until\+\_\+changed}} (Equality\+Fn \&\&equality\+\_\+fn)
+\begin{DoxyCompactList}\small\item\em Suppress consecutive duplicates of emissions from original observable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Fn $>$ \newline
 requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__filtering__operators_ga3ddeadf25b1cb3105f628ea11dc3a28a}{rpp\+::operators\+::filter}} (Fn \&\&predicate)
 \begin{DoxyCompactList}\small\item\em Emit only those items from an Observable that satisfies a provided predicate. \end{DoxyCompactList}\item 
@@ -26,6 +29,63 @@ Filtering operators are operators that emit only part of items that satisfies so
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}\label{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}} 
+\index{Filtering Operators@{Filtering Operators}!distinct\_until\_changed@{distinct\_until\_changed}}
+\index{distinct\_until\_changed@{distinct\_until\_changed}!Filtering Operators@{Filtering Operators}}
+\doxysubsubsection{\texorpdfstring{distinct\_until\_changed()}{distinct\_until\_changed()}}
+{\footnotesize\ttfamily template$<$typename Equality\+Fn $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ $\vert$$\vert$ std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Equality\+Fn, utils\+::convertible\+\_\+to\+\_\+any, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+auto rpp\+::operators\+::distinct\+\_\+until\+\_\+changed (\begin{DoxyParamCaption}\item[{Equality\+Fn \&\&}]{equality\+\_\+fn }\end{DoxyParamCaption})}
+
+
+
+Suppress consecutive duplicates of emissions from original observable. 
+
+
+
+Actually this operator has {\ttfamily std\+::optional} with last item and checks everytime where new emission is same or not.
+
+\begin{DoxyParagraph}{Performance notes\+:}
+
+\begin{DoxyItemize}
+\item No any heap allocations at all
+\item std\+::optional to keep last value
+\item passing last and emitted value to predicate
+\end{DoxyItemize}
+\end{DoxyParagraph}
+
+\begin{DoxyParams}{Parameters}
+{\em equality\+\_\+fn} & optional equality comparator function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{distinct__until__changed_8hpp_source}{rpp/operators/distinct\+\_\+until\+\_\+changed.\+hpp}}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 1,\ 2,\ 2,\ 3,\ 2,\ 1)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}{rpp::operators::distinct\_until\_changed}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ val)\ \{\ std::cout\ <<\ val\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2\ 3\ 2\ 1}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 1,\ 2,\ 2,\ 3,\ 2,\ 1)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}{rpp::operators::distinct\_until\_changed}}([](\textcolor{keywordtype}{int}\ left,\ \textcolor{keywordtype}{int}\ right)\ \{\textcolor{keywordflow}{return}\ left\ !=\ right;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ val)\ \{\ std::cout\ <<\ val\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 1\ 1}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/distinct.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/distinct.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{distinct_until_changed_8cpp-example}{distinct\+\_\+until\+\_\+changed.\+cpp}}.\end{Desc}
 \mbox{\Hypertarget{group__filtering__operators_ga3ddeadf25b1cb3105f628ea11dc3a28a}\label{group__filtering__operators_ga3ddeadf25b1cb3105f628ea11dc3a28a}} 
 \index{Filtering Operators@{Filtering Operators}!filter@{filter}}
 \index{filter@{filter}!Filtering Operators@{Filtering Operators}}

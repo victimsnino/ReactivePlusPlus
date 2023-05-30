@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: Examples</title>
+<title>ReactivePlusPlus: rpp::operators::details::distinct_until_changed_t&lt; EqualityFn &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('examples.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('structrpp_1_1operators_1_1details_1_1distinct__until__changed__t.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,28 +96,42 @@ $(document).ready(function(){initNavTree('examples.html',''); initResizable(); }
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Examples</div></div>
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="structrpp_1_1operators_1_1details_1_1distinct__until__changed__t-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">rpp::operators::details::distinct_until_changed_t&lt; EqualityFn &gt; Struct Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all examples:</div><ul>
-<li><a class="el" href="concat_8cpp-example.html">concat.cpp</a></li>
-<li><a class="el" href="create_8cpp-example.html">create.cpp</a></li>
-<li><a class="el" href="distinct_until_changed_8cpp-example.html">distinct_until_changed.cpp</a></li>
-<li><a class="el" href="filter_8cpp-example.html">filter.cpp</a></li>
-<li><a class="el" href="from_8cpp-example.html">from.cpp</a></li>
-<li><a class="el" href="just_8cpp-example.html">just.cpp</a></li>
-<li><a class="el" href="map_8cpp-example.html">map.cpp</a></li>
-<li><a class="el" href="repeat_8cpp-example.html">repeat.cpp</a></li>
-<li><a class="el" href="scan_8cpp-example.html">scan.cpp</a></li>
-<li><a class="el" href="skip_8cpp-example.html">skip.cpp</a></li>
-<li><a class="el" href="take_8cpp-example.html">take.cpp</a></li>
-<li><a class="el" href="take_while_8cpp-example.html">take_while.cpp</a></li>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a37b53640fc761f6c7c403d30a3611b04"><td class="memTemplParams" colspan="2"><a id="a37b53640fc761f6c7c403d30a3611b04" name="a37b53640fc761f6c7c403d30a3611b04"></a>
+template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable&gt; <br />
+requires (std::invocable&lt;EqualityFn, rpp::utils::extract_observable_type_t&lt;TObservable&gt;, rpp::utils::extract_observable_type_t&lt;TObservable&gt;&gt; &amp;&amp; std::same_as&lt;bool, std::invoke_result_t&lt;EqualityFn, rpp::utils::extract_observable_type_t&lt;TObservable&gt;, rpp::utils::extract_observable_type_t&lt;TObservable&gt;&gt;&gt;)</td></tr>
+<tr class="memitem:a37b53640fc761f6c7c403d30a3611b04"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator()</b> (TObservable &amp;&amp;<a class="el" href="classrpp_1_1observable.html">observable</a>) const &amp;</td></tr>
+<tr class="separator:a37b53640fc761f6c7c403d30a3611b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dc924039ad958395fb489f6c099a73d"><td class="memTemplParams" colspan="2"><a id="a1dc924039ad958395fb489f6c099a73d" name="a1dc924039ad958395fb489f6c099a73d"></a>
+template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable&gt; <br />
+requires (std::invocable&lt;EqualityFn, rpp::utils::extract_observable_type_t&lt;TObservable&gt;, rpp::utils::extract_observable_type_t&lt;TObservable&gt;&gt; &amp;&amp; std::same_as&lt;bool, std::invoke_result_t&lt;EqualityFn, rpp::utils::extract_observable_type_t&lt;TObservable&gt;, rpp::utils::extract_observable_type_t&lt;TObservable&gt;&gt;&gt;)</td></tr>
+<tr class="memitem:a1dc924039ad958395fb489f6c099a73d"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator()</b> (TObservable &amp;&amp;<a class="el" href="classrpp_1_1observable.html">observable</a>) &amp;&amp;</td></tr>
+<tr class="separator:a1dc924039ad958395fb489f6c099a73d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aceee0af67100da969a02e9d9aaa511fd"><td class="memItemLeft" align="right" valign="top"><a id="aceee0af67100da969a02e9d9aaa511fd" name="aceee0af67100da969a02e9d9aaa511fd"></a>
+RPP_NO_UNIQUE_ADDRESS EqualityFn&#160;</td><td class="memItemRight" valign="bottom"><b>m_fn</b></td></tr>
+<tr class="separator:aceee0af67100da969a02e9d9aaa511fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>src/rpp/rpp/operators/<a class="el" href="distinct__until__changed_8hpp_source.html">distinct_until_changed.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>operators</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="structrpp_1_1operators_1_1details_1_1distinct__until__changed__t.html">distinct_until_changed_t</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>
