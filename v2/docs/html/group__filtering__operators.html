@@ -112,6 +112,9 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;bool, st
 <tr class="memitem:ga3ddeadf25b1cb3105f628ea11dc3a28a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga3ddeadf25b1cb3105f628ea11dc3a28a">rpp::operators::filter</a> (Fn &amp;&amp;predicate)</td></tr>
 <tr class="memdesc:ga3ddeadf25b1cb3105f628ea11dc3a28a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only those items from an Observable that satisfies a provided predicate.  <br /></td></tr>
 <tr class="separator:ga3ddeadf25b1cb3105f628ea11dc3a28a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8e20aec530e08ba64004c10b7732593c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga8e20aec530e08ba64004c10b7732593c">rpp::operators::skip</a> (size_t count)</td></tr>
+<tr class="memdesc:ga8e20aec530e08ba64004c10b7732593c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip first <code>count</code> items provided by observable then send rest items as expected.  <br /></td></tr>
+<tr class="separator:ga8e20aec530e08ba64004c10b7732593c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf32161437c2c6cd7d5a0e5170a333cbb"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a> (size_t count)</td></tr>
 <tr class="memdesc:gaf32161437c2c6cd7d5a0e5170a333cbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only first <code>count</code> items provided by observable, then send <code>on_completed</code>  <br /></td></tr>
 <tr class="separator:gaf32161437c2c6cd7d5a0e5170a333cbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,6 +169,60 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;bool, st
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/filter.html">https://reactivex.io/documentation/operators/filter.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="filter_8cpp-example.html#a1">filter.cpp</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="ga8e20aec530e08ba64004c10b7732593c" name="ga8e20aec530e08ba64004c10b7732593c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8e20aec530e08ba64004c10b7732593c">&#9670;&#160;</a></span>skip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::skip </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Skip first <code>count</code> items provided by observable then send rest items as expected. </p>
+<div class="image">
+<object type="image/svg+xml" data="skip.svg" style="pointer-events: none;"></object>
+</div>
+<p>Actually this operator just decrements counter and starts to forward emissions when counter reaches zero.</p>
+<dl class="section user"><dt>Performance notes:</dt><dd><ul>
+<li>No any heap allocations</li>
+<li>No any copies/moves just forwarding of emission</li>
+<li>Just simple <code>size_t</code> decrementing</li>
+</ul>
+</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">count</td><td>amount of items to be skipped </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="skip_8hpp_source.html">rpp/operators/skip.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(0,1,2,3,4,5)</div>
+<div class="line">            | <a class="code hl_function" href="group__filtering__operators.html#ga8e20aec530e08ba64004c10b7732593c">rpp::operators::skip</a>(2)</div>
+<div class="line">            | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 2 3 4 5</span></div>
+<div class="ttc" id="agroup__filtering__operators_html_ga8e20aec530e08ba64004c10b7732593c"><div class="ttname"><a href="group__filtering__operators.html#ga8e20aec530e08ba64004c10b7732593c">rpp::operators::skip</a></div><div class="ttdeci">auto skip(size_t count)</div><div class="ttdoc">Skip first count items provided by observable then send rest items as expected.</div><div class="ttdef"><b>Definition:</b> skip.hpp:79</div></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/skip.html">https://reactivex.io/documentation/operators/skip.html</a> </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="skip_8cpp-example.html#a1">skip.cpp</a>.</dd>
 </dl>
 
 </div>

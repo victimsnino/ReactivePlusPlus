@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: Examples</title>
+<title>ReactivePlusPlus: skip.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('examples.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('skip_8cpp-example.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,23 +96,24 @@ $(document).ready(function(){initNavTree('examples.html',''); initResizable(); }
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Examples</div></div>
+  <div class="headertitle"><div class="title">skip.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all examples:</div><ul>
-<li><a class="el" href="concat_8cpp-example.html">concat.cpp</a></li>
-<li><a class="el" href="create_8cpp-example.html">create.cpp</a></li>
-<li><a class="el" href="filter_8cpp-example.html">filter.cpp</a></li>
-<li><a class="el" href="from_8cpp-example.html">from.cpp</a></li>
-<li><a class="el" href="just_8cpp-example.html">just.cpp</a></li>
-<li><a class="el" href="map_8cpp-example.html">map.cpp</a></li>
-<li><a class="el" href="repeat_8cpp-example.html">repeat.cpp</a></li>
-<li><a class="el" href="scan_8cpp-example.html">scan.cpp</a></li>
-<li><a class="el" href="skip_8cpp-example.html">skip.cpp</a></li>
-<li><a class="el" href="take_8cpp-example.html">take.cpp</a></li>
-<li><a class="el" href="take_while_8cpp-example.html">take_while.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/rpp.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main()</div>
+<div class="line">{</div>
+<div class="line">    <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(0,1,2,3,4,5)</div>
+<div class="line">            | <a id="a1" name="a1"></a><a class="code hl_function" href="group__filtering__operators.html#ga8e20aec530e08ba64004c10b7732593c">rpp::operators::skip</a>(2)</div>
+<div class="line">            | <a id="a2" name="a2"></a><a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 2 3 4 5</span></div>
+<div class="line"><span class="comment"></span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition:</b> from.hpp:243</div></div>
+<div class="ttc" id="agroup__filtering__operators_html_ga8e20aec530e08ba64004c10b7732593c"><div class="ttname"><a href="group__filtering__operators.html#ga8e20aec530e08ba64004c10b7732593c">rpp::operators::skip</a></div><div class="ttdeci">auto skip(size_t count)</div><div class="ttdoc">Skip first count items provided by observable then send rest items as expected.</div><div class="ttdef"><b>Definition:</b> skip.hpp:79</div></div>
+<div class="ttc" id="agroup__utility__operators_html_ga149309d4b2e0f1201f1ab42597ace8ac"><div class="ttname"><a href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a></div><div class="ttdeci">auto subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer)</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition:</b> subscribe.hpp:151</div></div>
+</div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
