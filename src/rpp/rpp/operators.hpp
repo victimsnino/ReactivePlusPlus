@@ -42,6 +42,7 @@
  */
 
 #include <rpp/operators/filter.hpp>
+#include <rpp/operators/skip.hpp>
 #include <rpp/operators/take.hpp>
 
 /**
