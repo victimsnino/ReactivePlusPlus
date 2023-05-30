@@ -36,9 +36,16 @@ auto scan(InitialValue&& initial_value, Fn&& accumulator);
 template<typename Fn>
 auto scan(Fn&& accumulator);
 
+auto skip(size_t count);
+
 template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
 auto take_while(Fn&& predicate);
 
 auto take(size_t count);
+}
+
+namespace rpp
+{
+    namespace ops = operators;
 }
