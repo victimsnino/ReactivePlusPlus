@@ -41,6 +41,7 @@
  * @ingroup operators
  */
 
+#include <rpp/operators/distinct_until_changed.hpp>
 #include <rpp/operators/filter.hpp>
 #include <rpp/operators/skip.hpp>
 #include <rpp/operators/take.hpp>

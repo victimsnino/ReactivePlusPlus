@@ -301,6 +301,22 @@ int main(int argc, char* argv[]) // NOLINT
                     | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
+        SECTION("create(1,1,2)+distinct_until_changed()+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(1); obs.on_next(2); })
+                    | rpp::operators::distinct_until_changed()
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(1); obs.on_next(2); })
+                    | rxcpp::operators::distinct_until_changed()
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
     };
 
     if (argc > 1) {

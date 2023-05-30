@@ -34,6 +34,12 @@ struct rethrow_error_t
     [[noreturn]] void operator()(const std::exception_ptr& err) const noexcept { std::rethrow_exception(err); }
 };
 
+struct equal_to
+{
+    template<typename T>
+    bool operator()(const T& l, const T& r) const { return l == r; }
+};
+
 struct return_true
 {
     bool operator()() const {return true;}
