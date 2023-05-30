@@ -20,13 +20,13 @@ template<class... Ts> overloaded(Ts...) -> overloaded<Ts...>;
 template<typename ...Types>
 struct empty_function_t
 {
-    void operator()(const Types&...) const noexcept {}
+    constexpr void operator()(const Types&...) const noexcept {}
 };
 
 struct empty_function_any_t
 {
     template<typename ...Types>
-    void operator()(const Types&...) const noexcept {}
+    constexpr void operator()(const Types&...) const noexcept {}
 };
 
 struct rethrow_error_t
