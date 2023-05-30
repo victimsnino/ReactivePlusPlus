@@ -56,9 +56,13 @@
                         var resultsPerName = groupBy(resultsPerTitle, "name");
                         console.log(resultsPerName);
 
+                        var d3colors = Plotly.d3.scale.category20();
+                        var colorNum = 0;
                         var data = Object.entries(resultsPerName)
                                          .flatMap(([name, results]) => {
-                                             return Object.entries(groupBy(results, "source"))
+                                            color = d3colors(colorNum);
+                                            colorNum += 1;
+                                            return Object.entries(groupBy(results, "source"))
                                                  .map(([source, results]) => {
                                                      return {
                                                          name: "[" + source + "] " + name,
@@ -67,7 +71,8 @@
                                                          type: "scatter",
                                                          mode : "lines+markers",
                                                          line: {
-                                                            dash: source == "rxcpp" ? "dot" : "line"
+                                                            dash: source == "rxcpp" ? "dot" : "line",
+                                                            color: color
                                                          }
                                                      }
                                                  });
