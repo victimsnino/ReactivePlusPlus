@@ -56,7 +56,7 @@
 \DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
 \DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00054\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{take\_observable<TObservable>}}\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ count\};}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{take\_observable<std::decay\_t<TObservable>}}>\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ count\};}
 \DoxyCodeLine{00056\ \ \ \ \ \}}
 \DoxyCodeLine{00057\ \};}
 \DoxyCodeLine{00058\ \}}

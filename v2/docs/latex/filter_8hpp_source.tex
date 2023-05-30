@@ -56,14 +56,14 @@
 \DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::invocable<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>>\ \&\&\ std::same\_as<bool,\ std::invoke\_result\_t<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>>>)}
 \DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \textcolor{keyword}{const}\ \&}
 \DoxyCodeLine{00054\ \ \ \ \ \{}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{filter\_observable<TObservable,\ Fn>}}\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ m\_fn\};}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{filter\_observable<std::decay\_t<TObservable>}},\ Fn>\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ m\_fn\};}
 \DoxyCodeLine{00056\ \ \ \ \ \}}
 \DoxyCodeLine{00057\ }
 \DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
 \DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::invocable<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>>\ \&\&\ std::same\_as<bool,\ std::invoke\_result\_t<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>>>)}
 \DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \&\&}
 \DoxyCodeLine{00061\ \ \ \ \ \{}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{filter\_observable<TObservable,\ Fn>}}\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ std::move(m\_fn)\};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{filter\_observable<std::decay\_t<TObservable>}},\ Fn>\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ std::move(m\_fn)\};}
 \DoxyCodeLine{00063\ \ \ \ \ \}}
 \DoxyCodeLine{00064\ \};}
 \DoxyCodeLine{00065\ \}}
