@@ -30,7 +30,8 @@ TEST_CASE("distinct_until_changed filters out consecutive duplicates and send fi
      }
         SECTION("when subscribe on it via distinct_until_changed with custom comparator then subscriber obtains values without consecutive duplicates")
         {
-            obs | rpp::ops::distinct_until_changed([](int old_value, int new_value) {return old_value % 2 != new_value % 2; }) | rpp::ops::subscribe(mock.get_observer());
+            auto op = rpp::ops::distinct_until_changed([](int old_value, int new_value) {return old_value % 2 != new_value % 2; });
+            obs | op | rpp::ops::subscribe(mock.get_observer());
             CHECK(mock.get_received_values() == std::vector{ 1, 1, 3, 1});
             CHECK(mock.get_on_error_count() == 0);
             CHECK(mock.get_on_completed_count() == 1);
