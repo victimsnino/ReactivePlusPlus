@@ -32,6 +32,8 @@ template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || !std::same_as<void, std::invoke_result_t<Fn, utils::convertible_to_any>>)
 auto map(Fn&& callable);
 
+auto merge();
+
 auto repeat(size_t count);
 auto repeat();
 

@@ -168,12 +168,11 @@ template<rpp::constraint::observable Observable,
          constraint::operator_strategy<rpp::utils::extract_observable_type_t<Observable>> Strategy,
          typename... Args>
 using identity_operator_observable = rpp::observable<rpp::utils::extract_observable_type_t<Observable>,
-                                                          operator_observable_strategy<std::decay_t<Observable>, rpp::utils::extract_observable_type_t<Observable>, Strategy, Args...>>;
+                                                     operator_observable_strategy<std::decay_t<Observable>, rpp::utils::extract_observable_type_t<Observable>, Strategy, Args...>>;
 
 template<rpp::constraint::decayed_type T,
          rpp::constraint::observable Observable,
          constraint::operator_strategy<rpp::utils::extract_observable_type_t<Observable>> Strategy,
          typename... Args>
-using operator_observable = rpp::observable<T,
-                                                 operator_observable_strategy<std::decay_t<Observable>, T, Strategy, Args...>>;
+using operator_observable = rpp::observable<T, operator_observable_strategy<std::decay_t<Observable>, T, Strategy, Args...>>;
 }
