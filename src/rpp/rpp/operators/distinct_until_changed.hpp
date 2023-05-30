@@ -57,7 +57,7 @@ public:
                  std::same_as<bool, std::invoke_result_t<EqualityFn, rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservable>>>)
     auto operator()(TObservable&& observable) const&
     {
-        return distinct_until_changed_observable<TObservable, EqualityFn>{std::forward<TObservable>(observable), m_fn};
+        return distinct_until_changed_observable<std::decay_t<TObservable>, EqualityFn>{std::forward<TObservable>(observable), m_fn};
     }
 
     template<rpp::constraint::observable TObservable>
@@ -65,7 +65,7 @@ public:
                  std::same_as<bool, std::invoke_result_t<EqualityFn, rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservable>>>)
     auto operator()(TObservable&& observable) &&
     {
-        return distinct_until_changed_observable<TObservable, EqualityFn>{std::forward<TObservable>(observable), std::move(m_fn)};
+        return distinct_until_changed_observable<std::decay_t<TObservable>, EqualityFn>{std::forward<TObservable>(observable), std::move(m_fn)};
     }
 };
 }

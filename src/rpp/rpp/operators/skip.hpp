@@ -48,7 +48,7 @@ struct skip_t
     template<rpp::constraint::observable TObservable>
     auto operator()(TObservable&& observable) const
     {
-        return skip_observable<TObservable>{std::forward<TObservable>(observable), count};
+        return skip_observable<std::decay_t<TObservable>>{std::forward<TObservable>(observable), count};
     }
 };
 }

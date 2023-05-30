@@ -52,7 +52,7 @@ struct take_t
     template<rpp::constraint::observable TObservable>
     auto operator()(TObservable&& observable) const
     {
-        return take_observable<TObservable>{std::forward<TObservable>(observable), count};
+        return take_observable<std::decay_t<TObservable>>{std::forward<TObservable>(observable), count};
     }
 };
 }

@@ -59,14 +59,14 @@ struct scan_t
         requires (std::invocable<Fn, InitialValue&&, rpp::utils::extract_observable_type_t<TObservable>> && std::same_as<InitialValue, std::invoke_result_t<Fn, InitialValue&&, rpp::utils::extract_observable_type_t<TObservable>>>)
     auto operator()(TObservable&& observable) const &
     {
-        return scan_observable<TObservable, InitialValue, Fn>{std::forward<TObservable>(observable), m_initial_value, m_fn};
+        return scan_observable<std::decay_t<TObservable>, InitialValue, Fn>{std::forward<TObservable>(observable), m_initial_value, m_fn};
     }
 
     template<rpp::constraint::observable TObservable>
         requires (std::invocable<Fn, InitialValue&&, rpp::utils::extract_observable_type_t<TObservable>> && std::same_as<InitialValue, std::invoke_result_t<Fn, InitialValue&&, rpp::utils::extract_observable_type_t<TObservable>>>)
     auto operator()(TObservable&& observable) &&
     {
-        return scan_observable<TObservable, InitialValue, Fn>{std::forward<TObservable>(observable), std::move(m_initial_value), std::move(m_fn)};
+        return scan_observable<std::decay_t<TObservable>, InitialValue, Fn>{std::forward<TObservable>(observable), std::move(m_initial_value), std::move(m_fn)};
     }
 };
 
@@ -106,14 +106,14 @@ struct scan_no_seed_t
         requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>&&, rpp::utils::extract_observable_type_t<TObservable>> && std::same_as<rpp::utils::extract_observable_type_t<TObservable>, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>&&, rpp::utils::extract_observable_type_t<TObservable>>>)
     auto operator()(TObservable&& observable) const &
     {
-        return scan_no_seed_observable<TObservable, Fn>{std::forward<TObservable>(observable), m_fn};
+        return scan_no_seed_observable<std::decay_t<TObservable>, Fn>{std::forward<TObservable>(observable), m_fn};
     }
 
     template<rpp::constraint::observable TObservable>
         requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>&&, rpp::utils::extract_observable_type_t<TObservable>> && std::same_as<rpp::utils::extract_observable_type_t<TObservable>, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>&&, rpp::utils::extract_observable_type_t<TObservable>>>)
     auto operator()(TObservable&& observable) &&
     {
-        return scan_no_seed_observable<TObservable, Fn>{std::forward<TObservable>(observable), std::move(m_fn)};
+        return scan_no_seed_observable<std::decay_t<TObservable>, Fn>{std::forward<TObservable>(observable), std::move(m_fn)};
     }
 };
 }
