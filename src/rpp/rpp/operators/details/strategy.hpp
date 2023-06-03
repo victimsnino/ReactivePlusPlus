@@ -34,7 +34,7 @@ concept operator_strategy = requires(const S& const_strategy,
                                      const dynamic_observer<Type>& const_observer,
                                      dynamic_observer<Type>& observer)
 {
-    const_strategy.on_subscribe(const_observer);
+    const_strategy.on_subscribe(observer);
 
     const_strategy.on_next(const_observer, v);
     const_strategy.on_next(const_observer, std::move(mv));
@@ -65,7 +65,7 @@ public:
         : m_observer{std::move(observer)}
         , m_strategy{std::forward<Args>(args)...}
         {
-            m_strategy.on_subscribe(utils::as_const(m_observer));
+            m_strategy.on_subscribe(m_observer);
         }
 
     operator_strategy_base(const operator_strategy_base&) = delete;

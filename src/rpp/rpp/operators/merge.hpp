@@ -39,7 +39,7 @@ struct merge_observer_inner_strategy
 {
     std::shared_ptr<merge_disposable<std::mutex>> disposable;
 
-    void on_subscribe(const rpp::constraint::observer auto& obs) const
+    void on_subscribe(rpp::constraint::observer auto& obs) const
     {
         obs.set_upstream(disposable);
     }
@@ -63,8 +63,9 @@ struct merge_observer_inner_strategy
 
     void on_error(const rpp::constraint::observer auto & obs, const std::exception_ptr& err) const
     {
-        auto lock = disposable->lock_guard();
         disposable->dispose();
+
+        auto lock = disposable->lock_guard();
         obs.on_error(err);
     }
 
@@ -72,8 +73,9 @@ struct merge_observer_inner_strategy
     {
         if (disposable->decrement_on_completed())
         {
-            auto lock = disposable->lock_guard();
             disposable->dispose();
+
+            auto lock = disposable->lock_guard();
             obs.on_completed();
         }
     }
@@ -103,8 +105,9 @@ struct merge_observer_strategy
 
     void on_error(const rpp::constraint::observer auto & obs, const std::exception_ptr& err) const
     {
-        auto lock = disposable->lock_guard();
         disposable->dispose();
+
+        auto lock = disposable->lock_guard();
         obs.on_error(err);
     }
 
@@ -112,8 +115,9 @@ struct merge_observer_strategy
     {
         if (disposable->decrement_on_completed())
         {
-            auto lock = disposable->lock_guard();
             disposable->dispose();
+
+            auto lock = disposable->lock_guard();
             obs.on_completed();
         }
     }
@@ -121,15 +125,15 @@ struct merge_observer_strategy
 
 
 template<rpp::constraint::observable Observable>
-class merge_observable
+class merge_observable_strategy
 {
     using InnerObservable = rpp::utils::extract_observable_type_t<Observable>;
     using Value = rpp::utils::extract_observable_type_t<InnerObservable>;
 public:
-    merge_observable(const Observable& observable)
+    merge_observable_strategy(const Observable& observable)
         : m_observable{observable} {}
 
-    merge_observable(Observable&& observable)
+    merge_observable_strategy(Observable&& observable)
         : m_observable{std::move(observable)} {}
 
     template<rpp::constraint::observer_strategy<Value> ObserverStrategy>
@@ -144,7 +148,8 @@ private:
     RPP_NO_UNIQUE_ADDRESS Observable m_observable;
 };
 
-
+template<rpp::constraint::observable TObservable>
+using merge_observable = rpp::observable<rpp::utils::extract_observable_type_t<rpp::utils::extract_observable_type_t<TObservable>>, merge_observable_strategy<TObservable>>;
 struct merge_t
 {
     template<rpp::constraint::observable TObservable>
