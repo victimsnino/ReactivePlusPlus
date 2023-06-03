@@ -19,6 +19,17 @@
 #include <stdexcept>
 #include <string>
 
+namespace snitch
+{
+bool append(snitch::small_string_span ss, const std::vector<int>& c) {
+    std::string res{};
+
+    for(auto v : c) {
+        res += std::to_string(v) + " ";
+    }
+    return append(ss, res);
+}
+}
 
 TEST_CASE("merge for observable of observables")
 {

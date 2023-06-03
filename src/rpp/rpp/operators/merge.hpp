@@ -41,7 +41,7 @@ struct merge_observer_inner_strategy
 
     void on_subscribe(rpp::constraint::observer auto& obs) const
     {
-        obs.set_upstream(disposable);
+        obs.set_upstream(disposable_wrapper{disposable});
     }
 
     void set_upstream(const rpp::constraint::observer auto&, const rpp::disposable_wrapper& d) const
@@ -85,6 +85,11 @@ template<rpp::constraint::observable InnerObservable>
 struct merge_observer_strategy
 {
     std::shared_ptr<merge_disposable<std::mutex>> disposable;
+
+    void on_subscribe(rpp::constraint::observer auto&) const
+    { 
+        disposable->increment_on_completed(); 
+    }
 
     void set_upstream(const rpp::constraint::observer auto&, const rpp::disposable_wrapper& d) const
     {
@@ -141,7 +146,7 @@ public:
     {
         std::shared_ptr<merge_disposable<std::mutex>> disposable = std::make_shared<merge_disposable<std::mutex>>();
         auto inner_observer = rpp::observer<Value, operator_strategy_base<Value, rpp::observer<Value, ObserverStrategy>, merge_observer_inner_strategy>>{std::move(obs), disposable};
-        m_observable.subscribe(rpp::observer<Value, operator_strategy_base<Value, rpp::dynamic_observer<Value>, merge_observer_strategy<InnerObservable>>>{std::move(inner_observer).as_dynamic(), std::move(disposable)});
+        m_observable.subscribe(rpp::observer<InnerObservable, operator_strategy_base<InnerObservable, rpp::dynamic_observer<Value>, merge_observer_strategy<InnerObservable>>>{std::move(inner_observer).as_dynamic(), std::move(disposable)});
     }
 
 private:
