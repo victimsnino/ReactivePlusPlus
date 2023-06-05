@@ -14,6 +14,9 @@
 #include <rpp/operators/merge.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/sources/just.hpp>
+#include <rpp/sources/error.hpp>
+#include <rpp/sources/never.hpp>
+#include <rpp/schedulers/immediate.hpp>
 #include <rpp/schedulers/new_thread.hpp>
 #include <snitch/snitch_macros_check.hpp>
 
@@ -52,20 +55,20 @@ TEST_CASE("merge for observable of observables")
         }
     }
 
-    // SECTION("observable of observables with first never")
-    // {
-    //     auto obs = rpp::source::just(rpp::source::never<int>().as_dynamic(), rpp::source::just(2).as_dynamic());
+    SECTION("observable of observables with first never")
+    {
+        auto obs = rpp::source::just(rpp::source::never<int>().as_dynamic(), rpp::source::just(2).as_dynamic());
 
-    //     SECTION("subscribe on merge of observable")
-    //     {
-    //         obs | rpp::ops::merge() | rpp::ops::subscribe(mock.get_observer());
-    //         SECTION("observer obtains values from second observable even if first emits nothing")
-    //         {
-    //             CHECK(mock.get_received_values() == std::vector{ 2 });
-    //             CHECK(mock.get_on_completed_count() == 0); //no complete due to first observable sends nothing
-    //         }
-    //     }
-    // }
+        SECTION("subscribe on merge of observable")
+        {
+            obs | rpp::ops::merge() | rpp::ops::subscribe(mock.get_observer());
+            SECTION("observer obtains values from second observable even if first emits nothing")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 2 });
+                CHECK(mock.get_on_completed_count() == 0); //no complete due to first observable sends nothing
+            }
+        }
+    }
     SECTION("observable of observables without complete")
     {
         auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub)
@@ -84,26 +87,26 @@ TEST_CASE("merge for observable of observables")
             }
         }
     }
-    // SECTION("observable of observables one with error")
-    // {
-    //     auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub)
-    //         {
-    //             sub.on_next(rpp::source::just(rpp::schedulers::immediate{}, 1).as_dynamic());
-    //             sub.on_next(rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})).as_dynamic());
-    //             sub.on_next(rpp::source::just(rpp::schedulers::immediate{}, 2).as_dynamic());
-    //         });
+    SECTION("observable of observables one with error")
+    {
+        auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub)
+            {
+                sub.on_next(rpp::source::just(rpp::schedulers::immediate{}, 1).as_dynamic());
+                sub.on_next(rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})).as_dynamic());
+                sub.on_next(rpp::source::just(rpp::schedulers::immediate{}, 2).as_dynamic());
+            });
 
-    //     SECTION("subscribe on merge of observable")
-    //     {
-    //         obs | rpp::ops::merge() | rpp::ops::subscribe(mock.get_observer());
-    //         SECTION("observer obtains values from second observable even if first emits nothing")
-    //         {
-    //             CHECK(mock.get_received_values() == std::vector{ 1 });
-    //             CHECK(mock.get_on_error_count() == 1);
-    //             CHECK(mock.get_on_completed_count() == 0); //no complete due to error
-    //         }
-    //     }
-    // }
+        SECTION("subscribe on merge of observable")
+        {
+            obs | rpp::ops::merge() | rpp::ops::subscribe(mock.get_observer());
+            SECTION("observer obtains values from second observable even if first emits nothing")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 1 });
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0); //no complete due to error
+            }
+        }
+    }
     SECTION("observable of observables with error")
     {
         auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub)
@@ -144,49 +147,49 @@ TEST_CASE("merge_with")
         }
     }
 
-//     SECTION("never observable with just observable")
-//     {
-//         auto obs_1 = rpp::source::never<int>();
-//         auto obs_2 = rpp::source::just(2);
+    SECTION("never observable with just observable")
+    {
+        auto obs_1 = rpp::source::never<int>();
+        auto obs_2 = rpp::source::just(2);
 
-//         SECTION("subscribe on merge of this observables")
-//         {
-//             obs_1.merge_with(obs_2)| rpp::ops::subscribe(mock.get_observer());
-//             SECTION("observer obtains values FROM both observables")
-//             {
-//                 CHECK(mock.get_received_values() == std::vector{ 2 });
-//                 CHECK(mock.get_on_completed_count() == 0); // first observable never completes
-//             }
-//         }
+        SECTION("subscribe on merge of this observables")
+        {
+            obs_1 | rpp::ops::merge_with(obs_2)| rpp::ops::subscribe(mock.get_observer());
+            SECTION("observer obtains values FROM both observables")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 2 });
+                CHECK(mock.get_on_completed_count() == 0); // first observable never completes
+            }
+        }
 
-//         SECTION("subscribe on merge of this observables in reverse oreder")
-//         {
-//             obs_2.merge_with(obs_1)| rpp::ops::subscribe(mock.get_observer());
-//             SECTION("observer obtains values FROM both observables")
-//             {
-//                 CHECK(mock.get_received_values() == std::vector{ 2 });
-//                 CHECK(mock.get_on_completed_count() == 0); // first observable never completes
-//             }
-//         }
-//     }
+        SECTION("subscribe on merge of this observables in reverse oreder")
+        {
+            obs_2 | rpp::ops::merge_with(obs_1)| rpp::ops::subscribe(mock.get_observer());
+            SECTION("observer obtains values FROM both observables")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 2 });
+                CHECK(mock.get_on_completed_count() == 0); // first observable never completes
+            }
+        }
+    }
 
-//     SECTION("error observable with just observable")
-//     {
-//         auto obs_1 = rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}));
-//         auto obs_2 = rpp::source::just(2);
+    SECTION("error observable with just observable")
+    {
+        auto obs_1 = rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}));
+        auto obs_2 = rpp::source::just(2);
 
-//         SECTION("subscribe on merge of this observables")
-//         {
-//             obs_1.merge_with(obs_2)| rpp::ops::subscribe(mock.get_observer());
-//             SECTION("observer obtains values FROM both observables")
-//             {
-//                 CHECK(mock.get_total_on_next_count()==0);
-//                 CHECK(mock.get_on_error_count() == 1);
-//                 CHECK(mock.get_on_completed_count() == 0);
-//             }
-//         }
+        SECTION("subscribe on merge of this observables")
+        {
+            obs_1 | rpp::ops::merge_with(obs_2)| rpp::ops::subscribe(mock.get_observer());
+            SECTION("observer obtains values FROM both observables")
+            {
+                CHECK(mock.get_total_on_next_count()==0);
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
 
-//     }
+    }
 }
 
 TEST_CASE("merge serializes emissions")
@@ -255,34 +258,39 @@ TEST_CASE("merge serializes emissions")
 //     }
 // }
 
-// TEST_CASE("merge handles race condition", "[merge]")
-// {
-//     SECTION("source observable in current thread pairs with error in other thread")
-//     {
-//         std::atomic_bool on_error_called{false};
-//         auto             subject = rpp::subjects::publish_subject<int>{};
+TEST_CASE("merge handles race condition", "[merge]")
+{
+    SECTION("source observable in current thread pairs with error in other thread")
+    {
+        std::atomic_bool on_error_called{false};
+        std::optional<rpp::dynamic_observer<int>> extracted_obs{};
+        auto delayed_obs = rpp::source::create<int>([&](auto&& obs)
+        {
+            extracted_obs.emplace(std::move(obs).as_dynamic());
+        });
 
-//         SECTION("subscribe on it")
-//         {
-//             SECTION("on_error can't interleave with on_next")
-//             {
-//                 rpp::source::just(1, 1, 1)
-//                         .merge_with(subject.get_observable())
-//                         .as_blocking()
-//                         .subscribe([&](auto&&)
-//                                    {
-//                                        CHECK(!on_error_called);
-//                                        std::thread{[&]
-//                                        {
-//                                            subject.get_subscriber().on_error(std::exception_ptr{});
-//                                        }}.detach();
-//                                        std::this_thread::sleep_for(std::chrono::seconds{1});
-//                                        CHECK(!on_error_called);
-//                                    },
-//                                    [&](auto) { on_error_called = true; });
+        SECTION("subscribe on it")
+        {
+            SECTION("on_error can't interleave with on_next")
+            {
+                rpp::source::just(1, 1, 1)
+                         | rpp::ops::merge_with(delayed_obs)
+                         | rpp::ops::as_blocking()
+                         | rpp::ops::subscribe([&](auto&&)
+                                   {
+                                       REQUIRE(extracted_obs.has_value());
+                                       CHECK(!on_error_called);
+                                       std::thread{[&]
+                                       {
+                                           extracted_obs->on_error(std::exception_ptr{});
+                                       }}.detach();
+                                       std::this_thread::sleep_for(std::chrono::seconds{1});
+                                       CHECK(!on_error_called);
+                                   },
+                                   [&](auto) { on_error_called = true; });
 
-//                 CHECK(on_error_called);
-//             }
-//         }
-//     }
-// }
+                CHECK(on_error_called);
+            }
+        }
+    }
+}

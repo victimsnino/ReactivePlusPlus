@@ -226,11 +226,67 @@ struct merge_with_t
 
 namespace rpp::operators
 {
+/**
+ * @brief Converts observable of observables of items into observable of items via merging emissions.
+ *
+ * @warning According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
+ *
+ * @marble merge
+     {
+         source observable                :
+         {
+             +--1-2-3-|
+             .....+4--6-|
+         }
+         operator "merge" : +--1-243-6-|
+     }
+ *
+ * @details Actually it subscribes on each observable from emissions. Resulting observables completes when ALL observables completes
+ *
+ * @par Performance notes:
+ * - 2 heap allocation (1 for state, 1 to convert observer to dynamic_observer)
+ * - Acquiring mutex during all observer's calls
+ *
+ * @warning #include <rpp/operators/merge.hpp>
+ *
+ * @par Example:
+ * @snippet merge.cpp merge
+ *
+ * @ingroup combining_operators
+ * @see https://reactivex.io/documentation/operators/merge.html
+ */
 inline auto merge()
 {
     return details::merge_t{};
 }
 
+/**
+ * @brief Combines submissions from current observable with other observables into one
+ *
+ * @warning According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
+ *
+ * @marble merge_with
+     {
+         source original_observable: +--1-2-3-|
+         source second: +-----4--6-|
+         operator "merge_with" : +--1-243-6-|
+     }
+ *
+ * @details Actually it subscribes on each observable. Resulting observables completes when ALL observables completes
+ *
+ * @par Performance notes:
+ * - 2 heap allocation (1 for state, 1 to convert observer to dynamic_observer)
+ * - Acquiring mutex during all observer's calls
+ *
+ * @param observables are observables whose emissions would be merged with current observable
+ * @warning #include <rpp/operators/merge.hpp>
+ *
+ * @par Example:
+ * @snippet merge.cpp merge_with
+ *
+ * @ingroup combining_operators
+ * @see https://reactivex.io/documentation/operators/merge.html
+ */
 template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
     requires constraint::observables_of_same_type<std::decay_t<TObservable>, std::decay_t<TObservables>...>
 auto merge_with(TObservable&& observable, TObservables&& ...observables)
