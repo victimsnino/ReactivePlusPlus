@@ -17,6 +17,7 @@
 #include <rpp/utils/utils.hpp>
 #include <rpp/utils/function_traits.hpp>
 #include <rpp/memory_model.hpp>
+#include <exception>
 
 namespace rpp::constraint
 {
@@ -57,4 +58,7 @@ auto concat(Iterable&& iterable);
 
 template<constraint::decayed_type Type>
 auto never();
+
+template<constraint::decayed_type Type>
+auto error(std::exception_ptr err);
 } // namespace rpp::source
