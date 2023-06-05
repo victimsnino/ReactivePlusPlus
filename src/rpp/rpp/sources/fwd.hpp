@@ -17,6 +17,7 @@
 #include <rpp/utils/utils.hpp>
 #include <rpp/utils/function_traits.hpp>
 #include <rpp/memory_model.hpp>
+#include <exception>
 
 namespace rpp::constraint
 {
@@ -54,4 +55,13 @@ auto concat(TObservable&& obs, TObservables&&...others);
 template<constraint::memory_model memory_model = memory_model::use_stack, constraint::iterable Iterable>
     requires constraint::observable<utils::iterable_value_t<Iterable>>
 auto concat(Iterable&& iterable);
+
+template<constraint::decayed_type Type>
+auto never();
+
+template<constraint::decayed_type Type>
+auto error(std::exception_ptr err);
+
+template<constraint::decayed_type Type>
+auto empty();
 } // namespace rpp::source
