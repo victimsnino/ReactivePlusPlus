@@ -16,6 +16,10 @@ requires constraint\+::observable$<$utils\+::iterable\+\_\+value\+\_\+t$<$Iterab
 \begin{DoxyCompactList}\small\item\em Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values) \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe$<$ Type $>$ On\+Subscribe$>$ }\\auto \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{rpp\+::source\+::create}} (On\+Subscribe \&\&on\+\_\+subscribe)
 \begin{DoxyCompactList}\small\item\em Construct observable specialized with passed callback function. Most easiesest way to construct observable \char`\"{}on the fly\char`\"{} via lambda and etc. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\auto \mbox{\hyperlink{group__creational__operators_gad29c2904de57d176ccaf2614409789de}{rpp\+::source\+::empty}} ()
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable}} that emits no items but terminates normally. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga4fe060f48695cc3fadfbdb10f77f8acb}{rpp\+::source\+::error}} (std\+::exception\+\_\+ptr err)
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable}} that emits no items and terminates with an error. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::memory\+\_\+model memory\+\_\+model, constraint\+::iterable Iterable, schedulers\+::constraint\+::scheduler TScheduler$>$ }\\auto \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp\+::source\+::from\+\_\+iterable}} (Iterable \&\&iterable, const TScheduler \&scheduler)
 \begin{DoxyCompactList}\small\item\em Creates observable that emits a items from provided iterable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::memory\+\_\+model memory\+\_\+model, schedulers\+::constraint\+::scheduler TScheduler, typename T , typename ... Ts$>$ \newline
@@ -25,7 +29,9 @@ requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \m
 requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__creational__operators_ga9104f4682dddefb9021bb9f2c2025494}{rpp\+::source\+::just}} (T \&\&item, Ts \&\&...items)
 \begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable}} that emits a particular items and completes. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::memory\+\_\+model memory\+\_\+model, std\+::invocable$<$$>$ Callable$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}{rpp\+::source\+::from\+\_\+callable}} (Callable \&\&callable)
-\begin{DoxyCompactList}\small\item\em Creates rpp\+::specific\+\_\+observable that calls provided callable and emits resulting value of this callable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Creates rpp\+::specific\+\_\+observable that calls provided callable and emits resulting value of this callable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga16c57281cc1b24605ec23b09ec880416}{rpp\+::source\+::never}} ()
+\begin{DoxyCompactList}\small\item\em Creates \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable}} that emits no items and does not terminate. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -214,6 +220,51 @@ Be sure, that your callback doesn\textquotesingle{}t violates observable rules\+
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__creational__operators_gad29c2904de57d176ccaf2614409789de}\label{group__creational__operators_gad29c2904de57d176ccaf2614409789de}} 
+\index{Creational Operators@{Creational Operators}!empty@{empty}}
+\index{empty@{empty}!Creational Operators@{Creational Operators}}
+\doxysubsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
+auto rpp\+::source\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Creates \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable}} that emits no items but terminates normally. 
+
+
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & type of value to specify observable\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/empty-never-throw.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/empty-\/never-\/throw.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__creational__operators_ga4fe060f48695cc3fadfbdb10f77f8acb}\label{group__creational__operators_ga4fe060f48695cc3fadfbdb10f77f8acb}} 
+\index{Creational Operators@{Creational Operators}!error@{error}}
+\index{error@{error}!Creational Operators@{Creational Operators}}
+\doxysubsubsection{\texorpdfstring{error()}{error()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
+auto rpp\+::source\+::error (\begin{DoxyParamCaption}\item[{std\+::exception\+\_\+ptr}]{err }\end{DoxyParamCaption})}
+
+
+
+Creates \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable}} that emits no items and terminates with an error. 
+
+ 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & type of value to specify observable \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em err} & exception ptr to be sent to subscriber\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/empty-never-throw.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/empty-\/never-\/throw.\+html}} 
 \end{DoxySeeAlso}
 \mbox{\Hypertarget{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}\label{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}} 
 \index{Creational Operators@{Creational Operators}!from\_callable@{from\_callable}}
@@ -410,4 +461,23 @@ this overloading uses trampoline scheduler as default
 \end{DoxyParagraph}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/just.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/just.\+html}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__creational__operators_ga16c57281cc1b24605ec23b09ec880416}\label{group__creational__operators_ga16c57281cc1b24605ec23b09ec880416}} 
+\index{Creational Operators@{Creational Operators}!never@{never}}
+\index{never@{never}!Creational Operators@{Creational Operators}}
+\doxysubsubsection{\texorpdfstring{never()}{never()}}
+{\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
+auto rpp\+::source\+::never (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Creates \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable}} that emits no items and does not terminate. 
+
+ 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & type of value to specify observable\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/empty-never-throw.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/empty-\/never-\/throw.\+html}} 
 \end{DoxySeeAlso}
