@@ -14,37 +14,36 @@
 
 namespace rpp::details
 {
-struct error_strategy
+struct empty_strategy
 {
-    std::exception_ptr err{};
-    void subscribe(const auto& obs) const { obs.on_error(err); }
+    static void subscribe(const auto& obs) { obs.on_completed(); }
 };
 }
 
 namespace rpp
 {
 template<constraint::decayed_type Type>
-using error_observable = observable<Type, details::error_strategy>;
+using empty_observable = observable<Type, details::empty_strategy>;
 }
 
 namespace rpp::source
 {
 /**
- * @brief Creates rpp::observable that emits no items and terminates with an error
+ * @brief Creates rpp::observable that emits no items but terminates normally
  *
- * @marble error
-  {
-      operator "error": +#
-  }
+ * @marble empty
+   {
+       operator "empty": +|
+   }
+ *
  * @tparam Type type of value to specify observable
- * @param err exception ptr to be sent to subscriber
  *
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/empty-never-throw.html
  */
 template<constraint::decayed_type Type>
-auto error(std::exception_ptr err)
+auto empty()
 {
-    return error_observable<Type>{std::move(err)};
+    return empty_observable<Type>{};
 }
 }

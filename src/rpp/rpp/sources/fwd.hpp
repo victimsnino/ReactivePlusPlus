@@ -61,4 +61,7 @@ auto never();
 
 template<constraint::decayed_type Type>
 auto error(std::exception_ptr err);
+
+template<constraint::decayed_type Type>
+auto empty();
 } // namespace rpp::source

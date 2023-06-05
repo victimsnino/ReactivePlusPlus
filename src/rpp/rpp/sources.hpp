@@ -24,3 +24,4 @@
  #include <rpp/sources/concat.hpp>
  #include <rpp/sources/never.hpp>
  #include <rpp/sources/error.hpp>
+ #include <rpp/sources/empty.hpp>
