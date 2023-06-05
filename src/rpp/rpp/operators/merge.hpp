@@ -39,17 +39,14 @@ struct merge_observer_inner_strategy
 {
     std::shared_ptr<merge_disposable<std::mutex>> disposable;
 
-    void on_subscribe(rpp::constraint::observer auto& obs) const
-    {
-        obs.set_upstream(disposable_wrapper{disposable});
-    }
+    static constexpr empty_on_subscribe on_subscribe{};
 
     void set_upstream(const rpp::constraint::observer auto&, const rpp::disposable_wrapper& d) const
     {
         disposable->add(d.get_original());
     }
 
-    bool is_disposed() const 
+    bool is_disposed() const
     {
         return disposable->is_disposed();
     }
@@ -84,11 +81,14 @@ struct merge_observer_inner_strategy
 template<rpp::constraint::observable InnerObservable>
 struct merge_observer_strategy
 {
-    std::shared_ptr<merge_disposable<std::mutex>> disposable;
+    using Value = rpp::utils::extract_observable_type_t<InnerObservable>;
 
-    void on_subscribe(rpp::constraint::observer auto&) const
-    { 
-        disposable->increment_on_completed(); 
+    std::shared_ptr<merge_disposable<std::mutex>> disposable = std::make_shared<merge_disposable<std::mutex>>();
+
+    void on_subscribe(rpp::dynamic_observer<Value>& obs) const
+    {
+        disposable->increment_on_completed();
+        obs.set_upstream(disposable_wrapper{disposable});
     }
 
     void set_upstream(const rpp::constraint::observer auto&, const rpp::disposable_wrapper& d) const
@@ -96,16 +96,16 @@ struct merge_observer_strategy
         disposable->add(d.get_original());
     }
 
-    bool is_disposed() const 
+    bool is_disposed() const
     {
         return disposable->is_disposed();
     }
 
     template<typename T>
-    void on_next(const rpp::constraint::observer auto& obs, T&& v) const
+    void on_next(rpp::dynamic_observer<Value> obs, T&& v) const
     {
         disposable->increment_on_completed();
-        std::forward<T>(v).subscribe(obs);
+        std::forward<T>(v).subscribe(rpp::observer<Value, operator_strategy_base<Value, rpp::dynamic_observer<Value>, merge_observer_inner_strategy>>{std::move(obs), disposable});
     }
 
     void on_error(const rpp::constraint::observer auto & obs, const std::exception_ptr& err) const
@@ -144,9 +144,7 @@ public:
     template<rpp::constraint::observer_strategy<Value> ObserverStrategy>
     void subscribe(rpp::observer<Value, ObserverStrategy>&& obs) const
     {
-        std::shared_ptr<merge_disposable<std::mutex>> disposable = std::make_shared<merge_disposable<std::mutex>>();
-        auto inner_observer = rpp::observer<Value, operator_strategy_base<Value, rpp::observer<Value, ObserverStrategy>, merge_observer_inner_strategy>>{std::move(obs), disposable};
-        m_observable.subscribe(rpp::observer<InnerObservable, operator_strategy_base<InnerObservable, rpp::dynamic_observer<Value>, merge_observer_strategy<InnerObservable>>>{std::move(inner_observer).as_dynamic(), std::move(disposable)});
+        m_observable.subscribe(rpp::observer<InnerObservable, operator_strategy_base<InnerObservable, rpp::dynamic_observer<Value>, merge_observer_strategy<InnerObservable>>>{std::move(obs).as_dynamic()});
     }
 
 private:
