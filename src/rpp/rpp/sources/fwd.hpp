@@ -54,4 +54,7 @@ auto concat(TObservable&& obs, TObservables&&...others);
 template<constraint::memory_model memory_model = memory_model::use_stack, constraint::iterable Iterable>
     requires constraint::observable<utils::iterable_value_t<Iterable>>
 auto concat(Iterable&& iterable);
+
+template<constraint::decayed_type Type>
+auto never();
 } // namespace rpp::source
