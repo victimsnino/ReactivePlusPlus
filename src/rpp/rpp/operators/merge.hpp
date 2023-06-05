@@ -153,6 +153,7 @@ private:
 
 template<rpp::constraint::observable TObservable>
 using merge_observable = rpp::observable<rpp::utils::extract_observable_type_t<rpp::utils::extract_observable_type_t<TObservable>>, merge_observable_strategy<TObservable>>;
+
 struct merge_t
 {
     template<rpp::constraint::observable TObservable>
