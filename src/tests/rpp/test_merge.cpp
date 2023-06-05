@@ -10,9 +10,12 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/merge.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/sources/just.hpp>
+#include <rpp/schedulers/new_thread.hpp>
+#include <snitch/snitch_macros_check.hpp>
 
 #include "mock_observer.hpp"
 
@@ -63,24 +66,24 @@ TEST_CASE("merge for observable of observables")
     //         }
     //     }
     // }
-    // SECTION("observable of observables without complete")
-    // {
-    //     auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub)
-    //     {
-    //         sub.on_next(rpp::source::just(1).as_dynamic());
-    //         sub.on_next(rpp::source::just(2).as_dynamic());
-    //     });
+    SECTION("observable of observables without complete")
+    {
+        auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub)
+        {
+            sub.on_next(rpp::source::just(1).as_dynamic());
+            sub.on_next(rpp::source::just(2).as_dynamic());
+        });
 
-    //     SECTION("subscribe on merge of observable")
-    //     {
-    //         obs | rpp::ops::merge() | rpp::ops::subscribe(mock.get_observer());
-    //         SECTION("observer obtains values from second observable even if first emits nothing")
-    //         {
-    //             CHECK(mock.get_received_values() == std::vector{ 1, 2 });
-    //             CHECK(mock.get_on_completed_count() == 0); //no complete due to root observable is not completed
-    //         }
-    //     }
-    // }
+        SECTION("subscribe on merge of observable")
+        {
+            obs | rpp::ops::merge() | rpp::ops::subscribe(mock.get_observer());
+            SECTION("observer obtains values from second observable even if first emits nothing")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 1, 2 });
+                CHECK(mock.get_on_completed_count() == 0); //no complete due to root observable is not completed
+            }
+        }
+    }
     // SECTION("observable of observables one with error")
     // {
     //     auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub)
@@ -101,45 +104,45 @@ TEST_CASE("merge for observable of observables")
     //         }
     //     }
     // }
-    // SECTION("observable of observables with error")
-    // {
-    //     auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub)
-    //     {
-    //         sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
-    //         sub.on_next(rpp::source::just(1).as_dynamic());
-    //     });
+    SECTION("observable of observables with error")
+    {
+        auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub)
+        {
+            sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
+            sub.on_next(rpp::source::just(1).as_dynamic());
+        });
 
-    //     SECTION("subscribe on merge of observable")
-    //     {
-    //         obs | rpp::ops::merge() | rpp::ops::subscribe(mock.get_observer());
-    //         SECTION("observer obtains values from second observable even if first emits nothing")
-    //         {
-    //             CHECK(mock.get_total_on_next_count() == 0);
-    //             CHECK(mock.get_on_error_count() == 1);
-    //             CHECK(mock.get_on_completed_count() == 0); //no complete due to error
-    //         }
-    //     }
-    // }
+        SECTION("subscribe on merge of observable")
+        {
+            obs | rpp::ops::merge() | rpp::ops::subscribe(mock.get_observer());
+            SECTION("observer obtains values from second observable even if first emits nothing")
+            {
+                CHECK(mock.get_total_on_next_count() == 0);
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0); //no complete due to error
+            }
+        }
+    }
 }
 
-// TEST_CASE("merge_with", "[operators][merge]")
-// {
-//     auto mock = mock_observer<int>();
-//     SECTION("2 observables")
-//     {
-//         auto obs_1 = rpp::source::just(1);
-//         auto obs_2 = rpp::source::just(2);
+TEST_CASE("merge_with")
+{
+    auto mock = mock_observer_strategy<int>();
+    SECTION("2 observables")
+    {
+        auto obs_1 = rpp::source::just(1);
+        auto obs_2 = rpp::source::just(2);
 
-//         SECTION("subscribe on merge of this observables")
-//         {
-//             obs_1.merge_with(obs_2)| rpp::ops::subscribe(mock.get_observer());
-//             SECTION("observer obtains values FROM both observables")
-//             {
-//                 CHECK(mock.get_received_values() == std::vector{ 1,2 });
-//                 CHECK(mock.get_on_completed_count() == 1);
-//             }
-//         }
-//     }
+        SECTION("subscribe on merge of this observables")
+        {
+            obs_1 | rpp::ops::merge_with(obs_2) | rpp::ops::subscribe(mock.get_observer());
+            SECTION("observer obtains values FROM both observables")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 1,2 });
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
 
 //     SECTION("never observable with just observable")
 //     {
@@ -178,43 +181,43 @@ TEST_CASE("merge for observable of observables")
 //             SECTION("observer obtains values FROM both observables")
 //             {
 //                 CHECK(mock.get_total_on_next_count()==0);
-//                 CHECK(mock.get_on_error_count() == 1); 
-//                 CHECK(mock.get_on_completed_count() == 0); 
+//                 CHECK(mock.get_on_error_count() == 1);
+//                 CHECK(mock.get_on_completed_count() == 0);
 //             }
 //         }
 
 //     }
-// }
+}
 
-// TEST_CASE("merge serializes emissions", "[operators][merge]")
-// {
-//     SECTION("observables from different threads")
-//     {
-//         auto s1 = rpp::source::just(rpp::schedulers::new_thread{}, 1);
-//         auto s2 = rpp::source::just(rpp::schedulers::new_thread{}, 2);
-//         SECTION("subscribe on merge of this observables")
-//         {
-//             SECTION("resulting observable emits items sequentially")
-//             {
-//                 std::atomic_size_t                          counter{};
-//                 size_t max_value = 0;
-//                 s1.merge_with(s2).as_blocking().subscribe([&](const auto&)
-//                 {
-//                     CHECK(++counter < 2);
-//                     max_value = std::max(counter.load(), max_value);
+TEST_CASE("merge serializes emissions")
+{
+    SECTION("observables from different threads")
+    {
+        auto s1 = rpp::source::just(rpp::schedulers::new_thread{}, 1);
+        auto s2 = rpp::source::just(rpp::schedulers::new_thread{}, 2);
+        SECTION("subscribe on merge of this observables")
+        {
+            SECTION("resulting observable emits items sequentially")
+            {
+                std::atomic_size_t                          counter{};
+                size_t max_value = 0;
+                s1 | rpp::ops::merge_with(s2) | rpp::ops::as_blocking() | rpp::ops::subscribe([&](const auto&)
+                {
+                    if (++counter >= 2) FAIL("++counter >= 2");
+                    max_value = std::max(counter.load(), max_value);
 
-//                     std::this_thread::sleep_for(std::chrono::seconds{1});
+                    std::this_thread::sleep_for(std::chrono::seconds{1});
 
-//                     max_value = std::max(counter.load(), max_value);
-//                     --counter;
-//                 });
-//                 CHECK(max_value == 1);
-//             }
-//         }
-//     }
-// }
+                    max_value = std::max(counter.load(), max_value);
+                    --counter;
+                });
+                CHECK(max_value == 1);
+            }
+        }
+    }
+}
 
-// TEST_CASE("merge doesn't produce extra copies", "[operators][merge][track_copy]")
+// TEST_CASE("merge doesn't produce extra copies")
 // {
 //     SECTION("observable and subscriber")
 //     {
@@ -233,7 +236,7 @@ TEST_CASE("merge for observable of observables")
 //     }
 // }
 
-// TEST_CASE("merge doesn't produce copies for move", "[operators][merge][track_copy]")
+// TEST_CASE("merge doesn't produce copies for move")
 // {
 //     SECTION("observable and subscriber")
 //     {

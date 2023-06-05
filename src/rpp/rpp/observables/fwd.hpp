@@ -85,4 +85,9 @@ concept operators = requires(const Op& op, TObs obs)
 {
     {op(static_cast<TObs>(obs))} -> rpp::constraint::observable;
 };
+
+template<typename TObservable, typename... TObservables>
+concept observables_of_same_type = rpp::constraint::observable<TObservable> &&
+    (rpp::constraint::observable<TObservables> && ...) &&
+    (std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservables>> && ...);
 }

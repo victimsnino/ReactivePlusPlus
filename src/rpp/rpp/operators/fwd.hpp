@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <rpp/observables/fwd.hpp>
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/utils/functors.hpp>
 #include <rpp/utils/function_traits.hpp>
@@ -32,6 +33,9 @@ template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || !std::same_as<void, std::invoke_result_t<Fn, utils::convertible_to_any>>)
 auto map(Fn&& callable);
 
+template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
+    requires constraint::observables_of_same_type<std::decay_t<TObservable>, std::decay_t<TObservables>...>
+auto merge_with(TObservable&& observable, TObservables&& ...observables);
 auto merge();
 
 auto repeat(size_t count);
