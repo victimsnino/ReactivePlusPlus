@@ -42,7 +42,7 @@ TEST_CASE("merge for observable of observables")
     auto mock = mock_observer_strategy<int>();
     SECTION("observable of observables")
     {
-        auto obs= rpp::source::just(rpp::source::just(1), rpp::source::just(2));
+        auto obs= rpp::source::just(rpp::schedulers::immediate{}, rpp::source::just(1), rpp::source::just(2));
 
         SECTION("subscribe on merge of observable")
         {
