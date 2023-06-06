@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include "rpp/observables/fwd.hpp"
 #include <rpp/defs.hpp>
 #include <rpp/observables/observable.hpp>
 #include <rpp/operators/fwd.hpp>
@@ -28,7 +27,7 @@ struct subscribe_on_strategy
     template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
     void subscribe(observer<Type, ObserverStrategy>&& obs) const
     {
-        auto worker = scheduler.create_worker();
+        const auto worker = scheduler.create_worker();
         obs.set_upstream(worker.get_disposable());
         worker.schedule(
             [observable = observable](auto&& observer)
