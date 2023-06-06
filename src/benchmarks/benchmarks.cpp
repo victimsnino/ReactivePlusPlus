@@ -319,6 +319,26 @@ int main(int argc, char* argv[]) // NOLINT
         }
     };
 
+    BENCHMARK("Utility Operators")
+    {
+        SECTION("create(1)+subscribe_on(immediate)+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
+                    | rpp::operators::subscribe_on(rpp::schedulers::immediate{})
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
+                    | rxcpp::operators::subscribe_on(rxcpp::identity_immediate())
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+    }
+
     if (argc > 1) {
         std::ofstream of{argv[1]};
         bench.render(json(), of);
