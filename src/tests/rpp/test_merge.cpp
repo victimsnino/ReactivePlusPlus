@@ -267,7 +267,7 @@ TEST_CASE("merge handles race condition", "[merge]")
         std::optional<rpp::dynamic_observer<int>> extracted_obs{};
         auto delayed_obs = rpp::source::create<int>([&](auto&& obs)
         {
-            extracted_obs.emplace(std::move(obs).as_dynamic());
+            extracted_obs.emplace(std::forward<decltype(obs)>(obs).as_dynamic());
         });
 
         auto test = [&](auto source)
