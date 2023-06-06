@@ -10,6 +10,7 @@ var examples =
     [ "repeat.cpp", "repeat_8cpp-example.html", null ],
     [ "scan.cpp", "scan_8cpp-example.html", null ],
     [ "skip.cpp", "skip_8cpp-example.html", null ],
+    [ "subscribe_on.cpp", "subscribe_on_8cpp-example.html", null ],
     [ "take.cpp", "take_8cpp-example.html", null ],
     [ "take_while.cpp", "take_while_8cpp-example.html", null ]
 ];

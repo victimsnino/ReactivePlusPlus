@@ -10,6 +10,7 @@ var dir_3591f6ab25936dd3deeec05839e478ca =
     [ "scan.hpp", "scan_8hpp_source.html", null ],
     [ "skip.hpp", "skip_8hpp_source.html", null ],
     [ "subscribe.hpp", "subscribe_8hpp_source.html", null ],
+    [ "subscribe_on.hpp", "subscribe__on_8hpp_source.html", null ],
     [ "take.hpp", "take_8hpp_source.html", null ],
     [ "take_while.hpp", "take__while_8hpp_source.html", null ]
 ];

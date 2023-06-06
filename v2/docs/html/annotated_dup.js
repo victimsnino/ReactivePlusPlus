@@ -57,6 +57,8 @@ var annotated_dup =
           [ "scan_t", "structrpp_1_1operators_1_1details_1_1scan__t.html", null ],
           [ "skip_observer_strategy", "structrpp_1_1operators_1_1details_1_1skip__observer__strategy.html", null ],
           [ "skip_t", "structrpp_1_1operators_1_1details_1_1skip__t.html", null ],
+          [ "subscribe_on_strategy", "structrpp_1_1operators_1_1details_1_1subscribe__on__strategy.html", null ],
+          [ "subscribe_on_t", "structrpp_1_1operators_1_1details_1_1subscribe__on__t.html", null ],
           [ "subscribe_t", "classrpp_1_1operators_1_1details_1_1subscribe__t.html", null ],
           [ "subscribe_t< observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01observer_3_01_type_00_01_observer_strategy_01_4_01_4.html", null ],
           [ "subscribe_t< OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", null ],
