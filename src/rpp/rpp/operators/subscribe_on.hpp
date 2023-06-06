@@ -30,7 +30,7 @@ struct subscribe_on_strategy
         const auto worker = scheduler.create_worker();
         obs.set_upstream(worker.get_disposable());
         worker.schedule(
-            [observable = observable](auto&& observer)
+            [observable = observable](observer<Type, ObserverStrategy>&& observer)
             {
                 observable.subscribe(std::move(observer));
                 return rpp::schedulers::optional_duration{};
