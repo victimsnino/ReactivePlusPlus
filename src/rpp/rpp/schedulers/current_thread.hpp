@@ -46,6 +46,11 @@ class current_thread
 
     static time_point get_now() { return s_last_now_time = clock_type::now(); }
 
+    static void drain_current_queue()
+    {
+        drain_queue(s_queue);
+    }
+
     static void drain_queue(std::optional<details::schedulables_queue>& queue)
     {
         while (!queue->is_empty())
@@ -78,6 +83,17 @@ class current_thread
     }
 
 public:
+
+    static utils::finally_action<void (*)()> own_queue_and_drain_finally_if_not_owned()
+    {
+        const bool someone_owns_queue = s_queue.has_value();
+
+        if (!someone_owns_queue)
+            s_queue.emplace();
+
+        return utils::finally_action{!someone_owns_queue ? &drain_current_queue : +[] {}};
+    }
+
     class worker_strategy
     {
     public:

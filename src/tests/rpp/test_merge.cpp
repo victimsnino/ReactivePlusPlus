@@ -269,28 +269,35 @@ TEST_CASE("merge handles race condition", "[merge]")
             extracted_obs.emplace(std::move(obs).as_dynamic());
         });
 
-        SECTION("subscribe on it")
+        auto test = [&](auto source)
         {
-            SECTION("on_error can't interleave with on_next")
+            SECTION("subscribe on it")
             {
-                rpp::source::just(1, 1, 1)
-                         | rpp::ops::merge_with(delayed_obs)
-                         | rpp::ops::as_blocking()
-                         | rpp::ops::subscribe([&](auto&&)
-                                   {
-                                       REQUIRE(extracted_obs.has_value());
-                                       CHECK(!on_error_called);
-                                       std::thread{[&]
-                                       {
-                                           extracted_obs->on_error(std::exception_ptr{});
-                                       }}.detach();
-                                       std::this_thread::sleep_for(std::chrono::seconds{1});
-                                       CHECK(!on_error_called);
-                                   },
-                                   [&](auto) { on_error_called = true; });
+                SECTION("on_error can't interleave with on_next")
+                {
+                    source
+                        | rpp::ops::as_blocking()
+                        | rpp::ops::subscribe([&](auto&&)
+                                {
+                                    REQUIRE(extracted_obs.has_value());
+                                    CHECK(!on_error_called);
+                                    std::thread{[&]
+                                    {
+                                        extracted_obs->on_error(std::exception_ptr{});
+                                    }}.detach();
+                                    std::this_thread::sleep_for(std::chrono::seconds{1});
+                                    CHECK(!on_error_called);
+                                },
+                                [&](auto) { on_error_called = true; });
 
-                CHECK(on_error_called);
+                    CHECK(on_error_called);
+                }
             }
-        }
+        };
+        SECTION("just + merge_with")
+            test(rpp::source::just(1, 1, 1) | rpp::ops::merge_with(delayed_obs));
+
+        SECTION("just(just) + merge")
+            test(rpp::source::just(rpp::schedulers::immediate{}, rpp::source::just(1, 1, 1).as_dynamic(), delayed_obs.as_dynamic()) | rpp::ops::merge());
     }
 }

@@ -11,6 +11,8 @@
 #pragma once
 
 #include <rpp/operators/fwd.hpp>
+#include <rpp/schedulers/current_thread.hpp>
+
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <atomic>
@@ -141,6 +143,9 @@ public:
     template<rpp::constraint::observer_strategy<Value> ObserverStrategy>
     void subscribe(rpp::observer<Value, ObserverStrategy>&& obs) const
     {
+        // Need to take ownership over current_thread in case of inner-observables also uses them
+        auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
+
         m_observable.subscribe(rpp::observer<InnerObservable, operator_strategy_base<InnerObservable, rpp::dynamic_observer<Value>, merge_observer_strategy<Value>>>{std::move(obs).as_dynamic()});
     }
 
@@ -180,6 +185,9 @@ public:
         auto obs_as_dynamic = std::move(obs).as_dynamic();
 
         merge_observer_strategy<Value> strategy{};
+
+        // Need to take ownership over current_thread in case of inner-observables also uses them
+        auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
 
         strategy.on_subscribe(obs_as_dynamic);
         std::apply([&](const auto&... observables) { (strategy.on_next(obs_as_dynamic, observables), ...); }, m_observables);
@@ -231,6 +239,8 @@ namespace rpp::operators
  *
  * @warning According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
  *
+ * @warning During on subscribe operator takes ownership over rpp::schdulers::current_thread to allow mixing of underlying emissions
+ *
  * @marble merge
      {
          source observable                :
@@ -264,6 +274,8 @@ inline auto merge()
  * @brief Combines submissions from current observable with other observables into one
  *
  * @warning According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
+ *
+ * @warning During on subscribe operator takes ownership over rpp::schdulers::current_thread to allow mixing of underlying emissions
  *
  * @marble merge_with
      {
