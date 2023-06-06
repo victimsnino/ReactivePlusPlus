@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <rpp/schedulers/fwd.hpp>
 #include <rpp/utils/functors.hpp>
 #include <rpp/utils/function_traits.hpp>
 #include <rpp/utils/constraints.hpp>
@@ -42,6 +43,9 @@ template<typename Fn>
 auto scan(Fn&& accumulator);
 
 auto skip(size_t count);
+
+template<rpp::schedulers::constraint::scheduler Scheduler>
+auto subscribe_on(Scheduler&& scheduler);
 
 template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
