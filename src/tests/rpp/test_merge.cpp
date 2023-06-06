@@ -282,7 +282,7 @@ TEST_CASE("merge handles race condition", "[merge]")
                                 {
                                     REQUIRE(extracted_obs.has_value());
                                     CHECK(!on_error_called);
-                                    std::thread{[&]
+                                    std::thread{[extracted_obs]
                                     {
                                         extracted_obs->on_error(std::exception_ptr{});
                                     }}.detach();
