@@ -154,7 +154,8 @@ TEST_CASE("merge_with")
 
         SECTION("subscribe on merge of this observables")
         {
-            obs_1 | rpp::ops::merge_with(obs_2)| rpp::ops::subscribe(mock.get_observer());
+            auto op = rpp::ops::merge_with(obs_2);
+            obs_1 | op | rpp::ops::subscribe(mock.get_observer());
             SECTION("observer obtains values FROM both observables")
             {
                 CHECK(mock.get_received_values() == std::vector{ 2 });
