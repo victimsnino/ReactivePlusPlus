@@ -57,6 +57,20 @@ struct subscribe_on_t
 
 namespace rpp::operators
 {
+/**
+ * @brief OnSubscribe function for this observable will be scheduled via provided scheduler
+ *
+ * @details Actually this operator just schedules subscription on original observable to provided scheduler
+ *
+ * @param scheduler is scheduler used for scheduling of OnSubscribe
+ * @warning #include <rpp/operators/subscribe_on.hpp>
+ *
+ * @par Example:
+ * @snippet subscribe_on.cpp subscribe_on
+ *
+ * @ingroup utility_operators
+ * @see https://reactivex.io/documentation/operators/subscribeon.html
+ */
 template<rpp::schedulers::constraint::scheduler Scheduler>
 auto subscribe_on(Scheduler&& scheduler)
 {
