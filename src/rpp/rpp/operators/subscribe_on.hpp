@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include "rpp/observables/fwd.hpp"
 #include <rpp/defs.hpp>
 #include <rpp/observables/observable.hpp>
 #include <rpp/operators/fwd.hpp>
@@ -22,7 +23,9 @@ struct subscribe_on_strategy
     RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;
     RPP_NO_UNIQUE_ADDRESS TObservable observable;
 
-    template<constraint::decayed_type Type, constraint::observer_strategy<Type> ObserverStrategy>
+    using Type = rpp::utils::extract_observable_type_t<TObservable>;
+
+    template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
     void subscribe(observer<Type, ObserverStrategy>&& obs) const
     {
         auto worker = scheduler.create_worker();
@@ -57,6 +60,6 @@ namespace rpp::operators
 template<rpp::schedulers::constraint::scheduler Scheduler>
 auto subscribe_on(Scheduler&& scheduler)
 {
-    return details::subscribe_on_t{std::forward<Scheduler>(scheduler)};
+    return details::subscribe_on_t<std::decay_t<Scheduler>>{std::forward<Scheduler>(scheduler)};
 }
 } // namespace rpp::operators
