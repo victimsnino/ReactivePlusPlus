@@ -1,5 +1,5 @@
 
-def pretty_print(l):
+def indent(l):
     res = ""
     indent = 0
     for c in l:
@@ -27,5 +27,5 @@ data = sorted(data, key=len, reverse=True)
 
 print(f"Longest line: {len(data[0])}")
 
-res = pretty_print(data[0])
+res = indent(data[0])
 print(res)
