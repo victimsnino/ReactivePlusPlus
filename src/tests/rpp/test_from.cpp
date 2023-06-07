@@ -359,12 +359,20 @@ TEST_CASE("just")
     }
 }
 
-TEST_CASE("just variadic")
+TEMPLATE_TEST_CASE("just variadic",
+                   "",
+                   std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_stack>,
+                   std::pair<rpp::schedulers::immediate, rpp::memory_model::use_stack>,
+                   std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_shared>,
+                   std::pair<rpp::schedulers::immediate, rpp::memory_model::use_shared>)
 {
+    using memory_model = std::tuple_element_t<1, TestType>;
+    using scheduler = std::tuple_element_t<0, TestType>;
+
     auto mock = mock_observer_strategy<int>();
     SECTION("observable just variadic")
     {
-        auto obs = rpp::source::just(1, 2, 3, 4, 5, 6);
+        auto obs = rpp::source::just<memory_model>(scheduler{}, 1, 2, 3, 4, 5, 6);
         SECTION("subscribe on it")
         {
             obs.subscribe(mock.get_observer());
@@ -373,18 +381,16 @@ TEST_CASE("just variadic")
                 CHECK(mock.get_received_values() == std::vector{ 1, 2, 3, 4, 5, 6 });
                 CHECK(mock.get_on_completed_count() == 1);
             }
-        }
-    }
-    SECTION("observable just variadic with immediate")
-    {
-        auto obs = rpp::source::just(rpp::schedulers::immediate{}, 1, 2, 3, 4, 5, 6);
-        SECTION("subscribe on it")
-        {
-            obs.subscribe(mock.get_observer());
-            SECTION("observer obtains values in the same order")
+
+            SECTION("subscribe twice on same observer")
             {
-                CHECK(mock.get_received_values() == std::vector{ 1, 2, 3, 4, 5, 6 });
-                CHECK(mock.get_on_completed_count() == 1);
+                obs.subscribe(mock.get_observer());
+
+                SECTION("observer obtains values in the same order twice")
+                {
+                    CHECK(mock.get_received_values() == std::vector{ 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6 });
+                    CHECK(mock.get_on_completed_count() == 1);
+                }
             }
         }
     }

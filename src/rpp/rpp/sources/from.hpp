@@ -45,7 +45,7 @@ public:
             m_iterator.emplace(begin());
         return m_iterator.value();
     }
-    bool increment_iterator() const
+    bool increment_iterator()
     {
         if (!m_iterator)
             m_iterator.emplace(begin());
@@ -90,7 +90,7 @@ public:
             m_iterator.emplace(get_default_iterator_value());
         return m_iterator.value();
     }
-    bool increment_iterator() const
+    bool increment_iterator()
     {
         if (!m_iterator)
             m_iterator.emplace(get_default_iterator_value());
@@ -135,7 +135,7 @@ auto pack_variadic(Ts&& ...items)
 struct from_iterable_schedulable
 {
     template<constraint::decayed_type PackedContainer, constraint::observer_strategy<utils::iterable_value_t<PackedContainer>> Strategy>
-    rpp::schedulers::optional_duration operator()(const observer<utils::iterable_value_t<PackedContainer>, Strategy>& obs, const PackedContainer& cont) const
+    rpp::schedulers::optional_duration operator()(const observer<utils::iterable_value_t<PackedContainer>, Strategy>& obs, PackedContainer& cont) const
     {
         try
         {
@@ -188,7 +188,7 @@ struct from_iterable_strategy
         {
             const auto worker = scheduler.create_worker();
             obs.set_upstream(worker.get_disposable());
-            worker.schedule(from_iterable_schedulable{}, std::move(obs), container);
+            worker.schedule(from_iterable_schedulable{}, std::move(obs), PackedContainer{container});
         }
     }
 };
