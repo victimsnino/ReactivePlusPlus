@@ -78,6 +78,11 @@
 \DoxyCodeLine{00085\ \{}
 \DoxyCodeLine{00086\ \ \ \ \ \{op(\textcolor{keyword}{static\_cast<}TObs\textcolor{keyword}{>}(obs))\}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}};}
 \DoxyCodeLine{00087\ \};}
-\DoxyCodeLine{00088\ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TObservable,\ \textcolor{keyword}{typename}...\ TObservables>}
+\DoxyCodeLine{00090\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observables__of__same__type}{observables\_of\_same\_type}}\ =\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TObservable>}}\ \&\&}
+\DoxyCodeLine{00091\ \ \ \ \ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TObservables>}}\ \&\&\ ...)\ \&\&}
+\DoxyCodeLine{00092\ \ \ \ \ (std::same\_as<rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::utils::extract\_observable\_type\_t<TObservables>>\ \&\&\ ...);}
+\DoxyCodeLine{00093\ \}}
 
 \end{DoxyCode}

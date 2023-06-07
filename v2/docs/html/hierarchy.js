@@ -2,7 +2,8 @@ var hierarchy =
 [
     [ "rpp::operators::details::as_blocking_t", "structrpp_1_1operators_1_1details_1_1as__blocking__t.html", null ],
     [ "rpp::base_disposable", "classrpp_1_1base__disposable.html", [
-      [ "rpp::callback_disposable< Fn >", "classrpp_1_1callback__disposable.html", null ]
+      [ "rpp::callback_disposable< Fn >", "classrpp_1_1callback__disposable.html", null ],
+      [ "rpp::operators::details::merge_disposable< Lock >", "classrpp_1_1operators_1_1details_1_1merge__disposable.html", null ]
     ] ],
     [ "rpp::details::observables::blocking_observer_strategy", "structrpp_1_1details_1_1observables_1_1blocking__observer__strategy.html", null ],
     [ "rpp::details::observables::blocking_strategy< Type, Strategy >", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
@@ -38,6 +39,12 @@ var hierarchy =
     [ "rpp::details::observers::lambda_strategy< Type, OnNext, OnError, OnCompleted >", "structrpp_1_1details_1_1observers_1_1lambda__strategy.html", null ],
     [ "rpp::operators::details::map_observer_strategy< Fn >", "structrpp_1_1operators_1_1details_1_1map__observer__strategy.html", null ],
     [ "rpp::operators::details::map_t< Fn >", "structrpp_1_1operators_1_1details_1_1map__t.html", null ],
+    [ "rpp::operators::details::merge_observable_strategy< Observable >", "classrpp_1_1operators_1_1details_1_1merge__observable__strategy.html", null ],
+    [ "rpp::operators::details::merge_observer_inner_strategy", "structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy.html", null ],
+    [ "rpp::operators::details::merge_observer_strategy< Value >", "structrpp_1_1operators_1_1details_1_1merge__observer__strategy.html", null ],
+    [ "rpp::operators::details::merge_t", "structrpp_1_1operators_1_1details_1_1merge__t.html", null ],
+    [ "rpp::operators::details::merge_with_observable_strategy< TObservable, TObservables >", "classrpp_1_1operators_1_1details_1_1merge__with__observable__strategy.html", null ],
+    [ "rpp::operators::details::merge_with_t< TObservables >", "structrpp_1_1operators_1_1details_1_1merge__with__t.html", null ],
     [ "rpp::details::never_strategy", "structrpp_1_1details_1_1never__strategy.html", null ],
     [ "rpp::schedulers::new_thread", "classrpp_1_1schedulers_1_1new__thread.html", null ],
     [ "rpp::details::none_disposable_strategy", "structrpp_1_1details_1_1none__disposable__strategy.html", null ],

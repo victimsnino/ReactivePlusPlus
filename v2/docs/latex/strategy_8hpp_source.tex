@@ -38,7 +38,7 @@
 \DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ dynamic\_observer<Type>\&\ const\_observer,}
 \DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dynamic\_observer<Type>\&\ observer)}
 \DoxyCodeLine{00036\ \{}
-\DoxyCodeLine{00037\ \ \ \ \ const\_strategy.on\_subscribe(const\_observer);}
+\DoxyCodeLine{00037\ \ \ \ \ const\_strategy.on\_subscribe(observer);}
 \DoxyCodeLine{00038\ }
 \DoxyCodeLine{00039\ \ \ \ \ const\_strategy.on\_next(const\_observer,\ v);}
 \DoxyCodeLine{00040\ \ \ \ \ const\_strategy.on\_next(const\_observer,\ std::move(mv));}
@@ -65,7 +65,7 @@
 \DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ :\ m\_observer\{std::move(\mbox{\hyperlink{classrpp_1_1observer}{observer}})\}}
 \DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ ,\ m\_strategy\{std::forward<Args>(args)...\}}
 \DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ m\_strategy.on\_subscribe(utils::as\_const(m\_observer));}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ m\_strategy.on\_subscribe(m\_observer);}
 \DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00070\ }
 \DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1operator__strategy__base}{operator\_strategy\_base}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1operator__strategy__base}{operator\_strategy\_base}}\&)\ =\ \textcolor{keyword}{delete};}
@@ -168,14 +168,13 @@
 \DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{conceptrpp_1_1operators_1_1details_1_1constraint_1_1operator__strategy}{constraint::operator\_strategy<rpp::utils::extract\_observable\_type\_t<Observable>}}>\ Strategy,}
 \DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}...\ Args>}
 \DoxyCodeLine{00170\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{identity\_operator\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<rpp::utils::extract\_observable\_type\_t<Observable>}},}
-\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1operator__observable__strategy}{operator\_observable\_strategy<std::decay\_t<Observable>}},\ rpp::utils::extract\_observable\_type\_t<Observable>,\ Strategy,\ Args...>>;}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1operator__observable__strategy}{operator\_observable\_strategy<std::decay\_t<Observable>}},\ rpp::utils::extract\_observable\_type\_t<Observable>,\ Strategy,\ Args...>>;}
 \DoxyCodeLine{00172\ }
 \DoxyCodeLine{00173\ \textcolor{keyword}{template}<rpp::constraint::decayed\_type\ T,}
 \DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ Observable,}
 \DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{conceptrpp_1_1operators_1_1details_1_1constraint_1_1operator__strategy}{constraint::operator\_strategy<rpp::utils::extract\_observable\_type\_t<Observable>}}>\ Strategy,}
 \DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}...\ Args>}
-\DoxyCodeLine{00177\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{operator\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable}}<T,}
-\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1operator__observable__strategy}{operator\_observable\_strategy<std::decay\_t<Observable>}},\ T,\ Strategy,\ Args...>>;}
-\DoxyCodeLine{00179\ \}}
+\DoxyCodeLine{00177\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{operator\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<T,\ operator\_observable\_strategy<std::decay\_t<Observable>}},\ T,\ Strategy,\ Args...>>;}
+\DoxyCodeLine{00178\ \}}
 
 \end{DoxyCode}

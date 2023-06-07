@@ -6,6 +6,7 @@ var dir_3591f6ab25936dd3deeec05839e478ca =
     [ "filter.hpp", "filter_8hpp_source.html", null ],
     [ "fwd.hpp", "operators_2fwd_8hpp_source.html", null ],
     [ "map.hpp", "map_8hpp_source.html", null ],
+    [ "merge.hpp", "merge_8hpp_source.html", null ],
     [ "repeat.hpp", "repeat_8hpp_source.html", null ],
     [ "scan.hpp", "scan_8hpp_source.html", null ],
     [ "skip.hpp", "skip_8hpp_source.html", null ],

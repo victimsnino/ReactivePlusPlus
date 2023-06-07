@@ -1,0 +1,11 @@
+\hypertarget{conceptrpp_1_1constraint_1_1observables__of__same__type}{}\doxysection{rpp\+::constraint\+::observables\+\_\+of\+\_\+same\+\_\+type Concept Reference}
+\label{conceptrpp_1_1constraint_1_1observables__of__same__type}\index{rpp::constraint::observables\_of\_same\_type@{rpp::constraint::observables\_of\_same\_type}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TObservable,\ \textcolor{keyword}{typename}...\ TObservables>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observables__of__same__type}{rpp::constraint::observables\_of\_same\_type}}\ =\ \ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TObservable>}}\ \&\&}
+\DoxyCodeLine{\ \ \ \ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TObservables>}}\ \&\&\ ...)\ \&\&}
+\DoxyCodeLine{\ \ \ \ (std::same\_as<rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::utils::extract\_observable\_type\_t<TObservables>>\ \&\&\ ...)}
+
+\end{DoxyCode}

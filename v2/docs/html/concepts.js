@@ -6,6 +6,7 @@ var concepts =
         [ "observable_strategy", "conceptrpp_1_1constraint_1_1observable__strategy.html", null ],
         [ "observable", "conceptrpp_1_1constraint_1_1observable.html", null ],
         [ "operators", "conceptrpp_1_1constraint_1_1operators.html", null ],
+        [ "observables_of_same_type", "conceptrpp_1_1constraint_1_1observables__of__same__type.html", null ],
         [ "observer_strategy", "conceptrpp_1_1constraint_1_1observer__strategy.html", null ],
         [ "observer", "conceptrpp_1_1constraint_1_1observer.html", null ],
         [ "on_subscribe", "conceptrpp_1_1constraint_1_1on__subscribe.html", null ]

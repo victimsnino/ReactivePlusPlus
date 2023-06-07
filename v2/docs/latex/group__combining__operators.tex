@@ -1,0 +1,127 @@
+\hypertarget{group__combining__operators}{}\doxysection{Combining Operators}
+\label{group__combining__operators}\index{Combining Operators@{Combining Operators}}
+
+
+Combining operators are operators that combines emissions of multiple observables into same observable by some rule.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+auto \mbox{\hyperlink{group__combining__operators_ga3f8a04b4c8eb945534eddde5a25eec74}{rpp\+::operators\+::merge}} ()
+\begin{DoxyCompactList}\small\item\em Converts observable of observables of items into observable of items via merging emissions. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
+requires constraint\+::observables\+\_\+of\+\_\+same\+\_\+type$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$TObservables$>$...$>$}\\auto \mbox{\hyperlink{group__combining__operators_ga063bcb64ac3afbedca8b257d3558f2dd}{rpp\+::operators\+::merge\+\_\+with}} (TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&...observables)
+\begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Combining operators are operators that combines emissions of multiple observables into same observable by some rule. 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators.html\#combining}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html\#combining}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__combining__operators_ga3f8a04b4c8eb945534eddde5a25eec74}\label{group__combining__operators_ga3f8a04b4c8eb945534eddde5a25eec74}} 
+\index{Combining Operators@{Combining Operators}!merge@{merge}}
+\index{merge@{merge}!Combining Operators@{Combining Operators}}
+\doxysubsubsection{\texorpdfstring{merge()}{merge()}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::merge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Converts observable of observables of items into observable of items via merging emissions. 
+
+\begin{DoxyWarning}{Warning}
+According to observable contract (\href{https://reactivex.io/documentation/contract.html}{\texttt{ https\+://reactivex.\+io/documentation/contract.\+html}}) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
+
+During on subscribe operator takes ownership over rpp\+::schdulers\+::current\+\_\+thread to allow mixing of underlying emissions
+\end{DoxyWarning}
+
+
+Actually it subscribes on each observable from emissions. Resulting observables completes when ALL observables completes
+
+\begin{DoxyParagraph}{Performance notes\+:}
+
+\begin{DoxyItemize}
+\item 2 heap allocation (1 for state, 1 to convert observer to dynamic\+\_\+observer)
+\item Acquiring mutex during all observer\textquotesingle{}s calls
+\end{DoxyItemize}
+\end{DoxyParagraph}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{merge_8hpp_source}{rpp/operators/merge.\+hpp}}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1).as\_dynamic(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rpp::source::never<int>().as\_dynamic(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(2).as\_dynamic())}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga3f8a04b4c8eb945534eddde5a25eec74}{rpp::operators::merge}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/merge.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/merge.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{merge_8cpp-example}{merge.\+cpp}}.\end{Desc}
+\mbox{\Hypertarget{group__combining__operators_ga063bcb64ac3afbedca8b257d3558f2dd}\label{group__combining__operators_ga063bcb64ac3afbedca8b257d3558f2dd}} 
+\index{Combining Operators@{Combining Operators}!merge\_with@{merge\_with}}
+\index{merge\_with@{merge\_with}!Combining Operators@{Combining Operators}}
+\doxysubsubsection{\texorpdfstring{merge\_with()}{merge\_with()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
+requires constraint\+::observables\+\_\+of\+\_\+same\+\_\+type$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$TObservables$>$...$>$\\
+auto rpp\+::operators\+::merge\+\_\+with (\begin{DoxyParamCaption}\item[{TObservable \&\&}]{observable,  }\item[{TObservables \&\&...}]{observables }\end{DoxyParamCaption})}
+
+
+
+Combines submissions from current observable with other observables into one. 
+
+\begin{DoxyWarning}{Warning}
+According to observable contract (\href{https://reactivex.io/documentation/contract.html}{\texttt{ https\+://reactivex.\+io/documentation/contract.\+html}}) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
+
+During on subscribe operator takes ownership over rpp\+::schdulers\+::current\+\_\+thread to allow mixing of underlying emissions
+\end{DoxyWarning}
+
+
+Actually it subscribes on each observable. Resulting observables completes when ALL observables completes
+
+\begin{DoxyParagraph}{Performance notes\+:}
+
+\begin{DoxyItemize}
+\item 2 heap allocation (1 for state, 1 to convert observer to dynamic\+\_\+observer)
+\item Acquiring mutex during all observer\textquotesingle{}s calls
+\end{DoxyItemize}
+\end{DoxyParagraph}
+
+\begin{DoxyParams}{Parameters}
+{\em observables} & are observables whose emissions would be merged with current observable \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{merge_8hpp_source}{rpp/operators/merge.\+hpp}}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga063bcb64ac3afbedca8b257d3558f2dd}{rpp::operators::merge\_with}}(\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(2))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/merge.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/merge.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{merge_8cpp-example}{merge.\+cpp}}.\end{Desc}
