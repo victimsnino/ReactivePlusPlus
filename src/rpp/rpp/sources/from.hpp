@@ -132,6 +132,30 @@ auto pack_variadic(Ts&& ...items)
     return pack_to_container<memory_model, std::array<T, sizeof...(Ts)>>(std::forward<Ts>(items)...);
 }
 
+struct from_iterable_schedulable
+{
+    template<constraint::decayed_type PackedContainer, constraint::observer_strategy<utils::iterable_value_t<PackedContainer>> Strategy>
+    rpp::schedulers::optional_duration operator()(const observer<utils::iterable_value_t<PackedContainer>, Strategy>& obs, const PackedContainer& cont) const
+    {
+        try
+        {
+            if (const auto itr = cont.get_actual_iterator(); itr != std::cend(cont))
+            {
+                obs.on_next(utils::as_const(*itr));
+                if (cont.increment_iterator())     // it was not last
+                    return schedulers::duration{}; // re-schedule this
+            }
+
+            obs.on_completed();
+        }
+        catch (...)
+        {
+            obs.on_error(std::current_exception());
+        }
+        return std::nullopt;
+    }
+};
+
 template<constraint::decayed_type PackedContainer, schedulers::constraint::scheduler TScheduler>
 struct from_iterable_strategy
 {
@@ -164,25 +188,7 @@ struct from_iterable_strategy
         {
             const auto worker = scheduler.create_worker();
             obs.set_upstream(worker.get_disposable());
-            worker.schedule([](const observer<utils::iterable_value_t<PackedContainer>, Strategy>& obs, const PackedContainer& cont) -> rpp::schedulers::optional_duration
-            {
-                try
-                {
-                    if (const auto itr = cont.get_actual_iterator(); itr != std::cend(cont))
-                    {
-                        obs.on_next(utils::as_const(*itr));
-                        if (cont.increment_iterator()) // it was not last
-                            return schedulers::duration{}; // re-schedule this
-                    }
-
-                    obs.on_completed();
-                }
-                catch(...)
-                {
-                    obs.on_error(std::current_exception());
-                }
-                return std::nullopt;
-            }, std::move(obs), container);
+            worker.schedule(from_iterable_schedulable{}, std::move(obs), container);
         }
     }
 };

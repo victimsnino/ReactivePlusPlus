@@ -85,13 +85,10 @@ struct concat_strategy
     {
         if (const auto observable = extract_observable(container, obs))
         {
-            observable->subscribe(observer<Type,
+            using concat_observer = observer<Type,
                                            rpp::operators::details::operator_strategy_base<Type, observer<Type, Strategy>,
-                                           concat_source_observer_strategy<PackedContainer>>>
-                                           {
-                                               std::move(obs),
-                                               std::forward<decltype(container)>(container)
-                                           });
+                                           concat_source_observer_strategy<PackedContainer>>>;
+            observable->subscribe(concat_observer{std::move(obs), std::forward<decltype(container)>(container) });
         }
     }
 
@@ -114,7 +111,7 @@ private:
         obs.on_completed();
         return std::nullopt;
     }
-    
+
 };
 
 template<typename PackedContainer>

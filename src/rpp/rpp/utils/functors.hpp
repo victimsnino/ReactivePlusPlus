@@ -23,6 +23,9 @@ struct empty_function_t
     constexpr void operator()(const Types&...) const noexcept {}
 };
 
+template<typename ...Types>
+void empty_function(const Types&...){}
+
 struct empty_function_any_t
 {
     template<typename ...Types>

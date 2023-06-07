@@ -16,6 +16,21 @@
 
 namespace rpp::operators::details
 {
+template<rpp::constraint::observable TObservable>
+struct subscribe_on_schedulable
+{
+    RPP_NO_UNIQUE_ADDRESS TObservable observable;
+
+    using Type = rpp::utils::extract_observable_type_t<TObservable>;
+
+    template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
+    rpp::schedulers::optional_duration operator()(observer<Type, ObserverStrategy>& observer) const
+    {
+        observable.subscribe(std::move(observer));
+        return rpp::schedulers::optional_duration{};
+    }
+};
+
 template<rpp::schedulers::constraint::scheduler Scheduler, rpp::constraint::observable TObservable>
 struct subscribe_on_strategy
 {
@@ -29,13 +44,7 @@ struct subscribe_on_strategy
     {
         const auto worker = scheduler.create_worker();
         obs.set_upstream(worker.get_disposable());
-        worker.schedule(
-            [observable = observable](observer<Type, ObserverStrategy>& observer)
-            {
-                observable.subscribe(std::move(observer));
-                return rpp::schedulers::optional_duration{};
-            },
-            std::move(obs));
+        worker.schedule(subscribe_on_schedulable<TObservable>{observable}, std::move(obs));
     }
 };
 

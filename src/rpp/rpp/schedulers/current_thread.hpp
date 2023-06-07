@@ -14,6 +14,7 @@
 #include <rpp/schedulers/details/queue.hpp>
 #include <rpp/schedulers/details/utils.hpp>
 #include <rpp/schedulers/details/worker.hpp>
+#include <rpp/utils/functors.hpp>
 #include <thread>
 
 namespace rpp::schedulers
@@ -33,6 +34,13 @@ class current_thread
 
     inline static thread_local std::optional<details::schedulables_queue> s_queue{};
     inline static thread_local time_point s_last_now_time{};
+
+    struct is_queue_is_empty
+    {
+        const details::schedulables_queue& queue;
+
+        bool operator()() const { return queue.is_empty(); }
+    };
 
     static void sleep_until(const time_point timepoint)
     {
@@ -91,7 +99,7 @@ public:
         if (!someone_owns_queue)
             s_queue.emplace();
 
-        return utils::finally_action{!someone_owns_queue ? &drain_current_queue : +[] {}};
+        return utils::finally_action{!someone_owns_queue ? &drain_current_queue : &utils::empty_function<>};
     }
 
     class worker_strategy
@@ -106,7 +114,7 @@ public:
             {
                 queue.emplace();
 
-                const auto optional_duration = details::immediate_scheduling_while_condition(duration, [&queue](){ return queue->is_empty(); }, fn, obs, args...);
+                const auto optional_duration = details::immediate_scheduling_while_condition(duration, is_queue_is_empty{queue.value()}, fn, obs, args...);
                 if (!optional_duration || obs.is_disposed())
                     return drain_queue(queue);
                 duration = optional_duration.value();
