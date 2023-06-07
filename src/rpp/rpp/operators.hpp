@@ -57,6 +57,15 @@
 #include <rpp/operators/take_while.hpp>
 
 /**
+ * \defgroup combining_operators Combining Operators
+ * \brief Combining operators are operators that combines emissions of multiple observables into same observable by some rule
+ * \see https://reactivex.io/documentation/operators.html#combining
+ * \ingroup operators
+ */
+
+#include <rpp/operators/merge.hpp>
+
+/**
  * @defgroup utility_operators Utility Operators
  * @brief Utility operators are operators that provide some extra functionality without changing of original values, but
  * changing of behaviour

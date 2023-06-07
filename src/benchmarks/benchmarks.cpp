@@ -179,6 +179,54 @@ int main(int argc, char* argv[]) // NOLINT
         }
     }
 
+    BENCHMARK("Combining Operators")
+    {
+        SECTION("create(create(1), create(1)) + merge() + subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                auto inner_source = rpp::source::create<int>([](const auto& obs){ obs.on_next(1); });
+
+                rpp::source::create<decltype(inner_source)>([&](const auto& obs)
+                {
+                    obs.on_next(inner_source);
+                    obs.on_next(inner_source);
+                })
+                | rpp::operators::merge()
+                | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]()
+            {
+                auto inner_source = rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);});
+
+                rxcpp::observable<>::create<decltype(inner_source)>([&](const auto& obs)
+                {
+                    obs.on_next(inner_source);
+                    obs.on_next(inner_source);
+                })
+                | rxcpp::operators::merge()
+                | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+        SECTION("create(1) + merge_with(create(2)) + subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
+                | rpp::operators::merge_with(rpp::source::create<int>([](const auto& obs){ obs.on_next(2); }))
+                | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
+                | rxcpp::operators::merge(rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(2);}))
+                | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+    }
+
     BENCHMARK("Conditional Operators")
     {
         SECTION("create+take_while(false)+subscribe")
