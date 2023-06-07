@@ -7,5 +7,6 @@ var searchData=
   ['forwarding_5fon_5ferror_5fstrategy_4',['forwarding_on_error_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__on__error__strategy.html',1,'rpp::operators::details']]],
   ['forwarding_5fon_5fnext_5fstrategy_5',['forwarding_on_next_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__on__next__strategy.html',1,'rpp::operators::details']]],
   ['forwarding_5fset_5fupstream_5fstrategy_6',['forwarding_set_upstream_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy.html',1,'rpp::operators::details']]],
-  ['from_5fiterable_5fstrategy_7',['from_iterable_strategy',['../structrpp_1_1details_1_1from__iterable__strategy.html',1,'rpp::details']]]
+  ['from_5fiterable_5fschedulable_7',['from_iterable_schedulable',['../structrpp_1_1details_1_1from__iterable__schedulable.html',1,'rpp::details']]],
+  ['from_5fiterable_5fstrategy_8',['from_iterable_strategy',['../structrpp_1_1details_1_1from__iterable__strategy.html',1,'rpp::details']]]
 ];

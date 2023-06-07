@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"subscribe_8hpp_source.html":[4,0,0,0,0,3,10],
+"subscribe__on_8hpp_source.html":[4,0,0,0,0,3,11],
 "subscribe_on_8cpp-example.html":[5,11],
 "take_8cpp-example.html":[5,12],
 "take_8hpp_source.html":[4,0,0,0,0,3,12],
