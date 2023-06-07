@@ -9,18 +9,14 @@
 //
 
 #include <snitch/snitch.hpp>
-#include <rpp/sources/create.hpp>
+#include <rpp/sources/just.hpp>
 #include <exception>
 #include "mock_observer.hpp"
 
-TEST_CASE("subscribe as operator")
+TEMPLATE_TEST_CASE("subscribe as operator", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     mock_observer_strategy<int> mock{};
-    auto observable = rpp::source::create<int>([](const auto& obs)
-    {
-        obs.on_next(1);
-        obs.on_completed();
-    });
+    auto observable = rpp::source::just<TestType>(1);
 
     SECTION("subscribe observer")
     {
@@ -92,14 +88,10 @@ TEST_CASE("subscribe as operator")
     }
 }
 
-TEST_CASE("subscribe as member")
+TEMPLATE_TEST_CASE("subscribe as member", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     mock_observer_strategy<int> mock{};
-    auto observable = rpp::source::create<int>([](const auto& obs)
-    {
-        obs.on_next(1);
-        obs.on_completed();
-    });
+    auto observable = rpp::source::just<TestType>(1);
 
     SECTION("subscribe observer")
     {

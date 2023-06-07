@@ -15,52 +15,23 @@
 
 #include "mock_observer.hpp"
 
-TEST_CASE("distinct_until_changed filters out consecutive duplicates and send first value from duplicates")
+TEMPLATE_TEST_CASE("distinct_until_changed filters out consecutive duplicates and send first value from duplicates", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     auto mock = mock_observer_strategy<int>{};
-    SECTION("observable of values with duplicates")
+    auto obs = rpp::source::just<TestType>(1, 1, 2, 2, 3, 2, 2, 1);
+    SECTION("when subscribe on observable with duplicates via distinct_until_changed then subscriber obtains values without consecutive duplicates")
     {
-        auto obs = rpp::source::just(1, 1, 2, 2, 3, 2, 2, 1);
-        SECTION("when subscribe on it via distinct_until_changed then subscriber obtains values without consecutive duplicates")
-        {
-            obs | rpp::ops::distinct_until_changed() | rpp::ops::subscribe(mock.get_observer());
-            CHECK(mock.get_received_values() == std::vector{ 1,2,3,2,1 });
-            CHECK(mock.get_on_error_count() == 0);
-            CHECK(mock.get_on_completed_count() == 1);
-     }
-        SECTION("when subscribe on it via distinct_until_changed with custom comparator then subscriber obtains values without consecutive duplicates")
-        {
-            auto op = rpp::ops::distinct_until_changed([](int old_value, int new_value) {return old_value % 2 != new_value % 2; });
-            obs | op | rpp::ops::subscribe(mock.get_observer());
-            CHECK(mock.get_received_values() == std::vector{ 1, 1, 3, 1});
-            CHECK(mock.get_on_error_count() == 0);
-            CHECK(mock.get_on_completed_count() == 1);
-        }
+        obs | rpp::ops::distinct_until_changed() | rpp::ops::subscribe(mock.get_observer());
+        CHECK(mock.get_received_values() == std::vector{ 1,2,3,2,1 });
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 1);
     }
-
-    // SECTION("subject of values")
-    // {
-    //     auto subj = rpp::subjects::publish_subject<int>{};
-    //     SECTION("subscribe on it via distinct_until_changed and send value")
-    //     {
-    //         subj.get_observable().distinct_until_changed().subscribe(mock);
-    //         subj.get_subscriber().on_next(1);
-    //         SECTION("subscriber obtains value")
-    //         {
-    //             CHECK(mock.get_received_values() == std::vector{ 1});
-    //             CHECK(mock.get_on_error_count() == 0);
-    //             CHECK(mock.get_on_completed_count() == 0);
-    //         }
-    //         AND_SECTION("send duplicate")
-    //         {
-    //             subj.get_subscriber().on_next(1);
-    //             SECTION("subscriber ignores duplicated value")
-    //             {
-    //                 CHECK(mock.get_received_values() == std::vector{ 1 });
-    //                 CHECK(mock.get_on_error_count() == 0);
-    //                 CHECK(mock.get_on_completed_count() == 0);
-    //             }
-    //         }
-    //     }
-    // }
+    SECTION("when subscribe on observable with duplicates via distinct_until_changed with custom comparator then subscriber obtains values without consecutive duplicates")
+    {
+        auto op = rpp::ops::distinct_until_changed([](int old_value, int new_value) {return old_value % 2 != new_value % 2; });
+        obs | op | rpp::ops::subscribe(mock.get_observer());
+        CHECK(mock.get_received_values() == std::vector{ 1, 1, 3, 1});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 1);
+    }
 }

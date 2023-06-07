@@ -11,19 +11,14 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/operators/skip.hpp>
-#include <rpp/sources/create.hpp>
+#include <rpp/sources/just.hpp>
 
 #include "mock_observer.hpp"
 
-TEST_CASE("skip ignores first `count` of items")
+TEMPLATE_TEST_CASE("skip ignores first `count` of items", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     auto mock = mock_observer_strategy<int>{};
-    auto obs = rpp::source::create<int>([](const auto& sub)
-    {
-        for (int i = 0; i < 10; ++i)
-            sub.on_next(i);
-        sub.on_completed();
-    });
+    auto obs = rpp::source::just<TestType>(0,1,2,3,4,5,6,7,8,9);
 
     SECTION("subscribe to observable of 10 items via skip(5) skips first 5 items")
     {

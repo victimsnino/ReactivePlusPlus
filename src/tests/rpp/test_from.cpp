@@ -227,7 +227,7 @@ TEMPLATE_TEST_CASE("from iterable doesn't provides extra copies", "", rpp::sched
     }
 }
 
-TEST_CASE("from callable", "[source][from]")
+TEST_CASE("from callable")
 {
     auto mock = mock_observer_strategy<int>{};
 

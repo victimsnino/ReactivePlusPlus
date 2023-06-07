@@ -25,24 +25,12 @@
 #include <stdexcept>
 #include <string>
 
-namespace snitch
-{
-bool append(snitch::small_string_span ss, const std::vector<int>& c) {
-    std::string res{};
-
-    for(auto v : c) {
-        res += std::to_string(v) + " ";
-    }
-    return append(ss, res);
-}
-}
-
-TEST_CASE("merge for observable of observables")
+TEMPLATE_TEST_CASE("merge for observable of observables", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     auto mock = mock_observer_strategy<int>();
     SECTION("observable of observables")
     {
-        auto obs= rpp::source::just(rpp::schedulers::immediate{}, rpp::source::just(rpp::schedulers::immediate{}, 1), rpp::source::just(rpp::schedulers::immediate{}, 2));
+        auto obs= rpp::source::just<TestType>(rpp::schedulers::immediate{}, rpp::source::just<TestType>(rpp::schedulers::immediate{}, 1), rpp::source::just<TestType>(rpp::schedulers::immediate{}, 2));
 
         SECTION("subscribe on merge of observable")
         {
@@ -57,7 +45,7 @@ TEST_CASE("merge for observable of observables")
 
     SECTION("observable of observables with first never")
     {
-        auto obs = rpp::source::just(rpp::source::never<int>().as_dynamic(), rpp::source::just(2).as_dynamic());
+        auto obs = rpp::source::just<TestType>(rpp::source::never<int>().as_dynamic(), rpp::source::just<TestType>(2).as_dynamic());
 
         SECTION("subscribe on merge of observable")
         {
@@ -73,8 +61,8 @@ TEST_CASE("merge for observable of observables")
     {
         auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub)
         {
-            sub.on_next(rpp::source::just(1).as_dynamic());
-            sub.on_next(rpp::source::just(2).as_dynamic());
+            sub.on_next(rpp::source::just<TestType>(1).as_dynamic());
+            sub.on_next(rpp::source::just<TestType>(2).as_dynamic());
         });
 
         SECTION("subscribe on merge of observable")
@@ -87,13 +75,13 @@ TEST_CASE("merge for observable of observables")
             }
         }
     }
-    SECTION("observable of observables one with error")
+    SECTION("observable of observables with error")
     {
         auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub)
             {
-                sub.on_next(rpp::source::just(rpp::schedulers::immediate{}, 1).as_dynamic());
+                sub.on_next(rpp::source::just<TestType>(rpp::schedulers::immediate{}, 1).as_dynamic());
                 sub.on_next(rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})).as_dynamic());
-                sub.on_next(rpp::source::just(rpp::schedulers::immediate{}, 2).as_dynamic());
+                sub.on_next(rpp::source::just<TestType>(rpp::schedulers::immediate{}, 2).as_dynamic());
             });
 
         SECTION("subscribe on merge of observable")
@@ -112,7 +100,7 @@ TEST_CASE("merge for observable of observables")
         auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub)
         {
             sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
-            sub.on_next(rpp::source::just(1).as_dynamic());
+            sub.on_next(rpp::source::just<TestType>(1).as_dynamic());
         });
 
         SECTION("subscribe on merge of observable")
@@ -128,13 +116,13 @@ TEST_CASE("merge for observable of observables")
     }
 }
 
-TEST_CASE("merge_with")
+TEMPLATE_TEST_CASE("merge_with", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     auto mock = mock_observer_strategy<int>();
     SECTION("2 observables")
     {
-        auto obs_1 = rpp::source::just(1);
-        auto obs_2 = rpp::source::just(2);
+        auto obs_1 = rpp::source::just<TestType>(1);
+        auto obs_2 = rpp::source::just<TestType>(2);
 
         SECTION("subscribe on merge of this observables")
         {
@@ -150,7 +138,7 @@ TEST_CASE("merge_with")
     SECTION("never observable with just observable")
     {
         auto obs_1 = rpp::source::never<int>();
-        auto obs_2 = rpp::source::just(2);
+        auto obs_2 = rpp::source::just<TestType>(2);
 
         SECTION("subscribe on merge of this observables")
         {
@@ -177,7 +165,7 @@ TEST_CASE("merge_with")
     SECTION("error observable with just observable")
     {
         auto obs_1 = rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}));
-        auto obs_2 = rpp::source::just(2);
+        auto obs_2 = rpp::source::just<TestType>(2);
 
         SECTION("subscribe on merge of this observables")
         {
@@ -193,12 +181,12 @@ TEST_CASE("merge_with")
     }
 }
 
-TEST_CASE("merge serializes emissions")
+TEMPLATE_TEST_CASE("merge serializes emissions", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     SECTION("observables from different threads")
     {
-        auto s1 = rpp::source::just(rpp::schedulers::new_thread{}, 1);
-        auto s2 = rpp::source::just(rpp::schedulers::new_thread{}, 2);
+        auto s1 = rpp::source::just<TestType>(rpp::schedulers::new_thread{}, 1);
+        auto s2 = rpp::source::just<TestType>(rpp::schedulers::new_thread{}, 2);
         SECTION("subscribe on merge of this observables")
         {
             SECTION("resulting observable emits items sequentially")
@@ -226,7 +214,7 @@ TEST_CASE("merge serializes emissions")
 //     SECTION("observable and subscriber")
 //     {
 //         copy_count_tracker verifier{};
-//         auto          obs = rpp::source::just(verifier.get_observable()) | rpp::ops::merge() ;
+//         auto          obs = rpp::source::just<TestType>(verifier.get_observable()) | rpp::ops::merge() ;
 //         SECTION("subscribe")
 //         {
 //             obs.subscribe([](copy_count_tracker){});
@@ -245,7 +233,7 @@ TEST_CASE("merge serializes emissions")
 //     SECTION("observable and subscriber")
 //     {
 //         copy_count_tracker verifier{};
-//         auto          obs = rpp::source::just(verifier.get_observable_for_move()) | rpp::ops::merge() ;
+//         auto          obs = rpp::source::just<TestType>(verifier.get_observable_for_move()) | rpp::ops::merge() ;
 //         SECTION("subscribe")
 //         {
 //             obs.subscribe([](copy_count_tracker) {});
@@ -259,7 +247,7 @@ TEST_CASE("merge serializes emissions")
 //     }
 // }
 
-TEST_CASE("merge handles race condition", "[merge]")
+TEMPLATE_TEST_CASE("merge handles race condition", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     SECTION("source observable in current thread pairs with error in other thread")
     {
@@ -296,9 +284,9 @@ TEST_CASE("merge handles race condition", "[merge]")
             }
         };
         SECTION("just + merge_with")
-            test(rpp::source::just(1, 1, 1) | rpp::ops::merge_with(delayed_obs));
+            test(rpp::source::just<TestType>(1, 1, 1) | rpp::ops::merge_with(delayed_obs));
 
-        SECTION("just(just) + merge")
-            test(rpp::source::just(rpp::schedulers::immediate{}, rpp::source::just(1, 1, 1).as_dynamic(), delayed_obs.as_dynamic()) | rpp::ops::merge());
+        SECTION("just<TestType>(just) + merge")
+            test(rpp::source::just<TestType>(rpp::schedulers::immediate{}, rpp::source::just<TestType>(1, 1, 1).as_dynamic(), delayed_obs.as_dynamic()) | rpp::ops::merge());
     }
 }
