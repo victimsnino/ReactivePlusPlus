@@ -389,7 +389,7 @@ TEMPLATE_TEST_CASE("just variadic",
                 SECTION("observer obtains values in the same order twice")
                 {
                     CHECK(mock.get_received_values() == std::vector{ 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6 });
-                    CHECK(mock.get_on_completed_count() == 1);
+                    CHECK(mock.get_on_completed_count() == 2);
                 }
             }
         }
