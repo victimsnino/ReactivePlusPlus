@@ -11609,6 +11609,348 @@
             "medianAbsolutePercentError(elapsed)": 0.0404918222075705,
             "commit": "f3614e47",
             "commit_message": "Merge operator (#371)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 0.66984586847188,
+            "medianAbsolutePercentError(elapsed)": 0.00235258260951932,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 716.2265734265729,
+            "medianAbsolutePercentError(elapsed)": 0.00551305632910806,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 0.668459001492418,
+            "medianAbsolutePercentError(elapsed)": 0.000259004918619957,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 704.8790637191161,
+            "medianAbsolutePercentError(elapsed)": 0.002561533239692,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.371882250557093,
+            "medianAbsolutePercentError(elapsed)": 0.00405283495147105,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 1816.69802731411,
+            "medianAbsolutePercentError(elapsed)": 0.00141100407516369,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 7.98637356785415,
+            "medianAbsolutePercentError(elapsed)": 0.00412309504206309,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 2639.87885462555,
+            "medianAbsolutePercentError(elapsed)": 0.00107057449091413,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 9.027809931423569,
+            "medianAbsolutePercentError(elapsed)": 0.000156953627083113,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 5539.2688172043,
+            "medianAbsolutePercentError(elapsed)": 0.000544872844935239,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 0.668311886817216,
+            "medianAbsolutePercentError(elapsed)": 6.55134495467579e-05,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 748.906432748538,
+            "medianAbsolutePercentError(elapsed)": 0.00141910798122416,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 5.94199618410335,
+            "medianAbsolutePercentError(elapsed)": 0.0460354799523441,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 900.080308880309,
+            "medianAbsolutePercentError(elapsed)": 0.00669511978625883,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 82.1414251619502,
+            "medianAbsolutePercentError(elapsed)": 0.00769805505500954,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1988.17744916821,
+            "medianAbsolutePercentError(elapsed)": 0.00314232757158439,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 213.064042303173,
+            "medianAbsolutePercentError(elapsed)": 0.00094630350484841,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4438.57627118644,
+            "medianAbsolutePercentError(elapsed)": 0.00330651051687097,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 214.72688003141602,
+            "medianAbsolutePercentError(elapsed)": 0.00361311736516385,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 6958.63057324841,
+            "medianAbsolutePercentError(elapsed)": 0.00244640432005319,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.0,
+            "medianAbsolutePercentError(elapsed)": 0,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 888.12037037037,
+            "medianAbsolutePercentError(elapsed)": 0.00216524818117197,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.33418825720156903,
+            "medianAbsolutePercentError(elapsed)": 0.000187910248109547,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 852.6510067114091,
+            "medianAbsolutePercentError(elapsed)": 0.00177047207534364,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.334224200219972,
+            "medianAbsolutePercentError(elapsed)": 0.000229871582844892,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 853.780740740741,
+            "medianAbsolutePercentError(elapsed)": 0.00238370857153376,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.334193897429239,
+            "medianAbsolutePercentError(elapsed)": 0.000219575748594575,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1008.9418212478901,
+            "medianAbsolutePercentError(elapsed)": 0.00316160791399998,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.33418521756675,
+            "medianAbsolutePercentError(elapsed)": 0.000170263070766711,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1426.6961869618701,
+            "medianAbsolutePercentError(elapsed)": 0.00379265083965388,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.334169566507513,
+            "medianAbsolutePercentError(elapsed)": 0.000108789946948253,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 853.503333333333,
+            "medianAbsolutePercentError(elapsed)": 0.00146157468534163,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.334149538515445,
+            "medianAbsolutePercentError(elapsed)": 0.000129756110045882,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1244.88377445339,
+            "medianAbsolutePercentError(elapsed)": 0.00561204268152589,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.334140645658705,
+            "medianAbsolutePercentError(elapsed)": 3.63479407462072e-05,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 867.2267441860471,
+            "medianAbsolutePercentError(elapsed)": 0.00195894207638893,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.33414695874169,
+            "medianAbsolutePercentError(elapsed)": 7.34877457531411e-05,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3126.31232876712,
+            "medianAbsolutePercentError(elapsed)": 0.00230048363286603,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
         }
     ],
     "ci-macos": [
@@ -23221,6 +23563,348 @@
             "medianAbsolutePercentError(elapsed)": 0.0837976787670904,
             "commit": "f3614e47",
             "commit_message": "Merge operator (#371)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 0.564162634258817,
+            "medianAbsolutePercentError(elapsed)": 0.0142712363644713,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 1104.61585993821,
+            "medianAbsolutePercentError(elapsed)": 0.0205582519751397,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 0.5625867514305359,
+            "medianAbsolutePercentError(elapsed)": 0.0104314430801557,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 1108.45251396648,
+            "medianAbsolutePercentError(elapsed)": 0.00770724421024639,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.486508398496734,
+            "medianAbsolutePercentError(elapsed)": 0.122716538839484,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 2360.8129330254,
+            "medianAbsolutePercentError(elapsed)": 0.00620125457014918,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 12.1035706317925,
+            "medianAbsolutePercentError(elapsed)": 0.00458307068275319,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 4883.03333333333,
+            "medianAbsolutePercentError(elapsed)": 0.482249352930582,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 12.6488350377446,
+            "medianAbsolutePercentError(elapsed)": 0.00984577802678073,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 6955.420731707321,
+            "medianAbsolutePercentError(elapsed)": 0.0061315117671075,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 0.556730847108199,
+            "medianAbsolutePercentError(elapsed)": 0.00141435668819063,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 996.410426540284,
+            "medianAbsolutePercentError(elapsed)": 0.00863095403454755,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 8.399345047923319,
+            "medianAbsolutePercentError(elapsed)": 0.00615852897243556,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1315.3987179487199,
+            "medianAbsolutePercentError(elapsed)": 0.00561485362086605,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 152.93868952491601,
+            "medianAbsolutePercentError(elapsed)": 0.00384343158351499,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 2408.0375782880997,
+            "medianAbsolutePercentError(elapsed)": 0.0122339295868244,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 367.978084128667,
+            "medianAbsolutePercentError(elapsed)": 0.00313410274878268,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4082.30272108844,
+            "medianAbsolutePercentError(elapsed)": 0.00722200890232196,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 369.018612521151,
+            "medianAbsolutePercentError(elapsed)": 0.00498525504757733,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 6868.5935483871,
+            "medianAbsolutePercentError(elapsed)": 0.00842578319981805,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.0,
+            "medianAbsolutePercentError(elapsed)": 0,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1304.1590909090899,
+            "medianAbsolutePercentError(elapsed)": 0.0192643715547206,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.28085669991386103,
+            "medianAbsolutePercentError(elapsed)": 0.00933673043622801,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1229.22269807281,
+            "medianAbsolutePercentError(elapsed)": 0.0033411800039108,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.277967143313379,
+            "medianAbsolutePercentError(elapsed)": 0.000517144608044529,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1252.5211581291799,
+            "medianAbsolutePercentError(elapsed)": 0.00611877721805791,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.556038722425162,
+            "medianAbsolutePercentError(elapsed)": 0.000681809084592389,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1508.62752525253,
+            "medianAbsolutePercentError(elapsed)": 0.00261544749778043,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.279132792594188,
+            "medianAbsolutePercentError(elapsed)": 0.00225655110400988,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2037.98207885305,
+            "medianAbsolutePercentError(elapsed)": 0.00341736189135212,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.28276154557335303,
+            "medianAbsolutePercentError(elapsed)": 0.0142329974383456,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1168.7713052858699,
+            "medianAbsolutePercentError(elapsed)": 0.00486295204667694,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.278716333333333,
+            "medianAbsolutePercentError(elapsed)": 0.0025446070152498,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1899.4673046252,
+            "medianAbsolutePercentError(elapsed)": 0.00379720890160611,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.558168138288619,
+            "medianAbsolutePercentError(elapsed)": 0.00263937453142943,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1243.71200850159,
+            "medianAbsolutePercentError(elapsed)": 0.0343233143379277,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.28111702284054096,
+            "medianAbsolutePercentError(elapsed)": 0.00995531762820898,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3650.90940766551,
+            "medianAbsolutePercentError(elapsed)": 0.00468285813264684,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
         }
     ],
     "ci-ubuntu-clang": [
@@ -34833,6 +35517,348 @@
             "medianAbsolutePercentError(elapsed)": 0.00247941784527389,
             "commit": "f3614e47",
             "commit_message": "Merge operator (#371)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 0.60144786917311,
+            "medianAbsolutePercentError(elapsed)": 7.55020796786968e-05,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 341.058704453441,
+            "medianAbsolutePercentError(elapsed)": 0.000951162255433042,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 0.801936339988471,
+            "medianAbsolutePercentError(elapsed)": 0.000118857407416023,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 343.219526120468,
+            "medianAbsolutePercentError(elapsed)": 0.00578466644652701,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.409036696887128,
+            "medianAbsolutePercentError(elapsed)": 0.0051159304671079,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 717.15987654321,
+            "medianAbsolutePercentError(elapsed)": 0.00157987551028043,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 5.68979193758127,
+            "medianAbsolutePercentError(elapsed)": 0.00400510191206604,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 1034.0057803468198,
+            "medianAbsolutePercentError(elapsed)": 0.00267988955242792,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 7.02393725083766,
+            "medianAbsolutePercentError(elapsed)": 0.00102606975025199,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2461.95693779904,
+            "medianAbsolutePercentError(elapsed)": 0.00597669206810795,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 0.80204937121565,
+            "medianAbsolutePercentError(elapsed)": 0.00022171559529024,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 255.16947943902997,
+            "medianAbsolutePercentError(elapsed)": 0.00268492005573207,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 4.0345084262472,
+            "medianAbsolutePercentError(elapsed)": 0.00204413569282569,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 394.95494801694304,
+            "medianAbsolutePercentError(elapsed)": 0.00228132595903544,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 64.5621314940483,
+            "medianAbsolutePercentError(elapsed)": 0.0036205439140388,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 826.525723472669,
+            "medianAbsolutePercentError(elapsed)": 0.00130602103193214,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 108.696006778943,
+            "medianAbsolutePercentError(elapsed)": 0.00688829174595737,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2087.25654450262,
+            "medianAbsolutePercentError(elapsed)": 0.00564512861630637,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 104.53668196957399,
+            "medianAbsolutePercentError(elapsed)": 0.00422346276443975,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3395.12337662338,
+            "medianAbsolutePercentError(elapsed)": 0.00904717877805416,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.0,
+            "medianAbsolutePercentError(elapsed)": 0,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 389.852528548124,
+            "medianAbsolutePercentError(elapsed)": 0.00248114388673227,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.40097173930338,
+            "medianAbsolutePercentError(elapsed)": 6.34089896374123e-05,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 374.46738751308,
+            "medianAbsolutePercentError(elapsed)": 0.00130173409068979,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.40107896475616095,
+            "medianAbsolutePercentError(elapsed)": 0.000378342672914569,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 363.81722972973,
+            "medianAbsolutePercentError(elapsed)": 0.00232935174662768,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401313142607538,
+            "medianAbsolutePercentError(elapsed)": 0.000791252165058184,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 451.706417842512,
+            "medianAbsolutePercentError(elapsed)": 0.00477676805534023,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.400971223303098,
+            "medianAbsolutePercentError(elapsed)": 0.000107932595854235,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 639.599556295064,
+            "medianAbsolutePercentError(elapsed)": 0.00266875300855544,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.400985352835007,
+            "medianAbsolutePercentError(elapsed)": 9.11699124088133e-05,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 369.91858297078903,
+            "medianAbsolutePercentError(elapsed)": 0.00359404314105859,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.400966246908625,
+            "medianAbsolutePercentError(elapsed)": 7.93139664547297e-05,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 564.040414507772,
+            "medianAbsolutePercentError(elapsed)": 0.00105085922789681,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.801938012341282,
+            "medianAbsolutePercentError(elapsed)": 6.88316158247394e-05,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 380.436279377689,
+            "medianAbsolutePercentError(elapsed)": 0.00227035681140204,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.400951398731598,
+            "medianAbsolutePercentError(elapsed)": 5.49337478774905e-05,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1739.3954887218,
+            "medianAbsolutePercentError(elapsed)": 0.0126996675948423,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
         }
     ],
     "ci-windows": [
@@ -46445,6 +47471,348 @@
             "medianAbsolutePercentError(elapsed)": 0.0452513884971159,
             "commit": "f3614e47",
             "commit_message": "Merge operator (#371)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 2.4055693086748002,
+            "medianAbsolutePercentError(elapsed)": 4.03458096541869e-05,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 1457.85813630042,
+            "medianAbsolutePercentError(elapsed)": 0.00898160666103428,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 2.4067372129185003,
+            "medianAbsolutePercentError(elapsed)": 0.000249865840601824,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 2576.37795275591,
+            "medianAbsolutePercentError(elapsed)": 0.203046441187443,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 10.4309266397486,
+            "medianAbsolutePercentError(elapsed)": 0.0179298429914343,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 3209.53947368421,
+            "medianAbsolutePercentError(elapsed)": 0.00317640803566868,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 30.0543870359065,
+            "medianAbsolutePercentError(elapsed)": 0.00147540030042739,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 4213.85767790262,
+            "medianAbsolutePercentError(elapsed)": 0.0300176665960003,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 34.575934354766304,
+            "medianAbsolutePercentError(elapsed)": 0.00597467934746628,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 10456.565656565701,
+            "medianAbsolutePercentError(elapsed)": 0.0109018641136621,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 5.21677846564146,
+            "medianAbsolutePercentError(elapsed)": 0.00162068184058507,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 2093.40659340659,
+            "medianAbsolutePercentError(elapsed)": 0.000730387437335998,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 13.6631286328026,
+            "medianAbsolutePercentError(elapsed)": 0.00152893109917187,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1714.7783251231501,
+            "medianAbsolutePercentError(elapsed)": 0.00483949217875784,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 165.448986160283,
+            "medianAbsolutePercentError(elapsed)": 0.00372384937238494,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 2928.0,
+            "medianAbsolutePercentError(elapsed)": 0.00109062581147747,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 448.70806016197497,
+            "medianAbsolutePercentError(elapsed)": 0.000920387687040781,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 6152.72727272727,
+            "medianAbsolutePercentError(elapsed)": 0.0134486766639355,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 444.12147505423,
+            "medianAbsolutePercentError(elapsed)": 0.00108165595250968,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 10052.1008403361,
+            "medianAbsolutePercentError(elapsed)": 0.0528243001295629,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 5.21372895847565,
+            "medianAbsolutePercentError(elapsed)": 0.000145970651227474,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1783.42059336824,
+            "medianAbsolutePercentError(elapsed)": 0.00133720238296814,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 7.258189321640439,
+            "medianAbsolutePercentError(elapsed)": 0.0648606267181467,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1645.3125,
+            "medianAbsolutePercentError(elapsed)": 0.00190741434188362,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 7.23037133525892,
+            "medianAbsolutePercentError(elapsed)": 0.00177836760090751,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1622.0408163265301,
+            "medianAbsolutePercentError(elapsed)": 0.00131214400486862,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 10.324362943557999,
+            "medianAbsolutePercentError(elapsed)": 0.00786506990844731,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1879.43925233645,
+            "medianAbsolutePercentError(elapsed)": 0.0015357245786964,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 9.20299586311321,
+            "medianAbsolutePercentError(elapsed)": 0.00437327218250941,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2901.21359223301,
+            "medianAbsolutePercentError(elapsed)": 0.00141799257698146,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 6.43166396200525,
+            "medianAbsolutePercentError(elapsed)": 0.0015543699731142,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1642.03338391502,
+            "medianAbsolutePercentError(elapsed)": 0.000630929154666546,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 9.65393089365361,
+            "medianAbsolutePercentError(elapsed)": 0.0161229619149799,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2463.06954436451,
+            "medianAbsolutePercentError(elapsed)": 0.00430233695120744,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 17.6403602608786,
+            "medianAbsolutePercentError(elapsed)": 0.0188752951960791,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1656.29032258065,
+            "medianAbsolutePercentError(elapsed)": 0.00274435935376146,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 13.9872091741096,
+            "medianAbsolutePercentError(elapsed)": 0.0259429130004575,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 5210.29411764706,
+            "medianAbsolutePercentError(elapsed)": 0.050719875437284,
+            "commit": "a1359daf",
+            "commit_message": "Cleanup binary a bit (#372)"
         }
     ]
 }
