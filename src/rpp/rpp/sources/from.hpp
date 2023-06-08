@@ -27,101 +27,54 @@ template<constraint::decayed_type Container>
 class shared_container
 {
 public:
-    template<typename ...Ts>
-        requires (!constraint::variadic_decayed_same_as<shared_container<Container>, Ts...>)
-    explicit shared_container(Ts&&...items)
+    template<typename... Ts>
+        requires(!constraint::variadic_decayed_same_as<shared_container<Container>, Ts...>)
+    explicit shared_container(Ts&&... items)
         // raw "new" call to avoid extra copy/moves for items
-        : m_container{new Container{std::forward<Ts>(items)...}} {}
+        : m_container{new Container{std::forward<Ts>(items)...}}
+    {
+    }
 
-    shared_container(const shared_container&) = default;
+    shared_container(const shared_container&)     = default;
     shared_container(shared_container&&) noexcept = default;
 
     auto begin() const { return std::cbegin(*m_container); }
     auto end() const { return std::cend(*m_container); }
 
-    auto get_actual_iterator() const
-    {
-        if (!m_iterator)
-            m_iterator.emplace(begin());
-        return m_iterator.value();
-    }
-    bool increment_iterator()
-    {
-        if (!m_iterator)
-            m_iterator.emplace(begin());
-
-        return ++(m_iterator.value()) != end();
-    }
-
-    static const auto& extract_value_from_itr(const auto& itr) {
-        return *itr;
-    }
+    static const auto& extract_value_from_itr(const auto& itr) { return *itr; }
 
 private:
-    std::shared_ptr<Container>                                 m_container{};
-    mutable std::optional<decltype(std::cbegin(*m_container))> m_iterator;
+    std::shared_ptr<Container> m_container{};
 };
 
 template<constraint::decayed_type Container>
-class container_with_iterator
+class stack_container
 {
 public:
-    template<typename ...Ts>
-        requires (!constraint::variadic_decayed_same_as<container_with_iterator<Container>, Ts...>)
-    explicit container_with_iterator(Ts&&...items)
-        : m_container{std::forward<Ts>(items)...} {}
+    template<typename... Ts>
+        requires(!constraint::variadic_decayed_same_as<stack_container<Container>, Ts...>)
+    explicit stack_container(Ts&&... items) 
+        : m_container{std::forward<Ts>(items)...}
+    {
+    }
 
-    container_with_iterator(const container_with_iterator& other)
-        : m_container{other.m_container}
-        , m_index(other.m_index)
-    {}
+    stack_container(const stack_container& other) = default;
 
-    container_with_iterator(container_with_iterator&& other) noexcept
-        : m_container{std::move(other.m_container)}
-        , m_index(other.m_index)
-    {}
-
+    stack_container(stack_container&& other) noexcept = default;
     auto begin() const { return std::cbegin(m_container); }
     auto end() const { return std::cend(m_container); }
 
-    auto get_actual_iterator() const
-    {
-        if (!m_iterator)
-            m_iterator.emplace(get_default_iterator_value());
-        return m_iterator.value();
-    }
-    bool increment_iterator()
-    {
-        if (!m_iterator)
-            m_iterator.emplace(get_default_iterator_value());
-
-        ++m_index;
-        return ++(m_iterator.value()) != end();
-    }
-
-    static auto extract_value_from_itr(const auto& itr) {
-        return std::move(*itr);
-    }
+    static auto extract_value_from_itr(const auto& itr) { return std::move(*itr); }
 
 private:
-    auto get_default_iterator_value() const
-    {
-        auto itr = begin();
-        std::advance(itr, m_index);
-        return itr;
-    }
-
-private:
-    RPP_NO_UNIQUE_ADDRESS Container                           m_container{};
-    mutable size_t                                            m_index{};
-    mutable std::optional<decltype(std::cbegin(m_container))> m_iterator{};
+    RPP_NO_UNIQUE_ADDRESS Container m_container{};
 };
 
 template<constraint::memory_model memory_model, constraint::iterable Container, typename ...Ts>
 auto pack_to_container(Ts&& ...items)
 {
     if constexpr (std::same_as<memory_model, rpp::memory_model::use_stack>)
-        return container_with_iterator<Container>{std::forward<Ts>(items)...};
+        return stack_container<Container>{std::forward<Ts>(items)...};
     else
         return shared_container<Container>{std::forward<Ts>(items)...};
 }
@@ -135,15 +88,22 @@ auto pack_variadic(Ts&& ...items)
 struct from_iterable_schedulable
 {
     template<constraint::decayed_type PackedContainer, constraint::observer_strategy<utils::iterable_value_t<PackedContainer>> Strategy>
-    rpp::schedulers::optional_duration operator()(const observer<utils::iterable_value_t<PackedContainer>, Strategy>& obs, PackedContainer& cont) const
+    rpp::schedulers::optional_duration operator()(const observer<utils::iterable_value_t<PackedContainer>, Strategy>& obs, const PackedContainer& cont, size_t& index) const
     {
         try
         {
-            if (const auto itr = cont.get_actual_iterator(); itr != std::cend(cont))
+            auto itr = std::cbegin(cont);
+            auto end = std::cend(cont);
+            std::advance(itr, static_cast<int64_t>(index));
+
+            if (itr != end)
             {
                 obs.on_next(utils::as_const(*itr));
-                if (cont.increment_iterator())     // it was not last
+                if (std::next(itr) != end)     // it was not last
+                {
+                    ++index;
                     return schedulers::duration{}; // re-schedule this
+                }
             }
 
             obs.on_completed();
@@ -188,7 +148,7 @@ struct from_iterable_strategy
         {
             const auto worker = scheduler.create_worker();
             obs.set_upstream(worker.get_disposable());
-            worker.schedule(from_iterable_schedulable{}, std::move(obs), PackedContainer{container});
+            worker.schedule(from_iterable_schedulable{}, std::move(obs), container, size_t{});
         }
     }
 };

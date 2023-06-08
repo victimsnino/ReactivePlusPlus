@@ -45,6 +45,7 @@ struct concat_source_observer_strategy
     using Type = utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
 
     RPP_NO_UNIQUE_ADDRESS mutable PackedContainer container;
+    mutable size_t                                index;
 
     constexpr static operators::details::empty_on_subscribe on_subscribe{};
     constexpr static operators::details::forwarding_on_next_strategy on_next{};
@@ -54,16 +55,7 @@ struct concat_source_observer_strategy
 
     void on_completed(rpp::constraint::observer auto& observer) const
     {
-        try
-        {
-            container.increment_iterator();
-        }
-        catch(...)
-        {
-            observer.on_error(std::current_exception());
-            return;
-        }
-        concat_strategy<PackedContainer>::drain(std::move(container), std::move(observer));
+        concat_strategy<PackedContainer>::drain(std::move(container), ++index, std::move(observer));
     }
 };
 
@@ -77,30 +69,33 @@ struct concat_strategy
     template<constraint::observer_strategy<Type> Strategy>
     void subscribe(observer<Type, Strategy>&& obs) const
     {
-        drain(container, std::move(obs));
+        drain(container, size_t{}, std::move(obs));
     }
 
     template<constraint::observer_strategy<Type> Strategy>
-    static void drain(constraint::decayed_same_as<PackedContainer> auto&& container, observer<Type, Strategy>&& obs)
+    static void drain(constraint::decayed_same_as<PackedContainer> auto&& container, size_t index, observer<Type, Strategy>&& obs)
     {
-        if (const auto observable = extract_observable(container, obs))
+        if (const auto observable = extract_observable(container, index, obs))
         {
             observable->subscribe(observer<Type,
                                            rpp::operators::details::operator_strategy_base<Type, observer<Type, Strategy>,
                                            concat_source_observer_strategy<PackedContainer>>>
                                            {
                                                std::move(obs),
-                                               std::forward<decltype(container)>(container)
+                                               std::forward<decltype(container)>(container),
+                                               index
                                            });
         }
     }
 
 private:
-    static std::optional<utils::iterable_value_t<PackedContainer>> extract_observable(const PackedContainer& container, const auto& obs)
+    static std::optional<utils::iterable_value_t<PackedContainer>> extract_observable(const PackedContainer& container, size_t index, const auto& obs)
     {
         try
         {
-            const auto itr = container.get_actual_iterator();
+            auto itr = std::cbegin(container);
+            std::advance(itr, static_cast<int64_t>(index));
+
             if (itr != std::cend(container))
             {
                 return PackedContainer::extract_value_from_itr(itr);

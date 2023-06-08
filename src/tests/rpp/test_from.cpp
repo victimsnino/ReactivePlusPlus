@@ -29,7 +29,7 @@
 struct my_container_with_error : std::vector<int>
 {
     using std::vector<int>::vector;
-    std::vector<int>::const_iterator begin() const { throw std::runtime_error{""}; }
+    std::vector<int>::const_iterator begin() const { throw std::runtime_error{"EXCEPTION ON BEGIN"}; }
 };
 
 struct infinite_container
