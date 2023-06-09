@@ -11,25 +11,18 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/operators/filter.hpp>
-#include <rpp/sources/create.hpp>
+#include <rpp/sources/just.hpp>
 
 #include "mock_observer.hpp"
 
 #include <stdexcept>
 #include <string>
 
-TEST_CASE("filter")
+TEMPLATE_TEST_CASE("filter", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     mock_observer_strategy<int> mock{};
 
-    auto obs = rpp::source::create<int>([](const auto& obs)
-    {
-        obs.on_next(1);
-        obs.on_next(2);
-        obs.on_next(3);
-        obs.on_next(4);
-        obs.on_completed();
-    });
+    auto obs = rpp::source::just<TestType>(1,2,3,4);
 
     SECTION("filter emits only satisfying values")
     {

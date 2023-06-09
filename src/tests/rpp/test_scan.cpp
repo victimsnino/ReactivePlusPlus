@@ -15,14 +15,14 @@
 
 #include "mock_observer.hpp"
 
-TEST_CASE("scan scans values and store state")
+TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
-    auto obs = rpp::source::just(1, 2, 3);
+    auto obs = rpp::source::just<TestType>(1, 2, 3);
 
     SECTION("subscribe on it via scan with plus")
     {
         auto mock = mock_observer_strategy<int>{};
-        
+
         obs | rpp::operators::scan(10, std::plus<int>{}) | rpp::operators::subscribe(mock.get_observer());
         SECTION("observer obtains partial sums")
         {
@@ -46,7 +46,7 @@ TEST_CASE("scan scans values and store state")
     SECTION("subscribe on it via scan as lvalue with plus")
     {
         auto mock = mock_observer_strategy<int>{};
-        
+
         auto op =  rpp::operators::scan(10, std::plus<int>{});
         obs | op | rpp::operators::subscribe(mock.get_observer());
         SECTION("observer obtains partial sums")

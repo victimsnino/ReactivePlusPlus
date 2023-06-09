@@ -11,21 +11,16 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/operators/map.hpp>
-#include <rpp/sources/create.hpp>
+#include <rpp/sources/just.hpp>
 
 #include "mock_observer.hpp"
 
 #include <stdexcept>
 #include <string>
 
-TEST_CASE("map modifies values and forward errors/completions")
+TEMPLATE_TEST_CASE("map modifies values and forward errors/completions", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
-    auto obs = rpp::source::create<int>([](const auto& obs)
-    {
-        obs.on_next(1);
-        obs.on_next(2);
-        obs.on_completed();
-    });
+    auto obs = rpp::source::just<TestType>(1,2);
 
     SECTION("map changes value")
     {
