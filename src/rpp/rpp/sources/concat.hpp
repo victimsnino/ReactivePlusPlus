@@ -152,7 +152,7 @@ template<constraint::memory_model memory_model /*= memory_model::use_stack*/, rp
     requires (std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservables>> && ...)
 auto concat(TObservable&& obs, TObservables&&...others)
 {
-    return make_concat_from_iterable(pack_observables<memory_model>(std::forward<TObservable>(obs), std::forward<TObservables>(others)...));
+    return rpp::details::make_concat_from_iterable(rpp::details::pack_observables<memory_model>(std::forward<TObservable>(obs), std::forward<TObservables>(others)...));
 }
 
 /**
@@ -184,6 +184,6 @@ template<constraint::memory_model memory_model /*= memory_model::use_stack*/, co
     requires constraint::observable<utils::iterable_value_t<Iterable>>
 auto concat(Iterable&& iterable)
 {
-    return make_concat_from_iterable(details::pack_to_container<memory_model, std::decay_t<Iterable>>(std::forward<Iterable>(iterable)));
+    return rpp::details::make_concat_from_iterable(rpp::details::pack_to_container<memory_model, std::decay_t<Iterable>>(std::forward<Iterable>(iterable)));
 }
 }
