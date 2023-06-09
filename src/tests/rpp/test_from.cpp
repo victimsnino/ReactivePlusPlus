@@ -200,15 +200,15 @@ TEMPLATE_TEST_CASE("from iterable doesn't provides extra copies", "", rpp::sched
     {
         auto obs = rpp::source::from_iterable(vals, TestType{});
         obs.subscribe([](const auto&){},[](const auto&){},[](){});
-        CHECK(tracker.get_copy_count() - initial_copy == 1); // 1 copy to wrapped container
-        CHECK(tracker.get_move_count() - initial_move == 1); // 1 move lambda to observable
+        CHECK(tracker.get_copy_count() - initial_copy == 1); // 1 copy to observable
+        CHECK(tracker.get_move_count() - initial_move == 0);
     }
     SECTION("observable from moved iterable doesn't provide extra copies")
     {
         auto obs = rpp::source::from_iterable(std::move(vals), TestType{});
         obs.subscribe([](const auto&){},[](const auto&){},[](){});
         CHECK(tracker.get_copy_count() - initial_copy == 0);
-        CHECK(tracker.get_move_count() - initial_move == 2); // 1 move to wrapped container + 1 move lambda to observable
+        CHECK(tracker.get_move_count() - initial_move == 1); // 1 move to observable
     }
 
     SECTION("observable from copied iterable with shared memory model doesn't provide extra copies")
@@ -301,8 +301,8 @@ TEST_CASE("just")
                 CHECK(mock.get_on_next_const_ref_count() == 1);
                 CHECK(mock.get_on_next_move_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
-                CHECK(v.get_copy_count() == 1); // 1 copy into array
-                CHECK(v.get_move_count() == 1); // 1 move lambda into observable
+                CHECK(v.get_copy_count() == 1); // 1 copy to observable
+                CHECK(v.get_move_count() == 0);
             }
         }
     }
@@ -318,8 +318,8 @@ TEST_CASE("just")
                 CHECK(mock.get_on_next_const_ref_count() == 1);
                 CHECK(mock.get_on_next_move_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
-                CHECK(v.get_copy_count() == 0); // NOLINT
-                CHECK(v.get_move_count() == 2); // 1 move into array + + 1 move into observable
+                CHECK(v.get_copy_count() == 0);
+                CHECK(v.get_move_count() == 1); // 1 move into observable
             }
         }
     }
