@@ -31,211 +31,146 @@
 \DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1shared__container}{shared\_container}}}
 \DoxyCodeLine{00028\ \{}
 \DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...Ts>}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!constraint::variadic\_decayed\_same\_as<shared\_container<Container>,\ Ts...>)}
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1details_1_1shared__container}{shared\_container}}(Ts\&\&...items)}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Ts>}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}(!constraint::variadic\_decayed\_same\_as<shared\_container<Container>,\ Ts...>)}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1details_1_1shared__container}{shared\_container}}(Ts\&\&...\ items)}
 \DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ raw\ "{}new"{}\ call\ to\ avoid\ extra\ copy/moves\ for\ items}}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ :\ m\_container\{\textcolor{keyword}{new}\ Container\{std::forward<Ts>(items)...\}\}\ \{\}}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1shared__container}{shared\_container}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1details_1_1shared__container}{shared\_container}}\&)\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1shared__container}{shared\_container}}(\mbox{\hyperlink{classrpp_1_1details_1_1shared__container}{shared\_container}}\&\&)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{auto}\ begin()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::cbegin(*m\_container);\ \}}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{auto}\ end()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::cend(*m\_container);\ \}}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{auto}\ get\_actual\_iterator()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00043\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_iterator)}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ m\_iterator.emplace(begin());}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_iterator.value();}
-\DoxyCodeLine{00047\ \ \ \ \ \}}
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{bool}\ increment\_iterator()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00049\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_iterator)}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ m\_iterator.emplace(begin());}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ++(m\_iterator.value())\ !=\ end();}
-\DoxyCodeLine{00054\ \ \ \ \ \}}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ extract\_value\_from\_itr(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ itr)\ \{}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *itr;}
-\DoxyCodeLine{00058\ \ \ \ \ \}}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00060\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00061\ \ \ \ \ std::shared\_ptr<Container>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_container\{\};}
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{mutable}\ std::optional<\textcolor{keyword}{decltype}(std::cbegin(*m\_container))>\ m\_iterator;}
-\DoxyCodeLine{00063\ \};}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Container>}
-\DoxyCodeLine{00066\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1container__with__iterator}{container\_with\_iterator}}}
-\DoxyCodeLine{00067\ \{}
-\DoxyCodeLine{00068\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...Ts>}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!constraint::variadic\_decayed\_same\_as<container\_with\_iterator<Container>,\ Ts...>)}
-\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1details_1_1container__with__iterator}{container\_with\_iterator}}(Ts\&\&...items)}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ :\ m\_container\{std::forward<Ts>(items)...\}\ \{\}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ :\ m\_container\{\textcolor{keyword}{new}\ Container\{std::forward<Ts>(items)...\}\}}
+\DoxyCodeLine{00035\ \ \ \ \ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1shared__container}{shared\_container}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1details_1_1shared__container}{shared\_container}}\&)\ \ \ \ \ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1shared__container}{shared\_container}}(\mbox{\hyperlink{classrpp_1_1details_1_1shared__container}{shared\_container}}\&\&)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{auto}\ begin()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::cbegin(*m\_container);\ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{auto}\ end()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::cend(*m\_container);\ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00045\ \ \ \ \ std::shared\_ptr<Container>\ m\_container\{\};}
+\DoxyCodeLine{00046\ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1memory__model}{constraint::memory\_model}}\ memory\_model,\ constraint::iterable\ Container,\ \textcolor{keyword}{typename}\ ...Ts>}
+\DoxyCodeLine{00049\ \textcolor{keyword}{auto}\ pack\_to\_container(Ts\&\&\ ...items)}
+\DoxyCodeLine{00050\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::same\_as<memory\_model,\ rpp::memory\_model::use\_stack>)}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Container\{std::forward<Ts>(items)...\};}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ shared\_container<Container>\{std::forward<Ts>(items)...\};}
+\DoxyCodeLine{00055\ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model,\ constraint::decayed\_type\ T,\ \textcolor{keyword}{typename}\ ...Ts>}
+\DoxyCodeLine{00058\ \textcolor{keyword}{auto}\ pack\_variadic(Ts\&\&\ ...items)}
+\DoxyCodeLine{00059\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{return}\ pack\_to\_container<memory\_model,\ std::array<T,\ \textcolor{keyword}{sizeof}...(Ts)>>(std::forward<Ts>(items)...);}
+\DoxyCodeLine{00061\ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1from__iterable__schedulable}{from\_iterable\_schedulable}}}
+\DoxyCodeLine{00064\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ PackedContainer,\ constra\textcolor{keywordtype}{int}::observer\_strategy<utils::iterable\_value\_t<PackedContainer>>\ Strategy>}
+\DoxyCodeLine{00066\ \ \ \ \ rpp::schedulers::optional\_duration\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}<utils::iterable\_value\_t<PackedContainer>,\ Strategy>\&\ obs,\ \textcolor{keyword}{const}\ PackedContainer\&\ cont,\ \textcolor{keywordtype}{size\_t}\&\ index)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00067\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ itr\ =\ std::cbegin(cont);}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ end\ =\ std::cend(cont);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ std::advance(itr,\ \textcolor{keyword}{static\_cast<}int64\_t\textcolor{keyword}{>}(index));}
 \DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1container__with__iterator}{container\_with\_iterator}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1details_1_1container__with__iterator}{container\_with\_iterator}}\&\ other)}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ :\ m\_container\{other.m\_container\}}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ ,\ m\_index(other.m\_index)}
-\DoxyCodeLine{00077\ \ \ \ \ \{\}}
-\DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1container__with__iterator}{container\_with\_iterator}}(\mbox{\hyperlink{classrpp_1_1details_1_1container__with__iterator}{container\_with\_iterator}}\&\&\ other)\ noexcept}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ :\ m\_container\{std::move(other.m\_container)\}}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ ,\ m\_index(other.m\_index)}
-\DoxyCodeLine{00082\ \ \ \ \ \{\}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (itr\ !=\ end)}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_next(utils::as\_const(*itr));}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::next(itr)\ !=\ end)\ \ \ \ \ \textcolor{comment}{//\ it\ was\ not\ last}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++index;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ schedulers::duration\{\};\ \textcolor{comment}{//\ re-\/schedule\ this}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{auto}\ begin()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::cbegin(m\_container);\ \}}
-\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{auto}\ end()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::cend(m\_container);\ \}}
-\DoxyCodeLine{00086\ }
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{auto}\ get\_actual\_iterator()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00088\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_iterator)}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ m\_iterator.emplace(get\_default\_iterator\_value());}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_iterator.value();}
-\DoxyCodeLine{00092\ \ \ \ \ \}}
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{bool}\ increment\_iterator()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00094\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_iterator)}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ m\_iterator.emplace(get\_default\_iterator\_value());}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ ++m\_index;}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ++(m\_iterator.value())\ !=\ end();}
-\DoxyCodeLine{00100\ \ \ \ \ \}}
-\DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\ extract\_value\_from\_itr(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ itr)\ \{}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*itr);}
-\DoxyCodeLine{00104\ \ \ \ \ \}}
-\DoxyCodeLine{00105\ }
-\DoxyCodeLine{00106\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{auto}\ get\_default\_iterator\_value()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00108\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ itr\ =\ begin();}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ std::advance(itr,\ m\_index);}
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ itr;}
-\DoxyCodeLine{00112\ \ \ \ \ \}}
-\DoxyCodeLine{00113\ }
-\DoxyCodeLine{00114\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00115\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Container\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_container\{\};}
-\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{mutable}\ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_index\{\};}
-\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keyword}{mutable}\ std::optional<\textcolor{keyword}{decltype}(std::cbegin(m\_container))>\ m\_iterator\{\};}
-\DoxyCodeLine{00118\ \};}
-\DoxyCodeLine{00119\ }
-\DoxyCodeLine{00120\ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1memory__model}{constraint::memory\_model}}\ memory\_model,\ constraint::iterable\ Container,\ \textcolor{keyword}{typename}\ ...Ts>}
-\DoxyCodeLine{00121\ \textcolor{keyword}{auto}\ pack\_to\_container(Ts\&\&\ ...items)}
-\DoxyCodeLine{00122\ \{}
-\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::same\_as<memory\_model,\ rpp::memory\_model::use\_stack>)}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1details_1_1container__with__iterator}{container\_with\_iterator<Container>}}\{std::forward<Ts>(items)...\};}
-\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ shared\_container<Container>\{std::forward<Ts>(items)...\};}
-\DoxyCodeLine{00127\ \}}
-\DoxyCodeLine{00128\ }
-\DoxyCodeLine{00129\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model,\ constraint::decayed\_type\ T,\ \textcolor{keyword}{typename}\ ...Ts>}
-\DoxyCodeLine{00130\ \textcolor{keyword}{auto}\ pack\_variadic(Ts\&\&\ ...items)}
-\DoxyCodeLine{00131\ \{}
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{return}\ pack\_to\_container<memory\_model,\ std::array<T,\ \textcolor{keyword}{sizeof}...(Ts)>>(std::forward<Ts>(items)...);}
-\DoxyCodeLine{00133\ \}}
-\DoxyCodeLine{00134\ }
-\DoxyCodeLine{00135\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1from__iterable__schedulable}{from\_iterable\_schedulable}}}
-\DoxyCodeLine{00136\ \{}
-\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ PackedContainer,\ constra\textcolor{keywordtype}{int}::observer\_strategy<utils::iterable\_value\_t<PackedContainer>>\ Strategy>}
-\DoxyCodeLine{00138\ \ \ \ \ rpp::schedulers::optional\_duration\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}<utils::iterable\_value\_t<PackedContainer>,\ Strategy>\&\ obs,\ \textcolor{keyword}{const}\ PackedContainer\&\ cont)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00139\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ itr\ =\ cont.get\_actual\_iterator();\ itr\ !=\ std::cend(cont))}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_next(utils::as\_const(*itr));}
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cont.increment\_iterator())\ \ \ \ \ \textcolor{comment}{//\ it\ was\ not\ last}}
-\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ schedulers::duration\{\};\ \textcolor{comment}{//\ re-\/schedule\ this}}
-\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00148\ }
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_completed();}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
-\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_error(std::current\_exception());}
-\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
-\DoxyCodeLine{00156\ \ \ \ \ \}}
-\DoxyCodeLine{00157\ \};}
-\DoxyCodeLine{00158\ }
-\DoxyCodeLine{00159\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ PackedContainer,\ schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
-\DoxyCodeLine{00160\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1from__iterable__strategy}{from\_iterable\_strategy}}}
-\DoxyCodeLine{00161\ \{}
-\DoxyCodeLine{00162\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ PackedContainer\ container;}
-\DoxyCodeLine{00163\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TScheduler\ \ \ \ \ \ scheduler;}
-\DoxyCodeLine{00164\ }
-\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_strategy<utils::iterable\_value\_t<PackedContainer>>\ Strategy>}
-\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(\mbox{\hyperlink{classrpp_1_1observer}{observer}}<utils::iterable\_value\_t<PackedContainer>,\ Strategy>\&\&\ obs)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00167\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::same\_as<TScheduler,\ schedulers::immediate>)}
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
-\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v\ :\ container)}
-\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (obs.is\_disposed())}
-\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00176\ }
-\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_next(v);}
-\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00179\ }
-\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_completed();}
-\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
-\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_error(std::current\_exception());}
-\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ worker\ =\ scheduler.create\_worker();}
-\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ obs.set\_upstream(worker.get\_disposable());}
-\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ worker.schedule(\mbox{\hyperlink{structrpp_1_1details_1_1from__iterable__schedulable}{from\_iterable\_schedulable}}\{\},\ std::move(obs),\ container);}
-\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00193\ \ \ \ \ \}}
-\DoxyCodeLine{00194\ \};}
-\DoxyCodeLine{00195\ }
-\DoxyCodeLine{00196\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ PackedContainer,\ schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
-\DoxyCodeLine{00197\ \textcolor{keyword}{auto}\ make\_from\_iterable\_observable(PackedContainer\&\&\ container,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler)}
-\DoxyCodeLine{00198\ \{}
-\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{observable<utils::iterable\_value\_t<std::decay\_t<PackedContainer>}}>,}
-\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1from__iterable__strategy}{details::from\_iterable\_strategy<std::decay\_t<PackedContainer>}},\ TScheduler>>\{std::forward<PackedContainer>(container),}
-\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scheduler\};}
-\DoxyCodeLine{00202\ \}}
-\DoxyCodeLine{00203\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
-\DoxyCodeLine{00204\ }
-\DoxyCodeLine{00205\ \textcolor{keyword}{namespace\ }rpp::source}
-\DoxyCodeLine{00206\ \{}
-\DoxyCodeLine{00227\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\textcolor{comment}{/*\ =\ memory\_model::use\_stack*/},\ constraint::iterable\ Iterable,\ schedulers::constraint::scheduler\ TScheduler\ \textcolor{comment}{/*\ =\ schedulers::current\_thread*/}>}
-\DoxyCodeLine{00228\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{from\_iterable}}(Iterable\&\&\ iterable,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler\ \textcolor{comment}{/*\ =\ TScheduler\{\}*/})}
-\DoxyCodeLine{00229\ \{}
-\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keywordflow}{return}\ details::make\_from\_iterable\_observable(details::pack\_to\_container<memory\_model,\ std::decay\_t<Iterable>>(std::forward<Iterable>(iterable)),\ scheduler);}
-\DoxyCodeLine{00231\ \}}
-\DoxyCodeLine{00232\ }
-\DoxyCodeLine{00254\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*\ =\ memory\_model::use\_stack\ */},\ schedulers::constraint::scheduler\ TScheduler,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ ...Ts>}
-\DoxyCodeLine{00255\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{just}}(\textcolor{keyword}{const}\ TScheduler\&\ scheduler,\ T\&\&\ item,\ Ts\&\&\ ...items)\ \textcolor{keyword}{requires}\ (constraint::decayed\_same\_as<T,\ Ts>\ \&\&\ ...)}
-\DoxyCodeLine{00256\ \{}
-\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keywordflow}{return}\ details::make\_from\_iterable\_observable(details::pack\_variadic<memory\_model,\ std::decay\_t<T>>(std::forward<T>(item),\ std::forward<Ts>(items)...),\ scheduler);}
-\DoxyCodeLine{00258\ \}}
-\DoxyCodeLine{00259\ }
-\DoxyCodeLine{00281\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*\ =\ memory\_model::use\_stack\ */},\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ ...Ts>}
-\DoxyCodeLine{00282\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{just}}(T\&\&\ item,\ Ts\&\&\ ...items)\ \textcolor{keyword}{requires}\ (constraint::decayed\_same\_as<T,\ Ts>\ \&\&\ ...)}
-\DoxyCodeLine{00283\ \{}
-\DoxyCodeLine{00284\ \ \ \ \ \textcolor{keywordflow}{return}\ details::make\_from\_iterable\_observable(details::pack\_variadic<memory\_model,\ std::decay\_t<T>>(std::forward<T>(item),\ std::forward<Ts>(items)...),\ schedulers::current\_thread\{\});}
-\DoxyCodeLine{00285\ \}}
-\DoxyCodeLine{00286\ }
-\DoxyCodeLine{00303\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*\ =\ memory\_model::use\_stack\ */},\ std::invocable<>\ Callable>}
-\DoxyCodeLine{00304\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}{from\_callable}}(Callable\&\&\ callable)}
-\DoxyCodeLine{00305\ \{}
-\DoxyCodeLine{00306\ \ \ \ \ \textcolor{keyword}{auto}\ obs\ =\ just<memory\_model>(std::forward<Callable>(callable));}
-\DoxyCodeLine{00307\ }
-\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::same\_as<utils::decayed\_invoke\_result\_t<Callable>,\ \textcolor{keywordtype}{void}>)}
-\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(obs)\ |\ \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{rpp::operators::map}}([](\textcolor{keyword}{auto}\&\&\ fn)\ \{\ fn();\ \textcolor{keywordflow}{return}\ utils::none\{\};\});}
-\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(obs)\ |\ \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{rpp::operators::map}}([](\textcolor{keyword}{auto}\&\&\ fn)\ \{\ \textcolor{keywordflow}{return}\ fn();\ \});}
-\DoxyCodeLine{00312\ \}}
-\DoxyCodeLine{00313\ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_completed();}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_error(std::current\_exception());}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00091\ \ \ \ \ \}}
+\DoxyCodeLine{00092\ \};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ PackedContainer,\ schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00095\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1from__iterable__strategy}{from\_iterable\_strategy}}}
+\DoxyCodeLine{00096\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ PackedContainer\ container;}
+\DoxyCodeLine{00098\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TScheduler\ \ \ \ \ \ scheduler;}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_strategy<utils::iterable\_value\_t<PackedContainer>>\ Strategy>}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(\mbox{\hyperlink{classrpp_1_1observer}{observer}}<utils::iterable\_value\_t<PackedContainer>,\ Strategy>\&\&\ obs)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00102\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::same\_as<TScheduler,\ schedulers::immediate>)}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v\ :\ container)}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (obs.is\_disposed())}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_next(v);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_completed();}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_error(std::current\_exception());}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ worker\ =\ scheduler.create\_worker();}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ obs.set\_upstream(worker.get\_disposable());}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ worker.schedule(\mbox{\hyperlink{structrpp_1_1details_1_1from__iterable__schedulable}{from\_iterable\_schedulable}}\{\},\ std::move(obs),\ container,\ \textcolor{keywordtype}{size\_t}\{\});}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00128\ \ \ \ \ \}}
+\DoxyCodeLine{00129\ \};}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ PackedContainer,\ schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00132\ \textcolor{keyword}{auto}\ make\_from\_iterable\_observable(PackedContainer\&\&\ container,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler)}
+\DoxyCodeLine{00133\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{observable<utils::iterable\_value\_t<std::decay\_t<PackedContainer>}}>,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1from__iterable__strategy}{details::from\_iterable\_strategy<std::decay\_t<PackedContainer>}},\ TScheduler>>\{std::forward<PackedContainer>(container),}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scheduler\};}
+\DoxyCodeLine{00137\ \}}
+\DoxyCodeLine{00138\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{keyword}{namespace\ }rpp::source}
+\DoxyCodeLine{00141\ \{}
+\DoxyCodeLine{00162\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\textcolor{comment}{/*\ =\ memory\_model::use\_stack*/},\ constraint::iterable\ Iterable,\ schedulers::constraint::scheduler\ TScheduler\ \textcolor{comment}{/*\ =\ schedulers::current\_thread*/}>}
+\DoxyCodeLine{00163\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{from\_iterable}}(Iterable\&\&\ iterable,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler\ \textcolor{comment}{/*\ =\ TScheduler\{\}*/})}
+\DoxyCodeLine{00164\ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{return}\ details::make\_from\_iterable\_observable(details::pack\_to\_container<memory\_model,\ std::decay\_t<Iterable>>(std::forward<Iterable>(iterable)),\ scheduler);}
+\DoxyCodeLine{00166\ \}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00189\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*\ =\ memory\_model::use\_stack\ */},\ schedulers::constraint::scheduler\ TScheduler,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ ...Ts>}
+\DoxyCodeLine{00190\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{just}}(\textcolor{keyword}{const}\ TScheduler\&\ scheduler,\ T\&\&\ item,\ Ts\&\&\ ...items)\ \textcolor{keyword}{requires}\ (constraint::decayed\_same\_as<T,\ Ts>\ \&\&\ ...)}
+\DoxyCodeLine{00191\ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keywordflow}{return}\ details::make\_from\_iterable\_observable(details::pack\_variadic<memory\_model,\ std::decay\_t<T>>(std::forward<T>(item),\ std::forward<Ts>(items)...),\ scheduler);}
+\DoxyCodeLine{00193\ \}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00216\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*\ =\ memory\_model::use\_stack\ */},\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ ...Ts>}
+\DoxyCodeLine{00217\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{just}}(T\&\&\ item,\ Ts\&\&\ ...items)\ \textcolor{keyword}{requires}\ (constraint::decayed\_same\_as<T,\ Ts>\ \&\&\ ...)}
+\DoxyCodeLine{00218\ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordflow}{return}\ details::make\_from\_iterable\_observable(details::pack\_variadic<memory\_model,\ std::decay\_t<T>>(std::forward<T>(item),\ std::forward<Ts>(items)...),\ schedulers::current\_thread\{\});}
+\DoxyCodeLine{00220\ \}}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00238\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*\ =\ memory\_model::use\_stack\ */},\ std::invocable<>\ Callable>}
+\DoxyCodeLine{00239\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}{from\_callable}}(Callable\&\&\ callable)}
+\DoxyCodeLine{00240\ \{}
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keyword}{auto}\ obs\ =\ just<memory\_model>(std::forward<Callable>(callable));}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::same\_as<utils::decayed\_invoke\_result\_t<Callable>,\ \textcolor{keywordtype}{void}>)}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(obs)\ |\ \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{rpp::operators::map}}([](\textcolor{keyword}{auto}\&\&\ fn)\ \{\ fn();\ \textcolor{keywordflow}{return}\ utils::none\{\};\});}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(obs)\ |\ \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{rpp::operators::map}}([](\textcolor{keyword}{auto}\&\&\ fn)\ \{\ \textcolor{keywordflow}{return}\ fn();\ \});}
+\DoxyCodeLine{00247\ \}}
+\DoxyCodeLine{00248\ \}}
 
 \end{DoxyCode}

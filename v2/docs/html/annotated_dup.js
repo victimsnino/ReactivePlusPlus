@@ -13,7 +13,6 @@ var annotated_dup =
         ] ],
         [ "concat_source_observer_strategy", "structrpp_1_1details_1_1concat__source__observer__strategy.html", null ],
         [ "concat_strategy", "structrpp_1_1details_1_1concat__strategy.html", null ],
-        [ "container_with_iterator", "classrpp_1_1details_1_1container__with__iterator.html", null ],
         [ "create_strategy", "structrpp_1_1details_1_1create__strategy.html", null ],
         [ "empty_strategy", "structrpp_1_1details_1_1empty__strategy.html", null ],
         [ "error_strategy", "structrpp_1_1details_1_1error__strategy.html", null ],

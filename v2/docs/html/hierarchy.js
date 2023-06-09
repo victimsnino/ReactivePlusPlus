@@ -9,7 +9,6 @@ var hierarchy =
     [ "rpp::details::observables::blocking_strategy< Type, Strategy >", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
     [ "rpp::details::concat_source_observer_strategy< PackedContainer >", "structrpp_1_1details_1_1concat__source__observer__strategy.html", null ],
     [ "rpp::details::concat_strategy< PackedContainer >", "structrpp_1_1details_1_1concat__strategy.html", null ],
-    [ "rpp::details::container_with_iterator< Container >", "classrpp_1_1details_1_1container__with__iterator.html", null ],
     [ "rpp::details::create_strategy< Type, OnSubscribe >", "structrpp_1_1details_1_1create__strategy.html", null ],
     [ "rpp::schedulers::current_thread", "classrpp_1_1schedulers_1_1current__thread.html", null ],
     [ "rpp::disposable_guard", "classrpp_1_1disposable__guard.html", null ],

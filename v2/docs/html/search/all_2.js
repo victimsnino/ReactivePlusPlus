@@ -6,9 +6,8 @@ var searchData=
   ['concat_5fsource_5fobserver_5fstrategy_3',['concat_source_observer_strategy',['../structrpp_1_1details_1_1concat__source__observer__strategy.html',1,'rpp::details']]],
   ['concat_5fstrategy_4',['concat_strategy',['../structrpp_1_1details_1_1concat__strategy.html',1,'rpp::details']]],
   ['conditional_20operators_5',['Conditional Operators',['../group__conditional__operators.html',1,'']]],
-  ['container_5fwith_5fiterator_6',['container_with_iterator',['../classrpp_1_1details_1_1container__with__iterator.html',1,'rpp::details']]],
-  ['create_7',['create',['../group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513',1,'rpp::source']]],
-  ['create_5fstrategy_8',['create_strategy',['../structrpp_1_1details_1_1create__strategy.html',1,'rpp::details']]],
-  ['creational_20operators_9',['Creational Operators',['../group__creational__operators.html',1,'']]],
-  ['current_5fthread_10',['current_thread',['../classrpp_1_1schedulers_1_1current__thread.html',1,'rpp::schedulers']]]
+  ['create_6',['create',['../group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513',1,'rpp::source']]],
+  ['create_5fstrategy_7',['create_strategy',['../structrpp_1_1details_1_1create__strategy.html',1,'rpp::details']]],
+  ['creational_20operators_8',['Creational Operators',['../group__creational__operators.html',1,'']]],
+  ['current_5fthread_9',['current_thread',['../classrpp_1_1schedulers_1_1current__thread.html',1,'rpp::schedulers']]]
 ];
