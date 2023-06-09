@@ -16,9 +16,13 @@
 #include <snitch/snitch_macros_test_case.hpp>
 
 #include "mock_observer.hpp"
+#include "copy_count_tracker.hpp"
+
 #include "rpp/disposables/base_disposable.hpp"
 #include "rpp/disposables/disposable_wrapper.hpp"
 #include "rpp/observables/fwd.hpp"
+#include "rpp/operators/subscribe.hpp"
+#include "rpp/schedulers/immediate.hpp"
 
 #include <memory>
 #include <optional>
@@ -201,5 +205,35 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
         rpp::source::concat<TestType>(my_container_with_error_on_increment{}).subscribe(mock.get_observer());
 
         CHECK(mock.get_on_error_count() == 1);
+    }
+}
+
+TEST_CASE("concat doesn't produce extra copies")
+{
+    copy_count_tracker tracker{};
+    auto source = rpp::source::just(rpp::schedulers::immediate{}, tracker);
+    auto               initial_copy = tracker.get_copy_count();
+    auto               initial_move = tracker.get_move_count();
+
+    SECTION("pass source via copy")
+    {
+        rpp::source::concat(source) | rpp::ops::subscribe([](const copy_count_tracker&){});
+        CHECK(tracker.get_copy_count() - initial_copy == 2); // 1 copy to observable + 1 copy to observer
+        CHECK(tracker.get_move_count() - initial_move == 0);
+    }
+}
+
+TEST_CASE("concat of iterable doesn't produce extra copies")
+{
+    copy_count_tracker tracker{};
+    auto               source       = std::array{rpp::source::just(rpp::schedulers::immediate{}, tracker)};
+    auto               initial_copy = tracker.get_copy_count();
+    auto               initial_move = tracker.get_move_count();
+
+    SECTION("pass source via copy")
+    {
+        rpp::source::concat(source) | rpp::ops::subscribe([](const copy_count_tracker&){});
+        CHECK(tracker.get_copy_count() - initial_copy == 1); // 1 copy to concat
+        CHECK(tracker.get_move_count() - initial_move == 0);
     }
 }

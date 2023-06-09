@@ -16,7 +16,6 @@
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
 
-
 #include <stdexcept>
 #include <string>
 

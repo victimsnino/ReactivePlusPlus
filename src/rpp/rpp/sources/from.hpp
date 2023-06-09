@@ -46,21 +46,6 @@ private:
     std::shared_ptr<Container> m_container{};
 };
 
-template<constraint::memory_model memory_model, constraint::iterable Container, typename ...Ts>
-auto pack_to_container(Ts&& ...items)
-{
-    if constexpr (std::same_as<memory_model, rpp::memory_model::use_stack>)
-        return Container{std::forward<Ts>(items)...};
-    else
-        return shared_container<Container>{std::forward<Ts>(items)...};
-}
-
-template<constraint::memory_model memory_model, constraint::decayed_type T, typename ...Ts>
-auto pack_variadic(Ts&& ...items)
-{
-    return pack_to_container<memory_model, std::array<T, sizeof...(Ts)>>(std::forward<Ts>(items)...);
-}
-
 struct from_iterable_schedulable
 {
     template<constraint::decayed_type PackedContainer, constraint::observer_strategy<utils::iterable_value_t<PackedContainer>> Strategy>
