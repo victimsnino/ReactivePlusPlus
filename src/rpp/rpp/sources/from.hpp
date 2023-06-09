@@ -19,6 +19,7 @@
 #include <array>
 #include <exception>
 #include <memory>
+#include <type_traits>
 #include <utility>
 
 namespace rpp::details
@@ -94,6 +95,12 @@ struct from_iterable_schedulable
 template<constraint::decayed_type PackedContainer, schedulers::constraint::scheduler TScheduler>
 struct from_iterable_strategy
 {
+    template<typename ...Args>
+    from_iterable_strategy(const TScheduler& scheduler, Args&& ...args)
+        : container{std::forward<Args>(args)...}
+        , scheduler{scheduler}
+        {}
+
     RPP_NO_UNIQUE_ADDRESS PackedContainer container;
     RPP_NO_UNIQUE_ADDRESS TScheduler      scheduler;
 
@@ -128,12 +135,11 @@ struct from_iterable_strategy
     }
 };
 
-template<typename PackedContainer, schedulers::constraint::scheduler TScheduler>
-auto make_from_iterable_observable(PackedContainer&& container, const TScheduler& scheduler)
+template<typename PackedContainer, schedulers::constraint::scheduler TScheduler, typename ...Args>
+auto make_from_iterable_observable(const TScheduler& scheduler, Args&& ...args)
 {
     return observable<utils::iterable_value_t<std::decay_t<PackedContainer>>,
-                           details::from_iterable_strategy<std::decay_t<PackedContainer>, TScheduler>>{std::forward<PackedContainer>(container),
-                                                                                                       scheduler};
+                           details::from_iterable_strategy<std::decay_t<PackedContainer>, TScheduler>>{scheduler, std::forward<Args>(args)...};
 }
 } // namespace rpp::details
 
@@ -162,7 +168,8 @@ namespace rpp::source
 template<constraint::memory_model memory_model/* = memory_model::use_stack*/, constraint::iterable Iterable, schedulers::constraint::scheduler TScheduler /* = schedulers::current_thread*/>
 auto from_iterable(Iterable&& iterable, const TScheduler& scheduler /* = TScheduler{}*/)
 {
-    return details::make_from_iterable_observable(details::pack_to_container<memory_model, std::decay_t<Iterable>>(std::forward<Iterable>(iterable)), scheduler);
+    using container = std::conditional_t<std::same_as<memory_model, rpp::memory_model::use_stack>, std::decay_t<Iterable>, details::shared_container<std::decay_t<Iterable>>>;
+    return details::make_from_iterable_observable<container>(scheduler, std::forward<Iterable>(iterable));
 }
 
 /**
@@ -189,7 +196,9 @@ auto from_iterable(Iterable&& iterable, const TScheduler& scheduler /* = TSchedu
 template<constraint::memory_model memory_model /* = memory_model::use_stack */, schedulers::constraint::scheduler TScheduler, typename T, typename ...Ts>
 auto just(const TScheduler& scheduler, T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...)
 {
-    return details::make_from_iterable_observable(details::pack_variadic<memory_model, std::decay_t<T>>(std::forward<T>(item), std::forward<Ts>(items)...), scheduler);
+    using inner_container = std::array<std::decay_t<T>, sizeof...(Ts) + 1>;
+    using container = std::conditional_t<std::same_as<memory_model, rpp::memory_model::use_stack>, inner_container, details::shared_container<inner_container>>;
+    return details::make_from_iterable_observable<container>(scheduler, std::forward<T>(item), std::forward<Ts>(items)...);
 }
 
 /**
@@ -216,7 +225,9 @@ auto just(const TScheduler& scheduler, T&& item, Ts&& ...items) requires (constr
 template<constraint::memory_model memory_model /* = memory_model::use_stack */, typename T, typename ...Ts>
 auto just(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...)
 {
-    return details::make_from_iterable_observable(details::pack_variadic<memory_model, std::decay_t<T>>(std::forward<T>(item), std::forward<Ts>(items)...), schedulers::current_thread{});
+    using inner_container = std::array<std::decay_t<T>, sizeof...(Ts) + 1>;
+    using container = std::conditional_t<std::same_as<memory_model, rpp::memory_model::use_stack>, inner_container, details::shared_container<inner_container>>;
+    return details::make_from_iterable_observable<container>(schedulers::current_thread{}, std::forward<T>(item), std::forward<Ts>(items)...);
 }
 
 /**
