@@ -98,7 +98,7 @@ private:
 
             if (itr != std::cend(container))
             {
-                return PackedContainer::extract_value_from_itr(itr);
+                return *itr;
             }
         }
         catch (...)
@@ -109,7 +109,7 @@ private:
         obs.on_completed();
         return std::nullopt;
     }
-    
+
 };
 
 template<typename PackedContainer>

@@ -41,40 +41,15 @@ public:
     auto begin() const { return std::cbegin(*m_container); }
     auto end() const { return std::cend(*m_container); }
 
-    static const auto& extract_value_from_itr(const auto& itr) { return *itr; }
-
 private:
     std::shared_ptr<Container> m_container{};
-};
-
-template<constraint::decayed_type Container>
-class stack_container
-{
-public:
-    template<typename... Ts>
-        requires(!constraint::variadic_decayed_same_as<stack_container<Container>, Ts...>)
-    explicit stack_container(Ts&&... items) 
-        : m_container{std::forward<Ts>(items)...}
-    {
-    }
-
-    stack_container(const stack_container& other) = default;
-
-    stack_container(stack_container&& other) noexcept = default;
-    auto begin() const { return std::cbegin(m_container); }
-    auto end() const { return std::cend(m_container); }
-
-    static auto extract_value_from_itr(const auto& itr) { return std::move(*itr); }
-
-private:
-    RPP_NO_UNIQUE_ADDRESS Container m_container{};
 };
 
 template<constraint::memory_model memory_model, constraint::iterable Container, typename ...Ts>
 auto pack_to_container(Ts&& ...items)
 {
     if constexpr (std::same_as<memory_model, rpp::memory_model::use_stack>)
-        return stack_container<Container>{std::forward<Ts>(items)...};
+        return Container{std::forward<Ts>(items)...};
     else
         return shared_container<Container>{std::forward<Ts>(items)...};
 }
