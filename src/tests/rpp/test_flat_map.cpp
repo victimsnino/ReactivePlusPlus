@@ -12,6 +12,7 @@
 #include <snitch/snitch_macros_check.hpp>
 
 #include <rpp/operators/flat_map.hpp>
+#include <rpp/sources/create.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
@@ -105,22 +106,43 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
                 CHECK(mock.get_on_error_count() == 1);
             }
         }
-    }
-    /*
-    SECTION("flat_map doesn't produce extra copies")
-    {
-        copy_count_tracker verifier{};
-        auto obs = rpp::source::just<TestType>(std::move(verifier))
-                 | rpp::ops::flat_map([](copy_count_tracker&& verifier) { return rpp::source::just<TestType>(std::move(verifier)); });
-        SECTION("subscribe")
+        SECTION("subscribe using flat_map with templated lambda")
         {
-            obs.subscribe([](const auto&){});
-            SECTION("no extra copies")
+            obs | rpp::operators::flat_map([](auto v) { return rpp::source::just(v * 2); })
+                | rpp::ops::subscribe(mock.get_observer());
+            SECTION("observer obtains values from underlying observables")
             {
-                REQUIRE(verifier.get_copy_count() == ??);
-                REQUIRE(verifier.get_move_count() == ??);
+                CHECK(mock.get_on_completed_count() == 1);
             }
         }
     }
-    */
+}
+
+TEST_CASE("flat_map copies/moves")
+{
+    SECTION("flat_map doesn't produce extra copies")
+    {
+        copy_count_tracker verifier{};
+        auto obs = rpp::source::create<copy_count_tracker>([verifier = std::move(verifier)](const auto& obs) { obs.on_next(verifier); })
+                 | rpp::ops::map([](copy_count_tracker verifier) { return std::move(verifier); }) // copy from source to map
+                 | rpp::ops::flat_map([](copy_count_tracker&& verifier) { // no copy
+                    return rpp::source::create<copy_count_tracker>([verifier = std::move(verifier)](const auto& obs) { obs.on_next(std::move(verifier)); }); 
+                   });
+        SECTION("first subscribe")
+        {
+            obs.subscribe([](const auto&){}); // subscribe by const lvalue reference so no copy
+            SECTION("no extra copies")
+            {
+                REQUIRE(verifier.get_copy_count() == 1); // only one copy from source to first operator
+            }
+        }
+        SECTION("second subscribe")
+        {
+            obs.subscribe([](auto){}); // subscribe by value so one additional copy
+            SECTION("no extra copies")
+            {
+                REQUIRE(verifier.get_copy_count() == 1 + 1);
+            }
+        }
+    }
 }

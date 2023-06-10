@@ -22,8 +22,8 @@ struct flat_map_t
 {
     RPP_NO_UNIQUE_ADDRESS Fn m_fn;
 
-    template<rpp::constraint::observable TObservable>
-        requires std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>>
+    template<rpp::constraint::observable TObservable, typename ValueType = rpp::utils::extract_observable_type_t<TObservable>>
+        requires (std::invocable<Fn, ValueType> && rpp::constraint::observable<std::invoke_result_t<Fn, ValueType>>)
     auto operator()(TObservable&& observable) const &
     {
         return std::forward<TObservable>(observable)
@@ -32,12 +32,12 @@ struct flat_map_t
                 
     }
 
-    template<rpp::constraint::observable TObservable>
-        requires std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>>
+    template<rpp::constraint::observable TObservable, typename ValueType = rpp::utils::extract_observable_type_t<TObservable>>
+        requires (std::invocable<Fn, ValueType> && rpp::constraint::observable<std::invoke_result_t<Fn, ValueType>>)
     auto operator()(TObservable&& observable) &&
     {
         return std::forward<TObservable>(observable)
-                | rpp::ops::map(std::forward<Fn>(m_fn))
+                | rpp::ops::map(std::move(m_fn))
                 | rpp::ops::merge();
     }
 };
@@ -59,7 +59,7 @@ namespace rpp::operators
  * @see https://reactivex.io/documentation/operators/flatmap.html
  */
 template<typename Fn>
-    requires rpp::constraint::observable<std::invoke_result_t<Fn, utils::convertible_to_any>>
+    requires (!utils::is_not_template_callable<Fn> || rpp::constraint::observable<std::invoke_result_t<Fn, utils::convertible_to_any>>)
 auto flat_map(Fn&& callable)
 {
     return details::flat_map_t<std::decay_t<Fn>>{std::forward<Fn>(callable)};

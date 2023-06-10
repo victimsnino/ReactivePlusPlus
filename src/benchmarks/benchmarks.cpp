@@ -302,14 +302,14 @@ int main(int argc, char* argv[]) // NOLINT
             TEST_RPP([&]()
             {
                 rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
-                    | rpp::operators::flat_map([](int v) { return rpp::source::just(v * 2); })
+                    | rpp::operators::flat_map([](int v) {  return rpp::source::create<int>([v](const auto& obs){ obs.on_next(v * 2); }); })
                     | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
 
             TEST_RXCPP([&]()
             {
                 rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
-                    | rxcpp::operators::flat_map([](int v) { return rxcpp::observable<>::just(v * 2); })
+                    | rxcpp::operators::flat_map([](int v) { return rxcpp::observable<>::create<int>([v](const auto& obs){ obs.on_next(v * 2); }); })
                     | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }

@@ -34,7 +34,7 @@ template<typename Fn>
 auto map(Fn&& callable);
 
 template<typename Fn>
-    requires rpp::constraint::observable<std::invoke_result_t<Fn, utils::convertible_to_any>>
+    requires (!utils::is_not_template_callable<Fn> || rpp::constraint::observable<std::invoke_result_t<Fn, utils::convertible_to_any>>)
 auto flat_map(Fn&& callable);
 
 template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
