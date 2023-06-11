@@ -30,6 +30,7 @@
  * @ingroup operators
  */
 
+#include <rpp/operators/flat_map.hpp>
 #include <rpp/operators/map.hpp>
 #include <rpp/operators/scan.hpp>
 #include <rpp/operators/subscribe.hpp>
