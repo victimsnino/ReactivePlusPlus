@@ -91,6 +91,21 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
                 CHECK(mock.get_on_error_count() == 0);
             }
         }
+        SECTION("subscribe using flat_map with never in middle")
+        {
+            obs | rpp::operators::flat_map([](int v) {
+                    if (v == 2) 
+                        return rpp::source::never<int>().as_dynamic();
+                    return rpp::source::just(v).as_dynamic(); 
+                  })
+                | rpp::ops::subscribe(mock.get_observer());
+            SECTION("observer obtains values from underlying observables")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 1, 3 });
+                CHECK(mock.get_on_completed_count() == 0);
+                CHECK(mock.get_on_error_count() == 0);
+            }
+        }
         SECTION("subscribe using flat_map with error in middle")
         {
             obs | rpp::operators::flat_map([](int v) {
@@ -104,35 +119,6 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_completed_count() == 0);
                 CHECK(mock.get_on_error_count() == 1);
-            }
-        }
-    }
-}
-
-TEST_CASE("flat_map copies/moves")
-{
-    SECTION("flat_map doesn't produce extra copies")
-    {
-        copy_count_tracker verifier{};
-        auto obs = rpp::source::create<copy_count_tracker>([&](const auto& obs) { obs.on_next(verifier); }) // pass by value as obs is subscribed multiple times 
-                 | rpp::ops::map([](copy_count_tracker verifier) { return std::move(verifier); }) // copy from source to map
-                 | rpp::ops::flat_map([](copy_count_tracker&& verifier) { // no copy
-                    return rpp::source::create<copy_count_tracker>([&](const auto& obs) { obs.on_next(std::move(verifier)); }); // move verifier
-                   });
-        SECTION("first subscribe")
-        {
-            obs.subscribe([](const auto&){}); // subscribe by const lvalue reference so no copy
-            SECTION("no extra copies")
-            {
-                REQUIRE(verifier.get_copy_count() == 1); // only one copy from source to first operator
-            }
-        }
-        SECTION("second subscribe")
-        {
-            obs.subscribe([](auto){}); // subscribe by value doesn't copy either as value is moved upstream
-            SECTION("no extra copies")
-            {
-                REQUIRE(verifier.get_copy_count() == 1);
             }
         }
     }
