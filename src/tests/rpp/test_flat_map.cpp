@@ -114,10 +114,10 @@ TEST_CASE("flat_map copies/moves")
     SECTION("flat_map doesn't produce extra copies")
     {
         copy_count_tracker verifier{};
-        auto obs = rpp::source::create<copy_count_tracker>([verifier = std::move(verifier)](const auto& obs) { obs.on_next(verifier); })
+        auto obs = rpp::source::create<copy_count_tracker>([&](const auto& obs) { obs.on_next(verifier); }) // pass by value as obs is subscribed multiple times 
                  | rpp::ops::map([](copy_count_tracker verifier) { return std::move(verifier); }) // copy from source to map
                  | rpp::ops::flat_map([](copy_count_tracker&& verifier) { // no copy
-                    return rpp::source::create<copy_count_tracker>([&](const auto& obs) { obs.on_next(std::move(verifier)); }); 
+                    return rpp::source::create<copy_count_tracker>([&](const auto& obs) { obs.on_next(std::move(verifier)); }); // move verifier
                    });
         SECTION("first subscribe")
         {
