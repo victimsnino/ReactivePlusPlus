@@ -91,19 +91,19 @@ public:
     };
 
 
-    static void test_operator(auto&& op, test_expectations expectations)
+    static void test_operator(auto&& op, test_expectations expectations, size_t count = 1)
     {
         copy_count_tracker tracker{};
         SECTION("send value by copy")
         {
-            tracker.get_observable() | op | rpp::ops::subscribe([](auto){});
+            tracker.get_observable(count) | op | rpp::ops::subscribe([](auto){});
             CHECK(tracker.get_copy_count() == expectations.send_by_copy.copy_count);
             CHECK(tracker.get_move_count() == expectations.send_by_copy.move_count);
         }
 
         SECTION("send value by move")
         {
-            tracker.get_observable_for_move() | op | rpp::ops::subscribe([](auto){});
+            tracker.get_observable_for_move(count) | op | rpp::ops::subscribe([](auto){});
             CHECK(tracker.get_copy_count() == expectations.send_by_move.copy_count);
             CHECK(tracker.get_move_count() == expectations.send_by_move.move_count);
         }
