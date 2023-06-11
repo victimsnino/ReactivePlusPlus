@@ -15,6 +15,7 @@
 #include <rpp/sources/create.hpp>
 
 #include "mock_observer.hpp"
+#include "copy_count_tracker.hpp"
 
 
 TEST_CASE("repeat resubscribes")
@@ -114,5 +115,19 @@ TEST_CASE("repeat resubscribes")
                 CHECK(observer.get_on_completed_count() == 1);
             }
         }
+    }
+}
+
+TEST_CASE("repeat doesn't produce extra copies")
+{
+    SECTION("repeat(2)")
+    {
+        copy_count_tracker::test_operator(rpp::ops::repeat(2),
+                                        {
+                                            .send_by_copy = {.copy_count = 2, // 2 times 1 copy to final subscriber
+                                                            .move_count = 0}, 
+                                            .send_by_move = {.copy_count = 0,
+                                                            .move_count = 2} // 2 times 1 move to final subscriber
+                                        });
     }
 }

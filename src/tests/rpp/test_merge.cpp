@@ -21,6 +21,7 @@
 #include <snitch/snitch_macros_check.hpp>
 
 #include "mock_observer.hpp"
+#include "copy_count_tracker.hpp"
 
 #include <stdexcept>
 #include <string>
@@ -209,44 +210,6 @@ TEMPLATE_TEST_CASE("merge serializes emissions", "", rpp::memory_model::use_stac
     }
 }
 
-// TEST_CASE("merge doesn't produce extra copies")
-// {
-//     SECTION("observable and subscriber")
-//     {
-//         copy_count_tracker verifier{};
-//         auto          obs = rpp::source::just<TestType>(verifier.get_observable()) | rpp::ops::merge() ;
-//         SECTION("subscribe")
-//         {
-//             obs.subscribe([](copy_count_tracker){});
-//             SECTION("no extra copies")
-//             {
-//                 // 1 copy to final lambda
-//                 REQUIRE(verifier.get_copy_count() == 1);
-//                 REQUIRE(verifier.get_move_count() == 0);
-//             }
-//         }
-//     }
-// }
-
-// TEST_CASE("merge doesn't produce copies for move")
-// {
-//     SECTION("observable and subscriber")
-//     {
-//         copy_count_tracker verifier{};
-//         auto          obs = rpp::source::just<TestType>(verifier.get_observable_for_move()) | rpp::ops::merge() ;
-//         SECTION("subscribe")
-//         {
-//             obs.subscribe([](copy_count_tracker) {});
-//             SECTION("no extra copies")
-//             {
-//                 REQUIRE(verifier.get_copy_count() == 0);
-//                 // 1 move to final lambda
-//                 REQUIRE(verifier.get_move_count() == 1);
-//             }
-//         }
-//     }
-// }
-
 TEMPLATE_TEST_CASE("merge handles race condition", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     SECTION("source observable in current thread pairs with error in other thread")
@@ -288,5 +251,26 @@ TEMPLATE_TEST_CASE("merge handles race condition", "", rpp::memory_model::use_st
 
         SECTION("just<TestType>(just) + merge")
             test(rpp::source::just<TestType>(rpp::schedulers::immediate{}, rpp::source::just<TestType>(1, 1, 1).as_dynamic(), delayed_obs.as_dynamic()) | rpp::ops::merge());
+    }
+}
+
+TEST_CASE("merge doesn't produce extra copies")
+{
+    SECTION("send value by copy")
+    {
+        copy_count_tracker verifier{};
+        auto          obs = rpp::source::just(verifier.get_observable()) | rpp::ops::merge() ;
+        obs.subscribe([](copy_count_tracker){}); // NOLINT
+        REQUIRE(verifier.get_copy_count() == 1); // 1 copy to final subscriber
+        REQUIRE(verifier.get_move_count() == 0);
+    }
+
+    SECTION("send value by move")
+    {
+        copy_count_tracker verifier{};
+        auto          obs = rpp::source::just(verifier.get_observable_for_move()) | rpp::ops::merge() ;
+        obs.subscribe([](copy_count_tracker){}); // NOLINT
+        REQUIRE(verifier.get_copy_count() == 0);
+        REQUIRE(verifier.get_move_count() == 1); // 1 move to final subscriber
     }
 }

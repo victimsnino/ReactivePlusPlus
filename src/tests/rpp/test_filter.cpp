@@ -50,7 +50,7 @@ TEST_CASE("filter doesn't produce extra copies")
 {
     SECTION("filter([](copy_count_tracker){return true;})")
     {
-        copy_count_tracker::test_operator(rpp::ops::filter([](copy_count_tracker){return true;}),
+        copy_count_tracker::test_operator(rpp::ops::filter([](copy_count_tracker){return true;}), // NOLINT
                                         {
                                             .send_by_copy = {.copy_count = 2, // 1 copy to filter lambda + 1 move to subscriber
                                                             .move_count = 0},

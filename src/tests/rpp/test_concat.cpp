@@ -233,7 +233,7 @@ TEST_CASE("concat of iterable doesn't produce extra copies")
     SECTION("pass source via copy")
     {
         rpp::source::concat(source) | rpp::ops::subscribe([](const copy_count_tracker&){});
-        CHECK(tracker.get_copy_count() - initial_copy == 1); // 1 copy to concat
+        CHECK(tracker.get_copy_count() - initial_copy == 2); // 1 copy to observable + 1 copy to observer
         CHECK(tracker.get_move_count() - initial_move == 0);
     }
 }

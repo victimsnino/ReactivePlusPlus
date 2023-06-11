@@ -318,8 +318,8 @@ TEST_CASE("just")
                 CHECK(mock.get_on_next_const_ref_count() == 1);
                 CHECK(mock.get_on_next_move_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
-                CHECK(v.get_copy_count() == 0);
-                CHECK(v.get_move_count() == 1); // 1 move into observable
+                CHECK(v.get_copy_count() == 0); // NOLINT
+                CHECK(v.get_move_count() == 1); // NOLINT // 1 move into observable
             }
         }
     }
