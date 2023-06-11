@@ -51,6 +51,13 @@ namespace rpp::operators
 /**
  * @brief Transform the items emitted by an Observable into Observables, then flatten the emissions from those into a single Observable
  *
+ * @marble flat_map
+        {
+            source observable                   : +--1--2--3--|
+            operator "flat_map: x=>just(x,x+1)" : +--12-23-34-|
+        }
+ *
+ * @details Actually it makes `map(callable)` and then `merge`.
  * @details Note that flat_map merges the emissions of these Observables, so that they may interleave. 
  *
  * @param a function that returns an observable for each item emitted by the source observable. 
