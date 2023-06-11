@@ -43,6 +43,18 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
                 CHECK(mock.get_on_error_count() == 0);
             }
         }
+        SECTION("subscribe using flat_map with templated lambda and pass operator by variable")
+        {
+            const auto multiply_by_two = rpp::operators::flat_map([](auto v) { return rpp::source::just(v * 2); });
+            obs | multiply_by_two
+                | rpp::ops::subscribe(mock.get_observer());
+            SECTION("observer obtains values from underlying observables")
+            {
+                CHECK(mock.get_received_values() == std::vector{ 2, 4, 6 });
+                CHECK(mock.get_on_completed_count() == 1);
+                CHECK(mock.get_on_error_count() == 0);
+            }
+        }
         SECTION("subscribe using flat_map with error")
         {
             obs | rpp::operators::flat_map([](int) { return rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})); })
