@@ -14,6 +14,9 @@
 #include <rpp/sources/just.hpp>
 
 #include "mock_observer.hpp"
+#include "copy_count_tracker.hpp"
+#include "rpp/operators/subscribe.hpp"
+
 
 TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
@@ -131,6 +134,36 @@ TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::u
             CHECK(mock.get_received_values() == std::vector{1});
             CHECK(mock.get_on_error_count() == 1);
             CHECK(mock.get_on_completed_count() == 0);
+        }
+    }
+}
+
+TEST_CASE("scan doesn't produce extra copies")
+{
+    SECTION("scan([](verifier&& seed, auto&& v){return forward(v); }")
+    {
+        SECTION("send value by copy")
+        {
+            copy_count_tracker tracker{};
+            tracker.get_observable(2) | rpp::ops::scan([](copy_count_tracker&&, auto&& value) {return std::forward<decltype(value)>(value);}) | rpp::ops::subscribe([](copy_count_tracker){}); // NOLINT
+
+            // first emission: 1 copy to state + 1 copy to subscriber
+            // second emision: 1 copy FROM scan lambda + 1 move to internal state + 1 copy to subscriber
+
+            CHECK(tracker.get_copy_count() == 4); 
+            CHECK(tracker.get_move_count() == 1);
+        }
+
+        SECTION("send value by move")
+        {
+            copy_count_tracker tracker{};
+            tracker.get_observable_for_move(2) | rpp::ops::scan([](copy_count_tracker&&, auto&& value) {return std::forward<decltype(value)>(value);}) | rpp::ops::subscribe([](copy_count_tracker){}); // NOLINT
+
+            // first emission: 1 move to state + 1 copy to subscriber
+            // second emision: 1 move FROM scan lambda + 1 move to internal state + 1 copy to subscriber
+
+            CHECK(tracker.get_copy_count() == 2); // 2 times 1 copy to final subcriber
+            CHECK(tracker.get_move_count() == 3); // 2 times 1 move to internal state
         }
     }
 }

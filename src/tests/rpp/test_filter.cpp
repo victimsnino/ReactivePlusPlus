@@ -14,6 +14,7 @@
 #include <rpp/sources/just.hpp>
 
 #include "mock_observer.hpp"
+#include "copy_count_tracker.hpp"
 
 #include <stdexcept>
 #include <string>
@@ -42,5 +43,30 @@ TEMPLATE_TEST_CASE("filter", "", rpp::memory_model::use_stack, rpp::memory_model
         CHECK(mock.get_received_values() == std::vector<int>{});
         CHECK(mock.get_on_error_count() == 1);
         CHECK(mock.get_on_completed_count() == 0);
+    }
+}
+
+TEST_CASE("filter doesn't produce extra copies")
+{
+    SECTION("filter([](copy_count_tracker){return true;})")
+    {
+        copy_count_tracker::test_operator(rpp::ops::filter([](copy_count_tracker){return true;}), // NOLINT
+                                        {
+                                            .send_by_copy = {.copy_count = 2, // 1 copy to filter lambda + 1 move to subscriber
+                                                            .move_count = 0},
+                                            .send_by_move = {.copy_count = 1, // 1 copy to filter lambda
+                                                            .move_count = 1} // 1 move to final subscriber
+                                        });
+    }
+
+    SECTION("filter([](const copy_count_tracker&){return false;})")
+    {
+        copy_count_tracker::test_operator(rpp::ops::filter([](const copy_count_tracker&){return false;}),
+                                        {
+                                            .send_by_copy = {.copy_count = 0,
+                                                            .move_count = 0},
+                                            .send_by_move = {.copy_count = 0,
+                                                            .move_count = 0}
+                                        });
     }
 }

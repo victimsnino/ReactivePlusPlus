@@ -14,6 +14,7 @@
 #include <rpp/sources/create.hpp>
 
 #include "mock_observer.hpp"
+#include "copy_count_tracker.hpp"
 
 TEST_CASE("take operator limits emissions")
 {
@@ -91,4 +92,18 @@ TEST_CASE("take operator forwards on_error")
     CHECK(mock.get_received_values() == std::vector<int>{});
     CHECK(mock.get_on_error_count() == 1);
     CHECK(mock.get_on_completed_count() == 0);
+}
+
+TEST_CASE("take doesn't produce extra copies")
+{
+    SECTION("take(1)")
+    {
+        copy_count_tracker::test_operator(rpp::ops::take(1),
+                                        {
+                                            .send_by_copy = {.copy_count = 1, // 1 copy to final subscriber
+                                                            .move_count = 0},
+                                            .send_by_move = {.copy_count = 0,
+                                                            .move_count = 1} // 1 move to final subscriber
+                                        }, 2);
+    }
 }

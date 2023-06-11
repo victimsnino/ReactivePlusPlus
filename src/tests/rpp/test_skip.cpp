@@ -16,6 +16,7 @@
 #include <rpp/schedulers/immediate.hpp>
 
 #include "mock_observer.hpp"
+#include "copy_count_tracker.hpp"
 
 TEMPLATE_TEST_CASE("skip ignores first `count` of items",
                    "",
@@ -63,5 +64,19 @@ TEMPLATE_TEST_CASE("skip ignores first `count` of items",
         new_obs.subscribe(mock.get_observer());
         CHECK(mock.get_received_values() == std::vector<int>{ });
         CHECK(mock.get_on_completed_count() == 1);
+    }
+}
+
+TEST_CASE("skip doesn't produce extra copies")
+{
+    SECTION("skip(1)")
+    {
+        copy_count_tracker::test_operator(rpp::ops::skip(1),
+                                        {
+                                            .send_by_copy = {.copy_count = 1, // 1 copy to final subscriber
+                                                            .move_count = 0},
+                                            .send_by_move = {.copy_count = 0,
+                                                            .move_count = 1} // 1 move to final subscriber
+                                        }, 2);
     }
 }

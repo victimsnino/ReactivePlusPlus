@@ -9,6 +9,7 @@
 //
 
 #include "mock_observer.hpp"
+#include "copy_count_tracker.hpp"
 
 #include <rpp/operators/take_while.hpp>
 #include <rpp/sources/create.hpp>
@@ -41,5 +42,19 @@ TEST_CASE("take_while")
         obs | op | rpp::operators::subscribe(mock.get_observer());
 
         CHECK(mock.get_received_values().empty());
+    }
+}
+
+TEST_CASE("take_while doesn't produce extra copies")
+{
+    SECTION("take_while([](auto) { return true; })")
+    {
+        copy_count_tracker::test_operator(rpp::ops::take_while([](auto) { return true; }),
+                                        {
+                                            .send_by_copy = {.copy_count = 2, // 1 copy to lambda + 1 copy to subscriber
+                                                            .move_count = 0},
+                                            .send_by_move = {.copy_count = 1, // 1 copy to lambda 
+                                                            .move_count = 1} // 1 move to final subscriber
+                                        });
     }
 }
