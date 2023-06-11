@@ -9,6 +9,9 @@ Transforming operators are operators that transform items provided by observable
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$typename Fn $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__transforming__operators_ga9cfd33d5c468e82a7893d92375ce25dc}{rpp\+::operators\+::flat\+\_\+map}} (Fn \&\&callable)
+\begin{DoxyCompactList}\small\item\em Transform the items emitted by an Observable into Observables, then flatten the emissions from those into a single Observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Fn $>$ \newline
 requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ !std\+::same\+\_\+as$<$void, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{rpp\+::operators\+::map}} (Fn \&\&callable)
 \begin{DoxyCompactList}\small\item\em Transforms the items emitted by an Observable via applying a function to each item and emitting result. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Initial\+Value , typename Fn $>$ \newline
@@ -27,6 +30,35 @@ Transforming operators are operators that transform items provided by observable
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__transforming__operators_ga9cfd33d5c468e82a7893d92375ce25dc}\label{group__transforming__operators_ga9cfd33d5c468e82a7893d92375ce25dc}} 
+\index{Transforming Operators@{Transforming Operators}!flat\_map@{flat\_map}}
+\index{flat\_map@{flat\_map}!Transforming Operators@{Transforming Operators}}
+\doxysubsubsection{\texorpdfstring{flat\_map()}{flat\_map()}}
+{\footnotesize\ttfamily template$<$typename Fn $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+auto rpp\+::operators\+::flat\+\_\+map (\begin{DoxyParamCaption}\item[{Fn \&\&}]{callable }\end{DoxyParamCaption})}
+
+
+
+Transform the items emitted by an Observable into Observables, then flatten the emissions from those into a single Observable. 
+
+
+
+Actually it makes {\ttfamily map(callable)} and then {\ttfamily merge}.
+
+Note that flat\+\_\+map merges the emissions of these Observables, so that they may interleave.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & function that returns an observable for each item emitted by the source observable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{flat__map_8hpp_source}{rpp/operators/flat\+\_\+map.\+hpp}}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/flatmap.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/flatmap.\+html}} 
+\end{DoxySeeAlso}
 \mbox{\Hypertarget{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}\label{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}} 
 \index{Transforming Operators@{Transforming Operators}!map@{map}}
 \index{map@{map}!Transforming Operators@{Transforming Operators}}

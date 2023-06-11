@@ -107,6 +107,11 @@ $(document).ready(function(){initNavTree('group__transforming__operators.html','
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga9cfd33d5c468e82a7893d92375ce25dc"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; <br />
+requires (!utils::is_not_template_callable&lt;Fn&gt; || <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;Fn, utils::convertible_to_any&gt;&gt;)</td></tr>
+<tr class="memitem:ga9cfd33d5c468e82a7893d92375ce25dc"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#ga9cfd33d5c468e82a7893d92375ce25dc">rpp::operators::flat_map</a> (Fn &amp;&amp;callable)</td></tr>
+<tr class="memdesc:ga9cfd33d5c468e82a7893d92375ce25dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform the items emitted by an Observable into Observables, then flatten the emissions from those into a single Observable.  <br /></td></tr>
+<tr class="separator:ga9cfd33d5c468e82a7893d92375ce25dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa1e52694559ad873f33b62ada4c45675"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; <br />
 requires (!utils::is_not_template_callable&lt;Fn&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;Fn, utils::convertible_to_any&gt;&gt;)</td></tr>
 <tr class="memitem:gaa1e52694559ad873f33b62ada4c45675"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gaa1e52694559ad873f33b62ada4c45675">rpp::operators::map</a> (Fn &amp;&amp;callable)</td></tr>
@@ -126,6 +131,42 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;std::dec
 <p>Transforming operators are operators that transform items provided by observable. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#transforming">https://reactivex.io/documentation/operators.html#transforming</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga9cfd33d5c468e82a7893d92375ce25dc" name="ga9cfd33d5c468e82a7893d92375ce25dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9cfd33d5c468e82a7893d92375ce25dc">&#9670;&#160;</a></span>flat_map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Fn &gt; <br />
+requires (!utils::is_not_template_callable&lt;Fn&gt; || <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;Fn, utils::convertible_to_any&gt;&gt;)</div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::flat_map </td>
+          <td>(</td>
+          <td class="paramtype">Fn &amp;&amp;&#160;</td>
+          <td class="paramname"><em>callable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Transform the items emitted by an Observable into Observables, then flatten the emissions from those into a single Observable. </p>
+<div class="image">
+<object type="image/svg+xml" data="flat_map.svg" style="pointer-events: none;"></object>
+</div>
+<p>Actually it makes <code>map(callable)</code> and then <code>merge</code>.</p>
+<p>Note that flat_map merges the emissions of these Observables, so that they may interleave.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>function that returns an observable for each item emitted by the source observable. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="flat__map_8hpp_source.html">rpp/operators/flat_map.hpp</a>&gt;</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/flatmap.html">https://reactivex.io/documentation/operators/flatmap.html</a> </dd></dl>
+
+</div>
+</div>
 <a id="gaa1e52694559ad873f33b62ada4c45675" name="gaa1e52694559ad873f33b62ada4c45675"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaa1e52694559ad873f33b62ada4c45675">&#9670;&#160;</a></span>map()</h2>
 

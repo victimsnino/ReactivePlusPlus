@@ -27,6 +27,7 @@ var hierarchy =
     ] ],
     [ "rpp::operators::details::filter_observer_strategy< Fn >", "structrpp_1_1operators_1_1details_1_1filter__observer__strategy.html", null ],
     [ "rpp::operators::details::filter_t< Fn >", "structrpp_1_1operators_1_1details_1_1filter__t.html", null ],
+    [ "rpp::operators::details::flat_map_t< Fn >", "structrpp_1_1operators_1_1details_1_1flat__map__t.html", null ],
     [ "rpp::operators::details::forwarding_is_disposed_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy.html", null ],
     [ "rpp::operators::details::forwarding_on_completed_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy.html", null ],
     [ "rpp::operators::details::forwarding_on_error_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__on__error__strategy.html", null ],
