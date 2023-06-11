@@ -30,7 +30,6 @@ struct flat_map_t
         return std::forward<TObservable>(observable)
                 | rpp::ops::map(m_fn)
                 | rpp::ops::merge();
-                
     }
 
     template<rpp::constraint::observable TObservable>
