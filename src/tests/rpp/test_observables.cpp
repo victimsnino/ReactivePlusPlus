@@ -186,15 +186,14 @@ TEST_CASE("base observables")
 
 TEST_CASE("create observable works properly as observable")
 {
-    auto observable = rpp::source::create<int>([&](auto&& observer)
-    {
-        observer.on_next(1);
-        observer.on_completed();
-    });
-    auto observable2 = observable;
-
     SECTION("using const& variant")
     {
+        auto observable = rpp::source::create<int>([](auto&& observer)
+        {
+            observer.on_next(1);
+            observer.on_completed();
+        });
+
         mock_observer_strategy<int> pipe_operator_observer{};
         mock_observer_strategy<int> pipe_function_observer{};
 
@@ -210,8 +209,15 @@ TEST_CASE("create observable works properly as observable")
         mock_observer_strategy<int> pipe_operator_observer{};
         mock_observer_strategy<int> pipe_function_observer{};
 
-        std::move(observable) | rpp::operators::subscribe(pipe_operator_observer.get_observer());
-        std::move(observable2).pipe(rpp::operators::subscribe(pipe_function_observer.get_observer()));
+        rpp::source::create<int>([](auto&& observer) {
+            observer.on_next(1);
+            observer.on_completed();
+        }) | rpp::operators::subscribe(pipe_operator_observer.get_observer());
+
+        rpp::source::create<int>([](auto&& observer) {
+            observer.on_next(1);
+            observer.on_completed();
+        }).pipe(rpp::operators::subscribe(pipe_function_observer.get_observer()));
 
         CHECK(pipe_operator_observer.get_total_on_next_count() == pipe_function_observer.get_total_on_next_count());
         CHECK(pipe_operator_observer.get_on_error_count() == pipe_function_observer.get_on_error_count());
