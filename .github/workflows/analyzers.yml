@@ -10,7 +10,6 @@ on:
 jobs:
   pvs:
     
-    name: PVS sanitizer
     runs-on: ubuntu-latest
     timeout-minutes: 10
     
@@ -54,8 +53,7 @@ jobs:
         sarif_file: pvs-report.sarif
         category: PVS-Studio
 
-  sonarcloud:
-    name: Sonarcloud + coverage
+  sonarcloud_and_coverage:
     runs-on: ubuntu-latest
     
     if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
