@@ -1,0 +1,97 @@
+name: Process Benchmark Results V2
+
+on:
+  workflow_run:
+    workflows:
+      - "CI v2"
+    types:
+      - requested
+      
+jobs:
+  pvs:
+    if: github.repository_owner == 'victimsnino'
+
+    name: PVS sanitizer
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+        repository: ${{ github.event.workflow_run.head_repository.full_name }}
+        ref: ${{ github.event.workflow_run.head_branch }}
+
+    - name: Install tools
+      run: |
+        wget -q -O - https://files.pvs-studio.com/etc/pubkey.txt \
+          | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/PVS.gpg --import
+        sudo chmod 644 /etc/apt/trusted.gpg.d/PVS.gpg
+        sudo wget -O /etc/apt/sources.list.d/viva64.list \
+          https://files.pvs-studio.com/etc/viva64.list
+        sudo apt update
+        sudo apt install pvs-studio
+        pvs-studio-analyzer credentials ${{ secrets.PVS_STUDIO_CREDENTIALS }}
+
+    - name: Run CMake
+      uses: lukka/run-cmake@v10
+      with:
+        configurePreset: ci-ubuntu-clang-tests-no-checks
+        buildPreset: ci-build
+
+    - name: Analyze and prepare report
+      run: |
+          pvs-studio-analyzer analyze -f build/compile_commands.json -j -e build/_deps/
+          plog-converter -t sarif -o pvs-report.sarif PVS-Studio.log
+
+    - name: Publish report
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: pvs-report.sarif
+        category: PVS-Studio
+
+  sonarcloud:
+    if: github.repository_owner == 'victimsnino'
+    
+    name: Sonarcloud + coverage
+    runs-on: ubuntu-latest
+
+    env:
+        BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+        repository: ${{ github.event.workflow_run.head_repository.full_name }}
+        ref: ${{ github.event.workflow_run.head_branch }}
+
+    - name: Install llvm
+      run: sudo apt-get update -q && sudo apt-get install llvm -q -y
+
+    - name:  Install sonar-scanner and build-wrapper
+      uses: sonarsource/sonarcloud-github-c-cpp@v1
+
+    - name: Run build-wrapper
+      run: |
+        mkdir build
+        cmake --preset=ci-coverage-clang
+        build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build --preset=ci-build
+        ctest --preset=ci-tests
+
+    - name: Process coverage info
+      run: cmake --build build -t coverage
+
+    - name: Submit to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        file: build/test_results/coverage.txt
+
+    - name: Run sonar-scanner
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" #Consult https://docs.sonarcloud.io/advanced-setup/ci-based-analysis/sonarscanner-cli/ for more information and options
+    
