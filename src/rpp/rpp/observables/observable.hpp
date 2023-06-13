@@ -148,6 +148,18 @@ public:
         return std::move(op)(*this);
     }
 
+    template<typename Op>
+    auto pipe(Op&& op) const &
+    {
+        return *this | std::forward<Op>(op);
+    }
+
+    template<typename Op>
+    auto pipe(Op&& op) &&
+    {
+        return std::move(*this) | std::forward<Op>(op);
+    }
+
 private:
     RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
 };

@@ -183,3 +183,39 @@ TEST_CASE("base observables")
         }
     }
 }
+
+TEST_CASE("create observable works properly as observable")
+{
+    auto observable = rpp::source::create<int>([&](auto&& observer)
+    {
+        observer.on_next(1);
+        observer.on_completed();
+    });
+
+    SECTION("using const& variant")
+    {
+        mock_observer_strategy<int> pipe_operator_observer{};
+        mock_observer_strategy<int> pipe_function_observer{};
+
+        observable | rpp::operators::subscribe(pipe_operator_observer.get_observer());
+        observable.pipe(rpp::operators::subscribe(pipe_function_observer.get_observer()));
+
+        CHECK(pipe_operator_observer.get_total_on_next_count() == pipe_function_observer.get_total_on_next_count());
+        CHECK(pipe_operator_observer.get_on_error_count() == pipe_function_observer.get_on_error_count());
+        CHECK(pipe_operator_observer.get_on_completed_count() == pipe_function_observer.get_on_completed_count());
+    }
+    SECTION("using && variant")
+    {
+        mock_observer_strategy<int> pipe_operator_observer{};
+        mock_observer_strategy<int> pipe_function_observer{};
+        auto pipe_operator_subscribe = rpp::operators::subscribe([&](int v) { pipe_operator_observer.get_observer().on_next(v); });
+        auto pipe_function_subscribe = rpp::operators::subscribe([&](int v) { pipe_function_observer.get_observer().on_next(v); });
+
+        observable | pipe_operator_subscribe;
+        observable.pipe(pipe_function_subscribe);
+
+        CHECK(pipe_operator_observer.get_total_on_next_count() == pipe_function_observer.get_total_on_next_count());
+        CHECK(pipe_operator_observer.get_on_error_count() == pipe_function_observer.get_on_error_count());
+        CHECK(pipe_operator_observer.get_on_completed_count() == pipe_function_observer.get_on_completed_count());
+    }
+}
