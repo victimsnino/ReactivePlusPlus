@@ -208,10 +208,22 @@ $(document).ready(function(){initNavTree('observable_8hpp_source.html',''); init
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="keywordflow">return</span> std::move(op)(*this);</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    }</div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>};</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>}</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Op&gt;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keyword">auto</span> pipe(Op&amp;&amp; op) <span class="keyword">const</span> &amp;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    {</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span> | std::forward&lt;Op&gt;(op);</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    }</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Op&gt;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keyword">auto</span> pipe(Op&amp;&amp; op) &amp;&amp;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    {</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        <span class="keywordflow">return</span> std::move(*<span class="keyword">this</span>) | std::forward&lt;Op&gt;(op);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    }</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>};</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>}</div>
 <div class="ttc" id="aclassrpp_1_1details_1_1observer__impl_html_ab4d6f3e513e55f94547c8fa4d042f0cb"><div class="ttname"><a href="classrpp_1_1details_1_1observer__impl.html#ab4d6f3e513e55f94547c8fa4d042f0cb">rpp::details::observer_impl::is_disposed</a></div><div class="ttdeci">bool is_disposed() const noexcept</div><div class="ttdoc">Observable calls this method to check if observer interested or not in emissions.</div><div class="ttdef"><b>Definition</b> observer.hpp:138</div></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper.html">rpp::disposable_wrapper</a></div><div class="ttdef"><b>Definition</b> disposable_wrapper.hpp:19</div></div>
 <div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:38</div></div>

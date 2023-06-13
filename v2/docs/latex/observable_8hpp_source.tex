@@ -111,9 +111,21 @@
 \DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(op)(*this);}
 \DoxyCodeLine{00149\ \ \ \ \ \}}
 \DoxyCodeLine{00150\ }
-\DoxyCodeLine{00151\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00152\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Strategy\ m\_strategy;}
-\DoxyCodeLine{00153\ \};}
-\DoxyCodeLine{00154\ \}}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op>}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{auto}\ pipe(Op\&\&\ op)\ \textcolor{keyword}{const}\ \&}
+\DoxyCodeLine{00153\ \ \ \ \ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this}\ |\ std::forward<Op>(op);}
+\DoxyCodeLine{00155\ \ \ \ \ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op>}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keyword}{auto}\ pipe(Op\&\&\ op)\ \&\&}
+\DoxyCodeLine{00159\ \ \ \ \ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{this})\ |\ std::forward<Op>(op);}
+\DoxyCodeLine{00161\ \ \ \ \ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00164\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Strategy\ m\_strategy;}
+\DoxyCodeLine{00165\ \};}
+\DoxyCodeLine{00166\ \}}
 
 \end{DoxyCode}
