@@ -383,7 +383,7 @@ int main(int argc, char* argv[]) // NOLINT
         }
     };
 
-    BENCHMARK("Utility Operators")
+    BENCHMARK("Utility1111 Operators")
     {
         SECTION("create(1)+subscribe_on(immediate)+subscribe")
         {
