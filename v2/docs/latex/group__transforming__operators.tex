@@ -1,27 +1,27 @@
-\hypertarget{group__transforming__operators}{}\doxysection{Transforming Operators}
-\label{group__transforming__operators}\index{Transforming Operators@{Transforming Operators}}
+\doxysubsubsection{Transforming Operators}
+\hypertarget{group__transforming__operators}{}\label{group__transforming__operators}\index{Transforming Operators@{Transforming Operators}}
 
 
 Transforming operators are operators that transform items provided by observable.  
 
 
-\doxysubsection*{Functions}
+\doxysubsubsubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$typename Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__transforming__operators_ga9cfd33d5c468e82a7893d92375ce25dc}{rpp\+::operators\+::flat\+\_\+map}} (Fn \&\&callable)
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__transforming__operators_ga9cfd33d5c468e82a7893d92375ce25dc}{rpp\+::operators\+::flat\+\_\+map}} (Fn \&\&callable)
 \begin{DoxyCompactList}\small\item\em Transform the items emitted by an Observable into Observables, then flatten the emissions from those into a single Observable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ !std\+::same\+\_\+as$<$void, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{rpp\+::operators\+::map}} (Fn \&\&callable)
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} !std\+::same\+\_\+as$<$void, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{rpp\+::operators\+::map}} (Fn \&\&callable)
 \begin{DoxyCompactList}\small\item\em Transforms the items emitted by an Observable via applying a function to each item and emitting result. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Initial\+Value , typename Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ std\+::same\+\_\+as$<$std\+::decay\+\_\+t$<$Initial\+Value$>$, std\+::invoke\+\_\+result\+\_\+t$<$Fn, std\+::decay\+\_\+t$<$Initial\+Value$>$\&\&, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__transforming__operators_gaf2998543817ac9d789bd2787f3a5e29d}{rpp\+::operators\+::scan}} (Initial\+Value \&\&initial\+\_\+value, Fn \&\&accumulator)
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$std\+::decay\+\_\+t$<$Initial\+Value$>$, std\+::invoke\+\_\+result\+\_\+t$<$Fn, std\+::decay\+\_\+t$<$Initial\+Value$>$\&\&, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__transforming__operators_gaf2998543817ac9d789bd2787f3a5e29d}{rpp\+::operators\+::scan}} (Initial\+Value \&\&initial\+\_\+value, Fn \&\&accumulator)
 \begin{DoxyCompactList}\small\item\em Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Fn $>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gaced4a6e7bc0556b40b07d7efd97d7ee3}{rpp\+::operators\+::scan}} (Fn \&\&accumulator)
 \begin{DoxyCompactList}\small\item\em Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsubsubsection{Detailed Description}
 Transforming operators are operators that transform items provided by observable. 
 
 \begin{DoxySeeAlso}{See also}
@@ -29,13 +29,13 @@ Transforming operators are operators that transform items provided by observable
 \end{DoxySeeAlso}
 
 
-\doxysubsection{Function Documentation}
-\mbox{\Hypertarget{group__transforming__operators_ga9cfd33d5c468e82a7893d92375ce25dc}\label{group__transforming__operators_ga9cfd33d5c468e82a7893d92375ce25dc}} 
+\doxysubsubsubsection{Function Documentation}
+\Hypertarget{group__transforming__operators_ga9cfd33d5c468e82a7893d92375ce25dc}\label{group__transforming__operators_ga9cfd33d5c468e82a7893d92375ce25dc} 
 \index{Transforming Operators@{Transforming Operators}!flat\_map@{flat\_map}}
 \index{flat\_map@{flat\_map}!Transforming Operators@{Transforming Operators}}
-\doxysubsubsection{\texorpdfstring{flat\_map()}{flat\_map()}}
+\doxysubsubsubsubsection{\texorpdfstring{flat\_map()}{flat\_map()}}
 {\footnotesize\ttfamily template$<$typename Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
 auto rpp\+::operators\+::flat\+\_\+map (\begin{DoxyParamCaption}\item[{Fn \&\&}]{callable }\end{DoxyParamCaption})}
 
 
@@ -54,17 +54,17 @@ Note that flat\+\_\+map merges the emissions of these Observables, so that they 
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{flat__map_8hpp_source}{rpp/operators/flat\+\_\+map.\+hpp}}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{flat__map_8hpp_source}{rpp/operators/flat\+\_\+map.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/flatmap.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/flatmap.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}\label{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}} 
+\Hypertarget{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}\label{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675} 
 \index{Transforming Operators@{Transforming Operators}!map@{map}}
 \index{map@{map}!Transforming Operators@{Transforming Operators}}
-\doxysubsubsection{\texorpdfstring{map()}{map()}}
+\doxysubsubsubsubsection{\texorpdfstring{map()}{map()}}
 {\footnotesize\ttfamily template$<$typename Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ !std\+::same\+\_\+as$<$void, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} !std\+::same\+\_\+as$<$void, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
 auto rpp\+::operators\+::map (\begin{DoxyParamCaption}\item[{Fn \&\&}]{callable }\end{DoxyParamCaption})}
 
 
@@ -91,7 +91,7 @@ Actually this operator just applies callable to each obtained emission and emit 
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{map_8hpp_source}{rpp/operators/map.\+hpp}}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{map_8hpp_source}{rpp/operators/map.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example with same type\+:}
 
@@ -121,10 +121,10 @@ Actually this operator just applies callable to each obtained emission and emit 
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{map_8cpp-example}{map.\+cpp}}.\end{Desc}
-\mbox{\Hypertarget{group__transforming__operators_gaced4a6e7bc0556b40b07d7efd97d7ee3}\label{group__transforming__operators_gaced4a6e7bc0556b40b07d7efd97d7ee3}} 
+\Hypertarget{group__transforming__operators_gaced4a6e7bc0556b40b07d7efd97d7ee3}\label{group__transforming__operators_gaced4a6e7bc0556b40b07d7efd97d7ee3} 
 \index{Transforming Operators@{Transforming Operators}!scan@{scan}}
 \index{scan@{scan}!Transforming Operators@{Transforming Operators}}
-\doxysubsubsection{\texorpdfstring{scan()}{scan()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\doxysubsubsubsubsection{\texorpdfstring{scan()}{scan()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$typename Fn $>$ \\
 auto rpp\+::operators\+::scan (\begin{DoxyParamCaption}\item[{Fn \&\&}]{accumulator }\end{DoxyParamCaption})}
 
@@ -150,7 +150,7 @@ There is no initial value for seed, so, first value would be used as seed value 
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{scan_8hpp_source}{rpp/operators/scan.\+hpp}}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{scan_8hpp_source}{rpp/operators/scan.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
@@ -166,12 +166,12 @@ There is no initial value for seed, so, first value would be used as seed value 
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/scan.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/scan.\+html}} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{group__transforming__operators_gaf2998543817ac9d789bd2787f3a5e29d}\label{group__transforming__operators_gaf2998543817ac9d789bd2787f3a5e29d}} 
+\Hypertarget{group__transforming__operators_gaf2998543817ac9d789bd2787f3a5e29d}\label{group__transforming__operators_gaf2998543817ac9d789bd2787f3a5e29d} 
 \index{Transforming Operators@{Transforming Operators}!scan@{scan}}
 \index{scan@{scan}!Transforming Operators@{Transforming Operators}}
-\doxysubsubsection{\texorpdfstring{scan()}{scan()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\doxysubsubsubsubsection{\texorpdfstring{scan()}{scan()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$typename Initial\+Value , typename Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ std\+::same\+\_\+as$<$std\+::decay\+\_\+t$<$Initial\+Value$>$, std\+::invoke\+\_\+result\+\_\+t$<$Fn, std\+::decay\+\_\+t$<$Initial\+Value$>$\&\&, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$std\+::decay\+\_\+t$<$Initial\+Value$>$, std\+::invoke\+\_\+result\+\_\+t$<$Fn, std\+::decay\+\_\+t$<$Initial\+Value$>$\&\&, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
 auto rpp\+::operators\+::scan (\begin{DoxyParamCaption}\item[{Initial\+Value \&\&}]{initial\+\_\+value,  }\item[{Fn \&\&}]{accumulator }\end{DoxyParamCaption})}
 
 
@@ -198,7 +198,7 @@ Initial value would be used as first value from this observable (would be sent d
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{scan_8hpp_source}{rpp/operators/scan.\+hpp}}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{scan_8hpp_source}{rpp/operators/scan.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 

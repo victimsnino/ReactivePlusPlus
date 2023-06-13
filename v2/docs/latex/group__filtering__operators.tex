@@ -1,18 +1,18 @@
-\hypertarget{group__filtering__operators}{}\doxysection{Filtering Operators}
-\label{group__filtering__operators}\index{Filtering Operators@{Filtering Operators}}
+\doxysubsubsection{Filtering Operators}
+\hypertarget{group__filtering__operators}{}\label{group__filtering__operators}\index{Filtering Operators@{Filtering Operators}}
 
 
 Filtering operators are operators that emit only part of items that satisfies some condition.  
 
 
-\doxysubsection*{Functions}
+\doxysubsubsubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$typename Equality\+Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ $\vert$$\vert$ std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Equality\+Fn, utils\+::convertible\+\_\+to\+\_\+any, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}{rpp\+::operators\+::distinct\+\_\+until\+\_\+changed}} (Equality\+Fn \&\&equality\+\_\+fn)
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Equality\+Fn, utils\+::convertible\+\_\+to\+\_\+any, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}{rpp\+::operators\+::distinct\+\_\+until\+\_\+changed}} (Equality\+Fn \&\&equality\+\_\+fn)
 \begin{DoxyCompactList}\small\item\em Suppress consecutive duplicates of emissions from original observable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__filtering__operators_ga3ddeadf25b1cb3105f628ea11dc3a28a}{rpp\+::operators\+::filter}} (Fn \&\&predicate)
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__filtering__operators_ga3ddeadf25b1cb3105f628ea11dc3a28a}{rpp\+::operators\+::filter}} (Fn \&\&predicate)
 \begin{DoxyCompactList}\small\item\em Emit only those items from an Observable that satisfies a provided predicate. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__filtering__operators_ga8e20aec530e08ba64004c10b7732593c}{rpp\+::operators\+::skip}} (size\+\_\+t count)
 \begin{DoxyCompactList}\small\item\em Skip first {\ttfamily count} items provided by observable then send rest items as expected. \end{DoxyCompactList}\item 
@@ -20,7 +20,7 @@ auto \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a33
 \begin{DoxyCompactList}\small\item\em Emit only first {\ttfamily count} items provided by observable, then send {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsubsubsection{Detailed Description}
 Filtering operators are operators that emit only part of items that satisfies some condition. 
 
 \begin{DoxySeeAlso}{See also}
@@ -28,13 +28,13 @@ Filtering operators are operators that emit only part of items that satisfies so
 \end{DoxySeeAlso}
 
 
-\doxysubsection{Function Documentation}
-\mbox{\Hypertarget{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}\label{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}} 
+\doxysubsubsubsection{Function Documentation}
+\Hypertarget{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}\label{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb} 
 \index{Filtering Operators@{Filtering Operators}!distinct\_until\_changed@{distinct\_until\_changed}}
 \index{distinct\_until\_changed@{distinct\_until\_changed}!Filtering Operators@{Filtering Operators}}
-\doxysubsubsection{\texorpdfstring{distinct\_until\_changed()}{distinct\_until\_changed()}}
+\doxysubsubsubsubsection{\texorpdfstring{distinct\_until\_changed()}{distinct\_until\_changed()}}
 {\footnotesize\ttfamily template$<$typename Equality\+Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ $\vert$$\vert$ std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Equality\+Fn, utils\+::convertible\+\_\+to\+\_\+any, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Equality\+Fn, utils\+::convertible\+\_\+to\+\_\+any, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
 auto rpp\+::operators\+::distinct\+\_\+until\+\_\+changed (\begin{DoxyParamCaption}\item[{Equality\+Fn \&\&}]{equality\+\_\+fn }\end{DoxyParamCaption})}
 
 
@@ -59,7 +59,7 @@ Actually this operator has {\ttfamily std\+::optional} with last item and checks
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{distinct__until__changed_8hpp_source}{rpp/operators/distinct\+\_\+until\+\_\+changed.\+hpp}}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{distinct__until__changed_8hpp_source}{rpp/operators/distinct\+\_\+until\+\_\+changed.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
@@ -86,12 +86,12 @@ Actually this operator has {\ttfamily std\+::optional} with last item and checks
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{distinct_until_changed_8cpp-example}{distinct\+\_\+until\+\_\+changed.\+cpp}}.\end{Desc}
-\mbox{\Hypertarget{group__filtering__operators_ga3ddeadf25b1cb3105f628ea11dc3a28a}\label{group__filtering__operators_ga3ddeadf25b1cb3105f628ea11dc3a28a}} 
+\Hypertarget{group__filtering__operators_ga3ddeadf25b1cb3105f628ea11dc3a28a}\label{group__filtering__operators_ga3ddeadf25b1cb3105f628ea11dc3a28a} 
 \index{Filtering Operators@{Filtering Operators}!filter@{filter}}
 \index{filter@{filter}!Filtering Operators@{Filtering Operators}}
-\doxysubsubsection{\texorpdfstring{filter()}{filter()}}
+\doxysubsubsubsubsection{\texorpdfstring{filter()}{filter()}}
 {\footnotesize\ttfamily template$<$typename Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
 auto rpp\+::operators\+::filter (\begin{DoxyParamCaption}\item[{Fn \&\&}]{predicate }\end{DoxyParamCaption})}
 
 
@@ -115,7 +115,7 @@ Actually this operator just checks if predicate returns true, then forwards emis
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{filter_8hpp_source}{rpp/operators/filter.\+hpp}}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{filter_8hpp_source}{rpp/operators/filter.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
@@ -134,10 +134,10 @@ Actually this operator just checks if predicate returns true, then forwards emis
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{filter_8cpp-example}{filter.\+cpp}}.\end{Desc}
-\mbox{\Hypertarget{group__filtering__operators_ga8e20aec530e08ba64004c10b7732593c}\label{group__filtering__operators_ga8e20aec530e08ba64004c10b7732593c}} 
+\Hypertarget{group__filtering__operators_ga8e20aec530e08ba64004c10b7732593c}\label{group__filtering__operators_ga8e20aec530e08ba64004c10b7732593c} 
 \index{Filtering Operators@{Filtering Operators}!skip@{skip}}
 \index{skip@{skip}!Filtering Operators@{Filtering Operators}}
-\doxysubsubsection{\texorpdfstring{skip()}{skip()}}
+\doxysubsubsubsubsection{\texorpdfstring{skip()}{skip()}}
 {\footnotesize\ttfamily auto rpp\+::operators\+::skip (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -162,7 +162,7 @@ Actually this operator just decrements counter and starts to forward emissions w
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{skip_8hpp_source}{rpp/operators/skip.\+hpp}}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{skip_8hpp_source}{rpp/operators/skip.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
@@ -181,10 +181,10 @@ Actually this operator just decrements counter and starts to forward emissions w
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{skip_8cpp-example}{skip.\+cpp}}.\end{Desc}
-\mbox{\Hypertarget{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}\label{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}} 
+\Hypertarget{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}\label{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb} 
 \index{Filtering Operators@{Filtering Operators}!take@{take}}
 \index{take@{take}!Filtering Operators@{Filtering Operators}}
-\doxysubsubsection{\texorpdfstring{take()}{take()}}
+\doxysubsubsubsubsection{\texorpdfstring{take()}{take()}}
 {\footnotesize\ttfamily auto rpp\+::operators\+::take (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -209,7 +209,7 @@ Actually this operator just emits emissions while counter is not zero and decrem
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{take_8hpp_source}{rpp/operators/take.\+hpp}}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{take_8hpp_source}{rpp/operators/take.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 

@@ -1,23 +1,23 @@
-\hypertarget{group__observables}{}\doxysection{Observables}
-\label{group__observables}\index{Observables@{Observables}}
+\doxysubsection{Observables}
+\hypertarget{group__observables}{}\label{group__observables}\index{Observables@{Observables}}
 
 
 Observable is the source of any Reactive Stream.  
 
 
-\doxysubsection*{Classes}
+\doxysubsubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable$<$ Type, Strategy $>$}}
 \begin{DoxyCompactList}\small\item\em Base class for any observable used in RPP. It handles core callbacks of observable. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Typedefs}
+\doxysubsubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\using \mbox{\hyperlink{group__observables_gaf40b08a4edc0f64303aeb7ac958f876e}{rpp\+::dynamic\+\_\+observable}} = \mbox{\hyperlink{classrpp_1_1observable}{observable}}$<$ Type, \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{details\+::observables\+::dynamic\+\_\+strategy}}$<$ Type $>$ $>$
-\begin{DoxyCompactList}\small\item\em Type-\/erased version of the {\ttfamily \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable}}}. Any observable can be converted to dynamic\+\_\+observable via {\ttfamily \mbox{\hyperlink{classrpp_1_1observable_ab820514612d4314b99528525db6afd4f}{rpp\+::observable\+::as\+\_\+dynamic}}} member function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Type-\/erased version of the {\ttfamily \doxylink{classrpp_1_1observable}{rpp\+::observable}}. Any observable can be converted to dynamic\+\_\+observable via {\ttfamily \doxylink{classrpp_1_1observable_ab820514612d4314b99528525db6afd4f}{rpp\+::observable\+::as\+\_\+dynamic}} member function. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsubsection{Detailed Description}
 Observable is the source of any Reactive Stream. 
 
 Observable provides ability to subscribe observer on stream of events. After subscription observable would emit values to observer. \begin{DoxySeeAlso}{See also}
@@ -25,17 +25,17 @@ Observable provides ability to subscribe observer on stream of events. After sub
 \end{DoxySeeAlso}
 
 
-\doxysubsection{Typedef Documentation}
-\mbox{\Hypertarget{group__observables_gaf40b08a4edc0f64303aeb7ac958f876e}\label{group__observables_gaf40b08a4edc0f64303aeb7ac958f876e}} 
+\doxysubsubsection{Typedef Documentation}
+\Hypertarget{group__observables_gaf40b08a4edc0f64303aeb7ac958f876e}\label{group__observables_gaf40b08a4edc0f64303aeb7ac958f876e} 
 \index{Observables@{Observables}!dynamic\_observable@{dynamic\_observable}}
 \index{dynamic\_observable@{dynamic\_observable}!Observables@{Observables}}
-\doxysubsubsection{\texorpdfstring{dynamic\_observable}{dynamic\_observable}}
+\doxysubsubsubsection{\texorpdfstring{dynamic\_observable}{dynamic\_observable}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
 using \mbox{\hyperlink{group__observables_gaf40b08a4edc0f64303aeb7ac958f876e}{rpp\+::dynamic\+\_\+observable}} = typedef \mbox{\hyperlink{classrpp_1_1observable}{observable}}$<$Type, \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{details\+::observables\+::dynamic\+\_\+strategy}}$<$Type$>$ $>$}
 
 
 
-Type-\/erased version of the {\ttfamily \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable}}}. Any observable can be converted to dynamic\+\_\+observable via {\ttfamily \mbox{\hyperlink{classrpp_1_1observable_ab820514612d4314b99528525db6afd4f}{rpp\+::observable\+::as\+\_\+dynamic}}} member function. 
+Type-\/erased version of the {\ttfamily \doxylink{classrpp_1_1observable}{rpp\+::observable}}. Any observable can be converted to dynamic\+\_\+observable via {\ttfamily \doxylink{classrpp_1_1observable_ab820514612d4314b99528525db6afd4f}{rpp\+::observable\+::as\+\_\+dynamic}} member function. 
 
 To provide type-\/erasure it uses {\ttfamily std\+::shared\+\_\+ptr}. As a result it has worse performance.
 

@@ -1,5 +1,5 @@
-\hypertarget{classrpp_1_1observer}{}\doxysection{rpp\+::observer\texorpdfstring{$<$}{<} Type, Strategy \texorpdfstring{$>$}{>} Class Template Reference}
-\label{classrpp_1_1observer}\index{rpp::observer$<$ Type, Strategy $>$@{rpp::observer$<$ Type, Strategy $>$}}
+\doxysection{rpp\+::observer\texorpdfstring{$<$}{<} Type, Strategy \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classrpp_1_1observer}{}\label{classrpp_1_1observer}\index{rpp::observer$<$ Type, Strategy $>$@{rpp::observer$<$ Type, Strategy $>$}}
 
 
 Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this class would be passed to subscribe of observable.  
@@ -11,23 +11,23 @@ Inheritance diagram for rpp\+::observer\texorpdfstring{$<$}{<} Type, Strategy \t
 \includegraphics[height=2.000000cm]{classrpp_1_1observer}
 \end{center}
 \end{figure}
-\doxysubsection*{Public Member Functions}
+\doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrpp_1_1observer_a21c20eb0f2762ed0a7c6add2c21309eb}\label{classrpp_1_1observer_a21c20eb0f2762ed0a7c6add2c21309eb}} 
+\Hypertarget{classrpp_1_1observer_a21c20eb0f2762ed0a7c6add2c21309eb}\label{classrpp_1_1observer_a21c20eb0f2762ed0a7c6add2c21309eb} 
 {\footnotesize template$<$typename ... Args$>$ \newline
 requires (!constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$Type, Strategy$>$, Args...$>$ \&\& constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args\&\&...$>$)}\\{\bfseries observer} (Args \&\&...args)
 \item 
-\mbox{\Hypertarget{classrpp_1_1observer_ab92f10f4369b1f37e931f572f2f42518}\label{classrpp_1_1observer_ab92f10f4369b1f37e931f572f2f42518}} 
+\Hypertarget{classrpp_1_1observer_ab92f10f4369b1f37e931f572f2f42518}\label{classrpp_1_1observer_ab92f10f4369b1f37e931f572f2f42518} 
 {\bfseries observer} (const \mbox{\hyperlink{classrpp_1_1observer}{observer}} \&)=delete
 \item 
-\mbox{\Hypertarget{classrpp_1_1observer_a2333ed646d74cfc232ed89db28ed3823}\label{classrpp_1_1observer_a2333ed646d74cfc232ed89db28ed3823}} 
+\Hypertarget{classrpp_1_1observer_a2333ed646d74cfc232ed89db28ed3823}\label{classrpp_1_1observer_a2333ed646d74cfc232ed89db28ed3823} 
 {\bfseries observer} (\mbox{\hyperlink{classrpp_1_1observer}{observer}} \&\&) noexcept=default
 \item 
-\mbox{\Hypertarget{classrpp_1_1observer_ab008a79c1c7825554c91dbc6d130ece4}\label{classrpp_1_1observer_ab008a79c1c7825554c91dbc6d130ece4}} 
+\Hypertarget{classrpp_1_1observer_ab008a79c1c7825554c91dbc6d130ece4}\label{classrpp_1_1observer_ab008a79c1c7825554c91dbc6d130ece4} 
 \mbox{\hyperlink{group__observers_gaccd025034d57327e6a31b2106619197b}{dynamic\+\_\+observer}}$<$ Type $>$ {\bfseries as\+\_\+dynamic} () \&\&
 \begin{DoxyCompactList}\small\item\em Convert current observer to type-\/erased version. Useful if you need to COPY your observer or to store different observers in same container. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, details\+::local\+\_\+disposable\+\_\+strategy $>$}}}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, details\+::local\+\_\+disposable\+\_\+strategy $>$}}}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab95f4dd062581fb8432fadcee8abb95d}{set\+\_\+upstream}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\+\_\+wrapper}} \&d)
@@ -42,17 +42,14 @@ void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_aa55c5a334bc39c92218
 \begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about some error during generation next data. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01a2d3b2cf1d1b4}{on\+\_\+completed}} () const noexcept
 \begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about completion of emissions. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Additional Inherited Members}
-\doxysubsubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, details\+::local\+\_\+disposable\+\_\+strategy $>$}}}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, details\+::local\+\_\+disposable\+\_\+strategy $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1observer__impl_a2f010efd5f0b78ddde9a8ab205005de4}\label{classrpp_1_1details_1_1observer__impl_a2f010efd5f0b78ddde9a8ab205005de4}} 
 {\bfseries observer\+\_\+impl} (\mbox{\hyperlink{classrpp_1_1details_1_1local__disposable__strategy}{details\+::local\+\_\+disposable\+\_\+strategy}} \&\&strategy, Args \&\&... args)
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1observer__impl_a1086c5aeaf72f4976434d15225602a37}\label{classrpp_1_1details_1_1observer__impl_a1086c5aeaf72f4976434d15225602a37}} 
 {\bfseries observer\+\_\+impl} (const \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{observer\+\_\+impl}} \&)=default
 \item 
-\mbox{\Hypertarget{classrpp_1_1details_1_1observer__impl_a39bca0c357ae3b52feafcc19ad055eb3}\label{classrpp_1_1details_1_1observer__impl_a39bca0c357ae3b52feafcc19ad055eb3}} 
 {\bfseries observer\+\_\+impl} (\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{observer\+\_\+impl}} \&\&) noexcept=default
 \end{DoxyCompactItemize}
 
@@ -63,7 +60,7 @@ class rpp\+::observer$<$ Type, Strategy $>$}
 Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this class would be passed to subscribe of observable. 
 
 \begin{DoxyWarning}{Warning}
-By default observer is not copyable, only movable. If you need to COPY your observer, you need to convert it to \mbox{\hyperlink{group__observers_gaccd025034d57327e6a31b2106619197b}{rpp\+::dynamic\+\_\+observer}} via \mbox{\hyperlink{classrpp_1_1observer_ab008a79c1c7825554c91dbc6d130ece4}{rpp\+::observer\+::as\+\_\+dynamic}} 
+By default observer is not copyable, only movable. If you need to COPY your observer, you need to convert it to \doxylink{group__observers_gaccd025034d57327e6a31b2106619197b}{rpp\+::dynamic\+\_\+observer} via \doxylink{classrpp_1_1observer_ab008a79c1c7825554c91dbc6d130ece4}{rpp\+::observer\+::as\+\_\+dynamic} 
 
 Expected that observer would be subscribed only to ONE observable ever. It can keep internal state and track it it was disposed or not. So, subscribing same observer multiple time follows unspecified behavior. 
 

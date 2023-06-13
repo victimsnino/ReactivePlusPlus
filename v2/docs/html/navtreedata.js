@@ -25,16 +25,16 @@
 var NAVTREE =
 [
   [ "ReactivePlusPlus", "index.html", [
-    [ "User Guide", "md_docs_readme.html", [
-      [ "Introduction", "md_docs_readme.html#autotoc_md1", [
-        [ "What is Reactive Programming?", "md_docs_readme.html#autotoc_md2", null ],
-        [ "Core concepts of Reactive Programming", "md_docs_readme.html#autotoc_md3", null ],
-        [ "Operators", "md_docs_readme.html#autotoc_md4", null ],
-        [ "Schedulers", "md_docs_readme.html#autotoc_md5", null ],
-        [ "Disposable", "md_docs_readme.html#autotoc_md6", null ]
+    [ "User Guide", "md_docs_2readme.html", [
+      [ "Introduction", "md_docs_2readme.html#autotoc_md1", [
+        [ "What is Reactive Programming?", "md_docs_2readme.html#autotoc_md2", null ],
+        [ "Core concepts of Reactive Programming", "md_docs_2readme.html#autotoc_md3", null ],
+        [ "Operators", "md_docs_2readme.html#autotoc_md4", null ],
+        [ "Schedulers", "md_docs_2readme.html#autotoc_md5", null ],
+        [ "Disposable", "md_docs_2readme.html#autotoc_md6", null ]
       ] ],
-      [ "Advanced", "md_docs_readme.html#autotoc_md7", [
-        [ "Observable contract", "md_docs_readme.html#autotoc_md8", null ]
+      [ "Advanced", "md_docs_2readme.html#autotoc_md7", [
+        [ "Observable contract", "md_docs_2readme.html#autotoc_md8", null ]
       ] ]
     ] ],
     [ "API reference", "modules.html", "modules" ],

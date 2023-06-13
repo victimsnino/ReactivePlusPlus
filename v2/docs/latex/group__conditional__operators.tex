@@ -1,19 +1,19 @@
-\hypertarget{group__conditional__operators}{}\doxysection{Conditional Operators}
-\label{group__conditional__operators}\index{Conditional Operators@{Conditional Operators}}
+\doxysubsubsection{Conditional Operators}
+\hypertarget{group__conditional__operators}{}\label{group__conditional__operators}\index{Conditional Operators@{Conditional Operators}}
 
 
 Conditional operators are operators that emit items based on some condition including condition of items from other observables.  
 
 
-\doxysubsection*{Functions}
+\doxysubsubsubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$typename Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__conditional__operators_gad40c85eab44ed3bcb4649137088ebd68}{rpp\+::operators\+::take\+\_\+while}} (Fn \&\&predicate)
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__conditional__operators_gad40c85eab44ed3bcb4649137088ebd68}{rpp\+::operators\+::take\+\_\+while}} (Fn \&\&predicate)
 \begin{DoxyCompactList}\small\item\em Sends items from observable while items are satisfy predicate. When condition becomes false -\/\texorpdfstring{$>$}{>} sends {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsubsubsection{Detailed Description}
 Conditional operators are operators that emit items based on some condition including condition of items from other observables. 
 
 \begin{DoxySeeAlso}{See also}
@@ -21,13 +21,13 @@ Conditional operators are operators that emit items based on some condition incl
 \end{DoxySeeAlso}
 
 
-\doxysubsection{Function Documentation}
-\mbox{\Hypertarget{group__conditional__operators_gad40c85eab44ed3bcb4649137088ebd68}\label{group__conditional__operators_gad40c85eab44ed3bcb4649137088ebd68}} 
+\doxysubsubsubsection{Function Documentation}
+\Hypertarget{group__conditional__operators_gad40c85eab44ed3bcb4649137088ebd68}\label{group__conditional__operators_gad40c85eab44ed3bcb4649137088ebd68} 
 \index{Conditional Operators@{Conditional Operators}!take\_while@{take\_while}}
 \index{take\_while@{take\_while}!Conditional Operators@{Conditional Operators}}
-\doxysubsubsection{\texorpdfstring{take\_while()}{take\_while()}}
+\doxysubsubsubsubsection{\texorpdfstring{take\_while()}{take\_while()}}
 {\footnotesize\ttfamily template$<$typename Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ $\vert$$\vert$ std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
 auto rpp\+::operators\+::take\+\_\+while (\begin{DoxyParamCaption}\item[{Fn \&\&}]{predicate }\end{DoxyParamCaption})}
 
 
@@ -51,7 +51,7 @@ Actually this operator just emits values while predicate returns true
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\mbox{\hyperlink{take__while_8hpp_source}{rpp/operators/take\+\_\+while.\+hpp}}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{take__while_8hpp_source}{rpp/operators/take\+\_\+while.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 

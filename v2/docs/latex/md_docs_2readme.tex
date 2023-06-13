@@ -1,5 +1,9 @@
-\hypertarget{md_docs_readme_autotoc_md1}{}\doxysection{Introduction}\label{md_docs_readme_autotoc_md1}
-\hypertarget{md_docs_readme_autotoc_md2}{}\doxysubsection{What is Reactive Programming?}\label{md_docs_readme_autotoc_md2}
+\chapter{User Guide}
+\hypertarget{md_docs_2readme}{}\label{md_docs_2readme}\index{User Guide@{User Guide}}
+\label{md_docs_2readme_autotoc_md0}%
+\Hypertarget{md_docs_2readme_autotoc_md0}%
+ \hypertarget{md_docs_2readme_autotoc_md1}{}\doxysection{\texorpdfstring{Introduction}{Introduction}}\label{md_docs_2readme_autotoc_md1}
+\hypertarget{md_docs_2readme_autotoc_md2}{}\doxysubsection{\texorpdfstring{What is Reactive Programming?}{What is Reactive Programming?}}\label{md_docs_2readme_autotoc_md2}
 {\bfseries{Reactive programming}} is a {\itshape design paradigm} that focuses on building applications that can efficiently respond to asynchronous {\bfseries{events}}.
 
 Actually, any application or function has two core parts\+: input and output. Input/output can even be empty\+:
@@ -59,7 +63,7 @@ When dealing with input that is {\bfseries{distributed in time}}, there are two 
 
 Reactive programming is a powerful way to handle input that is distributed in time. Instead of constantly polling for updates or waiting for input to arrive, reactive programming allows you to register callbacks to be executed when the input becomes available.
 
-See \href{https://reactivex.io/intro.html}{\texttt{ https\+://reactivex.\+io/intro.\+html}} for more details.\hypertarget{md_docs_readme_autotoc_md3}{}\doxysubsection{Core concepts of Reactive Programming}\label{md_docs_readme_autotoc_md3}
+See \href{https://reactivex.io/intro.html}{\texttt{ https\+://reactivex.\+io/intro.\+html}} for more details.\hypertarget{md_docs_2readme_autotoc_md3}{}\doxysubsection{\texorpdfstring{Core concepts of Reactive Programming}{Core concepts of Reactive Programming}}\label{md_docs_2readme_autotoc_md3}
 In short, Reactive Programming can be described as follows\+:
 
 
@@ -136,11 +140,11 @@ For example\+:
 \end{DoxyCode}
 
 
-There we are creating observable that emits digits from console input\+:In case of user promted something else it is {\bfseries{error}} for our observable (it is expected to emit ONLY digits). In this case we are notifying observer about it and just stopping. When user prompts {\ttfamily 0}, it means \char`\"{}end of observable\char`\"{}.
+There we are creating observable that emits digits from console input\+:In case of user promted something else it is {\bfseries{error}} for our observable (it is expected to emit ONLY digits). In this case we are notifying observer about it and just stopping. When user prompts {\ttfamily 0}, it means \"{}end of observable\"{}.
 
 See \href{https://reactivex.io/documentation/observable.html}{\texttt{ https\+://reactivex.\+io/documentation/observable.\+html}} for more details.
 
-In such an way it is not powerful enough, so Reactive Programming provides a list of {\bfseries{operators}}.\hypertarget{md_docs_readme_autotoc_md4}{}\doxysubsection{Operators}\label{md_docs_readme_autotoc_md4}
+In such an way it is not powerful enough, so Reactive Programming provides a list of {\bfseries{operators}}.\hypertarget{md_docs_2readme_autotoc_md4}{}\doxysubsection{\texorpdfstring{Operators}{Operators}}\label{md_docs_2readme_autotoc_md4}
 {\bfseries{Operators}} are ways to modify the {\bfseries{Observable}}\textquotesingle{}s emissions to adapt values to the {\bfseries{Observer}}.
 
 For example, we can create observable which\+: get chars from console input, do it till ‘0’ char, get only letters and send to observer this letters as UPPER. With operators it is pretty simple to do it in correct way\+:
@@ -171,7 +175,7 @@ For example, we can create observable which\+: get chars from console input, do 
 
 You can check documentation for each operator on \href{https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html}{\texttt{ API Reference}} page. Below you can find details about how operator works and how to create your own custom operator in RPP.
 
-See \href{https://reactivex.io/documentation/operators.html}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html}} for more details about operators concept.\hypertarget{md_docs_readme_autotoc_md5}{}\doxysubsection{Schedulers}\label{md_docs_readme_autotoc_md5}
+See \href{https://reactivex.io/documentation/operators.html}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html}} for more details about operators concept.\hypertarget{md_docs_2readme_autotoc_md5}{}\doxysubsection{\texorpdfstring{Schedulers}{Schedulers}}\label{md_docs_2readme_autotoc_md5}
 Reactive programming becomes even more powerful when observables can operate across multiple threads, rather than being confined to the thread of creation and subscription. This allows for non-\/blocking, asynchronous operations and provides significant advantages over raw iteration or other pull-\/based approaches. To enable multithreading in your observables, you can use {\bfseries{Schedulers}}.
 
 By default, an {\bfseries{Observable}} will perform its work in the thread where the {\bfseries{subscribe}} operation occurs. However, you can change this behavior using the {\bfseries{subscribe\+\_\+on}} operator. This operator forces the observable to perform the {\bfseries{subscription}} and any subsequent work in the specified {\bfseries{scheduler}}.
@@ -182,7 +186,7 @@ A {\bfseries{Scheduler}} is responsible for controlling the type of multithreadi
 
 Checkout \href{https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html}{\texttt{ API Reference}} to learn more about schedulers in RPP.
 
-See \href{https://reactivex.io/documentation/scheduler.html}{\texttt{ https\+://reactivex.\+io/documentation/scheduler.\+html}} for more details about scheduler concept.\hypertarget{md_docs_readme_autotoc_md6}{}\doxysubsection{Disposable}\label{md_docs_readme_autotoc_md6}
+See \href{https://reactivex.io/documentation/scheduler.html}{\texttt{ https\+://reactivex.\+io/documentation/scheduler.\+html}} for more details about scheduler concept.\hypertarget{md_docs_2readme_autotoc_md6}{}\doxysubsection{\texorpdfstring{Disposable}{Disposable}}\label{md_docs_2readme_autotoc_md6}
 In reactive programming, a {\bfseries{disposable}} is an object that represents a resource that needs to be released or disposed of when it is no longer needed. This can include things like file handles, network connections, or any other resource that needs to be cleaned up after use.
 
 The purpose of a disposable is to provide a way to manage resources in a safe and efficient manner. By using disposables, you can ensure that resources are released in a timely manner, preventing memory leaks and other issues that can arise from resource leaks.
@@ -193,8 +197,8 @@ In most cases disposables are placed in observers. RPP\textquotesingle{}s observ
 \begin{DoxyEnumerate}
 \item {\bfseries{Upstream disposable}} -\/ This is a disposable that the observable puts into the observer. The upstream disposable keeps some state or callback that should be disposed of when the observer is disposed. This ensures that any resources used by the observable are properly cleaned up when the observer obtains on\+\_\+error/on\+\_\+completed or disposed in any other way.
 \item {\bfseries{External disposable}} -\/ This is a disposable that allows the observer to be disposed of from outside the observer itself. This can be useful in situations where you need to cancel an ongoing operation or release resources before the observable has completed its work.
-\end{DoxyEnumerate}\hypertarget{md_docs_readme_autotoc_md7}{}\doxysection{Advanced}\label{md_docs_readme_autotoc_md7}
-\hypertarget{md_docs_readme_autotoc_md8}{}\doxysubsection{Observable contract}\label{md_docs_readme_autotoc_md8}
+\end{DoxyEnumerate}\hypertarget{md_docs_2readme_autotoc_md7}{}\doxysection{\texorpdfstring{Advanced}{Advanced}}\label{md_docs_2readme_autotoc_md7}
+\hypertarget{md_docs_2readme_autotoc_md8}{}\doxysubsection{\texorpdfstring{Observable contract}{Observable contract}}\label{md_docs_2readme_autotoc_md8}
 Reactive programming has \href{https://reactivex.io/documentation/contract.html}{\texttt{ Observable Contract}}. Please, read it.
 
 This contact has next important part\+:
