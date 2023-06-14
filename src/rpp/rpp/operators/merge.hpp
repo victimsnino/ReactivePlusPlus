@@ -104,7 +104,7 @@ struct merge_observer_strategy
     void on_next(rpp::dynamic_observer<Value> obs, T&& v) const
     {
         disposable->increment_on_completed();
-        std::forward<T>(v).subscribe(rpp::observer<Value, operator_strategy_base<Value, rpp::dynamic_observer<Value>, merge_observer_inner_strategy>>{std::move(obs), disposable});
+        std::forward<T>(v).subscribe(rpp::observer<Value, operator_strategy_base<rpp::dynamic_observer<Value>, merge_observer_inner_strategy>>{std::move(obs), disposable});
     }
 
     void on_error(const rpp::constraint::observer auto & obs, const std::exception_ptr& err) const
@@ -146,7 +146,7 @@ public:
         // Need to take ownership over current_thread in case of inner-observables also uses them
         auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
 
-        m_observable.subscribe(rpp::observer<InnerObservable, operator_strategy_base<InnerObservable, rpp::dynamic_observer<Value>, merge_observer_strategy<Value>>>{std::move(obs).as_dynamic()});
+        m_observable.subscribe(rpp::observer<InnerObservable, operator_strategy_base<rpp::dynamic_observer<Value>, merge_observer_strategy<Value>>>{std::move(obs).as_dynamic()});
     }
 
 private:

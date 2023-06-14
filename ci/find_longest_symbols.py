@@ -4,8 +4,9 @@ def indent(l):
     indent = 0
     for c in l:
         if c == "<":
+            res += "\n"+"\t"*indent+ c
             indent += 1
-            res += c + "\n"+"\t"*indent
+            res += "\n"+"\t"*indent
         elif c == ">":
             indent -= 1
             res += "\n"+"\t"*indent + c

@@ -52,7 +52,7 @@ public:
     {
         std::promise<void> promise{};
         auto future = promise.get_future();
-        m_original.subscribe(observer<Type, rpp::operators::details::operator_strategy_base<Type, observer<Type, ObserverStrategy>, blocking_observer_strategy>>{std::move(obs), std::move(promise)});
+        m_original.subscribe(observer<Type, rpp::operators::details::operator_strategy_base<observer<Type, ObserverStrategy>, blocking_observer_strategy>>{std::move(obs), std::move(promise)});
         future.wait();
     }
 

@@ -99,7 +99,6 @@ struct concat_strategy
         else
             observable->subscribe(observer<Type,
                                            rpp::operators::details::operator_strategy_base<
-                                               Type,
                                                observer<Type, Strategy>,
                                                concat_source_observer_strategy<PackedContainer>>>{std::move(obs),
                                                                                                   std::forward<decltype(container)>(container),
