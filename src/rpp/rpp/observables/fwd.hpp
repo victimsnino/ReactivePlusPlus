@@ -62,12 +62,23 @@ namespace rpp::utils
 namespace details
 {
     template<typename T>
-    struct extract_observable_type : std::false_type{};
-
-    template<typename TT, typename Strategy>
-    struct extract_observable_type<rpp::observable<TT, Strategy>> : std::true_type
+    struct extract_observable_type
     {
-        using type = TT;
+        template<typename TT, typename Strategy>
+        static TT deduce(const rpp::observable<TT, Strategy>&);
+
+        using type = decltype(deduce(std::declval<std::decay_t<T>>()));
+    };
+
+    template<typename T>
+    struct is_observable_t
+    {
+        template<typename TT, typename Strategy>
+        static std::true_type is_observable(const rpp::observable<TT, Strategy>*);
+
+        static std::false_type is_observable(...);
+
+        static constexpr auto value = decltype(is_observable(std::declval<std::decay_t<T>*>()))::value;
     };
 
 } // namespace details
@@ -78,7 +89,7 @@ using extract_observable_type_t = typename details::extract_observable_type<std:
 namespace rpp::constraint
 {
 template<typename T>
-concept observable = rpp::utils::details::extract_observable_type<std::decay_t<T>>::value;
+concept observable = rpp::utils::details::is_observable_t<std::decay_t<T>>::value;
 
 template<typename Op, typename TObs>
 concept operators = requires(const Op& op, TObs obs)

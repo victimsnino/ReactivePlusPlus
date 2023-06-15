@@ -18,6 +18,18 @@
 namespace rpp::operators::details
 {
 template<rpp::constraint::decayed_type Fn>
+struct map_observer_strategy;
+}
+
+namespace rpp
+{
+template<rpp::constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>> Fn>
+RPP_OPERATOR_OBSERVABLE(map_observable, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>, TObservable, operators::details::map_observer_strategy<Fn>, Fn);
+}
+
+namespace rpp::operators::details
+{
+template<rpp::constraint::decayed_type Fn>
 struct map_observer_strategy
 {
     RPP_NO_UNIQUE_ADDRESS Fn fn;
@@ -35,13 +47,6 @@ struct map_observer_strategy
     constexpr static empty_on_subscribe on_subscribe{};
 
 };
-
-template<rpp::constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>> Fn>
-using map_observable = operator_observable<std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>,
-                                           TObservable,
-                                           map_observer_strategy<Fn>,
-                                           Fn>;
-
 
 template<rpp::constraint::decayed_type Fn>
 struct map_t

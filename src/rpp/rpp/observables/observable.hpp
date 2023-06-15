@@ -34,7 +34,7 @@ namespace rpp
  * @ingroup observables
  */
 template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
-class observable final
+class observable
 {
 public:
     template<typename ...Args>
@@ -124,30 +124,6 @@ public:
     auto as_dynamic() const& { return rpp::dynamic_observable<Type>{*this}; }
     auto as_dynamic() && { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
-    template<constraint::operators<const observable<Type, Strategy>&> Op>
-    auto operator|(Op&& op) const &
-    {
-        return std::forward<Op>(op)(*this);
-    }
-
-    template<constraint::operators<observable<Type, Strategy>&&> Op>
-    auto operator|(Op&& op) &&
-    {
-        return std::forward<Op>(op)(std::move(*this));
-    }
-
-    template<typename...Args>
-    auto operator|(const rpp::operators::details::subscribe_t<Args...>& op) const
-    {
-        return op(*this);
-    }
-
-    template<typename...Args>
-    auto operator|(rpp::operators::details::subscribe_t<Args...>&& op) const
-    {
-        return std::move(op)(*this);
-    }
-
     template<typename Op>
     auto pipe(Op&& op) const &
     {
@@ -163,4 +139,16 @@ public:
 private:
     RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
 };
+
+template<constraint::observable TObservable, constraint::operators<std::decay_t<TObservable>> Op>
+auto operator|(TObservable&& observable, Op&& op)
+{
+    return std::forward<Op>(op)(std::forward<TObservable>(observable));
+}
+
+template<constraint::observable TObservable, typename...Args>
+auto operator|(TObservable&& observable, const rpp::operators::details::subscribe_t<Args...>& op)
+{
+    return op(std::forward<TObservable>(observable));
+}
 }

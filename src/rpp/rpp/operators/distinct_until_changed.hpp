@@ -19,6 +19,17 @@
 namespace rpp::operators::details
 {
 template<rpp::constraint::decayed_type Type, rpp::constraint::decayed_type EqualityFn>
+struct distinct_until_changed_observer_strategy;
+}
+
+namespace rpp
+{
+template<rpp::constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservable>> Fn>
+RPP_IDENTITY_OPERATOR_OBSERVABLE(distinct_until_changed_observable, std::decay_t<TObservable>, operators::details::distinct_until_changed_observer_strategy<rpp::utils::extract_observable_type_t<TObservable>, Fn>, Fn)
+}
+namespace rpp::operators::details
+{
+template<rpp::constraint::decayed_type Type, rpp::constraint::decayed_type EqualityFn>
 struct distinct_until_changed_observer_strategy
 {
     RPP_NO_UNIQUE_ADDRESS EqualityFn comparator;
@@ -40,11 +51,6 @@ struct distinct_until_changed_observer_strategy
     constexpr static forwarding_is_disposed_strategy is_disposed{};
     constexpr static empty_on_subscribe on_subscribe{};
 };
-
-
-template<rpp::constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservable>> Fn>
-using distinct_until_changed_observable = identity_operator_observable<std::decay_t<TObservable>, distinct_until_changed_observer_strategy<rpp::utils::extract_observable_type_t<TObservable>, Fn>, Fn>;
-
 
 template<rpp::constraint::decayed_type EqualityFn>
 struct distinct_until_changed_t

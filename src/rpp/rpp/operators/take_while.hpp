@@ -17,6 +17,18 @@
 namespace rpp::operators::details
 {
 template<rpp::constraint::decayed_type Fn>
+struct take_while_observer_strategy;
+}
+
+namespace rpp
+{
+template<rpp::constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>> Fn>
+RPP_IDENTITY_OPERATOR_OBSERVABLE(take_while_observable, std::decay_t<TObservable>, operators::details::take_while_observer_strategy<Fn>, Fn);
+}
+
+namespace rpp::operators::details
+{
+template<rpp::constraint::decayed_type Fn>
 struct take_while_observer_strategy
 {
     RPP_NO_UNIQUE_ADDRESS Fn fn;
@@ -37,11 +49,6 @@ struct take_while_observer_strategy
     constexpr static empty_on_subscribe on_subscribe{};
 
 };
-
-
-template<rpp::constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>> Fn>
-using take_while_observable = identity_operator_observable<std::decay_t<TObservable>, take_while_observer_strategy<Fn>, Fn>;
-
 
 template<rpp::constraint::decayed_type Fn>
 struct take_while_t

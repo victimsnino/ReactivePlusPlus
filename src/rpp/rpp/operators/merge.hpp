@@ -22,6 +22,18 @@
 
 namespace rpp::operators::details
 {
+template<rpp::constraint::observable Observable>
+class merge_observable_strategy;
+}
+
+namespace rpp
+{
+template<rpp::constraint::observable TObservable>
+RPP_OPERATOR_OBSERVBLE_IMPL(merge_observable, rpp::observable, observable, rpp::utils::extract_observable_type_t<rpp::utils::extract_observable_type_t<TObservable>>, operators::details::merge_observable_strategy<TObservable>);
+}
+
+namespace rpp::operators::details
+{
 template<typename Lock>
 class merge_disposable final : public base_disposable
 {
@@ -152,9 +164,6 @@ public:
 private:
     RPP_NO_UNIQUE_ADDRESS Observable m_observable;
 };
-
-template<rpp::constraint::observable TObservable>
-using merge_observable = rpp::observable<rpp::utils::extract_observable_type_t<rpp::utils::extract_observable_type_t<TObservable>>, merge_observable_strategy<TObservable>>;
 
 struct merge_t
 {

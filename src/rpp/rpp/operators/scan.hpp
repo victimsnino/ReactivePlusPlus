@@ -46,7 +46,7 @@ struct scan_observer_strategy
 };
 
 template<rpp::constraint::observable TObservable, rpp::constraint::decayed_type InitialValue, std::invocable<InitialValue&&, rpp::utils::extract_observable_type_t<TObservable>> Fn>
-using scan_observable = operator_observable<InitialValue, TObservable, scan_observer_strategy<InitialValue, Fn>, InitialValue, Fn>;
+RPP_OPERATOR_OBSERVABLE(scan_observable, InitialValue, TObservable, scan_observer_strategy<InitialValue, Fn>, InitialValue, Fn);
 
 
 template<rpp::constraint::decayed_type InitialValue, rpp::constraint::decayed_type Fn>
@@ -95,7 +95,7 @@ struct scan_no_seed_observer_strategy
 };
 
 template<rpp::constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>&&, rpp::utils::extract_observable_type_t<TObservable>> Fn>
-using scan_no_seed_observable = identity_operator_observable<TObservable, scan_no_seed_observer_strategy<rpp::utils::extract_observable_type_t<TObservable>, Fn>, Fn>;
+RPP_IDENTITY_OPERATOR_OBSERVABLE(scan_no_seed_observable, TObservable, scan_no_seed_observer_strategy<rpp::utils::extract_observable_type_t<TObservable>, Fn>, Fn);
 
 template<rpp::constraint::decayed_type Fn>
 struct scan_no_seed_t

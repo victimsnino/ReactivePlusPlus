@@ -168,4 +168,26 @@ template<rpp::constraint::decayed_type T,
          constraint::operator_strategy<rpp::utils::extract_observable_type_t<Observable>> Strategy,
          typename... Args>
 using operator_observable = rpp::observable<T, operator_observable_strategy<std::decay_t<Observable>, Strategy, Args...>>;
-}
+
+#define RPP_OPERATOR_OBSERVBLE_IMPL(name, type, short_type, ...)                                                       \
+    class name : public type<__VA_ARGS__>                                                                              \
+    {                                                                                                                  \
+       using type<__VA_ARGS__>::short_type;                                                                            \
+                                                                                                                       \
+       template<typename Op>                                                                                           \
+       auto pipe(Op&& op) const&                                                                                       \
+       {                                                                                                               \
+           return *this | std::forward<Op>(op);                                                                        \
+       }                                                                                                               \
+       template<typename Op>                                                                                           \
+       auto pipe(Op&& op) &&                                                                                           \
+       {                                                                                                               \
+           return std::move(*this) | std::forward<Op>(op);                                                             \
+       }                                                                                                               \
+    };
+
+#define RPP_OPERATOR_OBSERVABLE(name, ...)                                                                             \
+    RPP_OPERATOR_OBSERVBLE_IMPL(name, rpp::operators::details::operator_observable, operator_observable, __VA_ARGS__)
+#define RPP_IDENTITY_OPERATOR_OBSERVABLE(name, ...)                                                                    \
+    RPP_OPERATOR_OBSERVBLE_IMPL(name, rpp::operators::details::identity_operator_observable, identity_operator_observable, __VA_ARGS__)
+} // namespace rpp::operators::details
