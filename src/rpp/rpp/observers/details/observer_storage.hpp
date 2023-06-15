@@ -20,14 +20,14 @@ class type_erased_strategy final
 public:
     template<constraint::observer_strategy<Type> Strategy>
         requires(sizeof(std::decay_t<Strategy>) == size && alignof(std::decay_t<Strategy>) == alignment && !constraint::decayed_same_as<Strategy, type_erased_strategy<Type, size, alignment>>)
-    explicit type_erased_strategy(Strategy&& str) 
+    explicit type_erased_strategy(Strategy&& str)
         : m_vtable{observer_vtable<Type>::template create<std::decay_t<Strategy>>()}
     {
-        std::construct_at(static_cast<std::decay_t<Strategy>*>(str), std::forward<Strategy>(str));
+        std::construct_at(reinterpret_cast<std::decay_t<Strategy>*>(m_data), std::forward<Strategy>(str));
     }
 
     type_erased_strategy(const type_erased_strategy&) = delete;
-    type_erased_strategy(type_erased_strategy&& other) noexcept 
+    type_erased_strategy(type_erased_strategy&& other) noexcept
         : m_vtable(other.m_vtable)
     {
         m_vtable->move_to(other.m_data, m_data);
