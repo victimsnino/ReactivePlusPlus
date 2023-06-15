@@ -9,21 +9,24 @@
 
 #pragma once
 
+#include "rpp/utils/constraints.hpp"
 #include <rpp/observers/fwd.hpp>
 #include <rpp/observers/details/observer_vtable.hpp>
 
 namespace rpp::details::observers
 {
+template<typename T>
+struct construct_with{};
 template<constraint::decayed_type Type, size_t size, size_t alignment>
 class type_erased_strategy final
 {
 public:
-    template<constraint::observer_strategy<Type> Strategy>
-        requires(sizeof(std::decay_t<Strategy>) == size && alignof(std::decay_t<Strategy>) == alignment && !constraint::decayed_same_as<Strategy, type_erased_strategy<Type, size, alignment>>)
-    explicit type_erased_strategy(Strategy&& str)
+    template<constraint::observer_strategy<Type> Strategy, typename ...Args>
+        requires(sizeof(Strategy) == size && alignof(Strategy) == alignment && !constraint::decayed_same_as<Strategy, type_erased_strategy<Type, size, alignment>> && constraint::is_constructible_from<Strategy, Args&&...>)
+    explicit type_erased_strategy(construct_with<Strategy>, Args&& ...args)
         : m_vtable{observer_vtable<Type>::template create<std::decay_t<Strategy>>()}
     {
-        std::construct_at(reinterpret_cast<std::decay_t<Strategy>*>(m_data), std::forward<Strategy>(str));
+        std::construct_at(reinterpret_cast<std::decay_t<Strategy>*>(m_data), std::forward<Args>(args)...);
     }
 
     type_erased_strategy(const type_erased_strategy&) = delete;

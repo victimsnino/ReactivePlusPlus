@@ -13,6 +13,7 @@
 #include "rpp/utils/utils.hpp"
 #include <rpp/defs.hpp>
 #include <rpp/observers/fwd.hpp>
+#include <rpp/observers/details/observer_storage.hpp>
 #include <rpp/sources/fwd.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/observables/observable.hpp>
@@ -147,8 +148,9 @@ public:
     {
        std::apply([&obs, this](const Args&... vals)
                   {
-                        m_observable.subscribe(observer<rpp::utils::extract_observable_type_t<Observable>,
-                                                            operator_strategy_base<std::decay_t<TObs>, Strategy>>{std::forward<TObs>(obs), vals...});
+                    using NewStrategy = operator_strategy_base<std::decay_t<TObs>, Strategy>;
+                    using TypeErasedStrategy = rpp::details::observers::type_erased_strategy_for<rpp::utils::extract_observable_type_t<Observable>, NewStrategy>;
+                    m_observable.subscribe(observer<rpp::utils::extract_observable_type_t<Observable>, TypeErasedStrategy>{rpp::details::observers::construct_with<NewStrategy>{}, std::forward<TObs>(obs), vals...});
                   },
                   m_vals);
     }
