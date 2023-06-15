@@ -18,6 +18,24 @@
 #include <cstddef>
 #include <optional>
 
+
+namespace rpp::operators::details
+{
+template<rpp::constraint::decayed_type Seed, rpp::constraint::decayed_type Fn>
+struct scan_observer_strategy;
+
+template<rpp::constraint::decayed_type Seed, rpp::constraint::decayed_type Fn>
+struct scan_no_seed_observer_strategy;
+}
+
+namespace rpp
+{
+template<rpp::constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>&&, rpp::utils::extract_observable_type_t<TObservable>> Fn>
+RPP_IDENTITY_OPERATOR_OBSERVABLE(scan_no_seed_observable, TObservable, operators::details::scan_no_seed_observer_strategy<rpp::utils::extract_observable_type_t<TObservable>, Fn>, Fn);
+
+template<rpp::constraint::observable TObservable, rpp::constraint::decayed_type InitialValue, std::invocable<InitialValue&&, rpp::utils::extract_observable_type_t<TObservable>> Fn>
+RPP_OPERATOR_OBSERVABLE(scan_observable, InitialValue, TObservable, operators::details::scan_observer_strategy<InitialValue, Fn>, InitialValue, Fn);
+}
 namespace rpp::operators::details
 {
 template<rpp::constraint::decayed_type Seed, rpp::constraint::decayed_type Fn>
@@ -44,10 +62,6 @@ struct scan_observer_strategy
     constexpr static forwarding_is_disposed_strategy is_disposed{};
 
 };
-
-template<rpp::constraint::observable TObservable, rpp::constraint::decayed_type InitialValue, std::invocable<InitialValue&&, rpp::utils::extract_observable_type_t<TObservable>> Fn>
-RPP_OPERATOR_OBSERVABLE(scan_observable, InitialValue, TObservable, scan_observer_strategy<InitialValue, Fn>, InitialValue, Fn);
-
 
 template<rpp::constraint::decayed_type InitialValue, rpp::constraint::decayed_type Fn>
 struct scan_t
@@ -94,8 +108,6 @@ struct scan_no_seed_observer_strategy
     constexpr static empty_on_subscribe on_subscribe{};
 };
 
-template<rpp::constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>&&, rpp::utils::extract_observable_type_t<TObservable>> Fn>
-RPP_IDENTITY_OPERATOR_OBSERVABLE(scan_no_seed_observable, TObservable, scan_no_seed_observer_strategy<rpp::utils::extract_observable_type_t<TObservable>, Fn>, Fn);
 
 template<rpp::constraint::decayed_type Fn>
 struct scan_no_seed_t

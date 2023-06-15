@@ -17,6 +17,17 @@
 
 namespace rpp::operators::details
 {
+struct skip_observer_strategy;
+}
+
+namespace rpp
+{
+template<rpp::constraint::observable TObservable>
+RPP_IDENTITY_OPERATOR_OBSERVABLE(skip_observable, std::decay_t<TObservable>, operators::details::skip_observer_strategy, size_t);
+}
+
+namespace rpp::operators::details
+{
 struct skip_observer_strategy
 {
     mutable size_t count{};
@@ -37,9 +48,6 @@ struct skip_observer_strategy
     constexpr static empty_on_subscribe on_subscribe{};
 
 };
-
-template<rpp::constraint::observable TObservable>
-using skip_observable = details::identity_operator_observable<std::decay_t<TObservable>, details::skip_observer_strategy, size_t>;
 
 struct skip_t
 {
