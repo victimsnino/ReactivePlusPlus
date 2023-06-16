@@ -25,7 +25,7 @@ struct distinct_until_changed_observer_strategy;
 namespace rpp
 {
 template<rpp::constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservable>> Fn>
-RPP_IDENTITY_OPERATOR_OBSERVABLE(distinct_until_changed_observable, std::decay_t<TObservable>, operators::details::distinct_until_changed_observer_strategy<rpp::utils::extract_observable_type_t<TObservable>, Fn>, Fn)
+RPP_IDENTITY_OPERATOR_OBSERVABLE(distinct_until_changed_observable, std::decay_t<TObservable>, operators::details::distinct_until_changed_observer_strategy<rpp::utils::extract_observable_type_t<TObservable>, Fn>, Fn);
 }
 namespace rpp::operators::details
 {
