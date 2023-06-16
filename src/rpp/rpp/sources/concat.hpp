@@ -25,7 +25,14 @@ namespace rpp::details
 {
 template<constraint::decayed_type PackedContainer>
 struct concat_strategy;
-
+}
+namespace rpp
+{
+template<typename PackedContainer>
+RPP_OPERATOR_OBSERVBLE_IMPL(concat_observable, rpp::observable, observable, utils::extract_observable_type_t<utils::iterable_value_t<std::decay_t<PackedContainer>>>, details::concat_strategy<std::decay_t<PackedContainer>>);
+}
+namespace rpp::details
+{
 template<constraint::decayed_type PackedContainer>
 struct concat_source_observer_strategy
 {
@@ -80,7 +87,7 @@ struct concat_strategy
                 observable.emplace(*itr);
                 is_last_observable = std::next(itr) == std::cend(container);
             }
-            
+
         }
         catch (...)
         {
@@ -109,8 +116,7 @@ struct concat_strategy
 template<typename PackedContainer, typename ...Args>
 auto make_concat_from_iterable(Args&& ...args)
 {
-    return observable<utils::extract_observable_type_t<utils::iterable_value_t<std::decay_t<PackedContainer>>>,
-                           concat_strategy<std::decay_t<PackedContainer>>>{std::forward<Args>(args)...};
+    return concat_observable<std::decay_t<PackedContainer>>{std::forward<Args>(args)...};
 }
 } // namespace rpp::details
 namespace rpp::source

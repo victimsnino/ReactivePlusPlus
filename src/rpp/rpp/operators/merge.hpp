@@ -24,12 +24,20 @@ namespace rpp::operators::details
 {
 template<rpp::constraint::observable Observable>
 class merge_observable_strategy;
+
+template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
+    requires rpp::constraint::observables_of_same_type<std::decay_t<TObservable>, std::decay_t<TObservables>...>
+class merge_with_observable_strategy;
 }
 
 namespace rpp
 {
 template<rpp::constraint::observable TObservable>
 RPP_OPERATOR_OBSERVBLE_IMPL(merge_observable, rpp::observable, observable, rpp::utils::extract_observable_type_t<rpp::utils::extract_observable_type_t<TObservable>>, operators::details::merge_observable_strategy<TObservable>);
+
+template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
+RPP_OPERATOR_OBSERVBLE_IMPL(merge_with_observable, rpp::observable, observable, rpp::utils::extract_observable_type_t<TObservable>, operators::details::merge_with_observable_strategy<TObservable, TObservables...>);
+
 }
 
 namespace rpp::operators::details
@@ -206,9 +214,6 @@ public:
 private:
     std::tuple<TObservable, TObservables...> m_observables{};
 };
-
-template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
-using merge_with_observable = rpp::observable<rpp::utils::extract_observable_type_t<TObservable>, merge_with_observable_strategy<TObservable, TObservables...>>;
 
 template<rpp::constraint::observable... TObservables>
 struct merge_with_t

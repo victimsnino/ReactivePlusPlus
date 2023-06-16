@@ -24,6 +24,17 @@
 
 namespace rpp::details
 {
+template<constraint::decayed_type PackedContainer, schedulers::constraint::scheduler TScheduler>
+struct from_iterable_strategy;
+}
+namespace rpp
+{
+template<typename PackedContainer, schedulers::constraint::scheduler TScheduler>
+RPP_OPERATOR_OBSERVBLE_IMPL(from_observable, rpp::observable, observable, utils::iterable_value_t<std::decay_t<PackedContainer>>, details::from_iterable_strategy<std::decay_t<PackedContainer>, TScheduler>);
+}
+
+namespace rpp::details
+{
 template<constraint::decayed_type Container>
 class shared_container
 {

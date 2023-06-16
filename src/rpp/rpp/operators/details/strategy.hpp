@@ -174,6 +174,7 @@ using operator_observable = rpp::observable<T, operator_observable_strategy<std:
 #define RPP_OPERATOR_OBSERVBLE_IMPL(name, type, short_type, ...)                                                       \
     class name : public type<__VA_ARGS__>                                                                              \
     {                                                                                                                  \
+   public:                                                                                                             \
        using type<__VA_ARGS__>::short_type;                                                                            \
                                                                                                                        \
        template<typename Op>                                                                                           \
