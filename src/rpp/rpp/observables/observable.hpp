@@ -151,4 +151,10 @@ auto operator|(TObservable&& observable, const rpp::operators::details::subscrib
 {
     return op(std::forward<TObservable>(observable));
 }
+
+template<constraint::observable TObservable, typename...Args>
+auto operator|(TObservable&& observable, rpp::operators::details::subscribe_t<Args...>&& op)
+{
+    return std::move(op)(std::forward<TObservable>(observable));
+}
 }
