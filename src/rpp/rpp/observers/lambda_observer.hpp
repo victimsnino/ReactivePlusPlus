@@ -10,6 +10,7 @@
 #pragma once
 
 #include <rpp/observers/observer.hpp>
+#include <rpp/observers/details/observer_storage.hpp>
 #include <rpp/utils/function_traits.hpp>
 
 #include <rpp/defs.hpp>
@@ -22,6 +23,12 @@ template<constraint::decayed_type Type,
          std::invocable<> OnCompleted>
 struct lambda_strategy
 {
+    lambda_strategy(auto&& in_on_next, auto&& in_on_error, auto&& in_on_completed)
+        : on_next(std::forward<decltype(in_on_next)>(in_on_next))
+        , on_error(std::forward<decltype(in_on_error)>(in_on_error))
+        , on_completed(std::forward<decltype(in_on_completed)>(in_on_completed))
+        {}
+
     RPP_NO_UNIQUE_ADDRESS OnNext      on_next;
     RPP_NO_UNIQUE_ADDRESS OnError     on_error;
     RPP_NO_UNIQUE_ADDRESS OnCompleted on_completed;
@@ -47,12 +54,10 @@ auto make_lambda_observer(OnNext&&      on_next,
     return lambda_observer<Type,
                            std::decay_t<OnNext>,
                            std::decay_t<OnError>,
-                           std::decay_t<OnCompleted>>
-    {
-        std::forward<OnNext>(on_next),
-        std::forward<OnError>(on_error),
-        std::forward<OnCompleted>(on_completed)
-    };
+                           std::decay_t<OnCompleted>>{details::observers::construct_with<details::observers::lambda_strategy<Type, std::decay_t<OnNext>, std::decay_t<OnError>, std::decay_t<OnCompleted>>>{},
+                                                      std::forward<OnNext>(on_next),
+                                                      std::forward<OnError>(on_error),
+                                                      std::forward<OnCompleted>(on_completed)};
 }
 
 template<constraint::decayed_type Type,
@@ -73,6 +78,7 @@ auto make_lambda_observer(const rpp::disposable_wrapper& d,
                                            std::decay_t<OnCompleted>>
     {
         d,
+        details::observers::construct_with<details::observers::lambda_strategy<Type, std::decay_t<OnNext>, std::decay_t<OnError>, std::decay_t<OnCompleted>>>{},
         std::forward<OnNext>(on_next),
         std::forward<OnError>(on_error),
         std::forward<OnCompleted>(on_completed)

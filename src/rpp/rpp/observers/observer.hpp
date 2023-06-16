@@ -106,7 +106,8 @@ protected:
     template<typename... Args>
         requires constraint::is_constructible_from<Strategy, Args&&...>
     explicit observer_impl(DisposablesStrategy&& strategy, Args&&... args)
-        : m_strategy{std::forward<Args>(args)...}, m_disposable{std::move(strategy)}
+        : m_strategy{std::forward<Args>(args)...}
+        , m_disposable{std::move(strategy)}
     {
     }
 

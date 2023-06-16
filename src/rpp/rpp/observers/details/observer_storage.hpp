@@ -22,7 +22,7 @@ class type_erased_strategy final
 {
 public:
     template<constraint::observer_strategy<Type> Strategy, typename ...Args>
-        requires(sizeof(Strategy) == size && alignof(Strategy) == alignment && !constraint::decayed_same_as<Strategy, type_erased_strategy<Type, size, alignment>> && constraint::is_constructible_from<Strategy, Args&&...>)
+        requires(sizeof(Strategy) == size && alignof(Strategy) == alignment && constraint::is_constructible_from<Strategy, Args&&...>)
     explicit type_erased_strategy(construct_with<Strategy>, Args&& ...args)
         : m_vtable{observer_vtable<Type>::template create<std::decay_t<Strategy>>()}
     {
@@ -54,7 +54,4 @@ private:
     alignas(alignment) std::byte m_data[size]{};
     const observer_vtable<Type>* m_vtable;
 };
-
-template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
-using type_erased_strategy_for = type_erased_strategy<Type, sizeof(Strategy), alignof(Strategy)>;
 }

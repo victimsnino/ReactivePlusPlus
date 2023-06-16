@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include "rpp/observers/details/observer_storage.hpp"
 #include "rpp/utils/constraints.hpp"
 #include <rpp/sources/fwd.hpp>
 #include <rpp/sources/from.hpp>
@@ -104,12 +105,13 @@ struct concat_strategy
         if (is_last_observable)
             observable->subscribe(std::move(obs));
         else
-            observable->subscribe(observer<Type,
-                                           rpp::operators::details::operator_strategy_base<
+        {
+            using NewStrategy = rpp::operators::details::operator_strategy_base<
                                                observer<Type, Strategy>,
-                                               concat_source_observer_strategy<PackedContainer>>>{std::move(obs),
-                                                                                                  std::forward<decltype(container)>(container),
-                                                                                                  index});
+                                               concat_source_observer_strategy<PackedContainer>>;
+            using TypeErasedStrategy = rpp::details::observers::type_erased_strategy_for<Type, NewStrategy>;
+            observable->subscribe(observer<Type, TypeErasedStrategy>{details::observers::construct_with<NewStrategy>{}, std::move(obs), std::forward<decltype(container)>(container), index});
+        }
     }
 };
 

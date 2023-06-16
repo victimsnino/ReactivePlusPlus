@@ -45,6 +45,12 @@ concept observer_strategy = requires(const S& const_strategy, S& strategy, const
 
 namespace rpp::details::observers
 {
+template<constraint::decayed_type Type, size_t size, size_t alignment>
+class type_erased_strategy;
+
+template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
+using type_erased_strategy_for = type_erased_strategy<Type, sizeof(Strategy), alignof(Strategy)>;
+
 template<constraint::decayed_type Type>
 class dynamic_strategy;
 
@@ -98,10 +104,10 @@ using dynamic_observer = observer<Type, details::observers::dynamic_strategy<Typ
  * @ingroup observers
  */
 template<constraint::decayed_type Type, std::invocable<Type> OnNext,  std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
-using lambda_observer = observer<Type, details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>;
+using lambda_observer = observer<Type, details::observers::type_erased_strategy_for<Type, details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>>;
 
 template<constraint::decayed_type Type, std::invocable<Type> OnNext,  std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
-using lambda_observer_with_disposable = observer<Type, details::with_disposable<details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>>;
+using lambda_observer_with_disposable = observer<Type, details::with_disposable<details::observers::type_erased_strategy_for<Type, details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>>>;
 
 template<constraint::decayed_type Type,
          std::invocable<Type>                      OnNext,
