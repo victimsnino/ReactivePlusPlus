@@ -28,5 +28,6 @@ data = sorted(data, key=len, reverse=True)
 
 print(f"Longest line: {len(data[0])}")
 
-res = indent(data[0])
-print(res)
+for i in range(min(len(data), 10)):
+    print(f"Length: {len(data[i])}")
+    print(indent(data[i]))
