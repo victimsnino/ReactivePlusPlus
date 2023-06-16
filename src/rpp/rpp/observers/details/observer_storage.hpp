@@ -44,10 +44,10 @@ public:
     void set_upstream(const disposable_wrapper& d) { m_vtable->set_upstream(m_data, d); }
     bool is_disposed() const                       { return m_vtable->is_disposed(m_data); }
 
-    void on_next(const Type& v) const noexcept                     { m_vtable->on_next_lvalue(m_data, v);            }
-    void on_next(Type&& v) const noexcept                          { m_vtable->on_next_rvalue(m_data, std::move(v)); }
-    void on_error(const std::exception_ptr& err) const noexcept    { m_vtable->on_error(m_data, err);                }
-    void on_completed() const noexcept                             { m_vtable->on_completed(m_data);                 }
+    void on_next(const Type& v) const                     { m_vtable->on_next_lvalue(m_data, v);            }
+    void on_next(Type&& v) const                          { m_vtable->on_next_rvalue(m_data, std::move(v)); }
+    void on_error(const std::exception_ptr& err) const    { m_vtable->on_error(m_data, err);                }
+    void on_completed() const                             { m_vtable->on_completed(m_data);                 }
 
 
 private:
