@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include "rpp/utils/utils.hpp"
 #include <rpp/defs.hpp>
 #include <rpp/observers/fwd.hpp>
 #include <rpp/observers/details/observer_storage.hpp>
@@ -18,6 +17,7 @@
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/observables/observable.hpp>
 #include <rpp/utils/constraints.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <exception>
 #include <functional>

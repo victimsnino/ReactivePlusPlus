@@ -9,14 +9,15 @@
 
 #pragma once
 
-#include "rpp/utils/constraints.hpp"
 #include <rpp/observers/fwd.hpp>
 #include <rpp/observers/details/observer_vtable.hpp>
+#include <rpp/utils/constraints.hpp>
 
 namespace rpp::details::observers
 {
 template<typename T>
 struct construct_with{};
+
 template<constraint::decayed_type Type, size_t size, size_t alignment>
 class type_erased_strategy final
 {

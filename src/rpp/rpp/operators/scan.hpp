@@ -10,8 +10,8 @@
 
 #pragma once
 
-#include "rpp/utils/constraints.hpp"
-#include "rpp/utils/utils.hpp"
+#include <rpp/utils/constraints.hpp>
+#include <rpp/utils/utils.hpp>
 #include <rpp/operators/fwd.hpp>
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
