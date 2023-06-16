@@ -186,7 +186,7 @@ using operator_observable = rpp::observable<T, operator_observable_strategy<std:
        {                                                                                                               \
            return std::move(*this) | std::forward<Op>(op);                                                             \
        }                                                                                                               \
-    };
+    }
 
 #define RPP_OPERATOR_OBSERVABLE(name, ...)                                                                             \
     RPP_OPERATOR_OBSERVBLE_IMPL(name, rpp::operators::details::operator_observable, operator_observable, __VA_ARGS__)
