@@ -31,8 +31,8 @@ public:
         : m_observer{std::move(observer)} {}
 
 
-    template<rpp::constraint::observable_strategy<Type> Strategy>
-    void operator()(const rpp::observable<Type, Strategy>& observalbe) && {
+    template<rpp::constraint::observable_of_type<Type> TObservable>
+    void operator()(const TObservable& observalbe) && {
         if (!m_observer.is_disposed())
             observalbe.subscribe(std::move(m_observer));
     }
@@ -49,8 +49,8 @@ public:
         : m_disposable{std::move(d)}
         , m_observer{std::move(observer)} {}
 
-    template<rpp::constraint::observable_strategy<Type> Strategy>
-    rpp::disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observalbe) && {
+    template<rpp::constraint::observable_of_type<Type> TObservable>
+    rpp::disposable_wrapper operator()(const TObservable& observalbe) && {
         if (!m_disposable.is_disposed() && !m_observer.is_disposed())
             observalbe.subscribe(observer<Type, rpp::details::with_disposable<observer<Type, ObserverStrategy>>>{m_disposable, std::move(m_observer)});
         return m_disposable;
@@ -74,18 +74,18 @@ public:
     {
     }
 
-    template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
-        requires std::invocable<OnNext, Type>
-    void operator()(const rpp::observable<Type, Strategy>& observalbe) &&
+    template<rpp::constraint::observable TObservable>
+        requires std::invocable<OnNext, rpp::utils::extract_observable_type_t<TObservable>>
+    void operator()(const TObservable& observalbe) &&
     {
-        observalbe.subscribe(make_lambda_observer<Type>(std::move(m_on_next), std::move(m_on_error), std::move(m_on_completed)));
+        observalbe.subscribe(make_lambda_observer<rpp::utils::extract_observable_type_t<TObservable>>(std::move(m_on_next), std::move(m_on_error), std::move(m_on_completed)));
     }
 
-    template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
-        requires std::invocable<OnNext, Type>
-    void operator()(const rpp::observable<Type, Strategy>& observalbe) const &
+    template<rpp::constraint::observable TObservable>
+        requires std::invocable<OnNext, rpp::utils::extract_observable_type_t<TObservable>>
+    void operator()(const TObservable& observalbe) const &
     {
-        observalbe.subscribe(make_lambda_observer<Type>(m_on_next, m_on_error, m_on_completed));
+        observalbe.subscribe(make_lambda_observer<rpp::utils::extract_observable_type_t<TObservable>>(m_on_next, m_on_error, m_on_completed));
     }
 
 private:
@@ -108,21 +108,21 @@ public:
     {
     }
 
-    template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
-        requires std::invocable<OnNext, Type>
-    rpp::disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observalbe) &&
+    template<rpp::constraint::observable TObservable>
+        requires std::invocable<OnNext, rpp::utils::extract_observable_type_t<TObservable>>
+    rpp::disposable_wrapper operator()(const TObservable& observalbe) &&
     {
         if (!m_disposable.is_disposed())
-            observalbe.subscribe(make_lambda_observer<Type>(m_disposable, std::move(m_on_next), std::move(m_on_error), std::move(m_on_completed)));
+            observalbe.subscribe(make_lambda_observer<rpp::utils::extract_observable_type_t<TObservable>>(m_disposable, std::move(m_on_next), std::move(m_on_error), std::move(m_on_completed)));
         return std::move(m_disposable);
     }
 
-    template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
-        requires std::invocable<OnNext, Type>
-    rpp::disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observalbe) const &
+    template<rpp::constraint::observable TObservable>
+        requires std::invocable<OnNext, rpp::utils::extract_observable_type_t<TObservable>>
+    rpp::disposable_wrapper operator()(const TObservable& observalbe) const &
     {
         if (!m_disposable.is_disposed())
-            observalbe.subscribe(make_lambda_observer<Type>(m_disposable, m_on_next, m_on_error, m_on_completed));
+            observalbe.subscribe(make_lambda_observer<rpp::utils::extract_observable_type_t<TObservable>>(m_disposable, m_on_next, m_on_error, m_on_completed));
         return m_disposable;
     }
 
