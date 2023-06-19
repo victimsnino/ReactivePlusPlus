@@ -134,8 +134,7 @@ struct from_iterable_strategy
 template<typename PackedContainer, schedulers::constraint::scheduler TScheduler, typename ...Args>
 auto make_from_iterable_observable(const TScheduler& scheduler, Args&& ...args)
 {
-    return observable<utils::iterable_value_t<std::decay_t<PackedContainer>>,
-                           details::from_iterable_strategy<std::decay_t<PackedContainer>, TScheduler>>{scheduler, std::forward<Args>(args)...};
+    return from_observable<PackedContainer, TScheduler>{scheduler, std::forward<Args>(args)...};
 }
 } // namespace rpp::details
 
