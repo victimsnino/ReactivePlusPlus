@@ -45,7 +45,7 @@ template<rpp::constraint::decayed_type EqualityFn>
 struct distinct_until_changed_t : public operators::details::template_operator_observable_strategy<distinct_until_changed_observer_strategy, EqualityFn>
 {
     template<rpp::constraint::decayed_type T>
-        requires std::invocable<EqualityFn, T, T> && std::same_as<bool, std::invoke_result_t<EqualityFn, T, T>>
+        requires std::is_invocable_r_v<bool, EqualityFn, T, T>
     using ResultValue = T;
 };
 }

@@ -38,8 +38,8 @@ struct map_observer_strategy
 };
 
 template<rpp::constraint::decayed_type Fn>
-struct map_t : public operators::details::operator_observable_strategy<map_observer_strategy, Fn> {
-
+struct map_t : public operators::details::operator_observable_strategy<map_observer_strategy, Fn> 
+{
     template<rpp::constraint::decayed_type T>
         requires std::invocable<Fn, T>
     using ResultValue = std::invoke_result_t<Fn, T>;
