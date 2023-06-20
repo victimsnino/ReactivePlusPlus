@@ -19,7 +19,7 @@
 #include <atomic>
 #include <cstddef>
 #include <mutex>
-#include <tuple>
+#include <rpp/utils/tuple.hpp>
 
 namespace rpp::operators::details
 {
@@ -151,7 +151,7 @@ struct merge_t
 template<rpp::constraint::observable... TObservables>
 struct merge_with_t
 {
-    std::tuple<TObservables...> observables{};
+    rpp::utils::tuple<TObservables...> observables{};
 
     template<rpp::constraint::decayed_type T>
         requires (std::same_as<T, utils::extract_observable_type_t<TObservables>> && ...)
@@ -171,7 +171,7 @@ struct merge_with_t
 
         strategy.on_subscribe(obs_as_dynamic);
         strategy.on_next(obs_as_dynamic, observable_strategy);
-        std::apply([&](const auto&... observables) { (strategy.on_next(obs_as_dynamic, observables), ...); }, observables);
+        observables.apply([](const auto& strategy, const auto& obs_as_dynamic, const auto&... observables) { (strategy.on_next(obs_as_dynamic, observables), ...); }, strategy, obs_as_dynamic);
         strategy.on_completed(obs_as_dynamic);
     }
 };
@@ -248,6 +248,6 @@ template<rpp::constraint::observable TObservable, rpp::constraint::observable...
     requires constraint::observables_of_same_type<std::decay_t<TObservable>, std::decay_t<TObservables>...>
 auto merge_with(TObservable&& observable, TObservables&& ...observables)
 {
-    return details::merge_with_t<std::decay_t<TObservable>, std::decay_t<TObservables>...>{std::tuple{std::forward<TObservable>(observable), std::forward<TObservables>(observables)...}};
+    return details::merge_with_t<std::decay_t<TObservable>, std::decay_t<TObservables>...>{rpp::utils::tuple{std::forward<TObservable>(observable), std::forward<TObservables>(observables)...}};
 }
 } // namespace rpp::operators

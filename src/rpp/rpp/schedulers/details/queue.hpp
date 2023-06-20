@@ -14,13 +14,13 @@
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/disposables/base_disposable.hpp>
 #include <rpp/utils/utils.hpp>
+#include <rpp/utils/tuple.hpp>
 
 #include <condition_variable>
 #include <exception>
 #include <optional>
 #include <queue>
 #include <memory>
-#include <tuple>
 #include <utility>
 
 namespace rpp::schedulers::details
@@ -61,7 +61,8 @@ public:
     template<rpp::constraint::decayed_same_as<Fn> TFn, rpp::constraint::decayed_same_as<TObs> TTObs, typename... TArgs>
     explicit specific_schedulable(const time_point& time_point, TFn&& in_fn, TTObs&& in_obs, TArgs&&... in_args)
         : schedulable_base{time_point}
-        , m_args(std::forward<TTObs>(in_obs), std::forward<TArgs>(in_args)...)
+        , m_observer{std::forward<TTObs>(in_obs)}
+        , m_args(std::forward<TArgs>(in_args)...)
         , m_fn{std::forward<TFn>(in_fn)}
     {
     }
@@ -70,19 +71,20 @@ public:
     {
         try
         {
-            return std::apply(m_fn, m_args);
+            return m_args.apply(m_fn, m_observer);
         }
         catch(...)
         {
-            std::get<0>(m_args).on_error(std::current_exception());
+            m_observer.on_error(std::current_exception());
             return std::nullopt;
         }
     }
-    bool is_disposed() const override { return std::get<0>(m_args).is_disposed(); }
+    bool is_disposed() const override { return m_observer.is_disposed(); }
 
 private:
-    std::tuple<TObs, Args...> m_args;
-    RPP_NO_UNIQUE_ADDRESS Fn  m_fn;
+    TObs                       m_observer;
+    rpp::utils::tuple<Args...> m_args;
+    RPP_NO_UNIQUE_ADDRESS Fn   m_fn;
 };
 
 class schedulables_queue

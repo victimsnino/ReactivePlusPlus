@@ -18,6 +18,7 @@
 #include <rpp/observables/observable.hpp>
 #include <rpp/observables/details/chain_strategy.hpp>
 #include <rpp/utils/constraints.hpp>
+#include <rpp/utils/tuple.hpp>
 
 #include <exception>
 #include <functional>
@@ -143,18 +144,19 @@ public:
     template<rpp::constraint::observer Observer, typename... Strategies>
     void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy) const
     {
-        using Type = typename observable_chain_strategy<Strategies...>::ValueType;
-
-        std::apply(
-            [&observer, &strategy](const Args&... vals)
-            {
-                strategy.subscribe(rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy<Args...>>>{std::forward<Observer>(observer), vals...});
-            },
-            m_vals);
+        m_vals.apply(&apply<Observer, Strategies...>, std::forward<Observer>(observer), strategy);
     }
 
 private:
-    RPP_NO_UNIQUE_ADDRESS std::tuple<Args...> m_vals{};
+    template<rpp::constraint::observer Observer, typename... Strategies>
+    static void apply(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy, const Args&... vals)
+    {
+        using Type = typename observable_chain_strategy<Strategies...>::ValueType;
+        strategy.subscribe(rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy<Args...>>>{std::forward<Observer>(observer), vals...});
+    }
+
+private:
+    RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<Args...> m_vals{};
 };
 
 template<template<typename, typename...> typename Strategy, rpp::constraint::decayed_type... Args>
@@ -168,18 +170,19 @@ public:
     template<rpp::constraint::observer Observer, typename... Strategies>
     void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy) const
     {
-        using Type = typename observable_chain_strategy<Strategies...>::ValueType;
 
-        std::apply(
-            [&observer, &strategy](const Args&... vals)
-            {
-                strategy.subscribe(rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy<Type, Args...>>>{std::forward<Observer>(observer), vals...});
-            },
-            m_vals);
+        m_vals.apply(&apply<Observer, Strategies...>, std::forward<Observer>(observer), strategy);
+    }
+private:
+    template<rpp::constraint::observer Observer, typename... Strategies>
+    static void apply(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy, const Args&... vals)
+    {
+        using Type = typename observable_chain_strategy<Strategies...>::ValueType;
+        strategy.subscribe(rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy<Type, Args...>>>{std::forward<Observer>(observer), vals...});
     }
 
 private:
-    RPP_NO_UNIQUE_ADDRESS std::tuple<Args...> m_vals{};
+    RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<Args...> m_vals{};
 };
 
 template<typename Strategy, rpp::constraint::decayed_type... Args>
@@ -194,17 +197,17 @@ public:
     template<rpp::constraint::observer Observer, typename... Strategies>
     void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy) const
     {
+        m_vals.apply(&apply<Observer, Strategies...>, std::forward<Observer>(observer), strategy);
+    }
+private:
+    template<rpp::constraint::observer Observer, typename... Strategies>
+    static void apply(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy, const Args&... vals)
+    {
         using Type = typename observable_chain_strategy<Strategies...>::ValueType;
-
-        std::apply(
-            [&observer, &strategy](const Args&... vals)
-            {
-                strategy.subscribe(rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy>>{std::forward<Observer>(observer), vals...});
-            },
-            m_vals);
+        strategy.subscribe(rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy>>{std::forward<Observer>(observer), vals...});
     }
 
 private:
-    RPP_NO_UNIQUE_ADDRESS std::tuple<Args...> m_vals{};
+    RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<Args...> m_vals{};
 };
 }
