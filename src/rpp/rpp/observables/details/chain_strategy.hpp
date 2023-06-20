@@ -17,6 +17,8 @@ template<typename TStrategy, typename... TStrategies>
 class observable_chain_strategy
 {
 public:
+    using ValueType = typename TStrategy::template ResultValue<typename observable_chain_strategy<TStrategies...>::ValueType>;
+
     observable_chain_strategy(const TStrategy& strategy, const TStrategies& ...strategies)
         : m_strategy(strategy)
         , m_strategies(strategies...)
@@ -26,8 +28,6 @@ public:
         : m_strategy(strategy)
         , m_strategies(strategies)
     {}
-
-    using Type = typename TStrategy::template Result<typename observable_chain_strategy<TStrategies...>::Type>;
 
     template<rpp::constraint::observer Observer>
     void subscribe(Observer&& observer) const
@@ -44,11 +44,11 @@ template<typename TStrategy>
 class observable_chain_strategy<TStrategy>
 {
 public:
+    using ValueType = typename TStrategy::ValueType;
+
     observable_chain_strategy(const TStrategy& strategy)
         : m_strategy(strategy)
     {}
-
-    using Type = typename TStrategy::Type;
 
     template<rpp::constraint::observer Observer>
     void subscribe(Observer&& observer) const

@@ -41,7 +41,7 @@ template<rpp::constraint::decayed_type Fn>
 struct map_t : public operators::details::operator_observable_strategy<map_observer_strategy<Fn>, Fn> {
 
     template<typename T>
-    using Result = std::invoke_result_t<Fn, T>;
+    using ResultValue = std::invoke_result_t<Fn, T>;
 };
 }
 

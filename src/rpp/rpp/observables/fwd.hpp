@@ -22,6 +22,7 @@ template<typename S, typename T>
 concept observable_strategy = requires(const S& strategy, dynamic_observer<T>&& observer)
 {
     {strategy.subscribe(std::move(observer))} -> std::same_as<void>;
+    typename S::ValueType;
 };
 }
 

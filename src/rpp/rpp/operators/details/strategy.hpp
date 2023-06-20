@@ -143,7 +143,7 @@ public:
     template<rpp::constraint::observer Observer, typename... Strategies>
     void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy) const
     {
-        using Type = typename observable_chain_strategy<Strategies...>::Type;
+        using Type = typename observable_chain_strategy<Strategies...>::ValueType;
 
         std::apply(
             [&observer, &strategy](const Args&... vals)
