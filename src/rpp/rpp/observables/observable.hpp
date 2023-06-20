@@ -125,7 +125,7 @@ public:
     auto as_dynamic() const& { return rpp::dynamic_observable<Type>{*this}; }
     auto as_dynamic() && { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
-    template<typename Op>
+    template<constraint::operators_v2<Type> Op>
     auto operator|(Op&& op) const &
     {
         return observable<typename Op::template ResultValue<Type>, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};

@@ -37,6 +37,9 @@ class blocking_strategy;
 
 namespace rpp
 {
+template<typename TStrategy, typename... TStrategies>
+class observable_chain_strategy;
+
 template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
 class observable;
 
@@ -85,6 +88,13 @@ template<typename Op, typename TObs>
 concept operators = requires(const Op& op, TObs obs)
 {
     {op(static_cast<TObs>(obs))} -> rpp::constraint::observable;
+};
+
+template<typename Op, typename Type>
+concept operators_v2 = requires(const Op& op, dynamic_observer<typename Op::template ResultValue<Type>>&& observer, const observable_chain_strategy<details::observables::dynamic_strategy<Type>>& chain)
+{
+    typename Op::template ResultValue<Type>;
+    {op.subscribe(std::move(observer), chain)};
 };
 
 template<typename TObservable, typename... TObservables>
