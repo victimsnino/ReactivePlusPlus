@@ -10,6 +10,7 @@
 #pragma once
 
 #include <rpp/observables/fwd.hpp>
+#include <rpp/observables/details/chain_strategy.hpp>
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/observers/lambda_observer.hpp>
@@ -123,6 +124,12 @@ public:
      */
     auto as_dynamic() const& { return rpp::dynamic_observable<Type>{*this}; }
     auto as_dynamic() && { return rpp::dynamic_observable<Type>{std::move(*this)}; }
+
+    template<typename Op>
+    auto operator|(Op&& op) const &
+    {
+        return observable<typename Op::template Result<Type>, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
+    }
 
     template<constraint::operators<const observable<Type, Strategy>&> Op>
     auto operator|(Op&& op) const &
