@@ -13,6 +13,7 @@
 #include "rpp/utils/utils.hpp"
 #include <rpp/defs.hpp>
 #include <rpp/observers/fwd.hpp>
+#include <rpp/observers/details/observer_storage.hpp>
 #include <rpp/sources/fwd.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/observables/observable.hpp>
@@ -152,7 +153,10 @@ private:
     static void apply(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy, const Args&... vals)
     {
         using Type = typename observable_chain_strategy<Strategies...>::ValueType;
-        strategy.subscribe(rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy<Args...>>>{std::forward<Observer>(observer), vals...});
+        using NewStrategy = operator_strategy_base<Type, std::decay_t<Observer>, Strategy<Args...>>;
+        using TypeErasedStrategy = rpp::details::observers::type_erased_strategy_for<Type, NewStrategy>;
+
+        strategy.subscribe(rpp::observer<Type, TypeErasedStrategy>{rpp::details::observers::construct_with<NewStrategy>{}, std::forward<Observer>(observer), vals...});
     }
 
 private:
@@ -178,7 +182,10 @@ private:
     static void apply(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy, const Args&... vals)
     {
         using Type = typename observable_chain_strategy<Strategies...>::ValueType;
-        strategy.subscribe(rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy<Type, Args...>>>{std::forward<Observer>(observer), vals...});
+        using NewStrategy = operator_strategy_base<Type, std::decay_t<Observer>, Strategy<Type, Args...>>;
+        using TypeErasedStrategy = rpp::details::observers::type_erased_strategy_for<Type, NewStrategy>;
+
+        strategy.subscribe(rpp::observer<Type, TypeErasedStrategy>{rpp::details::observers::construct_with<NewStrategy>{}, std::forward<Observer>(observer), vals...});
     }
 
 private:
@@ -204,7 +211,10 @@ private:
     static void apply(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy, const Args&... vals)
     {
         using Type = typename observable_chain_strategy<Strategies...>::ValueType;
-        strategy.subscribe(rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy>>{std::forward<Observer>(observer), vals...});
+        using NewStrategy = operator_strategy_base<Type, std::decay_t<Observer>, Strategy>;
+        using TypeErasedStrategy = rpp::details::observers::type_erased_strategy_for<Type, NewStrategy>;
+
+        strategy.subscribe(rpp::observer<Type, TypeErasedStrategy>{rpp::details::observers::construct_with<NewStrategy>{}, std::forward<Observer>(observer), vals...});
     }
 
 private:

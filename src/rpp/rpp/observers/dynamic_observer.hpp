@@ -10,6 +10,7 @@
 #pragma once
 
 #include <rpp/observers/fwd.hpp>
+#include <rpp/observers/details/observer_vtable.hpp>
 #include <rpp/disposables/fwd.hpp>
 
 #include <memory>
@@ -17,24 +18,6 @@
 
 namespace rpp::details::observers
 {
-template<typename T, typename Strategy>
-void forwarding_on_next_lvalue(const void* const ptr, const T& v) { static_cast<const Strategy*>(ptr)->on_next(v); }
-
-template<typename T, typename Strategy>
-void forwarding_on_next_rvalue(const void* const ptr, T&& v) { static_cast<const Strategy*>(ptr)->on_next(std::forward<T>(v)); }
-
-template<typename Strategy>
-void forwarding_on_error(const void* const ptr, const std::exception_ptr& err) { static_cast<const Strategy*>(ptr)->on_error(err); }
-
-template<typename Strategy>
-void forwarding_on_completed(const void* const ptr) { static_cast<const Strategy*>(ptr)->on_completed(); }
-
-template<typename Strategy>
-void forwarding_set_upstream(void* const ptr, const disposable_wrapper& d) { static_cast<Strategy*>(ptr)->set_upstream(d); }
-
-template<typename Strategy>
-bool forwarding_is_disposed(const void* const ptr) { return static_cast<const Strategy*>(ptr)->is_disposed(); }
-
 template<constraint::decayed_type Type>
 class dynamic_strategy final
 {
@@ -43,7 +26,7 @@ public:
         requires (!constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
     explicit dynamic_strategy(observer<Type, Strategy>&& obs)
         : m_forwarder{std::make_shared<observer<Type, Strategy>>(std::move(obs))}
-        , m_vtable{vtable::template create<observer<Type, Strategy>>()} {}
+        , m_vtable{observer_vtable<Type>::template create<observer<Type, Strategy>>()} {}
 
     dynamic_strategy(const dynamic_strategy&) = default;
     dynamic_strategy(dynamic_strategy&&) noexcept = default;
@@ -56,34 +39,9 @@ public:
     void on_error(const std::exception_ptr& err) const noexcept    { m_vtable->on_error(m_forwarder.get(), err);                }
     void on_completed() const noexcept                             { m_vtable->on_completed(m_forwarder.get());                 }
 
-private:
-    struct vtable
-    {
-        void (*on_next_lvalue)(const void*, const Type&){};
-        void (*on_next_rvalue)(const void*, Type&&){};
-        void (*on_error)(const void*, const std::exception_ptr&){};
-        void (*on_completed)(const void*){};
-
-        void (*set_upstream)(void*, const disposable_wrapper&){};
-        bool (*is_disposed)(const void*){};
-
-        template<constraint::observer Strategy>
-        static const vtable* create() noexcept
-        {
-            static vtable s_res{
-                .on_next_lvalue = forwarding_on_next_lvalue<Type, Strategy>,
-                .on_next_rvalue = forwarding_on_next_rvalue<Type, Strategy>,
-                .on_error = forwarding_on_error<Strategy>,
-                .on_completed = forwarding_on_completed<Strategy>,
-                .set_upstream = forwarding_set_upstream<Strategy>,
-                .is_disposed = forwarding_is_disposed<Strategy>,
-            };
-            return &s_res;
-        }
-    };
 
 private:
-    std::shared_ptr<void> m_forwarder;
-    const vtable*         m_vtable;
+    std::shared_ptr<void>        m_forwarder;
+    const observer_vtable<Type>* m_vtable;
 };
-}
+} // namespace rpp::details::observers
