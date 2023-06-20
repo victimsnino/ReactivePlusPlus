@@ -37,4 +37,7 @@ concept is_constructible_from = requires(Args...args)
     {T{static_cast<Args&&>(args)...}} -> std::same_as<T>;
 };
 
+
+template<typename Ret, typename Fn, typename ...Args>
+concept invocable_r_v = std::invocable<Fn, Args...> && std::same_as<Ret, std::invoke_result_t<Fn, Args...>>;
 } // namespace rpp::constraint

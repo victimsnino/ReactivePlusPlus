@@ -45,29 +45,14 @@ struct scan_observer_strategy
 
 };
 
-template<rpp::constraint::observable TObservable, rpp::constraint::decayed_type InitialValue, std::invocable<InitialValue&&, rpp::utils::extract_observable_type_t<TObservable>> Fn>
-using scan_observable = operator_observable<InitialValue, TObservable, scan_observer_strategy<InitialValue, Fn>, InitialValue, Fn>;
-
-
 template<rpp::constraint::decayed_type InitialValue, rpp::constraint::decayed_type Fn>
-struct scan_t
+struct scan_t : public operators::details::operator_observable_strategy<scan_observer_strategy, InitialValue, Fn>
 {
-    RPP_NO_UNIQUE_ADDRESS InitialValue m_initial_value;
-    RPP_NO_UNIQUE_ADDRESS Fn           m_fn;
-
-    template<rpp::constraint::observable TObservable>
-        requires (std::invocable<Fn, InitialValue&&, rpp::utils::extract_observable_type_t<TObservable>> && std::same_as<InitialValue, std::invoke_result_t<Fn, InitialValue&&, rpp::utils::extract_observable_type_t<TObservable>>>)
-    auto operator()(TObservable&& observable) const &
-    {
-        return scan_observable<std::decay_t<TObservable>, InitialValue, Fn>{std::forward<TObservable>(observable), m_initial_value, m_fn};
-    }
-
-    template<rpp::constraint::observable TObservable>
-        requires (std::invocable<Fn, InitialValue&&, rpp::utils::extract_observable_type_t<TObservable>> && std::same_as<InitialValue, std::invoke_result_t<Fn, InitialValue&&, rpp::utils::extract_observable_type_t<TObservable>>>)
-    auto operator()(TObservable&& observable) &&
-    {
-        return scan_observable<std::decay_t<TObservable>, InitialValue, Fn>{std::forward<TObservable>(observable), std::move(m_initial_value), std::move(m_fn)};
-    }
+    using operators::details::operator_observable_strategy<scan_observer_strategy, InitialValue, Fn>::operator_observable_strategy;
+    
+    template<rpp::constraint::decayed_type T>
+        requires std::is_invocable_r_v<InitialValue, Fn, InitialValue&&, T>
+    using ResultValue = InitialValue;
 };
 
 template<rpp::constraint::decayed_type Seed, rpp::constraint::decayed_type Fn>
@@ -94,27 +79,12 @@ struct scan_no_seed_observer_strategy
     constexpr static empty_on_subscribe on_subscribe{};
 };
 
-template<rpp::constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>&&, rpp::utils::extract_observable_type_t<TObservable>> Fn>
-using scan_no_seed_observable = identity_operator_observable<TObservable, scan_no_seed_observer_strategy<rpp::utils::extract_observable_type_t<TObservable>, Fn>, Fn>;
-
 template<rpp::constraint::decayed_type Fn>
-struct scan_no_seed_t
+struct scan_no_seed_t  : public operators::details::template_operator_observable_strategy<scan_no_seed_observer_strategy, Fn>
 {
-    RPP_NO_UNIQUE_ADDRESS Fn m_fn;
-
-    template<rpp::constraint::observable TObservable>
-        requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>&&, rpp::utils::extract_observable_type_t<TObservable>> && std::same_as<rpp::utils::extract_observable_type_t<TObservable>, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>&&, rpp::utils::extract_observable_type_t<TObservable>>>)
-    auto operator()(TObservable&& observable) const &
-    {
-        return scan_no_seed_observable<std::decay_t<TObservable>, Fn>{std::forward<TObservable>(observable), m_fn};
-    }
-
-    template<rpp::constraint::observable TObservable>
-        requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>&&, rpp::utils::extract_observable_type_t<TObservable>> && std::same_as<rpp::utils::extract_observable_type_t<TObservable>, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>&&, rpp::utils::extract_observable_type_t<TObservable>>>)
-    auto operator()(TObservable&& observable) &&
-    {
-        return scan_no_seed_observable<std::decay_t<TObservable>, Fn>{std::forward<TObservable>(observable), std::move(m_fn)};
-    }
+    template<rpp::constraint::decayed_type T>
+        requires std::is_invocable_r_v<T, Fn, T&&, T>
+    using ResultValue = T;
 };
 }
 

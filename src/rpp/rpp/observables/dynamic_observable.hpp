@@ -24,6 +24,8 @@ template<constraint::decayed_type Type>
 class dynamic_strategy final
 {
 public:
+    using ValueType = Type;
+
     template<constraint::observable_strategy<Type> Strategy>
         requires (!constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
     explicit dynamic_strategy(observable<Type, Strategy>&& obs)

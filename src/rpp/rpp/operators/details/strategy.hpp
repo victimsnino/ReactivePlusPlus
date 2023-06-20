@@ -181,4 +181,30 @@ public:
 private:
     RPP_NO_UNIQUE_ADDRESS std::tuple<Args...> m_vals{};
 };
+
+template<typename Strategy, rpp::constraint::decayed_type... Args>
+    requires rpp::constraint::is_constructible_from<Strategy, Args...>
+class not_template_operator_observable_strategy
+{
+public:
+    template<rpp::constraint::decayed_same_as<Args> ...TArgs>
+    not_template_operator_observable_strategy(TArgs&&...args)
+        : m_vals{std::forward<TArgs>(args)...} {}
+
+    template<rpp::constraint::observer Observer, typename... Strategies>
+    void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy) const
+    {
+        using Type = typename observable_chain_strategy<Strategies...>::ValueType;
+
+        std::apply(
+            [&observer, &strategy](const Args&... vals)
+            {
+                strategy.subscribe(rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy>>{std::forward<Observer>(observer), vals...});
+            },
+            m_vals);
+    }
+
+private:
+    RPP_NO_UNIQUE_ADDRESS std::tuple<Args...> m_vals{};
+};
 }

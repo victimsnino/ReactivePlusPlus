@@ -44,6 +44,8 @@ template<constraint::decayed_type Type, constraint::observable_strategy<Type> St
 class blocking_strategy
 {
 public:
+    using ValueType = Type;
+    
     blocking_strategy(observable<Type, Strategy>&& observable) : m_original{std::move(observable)}{}
     blocking_strategy(const observable<Type, Strategy>& observable) : m_original{observable}{}
 

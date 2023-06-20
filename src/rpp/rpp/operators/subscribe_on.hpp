@@ -16,12 +16,12 @@
 
 namespace rpp::operators::details
 {
-template<rpp::constraint::observable TObservable>
+template<typename TObservableChainStrategy>
 struct subscribe_on_schedulable
 {
-    RPP_NO_UNIQUE_ADDRESS TObservable observable;
+    RPP_NO_UNIQUE_ADDRESS TObservableChainStrategy observable;
 
-    using Type = rpp::utils::extract_observable_type_t<TObservable>;
+    using Type = typename TObservableChainStrategy::ValueType;
 
     template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
     rpp::schedulers::optional_duration operator()(observer<Type, ObserverStrategy>& observer) const
@@ -31,34 +31,21 @@ struct subscribe_on_schedulable
     }
 };
 
-template<rpp::schedulers::constraint::scheduler Scheduler, rpp::constraint::observable TObservable>
-struct subscribe_on_strategy
-{
-    RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;
-    RPP_NO_UNIQUE_ADDRESS TObservable observable;
-
-    using Type = rpp::utils::extract_observable_type_t<TObservable>;
-
-    template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
-    void subscribe(observer<Type, ObserverStrategy>&& obs) const
-    {
-        const auto worker = scheduler.create_worker();
-        obs.set_upstream(worker.get_disposable());
-        worker.schedule(subscribe_on_schedulable<TObservable>{observable}, std::move(obs));
-    }
-};
 
 template<rpp::schedulers::constraint::scheduler Scheduler>
 struct subscribe_on_t
 {
+    template<rpp::constraint::decayed_type T>
+    using ResultValue = T;
+
     RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;
 
-    template<rpp::constraint::observable TObservable>
-    auto operator()(TObservable&& observable) const
+    template<rpp::constraint::observer Observer, typename... Strategies>
+    void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
     {
-        return rpp::observable<rpp::utils::extract_observable_type_t<TObservable>,
-                               subscribe_on_strategy<Scheduler, std::decay_t<TObservable>>>{scheduler,
-                                                                                            std::forward<TObservable>(observable)};
+        const auto worker = scheduler.create_worker();
+        observer.set_upstream(worker.get_disposable());
+        worker.schedule(subscribe_on_schedulable<observable_chain_strategy<Strategies...>>{observable_strategy}, std::forward<Observer>(observer));
     }
 };
 }

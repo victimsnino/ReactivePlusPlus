@@ -14,8 +14,12 @@
 
 namespace rpp::details
 {
+template<constraint::decayed_type Type>
+
 struct empty_strategy
 {
+    using ValueType = Type;
+
     static void subscribe(const auto& obs) { obs.on_completed(); }
 };
 }
@@ -23,7 +27,7 @@ struct empty_strategy
 namespace rpp
 {
 template<constraint::decayed_type Type>
-using empty_observable = observable<Type, details::empty_strategy>;
+using empty_observable = observable<Type, details::empty_strategy<Type>>;
 }
 
 namespace rpp::source
