@@ -1,5 +1,6 @@
 #include <rpp/rpp.hpp>
 #include <iostream>
+#include <functional>
 
 int main() // NOLINT
 {
@@ -9,6 +10,6 @@ int main() // NOLINT
         | rpp::operators::filter(std::not_fn(&::isdigit))
         | rpp::operators::map(&::toupper)
         | rpp::operators::subscribe([](char v) { std::cout << v; });
-        
+
     return 0;
 }
