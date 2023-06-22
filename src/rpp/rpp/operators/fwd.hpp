@@ -12,8 +12,6 @@
 
 #include <rpp/observables/fwd.hpp>
 #include <rpp/schedulers/fwd.hpp>
-#include <rpp/utils/functors.hpp>
-#include <rpp/utils/function_traits.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/utils/utils.hpp>
 

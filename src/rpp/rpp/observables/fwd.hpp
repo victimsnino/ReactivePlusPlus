@@ -11,15 +11,11 @@
 
 #include <rpp/observers/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
-#include <rpp/utils/function_traits.hpp>
-
-#include <concepts>
-#include <type_traits>
 
 namespace rpp::constraint
 {
 template<typename S, typename T>
-concept observable_strategy = requires(const S& strategy, dynamic_observer<T>&& observer)
+concept observable_strategy = requires(const S& strategy, details::fake_observer<T>&& observer)
 {
     {strategy.subscribe(std::move(observer))} -> std::same_as<void>;
     typename S::ValueType;

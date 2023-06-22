@@ -10,12 +10,11 @@
 
 #pragma once
 
-#include <memory>
+#include <concepts>
 
 namespace rpp
 {
 class base_disposable;
-using disposable_ptr = std::shared_ptr<base_disposable>;
 
 class disposable_wrapper;
 

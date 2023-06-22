@@ -17,6 +17,8 @@
 
 namespace rpp
 {
+using disposable_ptr = std::shared_ptr<base_disposable>;
+
 class base_disposable
 {
 public:

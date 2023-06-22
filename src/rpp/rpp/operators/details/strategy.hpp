@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include "rpp/utils/utils.hpp"
 #include <rpp/defs.hpp>
 #include <rpp/observers/fwd.hpp>
 #include <rpp/sources/fwd.hpp>
@@ -19,9 +18,9 @@
 #include <rpp/observables/details/chain_strategy.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/utils/tuple.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <exception>
-#include <functional>
 #include <variant>
 
 
@@ -33,8 +32,8 @@ concept operator_strategy = requires(const S& const_strategy,
                                      const Type& v,
                                      Type&& mv,
                                      const disposable_wrapper disposable,
-                                     const dynamic_observer<Type>& const_observer,
-                                     dynamic_observer<Type>& observer)
+                                     const rpp::details::fake_observer<Type>& const_observer,
+                                     rpp::details::fake_observer<Type>& observer)
 {
     const_strategy.on_subscribe(observer);
 

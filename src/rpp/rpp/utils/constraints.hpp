@@ -21,7 +21,6 @@ concept decayed_same_as = std::same_as<std::decay_t<T>, std::decay_t<Type>>;
 template<typename T>
 concept decayed_type = std::same_as<std::decay_t<T>, T>;
 
-
 template<typename Type, typename...Types> concept variadic_decayed_same_as = sizeof...(Types) == 1 && (decayed_same_as<Type, Types> && ...);
 
 template<typename R>
@@ -32,7 +31,7 @@ concept iterable = requires(R& rng)
 };
 
 template<typename T, typename...Args>
-concept is_constructible_from = requires(Args...args) 
+concept is_constructible_from = requires(Args...args)
 {
     {T{static_cast<Args&&>(args)...}} -> std::same_as<T>;
 };
