@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <concepts>
 #include <cstddef>
@@ -28,7 +29,7 @@ public:
     T&       get() { return m_value; }
 
 private:
-    T m_value;
+    RPP_NO_UNIQUE_ADDRESS T m_value;
 };
 
 template<typename, typename...>
@@ -39,6 +40,7 @@ class tuple_impl<std::index_sequence<Indices...>, Args...> : private tuple_leaf<
 {
 public:
     template<std::convertible_to<Args> ...TArgs>
+        requires(!rpp::constraint::variadic_decayed_same_as<tuple_impl<std::index_sequence<Indices...>, Args...>, TArgs...>)
     tuple_impl(TArgs&&...args)
         : tuple_leaf<Indices, Args>{std::forward<TArgs>(args)}...
     {}

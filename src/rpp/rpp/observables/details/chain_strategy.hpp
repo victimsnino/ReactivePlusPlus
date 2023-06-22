@@ -10,7 +10,7 @@
 #pragma once
 
 #include <rpp/observers/fwd.hpp>
-
+#include <rpp/defs.hpp>
 namespace rpp
 {
 template<typename TStrategy, typename... TStrategies>
@@ -36,8 +36,8 @@ public:
     }
 
 private:
-    TStrategy                                 m_strategy;
-    observable_chain_strategy<TStrategies...> m_strategies;
+    RPP_NO_UNIQUE_ADDRESS TStrategy                                 m_strategy;
+    RPP_NO_UNIQUE_ADDRESS observable_chain_strategy<TStrategies...> m_strategies;
 };
 
 template<typename TStrategy>
@@ -57,7 +57,7 @@ public:
     }
 
 private:
-    TStrategy m_strategy;
+    RPP_NO_UNIQUE_ADDRESS TStrategy m_strategy;
 };
 
 template<typename New, typename Old>

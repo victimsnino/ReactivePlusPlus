@@ -101,11 +101,11 @@ struct merge_observer_strategy
         return disposable->is_disposed();
     }
 
-    template<typename T>
-    void on_next(rpp::constraint::observer auto&& obs, T&& v) const
+    template<rpp::constraint::observer TObs, typename T>
+    void on_next(TObs&& obs, T&& v) const
     {
         disposable->increment_on_completed();
-        std::forward<T>(v).subscribe(rpp::observer<Value, operator_strategy_base<Value, std::decay_t<decltype(obs)>, merge_observer_inner_strategy>>{std::forward<decltype(obs)>(obs), disposable});
+        std::forward<T>(v).subscribe(rpp::observer<Value, operator_strategy_base<Value, std::decay_t<TObs>, merge_observer_inner_strategy>>{std::forward<TObs>(obs), disposable});
     }
 
     void on_error(const rpp::constraint::observer auto & obs, const std::exception_ptr& err) const

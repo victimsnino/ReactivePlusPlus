@@ -82,9 +82,9 @@ public:
     bool is_disposed() const override { return m_observer.is_disposed(); }
 
 private:
-    TObs                       m_observer;
-    rpp::utils::tuple<Args...> m_args;
-    RPP_NO_UNIQUE_ADDRESS Fn   m_fn;
+    RPP_NO_UNIQUE_ADDRESS TObs                       m_observer;
+    RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<Args...> m_args;
+    RPP_NO_UNIQUE_ADDRESS Fn                         m_fn;
 };
 
 class schedulables_queue
