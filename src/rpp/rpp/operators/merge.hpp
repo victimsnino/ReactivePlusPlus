@@ -171,8 +171,15 @@ struct merge_with_t
 
         strategy.on_subscribe(obs_as_dynamic);
         strategy.on_next(obs_as_dynamic, observable_strategy);
-        observables.apply([](const auto& strategy, const auto& obs_as_dynamic, const auto&... observables) { (strategy.on_next(obs_as_dynamic, observables), ...); }, strategy, obs_as_dynamic);
+        observables.apply(&apply<decltype(obs_as_dynamic), Value>, strategy, obs_as_dynamic);
         strategy.on_completed(obs_as_dynamic);
+    }
+
+private:
+    template<rpp::constraint::observer Observer, typename Value>
+    static void apply(const merge_observer_strategy<Value>& strategy, const Observer& obs_as_dynamic, const TObservables& ...observables)
+    {
+        (strategy.on_next(obs_as_dynamic, observables), ...);
     }
 };
 }
