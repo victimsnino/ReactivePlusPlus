@@ -85,7 +85,7 @@ struct merge_observer_strategy
 {
     std::shared_ptr<merge_disposable<std::mutex>> disposable = std::make_shared<merge_disposable<std::mutex>>();
 
-    void on_subscribe(rpp::dynamic_observer<Value>& obs) const
+    void on_subscribe(rpp::constraint::observer auto& obs) const
     {
         disposable->increment_on_completed();
         obs.set_upstream(disposable_wrapper{disposable});
@@ -102,10 +102,10 @@ struct merge_observer_strategy
     }
 
     template<typename T>
-    void on_next(rpp::dynamic_observer<Value> obs, T&& v) const
+    void on_next(rpp::constraint::observer auto&& obs, T&& v) const
     {
         disposable->increment_on_completed();
-        std::forward<T>(v).subscribe(rpp::observer<Value, operator_strategy_base<Value, rpp::dynamic_observer<Value>, merge_observer_inner_strategy>>{std::move(obs), disposable});
+        std::forward<T>(v).subscribe(rpp::observer<Value, operator_strategy_base<Value, std::decay_t<decltype(obs)>, merge_observer_inner_strategy>>{std::forward<decltype(obs)>(obs), disposable});
     }
 
     void on_error(const rpp::constraint::observer auto & obs, const std::exception_ptr& err) const

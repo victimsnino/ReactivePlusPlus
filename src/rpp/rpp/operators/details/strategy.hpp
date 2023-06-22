@@ -61,9 +61,9 @@ public:
      * @brief Construct a new operator strategy for passed observer
      * @warning Passed observer would not be moved inside, only rvalue reference saved inside. Actual move happens ONLY in case of move of this strategy
      */
-    template<typename...Args>
-    operator_strategy_base(captured_observer&& observer, Args&&...args)
-        : m_observer{std::move(observer)}
+    template<rpp::constraint::decayed_same_as<captured_observer> TObserver, typename...Args>
+    operator_strategy_base(TObserver&& observer, Args&&...args)
+        : m_observer{std::forward<TObserver>(observer)}
         , m_strategy{std::forward<Args>(args)...}
         {
             m_strategy.on_subscribe(m_observer);
@@ -132,11 +132,11 @@ struct empty_on_subscribe
 };
 
 template<template<typename...> typename Strategy, rpp::constraint::decayed_type... Args>
-    requires rpp::constraint::is_constructible_from<Strategy<Args...>, Args...>
 class operator_observable_strategy
 {
 public:
     template<rpp::constraint::decayed_same_as<Args> ...TArgs>
+        requires rpp::constraint::is_constructible_from<Strategy<Args...>, TArgs&&...>
     operator_observable_strategy(TArgs&&...args)
         : m_vals{std::forward<TArgs>(args)...} {}
 
