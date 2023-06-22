@@ -155,12 +155,12 @@ namespace rpp::details
 {
 struct fake_strategy
 {
-    static void on_next(const auto&) noexcept;
-    static void on_error(const std::exception_ptr&) noexcept;
-    static void on_completed() noexcept;
+    static void on_next(const auto&) noexcept{}
+    static void on_error(const std::exception_ptr&) noexcept{}
+    static void on_completed() noexcept{}
 
-    static void set_upstream(const disposable_wrapper&) noexcept;
-    static bool is_disposed() noexcept;
+    static void set_upstream(const disposable_wrapper&) noexcept{}
+    static bool is_disposed() noexcept{}
 };
 
 template<typename T>
