@@ -60,12 +60,12 @@ struct with_disposable
 {
     with_disposable() = delete;
 
-    void on_next(const auto&) noexcept;
-    void on_error(const std::exception_ptr&) noexcept;
-    void on_completed() noexcept;
+    void on_next(const auto&) const noexcept;
+    void on_error(const std::exception_ptr&) const noexcept;
+    void on_completed() const noexcept;
 
-    void set_upstream(const disposable_wrapper&) noexcept;
-    bool is_disposed() noexcept;
+    void set_upstream(const disposable_wrapper&) const noexcept;
+    bool is_disposed() const noexcept;
 };
 }
 
@@ -155,12 +155,12 @@ namespace rpp::details
 {
 struct fake_strategy
 {
-    void on_next(const auto&) noexcept {}
-    void on_error(const std::exception_ptr&) noexcept {}
-    void on_completed() noexcept {}
+    void on_next(const auto&) const noexcept {}
+    void on_error(const std::exception_ptr&) const noexcept {}
+    void on_completed() const noexcept {}
 
-    void set_upstream(const disposable_wrapper&) noexcept {}
-    bool is_disposed() noexcept { return true; }
+    void set_upstream(const disposable_wrapper&) const noexcept {}
+    bool is_disposed() const noexcept { return true; }
 };
 
 template<typename T>
