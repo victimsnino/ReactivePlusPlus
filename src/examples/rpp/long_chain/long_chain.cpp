@@ -3,6 +3,7 @@
 #include <cctype>
 #include <chrono>
 #include <iostream>
+#include <functional>
 
 int main() // NOLINT
 {
