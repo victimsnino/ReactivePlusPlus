@@ -151,7 +151,7 @@ struct merge_t
 template<rpp::constraint::observable... TObservables>
 struct merge_with_t
 {
-    rpp::utils::tuple<TObservables...> observables{};
+    RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<TObservables...> observables{};
 
     template<rpp::constraint::decayed_type T>
         requires (std::same_as<T, utils::extract_observable_type_t<TObservables>> && ...)
