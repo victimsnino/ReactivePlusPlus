@@ -12,7 +12,7 @@ int main() // NOLINT
 
     auto chars = source
         | rpp::operators::filter(std::not_fn(&::isdigit))
-        | rpp::operators::map([](char c) -> char {return std::toupper(c);});
+        | rpp::operators::map([](char c) -> char {return static_cast<char>(std::toupper(c));});
 
     auto digits = source
         | rpp::operators::filter([](char c) -> bool {return std::isdigit(c); });
