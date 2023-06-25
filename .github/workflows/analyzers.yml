@@ -29,6 +29,7 @@ jobs:
       run: |
         wget -q -O - https://files.pvs-studio.com/etc/pubkey.txt \
           | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/PVS.gpg --import
+        sudo apt-key adv --refresh-keys
         sudo chmod 644 /etc/apt/trusted.gpg.d/PVS.gpg
         sudo wget -O /etc/apt/sources.list.d/viva64.list \
           https://files.pvs-studio.com/etc/viva64.list
