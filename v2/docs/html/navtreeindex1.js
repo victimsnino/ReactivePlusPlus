@@ -1,5 +1,14 @@
 var NAVTREEINDEX1 =
 {
+"structrpp_1_1operators_1_1details_1_1take__observer__strategy.html":[3,0,0,2,0,39],
+"structrpp_1_1operators_1_1details_1_1take__t.html":[3,0,0,2,0,40],
+"structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html":[3,0,0,2,0,41],
+"structrpp_1_1operators_1_1details_1_1take__while__t.html":[3,0,0,2,0,42],
+"structrpp_1_1operators_1_1details_1_1template__subscribe__strategy.html":[3,0,0,2,0,43],
+"structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html":[3,0,0,3,0,0,0],
+"structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html":[3,0,0,3,0,0,1],
+"structrpp_1_1utils_1_1details_1_1extract__observable__type.html":[3,0,0,4,0,0],
+"structrpp_1_1utils_1_1details_1_1extract__observable__type_3_01rpp_1_1observable_3_01_t_t_00_01_strategy_01_4_01_4.html":[3,0,0,4,0,1],
 "structrpp_1_1utils_1_1details_1_1extract__observer__type.html":[3,0,0,4,0,2],
 "structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1observer_3_01_t_t_00_01_strategy_01_4_01_4.html":[3,0,0,4,0,3],
 "subscribe_8hpp_source.html":[4,0,0,0,0,3,11],

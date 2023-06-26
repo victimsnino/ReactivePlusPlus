@@ -115,30 +115,33 @@ $(document).ready(function(){initNavTree('error_8hpp_source.html',''); initResiz
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>rpp::details</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1error__strategy.html">   17</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1error__strategy.html">error_strategy</a></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    std::exception_ptr err{};</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordtype">void</span> subscribe(<span class="keyword">const</span> <span class="keyword">auto</span>&amp; obs)<span class="keyword"> const </span>{ obs.on_error(err); }</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>};</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span>rpp</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">using </span><a class="code hl_class" href="classrpp_1_1observable.html">error_observable</a> = <a class="code hl_class" href="classrpp_1_1observable.html">observable&lt;Type, details::error_strategy&gt;</a>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">namespace </span>rpp::source</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>{</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#ga4fe060f48695cc3fadfbdb10f77f8acb">error</a>(std::exception_ptr err)</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>{</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">return</span> error_observable&lt;Type&gt;{std::move(err)};</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
-<div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:38</div></div>
-<div class="ttc" id="agroup__creational__operators_html_ga4fe060f48695cc3fadfbdb10f77f8acb"><div class="ttname"><a href="group__creational__operators.html#ga4fe060f48695cc3fadfbdb10f77f8acb">rpp::source::error</a></div><div class="ttdeci">auto error(std::exception_ptr err)</div><div class="ttdoc">Creates rpp::observable that emits no items and terminates with an error.</div><div class="ttdef"><b>Definition</b> error.hpp:43</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1error__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1error__strategy.html">rpp::details::error_strategy</a></div><div class="ttdef"><b>Definition</b> error.hpp:18</div></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1error__strategy.html">   18</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1error__strategy.html">error_strategy</a></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">using </span>ValueType = Type;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    std::exception_ptr err{};</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordtype">void</span> subscribe(<span class="keyword">const</span> <span class="keyword">auto</span>&amp; obs)<span class="keyword"> const </span>{ obs.on_error(err); }</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>};</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">namespace </span>rpp</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>{</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">using </span><a class="code hl_class" href="classrpp_1_1observable.html">error_observable</a> = <a class="code hl_class" href="classrpp_1_1observable.html">observable&lt;Type, details::error_strategy&lt;Type&gt;</a>&gt;;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">namespace </span>rpp::source</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>{</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#ga4fe060f48695cc3fadfbdb10f77f8acb">error</a>(std::exception_ptr err)</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>{</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">return</span> error_observable&lt;Type&gt;{std::move(err)};</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+<div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:39</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga4fe060f48695cc3fadfbdb10f77f8acb"><div class="ttname"><a href="group__creational__operators.html#ga4fe060f48695cc3fadfbdb10f77f8acb">rpp::source::error</a></div><div class="ttdeci">auto error(std::exception_ptr err)</div><div class="ttdoc">Creates rpp::observable that emits no items and terminates with an error.</div><div class="ttdef"><b>Definition</b> error.hpp:46</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1error__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1error__strategy.html">rpp::details::error_strategy</a></div><div class="ttdef"><b>Definition</b> error.hpp:19</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

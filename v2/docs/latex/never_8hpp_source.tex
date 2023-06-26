@@ -18,25 +18,28 @@
 \DoxyCodeLine{00014\ }
 \DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }rpp::details}
 \DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1never__strategy}{never\_strategy}}}
-\DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ subscribe(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\{\}}
-\DoxyCodeLine{00020\ \};}
-\DoxyCodeLine{00021\ \}}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }rpp}
-\DoxyCodeLine{00024\ \{}
-\DoxyCodeLine{00025\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00026\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{never\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ details::never\_strategy>}};}
-\DoxyCodeLine{00027\ \}}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \textcolor{keyword}{namespace\ }rpp::source}
-\DoxyCodeLine{00030\ \{}
-\DoxyCodeLine{00043\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00044\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga16c57281cc1b24605ec23b09ec880416}{never}}()}
-\DoxyCodeLine{00045\ \{}
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{return}\ never\_observable<Type>\{\};}
-\DoxyCodeLine{00047\ \}}
-\DoxyCodeLine{00048\ \}}
+\DoxyCodeLine{00017\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1never__strategy}{never\_strategy}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{using\ }ValueType\ =\ Type;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ subscribe(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\{\}}
+\DoxyCodeLine{00023\ \};}
+\DoxyCodeLine{00024\ \}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00029\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{never\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ details::never\_strategy<Type>}}>;}
+\DoxyCodeLine{00030\ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{namespace\ }rpp::source}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00046\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00047\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga16c57281cc1b24605ec23b09ec880416}{never}}()}
+\DoxyCodeLine{00048\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{return}\ never\_observable<Type>\{\};}
+\DoxyCodeLine{00050\ \}}
+\DoxyCodeLine{00051\ \}}
 
 \end{DoxyCode}

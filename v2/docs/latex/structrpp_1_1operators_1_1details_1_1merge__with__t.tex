@@ -1,21 +1,22 @@
 \doxysection{rpp\+::operators\+::details\+::merge\+\_\+with\+\_\+t\texorpdfstring{$<$}{<} TObservables \texorpdfstring{$>$}{>} Struct Template Reference}
 \hypertarget{structrpp_1_1operators_1_1details_1_1merge__with__t}{}\label{structrpp_1_1operators_1_1details_1_1merge__with__t}\index{rpp::operators::details::merge\_with\_t$<$ TObservables $>$@{rpp::operators::details::merge\_with\_t$<$ TObservables $>$}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1merge__with__t_a1ceb20660b164186b877623b23d2dc9c}\label{structrpp_1_1operators_1_1details_1_1merge__with__t_a1ceb20660b164186b877623b23d2dc9c} 
+{\footnotesize template$<$rpp\+::constraint\+::decayed\+\_\+type T$>$ }\\using {\bfseries Result\+Value} = T
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1merge__with__t_aebb41e24c79d3410521ac2598f6c96a4}\label{structrpp_1_1operators_1_1details_1_1merge__with__t_aebb41e24c79d3410521ac2598f6c96a4} 
-{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable$>$ \newline
-requires \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observables__of__same__type}{rpp\+::constraint\+::observables\+\_\+of\+\_\+same\+\_\+type}}$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$TObservables$>$...$>$}\\auto {\bfseries operator()} (TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}) const \&
-\item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1merge__with__t_abc128b7298dd18f38778a57b8dcd3b6c}\label{structrpp_1_1operators_1_1details_1_1merge__with__t_abc128b7298dd18f38778a57b8dcd3b6c} 
-{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable$>$ \newline
-requires \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observables__of__same__type}{rpp\+::constraint\+::observables\+\_\+of\+\_\+same\+\_\+type}}$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$TObservables$>$...$>$}\\auto {\bfseries operator()} (TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}) \&\&
+\Hypertarget{structrpp_1_1operators_1_1details_1_1merge__with__t_a2e72593eb4a3dce05756655a1a027273}\label{structrpp_1_1operators_1_1details_1_1merge__with__t_a2e72593eb4a3dce05756655a1a027273} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp\+::constraint\+::observer}} Observer, typename... Strategies$>$ }\\void {\bfseries subscribe} (Observer \&\&\mbox{\hyperlink{classrpp_1_1observer}{observer}}, const \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\+\_\+chain\+\_\+strategy}}$<$ Strategies... $>$ \&observable\+\_\+strategy) const
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1merge__with__t_a88327c0f96c55fda8b1008fa7c1f7424}\label{structrpp_1_1operators_1_1details_1_1merge__with__t_a88327c0f96c55fda8b1008fa7c1f7424} 
-std\+::tuple$<$ TObservables... $>$ {\bfseries observables} \{\}
+\Hypertarget{structrpp_1_1operators_1_1details_1_1merge__with__t_aa5a0423a9383f802f87ba6b1b998d164}\label{structrpp_1_1operators_1_1details_1_1merge__with__t_aa5a0423a9383f802f87ba6b1b998d164} 
+RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS rpp\+::utils\+::tuple$<$ TObservables... $>$ {\bfseries observables} \{\}
 \end{DoxyCompactItemize}
 
 

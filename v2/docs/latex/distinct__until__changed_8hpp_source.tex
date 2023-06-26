@@ -45,43 +45,23 @@
 \DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1empty__on__subscribe}{empty\_on\_subscribe}}\ on\_subscribe\{\};}
 \DoxyCodeLine{00042\ \};}
 \DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable,\ std::invocable<rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::utils::extract\_observable\_type\_t<TObservable>>\ Fn>}
-\DoxyCodeLine{00046\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{distinct\_until\_changed\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{identity\_operator\_observable<std::decay\_t<TObservable>}},\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy}{distinct\_until\_changed\_observer\_strategy<rpp::utils::extract\_observable\_type\_t<TObservable>}},\ Fn>,\ Fn>;}
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ EqualityFn>}
-\DoxyCodeLine{00050\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1distinct__until__changed__t}{distinct\_until\_changed\_t}}}
-\DoxyCodeLine{00051\ \{}
-\DoxyCodeLine{00052\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00053\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ EqualityFn\ m\_fn;}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}(std::invocable<EqualityFn,\ rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::utils::extract\_observable\_type\_t<TObservable>>\ \&\&}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::same\_as<bool,\ std::invoke\_result\_t<EqualityFn,\ rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::utils::extract\_observable\_type\_t<TObservable>>>)}
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \textcolor{keyword}{const}\&}
-\DoxyCodeLine{00059\ \ \ \ \ \{}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{distinct\_until\_changed\_observable<std::decay\_t<TObservable>}},\ EqualityFn>\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ m\_fn\};}
-\DoxyCodeLine{00061\ \ \ \ \ \}}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
-\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}(std::invocable<EqualityFn,\ rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::utils::extract\_observable\_type\_t<TObservable>>\ \&\&}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::same\_as<bool,\ std::invoke\_result\_t<EqualityFn,\ rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::utils::extract\_observable\_type\_t<TObservable>>>)}
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \&\&}
-\DoxyCodeLine{00067\ \ \ \ \ \{}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{distinct\_until\_changed\_observable<std::decay\_t<TObservable>}},\ EqualityFn>\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ std::move(m\_fn)\};}
-\DoxyCodeLine{00069\ \ \ \ \ \}}
-\DoxyCodeLine{00070\ \};}
-\DoxyCodeLine{00071\ \}}
-\DoxyCodeLine{00072\ }
-\DoxyCodeLine{00073\ \textcolor{keyword}{namespace\ }rpp::operators}
-\DoxyCodeLine{00074\ \{}
-\DoxyCodeLine{00101\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ EqualityFn>}
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<EqualityFn>\ ||\ std::same\_as<bool,\ std::invoke\_result\_t<EqualityFn,\ utils::convertible\_to\_any,\ utils::convertible\_to\_any>>)}
-\DoxyCodeLine{00103\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}{distinct\_until\_changed}}(EqualityFn\&\&\ equality\_fn)}
-\DoxyCodeLine{00104\ \{}
-\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1distinct__until__changed__t}{details::distinct\_until\_changed\_t<std::decay\_t<EqualityFn>}}>\{std::forward<EqualityFn>(equality\_fn)\};}
-\DoxyCodeLine{00106\ \}}
-\DoxyCodeLine{00107\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+\DoxyCodeLine{00044\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ EqualityFn>}
+\DoxyCodeLine{00045\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1distinct__until__changed__t}{distinct\_until\_changed\_t}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base}{operators::details::template\_operator\_observable\_strategy}}<distinct\_until\_changed\_observer\_strategy,\ EqualityFn>}
+\DoxyCodeLine{00046\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ rpp::constraint::invocable\_r\_v<bool,\ EqualityFn,\ T,\ T>}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{using\ }ResultValue\ =\ T;}
+\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{namespace\ }rpp::operators}
+\DoxyCodeLine{00054\ \{}
+\DoxyCodeLine{00081\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ EqualityFn>}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<EqualityFn>\ ||\ std::same\_as<bool,\ std::invoke\_result\_t<EqualityFn,\ utils::convertible\_to\_any,\ utils::convertible\_to\_any>>)}
+\DoxyCodeLine{00083\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}{distinct\_until\_changed}}(EqualityFn\&\&\ equality\_fn)}
+\DoxyCodeLine{00084\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1distinct__until__changed__t}{details::distinct\_until\_changed\_t<std::decay\_t<EqualityFn>}}>\{std::forward<EqualityFn>(equality\_fn)\};}
+\DoxyCodeLine{00086\ \}}
+\DoxyCodeLine{00087\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
 
 \end{DoxyCode}

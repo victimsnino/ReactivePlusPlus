@@ -18,26 +18,29 @@
 \DoxyCodeLine{00014\ }
 \DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }rpp::details}
 \DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1error__strategy}{error\_strategy}}}
-\DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \ \ \ \ std::exception\_ptr\ err\{\};}
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)\textcolor{keyword}{\ const\ }\{\ obs.on\_error(err);\ \}}
-\DoxyCodeLine{00021\ \};}
-\DoxyCodeLine{00022\ \}}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }rpp}
-\DoxyCodeLine{00025\ \{}
-\DoxyCodeLine{00026\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00027\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{error\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ details::error\_strategy>}};}
-\DoxyCodeLine{00028\ \}}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \textcolor{keyword}{namespace\ }rpp::source}
-\DoxyCodeLine{00031\ \{}
-\DoxyCodeLine{00045\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00046\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga4fe060f48695cc3fadfbdb10f77f8acb}{error}}(std::exception\_ptr\ err)}
-\DoxyCodeLine{00047\ \{}
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{return}\ error\_observable<Type>\{std::move(err)\};}
-\DoxyCodeLine{00049\ \}}
-\DoxyCodeLine{00050\ \}}
+\DoxyCodeLine{00017\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1error__strategy}{error\_strategy}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{using\ }ValueType\ =\ Type;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ std::exception\_ptr\ err\{\};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)\textcolor{keyword}{\ const\ }\{\ obs.on\_error(err);\ \}}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00028\ \{}
+\DoxyCodeLine{00029\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00030\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{error\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ details::error\_strategy<Type>}}>;}
+\DoxyCodeLine{00031\ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{namespace\ }rpp::source}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00048\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00049\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga4fe060f48695cc3fadfbdb10f77f8acb}{error}}(std::exception\_ptr\ err)}
+\DoxyCodeLine{00050\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{return}\ error\_observable<Type>\{std::move(err)\};}
+\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00053\ \}}
 
 \end{DoxyCode}

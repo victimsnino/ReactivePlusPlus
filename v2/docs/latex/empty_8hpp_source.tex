@@ -18,25 +18,29 @@
 \DoxyCodeLine{00014\ }
 \DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }rpp::details}
 \DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1empty__strategy}{empty\_strategy}}}
-\DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ subscribe(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)\ \{\ obs.on\_completed();\ \}}
-\DoxyCodeLine{00020\ \};}
-\DoxyCodeLine{00021\ \}}
+\DoxyCodeLine{00017\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1empty__strategy}{empty\_strategy}}}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{using\ }ValueType\ =\ Type;}
 \DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }rpp}
-\DoxyCodeLine{00024\ \{}
-\DoxyCodeLine{00025\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00026\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{empty\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ details::empty\_strategy>}};}
-\DoxyCodeLine{00027\ \}}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \textcolor{keyword}{namespace\ }rpp::source}
-\DoxyCodeLine{00030\ \{}
-\DoxyCodeLine{00044\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00045\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gad29c2904de57d176ccaf2614409789de}{empty}}()}
-\DoxyCodeLine{00046\ \{}
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{return}\ empty\_observable<Type>\{\};}
-\DoxyCodeLine{00048\ \}}
-\DoxyCodeLine{00049\ \}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ subscribe(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)\ \{\ obs.on\_completed();\ \}}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00028\ \{}
+\DoxyCodeLine{00029\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00030\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{empty\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ details::empty\_strategy<Type>}}>;}
+\DoxyCodeLine{00031\ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{namespace\ }rpp::source}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00048\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00049\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gad29c2904de57d176ccaf2614409789de}{empty}}()}
+\DoxyCodeLine{00050\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{return}\ empty\_observable<Type>\{\};}
+\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00053\ \}}
 
 \end{DoxyCode}

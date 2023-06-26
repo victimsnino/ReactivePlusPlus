@@ -108,9 +108,9 @@ $(document).ready(function(){initNavTree('structrpp_1_1details_1_1concat__strate
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a9c2c5bcf446cb9f78896626381200ea8"><td class="memItemLeft" align="right" valign="top"><a id="a9c2c5bcf446cb9f78896626381200ea8" name="a9c2c5bcf446cb9f78896626381200ea8"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Type</b> = utils::extract_observable_type_t&lt; utils::iterable_value_t&lt; PackedContainer &gt; &gt;</td></tr>
-<tr class="separator:a9c2c5bcf446cb9f78896626381200ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a220481abe90a0bb1c98d6c394a002807"><td class="memItemLeft" align="right" valign="top"><a id="a220481abe90a0bb1c98d6c394a002807" name="a220481abe90a0bb1c98d6c394a002807"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>ValueType</b> = utils::extract_observable_type_t&lt; utils::iterable_value_t&lt; PackedContainer &gt; &gt;</td></tr>
+<tr class="separator:a220481abe90a0bb1c98d6c394a002807"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -119,17 +119,17 @@ template&lt;typename... Args&gt; <br />
 requires (!constraint::variadic_decayed_same_as&lt;<a class="el" href="structrpp_1_1details_1_1concat__strategy.html">concat_strategy</a>&lt;PackedContainer&gt;, Args...&gt;)</td></tr>
 <tr class="memitem:a5f0deb1f1c69b9258aee86d19144a611"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>concat_strategy</b> (Args &amp;&amp;...args)</td></tr>
 <tr class="separator:a5f0deb1f1c69b9258aee86d19144a611"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cab4d54a06fb4143414b1b1a77703dd"><td class="memTemplParams" colspan="2"><a id="a5cab4d54a06fb4143414b1b1a77703dd" name="a5cab4d54a06fb4143414b1b1a77703dd"></a>
-template&lt;constraint::observer_strategy&lt; Type &gt; Strategy&gt; </td></tr>
-<tr class="memitem:a5cab4d54a06fb4143414b1b1a77703dd"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (<a class="el" href="classrpp_1_1observer.html">observer</a>&lt; Type, Strategy &gt; &amp;&amp;obs) const</td></tr>
-<tr class="separator:a5cab4d54a06fb4143414b1b1a77703dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a545e962bc3de1d8d50cf6e334ed51d67"><td class="memTemplParams" colspan="2"><a id="a545e962bc3de1d8d50cf6e334ed51d67" name="a545e962bc3de1d8d50cf6e334ed51d67"></a>
+template&lt;constraint::observer_strategy&lt; ValueType &gt; Strategy&gt; </td></tr>
+<tr class="memitem:a545e962bc3de1d8d50cf6e334ed51d67"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (<a class="el" href="classrpp_1_1observer.html">observer</a>&lt; ValueType, Strategy &gt; &amp;&amp;obs) const</td></tr>
+<tr class="separator:a545e962bc3de1d8d50cf6e334ed51d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a03e4cdbde9a4baf0b37ba3b693234432"><td class="memTemplParams" colspan="2"><a id="a03e4cdbde9a4baf0b37ba3b693234432" name="a03e4cdbde9a4baf0b37ba3b693234432"></a>
-template&lt;constraint::observer_strategy&lt; Type &gt; Strategy&gt; </td></tr>
-<tr class="memitem:a03e4cdbde9a4baf0b37ba3b693234432"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>drain</b> (constraint::decayed_same_as&lt; PackedContainer &gt; auto &amp;&amp;container, size_t index, <a class="el" href="classrpp_1_1observer.html">observer</a>&lt; Type, Strategy &gt; &amp;&amp;obs)</td></tr>
-<tr class="separator:a03e4cdbde9a4baf0b37ba3b693234432"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cc185f6a534be6b025c67a5b2326530"><td class="memTemplParams" colspan="2"><a id="a7cc185f6a534be6b025c67a5b2326530" name="a7cc185f6a534be6b025c67a5b2326530"></a>
+template&lt;constraint::observer_strategy&lt; ValueType &gt; Strategy&gt; </td></tr>
+<tr class="memitem:a7cc185f6a534be6b025c67a5b2326530"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>drain</b> (constraint::decayed_same_as&lt; PackedContainer &gt; auto &amp;&amp;container, size_t index, <a class="el" href="classrpp_1_1observer.html">observer</a>&lt; ValueType, Strategy &gt; &amp;&amp;obs)</td></tr>
+<tr class="separator:a7cc185f6a534be6b025c67a5b2326530"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>

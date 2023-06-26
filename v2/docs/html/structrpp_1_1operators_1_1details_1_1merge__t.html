@@ -97,19 +97,26 @@ $(document).ready(function(){initNavTree('structrpp_1_1operators_1_1details_1_1m
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="structrpp_1_1operators_1_1details_1_1merge__t-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">rpp::operators::details::merge_t Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:afec552bc1bf9091117b275b0af404c22"><td class="memTemplParams" colspan="2"><a id="afec552bc1bf9091117b275b0af404c22" name="afec552bc1bf9091117b275b0af404c22"></a>
+template&lt;rpp::constraint::decayed_type T&gt; </td></tr>
+<tr class="memitem:afec552bc1bf9091117b275b0af404c22"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ResultValue</b> = rpp::utils::extract_observable_type_t&lt; T &gt;</td></tr>
+<tr class="separator:afec552bc1bf9091117b275b0af404c22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:acf6450f75d269c6f82f1e1d533a62e9f"><td class="memTemplParams" colspan="2"><a id="acf6450f75d269c6f82f1e1d533a62e9f" name="acf6450f75d269c6f82f1e1d533a62e9f"></a>
-template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable&gt; <br />
-requires <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;rpp::utils::extract_observable_type_t&lt;TObservable&gt;&gt;</td></tr>
-<tr class="memitem:acf6450f75d269c6f82f1e1d533a62e9f"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator()</b> (TObservable &amp;&amp;<a class="el" href="classrpp_1_1observable.html">observable</a>) const</td></tr>
-<tr class="separator:acf6450f75d269c6f82f1e1d533a62e9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06d9af88a4f853a42527b8559666de55"><td class="memTemplParams" colspan="2"><a id="a06d9af88a4f853a42527b8559666de55" name="a06d9af88a4f853a42527b8559666de55"></a>
+template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, typename... Strategies&gt; </td></tr>
+<tr class="memitem:a06d9af88a4f853a42527b8559666de55"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (Observer &amp;&amp;<a class="el" href="classrpp_1_1observer.html">observer</a>, const <a class="el" href="classrpp_1_1observable__chain__strategy.html">observable_chain_strategy</a>&lt; Strategies... &gt; &amp;strategy) const</td></tr>
+<tr class="separator:a06d9af88a4f853a42527b8559666de55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/rpp/rpp/operators/<a class="el" href="merge_8hpp_source.html">merge.hpp</a></li>
