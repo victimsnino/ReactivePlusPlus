@@ -19493,6 +19493,366 @@
             "medianAbsolutePercentError(elapsed)": 0.00581180399047897,
             "commit": "45dcfceb",
             "commit_message": "disable PVS"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 0.802228904499949,
+            "medianAbsolutePercentError(elapsed)": 0.000293688694589519,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 717.259537210757,
+            "medianAbsolutePercentError(elapsed)": 0.00605905978223941,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 0.802891595673198,
+            "medianAbsolutePercentError(elapsed)": 0.00101953854440711,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 728.287087087087,
+            "medianAbsolutePercentError(elapsed)": 0.0213493037774809,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.40101546179549596,
+            "medianAbsolutePercentError(elapsed)": 0.000167346620298823,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 1914.1781818181798,
+            "medianAbsolutePercentError(elapsed)": 0.0186578544002759,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 5.26100300026025,
+            "medianAbsolutePercentError(elapsed)": 0.00935448676736949,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 2766.13227513228,
+            "medianAbsolutePercentError(elapsed)": 0.0072555360583477,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.40095408192389703,
+            "medianAbsolutePercentError(elapsed)": 6.26346113173641e-05,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 5700.51322751323,
+            "medianAbsolutePercentError(elapsed)": 0.000973187225484338,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 0.401029468680317,
+            "medianAbsolutePercentError(elapsed)": 0.000168255258863839,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 768.888305847076,
+            "medianAbsolutePercentError(elapsed)": 0.0202335412579903,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 5.6139564849605605,
+            "medianAbsolutePercentError(elapsed)": 0.000111478970375061,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 914.5143369175629,
+            "medianAbsolutePercentError(elapsed)": 0.0163075400839383,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 80.5059396443592,
+            "medianAbsolutePercentError(elapsed)": 0.0103033140287226,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 2065.8358778626,
+            "medianAbsolutePercentError(elapsed)": 0.00702481341633044,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 211.81181217901698,
+            "medianAbsolutePercentError(elapsed)": 0.0043102189363956,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4316.71747211896,
+            "medianAbsolutePercentError(elapsed)": 0.00173468579061076,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 213.988311688312,
+            "medianAbsolutePercentError(elapsed)": 0.00138593784703881,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 6863.67261904762,
+            "medianAbsolutePercentError(elapsed)": 0.00246693521701996,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.0,
+            "medianAbsolutePercentError(elapsed)": 0,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 905.696808510638,
+            "medianAbsolutePercentError(elapsed)": 0.00279455813335294,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.400979878859321,
+            "medianAbsolutePercentError(elapsed)": 6.12716518030305e-05,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 856.4620517097579,
+            "medianAbsolutePercentError(elapsed)": 0.00168245537866278,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.40095546708887,
+            "medianAbsolutePercentError(elapsed)": 1.06953488491715e-05,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 857.677796327212,
+            "medianAbsolutePercentError(elapsed)": 0.00285302812928243,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.40097814714019203,
+            "medianAbsolutePercentError(elapsed)": 7.40500046977236e-05,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1030.3782108060202,
+            "medianAbsolutePercentError(elapsed)": 0.0063837826605945,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 160.836880425651,
+            "medianAbsolutePercentError(elapsed)": 0.00171300337725844,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3184.8154761904802,
+            "medianAbsolutePercentError(elapsed)": 0.0016213922842305,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.400962228195895,
+            "medianAbsolutePercentError(elapsed)": 3.24400091647734e-05,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1439.7058047493401,
+            "medianAbsolutePercentError(elapsed)": 0.00568882139175796,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.400974817889317,
+            "medianAbsolutePercentError(elapsed)": 6.84091725047819e-05,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 871.361718161266,
+            "medianAbsolutePercentError(elapsed)": 0.00861037283517342,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.400959721833378,
+            "medianAbsolutePercentError(elapsed)": 8.14765753141681e-05,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1255.64641555286,
+            "medianAbsolutePercentError(elapsed)": 0.00486263832623122,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401027774421294,
+            "medianAbsolutePercentError(elapsed)": 0.00018920090410162,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 885.638005159071,
+            "medianAbsolutePercentError(elapsed)": 0.0102089669257152,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.40098395717018304,
+            "medianAbsolutePercentError(elapsed)": 0.000100345631474708,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3115.42433234421,
+            "medianAbsolutePercentError(elapsed)": 0.00296499650804071,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
         }
     ],
     "ci-macos": [
@@ -38989,6 +39349,366 @@
             "medianAbsolutePercentError(elapsed)": 0.018790210944994,
             "commit": "45dcfceb",
             "commit_message": "disable PVS"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 0.557907721355164,
+            "medianAbsolutePercentError(elapsed)": 0.0036315364230279,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 1090.10569105691,
+            "medianAbsolutePercentError(elapsed)": 0.00413519158598652,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 0.555150131071351,
+            "medianAbsolutePercentError(elapsed)": 0.0113131292844142,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 1081.82142857143,
+            "medianAbsolutePercentError(elapsed)": 0.00587224269646808,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.43371306753835903,
+            "medianAbsolutePercentError(elapsed)": 0.00281012824370269,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 2340.14699331849,
+            "medianAbsolutePercentError(elapsed)": 0.00525249473141266,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 8.06369637409217,
+            "medianAbsolutePercentError(elapsed)": 0.000898173950942251,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 3011.10333333333,
+            "medianAbsolutePercentError(elapsed)": 0.0034104566951534,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.279160176499981,
+            "medianAbsolutePercentError(elapsed)": 0.00333633257070307,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 6829.36,
+            "medianAbsolutePercentError(elapsed)": 0.0122664885186656,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 0.555900390883361,
+            "medianAbsolutePercentError(elapsed)": 0.00330201691630108,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1000.3863432165301,
+            "medianAbsolutePercentError(elapsed)": 0.012982887273635,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 8.37422125068311,
+            "medianAbsolutePercentError(elapsed)": 0.00447081943994092,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1287.66053921569,
+            "medianAbsolutePercentError(elapsed)": 0.00467603837002644,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 151.684651650079,
+            "medianAbsolutePercentError(elapsed)": 0.00316526148594995,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 2279.40380549683,
+            "medianAbsolutePercentError(elapsed)": 0.00431519313751219,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 381.633072041807,
+            "medianAbsolutePercentError(elapsed)": 0.00439581296230948,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4009.93410852713,
+            "medianAbsolutePercentError(elapsed)": 0.0134850325022672,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 382.812266267764,
+            "medianAbsolutePercentError(elapsed)": 0.00244230346275271,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 6708.93820224719,
+            "medianAbsolutePercentError(elapsed)": 0.00770884323312123,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 3.34872300863919,
+            "medianAbsolutePercentError(elapsed)": 0.00307889535961832,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1173.82160077146,
+            "medianAbsolutePercentError(elapsed)": 0.0135105111412541,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 3.3444310682428,
+            "medianAbsolutePercentError(elapsed)": 0.00273514381246659,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1132.04290429043,
+            "medianAbsolutePercentError(elapsed)": 0.00622388782382168,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 3.61652787669915,
+            "medianAbsolutePercentError(elapsed)": 0.00289194026056272,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1111.1187308085998,
+            "medianAbsolutePercentError(elapsed)": 0.0122853277765951,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 5.55843440967269,
+            "medianAbsolutePercentError(elapsed)": 0.00467803198577281,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1375.07683073229,
+            "medianAbsolutePercentError(elapsed)": 0.0094669783127162,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 317.661439372725,
+            "medianAbsolutePercentError(elapsed)": 0.00417712058833974,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3312.26498422713,
+            "medianAbsolutePercentError(elapsed)": 0.0100212781303796,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 4.738761695848821,
+            "medianAbsolutePercentError(elapsed)": 0.00328477609629087,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2004.97553017945,
+            "medianAbsolutePercentError(elapsed)": 0.017345722573192,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 3.21756154402759,
+            "medianAbsolutePercentError(elapsed)": 0.0234046171517974,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1153.3893442623,
+            "medianAbsolutePercentError(elapsed)": 0.00295020891846132,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 6.122243503992871,
+            "medianAbsolutePercentError(elapsed)": 0.00400613491756451,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1822.69724770642,
+            "medianAbsolutePercentError(elapsed)": 0.00671736479596486,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 9.212423472735841,
+            "medianAbsolutePercentError(elapsed)": 0.00414840647034119,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1174.3095723014299,
+            "medianAbsolutePercentError(elapsed)": 0.00756560840513259,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.279833666666667,
+            "medianAbsolutePercentError(elapsed)": 0.00525716812298638,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3663.40506329114,
+            "medianAbsolutePercentError(elapsed)": 0.00792215058889265,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
         }
     ],
     "ci-ubuntu-clang": [
@@ -58485,6 +59205,366 @@
             "medianAbsolutePercentError(elapsed)": 0.00493694607013665,
             "commit": "45dcfceb",
             "commit_message": "disable PVS"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 1.1152156405226799,
+            "medianAbsolutePercentError(elapsed)": 0.371508985662446,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 405.093279471171,
+            "medianAbsolutePercentError(elapsed)": 0.00824635709478948,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 1.21125165379605,
+            "medianAbsolutePercentError(elapsed)": 0.0069047599428322,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 423.365506329114,
+            "medianAbsolutePercentError(elapsed)": 0.00132880332999107,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.444148541385018,
+            "medianAbsolutePercentError(elapsed)": 0.0530103392191233,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 875.255020080321,
+            "medianAbsolutePercentError(elapsed)": 0.00206803733532831,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 5.32496265916686,
+            "medianAbsolutePercentError(elapsed)": 0.021596090538361,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 1222.5647668393801,
+            "medianAbsolutePercentError(elapsed)": 0.00879611821420433,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401195844659834,
+            "medianAbsolutePercentError(elapsed)": 0.0113050941665613,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2611.45882352941,
+            "medianAbsolutePercentError(elapsed)": 0.0194652017009663,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 0.8031855216659449,
+            "medianAbsolutePercentError(elapsed)": 0.00881454412522712,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 332.036292935839,
+            "medianAbsolutePercentError(elapsed)": 0.00198081217981502,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 4.9044255241759895,
+            "medianAbsolutePercentError(elapsed)": 0.00883411128596382,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 485.65318382058507,
+            "medianAbsolutePercentError(elapsed)": 0.0171246921598696,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 80.3117462530499,
+            "medianAbsolutePercentError(elapsed)": 0.00787236850645008,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 960.112542955326,
+            "medianAbsolutePercentError(elapsed)": 0.0115762482346748,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 139.201962684759,
+            "medianAbsolutePercentError(elapsed)": 0.00447314352254166,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2563.10688836105,
+            "medianAbsolutePercentError(elapsed)": 0.0041576504167749,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 136.132795031056,
+            "medianAbsolutePercentError(elapsed)": 0.0110689253122616,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4041.82352941176,
+            "medianAbsolutePercentError(elapsed)": 0.0103927328071407,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.0,
+            "medianAbsolutePercentError(elapsed)": 0,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 471.50286309214,
+            "medianAbsolutePercentError(elapsed)": 0.0231578315648096,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401540518318381,
+            "medianAbsolutePercentError(elapsed)": 0.00123369344466327,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 443.04536187563696,
+            "medianAbsolutePercentError(elapsed)": 0.0280242270606532,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.402372320521761,
+            "medianAbsolutePercentError(elapsed)": 0.00369373547721172,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 445.052208835341,
+            "medianAbsolutePercentError(elapsed)": 0.0174460524487442,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.802499797258941,
+            "medianAbsolutePercentError(elapsed)": 0.00133095772977962,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 542.5026150627621,
+            "medianAbsolutePercentError(elapsed)": 0.010284120342896,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 114.807881773399,
+            "medianAbsolutePercentError(elapsed)": 0.006542779707905,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2012.69398907104,
+            "medianAbsolutePercentError(elapsed)": 0.00964265784920282,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.405352921088002,
+            "medianAbsolutePercentError(elapsed)": 0.0331464908126143,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 773.459003831418,
+            "medianAbsolutePercentError(elapsed)": 0.0451721401920804,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.405039040314924,
+            "medianAbsolutePercentError(elapsed)": 0.00965390024637861,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 449.422125181951,
+            "medianAbsolutePercentError(elapsed)": 0.030970325640219,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.402587919806202,
+            "medianAbsolutePercentError(elapsed)": 0.0182681216245722,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 695.874177029993,
+            "medianAbsolutePercentError(elapsed)": 0.0295398395699914,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.8076169399174999,
+            "medianAbsolutePercentError(elapsed)": 0.0377249071491614,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 555.59067688378,
+            "medianAbsolutePercentError(elapsed)": 0.189566960365628,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.404209506795073,
+            "medianAbsolutePercentError(elapsed)": 0.0104612283313008,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2057.41700404858,
+            "medianAbsolutePercentError(elapsed)": 0.0106346675761608,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
         }
     ],
     "ci-windows": [
@@ -77981,6 +79061,366 @@
             "medianAbsolutePercentError(elapsed)": 0.0312135869354765,
             "commit": "45dcfceb",
             "commit_message": "disable PVS"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 1.67228886282616,
+            "medianAbsolutePercentError(elapsed)": 0.000402858183920738,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 1181.5691158156899,
+            "medianAbsolutePercentError(elapsed)": 0.00396348379695536,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 1.67184673192003,
+            "medianAbsolutePercentError(elapsed)": 0.000234193965649899,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 1829.23322683706,
+            "medianAbsolutePercentError(elapsed)": 0.000293966173380857,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 8.689158916570499,
+            "medianAbsolutePercentError(elapsed)": 0.000181010450300196,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 2622.07792207792,
+            "medianAbsolutePercentError(elapsed)": 0.000793100029741084,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 26.270189057217998,
+            "medianAbsolutePercentError(elapsed)": 0.071134602975212,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 3469.23076923077,
+            "medianAbsolutePercentError(elapsed)": 0.0621825596881841,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 14.0526821237481,
+            "medianAbsolutePercentError(elapsed)": 0.00132229544840443,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 8785.83333333333,
+            "medianAbsolutePercentError(elapsed)": 0.00188425713849442,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 4.34766562096328,
+            "medianAbsolutePercentError(elapsed)": 0.000501476967245563,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1145.26091586794,
+            "medianAbsolutePercentError(elapsed)": 0.000470864531144318,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 11.385507507981801,
+            "medianAbsolutePercentError(elapsed)": 0.00169849564028798,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1427.17121588089,
+            "medianAbsolutePercentError(elapsed)": 0.00115582493159713,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 137.513296300674,
+            "medianAbsolutePercentError(elapsed)": 0.00171265378372106,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 2821.77215189873,
+            "medianAbsolutePercentError(elapsed)": 0.00416984941073754,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 369.06962415280304,
+            "medianAbsolutePercentError(elapsed)": 0.0020621573418343,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4992.05607476635,
+            "medianAbsolutePercentError(elapsed)": 0.0292769201512749,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 367.61204481792697,
+            "medianAbsolutePercentError(elapsed)": 0.000722437388555716,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 7916.788321167881,
+            "medianAbsolutePercentError(elapsed)": 0.0288129784989838,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 6.60671247998798,
+            "medianAbsolutePercentError(elapsed)": 0.0430518244881873,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1476.18437900128,
+            "medianAbsolutePercentError(elapsed)": 0.0034329696084388,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 6.0186377840750005,
+            "medianAbsolutePercentError(elapsed)": 0.000498739373921367,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1359.3516209476302,
+            "medianAbsolutePercentError(elapsed)": 0.000321181482092537,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 6.02424225159526,
+            "medianAbsolutePercentError(elapsed)": 0.0013425917810034,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1333.7543053960999,
+            "medianAbsolutePercentError(elapsed)": 0.000810315540217392,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 10.4592963344619,
+            "medianAbsolutePercentError(elapsed)": 0.05453532674463,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1590.39634146341,
+            "medianAbsolutePercentError(elapsed)": 0.0286942895768857,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 304.342790966995,
+            "medianAbsolutePercentError(elapsed)": 0.000314503305223933,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3985.9649122807,
+            "medianAbsolutePercentError(elapsed)": 0.0489498735322877,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 8.74429370539446,
+            "medianAbsolutePercentError(elapsed)": 0.00631742596287064,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2428.8590604026804,
+            "medianAbsolutePercentError(elapsed)": 0.000441540091840354,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 6.01527993916227,
+            "medianAbsolutePercentError(elapsed)": 5.52954647516048e-05,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1377.1197846568,
+            "medianAbsolutePercentError(elapsed)": 0.000625455874894588,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 9.69034982009008,
+            "medianAbsolutePercentError(elapsed)": 0.000117236148919796,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2050.42372881356,
+            "medianAbsolutePercentError(elapsed)": 0.00336913667985247,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 13.713377835216601,
+            "medianAbsolutePercentError(elapsed)": 0.00813727726569368,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1378.8157894736798,
+            "medianAbsolutePercentError(elapsed)": 0.00179182313272917,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 11.697774731919699,
+            "medianAbsolutePercentError(elapsed)": 0.0100386025960504,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4453.125,
+            "medianAbsolutePercentError(elapsed)": 0.0670489071286053,
+            "commit": "297bbc69",
+            "commit_message": "Avoid recursion (#380)"
         }
     ]
 }
