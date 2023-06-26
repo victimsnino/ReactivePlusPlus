@@ -15,9 +15,7 @@
 #include <rpp/utils/function_traits.hpp>
 #include <rpp/utils/functors.hpp>
 
-#include <concepts>
 #include <exception>
-#include <type_traits>
 
 namespace rpp::constraint
 {
@@ -153,6 +151,21 @@ auto make_lambda_observer(const rpp::disposable_wrapper& d,
 } // namespace rpp
 
 
+namespace rpp::details
+{
+struct fake_strategy
+{
+    static void on_next(const auto&) noexcept {}
+    static void on_error(const std::exception_ptr&) noexcept {}
+    static void on_completed() noexcept {}
+
+    static void set_upstream(const disposable_wrapper&) noexcept {}
+    static bool is_disposed() noexcept { return true; }
+};
+
+template<typename T>
+using fake_observer = rpp::observer<T, fake_strategy>;
+}
 namespace rpp::utils
 {
 namespace details

@@ -42,18 +42,10 @@ struct take_observer_strategy
 
 };
 
-template<rpp::constraint::observable TObservable>
-using take_observable = details::identity_operator_observable<std::decay_t<TObservable>, details::take_observer_strategy, size_t>;
-
-struct take_t
+struct take_t : public not_template_operator_observable_strategy<take_observer_strategy, size_t>
 {
-    size_t count;
-
-    template<rpp::constraint::observable TObservable>
-    auto operator()(TObservable&& observable) const
-    {
-        return take_observable<std::decay_t<TObservable>>{std::forward<TObservable>(observable), count};
-    }
+    template<rpp::constraint::decayed_type T>
+    using ResultValue = T;
 };
 }
 

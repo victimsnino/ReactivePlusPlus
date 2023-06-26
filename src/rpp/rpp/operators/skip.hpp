@@ -38,18 +38,10 @@ struct skip_observer_strategy
 
 };
 
-template<rpp::constraint::observable TObservable>
-using skip_observable = details::identity_operator_observable<std::decay_t<TObservable>, details::skip_observer_strategy, size_t>;
-
-struct skip_t
+struct skip_t : public operators::details::not_template_operator_observable_strategy<skip_observer_strategy, size_t>
 {
-    size_t count;
-
-    template<rpp::constraint::observable TObservable>
-    auto operator()(TObservable&& observable) const
-    {
-        return skip_observable<std::decay_t<TObservable>>{std::forward<TObservable>(observable), count};
-    }
+    template<rpp::constraint::decayed_type T>
+    using ResultValue = T;
 };
 }
 

@@ -86,6 +86,8 @@ struct from_iterable_strategy
         , scheduler{scheduler}
         {}
 
+    using ValueType = utils::iterable_value_t<PackedContainer>;
+
     RPP_NO_UNIQUE_ADDRESS PackedContainer container;
     RPP_NO_UNIQUE_ADDRESS TScheduler      scheduler;
 
@@ -126,6 +128,23 @@ auto make_from_iterable_observable(const TScheduler& scheduler, Args&& ...args)
     return observable<utils::iterable_value_t<std::decay_t<PackedContainer>>,
                            details::from_iterable_strategy<std::decay_t<PackedContainer>, TScheduler>>{scheduler, std::forward<Args>(args)...};
 }
+
+struct from_callable_invoke
+{
+    template<typename Callable>
+    auto operator()(Callable&& fn) const
+    {
+        if constexpr (std::same_as<utils::decayed_invoke_result_t<Callable>, void>)
+        {
+            fn();
+            return utils::none{};
+        }
+        else
+        {
+            return fn();
+        }
+    }
+};
 } // namespace rpp::details
 
 namespace rpp::source
@@ -234,11 +253,6 @@ auto just(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> 
 template<constraint::memory_model memory_model /* = memory_model::use_stack */, std::invocable<> Callable>
 auto from_callable(Callable&& callable)
 {
-    auto obs = just<memory_model>(std::forward<Callable>(callable));
-
-    if constexpr (std::same_as<utils::decayed_invoke_result_t<Callable>, void>)
-        return std::move(obs) | rpp::operators::map([](auto&& fn) { fn(); return utils::none{};});
-    else
-        return std::move(obs) | rpp::operators::map([](auto&& fn) { return fn(); });
+    return just<memory_model>(std::forward<Callable>(callable)) | rpp::operators::map(details::from_callable_invoke{});
 }
 }

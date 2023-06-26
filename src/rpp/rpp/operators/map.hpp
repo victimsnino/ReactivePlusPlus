@@ -14,6 +14,7 @@
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <cstddef>
+#include <type_traits>
 
 namespace rpp::operators::details
 {
@@ -36,31 +37,12 @@ struct map_observer_strategy
 
 };
 
-template<rpp::constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>> Fn>
-using map_observable = operator_observable<std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>,
-                                           TObservable,
-                                           map_observer_strategy<Fn>,
-                                           Fn>;
-
-
 template<rpp::constraint::decayed_type Fn>
-struct map_t
+struct map_t : public operators::details::operator_observable_strategy<map_observer_strategy, Fn> 
 {
-    RPP_NO_UNIQUE_ADDRESS Fn m_fn;
-
-    template<rpp::constraint::observable TObservable>
-        requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>> && !std::same_as<void, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>>)
-    auto operator()(TObservable&& observable) const &
-    {
-        return map_observable<std::decay_t<TObservable>, Fn>{std::forward<TObservable>(observable), m_fn};
-    }
-
-    template<rpp::constraint::observable TObservable>
-        requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>> && !std::same_as<void, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>>)
-    auto operator()(TObservable&& observable) &&
-    {
-        return map_observable<std::decay_t<TObservable>, Fn>{std::forward<TObservable>(observable), std::move(m_fn)};
-    }
+    template<rpp::constraint::decayed_type T>
+        requires std::invocable<Fn, T>
+    using ResultValue = std::invoke_result_t<Fn, T>;
 };
 }
 

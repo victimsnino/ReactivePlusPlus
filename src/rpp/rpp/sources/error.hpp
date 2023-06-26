@@ -14,8 +14,11 @@
 
 namespace rpp::details
 {
+template<constraint::decayed_type Type>
 struct error_strategy
 {
+    using ValueType = Type;
+
     std::exception_ptr err{};
     void subscribe(const auto& obs) const { obs.on_error(err); }
 };
@@ -24,7 +27,7 @@ struct error_strategy
 namespace rpp
 {
 template<constraint::decayed_type Type>
-using error_observable = observable<Type, details::error_strategy>;
+using error_observable = observable<Type, details::error_strategy<Type>>;
 }
 
 namespace rpp::source

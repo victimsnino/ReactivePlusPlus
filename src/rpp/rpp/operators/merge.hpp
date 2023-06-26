@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include "rpp/observables/fwd.hpp"
 #include <rpp/operators/fwd.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 
@@ -18,7 +19,7 @@
 #include <atomic>
 #include <cstddef>
 #include <mutex>
-#include <tuple>
+#include <rpp/utils/tuple.hpp>
 
 namespace rpp::operators::details
 {
@@ -84,7 +85,7 @@ struct merge_observer_strategy
 {
     std::shared_ptr<merge_disposable<std::mutex>> disposable = std::make_shared<merge_disposable<std::mutex>>();
 
-    void on_subscribe(rpp::dynamic_observer<Value>& obs) const
+    void on_subscribe(rpp::constraint::observer auto& obs) const
     {
         disposable->increment_on_completed();
         obs.set_upstream(disposable_wrapper{disposable});
@@ -100,11 +101,11 @@ struct merge_observer_strategy
         return disposable->is_disposed();
     }
 
-    template<typename T>
-    void on_next(rpp::dynamic_observer<Value> obs, T&& v) const
+    template<rpp::constraint::observer TObs, typename T>
+    void on_next(TObs&& obs, T&& v) const
     {
         disposable->increment_on_completed();
-        std::forward<T>(v).subscribe(rpp::observer<Value, operator_strategy_base<Value, rpp::dynamic_observer<Value>, merge_observer_inner_strategy>>{std::move(obs), disposable});
+        std::forward<T>(v).subscribe(rpp::observer<Value, operator_strategy_base<Value, std::decay_t<TObs>, merge_observer_inner_strategy>>{std::forward<TObs>(obs), disposable});
     }
 
     void on_error(const rpp::constraint::observer auto & obs, const std::exception_ptr& err) const
@@ -127,62 +128,41 @@ struct merge_observer_strategy
     }
 };
 
-
-template<rpp::constraint::observable Observable>
-class merge_observable_strategy
+struct merge_t
 {
-    using InnerObservable = rpp::utils::extract_observable_type_t<Observable>;
-    using Value = rpp::utils::extract_observable_type_t<InnerObservable>;
-public:
-    merge_observable_strategy(const Observable& observable)
-        : m_observable{observable} {}
+    template<rpp::constraint::decayed_type T>
+        requires rpp::constraint::observable<T>
+    using ResultValue = rpp::utils::extract_observable_type_t<T>;
 
-    merge_observable_strategy(Observable&& observable)
-        : m_observable{std::move(observable)} {}
-
-    template<rpp::constraint::observer_strategy<Value> ObserverStrategy>
-    void subscribe(rpp::observer<Value, ObserverStrategy>&& obs) const
+    template<rpp::constraint::observer Observer, typename... Strategies>
+    void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy) const
     {
         // Need to take ownership over current_thread in case of inner-observables also uses them
         auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
 
-        m_observable.subscribe(rpp::observer<InnerObservable, operator_strategy_base<InnerObservable, rpp::dynamic_observer<Value>, merge_observer_strategy<Value>>>{std::move(obs).as_dynamic()});
+        using InnerObservable = typename observable_chain_strategy<Strategies...>::ValueType;
+        using Value = rpp::utils::extract_observable_type_t<InnerObservable>;
+
+        strategy.subscribe(rpp::observer<InnerObservable, operator_strategy_base<InnerObservable, rpp::dynamic_observer<Value>, merge_observer_strategy<Value>>>{std::forward<Observer>(observer).as_dynamic()});
     }
 
-private:
-    RPP_NO_UNIQUE_ADDRESS Observable m_observable;
 };
 
-template<rpp::constraint::observable TObservable>
-using merge_observable = rpp::observable<rpp::utils::extract_observable_type_t<rpp::utils::extract_observable_type_t<TObservable>>, merge_observable_strategy<TObservable>>;
-
-struct merge_t
+template<rpp::constraint::observable... TObservables>
+struct merge_with_t
 {
-    template<rpp::constraint::observable TObservable>
-        requires rpp::constraint::observable<rpp::utils::extract_observable_type_t<TObservable>>
-    auto operator()(TObservable&& observable) const
+    RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<TObservables...> observables{};
+
+    template<rpp::constraint::decayed_type T>
+        requires (std::same_as<T, utils::extract_observable_type_t<TObservables>> && ...)
+    using ResultValue = T;
+
+    template<rpp::constraint::observer Observer, typename... Strategies>
+    void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
     {
-        return merge_observable<std::decay_t<TObservable>>{std::forward<TObservable>(observable)};
-    }
-};
+        using Value = typename observable_chain_strategy<Strategies...>::ValueType;
 
-
-template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
-    requires rpp::constraint::observables_of_same_type<std::decay_t<TObservable>, std::decay_t<TObservables>...>
-class merge_with_observable_strategy
-{
-    using Value = rpp::utils::extract_observable_type_t<TObservable>;
-public:
-    merge_with_observable_strategy(const std::tuple<TObservable, TObservables...>& observable)
-        : m_observables{observable} {}
-
-    merge_with_observable_strategy(std::tuple<TObservable, TObservables...>&& observable)
-        : m_observables{std::move(observable)} {}
-
-    template<rpp::constraint::observer_strategy<Value> ObserverStrategy>
-    void subscribe(rpp::observer<Value, ObserverStrategy>&& obs) const
-    {
-        auto obs_as_dynamic = std::move(obs).as_dynamic();
+        auto obs_as_dynamic = std::forward<Observer>(observer).as_dynamic();
 
         merge_observer_strategy<Value> strategy{};
 
@@ -190,44 +170,16 @@ public:
         auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
 
         strategy.on_subscribe(obs_as_dynamic);
-        std::apply([&](const auto&... observables) { (strategy.on_next(obs_as_dynamic, observables), ...); }, m_observables);
+        strategy.on_next(obs_as_dynamic, observable_strategy);
+        observables.apply(&apply<decltype(obs_as_dynamic), Value>, strategy, obs_as_dynamic);
         strategy.on_completed(obs_as_dynamic);
     }
 
 private:
-    std::tuple<TObservable, TObservables...> m_observables{};
-};
-
-template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
-using merge_with_observable = rpp::observable<rpp::utils::extract_observable_type_t<TObservable>, merge_with_observable_strategy<TObservable, TObservables...>>;
-
-template<rpp::constraint::observable... TObservables>
-struct merge_with_t
-{
-    std::tuple<TObservables...> observables{};
-
-    template<rpp::constraint::observable TObservable>
-        requires rpp::constraint::observables_of_same_type<std::decay_t<TObservable>, std::decay_t<TObservables>...>
-    auto operator()(TObservable&& observable) const &
+    template<rpp::constraint::observer Observer, typename Value>
+    static void apply(const merge_observer_strategy<Value>& strategy, const Observer& obs_as_dynamic, const TObservables& ...observables)
     {
-        return std::apply(
-            [&observable](const TObservables&... observables)
-            {
-                return merge_with_observable<std::decay_t<TObservable>, TObservables...>{std::tuple{std::forward<TObservable>(observable), observables...}};
-            },
-            observables);
-    }
-
-    template<rpp::constraint::observable TObservable>
-        requires rpp::constraint::observables_of_same_type<std::decay_t<TObservable>, std::decay_t<TObservables>...>
-    auto operator()(TObservable&& observable) &&
-    {
-        return std::apply(
-            [&observable](TObservables&&... observables)
-            {
-                return merge_with_observable<std::decay_t<TObservable>, TObservables...>{std::tuple{std::forward<TObservable>(observable), std::move(observables)...}};
-            },
-            std::move(observables));
+        (strategy.on_next(obs_as_dynamic, observables), ...);
     }
 };
 }
@@ -303,6 +255,6 @@ template<rpp::constraint::observable TObservable, rpp::constraint::observable...
     requires constraint::observables_of_same_type<std::decay_t<TObservable>, std::decay_t<TObservables>...>
 auto merge_with(TObservable&& observable, TObservables&& ...observables)
 {
-    return details::merge_with_t<std::decay_t<TObservable>, std::decay_t<TObservables>...>{std::tuple{std::forward<TObservable>(observable), std::forward<TObservables>(observables)...}};
+    return details::merge_with_t<std::decay_t<TObservable>, std::decay_t<TObservables>...>{rpp::utils::tuple{std::forward<TObservable>(observable), std::forward<TObservables>(observables)...}};
 }
 } // namespace rpp::operators

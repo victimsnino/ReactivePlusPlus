@@ -41,32 +41,12 @@ struct distinct_until_changed_observer_strategy
     constexpr static empty_on_subscribe on_subscribe{};
 };
 
-
-template<rpp::constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservable>> Fn>
-using distinct_until_changed_observable = identity_operator_observable<std::decay_t<TObservable>, distinct_until_changed_observer_strategy<rpp::utils::extract_observable_type_t<TObservable>, Fn>, Fn>;
-
-
 template<rpp::constraint::decayed_type EqualityFn>
-struct distinct_until_changed_t
+struct distinct_until_changed_t : public operators::details::template_operator_observable_strategy<distinct_until_changed_observer_strategy, EqualityFn>
 {
-public:
-    RPP_NO_UNIQUE_ADDRESS EqualityFn m_fn;
-
-    template<rpp::constraint::observable TObservable>
-        requires(std::invocable<EqualityFn, rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservable>> &&
-                 std::same_as<bool, std::invoke_result_t<EqualityFn, rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservable>>>)
-    auto operator()(TObservable&& observable) const&
-    {
-        return distinct_until_changed_observable<std::decay_t<TObservable>, EqualityFn>{std::forward<TObservable>(observable), m_fn};
-    }
-
-    template<rpp::constraint::observable TObservable>
-        requires(std::invocable<EqualityFn, rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservable>> &&
-                 std::same_as<bool, std::invoke_result_t<EqualityFn, rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservable>>>)
-    auto operator()(TObservable&& observable) &&
-    {
-        return distinct_until_changed_observable<std::decay_t<TObservable>, EqualityFn>{std::forward<TObservable>(observable), std::move(m_fn)};
-    }
+    template<rpp::constraint::decayed_type T>
+        requires rpp::constraint::invocable_r_v<bool, EqualityFn, T, T>
+    using ResultValue = T;
 };
 }
 

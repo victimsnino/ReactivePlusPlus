@@ -38,30 +38,12 @@ struct take_while_observer_strategy
 
 };
 
-
-template<rpp::constraint::observable TObservable, std::invocable<rpp::utils::extract_observable_type_t<TObservable>> Fn>
-using take_while_observable = identity_operator_observable<std::decay_t<TObservable>, take_while_observer_strategy<Fn>, Fn>;
-
-
 template<rpp::constraint::decayed_type Fn>
-struct take_while_t
+struct take_while_t : public operators::details::operator_observable_strategy<take_while_observer_strategy, Fn>
 {
-public:
-    RPP_NO_UNIQUE_ADDRESS Fn m_fn;
-
-    template<rpp::constraint::observable TObservable>
-        requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>> && std::same_as<bool, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>>)
-    auto operator()(TObservable&& observable) const &
-    {
-        return take_while_observable<std::decay_t<TObservable>, Fn>{std::forward<TObservable>(observable), m_fn};
-    }
-
-    template<rpp::constraint::observable TObservable>
-        requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>> && std::same_as<bool, std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>>)
-    auto operator()(TObservable&& observable) &&
-    {
-        return take_while_observable<std::decay_t<TObservable>, Fn>{std::forward<TObservable>(observable), std::move(m_fn)};
-    }
+    template<rpp::constraint::decayed_type T>
+       requires std::is_invocable_r_v<bool, Fn, T>
+    using ResultValue = T;
 };
 }
 namespace rpp::operators

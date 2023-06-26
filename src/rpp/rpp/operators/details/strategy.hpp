@@ -10,16 +10,17 @@
 
 #pragma once
 
-#include "rpp/utils/utils.hpp"
 #include <rpp/defs.hpp>
 #include <rpp/observers/fwd.hpp>
 #include <rpp/sources/fwd.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/observables/observable.hpp>
+#include <rpp/observables/details/chain_strategy.hpp>
 #include <rpp/utils/constraints.hpp>
+#include <rpp/utils/tuple.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <exception>
-#include <functional>
 #include <variant>
 
 
@@ -31,8 +32,8 @@ concept operator_strategy = requires(const S& const_strategy,
                                      const Type& v,
                                      Type&& mv,
                                      const disposable_wrapper disposable,
-                                     const dynamic_observer<Type>& const_observer,
-                                     dynamic_observer<Type>& observer)
+                                     const rpp::details::fake_observer<Type>& const_observer,
+                                     rpp::details::fake_observer<Type>& observer)
 {
     const_strategy.on_subscribe(observer);
 
@@ -60,9 +61,9 @@ public:
      * @brief Construct a new operator strategy for passed observer
      * @warning Passed observer would not be moved inside, only rvalue reference saved inside. Actual move happens ONLY in case of move of this strategy
      */
-    template<typename...Args>
-    operator_strategy_base(captured_observer&& observer, Args&&...args)
-        : m_observer{std::move(observer)}
+    template<rpp::constraint::decayed_same_as<captured_observer> TObserver, typename...Args>
+    operator_strategy_base(TObserver&& observer, Args&&...args)
+        : m_observer{std::forward<TObserver>(observer)}
         , m_strategy{std::forward<Args>(args)...}
         {
             m_strategy.on_subscribe(m_observer);
@@ -130,49 +131,62 @@ struct empty_on_subscribe
     void operator()(const rpp::constraint::observer auto&) const {}
 };
 
-template<rpp::constraint::observable Observable,
-         rpp::constraint::decayed_type T,
-         constraint::operator_strategy<rpp::utils::extract_observable_type_t<Observable>> Strategy,
-         typename... Args>
-    requires (rpp::constraint::is_constructible_from<Strategy, Args...> && rpp::constraint::decayed_type<Observable> && (rpp::constraint::decayed_type<Args> && ...))
-class operator_observable_strategy
+template<typename SubscribeStrategy, rpp::constraint::decayed_type... Args>
+class operator_observable_strategy_base
 {
 public:
     template<rpp::constraint::decayed_same_as<Args> ...TArgs>
-    operator_observable_strategy(const Observable& observable, TArgs&&...args)
-        : m_observable{observable}
-        , m_vals{std::forward<TArgs>(args)...} {}
+    operator_observable_strategy_base(TArgs&&...args)
+        : m_vals{std::forward<TArgs>(args)...} {}
 
-    template<rpp::constraint::decayed_same_as<Args> ...TArgs>
-    operator_observable_strategy(Observable&& observable, TArgs&&...args)
-        : m_observable{std::move(observable)}
-        , m_vals{std::forward<TArgs>(args)...} {}
-
-    template<rpp::constraint::observer_strategy<T> ObserverStrategy>
-    void subscribe(observer<T, ObserverStrategy>&& obs) const
+    template<rpp::constraint::observer Observer, typename... Strategies>
+    void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy) const
     {
-       std::apply([&obs, this](const Args&... vals)
-                  {
-                        m_observable.subscribe(observer<rpp::utils::extract_observable_type_t<Observable>,
-                                                            operator_strategy_base<rpp::utils::extract_observable_type_t<Observable>, observer<T, ObserverStrategy>, Strategy>>{std::move(obs), vals...});
-                  },
-                  m_vals);
+        m_vals.apply(&SubscribeStrategy::template apply<Observer, observable_chain_strategy<Strategies...>, Args...>, std::forward<Observer>(observer), strategy);
     }
 
 private:
-    RPP_NO_UNIQUE_ADDRESS Observable          m_observable;
-    RPP_NO_UNIQUE_ADDRESS std::tuple<Args...> m_vals{};
+    RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<Args...> m_vals{};
 };
 
-template<rpp::constraint::observable Observable,
-         constraint::operator_strategy<rpp::utils::extract_observable_type_t<Observable>> Strategy,
-         typename... Args>
-using identity_operator_observable = rpp::observable<rpp::utils::extract_observable_type_t<Observable>,
-                                                     operator_observable_strategy<std::decay_t<Observable>, rpp::utils::extract_observable_type_t<Observable>, Strategy, Args...>>;
+template<template<typename...> typename Strategy>
+struct identity_subscribe_strategy
+{
+    template<rpp::constraint::observer Observer, typename ObservableStrategy, typename ...Args>
+    static void apply(Observer&& observer, const ObservableStrategy& strategy, const Args&... vals)
+    {
+        using Type = typename ObservableStrategy::ValueType;
+        strategy.subscribe(rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy<Args...>>>{std::forward<Observer>(observer), vals...});
+    }
+};
 
-template<rpp::constraint::decayed_type T,
-         rpp::constraint::observable Observable,
-         constraint::operator_strategy<rpp::utils::extract_observable_type_t<Observable>> Strategy,
-         typename... Args>
-using operator_observable = rpp::observable<T, operator_observable_strategy<std::decay_t<Observable>, T, Strategy, Args...>>;
+template<template<typename...> typename Strategy, rpp::constraint::decayed_type... Args>
+using operator_observable_strategy = operator_observable_strategy_base<identity_subscribe_strategy<Strategy>, Args...>;
+
+template<template<typename, typename...> typename Strategy>
+struct template_subscribe_strategy
+{
+    template<rpp::constraint::observer Observer, typename ObservableStrategy, typename ...Args>
+    static void apply(Observer&& observer, const ObservableStrategy& strategy, const Args&... vals)
+    {
+        using Type = typename ObservableStrategy::ValueType;
+        strategy.subscribe(rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy<Type, Args...>>>{std::forward<Observer>(observer), vals...});
+    }
+};
+
+template<template<typename, typename...> typename Strategy, rpp::constraint::decayed_type... Args>
+using template_operator_observable_strategy = operator_observable_strategy_base<template_subscribe_strategy<Strategy>, Args...>;
+
+template<typename Strategy>
+struct not_template_subscribe_strategy
+{
+    template<rpp::constraint::observer Observer, typename ObservableStrategy, typename ...Args>
+    static void apply(Observer&& observer, const ObservableStrategy& strategy, const Args&... vals)
+    {
+        using Type = typename ObservableStrategy::ValueType;
+        strategy.subscribe(rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy>>{std::forward<Observer>(observer), vals...});
+    }
+};
+template<typename Strategy, rpp::constraint::decayed_type... Args>
+using not_template_operator_observable_strategy = operator_observable_strategy_base<not_template_subscribe_strategy<Strategy>, Args...>;
 }

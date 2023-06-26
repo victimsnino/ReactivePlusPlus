@@ -14,15 +14,15 @@
 #include <rpp/observables/fwd.hpp>
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
-#include <rpp/utils/utils.hpp>
 #include <rpp/utils/function_traits.hpp>
+#include <rpp/utils/utils.hpp>
 #include <rpp/memory_model.hpp>
 #include <exception>
 
 namespace rpp::constraint
 {
 template<typename S, typename T>
-concept on_subscribe = requires(const S& strategy, dynamic_observer<T>&& observer) {
+concept on_subscribe = requires(const S& strategy, rpp::details::fake_observer<T>&& observer) {
 {
     strategy(std::move(observer))} -> std::same_as<void>;
 };

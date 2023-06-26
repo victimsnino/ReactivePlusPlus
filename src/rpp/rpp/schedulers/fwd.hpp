@@ -11,13 +11,12 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
+#include <rpp/observers/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
-#include <rpp/observers/dynamic_observer.hpp>
+
 
 #include <chrono>
 #include <optional>
-#include <concepts>
-#include <type_traits>
 
 namespace rpp::schedulers
 {
@@ -34,9 +33,9 @@ template<typename Fn, typename...Args>
 concept schedulable_fn = std::is_invocable_r_v<optional_duration, Fn, Args&...> && std::same_as<optional_duration, std::invoke_result_t<Fn, Args&...>>;
 
 template<typename S>
-concept strategy = requires(const S& s, const rpp::dynamic_observer<int>& obs)
+concept strategy = requires(const S& s, const rpp::details::fake_observer<int>& obs)
 {
-    {s.defer_for(duration{}, std::declval<optional_duration(*)(const rpp::dynamic_observer<int>&)>(), obs)} -> std::same_as<void>;
+    {s.defer_for(duration{}, std::declval<optional_duration(*)(const rpp::details::fake_observer<int>&)>(), obs)} -> std::same_as<void>;
     {s.get_disposable()} -> std::same_as<rpp::disposable_wrapper>;
 };
 }

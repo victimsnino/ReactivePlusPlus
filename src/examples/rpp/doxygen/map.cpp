@@ -9,8 +9,8 @@
 int main() // NOLINT
 {
     //! [Same type]
-    rpp::source::just(42) 
-        | rpp::operators::map([](int value) { return value + 10; }) 
+    rpp::source::just(42)
+        | rpp::operators::map([](int value) { return value + 10; })
         | rpp::operators::subscribe([](int v) { std::cout << v << std::endl; });
     // Output: 52
     //! [Same type]

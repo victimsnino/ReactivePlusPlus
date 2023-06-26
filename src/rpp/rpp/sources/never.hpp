@@ -14,8 +14,11 @@
 
 namespace rpp::details
 {
+template<constraint::decayed_type Type>
 struct never_strategy
 {
+    using ValueType = Type;
+
     static void subscribe(const auto&){}
 };
 }
@@ -23,7 +26,7 @@ struct never_strategy
 namespace rpp
 {
 template<constraint::decayed_type Type>
-using never_observable = observable<Type, details::never_strategy>;
+using never_observable = observable<Type, details::never_strategy<Type>>;
 }
 
 namespace rpp::source

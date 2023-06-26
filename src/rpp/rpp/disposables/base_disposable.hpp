@@ -13,10 +13,13 @@
 #include <rpp/disposables/fwd.hpp>
 
 #include <atomic>
+#include <memory>
 #include <vector>
 
 namespace rpp
 {
+using disposable_ptr = std::shared_ptr<base_disposable>;
+
 class base_disposable
 {
 public:
