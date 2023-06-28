@@ -19853,6 +19853,384 @@
             "medianAbsolutePercentError(elapsed)": 0.00296499650804071,
             "commit": "297bbc69",
             "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 1.27146323497552,
+            "medianAbsolutePercentError(elapsed)": 0.082857244870935,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 1330.55847568988,
+            "medianAbsolutePercentError(elapsed)": 0.0156860872519387,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 1.1687768573163502,
+            "medianAbsolutePercentError(elapsed)": 0.0264033098966871,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 843.144107744108,
+            "medianAbsolutePercentError(elapsed)": 0.0386064657148106,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.793794168407666,
+            "medianAbsolutePercentError(elapsed)": 0.0147867784879478,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 2138.05524861878,
+            "medianAbsolutePercentError(elapsed)": 0.0153393947978716,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 7.41090262487242,
+            "medianAbsolutePercentError(elapsed)": 0.0272965746894947,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 3157.8069164265103,
+            "medianAbsolutePercentError(elapsed)": 0.00637677651848174,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401376717206567,
+            "medianAbsolutePercentError(elapsed)": 0.00514442922181895,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 6570.8373493975905,
+            "medianAbsolutePercentError(elapsed)": 0.0179440836814531,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 0.7718849125823231,
+            "medianAbsolutePercentError(elapsed)": 0.0377029937449064,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 880.682090831191,
+            "medianAbsolutePercentError(elapsed)": 0.021973533047793,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 7.638892177367381,
+            "medianAbsolutePercentError(elapsed)": 0.0537609843985033,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1072.9751984127001,
+            "medianAbsolutePercentError(elapsed)": 0.0205398790303737,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 93.24409387628229,
+            "medianAbsolutePercentError(elapsed)": 0.030413582397707,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 2357.74004683841,
+            "medianAbsolutePercentError(elapsed)": 0.022250690725496,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 237.47488305877602,
+            "medianAbsolutePercentError(elapsed)": 0.0381473787119292,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 5249.06341463415,
+            "medianAbsolutePercentError(elapsed)": 0.0109601525862026,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 257.276234947161,
+            "medianAbsolutePercentError(elapsed)": 0.00510261537805955,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 8249.62295081967,
+            "medianAbsolutePercentError(elapsed)": 0.0139811573841317,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.0,
+            "medianAbsolutePercentError(elapsed)": 0,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1077.91506572295,
+            "medianAbsolutePercentError(elapsed)": 0.00760075331400779,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.39321286090617696,
+            "medianAbsolutePercentError(elapsed)": 0.0253280249638512,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1027.91182364729,
+            "medianAbsolutePercentError(elapsed)": 0.0101345199439069,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.374174806957157,
+            "medianAbsolutePercentError(elapsed)": 0.0261572529636344,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 980.3046025104601,
+            "medianAbsolutePercentError(elapsed)": 0.0281148131510722,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.387506197946966,
+            "medianAbsolutePercentError(elapsed)": 0.043103851201399,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1176.04329896907,
+            "medianAbsolutePercentError(elapsed)": 0.0251165914883453,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 186.52428085369598,
+            "medianAbsolutePercentError(elapsed)": 0.0281451934674022,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3598.26243093923,
+            "medianAbsolutePercentError(elapsed)": 0.0768037146195168,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.373160624368784,
+            "medianAbsolutePercentError(elapsed)": 0.0391311161346292,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1451.4762569832399,
+            "medianAbsolutePercentError(elapsed)": 0.0948646583765444,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.400937935460692,
+            "medianAbsolutePercentError(elapsed)": 0.0153152868509601,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1032.26530612245,
+            "medianAbsolutePercentError(elapsed)": 0.00509056073120494,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.37973636662576904,
+            "medianAbsolutePercentError(elapsed)": 0.0227969209974734,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2100.1152263374497,
+            "medianAbsolutePercentError(elapsed)": 0.0139845138253316,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.403678836085468,
+            "medianAbsolutePercentError(elapsed)": 0.00673148229460914,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1499.46779141104,
+            "medianAbsolutePercentError(elapsed)": 0.00630755769860531,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401216981450696,
+            "medianAbsolutePercentError(elapsed)": 0.000568289895288181,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1040.52884615385,
+            "medianAbsolutePercentError(elapsed)": 0.00484296475283241,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.395326162846132,
+            "medianAbsolutePercentError(elapsed)": 0.0186670119722588,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3737.1978021978,
+            "medianAbsolutePercentError(elapsed)": 0.00991751696151991,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
         }
     ],
     "ci-macos": [
@@ -39709,6 +40087,384 @@
             "medianAbsolutePercentError(elapsed)": 0.00792215058889265,
             "commit": "297bbc69",
             "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 1.0100681294339,
+            "medianAbsolutePercentError(elapsed)": 0.00694632932422723,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 1550.1136712749599,
+            "medianAbsolutePercentError(elapsed)": 0.0170770797038002,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 0.571492510154728,
+            "medianAbsolutePercentError(elapsed)": 0.0251653745492561,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 1639.17985611511,
+            "medianAbsolutePercentError(elapsed)": 0.0158968239219906,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.581953530340627,
+            "medianAbsolutePercentError(elapsed)": 0.0634877073481074,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 2476.1238532110096,
+            "medianAbsolutePercentError(elapsed)": 0.0137953894230194,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 13.1471782236302,
+            "medianAbsolutePercentError(elapsed)": 0.00604006053618938,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 4136.65587044534,
+            "medianAbsolutePercentError(elapsed)": 0.0718947825856221,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.27982601976141896,
+            "medianAbsolutePercentError(elapsed)": 0.00516135775988631,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 7015.91666666667,
+            "medianAbsolutePercentError(elapsed)": 0.00382726768328475,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 0.977707687420081,
+            "medianAbsolutePercentError(elapsed)": 0.0924306845544047,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1370.6119205298,
+            "medianAbsolutePercentError(elapsed)": 0.183333842191888,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 12.4749956400419,
+            "medianAbsolutePercentError(elapsed)": 0.154884310882035,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1882.52166934189,
+            "medianAbsolutePercentError(elapsed)": 0.324111592569083,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 155.877551020408,
+            "medianAbsolutePercentError(elapsed)": 0.0179652908544963,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 2813.00980392157,
+            "medianAbsolutePercentError(elapsed)": 0.194838272036521,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 531.48362369338,
+            "medianAbsolutePercentError(elapsed)": 0.0908033208809808,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4529.1179245283,
+            "medianAbsolutePercentError(elapsed)": 0.118506574367383,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 547.777432252332,
+            "medianAbsolutePercentError(elapsed)": 0.00784097231198394,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 7055.36734693878,
+            "medianAbsolutePercentError(elapsed)": 0.041366454526531,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 3.9969479752182098,
+            "medianAbsolutePercentError(elapsed)": 0.174744300115456,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1740.97963340122,
+            "medianAbsolutePercentError(elapsed)": 0.411505219967206,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 4.0481099656357395,
+            "medianAbsolutePercentError(elapsed)": 0.0272079037800688,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1187.89464285714,
+            "medianAbsolutePercentError(elapsed)": 0.0354109420994943,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 4.30036188919678,
+            "medianAbsolutePercentError(elapsed)": 0.102602175428763,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1569.625,
+            "medianAbsolutePercentError(elapsed)": 0.0693143435582919,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 5.6103337671997,
+            "medianAbsolutePercentError(elapsed)": 0.00946122884113791,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2026.4567901234598,
+            "medianAbsolutePercentError(elapsed)": 0.0131679946620465,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 501.96894904458594,
+            "medianAbsolutePercentError(elapsed)": 0.100240132734209,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 5267.06923076923,
+            "medianAbsolutePercentError(elapsed)": 0.126077071543373,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 6.121114430752191,
+            "medianAbsolutePercentError(elapsed)": 0.215915145260055,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2660.14189189189,
+            "medianAbsolutePercentError(elapsed)": 0.190432535605062,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 4.31050573696092,
+            "medianAbsolutePercentError(elapsed)": 0.0387601758175969,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1607.96884272997,
+            "medianAbsolutePercentError(elapsed)": 0.0167357413719062,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 5.891031761186429,
+            "medianAbsolutePercentError(elapsed)": 0.00963163574411142,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3326.73151750973,
+            "medianAbsolutePercentError(elapsed)": 0.0534999216254809,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 7.6397956740362405,
+            "medianAbsolutePercentError(elapsed)": 0.050013372008214,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2765.01222493888,
+            "medianAbsolutePercentError(elapsed)": 0.0449974483654974,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 12.7789653962817,
+            "medianAbsolutePercentError(elapsed)": 0.0444998394007422,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1745.90490797546,
+            "medianAbsolutePercentError(elapsed)": 0.0153124258642813,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.425673438675696,
+            "medianAbsolutePercentError(elapsed)": 0.145464908939352,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 5752.8965517241395,
+            "medianAbsolutePercentError(elapsed)": 0.263134892211908,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
         }
     ],
     "ci-ubuntu-clang": [
@@ -59565,6 +60321,384 @@
             "medianAbsolutePercentError(elapsed)": 0.0106346675761608,
             "commit": "297bbc69",
             "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 0.802337664003695,
+            "medianAbsolutePercentError(elapsed)": 0.000381835937227347,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 333.009687836383,
+            "medianAbsolutePercentError(elapsed)": 0.00271937413806757,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 0.601492899778877,
+            "medianAbsolutePercentError(elapsed)": 0.000175089663458297,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 337.130165289256,
+            "medianAbsolutePercentError(elapsed)": 0.00236518975169159,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.410526071384107,
+            "medianAbsolutePercentError(elapsed)": 0.0044100993245008,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 718.998125,
+            "medianAbsolutePercentError(elapsed)": 0.00171119674560931,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 4.348064817017679,
+            "medianAbsolutePercentError(elapsed)": 0.00611429214069637,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 1041.9123757904201,
+            "medianAbsolutePercentError(elapsed)": 0.00238930637112892,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.40096011339675297,
+            "medianAbsolutePercentError(elapsed)": 3.93212778359885e-05,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2458.88957055215,
+            "medianAbsolutePercentError(elapsed)": 0.00502661815179193,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 0.60144590300735,
+            "medianAbsolutePercentError(elapsed)": 5.00575305217266e-05,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 266.060928182525,
+            "medianAbsolutePercentError(elapsed)": 0.00211398199818932,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 4.04214291636562,
+            "medianAbsolutePercentError(elapsed)": 0.000369663908212951,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 395.452307692308,
+            "medianAbsolutePercentError(elapsed)": 0.00765036092570813,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 63.567971613053295,
+            "medianAbsolutePercentError(elapsed)": 0.00813575739203519,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 821.2699646643109,
+            "medianAbsolutePercentError(elapsed)": 0.00363170227015372,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 106.324728010326,
+            "medianAbsolutePercentError(elapsed)": 0.00525880028432928,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2163.3791821561304,
+            "medianAbsolutePercentError(elapsed)": 0.00599310955335506,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 105.331073446328,
+            "medianAbsolutePercentError(elapsed)": 0.0091848068190244,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3397.66,
+            "medianAbsolutePercentError(elapsed)": 0.00676852963579792,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.0,
+            "medianAbsolutePercentError(elapsed)": 0,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 386.240425531915,
+            "medianAbsolutePercentError(elapsed)": 0.00188255570307513,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.40096071514007303,
+            "medianAbsolutePercentError(elapsed)": 2.84390266498711e-05,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 362.114877589454,
+            "medianAbsolutePercentError(elapsed)": 0.002787551535455,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.40096573572438,
+            "medianAbsolutePercentError(elapsed)": 6.02568020789288e-05,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 361.318103744418,
+            "medianAbsolutePercentError(elapsed)": 0.00221868267550179,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.802036528394883,
+            "medianAbsolutePercentError(elapsed)": 0.000206320611296729,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 458.550847457627,
+            "medianAbsolutePercentError(elapsed)": 0.0022636275772859,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 85.75791838262819,
+            "medianAbsolutePercentError(elapsed)": 0.0049378180916247,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1657.99353796446,
+            "medianAbsolutePercentError(elapsed)": 0.0102354646909091,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401039952707212,
+            "medianAbsolutePercentError(elapsed)": 0.000191000767259891,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 641.5781336278301,
+            "medianAbsolutePercentError(elapsed)": 0.00297775728114535,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401012799078433,
+            "medianAbsolutePercentError(elapsed)": 0.000156795671704441,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 362.113246396706,
+            "medianAbsolutePercentError(elapsed)": 0.00399738253296786,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401042398324856,
+            "medianAbsolutePercentError(elapsed)": 0.000205219734715846,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 779.54144486692,
+            "medianAbsolutePercentError(elapsed)": 0.00164166920349052,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.40094996191016197,
+            "medianAbsolutePercentError(elapsed)": 3.40397360611714e-05,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 569.40021175225,
+            "medianAbsolutePercentError(elapsed)": 0.00208561255031154,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401390582126475,
+            "medianAbsolutePercentError(elapsed)": 0.000390788186858324,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 380.731447587354,
+            "medianAbsolutePercentError(elapsed)": 0.00258998811158463,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.40110710415572604,
+            "medianAbsolutePercentError(elapsed)": 0.000325067262100208,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1738.1271056661599,
+            "medianAbsolutePercentError(elapsed)": 0.00154260028589478,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
         }
     ],
     "ci-windows": [
@@ -79421,6 +80555,384 @@
             "medianAbsolutePercentError(elapsed)": 0.0670489071286053,
             "commit": "297bbc69",
             "commit_message": "Avoid recursion (#380)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 2.07398769648148,
+            "medianAbsolutePercentError(elapsed)": 0.103536600759982,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 1914.4366197183099,
+            "medianAbsolutePercentError(elapsed)": 0.043904587081666,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 2.04288367381395,
+            "medianAbsolutePercentError(elapsed)": 0.102500910684249,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 2453.4825870646796,
+            "medianAbsolutePercentError(elapsed)": 0.128934947822381,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 9.89083856208609,
+            "medianAbsolutePercentError(elapsed)": 0.0848675140465816,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 2842.05882352941,
+            "medianAbsolutePercentError(elapsed)": 0.0847772994082415,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 28.6122415423192,
+            "medianAbsolutePercentError(elapsed)": 0.195980133774138,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 4214.28571428571,
+            "medianAbsolutePercentError(elapsed)": 0.17989881787217,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 12.8839446626992,
+            "medianAbsolutePercentError(elapsed)": 0.11053883214902,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 10508.6956521739,
+            "medianAbsolutePercentError(elapsed)": 0.122356602897435,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 4.79583898286248,
+            "medianAbsolutePercentError(elapsed)": 0.0936532783309219,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1129.89690721649,
+            "medianAbsolutePercentError(elapsed)": 0.0847788625951066,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 12.9236727358845,
+            "medianAbsolutePercentError(elapsed)": 0.161486056116995,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1426.90058479532,
+            "medianAbsolutePercentError(elapsed)": 0.0481081743162907,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 131.089820359281,
+            "medianAbsolutePercentError(elapsed)": 0.101077680576347,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 2838.58447488584,
+            "medianAbsolutePercentError(elapsed)": 0.133173095499476,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 407.733952049497,
+            "medianAbsolutePercentError(elapsed)": 0.0643857132417206,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 5495.21276595745,
+            "medianAbsolutePercentError(elapsed)": 0.0862511841076053,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 380.50702295306604,
+            "medianAbsolutePercentError(elapsed)": 0.0681389621760517,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 8660.16260162602,
+            "medianAbsolutePercentError(elapsed)": 0.0632316101518252,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 5.41406860478097,
+            "medianAbsolutePercentError(elapsed)": 0.0702892625268608,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1635.8389261745,
+            "medianAbsolutePercentError(elapsed)": 0.118332830804473,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 7.69510589648244,
+            "medianAbsolutePercentError(elapsed)": 0.0677565548451972,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3657.74647887324,
+            "medianAbsolutePercentError(elapsed)": 0.104306007451017,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 7.42745960578631,
+            "medianAbsolutePercentError(elapsed)": 0.163715363671914,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1614.4295302013402,
+            "medianAbsolutePercentError(elapsed)": 0.0941913020465042,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 9.52045330192616,
+            "medianAbsolutePercentError(elapsed)": 0.0467661961525848,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1709.9579242636698,
+            "medianAbsolutePercentError(elapsed)": 0.136862022157211,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 297.418967587035,
+            "medianAbsolutePercentError(elapsed)": 0.0458824185597337,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4215.78947368421,
+            "medianAbsolutePercentError(elapsed)": 0.0769550443689345,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 9.31806743834927,
+            "medianAbsolutePercentError(elapsed)": 0.0411978974445005,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2613.97058823529,
+            "medianAbsolutePercentError(elapsed)": 0.121156779611864,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 6.588089405442861,
+            "medianAbsolutePercentError(elapsed)": 0.0899807145574652,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1570.97345132743,
+            "medianAbsolutePercentError(elapsed)": 0.112016812002464,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 11.604054730156,
+            "medianAbsolutePercentError(elapsed)": 0.0783968645780152,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3720.3333333333303,
+            "medianAbsolutePercentError(elapsed)": 0.113918900055835,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 10.2731037374849,
+            "medianAbsolutePercentError(elapsed)": 0.0745813239707745,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2171.14228456914,
+            "medianAbsolutePercentError(elapsed)": 0.033478160892488,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 15.634642792898799,
+            "medianAbsolutePercentError(elapsed)": 0.0999943104870126,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1467.53585397653,
+            "medianAbsolutePercentError(elapsed)": 0.0664306097226426,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 12.839928886547701,
+            "medianAbsolutePercentError(elapsed)": 0.114053788494489,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 5008.88030888031,
+            "medianAbsolutePercentError(elapsed)": 0.156370440019437,
+            "commit": "0ccdda95",
+            "commit_message": "add first operator (#382)"
         }
     ]
 }
