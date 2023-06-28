@@ -17,23 +17,20 @@
 
 namespace rpp::details::observers
 {
-template<typename T, typename Strategy>
-void forwarding_on_next_lvalue(const void* const ptr, const T& v) { static_cast<const Strategy*>(ptr)->on_next(v); }
+template<auto Fn>
+struct member_ptr_caller;
 
-template<typename T, typename Strategy>
-void forwarding_on_next_rvalue(const void* const ptr, T&& v) { static_cast<const Strategy*>(ptr)->on_next(std::forward<T>(v)); }
+template<class T, class R, class... Args, R (T::*F)(Args...)>
+struct member_ptr_caller<F>
+{
+    static R call(void* data, Args...args) { return (static_cast<T*>(data)->*F)(static_cast<Args>(args)...); }
+};
 
-template<typename Strategy>
-void forwarding_on_error(const void* const ptr, const std::exception_ptr& err) { static_cast<const Strategy*>(ptr)->on_error(err); }
-
-template<typename Strategy>
-void forwarding_on_completed(const void* const ptr) { static_cast<const Strategy*>(ptr)->on_completed(); }
-
-template<typename Strategy>
-void forwarding_set_upstream(void* const ptr, const disposable_wrapper& d) { static_cast<Strategy*>(ptr)->set_upstream(d); }
-
-template<typename Strategy>
-bool forwarding_is_disposed(const void* const ptr) { return static_cast<const Strategy*>(ptr)->is_disposed(); }
+template<class T, class R, class... Args, R (T::*F)(Args...) const>
+struct member_ptr_caller<F>
+{
+    static R call(const void* data, Args...args) { return  (static_cast<const T*>(data)->*F)(static_cast<Args>(args)...); }
+};
 
 template<constraint::decayed_type Type>
 class dynamic_strategy final
@@ -71,12 +68,12 @@ private:
         static const vtable* create() noexcept
         {
             static vtable s_res{
-                .on_next_lvalue = forwarding_on_next_lvalue<Type, Strategy>,
-                .on_next_rvalue = forwarding_on_next_rvalue<Type, Strategy>,
-                .on_error = forwarding_on_error<Strategy>,
-                .on_completed = forwarding_on_completed<Strategy>,
-                .set_upstream = forwarding_set_upstream<Strategy>,
-                .is_disposed = forwarding_is_disposed<Strategy>,
+                .on_next_lvalue = &member_ptr_caller<static_cast<typename Strategy::on_next_lvalue>(&Strategy::on_next)>::call,
+                .on_next_rvalue = &member_ptr_caller<static_cast<typename Strategy::on_next_rvalue>(&Strategy::on_next)>::call,
+                .on_error = &member_ptr_caller<&Strategy::on_error>::call,
+                .on_completed = &member_ptr_caller<&Strategy::on_completed>::call,
+                .set_upstream = &member_ptr_caller<&Strategy::set_upstream>::call,
+                .is_disposed = &member_ptr_caller<&Strategy::is_disposed>::call,
             };
             return &s_res;
         }
