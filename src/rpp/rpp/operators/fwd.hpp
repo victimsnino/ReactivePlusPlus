@@ -23,6 +23,8 @@ template<typename EqualityFn = utils::equal_to>
     requires (!utils::is_not_template_callable<EqualityFn> || std::same_as<bool, std::invoke_result_t<EqualityFn, utils::convertible_to_any, utils::convertible_to_any>>)
 auto distinct_until_changed(EqualityFn&& equality_fn = {});
 
+auto first();
+
 template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
 auto filter(Fn&& predicate);
