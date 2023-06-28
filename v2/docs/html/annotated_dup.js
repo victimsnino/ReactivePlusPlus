@@ -41,6 +41,8 @@ var annotated_dup =
           [ "empty_on_subscribe", "structrpp_1_1operators_1_1details_1_1empty__on__subscribe.html", null ],
           [ "filter_observer_strategy", "structrpp_1_1operators_1_1details_1_1filter__observer__strategy.html", null ],
           [ "filter_t", "structrpp_1_1operators_1_1details_1_1filter__t.html", null ],
+          [ "first_observer_strategy", "structrpp_1_1operators_1_1details_1_1first__observer__strategy.html", null ],
+          [ "first_t", "structrpp_1_1operators_1_1details_1_1first__t.html", null ],
           [ "flat_map_t", "structrpp_1_1operators_1_1details_1_1flat__map__t.html", null ],
           [ "forwarding_is_disposed_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy.html", null ],
           [ "forwarding_on_completed_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy.html", null ],

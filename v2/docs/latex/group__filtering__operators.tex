@@ -14,6 +14,8 @@ requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ \t
 {\footnotesize template$<$typename Fn $>$ \newline
 requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__filtering__operators_ga3ddeadf25b1cb3105f628ea11dc3a28a}{rpp\+::operators\+::filter}} (Fn \&\&predicate)
 \begin{DoxyCompactList}\small\item\em Emit only those items from an Observable that satisfies a provided predicate. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{group__filtering__operators_ga5b8f3bf549a8679d41941f7224f7faad}{rpp\+::operators\+::first}} ()
+\begin{DoxyCompactList}\small\item\em Emit only the first item. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__filtering__operators_ga8e20aec530e08ba64004c10b7732593c}{rpp\+::operators\+::skip}} (size\+\_\+t count)
 \begin{DoxyCompactList}\small\item\em Skip first {\ttfamily count} items provided by observable then send rest items as expected. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{rpp\+::operators\+::take}} (size\+\_\+t count)
@@ -134,6 +136,66 @@ Actually this operator just checks if predicate returns true, then forwards emis
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{filter_8cpp-example}{filter.\+cpp}}.\end{Desc}
+\Hypertarget{group__filtering__operators_ga5b8f3bf549a8679d41941f7224f7faad}\label{group__filtering__operators_ga5b8f3bf549a8679d41941f7224f7faad} 
+\index{Filtering Operators@{Filtering Operators}!first@{first}}
+\index{first@{first}!Filtering Operators@{Filtering Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{first()}{first()}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::first (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Emit only the first item. 
+
+
+
+Actually this operator is {\ttfamily take(1)} with exception during {\ttfamily on\+\_\+completed} if no any emision happens. So, it just forwards first obtained emission and emits on\+\_\+completed immediately 
+\begin{DoxyExceptions}{Exceptions}
+{\em rpp\+::utils\+::not\+\_\+enough\+\_\+emissions} & in case of on\+\_\+completed obtained without any emissions\\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyParagraph}{Performance notes\+:}
+
+\begin{DoxyItemize}
+\item No any heap allocations
+\item No any copies/moves just forwarding of emission
+\end{DoxyItemize}
+\end{DoxyParagraph}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{first_8hpp_source}{rpp/operators/first.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga5b8f3bf549a8679d41941f7224f7faad}{rpp::operators::first}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source:\ -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ -\/1-\/|}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ rpp::source::empty<int>()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga5b8f3bf549a8679d41941f7224f7faad}{rpp::operators::first}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/x"{}}\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source:\ -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ -\/x}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/first.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/first.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{first_8cpp-example}{first.\+cpp}}.\end{Desc}
 \Hypertarget{group__filtering__operators_ga8e20aec530e08ba64004c10b7732593c}\label{group__filtering__operators_ga8e20aec530e08ba64004c10b7732593c} 
 \index{Filtering Operators@{Filtering Operators}!skip@{skip}}
 \index{skip@{skip}!Filtering Operators@{Filtering Operators}}

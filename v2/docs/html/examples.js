@@ -4,6 +4,7 @@ var examples =
     [ "create.cpp", "create_8cpp-example.html", null ],
     [ "distinct_until_changed.cpp", "distinct_until_changed_8cpp-example.html", null ],
     [ "filter.cpp", "filter_8cpp-example.html", null ],
+    [ "first.cpp", "first_8cpp-example.html", null ],
     [ "from.cpp", "from_8cpp-example.html", null ],
     [ "just.cpp", "just_8cpp-example.html", null ],
     [ "map.cpp", "map_8cpp-example.html", null ],

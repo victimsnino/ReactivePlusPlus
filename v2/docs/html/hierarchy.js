@@ -26,6 +26,7 @@ var hierarchy =
       [ "rpp::utils::details::extract_observer_type< T >", "structrpp_1_1utils_1_1details_1_1extract__observer__type.html", null ]
     ] ],
     [ "rpp::operators::details::filter_observer_strategy< Fn >", "structrpp_1_1operators_1_1details_1_1filter__observer__strategy.html", null ],
+    [ "rpp::operators::details::first_observer_strategy", "structrpp_1_1operators_1_1details_1_1first__observer__strategy.html", null ],
     [ "rpp::operators::details::flat_map_t< Fn >", "structrpp_1_1operators_1_1details_1_1flat__map__t.html", null ],
     [ "rpp::operators::details::forwarding_is_disposed_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy.html", null ],
     [ "rpp::operators::details::forwarding_on_completed_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy.html", null ],
@@ -68,6 +69,7 @@ var hierarchy =
     [ "rpp::operators::details::operator_observable_strategy_base< SubscribeStrategy, Args >", "classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base.html", [
       [ "rpp::operators::details::distinct_until_changed_t< EqualityFn >", "structrpp_1_1operators_1_1details_1_1distinct__until__changed__t.html", null ],
       [ "rpp::operators::details::filter_t< Fn >", "structrpp_1_1operators_1_1details_1_1filter__t.html", null ],
+      [ "rpp::operators::details::first_t", "structrpp_1_1operators_1_1details_1_1first__t.html", null ],
       [ "rpp::operators::details::map_t< Fn >", "structrpp_1_1operators_1_1details_1_1map__t.html", null ],
       [ "rpp::operators::details::scan_no_seed_t< Fn >", "structrpp_1_1operators_1_1details_1_1scan__no__seed__t.html", null ],
       [ "rpp::operators::details::scan_t< InitialValue, Fn >", "structrpp_1_1operators_1_1details_1_1scan__t.html", null ],
