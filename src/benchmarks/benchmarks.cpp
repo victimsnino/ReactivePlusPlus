@@ -349,6 +349,22 @@ int main(int argc, char* argv[]) // NOLINT
                     | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
+        SECTION("create(1,2)+first()+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); })
+                    | rpp::operators::first()
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); })
+                    | rxcpp::operators::first()
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
         SECTION("create(1,2)+skip(1)+subscribe")
         {
             TEST_RPP([&]()
