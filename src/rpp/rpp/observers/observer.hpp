@@ -114,6 +114,8 @@ protected:
     observer_impl(observer_impl&&) noexcept = default;
 
 public:
+    using on_next_lvalue = void(observer_impl::*)(const Type&) const noexcept;
+    using on_next_rvalue = void(observer_impl::*)(Type&&) const noexcept;
     /**
      * @brief Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe.
      * @note This method can be called multiple times, but new call means "replace upstream with this new one". So, tracked only last one
