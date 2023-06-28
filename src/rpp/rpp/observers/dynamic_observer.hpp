@@ -23,13 +23,13 @@ struct member_ptr_caller;
 template<class T, class R, class... Args, R (T::*F)(Args...)>
 struct member_ptr_caller<F>
 {
-    static R call(void* data, Args...args) { return (static_cast<T*>(data)->*F)(std::forward<Args>(args)...); }
+    static R call(void* data, Args...args) { return (static_cast<T*>(data)->*F)(static_cast<Args>(args)...); }
 };
 
 template<class T, class R, class... Args, R (T::*F)(Args...) const>
 struct member_ptr_caller<F>
 {
-    static R call(const void* data, Args...args) { return  (static_cast<const T*>(data)->*F)(std::forward<Args>(args)...); }
+    static R call(const void* data, Args...args) { return  (static_cast<const T*>(data)->*F)(static_cast<Args>(args)...); }
 };
 
 template<constraint::decayed_type Type>
