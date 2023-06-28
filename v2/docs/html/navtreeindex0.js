@@ -218,6 +218,8 @@ var NAVTREEINDEX0 =
 "structrpp_1_1details_1_1none__disposable__strategy.html":[3,0,0,0,14],
 "structrpp_1_1details_1_1observables_1_1blocking__observer__strategy.html":[3,0,0,0,0,0],
 "structrpp_1_1details_1_1observers_1_1lambda__strategy.html":[3,0,0,0,1,1],
+"structrpp_1_1details_1_1observers_1_1member__ptr__caller.html":[3,0,0,0,1,2],
+"structrpp_1_1details_1_1observers_1_1member__ptr__caller_3_01_f_01_4.html":[3,0,0,0,1,3],
 "structrpp_1_1details_1_1with__disposable.html":[3,0,0,0,18],
 "structrpp_1_1make__chain__observable.html":[3,0,0,9],
 "structrpp_1_1make__chain__observable_3_01_new_00_01observable__chain__strategy_3_01_args_8_8_8_01_4_01_4.html":[3,0,0,10],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "structrpp_1_1operators_1_1details_1_1merge__with__t.html":[3,0,0,2,0,22],
 "structrpp_1_1operators_1_1details_1_1not__template__subscribe__strategy.html":[3,0,0,2,0,23],
 "structrpp_1_1operators_1_1details_1_1repeat__t.html":[3,0,0,2,0,27],
-"structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html":[3,0,0,2,0,28],
-"structrpp_1_1operators_1_1details_1_1scan__no__seed__t.html":[3,0,0,2,0,29],
-"structrpp_1_1operators_1_1details_1_1scan__observer__strategy.html":[3,0,0,2,0,30]
+"structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html":[3,0,0,2,0,28]
 };
