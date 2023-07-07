@@ -32,6 +32,12 @@ struct empty_function_any_t
     constexpr void operator()(const Types&...) const noexcept {}
 };
 
+struct empty_function_any_by_lvalue_t
+{
+    template<typename ...Types>
+    constexpr void operator()(Types...) const noexcept {}
+};
+
 struct rethrow_error_t
 {
     [[noreturn]] void operator()(const std::exception_ptr& err) const noexcept { std::rethrow_exception(err); }
