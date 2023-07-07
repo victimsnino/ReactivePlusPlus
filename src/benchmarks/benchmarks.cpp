@@ -369,14 +369,14 @@ int main(int argc, char* argv[]) // NOLINT
         {
             TEST_RPP([&]()
             {
-                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); })
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); obs.on_completed(); })
                     | rpp::operators::last()
                     | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
 
             TEST_RXCPP([&]()
             {
-                rxcpp::observable<>::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); })
+                rxcpp::observable<>::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); obs.on_completed(); })
                     | rxcpp::operators::last()
                     | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
