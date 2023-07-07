@@ -53,6 +53,8 @@ var annotated_dup =
           [ "forwarding_set_upstream_strategy", "structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy.html", null ],
           [ "identity_subscribe_strategy", "structrpp_1_1operators_1_1details_1_1identity__subscribe__strategy.html", null ],
           [ "infinite_repeat_t", "structrpp_1_1operators_1_1details_1_1infinite__repeat__t.html", null ],
+          [ "last_observer_strategy", "structrpp_1_1operators_1_1details_1_1last__observer__strategy.html", null ],
+          [ "last_t", "structrpp_1_1operators_1_1details_1_1last__t.html", null ],
           [ "map_observer_strategy", "structrpp_1_1operators_1_1details_1_1map__observer__strategy.html", null ],
           [ "map_t", "structrpp_1_1operators_1_1details_1_1map__t.html", null ],
           [ "merge_disposable", "classrpp_1_1operators_1_1details_1_1merge__disposable.html", null ],

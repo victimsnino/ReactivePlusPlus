@@ -7,6 +7,7 @@ var examples =
     [ "first.cpp", "first_8cpp-example.html", null ],
     [ "from.cpp", "from_8cpp-example.html", null ],
     [ "just.cpp", "just_8cpp-example.html", null ],
+    [ "last.cpp", "last_8cpp-example.html", null ],
     [ "map.cpp", "map_8cpp-example.html", null ],
     [ "merge.cpp", "merge_8cpp-example.html", null ],
     [ "repeat.cpp", "repeat_8cpp-example.html", null ],

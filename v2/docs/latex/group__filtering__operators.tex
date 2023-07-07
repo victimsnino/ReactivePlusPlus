@@ -16,6 +16,8 @@ requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstr
 \begin{DoxyCompactList}\small\item\em Emit only those items from an Observable that satisfies a provided predicate. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__filtering__operators_ga5b8f3bf549a8679d41941f7224f7faad}{rpp\+::operators\+::first}} ()
 \begin{DoxyCompactList}\small\item\em Emit only the first item. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{group__filtering__operators_ga679e35f7895a5d7e22cd2b3c359b9457}{rpp\+::operators\+::last}} ()
+\begin{DoxyCompactList}\small\item\em Emit only the last item provided before on\+\_\+completed. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__filtering__operators_ga8e20aec530e08ba64004c10b7732593c}{rpp\+::operators\+::skip}} (size\+\_\+t count)
 \begin{DoxyCompactList}\small\item\em Skip first {\ttfamily count} items provided by observable then send rest items as expected. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{rpp\+::operators\+::take}} (size\+\_\+t count)
@@ -196,6 +198,66 @@ Actually this operator is {\ttfamily take(1)} with exception during {\ttfamily o
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{first_8cpp-example}{first.\+cpp}}.\end{Desc}
+\Hypertarget{group__filtering__operators_ga679e35f7895a5d7e22cd2b3c359b9457}\label{group__filtering__operators_ga679e35f7895a5d7e22cd2b3c359b9457} 
+\index{Filtering Operators@{Filtering Operators}!last@{last}}
+\index{last@{last}!Filtering Operators@{Filtering Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{last()}{last()}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::last (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Emit only the last item provided before on\+\_\+completed. 
+
+
+
+Actually this operator just updates {\ttfamily std\+::optional} on every new emission and emits this value on\+\_\+completed 
+\begin{DoxyExceptions}{Exceptions}
+{\em rpp\+::utils\+::not\+\_\+enough\+\_\+emissions} & in case of on\+\_\+completed obtained without any emissions\\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyParagraph}{Performance notes\+:}
+
+\begin{DoxyItemize}
+\item No any heap allocations
+\item No replace std\+::optional with each new emission and move value from optional on\+\_\+completed
+\end{DoxyItemize}
+\end{DoxyParagraph}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{last_8hpp_source}{rpp/operators/last.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga679e35f7895a5d7e22cd2b3c359b9457}{rpp::operators::last}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\ \&)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source:\ -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ -\/5-\/|}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ rpp::source::empty<int>()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga679e35f7895a5d7e22cd2b3c359b9457}{rpp::operators::last}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\ \&)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/x"{}};\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source:\ -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ -\/x}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/last.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/last.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{last_8cpp-example}{last.\+cpp}}.\end{Desc}
 \Hypertarget{group__filtering__operators_ga8e20aec530e08ba64004c10b7732593c}\label{group__filtering__operators_ga8e20aec530e08ba64004c10b7732593c} 
 \index{Filtering Operators@{Filtering Operators}!skip@{skip}}
 \index{skip@{skip}!Filtering Operators@{Filtering Operators}}
