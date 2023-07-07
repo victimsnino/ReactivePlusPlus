@@ -29,6 +29,8 @@ template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
 auto filter(Fn&& predicate);
 
+auto last();
+
 template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || !std::same_as<void, std::invoke_result_t<Fn, utils::convertible_to_any>>)
 auto map(Fn&& callable);
