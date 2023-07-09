@@ -11,14 +11,10 @@
 #pragma once
 
 /**
-* @defgroup rpp RPP
-* @brief ReactivePlusPlus (RPP) is Reactive extension for C++20
-*/
+ * \defgroup subjects Subjects
+ * \brief Observable is the observable and observer at the same time. Uses as a bridge and for manual sending of values.
+ * \see https://reactivex.io/documentation/subject.html
+ * \ingroup rpp
+ */
 
-#include <rpp/disposables/fwd.hpp>
-#include <rpp/observers/fwd.hpp>
-#include <rpp/observables/fwd.hpp>
-#include <rpp/sources/fwd.hpp>
-#include <rpp/operators/fwd.hpp>
-#include <rpp/schedulers/fwd.hpp>
-#include <rpp/subjects/fwd.hpp>
+#include <rpp/subjects/publish_subject.hpp>

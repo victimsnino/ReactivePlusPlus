@@ -34,6 +34,22 @@ struct convertible_to_any
     operator T();
 };
 
+template<typename Cont, std::invocable<iterable_value_t<Cont>> Fn>
+void for_each(Cont&& container, Fn&& fn)
+{
+    std::for_each(std::begin(container), std::end(container), std::forward<Fn>(fn));
+}
+
+template<auto Fn>
+struct static_mem_fn;
+
+template<typename T, typename R, R (T::*Fn)()>
+struct static_mem_fn<Fn>
+{
+    auto operator()(T& d) const { return (d.*Fn)(); }
+    auto operator()(const T& d) const { return (d.*Fn)(); }
+};
+
 /**
  * @brief Calls passed function during destruction
  */
