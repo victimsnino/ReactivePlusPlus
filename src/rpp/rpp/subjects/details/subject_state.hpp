@@ -29,7 +29,8 @@ class subject_state : public std::enable_shared_from_this<subject_state<Type>>
     using state_t = std::variant<shared_observers, std::exception_ptr, completed>;
 
 public:
-    void on_subscribe(const rpp::dynamic_observer<Type>& observer) 
+    template<rpp::constraint::observer_of_type<Type> TObs>
+    void on_subscribe(TObs&& observer) 
     {
         std::unique_lock lock{m_mutex};
         process_state(
@@ -42,15 +43,16 @@ public:
                     new_observers->reserve(observers->size() + 1);
                     std::copy_if(observers->cbegin(),
                                  observers->cend(),
-                                 std::back_inserter(*observers),
+                                 std::back_inserter(*new_observers),
                                  [](const rpp::dynamic_observer<Type>& obs) { return !obs.is_disposed(); });
                 }
-                new_observers->push_back(observer);
+                const auto observer_as_dynamic = std::forward<TObs>(observer).as_dynamic();
+                new_observers->push_back(observer_as_dynamic);
                 m_state = new_observers;
 
                 lock.unlock();
 
-                // add_callback_on_unobserverscribe(observer);
+                // add_callback_on_unsubscribe(observer_as_dynamic);
             },
             [&](std::exception_ptr err)
             {
@@ -85,7 +87,7 @@ public:
 private:
     static void process_state(const state_t& state, const auto&...actions)
     {
-        std::visit(rpp::utils::overloaded{ actions..., utils::empty_function_any_t{} }, state);
+        std::visit(rpp::utils::overloaded{ actions...}, state);
     }
 
     shared_observers extract_observers_under_lock_if_there()

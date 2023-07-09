@@ -40,15 +40,29 @@ void for_each(Cont&& container, Fn&& fn)
     std::for_each(std::begin(container), std::end(container), std::forward<Fn>(fn));
 }
 
-template<auto Fn>
+template<auto Fn, bool inverse = false>
 struct static_mem_fn;
 
-template<typename T, typename R, R (T::*Fn)()>
-struct static_mem_fn<Fn>
+template<typename T, typename R, R (T::*Fn)(), bool inverse>
+struct static_mem_fn<Fn, inverse>
 {
-    auto operator()(T& d) const { return (d.*Fn)(); }
-    auto operator()(const T& d) const { return (d.*Fn)(); }
+    template<rpp::constraint::decayed_same_as<T> TT>
+        requires (inverse == false)
+    auto operator()(TT&& d) const
+    {
+        return (std::forward<TT>(d).*Fn)();
+    }
+
+    template<rpp::constraint::decayed_same_as<T> TT>
+        requires (inverse == true)
+    auto operator()(TT&& d) const
+    {
+        return !(std::forward<TT>(d).*Fn)();
+    }
 };
+
+template<auto Fn>
+using static_not_mem_fn = static_mem_fn<Fn, true>;
 
 /**
  * @brief Calls passed function during destruction

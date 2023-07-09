@@ -34,7 +34,7 @@ public:
     template<rpp::constraint::observer_of_type<Type> TObs>
     void on_subscribe(TObs&& observer) const
     {
-        m_state->on_subscribe(std::forward<TObs>(observer).as_dynamic());
+        m_state->on_subscribe(std::forward<TObs>(observer));
     }
 private:
 
