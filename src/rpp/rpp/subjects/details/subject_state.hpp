@@ -1,10 +1,10 @@
 //                   ReactivePlusPlus library
-// 
+//
 //           Copyright Aleksey Loginov 2022 - present.
 //  Distributed under the Boost Software License, Version 1.0.
 //     (See accompanying file LICENSE_1_0.txt or copy at
 //           https://www.boost.org/LICENSE_1_0.txt)
-// 
+//
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
 #pragma once
@@ -12,38 +12,41 @@
 #include "rpp/disposables/disposable_wrapper.hpp"
 #include "rpp/observers/fwd.hpp"
 #include "rpp/utils/functors.hpp"
-#include <rpp/utils/constraints.hpp>
+
 #include <rpp/observers/dynamic_observer.hpp>
+#include <rpp/utils/constraints.hpp>
 #include <rpp/utils/utils.hpp>
 
 #include <memory>
 #include <mutex>
-#include <vector>
 #include <variant>
+#include <vector>
 
 namespace rpp::subjects::details
 {
-struct completed{};
+struct completed
+{
+};
 
 template<rpp::constraint::decayed_type Type>
 class subject_state : public std::enable_shared_from_this<subject_state<Type>>
 {
     using shared_observers = std::shared_ptr<std::vector<rpp::dynamic_observer<Type>>>;
-    using state_t = std::variant<shared_observers, std::exception_ptr, completed>;
+    using state_t          = std::variant<shared_observers, std::exception_ptr, completed>;
 
 public:
     template<rpp::constraint::observer_of_type<Type> TObs>
     void on_subscribe(TObs&& observer)
     {
         std::unique_lock lock{m_mutex};
-        process_state(
+        process_state_unsafe(
             m_state,
             [&](const shared_observers& observers)
             {
-                auto new_observers = make_copy_of_subscribed_subs(true, observers);
+                auto new_observers       = make_copy_of_subscribed_subs(true, observers);
                 auto observer_as_dynamic = std::forward<TObs>(observer).as_dynamic();
                 new_observers->push_back(observer_as_dynamic);
-                m_state = new_observers;
+                m_state = std::move(new_observers);
 
                 lock.unlock();
                 set_upstream(observer_as_dynamic);
@@ -81,28 +84,23 @@ public:
 private:
     void set_upstream(rpp::dynamic_observer<Type>& obs)
     {
-        obs.set_upstream(rpp::disposable_wrapper{make_callback_disposable([weak = this->weak_from_this()]()
-        {
-            if (const auto shared = weak.lock())
+        obs.set_upstream(rpp::disposable_wrapper{make_callback_disposable(
+            [weak = this->weak_from_this()]()
             {
-                std::unique_lock lock{shared->m_mutex};
-                process_state(shared->m_state,
-                              [&](const shared_observers& observers)
-                              {
-                                  shared->m_state = make_copy_of_subscribed_subs(false, observers);
-                              });
-            }
-        })});
+                if (const auto shared = weak.lock())
+                {
+                    std::unique_lock lock{shared->m_mutex};
+                    process_state_unsafe(shared->m_state,
+                                         [&](const shared_observers& observers)
+                                         { shared->m_state = make_copy_of_subscribed_subs(false, observers); });
+                }
+            })});
     }
 
     static shared_observers make_copy_of_subscribed_subs(bool add, const shared_observers& current_subs)
     {
-        auto expected_size = std::max(current_subs ? current_subs->size() : 0, size_t{1}) + (add ? 1 : -1);
-        if (!expected_size)
-            return {};
-
         auto subs = std::make_shared<std::vector<dynamic_observer<Type>>>();
-        subs->reserve(expected_size);
+        subs->reserve(deduce_new_size(add, current_subs));
         if (current_subs)
         {
             std::copy_if(current_subs->cbegin(),
@@ -113,39 +111,44 @@ private:
         return subs;
     }
 
-    static void process_state(const state_t& state, const auto&...actions)
+    static size_t deduce_new_size(bool add, const shared_observers& current_subs)
     {
-        std::visit(rpp::utils::overloaded{ actions..., utils::empty_function_any_t{}}, state);
+        if (!current_subs)
+            return add ? 1 : 0;
+
+        if (add)
+            return current_subs->size() + 1;
+        
+        return std::max(current_subs->size(), 1) - 1;
+    }
+
+    static void process_state_unsafe(const state_t& state, const auto&... actions)
+    {
+        std::visit(rpp::utils::overloaded{actions..., utils::empty_function_any_t{}}, state);
     }
 
     shared_observers extract_observers_under_lock_if_there()
     {
-        std::unique_lock lock{ m_mutex };
+        std::lock_guard lock{m_mutex};
 
         if (!std::holds_alternative<shared_observers>(m_state))
             return {};
 
-        const auto observers = std::get<shared_observers>(m_state);
-
-        lock.unlock();
-        return observers;
+        return std::get<shared_observers>(m_state);
     }
 
     shared_observers exchange_observers_under_lock_if_there(state_t&& new_val)
     {
-        std::unique_lock lock{ m_mutex };
+        std::lock_guard lock{m_mutex};
 
         if (!std::holds_alternative<shared_observers>(m_state))
             return {};
 
-        const auto observers = std::get<shared_observers>(std::exchange(m_state, std::move(new_val)));
-
-        lock.unlock();
-        return observers;
+        return std::get<shared_observers>(std::exchange(m_state, std::move(new_val)));
     }
 
 private:
     state_t    m_state{};
     std::mutex m_mutex{};
 };
-}
+} // namespace rpp::subjects::details
