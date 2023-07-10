@@ -41,20 +41,18 @@ void for_each(Cont&& container, Fn&& fn)
 }
 
 template<auto Fn, bool inverse = false>
-struct static_mem_fn;
-
-template<typename T, typename R, R (T::*Fn)(), bool inverse>
-struct static_mem_fn<Fn, inverse>
+    requires std::is_member_function_pointer_v<decltype(Fn)>
+struct static_mem_fn
 {
-    template<rpp::constraint::decayed_same_as<T> TT>
-        requires (inverse == false)
+    template<typename TT>
+        requires (inverse == false && std::invocable<decltype(Fn), TT&&>)
     auto operator()(TT&& d) const
     {
         return (std::forward<TT>(d).*Fn)();
     }
 
-    template<rpp::constraint::decayed_same_as<T> TT>
-        requires (inverse == true)
+    template<typename TT>
+        requires (inverse == true && std::invocable<decltype(Fn), TT&&>)
     auto operator()(TT&& d) const
     {
         return !(std::forward<TT>(d).*Fn)();
