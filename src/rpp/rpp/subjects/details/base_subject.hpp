@@ -23,9 +23,9 @@ public:
     explicit base_subject(Args&& ...args)
         : m_strategy{std::forward<Args>(args)...} {}
 
-    auto get_subscriber() const
+    auto get_observer() const
     {
-        return m_strategy.get_subscriber();
+        return m_strategy.get_observer();
     }
 
     auto get_observable() const
