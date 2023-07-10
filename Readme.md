@@ -19,7 +19,7 @@ If you are going to know more details about developing for RPP check [HACKING](H
 
 ## Documentation:
 
-Refer to [manual documentation]() for better understanding of concepts of Reactive Programming and [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) itself.
+Refer to [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) for better understanding of concepts of Reactive Programming and [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) itself.
 
 ## Note about V2:
 Currently I'm working on RPP v2 (`v2` branch). RPP v2 follows [**"zero-overhead principle"**](https://en.cppreference.com/w/cpp/language/Zero-overhead_principle) and most of the operators are (and will) minimize overhead.
@@ -60,7 +60,7 @@ rpp::source::from_callable(&::getchar)
 There we are creating observable which emits value via invoking of `getchar` function, then `repeat`s it infinite amount of time till termination event happes. It emits values while symbol is not equal to `0`, takes only not digits, maps them to upper case and then just prints to console.
 
 # Useful links
-- [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_readme.html)
+- [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html)
 - [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html)
 - [Examples](https://github.com/victimsnino/ReactivePlusPlus/tree/v2/src/examples)
 - [reactivex.io](https://reactivex.io) describes everything related to reactive programming.
