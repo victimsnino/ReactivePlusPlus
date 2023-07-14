@@ -13,6 +13,9 @@
 #include <rpp/defs.hpp>
 #include <rpp/utils/constraints.hpp>
 
+
+#include <algorithm>
+
 namespace rpp::utils {
 
 struct none{};

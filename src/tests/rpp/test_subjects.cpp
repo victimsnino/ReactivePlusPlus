@@ -13,6 +13,7 @@
 #include <rpp/subjects/publish_subject.hpp>
 
 #include "mock_observer.hpp"
+#include "rpp/disposables/base_disposable.hpp"
 
 TEST_CASE("publish subject multicasts values")
 {
@@ -23,8 +24,10 @@ TEST_CASE("publish subject multicasts values")
         auto sub = rpp::subjects::publish_subject<int>{};
         SECTION("subscribe multiple observers")
         {
-            sub.get_observable().subscribe(mock_1.get_observer());
-            sub.get_observable().subscribe(mock_2.get_observer());
+            auto dis_1 = std::make_shared<rpp::base_disposable>();
+            auto dis_2 = std::make_shared<rpp::base_disposable>();
+            sub.get_observable().subscribe(mock_1.get_observer(dis_1));
+            sub.get_observable().subscribe(mock_2.get_observer(dis_2));
 
             SECTION("emit value")
             {
@@ -72,26 +75,9 @@ TEST_CASE("publish subject multicasts values")
                     validate(mock_2);
                 }
             }
-            SECTION("emit unsubscribe")
-            {
-                sub.get_observer().unsubscribe();
-                SECTION("observers obtain on_completed")
-                {
-                    auto validate = [](auto mock)
-                    {
-                        CHECK(mock.get_total_on_next_count() == 0);
-                        CHECK(mock.get_on_error_count() == 0);
-                        CHECK(mock.get_on_completed_count() == 0);
-                    };
-                    validate(mock_1);
-                    validate(mock_2);
-                    CHECK(sub_1.is_subscribed() == false);
-                    CHECK(sub_2.is_subscribed() == false);
-                }
-            }
             SECTION("emit multiple values")
             {
-                SECTION("each sbuscriber obtain first value, SECTION seconds and etc")
+                SECTION("each sbuscriber obtain first value, then seconds and etc")
                 {
                     sub.get_observer().on_next(1);
                     auto check_1 = [](auto mock) { CHECK(mock.get_received_values() == std::vector{ 1 }); };
@@ -104,9 +90,14 @@ TEST_CASE("publish subject multicasts values")
                     check_2(mock_2);
                 }
             }
-            SECTION("first subscriber unsubscribes and SECTION emit value")
+            SECTION("first subscriber unsubscribes and then emit value")
             {
-                sub_1.unsubscribe();
+                // 1 native, 1 inside subject
+                CHECK(dis_1.use_count() == 2);
+                dis_1->dispose();
+                // only this 1 native
+                CHECK(dis_1.use_count() == 1);
+
                 sub.get_observer().on_next(1);
                 SECTION("observers obtain value")
                 {
@@ -124,7 +115,7 @@ TEST_CASE("publish subject multicasts values")
     }
 }
 
-TEST_CASE("publish subject caches error/completed/unsubscribe")
+TEST_CASE("publish subject caches error/completed")
 {
     auto mock = mock_observer_strategy<int>{};
     SECTION("publish subject")
@@ -169,21 +160,6 @@ TEST_CASE("publish subject caches error/completed/unsubscribe")
                     CHECK(mock.get_total_on_next_count() == 0);
                     CHECK(mock.get_on_error_count() == 0);
                     CHECK(mock.get_on_completed_count() == 1);
-                }
-            }
-        }
-        SECTION("emit unsubscribe")
-        {
-            subj.get_observer().unsubscribe();
-            SECTION("subscribe observer after emission")
-            {
-                auto sub = subj.get_observable().subscribe(mock.get_observer());
-                SECTION("observer obtains error")
-                {
-                    CHECK(mock.get_total_on_next_count() == 0);
-                    CHECK(mock.get_on_error_count() == 0);
-                    CHECK(mock.get_on_completed_count() == 0);
-                    CHECK(sub.is_subscribed() == false);
                 }
             }
         }

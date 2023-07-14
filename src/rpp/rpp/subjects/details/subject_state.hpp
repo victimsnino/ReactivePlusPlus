@@ -9,14 +9,15 @@
 
 #pragma once
 
-#include "rpp/disposables/disposable_wrapper.hpp"
-#include "rpp/observers/fwd.hpp"
-#include "rpp/utils/functors.hpp"
 
+#include <rpp/disposables/disposable_wrapper.hpp>
+#include <rpp/disposables/callback_disposable.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/utils/utils.hpp>
+#include <rpp/utils/functors.hpp>
 
+#include <algorithm>
 #include <memory>
 #include <mutex>
 #include <variant>
@@ -118,8 +119,8 @@ private:
 
         if (add)
             return current_subs->size() + 1;
-        
-        return std::max(current_subs->size(), 1) - 1;
+
+        return std::max(current_subs->size(), size_t{1}) - 1;
     }
 
     static void process_state_unsafe(const state_t& state, const auto&... actions)
