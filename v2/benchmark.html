@@ -9,10 +9,11 @@
     <div id="graphs" style="width: 100%"></div>
     <script>
         const checkbox = document.getElementById('toggle');
-        checkbox.checked = localStorage.getItem('checkboxStatus');
+        if (localStorage.getItem('checkboxStatus') == "true")
+            checkbox.checked = true;
 
         checkbox.addEventListener('change', (event) => {
-            localStorage.setItem('checkboxStatus', true)
+            localStorage.setItem('checkboxStatus', checkbox.checked)
             window.location.reload();
         })
 
@@ -81,8 +82,8 @@
                                                  .map(([source, results]) => {
                                                      return {
                                                          name: "[" + source + "] " + name,
-                                                         x: results.slice(-takeLast).map(v => commitKeys.indexOf(v["commit"])),
-                                                         y: results.slice(-takeLast).map(v => v["median(elapsed)"].toFixed(2)),
+                                                         x: results.map(v => commitKeys.indexOf(v["commit"])),
+                                                         y: results.map(v => v["median(elapsed)"].toFixed(2)),
                                                          type: "scatter",
                                                          mode : "lines+markers",
                                                          line: {
@@ -109,7 +110,7 @@
                                             tickmode: "array",
                                             ticktext: commitNames,
                                             tickangle: -30,
-                                            autorange: true,
+                                            range: [commitNames.length-takeLast, commitNames.length],
                                             rangeslider : {
                                                 visible: true
                                             },
