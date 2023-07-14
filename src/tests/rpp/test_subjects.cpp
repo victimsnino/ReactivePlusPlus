@@ -58,6 +58,12 @@ TEST_CASE("publish subject multicasts values")
                     };
                     validate(mock_1);
                     validate(mock_2);
+                    SECTION("and then emission of on_next does nothing")
+                    {
+                        sub.get_observer().on_next(1);
+                        validate(mock_1);
+                        validate(mock_2);
+                    }
                 }
             }
             SECTION("emit on_completed")
@@ -73,7 +79,15 @@ TEST_CASE("publish subject multicasts values")
                     };
                     validate(mock_1);
                     validate(mock_2);
+
+                    SECTION("and then emission of on_next does nothing")
+                    {
+                        sub.get_observer().on_next(1);
+                        validate(mock_1);
+                        validate(mock_2);
+                    }
                 }
+
             }
             SECTION("emit multiple values")
             {
@@ -155,7 +169,7 @@ TEST_CASE("publish subject caches error/completed")
             SECTION("subscribe observer after emission")
             {
                 subj.get_observable().subscribe(mock.get_observer());
-                SECTION("observer obtains error")
+                SECTION("observer obtains on_completed")
                 {
                     CHECK(mock.get_total_on_next_count() == 0);
                     CHECK(mock.get_on_error_count() == 0);
@@ -185,7 +199,7 @@ TEST_CASE("publish subject caches error/completed")
             SECTION("subscribe observer after emission")
             {
                 subj.get_observable().subscribe(mock.get_observer());
-                SECTION("observer obtains error")
+                SECTION("observer obtains on_completed")
                 {
                     CHECK(mock.get_total_on_next_count() == 0);
                     CHECK(mock.get_on_error_count() == 0);
