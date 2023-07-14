@@ -5,8 +5,17 @@
 </head>
 
 <body>
+    <input type="checkbox" class="expander" id="toggle"> Hide RxCpp data
     <div id="graphs" style="width: 100%"></div>
     <script>
+        const checkbox = document.getElementById('toggle');
+        checkbox.checked = localStorage.getItem('checkboxStatus');
+
+        checkbox.addEventListener('change', (event) => {
+            localStorage.setItem('checkboxStatus', true)
+            window.location.reload();
+        })
+
         fetch('benchmark_results.json')
             .then(res => res.json())
             .then(json => {
@@ -52,9 +61,9 @@
                         }, {keys: [], names: []});
                         var commitKeys = reduced.keys;
                         var commitNames = reduced.names;
+                        const takeLast = 30;
 
                         var resultsPerName = groupBy(resultsPerTitle, "name");
-                        console.log(resultsPerName);
 
                         var d3colors = Plotly.d3.scale.category20();
                         var colorNum = 0;
@@ -63,11 +72,17 @@
                                             color = d3colors(colorNum);
                                             colorNum += 1;
                                             return Object.entries(groupBy(results, "source"))
+                                                 .filter(([source, results]) => {
+                                                    if (document.getElementById('toggle').checked) {
+                                                        return source == "rpp";
+                                                    }
+                                                    return true;
+                                                 })
                                                  .map(([source, results]) => {
                                                      return {
                                                          name: "[" + source + "] " + name,
-                                                         x: results.map(v => commitKeys.indexOf(v["commit"])),
-                                                         y: results.map(v => v["median(elapsed)"].toFixed(2)),
+                                                         x: results.slice(-takeLast).map(v => commitKeys.indexOf(v["commit"])),
+                                                         y: results.slice(-takeLast).map(v => v["median(elapsed)"].toFixed(2)),
                                                          type: "scatter",
                                                          mode : "lines+markers",
                                                          line: {
@@ -78,7 +93,6 @@
                                                  });
                                          });
 
-                                         console.log(data);
 
                         Plotly.newPlot(graphDiv,
                                       data,
