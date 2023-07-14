@@ -16,6 +16,8 @@
 #include <functional>
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
+#include "utils.hpp"
+
 #include "rpp/memory_model.hpp"
 #include "rpp/observers/fwd.hpp"
 #include "rpp/schedulers/current_thread.hpp"
@@ -25,33 +27,6 @@
 
 #include <optional>
 #include <stdexcept>
-
-struct my_container_with_error : std::vector<int>
-{
-    using std::vector<int>::vector;
-    std::vector<int>::const_iterator begin() const { throw std::runtime_error{"EXCEPTION ON BEGIN"}; }
-};
-
-struct infinite_container
-{
-    struct iterator
-    {
-        using iterator_category = std::input_iterator_tag;
-        using difference_type   = std::ptrdiff_t;
-        using value_type        = int;
-        using pointer           = int*;
-
-        value_type operator*() const { return 1; }
-        iterator& operator++() { return *this; }
-        iterator operator++(int) { return *this; }
-        friend bool operator== (const iterator&, const iterator&) { return false; };
-        friend bool operator!= (const iterator&, const iterator&) { return true; };
-    };
-
-    iterator begin() const { return {}; }
-    iterator end() const { return {}; }
-};
-
 
 TEMPLATE_TEST_CASE("from iterable emit items from container",
                    "",
@@ -83,7 +58,7 @@ TEMPLATE_TEST_CASE("from iterable emit items from container",
 
     SECTION("subscribe via take(1) to observable created from infinite container")
     {
-        rpp::source::from_iterable<memory_model>(infinite_container{}, scheduler{}) | rpp::operators::take(1)
+        rpp::source::from_iterable<memory_model>(infinite_container<int>{}, scheduler{}) | rpp::operators::take(1)
                                                                      | rpp::operators::subscribe(mock.get_observer());
 
         CHECK(mock.get_received_values() == std::vector{1});
@@ -146,7 +121,7 @@ TEMPLATE_TEST_CASE("from iterable emit items from container",
     // }
     SECTION("observable from iterable with exceiption on begin")
     {
-        const auto obs = rpp::source::from_iterable<memory_model>(my_container_with_error{}, scheduler{});
+        const auto obs = rpp::source::from_iterable<memory_model>(my_container_with_error<int>{}, scheduler{});
         SECTION("subscribe on it and dispatch once")
         {
             obs.subscribe(mock.get_observer());
