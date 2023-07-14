@@ -82,7 +82,7 @@ jobs:
     - name: Install deps
       run: |
         pip3 install rxmarbles
-        sudo apt-get install texlive-font-utils
+        sudo apt-get update && sudo apt-get install texlive-font-utils
         doxygen --version
 
     - name: Doxygen
