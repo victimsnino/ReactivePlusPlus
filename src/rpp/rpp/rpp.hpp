@@ -18,3 +18,4 @@
 #include <rpp/sources.hpp>
 #include <rpp/operators.hpp>
 #include <rpp/schedulers.hpp>
+#include <rpp/subjects.hpp>

@@ -13,6 +13,9 @@
 #include <rpp/defs.hpp>
 #include <rpp/utils/constraints.hpp>
 
+
+#include <algorithm>
+
 namespace rpp::utils {
 
 struct none{};
@@ -33,6 +36,34 @@ struct convertible_to_any
     template<typename T>
     operator T();
 };
+
+template<typename Cont, std::invocable<iterable_value_t<Cont>> Fn>
+void for_each(Cont&& container, Fn&& fn)
+{
+    std::for_each(std::begin(container), std::end(container), std::forward<Fn>(fn));
+}
+
+template<auto Fn, bool inverse = false>
+    requires std::is_member_function_pointer_v<decltype(Fn)>
+struct static_mem_fn
+{
+    template<typename TT>
+        requires (inverse == false && std::invocable<decltype(Fn), TT&&>)
+    auto operator()(TT&& d) const
+    {
+        return (std::forward<TT>(d).*Fn)();
+    }
+
+    template<typename TT>
+        requires (inverse == true && std::invocable<decltype(Fn), TT&&>)
+    auto operator()(TT&& d) const
+    {
+        return !(std::forward<TT>(d).*Fn)();
+    }
+};
+
+template<auto Fn>
+using static_not_mem_fn = static_mem_fn<Fn, true>;
 
 /**
  * @brief Calls passed function during destruction

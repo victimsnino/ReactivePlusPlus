@@ -188,4 +188,7 @@ namespace rpp::constraint
 {
 template<typename T>
 concept observer = rpp::utils::details::extract_observer_type<std::decay_t<T>>::value;
+
+template<typename T, typename Type>
+concept observer_of_type = observer<std::decay_t<T>> && std::same_as<rpp::utils::extract_observer_type_t<std::decay_t<T>>, Type>;
 }
