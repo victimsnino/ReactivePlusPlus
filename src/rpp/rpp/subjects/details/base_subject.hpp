@@ -10,13 +10,25 @@
 #pragma once
 
 #include <rpp/subjects/fwd.hpp>
-#include <rpp/sources/create.hpp>
+#include <rpp/observables/observable.hpp>
 
 namespace rpp::subjects::details
 {
 template<rpp::constraint::decayed_type T, constraint::subject_strategy<T> Strategy>
 class base_subject
 {
+    struct on_subscribe
+    {
+        using ValueType = T;
+        
+        Strategy strategy;
+
+        template<rpp::constraint::observer_of_type<T> TObs>
+        void subscribe(TObs&& sub) const
+        {
+            strategy.on_subscribe(std::forward<TObs>(sub));
+        }
+    };
 public:
     template<typename ...Args>
         requires (rpp::constraint::is_constructible_from<Strategy, Args&&...> && !rpp::constraint::variadic_decayed_same_as<base_subject, Args...>)
@@ -30,10 +42,7 @@ public:
 
     auto get_observable() const
     {
-        return rpp::source::create<T>([strategy = this->m_strategy](auto&& sub)
-        {
-            strategy.on_subscribe(std::forward<decltype(sub)>(sub));
-        });
+        return rpp::observable<T, on_subscribe>{m_strategy};
     }
 
 private:
