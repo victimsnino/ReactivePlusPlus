@@ -9,7 +9,6 @@
 
 #pragma once
 
-
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/disposables/callback_disposable.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
@@ -44,7 +43,7 @@ public:
             m_state,
             [&](const shared_observers& observers)
             {
-                auto new_observers       = make_copy_of_subscribed_subs(true, observers);
+                auto new_observers       = make_copy_of_subscribed_observers(true, observers);
                 auto observer_as_dynamic = std::forward<TObs>(observer).as_dynamic();
                 new_observers->push_back(observer_as_dynamic);
                 m_state = std::move(new_observers);
@@ -52,7 +51,7 @@ public:
                 lock.unlock();
                 set_upstream(observer_as_dynamic);
             },
-            [&](std::exception_ptr err)
+            [&](const std::exception_ptr& err)
             {
                 lock.unlock();
                 observer.on_error(err);
@@ -72,7 +71,7 @@ public:
 
     void on_error(const std::exception_ptr& err)
     {
-        if (const auto observers = exchange_observers_under_lock_if_there(state_t{err}))
+        if (const auto observers = exchange_observers_under_lock_if_there(err))
             rpp::utils::for_each(*observers, [&](const auto& sub) { sub.on_error(err); });
     }
 
@@ -93,12 +92,14 @@ private:
                     std::unique_lock lock{shared->m_mutex};
                     process_state_unsafe(shared->m_state,
                                          [&](const shared_observers& observers)
-                                         { shared->m_state = make_copy_of_subscribed_subs(false, observers); });
+                                         { 
+                                            shared->m_state = make_copy_of_subscribed_observers(false, observers); 
+                                         });
                 }
             })});
     }
 
-    static shared_observers make_copy_of_subscribed_subs(bool add, const shared_observers& current_subs)
+    static shared_observers make_copy_of_subscribed_observers(bool add, const shared_observers& current_subs)
     {
         auto subs = std::make_shared<std::vector<dynamic_observer<Type>>>();
         subs->reserve(deduce_new_size(add, current_subs));
