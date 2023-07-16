@@ -435,6 +435,29 @@ int main(int argc, char* argv[]) // NOLINT
         }
     }
 
+    BENCHMARK("Subjects")
+    {
+        SECTION("publish_subject with 1 observer - on_next")
+        {
+            {
+                rpp::subjects::publish_subject<int> rpp_subj{};
+                rpp_subj.get_observable().subscribe(rpp::make_lambda_observer([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }));
+                TEST_RPP([&]()
+                {
+                    rpp_subj.get_observer().on_next(1);
+                });
+            }
+            {
+                rxcpp::subjects::subject<int> rxcpp_subj{};
+                rxcpp_subj.get_observable().subscribe(rxcpp::make_subscriber<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }, []{}));
+                TEST_RXCPP([&]()
+                {
+                    rxcpp_subj.get_subscriber().on_next(1);
+                });
+            }
+        }
+    }
+
     if (argc > 1) {
         std::ofstream of{argv[1]};
         bench.render(json(), of);
