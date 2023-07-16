@@ -3,10 +3,13 @@ var hierarchy =
     [ "rpp::operators::details::as_blocking_t", "structrpp_1_1operators_1_1details_1_1as__blocking__t.html", null ],
     [ "rpp::base_disposable", "classrpp_1_1base__disposable.html", [
       [ "rpp::callback_disposable< Fn >", "classrpp_1_1callback__disposable.html", null ],
-      [ "rpp::operators::details::merge_disposable< Lock >", "classrpp_1_1operators_1_1details_1_1merge__disposable.html", null ]
+      [ "rpp::operators::details::merge_disposable< Lock >", "classrpp_1_1operators_1_1details_1_1merge__disposable.html", null ],
+      [ "rpp::subjects::details::subject_state< Type >", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
     ] ],
+    [ "rpp::subjects::details::base_subject< T, Strategy >", "classrpp_1_1subjects_1_1details_1_1base__subject.html", null ],
     [ "rpp::details::observables::blocking_observer_strategy", "structrpp_1_1details_1_1observables_1_1blocking__observer__strategy.html", null ],
     [ "rpp::details::observables::blocking_strategy< Type, Strategy >", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
+    [ "rpp::subjects::details::completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
     [ "rpp::details::concat_source_observer_strategy< PackedContainer >", "structrpp_1_1details_1_1concat__source__observer__strategy.html", null ],
     [ "rpp::details::concat_strategy< PackedContainer >", "structrpp_1_1details_1_1concat__strategy.html", null ],
     [ "rpp::details::create_strategy< Type, OnSubscribe >", "structrpp_1_1details_1_1create__strategy.html", null ],
@@ -18,6 +21,9 @@ var hierarchy =
     [ "rpp::details::observers::dynamic_strategy< Type >", "classrpp_1_1details_1_1observers_1_1dynamic__strategy.html", null ],
     [ "rpp::operators::details::empty_on_subscribe", "structrpp_1_1operators_1_1details_1_1empty__on__subscribe.html", null ],
     [ "rpp::details::empty_strategy< Type >", "structrpp_1_1details_1_1empty__strategy.html", null ],
+    [ "std::enable_shared_from_this", null, [
+      [ "rpp::subjects::details::subject_state< Type >", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
+    ] ],
     [ "rpp::details::error_strategy< Type >", "structrpp_1_1details_1_1error__strategy.html", null ],
     [ "rpp::details::fake_strategy", "structrpp_1_1details_1_1fake__strategy.html", null ],
     [ "std::false_type", null, [
@@ -83,6 +89,7 @@ var hierarchy =
     ] ],
     [ "rpp::operators::details::operator_strategy_base< T, TObs, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base.html", null ],
     [ "rpp::operators::details::operator_strategy_base< T, rpp::observer< TT, ObserverStrategy >, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1observer_3_01_t_62de0c37c195be8c90156dbfce434b58.html", null ],
+    [ "rpp::subjects::details::publish_strategy< Type >", "classrpp_1_1subjects_1_1details_1_1publish__strategy.html", null ],
     [ "rpp::operators::details::repeat_t", "structrpp_1_1operators_1_1details_1_1repeat__t.html", null ],
     [ "rpp::operators::details::scan_no_seed_observer_strategy< Seed, Fn >", "structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html", null ],
     [ "rpp::operators::details::scan_observer_strategy< Seed, Fn >", "structrpp_1_1operators_1_1details_1_1scan__observer__strategy.html", null ],

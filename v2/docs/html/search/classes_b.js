@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['repeat_5ft_0',['repeat_t',['../structrpp_1_1operators_1_1details_1_1repeat__t.html',1,'rpp::operators::details']]]
+  ['publish_5fstrategy_0',['publish_strategy',['../classrpp_1_1subjects_1_1details_1_1publish__strategy.html',1,'rpp::subjects::details']]]
 ];

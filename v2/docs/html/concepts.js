@@ -10,6 +10,7 @@ var concepts =
         [ "observables_of_same_type", "conceptrpp_1_1constraint_1_1observables__of__same__type.html", null ],
         [ "observer_strategy", "conceptrpp_1_1constraint_1_1observer__strategy.html", null ],
         [ "observer", "conceptrpp_1_1constraint_1_1observer.html", null ],
+        [ "observer_of_type", "conceptrpp_1_1constraint_1_1observer__of__type.html", null ],
         [ "on_subscribe", "conceptrpp_1_1constraint_1_1on__subscribe.html", null ]
       ] ],
       [ "operators", null, [
@@ -25,6 +26,13 @@ var concepts =
           [ "strategy", "conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html", null ],
           [ "worker", "conceptrpp_1_1schedulers_1_1constraint_1_1worker.html", null ],
           [ "scheduler", "conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html", null ]
+        ] ]
+      ] ],
+      [ "subjects", null, [
+        [ "details", null, [
+          [ "constraint", null, [
+            [ "subject_strategy", "conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy.html", null ]
+          ] ]
         ] ]
       ] ]
     ] ]

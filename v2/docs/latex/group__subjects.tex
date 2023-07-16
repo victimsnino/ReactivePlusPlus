@@ -1,0 +1,47 @@
+\doxysubsection{Subjects}
+\hypertarget{group__subjects}{}\label{group__subjects}\index{Subjects@{Subjects}}
+
+
+Observable is the observable and observer at the same time. Uses as a bridge and for manual sending of values.  
+
+
+\doxysubsubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$rpp\+::constraint\+::decayed\+\_\+type Type$>$ }\\using \mbox{\hyperlink{group__subjects_gaf27df80724e7c0f28ecd1a72429812b0}{rpp\+::subjects\+::publish\+\_\+subject}} = \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details\+::base\+\_\+subject}}$<$ Type, \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1publish__strategy}{details\+::publish\+\_\+strategy}}$<$ Type $>$ $>$
+\begin{DoxyCompactList}\small\item\em Subject which just multicasts values to observers subscribed on it. It contains two parts\+: observer and observable at the same time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Observable is the observable and observer at the same time. Uses as a bridge and for manual sending of values. 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/subject.html}{\texttt{ https\+://reactivex.\+io/documentation/subject.\+html}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsubsection{Typedef Documentation}
+\Hypertarget{group__subjects_gaf27df80724e7c0f28ecd1a72429812b0}\label{group__subjects_gaf27df80724e7c0f28ecd1a72429812b0} 
+\index{Subjects@{Subjects}!publish\_subject@{publish\_subject}}
+\index{publish\_subject@{publish\_subject}!Subjects@{Subjects}}
+\doxysubsubsubsection{\texorpdfstring{publish\_subject}{publish\_subject}}
+{\footnotesize\ttfamily template$<$rpp\+::constraint\+::decayed\+\_\+type Type$>$ \\
+using \mbox{\hyperlink{group__subjects_gaf27df80724e7c0f28ecd1a72429812b0}{rpp\+::subjects\+::publish\+\_\+subject}} = typedef \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details\+::base\+\_\+subject}}$<$Type, \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1publish__strategy}{details\+::publish\+\_\+strategy}}$<$Type$>$ $>$}
+
+
+
+Subject which just multicasts values to observers subscribed on it. It contains two parts\+: observer and observable at the same time. 
+
+Each observer obtains only values which emitted after corresponding subscribe. on\+\_\+error/on\+\_\+completer/unsubscribe cached and provided to new observers if any
+
+\begin{DoxyWarning}{Warning}
+this subject is not synchronized/serialized! It means, that expected to call callbacks of observer in the serialized way to follow observable contract\+: \"{}\+Observables must issue notifications to observers serially (not in parallel).\"{}. If you are not sure or need extra serialization, please, use serialized\+\_\+subject.
+\end{DoxyWarning}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & value provided by this subject\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/subject.html}{\texttt{ https\+://reactivex.\+io/documentation/subject.\+html}} 
+\end{DoxySeeAlso}

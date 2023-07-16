@@ -104,6 +104,14 @@ var annotated_dup =
         [ "new_thread", "classrpp_1_1schedulers_1_1new__thread.html", "classrpp_1_1schedulers_1_1new__thread" ],
         [ "worker", "classrpp_1_1schedulers_1_1worker.html", null ]
       ] ],
+      [ "subjects", null, [
+        [ "details", null, [
+          [ "base_subject", "classrpp_1_1subjects_1_1details_1_1base__subject.html", null ],
+          [ "completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
+          [ "publish_strategy", "classrpp_1_1subjects_1_1details_1_1publish__strategy.html", null ],
+          [ "subject_state", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
+        ] ]
+      ] ],
       [ "utils", null, [
         [ "details", null, [
           [ "extract_observable_type", "structrpp_1_1utils_1_1details_1_1extract__observable__type.html", null ],
