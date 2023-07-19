@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::disposable_guard Class Reference</title>
+<title>ReactivePlusPlus: rpp::operators::details::subscribe_t&lt; rpp::composite_disposable_wrapper, OnNext, OnError, OnCompleted &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('classrpp_1_1disposable__guard.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_015839511ef5aa7d547130d10313f4a820.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -98,26 +98,37 @@ $(document).ready(function(){initNavTree('classrpp_1_1disposable__guard.html',''
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classrpp_1_1disposable__guard-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::disposable_guard Class Reference</div></div>
+<a href="classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_018b52f5882d399c0fdbd345a00abcb7bb.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">rpp::operators::details::subscribe_t&lt; rpp::composite_disposable_wrapper, OnNext, OnError, OnCompleted &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a17c1c2b03088017ad463709229e5d475"><td class="memItemLeft" align="right" valign="top"><a id="a17c1c2b03088017ad463709229e5d475" name="a17c1c2b03088017ad463709229e5d475"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>disposable_guard</b> (std::shared_ptr&lt; <a class="el" href="classrpp_1_1base__disposable.html">base_disposable</a> &gt; disposable={})</td></tr>
-<tr class="separator:a17c1c2b03088017ad463709229e5d475"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad91ce6c9239c0b78f1fce2cd17ef8b71"><td class="memTemplParams" colspan="2"><a id="ad91ce6c9239c0b78f1fce2cd17ef8b71" name="ad91ce6c9239c0b78f1fce2cd17ef8b71"></a>
+template&lt;rpp::constraint::decayed_same_as&lt; OnNext &gt; TOnNext, rpp::constraint::decayed_same_as&lt; OnError &gt; TOnError, rpp::constraint::decayed_same_as&lt; OnCompleted &gt; TOnCompleted&gt; </td></tr>
+<tr class="memitem:ad91ce6c9239c0b78f1fce2cd17ef8b71"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe_t</b> (<a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a> d, TOnNext &amp;&amp;on_next, TOnError &amp;&amp;on_error, TOnCompleted &amp;&amp;on_completed)</td></tr>
+<tr class="separator:ad91ce6c9239c0b78f1fce2cd17ef8b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d42108740fe55eb25dcb18ae7807d73"><td class="memTemplParams" colspan="2"><a id="a2d42108740fe55eb25dcb18ae7807d73" name="a2d42108740fe55eb25dcb18ae7807d73"></a>
+template&lt;rpp::constraint::decayed_type Type, <a class="el" href="conceptrpp_1_1constraint_1_1observable__strategy.html">rpp::constraint::observable_strategy</a>&lt; Type &gt; Strategy&gt; <br />
+requires std::invocable&lt;OnNext, Type&gt;</td></tr>
+<tr class="memitem:a2d42108740fe55eb25dcb18ae7807d73"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator()</b> (const <a class="el" href="classrpp_1_1observable.html">rpp::observable</a>&lt; Type, Strategy &gt; &amp;observalbe) &amp;&amp;</td></tr>
+<tr class="separator:a2d42108740fe55eb25dcb18ae7807d73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34556447e51771ef34688dec798aaca1"><td class="memTemplParams" colspan="2"><a id="a34556447e51771ef34688dec798aaca1" name="a34556447e51771ef34688dec798aaca1"></a>
+template&lt;rpp::constraint::decayed_type Type, <a class="el" href="conceptrpp_1_1constraint_1_1observable__strategy.html">rpp::constraint::observable_strategy</a>&lt; Type &gt; Strategy&gt; <br />
+requires std::invocable&lt;OnNext, Type&gt;</td></tr>
+<tr class="memitem:a34556447e51771ef34688dec798aaca1"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator()</b> (const <a class="el" href="classrpp_1_1observable.html">rpp::observable</a>&lt; Type, Strategy &gt; &amp;observalbe) const &amp;</td></tr>
+<tr class="separator:a34556447e51771ef34688dec798aaca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/rpp/rpp/disposables/<a class="el" href="disposable__guard_8hpp_source.html">disposable_guard.hpp</a></li>
+<li>src/rpp/rpp/operators/<a class="el" href="subscribe_8hpp_source.html">subscribe.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>rpp</b></li><li class="navelem"><a class="el" href="classrpp_1_1disposable__guard.html">disposable_guard</a></li>
+    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>operators</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_015839511ef5aa7d547130d10313f4a820.html">subscribe_t&lt; rpp::composite_disposable_wrapper, OnNext, OnError, OnCompleted &gt;</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7 </li>
   </ul>
 </div>

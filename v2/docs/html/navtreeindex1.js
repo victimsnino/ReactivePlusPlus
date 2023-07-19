@@ -1,5 +1,8 @@
 var NAVTREEINDEX1 =
 {
+"structrpp_1_1operators_1_1details_1_1flat__map__t.html":[3,0,0,2,0,8],
+"structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy.html":[3,0,0,2,0,9],
+"structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy.html":[3,0,0,2,0,10],
 "structrpp_1_1operators_1_1details_1_1forwarding__on__error__strategy.html":[3,0,0,2,0,11],
 "structrpp_1_1operators_1_1details_1_1forwarding__on__next__strategy.html":[3,0,0,2,0,12],
 "structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy.html":[3,0,0,2,0,13],
@@ -31,6 +34,7 @@ var NAVTREEINDEX1 =
 "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html":[3,0,0,3,0,0,0],
 "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html":[3,0,0,3,0,0,1],
 "structrpp_1_1subjects_1_1details_1_1completed.html":[3,0,0,4,0,1],
+"structrpp_1_1subjects_1_1details_1_1disposed.html":[3,0,0,4,0,2],
 "structrpp_1_1utils_1_1details_1_1extract__observable__type.html":[3,0,0,5,0,0],
 "structrpp_1_1utils_1_1details_1_1extract__observable__type_3_01rpp_1_1observable_3_01_t_t_00_01_strategy_01_4_01_4.html":[3,0,0,5,0,1],
 "structrpp_1_1utils_1_1details_1_1extract__observer__type.html":[3,0,0,5,0,2],

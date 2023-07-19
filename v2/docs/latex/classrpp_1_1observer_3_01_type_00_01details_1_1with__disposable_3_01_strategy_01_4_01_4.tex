@@ -9,9 +9,9 @@ Inheritance diagram for rpp\+::observer\texorpdfstring{$<$}{<} Type, details\+::
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4_adba11400dd6ce68f6fa7863ac970c078}\label{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4_adba11400dd6ce68f6fa7863ac970c078} 
+\Hypertarget{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4_af878b7a54344b4a5f55f240d2348b378}\label{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4_af878b7a54344b4a5f55f240d2348b378} 
 {\footnotesize template$<$typename ... Args$>$ \newline
-requires (constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args\&\&...$>$)}\\{\bfseries observer} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\+\_\+wrapper}} disposable, Args \&\&...args)
+requires (constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args\&\&...$>$)}\\{\bfseries observer} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} disposable, Args \&\&...args)
 \item 
 \Hypertarget{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4_a433e090a49df230b5f2170057c1252e6}\label{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4_a433e090a49df230b5f2170057c1252e6} 
 {\bfseries observer} (const \mbox{\hyperlink{classrpp_1_1observer}{observer}} \&)=delete
@@ -25,7 +25,7 @@ requires (constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args\&\&...$
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, details\+::external\+\_\+disposable\+\_\+strategy $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab95f4dd062581fb8432fadcee8abb95d}{set\+\_\+upstream}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\+\_\+wrapper}} \&d)
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab95f4dd062581fb8432fadcee8abb95d}{set\+\_\+upstream}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} \&d)
 \begin{DoxyCompactList}\small\item\em Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab4d6f3e513e55f94547c8fa4d042f0cb}{is\+\_\+disposed}} () const noexcept
 \begin{DoxyCompactList}\small\item\em Observable calls this method to check if observer interested or not in emissions. \end{DoxyCompactList}\item 

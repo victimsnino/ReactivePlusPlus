@@ -77,7 +77,7 @@
 \DoxyCodeLine{00077\ }
 \DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1operator__strategy__base}{\string~operator\_strategy\_base}}()\ noexcept\ =\ default;}
 \DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(const\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\_wrapper}}\&\ d)\ \ \ \ \ \{\ m\_strategy.set\_upstream(m\_observer,\ d);\ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(const\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&\ d)\ \ \ \ \ \{\ m\_strategy.set\_upstream(m\_observer,\ d);\ \}}
 \DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ m\_strategy.is\_disposed()\ ||\ m\_observer.is\_disposed();\ \}}
 \DoxyCodeLine{00082\ }
 \DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(\textcolor{keyword}{const}\ T\&\ v)\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ m\_strategy.on\_next(m\_observer,\ v);\ \}}
@@ -118,7 +118,7 @@
 \DoxyCodeLine{00118\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy}{forwarding\_set\_upstream\_strategy}}}
 \DoxyCodeLine{00119\ \{}
 \DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T,\ rpp::constra\textcolor{keywordtype}{int}::observer\_strategy<T>\ ObserverStrategy>}
-\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<T,\ ObserverStrategy>}}\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const\ }\{\mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab95f4dd062581fb8432fadcee8abb95d}{set\_upstream}}(d);\ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<T,\ ObserverStrategy>}}\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const\ }\{\mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab95f4dd062581fb8432fadcee8abb95d}{set\_upstream}}(d);\ \}}
 \DoxyCodeLine{00122\ \};}
 \DoxyCodeLine{00123\ }
 \DoxyCodeLine{00124\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy}{forwarding\_is\_disposed\_strategy}}}

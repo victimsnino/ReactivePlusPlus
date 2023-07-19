@@ -3,7 +3,7 @@
 Inheritance diagram for rpp\+::callback\+\_\+disposable\texorpdfstring{$<$}{<} Fn \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{classrpp_1_1callback__disposable}
+\includegraphics[height=3.000000cm]{classrpp_1_1callback__disposable}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Public Member Functions}
@@ -15,26 +15,30 @@ Inheritance diagram for rpp\+::callback\+\_\+disposable\texorpdfstring{$<$}{<} F
 \Hypertarget{classrpp_1_1callback__disposable_ac0eebffdb4511e10fa2c82040055d01d}\label{classrpp_1_1callback__disposable_ac0eebffdb4511e10fa2c82040055d01d} 
 {\bfseries callback\+\_\+disposable} (const Fn \&fn)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1base__disposable}{rpp\+::base\+\_\+disposable}}}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{rpp\+::details\+::base\+\_\+disposable}}}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries base\+\_\+disposable} (const \mbox{\hyperlink{classrpp_1_1base__disposable}{base\+\_\+disposable}} \&)=delete
+{\bfseries base\+\_\+disposable} (const \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{base\+\_\+disposable}} \&)=delete
 \item 
-{\bfseries base\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1base__disposable}{base\+\_\+disposable}} \&\&)=delete
+{\bfseries base\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{base\+\_\+disposable}} \&\&) noexcept=delete
 \item 
-bool {\bfseries is\+\_\+disposed} () const noexcept
+bool \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable_a09179df9b71e2c76a362026ae3e7ee59}{is\+\_\+disposed}} () const noexcept final
 \item 
-void {\bfseries dispose} ()
+void \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable_a81449c292421aa65d6dd64f4e1f585dc}{dispose}} () final
+\end{DoxyCompactItemize}
+\begin{DoxyCompactItemize}
 \item 
-void {\bfseries add} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1base__disposable}{base\+\_\+disposable}} $>$ disposable)
+\Hypertarget{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}\label{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f} 
+virtual bool {\bfseries is\+\_\+disposed} () const noexcept=0
 \item 
-{\footnotesize template$<$std\+::invocable Fn$>$ }\\void {\bfseries add} (Fn \&\&invocable)
+\Hypertarget{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a}\label{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a} 
+virtual void {\bfseries dispose} ()=0
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classrpp_1_1base__disposable_af126763db736f576381083c8579a3cd2}\label{classrpp_1_1base__disposable_af126763db736f576381083c8579a3cd2} 
-virtual void {\bfseries dispose\+\_\+impl} ()
+\Hypertarget{classrpp_1_1details_1_1base__disposable_a8a5470029c320202167e223633d8e1b8}\label{classrpp_1_1details_1_1base__disposable_a8a5470029c320202167e223633d8e1b8} 
+virtual void {\bfseries dispose\+\_\+impl} ()=0
 \end{DoxyCompactItemize}
 
 

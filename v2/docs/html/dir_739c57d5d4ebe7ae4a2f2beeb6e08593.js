@@ -1,8 +1,9 @@
 var dir_739c57d5d4ebe7ae4a2f2beeb6e08593 =
 [
-    [ "base_disposable.hpp", "base__disposable_8hpp_source.html", null ],
+    [ "details", "dir_69836e553fe3b88b02dab6753ff23a06.html", "dir_69836e553fe3b88b02dab6753ff23a06" ],
     [ "callback_disposable.hpp", "callback__disposable_8hpp_source.html", null ],
-    [ "disposable_guard.hpp", "disposable__guard_8hpp_source.html", null ],
+    [ "composite_disposable.hpp", "composite__disposable_8hpp_source.html", null ],
     [ "disposable_wrapper.hpp", "disposable__wrapper_8hpp_source.html", null ],
-    [ "fwd.hpp", "disposables_2fwd_8hpp_source.html", null ]
+    [ "fwd.hpp", "disposables_2fwd_8hpp_source.html", null ],
+    [ "interface_disposable.hpp", "interface__disposable_8hpp_source.html", null ]
 ];

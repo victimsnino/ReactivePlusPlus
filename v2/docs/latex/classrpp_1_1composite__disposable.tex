@@ -1,0 +1,69 @@
+\doxysection{rpp\+::composite\+\_\+disposable Class Reference}
+\hypertarget{classrpp_1_1composite__disposable}{}\label{classrpp_1_1composite__disposable}\index{rpp::composite\_disposable@{rpp::composite\_disposable}}
+Inheritance diagram for rpp\+::composite\+\_\+disposable\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.800000cm]{classrpp_1_1composite__disposable}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1composite__disposable_acabdfd2e741f94cdd0b8438eba3e887e}\label{classrpp_1_1composite__disposable_acabdfd2e741f94cdd0b8438eba3e887e} 
+{\bfseries composite\+\_\+disposable} (const \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&)=delete
+\item 
+\Hypertarget{classrpp_1_1composite__disposable_afdf550a555916e938a8670deb9971c4e}\label{classrpp_1_1composite__disposable_afdf550a555916e938a8670deb9971c4e} 
+{\bfseries composite\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&\&)=delete
+\item 
+bool \mbox{\hyperlink{classrpp_1_1composite__disposable_a748deb894f9f98ea238e919e62859262}{is\+\_\+disposed}} () const noexcept final
+\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable_acf263ceb2c51a97f435d730f33ec293c}{dispose}} () final
+\item 
+\Hypertarget{classrpp_1_1composite__disposable_a787051c4ba7d9592bcb20fdce7cd0314}\label{classrpp_1_1composite__disposable_a787051c4ba7d9592bcb20fdce7cd0314} 
+void {\bfseries add} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structrpp_1_1interface__disposable}{interface\+\_\+disposable}} $>$ disposable)
+\item 
+\Hypertarget{classrpp_1_1composite__disposable_ac595e28b743de448e2a028f386d0fb94}\label{classrpp_1_1composite__disposable_ac595e28b743de448e2a028f386d0fb94} 
+{\footnotesize template$<$std\+::invocable Fn$>$ }\\void {\bfseries add} (Fn \&\&invocable)
+\end{DoxyCompactItemize}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}\label{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f} 
+virtual bool {\bfseries is\+\_\+disposed} () const noexcept=0
+\item 
+\Hypertarget{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a}\label{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a} 
+virtual void {\bfseries dispose} ()=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1composite__disposable_a3123d1e2853ec578fb8040cbadf0b391}\label{classrpp_1_1composite__disposable_a3123d1e2853ec578fb8040cbadf0b391} 
+virtual void {\bfseries dispose\+\_\+impl} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classrpp_1_1composite__disposable_acf263ceb2c51a97f435d730f33ec293c}\label{classrpp_1_1composite__disposable_acf263ceb2c51a97f435d730f33ec293c} 
+\index{rpp::composite\_disposable@{rpp::composite\_disposable}!dispose@{dispose}}
+\index{dispose@{dispose}!rpp::composite\_disposable@{rpp::composite\_disposable}}
+\doxysubsubsection{\texorpdfstring{dispose()}{dispose()}}
+{\footnotesize\ttfamily void rpp\+::composite\+\_\+disposable\+::dispose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}.
+
+\Hypertarget{classrpp_1_1composite__disposable_a748deb894f9f98ea238e919e62859262}\label{classrpp_1_1composite__disposable_a748deb894f9f98ea238e919e62859262} 
+\index{rpp::composite\_disposable@{rpp::composite\_disposable}!is\_disposed@{is\_disposed}}
+\index{is\_disposed@{is\_disposed}!rpp::composite\_disposable@{rpp::composite\_disposable}}
+\doxysubsubsection{\texorpdfstring{is\_disposed()}{is\_disposed()}}
+{\footnotesize\ttfamily bool rpp\+::composite\+\_\+disposable\+::is\+\_\+disposed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/disposables/composite\+\_\+disposable.\+hpp\end{DoxyCompactItemize}

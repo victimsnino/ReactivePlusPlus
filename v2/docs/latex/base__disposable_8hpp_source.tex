@@ -1,5 +1,5 @@
 \doxysection{base\+\_\+disposable.\+hpp}
-\hypertarget{base__disposable_8hpp_source}{}\label{base__disposable_8hpp_source}\index{src/rpp/rpp/disposables/base\_disposable.hpp@{src/rpp/rpp/disposables/base\_disposable.hpp}}
+\hypertarget{base__disposable_8hpp_source}{}\label{base__disposable_8hpp_source}\index{src/rpp/rpp/disposables/details/base\_disposable.hpp@{src/rpp/rpp/disposables/details/base\_disposable.hpp}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
@@ -15,93 +15,33 @@
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/disposables/fwd.hpp>}}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <atomic>}}
-\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <memory>}}
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <vector>}}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }rpp}
-\DoxyCodeLine{00020\ \{}
-\DoxyCodeLine{00021\ \textcolor{keyword}{using\ }disposable\_ptr\ =\ std::shared\_ptr<base\_disposable>;}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1base__disposable}{base\_disposable}}}
-\DoxyCodeLine{00024\ \{}
-\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1base__disposable}{base\_disposable}}()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classrpp_1_1base__disposable}{\string~base\_disposable}}()\ \textcolor{keyword}{noexcept}\ \ \ \ \ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/disposables/interface\_disposable.hpp>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <atomic>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{base\_disposable}}\ \ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structrpp_1_1interface__disposable}{interface\_disposable}}}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{base\_disposable}}()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{base\_disposable}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{base\_disposable}}\&)\ \ \ \ \ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{base\_disposable}}(\mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{base\_disposable}}\&\&)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{final}\ \{\ \textcolor{keywordflow}{return}\ m\_disposed.load(std::memory\_order\_acquire);\ \}}
 \DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1base__disposable}{base\_disposable}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1base__disposable}{base\_disposable}}\&)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1base__disposable}{base\_disposable}}(\mbox{\hyperlink{classrpp_1_1base__disposable}{base\_disposable}}\&\&)\ \ \ \ \ \ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{00033\ \ \ \ \ \{}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_current\_state.load(std::memory\_order\_acquire)\ ==\ State::Disposed;}
-\DoxyCodeLine{00035\ \ \ \ \ \}}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ dispose()}
-\DoxyCodeLine{00038\ \ \ \ \ \{}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ State\ expected\{State::None\};}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_current\_state.compare\_exchange\_strong(expected,\ State::Disposed,\ std::memory\_order::acq\_rel))}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dispose\_impl();}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ d\ :\ m\_disposables)}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d-\/>dispose();}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_disposables.clear();}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (expected\ ==\ State::Disposed)}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00056\ \ \ \ \ \}}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ add(std::shared\_ptr<base\_disposable>\ disposable)}
-\DoxyCodeLine{00059\ \ \ \ \ \{}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!disposable\ ||\ disposable.get()\ ==\ \textcolor{keyword}{this}\ ||\ disposable-\/>is\_disposed())}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})}
-\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ State\ expected\{State::None\};}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_current\_state.compare\_exchange\_strong(expected,\ State::Edit,\ std::memory\_order::acq\_rel))}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_disposables.emplace\_back(std::move(disposable));}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_current\_state.store(State::None,\ std::memory\_order::release);}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00072\ }
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (expected\ ==\ State::Disposed)}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ disposable-\/>dispose();}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00079\ \ \ \ \ \}}
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{template}<std::invocable\ Fn>}
-\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{void}\ add(Fn\&\&\ invocable)}
-\DoxyCodeLine{00083\ \ \ \ \ \{}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ add(std::make\_shared<\mbox{\hyperlink{classrpp_1_1callback__disposable}{rpp::callback\_disposable}}<std::decay\_t<Fn>>>(std::forward<Fn>(invocable)));}
-\DoxyCodeLine{00085\ \ \ \ \ \}}
-\DoxyCodeLine{00086\ }
-\DoxyCodeLine{00087\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ dispose\_impl()\ \{\}}
-\DoxyCodeLine{00089\ }
-\DoxyCodeLine{00090\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{enum\ class}\ State}
-\DoxyCodeLine{00092\ \ \ \ \ \{}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ None,\ \ \ \ \textcolor{comment}{//\ default\ state}}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ Edit,\ \ \ \ \textcolor{comment}{//\ set\ it\ during\ adding\ new\ element\ into\ deps\ or\ removing.\ After\ success\ -\/>\ back\ to\ None}}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ Disposed\ \textcolor{comment}{//\ permanent\ state\ after\ dispose}}
-\DoxyCodeLine{00096\ \ \ \ \ \};}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00098\ \ \ \ \ std::atomic<State>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_current\_state\{\};}
-\DoxyCodeLine{00099\ \ \ \ \ std::vector<std::shared\_ptr<base\_disposable>>\ m\_disposables\{\};}
-\DoxyCodeLine{00100\ \};}
-\DoxyCodeLine{00101\ \}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ dispose()\ \textcolor{keyword}{final}}
+\DoxyCodeLine{00030\ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_disposed.exchange(\textcolor{keyword}{true},\ std::memory\_order\_acq\_rel)\ ==\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ dispose\_impl();}
+\DoxyCodeLine{00033\ \ \ \ \ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ dispose\_impl()\ =\ 0;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00039\ \ \ \ \ std::atomic\_bool\ m\_disposed\{\};}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ \}}
 
 \end{DoxyCode}

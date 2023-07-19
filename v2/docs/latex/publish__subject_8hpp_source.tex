@@ -29,7 +29,7 @@
 \DoxyCodeLine{00025\ \ \ \ \ \{}
 \DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ std::shared\_ptr<subject\_state<Type>>\ state\{\};}
 \DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\_wrapper}}\&)\ \textcolor{keyword}{noexcept}\ \{\}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&)\ \textcolor{keyword}{noexcept}\ \{\}}
 \DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_disposed()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
 \DoxyCodeLine{00030\ }
 \DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(\textcolor{keyword}{const}\ Type\&\ v)\textcolor{keyword}{\ const\ }\{\ state-\/>on\_next(v);\ \}}
@@ -40,7 +40,7 @@
 \DoxyCodeLine{00036\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{auto}\ get\_observer()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00038\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ rpp::details::with\_disposable<observer\_strategy>}}>\{\mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\_wrapper}}\{m\_state\},\ observer\_strategy\{m\_state\}\};}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ rpp::details::with\_disposable<observer\_strategy>}}>\{\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\_disposable\_wrapper}}\{m\_state\},\ observer\_strategy\{m\_state\}\};}
 \DoxyCodeLine{00040\ \ \ \ \ \}}
 \DoxyCodeLine{00041\ }
 \DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_of\_type<Type>\ TObs>}

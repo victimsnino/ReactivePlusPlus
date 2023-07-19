@@ -15,7 +15,7 @@
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/schedulers/current\_thread.hpp>}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/disposables/base\_disposable.hpp>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/disposables/details/base\_disposable.hpp>}}
 \DoxyCodeLine{00015\ }
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <atomic>}}
 \DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <condition\_variable>}}
@@ -28,7 +28,7 @@
 \DoxyCodeLine{00024\ \{}
 \DoxyCodeLine{00030\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{new\_thread}}}
 \DoxyCodeLine{00031\ \{}
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{class\ }disposable\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1base__disposable}{base\_disposable}}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{class\ }disposable\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{rpp::details::base\_disposable}}}
 \DoxyCodeLine{00033\ \ \ \ \ \{}
 \DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ disposable()\ \{}
@@ -136,7 +136,7 @@
 \DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ m\_state-\/>defer\_at(clock\_type::now()\ +\ duration,\ std::forward<Fn>(fn),\ std::forward<TObs>(obs),\ std::forward<Args>(args)...);}
 \DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00139\ }
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{rpp::disposable\_wrapper}}\ get\_disposable()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{rpp::disposable\_wrapper}}\{m\_state\};\ \}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\ get\_disposable()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\{m\_state\};\ \}}
 \DoxyCodeLine{00141\ }
 \DoxyCodeLine{00142\ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ std::shared\_ptr<disposable>\ m\_state\ =\ std::make\_shared<disposable>();}

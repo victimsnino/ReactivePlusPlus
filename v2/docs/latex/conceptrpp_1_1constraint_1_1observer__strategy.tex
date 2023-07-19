@@ -13,7 +13,7 @@ Concept to define strategy to override observer behavior. Strategy must be able 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S,\ \textcolor{keyword}{typename}\ Type>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp::constraint::observer\_strategy}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ const\_strategy,\ S\&\ strategy,\ \textcolor{keyword}{const}\ Type\&\ v,\ Type\&\ mv,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{rpp::disposable\_wrapper}}\&\ disposable)}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp::constraint::observer\_strategy}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ const\_strategy,\ S\&\ strategy,\ \textcolor{keyword}{const}\ Type\&\ v,\ Type\&\ mv,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ disposable)}
 \DoxyCodeLine{\{}
 \DoxyCodeLine{\ \ \ \ const\_strategy.on\_next(v);}
 \DoxyCodeLine{\ \ \ \ const\_strategy.on\_next(std::move(mv));}

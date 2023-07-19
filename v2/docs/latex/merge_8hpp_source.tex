@@ -14,9 +14,9 @@
 \DoxyCodeLine{00010\ }
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}rpp/observables/fwd.hpp"{}}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/operators/fwd.hpp>}}
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/schedulers/current\_thread.hpp>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/operators/fwd.hpp>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/schedulers/current\_thread.hpp>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/disposables/composite\_disposable.hpp>}}
 \DoxyCodeLine{00016\ }
 \DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/defs.hpp>}}
 \DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/strategy.hpp>}}
@@ -28,7 +28,7 @@
 \DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }rpp::operators::details}
 \DoxyCodeLine{00025\ \{}
 \DoxyCodeLine{00026\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Lock>}
-\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__disposable}{merge\_disposable}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1base__disposable}{base\_disposable}}}
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__disposable}{merge\_disposable}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\_disposable}}}
 \DoxyCodeLine{00028\ \{}
 \DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00030\ \ \ \ \ std::lock\_guard<Lock>\ lock\_guard()\ \{\ \textcolor{keywordflow}{return}\ std::lock\_guard<Lock>\{m\_lock\};\ \}}
@@ -47,7 +47,7 @@
 \DoxyCodeLine{00043\ }
 \DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1empty__on__subscribe}{empty\_on\_subscribe}}\ on\_subscribe\{\};}
 \DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ \textcolor{keyword}{auto}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ \textcolor{keyword}{auto}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00047\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ disposable-\/>add(d.get\_original());}
 \DoxyCodeLine{00049\ \ \ \ \ \}}
@@ -92,10 +92,10 @@
 \DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_subscribe(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ \textcolor{keyword}{auto}\&\ obs)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00089\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ disposable-\/>increment\_on\_completed();}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ obs.set\_upstream(\mbox{\hyperlink{classrpp_1_1disposable__wrapper}{disposable\_wrapper}}\{disposable\});}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ obs.set\_upstream(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\{disposable\});}
 \DoxyCodeLine{00092\ \ \ \ \ \}}
 \DoxyCodeLine{00093\ }
-\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ \textcolor{keyword}{auto}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ \textcolor{keyword}{auto}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00095\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ disposable-\/>add(d.get\_original());}
 \DoxyCodeLine{00097\ \ \ \ \ \}}

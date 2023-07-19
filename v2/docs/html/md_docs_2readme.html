@@ -203,7 +203,7 @@ Core concepts of Reactive Programming</h2>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__utility__operators_html_ga149309d4b2e0f1201f1ab42597ace8ac"><div class="ttname"><a href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a></div><div class="ttdeci">auto subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer)</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> subscribe.hpp:151</div></div>
+<div class="ttc" id="agroup__utility__operators_html_ga149309d4b2e0f1201f1ab42597ace8ac"><div class="ttname"><a href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a></div><div class="ttdeci">auto subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer)</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> subscribe.hpp:152</div></div>
 </div><!-- fragment --><p>There we are creating observable that emits digits from console input:In case of user promted something else it is <b>error</b> for our observable (it is expected to emit ONLY digits). In this case we are notifying observer about it and just stopping. When user prompts <code>0</code>, it means "end of observable".</p>
 <p>See <a href="https://reactivex.io/documentation/observable.html">https://reactivex.io/documentation/observable.html</a> for more details.</p>
 <p>In such an way it is not powerful enough, so Reactive Programming provides a list of <b>operators</b>.</p>

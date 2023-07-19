@@ -6,8 +6,8 @@ var group__utility__operators =
     [ "rpp::operators::subscribe", "group__utility__operators.html#gac5f97d436e04e578406fc86af36cab79", null ],
     [ "rpp::operators::subscribe", "group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac", null ],
     [ "rpp::operators::subscribe", "group__utility__operators.html#ga6344f4f85f89533d2409450774a91843", null ],
-    [ "rpp::operators::subscribe", "group__utility__operators.html#ga08c8101f8af68d73d8c2107915997bf2", null ],
-    [ "rpp::operators::subscribe", "group__utility__operators.html#gaea97ab4cba845bdd46baf107e4a05aac", null ],
-    [ "rpp::operators::subscribe", "group__utility__operators.html#ga165c77e506ca4fbede5c0f4ff46d0756", null ],
+    [ "rpp::operators::subscribe", "group__utility__operators.html#ga5b742d7c99c0f577e5a6467c826384f7", null ],
+    [ "rpp::operators::subscribe", "group__utility__operators.html#gaf47528e3e0556c51cfb24722be454179", null ],
+    [ "rpp::operators::subscribe", "group__utility__operators.html#ga879876e1f0a7a421d4153224e144ba88", null ],
     [ "rpp::operators::subscribe_on", "group__utility__operators.html#gace728cfbf71720901cb6f310edabf8b0", null ]
 ];

@@ -13,6 +13,7 @@ var annotated_dup =
           [ "member_ptr_caller", "structrpp_1_1details_1_1observers_1_1member__ptr__caller.html", null ],
           [ "member_ptr_caller< F >", "structrpp_1_1details_1_1observers_1_1member__ptr__caller_3_01_f_01_4.html", null ]
         ] ],
+        [ "base_disposable", "classrpp_1_1details_1_1base__disposable.html", null ],
         [ "concat_source_observer_strategy", "structrpp_1_1details_1_1concat__source__observer__strategy.html", null ],
         [ "concat_strategy", "structrpp_1_1details_1_1concat__strategy.html", null ],
         [ "create_strategy", "structrpp_1_1details_1_1create__strategy.html", null ],
@@ -78,8 +79,8 @@ var annotated_dup =
           [ "subscribe_t", "classrpp_1_1operators_1_1details_1_1subscribe__t.html", null ],
           [ "subscribe_t< observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01observer_3_01_type_00_01_observer_strategy_01_4_01_4.html", null ],
           [ "subscribe_t< OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", null ],
-          [ "subscribe_t< rpp::disposable_wrapper, observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1disposable__wrapper_00_01observer_3_3c120f32fc45cc12c0627a8e1e4f3f85.html", null ],
-          [ "subscribe_t< rpp::disposable_wrapper, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1disposable__wrapper_00_01_on_next_008b074dfa292c9ee62dbc2678700d276b.html", null ],
+          [ "subscribe_t< rpp::composite_disposable_wrapper, observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_0176ebc9869815430b00b6be89aa2e2b76.html", null ],
+          [ "subscribe_t< rpp::composite_disposable_wrapper, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_015839511ef5aa7d547130d10313f4a820.html", null ],
           [ "take_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__observer__strategy.html", null ],
           [ "take_t", "structrpp_1_1operators_1_1details_1_1take__t.html", null ],
           [ "take_while_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html", null ],
@@ -108,6 +109,7 @@ var annotated_dup =
         [ "details", null, [
           [ "base_subject", "classrpp_1_1subjects_1_1details_1_1base__subject.html", null ],
           [ "completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
+          [ "disposed", "structrpp_1_1subjects_1_1details_1_1disposed.html", null ],
           [ "publish_strategy", "classrpp_1_1subjects_1_1details_1_1publish__strategy.html", null ],
           [ "subject_state", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
         ] ]
@@ -120,10 +122,10 @@ var annotated_dup =
           [ "extract_observer_type< rpp::observer< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1observer_3_01_t_t_00_01_strategy_01_4_01_4.html", null ]
         ] ]
       ] ],
-      [ "base_disposable", "classrpp_1_1base__disposable.html", null ],
       [ "callback_disposable", "classrpp_1_1callback__disposable.html", null ],
-      [ "disposable_guard", "classrpp_1_1disposable__guard.html", null ],
-      [ "disposable_wrapper", "classrpp_1_1disposable__wrapper.html", null ],
+      [ "composite_disposable", "classrpp_1_1composite__disposable.html", null ],
+      [ "disposable_wrapper_impl", "classrpp_1_1disposable__wrapper__impl.html", null ],
+      [ "interface_disposable", "structrpp_1_1interface__disposable.html", null ],
       [ "make_chain_observable", "structrpp_1_1make__chain__observable.html", null ],
       [ "make_chain_observable< New, observable_chain_strategy< Args... > >", "structrpp_1_1make__chain__observable_3_01_new_00_01observable__chain__strategy_3_01_args_8_8_8_01_4_01_4.html", null ],
       [ "observable", "classrpp_1_1observable.html", "classrpp_1_1observable" ],

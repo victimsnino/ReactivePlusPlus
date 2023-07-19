@@ -3,7 +3,7 @@
 Inheritance diagram for rpp\+::operators\+::details\+::merge\+\_\+disposable\texorpdfstring{$<$}{<} Lock \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{classrpp_1_1operators_1_1details_1_1merge__disposable}
+\includegraphics[height=3.000000cm]{classrpp_1_1operators_1_1details_1_1merge__disposable}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Public Member Functions}
@@ -18,23 +18,31 @@ void {\bfseries increment\+\_\+on\+\_\+completed} ()
 \Hypertarget{classrpp_1_1operators_1_1details_1_1merge__disposable_a3b6a546c2937622f0f4b6813dda97b28}\label{classrpp_1_1operators_1_1details_1_1merge__disposable_a3b6a546c2937622f0f4b6813dda97b28} 
 bool {\bfseries decrement\+\_\+on\+\_\+completed} ()
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1base__disposable}{rpp\+::base\+\_\+disposable}}}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp\+::composite\+\_\+disposable}}}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries base\+\_\+disposable} (const \mbox{\hyperlink{classrpp_1_1base__disposable}{base\+\_\+disposable}} \&)=delete
+{\bfseries composite\+\_\+disposable} (const \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&)=delete
 \item 
-{\bfseries base\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1base__disposable}{base\+\_\+disposable}} \&\&)=delete
+{\bfseries composite\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&\&)=delete
 \item 
-bool {\bfseries is\+\_\+disposed} () const noexcept
+bool \mbox{\hyperlink{classrpp_1_1composite__disposable_a748deb894f9f98ea238e919e62859262}{is\+\_\+disposed}} () const noexcept final
 \item 
-void {\bfseries dispose} ()
+void \mbox{\hyperlink{classrpp_1_1composite__disposable_acf263ceb2c51a97f435d730f33ec293c}{dispose}} () final
 \item 
-void {\bfseries add} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1base__disposable}{base\+\_\+disposable}} $>$ disposable)
+void {\bfseries add} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structrpp_1_1interface__disposable}{interface\+\_\+disposable}} $>$ disposable)
 \item 
 {\footnotesize template$<$std\+::invocable Fn$>$ }\\void {\bfseries add} (Fn \&\&invocable)
 \end{DoxyCompactItemize}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}\label{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f} 
+virtual bool {\bfseries is\+\_\+disposed} () const noexcept=0
+\item 
+\Hypertarget{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a}\label{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a} 
+virtual void {\bfseries dispose} ()=0
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classrpp_1_1base__disposable}{rpp\+::base\+\_\+disposable}}}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp\+::composite\+\_\+disposable}}}
 \begin{DoxyCompactItemize}
 \item 
 virtual void {\bfseries dispose\+\_\+impl} ()
