@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include "rpp/disposables/fwd.hpp"
 #include <rpp/schedulers/current_thread.hpp>
 #include <rpp/disposables/details/base_disposable.hpp>
 
