@@ -84,7 +84,7 @@ TEST_CASE("as_dynamic keeps disposing")
 
         SECTION("set upstream, convert to dynamic and dispose")
         {
-            auto d = std::make_shared<rpp::base_disposable>();
+            auto d = std::make_shared<rpp::composite_disposable>();
             observer.set_upstream(rpp::disposable_wrapper{d});
             auto dynamic = std::forward<decltype(observer)>(observer).as_dynamic();
             dynamic.on_completed();
@@ -106,20 +106,20 @@ TEST_CASE("as_dynamic keeps disposing")
     }
     SECTION("observer with disposable")
     {
-        check(rpp::make_lambda_observer<int>(rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()}, [](int) {}, [](const std::exception_ptr&) {}, []() {}));
+        check(rpp::make_lambda_observer<int>(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, [](int) {}, [](const std::exception_ptr&) {}, []() {}));
     }
     SECTION("observer with disposed disposable")
     {
-        check(rpp::make_lambda_observer<int>(rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()}, [](int) {}, [](const std::exception_ptr&) {}, []() {}));
+        check(rpp::make_lambda_observer<int>(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, [](int) {}, [](const std::exception_ptr&) {}, []() {}));
     }
 }
 
 TEST_CASE("observer disposes disposable on termination callbacks")
 {
-    auto d = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
+    auto d = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
     auto                      observer = rpp::make_lambda_observer<int>(d, [](int) {}, [](const std::exception_ptr&) {}, []() {});
 
-    auto upstream = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
+    auto upstream = rpp::disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
     observer.set_upstream(upstream);
 
     CHECK(!d.is_disposed());
@@ -149,7 +149,7 @@ TEST_CASE("set_upstream without base disposable makes it main disposalbe")
 
     auto test_observer = [](auto&& observer)
     {
-        auto upstream = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
+        auto upstream = rpp::disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
         observer.set_upstream(upstream);
         CHECK(!upstream.is_disposed());
         CHECK(!observer.is_disposed());
@@ -180,10 +180,10 @@ TEST_CASE("set_upstream can be called multiple times")
 {
     auto check = [](auto&& observer)
     {
-        auto d1 = std::make_shared<rpp::base_disposable>();
+        auto d1 = std::make_shared<rpp::composite_disposable>();
         observer.set_upstream(rpp::disposable_wrapper{d1});
         CHECK(d1->is_disposed() == observer.is_disposed());
-        observer.set_upstream(rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()});
+        observer.set_upstream(rpp::disposable_wrapper{std::make_shared<rpp::composite_disposable>()});
         CHECK(d1->is_disposed());
     };
 
@@ -191,20 +191,20 @@ TEST_CASE("set_upstream can be called multiple times")
         check(rpp::make_lambda_observer<int>([](int) {}, [](const std::exception_ptr&) {}, []() {}));
 
     SECTION("observer with disposable")
-        check(rpp::make_lambda_observer<int>(rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()}, [](int) {}, [](const std::exception_ptr&) {}, []() {}));
+        check(rpp::make_lambda_observer<int>(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, [](int) {}, [](const std::exception_ptr&) {}, []() {}));
 
     SECTION("observer with empty disposable")
-        check(rpp::make_lambda_observer<int>(rpp::disposable_wrapper{}, [](int) {}, [](const std::exception_ptr&) {}, []() {}));
+        check(rpp::make_lambda_observer<int>(rpp::composite_disposable_wrapper{}, [](int) {}, [](const std::exception_ptr&) {}, []() {}));
 }
 
 TEST_CASE("set_upstream depends on base disposable")
 {
-    auto d = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
+    auto d = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
     auto                      original_observer = rpp::make_lambda_observer<int>(d, [](int) {}, [](const std::exception_ptr&) {}, []() {});
 
     auto test_observer = [&d](auto&& observer)
     {
-        auto upstream = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
+        auto upstream = rpp::disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
 
         CHECK(!d.is_disposed());
         CHECK(!upstream.is_disposed());
@@ -240,11 +240,11 @@ TEST_CASE("set_upstream depends on base disposable")
 
 TEST_CASE("set_upstream disposing when empty base disposable")
 {
-    auto                      original_observer = rpp::make_lambda_observer<int>(rpp::disposable_wrapper{}, [](int) {}, [](const std::exception_ptr&) {}, []() {});
+    auto                      original_observer = rpp::make_lambda_observer<int>(rpp::composite_disposable_wrapper{}, [](int) {}, [](const std::exception_ptr&) {}, []() {});
 
     auto test_observer = [](auto&& observer)
     {
-        auto upstream = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
+        auto upstream = rpp::disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
 
         CHECK(!upstream.is_disposed());
         CHECK(observer.is_disposed());

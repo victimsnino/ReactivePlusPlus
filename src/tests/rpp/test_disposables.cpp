@@ -9,11 +9,12 @@
 
 #include <snitch/snitch.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
+#include <rpp/disposables/composite_disposable.hpp>
 
 
 TEST_CASE("disposable keeps state")
 {
-    auto d = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
+    auto d = rpp::disposable_wrapper_impl{std::make_shared<rpp::composite_disposable>()};
 
     CHECK(!d.is_disposed());
 
@@ -34,7 +35,7 @@ TEST_CASE("disposable keeps state")
 
     SECTION("add other disposable")
     {
-        auto other = std::make_shared<rpp::base_disposable>();
+        auto other = std::make_shared<rpp::composite_disposable>();
         CHECK(!other->is_disposed());
         d.add(other);
         SECTION("calling dispose on original disposable forces both of them to be disposed")
@@ -54,7 +55,7 @@ TEST_CASE("disposable keeps state")
 
     SECTION("add disposed disposable")
     {
-        auto other = std::make_shared<rpp::base_disposable>();
+        auto other = std::make_shared<rpp::composite_disposable>();
         other->dispose();
         d.add(other);
         CHECK(other->is_disposed());
@@ -67,7 +68,7 @@ TEST_CASE("disposable keeps state")
 
         SECTION("adding non disposed disposable to empty forces it to be disposed")
         {
-            auto other = std::make_shared<rpp::base_disposable>();
+            auto other = std::make_shared<rpp::composite_disposable>();
             CHECK(!other->is_disposed());
             d.add(other);
             CHECK(other->is_disposed());
@@ -76,13 +77,13 @@ TEST_CASE("disposable keeps state")
 
     SECTION("empty disposable")
     {
-        d = rpp::disposable_wrapper{};
+        d = rpp::disposable_wrapper_impl<rpp::composite_disposable>{};
         CHECK(d.is_disposed());
         d.dispose();
 
         SECTION("adding non disposed disposable to empty forces it to be disposed")
         {
-            auto other = std::make_shared<rpp::base_disposable>();
+            auto other = std::make_shared<rpp::composite_disposable>();
             CHECK(!other->is_disposed());
             d.add(other);
             CHECK(other->is_disposed());

@@ -156,7 +156,7 @@ static std::string simulate_complex_scheduling_with_delay(const auto& worker, co
 TEST_CASE("Immediate scheduler")
 {
     auto scheduler = rpp::schedulers::immediate{};
-    auto d = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
+    auto d = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
     auto mock_obs = mock_observer_strategy<int>{};
     auto obs = mock_obs.get_observer(d).as_dynamic();
 
@@ -326,7 +326,7 @@ TEST_CASE("Immediate scheduler")
 
 TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread, rpp::schedulers::new_thread)
 {
-    auto d = std::make_shared<rpp::base_disposable>();
+    auto d = std::make_shared<rpp::composite_disposable>();
     auto mock_obs = mock_observer_strategy<int>{};
     auto obs = std::optional{mock_obs.get_observer(d).as_dynamic()};
 
@@ -356,13 +356,17 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 
     auto wait_till_finished = [&]
     {
-        std::promise<void> p{};
-        auto future = p.get_future();
-        worker->get_disposable().add(rpp::make_callback_disposable([&p]{p.set_value();}));
+        auto disposable = std::weak_ptr{worker->get_disposable().get_original()};
         worker.reset();
         obs.reset();
         d.reset();
-        future.wait();
+        while(true)
+        {
+            std::this_thread::yield();
+            const auto locked = disposable.lock();
+            if (!locked || locked->is_disposed())
+                break;
+        }
     };
 
     SECTION("scheduler schedules and re-schedules action immediately")

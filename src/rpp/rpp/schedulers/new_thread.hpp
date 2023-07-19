@@ -11,7 +11,7 @@
 #pragma once
 
 #include <rpp/schedulers/current_thread.hpp>
-#include <rpp/disposables/base_disposable.hpp>
+#include <rpp/disposables/details/base_disposable.hpp>
 
 #include <atomic>
 #include <condition_variable>
@@ -29,7 +29,7 @@ namespace rpp::schedulers
  */
 class new_thread
 {
-    class disposable final : public base_disposable
+    class disposable final : public rpp::details::base_disposable
     {
     public:
         disposable() {

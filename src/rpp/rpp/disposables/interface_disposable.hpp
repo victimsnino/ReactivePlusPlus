@@ -11,16 +11,17 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
-#include <rpp/disposables/base_disposable.hpp>
+#include <memory>
 
 namespace rpp
 {
-class disposable_guard
-{
-public:
-    disposable_guard(std::shared_ptr<base_disposable> disposable = {}) : m_disposable{std::move(disposable)} {}
+using disposable_ptr = std::shared_ptr<interface_disposable>;
 
-private:
-    std::shared_ptr<base_disposable> m_disposable;
+struct interface_disposable
+{
+    virtual ~interface_disposable() noexcept = default;
+
+    virtual bool is_disposed() const noexcept = 0;
+    virtual void dispose()                    = 0;
 };
 }

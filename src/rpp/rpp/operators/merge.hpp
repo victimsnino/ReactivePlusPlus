@@ -10,9 +10,9 @@
 
 #pragma once
 
-#include "rpp/observables/fwd.hpp"
 #include <rpp/operators/fwd.hpp>
 #include <rpp/schedulers/current_thread.hpp>
+#include <rpp/disposables/composite_disposable.hpp>
 
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
@@ -24,7 +24,7 @@
 namespace rpp::operators::details
 {
 template<typename Lock>
-class merge_disposable final : public base_disposable
+class merge_disposable final : public composite_disposable
 {
 public:
     std::lock_guard<Lock> lock_guard() { return std::lock_guard<Lock>{m_lock}; }

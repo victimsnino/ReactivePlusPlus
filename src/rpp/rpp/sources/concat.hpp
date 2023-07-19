@@ -9,13 +9,11 @@
 
 #pragma once
 
-#include "rpp/utils/constraints.hpp"
 #include <rpp/sources/fwd.hpp>
 #include <rpp/sources/from.hpp>
 #include <rpp/observables/observable.hpp>
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/operators/details/strategy.hpp>
-#include <rpp/disposables/base_disposable.hpp>
 #include <rpp/memory_model.hpp>
 #include <exception>
 #include <optional>
@@ -80,7 +78,7 @@ struct concat_strategy
                 observable.emplace(*itr);
                 is_last_observable = std::next(itr) == std::cend(container);
             }
-            
+
         }
         catch (...)
         {

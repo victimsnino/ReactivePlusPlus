@@ -22,7 +22,8 @@
 #include <thread>
 
 #include "mock_observer.hpp"
-#include "rpp/disposables/base_disposable.hpp"
+#include "rpp/disposables/composite_disposable.hpp"
+#include "rpp/disposables/fwd.hpp"
 #include "rpp/operators/fwd.hpp"
 #include "rpp/operators/subscribe.hpp"
 #include "rpp/schedulers/fwd.hpp"
@@ -72,7 +73,7 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
 
         rpp::schedulers::current_thread::create_worker().schedule([&mock, &executed](const auto&)
         {
-            auto d = std::make_shared<rpp::base_disposable>();
+            auto d = std::make_shared<rpp::composite_disposable>();
             rpp::source::create<int>([&](const auto&)
             {
                 executed = true;
@@ -93,11 +94,11 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
 
     SECTION("subscribe_on and then upstream updates upstream inside observer")
     {
-        auto d = std::make_shared<rpp::base_disposable>();
-        auto second = std::make_shared<rpp::base_disposable>();
+        auto d = std::make_shared<rpp::composite_disposable>();
+        auto second = std::make_shared<rpp::composite_disposable>();
         rpp::source::create<int>([&](auto&& obs)
         {
-            obs.set_upstream(second);
+            obs.set_upstream(rpp::disposable_wrapper{second});
         })
         | rpp::ops::subscribe_on(rpp::schedulers::current_thread{})
         | rpp::ops::subscribe(mock.get_observer(d));

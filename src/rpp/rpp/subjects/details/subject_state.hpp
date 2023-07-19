@@ -11,6 +11,7 @@
 
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/disposables/callback_disposable.hpp>
+#include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/utils/utils.hpp>
@@ -24,15 +25,14 @@
 
 namespace rpp::subjects::details
 {
-struct completed
-{
-};
+struct completed{};
+struct disposed{};
 
 template<rpp::constraint::decayed_type Type>
-class subject_state : public std::enable_shared_from_this<subject_state<Type>>, public base_disposable
+class subject_state final : public std::enable_shared_from_this<subject_state<Type>>, public composite_disposable
 {
     using shared_observers = std::shared_ptr<std::vector<rpp::dynamic_observer<Type>>>;
-    using state_t          = std::variant<shared_observers, std::exception_ptr, completed>;
+    using state_t          = std::variant<shared_observers, std::exception_ptr, completed, disposed>;
 
 public:
     template<rpp::constraint::observer_of_type<Type> TObs>
@@ -82,6 +82,11 @@ public:
     }
 
 private:
+    void dispose_impl() override
+    {
+        exchange_observers_under_lock_if_there(disposed{});
+    }
+
     void set_upstream(rpp::dynamic_observer<Type>& obs)
     {
         obs.set_upstream(rpp::disposable_wrapper{make_callback_disposable(
@@ -92,8 +97,8 @@ private:
                     std::unique_lock lock{shared->m_mutex};
                     process_state_unsafe(shared->m_state,
                                          [&](const shared_observers& observers)
-                                         { 
-                                            shared->m_state = make_copy_of_subscribed_observers(false, observers); 
+                                         {
+                                            shared->m_state = make_copy_of_subscribed_observers(false, observers);
                                          });
                 }
             })});

@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
+#include <rpp/disposables/interface_disposable.hpp>
 
 #include <atomic>
 #include <memory>
@@ -18,23 +19,20 @@
 
 namespace rpp
 {
-using disposable_ptr = std::shared_ptr<base_disposable>;
-
-class base_disposable
+class composite_disposable : public interface_disposable
 {
 public:
-    base_disposable()                       = default;
-    virtual ~base_disposable() noexcept     = default;
+    composite_disposable() = default;
 
-    base_disposable(const base_disposable&) = delete;
-    base_disposable(base_disposable&&)      = delete;
+    composite_disposable(const composite_disposable&) = delete;
+    composite_disposable(composite_disposable&&)      = delete;
 
-    bool is_disposed() const noexcept
+    bool is_disposed() const noexcept final
     {
         return m_current_state.load(std::memory_order_acquire) == State::Disposed;
     }
 
-    void dispose()
+    void dispose() final
     {
         while (true)
         {
@@ -55,7 +53,7 @@ public:
         }
     }
 
-    void add(std::shared_ptr<base_disposable> disposable)
+    void add(std::shared_ptr<interface_disposable> disposable)
     {
         if (!disposable || disposable.get() == this || disposable->is_disposed())
             return;
@@ -95,7 +93,7 @@ private:
         Disposed // permanent state after dispose
     };
 
-    std::atomic<State>                            m_current_state{};
-    std::vector<std::shared_ptr<base_disposable>> m_disposables{};
+    std::atomic<State>                                 m_current_state{};
+    std::vector<std::shared_ptr<interface_disposable>> m_disposables{};
 };
-}
+} // namespace rpp

@@ -11,14 +11,20 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
-#include <rpp/disposables/base_disposable.hpp>
+#include <rpp/disposables/interface_disposable.hpp>
 
 namespace rpp
 {
-class disposable_wrapper
+template<rpp::constraint::decayed_type TDisposable>
+class disposable_wrapper_impl
 {
 public:
-    disposable_wrapper(std::shared_ptr<base_disposable> disposable = {}) : m_disposable{std::move(disposable)} {}
+
+    disposable_wrapper_impl(std::shared_ptr<TDisposable> disposable = {})
+        requires std::derived_from<TDisposable, interface_disposable>
+    : m_disposable{std::move(disposable)}
+    {
+    }
 
     bool is_disposed() const noexcept { return !m_disposable || m_disposable->is_disposed(); }
 
@@ -28,16 +34,18 @@ public:
             m_disposable->dispose();
     }
 
-    void add(std::shared_ptr<base_disposable> other) const
+    void add(std::shared_ptr<interface_disposable> other) const requires std::same_as<TDisposable, composite_disposable>
     {
         if (m_disposable)
             m_disposable->add(std::move(other));
         else if (other)
             other->dispose();
     }
-    const std::shared_ptr<base_disposable>& get_original() const { return m_disposable; }
+    const std::shared_ptr<TDisposable>& get_original() const { return m_disposable; }
+
+    operator disposable_wrapper_impl<interface_disposable>() const {return disposable_wrapper{m_disposable}; }
 
 private:
-    std::shared_ptr<base_disposable> m_disposable;
+    std::shared_ptr<TDisposable> m_disposable;
 };
 }

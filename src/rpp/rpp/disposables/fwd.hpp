@@ -10,17 +10,23 @@
 
 #pragma once
 
+#include <rpp/utils/constraints.hpp>
 #include <concepts>
-
 namespace rpp
 {
-class base_disposable;
+struct interface_disposable;
 
-class disposable_wrapper;
+class composite_disposable;
 
 template<std::invocable Fn>
 class callback_disposable;
 
 template<std::invocable Fn>
 auto make_callback_disposable(Fn&& invocable);
+
+template<rpp::constraint::decayed_type TDisposable>
+class disposable_wrapper_impl;
+
+using disposable_wrapper = disposable_wrapper_impl<interface_disposable>;
+using composite_disposable_wrapper = disposable_wrapper_impl<composite_disposable>;
 } // namespace rpp
