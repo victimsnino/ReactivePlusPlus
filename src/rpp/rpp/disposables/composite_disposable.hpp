@@ -22,7 +22,7 @@ namespace rpp
 class composite_disposable : public interface_disposable
 {
 public:
-    composite_disposable()                       = default;
+    composite_disposable() = default;
 
     composite_disposable(const composite_disposable&) = delete;
     composite_disposable(composite_disposable&&)      = delete;

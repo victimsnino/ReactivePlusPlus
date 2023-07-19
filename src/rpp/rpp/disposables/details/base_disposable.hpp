@@ -20,7 +20,9 @@ namespace rpp::details
 class base_disposable  : public interface_disposable
 {
 public:
-    base_disposable() = default;
+    base_disposable()                           = default;
+    base_disposable(const base_disposable&)     = delete;
+    base_disposable(base_disposable&&) noexcept = delete;
 
     bool is_disposed() const noexcept final { return m_disposed.load(std::memory_order_acquire); }
 

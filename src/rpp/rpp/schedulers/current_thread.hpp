@@ -128,7 +128,7 @@ public:
                 drain_queue(queue);
         }
 
-        static rpp::composite_disposable_wrapper get_disposable() { return rpp::composite_disposable_wrapper{}; }
+        static rpp::disposable_wrapper get_disposable() { return rpp::disposable_wrapper{}; }
     };
 
     static rpp::schedulers::worker<worker_strategy> create_worker()

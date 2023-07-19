@@ -54,7 +54,7 @@ public:
         m_strategy.defer_for(delay, std::forward<Fn>(fn), obs, std::forward<Args>(args)...);
     }
 
-    rpp::composite_disposable_wrapper get_disposable() const { return m_strategy.get_disposable(); }
+    rpp::disposable_wrapper get_disposable() const { return m_strategy.get_disposable(); }
 
 private:
     RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;

@@ -356,13 +356,17 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 
     auto wait_till_finished = [&]
     {
-        std::promise<void> p{};
-        auto future = p.get_future();
-        worker->get_disposable().add(rpp::make_callback_disposable([&p]{p.set_value();}));
+        auto disposable = std::weak_ptr{worker->get_disposable().get_original()};
         worker.reset();
         obs.reset();
         d.reset();
-        future.wait();
+        while(true)
+        {
+            std::this_thread::yield();
+            const auto locked = disposable.lock();
+            if (!locked || locked->is_disposed())
+                break;
+        }
     };
 
     SECTION("scheduler schedules and re-schedules action immediately")

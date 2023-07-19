@@ -36,7 +36,7 @@ template<typename S>
 concept strategy = requires(const S& s, const rpp::details::fake_observer<int>& obs)
 {
     {s.defer_for(duration{}, std::declval<optional_duration(*)(const rpp::details::fake_observer<int>&)>(), obs)} -> std::same_as<void>;
-    {s.get_disposable()} -> std::same_as<rpp::composite_disposable_wrapper>;
+    {s.get_disposable()} -> std::same_as<rpp::disposable_wrapper>;
 };
 }
 
