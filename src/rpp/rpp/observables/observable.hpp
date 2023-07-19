@@ -15,7 +15,7 @@
 #include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/observers/lambda_observer.hpp>
 
-#include <rpp/disposables/base_disposable.hpp>
+#include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/operators/subscribe.hpp>
 
@@ -73,13 +73,13 @@ public:
      * @warning This overloading has some performance penalties, use it only when you really need to use disposable
      *
      * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
-     * @return disposable_wrapper is disposable to be able to dispose observer when it needed
+     * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
      */
     template<constraint::observer_strategy<Type> ObserverStrategy>
-    disposable_wrapper subscribe(const disposable_wrapper& d, observer<Type, ObserverStrategy>&& obs) const
+    composite_disposable_wrapper subscribe(const composite_disposable_wrapper& d, observer<Type, ObserverStrategy>&& obs) const
     {   if (!d.is_disposed())
             m_strategy.subscribe(observer<Type, rpp::details::with_disposable<observer<Type, ObserverStrategy>>>{d, std::move(obs)});
-        return disposable_wrapper{d};
+        return d;
     }
 
     /**
@@ -104,12 +104,12 @@ public:
      * @warning This overloading has some performance penalties, use it only when you really need to use disposable
      *
      * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
-     * @return disposable_wrapper is disposable to be able to dispose observer when it needed
+     * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
      */
     template<std::invocable<Type>                      OnNext,
              std::invocable<const std::exception_ptr&> OnError     = rpp::utils::rethrow_error_t,
              std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>>
-    disposable_wrapper subscribe(const disposable_wrapper& d, OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const
+    composite_disposable_wrapper subscribe(const composite_disposable_wrapper& d, OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const
     {
         if (!d.is_disposed())
             m_strategy.subscribe(make_lambda_observer<Type>(d,

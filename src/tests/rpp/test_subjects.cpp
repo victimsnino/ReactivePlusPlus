@@ -13,7 +13,7 @@
 #include <rpp/subjects/publish_subject.hpp>
 
 #include "mock_observer.hpp"
-#include "rpp/disposables/base_disposable.hpp"
+#include <rpp/disposables/composite_disposable.hpp>
 
 TEST_CASE("publish subject multicasts values")
 {
@@ -24,8 +24,8 @@ TEST_CASE("publish subject multicasts values")
         auto sub = rpp::subjects::publish_subject<int>{};
         SECTION("subscribe multiple observers")
         {
-            auto dis_1 = std::make_shared<rpp::base_disposable>();
-            auto dis_2 = std::make_shared<rpp::base_disposable>();
+            auto dis_1 = std::make_shared<rpp::composite_disposable>();
+            auto dis_2 = std::make_shared<rpp::composite_disposable>();
             sub.get_observable().subscribe(mock_1.get_observer(dis_1));
             sub.get_observable().subscribe(mock_2.get_observer(dis_2));
 

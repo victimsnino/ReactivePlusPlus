@@ -51,28 +51,28 @@ TEST_CASE("create observable works properly as observable")
 
         SECTION("subscribe disposed callbacks")
         {
-            observable.subscribe(rpp::disposable_wrapper{}, [](int) {}, [](const std::exception_ptr&) {}, []() {});
+            observable.subscribe(rpp::composite_disposable_wrapper{}, [](int) {}, [](const std::exception_ptr&) {}, []() {});
 
             CHECK(on_subscribe_called == 0u);
         }
 
         SECTION("subscribe disposed observer")
         {
-            observable.subscribe(rpp::disposable_wrapper{}, rpp::make_lambda_observer([](int) {}, [](const std::exception_ptr&) {}, []() {}));
+            observable.subscribe(rpp::composite_disposable_wrapper{}, rpp::make_lambda_observer([](int) {}, [](const std::exception_ptr&) {}, []() {}));
 
             CHECK(on_subscribe_called == 0u);
         }
 
         SECTION("subscribe non-disposed callbacks")
         {
-            observable.subscribe(rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()}, [](int) {}, [](const std::exception_ptr&) {}, []() {});
+            observable.subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, [](int) {}, [](const std::exception_ptr&) {}, []() {});
 
             CHECK(on_subscribe_called == 1u);
         }
 
         SECTION("subscribe non-disposed observer")
         {
-            observable.subscribe(rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()}, rpp::make_lambda_observer([](int) {}, [](const std::exception_ptr&) {}, []() {}));
+            observable.subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, rpp::make_lambda_observer([](int) {}, [](const std::exception_ptr&) {}, []() {}));
 
             CHECK(on_subscribe_called == 1u);
         }

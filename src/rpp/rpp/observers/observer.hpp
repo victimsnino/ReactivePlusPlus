@@ -13,7 +13,7 @@
 #include <rpp/defs.hpp>
 #include <rpp/observers/fwd.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
-#include <rpp/disposables/base_disposable.hpp>
+#include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/utils/functors.hpp>
 #include <rpp/utils/exceptions.hpp>
@@ -45,7 +45,10 @@ private:
 class external_disposable_strategy : private upstream_disposable
 {
 public:
-    explicit external_disposable_strategy(disposable_wrapper disposable) : m_external_disposable(std::move(disposable)) {}
+    explicit external_disposable_strategy(composite_disposable_wrapper disposable)
+        : m_external_disposable(std::move(disposable))
+    {
+    }
 
     void set_upstream(const disposable_wrapper& d)
     {
@@ -53,10 +56,7 @@ public:
         m_external_disposable.add(d.get_original());
     }
 
-    bool is_disposed() const noexcept
-    {
-        return m_external_disposable.is_disposed();
-    }
+    bool is_disposed() const noexcept { return m_external_disposable.is_disposed(); }
 
     void dispose() const
     {
@@ -65,7 +65,7 @@ public:
     }
 
 private:
-    disposable_wrapper             m_external_disposable{};
+    composite_disposable_wrapper m_external_disposable{};
 };
 
 class local_disposable_strategy : private upstream_disposable
@@ -254,7 +254,7 @@ class observer<Type, details::with_disposable<Strategy>> final
 public:
     template<typename ...Args>
         requires (constraint::is_constructible_from<Strategy, Args&&...>)
-    explicit observer(disposable_wrapper disposable, Args&& ...args)
+    explicit observer(composite_disposable_wrapper disposable, Args&& ...args)
         : details::observer_impl<Type, Strategy, details::external_disposable_strategy>{details::external_disposable_strategy{std::move(disposable)}, std::forward<Args>(args)...}
     {}
 

@@ -12,7 +12,6 @@
 #include <rpp/defs.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/schedulers/fwd.hpp>
-#include <rpp/disposables/base_disposable.hpp>
 #include <rpp/utils/utils.hpp>
 #include <rpp/utils/tuple.hpp>
 

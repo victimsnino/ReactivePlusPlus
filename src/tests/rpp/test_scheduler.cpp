@@ -156,7 +156,7 @@ static std::string simulate_complex_scheduling_with_delay(const auto& worker, co
 TEST_CASE("Immediate scheduler")
 {
     auto scheduler = rpp::schedulers::immediate{};
-    auto d = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
+    auto d = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
     auto mock_obs = mock_observer_strategy<int>{};
     auto obs = mock_obs.get_observer(d).as_dynamic();
 
@@ -326,7 +326,7 @@ TEST_CASE("Immediate scheduler")
 
 TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread, rpp::schedulers::new_thread)
 {
-    auto d = std::make_shared<rpp::base_disposable>();
+    auto d = std::make_shared<rpp::composite_disposable>();
     auto mock_obs = mock_observer_strategy<int>{};
     auto obs = std::optional{mock_obs.get_observer(d).as_dynamic()};
 

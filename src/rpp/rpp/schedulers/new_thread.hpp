@@ -10,8 +10,9 @@
 
 #pragma once
 
+#include "rpp/disposables/fwd.hpp"
 #include <rpp/schedulers/current_thread.hpp>
-#include <rpp/disposables/base_disposable.hpp>
+#include <rpp/disposables/details/base_disposable.hpp>
 
 #include <atomic>
 #include <condition_variable>
@@ -29,7 +30,7 @@ namespace rpp::schedulers
  */
 class new_thread
 {
-    class disposable final : public base_disposable
+    class disposable final : public rpp::composite_disposable
     {
     public:
         disposable() {
@@ -137,7 +138,7 @@ public:
             m_state->defer_at(clock_type::now() + duration, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
         }
 
-        rpp::disposable_wrapper get_disposable() const { return rpp::disposable_wrapper{m_state}; }
+        rpp::composite_disposable_wrapper get_disposable() const { return rpp::composite_disposable_wrapper{m_state}; }
 
 private:
         std::shared_ptr<disposable> m_state = std::make_shared<disposable>();

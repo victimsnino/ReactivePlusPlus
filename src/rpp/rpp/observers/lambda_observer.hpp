@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/observers/observer.hpp>
 #include <rpp/utils/function_traits.hpp>
 
@@ -59,7 +60,7 @@ template<constraint::decayed_type Type,
          std::invocable<Type> OnNext,
          std::invocable<const std::exception_ptr&> OnError,
          std::invocable<> OnCompleted>
-auto make_lambda_observer(const rpp::disposable_wrapper& d,
+auto make_lambda_observer(const rpp::composite_disposable_wrapper& d,
                           OnNext&&      on_next,
                           OnError&&     on_error,
                           OnCompleted&& on_completed) -> lambda_observer_with_disposable<Type,

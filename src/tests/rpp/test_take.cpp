@@ -21,7 +21,7 @@ TEST_CASE("take operator limits emissions")
     int actually_values_sent{};
     auto obs = rpp::source::create<int>([&actually_values_sent](auto&& obs)
     {
-        auto upstream = rpp::disposable_wrapper{std::make_shared<rpp::base_disposable>()};
+        auto upstream = rpp::disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
         obs.set_upstream(upstream);
 
         while(!obs.is_disposed())
