@@ -22625,6 +22625,420 @@
             "medianAbsolutePercentError(elapsed)": 0.00108951453604392,
             "commit": "06862d42",
             "commit_message": "Refactor disposables (#389)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 0.801973766689651,
+            "medianAbsolutePercentError(elapsed)": 0.0305076361665895,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 854.086858006042,
+            "medianAbsolutePercentError(elapsed)": 0.00882868916193912,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 0.766977176788575,
+            "medianAbsolutePercentError(elapsed)": 0.0297078452325615,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 837.645569620253,
+            "medianAbsolutePercentError(elapsed)": 0.0185828805039415,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.40276960154471897,
+            "medianAbsolutePercentError(elapsed)": 0.0143649384118294,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 2182.89079229122,
+            "medianAbsolutePercentError(elapsed)": 0.0212613505123912,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 6.50343317261447,
+            "medianAbsolutePercentError(elapsed)": 0.0455063491457936,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 2742.47333333333,
+            "medianAbsolutePercentError(elapsed)": 0.0792130736485176,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401055398429554,
+            "medianAbsolutePercentError(elapsed)": 0.0038973445834779,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 6627.07471264368,
+            "medianAbsolutePercentError(elapsed)": 0.0029159844756155,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 0.802348475220378,
+            "medianAbsolutePercentError(elapsed)": 0.00487412075604381,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 822.8147368421049,
+            "medianAbsolutePercentError(elapsed)": 0.0628303210844304,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 7.07193785386467,
+            "medianAbsolutePercentError(elapsed)": 0.0498124323347093,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1074.80828082808,
+            "medianAbsolutePercentError(elapsed)": 0.00550922224798,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 95.6549207148251,
+            "medianAbsolutePercentError(elapsed)": 0.00489978112224262,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 2385.0233333333304,
+            "medianAbsolutePercentError(elapsed)": 0.0122665594322856,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 247.379055083823,
+            "medianAbsolutePercentError(elapsed)": 0.021024479608307,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 5236.92424242424,
+            "medianAbsolutePercentError(elapsed)": 0.0178148609409047,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 253.002666666667,
+            "medianAbsolutePercentError(elapsed)": 0.0120190247416579,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 8270.82113821138,
+            "medianAbsolutePercentError(elapsed)": 0.0362341732840181,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.0,
+            "medianAbsolutePercentError(elapsed)": 0,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1069.35985533454,
+            "medianAbsolutePercentError(elapsed)": 0.0066835078945852,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.400960664747377,
+            "medianAbsolutePercentError(elapsed)": 0.00437675711726857,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1031.109025916,
+            "medianAbsolutePercentError(elapsed)": 0.00324618422631139,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.39860350168262004,
+            "medianAbsolutePercentError(elapsed)": 0.0110321124005153,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1025.67092924126,
+            "medianAbsolutePercentError(elapsed)": 0.0134965283210411,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.400998834549818,
+            "medianAbsolutePercentError(elapsed)": 0.0188802481964943,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1158.18720379147,
+            "medianAbsolutePercentError(elapsed)": 0.0489668087123686,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 194.85597280173099,
+            "medianAbsolutePercentError(elapsed)": 0.00791071966027109,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3814.09150326797,
+            "medianAbsolutePercentError(elapsed)": 0.0213067295430859,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.400974583459569,
+            "medianAbsolutePercentError(elapsed)": 0.00436927601134441,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1664.41747572816,
+            "medianAbsolutePercentError(elapsed)": 0.0334717862037143,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.393600634622346,
+            "medianAbsolutePercentError(elapsed)": 0.0446312786318819,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 951.025878003697,
+            "medianAbsolutePercentError(elapsed)": 0.0782333196503398,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.379904918967786,
+            "medianAbsolutePercentError(elapsed)": 0.0373670183046717,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1796.05833333333,
+            "medianAbsolutePercentError(elapsed)": 0.0512214714735152,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+last()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.358803666666667,
+            "medianAbsolutePercentError(elapsed)": 0.0931145685749117,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+last()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1217.10303030303,
+            "medianAbsolutePercentError(elapsed)": 0.0592771729242134,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.390199603343298,
+            "medianAbsolutePercentError(elapsed)": 0.0327100076943039,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1330.28,
+            "medianAbsolutePercentError(elapsed)": 0.0275092684093586,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.364882002969846,
+            "medianAbsolutePercentError(elapsed)": 0.0530162010162622,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 942.914695945946,
+            "medianAbsolutePercentError(elapsed)": 0.0658001344630212,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.385767541984547,
+            "medianAbsolutePercentError(elapsed)": 0.0574907347934254,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3528.56065573771,
+            "medianAbsolutePercentError(elapsed)": 0.0307799606283,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rpp",
+            "median(elapsed)": 66.55790645879729,
+            "medianAbsolutePercentError(elapsed)": 0.0287121865418171,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rxcpp",
+            "median(elapsed)": 125.96665918275701,
+            "medianAbsolutePercentError(elapsed)": 0.0256143298461175,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
         }
     ],
     "ci-macos": [
@@ -45253,6 +45667,420 @@
             "medianAbsolutePercentError(elapsed)": 0.00163086761974148,
             "commit": "06862d42",
             "commit_message": "Refactor disposables (#389)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 0.5611280135609931,
+            "medianAbsolutePercentError(elapsed)": 0.00847341935246413,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 1109.49132947977,
+            "medianAbsolutePercentError(elapsed)": 0.00563706430780337,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 0.555975550167332,
+            "medianAbsolutePercentError(elapsed)": 0.00577441659627702,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 1107.36852207294,
+            "medianAbsolutePercentError(elapsed)": 0.0048226425651388,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.435577868475994,
+            "medianAbsolutePercentError(elapsed)": 0.00536692068005426,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 2359.75826446281,
+            "medianAbsolutePercentError(elapsed)": 0.00311593934944468,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 8.08374802596947,
+            "medianAbsolutePercentError(elapsed)": 0.00178882529837778,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 2982.68857142857,
+            "medianAbsolutePercentError(elapsed)": 0.00307021510644177,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.27874516064462895,
+            "medianAbsolutePercentError(elapsed)": 0.012221406797807,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 6875.69798657718,
+            "medianAbsolutePercentError(elapsed)": 0.00273209108295037,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 0.553418709787494,
+            "medianAbsolutePercentError(elapsed)": 0.00644764688828361,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1011.06280667321,
+            "medianAbsolutePercentError(elapsed)": 0.00293655032847842,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 8.36292549422085,
+            "medianAbsolutePercentError(elapsed)": 0.00349587776750397,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1338.12344139651,
+            "medianAbsolutePercentError(elapsed)": 0.00276349976628176,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 182.924004442329,
+            "medianAbsolutePercentError(elapsed)": 0.00252660415038938,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 2359.4279176201403,
+            "medianAbsolutePercentError(elapsed)": 0.00257403117216385,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 407.816199376947,
+            "medianAbsolutePercentError(elapsed)": 0.00372952981857362,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4036.7180451127797,
+            "medianAbsolutePercentError(elapsed)": 0.00689011620888331,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 379.47208619001003,
+            "medianAbsolutePercentError(elapsed)": 0.00299699824387685,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 6865.95151515152,
+            "medianAbsolutePercentError(elapsed)": 0.0108819984465363,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 3.3675151450383702,
+            "medianAbsolutePercentError(elapsed)": 0.00764174300125679,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1217.68070175439,
+            "medianAbsolutePercentError(elapsed)": 0.00928474073614982,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 3.9105707825342995,
+            "medianAbsolutePercentError(elapsed)": 0.00448579091176727,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1171.79953917051,
+            "medianAbsolutePercentError(elapsed)": 0.00698147480702924,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 3.06569541269719,
+            "medianAbsolutePercentError(elapsed)": 0.00226214825764077,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1185.5641592920401,
+            "medianAbsolutePercentError(elapsed)": 0.00471846818130577,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 5.5758927933633995,
+            "medianAbsolutePercentError(elapsed)": 0.0136990811909246,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1392.5109223301,
+            "medianAbsolutePercentError(elapsed)": 0.00200611878147181,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 358.129537129537,
+            "medianAbsolutePercentError(elapsed)": 0.00352459039514871,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3329.1080246913602,
+            "medianAbsolutePercentError(elapsed)": 0.0128069211084946,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 4.18704796832308,
+            "medianAbsolutePercentError(elapsed)": 0.00281617674419831,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2012.71016949153,
+            "medianAbsolutePercentError(elapsed)": 0.00732264465444385,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 3.8451214371412803,
+            "medianAbsolutePercentError(elapsed)": 0.0146141403882663,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1155.67727771679,
+            "medianAbsolutePercentError(elapsed)": 0.00729704867200667,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 5.008270588184,
+            "medianAbsolutePercentError(elapsed)": 0.00453467100722722,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2382.14669421488,
+            "medianAbsolutePercentError(elapsed)": 0.00350944868642204,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+last()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 8.626874806126809,
+            "medianAbsolutePercentError(elapsed)": 0.00235347665730241,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+last()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1485.82496782497,
+            "medianAbsolutePercentError(elapsed)": 0.00505633443014879,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 6.17098636531139,
+            "medianAbsolutePercentError(elapsed)": 0.00882785308929384,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2067.0,
+            "medianAbsolutePercentError(elapsed)": 0.0250899928005761,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 9.2302613480055,
+            "medianAbsolutePercentError(elapsed)": 0.00775175221449504,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1178.69659090909,
+            "medianAbsolutePercentError(elapsed)": 0.00518541520103372,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.27884572634101,
+            "medianAbsolutePercentError(elapsed)": 0.00215351196516134,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3715.67041198502,
+            "medianAbsolutePercentError(elapsed)": 0.0159942900943402,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rpp",
+            "median(elapsed)": 66.5292766934558,
+            "medianAbsolutePercentError(elapsed)": 0.00140357729673427,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rxcpp",
+            "median(elapsed)": 98.8476941747573,
+            "medianAbsolutePercentError(elapsed)": 0.00104036946341129,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
         }
     ],
     "ci-ubuntu-clang": [
@@ -67881,6 +68709,420 @@
             "medianAbsolutePercentError(elapsed)": 0.00802903180241486,
             "commit": "06862d42",
             "commit_message": "Refactor disposables (#389)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 0.802257022157565,
+            "medianAbsolutePercentError(elapsed)": 0.000199198174249345,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 334.91707636840397,
+            "medianAbsolutePercentError(elapsed)": 0.00410349112483948,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 0.80215653490449,
+            "medianAbsolutePercentError(elapsed)": 0.00032683633388822,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 342.757223711647,
+            "medianAbsolutePercentError(elapsed)": 0.00184661996531904,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.409421953729138,
+            "medianAbsolutePercentError(elapsed)": 0.0169329037453677,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 736.012153950034,
+            "medianAbsolutePercentError(elapsed)": 0.00193877463793904,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 4.445911848180789,
+            "medianAbsolutePercentError(elapsed)": 0.00711654267187753,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 1040.1396598030399,
+            "medianAbsolutePercentError(elapsed)": 0.00122151961976139,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.40100883165621,
+            "medianAbsolutePercentError(elapsed)": 0.000152680165279826,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2501.7853658536596,
+            "medianAbsolutePercentError(elapsed)": 0.00357114897861562,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 0.802260835521325,
+            "medianAbsolutePercentError(elapsed)": 0.000395368534468586,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 253.21777777777802,
+            "medianAbsolutePercentError(elapsed)": 0.000673874351722751,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 4.05858130681377,
+            "medianAbsolutePercentError(elapsed)": 0.0049518840489549,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 395.32141484044604,
+            "medianAbsolutePercentError(elapsed)": 0.00263618151498781,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 63.691430161380104,
+            "medianAbsolutePercentError(elapsed)": 0.0046015493196516,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 832.1653543307091,
+            "medianAbsolutePercentError(elapsed)": 0.00105241883906756,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 104.540294818607,
+            "medianAbsolutePercentError(elapsed)": 0.00363140003893724,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2116.3863636363603,
+            "medianAbsolutePercentError(elapsed)": 0.00665800330541505,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 99.8595215311005,
+            "medianAbsolutePercentError(elapsed)": 0.00757300326127066,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3321.07096774194,
+            "medianAbsolutePercentError(elapsed)": 0.00312793786308857,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.0,
+            "medianAbsolutePercentError(elapsed)": 0,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 393.460886319846,
+            "medianAbsolutePercentError(elapsed)": 0.00371663792446361,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.400944883866524,
+            "medianAbsolutePercentError(elapsed)": 4.37016184993747e-05,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 374.086956521739,
+            "medianAbsolutePercentError(elapsed)": 0.00171240823697722,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.40097673354865004,
+            "medianAbsolutePercentError(elapsed)": 0.000179456513543491,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 371.324943530171,
+            "medianAbsolutePercentError(elapsed)": 0.00154746569513424,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401021036233019,
+            "medianAbsolutePercentError(elapsed)": 0.000138350120200771,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 463.811851211073,
+            "medianAbsolutePercentError(elapsed)": 0.00333959771217033,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 88.7406149142178,
+            "medianAbsolutePercentError(elapsed)": 0.00404821002041296,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1663.92225609756,
+            "medianAbsolutePercentError(elapsed)": 0.00382063567674952,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.400958508599162,
+            "medianAbsolutePercentError(elapsed)": 4.61744813899563e-05,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 643.0523968784839,
+            "medianAbsolutePercentError(elapsed)": 0.00258763427387608,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401007613710339,
+            "medianAbsolutePercentError(elapsed)": 0.000172697818285523,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 368.849647887324,
+            "medianAbsolutePercentError(elapsed)": 0.00179239955670667,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.40099916080581,
+            "medianAbsolutePercentError(elapsed)": 0.000206128510230785,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 775.024258760108,
+            "medianAbsolutePercentError(elapsed)": 0.00247367336471157,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+last()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401039203721424,
+            "medianAbsolutePercentError(elapsed)": 0.000230548611568995,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+last()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 498.542461005199,
+            "medianAbsolutePercentError(elapsed)": 0.00398107188022331,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.400950902497739,
+            "medianAbsolutePercentError(elapsed)": 6.91472889043493e-05,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 568.971776425014,
+            "medianAbsolutePercentError(elapsed)": 0.00115815669548893,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.40124976554694003,
+            "medianAbsolutePercentError(elapsed)": 0.000607463520689529,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 385.550630863798,
+            "medianAbsolutePercentError(elapsed)": 0.00193689396490081,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.400955774038751,
+            "medianAbsolutePercentError(elapsed)": 7.27940985096449e-05,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1747.5848765432102,
+            "medianAbsolutePercentError(elapsed)": 0.00462657066824973,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rpp",
+            "median(elapsed)": 20.7290458513093,
+            "medianAbsolutePercentError(elapsed)": 0.00932775470854453,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rxcpp",
+            "median(elapsed)": 38.640482472672396,
+            "medianAbsolutePercentError(elapsed)": 0.00257235633739618,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
         }
     ],
     "ci-windows": [
@@ -90509,6 +91751,420 @@
             "medianAbsolutePercentError(elapsed)": 0.000978186135601956,
             "commit": "06862d42",
             "commit_message": "Refactor disposables (#389)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 2.80699927090928,
+            "medianAbsolutePercentError(elapsed)": 0.000137504852558509,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 2269.3478260869597,
+            "medianAbsolutePercentError(elapsed)": 0.0404333740257301,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 2.8241691873438,
+            "medianAbsolutePercentError(elapsed)": 0.00755446151676215,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 2968.1286549707597,
+            "medianAbsolutePercentError(elapsed)": 0.0256025194362497,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 7.61892334681687,
+            "medianAbsolutePercentError(elapsed)": 0.000132639387569364,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 4803.21100917431,
+            "medianAbsolutePercentError(elapsed)": 0.0440964652604278,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 26.5635443521436,
+            "medianAbsolutePercentError(elapsed)": 0.0124019479295201,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 4919.80676328502,
+            "medianAbsolutePercentError(elapsed)": 0.00633521322283294,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 14.8681020549527,
+            "medianAbsolutePercentError(elapsed)": 0.00370278687208962,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 10364.6017699115,
+            "medianAbsolutePercentError(elapsed)": 0.0107913433090391,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 5.61548223350254,
+            "medianAbsolutePercentError(elapsed)": 0.000214918220223594,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1377.0,
+            "medianAbsolutePercentError(elapsed)": 0.00125984251968498,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 13.2873731945792,
+            "medianAbsolutePercentError(elapsed)": 0.00406577656954848,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1698.1481481481499,
+            "medianAbsolutePercentError(elapsed)": 0.00162321594710708,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 161.959744109846,
+            "medianAbsolutePercentError(elapsed)": 0.00272519090722657,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 3835.71428571429,
+            "medianAbsolutePercentError(elapsed)": 0.0193674165661956,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 439.596054485674,
+            "medianAbsolutePercentError(elapsed)": 0.000444088341806733,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 6020.68965517241,
+            "medianAbsolutePercentError(elapsed)": 0.0499062459924926,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 428.321279025504,
+            "medianAbsolutePercentError(elapsed)": 0.00221154624671319,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 9851.92307692308,
+            "medianAbsolutePercentError(elapsed)": 0.0439851559483462,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 4.81380691191608,
+            "medianAbsolutePercentError(elapsed)": 0.00240658894785103,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1762.61829652997,
+            "medianAbsolutePercentError(elapsed)": 0.000674015566899755,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 8.19146403166761,
+            "medianAbsolutePercentError(elapsed)": 0.0417937899774605,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1624.25531914894,
+            "medianAbsolutePercentError(elapsed)": 0.000719546853818078,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 7.776152158010239,
+            "medianAbsolutePercentError(elapsed)": 0.0207419335463752,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1608.16326530612,
+            "medianAbsolutePercentError(elapsed)": 0.000668460720749881,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 10.84555012587,
+            "medianAbsolutePercentError(elapsed)": 0.00184710151969501,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1865.8759124087599,
+            "medianAbsolutePercentError(elapsed)": 0.00109036195296925,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 364.403145103645,
+            "medianAbsolutePercentError(elapsed)": 0.00193680930227003,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4714.79820627803,
+            "medianAbsolutePercentError(elapsed)": 0.0387665385281159,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 9.261698440207969,
+            "medianAbsolutePercentError(elapsed)": 0.0144531822835201,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2919.34426229508,
+            "medianAbsolutePercentError(elapsed)": 0.00192663398764254,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 7.2539974816024095,
+            "medianAbsolutePercentError(elapsed)": 0.0019470918619844,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2221.46189735614,
+            "medianAbsolutePercentError(elapsed)": 0.357916737834752,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 10.4272973842688,
+            "medianAbsolutePercentError(elapsed)": 0.00938235144863858,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3488.4353741496598,
+            "medianAbsolutePercentError(elapsed)": 0.0141693890136444,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+last()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 15.658510673616398,
+            "medianAbsolutePercentError(elapsed)": 0.000932641306321449,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+last()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2063.07129798903,
+            "medianAbsolutePercentError(elapsed)": 0.000603028490116717,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 11.1303257603597,
+            "medianAbsolutePercentError(elapsed)": 0.0235294822072046,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2442.09302325581,
+            "medianAbsolutePercentError(elapsed)": 0.0014286465706307,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 15.6436557442944,
+            "medianAbsolutePercentError(elapsed)": 0.000289918306139593,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1645.5714285714298,
+            "medianAbsolutePercentError(elapsed)": 0.000342972765775578,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 12.3000727008361,
+            "medianAbsolutePercentError(elapsed)": 0.00639005241744281,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 5081.63265306122,
+            "medianAbsolutePercentError(elapsed)": 0.0652004328241777,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rpp",
+            "median(elapsed)": 87.8213340165685,
+            "medianAbsolutePercentError(elapsed)": 0.00100108791362338,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rxcpp",
+            "median(elapsed)": 141.38484324858098,
+            "medianAbsolutePercentError(elapsed)": 0.000975416260338622,
+            "commit": "f2ba6dce",
+            "commit_message": "RefCount disposable (#390)"
         }
     ]
 }
