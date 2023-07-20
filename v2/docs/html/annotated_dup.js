@@ -133,6 +133,7 @@ var annotated_dup =
       [ "observable_chain_strategy< TStrategy >", "classrpp_1_1observable__chain__strategy_3_01_t_strategy_01_4.html", null ],
       [ "observer", "classrpp_1_1observer.html", "classrpp_1_1observer" ],
       [ "observer< Type, details::with_disposable< Strategy > >", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4.html", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4" ],
-      [ "observer< Type, rpp::details::observers::dynamic_strategy< Type > >", "classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4.html", null ]
+      [ "observer< Type, rpp::details::observers::dynamic_strategy< Type > >", "classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4.html", null ],
+      [ "refcount_disposable", "classrpp_1_1refcount__disposable.html", null ]
     ] ]
 ];

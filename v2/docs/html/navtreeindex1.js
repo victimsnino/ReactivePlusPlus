@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"structrpp_1_1operators_1_1details_1_1first__observer__strategy.html":[3,0,0,2,0,6],
+"structrpp_1_1operators_1_1details_1_1first__t.html":[3,0,0,2,0,7],
 "structrpp_1_1operators_1_1details_1_1flat__map__t.html":[3,0,0,2,0,8],
 "structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy.html":[3,0,0,2,0,9],
 "structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy.html":[3,0,0,2,0,10],

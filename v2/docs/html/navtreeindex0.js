@@ -50,6 +50,7 @@ var NAVTREEINDEX0 =
 "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01observer_3_01_type_00_01_observer_strategy_01_4_01_4.html":[3,0,0,2,0,39],
 "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_015839511ef5aa7d547130d10313f4a820.html":[3,0,0,2,0,42],
 "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_0176ebc9869815430b00b6be89aa2e2b76.html":[3,0,0,2,0,41],
+"classrpp_1_1refcount__disposable.html":[3,0,0,18],
 "classrpp_1_1schedulers_1_1current__thread.html":[1,0,3,0],
 "classrpp_1_1schedulers_1_1current__thread_1_1worker__strategy.html":[1,0,3,0,0],
 "classrpp_1_1schedulers_1_1details_1_1schedulable__base.html":[3,0,0,3,1,0],
@@ -209,6 +210,7 @@ var NAVTREEINDEX0 =
 "pages.html":[],
 "publish__subject_8hpp_source.html":[4,0,0,0,0,6,2],
 "queue_8hpp_source.html":[4,0,0,0,0,4,0,0],
+"refcount__disposable_8hpp_source.html":[4,0,0,0,0,0,6],
 "repeat_8cpp-example.html":[5,10],
 "repeat_8hpp_source.html":[4,0,0,0,0,3,10],
 "rpp_8hpp_source.html":[4,0,0,0,0,14],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "structrpp_1_1operators_1_1details_1_1distinct__until__changed__t.html":[3,0,0,2,0,2],
 "structrpp_1_1operators_1_1details_1_1empty__on__subscribe.html":[3,0,0,2,0,3],
 "structrpp_1_1operators_1_1details_1_1filter__observer__strategy.html":[3,0,0,2,0,4],
-"structrpp_1_1operators_1_1details_1_1filter__t.html":[3,0,0,2,0,5],
-"structrpp_1_1operators_1_1details_1_1first__observer__strategy.html":[3,0,0,2,0,6],
-"structrpp_1_1operators_1_1details_1_1first__t.html":[3,0,0,2,0,7]
+"structrpp_1_1operators_1_1details_1_1filter__t.html":[3,0,0,2,0,5]
 };

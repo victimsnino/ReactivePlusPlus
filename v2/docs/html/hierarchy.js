@@ -49,7 +49,8 @@ var hierarchy =
       ] ],
       [ "rpp::details::base_disposable", "classrpp_1_1details_1_1base__disposable.html", [
         [ "rpp::callback_disposable< Fn >", "classrpp_1_1callback__disposable.html", null ]
-      ] ]
+      ] ],
+      [ "rpp::refcount_disposable", "classrpp_1_1refcount__disposable.html", null ]
     ] ],
     [ "rpp::details::observers::lambda_strategy< Type, OnNext, OnError, OnCompleted >", "structrpp_1_1details_1_1observers_1_1lambda__strategy.html", null ],
     [ "rpp::operators::details::last_observer_strategy< Type >", "structrpp_1_1operators_1_1details_1_1last__observer__strategy.html", null ],
