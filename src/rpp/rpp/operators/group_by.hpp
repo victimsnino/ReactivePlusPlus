@@ -23,7 +23,7 @@
 namespace rpp::operators::details
 {
 template<rpp::constraint::decayed_type T>
-struct group_by_observable_strategy
+struct group_by_observable_strategy;
 }
 
 namespace rpp
