@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include "rpp/disposables/fwd.hpp"
 #include <rpp/subjects/fwd.hpp>
 #include <rpp/observables/observable.hpp>
 
@@ -43,6 +44,11 @@ public:
     auto get_observable() const
     {
         return rpp::observable<T, on_subscribe>{m_strategy};
+    }
+
+    rpp::disposable_wrapper get_disposable() const
+    {
+        return m_strategy.get_disposable();
     }
 
 private:

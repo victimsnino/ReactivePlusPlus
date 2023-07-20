@@ -12,7 +12,7 @@
 
 #include <rpp/disposables/fwd.hpp>
 #include <rpp/disposables/interface_disposable.hpp>
-#include <rpp/disposables/disposable_wrapper.hpp>
+#include <rpp/disposables/composite_disposable.hpp>
 
 #include <atomic>
 
@@ -27,13 +27,8 @@ namespace rpp
 class refcount_disposable final : public interface_disposable
 {
 public:
-    refcount_disposable(disposable_ptr target)
-        : refcount_disposable{disposable_wrapper{std::move(target)}}
-    {}
-
-    refcount_disposable(disposable_wrapper target)
-        : m_target{std::move(target)}
-    {}
+    refcount_disposable() = default;
+    refcount_disposable(disposable_ptr target) { m_underlying.add(std::move(target)); }
 
     refcount_disposable(const refcount_disposable&)     = delete;
     refcount_disposable(refcount_disposable&&) noexcept = delete;
@@ -49,7 +44,7 @@ public:
 
             // was last one
             if (current_value == 1)
-                m_target.dispose();
+                m_underlying.dispose();
 
             return;
         }
@@ -66,8 +61,13 @@ public:
         }
     }
 
+    void add(disposable_ptr disposable)
+    {
+        m_underlying.add(std::move(disposable));
+    }
+
 private:
-    disposable_wrapper m_target;
-    std::atomic_size_t m_refcount{1};
+    composite_disposable m_underlying;
+    std::atomic_size_t   m_refcount{1};
 };
 } // namespace rpp

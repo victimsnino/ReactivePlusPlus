@@ -45,6 +45,11 @@ public:
         m_state->on_subscribe(std::forward<TObs>(observer));
     }
 
+    rpp::disposable_wrapper get_disposable() const
+    {
+        return m_state;
+    }
+
 private:
     std::shared_ptr<subject_state<Type>> m_state = std::make_shared<subject_state<Type>>();
 };

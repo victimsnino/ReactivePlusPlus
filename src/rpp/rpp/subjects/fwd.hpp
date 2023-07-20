@@ -10,7 +10,9 @@
 #pragma once
 
 #include <rpp/utils/constraints.hpp>
+#include <rpp/disposables/fwd.hpp>
 #include <rpp/observers/fwd.hpp>
+
 
 namespace rpp::subjects::details
 {
@@ -21,6 +23,7 @@ concept subject_strategy = requires(Strategy t, rpp::details::fake_observer<T>&&
 {
     {t.get_observer()} -> rpp::constraint::observer;
     t.on_subscribe(std::move(obs));
+    {t.get_disposable() } -> rpp::constraint::decayed_same_as<rpp::disposable_wrapper>;
 };
 }
 template<rpp::constraint::decayed_type T, constraint::subject_strategy<T> Strategy>
