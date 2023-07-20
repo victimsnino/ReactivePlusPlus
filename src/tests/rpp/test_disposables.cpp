@@ -9,8 +9,21 @@
 
 #include <snitch/snitch.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
+#include <rpp/disposables/refcount_disposable.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
 
+namespace {
+struct custom_disposable : public rpp::interface_disposable
+{
+    custom_disposable() = default;
+
+    bool is_disposed() const noexcept final { return dispose_count > 1; }
+
+    void dispose() final { ++dispose_count; }
+
+    size_t dispose_count{};
+};
+}
 
 TEST_CASE("disposable keeps state")
 {
@@ -105,5 +118,62 @@ TEST_CASE("disposable keeps state")
 
         d.dispose();
         CHECK(d.is_disposed());
+    }
+}
+
+TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
+{
+    auto underlying = std::make_shared<custom_disposable>();
+    auto refcount = std::make_shared<rpp::refcount_disposable>(underlying);
+
+    CHECK(!underlying->is_disposed());
+    CHECK(!refcount->is_disposed());
+
+    SECTION("disposing refcount as is disposes underlying")
+    {
+        refcount->dispose();
+
+        CHECK(underlying->dispose_count == 1);
+        CHECK(refcount->is_disposed());
+
+        SECTION("additional disposing does nothing")
+        {
+            refcount->dispose();
+            CHECK(underlying->dispose_count == 1);
+            CHECK(refcount->is_disposed());
+        }
+        SECTION("addref and disposing does nothing")
+        {
+            refcount->add_ref();
+            refcount->dispose();
+            CHECK(underlying->dispose_count == 1);
+            CHECK(refcount->is_disposed());
+        }
+    }
+
+    SECTION("disposing underlying not disposes refcount")
+    {
+        underlying->dispose();
+
+        CHECK(underlying->dispose_count == 1);
+        CHECK(!refcount->is_disposed());
+    }
+
+    SECTION("add_ref prevents immediate disposing")
+    {
+        size_t count = 5;
+        for (size_t i = 0; i < count; ++i)
+            refcount->add_ref();
+
+        for (size_t i = 0; i < count + 1; ++i)
+        {
+            CHECK(!underlying->is_disposed());
+            CHECK(!refcount->is_disposed());
+
+            refcount->dispose();
+        }
+
+        CHECK(underlying->dispose_count == 1);
+        CHECK(refcount->is_disposed());
     }
 }
