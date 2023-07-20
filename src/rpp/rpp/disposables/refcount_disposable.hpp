@@ -32,9 +32,9 @@ public:
     refcount_disposable(const refcount_disposable&)     = delete;
     refcount_disposable(refcount_disposable&&) noexcept = delete;
 
-    bool is_disposed() const noexcept final { return m_refcount.load(std::memory_order_acquire) == 0; }
+    bool is_disposed() const noexcept override { return m_refcount.load(std::memory_order_acquire) == 0; }
 
-    void dispose() final
+    void dispose() override
     {
         while (auto current_value = m_refcount.load(std::memory_order_acquire))
         {
