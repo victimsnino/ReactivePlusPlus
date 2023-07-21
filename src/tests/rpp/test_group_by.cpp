@@ -12,9 +12,12 @@
 
 #include <rpp/operators/take.hpp>
 #include <rpp/operators/group_by.hpp>
+#include <rpp/sources/create.hpp>
 #include <rpp/sources/just.hpp>
 
 #include "mock_observer.hpp"
+#include "rpp/disposables/composite_disposable.hpp"
+#include "rpp/disposables/fwd.hpp"
 
 TEST_CASE("group_by emits grouped seqences of values with identity key selector", "[group_by]")
 {
@@ -95,89 +98,75 @@ TEST_CASE("group_by emits grouped seqences of values with identity key selector"
     }
 }
 
-// TEST_CASE("group_by keeps subscription till anyone subscribed", "[group_by]")
-// {
-//     SECTION("subject of values")
-//     {
-//         auto obs = rpp::subjects::publish_subject<int>{};
-//         SECTION("subscribe on it via group_by")
-//         {
-//             auto                                     grouped = obs.get_observable().group_by(std::identity{});
-//             std::vector<rpp::composite_subscription> sub_subscriptions{};
-//             size_t on_error_count = 0;
-//             size_t on_completed_count = 0;
-//             auto on_error = [&](std::exception_ptr){++on_error_count;};
-//             auto on_completed = [&](){++on_completed_count;};
-//             auto                                     sub = grouped.subscribe([&](const auto& observable)
-//             {
-//                 sub_subscriptions.push_back(observable.subscribe([](auto){}, on_error, on_completed));
-//             }, on_error, on_completed);
+TEST_CASE("group_by keeps subscription till anyone subscribed")
+{
+    auto observable_upstream = std::make_shared<rpp::composite_disposable>();
+    std::optional<rpp::dynamic_observer<int>> extracted{};
 
-//             SECTION("subscription is alive")
-//             {
-//                 REQUIRE(sub.is_subscribed());
-//             }
-//             AND_SECTION("send values")
-//             {
-//                 obs.get_subscriber().on_next(1);
-//                 obs.get_subscriber().on_next(2);
-//                 SECTION("subscription and sub-subscriptions are alive")
-//                 {
-//                     REQUIRE(sub.is_subscribed());
-//                     REQUIRE(sub_subscriptions.size() == 2);
-//                     REQUIRE(rpp::utils::all_of(sub_subscriptions, [](const auto& sub){return sub.is_subscribed();}));
-//                     AND_SECTION("unsubscribe root")
-//                     {
-//                         sub.unsubscribe();
-//                         SECTION("sub-subscriptions are still alive")
-//                         {
-//                             REQUIRE(rpp::utils::all_of(sub_subscriptions, [](const auto& sub){return sub.is_subscribed();}));
-//                         }
-//                     }
-//                     AND_SECTION("unsubscribe sub-subscriptions")
-//                     {
-//                         rpp::utils::for_each(sub_subscriptions, std::mem_fn(&rpp::composite_subscription::unsubscribe));
-//                         SECTION("root subscription is still alive")
-//                         {
-//                             REQUIRE(sub.is_subscribed());
-//                         }
-//                     }
-//                     AND_SECTION("unsubscribe all")
-//                     {
-//                         sub.unsubscribe();
-//                         rpp::utils::for_each(sub_subscriptions, std::mem_fn(&rpp::composite_subscription::unsubscribe));
-//                         SECTION("no any active subscriptions")
-//                         {
-//                             REQUIRE(!sub.is_subscribed());
-//                             REQUIRE(rpp::utils::all_of(sub_subscriptions, [](const auto& sub){return !sub.is_subscribed();}));
-//                         }
-//                     }
-//                     AND_SECTION("send on_error")
-//                     {
-//                         obs.get_subscriber().on_error(std::make_exception_ptr(std::runtime_error{""}));
-//                         SECTION("no any active subscriptions")
-//                         {
-//                             REQUIRE(!sub.is_subscribed());
-//                             REQUIRE(rpp::utils::all_of(sub_subscriptions, [](const auto& sub){return !sub.is_subscribed();}));
-//                             REQUIRE(on_error_count == sub_subscriptions.size()+1);
-//                         }
-//                     }
-//                      AND_SECTION("send on_completed")
-//                     {
-//                         obs.get_subscriber().on_completed();
-//                         SECTION("no any active subscriptions")
-//                         {
-//                             REQUIRE(!sub.is_subscribed());
-//                             REQUIRE(rpp::utils::all_of(sub_subscriptions, [](const auto& sub){return !sub.is_subscribed();}));
-//                             REQUIRE(on_completed_count == sub_subscriptions.size()+1);
+    auto observable = rpp::source::create<int>([&](auto&& obs)
+    {
+        obs.set_upstream(rpp::disposable_wrapper{observable_upstream});
+        obs.on_next(1);
+        obs.on_next(2);
+        extracted.emplace(std::forward<decltype(obs)>(obs).as_dynamic());
+    }) | rpp::ops::group_by(std::identity{});
 
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
+    std::vector<rpp::composite_disposable_wrapper> disposables{};
+    size_t on_error_count = 0;
+    size_t on_completed_count = 0;
+    auto on_error = [&](const std::exception_ptr&){++on_error_count;};
+    auto on_completed = [&](){++on_completed_count;};
+    auto d = std::make_shared<rpp::composite_disposable>();
+
+    observable.subscribe(d, [&](const auto& observable)
+    {
+        auto d = std::make_shared<rpp::composite_disposable>();
+        observable.subscribe(d, [](auto){}, on_error, on_completed);
+        disposables.push_back(d);
+    }, on_error, on_completed);
+
+    REQUIRE(extracted.has_value());
+    REQUIRE(!d->is_disposed());
+    REQUIRE(!observable_upstream->is_disposed());
+    REQUIRE(disposables.size() == 2);
+    REQUIRE(rpp::utils::all_of(disposables, [](const auto& d){return !d.is_disposed();}));
+    SECTION("dispose root")
+    {
+        d->dispose();
+        REQUIRE(rpp::utils::all_of(disposables, [](const auto& d){return !d.is_disposed();}));
+        REQUIRE(!observable_upstream->is_disposed());
+    }
+    SECTION("disposing other disposables")
+    {
+        rpp::utils::for_each(disposables, std::mem_fn(&rpp::composite_disposable_wrapper::dispose));
+        REQUIRE(!d->is_disposed());
+        REQUIRE(!observable_upstream->is_disposed());
+    }
+    SECTION("diispose all")
+    {
+        d->dispose();
+        rpp::utils::for_each(disposables, std::mem_fn(&rpp::composite_disposable_wrapper::dispose));
+        REQUIRE(observable_upstream->is_disposed());
+        REQUIRE(d->is_disposed());
+        REQUIRE(rpp::utils::all_of(disposables, [](const auto& d){return d.is_disposed();}));
+    }
+    SECTION("send on_error")
+    {
+        extracted->on_error(std::make_exception_ptr(std::runtime_error{""}));
+        REQUIRE(d->is_disposed());
+        REQUIRE(observable_upstream->is_disposed());
+        REQUIRE(rpp::utils::all_of(disposables, [](const auto& d){return d.is_disposed();}));
+        REQUIRE(on_error_count == disposables.size()+1);
+    }
+    SECTION("send on_completed")
+    {
+        extracted->on_completed();
+        REQUIRE(d->is_disposed());
+        REQUIRE(observable_upstream->is_disposed());
+        REQUIRE(rpp::utils::all_of(disposables, [](const auto& d){return d.is_disposed();}));
+        REQUIRE(on_completed_count == disposables.size()+1);
+    }
+}
 
 // TEST_CASE("group_by selectors affects types", "[group_by]")
 // {
