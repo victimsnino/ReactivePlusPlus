@@ -26,14 +26,14 @@
 
 namespace rpp::operators::details::constraint
 {
-template<typename S, typename Type>
+template<typename S, typename ObservableType, typename ObserverType>
 concept operator_strategy = requires(const S& const_strategy,
                                      S& strategy,
-                                     const Type& v,
-                                     Type&& mv,
+                                     const ObservableType& v,
+                                     ObservableType&& mv,
                                      const disposable_wrapper disposable,
-                                     const rpp::details::fake_observer<Type>& const_observer,
-                                     rpp::details::fake_observer<Type>& observer)
+                                     const rpp::details::fake_observer<ObserverType>& const_observer,
+                                     rpp::details::fake_observer<ObserverType>& observer)
 {
     const_strategy.on_subscribe(observer);
 
@@ -48,10 +48,10 @@ concept operator_strategy = requires(const S& const_strategy,
 }
 namespace rpp::operators::details
 {
-template<rpp::constraint::decayed_type T, rpp::constraint::observer TObs, constraint::operator_strategy<rpp::utils::extract_observer_type_t<TObs>> Strategy>
+template<rpp::constraint::decayed_type T, rpp::constraint::observer TObs, constraint::operator_strategy<T, rpp::utils::extract_observer_type_t<TObs>> Strategy>
 class operator_strategy_base;
 
-template<rpp::constraint::decayed_type T, rpp::constraint::decayed_type TT, rpp::constraint::observer_strategy<TT> ObserverStrategy, constraint::operator_strategy<TT> Strategy>
+template<rpp::constraint::decayed_type T, rpp::constraint::decayed_type TT, rpp::constraint::observer_strategy<TT> ObserverStrategy, constraint::operator_strategy<T, TT> Strategy>
 class operator_strategy_base<T, rpp::observer<TT, ObserverStrategy>, Strategy>
 {
 public:

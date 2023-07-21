@@ -43,6 +43,12 @@ void for_each(Cont&& container, Fn&& fn)
     std::for_each(std::begin(container), std::end(container), std::forward<Fn>(fn));
 }
 
+template<typename Cont, std::predicate<iterable_value_t<Cont>> Fn>
+bool all_of(const Cont& container, const Fn& fn)
+{
+    return std::all_of(std::cbegin(container), std::cend(container), fn);
+}
+
 template<auto Fn, bool inverse = false>
     requires std::is_member_function_pointer_v<decltype(Fn)>
 struct static_mem_fn

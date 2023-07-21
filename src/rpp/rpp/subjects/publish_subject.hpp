@@ -47,7 +47,7 @@ public:
 
     rpp::disposable_wrapper get_disposable() const
     {
-        return m_state;
+        return rpp::disposable_wrapper{m_state};
     }
 
 private:
