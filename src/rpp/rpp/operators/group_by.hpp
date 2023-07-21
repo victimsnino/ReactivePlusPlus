@@ -35,6 +35,23 @@ using grouped_observable_group_by = grouped_observable<TKey, ResValue, operators
 
 namespace rpp::operators::details
 {
+struct group_by_inner_observer_strategy
+{
+    std::shared_ptr<refcount_disposable> disposable;
+
+    void set_upstream(const rpp::constraint::observer auto&, const rpp::disposable_wrapper& d) const
+    {
+        disposable->add(d.get_original());
+    }
+    
+    constexpr static forwarding_on_next_strategy on_next{};
+    constexpr static forwarding_on_error_strategy on_error{};
+    constexpr static forwarding_on_completed_strategy on_completed{};
+    constexpr static forwarding_is_disposed_strategy is_disposed{};
+    constexpr static empty_on_subscribe on_subscribe{};
+
+};
+
 template<rpp::constraint::decayed_type T, rpp::constraint::decayed_type KeySelector, rpp::constraint::decayed_type ValueSelector, rpp::constraint::decayed_type KeyComparator>
 struct group_by_observer_strategy
 {
@@ -127,7 +144,8 @@ struct group_by_observable_strategy
     void subscribe(observer<T, Strategy>&& obs) const
     {
         obs.set_upstream(disposable->add_ref());
-        subj.get_observable().subscribe(rpp::observer<T, observer<T, Strategy>>{std::move(obs)});
+        subj.get_observable()
+            .subscribe(rpp::observer<T, operator_strategy_base<T, observer<T, Strategy>, group_by_inner_observer_strategy>>{std::move(obs), disposable});
     }
 };
 
