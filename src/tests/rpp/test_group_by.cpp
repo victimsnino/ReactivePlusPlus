@@ -19,6 +19,8 @@
 #include "rpp/disposables/composite_disposable.hpp"
 #include "rpp/disposables/fwd.hpp"
 
+#include <functional>
+
 TEST_CASE("group_by emits grouped seqences of values with identity key selector", "[group_by]")
 {
     auto obs = mock_observer_strategy<rpp::grouped_observable_group_by<int, int>>{};
