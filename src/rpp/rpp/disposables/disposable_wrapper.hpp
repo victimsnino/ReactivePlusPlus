@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include <__concepts/derived_from.h>
 #include <rpp/disposables/fwd.hpp>
 #include <rpp/disposables/interface_disposable.hpp>
 
