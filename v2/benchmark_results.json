@@ -23039,6 +23039,420 @@
             "medianAbsolutePercentError(elapsed)": 0.0256143298461175,
             "commit": "f2ba6dce",
             "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 4.81149231216353,
+            "medianAbsolutePercentError(elapsed)": 0.0639814065156929,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 735.513661202186,
+            "medianAbsolutePercentError(elapsed)": 0.012665274850459,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 4.811249205209251,
+            "medianAbsolutePercentError(elapsed)": 0.0530103872279922,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 716.383333333333,
+            "medianAbsolutePercentError(elapsed)": 0.00752019380804079,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 6.415918818169271,
+            "medianAbsolutePercentError(elapsed)": 0.0518490380695327,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 1919.69439421338,
+            "medianAbsolutePercentError(elapsed)": 0.00867427736749465,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 17.2425172292369,
+            "medianAbsolutePercentError(elapsed)": 7.38123723983594e-05,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 2760.84910485933,
+            "medianAbsolutePercentError(elapsed)": 0.00740646311436847,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 6.114363708613849,
+            "medianAbsolutePercentError(elapsed)": 0.0165880963366776,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 5702.04712041885,
+            "medianAbsolutePercentError(elapsed)": 0.00365241792091996,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 4.41054934756538,
+            "medianAbsolutePercentError(elapsed)": 0.0445265245143698,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 761.807412309729,
+            "medianAbsolutePercentError(elapsed)": 0.00596366025150907,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 9.22213329256558,
+            "medianAbsolutePercentError(elapsed)": 4.47537629662097e-05,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 932.442413162706,
+            "medianAbsolutePercentError(elapsed)": 0.0197394524133453,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 84.7966669092497,
+            "medianAbsolutePercentError(elapsed)": 0.00684250559215494,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 2079.01612903226,
+            "medianAbsolutePercentError(elapsed)": 0.00578180967452576,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 236.83424908424902,
+            "medianAbsolutePercentError(elapsed)": 0.00278337776042381,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4325.9730941704,
+            "medianAbsolutePercentError(elapsed)": 0.00140851969466828,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 232.699414968731,
+            "medianAbsolutePercentError(elapsed)": 0.00331826749813056,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 6912.026845637581,
+            "medianAbsolutePercentError(elapsed)": 0.00233979215432052,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 17.1053890067848,
+            "medianAbsolutePercentError(elapsed)": 0.00197414629401896,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 894.733771569433,
+            "medianAbsolutePercentError(elapsed)": 0.000696719703186984,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 13.289467443805101,
+            "medianAbsolutePercentError(elapsed)": 0.012722081313364,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 869.305366591081,
+            "medianAbsolutePercentError(elapsed)": 0.00356424635585034,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 13.4479217282816,
+            "medianAbsolutePercentError(elapsed)": 0.0334265807181382,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 861.797639123103,
+            "medianAbsolutePercentError(elapsed)": 0.00154671763117024,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 12.5475421774487,
+            "medianAbsolutePercentError(elapsed)": 0.0093416087980465,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1020.7215302491101,
+            "medianAbsolutePercentError(elapsed)": 0.00362698117186546,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 199.248750480584,
+            "medianAbsolutePercentError(elapsed)": 0.00778376884723082,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3217.84326018809,
+            "medianAbsolutePercentError(elapsed)": 0.00254440290041117,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 17.4426227024078,
+            "medianAbsolutePercentError(elapsed)": 5.95249229761261e-05,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1451.6953223767398,
+            "medianAbsolutePercentError(elapsed)": 0.00347081147664958,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 13.7493680775771,
+            "medianAbsolutePercentError(elapsed)": 0.00778877137123438,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 866.9588938714501,
+            "medianAbsolutePercentError(elapsed)": 0.00913278660433172,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 17.2660628870462,
+            "medianAbsolutePercentError(elapsed)": 0.00603350374192521,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1831.11270125224,
+            "medianAbsolutePercentError(elapsed)": 0.00456171813041127,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+last()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 19.2831038189304,
+            "medianAbsolutePercentError(elapsed)": 0.0232205728238449,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+last()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1104.82491944146,
+            "medianAbsolutePercentError(elapsed)": 0.00176803304224045,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 14.8353773717895,
+            "medianAbsolutePercentError(elapsed)": 6.93871070556495e-05,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1236.83243823845,
+            "medianAbsolutePercentError(elapsed)": 0.00258147172361208,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 15.4381664568386,
+            "medianAbsolutePercentError(elapsed)": 9.71047008536696e-05,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 871.809847198642,
+            "medianAbsolutePercentError(elapsed)": 0.00437848370284262,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 12.4296140761753,
+            "medianAbsolutePercentError(elapsed)": 0.00426071747190034,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3115.3810810810796,
+            "medianAbsolutePercentError(elapsed)": 0.00479249101876527,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rpp",
+            "median(elapsed)": 84.505652866242,
+            "medianAbsolutePercentError(elapsed)": 0.00531007289715201,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rxcpp",
+            "median(elapsed)": 117.146501614639,
+            "medianAbsolutePercentError(elapsed)": 0.000267595705542948,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
         }
     ],
     "ci-macos": [
@@ -46081,6 +46495,420 @@
             "medianAbsolutePercentError(elapsed)": 0.00104036946341129,
             "commit": "f2ba6dce",
             "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 2.50773972930525,
+            "medianAbsolutePercentError(elapsed)": 0.00302422789459803,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 1080.89948186529,
+            "medianAbsolutePercentError(elapsed)": 0.0238607527668865,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 2.53304564015396,
+            "medianAbsolutePercentError(elapsed)": 0.0131209924752679,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 1095.57040816327,
+            "medianAbsolutePercentError(elapsed)": 0.0202952890593324,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 5.87871284596102,
+            "medianAbsolutePercentError(elapsed)": 0.00754199401450882,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 2316.97065462754,
+            "medianAbsolutePercentError(elapsed)": 0.00266374329870055,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 21.743335692380303,
+            "medianAbsolutePercentError(elapsed)": 0.0108221310309532,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 2900.22881355932,
+            "medianAbsolutePercentError(elapsed)": 0.00771332010660601,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 6.1684083844358195,
+            "medianAbsolutePercentError(elapsed)": 0.0075323667926009,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 6771.690647482011,
+            "medianAbsolutePercentError(elapsed)": 0.013157119978963,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 2.54641667908597,
+            "medianAbsolutePercentError(elapsed)": 0.0126255400317418,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 990.3834909716251,
+            "medianAbsolutePercentError(elapsed)": 0.00895509090815134,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 10.673391627179901,
+            "medianAbsolutePercentError(elapsed)": 0.00308833424963999,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1309.91470951792,
+            "medianAbsolutePercentError(elapsed)": 0.00759630456719401,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 172.87816830010098,
+            "medianAbsolutePercentError(elapsed)": 0.00442492627014757,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 2295.516,
+            "medianAbsolutePercentError(elapsed)": 0.00336097723020959,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 412.305611626968,
+            "medianAbsolutePercentError(elapsed)": 0.00587784601140949,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4083.97244094488,
+            "medianAbsolutePercentError(elapsed)": 0.00468696080757561,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 407.815228780999,
+            "medianAbsolutePercentError(elapsed)": 0.0119494788918467,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 6926.88023952096,
+            "medianAbsolutePercentError(elapsed)": 0.00751488578716438,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 9.01421921875483,
+            "medianAbsolutePercentError(elapsed)": 0.00812752812105943,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1222.51783659379,
+            "medianAbsolutePercentError(elapsed)": 0.00771029570009056,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 6.49813112687745,
+            "medianAbsolutePercentError(elapsed)": 0.0117287077795222,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1511.1494845360799,
+            "medianAbsolutePercentError(elapsed)": 0.151151992197911,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 6.8521470123407,
+            "medianAbsolutePercentError(elapsed)": 0.027367959691638,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1192.94375,
+            "medianAbsolutePercentError(elapsed)": 0.0331216510597388,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 8.38721869499623,
+            "medianAbsolutePercentError(elapsed)": 0.0133015163119728,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1374.36026490066,
+            "medianAbsolutePercentError(elapsed)": 0.00978728876372471,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 428.404876099121,
+            "medianAbsolutePercentError(elapsed)": 0.0515169495811953,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3468.05,
+            "medianAbsolutePercentError(elapsed)": 0.0663727990125342,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 9.95060118271309,
+            "medianAbsolutePercentError(elapsed)": 0.0276426114490114,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2045.29292929293,
+            "medianAbsolutePercentError(elapsed)": 0.0390046419398448,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 6.62234900649223,
+            "medianAbsolutePercentError(elapsed)": 0.0288062803003438,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1228.37347931873,
+            "medianAbsolutePercentError(elapsed)": 0.0470950438222212,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 11.899943275979,
+            "medianAbsolutePercentError(elapsed)": 0.0129657037177241,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2442.2094017094,
+            "medianAbsolutePercentError(elapsed)": 0.00955267527836595,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+last()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 17.1007303563551,
+            "medianAbsolutePercentError(elapsed)": 0.0140630937484538,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+last()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1635.50718390805,
+            "medianAbsolutePercentError(elapsed)": 0.0286761137973334,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 9.386762372971871,
+            "medianAbsolutePercentError(elapsed)": 0.019565108029116,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1911.46783625731,
+            "medianAbsolutePercentError(elapsed)": 0.0467538013755428,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 12.47773511438,
+            "medianAbsolutePercentError(elapsed)": 0.0171504782696173,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1181.6327967806799,
+            "medianAbsolutePercentError(elapsed)": 0.0124274765407174,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 9.20350276491769,
+            "medianAbsolutePercentError(elapsed)": 0.00396483253455118,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3726.51779935275,
+            "medianAbsolutePercentError(elapsed)": 0.0078450919678396,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rpp",
+            "median(elapsed)": 102.353142445525,
+            "medianAbsolutePercentError(elapsed)": 0.00445099406629285,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rxcpp",
+            "median(elapsed)": 99.2901647785788,
+            "medianAbsolutePercentError(elapsed)": 0.0080329387139416,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
         }
     ],
     "ci-ubuntu-clang": [
@@ -69123,6 +69951,420 @@
             "medianAbsolutePercentError(elapsed)": 0.00257235633739618,
             "commit": "f2ba6dce",
             "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 1.21734867101155,
+            "medianAbsolutePercentError(elapsed)": 0.0140658332342416,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 405.25485533095497,
+            "medianAbsolutePercentError(elapsed)": 0.00942705741129365,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 1.20318173137713,
+            "medianAbsolutePercentError(elapsed)": 0.010257859354718,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 405.810196348605,
+            "medianAbsolutePercentError(elapsed)": 0.0110565137566198,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.446106424705346,
+            "medianAbsolutePercentError(elapsed)": 0.0325075184565558,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 877.496177370031,
+            "medianAbsolutePercentError(elapsed)": 0.00508301650198733,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 10.4423784124856,
+            "medianAbsolutePercentError(elapsed)": 0.00166679570848602,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 1214.05636743215,
+            "medianAbsolutePercentError(elapsed)": 0.0119189716802546,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401112288910008,
+            "medianAbsolutePercentError(elapsed)": 0.0144797546908485,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2677.82558139535,
+            "medianAbsolutePercentError(elapsed)": 0.0235759189401013,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 1.2128061691607601,
+            "medianAbsolutePercentError(elapsed)": 0.0329544793771615,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 330.379873853211,
+            "medianAbsolutePercentError(elapsed)": 0.0161493692850493,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 6.015680911143471,
+            "medianAbsolutePercentError(elapsed)": 0.00755008823019033,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 481.224121557455,
+            "medianAbsolutePercentError(elapsed)": 0.0144878718548372,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 79.8635137938187,
+            "medianAbsolutePercentError(elapsed)": 0.0379211804790161,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 964.1858254105449,
+            "medianAbsolutePercentError(elapsed)": 0.00731516770353185,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 151.69014084507,
+            "medianAbsolutePercentError(elapsed)": 0.00568409019632783,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2522.51454138702,
+            "medianAbsolutePercentError(elapsed)": 0.00940465854904075,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 136.769519217892,
+            "medianAbsolutePercentError(elapsed)": 0.0104699511248607,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4016.95221843003,
+            "medianAbsolutePercentError(elapsed)": 0.0123510716165333,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.0,
+            "medianAbsolutePercentError(elapsed)": 0,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 469.642737896494,
+            "medianAbsolutePercentError(elapsed)": 0.011377433600116,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401575327755648,
+            "medianAbsolutePercentError(elapsed)": 0.000897230355623958,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 444.70900974026,
+            "medianAbsolutePercentError(elapsed)": 0.0342146652291378,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.401206653833999,
+            "medianAbsolutePercentError(elapsed)": 0.00873867117992313,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 437.169008735283,
+            "medianAbsolutePercentError(elapsed)": 0.011287025005548,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.792814272086491,
+            "medianAbsolutePercentError(elapsed)": 0.0272978940660864,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 510.184035476718,
+            "medianAbsolutePercentError(elapsed)": 0.0259529289622053,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 110.50231612247201,
+            "medianAbsolutePercentError(elapsed)": 0.0507589323373434,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1960.9950900163699,
+            "medianAbsolutePercentError(elapsed)": 0.0373425850087905,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.402970474441523,
+            "medianAbsolutePercentError(elapsed)": 0.0123124132041772,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 716.3792486583179,
+            "medianAbsolutePercentError(elapsed)": 0.0358684678288022,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.344654013720192,
+            "medianAbsolutePercentError(elapsed)": 0.0654721153641586,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 407.28999999999996,
+            "medianAbsolutePercentError(elapsed)": 0.149003633619509,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 4.01465505137959,
+            "medianAbsolutePercentError(elapsed)": 0.048023284300892,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 859.963404255319,
+            "medianAbsolutePercentError(elapsed)": 0.0312861159011613,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+last()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.397277261033822,
+            "medianAbsolutePercentError(elapsed)": 0.0425673269771716,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+last()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 534.35119887165,
+            "medianAbsolutePercentError(elapsed)": 0.0267947331418191,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.372936735997159,
+            "medianAbsolutePercentError(elapsed)": 0.0291229974514481,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 660.256082725061,
+            "medianAbsolutePercentError(elapsed)": 0.0555051644341773,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.785875120841798,
+            "medianAbsolutePercentError(elapsed)": 0.0506534078890096,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 454.55673758865197,
+            "medianAbsolutePercentError(elapsed)": 0.0303072004126246,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.390701357969153,
+            "medianAbsolutePercentError(elapsed)": 0.0304987894891406,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2057.23290203327,
+            "medianAbsolutePercentError(elapsed)": 0.0511423984192675,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rpp",
+            "median(elapsed)": 32.3525468384075,
+            "medianAbsolutePercentError(elapsed)": 0.0403823085652715,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rxcpp",
+            "median(elapsed)": 45.767776953414796,
+            "medianAbsolutePercentError(elapsed)": 0.0185752870031537,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
         }
     ],
     "ci-windows": [
@@ -92165,6 +93407,420 @@
             "medianAbsolutePercentError(elapsed)": 0.000975416260338622,
             "commit": "f2ba6dce",
             "commit_message": "RefCount disposable (#390)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 3.6760849822847,
+            "medianAbsolutePercentError(elapsed)": 0.000231230795721331,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 1172.33584499462,
+            "medianAbsolutePercentError(elapsed)": 0.00234825995459369,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 9.28763381646769,
+            "medianAbsolutePercentError(elapsed)": 0.0134426152454924,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 1898.6083499006,
+            "medianAbsolutePercentError(elapsed)": 0.110348313779413,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 12.697063750123199,
+            "medianAbsolutePercentError(elapsed)": 0.0087464162238051,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 3354.95207667732,
+            "medianAbsolutePercentError(elapsed)": 0.00106548941410195,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 34.497845109050495,
+            "medianAbsolutePercentError(elapsed)": 0.00751890808944728,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 4161.22448979592,
+            "medianAbsolutePercentError(elapsed)": 0.0308497387567552,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 16.3894973483975,
+            "medianAbsolutePercentError(elapsed)": 0.000643798078751516,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 8633.60655737705,
+            "medianAbsolutePercentError(elapsed)": 0.00213652119243319,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 6.69317558567735,
+            "medianAbsolutePercentError(elapsed)": 0.00145821749770302,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1144.2812172088102,
+            "medianAbsolutePercentError(elapsed)": 0.00107903296100042,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 13.366964170223799,
+            "medianAbsolutePercentError(elapsed)": 0.000164981376820492,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1650.34106412005,
+            "medianAbsolutePercentError(elapsed)": 0.00323634681530098,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 143.779053869292,
+            "medianAbsolutePercentError(elapsed)": 0.0171986420096307,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 2428.4064665127,
+            "medianAbsolutePercentError(elapsed)": 0.00267245282051357,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 401.681614349776,
+            "medianAbsolutePercentError(elapsed)": 0.000830409492578269,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(create(1), create(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 5080.8888888888905,
+            "medianAbsolutePercentError(elapsed)": 0.0270110188351518,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 389.081632653061,
+            "medianAbsolutePercentError(elapsed)": 0.000691423066041627,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "create(1) + merge_with(create(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 8252.67175572519,
+            "medianAbsolutePercentError(elapsed)": 0.0474568454835854,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 19.1063984049302,
+            "medianAbsolutePercentError(elapsed)": 0.0211016727715244,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1504.70430107527,
+            "medianAbsolutePercentError(elapsed)": 0.0227666374540966,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 16.9837708691472,
+            "medianAbsolutePercentError(elapsed)": 0.019523920761913,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "create+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1350.13157894737,
+            "medianAbsolutePercentError(elapsed)": 0.00061943742445887,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 18.633540372670797,
+            "medianAbsolutePercentError(elapsed)": 0.0309208749662436,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1338.97911832947,
+            "medianAbsolutePercentError(elapsed)": 0.000815404136694777,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 20.1320503441937,
+            "medianAbsolutePercentError(elapsed)": 0.0122925434738756,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1551.62601626016,
+            "medianAbsolutePercentError(elapsed)": 0.000515232168555738,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 344.299674267101,
+            "medianAbsolutePercentError(elapsed)": 0.000187127784341704,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "create+flat_map(just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4250.18587360595,
+            "medianAbsolutePercentError(elapsed)": 0.0611253184214581,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 21.1256563593932,
+            "medianAbsolutePercentError(elapsed)": 0.00363176486556555,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2418.65828092243,
+            "medianAbsolutePercentError(elapsed)": 0.00182354984369565,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 17.0681995509626,
+            "medianAbsolutePercentError(elapsed)": 0.00158627833961898,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1349.60526315789,
+            "medianAbsolutePercentError(elapsed)": 0.000439200670639259,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 27.6613409927296,
+            "medianAbsolutePercentError(elapsed)": 0.033829700987753,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+first()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2885.79881656805,
+            "medianAbsolutePercentError(elapsed)": 0.000784533552885994,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+last()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 25.762507534659402,
+            "medianAbsolutePercentError(elapsed)": 0.00196024580809662,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+last()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1716.66666666667,
+            "medianAbsolutePercentError(elapsed)": 0.000259833057260843,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 20.5585710056252,
+            "medianAbsolutePercentError(elapsed)": 0.00523300667236648,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2065.03759398496,
+            "medianAbsolutePercentError(elapsed)": 0.00313748096539782,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 24.8130329157338,
+            "medianAbsolutePercentError(elapsed)": 0.00353092777877023,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "create(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1368.0426098535302,
+            "medianAbsolutePercentError(elapsed)": 0.00116064428674466,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 17.5441018561129,
+            "medianAbsolutePercentError(elapsed)": 9.78434799101722e-05,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "create(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4263.3064516129,
+            "medianAbsolutePercentError(elapsed)": 0.0829070512250237,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rpp",
+            "median(elapsed)": 120.293599530241,
+            "medianAbsolutePercentError(elapsed)": 5.94539048738406e-05,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rxcpp",
+            "median(elapsed)": 118.197770437655,
+            "medianAbsolutePercentError(elapsed)": 0.0017716260384962,
+            "commit": "01d59cc5",
+            "commit_message": "allow weak ptr disposable (#392)"
         }
     ]
 }
