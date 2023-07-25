@@ -88,7 +88,7 @@ struct merge_observer_strategy
     void on_subscribe(rpp::constraint::observer auto& obs) const
     {
         disposable->increment_on_completed();
-        obs.set_upstream(disposable_wrapper{disposable});
+        obs.set_upstream(disposable_wrapper::from_weak(disposable));
     }
 
     void set_upstream(const rpp::constraint::observer auto&, const rpp::disposable_wrapper& d) const
