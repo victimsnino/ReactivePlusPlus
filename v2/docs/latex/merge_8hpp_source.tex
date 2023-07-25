@@ -92,7 +92,7 @@
 \DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_subscribe(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ \textcolor{keyword}{auto}\&\ obs)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00089\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ disposable-\/>increment\_on\_completed();}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ obs.set\_upstream(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\{disposable\});}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ obs.set\_upstream(disposable\_wrapper::from\_weak(disposable));}
 \DoxyCodeLine{00092\ \ \ \ \ \}}
 \DoxyCodeLine{00093\ }
 \DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ \textcolor{keyword}{auto}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const}}
