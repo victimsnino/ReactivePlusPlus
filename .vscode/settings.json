@@ -1,8 +1,9 @@
 {
     "clangd.arguments": [
-        "--header-insertion=never",
-        "--background-index",
-        "-j32",
-        "--clang-tidy"
-      ]
+      "--header-insertion=never",
+      "--background-index",
+      "--clang-tidy",
+      "-j=32"
+    ],
+    "sonarlint.pathToCompileCommands": "${workspaceFolder}/build/compile_commands.json",
 }
