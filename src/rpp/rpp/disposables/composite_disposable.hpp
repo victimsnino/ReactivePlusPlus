@@ -20,6 +20,11 @@
 
 namespace rpp
 {
+/**
+ * @brief Disposable which can keep some other sub-disposables. When this root disposable is disposed, then all sub-disposables would be disposed too.
+ * 
+ * @ingroup disposables
+ */
 class composite_disposable : public interface_disposable
 {
 public:

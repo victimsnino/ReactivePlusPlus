@@ -18,6 +18,12 @@
 
 namespace rpp
 {
+/**
+ * @brief Disposable with counter inside. Each `add_ref` increments counter, while each `dispose()` call decrements. In case of reaching zero disposes underlying disposables
+ * @warn Don't use it as disposable of observer due to `is_disposed()` would be false till counter reaches zero, so, observer can be also not `is_disposed()` during this time.
+ * 
+ * @ingroup disposables
+ */
 class refcount_disposable final : public interface_disposable
 {
 public:

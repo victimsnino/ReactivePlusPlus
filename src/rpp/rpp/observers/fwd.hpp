@@ -101,6 +101,16 @@ using lambda_observer = observer<Type, details::observers::lambda_strategy<Type,
 template<constraint::decayed_type Type, std::invocable<Type> OnNext,  std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
 using lambda_observer_with_disposable = observer<Type, details::with_disposable<details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>>;
 
+/**
+ * @brief Constructs observer specialized with passed callbacks. Most easiesest way to construct observer "on the fly" via lambdas and etc.
+ *
+ * @tparam Type of value this observer can handle
+ * @param on_next is callback to handle on_next(const Type&) and on_next(Type&&)
+ * @param on_error is callback to handle on_error(const std::exception_ptr&)
+ * @param on_completed is callback to handle on_completed()
+ *
+ * @ingroup observers
+ */
 template<constraint::decayed_type Type,
          std::invocable<Type>                      OnNext,
          std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t,
@@ -112,6 +122,17 @@ auto make_lambda_observer(OnNext&&      on_next,
                                                                               std::decay_t<OnError>,
                                                                               std::decay_t<OnCompleted>>;
 
+/**
+ * @brief Constructs observer specialized with passed callbacks. Most easiesest way to construct observer "on the fly" via lambdas and etc.
+ *
+ * @tparam Type of value this observer can handle
+ * @param d is disposable to attach to resulting observer
+ * @param on_next is callback to handle on_next(const Type&) and on_next(Type&&)
+ * @param on_error is callback to handle on_error(const std::exception_ptr&)
+ * @param on_completed is callback to handle on_completed()
+ *
+ * @ingroup observers
+ */
 template<constraint::decayed_type Type,
          std::invocable<Type>                      OnNext,
          std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t,
@@ -124,6 +145,16 @@ auto make_lambda_observer(const rpp::composite_disposable_wrapper& d,
                                                                                               std::decay_t<OnError>,
                                                                                               std::decay_t<OnCompleted>>;
 
+/**
+ * @brief Constructs observer specialized with passed callbacks. Most easiesest way to construct observer "on the fly" via lambdas and etc.
+ *
+ * @param on_next is callback to handle on_next(const Type&) and on_next(Type&&)
+ * @param on_error is callback to handle on_error(const std::exception_ptr&)
+ * @param on_completed is callback to handle on_completed()
+ * @tparam Type of value this observer can handle (deduced from OnNext callback)
+ *
+ * @ingroup observers
+ */
 template<typename                                  OnNext,
          std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t,
          std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>,
@@ -135,6 +166,17 @@ auto make_lambda_observer(OnNext&&      on_next,
 {
     return make_lambda_observer<Type>(std::forward<OnNext>(on_next), std::forward<OnError>(on_error), std::forward<OnCompleted>(on_completed));
 }
+/**
+ * @brief Constructs observer specialized with passed callbacks. Most easiesest way to construct observer "on the fly" via lambdas and etc.
+ *
+ * @param d is disposable to attach to resulting observer
+ * @param on_next is callback to handle on_next(const Type&) and on_next(Type&&)
+ * @param on_error is callback to handle on_error(const std::exception_ptr&)
+ * @param on_completed is callback to handle on_completed()
+ * @tparam Type of value this observer can handle (deduced from OnNext callback)
+ *
+ * @ingroup observers
+ */
 
 template<typename                                  OnNext,
          std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t,
