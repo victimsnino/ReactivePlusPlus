@@ -80,6 +80,11 @@ public:
         }
     }
 
+    void add(disposable_ptr disposable)
+    {
+        add(disposable_wrapper{std::move(disposable)});
+    }
+
     template<std::invocable Fn>
     void add(Fn&& invocable)
     {

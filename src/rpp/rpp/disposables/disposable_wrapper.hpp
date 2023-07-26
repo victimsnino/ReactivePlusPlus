@@ -67,6 +67,11 @@ public:
             other.dispose();
     }
 
+    void add(disposable_ptr disposable) const requires std::same_as<TDisposable, composite_disposable>
+    {
+        add(disposable_wrapper{std::move(disposable)});
+    }
+
     std::shared_ptr<TDisposable> get_original() const noexcept
     {
         if (const auto ptr_ptr = std::get_if<std::shared_ptr<TDisposable>>(&m_disposable))
