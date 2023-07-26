@@ -38,7 +38,12 @@ class new_thread
 
         ~disposable() override
         {
-            dispose();
+            if (!m_thread.joinable())
+                return;
+
+            m_state->is_destroying.store(true, std::memory_order_relaxed);
+            m_state->cv.notify_all();
+            m_thread.detach();
         }
 
         template<rpp::constraint::observer TObs, typename... Args, constraint::schedulable_fn<TObs, Args...> Fn>
@@ -47,31 +52,26 @@ class new_thread
             if (is_disposed())
                 return;
 
-            {
-                std::lock_guard lock{m_state->queue_mutex};
-                if (const auto queue = m_state->queue_ptr.load(std::memory_order_relaxed))
-                    queue->emplace(time_point, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
-            }
-            m_state->cv.notify_all();
+            std::lock_guard lock{m_state->queue_mutex};
+            if (const auto queue = m_state->queue_ptr.load(std::memory_order_relaxed))
+                queue->emplace(time_point, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
         }
 
     private:
         void dispose_impl() override
         {
-            std::call_once(m_state->once,
-                           [&]
-                           {
-                               m_state->is_disposed.store(true, std::memory_order_relaxed);
+            if (!m_thread.joinable())
+                return;
 
-                               if (m_thread.get_id() != std::this_thread::get_id())
-                               {
-                                   m_state->cv.notify_all();
-                                   m_thread.join();
-                               }
-                               else
-                                   m_thread.detach();
-                           });
+            m_state->is_disposed.store(true, std::memory_order_relaxed);
+            m_state->cv.notify_all();
+
+            if (m_thread.get_id() != std::this_thread::get_id())
+                m_thread.join();
+            else
+                m_thread.detach();
         }
+
         struct state_t
         {
             // recursive due to we need to keep lock during invoking of schedulable, but there is chance of recursive scheduling
@@ -79,20 +79,20 @@ class new_thread
             std::atomic<details::schedulables_queue*> queue_ptr{};
             std::condition_variable_any               cv{};
             std::atomic_bool                          is_disposed{};
-            std::once_flag                            once{};
+            std::atomic_bool                          is_destroying{};
         };
 
         static void data_thread(std::shared_ptr<state_t> state)
         {
             std::unique_lock lock{state->queue_mutex};
             auto& queue = current_thread::s_queue;
-            state->queue_ptr.store(&queue.emplace(), std::memory_order_relaxed);
+            state->queue_ptr.store(&queue.emplace(std::shared_ptr<std::condition_variable_any>{state, &state->cv}), std::memory_order_relaxed);
 
-            while (!state->is_disposed.load(std::memory_order_relaxed))
+            while (!state->is_disposed.load(std::memory_order_relaxed) && (!state->is_destroying.load(std::memory_order_relaxed) || !queue->is_empty()))
             {
-                state->cv.wait(lock, [&] { return state->is_disposed.load(std::memory_order_relaxed) || !queue->is_empty(); });
+                state->cv.wait(lock, [&] { return state->is_disposed.load(std::memory_order_relaxed) || !queue->is_empty() || state->is_destroying.load(std::memory_order_relaxed); });
 
-                if (state->is_disposed.load(std::memory_order_relaxed))
+                if (state->is_disposed.load(std::memory_order_relaxed) || state->is_destroying.load(std::memory_order_relaxed))
                     break;
 
                 if (queue->top()->is_disposed())

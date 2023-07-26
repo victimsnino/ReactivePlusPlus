@@ -59,12 +59,12 @@ public:
             locked->dispose();
     }
 
-    void add(std::shared_ptr<interface_disposable> other) const requires std::same_as<TDisposable, composite_disposable>
+    void add(disposable_wrapper other) const requires std::same_as<TDisposable, composite_disposable>
     {
         if (const auto locked = get_original())
             locked->add(std::move(other));
-        else if (other)
-            other->dispose();
+        else
+            other.dispose();
     }
 
     std::shared_ptr<TDisposable> get_original() const noexcept

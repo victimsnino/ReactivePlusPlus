@@ -25,76 +25,12 @@
 
 namespace rpp::details
 {
-class upstream_disposable
-{
-protected:
-    void set_upstream_impl(const disposable_wrapper& d)
-    {
-        m_upstream.dispose();
-        m_upstream = d;
-    }
-
-    void dispose_impl() const
-    {
-        m_upstream.dispose();
-    }
-
-private:
-    disposable_wrapper m_upstream{};
-};
-class external_disposable_strategy : private upstream_disposable
-{
-public:
-    explicit external_disposable_strategy(composite_disposable_wrapper disposable)
-        : m_external_disposable(std::move(disposable))
-    {
-    }
-
-    void set_upstream(const disposable_wrapper& d)
-    {
-        upstream_disposable::set_upstream_impl(d);
-        m_external_disposable.add(d.get_original());
-    }
-
-    bool is_disposed() const noexcept { return m_external_disposable.is_disposed(); }
-
-    void dispose() const
-    {
-        m_external_disposable.dispose();
-        upstream_disposable::dispose_impl();
-    }
-
-private:
-    composite_disposable_wrapper m_external_disposable{};
-};
-
-class local_disposable_strategy : private upstream_disposable
-{
-public:
-    local_disposable_strategy() = default;
-    void set_upstream(const disposable_wrapper& d)
-    {
-        upstream_disposable::set_upstream_impl(d);
-    }
-
-    bool is_disposed() const noexcept
-    {
-        return m_is_disposed;
-    }
-
-    void dispose() const
-    {
-        m_is_disposed = true;
-        upstream_disposable::dispose_impl();
-    }
-
-private:
-    mutable bool m_is_disposed{false};
-};
+using external_disposable_strategy = composite_disposable_wrapper;
+using local_disposable_strategy =  rpp::composite_disposable;
 
 struct none_disposable_strategy
 {
-    static void set_upstream(const disposable_wrapper&) {}
+    static void add(const rpp::disposable_wrapper&) {}
     static bool is_disposed() noexcept { return false; }
     static void dispose() {}
 };
@@ -127,7 +63,7 @@ public:
             return;
         }
 
-        m_disposable.set_upstream(d);
+        m_disposable.add(d);
         m_strategy.set_upstream(d);
     }
 
@@ -205,8 +141,8 @@ public:
     }
 
 private:
-    RPP_NO_UNIQUE_ADDRESS Strategy            m_strategy;
-    RPP_NO_UNIQUE_ADDRESS DisposablesStrategy m_disposable;
+    RPP_NO_UNIQUE_ADDRESS Strategy                    m_strategy;
+    RPP_NO_UNIQUE_ADDRESS mutable DisposablesStrategy m_disposable;
 };
 }
 namespace rpp
