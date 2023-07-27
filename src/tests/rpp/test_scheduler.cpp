@@ -342,15 +342,15 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 
     std::promise<std::string> thread_of_schedule_promise{};
 
-    std::atomic_bool done{};
+    auto done = std::make_shared<std::atomic_bool>();
 
     worker->schedule([&](const auto&)
     {
         thread_of_schedule_promise.set_value(get_thread_id_as_string(std::this_thread::get_id()));
         if constexpr (std::same_as<TestType, rpp::schedulers::new_thread>)
-            thread_local rpp::utils::finally_action a{[&done] { done = true; }};
+            thread_local rpp::utils::finally_action a{[done] { done->store(true); }};
         else
-            done = true;
+            done->store(true);
 
         return rpp::schedulers::optional_duration{};
     }, obs.value());
@@ -371,7 +371,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         obs.reset();
         d.reset();
 
-        while(!done){};
+        while(!done->load()){};
     };
 
     SECTION("scheduler schedules and re-schedules action immediately")
